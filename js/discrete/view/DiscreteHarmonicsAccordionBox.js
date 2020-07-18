@@ -1,8 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * DiscreteAmplitudePanel is the 'Amplitude' panel in the 'Discrete' screen.
- * This is where the user can adjust the amplitudes of each harmonic.
+ * DiscreteHarmonicsAccordionBox is the 'Harmonics' accordion box in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,7 +15,8 @@ import FourierMakingWavesPanel from '../../common/view/FourierMakingWavesPanel.j
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
+//TODO extends AccordionBox
+class DiscreteHarmonicsAccordionBox extends FourierMakingWavesPanel {
 
   /**
    * @param {Object} [options]
@@ -29,7 +29,7 @@ class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
       fixedHeight: 100
     }, options );
 
-    const titleText = new Text( fourierMakingWavesStrings.amplitudes, {
+    const titleText = new Text( fourierMakingWavesStrings.harmonics, {
       font: FourierMakingWavesConstants.TITLE_FONT,
       rotation: -Math.PI / 2
     } );
@@ -50,5 +50,5 @@ class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
   }
 }
 
-fourierMakingWaves.register( 'DiscreteAmplitudesPanel', DiscreteAmplitudesPanel );
-export default DiscreteAmplitudesPanel;
+fourierMakingWaves.register( 'DiscreteHarmonicsAccordionBox', DiscreteHarmonicsAccordionBox );
+export default DiscreteHarmonicsAccordionBox;

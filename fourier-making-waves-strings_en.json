@@ -91,5 +91,8 @@
   },
   "amplitudes": {
     "value": "Amplitudes"
+  },
+  "sum": {
+    "value": "Sum"
   }
 }

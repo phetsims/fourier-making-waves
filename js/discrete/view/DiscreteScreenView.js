@@ -16,6 +16,8 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import DiscreteAmplitudesPanel from './DiscreteAmplitudesPanel.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
+import DiscreteHarmonicsAccordionBox from './DiscreteHarmonicsAccordionBox.js';
+import DiscreteSumAccordionBox from './DiscreteSumAccordionBox.js';
 
 class DiscreteScreenView extends ScreenView {
 
@@ -71,6 +73,22 @@ class DiscreteScreenView extends ScreenView {
       top: this.layoutBounds.top + FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN
     } );
     this.addChild( amplitudesPanel );
+
+    const harmonicsAccordionBox = new DiscreteHarmonicsAccordionBox( {
+      fixedWidth: panelWidth,
+      fixedHeight: panelHeight,
+      left: this.layoutBounds.left + FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
+      top: amplitudesPanel.bottom + FourierMakingWavesConstants.SCREEN_VIEW_Y_SPACING
+    } );
+    this.addChild( harmonicsAccordionBox );
+
+    const sumAccordionBox = new DiscreteSumAccordionBox( {
+      fixedWidth: panelWidth,
+      fixedHeight: panelHeight,
+      left: this.layoutBounds.left + FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
+      top: harmonicsAccordionBox.bottom + FourierMakingWavesConstants.SCREEN_VIEW_Y_SPACING
+    } );
+    this.addChild( sumAccordionBox );
 
     // parent for popups on top
     this.addChild( popupParent );
