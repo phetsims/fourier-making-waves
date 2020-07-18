@@ -88,5 +88,8 @@
   },
   "expandSum": {
     "value": "Expand Sum"
+  },
+  "amplitudes": {
+    "value": "Amplitudes"
   }
 }

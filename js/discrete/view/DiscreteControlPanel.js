@@ -27,7 +27,10 @@ class DiscreteControlPanel extends FourierMakingWavesPanel {
    */
   constructor( model, popupParent, options ) {
 
-    options = merge( {}, FourierMakingWavesConstants.PANEL_OPTIONS, options );
+    options = merge( {}, FourierMakingWavesConstants.PANEL_OPTIONS, {
+      fixedWidth: FourierMakingWavesConstants.CONTROL_PANEL_WIDTH,
+      align: 'center'
+    }, options );
 
     const separatorWidth = options.fixedWidth - ( 2 * options.xMargin );
 

@@ -14,6 +14,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
+import DiscreteAmplitudesPanel from './DiscreteAmplitudesPanel.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
 
 class DiscreteScreenView extends ScreenView {
@@ -39,7 +40,7 @@ class DiscreteScreenView extends ScreenView {
     this.addChild( controlPanel );
 
     const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
-      centerX: this.layoutBounds.centerX,
+      left: controlPanel.left,
       bottom: this.layoutBounds.bottom - FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN
     } );
     this.addChild( timeControlNode );
@@ -55,6 +56,21 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( resetAllButton );
+
+    const panelWidth = this.layoutBounds.width - controlPanel.width -
+                       ( 2 * FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN ) -
+                       FourierMakingWavesConstants.SCREEN_VIEW_X_SPACING;
+    const panelHeight = ( this.layoutBounds.height -
+                          ( 2 * FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN ) -
+                          ( 2 * FourierMakingWavesConstants.SCREEN_VIEW_Y_SPACING ) ) / 3;
+
+    const amplitudesPanel = new DiscreteAmplitudesPanel( {
+      fixedWidth: panelWidth,
+      fixedHeight: panelHeight,
+      left: this.layoutBounds.left + FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
+      top: this.layoutBounds.top + FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN
+    } );
+    this.addChild( amplitudesPanel );
 
     // parent for popups on top
     this.addChild( popupParent );

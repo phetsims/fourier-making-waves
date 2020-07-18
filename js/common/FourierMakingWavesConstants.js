@@ -10,9 +10,6 @@ import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FourierMakingWavesColors from './FourierMakingWavesColors.js';
 
-// constants
-const CONTROLS_ALIGNMENT = 'center';
-
 const FourierMakingWavesConstants = {
 
   // Model ===========================================================================================================
@@ -23,10 +20,12 @@ const FourierMakingWavesConstants = {
 
   SCREEN_VIEW_X_MARGIN: 15,
   SCREEN_VIEW_Y_MARGIN: 15,
+  SCREEN_VIEW_X_SPACING: 10,
+  SCREEN_VIEW_Y_SPACING: 10,
+
+  CONTROL_PANEL_WIDTH: 250,
 
   PANEL_OPTIONS: {
-    fixedWidth: 250,
-    align: CONTROLS_ALIGNMENT,
     cornerRadius: 5,
     xMargin: 8,
     yMargin: 6,
@@ -44,7 +43,7 @@ const FourierMakingWavesConstants = {
   },
 
   VBOX_OPTIONS: {
-    align: CONTROLS_ALIGNMENT,
+    align: 'center',
     spacing: 7
   },
 
