@@ -73,5 +73,17 @@
   },
   "periodSubHarmonic": {
     "value": "T<sub>{{harmonic}}</sub>"
+  },
+  "hidden": {
+    "value": "Hidden"
+  },
+  "wavelengthLambda": {
+    "value": "Wavelength (\u03bb)"
+  },
+  "waveNumberK": {
+    "value": "Wave Number (k)"
+  },
+  "modeN": {
+    "value": "Mode (n)"
   }
 }
