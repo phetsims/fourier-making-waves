@@ -27,6 +27,9 @@ class DiscreteModel {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @public
+    this.isPlayingProperty = new BooleanProperty( true );
+
+    // @public
     this.presetFunctionProperty = new EnumerationProperty( PresetFunction, PresetFunction.SINE_COSINE );
 
     // @public
@@ -76,6 +79,7 @@ class DiscreteModel {
    * @public
    */
   reset() {
+    this.isPlayingProperty.reset();
     this.presetFunctionProperty.reset();
     this.numberOfHarmonicsProperty.reset();
     this.waveTypeProperty.reset();

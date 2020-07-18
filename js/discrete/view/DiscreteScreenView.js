@@ -8,6 +8,7 @@
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
+import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
@@ -36,6 +37,12 @@ class DiscreteScreenView extends ScreenView {
       top: this.layoutBounds.top + FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN
     } );
     this.addChild( controlPanel );
+
+    const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
+      centerX: this.layoutBounds.centerX,
+      bottom: this.layoutBounds.bottom - FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN
+    } );
+    this.addChild( timeControlNode );
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {
