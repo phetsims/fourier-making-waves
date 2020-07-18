@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * Constants used throughout this simulation.
+ * FourierMakingWavesConstants defines constants used throughout this simulation.
  *
  * @author Chris Malley (PixelZoom, Inc.
  */

@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * TODO
+ * FourierMakingWavesColors defines colors used throughout this simulation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
