@@ -15,6 +15,12 @@ const CONTROLS_ALIGNMENT = 'center';
 
 const FourierMakingWavesConstants = {
 
+  // Model ===========================================================================================================
+
+  MAX_HARMONICS: 11,
+
+  // View ============================================================================================================
+
   SCREEN_VIEW_X_MARGIN: 15,
   SCREEN_VIEW_Y_MARGIN: 15,
 
@@ -34,7 +40,8 @@ const FourierMakingWavesConstants = {
   },
 
   VBOX_OPTIONS: {
-    align: CONTROLS_ALIGNMENT
+    align: CONTROLS_ALIGNMENT,
+    spacing: 7
   },
 
   // Fonts

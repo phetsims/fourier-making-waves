@@ -10,6 +10,7 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from './Domain.js';
 import PresetFunction from './PresetFunction.js';
@@ -28,8 +29,8 @@ class DiscreteModel {
 
     // @public
     this.numberOfHarmonicsProperty = new NumberProperty( 1, {
-      range: new Range( 1, 11 )
-    });
+      range: new Range( 1, FourierMakingWavesConstants.MAX_HARMONICS )
+    } );
 
     // @public
     this.waveTypeProperty = new EnumerationProperty( WaveType, WaveType.SINE );
