@@ -37,7 +37,7 @@ class PresetFunctionBox extends VBox {
     options = merge( {}, FourierMakingWavesConstants.VBOX_OPTIONS, options );
 
     // Preset Function
-    const titleNode = new Text( fourierMakingWavesStrings.presetFunction, {
+    const titleText = new Text( fourierMakingWavesStrings.presetFunction, {
       font: FourierMakingWavesConstants.TITLE_FONT
     } );
 
@@ -59,7 +59,7 @@ class PresetFunctionBox extends VBox {
     } );
 
     assert && assert( !options.children, 'PresetFunctionBox sets children' );
-    options.children = [ titleNode, presetFunctionComboBox, harmonicsBox ];
+    options.children = [ titleText, presetFunctionComboBox, harmonicsBox ];
 
     super( options );
   }

@@ -59,6 +59,9 @@ class DiscreteModel {
     // @public
     this.mathFormProperty = new EnumerationProperty( MathForm, MathForm.HIDDEN );
 
+    // @public TODO move to view?
+    this.sumExpandedProperty = new BooleanProperty( false );
+
     // Adjust the range of selectable wavelength and period based on how many harmonics we have.
     this.numberOfHarmonicsProperty.link( numberOfHarmonics => {
       this.selectedWavelengthProperty.value = Math.min( numberOfHarmonics, this.selectedWavelengthProperty.value );
@@ -82,6 +85,7 @@ class DiscreteModel {
     this.periodToolEnabledProperty.reset();
     this.selectedPeriodProperty.reset();
     this.mathFormProperty.reset();
+    this.sumExpandedProperty.reset();
     //TODO
   }
 

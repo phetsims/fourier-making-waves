@@ -36,7 +36,7 @@ class GraphControlsBox extends VBox {
     options = merge( {}, FourierMakingWavesConstants.VBOX_OPTIONS, options );
 
     // Graph Controls
-    const titleNode = new Text( fourierMakingWavesStrings.graphControls, {
+    const titleText = new Text( fourierMakingWavesStrings.graphControls, {
       font: FourierMakingWavesConstants.TITLE_FONT
     } );
 
@@ -56,7 +56,7 @@ class GraphControlsBox extends VBox {
 
     assert && assert( !options.children, 'GraphControls sets children' );
     options.children = [
-      titleNode,
+      titleText,
       functionOfBox,
       waveTypeRadioButtonGroup
     ];

@@ -85,5 +85,8 @@
   },
   "modeN": {
     "value": "Mode (n)"
+  },
+  "expandSum": {
+    "value": "Expand Sum"
   }
 }

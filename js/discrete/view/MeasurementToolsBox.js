@@ -47,7 +47,7 @@ class MeasurementToolsBox extends VBox {
     options = merge( {}, FourierMakingWavesConstants.VBOX_OPTIONS, options );
 
     // Measurement Tools
-    const titleNode = new Text( fourierMakingWavesStrings.measurementTools, {
+    const titleText = new Text( fourierMakingWavesStrings.measurementTools, {
       font: FourierMakingWavesConstants.TITLE_FONT
     } );
 
@@ -103,7 +103,7 @@ class MeasurementToolsBox extends VBox {
 
     assert && assert( !options.children, 'MeasurementToolsBox sets children' );
     options.children = [
-      titleNode,
+      titleText,
       wavelengthBox,
       periodBox
     ];
