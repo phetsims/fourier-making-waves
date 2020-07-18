@@ -19,9 +19,9 @@ const fourierMakingWavesTitleString = fourierMakingWavesStrings[ 'fourier-making
 const simOptions = {
   credits: {
     //TODO fill in credits, all of these fields are optional, see joist.CreditsNode
-    leadDesign: '',
-    softwareDevelopment: '',
-    team: '',
+    leadDesign: 'Amy Rouinfar',
+    softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
+    team: 'Wendy Adams, Mike Dubson, Danielle Harlow, Sam McKagan, Ariel Paul, Kathy Perkins, Carl Weiman',
     qualityAssurance: '',
     graphicArts: '',
     soundDesign: '',
