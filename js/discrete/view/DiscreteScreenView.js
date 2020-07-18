@@ -1,6 +1,8 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
+ * DiscreteScreenView is the view for the 'Discrete' screen.
+ *
  * @author Chris Malley (PixelZoom, Inc.
  */
 
@@ -9,16 +11,16 @@ import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.j
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import FourierMakingWavesModel from '../model/FourierMakingWavesModel.js';
+import DiscreteModel from '../model/DiscreteModel.js';
 
-class FourierMakingWavesScreenView extends ScreenView {
+class DiscreteScreenView extends ScreenView {
 
   /**
-   * @param {FourierMakingWavesModel} model
+   * @param {DiscreteModel} model
    * @param {Tandem} tandem
    */
   constructor( model, tandem ) {
-    assert && assert( model instanceof FourierMakingWavesModel, 'invalid model' );
+    assert && assert( model instanceof DiscreteModel, 'invalid model' );
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super( {
@@ -56,5 +58,5 @@ class FourierMakingWavesScreenView extends ScreenView {
   }
 }
 
-fourierMakingWaves.register( 'FourierMakingWavesScreenView', FourierMakingWavesScreenView );
-export default FourierMakingWavesScreenView;
+fourierMakingWaves.register( 'DiscreteScreenView', DiscreteScreenView );
+export default DiscreteScreenView;

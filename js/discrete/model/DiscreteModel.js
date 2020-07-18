@@ -1,16 +1,15 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
+ * DiscreteModel is the model for the 'Discrete' screen.
+ *
  * @author Chris Malley (PixelZoom, Inc.
  */
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-/**
- * @constructor
- */
-class FourierMakingWavesModel {
+class DiscreteModel {
 
   /**
    * @param {Tandem} tandem
@@ -38,5 +37,5 @@ class FourierMakingWavesModel {
   }
 }
 
-fourierMakingWaves.register( 'FourierMakingWavesModel', FourierMakingWavesModel );
-export default FourierMakingWavesModel;
+fourierMakingWaves.register( 'DiscreteModel', DiscreteModel );
+export default DiscreteModel;

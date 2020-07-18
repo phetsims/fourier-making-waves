@@ -1,5 +1,14 @@
 {
   "fourier-making-waves.title": {
     "value": "Fourier: Making Waves"
+  },
+  "screen.discrete": {
+    "value": "Discrete"
+  },
+  "screen.waveGame": {
+    "value": "Wave Game"
+  },
+  "screen.continuous": {
+    "value": "Continuous"
   }
 }
