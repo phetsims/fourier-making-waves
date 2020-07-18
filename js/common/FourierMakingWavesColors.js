@@ -11,7 +11,11 @@ import fourierMakingWaves from '../fourierMakingWaves.js';
 
 const FourierMakingWavesColors = {
 
-  SCREEN_VIEW_BACKGROUND: new Property( 'rgb( 177, 202, 217 )' )
+  SCREEN_VIEW_BACKGROUND: new Property( 'rgb( 177, 202, 217 )' ),
+
+  PANEL_FILL: 'white',
+  PANEL_STROKE: 'black',
+  SEPARATOR_STROKE: 'rgb( 200, 200, 200 )'
 };
 
 fourierMakingWaves.register( 'FourierMakingWavesColors', FourierMakingWavesColors );

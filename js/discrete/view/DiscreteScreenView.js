@@ -8,10 +8,12 @@
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
+import DiscreteControlPanel from './DiscreteControlPanel.js';
 
 class DiscreteScreenView extends ScreenView {
 
@@ -27,6 +29,14 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem
     } );
 
+    const popupParent = new Node();
+
+    const controlPanel = new DiscreteControlPanel( model, popupParent, {
+      right: this.layoutBounds.right - FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
+      top: this.layoutBounds.top + FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN
+    } );
+    this.addChild( controlPanel );
+
     const resetAllButton = new ResetAllButton( {
       listener: () => {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
@@ -38,6 +48,9 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( resetAllButton );
+
+    // parent for popups on top
+    this.addChild( popupParent );
   }
 
   /**

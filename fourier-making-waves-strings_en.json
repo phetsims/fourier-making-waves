@@ -10,5 +10,56 @@
   },
   "screen.continuous": {
     "value": "Continuous"
+  },
+  "presetFunction": {
+    "value": "Preset Function"
+  },
+  "graphControls": {
+    "value": "Graph Controls"
+  },
+  "measurementTools": {
+    "value": "Measurement Tools"
+  },
+  "mathForm": {
+    "value": "Math Form"
+  },
+  "sineCosine": {
+    "value": "sine/cosine"
+  },
+  "triangle": {
+    "value": "triangle"
+  },
+  "square": {
+    "value": "square"
+  },
+  "sawtooth": {
+    "value": "sawtooth"
+  },
+  "wavePacket": {
+    "value": "wave packet"
+  },
+  "custom": {
+    "value": "custom"
+  },
+  "harmonics": {
+    "value": "Harmonics"
+  },
+  "sine": {
+    "value": "sine"
+  },
+  "cosine": {
+    "value": "cosine"
+  },
+  "functionOf": {
+    "value": "Function of:"
+  },
+  "space": {
+    "value": "space (x)"
+  },
+  "time": {
+    "value": "time (t)"
+  },
+  "spaceAndTime": {
+    "value": "space & time (x,t)"
   }
 }
