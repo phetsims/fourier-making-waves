@@ -61,5 +61,17 @@
   },
   "spaceAndTime": {
     "value": "space & time (x,t)"
+  },
+  "wavelength": {
+    "value": "Wavelength"
+  },
+  "period": {
+    "value": "Period"
+  },
+  "wavelengthSubHarmonic": {
+    "value": "\u03bb<sub>{{harmonic}}</sub>"
+  },
+  "periodSubHarmonic": {
+    "value": "T<sub>{{harmonic}}</sub>"
   }
 }

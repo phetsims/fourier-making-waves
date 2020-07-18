@@ -34,6 +34,10 @@ const FourierMakingWavesConstants = {
     stroke: FourierMakingWavesColors.PANEL_STROKE
   },
 
+  CHECKBOX_OPTIONS: {
+    boxWidth: 15
+  },
+
   COMBOX_BOX_OPTIONS: {
     xMargin: 12,
     yMargin: 5

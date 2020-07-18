@@ -22,6 +22,7 @@ class MathFormBox extends VBox {
 
     options = merge( {}, FourierMakingWavesConstants.VBOX_OPTIONS, options );
 
+    // Math Form
     const titleNode = new Text( fourierMakingWavesStrings.mathForm, {
       font: FourierMakingWavesConstants.TITLE_FONT
     } );

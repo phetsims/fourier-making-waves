@@ -41,7 +41,9 @@ class DiscreteControlPanel extends FourierMakingWavesPanel {
         new HSeparator( separatorWidth, separatorOptions ),
         new GraphControlsBox( model.domainProperty, model.waveTypeProperty, popupParent ),
         new HSeparator( separatorWidth, separatorOptions ),
-        new MeasurementToolsBox(),
+        new MeasurementToolsBox( model.wavelengthToolEnabledProperty, model.selectedWavelengthProperty,
+          model.periodToolEnabledProperty, model.selectedPeriodProperty,
+          model.numberOfHarmonicsProperty, model.domainProperty ),
         new HSeparator( separatorWidth, separatorOptions ),
         new MathFormBox()
       ]

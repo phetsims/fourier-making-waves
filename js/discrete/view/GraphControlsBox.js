@@ -35,6 +35,7 @@ class GraphControlsBox extends VBox {
 
     options = merge( {}, FourierMakingWavesConstants.VBOX_OPTIONS, options );
 
+    // Graph Controls
     const titleNode = new Text( fourierMakingWavesStrings.graphControls, {
       font: FourierMakingWavesConstants.TITLE_FONT
     } );

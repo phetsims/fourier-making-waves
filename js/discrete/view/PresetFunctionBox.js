@@ -36,6 +36,7 @@ class PresetFunctionBox extends VBox {
 
     options = merge( {}, FourierMakingWavesConstants.VBOX_OPTIONS, options );
 
+    // Preset Function
     const titleNode = new Text( fourierMakingWavesStrings.presetFunction, {
       font: FourierMakingWavesConstants.TITLE_FONT
     } );

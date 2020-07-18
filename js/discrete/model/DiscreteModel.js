@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
@@ -37,6 +38,30 @@ class DiscreteModel {
 
     // @public
     this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
+
+    // @public
+    this.wavelengthToolEnabledProperty = new BooleanProperty( false );
+
+    // @public
+    this.selectedWavelengthProperty = new NumberProperty( 1, {
+      range: new Range( 1, this.numberOfHarmonicsProperty.value )
+    } );
+
+    // @public
+    this.periodToolEnabledProperty = new BooleanProperty( false );
+
+    // @public
+    this.selectedPeriodProperty = new NumberProperty( 1, {
+      range: new Range( 1, this.numberOfHarmonicsProperty.value )
+    } );
+
+    // Adjust the range of selectable wavelength and period based on how many harmonics we have.
+    this.numberOfHarmonicsProperty.link( numberOfHarmonics => {
+      this.selectedWavelengthProperty.value = Math.min( numberOfHarmonics, this.selectedWavelengthProperty.value );
+      this.selectedWavelengthProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
+      this.selectedPeriodProperty.value = Math.min( numberOfHarmonics, this.selectedPeriodProperty.value );
+      this.selectedPeriodProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
+    } );
   }
 
   /**
@@ -48,6 +73,10 @@ class DiscreteModel {
     this.numberOfHarmonicsProperty.reset();
     this.waveTypeProperty.reset();
     this.domainProperty.reset();
+    this.wavelengthToolEnabledProperty.reset();
+    this.wavelengthToolNumberProperty.reset();
+    this.periodToolEnabledProperty.reset();
+    this.periodToolNumberProperty.reset();
     //TODO
   }
 
