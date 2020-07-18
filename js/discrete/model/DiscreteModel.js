@@ -14,6 +14,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from './Domain.js';
+import MathForm from './MathForm.js';
 import PresetFunction from './PresetFunction.js';
 import WaveType from './WaveType.js';
 
@@ -55,6 +56,9 @@ class DiscreteModel {
       range: new Range( 1, this.numberOfHarmonicsProperty.value )
     } );
 
+    // @public
+    this.mathFormProperty = new EnumerationProperty( MathForm, MathForm.HIDDEN );
+
     // Adjust the range of selectable wavelength and period based on how many harmonics we have.
     this.numberOfHarmonicsProperty.link( numberOfHarmonics => {
       this.selectedWavelengthProperty.value = Math.min( numberOfHarmonics, this.selectedWavelengthProperty.value );
@@ -74,9 +78,10 @@ class DiscreteModel {
     this.waveTypeProperty.reset();
     this.domainProperty.reset();
     this.wavelengthToolEnabledProperty.reset();
-    this.wavelengthToolNumberProperty.reset();
+    this.selectedWavelengthProperty.reset();
     this.periodToolEnabledProperty.reset();
-    this.periodToolNumberProperty.reset();
+    this.selectedPeriodProperty.reset();
+    this.mathFormProperty.reset();
     //TODO
   }
 
