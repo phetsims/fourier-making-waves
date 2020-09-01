@@ -52,5 +52,8 @@ const FourierMakingWavesConstants = {
   CONTROL_FONT: new PhetFont( 14 )
 };
 
+assert && assert( FourierMakingWavesConstants.MAX_HARMONICS === FourierMakingWavesColors.HARMONIC_COLORS.length,
+  'expected one color for each harmonic' );
+
 fourierMakingWaves.register( 'FourierMakingWavesConstants', FourierMakingWavesConstants );
 export default FourierMakingWavesConstants;
