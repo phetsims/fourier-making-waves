@@ -11,8 +11,9 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import FourierMakingWavesColors from '../../common/FourierMakingWavesColors.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import AmplitudeSlider from '../../common/view/AmplitudeSlider.js';
 import FourierMakingWavesPanel from '../../common/view/FourierMakingWavesPanel.js';
@@ -39,25 +40,18 @@ class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
 
     //TODO a test of AmplitudeSlider
     const amplitudeRange = new Range( -1.27, 1.27 );
-    const amplitudeColors = [ 'red', 'orange', 'yellow', 'green' ];
-    const sliders = _.map( amplitudeColors, color =>
+    const sliders = _.map( FourierMakingWavesColors.HARMONIC_COLORS, color =>
       new AmplitudeSlider( new NumberProperty( 0, { range: amplitudeRange } ), { color: color } )
     );
     const slidersLayoutBox = new HBox( {
-      spacing: 20,
-      children: sliders
-    } );
-
-    //TODO
-    const placeholder = new Rectangle( 0, 0, 600, options.fixedHeight - ( 2 * options.yMargin ), {
-      left: titleText.left + 30,
-      top: titleText.top
+      spacing: 10,
+      children: [ new HStrut( 65 ), ...sliders ]
     } );
 
     const content = new HBox( {
       align: 'center',
       spacing: 20,
-      children: [ titleText, slidersLayoutBox, placeholder ]
+      children: [ titleText, slidersLayoutBox ]
     } );
 
     super( content, options );

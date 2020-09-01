@@ -18,6 +18,9 @@ import SliderTrack from '../../../../sun/js/SliderTrack.js';
 import VSlider from '../../../../sun/js/VSlider.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
+// constants
+const LINE_WIDTH = 1;
+
 class AmplitudeSlider extends VSlider {
 
   /**
@@ -32,13 +35,15 @@ class AmplitudeSlider extends VSlider {
 
       // AmplitudeSlider options
       color: 'white',
-      trackWidth: 50,
-      trackHeight: 125,
-      thumbHeight: 5
+      trackWidth: 40,
+      trackHeight: 140,
+      thumbHeight: 3
     }, options );
 
     const thumbNode = new Rectangle( 0, 0, options.thumbHeight, options.trackWidth, {
-      fill: 'black'
+      fill: 'black',
+      stroke: 'black',
+      lineWidth: LINE_WIDTH
     } );
     thumbNode.touchArea = thumbNode.localBounds.dilatedXY( 8, 0 );
     thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( 4, 0 );
@@ -95,15 +100,19 @@ class AmplitudeSliderTrack extends SliderTrack {
 
     options = merge( {
       color: 'white',
-      trackWidth: 50,
-      trackHeight: 125
+      trackWidth: 5,
+      trackHeight: 5
     }, options );
 
-    const invisibleTrackNode = new Rectangle( 0, 0, options.trackHeight, options.trackWidth );
+    const invisibleTrackNode = new Rectangle( 0, 0, options.trackHeight, options.trackWidth, {
+      stroke: phet.chipper.queryParameters.dev ? 'red' : null,
+      lineWidth: 0.25
+    } );
 
     const visibleTrackNode = new Rectangle( 0, 0, options.trackHeight, options.trackWidth, {
       fill: options.color,
-      stroke: 'black'
+      stroke: 'black',
+      lineWidth: LINE_WIDTH
     } );
 
     const trackNode = new Node( {
