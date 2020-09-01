@@ -83,7 +83,8 @@ class AmplitudeSlider extends VSlider {
 }
 
 /**
- * AmplitudeSliderTrack is a custom track for AmplitudeSlider.
+ * AmplitudeSliderTrack is a custom track for AmplitudeSlider.  It fills a colored bar that grows up and down from
+ * the center of the track.
  */
 class AmplitudeSliderTrack extends SliderTrack {
 
