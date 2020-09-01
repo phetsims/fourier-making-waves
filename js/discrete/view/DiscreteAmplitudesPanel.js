@@ -37,25 +37,28 @@ class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
       rotation: -Math.PI / 2
     } );
 
+    //TODO a test of AmplitudeSlider
+    const amplitudeRange = new Range( -1.27, 1.27 );
+    const amplitudeColors = [ 'red', 'orange', 'yellow', 'green' ];
+    const sliders = _.map( amplitudeColors, color =>
+      new AmplitudeSlider( new NumberProperty( 0, { range: amplitudeRange } ), { color: color } )
+    );
+    const slidersLayoutBox = new HBox( {
+      spacing: 20,
+      children: sliders,
+      center: placeholder.center
+    } );
+
     //TODO
     const placeholder = new Rectangle( 0, 0, 600, options.fixedHeight - ( 2 * options.yMargin ), {
       left: titleText.left + 30,
       top: titleText.top
     } );
 
-    //TODO this is just a test
-    const amplitudeProperty = new NumberProperty( 0, {
-      range: new Range( -1.27, 1.27 )
-    } );
-    const amplitudeSlider = new AmplitudeSlider( amplitudeProperty, {
-      color: 'yellow',
-      center: placeholder.center
-    } );
-
     const content = new HBox( {
       align: 'center',
       spacing: 20,
-      children: [ titleText, placeholder, amplitudeSlider ]
+      children: [ titleText, slidersLayoutBox, placeholder ]
     } );
 
     super( content, options );
