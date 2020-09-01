@@ -37,7 +37,7 @@ const FourierMakingWavesConstants = {
     boxWidth: 15
   },
 
-  COMBOX_BOX_OPTIONS: {
+  COMBO_BOX_OPTIONS: {
     xMargin: 12,
     yMargin: 5
   },

@@ -29,7 +29,7 @@ class PresetFunctionComboBox extends ComboBox {
     assert && AssertUtils.assertEnumerationPropertyOf( presetFunctionProperty, PresetFunction );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
-    options = merge( {}, FourierMakingWavesConstants.COMBOX_BOX_OPTIONS, options );
+    options = merge( {}, FourierMakingWavesConstants.COMBO_BOX_OPTIONS, options );
 
     const textOptions = {
       font: FourierMakingWavesConstants.CONTROL_FONT
