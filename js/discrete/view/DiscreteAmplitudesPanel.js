@@ -44,9 +44,11 @@ class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
     } );
 
     //TODO this is just a test
-    const amplitudeProperty = new NumberProperty( 0 );
-    const amplitudeRange = new Range( -1.27, 1.27 );
-    const amplitudeSlider = new AmplitudeSlider( amplitudeProperty, amplitudeRange, 'yellow', {
+    const amplitudeProperty = new NumberProperty( 0, {
+      range: new Range( -1.27, 1.27 )
+    } );
+    const amplitudeSlider = new AmplitudeSlider( amplitudeProperty, {
+      color: 'yellow',
       center: placeholder.center
     } );
 

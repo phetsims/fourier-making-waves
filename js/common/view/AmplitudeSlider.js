@@ -7,36 +7,50 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import Range from '../../../../dot/js/Range.js';
+import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import SliderTrack from '../../../../sun/js/SliderTrack.js';
 import VSlider from '../../../../sun/js/VSlider.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-// constants
-const BAR_WIDTH = 50;
-const BAR_HEIGHT = 125;
-
 class AmplitudeSlider extends VSlider {
 
   /**
-   * @param {Property.<number>} amplitudeProperty
-   * @param {Range} amplitudeRange
-   * @param {Color|string} color
+   * @param {NumberProperty} amplitudeProperty
    * @param {Object} [options]
    */
-  constructor( amplitudeProperty, amplitudeRange, color, options ) {
+  constructor( amplitudeProperty, options ) {
 
-    options = options || {};
+    assert && assert( amplitudeProperty instanceof NumberProperty, 'invalid amplitudeProperty' );
 
-    const thumbNode = new Rectangle( 0, 0, 5, BAR_WIDTH, {
+    options = merge( {
+
+      // AmplitudeSlider options
+      color: 'white',
+      trackWidth: 50,
+      trackHeight: 125,
+      thumbHeight: 5
+    }, options );
+
+    const thumbNode = new Rectangle( 0, 0, options.thumbHeight, options.trackWidth, {
       fill: 'black'
     } );
     thumbNode.touchArea = thumbNode.localBounds.dilatedXY( 8, 0 );
     thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( 4, 0 );
 
-    const trackNode = new AmplitudeTrack( amplitudeProperty, amplitudeRange, color );
+    // Dynamic range is not supported, so grab the value here.
+    const amplitudeRange = amplitudeProperty.range;
+
+    const trackNode = new AmplitudeTrack( amplitudeProperty, amplitudeRange, {
+      color: options.color,
+      trackWidth: options.trackWidth,
+      trackHeight: options.trackHeight
+    } );
 
     assert && assert( !options.trackNode, 'AmplitudeSlider sets trackNode' );
     options.trackNode = trackNode;
@@ -63,14 +77,32 @@ class AmplitudeSlider extends VSlider {
 
 }
 
+/**
+ * AmplitudeTrack is a custom track for AmplitudeSlider.
+ */
 class AmplitudeTrack extends SliderTrack {
 
-  constructor( amplitudeProperty, amplitudeRange, color ) {
+  /**
+   * @param {Property.<number>} amplitudeProperty
+   * @param {Range} amplitudeRange
+   * @param {Object} [options]
+   */
+  constructor( amplitudeProperty, amplitudeRange, options ) {
 
-    const invisibleTrackNode = new Rectangle( 0, 0, BAR_HEIGHT, BAR_WIDTH );
+    assert && AssertUtils.assertPropertyOf( amplitudeProperty, 'number' );
+    assert && assert( amplitudeRange instanceof Range, 'invalid amplitudeRange' );
+    assert && assert( amplitudeRange.getCenter() === 0, 'implementation assumes that range is symmetric' );
 
-    const visibleTrackNode = new Rectangle( 0, 0, BAR_HEIGHT, BAR_WIDTH, {
-      fill: color,
+    options = merge( {
+      color: 'white',
+      trackWidth: 50,
+      trackHeight: 125
+    }, options );
+
+    const invisibleTrackNode = new Rectangle( 0, 0, options.trackHeight, options.trackWidth );
+
+    const visibleTrackNode = new Rectangle( 0, 0, options.trackHeight, options.trackWidth, {
+      fill: options.color,
       stroke: 'black'
     } );
 
@@ -80,21 +112,22 @@ class AmplitudeTrack extends SliderTrack {
 
     super( trackNode, amplitudeProperty, amplitudeRange, {
       pickable: false, // press in track is not desired
-      size: new Dimension2( BAR_HEIGHT, BAR_WIDTH )
+      size: new Dimension2( options.trackHeight, options.trackWidth )
     } );
 
+    // When the amplitude changes, redraw the track to make it look like a bar extends up or down from amplitude = 0.
     const amplitudeListener = amplitude => {
       visibleTrackNode.visible = ( amplitude !== 0 );
       if ( amplitude === 0 ) {
         visibleTrackNode.setRect( 0, 0, 1, 1 );
       }
       else if ( amplitude > 0 ) {
-        const barHeight = ( BAR_HEIGHT / 2 ) * amplitude / amplitudeRange.max;
-        visibleTrackNode.setRect( BAR_HEIGHT / 2, 0, barHeight, BAR_WIDTH );
+        const trackHeight = ( options.trackHeight / 2 ) * amplitude / amplitudeRange.max;
+        visibleTrackNode.setRect( options.trackHeight / 2, 0, trackHeight, options.trackWidth );
       }
       else {
-        const barHeight = ( BAR_HEIGHT / 2 ) * amplitude / amplitudeRange.min;
-        visibleTrackNode.setRect( ( BAR_HEIGHT / 2 ) - barHeight, 0, barHeight, BAR_WIDTH );
+        const trackHeight = ( options.trackHeight / 2 ) * amplitude / amplitudeRange.min;
+        visibleTrackNode.setRect( ( options.trackHeight / 2 ) - trackHeight, 0, trackHeight, options.trackWidth );
       }
     };
     amplitudeProperty.link( amplitudeListener );
