@@ -45,8 +45,7 @@ class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
     );
     const slidersLayoutBox = new HBox( {
       spacing: 20,
-      children: sliders,
-      center: placeholder.center
+      children: sliders
     } );
 
     //TODO
