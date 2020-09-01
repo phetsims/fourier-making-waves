@@ -46,7 +46,7 @@ class AmplitudeSlider extends VSlider {
     // Dynamic range is not supported, so grab the value here.
     const amplitudeRange = amplitudeProperty.range;
 
-    const trackNode = new AmplitudeTrack( amplitudeProperty, amplitudeRange, {
+    const trackNode = new AmplitudeSliderTrack( amplitudeProperty, amplitudeRange, {
       color: options.color,
       trackWidth: options.trackWidth,
       trackHeight: options.trackHeight
@@ -78,9 +78,9 @@ class AmplitudeSlider extends VSlider {
 }
 
 /**
- * AmplitudeTrack is a custom track for AmplitudeSlider.
+ * AmplitudeSliderTrack is a custom track for AmplitudeSlider.
  */
-class AmplitudeTrack extends SliderTrack {
+class AmplitudeSliderTrack extends SliderTrack {
 
   /**
    * @param {Property.<number>} amplitudeProperty
@@ -133,7 +133,7 @@ class AmplitudeTrack extends SliderTrack {
     amplitudeProperty.link( amplitudeListener );
 
     // @private
-    this.disposeAmplitudeTrack = () => {
+    this.disposeAmplitudeSliderTrack = () => {
       amplitudeProperty.unlink( amplitudeListener );
     };
   }
@@ -143,7 +143,7 @@ class AmplitudeTrack extends SliderTrack {
    * @override
    */
   dispose() {
-    this.disposeAmplitudeTrack();
+    this.disposeAmplitudeSliderTrack();
     super.dispose();
   }
 }
