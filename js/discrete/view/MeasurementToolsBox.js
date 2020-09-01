@@ -22,6 +22,19 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
 
+// constants
+const NUMBER_SPINNER_OPTIONS = {
+  arrowsPosition: 'leftRight',
+  arrowsScale: 0.85,
+  numberDisplayOptions: {
+    useRichText: true,
+    cornerRadius: 3,
+    textOptions: {
+      font: FourierMakingWavesConstants.CONTROL_FONT
+    }
+  }
+};
+
 class MeasurementToolsBox extends VBox {
 
   /**
@@ -60,26 +73,18 @@ class MeasurementToolsBox extends VBox {
       spacing: 10
     };
 
-    const numberDisplayOptions = {
-      useRichText: true,
-      cornerRadius: 3,
-      textOptions: {
-        font: FourierMakingWavesConstants.CONTROL_FONT
-      }
-    };
-
     // Wavelength
     const wavelengthText = new Text( fourierMakingWavesStrings.wavelength, {
       font: FourierMakingWavesConstants.CONTROL_FONT
     } );
     const wavelengthCheckbox = new Checkbox( wavelengthText, wavelengthToolEnabledProperty, FourierMakingWavesConstants.CHECKBOX_OPTIONS );
-    const wavelengthSpinner = new NumberSpinner( selectedWavelengthProperty, selectedWavelengthProperty.rangeProperty, {
-      numberDisplayOptions: merge( {}, numberDisplayOptions, {
+    const wavelengthSpinner = new NumberSpinner( selectedWavelengthProperty, selectedWavelengthProperty.rangeProperty, merge( {}, {
+      numberDisplayOptions: {
         numberFormatter: harmonic => StringUtils.fillIn( fourierMakingWavesStrings.wavelengthSubHarmonic, {
           harmonic: harmonic
         } )
-      } )
-    } );
+      }
+    }, NUMBER_SPINNER_OPTIONS ) );
     const wavelengthBox = new HBox( merge( {}, hBoxOptions, {
       children: [ new AlignBox( wavelengthCheckbox, alignBoxOptions ), wavelengthSpinner ]
     } ) );
@@ -89,14 +94,13 @@ class MeasurementToolsBox extends VBox {
       font: FourierMakingWavesConstants.CONTROL_FONT
     } );
     const periodCheckbox = new Checkbox( periodText, periodToolEnabledProperty, FourierMakingWavesConstants.CHECKBOX_OPTIONS );
-    const periodSpinner = new NumberSpinner( selectedPeriodProperty, selectedPeriodProperty.rangeProperty, {
-      numberDisplayOptions: merge( {}, numberDisplayOptions, {
-        useRichText: true,
+    const periodSpinner = new NumberSpinner( selectedPeriodProperty, selectedPeriodProperty.rangeProperty, merge( {}, {
+      numberDisplayOptions: {
         numberFormatter: harmonic => StringUtils.fillIn( fourierMakingWavesStrings.periodSubHarmonic, {
           harmonic: harmonic
         } )
-      } )
-    } );
+      }
+    }, NUMBER_SPINNER_OPTIONS ) );
     const periodBox = new HBox( merge( {}, hBoxOptions, {
       children: [ new AlignBox( periodCheckbox, alignBoxOptions ), periodSpinner ]
     } ) );
@@ -122,7 +126,7 @@ class MeasurementToolsBox extends VBox {
 
     // unlink is not necessary
     domainProperty.link( domain => {
-      const periodEnabled =  ( domain !== Domain.SPACE );
+      const periodEnabled = ( domain !== Domain.SPACE );
       periodCheckbox.enabledProperty.value = periodEnabled;
       periodSpinner.enabledProperty.value = periodEnabled;
     } );
