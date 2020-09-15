@@ -121,7 +121,7 @@ class AmplitudeSliderTrack extends SliderTrack {
     } );
 
     super( trackNode, amplitudeProperty, amplitudeRange, {
-      pickable: false, // press in track is not desired
+      pickable: false, //TODO add support for pressing in track
       size: new Dimension2( options.trackHeight, options.trackWidth )
     } );
 
