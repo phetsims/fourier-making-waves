@@ -68,8 +68,9 @@ class MathFormBox extends VBox {
 
     //TODO update sumNode as amplitudes of harmonics change
     let sumText = `F(x) ${MathSymbols.EQUAL_TO} `;
-    for ( let i = 0; i < FourierMakingWavesConstants.MAX_HARMONICS; i++ ) {
-      if ( i > 0 && i < FourierMakingWavesConstants.MAX_HARMONICS ) {
+    const maxHarmonics = FourierMakingWavesConstants.NUMBER_OF_HARMONICS_RANGE.max;
+    for ( let i = 0; i < maxHarmonics; i++ ) {
+      if ( i > 0 && i < maxHarmonics ) {
         sumText = sumText + ' ' + MathSymbols.PLUS;
       }
       if ( ( i + 1 ) % 2 === 0 ) {

@@ -34,7 +34,7 @@ class DiscreteModel {
 
     // @public
     this.numberOfHarmonicsProperty = new NumberProperty( 1, {
-      range: new Range( 1, FourierMakingWavesConstants.MAX_HARMONICS )
+      range: FourierMakingWavesConstants.NUMBER_OF_HARMONICS_RANGE
     } );
 
     // @public

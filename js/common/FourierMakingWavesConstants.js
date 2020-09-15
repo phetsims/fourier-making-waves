@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
+import Range from '../../../dot/js/Range.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FourierMakingWavesColors from './FourierMakingWavesColors.js';
@@ -14,7 +15,9 @@ const FourierMakingWavesConstants = {
 
   // Model ===========================================================================================================
 
-  MAX_HARMONICS: 11,
+  NUMBER_OF_HARMONICS_RANGE: new Range( 1, 11 ),
+
+  AMPLITUDE_RANGE: new Range( -1.27, 1.27 ),
 
   // View ============================================================================================================
 
@@ -52,7 +55,7 @@ const FourierMakingWavesConstants = {
   CONTROL_FONT: new PhetFont( 14 )
 };
 
-assert && assert( FourierMakingWavesConstants.MAX_HARMONICS === FourierMakingWavesColors.HARMONIC_COLORS.length,
+assert && assert( FourierMakingWavesConstants.NUMBER_OF_HARMONICS_RANGE.max === FourierMakingWavesColors.HARMONIC_COLORS.length,
   'expected one color for each harmonic' );
 
 fourierMakingWaves.register( 'FourierMakingWavesConstants', FourierMakingWavesConstants );
