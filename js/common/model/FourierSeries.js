@@ -33,7 +33,7 @@ class FourierSeries {
       range: FourierMakingWavesConstants.NUMBER_OF_HARMONICS_RANGE
     } );
 
-    // @public (read-only) {ObservableArray.<NumberProperty>} one amplitudeProperty for each harmonic, in harmonic order.
+    // @public (read-only) {ObservableArrayDef.<NumberProperty>} one amplitudeProperty for each harmonic, in harmonic order.
     // 'Order' is the array index + 1. The fundamental is the first-order harmonic, etc.
     this.amplitudeProperties = createObservableArray();
 
