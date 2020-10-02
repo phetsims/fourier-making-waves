@@ -7,7 +7,7 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import ObservableArray from '../../../../axon/js/ObservableArray.js';
+import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import merge from '../../../../phet-core/js/merge.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesConstants from '../FourierMakingWavesConstants.js';
@@ -35,7 +35,7 @@ class FourierSeries {
 
     // @public (read-only) {ObservableArray.<NumberProperty>} one amplitudeProperty for each harmonic, in harmonic order.
     // 'Order' is the array index + 1. The fundamental is the first-order harmonic, etc.
-    this.amplitudeProperties = new ObservableArray();
+    this.amplitudeProperties = createObservableArray();
 
     // unlink is not necessary
     this.numberOfHarmonicsProperty.link( numberOfHarmonics => {
