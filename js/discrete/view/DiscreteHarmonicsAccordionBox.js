@@ -29,7 +29,7 @@ class DiscreteHarmonicsAccordionBox extends AccordionBox {
     } );
 
     //TODO
-    const content = new Rectangle( 0, 0, 700, 150, {
+    const content = new Rectangle( 0, 0, 718, 150, {
       stroke: 'black'
     } );
 

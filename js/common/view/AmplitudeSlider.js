@@ -36,7 +36,7 @@ class AmplitudeSlider extends VSlider {
       // AmplitudeSlider options
       color: 'white',
       trackWidth: 40,
-      trackHeight: 140,
+      trackHeight: 120,
       thumbHeight: 4
     }, options );
 

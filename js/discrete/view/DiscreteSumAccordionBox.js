@@ -35,7 +35,7 @@ class DiscreteSumAccordionBox extends AccordionBox {
     } );
 
     //TODO
-    const placeholder = new Rectangle( 0, 0, 700, 150, {
+    const placeholder = new Rectangle( 0, 0, 718, 150, {
       stroke: 'black'
     } );
 

@@ -13,6 +13,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
 import FourierMakingWavesColors from '../../common/FourierMakingWavesColors.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import AmplitudeSlider from '../../common/view/AmplitudeSlider.js';
@@ -33,9 +34,8 @@ class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
       fixedHeight: 100
     }, options );
 
-    const titleText = new Text( fourierMakingWavesStrings.amplitudes, {
-      font: FourierMakingWavesConstants.TITLE_FONT,
-      rotation: -Math.PI / 2
+    const titleNode = new Text( fourierMakingWavesStrings.amplitudes, {
+      font: FourierMakingWavesConstants.TITLE_FONT
     } );
 
     //TODO a test of AmplitudeSlider
@@ -45,13 +45,13 @@ class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
     );
     const slidersLayoutBox = new HBox( {
       spacing: 10,
-      children: [ new HStrut( 65 ), ...sliders ]
+      children: [ new HStrut( 120 ), ...sliders ]
     } );
 
-    const content = new HBox( {
-      align: 'center',
-      spacing: 20,
-      children: [ titleText, slidersLayoutBox ]
+    const content = new VBox( {
+      align: 'left',
+      spacing: 5,
+      children: [ titleNode, slidersLayoutBox ]
     } );
 
     super( content, options );
