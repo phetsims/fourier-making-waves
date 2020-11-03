@@ -36,6 +36,7 @@ class DiscreteHarmonicsAccordionBox extends FourierMakingWavesPanel {
 
     //TODO
     const placeholder = new Rectangle( 0, 0, 600, options.fixedHeight - ( 2 * options.yMargin ), {
+      stroke: 'black',
       left: titleText.left + 30,
       top: titleText.top
     } );

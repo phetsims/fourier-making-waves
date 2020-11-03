@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
@@ -48,11 +49,7 @@ class DiscreteScreenView extends ScreenView {
     this.addChild( timeControlNode );
 
     const resetAllButton = new ResetAllButton( {
-      listener: () => {
-        this.interruptSubtreeInput(); // cancel interactions that may be in progress
-        model.reset();
-        this.reset();
-      },
+      listener: () => this.reset(),
       right: this.layoutBounds.maxX - FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
       bottom: this.layoutBounds.maxY - FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: tandem.createTandem( 'resetAllButton' )
@@ -82,7 +79,10 @@ class DiscreteScreenView extends ScreenView {
     } );
     this.addChild( harmonicsAccordionBox );
 
-    const sumAccordionBox = new DiscreteSumAccordionBox( {
+    const autoScaleProperty = new BooleanProperty( true );
+    const infiniteHarmonicsProperty = new BooleanProperty( true );
+
+    const sumAccordionBox = new DiscreteSumAccordionBox( autoScaleProperty, infiniteHarmonicsProperty, {
       fixedWidth: panelWidth,
       fixedHeight: panelHeight,
       left: this.layoutBounds.left + FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
@@ -92,14 +92,22 @@ class DiscreteScreenView extends ScreenView {
 
     // parent for popups on top
     this.addChild( popupParent );
+
+    // @private
+    this.resetDiscreteScreenView = () => {
+      this.interruptSubtreeInput(); // cancel interactions that may be in progress
+      model.reset();
+      autoScaleProperty.reset();
+      infiniteHarmonicsProperty.reset();
+    };
   }
 
   /**
    * Resets the view.
-   * @public
+   * @protected
    */
   reset() {
-    //TODO
+    this.resetDiscreteScreenView();
   }
 
   /**

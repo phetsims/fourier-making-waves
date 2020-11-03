@@ -94,5 +94,11 @@
   },
   "sum": {
     "value": "Sum"
+  },
+  "autoScale": {
+    "value": "Auto Scale"
+  },
+  "infiniteHarmonics": {
+    "value": "Infinite Harmonics"
   }
 }
