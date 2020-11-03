@@ -11,6 +11,11 @@ import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FourierMakingWavesColors from './FourierMakingWavesColors.js';
 
+// constants
+const PANEL_CORNER_RADIUS = 5;
+const PANEL_X_MARGIN = 8;
+const PANEL_Y_MARGIN = 5;
+
 const FourierMakingWavesConstants = {
 
   // Model ===========================================================================================================
@@ -28,10 +33,22 @@ const FourierMakingWavesConstants = {
 
   CONTROL_PANEL_WIDTH: 250,
 
+  ACCORDION_BOX_OPTIONS: {
+    titleAlignX: 'left',
+    cornerRadius: PANEL_CORNER_RADIUS,
+    contentXMargin: PANEL_X_MARGIN,
+    contentYMargin: PANEL_Y_MARGIN,
+    buttonXMargin: 10,
+    buttonYMargin: 5,
+    titleXSpacing: 10,
+    fill: FourierMakingWavesColors.PANEL_FILL,
+    stroke: FourierMakingWavesColors.PANEL_STROKE
+  },
+
   PANEL_OPTIONS: {
-    cornerRadius: 5,
-    xMargin: 8,
-    yMargin: 6,
+    cornerRadius: PANEL_CORNER_RADIUS,
+    xMargin: PANEL_X_MARGIN,
+    yMargin: PANEL_Y_MARGIN,
     fill: FourierMakingWavesColors.PANEL_FILL,
     stroke: FourierMakingWavesColors.PANEL_STROKE
   },
