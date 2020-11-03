@@ -37,14 +37,10 @@ class AmplitudeSlider extends VSlider {
       color: 'white',
       trackWidth: 40,
       trackHeight: 140,
-      thumbHeight: 3
+      thumbHeight: 4
     }, options );
 
-    const thumbNode = new Rectangle( 0, 0, options.thumbHeight, options.trackWidth, {
-      fill: 'black',
-      stroke: 'black',
-      lineWidth: LINE_WIDTH
-    } );
+    const thumbNode = new AmplitudeSliderThumb( options.thumbHeight, options.trackWidth );
     thumbNode.touchArea = thumbNode.localBounds.dilatedXY( 8, 0 );
     thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( 4, 0 );
 
@@ -80,6 +76,24 @@ class AmplitudeSlider extends VSlider {
     super.dispose();
   }
 
+}
+
+/**
+ * AmplitudeSliderThumb is a custom thumb for AmplitudeSlider.
+ */
+class AmplitudeSliderThumb extends Rectangle {
+
+  /**
+   * @param {number} width
+   * @param {number} height
+   */
+  constructor( width, height ) {
+    super( 0, 0, width, height, {
+      fill: 'black',
+      stroke: 'black',
+      lineWidth: LINE_WIDTH
+    } );
+  }
 }
 
 /**
