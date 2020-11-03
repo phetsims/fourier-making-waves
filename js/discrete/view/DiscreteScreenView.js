@@ -11,6 +11,7 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -34,6 +35,11 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem
     } );
 
+    // view Properties
+    const autoScaleProperty = new BooleanProperty( true );
+    const infiniteHarmonicsProperty = new BooleanProperty( true );
+
+    // Parent for all popups (listbox, keypad, etc.)
     const popupParent = new Node();
 
     const controlPanel = new DiscreteControlPanel( model, popupParent, {
@@ -65,30 +71,20 @@ class DiscreteScreenView extends ScreenView {
 
     const amplitudesPanel = new DiscreteAmplitudesPanel( {
       fixedWidth: panelWidth,
-      fixedHeight: panelHeight,
+      fixedHeight: panelHeight
+    } );
+
+    const harmonicsAccordionBox = new DiscreteHarmonicsAccordionBox();
+
+    const sumAccordionBox = new DiscreteSumAccordionBox( autoScaleProperty, infiniteHarmonicsProperty );
+
+    this.addChild( new VBox( {
+      children: [ amplitudesPanel, harmonicsAccordionBox, sumAccordionBox ],
+      align: 'left',
+      spacing: 5,
       left: this.layoutBounds.left + FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
       top: this.layoutBounds.top + FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN
-    } );
-    this.addChild( amplitudesPanel );
-
-    const harmonicsAccordionBox = new DiscreteHarmonicsAccordionBox( {
-      fixedWidth: panelWidth,
-      fixedHeight: panelHeight,
-      left: this.layoutBounds.left + FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
-      top: amplitudesPanel.bottom + FourierMakingWavesConstants.SCREEN_VIEW_Y_SPACING
-    } );
-    this.addChild( harmonicsAccordionBox );
-
-    const autoScaleProperty = new BooleanProperty( true );
-    const infiniteHarmonicsProperty = new BooleanProperty( true );
-
-    const sumAccordionBox = new DiscreteSumAccordionBox( autoScaleProperty, infiniteHarmonicsProperty, {
-      fixedWidth: panelWidth,
-      fixedHeight: panelHeight,
-      left: this.layoutBounds.left + FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
-      top: harmonicsAccordionBox.bottom + FourierMakingWavesConstants.SCREEN_VIEW_Y_SPACING
-    } );
-    this.addChild( sumAccordionBox );
+    } ) );
 
     // parent for popups on top
     this.addChild( popupParent );
