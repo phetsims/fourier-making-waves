@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * DiscreteAmplitudePanel is the 'Amplitude' panel in the 'Discrete' screen.
+ * DiscreteAmplitudePanel is the 'Amplitudes' panel in the 'Discrete' screen.
  * This is where the user can adjust the amplitudes of each harmonic.
  *
  * @author Chris Malley (PixelZoom, Inc.)
