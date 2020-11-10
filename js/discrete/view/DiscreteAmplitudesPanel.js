@@ -54,6 +54,8 @@ class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
       width: 610,
       height: 120,
 
+      cornerRadius: 0,
+
       // Use the same range as the sliders.  Note the chart extends beyond -1..1, like a margin.
       defaultModelYRange: amplitudeRange,
 
@@ -107,7 +109,7 @@ class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
       spacing: 5,
       children: [ titleNode, new HBox( {
         spacing: 5,
-        children: [ new HStrut( 75 ), xyChartNode, new Text( 'n', {
+        children: [ new HStrut( 75 ), xyChartNode, new Text( fourierMakingWavesStrings.n, {
           fontSize: 14
         } ) ]
       } ) ]

@@ -100,5 +100,8 @@
   },
   "infiniteHarmonics": {
     "value": "Infinite Harmonics"
+  },
+  "n": {
+    "value": "n"
   }
 }
