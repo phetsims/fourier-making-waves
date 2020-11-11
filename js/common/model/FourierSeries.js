@@ -8,13 +8,14 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesColors from '../FourierMakingWavesColors.js';
 import FourierMakingWavesConstants from '../FourierMakingWavesConstants.js';
 import Harmonic from './Harmonic.js';
 
-class FourierSeries {
+class FourierSeries extends PhetioObject {
 
   /**
    * @param {NumberProperty} numberOfHarmonicsProperty
@@ -24,22 +25,24 @@ class FourierSeries {
 
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
     assert && assert( numberOfHarmonicsProperty.range, 'numberOfHarmonicsProperty.range is required' );
-    assert && assert( numberOfHarmonicsProperty.range.max === FourierMakingWavesColors.HARMONIC_COLOR_PROPERTIES.length,
-      'a color is required for each harmonic' );
 
     options = merge( {
-      tandem: Tandem.REQUIRED
+      tandem: Tandem.REQUIRED,
+      phetioState: false
     }, options );
+
+    super( options );
 
     // @public (read-only) frequency of the fundamental (1st harmonic) in Hz
     this.fundamentalFrequency = 440;
 
-    // @public {Harmonic[]}
+    // @public {Harmonic[]} with order numbered from 1
     this.harmonics = [];
-    for ( let i = 0; i < numberOfHarmonicsProperty.range.max; i++ ) {
-      this.harmonics.push( new Harmonic( i + 1, FourierMakingWavesColors.HARMONIC_COLOR_PROPERTIES[ i ], {
+    for ( let order = 1; order <= numberOfHarmonicsProperty.range.max; order++ ) {
+      const color = FourierMakingWavesColors.getHarmonicColor( order );
+      this.harmonics.push( new Harmonic( order, color, {
         range: FourierMakingWavesConstants.AMPLITUDE_RANGE,
-        tandem: options.tandem.createTandem( `harmonic${i+1}` )
+        tandem: options.tandem.createTandem( `harmonic${order}` )
       } ) );
     }
 

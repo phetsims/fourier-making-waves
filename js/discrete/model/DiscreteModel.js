@@ -39,7 +39,9 @@ class DiscreteModel {
     } );
 
     // @public
-    this.isPlayingProperty = new BooleanProperty( true );
+    this.isPlayingProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'isPlayingProperty' )
+    } );
 
     // @public
     this.presetFunctionProperty = new EnumerationProperty( PresetFunction, PresetFunction.SINE_COSINE );
