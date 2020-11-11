@@ -69,7 +69,7 @@ class DiscreteScreenView extends ScreenView {
                           ( 2 * FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN ) -
                           ( 2 * FourierMakingWavesConstants.SCREEN_VIEW_Y_SPACING ) ) / 3;
 
-    const amplitudesPanel = new DiscreteAmplitudesPanel( {
+    const amplitudesPanel = new DiscreteAmplitudesPanel( model.fourierSeries, {
       fixedWidth: panelWidth,
       fixedHeight: panelHeight
     } );

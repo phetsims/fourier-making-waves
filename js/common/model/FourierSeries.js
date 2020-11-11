@@ -7,53 +7,46 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import merge from '../../../../phet-core/js/merge.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import FourierMakingWavesColors from '../FourierMakingWavesColors.js';
 import FourierMakingWavesConstants from '../FourierMakingWavesConstants.js';
+import Harmonic from './Harmonic.js';
 
 class FourierSeries {
 
   /**
+   * @param {NumberProperty} numberOfHarmonicsProperty
    * @param {Object} [options]
    */
-  constructor( options ) {
+  constructor( numberOfHarmonicsProperty, options ) {
+
+    assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
+    assert && assert( numberOfHarmonicsProperty.range, 'numberOfHarmonicsProperty.range is required' );
+    assert && assert( numberOfHarmonicsProperty.range.max === FourierMakingWavesColors.HARMONIC_COLOR_PROPERTIES.length,
+      'a color is required for each harmonic' );
 
     options = merge( {
-      fundamentalFrequency: 440, // Hz
-      numberOfHarmonics: 1
+      tandem: Tandem.REQUIRED
     }, options );
 
-    // @public (read-only)
-    this.fundamentalFrequency = options.fundamentalFrequency;
+    // @public (read-only) frequency of the fundamental (1st harmonic) in Hz
+    this.fundamentalFrequency = 440;
 
-    // @public
-    this.numberOfHarmonicsProperty = new NumberProperty( options.numberOfHarmonics, {
-      numberType: 'Integer',
-      range: FourierMakingWavesConstants.NUMBER_OF_HARMONICS_RANGE
-    } );
+    // @public {Harmonic[]}
+    this.harmonics = [];
+    for ( let i = 0; i < numberOfHarmonicsProperty.range.max; i++ ) {
+      this.harmonics.push( new Harmonic( i + 1, FourierMakingWavesColors.HARMONIC_COLOR_PROPERTIES[ i ], {
+        range: FourierMakingWavesConstants.AMPLITUDE_RANGE,
+        tandem: options.tandem.createTandem( `harmonic${i+1}` )
+      } ) );
+    }
 
-    // @public (read-only) {ObservableArrayDef.<NumberProperty>} one amplitudeProperty for each harmonic, in harmonic order.
-    // 'Order' is the array index + 1. The fundamental is the first-order harmonic, etc.
-    this.amplitudeProperties = createObservableArray();
-
-    // unlink is not necessary
-    this.numberOfHarmonicsProperty.link( numberOfHarmonics => {
-      if ( numberOfHarmonics > this.amplitudeProperties.length ) {
-
-        // delete some harmonics
-        while ( this.amplitudeProperties.length > numberOfHarmonics ) {
-          this.amplitudeProperties.pop().dispose();
-        }
-      }
-      else {
-        while ( this.amplitudeProperties.length < numberOfHarmonics ) {
-
-          // add some harmonics
-          this.amplitudeProperties.push( new NumberProperty( 0, {
-            range: FourierMakingWavesConstants.AMPLITUDE_RANGE
-          } ) );
-        }
+    // Reset amplitudes that are not relevant. unlink is not necessary.
+    numberOfHarmonicsProperty.link( numberOfHarmonics => {
+      for ( let i = numberOfHarmonics; i < numberOfHarmonicsProperty.range.max; i++ ) {
+        this.harmonics[ i ].reset();
       }
     } );
   }
@@ -62,10 +55,7 @@ class FourierSeries {
    * @public
    */
   dispose() {
-    this.numberOfHarmonicsProperty.dispose();
-    while ( this.amplitudeProperties.length > 0 ) {
-      this.amplitudeProperties.pop().dispose();
-    }
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
 
   /**
@@ -73,7 +63,7 @@ class FourierSeries {
    */
   reset() {
     this.numberOfHarmonicsProperty.reset();
-    this.amplitudeProperties.forEach( amplitudeProperty => amplitudeProperty.reset() );
+    this.harmonics.forEach( harmonic => harmonic.reset() );
   }
 }
 

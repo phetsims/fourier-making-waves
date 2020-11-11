@@ -12,6 +12,7 @@ import fourierMakingWaves from '../fourierMakingWaves.js';
 import FourierMakingWavesColors from './FourierMakingWavesColors.js';
 
 // constants
+const MAX_NUMBER_OF_HARMONICS = 11;
 const PANEL_CORNER_RADIUS = 5;
 const PANEL_X_MARGIN = 8;
 const PANEL_Y_MARGIN = 5;
@@ -20,9 +21,13 @@ const FourierMakingWavesConstants = {
 
   // Model ===========================================================================================================
 
-  NUMBER_OF_HARMONICS_RANGE: new Range( 1, 11 ),
+  MAX_NUMBER_OF_HARMONICS: MAX_NUMBER_OF_HARMONICS,
+
+  NUMBER_OF_HARMONICS_RANGE: new Range( 1, MAX_NUMBER_OF_HARMONICS ),
 
   AMPLITUDE_RANGE: new Range( -1.27, 1.27 ),
+
+  FUNDAMENTAL_FREQUENCY: 440, // Hz
 
   // View ============================================================================================================
 
@@ -72,8 +77,8 @@ const FourierMakingWavesConstants = {
   CONTROL_FONT: new PhetFont( 14 )
 };
 
-assert && assert( FourierMakingWavesConstants.NUMBER_OF_HARMONICS_RANGE.max === FourierMakingWavesColors.HARMONIC_COLORS.length,
-  'expected one color for each harmonic' );
+assert && assert( FourierMakingWavesConstants.NUMBER_OF_HARMONICS_RANGE.max === FourierMakingWavesColors.HARMONIC_COLOR_PROPERTIES.length,
+  'a color is required for each harmonic' );
 
 fourierMakingWaves.register( 'FourierMakingWavesConstants', FourierMakingWavesConstants );
 export default FourierMakingWavesConstants;

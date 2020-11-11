@@ -103,5 +103,8 @@
   },
   "n": {
     "value": "n"
+  },
+  "amplitudeNumber": {
+    "value": "A<sub>{{harmonicNumber}}</sub>"
   }
 }

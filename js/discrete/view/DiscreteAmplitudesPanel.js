@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import XYChartNode from '../../../../griddle/js/XYChartNode.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -15,8 +14,9 @@ import HBox from '../../../../scenery/js/nodes/HBox.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
-import FourierMakingWavesColors from '../../common/FourierMakingWavesColors.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
+import AmplitudeNumberDisplay from '../../common/view/AmplitudeNumberDisplay.js';
 import AmplitudeSlider from '../../common/view/AmplitudeSlider.js';
 import FourierMakingWavesPanel from '../../common/view/FourierMakingWavesPanel.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -30,9 +30,12 @@ const LABEL_FONT_SIZE = 15;
 class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
 
   /**
+   * @param {FourierSeries} fourierSeries
    * @param {Object} [options]
    */
-  constructor( options ) {
+  constructor( fourierSeries, options ) {
+
+    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
 
     options = merge( {}, FourierMakingWavesConstants.PANEL_OPTIONS, {
       align: 'left',
@@ -80,10 +83,9 @@ class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
     // Compute the track height based on the dimensions in the chart, so it will match up
     const trackHeight = Math.abs( xyChartNode.modelViewTransformProperty.value.modelToViewDeltaY( amplitudeRange.getLength() ) );
 
-    //TODO a test of AmplitudeSlider
-    const sliders = _.map( FourierMakingWavesColors.HARMONIC_COLORS, color =>
-      new AmplitudeSlider( new NumberProperty( 0, { range: amplitudeRange } ), {
-        color: color,
+    // Create a slider for each harmonic's amplitude
+    const sliders = _.map( fourierSeries.harmonics, harmonic =>
+      new AmplitudeSlider( harmonic.amplitudeProperty, harmonic.colorProperty, {
         trackHeight: trackHeight
       } )
     );
@@ -99,10 +101,23 @@ class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
     // Put the sliders in the xyChartNode instead of the xyChartNode.chartPanel so they won't be clipped
     xyChartNode.addChild( slidersLayoutBox );
 
+    // Create a number display for each harmonic's amplitude
+    const numberDisplays = _.map( fourierSeries.harmonics, harmonic =>
+      new AmplitudeNumberDisplay( harmonic )
+    );
+
+    // Layout of the number displays
+    const numberDisplaysLayoutBox = new HBox( {
+      children: numberDisplays,
+
+      //TODO center a AmplitudeNumberDisplay above each AmplitudeSlider
+      spacing: 5
+    } );
+
     const content = new VBox( {
       align: 'left',
       spacing: 5,
-      children: [ titleNode, new HBox( {
+      children: [ titleNode, numberDisplaysLayoutBox, new HBox( {
         spacing: 5,
         children: [ new HStrut( 75 ), xyChartNode, new Text( fourierMakingWavesStrings.n, {
           fontSize: 14
@@ -111,6 +126,14 @@ class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
     } );
 
     super( content, options );
+  }
+
+  /**
+   * @public
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
   }
 }
 

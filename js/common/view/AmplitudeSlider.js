@@ -14,6 +14,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import ColorDef from '../../../../scenery/js/util/ColorDef.js';
 import SliderTrack from '../../../../sun/js/SliderTrack.js';
 import VSlider from '../../../../sun/js/VSlider.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -25,16 +26,17 @@ class AmplitudeSlider extends VSlider {
 
   /**
    * @param {NumberProperty} amplitudeProperty
+   * @param {Property.<ColorDef>} colorProperty
    * @param {Object} [options]
    */
-  constructor( amplitudeProperty, options ) {
+  constructor( amplitudeProperty, colorProperty, options ) {
 
     assert && assert( amplitudeProperty instanceof NumberProperty, 'invalid amplitudeProperty' );
+    assert && AssertUtils.assertProperty( colorProperty, value => ColorDef.isColorDef( value ) );
 
     options = merge( {
 
       // AmplitudeSlider options
-      color: 'white',
       trackWidth: 40,
       trackHeight: 120,
       thumbHeight: 4
@@ -47,8 +49,7 @@ class AmplitudeSlider extends VSlider {
     // Dynamic range is not supported, so grab the value here.
     const amplitudeRange = amplitudeProperty.range;
 
-    const trackNode = new AmplitudeSliderTrack( amplitudeProperty, amplitudeRange, {
-      color: options.color,
+    const trackNode = new AmplitudeSliderTrack( amplitudeProperty, amplitudeRange, colorProperty, {
       trackWidth: options.trackWidth,
       trackHeight: options.trackHeight
     } );
@@ -107,14 +108,14 @@ class AmplitudeSliderTrack extends SliderTrack {
    * @param {Range} amplitudeRange
    * @param {Object} [options]
    */
-  constructor( amplitudeProperty, amplitudeRange, options ) {
+  constructor( amplitudeProperty, amplitudeRange, colorProperty, options ) {
 
     assert && AssertUtils.assertPropertyOf( amplitudeProperty, 'number' );
     assert && assert( amplitudeRange instanceof Range, 'invalid amplitudeRange' );
     assert && assert( amplitudeRange.getCenter() === 0, 'implementation assumes that range is symmetric' );
+    assert && AssertUtils.assertProperty( colorProperty, value => ColorDef.isColorDef( value ) );
 
     options = merge( {
-      color: 'white',
       trackWidth: 5,
       trackHeight: 5
     }, options );
@@ -125,7 +126,7 @@ class AmplitudeSliderTrack extends SliderTrack {
     } );
 
     const visibleTrackNode = new Rectangle( 0, 0, options.trackHeight, options.trackWidth, {
-      fill: options.color,
+      fill: colorProperty,
       stroke: 'black',
       lineWidth: LINE_WIDTH
     } );

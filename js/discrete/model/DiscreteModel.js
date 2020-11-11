@@ -12,6 +12,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from './Domain.js';
 import MathForm from './MathForm.js';
@@ -27,15 +28,21 @@ class DiscreteModel {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @public
+    this.numberOfHarmonicsProperty = new NumberProperty( 1, {
+      range: FourierMakingWavesConstants.NUMBER_OF_HARMONICS_RANGE,
+      tandem: tandem.createTandem( 'numberOfHarmonicsProperty' )
+    } );
+
+    // @public
+    this.fourierSeries = new FourierSeries( this.numberOfHarmonicsProperty, {
+      tandem: tandem.createTandem( 'fourierSeries' )
+    } );
+
+    // @public
     this.isPlayingProperty = new BooleanProperty( true );
 
     // @public
     this.presetFunctionProperty = new EnumerationProperty( PresetFunction, PresetFunction.SINE_COSINE );
-
-    // @public
-    this.numberOfHarmonicsProperty = new NumberProperty( 1, {
-      range: FourierMakingWavesConstants.NUMBER_OF_HARMONICS_RANGE
-    } );
 
     // @public
     this.waveTypeProperty = new EnumerationProperty( WaveType, WaveType.SINE );
@@ -79,9 +86,10 @@ class DiscreteModel {
    * @public
    */
   reset() {
+    this.numberOfHarmonicsProperty.reset();
+    this.fourierSeries.reset();
     this.isPlayingProperty.reset();
     this.presetFunctionProperty.reset();
-    this.numberOfHarmonicsProperty.reset();
     this.waveTypeProperty.reset();
     this.domainProperty.reset();
     this.wavelengthToolEnabledProperty.reset();
