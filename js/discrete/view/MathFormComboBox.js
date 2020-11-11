@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * PresetFunctionComboBox is the combo box for choosing a preset function in the 'Discrete' screen.
+ * MathFormComboBox is the combo box for choosing the math form that is displayed in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
