@@ -38,11 +38,12 @@ class DiscreteScreenView extends ScreenView {
     // view Properties
     const autoScaleProperty = new BooleanProperty( true );
     const infiniteHarmonicsProperty = new BooleanProperty( true );
+    const sumExpandedProperty = new BooleanProperty( false );
 
     // Parent for all popups (listbox, keypad, etc.)
     const popupParent = new Node();
 
-    const controlPanel = new DiscreteControlPanel( model, popupParent, {
+    const controlPanel = new DiscreteControlPanel( model, sumExpandedProperty, popupParent, {
       right: this.layoutBounds.right - FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
       top: this.layoutBounds.top + FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN
     } );
@@ -95,6 +96,7 @@ class DiscreteScreenView extends ScreenView {
       model.reset();
       autoScaleProperty.reset();
       infiniteHarmonicsProperty.reset();
+      sumExpandedProperty.reset();
     };
   }
 
