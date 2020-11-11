@@ -62,7 +62,6 @@ class FourierSeries {
    * @public
    */
   reset() {
-    this.numberOfHarmonicsProperty.reset();
     this.harmonics.forEach( harmonic => harmonic.reset() );
   }
 }
