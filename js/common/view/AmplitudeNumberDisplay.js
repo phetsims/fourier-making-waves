@@ -46,7 +46,7 @@ class AmplitudeNumberDisplay extends VBox {
     }, options );
 
     const labelNode = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.amplitudeNumber, {
-      harmonicNumber: harmonic.order
+      harmonicOrder: harmonic.order
     } ), {
       font: DEFAULT_FONT
     } );
