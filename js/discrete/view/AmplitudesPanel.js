@@ -27,7 +27,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 // Font size for the numeric tick marks (on the left) and the "n" label on the right
 const LABEL_FONT_SIZE = 15;
 
-class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
+class AmplitudesPanel extends FourierMakingWavesPanel {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -137,5 +137,5 @@ class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
   }
 }
 
-fourierMakingWaves.register( 'DiscreteAmplitudesPanel', DiscreteAmplitudesPanel );
-export default DiscreteAmplitudesPanel;
+fourierMakingWaves.register( 'AmplitudesPanel', AmplitudesPanel );
+export default AmplitudesPanel;

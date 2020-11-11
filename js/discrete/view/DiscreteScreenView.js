@@ -16,10 +16,10 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import DiscreteAmplitudesPanel from './DiscreteAmplitudesPanel.js';
+import AmplitudesPanel from './AmplitudesPanel.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
-import DiscreteHarmonicsAccordionBox from './DiscreteHarmonicsAccordionBox.js';
-import DiscreteSumAccordionBox from './DiscreteSumAccordionBox.js';
+import HarmonicsAccordionBox from './HarmonicsAccordionBox.js';
+import SumAccordionBox from './SumAccordionBox.js';
 
 class DiscreteScreenView extends ScreenView {
 
@@ -69,14 +69,14 @@ class DiscreteScreenView extends ScreenView {
                           ( 2 * FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN ) -
                           ( 2 * FourierMakingWavesConstants.SCREEN_VIEW_Y_SPACING ) ) / 3;
 
-    const amplitudesPanel = new DiscreteAmplitudesPanel( model.fourierSeries, {
+    const amplitudesPanel = new AmplitudesPanel( model.fourierSeries, {
       fixedWidth: panelWidth,
       fixedHeight: panelHeight
     } );
 
-    const harmonicsAccordionBox = new DiscreteHarmonicsAccordionBox();
+    const harmonicsAccordionBox = new HarmonicsAccordionBox();
 
-    const sumAccordionBox = new DiscreteSumAccordionBox( autoScaleProperty, infiniteHarmonicsProperty );
+    const sumAccordionBox = new SumAccordionBox( autoScaleProperty, infiniteHarmonicsProperty );
 
     this.addChild( new VBox( {
       children: [ amplitudesPanel, harmonicsAccordionBox, sumAccordionBox ],

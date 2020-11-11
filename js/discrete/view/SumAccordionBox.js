@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * DiscreteSumAccordionBox is the 'Sum' accordion box in the 'Discrete' screen.
+ * SumAccordionBox is the 'Sum' accordion box in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -18,7 +18,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
 import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 
-class DiscreteSumAccordionBox extends AccordionBox {
+class SumAccordionBox extends AccordionBox {
 
   /**
    * @param {Property.<boolean>} autoScaleProperty
@@ -29,7 +29,7 @@ class DiscreteSumAccordionBox extends AccordionBox {
 
     options = merge( {}, FourierMakingWavesConstants.ACCORDION_BOX_OPTIONS, options );
 
-    assert && assert( !options.titleNode, 'DiscreteSumAccordionBox sets titleNode' );
+    assert && assert( !options.titleNode, 'SumAccordionBox sets titleNode' );
     options.titleNode = new Text( fourierMakingWavesStrings.sum, {
       font: FourierMakingWavesConstants.TITLE_FONT
     } );
@@ -59,5 +59,5 @@ class DiscreteSumAccordionBox extends AccordionBox {
   }
 }
 
-fourierMakingWaves.register( 'DiscreteSumAccordionBox', DiscreteSumAccordionBox );
-export default DiscreteSumAccordionBox;
+fourierMakingWaves.register( 'SumAccordionBox', SumAccordionBox );
+export default SumAccordionBox;

@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * DiscreteHarmonicsAccordionBox is the 'Harmonics' accordion box in the 'Discrete' screen.
+ * HarmonicsAccordionBox is the 'Harmonics' accordion box in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +14,7 @@ import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstant
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class DiscreteHarmonicsAccordionBox extends AccordionBox {
+class HarmonicsAccordionBox extends AccordionBox {
 
   /**
    * @param {Object} [options]
@@ -23,7 +23,7 @@ class DiscreteHarmonicsAccordionBox extends AccordionBox {
 
     options = merge( {}, FourierMakingWavesConstants.ACCORDION_BOX_OPTIONS, options );
 
-    assert && assert( !options.titleNode, 'DiscreteHarmonicsAccordionBox sets titleNode' );
+    assert && assert( !options.titleNode, 'HarmonicsAccordionBox sets titleNode' );
     options.titleNode = new Text( fourierMakingWavesStrings.harmonics, {
       font: FourierMakingWavesConstants.TITLE_FONT
     } );
@@ -37,5 +37,5 @@ class DiscreteHarmonicsAccordionBox extends AccordionBox {
   }
 }
 
-fourierMakingWaves.register( 'DiscreteHarmonicsAccordionBox', DiscreteHarmonicsAccordionBox );
-export default DiscreteHarmonicsAccordionBox;
+fourierMakingWaves.register( 'HarmonicsAccordionBox', HarmonicsAccordionBox );
+export default HarmonicsAccordionBox;
