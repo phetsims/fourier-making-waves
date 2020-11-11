@@ -88,17 +88,12 @@ class DiscreteAmplitudesPanel extends FourierMakingWavesPanel {
       } )
     );
 
-    // Solve for spacing between sliders
-    // n * sliderWidth + (n-1) * spacing +margin*2 = totalWidth
-    // n * sliderWidth + n*spacing - spacing + margin * 2 = totalWidth
-    // spacing ( n - 1) + n*sliderWidth + margin*2 = totalWidth
+    // Lay out the sliders
     const margin = 10;
-    const spacing = ( xyChartNode.chartPanel.width - sliders.length * sliders[ 0 ].width - margin * 2 ) / ( sliders.length - 1 );
     const slidersLayoutBox = new HBox( {
-      spacing: spacing,
+      spacing: ( xyChartNode.chartPanel.width - sliders.length * sliders[ 0 ].width - 2 * margin ) / ( sliders.length - 1 ),
       children: sliders,
-      x: margin,
-      centerY: xyChartNode.chartHeight / 2
+      center: xyChartNode.chartPanel.center
     } );
 
     // Put the sliders in the xyChartNode instead of the xyChartNode.chartPanel so they won't be clipped
