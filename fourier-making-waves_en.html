@@ -48,6 +48,10 @@
   window.phet.chipper.stringRepos =
     [
       {
+        "repo": "fourier-making-waves",
+        "requirejsNamespace": "FOURIER_MAKING_WAVES"
+      },
+      {
         "repo": "joist",
         "requirejsNamespace": "JOIST"
       },
@@ -56,16 +60,16 @@
         "requirejsNamespace": "SCENERY_PHET"
       },
       {
-        "repo": "fourier-making-waves",
-        "requirejsNamespace": "FOURIER_MAKING_WAVES"
-      },
-      {
         "repo": "sun",
         "requirejsNamespace": "SUN"
       },
       {
         "repo": "tambo",
         "requirejsNamespace": "TAMBO"
+      },
+      {
+        "repo": "twixt",
+        "requirejsNamespace": "TWIXT"
       }
     ];
 
@@ -87,7 +91,6 @@
     '../query-string-machine/js/QueryStringMachine.js',
     '../chipper/js/initialize-globals.js',
     '../sherpa/lib/seedrandom-2.4.2.js',
-    '../sherpa/lib/game-up-camera-1.0.0.js',
     '../sherpa/lib/base64-js-1.2.0.js',
     '../sherpa/lib/TextEncoderLite-3c9f6f0.js',
     '../tandem/js/PhetioIDUtils.js',
@@ -97,7 +100,7 @@
   if ( brand === 'phet-io' ) {
     preloads = preloads.concat( [
       '../phet-io/js/phet-io-initialize-globals.js',
-      '../fourier-making-waves/js/phet-io/fourier-making-waves-overrides.js'
+      '../fourier-making-waves/js/fourier-making-waves-phet-io-overrides.js'
     ] );
   }
 
