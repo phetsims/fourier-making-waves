@@ -14,6 +14,7 @@ import HBox from '../../../../scenery/js/nodes/HBox.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import AmplitudeNumberDisplay from '../../common/view/AmplitudeNumberDisplay.js';
@@ -40,7 +41,10 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
     options = merge( {}, FourierMakingWavesConstants.PANEL_OPTIONS, {
       align: 'left',
       fixedWidth: 100,
-      fixedHeight: 100
+      fixedHeight: 100,
+
+      // phet-io
+      tandem: Tandem.REQUIRED
     }, options );
 
     const titleNode = new Text( fourierMakingWavesStrings.amplitudes, {
@@ -86,7 +90,9 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
     // Create a slider for each harmonic's amplitude
     const sliders = _.map( fourierSeries.harmonics, harmonic =>
       new AmplitudeSlider( harmonic.amplitudeProperty, harmonic.colorProperty, {
-        trackHeight: trackHeight
+        trackHeight: trackHeight,
+        tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` ),
+        phetioReadOnly: true
       } )
     );
 
@@ -103,7 +109,10 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
 
     // Create a number display for each harmonic's amplitude
     const numberDisplays = _.map( fourierSeries.harmonics, harmonic =>
-      new AmplitudeNumberDisplay( harmonic )
+      new AmplitudeNumberDisplay( harmonic, {
+        tandem: options.tandem.createTandem( `amplitude${harmonic.order}NumberDisplay` ),
+        phetioReadOnly: true
+      } )
     );
 
     // Layout of the number displays

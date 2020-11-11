@@ -72,7 +72,8 @@ class DiscreteScreenView extends ScreenView {
 
     const amplitudesPanel = new AmplitudesPanel( model.fourierSeries, {
       fixedWidth: panelWidth,
-      fixedHeight: panelHeight
+      fixedHeight: panelHeight,
+      tandem: tandem.createTandem( 'amplitudesPanel' )
     } );
 
     const harmonicsAccordionBox = new HarmonicsAccordionBox();
