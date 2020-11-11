@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * PresetFunctionBox is the 'Preset Function' section of the control panel in the 'Discrete' screen.
+ * PresetFunctionLayoutBox is the 'Preset Function' section of the control panel in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,7 +20,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import PresetFunction from '../model/PresetFunction.js';
 import PresetFunctionComboBox from './PresetFunctionComboBox.js';
 
-class PresetFunctionBox extends VBox {
+class PresetFunctionLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<PresetFunction>} presetFunctionProperty
@@ -58,12 +58,12 @@ class PresetFunctionBox extends VBox {
       children: [ harmonicsPicker, harmonicsText ]
     } );
 
-    assert && assert( !options.children, 'PresetFunctionBox sets children' );
+    assert && assert( !options.children, 'PresetFunctionLayoutBox sets children' );
     options.children = [ titleText, presetFunctionComboBox, harmonicsBox ];
 
     super( options );
   }
 }
 
-fourierMakingWaves.register( 'PresetFunctionBox', PresetFunctionBox );
-export default PresetFunctionBox;
+fourierMakingWaves.register( 'PresetFunctionLayoutBox', PresetFunctionLayoutBox );
+export default PresetFunctionLayoutBox;

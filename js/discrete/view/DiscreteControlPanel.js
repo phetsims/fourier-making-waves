@@ -13,10 +13,10 @@ import FourierMakingWavesColors from '../../common/FourierMakingWavesColors.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import FourierMakingWavesPanel from '../../common/view/FourierMakingWavesPanel.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import GraphControlsBox from './GraphControlsBox.js';
-import MathFormBox from './MathFormBox.js';
-import MeasurementToolsBox from './MeasurementToolsBox.js';
-import PresetFunctionBox from './PresetFunctionBox.js';
+import GraphControlsLayoutBox from './GraphControlsLayoutBox.js';
+import MathFormLayoutBox from './MathFormLayoutBox.js';
+import MeasurementToolsLayoutBox from './MeasurementToolsLayoutBox.js';
+import PresetFunctionLayoutBox from './PresetFunctionLayoutBox.js';
 
 class DiscreteControlPanel extends FourierMakingWavesPanel {
 
@@ -40,15 +40,15 @@ class DiscreteControlPanel extends FourierMakingWavesPanel {
 
     const content = new VBox( merge( {}, FourierMakingWavesConstants.VBOX_OPTIONS, {
       children: [
-        new PresetFunctionBox( model.presetFunctionProperty, model.numberOfHarmonicsProperty, popupParent ),
+        new PresetFunctionLayoutBox( model.presetFunctionProperty, model.numberOfHarmonicsProperty, popupParent ),
         new HSeparator( separatorWidth, separatorOptions ),
-        new GraphControlsBox( model.domainProperty, model.waveTypeProperty, popupParent ),
+        new GraphControlsLayoutBox( model.domainProperty, model.waveTypeProperty, popupParent ),
         new HSeparator( separatorWidth, separatorOptions ),
-        new MeasurementToolsBox( model.wavelengthToolEnabledProperty, model.selectedWavelengthProperty,
+        new MeasurementToolsLayoutBox( model.wavelengthToolEnabledProperty, model.selectedWavelengthProperty,
           model.periodToolEnabledProperty, model.selectedPeriodProperty,
           model.numberOfHarmonicsProperty, model.domainProperty ),
         new HSeparator( separatorWidth, separatorOptions ),
-        new MathFormBox( model.mathFormProperty, model.sumExpandedProperty, popupParent )
+        new MathFormLayoutBox( model.mathFormProperty, model.sumExpandedProperty, popupParent )
       ]
     } ) );
 

@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * GraphControlsBox is the 'Graph Controls' section of the control panel in the 'Discrete' screen.
+ * GraphControlsLayoutBox is the 'Graph Controls' section of the control panel in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -19,7 +19,7 @@ import WaveType from '../model/WaveType.js';
 import DomainComboBox from './DomainComboBox.js';
 import WaveTypeRadioButtonGroup from './WaveTypeRadioButtonGroup.js';
 
-class GraphControlsBox extends VBox {
+class GraphControlsLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -65,5 +65,5 @@ class GraphControlsBox extends VBox {
   }
 }
 
-fourierMakingWaves.register( 'GraphControlsBox', GraphControlsBox );
-export default GraphControlsBox;
+fourierMakingWaves.register( 'GraphControlsLayoutBox', GraphControlsLayoutBox );
+export default GraphControlsLayoutBox;

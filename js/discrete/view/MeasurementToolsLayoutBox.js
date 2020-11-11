@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * MeasurementToolsBox is the 'Measurement Tools' section of the control panel in the 'Discrete' screen.
+ * MeasurementToolsLayoutBox is the 'Measurement Tools' section of the control panel in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -35,7 +35,7 @@ const NUMBER_SPINNER_OPTIONS = {
   }
 };
 
-class MeasurementToolsBox extends VBox {
+class MeasurementToolsLayoutBox extends VBox {
 
   /**
    * @param {Property.<boolean>} wavelengthToolEnabledProperty
@@ -105,7 +105,7 @@ class MeasurementToolsBox extends VBox {
       children: [ new AlignBox( periodCheckbox, alignBoxOptions ), periodSpinner ]
     } ) );
 
-    assert && assert( !options.children, 'MeasurementToolsBox sets children' );
+    assert && assert( !options.children, 'MeasurementToolsLayoutBox sets children' );
     options.children = [
       titleText,
       wavelengthBox,
@@ -133,5 +133,5 @@ class MeasurementToolsBox extends VBox {
   }
 }
 
-fourierMakingWaves.register( 'MeasurementToolsBox', MeasurementToolsBox );
-export default MeasurementToolsBox;
+fourierMakingWaves.register( 'MeasurementToolsLayoutBox', MeasurementToolsLayoutBox );
+export default MeasurementToolsLayoutBox;

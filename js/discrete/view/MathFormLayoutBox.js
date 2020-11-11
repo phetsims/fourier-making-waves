@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * MathFormBox is the 'Math Form' section of the control panel in the 'Discrete' screen.
+ * MathFormLayoutBox is the 'Math Form' section of the control panel in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -24,7 +24,7 @@ import MathFormComboBox from './MathFormComboBox.js';
 // constants
 const EXPANDED_SUM_TERM = '{{amplitude}} sin(2\u03c0{{harmonic}}x / L )';
 
-class MathFormBox extends VBox {
+class MathFormLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<>} mathFormProperty
@@ -56,7 +56,7 @@ class MathFormBox extends VBox {
       maxWidth: 200 // determined empirically
     } );
 
-    assert && assert( !options.children, 'MeasurementToolsBox sets children' );
+    assert && assert( !options.children, 'MeasurementToolsLayoutBox sets children' );
     options.children = [ titleText, mathFormComboBox, expandSumCheckbox, sumNode ];
 
     super( options );
@@ -85,5 +85,5 @@ class MathFormBox extends VBox {
   }
 }
 
-fourierMakingWaves.register( 'MathFormBox', MathFormBox );
-export default MathFormBox;
+fourierMakingWaves.register( 'MathFormLayoutBox', MathFormLayoutBox );
+export default MathFormLayoutBox;
