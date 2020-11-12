@@ -1,1 +1,24 @@
 TODO model description
+
+## Mathematical symbols:
+
+* A = amplitude
+* An = amplitude of nth harmonic
+* delta = change
+* f = function of time (or space, etc.)
+* F = function of frequency
+* lamda = wavelength
+* k = wave number
+* L = "string" length (if this were a plucked string)
+* m = mode or harmonic number
+* pi = pi
+* sigma = width of the gaussian packet (dx)
+* t = time
+* T = sampling period, or period of the 1st harmonic
+* omega = angular frequency
+* x = position in space along L
+* y = amplitude value
+
+## Terminology
+
+* harmonic order or order
