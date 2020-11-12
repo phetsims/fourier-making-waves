@@ -42,6 +42,8 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
       align: 'left',
       fixedWidth: 100,
       fixedHeight: 100,
+      fill: 'transparent',
+      stroke: null,
 
       // phet-io
       tandem: Tandem.REQUIRED
@@ -68,7 +70,9 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
 
       // Border for the chart.
       chartPanelOptions: {
-        lineWidth: 2
+        lineWidth: 2,
+        stroke: null,
+        fill: null
       },
 
       showHorizontalGridLabels: false,
@@ -77,7 +81,10 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
       gridNodeOptions: {
 
         // Don't show vertical lines within the chart
-        majorVerticalLineSpacing: null
+        majorVerticalLineSpacing: null,
+        majorLineOptions: {
+          stroke: 'rgba( 0, 0, 0, 0.3 )'
+        }
       },
       gridLabelOptions: {
         fontSize: LABEL_FONT_SIZE
