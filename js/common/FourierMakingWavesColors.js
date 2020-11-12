@@ -17,7 +17,7 @@ const COLORS_TANDEM = Tandem.GLOBAL.createTandem( 'view' ).createTandem( 'colors
 
 const FourierMakingWavesColors = {
 
-  SCREEN_VIEW_BACKGROUND: new Property( new Color( 177, 202, 217 ) ),
+  SCREEN_VIEW_BACKGROUND: new Property( new Color( 236, 255, 255 ) ),
 
   PANEL_FILL: 'white',
   PANEL_STROKE: 'black',
