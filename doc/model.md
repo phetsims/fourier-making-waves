@@ -26,4 +26,4 @@ It's assumed that the reader has some basic knowledge of Fourier Series.
 
 ## Terminology
 
-* harmonic order or order
+* harmonic order, or order
