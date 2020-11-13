@@ -13,7 +13,6 @@
     "requirejsNamespace": "FOURIER_MAKING_WAVES",
     "simulation": true,
     "runnable": true,
-    "readmeCreatedManually": true,
     "supportedBrands": [
       "phet",
       "phet-io",
