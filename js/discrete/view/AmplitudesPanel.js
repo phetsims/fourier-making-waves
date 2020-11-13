@@ -13,6 +13,7 @@ import HBox from '../../../../scenery/js/nodes/HBox.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
@@ -80,7 +81,7 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
         // Don't show vertical lines within the chart
         majorVerticalLineSpacing: null,
         majorLineOptions: {
-          stroke: 'rgba( 0, 0, 0, 0.3 )'
+          stroke: new Color( 0, 0, 0, 0.3 )
         }
       },
       gridLabelOptions: {
