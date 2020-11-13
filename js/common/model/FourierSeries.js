@@ -15,6 +15,9 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesColors from '../FourierMakingWavesColors.js';
 import Harmonic from './Harmonic.js';
 
+// constants
+const MAX_ABSOLUTE_AMPLITUDE = 4 / Math.PI; //TODO why? see https://github.com/phetsims/fourier-making-waves/issues/11
+
 class FourierSeries extends PhetioObject {
 
   /**
@@ -37,8 +40,7 @@ class FourierSeries extends PhetioObject {
     this.fundamentalFrequency = 440;
 
     // @public (read-only)
-    //TODO why 1.27 ?
-    this.amplitudeRange = new Range( -1.27, 1.27 );
+    this.amplitudeRange = new Range( -MAX_ABSOLUTE_AMPLITUDE, MAX_ABSOLUTE_AMPLITUDE );
 
     // @public {Harmonic[]} with order numbered from 1
     this.harmonics = [];
