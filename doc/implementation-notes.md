@@ -1,5 +1,7 @@
 # Fourier: Making Waves - implementation notes
 
+@author Chris Malley (PixelZoom, Inc.)
+
 This document contains notes related to the implementation of Fourier: Making Waves. 
 This is not an exhaustive description of the implementation.  The intention is 
 to provide a high-level overview, and to supplement the internal documentation 

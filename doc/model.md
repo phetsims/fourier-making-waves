@@ -1,4 +1,9 @@
-TODO model description
+# Fourier: Making Waves - model description
+
+@author Chris Malley (PixelZoom, Inc.)
+
+This document is a high-level description of the model used in PhET's _Fourier: Making Waves_ simulation.
+It's assumed that the reader has some basic knowledge of Fourier Series.
 
 ## Mathematical symbols:
 
