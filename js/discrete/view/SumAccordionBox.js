@@ -57,6 +57,15 @@ class SumAccordionBox extends AccordionBox {
 
     super( content, options );
   }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 fourierMakingWaves.register( 'SumAccordionBox', SumAccordionBox );

@@ -104,6 +104,13 @@ class DiscreteModel {
   }
 
   /**
+   * @public
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+  }
+
+  /**
    * Steps the model.
    * @param {number} dt - time step, in seconds
    * @public

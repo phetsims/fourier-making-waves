@@ -156,11 +156,6 @@ class AmplitudeSliderTrack extends SliderTrack {
       }
     };
     amplitudeProperty.link( amplitudeListener );
-
-    // @private
-    this.disposeAmplitudeSliderTrack = () => {
-      amplitudeProperty.unlink( amplitudeListener );
-    };
   }
 
   /**
@@ -168,7 +163,7 @@ class AmplitudeSliderTrack extends SliderTrack {
    * @override
    */
   dispose() {
-    this.disposeAmplitudeSliderTrack();
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 }

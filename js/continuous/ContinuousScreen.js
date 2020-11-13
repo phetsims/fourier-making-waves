@@ -33,6 +33,15 @@ class ContinuousScreen extends Screen {
       options
     );
   }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 fourierMakingWaves.register( 'ContinuousScreen', ContinuousScreen );
