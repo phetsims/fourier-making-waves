@@ -49,7 +49,7 @@ class DiscreteControlPanel extends FourierMakingWavesPanel {
           model.periodToolEnabledProperty, model.selectedPeriodProperty,
           model.numberOfHarmonicsProperty, model.domainProperty ),
         new HSeparator( separatorWidth, separatorOptions ),
-        new MathFormLayoutBox( model.mathFormProperty, sumExpandedProperty, popupParent )
+        new MathFormLayoutBox( model.fourierSeries, model.mathFormProperty, sumExpandedProperty, popupParent )
       ]
     } ) );
 

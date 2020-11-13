@@ -27,12 +27,13 @@ const EXPANDED_SUM_TERM = '{{amplitude}} sin(2\u03c0{{harmonic}}x / L )';
 class MathFormLayoutBox extends VBox {
 
   /**
+   * @param {FourierSeries} fourierSeries
    * @param {EnumerationProperty.<>} mathFormProperty
    * @param {Property.<boolean>} sumExpandedProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
-  constructor( mathFormProperty, sumExpandedProperty, popupParent, options ) {
+  constructor( fourierSeries, mathFormProperty, sumExpandedProperty, popupParent, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
@@ -66,9 +67,9 @@ class MathFormLayoutBox extends VBox {
       sumNode.visible = sumExpanded;
     } );
 
-    //TODO update sumNode as amplitudes of harmonics change
+    //TODO update sumNode as number of harmonics and amplitudes change
     let sumText = `F(x) ${MathSymbols.EQUAL_TO} `;
-    const maxHarmonics = FourierMakingWavesConstants.NUMBER_OF_HARMONICS_RANGE.max;
+    const maxHarmonics = fourierSeries.harmonics.length;
     for ( let i = 0; i < maxHarmonics; i++ ) {
       if ( i > 0 && i < maxHarmonics ) {
         sumText = sumText + ' ' + MathSymbols.PLUS;

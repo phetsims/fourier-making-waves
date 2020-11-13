@@ -7,12 +7,12 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesColors from '../FourierMakingWavesColors.js';
-import FourierMakingWavesConstants from '../FourierMakingWavesConstants.js';
 import Harmonic from './Harmonic.js';
 
 class FourierSeries extends PhetioObject {
@@ -36,12 +36,16 @@ class FourierSeries extends PhetioObject {
     // @public (read-only) frequency of the fundamental (1st harmonic) in Hz
     this.fundamentalFrequency = 440;
 
+    // @public (read-only)
+    //TODO why 1.27 ?
+    this.amplitudeRange = new Range( -1.27, 1.27 );
+
     // @public {Harmonic[]} with order numbered from 1
     this.harmonics = [];
     for ( let order = 1; order <= numberOfHarmonicsProperty.range.max; order++ ) {
       const color = FourierMakingWavesColors.getHarmonicColor( order );
-      this.harmonics.push( new Harmonic( order, color, {
-        range: FourierMakingWavesConstants.AMPLITUDE_RANGE,
+      this.harmonics.push( new Harmonic( order, color, this.amplitudeRange, {
+        range: this.amplitudeRange,
         tandem: options.tandem.createTandem( `harmonic${order}` )
       } ) );
     }

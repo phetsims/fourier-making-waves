@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Range from '../../../../dot/js/Range.js';
 import XYChartNode from '../../../../griddle/js/XYChartNode.js';
 import merge from '../../../../phet-core/js/merge.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
@@ -53,8 +52,6 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
       font: FourierMakingWavesConstants.TITLE_FONT
     } );
 
-    const amplitudeRange = new Range( -1.27, 1.27 );
-
     // The XYChartNode is just used to render the chart area, not for rendering any data sets.  The AmplitudeSlider
     // instances will be added to it as children.
     const xyChartNode = new XYChartNode( {
@@ -65,8 +62,8 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
 
       cornerRadius: 0,
 
-      // Use the same range as the sliders.  Note the chart extends beyond -1..1, like a margin.
-      defaultModelYRange: amplitudeRange,
+      // Use the same range as the amplitudes.
+      defaultModelYRange: fourierSeries.amplitudeRange,
 
       // Border for the chart.
       chartPanelOptions: {
@@ -92,7 +89,7 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
     } );
 
     // Compute the track height based on the dimensions in the chart, so it will match up
-    const trackHeight = Math.abs( xyChartNode.modelViewTransformProperty.value.modelToViewDeltaY( amplitudeRange.getLength() ) );
+    const trackHeight = Math.abs( xyChartNode.modelViewTransformProperty.value.modelToViewDeltaY( fourierSeries.amplitudeRange.getLength() ) );
 
     // Create a slider for each harmonic's amplitude
     const sliders = _.map( fourierSeries.harmonics, harmonic =>
