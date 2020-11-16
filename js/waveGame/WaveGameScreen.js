@@ -7,8 +7,8 @@
  */
 
 import Screen from '../../../joist/js/Screen.js';
-import FourierMakingWavesColors from '../common/FourierMakingWavesColors.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
+import FourierMakingWavesColorProfile from '../common/FourierMakingWavesColorProfile.js';
 import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
 import WaveGameModel from './model/WaveGameModel.js';
 import WaveGameScreenView from './view/WaveGameScreenView.js';
@@ -23,7 +23,7 @@ class WaveGameScreen extends Screen {
     const options = {
       //TODO if you include homeScreenIcon or navigationBarIcon, use JOIST/ScreenIcon
       name: fourierMakingWavesStrings.screen.waveGame,
-      backgroundColorProperty: FourierMakingWavesColors.SCREEN_VIEW_BACKGROUND,
+      backgroundColorProperty: FourierMakingWavesColorProfile.screenBackgroundColorProperty,
       tandem: tandem
     };
 
