@@ -1,8 +1,9 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * AmplitudesPanel is the 'Amplitudes' panel in the 'Discrete' screen.
- * This is where the user can adjust the amplitudes of each harmonic.
+ * AmplitudesChart displays and controls the amplitudes for harmonics in a Fourier series. Amplitudes are displayed
+ * as a bar chart, where each bar is a slider. Amplitude can be adjusted using the slider, or by using a Keypad that
+ * opens when a NumberDisplay is pressed.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,14 +14,12 @@ import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import AmplitudeNumberDisplay from '../../common/view/AmplitudeNumberDisplay.js';
 import AmplitudeSlider from '../../common/view/AmplitudeSlider.js';
-import FourierMakingWavesPanel from '../../common/view/FourierMakingWavesPanel.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
@@ -29,7 +28,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 // Font size for the numeric tick marks (on the left) and the "n" label on the right
 const LABEL_FONT_SIZE = 12;
 
-class AmplitudesPanel extends FourierMakingWavesPanel {
+class AmplitudesChart extends Node {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -39,12 +38,7 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
 
-    options = merge( {}, FourierMakingWavesConstants.PANEL_OPTIONS, {
-      align: 'left',
-      fixedWidth: 100,
-      fixedHeight: 100,
-      fill: 'transparent',
-      stroke: null,
+    options = merge( {
 
       // phet-io
       tandem: Tandem.REQUIRED
@@ -136,18 +130,17 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
       children: numberDisplays,
 
       //TODO center a AmplitudeNumberDisplay above each AmplitudeSlider
-      spacing: 5
-    } );
-
-    const content = new VBox( {
-      align: 'left',
       spacing: 5,
-      children: [ numberDisplaysLayoutBox, new Node( {
-        children: [ yAxisLabel, xyChartNode, xAxisLabel ]
-      } ) ]
+      centerX: xyChartNode.chartPanel.centerX,
+      bottom: xyChartNode.chartPanel.top - 5
     } );
 
-    super( content, options );
+    assert && assert( !options.children, 'AmplitudesChart sets children' );
+    options.children = [ numberDisplaysLayoutBox, new Node( {
+      children: [ yAxisLabel, xyChartNode, xAxisLabel ]
+    } ) ];
+
+    super( options );
   }
 
   /**
@@ -159,5 +152,5 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
   }
 }
 
-fourierMakingWaves.register( 'AmplitudesPanel', AmplitudesPanel );
-export default AmplitudesPanel;
+fourierMakingWaves.register( 'AmplitudesChart', AmplitudesChart );
+export default AmplitudesChart;

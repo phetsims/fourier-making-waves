@@ -16,7 +16,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import AmplitudesPanel from './AmplitudesPanel.js';
+import AmplitudesChart from './AmplitudesChart.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
 import HarmonicsAccordionBox from './HarmonicsAccordionBox.js';
 import SumAccordionBox from './SumAccordionBox.js';
@@ -70,10 +70,10 @@ class DiscreteScreenView extends ScreenView {
                           ( 2 * FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN ) -
                           ( 2 * FourierMakingWavesConstants.SCREEN_VIEW_Y_SPACING ) ) / 3;
 
-    const amplitudesPanel = new AmplitudesPanel( model.fourierSeries, {
+    const amplitudesChart = new AmplitudesChart( model.fourierSeries, {
       fixedWidth: panelWidth,
       fixedHeight: panelHeight,
-      tandem: tandem.createTandem( 'amplitudesPanel' )
+      tandem: tandem.createTandem( 'amplitudesChart' )
     } );
 
     const harmonicsAccordionBox = new HarmonicsAccordionBox();
@@ -81,7 +81,7 @@ class DiscreteScreenView extends ScreenView {
     const sumAccordionBox = new SumAccordionBox( autoScaleProperty, infiniteHarmonicsProperty );
 
     this.addChild( new VBox( {
-      children: [ amplitudesPanel, harmonicsAccordionBox, sumAccordionBox ],
+      children: [ amplitudesChart, harmonicsAccordionBox, sumAccordionBox ],
       align: 'left',
       spacing: 5,
       left: this.layoutBounds.left + FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
