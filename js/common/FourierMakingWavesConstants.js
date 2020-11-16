@@ -8,7 +8,7 @@
 
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
-import FourierMakingWavesColors from './FourierMakingWavesColors.js';
+import FourierMakingWavesColorProfile from './FourierMakingWavesColorProfile.js';
 
 // constants
 const PANEL_CORNER_RADIUS = 5;
@@ -34,16 +34,16 @@ const FourierMakingWavesConstants = {
     buttonXMargin: 10,
     buttonYMargin: 5,
     titleXSpacing: 10,
-    fill: FourierMakingWavesColors.PANEL_FILL,
-    stroke: FourierMakingWavesColors.PANEL_STROKE
+    fill: FourierMakingWavesColorProfile.panelFillProperty,
+    stroke: FourierMakingWavesColorProfile.panelStrokeProperty
   },
 
   PANEL_OPTIONS: {
     cornerRadius: PANEL_CORNER_RADIUS,
     xMargin: PANEL_X_MARGIN,
     yMargin: PANEL_Y_MARGIN,
-    fill: FourierMakingWavesColors.PANEL_FILL,
-    stroke: FourierMakingWavesColors.PANEL_STROKE
+    fill: FourierMakingWavesColorProfile.panelFillProperty,
+    stroke: FourierMakingWavesColorProfile.panelStrokeProperty
   },
 
   CHECKBOX_OPTIONS: {

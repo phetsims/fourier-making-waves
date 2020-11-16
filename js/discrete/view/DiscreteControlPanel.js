@@ -9,7 +9,7 @@
 import merge from '../../../../phet-core/js/merge.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import HSeparator from '../../../../sun/js/HSeparator.js';
-import FourierMakingWavesColors from '../../common/FourierMakingWavesColors.js';
+import FourierMakingWavesColorProfile from '../../common/FourierMakingWavesColorProfile.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import FourierMakingWavesPanel from '../../common/view/FourierMakingWavesPanel.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -36,7 +36,7 @@ class DiscreteControlPanel extends FourierMakingWavesPanel {
     const separatorWidth = options.fixedWidth - ( 2 * options.xMargin );
 
     const separatorOptions = {
-      stroke: FourierMakingWavesColors.SEPARATOR_STROKE
+      stroke: FourierMakingWavesColorProfile.separatorStrokeProperty
     };
 
     const content = new VBox( merge( {}, FourierMakingWavesConstants.VBOX_OPTIONS, {

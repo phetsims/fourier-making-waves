@@ -11,7 +11,6 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FourierMakingWavesColors from '../../common/FourierMakingWavesColors.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from './Domain.js';
@@ -32,8 +31,6 @@ class DiscreteModel {
       range: new Range( 1, 11 ),
       tandem: tandem.createTandem( 'numberOfHarmonicsProperty' )
     } );
-    assert && assert( this.numberOfHarmonicsProperty.range.max === FourierMakingWavesColors.HARMONIC_COLOR_PROPERTIES.length,
-      'a color is required for each harmonic' );
 
     // @public
     this.fourierSeries = new FourierSeries( this.numberOfHarmonicsProperty, {
