@@ -62,7 +62,8 @@ const FourierMakingWavesConstants = {
 
   // Fonts
   TITLE_FONT: new PhetFont( { size: 16, weight: 'bold' } ),
-  CONTROL_FONT: new PhetFont( 14 )
+  CONTROL_FONT: new PhetFont( 14 ),
+  AXIS_FONT: new PhetFont( 12 )
 };
 
 fourierMakingWaves.register( 'FourierMakingWavesConstants', FourierMakingWavesConstants );

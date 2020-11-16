@@ -89,8 +89,8 @@
   "expandSum": {
     "value": "Expand Sum"
   },
-  "amplitudes": {
-    "value": "Amplitudes"
+  "amplitudeA": {
+    "value": "Amplitude (A)"
   },
   "sum": {
     "value": "Sum"
@@ -104,7 +104,7 @@
   "n": {
     "value": "n"
   },
-  "amplitudeNumber": {
-    "value": "A<sub>{{harmonicOrder}}</sub>"
+  "amplitudeOrder": {
+    "value": "A<sub>{{order}}</sub>"
   }
 }

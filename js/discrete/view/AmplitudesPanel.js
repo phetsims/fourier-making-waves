@@ -10,7 +10,8 @@
 import XYChartNode from '../../../../griddle/js/XYChartNode.js';
 import merge from '../../../../phet-core/js/merge.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
-import HStrut from '../../../../scenery/js/nodes/HStrut.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Color from '../../../../scenery/js/util/Color.js';
@@ -26,7 +27,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 // constants
 
 // Font size for the numeric tick marks (on the left) and the "n" label on the right
-const LABEL_FONT_SIZE = 15;
+const LABEL_FONT_SIZE = 12;
 
 class AmplitudesPanel extends FourierMakingWavesPanel {
 
@@ -49,12 +50,9 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const titleNode = new Text( fourierMakingWavesStrings.amplitudes, {
-      font: FourierMakingWavesConstants.TITLE_FONT
-    } );
-
     // The XYChartNode is just used to render the chart area, not for rendering any data sets.  The AmplitudeSlider
     // instances will be added to it as children.
+    //TODO replace XYChartNode with bamboo components
     const xyChartNode = new XYChartNode( {
 
       // Dimensions
@@ -87,6 +85,19 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
       gridLabelOptions: {
         fontSize: LABEL_FONT_SIZE
       }
+    } );
+
+    const xAxisLabel = new Text( fourierMakingWavesStrings.n, {
+      font: FourierMakingWavesConstants.AXIS_FONT,
+      left: xyChartNode.right + 10,
+      centerY: xyChartNode.chartPanel.centerY
+    } );
+
+    const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitudeA, {
+      font: FourierMakingWavesConstants.AXIS_FONT,
+      rotation: -Math.PI / 2,
+      right: xyChartNode.left - 10,
+      centerY: xyChartNode.chartPanel.centerY
     } );
 
     // Compute the track height based on the dimensions in the chart, so it will match up
@@ -131,11 +142,8 @@ class AmplitudesPanel extends FourierMakingWavesPanel {
     const content = new VBox( {
       align: 'left',
       spacing: 5,
-      children: [ titleNode, numberDisplaysLayoutBox, new HBox( {
-        spacing: 5,
-        children: [ new HStrut( 75 ), xyChartNode, new Text( fourierMakingWavesStrings.n, {
-          fontSize: 14
-        } ) ]
+      children: [ numberDisplaysLayoutBox, new Node( {
+        children: [ yAxisLabel, xyChartNode, xAxisLabel ]
       } ) ]
     } );
 
