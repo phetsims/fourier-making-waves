@@ -10,6 +10,7 @@
 
 import XYChartNode from '../../../../griddle/js/XYChartNode.js';
 import merge from '../../../../phet-core/js/merge.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
@@ -20,6 +21,7 @@ import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
+import Symbols from '../../common/Symbols.js';
 import AmplitudeNumberDisplay from '../../common/view/AmplitudeNumberDisplay.js';
 import AmplitudeSlider from '../../common/view/AmplitudeSlider.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -82,13 +84,15 @@ class AmplitudesChart extends Node {
       }
     } );
 
-    const xAxisLabel = new Text( fourierMakingWavesStrings.n, {
+    const xAxisLabel = new Text( Symbols.SMALL_N, {
       font: FourierMakingWavesConstants.AXIS_LABEL_FONT,
       left: xyChartNode.right + 10,
       centerY: xyChartNode.chartPanel.centerY
     } );
 
-    const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitudeA, {
+    const yAxisLabel = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.amplitudeSymbol, {
+      symbol: Symbols.CAPITAL_A
+    } ), {
       font: FourierMakingWavesConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
       right: xyChartNode.left - 10,

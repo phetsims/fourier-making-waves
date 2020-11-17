@@ -53,14 +53,14 @@
   "functionOf": {
     "value": "Function of:"
   },
-  "space": {
-    "value": "space (x)"
+  "spaceSymbol": {
+    "value": "space ({{symbol}})"
   },
-  "time": {
-    "value": "time (t)"
+  "timeSymbols": {
+    "value": "time ({{symbol}})"
   },
-  "spaceAndTime": {
-    "value": "space & time (x,t)"
+  "spaceAndTimeSymbols": {
+    "value": "space & time ({{spaceSymbol}},{{timeSymbol}})"
   },
   "wavelength": {
     "value": "Wavelength"
@@ -68,29 +68,32 @@
   "period": {
     "value": "Period"
   },
-  "wavelengthSubHarmonic": {
-    "value": "\u03bb<sub>{{harmonic}}</sub>"
+  "wavelengthOrder": {
+    "value": "{{symbol}}<sub>{{order}}</sub>"
   },
-  "periodSubHarmonic": {
-    "value": "T<sub>{{harmonic}}</sub>"
+  "periodOrder": {
+    "value": "{{symbol}}<sub>{{order}}</sub>"
   },
   "hidden": {
     "value": "Hidden"
   },
-  "wavelengthLambda": {
-    "value": "Wavelength (\u03bb)"
+  "wavelengthSymbol": {
+    "value": "Wavelength ({{symbol}})"
   },
-  "waveNumberK": {
-    "value": "Wave Number (k)"
+  "waveNumberSymbol": {
+    "value": "Wave Number ({{symbol}})"
   },
-  "modeN": {
-    "value": "Mode (n)"
+  "modeSymbol": {
+    "value": "Mode ({{symbol}})"
   },
   "expandSum": {
     "value": "Expand Sum"
   },
-  "amplitudeA": {
-    "value": "Amplitude (A)"
+  "amplitudeSymbol": {
+    "value": "Amplitude ({{symbol}})"
+  },
+  "amplitudeSymbolOrder": {
+    "value": "{{symbol}}<sub>{{order}}</sub>"
   },
   "sum": {
     "value": "Sum"
@@ -100,11 +103,5 @@
   },
   "infiniteHarmonics": {
     "value": "Infinite Harmonics"
-  },
-  "n": {
-    "value": "n"
-  },
-  "amplitudeOrder": {
-    "value": "A<sub>{{order}}</sub>"
   }
 }

@@ -8,11 +8,13 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
+import Symbols from '../../common/Symbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import MathForm from '../model/MathForm.js';
@@ -37,9 +39,15 @@ class MathFormComboBox extends ComboBox {
 
     const items = [
       new ComboBoxItem( new Text( fourierMakingWavesStrings.hidden, textOptions ), MathForm.HIDDEN ),
-      new ComboBoxItem( new Text( fourierMakingWavesStrings.wavelengthLambda, textOptions ), MathForm.WAVELENGTH ),
-      new ComboBoxItem( new Text( fourierMakingWavesStrings.waveNumberK, textOptions ), MathForm.WAVE_NUMBER ),
-      new ComboBoxItem( new Text( fourierMakingWavesStrings.modeN, textOptions ), MathForm.MODE )
+      new ComboBoxItem( new Text( StringUtils.fillIn( fourierMakingWavesStrings.wavelengthSymbol, {
+        symbol: Symbols.SMALL_LAMBDA
+      } ), textOptions ), MathForm.WAVELENGTH ),
+      new ComboBoxItem( new Text( StringUtils.fillIn( fourierMakingWavesStrings.waveNumberSymbol, {
+        symbol: Symbols.SMALL_K
+      } ), textOptions ), MathForm.WAVE_NUMBER ),
+      new ComboBoxItem( new Text( StringUtils.fillIn( fourierMakingWavesStrings.modeSymbol, {
+        symbol: Symbols.SMALL_N
+      } ), textOptions ), MathForm.MODE )
     ];
 
     super( items, mathFormProperty, popupParent, options );

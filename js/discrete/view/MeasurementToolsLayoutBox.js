@@ -18,6 +18,7 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
+import Symbols from '../../common/Symbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
@@ -80,8 +81,9 @@ class MeasurementToolsLayoutBox extends VBox {
     const wavelengthCheckbox = new Checkbox( wavelengthText, wavelengthToolEnabledProperty, FourierMakingWavesConstants.CHECKBOX_OPTIONS );
     const wavelengthSpinner = new NumberSpinner( selectedWavelengthProperty, selectedWavelengthProperty.rangeProperty, merge( {}, {
       numberDisplayOptions: {
-        numberFormatter: harmonic => StringUtils.fillIn( fourierMakingWavesStrings.wavelengthSubHarmonic, {
-          harmonic: harmonic
+        numberFormatter: order => StringUtils.fillIn( fourierMakingWavesStrings.wavelengthOrder, {
+          symbol: Symbols.SMALL_LAMBDA,
+          order: order
         } )
       }
     }, NUMBER_SPINNER_OPTIONS ) );
@@ -96,8 +98,9 @@ class MeasurementToolsLayoutBox extends VBox {
     const periodCheckbox = new Checkbox( periodText, periodToolEnabledProperty, FourierMakingWavesConstants.CHECKBOX_OPTIONS );
     const periodSpinner = new NumberSpinner( selectedPeriodProperty, selectedPeriodProperty.rangeProperty, merge( {}, {
       numberDisplayOptions: {
-        numberFormatter: harmonic => StringUtils.fillIn( fourierMakingWavesStrings.periodSubHarmonic, {
-          harmonic: harmonic
+        numberFormatter: order => StringUtils.fillIn( fourierMakingWavesStrings.periodOrder, {
+          symbol: Symbols.CAPITAL_T,
+          order: order
         } )
       }
     }, NUMBER_SPINNER_OPTIONS ) );

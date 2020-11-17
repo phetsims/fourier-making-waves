@@ -16,6 +16,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FourierMakingWavesConstants from '../FourierMakingWavesConstants.js';
 import Harmonic from '../model/Harmonic.js';
+import Symbols from '../Symbols.js';
 
 // constants
 const DEFAULT_FONT = new PhetFont( 12 );
@@ -46,7 +47,8 @@ class AmplitudeNumberDisplay extends VBox {
       }
     }, options );
 
-    const labelNode = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.amplitudeOrder, {
+    const labelNode = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.amplitudeSymbolOrder, {
+      symbol: Symbols.CAPITAL_A,
       order: harmonic.order
     } ), {
       font: DEFAULT_FONT
