@@ -26,19 +26,6 @@ const FMWConstants = {
 
   CONTROL_PANEL_WIDTH: 250,
 
-  //TODO delete this
-  ACCORDION_BOX_OPTIONS: {
-    titleAlignX: 'left',
-    cornerRadius: PANEL_CORNER_RADIUS,
-    contentXMargin: PANEL_X_MARGIN,
-    contentYMargin: PANEL_Y_MARGIN,
-    buttonXMargin: 10,
-    buttonYMargin: 5,
-    titleXSpacing: 10,
-    fill: FMWColorProfile.panelFillProperty,
-    stroke: FMWColorProfile.panelStrokeProperty
-  },
-
   EXPAND_COLLAPSE_BUTTON_OPTIONS: {
     sideLength: 16
   },
