@@ -25,6 +25,7 @@ import AmplitudeSlider from '../../common/view/AmplitudeSlider.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
+//TODO set dimensions based on available space
 const CHART_VIEW_WIDTH = 610;
 const CHART_VIEW_HEIGHT = 120;
 
