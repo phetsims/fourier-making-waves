@@ -10,15 +10,19 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
+import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
+import ExpandCollapseButton from '../../../../sun/js/ExpandCollapseButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import AmplitudesChart from './AmplitudesChart.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
-import HarmonicsAccordionBox from './HarmonicsAccordionBox.js';
+import HarmonicsChart from './HarmonicsChart.js';
 import SumAccordionBox from './SumAccordionBox.js';
 
 class DiscreteScreenView extends ScreenView {
@@ -36,6 +40,7 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     // view Properties
+    const harmonicsExpandedProperty = new BooleanProperty( true );
     const autoScaleProperty = new BooleanProperty( true );
     const infiniteHarmonicsProperty = new BooleanProperty( true );
     const sumExpandedProperty = new BooleanProperty( false );
@@ -67,12 +72,34 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem.createTandem( 'amplitudesChart' )
     } );
 
-    const harmonicsAccordionBox = new HarmonicsAccordionBox();
+    const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonics, {
+      font: FourierMakingWavesConstants.TITLE_FONT
+    } );
+
+    const harmonicsExpandCollapseButton = new ExpandCollapseButton( harmonicsExpandedProperty,
+      FourierMakingWavesConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS );
+
+    const harmonicsChart = new HarmonicsChart( {
+      tandem: tandem.createTandem( 'harmonicsChart' )
+    } );
+
+    harmonicsExpandedProperty.link( harmonicsExpanded => {
+      harmonicsChart.visible = harmonicsExpanded;
+    } );
 
     const sumAccordionBox = new SumAccordionBox( autoScaleProperty, infiniteHarmonicsProperty );
 
     this.addChild( new VBox( {
-      children: [ amplitudesChart, harmonicsAccordionBox, sumAccordionBox ],
+      excludeInvisibleChildrenFromBounds: false,
+      children: [
+        amplitudesChart,
+        new HBox( {
+          children: [ harmonicsExpandCollapseButton, harmonicsTitleNode ],
+          spacing: 5
+        } ),
+        harmonicsChart,
+        sumAccordionBox
+      ],
       align: 'left',
       spacing: 5,
       left: this.layoutBounds.left + FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
@@ -86,6 +113,7 @@ class DiscreteScreenView extends ScreenView {
     this.resetDiscreteScreenView = () => {
       this.interruptSubtreeInput(); // cancel interactions that may be in progress
       model.reset();
+      harmonicsExpandedProperty.reset();
       autoScaleProperty.reset();
       infiniteHarmonicsProperty.reset();
       sumExpandedProperty.reset();

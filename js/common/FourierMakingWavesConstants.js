@@ -26,6 +26,7 @@ const FourierMakingWavesConstants = {
 
   CONTROL_PANEL_WIDTH: 250,
 
+  //TODO delete this
   ACCORDION_BOX_OPTIONS: {
     titleAlignX: 'left',
     cornerRadius: PANEL_CORNER_RADIUS,
@@ -36,6 +37,10 @@ const FourierMakingWavesConstants = {
     titleXSpacing: 10,
     fill: FourierMakingWavesColorProfile.panelFillProperty,
     stroke: FourierMakingWavesColorProfile.panelStrokeProperty
+  },
+
+  EXPAND_COLLAPSE_BUTTON_OPTIONS: {
+    sideLength: 16
   },
 
   PANEL_OPTIONS: {
