@@ -25,10 +25,8 @@ import AmplitudeSlider from '../../common/view/AmplitudeSlider.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-// constants
-
-// Font size for the numeric tick marks (on the left) and the "n" label on the right
-const LABEL_FONT_SIZE = 12;
+const CHART_VIEW_WIDTH = 610;
+const CHART_VIEW_HEIGHT = 120;
 
 class AmplitudesChart extends Node {
 
@@ -52,8 +50,8 @@ class AmplitudesChart extends Node {
     const xyChartNode = new XYChartNode( {
 
       // Dimensions
-      width: 610,
-      height: 120,
+      width: CHART_VIEW_WIDTH,
+      height: CHART_VIEW_HEIGHT,
 
       cornerRadius: 0,
 
@@ -79,18 +77,18 @@ class AmplitudesChart extends Node {
         }
       },
       gridLabelOptions: {
-        fontSize: LABEL_FONT_SIZE
+        font: FourierMakingWavesConstants.TICK_LABEL_FONT
       }
     } );
 
     const xAxisLabel = new Text( fourierMakingWavesStrings.n, {
-      font: FourierMakingWavesConstants.AXIS_FONT,
+      font: FourierMakingWavesConstants.AXIS_LABEL_FONT,
       left: xyChartNode.right + 10,
       centerY: xyChartNode.chartPanel.centerY
     } );
 
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitudeA, {
-      font: FourierMakingWavesConstants.AXIS_FONT,
+      font: FourierMakingWavesConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
       right: xyChartNode.left - 10,
       centerY: xyChartNode.chartPanel.centerY
@@ -102,13 +100,10 @@ class AmplitudesChart extends Node {
       matchVertical: false
     } );
 
-    // Compute the slider track height based on the dimensions of the chart.
-    const trackHeight = Math.abs( xyChartNode.modelViewTransformProperty.value.modelToViewDeltaY( fourierSeries.amplitudeRange.getLength() ) );
-
     // Create a slider for each harmonic's amplitude
     const sliders = _.map( fourierSeries.harmonics, harmonic =>
       new AlignBox( new AmplitudeSlider( harmonic.amplitudeProperty, harmonic.colorProperty, {
-        trackHeight: trackHeight,
+        trackHeight: CHART_VIEW_HEIGHT,
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` ),
         phetioReadOnly: true
       } ), {
