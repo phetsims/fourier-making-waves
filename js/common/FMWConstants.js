@@ -58,6 +58,7 @@ const FMWConstants = {
   AXIS_LABEL_FONT: new PhetFont( 12 ),
   TICK_LABEL_FONT: new PhetFont( 12 ),
 
+  // Number of decimal places wherever amplitude is displayed
   AMPLITUDE_DECIMAL_PLACES: 2
 };
 
