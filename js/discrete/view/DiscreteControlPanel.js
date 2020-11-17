@@ -41,13 +41,13 @@ class DiscreteControlPanel extends FourierMakingWavesPanel {
 
     const content = new VBox( merge( {}, FourierMakingWavesConstants.VBOX_OPTIONS, {
       children: [
-        new PresetFunctionLayoutBox( model.presetFunctionProperty, model.numberOfHarmonicsProperty, popupParent ),
+        new PresetFunctionLayoutBox( model.presetFunctionProperty, model.fourierSeries.numberOfHarmonicsProperty, popupParent ),
         new HSeparator( separatorWidth, separatorOptions ),
         new GraphControlsLayoutBox( model.domainProperty, model.waveTypeProperty, popupParent ),
         new HSeparator( separatorWidth, separatorOptions ),
         new MeasurementToolsLayoutBox( model.wavelengthToolEnabledProperty, model.selectedWavelengthProperty,
           model.periodToolEnabledProperty, model.selectedPeriodProperty,
-          model.numberOfHarmonicsProperty, model.domainProperty ),
+          model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty ),
         new HSeparator( separatorWidth, separatorOptions ),
         new MathFormLayoutBox( model.fourierSeries, model.mathFormProperty, mathFormExpandedSumProperty, popupParent )
       ]

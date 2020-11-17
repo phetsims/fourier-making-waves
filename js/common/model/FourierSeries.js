@@ -21,13 +21,9 @@ const MAX_ABSOLUTE_AMPLITUDE = 4 / Math.PI; //TODO why? see https://github.com/p
 class FourierSeries extends PhetioObject {
 
   /**
-   * @param {NumberProperty} numberOfHarmonicsProperty
    * @param {Object} [options]
    */
-  constructor( numberOfHarmonicsProperty, options ) {
-
-    assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
-    assert && assert( numberOfHarmonicsProperty.range, 'numberOfHarmonicsProperty.range is required' );
+  constructor( options ) {
 
     options = merge( {
       tandem: Tandem.REQUIRED,
@@ -42,9 +38,15 @@ class FourierSeries extends PhetioObject {
     // @public (read-only)
     this.amplitudeRange = new Range( -MAX_ABSOLUTE_AMPLITUDE, MAX_ABSOLUTE_AMPLITUDE );
 
+    // @public the number of harmonics in this series
+    this.numberOfHarmonicsProperty = new NumberProperty( 1, {
+      range: new Range( 1, 11 ),
+      tandem: options.tandem.createTandem( 'numberOfHarmonicsProperty' )
+    } );
+
     // @public {Harmonic[]} with order numbered from 1
     this.harmonics = [];
-    for ( let order = 1; order <= numberOfHarmonicsProperty.range.max; order++ ) {
+    for ( let order = 1; order <= this.numberOfHarmonicsProperty.range.max; order++ ) {
       const colorProperty = FourierMakingWavesColorProfile.getHarmonicColorProperty( order );
       this.harmonics.push( new Harmonic( order, colorProperty, this.amplitudeRange, {
         range: this.amplitudeRange,
@@ -53,8 +55,8 @@ class FourierSeries extends PhetioObject {
     }
 
     // Reset amplitudes that are not relevant. unlink is not necessary.
-    numberOfHarmonicsProperty.link( numberOfHarmonics => {
-      for ( let i = numberOfHarmonics; i < numberOfHarmonicsProperty.range.max; i++ ) {
+    this.numberOfHarmonicsProperty.link( numberOfHarmonics => {
+      for ( let i = numberOfHarmonics; i < this.numberOfHarmonicsProperty.range.max; i++ ) {
         this.harmonics[ i ].reset();
       }
     } );
@@ -71,6 +73,7 @@ class FourierSeries extends PhetioObject {
    * @public
    */
   reset() {
+    this.numberOfHarmonicsProperty.reset();
     this.harmonics.forEach( harmonic => harmonic.reset() );
   }
 }

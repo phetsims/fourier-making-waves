@@ -27,12 +27,6 @@ class DiscreteModel {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @public
-    this.numberOfHarmonicsProperty = new NumberProperty( 1, {
-      range: new Range( 1, 11 ),
-      tandem: tandem.createTandem( 'numberOfHarmonicsProperty' )
-    } );
-
-    // @public
     this.fourierSeries = new FourierSeries( this.numberOfHarmonicsProperty, {
       tandem: tandem.createTandem( 'fourierSeries' )
     } );
@@ -56,7 +50,7 @@ class DiscreteModel {
 
     // @public
     this.selectedWavelengthProperty = new NumberProperty( 1, {
-      range: new Range( 1, this.numberOfHarmonicsProperty.value )
+      range: new Range( 1, this.fourierSeries.numberOfHarmonicsProperty.value )
     } );
 
     // @public
@@ -64,7 +58,7 @@ class DiscreteModel {
 
     // @public
     this.selectedPeriodProperty = new NumberProperty( 1, {
-      range: new Range( 1, this.numberOfHarmonicsProperty.value )
+      range: new Range( 1, this.fourierSeries.numberOfHarmonicsProperty.value )
     } );
 
     // @public
@@ -74,7 +68,7 @@ class DiscreteModel {
     this.sumExpandedProperty = new BooleanProperty( false );
 
     // Adjust the range of selectable wavelength and period based on how many harmonics we have.
-    this.numberOfHarmonicsProperty.link( numberOfHarmonics => {
+    this.fourierSeries.numberOfHarmonicsProperty.link( numberOfHarmonics => {
       this.selectedWavelengthProperty.value = Math.min( numberOfHarmonics, this.selectedWavelengthProperty.value );
       this.selectedWavelengthProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
       this.selectedPeriodProperty.value = Math.min( numberOfHarmonics, this.selectedPeriodProperty.value );
@@ -87,7 +81,6 @@ class DiscreteModel {
    * @public
    */
   reset() {
-    this.numberOfHarmonicsProperty.reset();
     this.fourierSeries.reset();
     this.isPlayingProperty.reset();
     this.presetFunctionProperty.reset();

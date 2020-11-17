@@ -129,6 +129,7 @@ class AmplitudesChart extends Node {
 
     // Lay out the sliders
     const slidersLayoutBox = new HBox( {
+      excludeInvisibleChildrenFromBounds: false,
       children: sliders,
       spacing: spacing,
       center: xyChartNode.chartPanel.center
@@ -136,6 +137,7 @@ class AmplitudesChart extends Node {
 
     // Lay out the NumberDisplays
     const numberDisplaysLayoutBox = new HBox( {
+      excludeInvisibleChildrenFromBounds: false,
       children: numberDisplays,
       spacing: spacing,
       centerX: xyChartNode.chartPanel.centerX,
@@ -148,6 +150,18 @@ class AmplitudesChart extends Node {
     } ) ];
 
     super( options );
+
+    // Hide sliders and number displays that are not part of the series
+    fourierSeries.numberOfHarmonicsProperty.link( numberOfHarmonics => {
+      assert && assert( numberOfHarmonics > 0 && numberOfHarmonics <= sliders.length,
+        `unsupported numberOfHarmonics: ${numberOfHarmonics}` );
+
+      for ( let i = 0; i < sliders.length; i++ ) {
+        const visible = ( i < numberOfHarmonics );
+        sliders[ i ].visible = visible;
+        numberDisplays[ i ].visible = visible;
+      }
+    } );
   }
 
   /**
