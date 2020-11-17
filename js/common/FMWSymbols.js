@@ -1,26 +1,27 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * Mathematical symbols used throughout this sim.
+ * Symbols used throughout this sim.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import fourierMakingWaves from '../fourierMakingWaves.js';
 
+// These are also described in model.md
 const FMWSymbols = {
-  CAPITAL_A: 'A',
-  CAPITAL_F: 'F',
-  CAPITAL_L: 'L',
-  CAPITAL_T: 'T',
-  PI: '\u03c0',
-  SMALL_K: 'k',
-  SMALL_LAMBDA: '\u03bb',
-  SMALL_N: 'n',
-  SMALL_OMEGA: '\u03c9',
-  SMALL_SIGMA: '\u03c3',
-  SMALL_T: 't',
-  SMALL_X: 'x'
+  CAPITAL_A: 'A', // amplitude
+  CAPITAL_F: 'F', // function of frequency
+  CAPITAL_L: 'L', // string length, if this were a plucked string
+  CAPITAL_T: 'T', // sampling period, or period of the 1st harmonic
+  PI: '\u03c0', // pi
+  SMALL_K: 'k', // wave number
+  SMALL_LAMBDA: '\u03bb', // wavelength
+  SMALL_N: 'n', // mode, order, or harmonic number
+  SMALL_OMEGA: '\u03c9', // angular frequency
+  SMALL_SIGMA: '\u03c3', // width of the gaussian packet (dx)
+  SMALL_T: 't', // time
+  SMALL_X: 'x' // position in space along L
 };
 
 fourierMakingWaves.register( 'FMWSymbols', FMWSymbols );

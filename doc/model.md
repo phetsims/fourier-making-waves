@@ -13,7 +13,7 @@ It's assumed that the reader has some basic knowledge of Fourier Series.
 * F = function of frequency
 * λ = lambda, wavelength
 * k = wave number
-* L = "string" length (if this were a plucked string)
+* L = string length, if this were a plucked string
 * n = mode, order, or harmonic number
 * π = pi
 * σ = sigma, width of the gaussian packet (dx)
