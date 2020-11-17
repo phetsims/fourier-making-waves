@@ -10,6 +10,8 @@
 
 import XYChartNode from '../../../../griddle/js/XYChartNode.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
+import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -94,50 +96,59 @@ class AmplitudesChart extends Node {
       centerY: xyChartNode.chartPanel.centerY
     } );
 
-    // Compute the track height based on the dimensions in the chart, so it will match up
+    // To make sliders and number displays have the same effective width
+    const alignGroup = new AlignGroup( {
+      matchHorizontal: true,
+      matchVertical: false
+    } );
+
+    // Compute the slider track height based on the dimensions of the chart.
     const trackHeight = Math.abs( xyChartNode.modelViewTransformProperty.value.modelToViewDeltaY( fourierSeries.amplitudeRange.getLength() ) );
 
     // Create a slider for each harmonic's amplitude
     const sliders = _.map( fourierSeries.harmonics, harmonic =>
-      new AmplitudeSlider( harmonic.amplitudeProperty, harmonic.colorProperty, {
+      new AlignBox( new AmplitudeSlider( harmonic.amplitudeProperty, harmonic.colorProperty, {
         trackHeight: trackHeight,
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` ),
         phetioReadOnly: true
+      } ), {
+        group: alignGroup
       } )
     );
-
-    // Lay out the sliders
-    const margin = 10;
-    const slidersLayoutBox = new HBox( {
-      spacing: ( xyChartNode.chartPanel.width - sliders.length * sliders[ 0 ].width - 2 * margin ) / ( sliders.length - 1 ),
-      children: sliders,
-      center: xyChartNode.chartPanel.center
-    } );
-
-    // Put the sliders in the xyChartNode instead of the xyChartNode.chartPanel so they won't be clipped
-    xyChartNode.addChild( slidersLayoutBox );
 
     // Create a number display for each harmonic's amplitude
     const numberDisplays = _.map( fourierSeries.harmonics, harmonic =>
-      new AmplitudeNumberDisplay( harmonic, {
+      new AlignBox( new AmplitudeNumberDisplay( harmonic, {
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}NumberDisplay` ),
         phetioReadOnly: true
+      } ), {
+        group: alignGroup
       } )
     );
 
-    // Layout of the number displays
+    // Compute the spacing, knowing that the sliders and numberDisplays all have the same effective width.
+    const margin = 10;
+    const spacing = ( xyChartNode.chartPanel.width - sliders.length * sliders[ 0 ].width - 2 * margin ) / ( sliders.length - 1 );
+    assert && assert( spacing > 0, `invalid spacing: ${spacing}` );
+
+    // Lay out the sliders
+    const slidersLayoutBox = new HBox( {
+      children: sliders,
+      spacing: spacing,
+      center: xyChartNode.chartPanel.center
+    } );
+
+    // Lay out the NumberDisplays
     const numberDisplaysLayoutBox = new HBox( {
       children: numberDisplays,
-
-      //TODO center a AmplitudeNumberDisplay above each AmplitudeSlider
-      spacing: 5,
+      spacing: spacing,
       centerX: xyChartNode.chartPanel.centerX,
-      bottom: xyChartNode.chartPanel.top - 5
+      bottom: xyChartNode.chartPanel.top - 10
     } );
 
     assert && assert( !options.children, 'AmplitudesChart sets children' );
     options.children = [ numberDisplaysLayoutBox, new Node( {
-      children: [ yAxisLabel, xyChartNode, xAxisLabel ]
+      children: [ xyChartNode, xAxisLabel, yAxisLabel, slidersLayoutBox, numberDisplaysLayoutBox ]
     } ) ];
 
     super( options );
