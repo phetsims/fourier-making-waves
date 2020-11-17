@@ -23,7 +23,7 @@ import DiscreteModel from '../model/DiscreteModel.js';
 import AmplitudesChart from './AmplitudesChart.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
 import HarmonicsChart from './HarmonicsChart.js';
-import SumAccordionBox from './SumAccordionBox.js';
+import SumChart from './SumChart.js';
 
 class DiscreteScreenView extends ScreenView {
 
@@ -40,15 +40,91 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     // view Properties
-    const harmonicsExpandedProperty = new BooleanProperty( true );
-    const autoScaleProperty = new BooleanProperty( true );
-    const infiniteHarmonicsProperty = new BooleanProperty( true );
-    const sumExpandedProperty = new BooleanProperty( false );
+    const harmonicsChartExpandedProperty = new BooleanProperty( true );
+    const sumChartExpandedProperty = new BooleanProperty( true );
+    const autoScaleProperty = new BooleanProperty( false );
+    const infiniteHarmonicsProperty = new BooleanProperty( false );
+    const mathFormExpandedSumProperty = new BooleanProperty( false );
 
     // Parent for all popups (listbox, keypad, etc.)
     const popupParent = new Node();
 
-    const controlPanel = new DiscreteControlPanel( model, sumExpandedProperty, popupParent, {
+    const amplitudesChart = new AmplitudesChart( model.fourierSeries, {
+      tandem: tandem.createTandem( 'amplitudesChart' )
+    } );
+
+    const harmonicsExpandCollapseButton = new ExpandCollapseButton( harmonicsChartExpandedProperty,
+      FourierMakingWavesConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS );
+
+    const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonics, {
+      font: FourierMakingWavesConstants.TITLE_FONT
+    } );
+
+    const harmonicsChart = new HarmonicsChart( {
+      tandem: tandem.createTandem( 'harmonicsChart' )
+    } );
+
+    harmonicsChartExpandedProperty.link( harmonicsChartExpanded => {
+      harmonicsChart.visible = harmonicsChartExpanded;
+    } );
+
+    const sumExpandCollapseButton = new ExpandCollapseButton( sumChartExpandedProperty,
+      FourierMakingWavesConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS );
+
+    const sumTitleNode = new Text( fourierMakingWavesStrings.sum, {
+      font: FourierMakingWavesConstants.TITLE_FONT
+    } );
+
+    const sumChart = new SumChart( autoScaleProperty, infiniteHarmonicsProperty, {
+      tandem: tandem.createTandem( 'sumChart' )
+    } );
+
+    sumChartExpandedProperty.link( sumChartExpanded => {
+      sumChart.visible = sumChartExpanded;
+    } );
+
+    this.addChild( new VBox( {
+      excludeInvisibleChildrenFromBounds: false,
+      align: 'left',
+      spacing: 15,
+      children: [
+
+        // Amplitudes
+        amplitudesChart,
+
+        // Harmonics
+        new VBox( {
+          excludeInvisibleChildrenFromBounds: false,
+          align: 'left',
+          spacing: 5,
+          children: [
+            new HBox( {
+              children: [ harmonicsExpandCollapseButton, harmonicsTitleNode ],
+              spacing: 5
+            } ),
+            harmonicsChart
+          ]
+        } ),
+
+        // Sum
+        new VBox( {
+          excludeInvisibleChildrenFromBounds: false,
+          align: 'left',
+          spacing: 5,
+          children: [
+            new HBox( {
+              children: [ sumExpandCollapseButton, sumTitleNode ],
+              spacing: 5
+            } ),
+            sumChart
+          ]
+        } )
+      ],
+      left: this.layoutBounds.left + FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
+      top: this.layoutBounds.top + FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN
+    } ) );
+
+    const controlPanel = new DiscreteControlPanel( model, mathFormExpandedSumProperty, popupParent, {
       right: this.layoutBounds.right - FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
       top: this.layoutBounds.top + FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN
     } );
@@ -68,44 +144,6 @@ class DiscreteScreenView extends ScreenView {
     } );
     this.addChild( resetAllButton );
 
-    const amplitudesChart = new AmplitudesChart( model.fourierSeries, {
-      tandem: tandem.createTandem( 'amplitudesChart' )
-    } );
-
-    const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonics, {
-      font: FourierMakingWavesConstants.TITLE_FONT
-    } );
-
-    const harmonicsExpandCollapseButton = new ExpandCollapseButton( harmonicsExpandedProperty,
-      FourierMakingWavesConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS );
-
-    const harmonicsChart = new HarmonicsChart( {
-      tandem: tandem.createTandem( 'harmonicsChart' )
-    } );
-
-    harmonicsExpandedProperty.link( harmonicsExpanded => {
-      harmonicsChart.visible = harmonicsExpanded;
-    } );
-
-    const sumAccordionBox = new SumAccordionBox( autoScaleProperty, infiniteHarmonicsProperty );
-
-    this.addChild( new VBox( {
-      excludeInvisibleChildrenFromBounds: false,
-      children: [
-        amplitudesChart,
-        new HBox( {
-          children: [ harmonicsExpandCollapseButton, harmonicsTitleNode ],
-          spacing: 5
-        } ),
-        harmonicsChart,
-        sumAccordionBox
-      ],
-      align: 'left',
-      spacing: 5,
-      left: this.layoutBounds.left + FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
-      top: this.layoutBounds.top + FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN
-    } ) );
-
     // parent for popups on top
     this.addChild( popupParent );
 
@@ -113,10 +151,11 @@ class DiscreteScreenView extends ScreenView {
     this.resetDiscreteScreenView = () => {
       this.interruptSubtreeInput(); // cancel interactions that may be in progress
       model.reset();
-      harmonicsExpandedProperty.reset();
+      harmonicsChartExpandedProperty.reset();
+      sumChartExpandedProperty.reset();
       autoScaleProperty.reset();
       infiniteHarmonicsProperty.reset();
-      sumExpandedProperty.reset();
+      mathFormExpandedSumProperty.reset();
     };
   }
 

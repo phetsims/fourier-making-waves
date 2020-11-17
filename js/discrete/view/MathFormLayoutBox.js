@@ -29,11 +29,11 @@ class MathFormLayoutBox extends VBox {
   /**
    * @param {FourierSeries} fourierSeries
    * @param {EnumerationProperty.<>} mathFormProperty
-   * @param {Property.<boolean>} sumExpandedProperty
+   * @param {Property.<boolean>} mathFormExpandedSumProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
-  constructor( fourierSeries, mathFormProperty, sumExpandedProperty, popupParent, options ) {
+  constructor( fourierSeries, mathFormProperty, mathFormExpandedSumProperty, popupParent, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
@@ -50,7 +50,7 @@ class MathFormLayoutBox extends VBox {
     const expandSumText = new Text( fourierMakingWavesStrings.expandSum, {
       font: FourierMakingWavesConstants.CONTROL_FONT
     } );
-    const expandSumCheckbox = new Checkbox( expandSumText, sumExpandedProperty, FourierMakingWavesConstants.CHECKBOX_OPTIONS );
+    const expandSumCheckbox = new Checkbox( expandSumText, mathFormExpandedSumProperty, FourierMakingWavesConstants.CHECKBOX_OPTIONS );
 
     const sumNode = new RichText( '', {
       font: FourierMakingWavesConstants.CONTROL_FONT,
@@ -63,7 +63,7 @@ class MathFormLayoutBox extends VBox {
     super( options );
 
     // unlink is not necessary
-    sumExpandedProperty.link( sumExpanded => {
+    mathFormExpandedSumProperty.link( sumExpanded => {
       sumNode.visible = sumExpanded;
     } );
 

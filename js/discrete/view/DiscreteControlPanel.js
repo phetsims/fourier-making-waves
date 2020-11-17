@@ -22,11 +22,11 @@ class DiscreteControlPanel extends FourierMakingWavesPanel {
 
   /**
    * @param {DiscreteModel} model
-   * @param {Property.<boolean>} sumExpandedProperty
+   * @param {Property.<boolean>} mathFormExpandedSumProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
-  constructor( model, sumExpandedProperty, popupParent, options ) {
+  constructor( model, mathFormExpandedSumProperty, popupParent, options ) {
 
     options = merge( {}, FourierMakingWavesConstants.PANEL_OPTIONS, {
       fixedWidth: FourierMakingWavesConstants.CONTROL_PANEL_WIDTH,
@@ -49,7 +49,7 @@ class DiscreteControlPanel extends FourierMakingWavesPanel {
           model.periodToolEnabledProperty, model.selectedPeriodProperty,
           model.numberOfHarmonicsProperty, model.domainProperty ),
         new HSeparator( separatorWidth, separatorOptions ),
-        new MathFormLayoutBox( model.fourierSeries, model.mathFormProperty, sumExpandedProperty, popupParent )
+        new MathFormLayoutBox( model.fourierSeries, model.mathFormProperty, mathFormExpandedSumProperty, popupParent )
       ]
     } ) );
 
