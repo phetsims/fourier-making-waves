@@ -6,9 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
+import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -16,13 +17,11 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
+import Symbols from '../../common/Symbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import MathForm from '../model/MathForm.js';
 import MathFormComboBox from './MathFormComboBox.js';
-
-// constants
-const EXPANDED_SUM_TERM = '{{amplitude}} sin(2\u03c0{{harmonic}}x / L )';
 
 class MathFormLayoutBox extends VBox {
 
@@ -40,13 +39,14 @@ class MathFormLayoutBox extends VBox {
 
     options = merge( {}, FourierMakingWavesConstants.VBOX_OPTIONS, options );
 
-    // Math Form
     const titleText = new Text( fourierMakingWavesStrings.mathForm, {
       font: FourierMakingWavesConstants.TITLE_FONT
     } );
 
+    // Math Form combo box
     const mathFormComboBox = new MathFormComboBox( mathFormProperty, popupParent );
 
+    // Expand Sum checkbox
     const expandSumText = new Text( fourierMakingWavesStrings.expandSum, {
       font: FourierMakingWavesConstants.CONTROL_FONT
     } );
@@ -63,26 +63,25 @@ class MathFormLayoutBox extends VBox {
     super( options );
 
     // unlink is not necessary
-    mathFormExpandedSumProperty.link( sumExpanded => {
-      sumNode.visible = sumExpanded;
+    mathFormProperty.link( mathForm => {
+      expandSumCheckbox.enabled = ( mathForm !== MathForm.HIDDEN );
     } );
 
-    //TODO update sumNode as number of harmonics and amplitudes change
-    let sumText = `F(x) ${MathSymbols.EQUAL_TO} `;
-    const maxHarmonics = fourierSeries.harmonics.length;
-    for ( let i = 0; i < maxHarmonics; i++ ) {
-      if ( i > 0 && i < maxHarmonics ) {
-        sumText = sumText + ' ' + MathSymbols.PLUS;
-      }
-      if ( ( i + 1 ) % 2 === 0 ) {
-        sumText += '<br>';
-      }
-      sumText += StringUtils.fillIn( EXPANDED_SUM_TERM, {
-        amplitude: 0, //TODO
-        harmonic: i + 1
+    // unmultilink is not necessary
+    const dependencies = [ mathFormProperty, fourierSeries.numberOfHarmonicsProperty ];
+    fourierSeries.harmonics.forEach( harmonic => dependencies.push( harmonic.amplitudeProperty ) );
+    Property.multilink(
+      dependencies,
+      () => {
+        sumNode.text = getExpandedSum( mathFormProperty.value, fourierSeries );
       } );
-    }
-    sumNode.text = sumText;
+
+    // unmultilink is not necessary
+    Property.multilink(
+      [ mathFormProperty, mathFormExpandedSumProperty ],
+      ( mathForm, mathFormExpandedSum ) => {
+        sumNode.visible = ( ( mathForm !== MathForm.HIDDEN ) && mathFormExpandedSum );
+      } );
   }
 
   /**
@@ -92,6 +91,50 @@ class MathFormLayoutBox extends VBox {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+}
+
+function getExpandedSum( mathForm, fourierSeries ) {
+  let sumText = '';
+  if ( mathForm !== MathForm.HIDDEN ) {
+
+    const numberOfHarmonics = fourierSeries.numberOfHarmonicsProperty.value;
+
+    sumText = `${Symbols.CAPITAL_F}(${Symbols.SMALL_X}) ${MathSymbols.EQUAL_TO} `;
+    for ( let i = 0; i < numberOfHarmonics; i++ ) {
+
+      if ( i > 0 && i < numberOfHarmonics ) {
+        sumText = sumText + ' ' + MathSymbols.PLUS;
+      }
+
+      if ( ( i + 1 ) % 2 === 0 ) {
+        sumText += '<br>';
+      }
+      else {
+        sumText += ' ';
+      }
+
+      const harmonic = fourierSeries.harmonics[ i ];
+      const amplitude = Utils.toFixedNumber( harmonic.amplitudeProperty.value, FourierMakingWavesConstants.AMPLITUDE_DECIMAL_PLACES );
+      const sineTerm = getSineTerm( mathForm, harmonic.order );
+      sumText += `${amplitude} sin( ${sineTerm} )`;
+    }
+  }
+  return sumText;
+}
+
+function getSineTerm( mathForm, order ) {
+  if ( mathForm === MathForm.WAVELENGTH ) {
+    return `2${Symbols.PI}${Symbols.SMALL_X} / ${Symbols.SMALL_LAMBDA}<sub>${order}</sub>`;
+  }
+  else   if ( mathForm === MathForm.WAVE_NUMBER ) {
+    return `${Symbols.SMALL_K}<sub>${order}</sub>${Symbols.SMALL_X}`;
+  }
+  else if ( mathForm === MathForm.MODE ) {
+    return `2${Symbols.PI}${order}${Symbols.SMALL_X} / ${Symbols.CAPITAL_L}`;
+  }
+  else {
+    throw new Error( `unsupported mathForm: ${mathForm}` );
   }
 }
 
