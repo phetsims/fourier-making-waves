@@ -63,16 +63,7 @@ class DiscreteScreenView extends ScreenView {
     } );
     this.addChild( resetAllButton );
 
-    const panelWidth = this.layoutBounds.width - controlPanel.width -
-                       ( 2 * FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN ) -
-                       FourierMakingWavesConstants.SCREEN_VIEW_X_SPACING;
-    const panelHeight = ( this.layoutBounds.height -
-                          ( 2 * FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN ) -
-                          ( 2 * FourierMakingWavesConstants.SCREEN_VIEW_Y_SPACING ) ) / 3;
-
     const amplitudesChart = new AmplitudesChart( model.fourierSeries, {
-      fixedWidth: panelWidth,
-      fixedHeight: panelHeight,
       tandem: tandem.createTandem( 'amplitudesChart' )
     } );
 
