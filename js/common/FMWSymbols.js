@@ -1,14 +1,13 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * Symbols used throughout this sim.
+ * Symbols used throughout this sim. These are also described in model.md.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import fourierMakingWaves from '../fourierMakingWaves.js';
 
-// These are also described in model.md
 const FMWSymbols = {
   CAPITAL_A: 'A', // amplitude
   CAPITAL_F: 'F', // function of frequency
