@@ -60,7 +60,7 @@ class DiscreteScreenView extends ScreenView {
       font: FourierMakingWavesConstants.TITLE_FONT
     } );
 
-    const harmonicsChart = new HarmonicsChart( {
+    const harmonicsChart = new HarmonicsChart( model.fourierSeries, {
       tandem: tandem.createTandem( 'harmonicsChart' )
     } );
 
@@ -75,7 +75,7 @@ class DiscreteScreenView extends ScreenView {
       font: FourierMakingWavesConstants.TITLE_FONT
     } );
 
-    const sumChart = new SumChart( autoScaleProperty, infiniteHarmonicsProperty, {
+    const sumChart = new SumChart( model.fourierSeries, autoScaleProperty, infiniteHarmonicsProperty, {
       tandem: tandem.createTandem( 'sumChart' )
     } );
 

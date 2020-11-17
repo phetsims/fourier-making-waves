@@ -7,11 +7,13 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
 import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
@@ -19,11 +21,16 @@ import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 class SumChart extends Node {
 
   /**
+   * @param {FourierSeries} fourierSeries
    * @param {Property.<boolean>} autoScaleProperty
    * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
+  constructor( fourierSeries, autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
+
+    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
+    assert && AssertUtils.assertPropertyOf( autoScaleProperty, 'boolean' );
+    assert && AssertUtils.assertPropertyOf( infiniteHarmonicsVisibleProperty, 'boolean' );
 
     options = merge( {
 
