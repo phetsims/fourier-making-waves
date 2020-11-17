@@ -8,7 +8,7 @@
 
 import fourierMakingWaves from '../fourierMakingWaves.js';
 
-const Symbols = {
+const FMWSymbols = {
   CAPITAL_A: 'A',
   CAPITAL_F: 'F',
   CAPITAL_L: 'L',
@@ -23,5 +23,5 @@ const Symbols = {
   SMALL_X: 'x'
 };
 
-fourierMakingWaves.register( 'Symbols', Symbols );
-export default Symbols;
+fourierMakingWaves.register( 'FMWSymbols', FMWSymbols );
+export default FMWSymbols;

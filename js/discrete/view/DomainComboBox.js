@@ -14,7 +14,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
-import Symbols from '../../common/Symbols.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
@@ -39,14 +39,14 @@ class DomainComboBox extends ComboBox {
 
     const items = [
       new ComboBoxItem( new Text( StringUtils.fillIn( fourierMakingWavesStrings.spaceSymbol, {
-        symbol: Symbols.SMALL_X
+        symbol: FMWSymbols.SMALL_X
       } ), textOptions ), Domain.SPACE ),
       new ComboBoxItem( new Text( StringUtils.fillIn( fourierMakingWavesStrings.timeSymbols, {
-        symbol: Symbols.SMALL_T
+        symbol: FMWSymbols.SMALL_T
       } ), textOptions ), Domain.TIME ),
       new ComboBoxItem( new Text( StringUtils.fillIn( fourierMakingWavesStrings.spaceAndTimeSymbols, {
-        spaceSymbol: Symbols.SMALL_X,
-        timeSymbol: Symbols.SMALL_T
+        spaceSymbol: FMWSymbols.SMALL_X,
+        timeSymbol: FMWSymbols.SMALL_T
       } ), textOptions ), Domain.SPACE_AND_TIME )
     ];
 

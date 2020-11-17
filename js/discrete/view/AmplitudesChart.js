@@ -21,7 +21,7 @@ import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
-import Symbols from '../../common/Symbols.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
 import AmplitudeNumberDisplay from '../../common/view/AmplitudeNumberDisplay.js';
 import AmplitudeSlider from '../../common/view/AmplitudeSlider.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -84,14 +84,14 @@ class AmplitudesChart extends Node {
       }
     } );
 
-    const xAxisLabel = new Text( Symbols.SMALL_N, {
+    const xAxisLabel = new Text( FMWSymbols.SMALL_N, {
       font: FourierMakingWavesConstants.AXIS_LABEL_FONT,
       left: xyChartNode.right + 10,
       centerY: xyChartNode.chartPanel.centerY
     } );
 
     const yAxisLabel = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.amplitudeSymbol, {
-      symbol: Symbols.CAPITAL_A
+      symbol: FMWSymbols.CAPITAL_A
     } ), {
       font: FourierMakingWavesConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,

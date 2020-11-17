@@ -18,7 +18,7 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
-import Symbols from '../../common/Symbols.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
@@ -82,7 +82,7 @@ class MeasurementToolsLayoutBox extends VBox {
     const wavelengthSpinner = new NumberSpinner( selectedWavelengthProperty, selectedWavelengthProperty.rangeProperty, merge( {}, {
       numberDisplayOptions: {
         numberFormatter: order => StringUtils.fillIn( fourierMakingWavesStrings.wavelengthOrder, {
-          symbol: Symbols.SMALL_LAMBDA,
+          symbol: FMWSymbols.SMALL_LAMBDA,
           order: order
         } )
       }
@@ -99,7 +99,7 @@ class MeasurementToolsLayoutBox extends VBox {
     const periodSpinner = new NumberSpinner( selectedPeriodProperty, selectedPeriodProperty.rangeProperty, merge( {}, {
       numberDisplayOptions: {
         numberFormatter: order => StringUtils.fillIn( fourierMakingWavesStrings.periodOrder, {
-          symbol: Symbols.CAPITAL_T,
+          symbol: FMWSymbols.CAPITAL_T,
           order: order
         } )
       }

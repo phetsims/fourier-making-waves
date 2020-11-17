@@ -17,7 +17,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
-import Symbols from '../../common/Symbols.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import MathForm from '../model/MathForm.js';
@@ -100,7 +100,7 @@ function getExpandedSum( mathForm, fourierSeries ) {
 
     const numberOfHarmonics = fourierSeries.numberOfHarmonicsProperty.value;
 
-    sumText = `${Symbols.CAPITAL_F}(${Symbols.SMALL_X}) ${MathSymbols.EQUAL_TO} `;
+    sumText = `${FMWSymbols.CAPITAL_F}(${FMWSymbols.SMALL_X}) ${MathSymbols.EQUAL_TO} `;
     for ( let i = 0; i < numberOfHarmonics; i++ ) {
 
       if ( i > 0 && i < numberOfHarmonics ) {
@@ -125,13 +125,13 @@ function getExpandedSum( mathForm, fourierSeries ) {
 
 function getSineTerm( mathForm, order ) {
   if ( mathForm === MathForm.WAVELENGTH ) {
-    return `2${Symbols.PI}${Symbols.SMALL_X} / ${Symbols.SMALL_LAMBDA}<sub>${order}</sub>`;
+    return `2${FMWSymbols.PI}${FMWSymbols.SMALL_X} / ${FMWSymbols.SMALL_LAMBDA}<sub>${order}</sub>`;
   }
   else   if ( mathForm === MathForm.WAVE_NUMBER ) {
-    return `${Symbols.SMALL_K}<sub>${order}</sub>${Symbols.SMALL_X}`;
+    return `${FMWSymbols.SMALL_K}<sub>${order}</sub>${FMWSymbols.SMALL_X}`;
   }
   else if ( mathForm === MathForm.MODE ) {
-    return `2${Symbols.PI}${order}${Symbols.SMALL_X} / ${Symbols.CAPITAL_L}`;
+    return `2${FMWSymbols.PI}${order}${FMWSymbols.SMALL_X} / ${FMWSymbols.CAPITAL_L}`;
   }
   else {
     throw new Error( `unsupported mathForm: ${mathForm}` );
