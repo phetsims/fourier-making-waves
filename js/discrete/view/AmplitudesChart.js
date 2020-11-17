@@ -122,7 +122,7 @@ class AmplitudesChart extends Node {
       } )
     );
 
-    // Compute the spacing, knowing that the sliders and numberDisplays all have the same effective width.
+    // Compute the horizontal spacing, knowing that the sliders and numberDisplays all have the same effective width.
     const margin = 10;
     const spacing = ( xyChartNode.chartPanel.width - sliders.length * sliders[ 0 ].width - 2 * margin ) / ( sliders.length - 1 );
     assert && assert( spacing > 0, `invalid spacing: ${spacing}` );
