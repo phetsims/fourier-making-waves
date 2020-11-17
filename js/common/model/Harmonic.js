@@ -29,6 +29,7 @@ class Harmonic extends PhetioObject {
     assert && assert( amplitudeRange instanceof Range, 'invalid amplitudeRange' );
 
     options = merge( {
+      amplitude: 0,
       tandem: Tandem.REQUIRED,
       phetioState: false
     }, options );
@@ -41,7 +42,7 @@ class Harmonic extends PhetioObject {
     this.amplitudeRange = amplitudeRange;
 
     // @public
-    this.amplitudeProperty = new NumberProperty( 0, {
+    this.amplitudeProperty = new NumberProperty( options.amplitude, {
       range: amplitudeRange,
       tandem: options.tandem.createTandem( 'amplitudeProperty' )
     } );

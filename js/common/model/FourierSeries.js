@@ -16,6 +16,7 @@ import FMWColorProfile from '../FMWColorProfile.js';
 import Harmonic from './Harmonic.js';
 
 // constants
+const MAX_HARMONICS = 11;
 const MAX_ABSOLUTE_AMPLITUDE = 4 / Math.PI; //TODO why? see https://github.com/phetsims/fourier-making-waves/issues/11
 
 class FourierSeries extends PhetioObject {
@@ -39,8 +40,8 @@ class FourierSeries extends PhetioObject {
     this.amplitudeRange = new Range( -MAX_ABSOLUTE_AMPLITUDE, MAX_ABSOLUTE_AMPLITUDE );
 
     // @public the number of harmonics in this series
-    this.numberOfHarmonicsProperty = new NumberProperty( 1, {
-      range: new Range( 1, 11 ),
+    this.numberOfHarmonicsProperty = new NumberProperty( MAX_HARMONICS, {
+      range: new Range( 1, MAX_HARMONICS ),
       tandem: options.tandem.createTandem( 'numberOfHarmonicsProperty' )
     } );
 
@@ -49,6 +50,7 @@ class FourierSeries extends PhetioObject {
     for ( let order = 1; order <= this.numberOfHarmonicsProperty.range.max; order++ ) {
       const colorProperty = FMWColorProfile.getHarmonicColorProperty( order );
       this.harmonics.push( new Harmonic( order, colorProperty, this.amplitudeRange, {
+        amplitude: ( order === 1 ) ? 1 : 0,
         range: this.amplitudeRange,
         tandem: options.tandem.createTandem( `harmonic${order}` )
       } ) );
