@@ -26,7 +26,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
 //TODO set dimensions based on available space
-const CHART_VIEW_WIDTH = 610;
+const CHART_VIEW_WIDTH = 650;
 const CHART_VIEW_HEIGHT = 120;
 
 class AmplitudesChart extends Node {
@@ -96,10 +96,12 @@ class AmplitudesChart extends Node {
     } );
 
     // To make sliders and number displays have the same effective width
-    const alignGroup = new AlignGroup( {
-      matchHorizontal: true,
-      matchVertical: false
-    } );
+    const alignBoxOptions = {
+      group: new AlignGroup( {
+        matchHorizontal: true,
+        matchVertical: false
+      } )
+    };
 
     // Create a slider for each harmonic's amplitude
     const sliders = _.map( fourierSeries.harmonics, harmonic =>
@@ -107,9 +109,7 @@ class AmplitudesChart extends Node {
         trackHeight: CHART_VIEW_HEIGHT,
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` ),
         phetioReadOnly: true
-      } ), {
-        group: alignGroup
-      } )
+      } ), alignBoxOptions )
     );
 
     // Create a number display for each harmonic's amplitude
@@ -117,14 +117,14 @@ class AmplitudesChart extends Node {
       new AlignBox( new AmplitudeNumberDisplay( harmonic, {
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}NumberDisplay` ),
         phetioReadOnly: true
-      } ), {
-        group: alignGroup
-      } )
+      } ), alignBoxOptions )
     );
 
     // Compute the horizontal spacing, knowing that the sliders and numberDisplays all have the same effective width.
+    const numberOfComponents = fourierSeries.harmonics.length;
+    const componentWidth = sliders[ 0 ].width;
     const margin = 10;
-    const spacing = ( xyChartNode.chartPanel.width - sliders.length * sliders[ 0 ].width - 2 * margin ) / ( sliders.length - 1 );
+    const spacing = ( xyChartNode.chartPanel.width - numberOfComponents * componentWidth - 2 * margin ) / ( numberOfComponents - 1 );
     assert && assert( spacing > 0, `invalid spacing: ${spacing}` );
 
     // Lay out the sliders
