@@ -8,7 +8,7 @@
 
 import Screen from '../../../joist/js/Screen.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
-import FourierMakingWavesColorProfile from '../common/FourierMakingWavesColorProfile.js';
+import FMWColorProfile from '../common/FMWColorProfile.js';
 import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
 import ContinuousModel from './model/ContinuousModel.js';
 import ContinuousScreenView from './view/ContinuousScreenView.js';
@@ -23,7 +23,7 @@ class ContinuousScreen extends Screen {
     const options = {
       //TODO if you include homeScreenIcon or navigationBarIcon, use JOIST/ScreenIcon
       name: fourierMakingWavesStrings.screen.continuous,
-      backgroundColorProperty: FourierMakingWavesColorProfile.screenBackgroundColorProperty,
+      backgroundColorProperty: FMWColorProfile.screenBackgroundColorProperty,
       tandem: tandem
     };
 

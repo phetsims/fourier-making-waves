@@ -14,7 +14,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import FourierMakingWavesConstants from '../FourierMakingWavesConstants.js';
+import FMWConstants from '../FMWConstants.js';
 import Harmonic from '../model/Harmonic.js';
 import FMWSymbols from '../FMWSymbols.js';
 
@@ -34,7 +34,7 @@ class AmplitudeNumberDisplay extends VBox {
     options = merge( {
 
       // VBox options
-      spacing: FourierMakingWavesConstants.AMPLITUDE_DECIMAL_PLACES,
+      spacing: FMWConstants.AMPLITUDE_DECIMAL_PLACES,
       align: 'center',
 
       // NumberDisplay options

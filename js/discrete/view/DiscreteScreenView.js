@@ -16,7 +16,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import ExpandCollapseButton from '../../../../sun/js/ExpandCollapseButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
@@ -54,10 +54,10 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     const harmonicsExpandCollapseButton = new ExpandCollapseButton( harmonicsChartExpandedProperty,
-      FourierMakingWavesConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS );
+      FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS );
 
     const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonics, {
-      font: FourierMakingWavesConstants.TITLE_FONT
+      font: FMWConstants.TITLE_FONT
     } );
 
     const harmonicsChart = new HarmonicsChart( model.fourierSeries, {
@@ -69,10 +69,10 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     const sumExpandCollapseButton = new ExpandCollapseButton( sumChartExpandedProperty,
-      FourierMakingWavesConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS );
+      FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS );
 
     const sumTitleNode = new Text( fourierMakingWavesStrings.sum, {
-      font: FourierMakingWavesConstants.TITLE_FONT
+      font: FMWConstants.TITLE_FONT
     } );
 
     const sumChart = new SumChart( model.fourierSeries, autoScaleProperty, infiniteHarmonicsProperty, {
@@ -120,26 +120,26 @@ class DiscreteScreenView extends ScreenView {
           ]
         } )
       ],
-      left: this.layoutBounds.left + FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
-      top: this.layoutBounds.top + FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN
+      left: this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN,
+      top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN
     } ) );
 
     const controlPanel = new DiscreteControlPanel( model, mathFormExpandedSumProperty, popupParent, {
-      right: this.layoutBounds.right - FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
-      top: this.layoutBounds.top + FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN
+      right: this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN,
+      top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN
     } );
     this.addChild( controlPanel );
 
     const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
       left: controlPanel.left,
-      bottom: this.layoutBounds.bottom - FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN
+      bottom: this.layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN
     } );
     this.addChild( timeControlNode );
 
     const resetAllButton = new ResetAllButton( {
       listener: () => this.reset(),
-      right: this.layoutBounds.maxX - FourierMakingWavesConstants.SCREEN_VIEW_X_MARGIN,
-      bottom: this.layoutBounds.maxY - FourierMakingWavesConstants.SCREEN_VIEW_Y_MARGIN,
+      right: this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN,
+      bottom: this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( resetAllButton );

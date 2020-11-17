@@ -9,7 +9,7 @@
 import merge from '../../../../phet-core/js/merge.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
-import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
@@ -21,10 +21,10 @@ class AutoScaleCheckbox extends Checkbox {
    */
   constructor( autoScaleProperty, options ) {
 
-    options = merge( {}, FourierMakingWavesConstants.CHECKBOX_OPTIONS, options );
+    options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, options );
 
     const labelNode = new Text( fourierMakingWavesStrings.autoScale, {
-      font: FourierMakingWavesConstants.CONTROL_FONT,
+      font: FMWConstants.CONTROL_FONT,
       maxWidth: 200 // determined empirically
     } );
 

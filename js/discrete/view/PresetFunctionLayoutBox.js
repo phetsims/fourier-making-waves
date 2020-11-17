@@ -14,7 +14,7 @@ import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
-import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import PresetFunction from '../model/PresetFunction.js';
@@ -34,23 +34,23 @@ class PresetFunctionLayoutBox extends VBox {
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
-    options = merge( {}, FourierMakingWavesConstants.VBOX_OPTIONS, options );
+    options = merge( {}, FMWConstants.VBOX_OPTIONS, options );
 
     // Preset Function
     const titleText = new Text( fourierMakingWavesStrings.presetFunction, {
-      font: FourierMakingWavesConstants.TITLE_FONT
+      font: FMWConstants.TITLE_FONT
     } );
 
     const presetFunctionComboBox = new PresetFunctionComboBox( presetFunctionProperty, popupParent );
 
     const harmonicsPicker = new NumberPicker( numberOfHarmonicsProperty, numberOfHarmonicsProperty.rangeProperty, {
-      font: FourierMakingWavesConstants.CONTROL_FONT,
+      font: FMWConstants.CONTROL_FONT,
       cornerRadius: 3,
       color: 'black'
     } );
 
     const harmonicsText = new Text( fourierMakingWavesStrings.harmonics, {
-      font: FourierMakingWavesConstants.CONTROL_FONT
+      font: FMWConstants.CONTROL_FONT
     } );
 
     const harmonicsBox = new HBox( {

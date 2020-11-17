@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * FourierMakingWavesPanel is a specialization of Panel that provides a more convenient API for creating a fixed-width Panel.
+ * FMWPanel is a specialization of Panel that provides a more convenient API for creating a fixed-width Panel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,7 +11,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Panel from '../../../../sun/js/Panel.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class FourierMakingWavesPanel extends Panel {
+class FMWPanel extends Panel {
 
   /**
    * @param {Node} content
@@ -28,8 +28,8 @@ class FourierMakingWavesPanel extends Panel {
     assert && assert( options.fixedWidth === null || options.fixedWidth > 0, `invalid fixedWidth: ${options.fixedWidth}` );
 
     if ( options.fixedWidth ) {
-      assert && assert( options.minWidth === undefined, 'FourierMakingWavesPanel sets minWidth' );
-      assert && assert( options.maxWidth === undefined, 'FourierMakingWavesPanel sets maxWidth' );
+      assert && assert( options.minWidth === undefined, 'FMWPanel sets minWidth' );
+      assert && assert( options.maxWidth === undefined, 'FMWPanel sets maxWidth' );
       options.minWidth = options.fixedWidth;
       options.maxWidth = options.fixedWidth;
     }
@@ -41,5 +41,5 @@ class FourierMakingWavesPanel extends Panel {
   }
 }
 
-fourierMakingWaves.register( 'FourierMakingWavesPanel', FourierMakingWavesPanel );
-export default FourierMakingWavesPanel;
+fourierMakingWaves.register( 'FMWPanel', FMWPanel );
+export default FMWPanel;

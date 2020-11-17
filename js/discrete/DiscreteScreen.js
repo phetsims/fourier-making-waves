@@ -8,7 +8,7 @@
 
 import Screen from '../../../joist/js/Screen.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
-import FourierMakingWavesColorProfile from '../common/FourierMakingWavesColorProfile.js';
+import FMWColorProfile from '../common/FMWColorProfile.js';
 import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
 import DiscreteModel from './model/DiscreteModel.js';
 import DiscreteScreenView from './view/DiscreteScreenView.js';
@@ -23,7 +23,7 @@ class DiscreteScreen extends Screen {
     const options = {
       //TODO if you include homeScreenIcon or navigationBarIcon, use JOIST/ScreenIcon
       name: fourierMakingWavesStrings.screen.discrete,
-      backgroundColorProperty: FourierMakingWavesColorProfile.screenBackgroundColorProperty,
+      backgroundColorProperty: FMWColorProfile.screenBackgroundColorProperty,
       tandem: tandem
     };
 

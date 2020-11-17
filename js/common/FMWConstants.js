@@ -1,21 +1,21 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * FourierMakingWavesConstants defines constants used throughout this simulation.
+ * FMWConstants defines constants used throughout this simulation.
  *
  * @author Chris Malley (PixelZoom, Inc.
  */
 
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
-import FourierMakingWavesColorProfile from './FourierMakingWavesColorProfile.js';
+import FMWColorProfile from './FMWColorProfile.js';
 
 // constants
 const PANEL_CORNER_RADIUS = 5;
 const PANEL_X_MARGIN = 8;
 const PANEL_Y_MARGIN = 5;
 
-const FourierMakingWavesConstants = {
+const FMWConstants = {
 
   // View ============================================================================================================
 
@@ -35,8 +35,8 @@ const FourierMakingWavesConstants = {
     buttonXMargin: 10,
     buttonYMargin: 5,
     titleXSpacing: 10,
-    fill: FourierMakingWavesColorProfile.panelFillProperty,
-    stroke: FourierMakingWavesColorProfile.panelStrokeProperty
+    fill: FMWColorProfile.panelFillProperty,
+    stroke: FMWColorProfile.panelStrokeProperty
   },
 
   EXPAND_COLLAPSE_BUTTON_OPTIONS: {
@@ -47,8 +47,8 @@ const FourierMakingWavesConstants = {
     cornerRadius: PANEL_CORNER_RADIUS,
     xMargin: PANEL_X_MARGIN,
     yMargin: PANEL_Y_MARGIN,
-    fill: FourierMakingWavesColorProfile.panelFillProperty,
-    stroke: FourierMakingWavesColorProfile.panelStrokeProperty
+    fill: FMWColorProfile.panelFillProperty,
+    stroke: FMWColorProfile.panelStrokeProperty
   },
 
   CHECKBOX_OPTIONS: {
@@ -74,5 +74,5 @@ const FourierMakingWavesConstants = {
   AMPLITUDE_DECIMAL_PLACES: 2
 };
 
-fourierMakingWaves.register( 'FourierMakingWavesConstants', FourierMakingWavesConstants );
-export default FourierMakingWavesConstants;
+fourierMakingWaves.register( 'FMWConstants', FMWConstants );
+export default FMWConstants;

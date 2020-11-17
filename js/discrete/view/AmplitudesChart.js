@@ -19,7 +19,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import AmplitudeNumberDisplay from '../../common/view/AmplitudeNumberDisplay.js';
@@ -80,12 +80,12 @@ class AmplitudesChart extends Node {
         }
       },
       gridLabelOptions: {
-        font: FourierMakingWavesConstants.TICK_LABEL_FONT
+        font: FMWConstants.TICK_LABEL_FONT
       }
     } );
 
     const xAxisLabel = new Text( FMWSymbols.SMALL_N, {
-      font: FourierMakingWavesConstants.AXIS_LABEL_FONT,
+      font: FMWConstants.AXIS_LABEL_FONT,
       left: xyChartNode.right + 10,
       centerY: xyChartNode.chartPanel.centerY
     } );
@@ -93,7 +93,7 @@ class AmplitudesChart extends Node {
     const yAxisLabel = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.amplitudeSymbol, {
       symbol: FMWSymbols.CAPITAL_A
     } ), {
-      font: FourierMakingWavesConstants.AXIS_LABEL_FONT,
+      font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
       right: xyChartNode.left - 10,
       centerY: xyChartNode.chartPanel.centerY

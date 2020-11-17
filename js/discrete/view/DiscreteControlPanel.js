@@ -9,16 +9,16 @@
 import merge from '../../../../phet-core/js/merge.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import HSeparator from '../../../../sun/js/HSeparator.js';
-import FourierMakingWavesColorProfile from '../../common/FourierMakingWavesColorProfile.js';
-import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
-import FourierMakingWavesPanel from '../../common/view/FourierMakingWavesPanel.js';
+import FMWColorProfile from '../../common/FMWColorProfile.js';
+import FMWConstants from '../../common/FMWConstants.js';
+import FMWPanel from '../../common/view/FMWPanel.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import GraphControlsLayoutBox from './GraphControlsLayoutBox.js';
 import MathFormLayoutBox from './MathFormLayoutBox.js';
 import MeasurementToolsLayoutBox from './MeasurementToolsLayoutBox.js';
 import PresetFunctionLayoutBox from './PresetFunctionLayoutBox.js';
 
-class DiscreteControlPanel extends FourierMakingWavesPanel {
+class DiscreteControlPanel extends FMWPanel {
 
   /**
    * @param {DiscreteModel} model
@@ -28,18 +28,18 @@ class DiscreteControlPanel extends FourierMakingWavesPanel {
    */
   constructor( model, mathFormExpandedSumProperty, popupParent, options ) {
 
-    options = merge( {}, FourierMakingWavesConstants.PANEL_OPTIONS, {
-      fixedWidth: FourierMakingWavesConstants.CONTROL_PANEL_WIDTH,
+    options = merge( {}, FMWConstants.PANEL_OPTIONS, {
+      fixedWidth: FMWConstants.CONTROL_PANEL_WIDTH,
       align: 'center'
     }, options );
 
     const separatorWidth = options.fixedWidth - ( 2 * options.xMargin );
 
     const separatorOptions = {
-      stroke: FourierMakingWavesColorProfile.separatorStrokeProperty
+      stroke: FMWColorProfile.separatorStrokeProperty
     };
 
-    const content = new VBox( merge( {}, FourierMakingWavesConstants.VBOX_OPTIONS, {
+    const content = new VBox( merge( {}, FMWConstants.VBOX_OPTIONS, {
       children: [
         new PresetFunctionLayoutBox( model.presetFunctionProperty, model.fourierSeries.numberOfHarmonicsProperty, popupParent ),
         new HSeparator( separatorWidth, separatorOptions ),

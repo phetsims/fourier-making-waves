@@ -11,7 +11,7 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
-import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
@@ -33,15 +33,15 @@ class GraphControlsLayoutBox extends VBox {
     assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
-    options = merge( {}, FourierMakingWavesConstants.VBOX_OPTIONS, options );
+    options = merge( {}, FMWConstants.VBOX_OPTIONS, options );
 
     // Graph Controls
     const titleText = new Text( fourierMakingWavesStrings.graphControls, {
-      font: FourierMakingWavesConstants.TITLE_FONT
+      font: FMWConstants.TITLE_FONT
     } );
 
     const functionOfText = new Text( fourierMakingWavesStrings.functionOf, {
-      font: FourierMakingWavesConstants.CONTROL_FONT
+      font: FMWConstants.CONTROL_FONT
     } );
 
     const domainComboBox = new DomainComboBox( domainProperty, popupParent );

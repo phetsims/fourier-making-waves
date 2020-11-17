@@ -12,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import FourierMakingWavesColorProfile from '../FourierMakingWavesColorProfile.js';
+import FMWColorProfile from '../FMWColorProfile.js';
 import Harmonic from './Harmonic.js';
 
 // constants
@@ -47,7 +47,7 @@ class FourierSeries extends PhetioObject {
     // @public {Harmonic[]} with order numbered from 1
     this.harmonics = [];
     for ( let order = 1; order <= this.numberOfHarmonicsProperty.range.max; order++ ) {
-      const colorProperty = FourierMakingWavesColorProfile.getHarmonicColorProperty( order );
+      const colorProperty = FMWColorProfile.getHarmonicColorProperty( order );
       this.harmonics.push( new Harmonic( order, colorProperty, this.amplitudeRange, {
         range: this.amplitudeRange,
         tandem: options.tandem.createTandem( `harmonic${order}` )

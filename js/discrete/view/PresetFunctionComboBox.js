@@ -12,7 +12,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
-import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import PresetFunction from '../model/PresetFunction.js';
@@ -29,10 +29,10 @@ class PresetFunctionComboBox extends ComboBox {
     assert && AssertUtils.assertEnumerationPropertyOf( presetFunctionProperty, PresetFunction );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
-    options = merge( {}, FourierMakingWavesConstants.COMBO_BOX_OPTIONS, options );
+    options = merge( {}, FMWConstants.COMBO_BOX_OPTIONS, options );
 
     const textOptions = {
-      font: FourierMakingWavesConstants.CONTROL_FONT
+      font: FMWConstants.CONTROL_FONT
     };
 
     const items = [

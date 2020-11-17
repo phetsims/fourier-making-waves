@@ -17,7 +17,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
-import FourierMakingWavesConstants from '../../common/FourierMakingWavesConstants.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -31,7 +31,7 @@ const NUMBER_SPINNER_OPTIONS = {
     useRichText: true,
     cornerRadius: 3,
     textOptions: {
-      font: FourierMakingWavesConstants.CONTROL_FONT
+      font: FMWConstants.CONTROL_FONT
     }
   }
 };
@@ -58,11 +58,11 @@ class MeasurementToolsLayoutBox extends VBox {
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
-    options = merge( {}, FourierMakingWavesConstants.VBOX_OPTIONS, options );
+    options = merge( {}, FMWConstants.VBOX_OPTIONS, options );
 
     // Measurement Tools
     const titleText = new Text( fourierMakingWavesStrings.measurementTools, {
-      font: FourierMakingWavesConstants.TITLE_FONT
+      font: FMWConstants.TITLE_FONT
     } );
 
     const alignBoxOptions = {
@@ -76,9 +76,9 @@ class MeasurementToolsLayoutBox extends VBox {
 
     // Wavelength
     const wavelengthText = new Text( fourierMakingWavesStrings.wavelength, {
-      font: FourierMakingWavesConstants.CONTROL_FONT
+      font: FMWConstants.CONTROL_FONT
     } );
-    const wavelengthCheckbox = new Checkbox( wavelengthText, wavelengthToolEnabledProperty, FourierMakingWavesConstants.CHECKBOX_OPTIONS );
+    const wavelengthCheckbox = new Checkbox( wavelengthText, wavelengthToolEnabledProperty, FMWConstants.CHECKBOX_OPTIONS );
     const wavelengthSpinner = new NumberSpinner( selectedWavelengthProperty, selectedWavelengthProperty.rangeProperty, merge( {}, {
       numberDisplayOptions: {
         numberFormatter: order => StringUtils.fillIn( fourierMakingWavesStrings.wavelengthOrder, {
@@ -93,9 +93,9 @@ class MeasurementToolsLayoutBox extends VBox {
 
     // Period
     const periodText = new Text( fourierMakingWavesStrings.period, {
-      font: FourierMakingWavesConstants.CONTROL_FONT
+      font: FMWConstants.CONTROL_FONT
     } );
-    const periodCheckbox = new Checkbox( periodText, periodToolEnabledProperty, FourierMakingWavesConstants.CHECKBOX_OPTIONS );
+    const periodCheckbox = new Checkbox( periodText, periodToolEnabledProperty, FMWConstants.CHECKBOX_OPTIONS );
     const periodSpinner = new NumberSpinner( selectedPeriodProperty, selectedPeriodProperty.rangeProperty, merge( {}, {
       numberDisplayOptions: {
         numberFormatter: order => StringUtils.fillIn( fourierMakingWavesStrings.periodOrder, {
