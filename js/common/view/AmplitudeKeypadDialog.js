@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -34,11 +35,13 @@ class AmplitudeKeypadDialog extends Dialog {
 
   /**
    * @param {Range} amplitudeRange
+   * @param {Bounds2} layoutBounds
    * @param {Object} [options]
    */
-  constructor( amplitudeRange, options ) {
+  constructor( amplitudeRange, layoutBounds, options ) {
 
     assert && assert( amplitudeRange instanceof Range, 'invalid amplitudeRange' );
+    assert && assert( layoutBounds instanceof Bounds2, 'invalid layoutBounds' );
 
     options = merge( {
       order: 1,
@@ -48,7 +51,11 @@ class AmplitudeKeypadDialog extends Dialog {
       fill: 'rgb( 240, 240, 240 )',
       stroke: 'rgb( 50, 50, 50 )',
       closeButtonLength: 12,
-      cornerRadius: FMWConstants.PANEL_CORNER_RADIUS
+      cornerRadius: FMWConstants.PANEL_CORNER_RADIUS,
+      layoutStrategy: ( dialog, simBounds, screenBounds, scale ) => {
+        dialog.centerX = layoutBounds.centerX;
+        dialog.centerY = layoutBounds.centerY + 50;
+      }
     }, options );
 
     const maxDigits = Math.max(

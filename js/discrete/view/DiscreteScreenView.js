@@ -51,12 +51,7 @@ class DiscreteScreenView extends ScreenView {
     const popupParent = new Node();
 
     // KeypadDialog
-    const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, {
-      layoutStrategy: ( dialog, simBounds, screenBounds, scale ) => {
-        dialog.centerX = this.layoutBounds.centerX;
-        dialog.centerY = this.layoutBounds.centerY + 50;
-      }
-    } );
+    const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, this.layoutBounds );
 
     const amplitudesChart = new AmplitudesChart( model.fourierSeries, amplitudeKeypadDialog, {
       tandem: tandem.createTandem( 'amplitudesChart' )
