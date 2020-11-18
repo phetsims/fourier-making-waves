@@ -71,23 +71,17 @@ class AmplitudeNumberDisplay extends VBox {
 
     this.addInputListener( new PressListener( {
       press: () => {
+
         const restoreBackgroundFill = numberDisplay.getBackgroundFill();
         numberDisplay.setBackgroundFill( PhetColorScheme.BUTTON_YELLOW );
-        amplitudeKeypadDialog.clearKeypad();
-        amplitudeKeypadDialog.setOrder( harmonic.order );
-        amplitudeKeypadDialog.show();
 
-        // Update the harmonic's amplitude when the dialog is closed, and remove this listener.
-        const isShowingListener = isShowing => {
-          assert && assert( !isShowing, 'unexpected isShowing value' );
-          numberDisplay.setBackgroundFill( restoreBackgroundFill );
-          const keypadValue = amplitudeKeypadDialog.getKeypadValue();
-          if ( keypadValue !== null ) {
-            harmonic.amplitudeProperty.value = keypadValue;
-          }
-          amplitudeKeypadDialog.isShowingProperty.unlink( isShowingListener );
+        const enterCallback = amplitude => {
+          harmonic.amplitudeProperty.value = amplitude;
         };
-        amplitudeKeypadDialog.isShowingProperty.lazyLink( isShowingListener );
+        const closeCallback = () => {
+          numberDisplay.setBackgroundFill( restoreBackgroundFill );
+        };
+        amplitudeKeypadDialog.show( harmonic.order, enterCallback, closeCallback );
       }
     } ) );
   }

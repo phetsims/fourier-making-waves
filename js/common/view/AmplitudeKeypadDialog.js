@@ -10,6 +10,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Keypad from '../../../../scenery-phet/js/keypad/Keypad.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
@@ -30,8 +31,8 @@ import StringDisplay from './StringDisplay.js';
 const TITLE_FONT = new PhetFont( 18 );
 const BUTTON_FONT = new PhetFont( 16 );
 const VALUE_FONT = new PhetFont( 14 );
-const GOOD_VALUE_FILL = 'black';
-const BAD_VALUE_FILL = 'red';
+const VALID_VALUE_FILL = 'black';
+const INVALID_VALUE_FILL = 'red';
 
 class AmplitudeKeypadDialog extends Dialog {
 
@@ -60,6 +61,7 @@ class AmplitudeKeypadDialog extends Dialog {
       }
     }, options );
 
+    // Compute the maximum number of digits that can be entered on the keypad.
     const maxDigits = Math.max(
       Utils.toFixed( amplitudeRange.min, FMWConstants.AMPLITUDE_DECIMAL_PLACES ).replace( /[^0-9]/g, '' ).length,
       Utils.toFixed( amplitudeRange.max, FMWConstants.AMPLITUDE_DECIMAL_PLACES ).replace( /[^0-9]/g, '' ).length
@@ -73,11 +75,13 @@ class AmplitudeKeypadDialog extends Dialog {
       buttonFont: BUTTON_FONT
     } );
 
-    const titleFont = new RichText( '', {
+    // Title indicates which amplitude we're editing, e.g. A<sub>2</sub>.
+    const titleNode = new RichText( '', {
       font: TITLE_FONT,
       maxWidth: keypad.width
     } );
 
+    // Range of valid values is shown
     const rangeNode = new Text( StringUtils.fillIn( fourierMakingWavesStrings.minToMax, {
         min: Utils.toFixedNumber( amplitudeRange.min, FMWConstants.AMPLITUDE_DECIMAL_PLACES ),
         max: Utils.toFixedNumber( amplitudeRange.max, FMWConstants.AMPLITUDE_DECIMAL_PLACES )
@@ -86,6 +90,7 @@ class AmplitudeKeypadDialog extends Dialog {
         maxWidth: keypad.width
       } );
 
+    // Displays what has been entered on the keypad
     const stringDisplay = new StringDisplay( keypad.stringProperty, {
       width: keypad.width,
       height: 2 * rangeNode.height,
@@ -97,86 +102,106 @@ class AmplitudeKeypadDialog extends Dialog {
       }
     } );
 
+    // Enter button processes what has been entered on the keypad 
     const enterButton = new RectangularPushButton( {
-      listener: () => {
-        const value = this.getKeypadValue();
-        if ( value === null ) {
-
-          // Nothing has been entered, do nothing.
-        }
-        else if ( amplitudeRange.contains( value ) ) {
-
-          // Nothing was entered or a valid value was entered.
-          this.hide();
-        }
-        else {
-
-          // Indicate that the value is bad by making the value and range red.
-          stringDisplay.setStringFill( BAD_VALUE_FILL );
-          rangeNode.fill = BAD_VALUE_FILL;
-        }
-      },
       baseColor: PhetColorScheme.BUTTON_YELLOW,
       content: new Text( fourierMakingWavesStrings.enter, {
         font: BUTTON_FONT,
         maxWidth: keypad.width
-      } )
+      } ),
+      listener: () => {
+        const value = this.keypad.valueProperty.value;
+        if ( value === null ) {
+
+          // Nothing was entered, so do nothing.
+        }
+        else if ( amplitudeRange.contains( value ) ) {
+
+          // A valid value was entered. Provide the value to the client and close the dialog.
+          this.enterCallback( value );
+          this.hide();
+        }
+        else {
+
+          // An invalid value was entered, indicate by highlighting the value and range.
+          stringDisplay.setStringFill( INVALID_VALUE_FILL );
+          rangeNode.fill = INVALID_VALUE_FILL;
+        }
+      }
     } );
 
     // When any key is pressed, restore colors.
     keypad.accumulatedKeysProperty.link( () => {
-      stringDisplay.setStringFill( GOOD_VALUE_FILL );
-      rangeNode.fill = GOOD_VALUE_FILL;
+      stringDisplay.setStringFill( VALID_VALUE_FILL );
+      rangeNode.fill = VALID_VALUE_FILL;
     } );
 
     const content = new VBox( {
       spacing: 10,
       align: 'center',
-      children: [ titleFont, rangeNode, stringDisplay, keypad, enterButton ]
+      children: [ titleNode, rangeNode, stringDisplay, keypad, enterButton ]
     } );
-
-    assert && assert( !options.closeButtonListener, 'AmplitudeKeypadDialog sets closeButtonListener' );
-    options.closeButtonListener = () => {
-      this.clearKeypad();
-      this.hide();
-    };
 
     super( content, options );
 
     // @private
-    this.titleFont = titleFont;
+    this.titleNode = titleNode;
     this.keypad = keypad;
+    
+    // @private {function(amplitude:number)|null} called when the Enter button fires
+    this.enterCallback = null;
+
+    // @private {function|null} called when the dialog has been closed
+    this.closeCallback = null;
 
     this.setOrder( options.order );
   }
 
   /**
+   * Shows the dialog.
+   * @param {number} order - the order of the harmonic
+   * @param {function(amplitude:number)} enterCallback - called when the Enter button fires
+   * @param {function} closeCallback - called when the dialog has been closed
+   * @public
+   * @override
+   */
+  show( order, enterCallback, closeCallback ) {
+    assert && AssertUtils.assertPositiveInteger( order );
+    assert && assert( typeof enterCallback === 'function', 'invalid enterCallback' );
+    assert && assert( typeof closeCallback === 'function', 'invalid closeCallback' );
+
+    this.setOrder( order );
+    this.enterCallback = enterCallback;
+    this.closeCallback = closeCallback;
+    this.keypad.clear();
+    super.show();
+  }
+
+  /**
+   * Hides the dialog.
+   * @public
+   * @override
+   */
+  hide() {
+    super.hide();
+    this.closeCallback();
+    this.enterCallback = null;
+    this.closeCallback = null;
+    this.keypad.clear();
+  }
+  
+  /**
    * Sets the order of the harmonic that we're editing, as displayed in the title.
    * @param {number} order
-   * @public
+   * @private
    */
   setOrder( order ) {
-    this.titleFont.text = StringUtils.fillIn( fourierMakingWavesStrings.amplitudeSymbolOrder, {
+    assert && AssertUtils.assertPositiveInteger( order );
+
+    this.titleNode.text = StringUtils.fillIn( fourierMakingWavesStrings.amplitudeSymbolOrder, {
       symbol: FMWSymbols.CAPITAL_A,
       order: order
     } );
-  }
-
-  /**
-   * Clears the keypad.
-   * @public
-   */
-  clearKeypad() {
-    this.keypad.clear();
-  }
-
-  /**
-   * Gets the value entered on the keypad, null if no value was entered.
-   * @returns {number|null}
-   * @public
-   */
-  getKeypadValue() {
-    return this.keypad.valueProperty.value;
   }
 
   /**
