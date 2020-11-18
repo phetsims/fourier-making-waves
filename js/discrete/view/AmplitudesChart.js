@@ -8,8 +8,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import XYChartNode from '../../../../griddle/js/XYChartNode.js';
+import ChartModel from '../../../../griddle/js/bamboo/ChartModel.js';
+import ChartRectangle from '../../../../griddle/js/bamboo/ChartRectangle.js';
+import GridLineSet from '../../../../griddle/js/bamboo/GridLineSet.js';
+import LabelSet from '../../../../griddle/js/bamboo/LabelSet.js';
 import merge from '../../../../phet-core/js/merge.js';
+import Orientation from '../../../../phet-core/js/Orientation.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
@@ -20,8 +24,8 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import FourierSeries from '../../common/model/FourierSeries.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import AmplitudeNumberDisplay from '../../common/view/AmplitudeNumberDisplay.js';
 import AmplitudeSlider from '../../common/view/AmplitudeSlider.js';
@@ -50,47 +54,25 @@ class AmplitudesChart extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // The XYChartNode is just used to render the chart area, not for rendering any data sets.  The AmplitudeSlider
-    // instances will be added to it as children.
-    //TODO replace XYChartNode with bamboo components
-    const xyChartNode = new XYChartNode( {
+    const chartModel = new ChartModel( CHART_VIEW_WIDTH, CHART_VIEW_HEIGHT, {
+      modelXRange: fourierSeries.numberOfHarmonicsProperty.range,
+      modelYRange: fourierSeries.amplitudeRange
+    } );
 
-      // Dimensions
-      width: CHART_VIEW_WIDTH,
-      height: CHART_VIEW_HEIGHT,
+    const chartRectangle = new ChartRectangle( chartModel );
 
-      cornerRadius: 0,
+    const yGridLineSet = new GridLineSet( chartModel, Orientation.VERTICAL, 0.5, {
+      stroke: new Color( 0, 0, 0, 0.3 )
+    } );
 
-      // Use the same range as the amplitudes.
-      defaultModelYRange: fourierSeries.amplitudeRange,
-
-      // Border for the chart.
-      chartPanelOptions: {
-        lineWidth: 2,
-        stroke: null,
-        fill: null
-      },
-
-      showHorizontalGridLabels: false,
-      verticalGridLabelNumberOfDecimalPlaces: 1,
-      majorHorizontalLineSpacing: 0.5,
-      gridNodeOptions: {
-
-        // Don't show vertical lines within the chart
-        majorVerticalLineSpacing: null,
-        majorLineOptions: {
-          stroke: new Color( 0, 0, 0, 0.3 )
-        }
-      },
-      gridLabelOptions: {
-        font: FMWConstants.TICK_LABEL_FONT
-      }
+    const yLabelSet = new LabelSet( chartModel, Orientation.VERTICAL, 0.5, {
+      edge: 'min'
     } );
 
     const xAxisLabel = new Text( FMWSymbols.SMALL_N, {
       font: FMWConstants.AXIS_LABEL_FONT,
-      left: xyChartNode.right + 10,
-      centerY: xyChartNode.chartPanel.centerY
+      left: chartRectangle.right + 10,
+      centerY: chartRectangle.centerY
     } );
 
     const yAxisLabel = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.amplitudeSymbol, {
@@ -98,8 +80,8 @@ class AmplitudesChart extends Node {
     } ), {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
-      right: xyChartNode.left - 10,
-      centerY: xyChartNode.chartPanel.centerY
+      right: yLabelSet.left - 10,
+      centerY: chartRectangle.centerY
     } );
 
     // To make sliders and number displays have the same effective width
@@ -131,7 +113,7 @@ class AmplitudesChart extends Node {
     const numberOfComponents = fourierSeries.harmonics.length;
     const componentWidth = sliders[ 0 ].width;
     const margin = 10;
-    const spacing = ( xyChartNode.chartPanel.width - numberOfComponents * componentWidth - 2 * margin ) / ( numberOfComponents - 1 );
+    const spacing = ( chartRectangle.width - numberOfComponents * componentWidth - 2 * margin ) / ( numberOfComponents - 1 );
     assert && assert( spacing > 0, `invalid spacing: ${spacing}` );
 
     // Lay out the sliders
@@ -139,7 +121,7 @@ class AmplitudesChart extends Node {
       excludeInvisibleChildrenFromBounds: false,
       children: sliders,
       spacing: spacing,
-      center: xyChartNode.chartPanel.center
+      center: chartRectangle.center
     } );
 
     // Lay out the NumberDisplays
@@ -147,13 +129,13 @@ class AmplitudesChart extends Node {
       excludeInvisibleChildrenFromBounds: false,
       children: numberDisplays,
       spacing: spacing,
-      centerX: xyChartNode.chartPanel.centerX,
-      bottom: xyChartNode.chartPanel.top - 10
+      centerX: chartRectangle.centerX,
+      bottom: chartRectangle.top - 10
     } );
 
     assert && assert( !options.children, 'AmplitudesChart sets children' );
     options.children = [ numberDisplaysLayoutBox, new Node( {
-      children: [ xyChartNode, xAxisLabel, yAxisLabel, slidersLayoutBox, numberDisplaysLayoutBox ]
+      children: [ chartRectangle, yGridLineSet, yLabelSet, xAxisLabel, yAxisLabel, slidersLayoutBox, numberDisplaysLayoutBox ]
     } ) ];
 
     super( options );
