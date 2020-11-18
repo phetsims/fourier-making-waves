@@ -53,8 +53,8 @@ class DiscreteScreenView extends ScreenView {
     // KeypadDialog
     const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, {
       layoutStrategy: ( dialog, simBounds, screenBounds, scale ) => {
-        dialog.right = this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
-        dialog.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
+        dialog.centerX = this.layoutBounds.centerX;
+        dialog.centerY = this.layoutBounds.centerY + 50;
       }
     } );
 

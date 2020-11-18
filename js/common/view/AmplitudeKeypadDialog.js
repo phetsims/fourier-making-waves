@@ -46,8 +46,9 @@ class AmplitudeKeypadDialog extends Dialog {
 
       // Dialog options
       fill: 'rgb( 240, 240, 240 )',
-      stroke: 'rgb( 190, 190, 190 )',
-      closeButtonLength: 12
+      stroke: 'rgb( 50, 50, 50 )',
+      closeButtonLength: 12,
+      cornerRadius: FMWConstants.PANEL_CORNER_RADIUS
     }, options );
 
     const maxDigits = Math.max(
