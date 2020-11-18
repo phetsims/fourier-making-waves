@@ -72,16 +72,19 @@ class AmplitudeNumberDisplay extends VBox {
     this.addInputListener( new PressListener( {
       press: () => {
 
+        // Change the background fill to indicate which amplitude we're editing.
         const restoreBackgroundFill = numberDisplay.getBackgroundFill();
         numberDisplay.setBackgroundFill( PhetColorScheme.BUTTON_YELLOW );
 
-        const enterCallback = amplitude => {
-          harmonic.amplitudeProperty.value = amplitude;
-        };
-        const closeCallback = () => {
-          numberDisplay.setBackgroundFill( restoreBackgroundFill );
-        };
-        amplitudeKeypadDialog.show( harmonic.order, enterCallback, closeCallback );
+        // Open the keypad dialog.
+        amplitudeKeypadDialog.show( harmonic.order,
+
+          // enterCallback
+          amplitude => { harmonic.amplitudeProperty.value = amplitude; },
+
+          // closeCallback
+          () => numberDisplay.setBackgroundFill( restoreBackgroundFill )
+        );
       }
     } ) );
   }
