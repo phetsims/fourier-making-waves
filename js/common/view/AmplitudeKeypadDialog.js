@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * TODO
+ * AmplitudeKeypadDialog is a Dialog that provides a keypad for entering an amplitude value.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
