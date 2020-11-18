@@ -99,7 +99,11 @@ class AmplitudeKeypadDialog extends Dialog {
     const enterButton = new RectangularPushButton( {
       listener: () => {
         const value = this.getKeypadValue();
-        if ( value === null || amplitudeRange.contains( value ) ) {
+        if ( value === null ) {
+
+          // Nothing has been entered, do nothing.
+        }
+        else if ( amplitudeRange.contains( value ) ) {
 
           // Nothing was entered or a valid value was entered.
           this.hide();
