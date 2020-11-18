@@ -103,5 +103,11 @@
   },
   "infiniteHarmonics": {
     "value": "Infinite Harmonics"
+  },
+  "minToMax": {
+    "value": "{{min}} to {{max}}"
+  },
+  "enter": {
+    "value": "Enter"
   }
 }

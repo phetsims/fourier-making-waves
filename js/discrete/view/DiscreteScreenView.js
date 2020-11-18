@@ -17,6 +17,7 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import ExpandCollapseButton from '../../../../sun/js/ExpandCollapseButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
@@ -49,7 +50,15 @@ class DiscreteScreenView extends ScreenView {
     // Parent for all popups (listbox, keypad, etc.)
     const popupParent = new Node();
 
-    const amplitudesChart = new AmplitudesChart( model.fourierSeries, {
+    // KeypadDialog
+    const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, {
+      layoutStrategy: ( dialog, simBounds, screenBounds, scale ) => {
+        dialog.right = this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
+        dialog.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
+      }
+    } );
+
+    const amplitudesChart = new AmplitudesChart( model.fourierSeries, amplitudeKeypadDialog, {
       tandem: tandem.createTandem( 'amplitudesChart' )
     } );
 

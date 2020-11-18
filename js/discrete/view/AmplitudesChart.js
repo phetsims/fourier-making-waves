@@ -22,6 +22,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
+import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import AmplitudeNumberDisplay from '../../common/view/AmplitudeNumberDisplay.js';
 import AmplitudeSlider from '../../common/view/AmplitudeSlider.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -35,11 +36,13 @@ class AmplitudesChart extends Node {
 
   /**
    * @param {FourierSeries} fourierSeries
+   * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog
    * @param {Object} [options]
    */
-  constructor( fourierSeries, options ) {
+  constructor( fourierSeries, amplitudeKeypadDialog, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
+    assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog, 'invalid amplitudeKeypadDialog' );
 
     options = merge( {
 
@@ -118,7 +121,7 @@ class AmplitudesChart extends Node {
 
     // Create a number display for each harmonic's amplitude
     const numberDisplays = _.map( fourierSeries.harmonics, harmonic =>
-      new AlignBox( new AmplitudeNumberDisplay( harmonic, {
+      new AlignBox( new AmplitudeNumberDisplay( harmonic, amplitudeKeypadDialog, {
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}NumberDisplay` ),
         phetioReadOnly: true
       } ), alignBoxOptions )
