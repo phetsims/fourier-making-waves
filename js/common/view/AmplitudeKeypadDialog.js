@@ -47,8 +47,6 @@ class AmplitudeKeypadDialog extends Dialog {
     assert && assert( layoutBounds instanceof Bounds2, 'invalid layoutBounds' );
 
     options = merge( {
-      order: 1,
-      amplitude: 0,
 
       // Dialog options
       fill: FMWColorProfile.panelFillProperty,
@@ -56,6 +54,8 @@ class AmplitudeKeypadDialog extends Dialog {
       closeButtonLength: 12,
       cornerRadius: FMWConstants.PANEL_CORNER_RADIUS,
       layoutStrategy: ( dialog, simBounds, screenBounds, scale ) => {
+
+        // a little below center in the layoutBounds
         dialog.centerX = layoutBounds.centerX;
         dialog.centerY = layoutBounds.centerY + 50;
       }
@@ -83,12 +83,12 @@ class AmplitudeKeypadDialog extends Dialog {
 
     // Range of valid values is shown
     const rangeNode = new Text( StringUtils.fillIn( fourierMakingWavesStrings.minToMax, {
-        min: Utils.toFixedNumber( amplitudeRange.min, FMWConstants.AMPLITUDE_DECIMAL_PLACES ),
-        max: Utils.toFixedNumber( amplitudeRange.max, FMWConstants.AMPLITUDE_DECIMAL_PLACES )
-      } ), {
-        font: VALUE_FONT,
-        maxWidth: keypad.width
-      } );
+      min: Utils.toFixedNumber( amplitudeRange.min, FMWConstants.AMPLITUDE_DECIMAL_PLACES ),
+      max: Utils.toFixedNumber( amplitudeRange.max, FMWConstants.AMPLITUDE_DECIMAL_PLACES )
+    } ), {
+      font: VALUE_FONT,
+      maxWidth: keypad.width
+    } );
 
     // Displays what has been entered on the keypad
     const stringDisplay = new StringDisplay( keypad.stringProperty, {
@@ -108,32 +108,7 @@ class AmplitudeKeypadDialog extends Dialog {
       content: new Text( fourierMakingWavesStrings.enter, {
         font: BUTTON_FONT,
         maxWidth: keypad.width
-      } ),
-      listener: () => {
-        const value = this.keypad.valueProperty.value;
-        if ( value === null ) {
-
-          // Nothing was entered, so do nothing.
-        }
-        else if ( amplitudeRange.contains( value ) ) {
-
-          // A valid value was entered. Provide the value to the client and close the dialog.
-          this.enterCallback( value );
-          this.hide();
-        }
-        else {
-
-          // An invalid value was entered, indicate by highlighting the value and range.
-          stringDisplay.setStringFill( INVALID_VALUE_FILL );
-          rangeNode.fill = INVALID_VALUE_FILL;
-        }
-      }
-    } );
-
-    // When any key is pressed, restore colors.
-    keypad.accumulatedKeysProperty.link( () => {
-      stringDisplay.setStringFill( VALID_VALUE_FILL );
-      rangeNode.fill = VALID_VALUE_FILL;
+      } )
     } );
 
     const content = new VBox( {
@@ -145,16 +120,41 @@ class AmplitudeKeypadDialog extends Dialog {
     super( content, options );
 
     // @private
-    this.titleNode = titleNode;
     this.keypad = keypad;
-    
+    this.titleNode = titleNode;
+
     // @private {function(amplitude:number)|null} called when the Enter button fires
     this.enterCallback = null;
 
     // @private {function|null} called when the dialog has been closed
     this.closeCallback = null;
 
-    this.setOrder( options.order );
+    // When the Enter button fires...
+    enterButton.addListener( () => {
+      const value = this.keypad.valueProperty.value;
+      if ( value === null ) {
+
+        // Nothing was entered, so do nothing.
+      }
+      else if ( amplitudeRange.contains( value ) ) {
+
+        // A valid value was entered. Provide the value to the client and close the dialog.
+        this.enterCallback( value );
+        this.hide();
+      }
+      else {
+
+        // An invalid value was entered, indicate by highlighting the value and range.
+        stringDisplay.setStringFill( INVALID_VALUE_FILL );
+        rangeNode.fill = INVALID_VALUE_FILL;
+      }
+    } );
+
+    // When any key is pressed, restore colors.
+    keypad.accumulatedKeysProperty.link( () => {
+      stringDisplay.setStringFill( VALID_VALUE_FILL );
+      rangeNode.fill = VALID_VALUE_FILL;
+    } );
   }
 
   /**
@@ -189,7 +189,7 @@ class AmplitudeKeypadDialog extends Dialog {
     this.closeCallback = null;
     this.keypad.clear();
   }
-  
+
   /**
    * Sets the order of the harmonic that we're editing, as displayed in the title.
    * @param {number} order
