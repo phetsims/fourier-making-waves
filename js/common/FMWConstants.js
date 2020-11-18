@@ -60,7 +60,8 @@ const FMWConstants = {
   TICK_LABEL_FONT: new PhetFont( 12 ),
 
   // Number of decimal places wherever amplitude is displayed
-  AMPLITUDE_DECIMAL_PLACES: 2
+  AMPLITUDE_DECIMAL_PLACES: 2,
+  AMPLITUDE_SLIDER_SNAP_INTERVAL: 0.05
 };
 
 fourierMakingWaves.register( 'FMWConstants', FMWConstants );

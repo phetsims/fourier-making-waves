@@ -10,14 +10,17 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
+import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import ColorDef from '../../../../scenery/js/util/ColorDef.js';
 import SliderTrack from '../../../../sun/js/SliderTrack.js';
 import VSlider from '../../../../sun/js/VSlider.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import FMWConstants from '../FMWConstants.js';
 
 // constants
 const LINE_WIDTH = 1;
@@ -35,6 +38,9 @@ class AmplitudeSlider extends VSlider {
     assert && AssertUtils.assertProperty( colorProperty, value => ColorDef.isColorDef( value ) );
 
     options = merge( {
+
+      // {number|null} On end drag, snap to this interval, unless the value is min or max
+      snapInterval: FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL,
 
       // AmplitudeSlider options
       trackWidth: 40,
@@ -59,6 +65,17 @@ class AmplitudeSlider extends VSlider {
 
     assert && assert( !options.thumbNode, 'AmplitudeSlider sets thumbNode' );
     options.thumbNode = thumbNode;
+
+    // Snap to interval
+    if ( options.snapInterval ) {
+      assert && assert( !options.endDrag, 'AmplitudeSlider sets endDrag' );
+      options.endDrag = () => {
+        const amplitude = amplitudeProperty.value;
+        if ( amplitude !== amplitudeRange.min && amplitude !== amplitudeRange.max ) {
+          amplitudeProperty.value = Utils.roundToInterval( amplitude, options.snapInterval );
+        }
+      };
+    }
 
     super( amplitudeProperty, amplitudeRange, options );
 
@@ -106,6 +123,7 @@ class AmplitudeSliderTrack extends SliderTrack {
   /**
    * @param {Property.<number>} amplitudeProperty
    * @param {Range} amplitudeRange
+   * @param {Property.<Color>} colorProperty
    * @param {Object} [options]
    */
   constructor( amplitudeProperty, amplitudeRange, colorProperty, options ) {
@@ -113,7 +131,7 @@ class AmplitudeSliderTrack extends SliderTrack {
     assert && AssertUtils.assertPropertyOf( amplitudeProperty, 'number' );
     assert && assert( amplitudeRange instanceof Range, 'invalid amplitudeRange' );
     assert && assert( amplitudeRange.getCenter() === 0, 'implementation assumes that range is symmetric' );
-    assert && AssertUtils.assertProperty( colorProperty, value => ColorDef.isColorDef( value ) );
+    assert && AssertUtils.assertPropertyOf( colorProperty, Color );
 
     options = merge( {
       trackWidth: 5,
