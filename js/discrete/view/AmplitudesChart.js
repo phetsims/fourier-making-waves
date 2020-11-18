@@ -8,6 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Utils from '../../../../dot/js/Utils.js';
 import ChartModel from '../../../../griddle/js/bamboo/ChartModel.js';
 import ChartRectangle from '../../../../griddle/js/bamboo/ChartRectangle.js';
 import GridLineSet from '../../../../griddle/js/bamboo/GridLineSet.js';
@@ -66,7 +67,8 @@ class AmplitudesChart extends Node {
     } );
 
     const yLabelSet = new LabelSet( chartModel, Orientation.VERTICAL, 0.5, {
-      edge: 'min'
+      edge: 'min',
+      createLabel: value => new Text( Utils.toFixedNumber( value, 1 ), { fontSize: 12 } )
     } );
 
     const xAxisLabel = new Text( FMWSymbols.SMALL_N, {
