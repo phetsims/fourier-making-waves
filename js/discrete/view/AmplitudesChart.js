@@ -8,7 +8,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import ChartModel from '../../../../griddle/js/bamboo/ChartModel.js';
 import ChartRectangle from '../../../../griddle/js/bamboo/ChartRectangle.js';
 import GridLineSet from '../../../../griddle/js/bamboo/GridLineSet.js';
@@ -16,9 +18,6 @@ import LabelSet from '../../../../griddle/js/bamboo/LabelSet.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
-import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
-import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -56,7 +55,7 @@ class AmplitudesChart extends Node {
     }, options );
 
     const chartModel = new ChartModel( CHART_VIEW_WIDTH, CHART_VIEW_HEIGHT, {
-      modelXRange: fourierSeries.numberOfHarmonicsProperty.range,
+      modelXRange: new Range( fourierSeries.numberOfHarmonicsProperty.range.min - 0.5, fourierSeries.numberOfHarmonicsProperty.range.max + 0.5 ),
       modelYRange: fourierSeries.amplitudeRange
     } );
 
@@ -86,59 +85,28 @@ class AmplitudesChart extends Node {
       centerY: chartRectangle.centerY
     } );
 
-    // To make sliders and number displays have the same effective width
-    const alignBoxOptions = {
-      group: new AlignGroup( {
-        matchHorizontal: true,
-        matchVertical: false
-      } )
-    };
-
     // Create a slider for each harmonic's amplitude
     const sliders = _.map( fourierSeries.harmonics, harmonic =>
-      new AlignBox( new AmplitudeSlider( harmonic.amplitudeProperty, harmonic.colorProperty, {
+      new AmplitudeSlider( harmonic.amplitudeProperty, harmonic.colorProperty, {
         trackHeight: CHART_VIEW_HEIGHT,
+        center: chartModel.modelToViewPosition( new Vector2( harmonic.order, 0 ) ),
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` ),
         phetioReadOnly: true
-      } ), alignBoxOptions )
+      } )
     );
 
     // Create a number display for each harmonic's amplitude
     const numberDisplays = _.map( fourierSeries.harmonics, harmonic =>
-      new AlignBox( new AmplitudeNumberDisplay( harmonic, amplitudeKeypadDialog, {
+      new AmplitudeNumberDisplay( harmonic, amplitudeKeypadDialog, {
+        centerX: chartModel.modelToView( Orientation.HORIZONTAL, harmonic.order ),
+        bottom: chartRectangle.top - 10,
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}NumberDisplay` ),
         phetioReadOnly: true
-      } ), alignBoxOptions )
+      } )
     );
 
-    // Compute the horizontal spacing, knowing that the sliders and numberDisplays all have the same effective width.
-    const numberOfComponents = fourierSeries.harmonics.length;
-    const componentWidth = sliders[ 0 ].width;
-    const margin = 10;
-    const spacing = ( chartRectangle.width - numberOfComponents * componentWidth - 2 * margin ) / ( numberOfComponents - 1 );
-    assert && assert( spacing > 0, `invalid spacing: ${spacing}` );
-
-    // Lay out the sliders
-    const slidersLayoutBox = new HBox( {
-      excludeInvisibleChildrenFromBounds: false,
-      children: sliders,
-      spacing: spacing,
-      center: chartRectangle.center
-    } );
-
-    // Lay out the NumberDisplays
-    const numberDisplaysLayoutBox = new HBox( {
-      excludeInvisibleChildrenFromBounds: false,
-      children: numberDisplays,
-      spacing: spacing,
-      centerX: chartRectangle.centerX,
-      bottom: chartRectangle.top - 10
-    } );
-
     assert && assert( !options.children, 'AmplitudesChart sets children' );
-    options.children = [ numberDisplaysLayoutBox, new Node( {
-      children: [ chartRectangle, yGridLineSet, yLabelSet, xAxisLabel, yAxisLabel, slidersLayoutBox, numberDisplaysLayoutBox ]
-    } ) ];
+    options.children = [ chartRectangle, yGridLineSet, yLabelSet, xAxisLabel, yAxisLabel, ...sliders, ...numberDisplays ];
 
     super( options );
 
