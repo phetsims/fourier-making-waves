@@ -20,12 +20,12 @@ const FMWColorProfile = new ColorProfile( [ 'default' ], {
 
   // Fill for all Panels
   panelFill: {
-    default: 'white'
+    default: new Color( 245, 245, 245 )
   },
 
   // Stroke for all Panels
   panelStroke: {
-    default: 'black'
+    default: new Color( 160, 160, 160 )
   },
 
   // Stroke for horizontal separators in Panels

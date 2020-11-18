@@ -21,6 +21,7 @@ import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushBut
 import Dialog from '../../../../sun/js/Dialog.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import StringDisplay from './StringDisplay.js';
@@ -49,8 +50,8 @@ class AmplitudeKeypadDialog extends Dialog {
       amplitude: 0,
 
       // Dialog options
-      fill: 'rgb( 240, 240, 240 )',
-      stroke: 'rgb( 50, 50, 50 )',
+      fill: FMWColorProfile.panelFillProperty,
+      stroke: FMWColorProfile.panelStrokeProperty,
       closeButtonLength: 12,
       cornerRadius: FMWConstants.PANEL_CORNER_RADIUS,
       layoutStrategy: ( dialog, simBounds, screenBounds, scale ) => {
