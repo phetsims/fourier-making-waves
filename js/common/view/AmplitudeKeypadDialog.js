@@ -14,8 +14,6 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Keypad from '../../../../scenery-phet/js/keypad/Keypad.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
@@ -25,11 +23,14 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
+import StringDisplay from './StringDisplay.js';
 
 // constants
 const TITLE_FONT = new PhetFont( 18 );
 const BUTTON_FONT = new PhetFont( 16 );
-const FONT = new PhetFont( 14 );
+const VALUE_FONT = new PhetFont( 14 );
+const GOOD_VALUE_FILL = 'black';
+const BAD_VALUE_FILL = 'red';
 
 class AmplitudeKeypadDialog extends Dialog {
 
@@ -80,47 +81,53 @@ class AmplitudeKeypadDialog extends Dialog {
         min: Utils.toFixedNumber( amplitudeRange.min, FMWConstants.AMPLITUDE_DECIMAL_PLACES ),
         max: Utils.toFixedNumber( amplitudeRange.max, FMWConstants.AMPLITUDE_DECIMAL_PLACES )
       } ), {
-        font: FONT,
+        font: VALUE_FONT,
         maxWidth: keypad.width
       } );
 
-    const valueNode = new Text( '0', {
-      font: FONT,
-      fill: 'black'
-    } );
-
-    const valueBackgroundNode = new Rectangle( 0, 0, keypad.width, 2 * valueNode.height, {
-      cornerRadius: 2,
-      fill: 'white',
-      stroke: 'black'
-    } );
-
-    const valueDisplay = new Node( {
-      children: [ valueBackgroundNode, valueNode ]
+    const stringDisplay = new StringDisplay( keypad.stringProperty, {
+      width: keypad.width,
+      height: 2 * rangeNode.height,
+      rectangleOptions: {
+        cornerRadius: 2
+      },
+      textOptions: {
+        font: VALUE_FONT
+      }
     } );
 
     const enterButton = new RectangularPushButton( {
       listener: () => {
         const value = this.getKeypadValue();
         if ( value === null || amplitudeRange.contains( value ) ) {
+
+          // Nothing was entered or a valid value was entered.
           this.hide();
         }
         else {
-          rangeNode.fill = 'red';
-          valueNode.fill = 'red';
+
+          // Indicate that the value is bad by making the value and range red.
+          stringDisplay.setStringFill( BAD_VALUE_FILL );
+          rangeNode.fill = BAD_VALUE_FILL;
         }
       },
       baseColor: PhetColorScheme.BUTTON_YELLOW,
       content: new Text( fourierMakingWavesStrings.enter, {
-        font: FONT,
+        font: BUTTON_FONT,
         maxWidth: keypad.width
       } )
+    } );
+
+    // When any key is pressed, restore colors.
+    keypad.accumulatedKeysProperty.link( () => {
+      stringDisplay.setStringFill( GOOD_VALUE_FILL );
+      rangeNode.fill = GOOD_VALUE_FILL;
     } );
 
     const content = new VBox( {
       spacing: 10,
       align: 'center',
-      children: [ titleFont, rangeNode, valueDisplay, keypad, enterButton ]
+      children: [ titleFont, rangeNode, stringDisplay, keypad, enterButton ]
     } );
 
     assert && assert( !options.closeButtonListener, 'AmplitudeKeypadDialog sets closeButtonListener' );
@@ -136,16 +143,6 @@ class AmplitudeKeypadDialog extends Dialog {
     this.keypad = keypad;
 
     this.setOrder( options.order );
-
-    this.keypad.stringProperty.link( string => {
-      valueNode.text = string;
-      valueNode.center = valueBackgroundNode.center;
-    } );
-
-    this.keypad.accumulatedKeysProperty.link( () => {
-      rangeNode.fill = 'black';
-      valueNode.fill = 'black';
-    } );
   }
 
   /**
