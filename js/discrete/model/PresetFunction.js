@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * Preset Functions for the 'Discrete' screen.
+ * Preset functions for the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

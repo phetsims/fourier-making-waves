@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * TODO
+ * FourierSeries is the model of a Fourier series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

@@ -1,7 +1,8 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * TODO
+ * HarmonicsChart is the 'Harmonics' chart in the 'Discrete' screen. It renders a plot for each of the harmonics in
+ * the Fourier series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

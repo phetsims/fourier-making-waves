@@ -1,7 +1,8 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * TODO
+ * AutoScaleCheckbox is the checkbox labeled 'autoscale'. Checking it causes the Sum chart's y axis to automatically
+ * scale to fit the entire plot.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
