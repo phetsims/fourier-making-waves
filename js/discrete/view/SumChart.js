@@ -1,7 +1,8 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * TODO
+ * SumChart is the 'Sum' chart in the 'Discrete' screen. It renders 1 plot showing the sum of the harmonics in
+ * the Fourier series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

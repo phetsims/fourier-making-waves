@@ -1,17 +1,20 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * TODO
+ * FourierSeries is the model of a Fourier series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';
@@ -48,7 +51,7 @@ class FourierSeries extends PhetioObject {
       tandem: options.tandem.createTandem( 'numberOfHarmonicsProperty' )
     } );
 
-    // @public {Harmonic[]} with order numbered from 1
+    // @public {Harmonic[]} an instance for each possible harmonic, with order numbered from 1
     this.harmonics = [];
     for ( let order = 1; order <= this.numberOfHarmonicsProperty.range.max; order++ ) {
       const colorProperty = FMWColorProfile.getHarmonicColorProperty( order );
@@ -59,10 +62,25 @@ class FourierSeries extends PhetioObject {
       } ) );
     }
 
-    // Reset amplitudes that are not relevant. unlink is not necessary.
+    // @public {DerivedProperty.<number[]>} amplitudesProperty - amplitudes for the relevant harmonics
+    // This was requested for the PhET-iO API.
+    this.amplitudesProperty = new DerivedProperty(
+      [ this.numberOfHarmonicsProperty, ..._.map( this.harmonics, harmonic => harmonic.amplitudeProperty ) ],
+      numberOfHarmonics => {
+        const amplitudes = [];
+        for ( let i = 0; i < numberOfHarmonics; i++ ) {
+          amplitudes.push( this.harmonics[ i ].amplitudeProperty.value );
+        }
+        return amplitudes;
+      }, {
+        phetioType: DerivedProperty.DerivedPropertyIO( ArrayIO( NumberIO ) ),
+        tandem: options.tandem.createTandem( 'amplitudesProperty' )
+      } );
+
+    // Zero out amplitudes that are not relevant. unlink is not necessary.
     this.numberOfHarmonicsProperty.link( numberOfHarmonics => {
       for ( let i = numberOfHarmonics; i < this.numberOfHarmonicsProperty.range.max; i++ ) {
-        this.harmonics[ i ].reset();
+        this.harmonics[ i ].amplitudeProperty.value = 0;
       }
     } );
   }

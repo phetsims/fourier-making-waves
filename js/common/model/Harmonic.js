@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * TODO
+ * Harmonic is the model of a harmonic in a Fourier series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
