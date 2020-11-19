@@ -77,10 +77,10 @@ class FourierSeries extends PhetioObject {
         tandem: options.tandem.createTandem( 'amplitudesProperty' )
       } );
 
-    // Reset amplitudes that are not relevant. unlink is not necessary.
+    // Zero out amplitudes that are not relevant. unlink is not necessary.
     this.numberOfHarmonicsProperty.link( numberOfHarmonics => {
       for ( let i = numberOfHarmonics; i < this.numberOfHarmonicsProperty.range.max; i++ ) {
-        this.harmonics[ i ].reset();
+        this.harmonics[ i ].amplitudeProperty.value = 0;
       }
     } );
   }
