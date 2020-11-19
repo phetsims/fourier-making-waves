@@ -6,12 +6,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';
@@ -58,6 +61,20 @@ class FourierSeries extends PhetioObject {
         tandem: options.tandem.createTandem( `harmonic${order}` )
       } ) );
     }
+
+    // @public {DerivedProperty.<number[]>} amplitudesProperty - amplitudes for the relevant harmonics
+    this.amplitudesProperty = new DerivedProperty(
+      [ this.numberOfHarmonicsProperty, ..._.map( this.harmonics, harmonic => harmonic.amplitudeProperty ) ],
+      numberOfHarmonics => {
+        const amplitudes = [];
+        for ( let i = 0; i < numberOfHarmonics; i++ ) {
+          amplitudes.push( this.harmonics[ i ].amplitudeProperty.value );
+        }
+        return amplitudes;
+      }, {
+        phetioType: DerivedProperty.DerivedPropertyIO( ArrayIO( NumberIO ) ),
+        tandem: options.tandem.createTandem( 'amplitudesProperty' )
+      } );
 
     // Reset amplitudes that are not relevant. unlink is not necessary.
     this.numberOfHarmonicsProperty.link( numberOfHarmonics => {

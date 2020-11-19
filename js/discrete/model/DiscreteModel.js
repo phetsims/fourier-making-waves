@@ -27,7 +27,7 @@ class DiscreteModel {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @public
-    this.fourierSeries = new FourierSeries( this.numberOfHarmonicsProperty, {
+    this.fourierSeries = new FourierSeries( {
       tandem: tandem.createTandem( 'fourierSeries' )
     } );
 
