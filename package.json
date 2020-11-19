@@ -19,6 +19,9 @@
       "phet-io",
       "adapted-from-phet"
     ],
+    "phetLibs": [
+      "griddle"
+    ],
     "phet-io": {
       "validation": false
     }
