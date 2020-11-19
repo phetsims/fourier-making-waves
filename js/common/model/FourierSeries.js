@@ -51,7 +51,7 @@ class FourierSeries extends PhetioObject {
       tandem: options.tandem.createTandem( 'numberOfHarmonicsProperty' )
     } );
 
-    // @public {Harmonic[]} with order numbered from 1
+    // @public {Harmonic[]} an instance for each possible harmonic, with order numbered from 1
     this.harmonics = [];
     for ( let order = 1; order <= this.numberOfHarmonicsProperty.range.max; order++ ) {
       const colorProperty = FMWColorProfile.getHarmonicColorProperty( order );
