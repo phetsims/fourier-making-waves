@@ -9,6 +9,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
@@ -73,6 +74,37 @@ class DiscreteModel {
       this.selectedWavelengthProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
       this.selectedPeriodProperty.value = Math.min( numberOfHarmonics, this.selectedPeriodProperty.value );
       this.selectedPeriodProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
+    } );
+
+    // Set amplitudes for preset functions. umultilink is not needed.
+    let isSettingPreset = false;
+    Property.multilink(
+      [ this.fourierSeries.numberOfHarmonicsProperty, this.presetFunctionProperty, this.waveTypeProperty ],
+      ( numberOfHarmonics, presetFunction, waveType ) => {
+
+console.log( 'DiscreteModel multilink fired' );//XXX
+
+        if ( presetFunction === PresetFunction.SAWTOOTH && waveType === WaveType.COSINE ) {
+          console.log( 'not possible to make a sawtooth out of cosines, switching to sine' ); //TODO delete this
+          //TODO display a dialog that this is not possible
+          //TODO switch to WaveType.SINE
+        }
+        else if ( presetFunction !== PresetFunction.CUSTOM ) {
+          isSettingPreset = true;
+          const amplitudes = presetFunction.getAmplitudes( numberOfHarmonics, waveType );
+          assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
+          for ( let i = 0; i < numberOfHarmonics; i++ ) {
+            this.fourierSeries.harmonics[ i ].amplitudeProperty.value = amplitudes[ i ];
+          }
+          isSettingPreset = false;
+        }
+      } );
+
+    // If the user directly changes any amplitude value, switch to 'Custom'. unlink is not needed.
+    this.fourierSeries.amplitudesProperty.lazyLink( amplitudes => {
+      if ( !isSettingPreset ) {
+        this.presetFunctionProperty.value = PresetFunction.CUSTOM;
+      }
     } );
   }
 

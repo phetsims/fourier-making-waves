@@ -9,7 +9,6 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -17,13 +16,12 @@ import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColorProfile from '../FMWColorProfile.js';
-import FMWConstants from '../FMWConstants.js';
 import Harmonic from './Harmonic.js';
 
 // constants
 const MAX_HARMONICS = 11;
 //TODO why? see https://github.com/phetsims/fourier-making-waves/issues/11
-const MAX_ABSOLUTE_AMPLITUDE = Utils.toFixedNumber( 4 / Math.PI, FMWConstants.AMPLITUDE_DECIMAL_PLACES );
+const MAX_ABSOLUTE_AMPLITUDE = 4 / Math.PI;
 
 class FourierSeries extends PhetioObject {
 
@@ -56,7 +54,6 @@ class FourierSeries extends PhetioObject {
     for ( let order = 1; order <= this.numberOfHarmonicsProperty.range.max; order++ ) {
       const colorProperty = FMWColorProfile.getHarmonicColorProperty( order );
       this.harmonics.push( new Harmonic( order, colorProperty, this.amplitudeRange, {
-        amplitude: ( order === 1 ) ? 1 : 0,
         range: this.amplitudeRange,
         tandem: options.tandem.createTandem( `harmonic${order}` )
       } ) );

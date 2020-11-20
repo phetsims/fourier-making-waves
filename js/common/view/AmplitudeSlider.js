@@ -52,8 +52,11 @@ class AmplitudeSlider extends VSlider {
     thumbNode.touchArea = thumbNode.localBounds.dilatedXY( 8, 0 );
     thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( 4, 0 );
 
-    // Dynamic range is not supported, so grab the value here.
-    const amplitudeRange = amplitudeProperty.range;
+    // Constrain the range to the desired number of decimal places.
+    const amplitudeRange = new Range(
+      Utils.toFixedNumber( amplitudeProperty.range.min, FMWConstants.AMPLITUDE_DECIMAL_PLACES ),
+      Utils.toFixedNumber( amplitudeProperty.range.max, FMWConstants.AMPLITUDE_DECIMAL_PLACES )
+    );
 
     const trackNode = new AmplitudeSliderTrack( amplitudeProperty, amplitudeRange, colorProperty, {
       trackWidth: options.trackWidth,
