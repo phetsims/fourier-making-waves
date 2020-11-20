@@ -82,8 +82,6 @@ class DiscreteModel {
       [ this.fourierSeries.numberOfHarmonicsProperty, this.presetFunctionProperty, this.waveTypeProperty ],
       ( numberOfHarmonics, presetFunction, waveType ) => {
 
-console.log( 'DiscreteModel multilink fired' );//XXX
-
         if ( presetFunction === PresetFunction.SAWTOOTH && waveType === WaveType.COSINE ) {
           console.log( 'not possible to make a sawtooth out of cosines, switching to sine' ); //TODO delete this
           //TODO display a dialog that this is not possible
