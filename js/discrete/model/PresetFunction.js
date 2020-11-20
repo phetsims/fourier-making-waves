@@ -1,6 +1,6 @@
 // Copyright 2020, University of Colorado Boulder
 
-//TODO equations in Preset.java do not match values, used equations at https://lpsa.swarthmore.edu/Fourier/Series/ExFS.html
+//TODO equations in Preset.java do not match values
 /**
  * Preset functions for the 'Discrete' screen.
  *
