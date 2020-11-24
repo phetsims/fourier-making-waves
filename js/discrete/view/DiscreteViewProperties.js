@@ -32,7 +32,7 @@ class DiscreteViewProperties {
     this.mathFormExpandedSumProperty = new BooleanProperty( false );
 
     // @public whether the sound of the Fourier series is enabled
-    this.soundEnabledProperty = new BooleanProperty( true );
+    this.soundEnabledProperty = new BooleanProperty( false );
 
     // @public volume of the sound for the Fourier series
     this.soundOutputLevelProperty = new NumberProperty( 0.5, {
