@@ -43,7 +43,7 @@ class FourierSoundGenerator extends SoundGenerator {
       this.oscillatorSoundGenerators.push( oscillatorSoundGenerator );
     }
 
-    // unlink is not needed.
+    // Set amplitudes for harmonics. unlink is not needed.
     fourierSeries.amplitudesProperty.link( amplitudes => {
 
       // Set amplitudes for the relevant harmonics
@@ -57,13 +57,13 @@ class FourierSoundGenerator extends SoundGenerator {
       }
     } );
 
-    // unlink is not needed
+    // Set the master output level. unlink is not needed
     outputLevelProperty.link( outputLevel => {
       this.outputLevel = outputLevel;
     } );
 
     //TODO replace this with options.enableControlProperties
-    // unlink is not needed
+    // Turn sound on/off. unlink is not needed
     enabledProperty.link( enabled => enabled ? this.play() : this.stop() );
   }
 
