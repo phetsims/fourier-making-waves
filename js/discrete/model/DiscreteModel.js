@@ -77,7 +77,6 @@ class DiscreteModel {
     } );
 
     // Set amplitudes for preset functions. umultilink is not needed.
-    let isSettingPreset = false;
     Property.multilink(
       [ this.fourierSeries.numberOfHarmonicsProperty, this.presetFunctionProperty, this.waveTypeProperty ],
       ( numberOfHarmonics, presetFunction, waveType ) => {
@@ -88,22 +87,13 @@ class DiscreteModel {
           //TODO switch to WaveType.SINE
         }
         else if ( presetFunction !== PresetFunction.CUSTOM ) {
-          isSettingPreset = true;
           const amplitudes = presetFunction.getAmplitudes( numberOfHarmonics, waveType );
           assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
           for ( let i = 0; i < numberOfHarmonics; i++ ) {
             this.fourierSeries.harmonics[ i ].amplitudeProperty.value = amplitudes[ i ];
           }
-          isSettingPreset = false;
         }
       } );
-
-    // If the user directly changes any amplitude value, switch to 'Custom'. unlink is not needed.
-    this.fourierSeries.amplitudesProperty.lazyLink( amplitudes => {
-      if ( !isSettingPreset ) {
-        this.presetFunctionProperty.value = PresetFunction.CUSTOM;
-      }
-    } );
   }
 
   /**

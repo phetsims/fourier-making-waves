@@ -8,6 +8,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
@@ -15,6 +16,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
+import PresetFunction from '../../discrete/model/PresetFunction.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FMWConstants from '../FMWConstants.js';
@@ -30,12 +32,14 @@ class AmplitudeNumberDisplay extends VBox {
   /**
    * @param {Harmonic} harmonic
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog
+   * @param {EnumerationProperty.<PresetFunction>} presetFunctionProperty
    * @param {Object} [options]
    */
-  constructor( harmonic, amplitudeKeypadDialog, options ) {
+  constructor( harmonic, amplitudeKeypadDialog, presetFunctionProperty, options ) {
 
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
     assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog, 'invalid amplitudeKeypadDialog' );
+    assert && AssertUtils.assertEnumerationPropertyOf( presetFunctionProperty, PresetFunction );
 
     options = merge( {
 
@@ -72,6 +76,9 @@ class AmplitudeNumberDisplay extends VBox {
 
     this.addInputListener( new PressListener( {
       press: () => {
+
+        // When we edit an amplitude, switch to custom.
+        presetFunctionProperty.value = PresetFunction.CUSTOM;
 
         // Change the background fill to indicate which amplitude we're editing.
         const restoreBackgroundFill = numberDisplay.getBackgroundFill();

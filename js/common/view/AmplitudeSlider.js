@@ -19,6 +19,7 @@ import Color from '../../../../scenery/js/util/Color.js';
 import ColorDef from '../../../../scenery/js/util/ColorDef.js';
 import SliderTrack from '../../../../sun/js/SliderTrack.js';
 import VSlider from '../../../../sun/js/VSlider.js';
+import PresetFunction from '../../discrete/model/PresetFunction.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 
@@ -30,12 +31,14 @@ class AmplitudeSlider extends VSlider {
   /**
    * @param {NumberProperty} amplitudeProperty
    * @param {Property.<ColorDef>} colorProperty
+   * @param {EnumerationProperty.<PresetFunction>} presetFunctionProperty
    * @param {Object} [options]
    */
-  constructor( amplitudeProperty, colorProperty, options ) {
+  constructor( amplitudeProperty, colorProperty, presetFunctionProperty, options ) {
 
     assert && assert( amplitudeProperty instanceof NumberProperty, 'invalid amplitudeProperty' );
     assert && AssertUtils.assertProperty( colorProperty, value => ColorDef.isColorDef( value ) );
+    assert && AssertUtils.assertEnumerationPropertyOf( presetFunctionProperty, PresetFunction );
 
     options = merge( {
 
@@ -68,6 +71,12 @@ class AmplitudeSlider extends VSlider {
 
     assert && assert( !options.thumbNode, 'AmplitudeSlider sets thumbNode' );
     options.thumbNode = thumbNode;
+
+    // When we edit an amplitude, switch to custom.
+    assert && assert( !options.startDrag, 'AmplitudeSlider sets startDrag' );
+    options.startDrag = () => {
+      presetFunctionProperty.value = PresetFunction.CUSTOM;
+    };
 
     // Snap to interval
     if ( options.snapInterval ) {

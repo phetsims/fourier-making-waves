@@ -17,6 +17,7 @@ import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -31,6 +32,7 @@ import AmplitudeNumberDisplay from '../../common/view/AmplitudeNumberDisplay.js'
 import AmplitudeSlider from '../../common/view/AmplitudeSlider.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import PresetFunction from '../model/PresetFunction.js';
 
 //TODO set dimensions based on available space
 const CHART_VIEW_WIDTH = 650;
@@ -43,10 +45,11 @@ class AmplitudesChart extends Node {
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog
    * @param {Object} [options]
    */
-  constructor( fourierSeries, amplitudeKeypadDialog, options ) {
+  constructor( fourierSeries, amplitudeKeypadDialog, presetFunctionProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
     assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog, 'invalid amplitudeKeypadDialog' );
+    assert && AssertUtils.assertEnumerationPropertyOf( presetFunctionProperty, PresetFunction );
 
     options = merge( {
 
@@ -87,7 +90,7 @@ class AmplitudesChart extends Node {
 
     // Create a slider for each harmonic's amplitude
     const sliders = _.map( fourierSeries.harmonics, harmonic =>
-      new AmplitudeSlider( harmonic.amplitudeProperty, harmonic.colorProperty, {
+      new AmplitudeSlider( harmonic.amplitudeProperty, harmonic.colorProperty, presetFunctionProperty, {
         trackHeight: CHART_VIEW_HEIGHT,
         center: chartModel.modelToViewPosition( new Vector2( harmonic.order, 0 ) ),
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` ),
@@ -97,7 +100,7 @@ class AmplitudesChart extends Node {
 
     // Create a number display for each harmonic's amplitude
     const numberDisplays = _.map( fourierSeries.harmonics, harmonic =>
-      new AmplitudeNumberDisplay( harmonic, amplitudeKeypadDialog, {
+      new AmplitudeNumberDisplay( harmonic, amplitudeKeypadDialog, presetFunctionProperty, {
         centerX: chartModel.modelToView( Orientation.HORIZONTAL, harmonic.order ),
         bottom: chartRectangle.top - 10,
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}NumberDisplay` ),
