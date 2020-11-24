@@ -15,6 +15,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import ExpandCollapseButton from '../../../../sun/js/ExpandCollapseButton.js';
+import soundManager from '../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
@@ -25,6 +26,7 @@ import Domain from '../model/Domain.js';
 import AmplitudesChart from './AmplitudesChart.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
 import DiscreteViewProperties from './DiscreteViewProperties.js';
+import FourierSoundGenerator from './FourierSoundGenerator.js';
 import HarmonicsChart from './HarmonicsChart.js';
 import SumChart from './SumChart.js';
 
@@ -44,6 +46,11 @@ class DiscreteScreenView extends ScreenView {
 
     // Properties that are specific to the view
     const viewProperties = new DiscreteViewProperties();
+
+    // Sound for the Fourier series
+    const fourierSoundGenerator = new FourierSoundGenerator( model.fourierSeries,
+      viewProperties.soundEnabledProperty, viewProperties.soundOutputLevelProperty );
+    soundManager.addSoundGenerator( fourierSoundGenerator );
 
     // Parent for all popups (listbox, keypad, etc.)
     const popupParent = new Node();
@@ -127,7 +134,7 @@ class DiscreteScreenView extends ScreenView {
     } ) );
 
     const controlPanel = new DiscreteControlPanel( model, viewProperties.mathFormExpandedSumProperty,
-      viewProperties.soundEnabledProperty, viewProperties.soundVolumeProperty, popupParent, {
+      viewProperties.soundEnabledProperty, viewProperties.soundOutputLevelProperty, popupParent, {
         right: this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN,
         top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN
       } );

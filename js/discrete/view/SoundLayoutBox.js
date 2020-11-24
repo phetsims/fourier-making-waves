@@ -21,14 +21,14 @@ class SoundLayoutBox extends HBox {
 
   /**
    * @param {Property.<boolean>} soundEnabledProperty
-   * @param {NumberProperty} volumeProperty
+   * @param {NumberProperty} outputLevelProperty
    * @param {Object} [options]
    */
-  constructor( soundEnabledProperty, volumeProperty, options ) {
+  constructor( soundEnabledProperty, outputLevelProperty, options ) {
 
     assert && AssertUtils.assertPropertyOf( soundEnabledProperty, 'boolean' );
-    assert && assert( volumeProperty instanceof NumberProperty, 'invalid volumeProperty' );
-    assert && assert( volumeProperty.range, 'volumeProperty.range required' );
+    assert && assert( outputLevelProperty instanceof NumberProperty, 'invalid outputLevelProperty' );
+    assert && assert( outputLevelProperty.range, 'outputLevelProperty.range required' );
 
     options = merge( {
       spacing: 30
@@ -39,8 +39,8 @@ class SoundLayoutBox extends HBox {
       scale: 0.35
     } ), soundEnabledProperty, FMWConstants.CHECKBOX_OPTIONS );
     
-    // Slider for controlling volume
-    const volumeSlider = new HSlider( volumeProperty, volumeProperty.range, {
+    // Slider for controlling output level
+    const outputLevelSlider = new HSlider( outputLevelProperty, outputLevelProperty.range, {
       thumbSize: new Dimension2( 10, 20 ),
       trackSize: new Dimension2( 100, 3 ),
       trackStroke: 'rgb( 160, 160, 160 )'
@@ -53,7 +53,7 @@ class SoundLayoutBox extends HBox {
 
     // Layout for slider and icons
     const sliderBox = new HBox( {
-      children: [ volumeOffIcon, volumeSlider, volumeUpIcon ],
+      children: [ volumeOffIcon, outputLevelSlider, volumeUpIcon ],
       spacing: 5
     } );
 
