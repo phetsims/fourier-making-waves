@@ -21,6 +21,7 @@ import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
+import Domain from '../model/Domain.js';
 import AmplitudesChart from './AmplitudesChart.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
 import DiscreteViewProperties from './DiscreteViewProperties.js';
@@ -160,6 +161,12 @@ class DiscreteScreenView extends ScreenView {
     model.oopsSawtoothWithCosinesEmitter.addListener( () => {
       oopsSawtoothWithCosinesDialog.show();
     } );
+
+    // @private
+    this.isPlayingProperty = model.isPlayingProperty;
+    this.domainProperty = model.domainProperty;
+    this.harmonicsChart = harmonicsChart;
+    this.sumChart = sumChart;
   }
 
   /**
@@ -177,7 +184,10 @@ class DiscreteScreenView extends ScreenView {
    * @public
    */
   step( dt ) {
-    //TODO
+    if ( this.isPlayingProperty.value && this.domainProperty.value === Domain.SPACE_AND_TIME ) {
+      this.harmonicsChart.step();
+      this.sumChart.step();
+    }
   }
 }
 
