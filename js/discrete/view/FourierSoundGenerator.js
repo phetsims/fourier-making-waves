@@ -45,15 +45,15 @@ class FourierSoundGenerator extends SoundGenerator {
       OUTPUT_LEVEL_RANGE.min, OUTPUT_LEVEL_RANGE.max
     );
 
-    // @private {OscillatorSoundGenerator[]}
-    this.oscillatorSoundGenerators = [];
+    // {OscillatorSoundGenerator[]}
+    const oscillatorSoundGenerators = [];
     for ( let i = 0; i < maxNumberOfHarmonics; i++ ) {
       const oscillatorSoundGenerator = new OscillatorSoundGenerator( {
         initialFrequency: ( i + 1 ) * fourierSeries.fundamentalFrequency,
-        initialOutputLevel: fourierSeries.amplitudesProperty.value[ i ]
+        initialOutputLevel: amplitudeToOutputLevel( fourierSeries.amplitudesProperty.value[ i ] )
       } );
       oscillatorSoundGenerator.connect( this.masterGainNode );
-      this.oscillatorSoundGenerators.push( oscillatorSoundGenerator );
+      oscillatorSoundGenerators.push( oscillatorSoundGenerator );
     }
 
     // Set amplitudes for harmonics. unlink is not needed.
@@ -61,39 +61,30 @@ class FourierSoundGenerator extends SoundGenerator {
 
       // Set amplitudes for the relevant harmonics.
       for ( let i = 0; i < amplitudes.length; i++ ) {
-        this.oscillatorSoundGenerators[ i ].outputLevel = amplitudeToOutputLevel( amplitudes[ i ] );
+        oscillatorSoundGenerators[ i ].setOutputLevel( amplitudeToOutputLevel( amplitudes[ i ] ) );
       }
 
       // Set amplitudes of irrelevant harmonics to zero.
       for ( let i = amplitudes.length; i < maxNumberOfHarmonics; i++ ) {
-        this.oscillatorSoundGenerators[ i ].outputLevel = 0;
+        oscillatorSoundGenerators[ i ].setOutputLevel( 0 );
       }
     } );
 
     // Set the master output level. unlink is not needed.
     outputLevelProperty.lazyLink( outputLevel => {
-      this.outputLevel = outputLevel;
+      this.setOutputLevel( outputLevel );
     } );
 
     // Turn sound on/off. unlink is not needed.  We could have controlled this via options.enableControlProperties,
     // but stopping OscillatorSoundGenerators may use fewer resources.
-    enabledProperty.link( enabled => enabled ? this.play() : this.stop() );
-  }
-
-  /**
-   * Starts the tone generator.
-   * @public
-   */
-  play() {
-    this.oscillatorSoundGenerators.forEach( oscillatorSoundGenerator => oscillatorSoundGenerator.play() );
-  }
-
-  /**
-   * Stops the tone generator.
-   * @public
-   */
-  stop() {
-    this.oscillatorSoundGenerators.forEach( oscillatorSoundGenerator => oscillatorSoundGenerator.stop() );
+    enabledProperty.link( enabled => {
+      if ( enabled ) {
+        oscillatorSoundGenerators.forEach( oscillatorSoundGenerator => oscillatorSoundGenerator.play() );
+      }
+      else {
+        oscillatorSoundGenerators.forEach( oscillatorSoundGenerator => oscillatorSoundGenerator.stop() );
+      }
+    } );
   }
 
   /**
