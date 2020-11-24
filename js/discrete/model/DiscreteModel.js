@@ -6,7 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
+import animationFrameTimer from '../../../../axon/js/animationFrameTimer.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Emitter from '../../../../axon/js/Emitter.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -76,15 +78,23 @@ class DiscreteModel {
       this.selectedPeriodProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
     } );
 
+    // @public emits if you try to make a sawtooth wave with cosines
+    this.oopsSawtoothWithCosinesEmitter = new Emitter();
+
     // Set amplitudes for preset functions. umultilink is not needed.
     Property.multilink(
       [ this.fourierSeries.numberOfHarmonicsProperty, this.presetFunctionProperty, this.waveTypeProperty ],
       ( numberOfHarmonics, presetFunction, waveType ) => {
 
         if ( presetFunction === PresetFunction.SAWTOOTH && waveType === WaveType.COSINE ) {
-          console.log( 'not possible to make a sawtooth out of cosines, switching to sine' ); //TODO delete this
-          //TODO display a dialog that this is not possible
-          //TODO switch to WaveType.SINE
+
+          phet.log && phet.log( 'not possible to make a sawtooth out of cosines, switching to sine' );
+          this.oopsSawtoothWithCosinesEmitter.emit();
+
+          // Switch to sine on the next tick, so that we don't have a reentry problem with waveTypeProperty.
+          animationFrameTimer.runOnNextTick( () => {
+            this.waveTypeProperty.value = WaveType.SINE;
+          } );
         }
         else if ( presetFunction !== PresetFunction.CUSTOM ) {
           const amplitudes = presetFunction.getAmplitudes( numberOfHarmonics, waveType );

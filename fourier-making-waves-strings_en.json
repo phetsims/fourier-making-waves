@@ -109,5 +109,8 @@
   },
   "enter": {
     "value": "Enter"
+  },
+  "sawtoothWithCosines": {
+    "value": "You can't make a sawtooth wave out of cosines<br>because it is asymmetric. Switching to sines."
   }
 }

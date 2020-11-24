@@ -8,6 +8,7 @@
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
+import OopsDialog from '../../../../scenery-phet/js/OopsDialog.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -138,7 +139,11 @@ class DiscreteScreenView extends ScreenView {
     this.addChild( timeControlNode );
 
     const resetAllButton = new ResetAllButton( {
-      listener: () => this.reset(),
+      listener: () => {
+        this.interruptSubtreeInput(); // cancel interactions that may be in progress
+        model.reset();
+        viewProperties.reset();
+      },
       right: this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN,
       bottom: this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: tandem.createTandem( 'resetAllButton' )
@@ -148,12 +153,13 @@ class DiscreteScreenView extends ScreenView {
     // parent for popups on top
     this.addChild( popupParent );
 
-    // @private
-    this.resetDiscreteScreenView = () => {
-      this.interruptSubtreeInput(); // cancel interactions that may be in progress
-      model.reset();
-      viewProperties.reset();
-    };
+    // Creating a sawtooth wave using cosines is impossible because it is asymmetric. Display a dialog if the user
+    // attempts this.  The model is responsible for other adjustments. This dialog is created eagerly because it's
+    // highly likely that this situation will be encountered.
+    const oopsSawtoothWithCosinesDialog = new OopsDialog( fourierMakingWavesStrings.sawtoothWithCosines );
+    model.oopsSawtoothWithCosinesEmitter.addListener( () => {
+      oopsSawtoothWithCosinesDialog.show();
+    } );
   }
 
   /**
@@ -163,14 +169,6 @@ class DiscreteScreenView extends ScreenView {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
-  }
-
-  /**
-   * Resets the view.
-   * @protected
-   */
-  reset() {
-    this.resetDiscreteScreenView();
   }
 
   /**
