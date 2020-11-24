@@ -25,10 +25,7 @@ class FourierSoundGenerator extends SoundGenerator {
     assert && AssertUtils.assertPropertyOf( enabledProperty, 'boolean' );
     assert && AssertUtils.assertPropertyOf( outputLevelProperty, 'number' );
 
-    super( {
-      //TODO control enabled on the master
-      // enableControlProperties: [ enabledProperty ]
-    } );
+    super();
 
     const maxNumberOfHarmonics = fourierSeries.numberOfHarmonicsProperty.range.max;
 
@@ -62,7 +59,7 @@ class FourierSoundGenerator extends SoundGenerator {
       this.outputLevel = outputLevel;
     } );
 
-    //TODO replace this with options.enableControlProperties
+    //TODO can this be controlled via options.enableControlProperties?
     // Turn sound on/off. unlink is not needed
     enabledProperty.link( enabled => enabled ? this.play() : this.stop() );
   }
