@@ -41,6 +41,7 @@ class SoundLayoutBox extends HBox {
       scale: 0.35
     } ), soundEnabledProperty, FMWConstants.CHECKBOX_OPTIONS );
 
+    //TODO do we need to use a logarithmic slider, to compensate for loudness perception?
     // Slider for controlling output level
     const outputLevelSlider = new HSlider( outputLevelProperty, outputLevelProperty.range, {
       thumbSize: new Dimension2( 10, 20 ),
