@@ -1,5 +1,6 @@
 // Copyright 2020, University of Colorado Boulder
 
+//TODO do we need a limiter to prevent overdrive/clipping?
 /**
  * FourierSoundGenerator generates sound for a fourier series.
  *
@@ -32,7 +33,9 @@ class FourierSoundGenerator extends SoundGenerator {
     assert && assert( outputLevelProperty instanceof NumberProperty, 'invalid outputLevelProperty' );
     assert && assert( outputLevelProperty.range, 'outputLevelProperty.range required' );
 
-    super();
+    super( {
+      initialOutputLevel: outputLevelProperty.value
+    } );
 
     const maxNumberOfHarmonics = fourierSeries.numberOfHarmonicsProperty.range.max;
 
@@ -54,7 +57,7 @@ class FourierSoundGenerator extends SoundGenerator {
     }
 
     // Set amplitudes for harmonics. unlink is not needed.
-    fourierSeries.amplitudesProperty.link( amplitudes => {
+    fourierSeries.amplitudesProperty.lazyLink( amplitudes => {
 
       // Set amplitudes for the relevant harmonics.
       for ( let i = 0; i < amplitudes.length; i++ ) {
@@ -68,12 +71,12 @@ class FourierSoundGenerator extends SoundGenerator {
     } );
 
     // Set the master output level. unlink is not needed.
-    outputLevelProperty.link( outputLevel => {
+    outputLevelProperty.lazyLink( outputLevel => {
       this.outputLevel = outputLevel;
     } );
 
-    //TODO can this be controlled via options.enableControlProperties?
-    // Turn sound on/off. unlink is not needed.
+    // Turn sound on/off. unlink is not needed.  We could have controlled this via options.enableControlProperties,
+    // but stopping OscillatorSoundGenerators may use fewer resources.
     enabledProperty.link( enabled => enabled ? this.play() : this.stop() );
   }
 
