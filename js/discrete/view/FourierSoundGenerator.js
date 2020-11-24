@@ -33,8 +33,7 @@ class FourierSoundGenerator extends SoundGenerator {
     this.oscillatorSoundGenerators = [];
     for ( let order = 1; order <= maxNumberOfHarmonics; order++ ) {
       const oscillatorSoundGenerator = new OscillatorSoundGenerator( {
-        initialFrequency: order * fourierSeries.fundamentalFrequency,
-        initialOutputLevel: 0
+        initialFrequency: order * fourierSeries.fundamentalFrequency
       } );
       oscillatorSoundGenerator.connect( this.masterGainNode );
       this.oscillatorSoundGenerators.push( oscillatorSoundGenerator );
