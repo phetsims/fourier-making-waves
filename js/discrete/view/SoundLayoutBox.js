@@ -14,6 +14,8 @@ import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import HSlider from '../../../../sun/js/HSlider.js';
+import SunConstants from '../../../../sun/js/SunConstants.js';
+import soundManager from '../../../../tambo/js/soundManager.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -38,7 +40,7 @@ class SoundLayoutBox extends HBox {
     const soundEnabledCheckbox = new Checkbox( new FontAwesomeNode( 'music_solid', {
       scale: 0.35
     } ), soundEnabledProperty, FMWConstants.CHECKBOX_OPTIONS );
-    
+
     // Slider for controlling output level
     const outputLevelSlider = new HSlider( outputLevelProperty, outputLevelProperty.range, {
       thumbSize: new Dimension2( 10, 20 ),
@@ -61,6 +63,15 @@ class SoundLayoutBox extends HBox {
     options.children = [ soundEnabledCheckbox, sliderBox ];
 
     super( options );
+
+    // Disable this control when soundManager is disabled.
+    soundManager.enabledProperty.link( enabled => {
+      this.interruptSubtreeInput();
+      soundEnabledCheckbox.enabled = enabled;
+      outputLevelSlider.enabled = enabled;
+      volumeOffIcon.opacity = enabled ? 1 : SunConstants.DISABLED_OPACITY;
+      volumeUpIcon.opacity = enabled ? 1 : SunConstants.DISABLED_OPACITY;
+    } );
   }
 }
 
