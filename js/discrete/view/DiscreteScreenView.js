@@ -7,6 +7,8 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
@@ -40,12 +42,17 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem
     } );
 
+    //TODO encapsulate in DiscreteViewProperties
     // view Properties
     const harmonicsChartExpandedProperty = new BooleanProperty( true );
     const sumChartExpandedProperty = new BooleanProperty( true );
     const autoScaleProperty = new BooleanProperty( false );
     const infiniteHarmonicsProperty = new BooleanProperty( false );
     const mathFormExpandedSumProperty = new BooleanProperty( false );
+    const soundEnabledProperty = new BooleanProperty( false );
+    const soundVolumeProperty = new NumberProperty( 0.5, {
+      range: new Range( 0, 1 )
+    } );
 
     // Parent for all popups (listbox, keypad, etc.)
     const popupParent = new Node();
@@ -128,7 +135,7 @@ class DiscreteScreenView extends ScreenView {
       top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN
     } ) );
 
-    const controlPanel = new DiscreteControlPanel( model, mathFormExpandedSumProperty, popupParent, {
+    const controlPanel = new DiscreteControlPanel( model, mathFormExpandedSumProperty, soundEnabledProperty, soundVolumeProperty, popupParent, {
       right: this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN,
       top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN
     } );
@@ -160,6 +167,8 @@ class DiscreteScreenView extends ScreenView {
       autoScaleProperty.reset();
       infiniteHarmonicsProperty.reset();
       mathFormExpandedSumProperty.reset();
+      soundEnabledProperty.reset();
+      soundVolumeProperty.reset();
     };
   }
 
