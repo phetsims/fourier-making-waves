@@ -87,10 +87,10 @@ class AmplitudeNumberDisplay extends VBox {
         // Open the keypad dialog.
         amplitudeKeypadDialog.show( harmonic.order,
 
-          // enterCallback
+          // enterCallback, called when the keypad's Enter key fires.
           amplitude => { harmonic.amplitudeProperty.value = amplitude; },
 
-          // closeCallback
+          // closeCallback, called when the dialog is closed.
           () => numberDisplay.setBackgroundFill( restoreBackgroundFill )
         );
       }
