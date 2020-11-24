@@ -6,9 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Range from '../../../../dot/js/Range.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
@@ -25,6 +22,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import AmplitudesChart from './AmplitudesChart.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
+import DiscreteViewProperties from './DiscreteViewProperties.js';
 import HarmonicsChart from './HarmonicsChart.js';
 import SumChart from './SumChart.js';
 
@@ -42,17 +40,8 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem
     } );
 
-    //TODO encapsulate in DiscreteViewProperties
-    // view Properties
-    const harmonicsChartExpandedProperty = new BooleanProperty( true );
-    const sumChartExpandedProperty = new BooleanProperty( true );
-    const autoScaleProperty = new BooleanProperty( false );
-    const infiniteHarmonicsProperty = new BooleanProperty( false );
-    const mathFormExpandedSumProperty = new BooleanProperty( false );
-    const soundEnabledProperty = new BooleanProperty( false );
-    const soundVolumeProperty = new NumberProperty( 0.5, {
-      range: new Range( 0, 1 )
-    } );
+    // Properties that are specific to the view
+    const viewProperties = new DiscreteViewProperties();
 
     // Parent for all popups (listbox, keypad, etc.)
     const popupParent = new Node();
@@ -64,7 +53,7 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem.createTandem( 'amplitudesChart' )
     } );
 
-    const harmonicsExpandCollapseButton = new ExpandCollapseButton( harmonicsChartExpandedProperty,
+    const harmonicsExpandCollapseButton = new ExpandCollapseButton( viewProperties.harmonicsChartVisibleProperty,
       FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS );
 
     const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonics, {
@@ -75,23 +64,23 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem.createTandem( 'harmonicsChart' )
     } );
 
-    harmonicsChartExpandedProperty.link( harmonicsChartExpanded => {
-      harmonicsChart.visible = harmonicsChartExpanded;
+    viewProperties.harmonicsChartVisibleProperty.link( harmonicsChartVisible => {
+      harmonicsChart.visible = harmonicsChartVisible;
     } );
 
-    const sumExpandCollapseButton = new ExpandCollapseButton( sumChartExpandedProperty,
+    const sumExpandCollapseButton = new ExpandCollapseButton( viewProperties.sumChartVisibleProperty,
       FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS );
 
     const sumTitleNode = new Text( fourierMakingWavesStrings.sum, {
       font: FMWConstants.TITLE_FONT
     } );
 
-    const sumChart = new SumChart( model.fourierSeries, autoScaleProperty, infiniteHarmonicsProperty, {
+    const sumChart = new SumChart( model.fourierSeries, viewProperties.autoScaleProperty, viewProperties.infiniteHarmonicsProperty, {
       tandem: tandem.createTandem( 'sumChart' )
     } );
 
-    sumChartExpandedProperty.link( sumChartExpanded => {
-      sumChart.visible = sumChartExpanded;
+    viewProperties.sumChartVisibleProperty.link( sumChartVisible => {
+      sumChart.visible = sumChartVisible;
     } );
 
     this.addChild( new VBox( {
@@ -135,10 +124,11 @@ class DiscreteScreenView extends ScreenView {
       top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN
     } ) );
 
-    const controlPanel = new DiscreteControlPanel( model, mathFormExpandedSumProperty, soundEnabledProperty, soundVolumeProperty, popupParent, {
-      right: this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN,
-      top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN
-    } );
+    const controlPanel = new DiscreteControlPanel( model, viewProperties.mathFormExpandedSumProperty,
+      viewProperties.soundEnabledProperty, viewProperties.soundVolumeProperty, popupParent, {
+        right: this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN,
+        top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN
+      } );
     this.addChild( controlPanel );
 
     const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
@@ -162,13 +152,7 @@ class DiscreteScreenView extends ScreenView {
     this.resetDiscreteScreenView = () => {
       this.interruptSubtreeInput(); // cancel interactions that may be in progress
       model.reset();
-      harmonicsChartExpandedProperty.reset();
-      sumChartExpandedProperty.reset();
-      autoScaleProperty.reset();
-      infiniteHarmonicsProperty.reset();
-      mathFormExpandedSumProperty.reset();
-      soundEnabledProperty.reset();
-      soundVolumeProperty.reset();
+      viewProperties.reset();
     };
   }
 
