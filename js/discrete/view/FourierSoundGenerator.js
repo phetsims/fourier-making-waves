@@ -45,7 +45,7 @@ class FourierSoundGenerator extends SoundGenerator {
       OUTPUT_LEVEL_RANGE.min, OUTPUT_LEVEL_RANGE.max
     );
 
-    // {OscillatorSoundGenerator[]}
+    // {OscillatorSoundGenerator[]} Create an oscillator for each harmonic.
     const oscillatorSoundGenerators = [];
     for ( let i = 0; i < maxNumberOfHarmonics; i++ ) {
       const oscillatorSoundGenerator = new OscillatorSoundGenerator( {
