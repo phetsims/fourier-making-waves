@@ -6,7 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
+import Utils from '../../../dot/js/Utils.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
+import Text from '../../../scenery/js/nodes/Text.js';
+import Color from '../../../scenery/js/util/Color.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWColorProfile from './FMWColorProfile.js';
 
@@ -16,6 +19,11 @@ const PANEL_X_MARGIN = 8;
 const PANEL_Y_MARGIN = 5;
 
 const FMWConstants = {
+
+  // Model ===========================================================================================================
+
+  // string length, in meters
+  L: 1,
 
   // View ============================================================================================================
 
@@ -58,11 +66,46 @@ const FMWConstants = {
   CONTROL_FONT: new PhetFont( 14 ),
   AXIS_LABEL_FONT: new PhetFont( 12 ),
   TICK_LABEL_FONT: new PhetFont( 12 ),
+  EQUATION_FONT: new PhetFont( 18 ),
 
-  // Number of decimal places wherever amplitude is displayed
-  AMPLITUDE_DECIMAL_PLACES: 2,
-  AMPLITUDE_SLIDER_SNAP_INTERVAL: 0.05
+  // Number of decimal places for amplitude sliders
+  AMPLITUDE_SLIDER_DECIMAL_PLACES: 2,
+  AMPLITUDE_SLIDER_SNAP_INTERVAL: 0.05,
+
+  //TODO set dimensions based on available space
+  CHART_WIDTH: 610,
+  CHART_HEIGHT: 120,
+
+  ZOOM_BUTTON_GROUP_SCALE: 0.75,
+
+  AXIS_OPTIONS: {
+    fill: Color.BLACK,
+    stroke: null,
+    tailWidth: 1
+  },
+
+  GRID_LINE_OPTIONS: {
+    stroke: new Color( 0, 0, 0, 0.15 )
+  },
+
+  LABEL_SET_OPTIONS: {
+    edge: 'min',
+    createLabel: createTickLabel
+  },
+
+  TICK_LABEL_DECIMAL_PLACES: 1
 };
+
+/**
+ * Creates a tick label for the graphs.
+ * @param {number} value
+ * @returns {Node}
+ */
+function createTickLabel( value ) {
+  return new Text( Utils.toFixedNumber( value, FMWConstants.TICK_LABEL_DECIMAL_PLACES ), {
+    font: FMWConstants.TICK_LABEL_FONT
+  } );
+}
 
 fourierMakingWaves.register( 'FMWConstants', FMWConstants );
 export default FMWConstants;

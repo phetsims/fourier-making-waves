@@ -57,8 +57,8 @@ class AmplitudeSlider extends VSlider {
 
     // Constrain the range to the desired number of decimal places.
     const amplitudeRange = new Range(
-      Utils.toFixedNumber( amplitudeProperty.range.min, FMWConstants.AMPLITUDE_DECIMAL_PLACES ),
-      Utils.toFixedNumber( amplitudeProperty.range.max, FMWConstants.AMPLITUDE_DECIMAL_PLACES )
+      Utils.toFixedNumber( amplitudeProperty.range.min, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES ),
+      Utils.toFixedNumber( amplitudeProperty.range.max, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES )
     );
 
     const trackNode = new AmplitudeSliderTrack( amplitudeProperty, amplitudeRange, colorProperty, {

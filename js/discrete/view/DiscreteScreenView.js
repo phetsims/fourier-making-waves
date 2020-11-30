@@ -69,7 +69,7 @@ class DiscreteScreenView extends ScreenView {
       font: FMWConstants.TITLE_FONT
     } );
 
-    const harmonicsChart = new HarmonicsChart( model.fourierSeries, {
+    const harmonicsChart = new HarmonicsChart( model.fourierSeries, viewProperties.xZoomLevelProperty, {
       tandem: tandem.createTandem( 'harmonicsChart' )
     } );
 
@@ -84,9 +84,10 @@ class DiscreteScreenView extends ScreenView {
       font: FMWConstants.TITLE_FONT
     } );
 
-    const sumChart = new SumChart( model.fourierSeries, viewProperties.autoScaleProperty, viewProperties.infiniteHarmonicsProperty, {
-      tandem: tandem.createTandem( 'sumChart' )
-    } );
+    const sumChart = new SumChart( model.fourierSeries, viewProperties.xZoomLevelProperty, viewProperties.yZoomLevelProperty,
+      viewProperties.autoScaleProperty, viewProperties.infiniteHarmonicsProperty, {
+        tandem: tandem.createTandem( 'sumChart' )
+      } );
 
     viewProperties.sumChartVisibleProperty.link( sumChartVisible => {
       sumChart.visible = sumChartVisible;

@@ -19,7 +19,6 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import PresetFunction from '../../discrete/model/PresetFunction.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Harmonic from '../model/Harmonic.js';
 import AmplitudeKeypadDialog from './AmplitudeKeypadDialog.js';
@@ -46,7 +45,7 @@ class AmplitudeNumberDisplay extends VBox {
       cursor: 'pointer',
 
       // VBox options
-      spacing: FMWConstants.AMPLITUDE_DECIMAL_PLACES,
+      spacing: 2,
       align: 'center',
 
       // NumberDisplay options

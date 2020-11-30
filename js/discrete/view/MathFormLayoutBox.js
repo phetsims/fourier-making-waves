@@ -115,7 +115,7 @@ function getExpandedSum( mathForm, fourierSeries ) {
       }
 
       const harmonic = fourierSeries.harmonics[ i ];
-      const amplitude = Utils.toFixedNumber( harmonic.amplitudeProperty.value, FMWConstants.AMPLITUDE_DECIMAL_PLACES );
+      const amplitude = Utils.toFixedNumber( harmonic.amplitudeProperty.value, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
       const sineTerm = getSineTerm( mathForm, harmonic.order );
       sumText += `${amplitude} sin( ${sineTerm} )`;
     }

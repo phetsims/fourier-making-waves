@@ -7,15 +7,28 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import AxisNode from '../../../../bamboo/js/AxisNode.js';
+import ChartModel from '../../../../bamboo/js/ChartModel.js';
+import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
+import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
+import LabelSet from '../../../../bamboo/js/LabelSet.js';
+import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
+import Orientation from '../../../../phet-core/js/Orientation.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import ZoomButtonGroup from '../../../../scenery-phet/js/ZoomButtonGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import VBox from '../../../../scenery/js/nodes/VBox.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWConstants from '../../common/FMWConstants.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
 import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 
@@ -23,13 +36,17 @@ class SumChart extends Node {
 
   /**
    * @param {FourierSeries} fourierSeries
+   * @param {NumberProperty} xZoomLevelProperty
+   * @param {NumberProperty} yZoomLevelProperty
    * @param {Property.<boolean>} autoScaleProperty
    * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
+  constructor( fourierSeries, xZoomLevelProperty, yZoomLevelProperty, autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
+    assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
+    assert && assert( yZoomLevelProperty instanceof NumberProperty, 'invalid yZoomLevelProperty' );
     assert && AssertUtils.assertPropertyOf( autoScaleProperty, 'boolean' );
     assert && AssertUtils.assertPropertyOf( infiniteHarmonicsVisibleProperty, 'boolean' );
 
@@ -39,28 +56,90 @@ class SumChart extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    //TODO
-    const backgroundNode = new Rectangle( 0, 0, 718, 150, {
+    const L = FMWConstants.L;
+
+    const chartModel = new ChartModel( FMWConstants.CHART_WIDTH, FMWConstants.CHART_HEIGHT, {
+      modelXRange: new Range( -L / 2, L / 2 ),
+      modelYRange: fourierSeries.amplitudeRange
+    } );
+
+    const chartRectangle = new ChartRectangle( chartModel, {
       fill: 'white',
       stroke: 'black'
     } );
 
+    const xAxis = new AxisNode( chartModel, Orientation.HORIZONTAL, FMWConstants.AXIS_OPTIONS );
+    const xGridLineSet = new GridLineSet( chartModel, Orientation.HORIZONTAL, L / 8, FMWConstants.GRID_LINE_OPTIONS );
+    const xLabelSet = new LabelSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.LABEL_SET_OPTIONS );
+    //TODO xTickMarkSet
+    const xAxisLabel = new Text( StringUtils.fillIn( fourierMakingWavesStrings.xMeters, {
+      x: FMWSymbols.SMALL_X
+    } ), {
+      font: FMWConstants.AXIS_LABEL_FONT,
+      left: chartRectangle.right + 10,
+      centerY: chartRectangle.centerY
+    } );
+
+    const yAxis = new AxisNode( chartModel, Orientation.VERTICAL, FMWConstants.AXIS_OPTIONS );
+    const yGridLineSet = new GridLineSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.GRID_LINE_OPTIONS );
+    const yLabelSet = new LabelSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.LABEL_SET_OPTIONS );
+    //TODO yTickMarkSet
+    const yAxisLabel = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.amplitudeSymbol, {
+      symbol: FMWSymbols.CAPITAL_A
+    } ), {
+      font: FMWConstants.AXIS_LABEL_FONT,
+      rotation: -Math.PI / 2,
+      right: yLabelSet.left - 10,
+      centerY: chartRectangle.centerY
+    } );
+
+    //TODO
+    const equationNode = new RichText( 'F(x) = \u2211 A<sub>n</sub> sin( k<sub>n</sub>x )', {
+      font: FMWConstants.EQUATION_FONT
+    } );
+    equationNode.localBoundsProperty.link( () => {
+      equationNode.centerX = chartRectangle.centerX;
+      equationNode.bottom = chartRectangle.top - 5;
+    } );
+
+    const xZoomButtonGroup = new ZoomButtonGroup( xZoomLevelProperty, {
+      orientation: 'horizontal',
+      scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
+      left: chartRectangle.right + 5,
+      bottom: chartRectangle.bottom
+    } );
+
+    const yZoomButtonGroup = new ZoomButtonGroup( yZoomLevelProperty, {
+      orientation: 'vertical',
+      scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
+      left: chartRectangle.right + 5,
+      top: chartRectangle.top
+    } );
+
     const autoScaleCheckbox = new AutoScaleCheckbox( autoScaleProperty );
-
     const infiniteHarmonicsCheckbox = new InfiniteHarmonicsCheckbox( infiniteHarmonicsVisibleProperty );
+    const checkboxesParent = new HBox( {
+      spacing: 25,
+      children: [ autoScaleCheckbox, infiniteHarmonicsCheckbox ],
+      left: chartRectangle.left,
+      top: xLabelSet.bottom + 5
+    } );
 
-    assert && assert( !options.children, 'SumChart sets children' );
+    // Parent for Nodes that must be clipped to the bounds of chartRectangle
+    const clippedParent = new Node( {
+      clipArea: chartRectangle.getShape(),
+      children: [ xAxis, yAxis ]
+    } );
+
+    assert && assert( !options.children, 'AmplitudesChart sets children' );
     options.children = [
-      new VBox( {
-        spacing: 5,
-        children: [
-          backgroundNode,
-          new HBox( {
-            spacing: 25,
-            children: [ autoScaleCheckbox, infiniteHarmonicsCheckbox ]
-          } )
-        ]
-      } )
+      chartRectangle,
+      xAxisLabel, xGridLineSet, xLabelSet,
+      yAxisLabel, yGridLineSet, yLabelSet,
+      clippedParent,
+      equationNode,
+      checkboxesParent,
+      xZoomButtonGroup, yZoomButtonGroup
     ];
 
     super( options );

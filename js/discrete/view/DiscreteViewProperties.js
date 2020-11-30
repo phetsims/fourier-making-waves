@@ -38,6 +38,16 @@ class DiscreteViewProperties {
     this.soundOutputLevelProperty = new NumberProperty( 0.5, {
       range: new Range( 0, 1 )
     } );
+
+    // @public zoom level for the x axis
+    this.xZoomLevelProperty = new NumberProperty( 0, {
+      range: new Range( 0, 6 )
+    } );
+
+    // @public zoom level for the y axis
+    this.yZoomLevelProperty = new NumberProperty( 0, {
+      range: new Range( 0, 6 )
+    } );
   }
 
   /**
