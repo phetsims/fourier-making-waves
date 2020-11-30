@@ -1,6 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 //TODO do we need a limiter to prevent overdrive/clipping?
+//TODO should output level be converted to log scale?
 /**
  * FourierSoundGenerator generates sound for a fourier series.
  *
