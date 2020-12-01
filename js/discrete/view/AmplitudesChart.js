@@ -73,7 +73,7 @@ class AmplitudesChart extends Node {
       createLabel: value => new Text( Utils.toFixedNumber( value, 1 ), { fontSize: 12 } )
     } );
 
-    const xAxisLabel = new Text( FMWSymbols.SMALL_N, {
+    const xAxisLabel = new RichText( FMWSymbols.SMALL_N, {
       font: FMWConstants.AXIS_LABEL_FONT,
       left: chartRectangle.right + 10,
       centerY: chartRectangle.centerY
