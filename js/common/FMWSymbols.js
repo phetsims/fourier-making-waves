@@ -20,10 +20,10 @@ const FMWSymbols = {
   CAPITAL_SIGMA: MathSymbolFont.getRichTextMarkup( '\u03a3', 'normal' ), // summation symbol
   PI: MathSymbolFont.getRichTextMarkup( '\u03c0', 'normal' ), // pi
   SMALL_K: MathSymbolFont.getRichTextMarkup( 'k' ), // wave number
-  SMALL_LAMBDA: '\u03bb', // wavelength
+  SMALL_LAMBDA: MathSymbolFont.getRichTextMarkup( '\u03bb', 'normal' ), // wavelength
   SMALL_N: MathSymbolFont.getRichTextMarkup( 'n' ), // mode, order, or harmonic number
-  SMALL_OMEGA: '\u03c9', // angular frequency
-  SMALL_SIGMA: '\u03c3', // width of the gaussian packet (dx)
+  SMALL_OMEGA: MathSymbolFont.getRichTextMarkup( '\u03c9', 'normal' ), // angular frequency
+  SMALL_SIGMA: MathSymbolFont.getRichTextMarkup( '\u03c3', 'normal' ), // width of the gaussian packet (dx)
   SMALL_T: MathSymbolFont.getRichTextMarkup( 't' ), // time
   SMALL_X: MathSymbolFont.getRichTextMarkup( 'x' ) // position in space along L
 };
