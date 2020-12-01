@@ -19,6 +19,7 @@ const FMWSymbols = {
   CAPITAL_T: 'T', // sampling period, or period of the 1st harmonic
   CAPITAL_SIGMA: MathSymbolFont.getRichTextMarkup( '\u03a3', 'normal' ), // summation symbol
   PI: MathSymbolFont.getRichTextMarkup( '\u03c0', 'normal' ), // pi
+  SMALL_F: MathSymbolFont.getRichTextMarkup( 'f' ), // frequency
   SMALL_K: MathSymbolFont.getRichTextMarkup( 'k' ), // wave number
   SMALL_LAMBDA: MathSymbolFont.getRichTextMarkup( '\u03bb', 'normal' ), // wavelength
   SMALL_N: MathSymbolFont.getRichTextMarkup( 'n' ), // mode, order, or harmonic number
