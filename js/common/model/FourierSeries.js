@@ -52,7 +52,10 @@ class FourierSeries extends PhetioObject {
       tandem: options.tandem.createTandem( 'numberOfHarmonicsProperty' )
     } );
 
-    // @public {Harmonic[]} an instance for each possible harmonic, with order numbered from 1
+    // @public {Harmonic[]} an instance for each possible harmonic, with order numbered from 1.
+    // All possible harmonics are created eagerly, and only the relevant ones should be considered, based on
+    // numberOfHarmonicsProperty. This was a fundamental team decision, based on anticipated PhET-iO requirements.
+    // See https://github.com/phetsims/fourier-making-waves/issues/6.
     this.harmonics = [];
     for ( let order = 1; order <= this.numberOfHarmonicsProperty.range.max; order++ ) {
       const colorProperty = FMWColorProfile.getHarmonicColorProperty( order );
