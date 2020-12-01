@@ -69,8 +69,19 @@ class DiscreteScreenView extends ScreenView {
       font: FMWConstants.TITLE_FONT
     } );
 
+    const harmonicsHBox = new HBox( {
+      children: [ harmonicsExpandCollapseButton, harmonicsTitleNode ],
+      spacing: 5
+    } );
+
     const harmonicsChart = new HarmonicsChart( model.fourierSeries, viewProperties.xZoomLevelProperty, {
+      left: harmonicsHBox.left,
+      top: harmonicsHBox.top,
       tandem: tandem.createTandem( 'harmonicsChart' )
+    } );
+
+    const harmonicsParent = new Node( {
+      children: [ harmonicsHBox, harmonicsChart ]
     } );
 
     viewProperties.harmonicsChartVisibleProperty.link( harmonicsChartVisible => {
@@ -84,10 +95,21 @@ class DiscreteScreenView extends ScreenView {
       font: FMWConstants.TITLE_FONT
     } );
 
+    const sumHBox = new HBox( {
+      children: [ sumExpandCollapseButton, sumTitleNode ],
+      spacing: 5
+    } );
+
     const sumChart = new SumChart( model.fourierSeries, viewProperties.xZoomLevelProperty, viewProperties.yZoomLevelProperty,
       viewProperties.autoScaleProperty, viewProperties.infiniteHarmonicsProperty, {
+        left: sumHBox.left,
+        top: sumHBox.top,
         tandem: tandem.createTandem( 'sumChart' )
       } );
+
+    const sumParent = new Node( {
+      children: [ sumHBox, sumChart ]
+    } );
 
     viewProperties.sumChartVisibleProperty.link( sumChartVisible => {
       sumChart.visible = sumChartVisible;
@@ -98,37 +120,9 @@ class DiscreteScreenView extends ScreenView {
       align: 'left',
       spacing: 15,
       children: [
-
-        // Amplitudes
         amplitudesChart,
-
-        // Harmonics
-        new VBox( {
-          excludeInvisibleChildrenFromBounds: false,
-          align: 'left',
-          spacing: 5,
-          children: [
-            new HBox( {
-              children: [ harmonicsExpandCollapseButton, harmonicsTitleNode ],
-              spacing: 5
-            } ),
-            harmonicsChart
-          ]
-        } ),
-
-        // Sum
-        new VBox( {
-          excludeInvisibleChildrenFromBounds: false,
-          align: 'left',
-          spacing: 5,
-          children: [
-            new HBox( {
-              children: [ sumExpandCollapseButton, sumTitleNode ],
-              spacing: 5
-            } ),
-            sumChart
-          ]
-        } )
+        harmonicsParent,
+        sumParent
       ],
       left: this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN,
       top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN
