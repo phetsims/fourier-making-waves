@@ -1,5 +1,6 @@
 // Copyright 2020, University of Colorado Boulder
 
+//TODO lots of duplication with HarmonicsChart, factor out a base class
 /**
  * SumChart is the 'Sum' chart in the 'Discrete' screen. It renders 1 plot showing the sum of the harmonics in
  * the Fourier series.
