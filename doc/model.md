@@ -9,7 +9,7 @@ It's assumed that the reader has some basic knowledge of Fourier Series.
 
 * A = amplitude
 * A<sub>n</sub> = amplitude of nth harmonic
-* f = function of time (or space, etc.)
+* f = frequency, function of time (or space, etc.)
 * F = function of frequency
 * λ = lambda, wavelength
 * k = wave number
