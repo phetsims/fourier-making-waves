@@ -20,7 +20,10 @@ import Harmonic from './Harmonic.js';
 
 // constants
 const MAX_HARMONICS = 11;
-//TODO why? see https://github.com/phetsims/fourier-making-waves/issues/11
+
+// The amplitude range is [-4/pi, 4/pi] because of the factor of 4/pi in the Fourier series of a square wave.
+// For n=1, the amplitude is 4/pi. See https://mathworld.wolfram.com/FourierSeriesSquareWave.html and
+// https://github.com/phetsims/fourier-making-waves/issues/11
 const MAX_ABSOLUTE_AMPLITUDE = 4 / Math.PI;
 
 class FourierSeries extends PhetioObject {
