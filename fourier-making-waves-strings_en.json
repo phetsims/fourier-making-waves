@@ -86,9 +86,6 @@
   "modeSymbol": {
     "value": "Mode ({{symbol}})"
   },
-  "expandSum": {
-    "value": "Expand Sum"
-  },
   "amplitudeSymbol": {
     "value": "Amplitude ({{symbol}})"
   },
