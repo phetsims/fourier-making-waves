@@ -28,6 +28,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import EquationFactory from './EquationFactory.js';
 
 class HarmonicsChart extends Node {
 
@@ -85,9 +86,7 @@ class HarmonicsChart extends Node {
     } );
 
     //TODO
-    const equationNode = new RichText( 'A<sub>n</sub> sin( k<sub>n</sub>x )', {
-      font: FMWConstants.EQUATION_FONT
-    } );
+    const equationNode = EquationFactory.createHarmonicWavelengthForm();
     equationNode.localBoundsProperty.link( () => {
       equationNode.centerX = chartRectangle.centerX;
       equationNode.bottom = chartRectangle.top - 5;

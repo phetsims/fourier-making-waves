@@ -31,8 +31,8 @@ import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
+import EquationFactory from './EquationFactory.js';
 import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
-import SummationSymbolNode from './SummationSymbolNode.js';
 
 class SumChart extends Node {
 
@@ -96,7 +96,7 @@ class SumChart extends Node {
     } );
 
     //TODO
-    const equationNode = new SummationSymbolNode( FMWSymbols.SMALL_N, fourierSeries.numberOfHarmonicsProperty.range );
+    const equationNode = EquationFactory.createSumWavelengthForm( new Range( 1, fourierSeries.numberOfHarmonicsProperty.value ) );
     equationNode.localBoundsProperty.link( () => {
       equationNode.centerX = chartRectangle.centerX;
       equationNode.bottom = chartRectangle.top - 5;
