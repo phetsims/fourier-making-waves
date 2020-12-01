@@ -107,9 +107,10 @@ class HarmonicsChart extends Node {
 
     assert && assert( !options.children, 'AmplitudesChart sets children' );
     options.children = [
+      xTickMarkSet, yTickMarkSet,
       chartRectangle,
-      xAxisLabel, xGridLineSet, xTickMarkSet, xLabelSet,
-      yAxisLabel, yGridLineSet, yTickMarkSet, yLabelSet,
+      xAxisLabel, xGridLineSet, xLabelSet,
+      yAxisLabel, yGridLineSet, yLabelSet,
       clippedParent,
       equationNode,
       xZoomButtonGroup
