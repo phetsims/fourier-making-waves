@@ -34,7 +34,7 @@ class ExpandedSumDialog extends Dialog {
     assert && assert( !options.title, 'ExpandedSumDialog sets children' );
     options.title = new Text( fourierMakingWavesStrings.expandedSum, {
       font: FMWConstants.TITLE_FONT
-    } ); //TODO i18n
+    } );
 
     const generalFormNode = EquationFactory.createSumWavelengthForm( fourierSeries.numberOfHarmonicsProperty.value );
 
