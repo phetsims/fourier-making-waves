@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -40,7 +41,8 @@ class ExpandedSumDialog extends Dialog {
     let expandedFormMarkup = `${MathSymbols.EQUAL_TO} `;
     const amplitudes = fourierSeries.amplitudesProperty.value;
     for ( let n = 1; n <= amplitudes.length; n++ ) {
-      expandedFormMarkup += EquationFactory.createHarmonicWavelengthFormMarkup( amplitudes[ n - 1 ], n );
+      const amplitude = Utils.toFixedNumber( amplitudes[ n - 1 ], FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
+      expandedFormMarkup += EquationFactory.createHarmonicWavelengthFormMarkup( amplitude, n );
       if ( n !== amplitudes.length ) {
         expandedFormMarkup += ` ${MathSymbols.PLUS} `;
       }
