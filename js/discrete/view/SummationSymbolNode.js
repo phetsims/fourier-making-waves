@@ -11,8 +11,10 @@
 import merge from '../../../../phet-core/js/merge.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class SummationSymbolNode extends VBox {
@@ -33,7 +35,7 @@ class SummationSymbolNode extends VBox {
     }, options );
 
     // Capital sigma, the summation character
-    const sigmaNode = new Text( '\u03a3', {
+    const sigmaNode = new RichText( FMWSymbols.CAPITAL_SIGMA, {
       font: new PhetFont( options.fontSize )
     } );
 
@@ -42,7 +44,7 @@ class SummationSymbolNode extends VBox {
     };
 
     // Index and min (starting) value, which appears below the sigma character
-    const minNode = new Text( `${indexSymbol} ${MathSymbols.EQUAL_TO} ${indexRange.min}`, indexTextOptions );
+    const minNode = new RichText( `${indexSymbol} ${MathSymbols.EQUAL_TO} ${indexRange.min}`, indexTextOptions );
 
     // Max (stopping) value, which appears above the sigma character
     const maxNode = new Text( `${indexRange.max}`, indexTextOptions );

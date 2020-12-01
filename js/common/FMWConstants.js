@@ -102,7 +102,7 @@ const FMWConstants = {
 };
 
 /**
- * Creates a tick label for the graphs.
+ * Creates a numeric tick label for the graphs.
  * @param {number} value
  * @returns {Node}
  */

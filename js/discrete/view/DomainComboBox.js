@@ -10,7 +10,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -38,13 +38,13 @@ class DomainComboBox extends ComboBox {
     };
 
     const items = [
-      new ComboBoxItem( new Text( StringUtils.fillIn( fourierMakingWavesStrings.spaceSymbol, {
+      new ComboBoxItem( new RichText( StringUtils.fillIn( fourierMakingWavesStrings.spaceSymbol, {
         symbol: FMWSymbols.SMALL_X
       } ), textOptions ), Domain.SPACE ),
-      new ComboBoxItem( new Text( StringUtils.fillIn( fourierMakingWavesStrings.timeSymbols, {
+      new ComboBoxItem( new RichText( StringUtils.fillIn( fourierMakingWavesStrings.timeSymbols, {
         symbol: FMWSymbols.SMALL_T
       } ), textOptions ), Domain.TIME ),
-      new ComboBoxItem( new Text( StringUtils.fillIn( fourierMakingWavesStrings.spaceAndTimeSymbols, {
+      new ComboBoxItem( new RichText( StringUtils.fillIn( fourierMakingWavesStrings.spaceAndTimeSymbols, {
         spaceSymbol: FMWSymbols.SMALL_X,
         timeSymbol: FMWSymbols.SMALL_T
       } ), textOptions ), Domain.SPACE_AND_TIME )

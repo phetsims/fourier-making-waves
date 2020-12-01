@@ -22,7 +22,6 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ZoomButtonGroup from '../../../../scenery-phet/js/ZoomButtonGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
@@ -65,7 +64,7 @@ class HarmonicsChart extends Node {
     const xGridLineSet = new GridLineSet( chartModel, Orientation.HORIZONTAL, L / 8, FMWConstants.GRID_LINE_OPTIONS );
     const xLabelSet = new LabelSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.LABEL_SET_OPTIONS );
     const xTickMarkSet = new TickMarkSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.TICK_MARK_OPTIONS );
-    const xAxisLabel = new Text( StringUtils.fillIn( fourierMakingWavesStrings.xMeters, {
+    const xAxisLabel = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.xMeters, {
       x: FMWSymbols.SMALL_X
     } ), {
       font: FMWConstants.AXIS_LABEL_FONT,

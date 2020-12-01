@@ -1,11 +1,15 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * Symbols used throughout this sim. These are also described in model.md.
+ * Symbols used throughout this sim, as described in model.md.
+ *
+ * This is also where MathSymbolFont is applied to symbols. By surrounding the symbol with
+ * MathSymbolFont.getRichTextMarkup, all occurrences of a symbol will be rendered using MathSymbolFont.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 
 const FMWSymbols = {
@@ -13,14 +17,15 @@ const FMWSymbols = {
   CAPITAL_F: 'F', // function of frequency
   CAPITAL_L: 'L', // string length, if this were a plucked string
   CAPITAL_T: 'T', // sampling period, or period of the 1st harmonic
-  PI: '\u03c0', // pi
-  SMALL_K: 'k', // wave number
+  CAPITAL_SIGMA: MathSymbolFont.getRichTextMarkup( '\u03a3', 'normal' ), // summation symbol
+  PI: MathSymbolFont.getRichTextMarkup( '\u03c0', 'normal' ), // pi
+  SMALL_K: MathSymbolFont.getRichTextMarkup( 'k' ), // wave number
   SMALL_LAMBDA: '\u03bb', // wavelength
-  SMALL_N: 'n', // mode, order, or harmonic number
+  SMALL_N: MathSymbolFont.getRichTextMarkup( 'n' ), // mode, order, or harmonic number
   SMALL_OMEGA: '\u03c9', // angular frequency
   SMALL_SIGMA: '\u03c3', // width of the gaussian packet (dx)
-  SMALL_T: 't', // time
-  SMALL_X: 'x' // position in space along L
+  SMALL_T: MathSymbolFont.getRichTextMarkup( 't' ), // time
+  SMALL_X: MathSymbolFont.getRichTextMarkup( 'x' ) // position in space along L
 };
 
 fourierMakingWaves.register( 'FMWSymbols', FMWSymbols );
