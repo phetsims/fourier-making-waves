@@ -16,7 +16,7 @@ It's assumed that the reader has some basic knowledge of Fourier Series.
 * L = string length, if this were a plucked string
 * n = mode, order, or harmonic number
 * π = pi
-* σ = sigma, width of the gaussian packet (dx)
+* σ = sigma, width of the Gaussian wave packet (dx)
 * t = time
 * T = sampling period, or period of the 1st harmonic
 * ω = omega, angular frequency

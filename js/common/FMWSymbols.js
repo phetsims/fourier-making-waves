@@ -24,7 +24,7 @@ const FMWSymbols = {
   SMALL_LAMBDA: MathSymbolFont.getRichTextMarkup( '\u03bb', 'normal' ), // wavelength
   SMALL_N: MathSymbolFont.getRichTextMarkup( 'n' ), // mode, order, or harmonic number
   SMALL_OMEGA: MathSymbolFont.getRichTextMarkup( '\u03c9', 'normal' ), // angular frequency
-  SMALL_SIGMA: MathSymbolFont.getRichTextMarkup( '\u03c3', 'normal' ), // width of the Gaussian packet (dx)
+  SMALL_SIGMA: MathSymbolFont.getRichTextMarkup( '\u03c3', 'normal' ), // width of the Gaussian wave packet (dx)
   SMALL_T: MathSymbolFont.getRichTextMarkup( 't' ), // time
   SMALL_X: MathSymbolFont.getRichTextMarkup( 'x' ) // position in space along L
 };
