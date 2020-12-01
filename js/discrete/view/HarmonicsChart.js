@@ -13,6 +13,7 @@ import ChartModel from '../../../../bamboo/js/ChartModel.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
+import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
@@ -61,7 +62,7 @@ class HarmonicsChart extends Node {
     const xAxis = new AxisNode( chartModel, Orientation.HORIZONTAL, FMWConstants.AXIS_OPTIONS );
     const xGridLineSet = new GridLineSet( chartModel, Orientation.HORIZONTAL, L / 8, FMWConstants.GRID_LINE_OPTIONS );
     const xLabelSet = new LabelSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.LABEL_SET_OPTIONS );
-    //TODO xTickMarkSet
+    const xTickMarkSet = new TickMarkSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.TICK_MARK_OPTIONS );
     const xAxisLabel = new Text( StringUtils.fillIn( fourierMakingWavesStrings.xMeters, {
       x: FMWSymbols.SMALL_X
     } ), {
@@ -73,7 +74,7 @@ class HarmonicsChart extends Node {
     const yAxis = new AxisNode( chartModel, Orientation.VERTICAL, FMWConstants.AXIS_OPTIONS );
     const yGridLineSet = new GridLineSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.GRID_LINE_OPTIONS );
     const yLabelSet = new LabelSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.LABEL_SET_OPTIONS );
-    //TODO yTickMarkSet
+    const yTickMarkSet  = new TickMarkSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.TICK_MARK_OPTIONS );
     const yAxisLabel = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.amplitudeSymbol, {
       symbol: FMWSymbols.CAPITAL_A
     } ), {
@@ -108,8 +109,8 @@ class HarmonicsChart extends Node {
     assert && assert( !options.children, 'AmplitudesChart sets children' );
     options.children = [
       chartRectangle,
-      xAxisLabel, xGridLineSet, xLabelSet,
-      yAxisLabel, yGridLineSet, yLabelSet,
+      xAxisLabel, xGridLineSet, xTickMarkSet, xLabelSet,
+      yAxisLabel, yGridLineSet, yTickMarkSet, yLabelSet,
       clippedParent,
       equationNode,
       xZoomButtonGroup

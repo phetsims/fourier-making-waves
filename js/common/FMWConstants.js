@@ -93,6 +93,11 @@ const FMWConstants = {
     createLabel: createTickLabel
   },
 
+  TICK_MARK_OPTIONS: {
+    edge: 'min',
+    extent: 6
+  },
+
   TICK_LABEL_DECIMAL_PLACES: 1
 };
 
