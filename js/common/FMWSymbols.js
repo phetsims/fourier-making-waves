@@ -16,15 +16,15 @@ const FMWSymbols = {
   CAPITAL_A: 'A', // amplitude
   CAPITAL_F: 'F', // function of frequency
   CAPITAL_L: 'L', // string length, if this were a plucked string
-  CAPITAL_T: 'T', // sampling period, or period of the 1st harmonic
   CAPITAL_SIGMA: MathSymbolFont.getRichTextMarkup( '\u03a3', 'normal' ), // summation symbol
+  CAPITAL_T: 'T', // sampling period, or period of the 1st harmonic
   PI: MathSymbolFont.getRichTextMarkup( '\u03c0', 'normal' ), // pi
   SMALL_F: MathSymbolFont.getRichTextMarkup( 'f' ), // frequency
   SMALL_K: MathSymbolFont.getRichTextMarkup( 'k' ), // wave number
   SMALL_LAMBDA: MathSymbolFont.getRichTextMarkup( '\u03bb', 'normal' ), // wavelength
   SMALL_N: MathSymbolFont.getRichTextMarkup( 'n' ), // mode, order, or harmonic number
   SMALL_OMEGA: MathSymbolFont.getRichTextMarkup( '\u03c9', 'normal' ), // angular frequency
-  SMALL_SIGMA: MathSymbolFont.getRichTextMarkup( '\u03c3', 'normal' ), // width of the gaussian packet (dx)
+  SMALL_SIGMA: MathSymbolFont.getRichTextMarkup( '\u03c3', 'normal' ), // width of the Gaussian packet (dx)
   SMALL_T: MathSymbolFont.getRichTextMarkup( 't' ), // time
   SMALL_X: MathSymbolFont.getRichTextMarkup( 'x' ) // position in space along L
 };
