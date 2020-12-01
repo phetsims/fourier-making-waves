@@ -115,5 +115,8 @@
   },
   "xMeters": {
     "value": "{{x}} (m)"
+  },
+  "expandedSum": {
+    "value": "Expanded Sum"
   }
 }

@@ -28,9 +28,6 @@ class DiscreteViewProperties {
     // @public whether the Sum chart shows what the preset function looks like for an infinite Fourier series
     this.infiniteHarmonicsProperty = new BooleanProperty( false );
 
-    // @public whether the equation for the Sum is shown in expanded form
-    this.mathFormExpandedSumProperty = new BooleanProperty( false );
-
     // @public whether the sound of the Fourier series is enabled
     this.soundEnabledProperty = new BooleanProperty( false );
 

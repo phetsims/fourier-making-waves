@@ -20,6 +20,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import ZoomButtonGroup from '../../../../scenery-phet/js/ZoomButtonGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -30,23 +31,28 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import MathForm from '../model/MathForm.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
 import EquationFactory from './EquationFactory.js';
+import ExpandedSumDialog from './ExpandedSumDialog.js';
 import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 
 class SumChart extends Node {
 
   /**
    * @param {FourierSeries} fourierSeries
+   * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
    * @param {NumberProperty} yZoomLevelProperty
    * @param {Property.<boolean>} autoScaleProperty
    * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, xZoomLevelProperty, yZoomLevelProperty, autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
+  constructor( fourierSeries, mathFormProperty, xZoomLevelProperty, yZoomLevelProperty,
+               autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
+    assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
     assert && assert( yZoomLevelProperty instanceof NumberProperty, 'invalid yZoomLevelProperty' );
     assert && AssertUtils.assertPropertyOf( autoScaleProperty, 'boolean' );
@@ -96,10 +102,23 @@ class SumChart extends Node {
     } );
 
     //TODO
-    const equationNode = EquationFactory.createSumWavelengthForm( new Range( 1, fourierSeries.numberOfHarmonicsProperty.value ) );
+    const equationNode = EquationFactory.createSumWavelengthForm( fourierSeries.numberOfHarmonicsProperty.value );
+
+    // Info button opens the 'Expanded Sum' dialog
+    const infoButton = new InfoButton( {
+      scale: 0.45,
+      listener: () => {
+        const dialog = new ExpandedSumDialog( fourierSeries, mathFormProperty.value );
+        dialog.show();
+      }
+    } );
+
+    // Center the equation above the graph, with info button to the right of the equation.
     equationNode.localBoundsProperty.link( () => {
       equationNode.centerX = chartRectangle.centerX;
       equationNode.bottom = chartRectangle.top - 5;
+      infoButton.left = equationNode.right + 20;
+      infoButton.centerY = equationNode.centerY;
     } );
 
     const xZoomButtonGroup = new ZoomButtonGroup( xZoomLevelProperty, {
@@ -138,7 +157,7 @@ class SumChart extends Node {
       xAxisLabel, xGridLineSet, xLabelSet,
       yAxisLabel, yGridLineSet, yLabelSet,
       clippedParent,
-      equationNode,
+      equationNode, infoButton,
       checkboxesParent,
       xZoomButtonGroup, yZoomButtonGroup
     ];

@@ -27,16 +27,14 @@ class DiscreteControlPanel extends FMWPanel {
 
   /**
    * @param {DiscreteModel} model
-   * @param {Property.<boolean>} mathFormExpandedSumProperty
    * @param {Property.<boolean>} soundEnabledProperty
    * @param {NumberProperty} soundOutputLevelProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
-  constructor( model, mathFormExpandedSumProperty, soundEnabledProperty, soundOutputLevelProperty, popupParent, options ) {
+  constructor( model, soundEnabledProperty, soundOutputLevelProperty, popupParent, options ) {
 
     assert && assert( model instanceof DiscreteModel, 'invalid model' );
-    assert && AssertUtils.assertPropertyOf( mathFormExpandedSumProperty, 'boolean' );
     assert && AssertUtils.assertPropertyOf( soundEnabledProperty, 'boolean' );
     assert && assert( soundOutputLevelProperty instanceof NumberProperty, 'invalid soundOutputLevelProperty' );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
@@ -62,7 +60,7 @@ class DiscreteControlPanel extends FMWPanel {
           model.periodToolEnabledProperty, model.selectedPeriodProperty,
           model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty ),
         new HSeparator( separatorWidth, separatorOptions ),
-        new MathFormLayoutBox( model.fourierSeries, model.mathFormProperty, mathFormExpandedSumProperty, popupParent ),
+        new MathFormLayoutBox( model.fourierSeries, model.mathFormProperty, popupParent ),
         new HSeparator( separatorWidth, separatorOptions ),
         new SoundLayoutBox( soundEnabledProperty, soundOutputLevelProperty )
       ]

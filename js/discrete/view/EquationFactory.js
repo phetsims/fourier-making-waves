@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -19,8 +20,24 @@ import SummationSymbolNode from './SummationSymbolNode.js';
 const EquationFactory = {
 
   /**
-   * Creates the equation for MathForm.WAVE_LENGTH for the Harmonics chart.
+   * Creates the RichText markup for MathForm.WAVE_LENGTH for one harmonic.
+   * @param amplitude
+   * @param order
+   * @returns {string}
+   * @public
+   */
+  createHarmonicWavelengthFormMarkup( amplitude, order ) {
+
+    // An sin( 2πx / λn )
+    return `${amplitude} ` +
+           `sin( 2${FMWSymbols.PI}${FMWSymbols.SMALL_X} / ` +
+           `${FMWSymbols.SMALL_LAMBDA}<sub>${order}</sub> )`;
+  },
+
+  /**
+   * Creates the general form equation for MathForm.WAVE_LENGTH for the Harmonics chart.
    * @param {Object} [options]
+   * @returns {Node}
    * @public
    */
   createHarmonicWavelengthForm( options ) {
@@ -30,19 +47,18 @@ const EquationFactory = {
     }, options );
 
     // An sin( 2πx / λn )
-    const string = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
-                   `sin( 2${FMWSymbols.PI}${FMWSymbols.SMALL_X} / ` +
-                   `${FMWSymbols.SMALL_LAMBDA}<sub>${FMWSymbols.SMALL_N}</sub> )`;
+    const string = EquationFactory.createHarmonicWavelengthFormMarkup( `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub>`, FMWSymbols.SMALL_N );
     return new RichText( string, options );
   },
 
   /**
-   * Creates the equation for MathForm.WAVE_LENGTH for the Sum chart.
-   * @param {Range} range - range of the summation index
+   * Creates the general form equation for MathForm.WAVE_LENGTH for the Sum chart.
+   * @param {number} numberOfHarmonics
    * @param {Object} [options]
+   * @returns {Node}
    * @public
    */
-  createSumWavelengthForm( range, options ) {
+  createSumWavelengthForm( numberOfHarmonics, options ) {
 
     options = merge( {
       font: FMWConstants.EQUATION_FONT
@@ -52,7 +68,7 @@ const EquationFactory = {
     const leftNode = new RichText( `${FMWSymbols.CAPITAL_F}(${FMWSymbols.SMALL_X}) ${MathSymbols.EQUAL_TO} `, {
       font: options.font
     } );
-    const summationNode = new SummationSymbolNode( FMWSymbols.SMALL_N, range, {
+    const summationNode = new SummationSymbolNode( FMWSymbols.SMALL_N, new Range( 1, numberOfHarmonics ), {
       font: options.font,
       left: leftNode.right + 2,
       centerY: leftNode.centerY

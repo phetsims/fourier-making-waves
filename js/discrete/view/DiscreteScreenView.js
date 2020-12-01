@@ -100,8 +100,8 @@ class DiscreteScreenView extends ScreenView {
       spacing: 5
     } );
 
-    const sumChart = new SumChart( model.fourierSeries, viewProperties.xZoomLevelProperty, viewProperties.yZoomLevelProperty,
-      viewProperties.autoScaleProperty, viewProperties.infiniteHarmonicsProperty, {
+    const sumChart = new SumChart( model.fourierSeries, model.mathFormProperty, viewProperties.xZoomLevelProperty,
+      viewProperties.yZoomLevelProperty, viewProperties.autoScaleProperty, viewProperties.infiniteHarmonicsProperty, {
         left: sumHBox.left,
         top: sumHBox.top,
         tandem: tandem.createTandem( 'sumChart' )
@@ -128,7 +128,7 @@ class DiscreteScreenView extends ScreenView {
       top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN
     } ) );
 
-    const controlPanel = new DiscreteControlPanel( model, viewProperties.mathFormExpandedSumProperty,
+    const controlPanel = new DiscreteControlPanel( model,
       viewProperties.soundEnabledProperty, viewProperties.soundOutputLevelProperty, popupParent, {
         right: this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN,
         top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN

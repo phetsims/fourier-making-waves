@@ -87,6 +87,8 @@ class HarmonicsChart extends Node {
 
     //TODO
     const equationNode = EquationFactory.createHarmonicWavelengthForm();
+
+    // Center the equation above the graph.
     equationNode.localBoundsProperty.link( () => {
       equationNode.centerX = chartRectangle.centerX;
       equationNode.bottom = chartRectangle.top - 5;
