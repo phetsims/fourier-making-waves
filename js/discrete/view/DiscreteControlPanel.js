@@ -60,7 +60,7 @@ class DiscreteControlPanel extends FMWPanel {
           model.periodToolEnabledProperty, model.selectedPeriodProperty,
           model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty ),
         new HSeparator( separatorWidth, separatorOptions ),
-        new MathFormLayoutBox( model.fourierSeries, model.mathFormProperty, popupParent ),
+        new MathFormLayoutBox( model.fourierSeries, model.mathFormProperty, model.domainProperty, popupParent ),
         new HSeparator( separatorWidth, separatorOptions ),
         new SoundLayoutBox( soundEnabledProperty, soundOutputLevelProperty )
       ]

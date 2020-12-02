@@ -12,7 +12,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 const MathForm = Enumeration.byKeys( [
 
   // no math form is shown
-  'NONE',
+  'HIDDEN',
 
   // for function of space
   'SPACE_WAVELENGTH',
