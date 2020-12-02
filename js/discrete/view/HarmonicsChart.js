@@ -18,6 +18,7 @@ import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ZoomButtonGroup from '../../../../scenery-phet/js/ZoomButtonGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -28,18 +29,24 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import EquationFactory from './EquationFactory.js';
+import Domain from '../model/Domain.js';
+import MathForm from '../model/MathForm.js';
+import HarmonicsEquationNode from './HarmonicsEquationNode.js';
 
 class HarmonicsChart extends Node {
 
   /**
    * @param {FourierSeries} fourierSeries
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, xZoomLevelProperty, options ) {
+  constructor( fourierSeries, domainProperty, mathFormProperty, xZoomLevelProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
 
     options = merge( {
@@ -85,8 +92,8 @@ class HarmonicsChart extends Node {
       centerY: chartRectangle.centerY
     } );
 
-    //TODO
-    const equationNode = EquationFactory.createHarmonicWavelengthForm();
+    // Equation that appears above the chart
+    const equationNode = new HarmonicsEquationNode( domainProperty, mathFormProperty );
 
     // Center the equation above the graph.
     equationNode.localBoundsProperty.link( () => {

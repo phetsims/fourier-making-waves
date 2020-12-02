@@ -74,11 +74,12 @@ class DiscreteScreenView extends ScreenView {
       spacing: 5
     } );
 
-    const harmonicsChart = new HarmonicsChart( model.fourierSeries, viewProperties.xZoomLevelProperty, {
-      left: harmonicsHBox.left,
-      top: harmonicsHBox.top,
-      tandem: tandem.createTandem( 'harmonicsChart' )
-    } );
+    const harmonicsChart = new HarmonicsChart( model.fourierSeries, model.domainProperty, model.mathFormProperty,
+      viewProperties.xZoomLevelProperty, {
+        left: harmonicsHBox.left,
+        top: harmonicsHBox.top,
+        tandem: tandem.createTandem( 'harmonicsChart' )
+      } );
 
     const harmonicsParent = new Node( {
       children: [ harmonicsHBox, harmonicsChart ]
