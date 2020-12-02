@@ -6,21 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
-import ComboBox from '../../../../sun/js/ComboBox.js';
-import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
-import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import MathForm from '../model/MathForm.js';
+import FMWComboBox from './FMWComboBox.js';
 
-class MathFormComboBox extends ComboBox {
+class MathFormComboBox extends FMWComboBox {
 
   /**
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
@@ -32,26 +27,84 @@ class MathFormComboBox extends ComboBox {
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
-    options = merge( {}, FMWConstants.COMBO_BOX_OPTIONS, options );
+    // {{string:string, value:MathForm}[]}
+    const choices = [
 
-    const textOptions = {
-      font: FMWConstants.CONTROL_FONT
-    };
+      // no math form displayed
+      {
+        value: MathForm.NONE,
+        string: fourierMakingWavesStrings.mathFormChoice.hidden
+      },
 
-    const items = [
-      new ComboBoxItem( new Text( fourierMakingWavesStrings.hidden, textOptions ), MathForm.HIDDEN ),
-      new ComboBoxItem( new RichText( StringUtils.fillIn( fourierMakingWavesStrings.wavelengthSymbol, {
-        symbol: FMWSymbols.SMALL_LAMBDA
-      } ), textOptions ), MathForm.WAVELENGTH ),
-      new ComboBoxItem( new RichText( StringUtils.fillIn( fourierMakingWavesStrings.waveNumberSymbol, {
-        symbol: FMWSymbols.SMALL_K
-      } ), textOptions ), MathForm.WAVE_NUMBER ),
-      new ComboBoxItem( new RichText( StringUtils.fillIn( fourierMakingWavesStrings.modeSymbol, {
-        symbol: FMWSymbols.SMALL_N
-      } ), textOptions ), MathForm.MODE )
+      // function of space
+      {
+        value: MathForm.SPACE_WAVELENGTH,
+        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.wavelength, {
+          symbol: FMWSymbols.SMALL_LAMBDA
+        } )
+      },
+      {
+        value: MathForm.SPACE_WAVE_NUMBER,
+        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.waveNumber, {
+          symbol: FMWSymbols.SMALL_K
+        } )
+      },
+      {
+        value: MathForm.SPACE_MODE,
+        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.mode, {
+          symbol: FMWSymbols.SMALL_N
+        } )
+      },
+
+      // function of time
+      {
+        value: MathForm.TIME_FREQUENCY,
+        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.frequency, {
+          symbol: FMWSymbols.CAPITAL_F
+        } )
+      },
+      {
+        value: MathForm.TIME_PERIOD,
+        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.period, {
+          symbol: FMWSymbols.CAPITAL_T
+        } )
+      },
+      {
+        value: MathForm.TIME_ANGULAR_FREQUENCY,
+        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.angularFrequency, {
+          symbol: FMWSymbols.SMALL_OMEGA
+        } )
+      },
+      {
+        value: MathForm.TIME_MODE,
+        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.mode, {
+          symbol: FMWSymbols.SMALL_N
+        } )
+      },
+
+      // function of space & time
+      {
+        value: MathForm.SPACE_AND_TIME_WAVELENGTH_AND_PERIOD,
+        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.wavelengthAndPeriod, {
+          wavelengthSymbol: FMWSymbols.SMALL_LAMBDA,
+          periodSymbol: FMWSymbols.CAPITAL_T
+        } )
+      },
+      {
+        value: MathForm.SPACE_AND_TIME_WAVE_NUMBER_AND_ANGULAR_FREQUENCY,
+        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.waveNumberAndAngularFrequency, {
+          waveNumberSymbol: FMWSymbols.SMALL_K,
+          angularFrequencySymbol: FMWSymbols.SMALL_OMEGA
+        } )
+      },      {
+        value: MathForm.SPACE_AND_TIME_MODE,
+        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.mode, {
+          symbol: FMWSymbols.SMALL_N
+        } )
+      }
     ];
 
-    super( items, mathFormProperty, popupParent, options );
+    super( choices, mathFormProperty, popupParent, options );
   }
 }
 

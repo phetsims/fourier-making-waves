@@ -6,18 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
-import ComboBox from '../../../../sun/js/ComboBox.js';
-import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
-import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import PresetFunction from '../model/PresetFunction.js';
+import FMWComboBox from './FMWComboBox.js';
 
-class PresetFunctionComboBox extends ComboBox {
+class PresetFunctionComboBox extends FMWComboBox {
 
   /**
    * @param {EnumerationProperty.<PresetFunction>} presetFunctionProperty
@@ -29,22 +25,17 @@ class PresetFunctionComboBox extends ComboBox {
     assert && AssertUtils.assertEnumerationPropertyOf( presetFunctionProperty, PresetFunction );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
-    options = merge( {}, FMWConstants.COMBO_BOX_OPTIONS, options );
-
-    const textOptions = {
-      font: FMWConstants.CONTROL_FONT
-    };
-
-    const items = [
-      new ComboBoxItem( new Text( fourierMakingWavesStrings.sineCosine, textOptions ), PresetFunction.SINE_COSINE ),
-      new ComboBoxItem( new Text( fourierMakingWavesStrings.triangle, textOptions ), PresetFunction.TRIANGLE ),
-      new ComboBoxItem( new Text( fourierMakingWavesStrings.square, textOptions ), PresetFunction.SQUARE ),
-      new ComboBoxItem( new Text( fourierMakingWavesStrings.sawtooth, textOptions ), PresetFunction.SAWTOOTH ),
-      new ComboBoxItem( new Text( fourierMakingWavesStrings.wavePacket, textOptions ), PresetFunction.WAVE_PACKET ),
-      new ComboBoxItem( new Text( fourierMakingWavesStrings.custom, textOptions ), PresetFunction.CUSTOM )
+    // {{string:string, value:PresetFunction}[]}
+    const choices = [
+      { value: PresetFunction.SINE_COSINE, string: fourierMakingWavesStrings.sineCosine },
+      { value: PresetFunction.TRIANGLE, string: fourierMakingWavesStrings.triangle },
+      { value: PresetFunction.SQUARE, string: fourierMakingWavesStrings.square },
+      { value: PresetFunction.SAWTOOTH, string: fourierMakingWavesStrings.sawtooth },
+      { value: PresetFunction.WAVE_PACKET, string: fourierMakingWavesStrings.wavePacket },
+      { value: PresetFunction.CUSTOM, string: fourierMakingWavesStrings.custom }
     ];
 
-    super( items, presetFunctionProperty, popupParent, options );
+    super( choices, presetFunctionProperty, popupParent, options );
   }
 }
 

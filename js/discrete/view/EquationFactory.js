@@ -20,7 +20,7 @@ import SummationSymbolNode from './SummationSymbolNode.js';
 const EquationFactory = {
 
   /**
-   * Creates the RichText markup for MathForm.WAVE_LENGTH for one harmonic.
+   * Creates the RichText markup for MathForm.SPACE_WAVE_LENGTH for one harmonic.
    * @param amplitude
    * @param order
    * @returns {string}
@@ -35,7 +35,7 @@ const EquationFactory = {
   },
 
   /**
-   * Creates the general form equation for MathForm.WAVE_LENGTH for the Harmonics chart.
+   * Creates the general form equation for MathForm.SPACE_WAVE_LENGTH for the Harmonics chart.
    * @param {Object} [options]
    * @returns {Node}
    * @public
@@ -52,7 +52,7 @@ const EquationFactory = {
   },
 
   /**
-   * Creates the general form equation for MathForm.WAVE_LENGTH for the Sum chart.
+   * Creates the general form equation for MathForm.SPACE_WAVE_LENGTH for the Sum chart.
    * @param {number} numberOfHarmonics
    * @param {Object} [options]
    * @returns {Node}

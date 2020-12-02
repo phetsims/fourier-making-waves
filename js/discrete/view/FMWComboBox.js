@@ -1,0 +1,54 @@
+// Copyright 2020, University of Colorado Boulder
+
+/**
+ * FMWComboBox creates a combo box using a set of string/value choices.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
+
+import Property from '../../../../axon/js/Property.js';
+import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+import ComboBox from '../../../../sun/js/ComboBox.js';
+import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
+import FMWConstants from '../../common/FMWConstants.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
+
+class FMWComboBox extends ComboBox {
+
+  /**
+   * @param {value:*, string:string} choices
+   * @param {Property} property
+   * @param {Node} listboxParent
+   * @param {Object} [options]
+   */
+  constructor( choices, property, listboxParent, options ) {
+
+    assert && AssertUtils.assertArray( choices );
+    assert && assert( property instanceof Property, 'invalid property' );
+    assert && assert( listboxParent instanceof Node, 'invalid listboxParent' );
+
+    options = merge( {
+      textOptions: {
+        font: FMWConstants.CONTROL_FONT
+      },
+
+      // ComboBox options
+      xMargin: 12,
+      yMargin: 5
+    }, options );
+
+    const items = []; // {ComboBoxItem[]}
+    choices.forEach( choice => {
+      assert && assert( typeof choice.string === 'string', `invalid choice.string: ${choice.string}` );
+      items.push( new ComboBoxItem( new RichText( choice.string, options.textOptions ), choice.value ) );
+    } );
+
+    super( items, property, listboxParent, options );
+  }
+}
+
+fourierMakingWaves.register( 'FMWComboBox', FMWComboBox );
+export default FMWComboBox;

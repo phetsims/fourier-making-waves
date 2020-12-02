@@ -65,7 +65,7 @@ class DiscreteModel {
     } );
 
     // @public
-    this.mathFormProperty = new EnumerationProperty( MathForm, MathForm.HIDDEN );
+    this.mathFormProperty = new EnumerationProperty( MathForm, MathForm.NONE );
 
     // @public TODO move to view?
     this.sumExpandedProperty = new BooleanProperty( false );

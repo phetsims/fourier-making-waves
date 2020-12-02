@@ -20,9 +20,6 @@
   "measurementTools": {
     "value": "Measurement Tools"
   },
-  "mathForm": {
-    "value": "Math Form"
-  },
   "sineCosine": {
     "value": "sine/cosine"
   },
@@ -74,17 +71,35 @@
   "periodOrder": {
     "value": "{{symbol}}<sub>{{order}}</sub>"
   },
-  "hidden": {
+  "mathForm": {
+    "value": "Math Form"
+  },
+  "mathFormChoice.hidden": {
     "value": "Hidden"
   },
-  "wavelengthSymbol": {
+  "mathFormChoice.wavelength": {
     "value": "Wavelength ({{symbol}})"
   },
-  "waveNumberSymbol": {
+  "mathFormChoice.waveNumber": {
     "value": "Wave Number ({{symbol}})"
   },
-  "modeSymbol": {
+  "mathFormChoice.mode": {
     "value": "Mode ({{symbol}})"
+  },
+  "mathFormChoice.frequency": {
+    "value": "Frequency ({{symbol}})"
+  },
+  "mathFormChoice.period": {
+    "value": "Period ({{symbol}})"
+  },
+  "mathFormChoice.angularFrequency": {
+    "value": "Angular frequency ({{symbol}})"
+  },
+  "mathFormChoice.wavelengthAndPeriod": {
+    "value": "Wavelength ({{wavelengthSymbol}}) & Period ({{periodSymbol}})"
+  },
+  "mathFormChoice.waveNumberAndAngularFrequency": {
+    "value": "Wave num ({{waveNumberSymbol}}) & Angular freq ({{angularFrequencySymbol}})"
   },
   "amplitudeSymbol": {
     "value": "Amplitude ({{symbol}})"
