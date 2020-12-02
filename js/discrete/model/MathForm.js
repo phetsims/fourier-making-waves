@@ -15,16 +15,16 @@ const MathForm = Enumeration.byKeys( [
   'HIDDEN',
   'MODE',
 
-  // appropriate for Domain.SPACE
+  // specific to Domain.SPACE
   'WAVELENGTH',
   'WAVE_NUMBER',
 
-  // appropriate for Domain.TIME
+  // specific to Domain.TIME
   'FREQUENCY',
   'PERIOD',
   'ANGULAR_FREQUENCY',
 
-  // appropriate for Domain.SPACE_AND_TIME
+  // specific to Domain.SPACE_AND_TIME
   'WAVELENGTH_AND_PERIOD',
   'WAVE_NUMBER_AND_ANGULAR_FREQUENCY'
 ] );
