@@ -65,9 +65,16 @@ class MeasurementToolsLayoutBox extends VBox {
       font: FMWConstants.TITLE_FONT
     } );
 
-    const alignBoxOptions = {
-      group: new AlignGroup(),
+    // To make checkboxes have the same effective width
+    const checkboxAlignBoxOptions = {
+      group: new AlignGroup( { matchVertical: false } ),
       xAlign: 'left'
+    };
+
+    // To make spinners have the same effective width
+    const spinnerAlignBoxOptions = {
+      group: new AlignGroup( { matchVertical: false } ),
+      xAlign: 'center'
     };
 
     const hBoxOptions = {
@@ -88,7 +95,10 @@ class MeasurementToolsLayoutBox extends VBox {
       }
     }, NUMBER_SPINNER_OPTIONS ) );
     const wavelengthBox = new HBox( merge( {}, hBoxOptions, {
-      children: [ new AlignBox( wavelengthCheckbox, alignBoxOptions ), wavelengthSpinner ]
+      children: [
+        new AlignBox( wavelengthCheckbox, checkboxAlignBoxOptions ),
+        new AlignBox( wavelengthSpinner, spinnerAlignBoxOptions )
+      ]
     } ) );
 
     // Period
@@ -105,7 +115,10 @@ class MeasurementToolsLayoutBox extends VBox {
       }
     }, NUMBER_SPINNER_OPTIONS ) );
     const periodBox = new HBox( merge( {}, hBoxOptions, {
-      children: [ new AlignBox( periodCheckbox, alignBoxOptions ), periodSpinner ]
+      children: [
+        new AlignBox( periodCheckbox, checkboxAlignBoxOptions ),
+        new AlignBox( periodSpinner, spinnerAlignBoxOptions )
+      ]
     } ) );
 
     assert && assert( !options.children, 'MeasurementToolsLayoutBox sets children' );
