@@ -11,24 +11,22 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 const MathForm = Enumeration.byKeys( [
 
-  // no math form is shown
+  // appropriate for all Domain values
   'HIDDEN',
+  'MODE',
 
-  // for function of space
-  'SPACE_WAVELENGTH',
-  'SPACE_WAVE_NUMBER',
-  'SPACE_MODE',
+  // appropriate for Domain.SPACE
+  'WAVELENGTH',
+  'WAVE_NUMBER',
 
-  // for function of time
-  'TIME_FREQUENCY',
-  'TIME_PERIOD',
-  'TIME_ANGULAR_FREQUENCY',
-  'TIME_MODE',
+  // appropriate for Domain.TIME
+  'FREQUENCY',
+  'PERIOD',
+  'ANGULAR_FREQUENCY',
 
-  // for function of space & time
-  'SPACE_AND_TIME_WAVELENGTH_AND_PERIOD',
-  'SPACE_AND_TIME_WAVE_NUMBER_AND_ANGULAR_FREQUENCY',
-  'SPACE_AND_TIME_MODE'
+  // appropriate for Domain.SPACE_AND_TIME
+  'WAVELENGTH_AND_PERIOD',
+  'WAVE_NUMBER_AND_ANGULAR_FREQUENCY'
 ] );
 
 fourierMakingWaves.register( 'MathForm', MathForm );

@@ -32,75 +32,56 @@ class MathFormComboBox extends FMWComboBox {
 
     // {{string:string, value:MathForm}[]}
     const choices = [
-
-      // no math form displayed
       {
         value: MathForm.HIDDEN,
         string: fourierMakingWavesStrings.mathFormChoice.hidden
       },
-
-      // function of space
       {
-        value: MathForm.SPACE_WAVELENGTH,
+        value: MathForm.WAVELENGTH,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.wavelength, {
           symbol: FMWSymbols.SMALL_LAMBDA
         } )
       },
       {
-        value: MathForm.SPACE_WAVE_NUMBER,
+        value: MathForm.WAVE_NUMBER,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.waveNumber, {
           symbol: FMWSymbols.SMALL_K
         } )
       },
       {
-        value: MathForm.SPACE_MODE,
-        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.mode, {
-          symbol: FMWSymbols.SMALL_N
-        } )
-      },
-
-      // function of time
-      {
-        value: MathForm.TIME_FREQUENCY,
+        value: MathForm.FREQUENCY,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.frequency, {
           symbol: FMWSymbols.CAPITAL_F
         } )
       },
       {
-        value: MathForm.TIME_PERIOD,
+        value: MathForm.PERIOD,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.period, {
           symbol: FMWSymbols.CAPITAL_T
         } )
       },
       {
-        value: MathForm.TIME_ANGULAR_FREQUENCY,
+        value: MathForm.ANGULAR_FREQUENCY,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.angularFrequency, {
           symbol: FMWSymbols.SMALL_OMEGA
         } )
       },
       {
-        value: MathForm.TIME_MODE,
-        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.mode, {
-          symbol: FMWSymbols.SMALL_N
-        } )
-      },
-
-      // function of space & time
-      {
-        value: MathForm.SPACE_AND_TIME_WAVELENGTH_AND_PERIOD,
+        value: MathForm.WAVELENGTH_AND_PERIOD,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.wavelengthAndPeriod, {
           wavelengthSymbol: FMWSymbols.SMALL_LAMBDA,
           periodSymbol: FMWSymbols.CAPITAL_T
         } )
       },
       {
-        value: MathForm.SPACE_AND_TIME_WAVE_NUMBER_AND_ANGULAR_FREQUENCY,
+        value: MathForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.waveNumberAndAngularFrequency, {
           waveNumberSymbol: FMWSymbols.SMALL_K,
           angularFrequencySymbol: FMWSymbols.SMALL_OMEGA
         } )
-      },      {
-        value: MathForm.SPACE_AND_TIME_MODE,
+      },
+      {
+        value: MathForm.MODE,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.mode, {
           symbol: FMWSymbols.SMALL_N
         } )
@@ -113,27 +94,23 @@ class MathFormComboBox extends FMWComboBox {
     domainProperty.link( domain => {
       assert && assert( Domain.includes( domain ), `invalid domain: ${domain}` );
 
-      // Switch to the value that is appropriate for all domains.
-      mathFormProperty.value = MathForm.HIDDEN;
+      // No need to adjust MathForm.HIDDEN or MathForm.MODE. They are appropriate for all Domain values.
 
       // Domain.SPACE
       const isSpace = ( domain === Domain.SPACE );
-      this.setItemVisible( MathForm.SPACE_WAVELENGTH, isSpace );
-      this.setItemVisible( MathForm.SPACE_WAVE_NUMBER, isSpace );
-      this.setItemVisible( MathForm.SPACE_MODE, isSpace );
+      this.setItemVisible( MathForm.WAVELENGTH, isSpace );
+      this.setItemVisible( MathForm.WAVE_NUMBER, isSpace );
 
       // Domain.TIME
       const isTime = ( domain === Domain.TIME );
-      this.setItemVisible( MathForm.TIME_FREQUENCY, isTime );
-      this.setItemVisible( MathForm.TIME_PERIOD, isTime );
-      this.setItemVisible( MathForm.TIME_ANGULAR_FREQUENCY, isTime );
-      this.setItemVisible( MathForm.TIME_MODE, domain === isTime );
+      this.setItemVisible( MathForm.FREQUENCY, isTime );
+      this.setItemVisible( MathForm.PERIOD, isTime );
+      this.setItemVisible( MathForm.ANGULAR_FREQUENCY, isTime );
 
       // Domain.SPACE_AND_TIME
       const isSpaceAmdTime = ( domain === Domain.SPACE_AND_TIME );
-      this.setItemVisible( MathForm.SPACE_AND_TIME_WAVELENGTH_AND_PERIOD, isSpaceAmdTime );
-      this.setItemVisible( MathForm.SPACE_AND_TIME_WAVE_NUMBER_AND_ANGULAR_FREQUENCY, isSpaceAmdTime );
-      this.setItemVisible( MathForm.SPACE_AND_TIME_MODE, domain === isSpaceAmdTime );
+      this.setItemVisible( MathForm.WAVELENGTH_AND_PERIOD, isSpaceAmdTime );
+      this.setItemVisible( MathForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY, isSpaceAmdTime );
     } );
   }
 }
