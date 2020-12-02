@@ -81,29 +81,33 @@ class DiscreteModel {
     // @public emits if you try to make a sawtooth wave with cosines
     this.oopsSawtoothWithCosinesEmitter = new Emitter();
 
-    // Set amplitudes for preset functions. umultilink is not needed.
+    // Set amplitudes for preset functions.
+    const updateAmplitudes = ( numberOfHarmonics, presetFunction, waveType ) => {
+
+      if ( presetFunction === PresetFunction.SAWTOOTH && waveType === WaveType.COSINE ) {
+
+        phet.log && phet.log( 'not possible to make a sawtooth out of cosines, switching to sine' );
+        this.oopsSawtoothWithCosinesEmitter.emit();
+
+        // Switch to sine on the next tick, so that we don't have a reentry problem with waveTypeProperty.
+        animationFrameTimer.runOnNextTick( () => {
+          this.waveTypeProperty.value = WaveType.SINE;
+        } );
+      }
+      else if ( presetFunction !== PresetFunction.CUSTOM ) {
+        const amplitudes = presetFunction.getAmplitudes( numberOfHarmonics, waveType );
+        assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
+        for ( let i = 0; i < numberOfHarmonics; i++ ) {
+          this.fourierSeries.harmonics[ i ].amplitudeProperty.value = amplitudes[ i ];
+        }
+      }
+    };
+
+    // umultilink is not needed.
     Property.multilink(
       [ this.fourierSeries.numberOfHarmonicsProperty, this.presetFunctionProperty, this.waveTypeProperty ],
-      ( numberOfHarmonics, presetFunction, waveType ) => {
-
-        if ( presetFunction === PresetFunction.SAWTOOTH && waveType === WaveType.COSINE ) {
-
-          phet.log && phet.log( 'not possible to make a sawtooth out of cosines, switching to sine' );
-          this.oopsSawtoothWithCosinesEmitter.emit();
-
-          // Switch to sine on the next tick, so that we don't have a reentry problem with waveTypeProperty.
-          animationFrameTimer.runOnNextTick( () => {
-            this.waveTypeProperty.value = WaveType.SINE;
-          } );
-        }
-        else if ( presetFunction !== PresetFunction.CUSTOM ) {
-          const amplitudes = presetFunction.getAmplitudes( numberOfHarmonics, waveType );
-          assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
-          for ( let i = 0; i < numberOfHarmonics; i++ ) {
-            this.fourierSeries.harmonics[ i ].amplitudeProperty.value = amplitudes[ i ];
-          }
-        }
-      } );
+      ( numberOfHarmonics, presetFunction, waveType ) => updateAmplitudes( numberOfHarmonics, presetFunction, waveType )
+    );
 
     // Ensure that the math form is appropriate for the domain. MathForm.MODE is supported by for all Domain values.
     this.domainProperty.link( domain => {
@@ -111,6 +115,28 @@ class DiscreteModel {
         this.mathFormProperty.value = MathForm.HIDDEN;
       }
     } );
+
+    // @private
+    this.resetDiscreteModel = () => {
+
+      // Reset the fourier series
+      this.fourierSeries.reset();
+
+      // Reset Properties
+      this.isPlayingProperty.reset();
+      this.presetFunctionProperty.reset();
+      this.waveTypeProperty.reset();
+      this.domainProperty.reset();
+      this.wavelengthToolEnabledProperty.reset();
+      this.selectedWavelengthProperty.reset();
+      this.periodToolEnabledProperty.reset();
+      this.selectedPeriodProperty.reset();
+      this.mathFormProperty.reset();
+      this.sumExpandedProperty.reset();
+
+      // Set the amplitudes of the Fourier series to match Property settings.
+      updateAmplitudes( this.fourierSeries.numberOfHarmonicsProperty.value, this.presetFunctionProperty.value, this.waveTypeProperty.value );
+    };
   }
 
   /**
@@ -118,18 +144,7 @@ class DiscreteModel {
    * @public
    */
   reset() {
-    this.fourierSeries.reset();
-    this.isPlayingProperty.reset();
-    this.presetFunctionProperty.reset();
-    this.waveTypeProperty.reset();
-    this.domainProperty.reset();
-    this.wavelengthToolEnabledProperty.reset();
-    this.selectedWavelengthProperty.reset();
-    this.periodToolEnabledProperty.reset();
-    this.selectedPeriodProperty.reset();
-    this.mathFormProperty.reset();
-    this.sumExpandedProperty.reset();
-    //TODO
+    this.resetDiscreteModel();
   }
 
   /**
