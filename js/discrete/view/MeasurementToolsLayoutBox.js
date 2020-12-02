@@ -142,9 +142,16 @@ class MeasurementToolsLayoutBox extends VBox {
 
     // unlink is not necessary
     domainProperty.link( domain => {
-      const periodEnabled = ( domain !== Domain.SPACE );
-      periodCheckbox.enabledProperty.value = periodEnabled;
-      periodSpinner.enabledProperty.value = periodEnabled;
+
+      // Wavelength measurement is enabled when domain involves space.
+      const hasSpace = ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME );
+      wavelengthCheckbox.enabledProperty.value = hasSpace;
+      wavelengthSpinner.enabledProperty.value = hasSpace;
+
+      // Period measurement is enabled when domain involves time.
+      const hasTime = ( domain === Domain.TIME || domain === Domain.SPACE_AND_TIME );
+      periodCheckbox.enabledProperty.value = hasTime;
+      periodSpinner.enabledProperty.value = hasTime;
     } );
   }
 
