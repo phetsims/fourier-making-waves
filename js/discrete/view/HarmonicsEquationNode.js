@@ -128,13 +128,16 @@ function getTimeMarkup( mathForm ) {
     markup = HIDDEN_STRING;
   }
   else if ( mathForm === MathForm.FREQUENCY ) {
-    return '?'; //TODO
+    markup = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
+             `sin( 2${FMWSymbols.PI}${FMWSymbols.SMALL_F}<sub>${FMWSymbols.SMALL_N}</sub>${FMWSymbols.SMALL_T} )`;
   }
   else if ( mathForm === MathForm.PERIOD ) {
-    return '?'; //TODO
+    markup = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
+             `sin( 2${FMWSymbols.PI}${FMWSymbols.SMALL_T} / ${FMWSymbols.CAPITAL_T}<sub>${FMWSymbols.SMALL_N}</sub> )`;
   }
   else if ( mathForm === MathForm.ANGULAR_FREQUENCY ) {
-    return '?'; //TODO
+    markup = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
+             `sin( ${FMWSymbols.SMALL_OMEGA}<sub>${FMWSymbols.SMALL_N}</sub>${FMWSymbols.SMALL_T} )`;
   }
   else if ( mathForm === MathForm.MODE ) {
     return '?'; //TODO
