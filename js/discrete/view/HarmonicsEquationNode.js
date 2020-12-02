@@ -8,6 +8,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
@@ -162,13 +163,19 @@ function getSpaceAndTimeMarkup( mathForm ) {
     markup = HIDDEN_STRING;
   }
   else if ( mathForm === MathForm.WAVELENGTH_AND_PERIOD ) {
-    return '?'; //TODO
+    markup = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
+             `sin( 2${FMWSymbols.PI}( ${FMWSymbols.SMALL_X}/${FMWSymbols.SMALL_LAMBDA}<sub>${FMWSymbols.SMALL_N}</sub> ` +
+             `${MathSymbols.MINUS} ${FMWSymbols.SMALL_T}/${FMWSymbols.CAPITAL_T}<sub>${FMWSymbols.SMALL_N}</sub> ) )`;
   }
   else if ( mathForm === MathForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY ) {
-    return '?'; //TODO
+    markup = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
+           `sin( ${FMWSymbols.SMALL_K}<sub>${FMWSymbols.SMALL_N}</sub>${FMWSymbols.SMALL_X} ` +
+           `${MathSymbols.MINUS} ${FMWSymbols.SMALL_OMEGA}<sub>${FMWSymbols.SMALL_N}</sub>${FMWSymbols.SMALL_T} )`;
   }
   else if ( mathForm === MathForm.MODE ) {
-    return '?'; //TODO
+    markup = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
+             `sin( 2${FMWSymbols.PI}${FMWSymbols.SMALL_N}( ` +
+             `${FMWSymbols.SMALL_X}/${FMWSymbols.CAPITAL_L} ${MathSymbols.MINUS} ${FMWSymbols.SMALL_T}/${FMWSymbols.CAPITAL_T} ) )`;
   }
   else {
     assert && assert( false, `unsupported mathForm: ${mathForm}` );
