@@ -45,14 +45,17 @@ class SumEquationNode extends Node {
       font: FMWConstants.EQUATION_FONT
     }, options );
 
+    // Everything to the left of the summation symbol
     const leftNode = new RichText( '', {
       font: options.font
     } );
 
+    // Capital sigma, summation symbol
     const summationNode = new SummationSymbolNode( n, 1, numberOfHarmonicsProperty, {
       font: options.font
     } );
 
+    // Everything to the right of the summation symbol
     const rightNode = new RichText( '', {
       font: options.font
     } );
@@ -62,25 +65,24 @@ class SumEquationNode extends Node {
 
     super( options );
 
-    // Update the equation
+    // Update the equation to match the domain and math form.
     const multilink = new Multilink(
       [ domainProperty, mathFormProperty ],
       ( domain, mathForm ) => {
 
-      this.visible = ( mathForm !== MathForm.HIDDEN );
+        this.visible = ( mathForm !== MathForm.HIDDEN );
 
-      // F(...) =
-      leftNode.text = ( domain === Domain.SPACE ) ? `${F}(${x}) ${EQUAL_TO} ` :
-                      ( domain === Domain.TIME ) ? `${F}(${t}) ${EQUAL_TO} ` :
-                      `${F}(${x},${t}) ${EQUAL_TO} `;
+        // F(...) =
+        const variables = ( domain === Domain.SPACE ) ? x : ( ( domain === Domain.TIME ) ? t : `${x},${t}` );
+        leftNode.text = `${F}(${variables}) ${EQUAL_TO}`;
 
-      summationNode.left = leftNode.right + 2;
-      summationNode.y = leftNode.y + 5; // lower summation a bit, determined empirically
+        summationNode.left = leftNode.right + 2;
+        summationNode.y = leftNode.y + 5; // lower summation a bit, determined empirically
 
-      rightNode.text = HarmonicsEquationNode.getRichTextMarkup( domain, mathForm );
-      rightNode.left = summationNode.right + 2;
-      rightNode.y = leftNode.y;
-    } );
+        rightNode.text = HarmonicsEquationNode.getRichTextMarkup( domain, mathForm );
+        rightNode.left = summationNode.right + 2;
+        rightNode.y = leftNode.y;
+      } );
 
     // @private
     this.disposeSumEquationNode = () => {
