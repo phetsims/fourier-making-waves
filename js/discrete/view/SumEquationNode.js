@@ -24,6 +24,7 @@ import SummationSymbolNode from './SummationSymbolNode.js';
 const EQUAL_TO = MathSymbols.EQUAL_TO;
 const F = FMWSymbols.CAPITAL_F;
 const n = FMWSymbols.SMALL_N;
+const t = FMWSymbols.SMALL_T;
 const x = FMWSymbols.SMALL_X;
 
 class SumEquationNode extends Node {
@@ -44,14 +45,12 @@ class SumEquationNode extends Node {
       font: FMWConstants.EQUATION_FONT
     }, options );
 
-    const leftNode = new RichText( `${F}(${x}) ${EQUAL_TO} `, {
+    const leftNode = new RichText( '', {
       font: options.font
     } );
 
     const summationNode = new SummationSymbolNode( n, 1, numberOfHarmonicsProperty, {
-      font: options.font,
-      left: leftNode.right + 2,
-      centerY: leftNode.centerY + 5 // lower summation a bit, determined empirically
+      font: options.font
     } );
 
     const rightNode = new RichText( '', {
@@ -63,11 +62,20 @@ class SumEquationNode extends Node {
 
     super( options );
 
-    // Update the right side of the equation
+    // Update the equation
     const multilink = new Multilink(
       [ domainProperty, mathFormProperty ],
       ( domain, mathForm ) => {
+
       this.visible = ( mathForm !== MathForm.HIDDEN );
+
+      leftNode.text = ( domain === Domain.SPACE ) ? `${F}(${x}) ${EQUAL_TO} ` :
+                      ( domain === Domain.TIME ) ? `${F}(${t}) ${EQUAL_TO} ` :
+                      `${F}(${x},${t}) ${EQUAL_TO} `;
+
+      summationNode.left = leftNode.right + 2;
+      summationNode.y = leftNode.y + 5; // lower summation a bit, determined empirically
+
       rightNode.text = HarmonicsEquationNode.getRichTextMarkup( domain, mathForm );
       rightNode.left = summationNode.right + 2;
       rightNode.y = leftNode.y;
