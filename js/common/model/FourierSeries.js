@@ -16,15 +16,11 @@ import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColorProfile from '../FMWColorProfile.js';
+import FMWConstants from '../FMWConstants.js';
 import Harmonic from './Harmonic.js';
 
 // constants
 const MAX_HARMONICS = 11;
-
-// The amplitude range is [-4/pi, 4/pi] because of the factor of 4/pi in the Fourier series of a square wave.
-// For n=1, the amplitude is 4/pi. See https://mathworld.wolfram.com/FourierSeriesSquareWave.html and
-// https://github.com/phetsims/fourier-making-waves/issues/11
-const MAX_ABSOLUTE_AMPLITUDE = 4 / Math.PI;
 
 class FourierSeries extends PhetioObject {
 
@@ -40,11 +36,8 @@ class FourierSeries extends PhetioObject {
 
     super( options );
 
-    // @public (read-only) frequency of the fundamental (1st harmonic) in Hz
-    this.fundamentalFrequency = 440;
-
     // @public (read-only)
-    this.amplitudeRange = new Range( -MAX_ABSOLUTE_AMPLITUDE, MAX_ABSOLUTE_AMPLITUDE );
+    this.amplitudeRange = new Range( -FMWConstants.MAX_ABSOLUTE_AMPLITUDE, FMWConstants.MAX_ABSOLUTE_AMPLITUDE );
 
     // @public the number of harmonics in this series
     this.numberOfHarmonicsProperty = new NumberProperty( MAX_HARMONICS, {

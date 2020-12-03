@@ -13,7 +13,12 @@ import Color from '../../../scenery/js/util/Color.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWColorProfile from './FMWColorProfile.js';
 
-// constants
+// constants - model
+const FUNDAMENTAL_FREQUENCY = 440; // Hz
+const SPEED_OF_SOUND = 343.2; // meters/second
+const FUNDAMENTAL_WAVELENGTH = SPEED_OF_SOUND / FUNDAMENTAL_FREQUENCY; // meters
+
+// constants - view
 const PANEL_CORNER_RADIUS = 5;
 const PANEL_X_MARGIN = 8;
 const PANEL_Y_MARGIN = 5;
@@ -24,6 +29,15 @@ const FMWConstants = {
 
   // string length, in meters
   L: 1,
+
+  // The amplitude range is [-4/pi, 4/pi] because of the factor of 4/pi in the Fourier series of a square wave.
+  // For n=1, the amplitude is 4/pi. See https://mathworld.wolfram.com/FourierSeriesSquareWave.html and
+  // https://github.com/phetsims/fourier-making-waves/issues/11
+  MAX_ABSOLUTE_AMPLITUDE: 4 / Math.PI,
+
+  FUNDAMENTAL_FREQUENCY: FUNDAMENTAL_FREQUENCY,
+  FUNDAMENTAL_WAVELENGTH: FUNDAMENTAL_WAVELENGTH,
+  T: 1000 / FUNDAMENTAL_FREQUENCY, // period of the fundamental, in milliseconds
 
   // View ============================================================================================================
 
