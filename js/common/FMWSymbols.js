@@ -10,6 +10,9 @@
  * and lowercase letters for symbols that are lowercase letters (sigma, t).  This same naming convention is
  * used for string keys.
  *
+ * See https://github.com/phetsims/fourier-making-waves/issues/15 for the specification of which symbols
+ * are translated, and how MathSymbolFont is applied.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
