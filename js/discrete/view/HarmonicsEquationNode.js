@@ -19,6 +19,21 @@ import MathForm from '../model/MathForm.js';
 // constants
 const HIDDEN_STRING = ''; // string for MathForm.HIDDEN
 
+// To improve readability of markup creation. Each of these is a string than may also include markup.
+const A = FMWSymbols.CAPITAL_A;
+const f = FMWSymbols.SMALL_F;
+const k = FMWSymbols.SMALL_K;
+const lambda = FMWSymbols.SMALL_LAMBDA;
+const L = FMWSymbols.CAPITAL_L;
+const MINUS = MathSymbols.MINUS;
+const n = FMWSymbols.SMALL_N;
+const omega = FMWSymbols.SMALL_OMEGA;
+const PI = FMWSymbols.PI;
+const t = FMWSymbols.SMALL_T;
+const T = FMWSymbols.CAPITAL_T;
+const x = FMWSymbols.SMALL_X;
+const An = `${A}<sub>${n}</sub>`;
+
 class HarmonicsEquationNode extends Node {
 
   /**
@@ -91,23 +106,13 @@ function getSpaceMarkup( mathForm ) {
     markup = HIDDEN_STRING;
   }
   else if ( mathForm === MathForm.WAVELENGTH ) {
-
-    // An sin( 2pix / ln)
-    markup = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
-             `sin( 2${FMWSymbols.PI}${FMWSymbols.SMALL_X} / ` +
-             `${FMWSymbols.SMALL_LAMBDA}<sub>${FMWSymbols.SMALL_N}</sub> )`;
+    markup = `${An} sin( 2${PI}${x} / ${lambda}<sub>${n}</sub> )`;
   }
   else if ( mathForm === MathForm.WAVE_NUMBER ) {
-
-    // An sin( knx)
-    markup = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
-             `sin( ${FMWSymbols.SMALL_K}<sub>${FMWSymbols.SMALL_N}</sub>${FMWSymbols.SMALL_X} )`;
+    markup = `${An} sin( ${k}<sub>${n}</sub>${x} )`;
   }
   else if ( mathForm === MathForm.MODE ) {
-
-    // An sin( 2pinx / L )
-    markup = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
-             `sin( 2${FMWSymbols.PI}${FMWSymbols.SMALL_N}${FMWSymbols.SMALL_X} / ${FMWSymbols.CAPITAL_L} )`;
+    markup = `${An} sin( 2${PI}${n}${x} / ${L} )`;
   }
   else {
     assert && assert( false, `unsupported mathForm: ${mathForm}` );
@@ -129,19 +134,16 @@ function getTimeMarkup( mathForm ) {
     markup = HIDDEN_STRING;
   }
   else if ( mathForm === MathForm.FREQUENCY ) {
-    markup = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
-             `sin( 2${FMWSymbols.PI}${FMWSymbols.SMALL_F}<sub>${FMWSymbols.SMALL_N}</sub>${FMWSymbols.SMALL_T} )`;
+    markup = `${An} sin( 2${PI}${f}<sub>${n}</sub>${t} )`;
   }
   else if ( mathForm === MathForm.PERIOD ) {
-    markup = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
-             `sin( 2${FMWSymbols.PI}${FMWSymbols.SMALL_T} / ${FMWSymbols.CAPITAL_T}<sub>${FMWSymbols.SMALL_N}</sub> )`;
+    markup = `${An} sin( 2${PI}${t} / ${T}<sub>${n}</sub> )`;
   }
   else if ( mathForm === MathForm.ANGULAR_FREQUENCY ) {
-    markup = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
-             `sin( ${FMWSymbols.SMALL_OMEGA}<sub>${FMWSymbols.SMALL_N}</sub>${FMWSymbols.SMALL_T} )`;
+    markup = `${An} sin( ${omega}<sub>${n}</sub>${t} )`;
   }
   else if ( mathForm === MathForm.MODE ) {
-    return '?'; //TODO
+    return `${An} sin( 2${PI}${n}${t} / ${T} )`;
   }
   else {
     assert && assert( false, `unsupported mathForm: ${mathForm}` );
@@ -163,19 +165,13 @@ function getSpaceAndTimeMarkup( mathForm ) {
     markup = HIDDEN_STRING;
   }
   else if ( mathForm === MathForm.WAVELENGTH_AND_PERIOD ) {
-    markup = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
-             `sin( 2${FMWSymbols.PI}( ${FMWSymbols.SMALL_X}/${FMWSymbols.SMALL_LAMBDA}<sub>${FMWSymbols.SMALL_N}</sub> ` +
-             `${MathSymbols.MINUS} ${FMWSymbols.SMALL_T}/${FMWSymbols.CAPITAL_T}<sub>${FMWSymbols.SMALL_N}</sub> ) )`;
+    markup = `${An} sin( 2${PI}( ${x}/${lambda}<sub>${n}</sub> ${MINUS} ${t}/${T}<sub>${n}</sub> ) )`;
   }
   else if ( mathForm === MathForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY ) {
-    markup = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
-           `sin( ${FMWSymbols.SMALL_K}<sub>${FMWSymbols.SMALL_N}</sub>${FMWSymbols.SMALL_X} ` +
-           `${MathSymbols.MINUS} ${FMWSymbols.SMALL_OMEGA}<sub>${FMWSymbols.SMALL_N}</sub>${FMWSymbols.SMALL_T} )`;
+    markup = `${An} sin( ${k}<sub>${n}</sub>${x} ${MINUS} ${omega}<sub>${n}</sub>${t} )`;
   }
   else if ( mathForm === MathForm.MODE ) {
-    markup = `${FMWSymbols.CAPITAL_A}<sub>${FMWSymbols.SMALL_N}</sub> ` +
-             `sin( 2${FMWSymbols.PI}${FMWSymbols.SMALL_N}( ` +
-             `${FMWSymbols.SMALL_X}/${FMWSymbols.CAPITAL_L} ${MathSymbols.MINUS} ${FMWSymbols.SMALL_T}/${FMWSymbols.CAPITAL_T} ) )`;
+    markup = `${An} sin( 2${PI}${n}( ${x}/${L} ${MINUS} ${t}/${T} ) )`;
   }
   else {
     assert && assert( false, `unsupported mathForm: ${mathForm}` );
