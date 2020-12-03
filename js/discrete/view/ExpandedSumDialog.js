@@ -21,7 +21,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
-import HarmonicsEquationNode from './HarmonicsEquationNode.js';
+import EquationMarkup from './EquationMarkup.js';
 import SumEquationNode from './SumEquationNode.js';
 
 class ExpandedSumDialog extends Dialog {
@@ -61,7 +61,7 @@ class ExpandedSumDialog extends Dialog {
     let expandedSumMarkup = '';
     for ( let order = 1; order <= amplitudes.length; order++ ) {
       const amplitude = Utils.toFixedNumber( amplitudes[ order - 1 ], FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
-      expandedSumMarkup += HarmonicsEquationNode.getRichTextMarkup( domain, mathForm, order, amplitude );
+      expandedSumMarkup += EquationMarkup.getRichTextMarkup( domain, mathForm, order, amplitude );
       if ( order < amplitudes.length ) {
         expandedSumMarkup += ` ${MathSymbols.PLUS} `;
       }

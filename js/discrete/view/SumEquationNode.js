@@ -17,7 +17,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
-import HarmonicsEquationNode from './HarmonicsEquationNode.js';
+import EquationMarkup from './EquationMarkup.js';
 import SummationSymbolNode from './SummationSymbolNode.js';
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
@@ -81,7 +81,7 @@ class SumEquationNode extends Node {
         summationNode.left = leftNode.right + 2;
         summationNode.y = leftNode.y + 5; // lower summation a bit, determined empirically
 
-        rightNode.text = HarmonicsEquationNode.getRichTextMarkup( domain, mathForm, n, An );
+        rightNode.text = EquationMarkup.getRichTextMarkup( domain, mathForm, n, An );
         rightNode.left = summationNode.right + 2;
         rightNode.y = leftNode.y;
       } );
