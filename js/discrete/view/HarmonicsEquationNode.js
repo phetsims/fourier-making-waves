@@ -7,10 +7,12 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
@@ -46,9 +48,14 @@ class HarmonicsEquationNode extends Node {
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
 
-    options = options || {};
+   options = merge( {
+     font: FMWConstants.EQUATION_FONT
+   }, options );
 
-    const richText = new RichText( HIDDEN_STRING );
+    // initialize with something so that layout works nicely
+    const richText = new RichText( HIDDEN_STRING, {
+      font: options.font
+    } );
 
     assert && assert( !options.children, 'HarmonicsEquationNode sets children' );
     options.children = [ richText ];
@@ -59,6 +66,7 @@ class HarmonicsEquationNode extends Node {
     Property.multilink(
       [ domainProperty, mathFormProperty ],
       ( domain, mathForm ) => {
+        this.visible = ( mathForm !== MathForm.HIDDEN );
         richText.text = HarmonicsEquationNode.getRichTextMarkup( domain, mathForm );
       }
     );

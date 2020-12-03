@@ -1,5 +1,6 @@
 // Copyright 2020, University of Colorado Boulder
 
+//TODO delete this when it's no longer used
 /**
  * EquationFactory is a collection of factory methods that create Nodes that render equations.
  * These equations are specific to this simulation.

@@ -17,6 +17,7 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
+//TODO extends Node instead of VBox, so we can use align: 'origin' in SumEquationNode and have more control over spacing
 class SummationSymbolNode extends VBox {
 
   /**
