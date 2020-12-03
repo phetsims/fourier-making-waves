@@ -11,11 +11,13 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
 import HarmonicsEquationNode from './HarmonicsEquationNode.js';
@@ -38,6 +40,11 @@ class ExpandedSumDialog extends Dialog {
     options = merge( {
       xSpacing: 30
     }, options );
+
+    assert && assert( !options.title, 'ExpandedSumDialog sets children' );
+    options.title = new Text( fourierMakingWavesStrings.expandedSum, {
+      font: FMWConstants.TITLE_FONT
+    } );
 
     // links to Properties, must be disposed.
     const sumEquationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty, mathFormProperty );
