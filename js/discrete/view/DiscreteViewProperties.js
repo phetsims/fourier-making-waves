@@ -32,7 +32,7 @@ class DiscreteViewProperties {
     this.soundEnabledProperty = new BooleanProperty( false );
 
     // @public volume of the sound for the Fourier series
-    this.soundOutputLevelProperty = new NumberProperty( 0.5, {
+    this.soundOutputLevelProperty = new NumberProperty( 0.25, {
       range: new Range( 0, 1 )
     } );
 
