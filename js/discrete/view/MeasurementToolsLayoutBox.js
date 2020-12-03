@@ -9,7 +9,6 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
@@ -62,7 +61,8 @@ class MeasurementToolsLayoutBox extends VBox {
 
     // Measurement Tools
     const titleText = new Text( fourierMakingWavesStrings.measurementTools, {
-      font: FMWConstants.TITLE_FONT
+      font: FMWConstants.TITLE_FONT,
+      maxWidth: 0.85 * FMWConstants.CONTROL_PANEL_WIDTH
     } );
 
     // To make checkboxes have the same effective width
@@ -83,15 +83,13 @@ class MeasurementToolsLayoutBox extends VBox {
 
     // Wavelength
     const wavelengthText = new Text( fourierMakingWavesStrings.wavelength, {
-      font: FMWConstants.CONTROL_FONT
+      font: FMWConstants.CONTROL_FONT,
+      maxWidth: 125 // determined empirically
     } );
     const wavelengthCheckbox = new Checkbox( wavelengthText, wavelengthToolEnabledProperty, FMWConstants.CHECKBOX_OPTIONS );
     const wavelengthSpinner = new NumberSpinner( selectedWavelengthProperty, selectedWavelengthProperty.rangeProperty, merge( {}, {
       numberDisplayOptions: {
-        numberFormatter: order => StringUtils.fillIn( fourierMakingWavesStrings.wavelengthOrder, {
-          symbol: FMWSymbols.SMALL_LAMBDA,
-          order: order
-        } )
+        numberFormatter: order => `${FMWSymbols.SMALL_LAMBDA}<sub>${order}</sub>`
       }
     }, NUMBER_SPINNER_OPTIONS ) );
     const wavelengthBox = new HBox( merge( {}, hBoxOptions, {
@@ -103,15 +101,13 @@ class MeasurementToolsLayoutBox extends VBox {
 
     // Period
     const periodText = new Text( fourierMakingWavesStrings.period, {
-      font: FMWConstants.CONTROL_FONT
+      font: FMWConstants.CONTROL_FONT,
+      maxWidth: 125 // determined empirically
     } );
     const periodCheckbox = new Checkbox( periodText, periodToolEnabledProperty, FMWConstants.CHECKBOX_OPTIONS );
     const periodSpinner = new NumberSpinner( selectedPeriodProperty, selectedPeriodProperty.rangeProperty, merge( {}, {
       numberDisplayOptions: {
-        numberFormatter: order => StringUtils.fillIn( fourierMakingWavesStrings.periodOrder, {
-          symbol: FMWSymbols.CAPITAL_T,
-          order: order
-        } )
+        numberFormatter: order => `${FMWSymbols.CAPITAL_T}<sub>${order}</sub>`
       }
     }, NUMBER_SPINNER_OPTIONS ) );
     const periodBox = new HBox( merge( {}, hBoxOptions, {

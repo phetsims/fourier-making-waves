@@ -6,8 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import PresetFunction from '../model/PresetFunction.js';
@@ -24,6 +26,12 @@ class PresetFunctionComboBox extends FMWComboBox {
 
     assert && AssertUtils.assertEnumerationPropertyOf( presetFunctionProperty, PresetFunction );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
+
+    options = merge( {
+      textOptions: {
+        maxWidth: 0.85 * FMWConstants.CONTROL_PANEL_WIDTH
+      }
+    }, options );
 
     // {{string:string, value:PresetFunction}[]}
     const choices = [

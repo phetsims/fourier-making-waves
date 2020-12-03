@@ -65,12 +65,6 @@
   "period": {
     "value": "Period"
   },
-  "wavelengthOrder": {
-    "value": "{{symbol}}<sub>{{order}}</sub>"
-  },
-  "periodOrder": {
-    "value": "{{symbol}}<sub>{{order}}</sub>"
-  },
   "mathForm": {
     "value": "Math Form"
   },

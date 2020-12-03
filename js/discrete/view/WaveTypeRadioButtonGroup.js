@@ -33,7 +33,8 @@ class WaveTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
     assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
 
     const textOptions = {
-      font: FMWConstants.CONTROL_FONT
+      font: FMWConstants.CONTROL_FONT,
+      maxWidth: 75 // determined empirically
     };
 
     const items = [

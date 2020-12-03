@@ -38,7 +38,8 @@ class PresetFunctionLayoutBox extends VBox {
 
     // Preset Function
     const titleText = new Text( fourierMakingWavesStrings.presetFunction, {
-      font: FMWConstants.TITLE_FONT
+      font: FMWConstants.TITLE_FONT,
+      maxWidth: 0.85 * FMWConstants.CONTROL_PANEL_WIDTH
     } );
 
     const presetFunctionComboBox = new PresetFunctionComboBox( presetFunctionProperty, popupParent );
@@ -50,7 +51,8 @@ class PresetFunctionLayoutBox extends VBox {
     } );
 
     const harmonicsText = new Text( fourierMakingWavesStrings.harmonics, {
-      font: FMWConstants.CONTROL_FONT
+      font: FMWConstants.CONTROL_FONT,
+      maxWidth: 150 // determined empirically
     } );
 
     const harmonicsBox = new HBox( {

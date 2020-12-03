@@ -37,11 +37,13 @@ class GraphControlsLayoutBox extends VBox {
 
     // Graph Controls
     const titleText = new Text( fourierMakingWavesStrings.graphControls, {
-      font: FMWConstants.TITLE_FONT
+      font: FMWConstants.TITLE_FONT,
+      maxWidth: 0.85 * FMWConstants.CONTROL_PANEL_WIDTH
     } );
 
     const functionOfText = new Text( fourierMakingWavesStrings.functionOf, {
-      font: FMWConstants.CONTROL_FONT
+      font: FMWConstants.CONTROL_FONT,
+      maxWidth: 0.85 * FMWConstants.CONTROL_PANEL_WIDTH
     } );
 
     const domainComboBox = new DomainComboBox( domainProperty, popupParent );
