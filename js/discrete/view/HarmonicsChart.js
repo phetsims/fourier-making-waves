@@ -31,6 +31,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
+import WaveType from '../model/WaveType.js';
 import HarmonicsEquationNode from './HarmonicsEquationNode.js';
 
 class HarmonicsChart extends Node {
@@ -38,14 +39,16 @@ class HarmonicsChart extends Node {
   /**
    * @param {FourierSeries} fourierSeries
    * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, mathFormProperty, xZoomLevelProperty, options ) {
+  constructor( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty, xZoomLevelProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
 
@@ -97,7 +100,7 @@ class HarmonicsChart extends Node {
     } );
 
     // Equation that appears above the chart
-    const equationNode = new HarmonicsEquationNode( domainProperty, mathFormProperty );
+    const equationNode = new HarmonicsEquationNode( domainProperty, waveTypeProperty, mathFormProperty );
 
     // Center the equation above the graph.
     equationNode.localBoundsProperty.link( () => {

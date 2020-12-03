@@ -21,6 +21,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
+import WaveType from '../model/WaveType.js';
 import EquationMarkup from './EquationMarkup.js';
 import SumEquationNode from './SumEquationNode.js';
 
@@ -29,13 +30,15 @@ class ExpandedSumDialog extends Dialog {
   /**
    * @param {FourierSeries} fourierSeries
    * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, mathFormProperty, options ) {
+  constructor( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
 
     options = merge( {
@@ -53,6 +56,7 @@ class ExpandedSumDialog extends Dialog {
 
     const amplitudes = fourierSeries.amplitudesProperty.value;
     const domain = domainProperty.value;
+    const waveType = waveTypeProperty.value;
     const mathForm = mathFormProperty.value;
 
     const equalToNode = new RichText( `${MathSymbols.EQUAL_TO} `, {
@@ -62,7 +66,7 @@ class ExpandedSumDialog extends Dialog {
     let expandedSumMarkup = '';
     for ( let order = 1; order <= amplitudes.length; order++ ) {
       const amplitude = Utils.toFixedNumber( amplitudes[ order - 1 ], FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
-      expandedSumMarkup += EquationMarkup.getRichTextMarkup( domain, mathForm, order, amplitude );
+      expandedSumMarkup += EquationMarkup.getRichTextMarkup( domain, waveType, mathForm, order, amplitude );
       if ( order < amplitudes.length ) {
         expandedSumMarkup += ` ${MathSymbols.PLUS} `;
       }

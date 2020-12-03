@@ -33,6 +33,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
+import WaveType from '../model/WaveType.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
 import ExpandedSumDialog from './ExpandedSumDialog.js';
 import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
@@ -43,6 +44,7 @@ class SumChart extends Node {
   /**
    * @param {FourierSeries} fourierSeries
    * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
    * @param {NumberProperty} yZoomLevelProperty
@@ -50,11 +52,13 @@ class SumChart extends Node {
    * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, mathFormProperty, xZoomLevelProperty, yZoomLevelProperty,
+  constructor( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty,
+               xZoomLevelProperty, yZoomLevelProperty,
                autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
     assert && assert( yZoomLevelProperty instanceof NumberProperty, 'invalid yZoomLevelProperty' );
@@ -108,13 +112,14 @@ class SumChart extends Node {
       maxWidth: 0.85 * chartRectangle.height
     } );
 
-    const equationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty, mathFormProperty );
+    const equationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
+      waveTypeProperty, mathFormProperty );
 
     // Info button opens the 'Expanded Sum' dialog
     const infoButton = new InfoButton( {
       scale: 0.45,
       listener: () => {
-        const dialog = new ExpandedSumDialog( fourierSeries, domainProperty, mathFormProperty, {
+        const dialog = new ExpandedSumDialog( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty, {
           hideCallback: () => dialog.dispose()
         } );
         dialog.show();

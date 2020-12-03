@@ -16,6 +16,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
+import WaveType from '../model/WaveType.js';
 import EquationMarkup from './EquationMarkup.js';
 
 // constants
@@ -30,12 +31,14 @@ class HarmonicsEquationNode extends Node {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, mathFormProperty, options ) {
+  constructor( domainProperty, waveTypeProperty, mathFormProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
 
     options = merge( {
@@ -54,10 +57,10 @@ class HarmonicsEquationNode extends Node {
 
     // unmultilink is not needed.
     Property.multilink(
-      [ domainProperty, mathFormProperty ],
-      ( domain, mathForm ) => {
+      [ domainProperty, waveTypeProperty, mathFormProperty ],
+      ( domain, waveType, mathForm ) => {
         this.visible = ( mathForm !== MathForm.HIDDEN );
-        richText.text = EquationMarkup.getRichTextMarkup( domain, mathForm, n, An );
+        richText.text = EquationMarkup.getRichTextMarkup( domain, waveType, mathForm, n, An );
       }
     );
   }

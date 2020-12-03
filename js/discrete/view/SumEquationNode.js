@@ -17,6 +17,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
+import WaveType from '../model/WaveType.js';
 import EquationMarkup from './EquationMarkup.js';
 import SummationSymbolNode from './SummationSymbolNode.js';
 
@@ -34,13 +35,15 @@ class SumEquationNode extends Node {
   /**
    * @param {Property.<number>} numberOfHarmonicsProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {Object} [options]
    */
-  constructor( numberOfHarmonicsProperty, domainProperty, mathFormProperty, options ) {
+  constructor( numberOfHarmonicsProperty, domainProperty, waveTypeProperty, mathFormProperty, options ) {
 
     assert && AssertUtils.assertPropertyOf( numberOfHarmonicsProperty, 'number' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
 
     options = merge( {
@@ -69,8 +72,8 @@ class SumEquationNode extends Node {
 
     // Update the equation to match the domain and math form.
     const multilink = new Multilink(
-      [ domainProperty, mathFormProperty ],
-      ( domain, mathForm ) => {
+      [ domainProperty, waveTypeProperty, mathFormProperty ],
+      ( domain, waveType, mathForm ) => {
 
         this.visible = ( mathForm !== MathForm.HIDDEN );
 
@@ -81,7 +84,7 @@ class SumEquationNode extends Node {
         summationNode.left = leftNode.right + 2;
         summationNode.y = leftNode.y + 5; // lower summation a bit, determined empirically
 
-        rightNode.text = EquationMarkup.getRichTextMarkup( domain, mathForm, n, An );
+        rightNode.text = EquationMarkup.getRichTextMarkup( domain, waveType, mathForm, n, An );
         rightNode.left = summationNode.right + 2;
         rightNode.y = leftNode.y;
       } );
