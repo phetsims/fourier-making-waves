@@ -52,7 +52,8 @@ class ExpandedSumDialog extends Dialog {
     } );
 
     // links to Properties, must be disposed.
-    const sumEquationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty, mathFormProperty );
+    const sumEquationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
+      waveTypeProperty, mathFormProperty );
 
     const amplitudes = fourierSeries.amplitudesProperty.value;
     const domain = domainProperty.value;
