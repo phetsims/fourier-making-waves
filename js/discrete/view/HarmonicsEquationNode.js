@@ -23,8 +23,8 @@ import EquationMarkup from './EquationMarkup.js';
 const HIDDEN_STRING = ''; // string for MathForm.HIDDEN
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
-const A = FMWSymbols.CAPITAL_A;
-const n = FMWSymbols.SMALL_N;
+const A = FMWSymbols.A;
+const n = FMWSymbols.n;
 const An = `${A}<sub>${n}</sub>`;
 
 class HarmonicsEquationNode extends Node {

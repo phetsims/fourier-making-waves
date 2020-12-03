@@ -56,7 +56,7 @@ class AmplitudeNumberDisplay extends VBox {
       }
     }, options );
 
-    const labelNode = new RichText( `${FMWSymbols.CAPITAL_A}<sub>${harmonic.order}</sub>`, {
+    const labelNode = new RichText( `${FMWSymbols.A}<sub>${harmonic.order}</sub>`, {
       font: DEFAULT_FONT
     } );
 

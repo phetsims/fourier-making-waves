@@ -89,7 +89,7 @@ class SumChart extends Node {
     const xLabelSet = new LabelSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.LABEL_SET_OPTIONS );
     const xTickMarkSet = new TickMarkSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.TICK_MARK_OPTIONS );
     const xAxisLabel = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.xMeters, {
-      x: FMWSymbols.SMALL_X
+      x: FMWSymbols.x
     } ), {
       font: FMWConstants.AXIS_LABEL_FONT,
       left: chartRectangle.right + 10,
@@ -103,7 +103,7 @@ class SumChart extends Node {
     const yLabelSet = new LabelSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.LABEL_SET_OPTIONS );
     const yTickMarkSet = new TickMarkSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.TICK_MARK_OPTIONS );
     const yAxisLabel = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.amplitudeSymbol, {
-      symbol: FMWSymbols.CAPITAL_A
+      symbol: FMWSymbols.A
     } ), {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,

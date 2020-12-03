@@ -22,12 +22,12 @@ import EquationMarkup from './EquationMarkup.js';
 import SummationSymbolNode from './SummationSymbolNode.js';
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
-const A = FMWSymbols.CAPITAL_A;
+const A = FMWSymbols.A;
 const EQUAL_TO = MathSymbols.EQUAL_TO;
-const F = FMWSymbols.CAPITAL_F;
-const n = FMWSymbols.SMALL_N;
-const t = FMWSymbols.SMALL_T;
-const x = FMWSymbols.SMALL_X;
+const F = FMWSymbols.F;
+const n = FMWSymbols.n;
+const t = FMWSymbols.t;
+const x = FMWSymbols.x;
 const An = `${A}<sub>${n}</sub>`;
 
 class SumEquationNode extends Node {

@@ -35,7 +35,7 @@ class SummationSymbolNode extends Node {
     }, options );
 
     // Capital sigma, the summation character
-    const sigmaNode = new RichText( FMWSymbols.CAPITAL_SIGMA, {
+    const sigmaNode = new RichText( FMWSymbols.SIGMA, {
       font: new PhetFont( options.fontSize )
     } );
 

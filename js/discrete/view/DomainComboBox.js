@@ -39,20 +39,20 @@ class DomainComboBox extends FMWComboBox {
       {
         value: Domain.SPACE,
         string: StringUtils.fillIn( fourierMakingWavesStrings.spaceSymbol, {
-          symbol: FMWSymbols.SMALL_X
+          symbol: FMWSymbols.x
         } )
       },
       {
         value: Domain.TIME,
         string: StringUtils.fillIn( fourierMakingWavesStrings.timeSymbols, {
-          symbol: FMWSymbols.SMALL_T
+          symbol: FMWSymbols.t
         } )
       },
       {
         value: Domain.SPACE_AND_TIME,
         string: StringUtils.fillIn( fourierMakingWavesStrings.spaceAndTimeSymbols, {
-          spaceSymbol: FMWSymbols.SMALL_X,
-          timeSymbol: FMWSymbols.SMALL_T
+          spaceSymbol: FMWSymbols.x,
+          timeSymbol: FMWSymbols.t
         } )
       }
     ];

@@ -198,7 +198,7 @@ class AmplitudeKeypadDialog extends Dialog {
   setOrder( order ) {
     assert && AssertUtils.assertPositiveInteger( order );
 
-    this.titleNode.text = `${FMWSymbols.CAPITAL_A}<sub>${order}</sub>`;
+    this.titleNode.text = `${FMWSymbols.A}<sub>${order}</sub>`;
   }
 
   /**

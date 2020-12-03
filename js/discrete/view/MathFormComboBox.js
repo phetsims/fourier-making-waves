@@ -46,51 +46,51 @@ class MathFormComboBox extends FMWComboBox {
       {
         value: MathForm.WAVELENGTH,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.wavelength, {
-          symbol: FMWSymbols.SMALL_LAMBDA
+          symbol: FMWSymbols.lambda
         } )
       },
       {
         value: MathForm.WAVE_NUMBER,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.waveNumber, {
-          symbol: FMWSymbols.SMALL_K
+          symbol: FMWSymbols.k
         } )
       },
       {
         value: MathForm.FREQUENCY,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.frequency, {
-          symbol: FMWSymbols.CAPITAL_F
+          symbol: FMWSymbols.F
         } )
       },
       {
         value: MathForm.PERIOD,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.period, {
-          symbol: FMWSymbols.CAPITAL_T
+          symbol: FMWSymbols.T
         } )
       },
       {
         value: MathForm.ANGULAR_FREQUENCY,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.angularFrequency, {
-          symbol: FMWSymbols.SMALL_OMEGA
+          symbol: FMWSymbols.omega
         } )
       },
       {
         value: MathForm.WAVELENGTH_AND_PERIOD,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.wavelengthAndPeriod, {
-          wavelengthSymbol: FMWSymbols.SMALL_LAMBDA,
-          periodSymbol: FMWSymbols.CAPITAL_T
+          wavelengthSymbol: FMWSymbols.lambda,
+          periodSymbol: FMWSymbols.T
         } )
       },
       {
         value: MathForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.waveNumberAndAngularFrequency, {
-          waveNumberSymbol: FMWSymbols.SMALL_K,
-          angularFrequencySymbol: FMWSymbols.SMALL_OMEGA
+          waveNumberSymbol: FMWSymbols.k,
+          angularFrequencySymbol: FMWSymbols.omega
         } )
       },
       {
         value: MathForm.MODE,
         string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.mode, {
-          symbol: FMWSymbols.SMALL_N
+          symbol: FMWSymbols.n
         } )
       }
     ];

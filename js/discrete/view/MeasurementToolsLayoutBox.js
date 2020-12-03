@@ -89,7 +89,7 @@ class MeasurementToolsLayoutBox extends VBox {
     const wavelengthCheckbox = new Checkbox( wavelengthText, wavelengthToolEnabledProperty, FMWConstants.CHECKBOX_OPTIONS );
     const wavelengthSpinner = new NumberSpinner( selectedWavelengthProperty, selectedWavelengthProperty.rangeProperty, merge( {}, {
       numberDisplayOptions: {
-        numberFormatter: order => `${FMWSymbols.SMALL_LAMBDA}<sub>${order}</sub>`
+        numberFormatter: order => `${FMWSymbols.lambda}<sub>${order}</sub>`
       }
     }, NUMBER_SPINNER_OPTIONS ) );
     const wavelengthBox = new HBox( merge( {}, hBoxOptions, {
@@ -107,7 +107,7 @@ class MeasurementToolsLayoutBox extends VBox {
     const periodCheckbox = new Checkbox( periodText, periodToolEnabledProperty, FMWConstants.CHECKBOX_OPTIONS );
     const periodSpinner = new NumberSpinner( selectedPeriodProperty, selectedPeriodProperty.rangeProperty, merge( {}, {
       numberDisplayOptions: {
-        numberFormatter: order => `${FMWSymbols.CAPITAL_T}<sub>${order}</sub>`
+        numberFormatter: order => `${FMWSymbols.T}<sub>${order}</sub>`
       }
     }, NUMBER_SPINNER_OPTIONS ) );
     const periodBox = new HBox( merge( {}, hBoxOptions, {

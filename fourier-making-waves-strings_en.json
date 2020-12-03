@@ -124,5 +124,41 @@
   },
   "expandedSum": {
     "value": "Expanded Sum"
+  },
+  "symbol.A": {
+    "value": "A"
+  },
+  "symbol.F": {
+    "value": "F"
+  },
+  "symbol.L": {
+    "value": "L"
+  },
+  "symbol.T": {
+    "value": "T"
+  },
+  "symbol.f": {
+    "value": "f"
+  },
+  "symbol.k": {
+    "value": "k"
+  },
+  "symbol.lambda": {
+    "value": "\u03bb"
+  },
+  "symbol.n": {
+    "value": "n"
+  },
+  "symbol.omega": {
+    "value": "\u03c9"
+  },
+  "symbol.sigma": {
+    "value": "\u03c3"
+  },
+  "symbol.t": {
+    "value": "t"
+  },
+  "symbol.x": {
+    "value": "x"
   }
 }

@@ -17,16 +17,16 @@ import WaveType from '../model/WaveType.js';
 const HIDDEN_STRING = ''; // string for MathForm.HIDDEN
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
-const f = FMWSymbols.SMALL_F;
-const k = FMWSymbols.SMALL_K;
-const lambda = FMWSymbols.SMALL_LAMBDA;
-const L = FMWSymbols.CAPITAL_L;
+const f = FMWSymbols.f;
+const k = FMWSymbols.k;
+const lambda = FMWSymbols.lambda;
+const L = FMWSymbols.L;
 const MINUS = MathSymbols.MINUS;
-const omega = FMWSymbols.SMALL_OMEGA;
+const omega = FMWSymbols.omega;
 const PI = FMWSymbols.PI;
-const t = FMWSymbols.SMALL_T;
-const T = FMWSymbols.CAPITAL_T;
-const x = FMWSymbols.SMALL_X;
+const t = FMWSymbols.t;
+const T = FMWSymbols.T;
+const x = FMWSymbols.x;
 
 const EquationMarkup = {
 
