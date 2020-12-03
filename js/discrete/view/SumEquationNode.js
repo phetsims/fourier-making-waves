@@ -51,7 +51,7 @@ class SumEquationNode extends Node {
     const summationNode = new SummationSymbolNode( n, 1, numberOfHarmonicsProperty, {
       font: options.font,
       left: leftNode.right + 2,
-      centerY: leftNode.centerY
+      centerY: leftNode.centerY + 5 // lower summation a bit, determined empirically
     } );
 
     const rightNode = new RichText( '', {
