@@ -103,7 +103,9 @@ class DiscreteViewProperties {
    */
   reset() {
     for ( const propertyName in this ) {
-      if ( this.hasOwnProperty( propertyName ) && ( this[ propertyName ] instanceof Property ) ) {
+      if ( this.hasOwnProperty( propertyName ) &&
+           ( this[ propertyName ] instanceof Property ) &&
+           !( this[ propertyName ] instanceof DerivedProperty ) ) {
         this[ propertyName ].reset();
       }
     }
