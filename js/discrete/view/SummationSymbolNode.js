@@ -31,7 +31,7 @@ class SummationSymbolNode extends Node {
     options = merge( {
       fontSize: 30,
       indexFontSize: 10,
-      spacing: 0
+      spacing: -4 // yes, this is a weird default, determined empirically
     }, options );
 
     // Capital sigma, the summation character
