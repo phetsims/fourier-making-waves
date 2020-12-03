@@ -10,6 +10,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
+import HBox from '../../../../scenery/js/nodes/HBox.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
@@ -53,7 +54,11 @@ class ExpandedSumDialog extends Dialog {
     const domain = domainProperty.value;
     const mathForm = mathFormProperty.value;
 
-    let expandedSumMarkup = `${MathSymbols.EQUAL_TO} `;
+    const equalToNode = new RichText( `${MathSymbols.EQUAL_TO} `, {
+      font: FMWConstants.EQUATION_FONT
+    } );
+
+    let expandedSumMarkup = '';
     for ( let order = 1; order <= amplitudes.length; order++ ) {
       const amplitude = Utils.toFixedNumber( amplitudes[ order - 1 ], FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
       expandedSumMarkup += HarmonicsEquationNode.getRichTextMarkup( domain, mathForm, order, amplitude );
@@ -68,10 +73,16 @@ class ExpandedSumDialog extends Dialog {
       font: FMWConstants.EQUATION_FONT
     } );
 
+    const expandedSumHBox = new HBox( {
+      spacing: 5,
+      align: 'origin',
+      children: [ equalToNode, expandedSumNode ]
+    } );
+
     const content = new VBox( {
       spacing: 5,
       align: 'left',
-      children: [ sumEquationNode, expandedSumNode ]
+      children: [ sumEquationNode, expandedSumHBox ]
     } );
 
     super( content, options );
