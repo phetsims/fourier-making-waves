@@ -59,37 +59,38 @@ class HarmonicsEquationNode extends Node {
     Property.multilink(
       [ domainProperty, mathFormProperty ],
       ( domain, mathForm ) => {
-        richText.text = getRichTextMarkup( domain, mathForm );
+        richText.text = HarmonicsEquationNode.getRichTextMarkup( domain, mathForm );
       }
     );
   }
-}
 
-/**
- * Gets the RichText markup for an equation, based on domain and math form.
- * @param {Domain} domain
- * @param {MathForm} mathForm
- * @returns {string}
- */
-function getRichTextMarkup( domain, mathForm ) {
+  /**
+   * Gets the RichText markup for an equation, based on domain and math form.
+   * @param {Domain} domain
+   * @param {MathForm} mathForm
+   * @returns {string}
+   * @public
+   */
+  static getRichTextMarkup( domain, mathForm ) {
 
-  assert && assert( Domain.includes( domain ), `invalid domain: ${domain}` );
-  assert && assert( MathForm.includes( mathForm ), `invalid mathForm: ${mathForm}` );
+    assert && assert( Domain.includes( domain ), `invalid domain: ${domain}` );
+    assert && assert( MathForm.includes( mathForm ), `invalid mathForm: ${mathForm}` );
 
-  let markup;
-  if ( domain === Domain.SPACE ) {
-    markup = getSpaceMarkup( mathForm );
+    let markup;
+    if ( domain === Domain.SPACE ) {
+      markup = getSpaceMarkup( mathForm );
+    }
+    else if ( domain === Domain.TIME ) {
+      markup = getTimeMarkup( mathForm );
+    }
+    else if ( domain === Domain.SPACE_AND_TIME ) {
+      markup = getSpaceAndTimeMarkup( mathForm );
+    }
+    else {
+      assert && assert( false, `unsupported domain: ${domain}` );
+    }
+    return markup;
   }
-  else if ( domain === Domain.TIME ) {
-    markup = getTimeMarkup( mathForm );
-  }
-  else if ( domain === Domain.SPACE_AND_TIME ) {
-    markup = getSpaceAndTimeMarkup( mathForm );
-  }
-  else {
-    assert && assert( false, `unsupported domain: ${domain}` );
-  }
-  return markup;
 }
 
 /**
