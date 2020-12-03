@@ -110,9 +110,15 @@ class SumChart extends Node {
     const infoButton = new InfoButton( {
       scale: 0.45,
       listener: () => {
-        const dialog = new ExpandedSumDialog( fourierSeries, mathFormProperty.value );
+        const dialog = new ExpandedSumDialog( fourierSeries, domainProperty, mathFormProperty, {
+          hideCallback: () => dialog.dispose()
+        } );
         dialog.show();
       }
+    } );
+    mathFormProperty.link( mathForm => {
+      infoButton.interruptSubtreeInput();
+      infoButton.visible = ( mathForm !== MathForm.HIDDEN );
     } );
 
     // Center the equation above the graph, with info button to the right of the equation.

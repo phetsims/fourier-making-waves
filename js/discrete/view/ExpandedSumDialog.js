@@ -6,62 +6,50 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
-import VBox from '../../../../scenery/js/nodes/VBox.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Dialog from '../../../../sun/js/Dialog.js';
-import FMWConstants from '../../common/FMWConstants.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import EquationFactory from './EquationFactory.js';
+import Domain from '../model/Domain.js';
+import MathForm from '../model/MathForm.js';
+import SumEquationNode from './SumEquationNode.js';
 
 class ExpandedSumDialog extends Dialog {
 
   /**
    * @param {FourierSeries} fourierSeries
-   * @param {MathForm} mathForm
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, mathForm, options ) {
+  constructor( fourierSeries, domainProperty, mathFormProperty, options ) {
+
+    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
 
     options = merge( {
       xSpacing: 30
     }, options );
 
-    assert && assert( !options.title, 'ExpandedSumDialog sets children' );
-    options.title = new Text( fourierMakingWavesStrings.expandedSum, {
-      font: FMWConstants.TITLE_FONT
-    } );
+    const sumEquationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty, mathFormProperty );
 
-    const generalFormNode = EquationFactory.createSumWavelengthForm( fourierSeries.numberOfHarmonicsProperty.value );
+    super( sumEquationNode, options );
 
-    let expandedFormMarkup = `${MathSymbols.EQUAL_TO} `;
-    const amplitudes = fourierSeries.amplitudesProperty.value;
-    for ( let n = 1; n <= amplitudes.length; n++ ) {
-      const amplitude = Utils.toFixedNumber( amplitudes[ n - 1 ], FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
-      expandedFormMarkup += EquationFactory.createHarmonicWavelengthFormMarkup( amplitude, n );
-      if ( n !== amplitudes.length ) {
-        expandedFormMarkup += ` ${MathSymbols.PLUS} `;
-      }
-      if ( n % 4 === 0 ) {
-        expandedFormMarkup += '<br>';
-      }
-    }
+    // @private
+    this.disposeExpandedSumDialog = () => {
+      sumEquationNode.dispose();
+    };
+  }
 
-    const expandedFormNode = new RichText( expandedFormMarkup, {
-      font: FMWConstants.EQUATION_FONT
-    } );
-
-    const content = new VBox( {
-      spacing: 15,
-      align: 'left',
-      children: [ generalFormNode, expandedFormNode ]
-    } );
-
-    super( content, options );
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    this.disposeExpandedSumDialog();
+    super.dispose();
   }
 }
 

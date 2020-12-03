@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
@@ -63,16 +63,29 @@ class SumEquationNode extends Node {
 
     super( options );
 
-    // unmultilink is not needed.
-    Property.multilink(
+    // Update the right side of the equation
+    const multilink = new Multilink(
       [ domainProperty, mathFormProperty ],
       ( domain, mathForm ) => {
-        this.visible = ( mathForm !== MathForm.HIDDEN );
-        rightNode.text = HarmonicsEquationNode.getRichTextMarkup( domain, mathForm );
-        rightNode.left = summationNode.right + 2;
-        rightNode.y = leftNode.y;
-      }
-    );
+      this.visible = ( mathForm !== MathForm.HIDDEN );
+      rightNode.text = HarmonicsEquationNode.getRichTextMarkup( domain, mathForm );
+      rightNode.left = summationNode.right + 2;
+      rightNode.y = leftNode.y;
+    } );
+
+    // @private
+    this.disposeSumEquationNode = () => {
+      multilink.dispose();
+    };
+  }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    this.disposeSumEquationNode();
+    super.dispose();
   }
 }
 
