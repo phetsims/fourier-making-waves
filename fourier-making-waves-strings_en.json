@@ -104,9 +104,6 @@
   "amplitudeSymbol": {
     "value": "Amplitude ({{symbol}})"
   },
-  "amplitudeSymbolOrder": {
-    "value": "{{symbol}}<sub>{{order}}</sub>"
-  },
   "sum": {
     "value": "Sum"
   },

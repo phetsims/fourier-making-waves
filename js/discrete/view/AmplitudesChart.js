@@ -85,7 +85,8 @@ class AmplitudesChart extends Node {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
       right: yLabelSet.left - 10,
-      centerY: chartRectangle.centerY
+      centerY: chartRectangle.centerY,
+      maxWidth: 0.85 * chartRectangle.height
     } );
 
     // Create a slider for each harmonic's amplitude

@@ -65,7 +65,8 @@ class DiscreteScreenView extends ScreenView {
       FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS );
 
     const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonics, {
-      font: FMWConstants.TITLE_FONT
+      font: FMWConstants.TITLE_FONT,
+      maxWidth: 150 // determined empirically, prevent overlap with equation
     } );
 
     const harmonicsHBox = new HBox( {
@@ -94,7 +95,8 @@ class DiscreteScreenView extends ScreenView {
       FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS );
 
     const sumTitleNode = new Text( fourierMakingWavesStrings.sum, {
-      font: FMWConstants.TITLE_FONT
+      font: FMWConstants.TITLE_FONT,
+      maxWidth: 150 // determined empirically, prevent overlap with equation
     } );
 
     const sumHBox = new HBox( {

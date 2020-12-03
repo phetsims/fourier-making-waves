@@ -67,6 +67,7 @@ class HarmonicsChart extends Node {
       stroke: 'black'
     } );
 
+    // x axis
     const xAxis = new AxisNode( chartModel, Orientation.HORIZONTAL, FMWConstants.AXIS_OPTIONS );
     const xGridLineSet = new GridLineSet( chartModel, Orientation.HORIZONTAL, L / 8, FMWConstants.GRID_LINE_OPTIONS );
     const xLabelSet = new LabelSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.LABEL_SET_OPTIONS );
@@ -76,9 +77,11 @@ class HarmonicsChart extends Node {
     } ), {
       font: FMWConstants.AXIS_LABEL_FONT,
       left: chartRectangle.right + 10,
-      centerY: chartRectangle.centerY
+      centerY: chartRectangle.centerY,
+      maxWidth: 50 // determined empirically
     } );
 
+    // y axis
     const yAxis = new AxisNode( chartModel, Orientation.VERTICAL, FMWConstants.AXIS_OPTIONS );
     const yGridLineSet = new GridLineSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.GRID_LINE_OPTIONS );
     const yLabelSet = new LabelSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.LABEL_SET_OPTIONS );
@@ -89,7 +92,8 @@ class HarmonicsChart extends Node {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
       right: yLabelSet.left - 10,
-      centerY: chartRectangle.centerY
+      centerY: chartRectangle.centerY,
+      maxWidth: 0.85 * chartRectangle.height
     } );
 
     // Equation that appears above the chart

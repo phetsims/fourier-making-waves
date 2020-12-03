@@ -198,10 +198,7 @@ class AmplitudeKeypadDialog extends Dialog {
   setOrder( order ) {
     assert && AssertUtils.assertPositiveInteger( order );
 
-    this.titleNode.text = StringUtils.fillIn( fourierMakingWavesStrings.amplitudeSymbolOrder, {
-      symbol: FMWSymbols.CAPITAL_A,
-      order: order
-    } );
+    this.titleNode.text = `${FMWSymbols.CAPITAL_A}<sub>${order}</sub>`;
   }
 
   /**

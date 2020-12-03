@@ -44,7 +44,8 @@ class ExpandedSumDialog extends Dialog {
 
     assert && assert( !options.title, 'ExpandedSumDialog sets children' );
     options.title = new Text( fourierMakingWavesStrings.expandedSum, {
-      font: FMWConstants.TITLE_FONT
+      font: FMWConstants.TITLE_FONT,
+      maxWidth: 400 // determined empirically
     } );
 
     // links to Properties, must be disposed.

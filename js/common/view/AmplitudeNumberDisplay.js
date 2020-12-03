@@ -9,7 +9,6 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -18,7 +17,6 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import PresetFunction from '../../discrete/model/PresetFunction.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Harmonic from '../model/Harmonic.js';
 import AmplitudeKeypadDialog from './AmplitudeKeypadDialog.js';
@@ -58,10 +56,7 @@ class AmplitudeNumberDisplay extends VBox {
       }
     }, options );
 
-    const labelNode = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.amplitudeSymbolOrder, {
-      symbol: FMWSymbols.CAPITAL_A,
-      order: harmonic.order
-    } ), {
+    const labelNode = new RichText( `${FMWSymbols.CAPITAL_A}<sub>${harmonic.order}</sub>`, {
       font: DEFAULT_FONT
     } );
 
