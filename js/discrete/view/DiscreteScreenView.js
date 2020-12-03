@@ -13,7 +13,6 @@ import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import VBox from '../../../../scenery/js/nodes/VBox.js';
 import ExpandCollapseButton from '../../../../sun/js/ExpandCollapseButton.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -77,12 +76,14 @@ class DiscreteScreenView extends ScreenView {
     const harmonicsChart = new HarmonicsChart( model.fourierSeries, model.domainProperty, model.mathFormProperty,
       viewProperties.xZoomLevelProperty, {
         left: harmonicsHBox.left,
-        top: harmonicsHBox.top,
+        y: harmonicsHBox.bottom + 15,
         tandem: tandem.createTandem( 'harmonicsChart' )
       } );
 
     const harmonicsParent = new Node( {
-      children: [ harmonicsHBox, harmonicsChart ]
+      children: [ harmonicsHBox, harmonicsChart ],
+      left: amplitudesChart.left,
+      top: amplitudesChart.bottom + 15
     } );
 
     viewProperties.harmonicsChartVisibleProperty.link( harmonicsChartVisible => {
@@ -105,27 +106,22 @@ class DiscreteScreenView extends ScreenView {
       viewProperties.xZoomLevelProperty, viewProperties.yZoomLevelProperty,
       viewProperties.autoScaleProperty, viewProperties.infiniteHarmonicsProperty, {
         left: sumHBox.left,
-        top: sumHBox.top,
+        y: sumHBox.bottom + 15,
         tandem: tandem.createTandem( 'sumChart' )
       } );
 
     const sumParent = new Node( {
-      children: [ sumHBox, sumChart ]
+      children: [ sumHBox, sumChart ],
+      left: harmonicsParent.left,
+      top: harmonicsParent.bottom + 15
     } );
 
     viewProperties.sumChartVisibleProperty.link( sumChartVisible => {
       sumChart.visible = sumChartVisible;
     } );
 
-    this.addChild( new VBox( {
-      excludeInvisibleChildrenFromBounds: false,
-      align: 'left',
-      spacing: 15,
-      children: [
-        amplitudesChart,
-        harmonicsParent,
-        sumParent
-      ],
+    this.addChild( new Node( {
+      children: [ amplitudesChart, harmonicsParent, sumParent ],
       left: this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN,
       top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN
     } ) );
