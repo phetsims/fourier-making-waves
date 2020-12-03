@@ -94,8 +94,7 @@ class AmplitudesChart extends Node {
       new AmplitudeSlider( harmonic.amplitudeProperty, harmonic.colorProperty, presetFunctionProperty, {
         trackHeight: CHART_VIEW_HEIGHT,
         center: chartModel.modelToViewPosition( new Vector2( harmonic.order, 0 ) ),
-        tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` ),
-        phetioReadOnly: true
+        tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` )
       } )
     );
 
@@ -104,8 +103,7 @@ class AmplitudesChart extends Node {
       new AmplitudeNumberDisplay( harmonic, amplitudeKeypadDialog, presetFunctionProperty, {
         centerX: chartModel.modelToView( Orientation.HORIZONTAL, harmonic.order ),
         bottom: chartRectangle.top - 10,
-        tandem: options.tandem.createTandem( `amplitude${harmonic.order}NumberDisplay` ),
-        phetioReadOnly: true
+        tandem: options.tandem.createTandem( `amplitude${harmonic.order}NumberDisplay` )
       } )
     );
 
