@@ -51,11 +51,6 @@ const FMWConstants = {
     boxWidth: 15
   },
 
-  COMBO_BOX_OPTIONS: {
-    xMargin: 12,
-    yMargin: 5
-  },
-
   VBOX_OPTIONS: {
     align: 'center',
     spacing: 7
