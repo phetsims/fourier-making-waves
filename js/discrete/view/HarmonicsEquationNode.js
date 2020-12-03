@@ -67,7 +67,7 @@ class HarmonicsEquationNode extends Node {
       [ domainProperty, mathFormProperty ],
       ( domain, mathForm ) => {
         this.visible = ( mathForm !== MathForm.HIDDEN );
-        richText.text = HarmonicsEquationNode.getRichTextMarkup( domain, mathForm );
+        richText.text = HarmonicsEquationNode.getRichTextMarkup( domain, mathForm, n, An );
       }
     );
   }
@@ -76,23 +76,27 @@ class HarmonicsEquationNode extends Node {
    * Gets the RichText markup for an equation, based on domain and math form.
    * @param {Domain} domain
    * @param {MathForm} mathForm
+   * @param {string|number} order - {string} for general form (e.g. 'n') or {number} for a specific harmonic
+   * @param {string|number} amplitude - {string} for general form (e.g. 'An') or {number} for a specific amplitude
    * @returns {string}
    * @public
    */
-  static getRichTextMarkup( domain, mathForm ) {
+  static getRichTextMarkup( domain, mathForm, order, amplitude ) {
 
     assert && assert( Domain.includes( domain ), `invalid domain: ${domain}` );
     assert && assert( MathForm.includes( mathForm ), `invalid mathForm: ${mathForm}` );
+    assert && assert( typeof order === 'string' || typeof order === 'number', `invalid order: ${order}` );
+    assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number', `invalid amplitude: ${amplitude}` );
 
     let markup;
     if ( domain === Domain.SPACE ) {
-      markup = getSpaceMarkup( mathForm );
+      markup = getSpaceMarkup( mathForm, order, amplitude );
     }
     else if ( domain === Domain.TIME ) {
-      markup = getTimeMarkup( mathForm );
+      markup = getTimeMarkup( mathForm, order, amplitude );
     }
     else if ( domain === Domain.SPACE_AND_TIME ) {
-      markup = getSpaceAndTimeMarkup( mathForm );
+      markup = getSpaceAndTimeMarkup( mathForm, order, amplitude );
     }
     else {
       assert && assert( false, `unsupported domain: ${domain}` );
@@ -104,24 +108,28 @@ class HarmonicsEquationNode extends Node {
 /**
  * Gets the RichText markup for an equation in the space domain.
  * @param {MathForm} mathForm
+ * @param {string|number} order - {string} for general form (e.g. 'n') or number for a specific harmonic
+ * @param {string|number} amplitude - {string} for general form (e.g. 'An') or {number} for a specific amplitude
  * @returns {string}
  */
-function getSpaceMarkup( mathForm ) {
+function getSpaceMarkup( mathForm, order, amplitude ) {
   assert && assert( [ MathForm.HIDDEN, MathForm.WAVELENGTH, MathForm.WAVE_NUMBER, MathForm.MODE ].includes( mathForm ),
     `unsupported mathForm: ${mathForm}` );
+  assert && assert( typeof order === 'string' || typeof order === 'number', `invalid order: ${order}` );
+  assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number', `invalid amplitude: ${amplitude}` );
 
   let markup;
   if ( mathForm === MathForm.HIDDEN ) {
     markup = HIDDEN_STRING;
   }
   else if ( mathForm === MathForm.WAVELENGTH ) {
-    markup = `${An} sin( 2${PI}${x} / ${lambda}<sub>${n}</sub> )`;
+    markup = `${amplitude} sin( 2${PI}${x} / ${lambda}<sub>${n}</sub> )`;
   }
   else if ( mathForm === MathForm.WAVE_NUMBER ) {
-    markup = `${An} sin( ${k}<sub>${n}</sub>${x} )`;
+    markup = `${amplitude} sin( ${k}<sub>${n}</sub>${x} )`;
   }
   else if ( mathForm === MathForm.MODE ) {
-    markup = `${An} sin( 2${PI}${n}${x} / ${L} )`;
+    markup = `${amplitude} sin( 2${PI}${n}${x} / ${L} )`;
   }
   else {
     assert && assert( false, `unsupported mathForm: ${mathForm}` );
@@ -132,27 +140,31 @@ function getSpaceMarkup( mathForm ) {
 /**
  * Gets the RichText markup for an equation in the time domain.
  * @param {MathForm} mathForm
+ * @param {string|number} order - {string} for general form (e.g. 'n') or number for a specific harmonic
+ * @param {string|number} amplitude - {string} for general form (e.g. 'An') or {number} for a specific amplitude
  * @returns {string}
  */
-function getTimeMarkup( mathForm ) {
+function getTimeMarkup( mathForm, order, amplitude ) {
   assert && assert( [ MathForm.HIDDEN, MathForm.FREQUENCY, MathForm.PERIOD, MathForm.ANGULAR_FREQUENCY, MathForm.MODE ].includes( mathForm ),
     `unsupported mathForm: ${mathForm}` );
+  assert && assert( typeof order === 'string' || typeof order === 'number', `invalid order: ${order}` );
+  assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number', `invalid amplitude: ${amplitude}` );
 
   let markup;
   if ( mathForm === MathForm.HIDDEN ) {
     markup = HIDDEN_STRING;
   }
   else if ( mathForm === MathForm.FREQUENCY ) {
-    markup = `${An} sin( 2${PI}${f}<sub>${n}</sub>${t} )`;
+    markup = `${amplitude} sin( 2${PI}${f}<sub>${order}</sub>${t} )`;
   }
   else if ( mathForm === MathForm.PERIOD ) {
-    markup = `${An} sin( 2${PI}${t} / ${T}<sub>${n}</sub> )`;
+    markup = `${amplitude} sin( 2${PI}${t} / ${T}<sub>${order}</sub> )`;
   }
   else if ( mathForm === MathForm.ANGULAR_FREQUENCY ) {
-    markup = `${An} sin( ${omega}<sub>${n}</sub>${t} )`;
+    markup = `${amplitude} sin( ${omega}<sub>${order}</sub>${t} )`;
   }
   else if ( mathForm === MathForm.MODE ) {
-    return `${An} sin( 2${PI}${n}${t} / ${T} )`;
+    return `${amplitude} sin( 2${PI}${order}${t} / ${T} )`;
   }
   else {
     assert && assert( false, `unsupported mathForm: ${mathForm}` );
@@ -163,31 +175,34 @@ function getTimeMarkup( mathForm ) {
 /**
  * Gets the RichText markup for an equation in the space & time domain.
  * @param {MathForm} mathForm
+ * @param {string|number} order - {string} for general form (e.g. 'n') or number for a specific harmonic
+ * @param {string|number} amplitude - {string} for general form (e.g. 'An') or {number} for a specific amplitude
  * @returns {string}
  */
-function getSpaceAndTimeMarkup( mathForm ) {
+function getSpaceAndTimeMarkup( mathForm, order, amplitude ) {
   assert && assert( [ MathForm.HIDDEN, MathForm.WAVELENGTH_AND_PERIOD, MathForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY, MathForm.MODE ].includes( mathForm ),
     `unsupported mathForm: ${mathForm}` );
+  assert && assert( typeof order === 'string' || typeof order === 'number', `invalid order: ${order}` );
+  assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number', `invalid amplitude: ${amplitude}` );
 
   let markup;
   if ( mathForm === MathForm.HIDDEN ) {
     markup = HIDDEN_STRING;
   }
   else if ( mathForm === MathForm.WAVELENGTH_AND_PERIOD ) {
-    markup = `${An} sin( 2${PI}( ${x}/${lambda}<sub>${n}</sub> ${MINUS} ${t}/${T}<sub>${n}</sub> ) )`;
+    markup = `${amplitude} sin( 2${PI}( ${x}/${lambda}<sub>${order}</sub> ${MINUS} ${t}/${T}<sub>${order}</sub> ) )`;
   }
   else if ( mathForm === MathForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY ) {
-    markup = `${An} sin( ${k}<sub>${n}</sub>${x} ${MINUS} ${omega}<sub>${n}</sub>${t} )`;
+    markup = `${amplitude} sin( ${k}<sub>${order}</sub>${x} ${MINUS} ${omega}<sub>${order}</sub>${t} )`;
   }
   else if ( mathForm === MathForm.MODE ) {
-    markup = `${An} sin( 2${PI}${n}( ${x}/${L} ${MINUS} ${t}/${T} ) )`;
+    markup = `${amplitude} sin( 2${PI}${order}( ${x}/${L} ${MINUS} ${t}/${T} ) )`;
   }
   else {
     assert && assert( false, `unsupported mathForm: ${mathForm}` );
   }
   return markup;
 }
-
 
 fourierMakingWaves.register( 'HarmonicsEquationNode', HarmonicsEquationNode );
 export default HarmonicsEquationNode;

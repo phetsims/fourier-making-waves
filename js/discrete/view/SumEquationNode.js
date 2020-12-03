@@ -21,11 +21,13 @@ import HarmonicsEquationNode from './HarmonicsEquationNode.js';
 import SummationSymbolNode from './SummationSymbolNode.js';
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
+const A = FMWSymbols.CAPITAL_A;
 const EQUAL_TO = MathSymbols.EQUAL_TO;
 const F = FMWSymbols.CAPITAL_F;
 const n = FMWSymbols.SMALL_N;
 const t = FMWSymbols.SMALL_T;
 const x = FMWSymbols.SMALL_X;
+const An = `${A}<sub>${n}</sub>`;
 
 class SumEquationNode extends Node {
 
@@ -79,7 +81,7 @@ class SumEquationNode extends Node {
         summationNode.left = leftNode.right + 2;
         summationNode.y = leftNode.y + 5; // lower summation a bit, determined empirically
 
-        rightNode.text = HarmonicsEquationNode.getRichTextMarkup( domain, mathForm );
+        rightNode.text = HarmonicsEquationNode.getRichTextMarkup( domain, mathForm, n, An );
         rightNode.left = summationNode.right + 2;
         rightNode.y = leftNode.y;
       } );
