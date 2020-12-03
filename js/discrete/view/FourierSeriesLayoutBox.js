@@ -50,7 +50,7 @@ class FourierSeriesLayoutBox extends VBox {
     const presetFunctionComboBox = new PresetFunctionComboBox( presetFunctionProperty, popupParent );
 
     const presetBox = new HBox( {
-      spacing: 8,
+      spacing: 3,
       children: [ presetText, presetFunctionComboBox ]
     } );
 
@@ -61,12 +61,12 @@ class FourierSeriesLayoutBox extends VBox {
 
     const harmonicsPicker = new NumberPicker( numberOfHarmonicsProperty, numberOfHarmonicsProperty.rangeProperty, {
       font: FMWConstants.CONTROL_FONT,
-      cornerRadius: 3,
+      cornerRadius: 5,
       color: 'black'
     } );
 
     const harmonicsBox = new HBox( {
-      spacing: 8,
+      spacing: 5,
       children: [ harmonicsText, harmonicsPicker ]
     } );
 

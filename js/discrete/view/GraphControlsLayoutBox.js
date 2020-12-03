@@ -50,7 +50,7 @@ class GraphControlsLayoutBox extends VBox {
     const domainComboBox = new DomainComboBox( domainProperty, popupParent );
 
     const functionOfBox = new HBox( {
-      spacing: 3,
+      spacing: 5,
       children: [ functionOfText, domainComboBox ]
     } );
 
