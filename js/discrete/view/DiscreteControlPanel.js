@@ -20,7 +20,7 @@ import DiscreteModel from '../model/DiscreteModel.js';
 import GraphControlsLayoutBox from './GraphControlsLayoutBox.js';
 import MathFormLayoutBox from './MathFormLayoutBox.js';
 import MeasurementToolsLayoutBox from './MeasurementToolsLayoutBox.js';
-import PresetFunctionLayoutBox from './PresetFunctionLayoutBox.js';
+import FourierSeriesLayoutBox from './FourierSeriesLayoutBox.js';
 import SoundLayoutBox from './SoundLayoutBox.js';
 
 class DiscreteControlPanel extends Panel {
@@ -45,7 +45,7 @@ class DiscreteControlPanel extends Panel {
 
     // {Node[]} logical sections of the control panel
     const sectionNodes = [
-      new PresetFunctionLayoutBox( model.presetFunctionProperty, model.fourierSeries.numberOfHarmonicsProperty, popupParent ),
+      new FourierSeriesLayoutBox( model.presetFunctionProperty, model.fourierSeries.numberOfHarmonicsProperty, popupParent ),
       new GraphControlsLayoutBox( model.domainProperty, model.waveTypeProperty, popupParent ),
       new MeasurementToolsLayoutBox( model.wavelengthToolEnabledProperty, model.selectedWavelengthProperty,
         model.periodToolEnabledProperty, model.selectedPeriodProperty,

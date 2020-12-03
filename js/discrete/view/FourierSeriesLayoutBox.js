@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * PresetFunctionLayoutBox is the 'Preset Function' section of the control panel in the 'Discrete' screen.
+ * FourierSeriesLayoutBox is the 'Fourier Series' section of the control panel in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,7 +20,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import PresetFunction from '../model/PresetFunction.js';
 import PresetFunctionComboBox from './PresetFunctionComboBox.js';
 
-class PresetFunctionLayoutBox extends VBox {
+class FourierSeriesLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<PresetFunction>} presetFunctionProperty
@@ -37,17 +37,21 @@ class PresetFunctionLayoutBox extends VBox {
     options = merge( {}, FMWConstants.LAYOUT_BOX_OPTIONS, options );
 
     // Preset Function
-    const titleText = new Text( fourierMakingWavesStrings.presetFunction, {
+    const titleText = new Text( fourierMakingWavesStrings.fourierSeries, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 215 // determined empirically
     } );
 
+    const presetText = new Text( fourierMakingWavesStrings.preset, {
+      font: FMWConstants.CONTROL_FONT,
+      maxWidth: 70 // determined empirically
+    } );
+
     const presetFunctionComboBox = new PresetFunctionComboBox( presetFunctionProperty, popupParent );
 
-    const harmonicsPicker = new NumberPicker( numberOfHarmonicsProperty, numberOfHarmonicsProperty.rangeProperty, {
-      font: FMWConstants.CONTROL_FONT,
-      cornerRadius: 3,
-      color: 'black'
+    const presetBox = new HBox( {
+      spacing: 8,
+      children: [ presetText, presetFunctionComboBox ]
     } );
 
     const harmonicsText = new Text( fourierMakingWavesStrings.harmonics, {
@@ -55,13 +59,19 @@ class PresetFunctionLayoutBox extends VBox {
       maxWidth: 150 // determined empirically
     } );
 
-    const harmonicsBox = new HBox( {
-      spacing: 8,
-      children: [ harmonicsPicker, harmonicsText ]
+    const harmonicsPicker = new NumberPicker( numberOfHarmonicsProperty, numberOfHarmonicsProperty.rangeProperty, {
+      font: FMWConstants.CONTROL_FONT,
+      cornerRadius: 3,
+      color: 'black'
     } );
 
-    assert && assert( !options.children, 'PresetFunctionLayoutBox sets children' );
-    options.children = [ titleText, presetFunctionComboBox, harmonicsBox ];
+    const harmonicsBox = new HBox( {
+      spacing: 8,
+      children: [ harmonicsText, harmonicsPicker ]
+    } );
+
+    assert && assert( !options.children, 'FourierSeriesLayoutBox sets children' );
+    options.children = [ titleText, presetBox, harmonicsBox ];
 
     super( options );
   }
@@ -76,5 +86,5 @@ class PresetFunctionLayoutBox extends VBox {
   }
 }
 
-fourierMakingWaves.register( 'PresetFunctionLayoutBox', PresetFunctionLayoutBox );
-export default PresetFunctionLayoutBox;
+fourierMakingWaves.register( 'FourierSeriesLayoutBox', FourierSeriesLayoutBox );
+export default FourierSeriesLayoutBox;

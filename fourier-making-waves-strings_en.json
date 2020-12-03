@@ -11,8 +11,8 @@
   "screen.continuous": {
     "value": "Continuous"
   },
-  "presetFunction": {
-    "value": "Preset Function"
+  "fourierSeries": {
+    "value": "Fourier Series"
   },
   "graphControls": {
     "value": "Graph Controls"
@@ -38,8 +38,11 @@
   "custom": {
     "value": "custom"
   },
+  "preset": {
+    "value": "Preset:"
+  },
   "harmonics": {
-    "value": "Harmonics"
+    "value": "Harmonics:"
   },
   "sine": {
     "value": "sine"
