@@ -33,17 +33,17 @@ class GraphControlsLayoutBox extends VBox {
     assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
-    options = merge( {}, FMWConstants.VBOX_OPTIONS, options );
+    options = merge( {}, FMWConstants.LAYOUT_BOX_OPTIONS, options );
 
     // Graph Controls
     const titleText = new Text( fourierMakingWavesStrings.graphControls, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 0.85 * FMWConstants.CONTROL_PANEL_WIDTH
+      maxWidth: 215 // determined empirically
     } );
 
     const functionOfText = new Text( fourierMakingWavesStrings.functionOf, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 0.85 * FMWConstants.CONTROL_PANEL_WIDTH
+      maxWidth: 215 // determined empirically
     } );
 
     const domainComboBox = new DomainComboBox( domainProperty, popupParent );

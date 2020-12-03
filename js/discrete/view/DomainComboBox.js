@@ -10,7 +10,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -31,7 +30,7 @@ class DomainComboBox extends FMWComboBox {
 
     options = merge( {
       textOptions: {
-        maxWidth: 0.85 * FMWConstants.CONTROL_PANEL_WIDTH
+        maxWidth: 215 // determined empirically
       }
     }, options );
 

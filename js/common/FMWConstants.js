@@ -65,14 +65,15 @@ const FMWConstants = {
     boxWidth: 15
   },
 
-  VBOX_OPTIONS: {
+  // Options for classes named *LayoutBox
+  LAYOUT_BOX_OPTIONS: {
     align: 'center',
-    spacing: 7
+    spacing: 8
   },
 
   // Fonts
-  TITLE_FONT: new PhetFont( { size: 16, weight: 'bold' } ),
-  CONTROL_FONT: new PhetFont( 14 ),
+  TITLE_FONT: new PhetFont( { size: 14, weight: 'bold' } ),
+  CONTROL_FONT: new PhetFont( 12 ),
   AXIS_LABEL_FONT: new PhetFont( 12 ),
   TICK_LABEL_FONT: new PhetFont( 12 ),
   EQUATION_FONT: new PhetFont( 18 ),

@@ -33,11 +33,11 @@ class MathFormLayoutBox extends VBox {
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
-    options = merge( {}, FMWConstants.VBOX_OPTIONS, options );
+    options = merge( {}, FMWConstants.LAYOUT_BOX_OPTIONS, options );
 
     const titleText = new Text( fourierMakingWavesStrings.mathForm, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 0.85 * FMWConstants.CONTROL_PANEL_WIDTH
+      maxWidth: 215 // determined empirically
     } );
 
     // Math Form combo box

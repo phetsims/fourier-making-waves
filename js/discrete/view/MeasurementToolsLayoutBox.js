@@ -57,12 +57,12 @@ class MeasurementToolsLayoutBox extends VBox {
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
-    options = merge( {}, FMWConstants.VBOX_OPTIONS, options );
+    options = merge( {}, FMWConstants.LAYOUT_BOX_OPTIONS, options );
 
     // Measurement Tools
     const titleText = new Text( fourierMakingWavesStrings.measurementTools, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 0.85 * FMWConstants.CONTROL_PANEL_WIDTH
+      maxWidth: 215 // determined empirically
     } );
 
     // To make checkboxes have the same effective width

@@ -34,12 +34,12 @@ class PresetFunctionLayoutBox extends VBox {
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
-    options = merge( {}, FMWConstants.VBOX_OPTIONS, options );
+    options = merge( {}, FMWConstants.LAYOUT_BOX_OPTIONS, options );
 
     // Preset Function
     const titleText = new Text( fourierMakingWavesStrings.presetFunction, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 0.85 * FMWConstants.CONTROL_PANEL_WIDTH
+      maxWidth: 215 // determined empirically
     } );
 
     const presetFunctionComboBox = new PresetFunctionComboBox( presetFunctionProperty, popupParent );
