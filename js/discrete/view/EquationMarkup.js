@@ -19,13 +19,13 @@ const HIDDEN_STRING = ''; // string for MathForm.HIDDEN
 // To improve readability of markup creation. Each of these is a string than may also include markup.
 const f = FMWSymbols.f;
 const k = FMWSymbols.k;
-const lambda = FMWSymbols.lambda;
 const L = FMWSymbols.L;
+const lambda = FMWSymbols.lambda;
 const MINUS = MathSymbols.MINUS;
 const omega = FMWSymbols.omega;
-const PI = FMWSymbols.PI;
-const t = FMWSymbols.t;
+const pi = FMWSymbols.pi;
 const T = FMWSymbols.T;
+const t = FMWSymbols.t;
 const x = FMWSymbols.x;
 
 const EquationMarkup = {
@@ -87,13 +87,13 @@ function getSpaceMarkup( waveType, mathForm, order, amplitude ) {
     markup = HIDDEN_STRING;
   }
   else if ( mathForm === MathForm.WAVELENGTH ) {
-    markup = `${amplitude} ${waveTypeMarkup}( 2${PI}${x} / ${lambda}<sub>${order}</sub> )`;
+    markup = `${amplitude} ${waveTypeMarkup}( 2${pi}${x} / ${lambda}<sub>${order}</sub> )`;
   }
   else if ( mathForm === MathForm.WAVE_NUMBER ) {
     markup = `${amplitude} ${waveTypeMarkup}( ${k}<sub>${order}</sub>${x} )`;
   }
   else if ( mathForm === MathForm.MODE ) {
-    markup = `${amplitude} ${waveTypeMarkup}( 2${PI}${order}${x} / ${L} )`;
+    markup = `${amplitude} ${waveTypeMarkup}( 2${pi}${order}${x} / ${L} )`;
   }
   else {
     assert && assert( false, `unsupported mathForm: ${mathForm}` );
@@ -123,16 +123,16 @@ function getTimeMarkup( waveType, mathForm, order, amplitude ) {
     markup = HIDDEN_STRING;
   }
   else if ( mathForm === MathForm.FREQUENCY ) {
-    markup = `${amplitude} ${waveTypeMarkup}( 2${PI}${f}<sub>${order}</sub>${t} )`;
+    markup = `${amplitude} ${waveTypeMarkup}( 2${pi}${f}<sub>${order}</sub>${t} )`;
   }
   else if ( mathForm === MathForm.PERIOD ) {
-    markup = `${amplitude} ${waveTypeMarkup}( 2${PI}${t} / ${T}<sub>${order}</sub> )`;
+    markup = `${amplitude} ${waveTypeMarkup}( 2${pi}${t} / ${T}<sub>${order}</sub> )`;
   }
   else if ( mathForm === MathForm.ANGULAR_FREQUENCY ) {
     markup = `${amplitude} ${waveTypeMarkup}( ${omega}<sub>${order}</sub>${t} )`;
   }
   else if ( mathForm === MathForm.MODE ) {
-    return `${amplitude} ${waveTypeMarkup}( 2${PI}${order}${t} / ${T} )`;
+    return `${amplitude} ${waveTypeMarkup}( 2${pi}${order}${t} / ${T} )`;
   }
   else {
     assert && assert( false, `unsupported mathForm: ${mathForm}` );
@@ -162,13 +162,13 @@ function getSpaceAndTimeMarkup( waveType, mathForm, order, amplitude ) {
     markup = HIDDEN_STRING;
   }
   else if ( mathForm === MathForm.WAVELENGTH_AND_PERIOD ) {
-    markup = `${amplitude} ${waveTypeMarkup}( 2${PI}( ${x}/${lambda}<sub>${order}</sub> ${MINUS} ${t}/${T}<sub>${order}</sub> ) )`;
+    markup = `${amplitude} ${waveTypeMarkup}( 2${pi}( ${x}/${lambda}<sub>${order}</sub> ${MINUS} ${t}/${T}<sub>${order}</sub> ) )`;
   }
   else if ( mathForm === MathForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY ) {
     markup = `${amplitude} ${waveTypeMarkup}( ${k}<sub>${order}</sub>${x} ${MINUS} ${omega}<sub>${order}</sub>${t} )`;
   }
   else if ( mathForm === MathForm.MODE ) {
-    markup = `${amplitude} ${waveTypeMarkup}( 2${PI}${order}( ${x}/${L} ${MINUS} ${t}/${T} ) )`;
+    markup = `${amplitude} ${waveTypeMarkup}( 2${pi}${order}( ${x}/${L} ${MINUS} ${t}/${T} ) )`;
   }
   else {
     assert && assert( false, `unsupported mathForm: ${mathForm}` );
