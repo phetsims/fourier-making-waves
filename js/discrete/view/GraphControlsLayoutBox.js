@@ -8,6 +8,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
@@ -43,13 +44,12 @@ class GraphControlsLayoutBox extends VBox {
 
     const functionOfText = new Text( fourierMakingWavesStrings.functionOf, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 215 // determined empirically
+      maxWidth: 70 // determined empirically
     } );
 
     const domainComboBox = new DomainComboBox( domainProperty, popupParent );
 
-    const functionOfBox = new VBox( {
-      align: 'left',
+    const functionOfBox = new HBox( {
       spacing: 3,
       children: [ functionOfText, domainComboBox ]
     } );
