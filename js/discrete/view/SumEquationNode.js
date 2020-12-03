@@ -7,7 +7,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
@@ -49,8 +48,7 @@ class SumEquationNode extends Node {
       font: options.font
     } );
 
-    //TODO update range
-    const summationNode = new SummationSymbolNode( n, new Range( 1, numberOfHarmonicsProperty.value ), {
+    const summationNode = new SummationSymbolNode( n, 1, numberOfHarmonicsProperty, {
       font: options.font,
       left: leftNode.right + 2,
       centerY: leftNode.centerY

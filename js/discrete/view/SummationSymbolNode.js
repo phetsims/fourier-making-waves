@@ -11,27 +11,26 @@
 import merge from '../../../../phet-core/js/merge.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import VBox from '../../../../scenery/js/nodes/VBox.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-//TODO extends Node instead of VBox, so we can use align: 'origin' in SumEquationNode and have more control over spacing
-class SummationSymbolNode extends VBox {
+// This extends Node instead of VBox so that the origin will be at the origin of sigma, useful for layout with other text.
+class SummationSymbolNode extends Node {
 
   /**
    * @param {string} indexSymbol - symbol for the index of summation
-   * @param {Range} indexRange - range of the index
+   * @param {number} indexMin - index min value
+   * @param {Property.<number>} indexMaxProperty - index max value
    * @param {Object} [options]
    */
-  constructor( indexSymbol, indexRange, options ) {
+  constructor( indexSymbol, indexMin, indexMaxProperty, options ) {
 
     options = merge( {
       fontSize: 30,
       indexFontSize: 10,
-
-      // VBox options
       spacing: 0
     }, options );
 
@@ -40,20 +39,45 @@ class SummationSymbolNode extends VBox {
       font: new PhetFont( options.fontSize )
     } );
 
-    const indexTextOptions = {
-      font: new PhetFont( options.indexFontSize )
-    };
+    const indexFont = new PhetFont( options.indexFontSize );
 
     // Index and min (starting) value, which appears below the sigma character
-    const minNode = new RichText( `${indexSymbol} ${MathSymbols.EQUAL_TO} ${indexRange.min}`, indexTextOptions );
+    const minNode = new RichText( `${indexSymbol} ${MathSymbols.EQUAL_TO} ${indexMin}`, {
+      font: indexFont,
+      centerX: sigmaNode.centerX,
+      top: sigmaNode.bottom + options.spacing
+    } );
 
     // Max (stopping) value, which appears above the sigma character
-    const maxNode = new Text( `${indexRange.max}`, indexTextOptions );
+    const maxNode = new Text( '', {
+      font: indexFont
+    } );
 
     assert && assert( !options.children, 'SummationSymbolNode sets children' );
     options.children = [ maxNode, sigmaNode, minNode ];
 
     super( options );
+
+    const indexMaxListener = indexMax => {
+      maxNode.text = indexMaxProperty.value;
+      maxNode.centerX = sigmaNode.centerX;
+      maxNode.bottom = sigmaNode.top - options.spacing;
+    };
+    indexMaxProperty.link( indexMaxListener );
+
+    // @private
+    this.disposeSummationSymbolNode = () => {
+      indexMaxProperty.unlink( indexMaxListener );
+    };
+  }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    this.disposeSummationSymbolNode();
+    super.dispose();
   }
 }
 
