@@ -69,6 +69,7 @@ class SumEquationNode extends Node {
 
       this.visible = ( mathForm !== MathForm.HIDDEN );
 
+      // F(...) =
       leftNode.text = ( domain === Domain.SPACE ) ? `${F}(${x}) ${EQUAL_TO} ` :
                       ( domain === Domain.TIME ) ? `${F}(${t}) ${EQUAL_TO} ` :
                       `${F}(${x},${t}) ${EQUAL_TO} `;
