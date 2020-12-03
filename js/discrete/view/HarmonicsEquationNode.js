@@ -123,13 +123,13 @@ function getSpaceMarkup( mathForm, order, amplitude ) {
     markup = HIDDEN_STRING;
   }
   else if ( mathForm === MathForm.WAVELENGTH ) {
-    markup = `${amplitude} sin( 2${PI}${x} / ${lambda}<sub>${n}</sub> )`;
+    markup = `${amplitude} sin( 2${PI}${x} / ${lambda}<sub>${order}</sub> )`;
   }
   else if ( mathForm === MathForm.WAVE_NUMBER ) {
-    markup = `${amplitude} sin( ${k}<sub>${n}</sub>${x} )`;
+    markup = `${amplitude} sin( ${k}<sub>${order}</sub>${x} )`;
   }
   else if ( mathForm === MathForm.MODE ) {
-    markup = `${amplitude} sin( 2${PI}${n}${x} / ${L} )`;
+    markup = `${amplitude} sin( 2${PI}${order}${x} / ${L} )`;
   }
   else {
     assert && assert( false, `unsupported mathForm: ${mathForm}` );
