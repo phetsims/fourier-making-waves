@@ -28,7 +28,7 @@ class PresetFunctionComboBox extends FMWComboBox {
 
     options = merge( {
       textOptions: {
-        maxWidth: 140 // determined empirically
+        maxWidth: 120 // determined empirically
       }
     }, options );
 

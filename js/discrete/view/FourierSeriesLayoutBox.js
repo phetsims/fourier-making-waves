@@ -39,7 +39,7 @@ class FourierSeriesLayoutBox extends VBox {
     // Preset Function
     const titleText = new Text( fourierMakingWavesStrings.fourierSeries, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 215 // determined empirically
+      maxWidth: 200 // determined empirically
     } );
 
     const presetText = new Text( fourierMakingWavesStrings.preset, {

@@ -27,6 +27,7 @@ import SumEquationNode from './SumEquationNode.js';
 
 // Maximum number of terms per line in the expanded form
 const TERMS_PER_LINE = 3;
+const MAX_WIDTH = 800; // determined empirically
 
 class ExpandedFormDialog extends Dialog {
 
@@ -51,7 +52,7 @@ class ExpandedFormDialog extends Dialog {
     assert && assert( !options.title, 'ExpandedFormDialog sets children' );
     options.title = new Text( fourierMakingWavesStrings.expandedForm, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 400 // determined empirically
+      maxWidth: MAX_WIDTH
     } );
 
     // links to Properties, must be disposed.
@@ -103,7 +104,8 @@ class ExpandedFormDialog extends Dialog {
     const content = new VBox( {
       spacing: 8,
       align: 'left',
-      children: [ sumEquationNode, expandedSumHBox ]
+      children: [ sumEquationNode, expandedSumHBox ],
+      maxWidth: MAX_WIDTH
     } );
 
     super( content, options );

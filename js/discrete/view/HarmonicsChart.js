@@ -100,7 +100,9 @@ class HarmonicsChart extends Node {
     } );
 
     // Equation that appears above the chart
-    const equationNode = new HarmonicsEquationNode( domainProperty, waveTypeProperty, mathFormProperty );
+    const equationNode = new HarmonicsEquationNode( domainProperty, waveTypeProperty, mathFormProperty, {
+      maxWidth: 0.5 * chartModel.width
+    } );
 
     // Center the equation above the graph.
     equationNode.localBoundsProperty.link( () => {

@@ -62,7 +62,7 @@ class MeasurementToolsLayoutBox extends VBox {
     // Measurement Tools
     const titleText = new Text( fourierMakingWavesStrings.measurementTools, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 215 // determined empirically
+      maxWidth: 200 // determined empirically
     } );
 
     // To make checkboxes have the same effective width
@@ -84,12 +84,15 @@ class MeasurementToolsLayoutBox extends VBox {
     // Wavelength
     const wavelengthText = new Text( fourierMakingWavesStrings.wavelength, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 125 // determined empirically
+      maxWidth: 110 // determined empirically
     } );
     const wavelengthCheckbox = new Checkbox( wavelengthText, wavelengthToolEnabledProperty, FMWConstants.CHECKBOX_OPTIONS );
     const wavelengthSpinner = new NumberSpinner( selectedWavelengthProperty, selectedWavelengthProperty.rangeProperty, merge( {}, {
       numberDisplayOptions: {
-        numberFormatter: order => `${FMWSymbols.lambda}<sub>${order}</sub>`
+        numberFormatter: order => `${FMWSymbols.lambda}<sub>${order}</sub>`,
+        textOptions: {
+          maxWidth: 50
+        }
       }
     }, NUMBER_SPINNER_OPTIONS ) );
     const wavelengthBox = new HBox( merge( {}, hBoxOptions, {
@@ -102,12 +105,15 @@ class MeasurementToolsLayoutBox extends VBox {
     // Period
     const periodText = new Text( fourierMakingWavesStrings.period, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 125 // determined empirically
+      maxWidth: 110 // determined empirically
     } );
     const periodCheckbox = new Checkbox( periodText, periodToolEnabledProperty, FMWConstants.CHECKBOX_OPTIONS );
     const periodSpinner = new NumberSpinner( selectedPeriodProperty, selectedPeriodProperty.rangeProperty, merge( {}, {
       numberDisplayOptions: {
-        numberFormatter: order => `${FMWSymbols.T}<sub>${order}</sub>`
+        numberFormatter: order => `${FMWSymbols.T}<sub>${order}</sub>`,
+        textOptions: {
+          maxWidth: 50
+        }
       }
     }, NUMBER_SPINNER_OPTIONS ) );
     const periodBox = new HBox( merge( {}, hBoxOptions, {

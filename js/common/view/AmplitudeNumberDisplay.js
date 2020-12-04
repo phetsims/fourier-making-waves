@@ -56,12 +56,13 @@ class AmplitudeNumberDisplay extends VBox {
       }
     }, options );
 
-    const labelNode = new RichText( `${FMWSymbols.A}<sub>${harmonic.order}</sub>`, {
-      font: DEFAULT_FONT
-    } );
-
     const numberDisplay = new NumberDisplay( harmonic.amplitudeProperty, harmonic.amplitudeProperty.range,
       options.numberDisplayOptions );
+
+    const labelNode = new RichText( `${FMWSymbols.A}<sub>${harmonic.order}</sub>`, {
+      font: DEFAULT_FONT,
+      maxWidth: numberDisplay.width
+    } );
 
     assert && assert( !options.children, 'NAME sets children' );
     options.children = [ labelNode, numberDisplay ];

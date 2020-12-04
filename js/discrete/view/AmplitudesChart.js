@@ -76,7 +76,8 @@ class AmplitudesChart extends Node {
     const xAxisLabel = new RichText( FMWSymbols.n, {
       font: FMWConstants.AXIS_LABEL_FONT,
       left: chartRectangle.right + 10,
-      centerY: chartRectangle.centerY
+      centerY: chartRectangle.centerY,
+      maxWidth: 25
     } );
 
     const yAxisLabel = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.amplitudeSymbol, {

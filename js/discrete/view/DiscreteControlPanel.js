@@ -40,7 +40,8 @@ class DiscreteControlPanel extends Panel {
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
     options = merge( {}, FMWConstants.PANEL_OPTIONS, {
-      align: 'center'
+      align: 'center',
+      yMargin: 15
     }, options );
 
     // {Node[]} logical sections of the control panel

@@ -30,7 +30,7 @@ class DomainComboBox extends FMWComboBox {
 
     options = merge( {
       textOptions: {
-        maxWidth: 135 // determined empirically
+        maxWidth: 120 // determined empirically
       }
     }, options );
 

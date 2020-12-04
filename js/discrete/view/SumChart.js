@@ -113,7 +113,9 @@ class SumChart extends Node {
     } );
 
     const equationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
-      waveTypeProperty, mathFormProperty );
+      waveTypeProperty, mathFormProperty, {
+        maxWidth: 0.5 * chartModel.width
+      } );
 
     // Button that opens the 'Expanded Sum' dialog
     const expandedFormButton = new ExpandedFormButton( {

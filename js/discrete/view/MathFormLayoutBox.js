@@ -37,7 +37,7 @@ class MathFormLayoutBox extends VBox {
 
     const titleText = new Text( fourierMakingWavesStrings.mathForm, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 215 // determined empirically
+      maxWidth: 200 // determined empirically
     } );
 
     // Math Form combo box

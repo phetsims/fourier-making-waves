@@ -39,7 +39,7 @@ class GraphControlsLayoutBox extends VBox {
     // Graph Controls
     const titleText = new Text( fourierMakingWavesStrings.graphControls, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 215 // determined empirically
+      maxWidth: 200 // determined empirically
     } );
 
     const functionOfText = new Text( fourierMakingWavesStrings.functionOf, {
