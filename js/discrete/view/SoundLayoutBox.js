@@ -33,7 +33,7 @@ class SoundLayoutBox extends HBox {
     assert && assert( outputLevelProperty.range, 'outputLevelProperty.range required' );
 
     options = merge( {
-      spacing: 30
+      spacing: 20
     }, options );
 
     // Checkbox with music notes icon
