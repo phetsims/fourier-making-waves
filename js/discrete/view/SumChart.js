@@ -132,6 +132,7 @@ class SumChart extends Node {
       expandedFormButton.visible = ( mathForm !== MathForm.HIDDEN );
     } );
 
+    //TODO this is not working as expected with stringTest=long
     equationNode.localBoundsProperty.link( () => {
 
       // Ensure that expandedFormButton is always above the chart, regardless of how tall the equation is.
