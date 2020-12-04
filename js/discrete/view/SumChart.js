@@ -132,12 +132,16 @@ class SumChart extends Node {
       expandedFormButton.visible = ( mathForm !== MathForm.HIDDEN );
     } );
 
-    // Center the equation above the graph, with expandedFormButton to the right of the equation.
-    // Ensure that expandedFormButton is always above the chart, regardless of how tall the equation is.
     equationNode.localBoundsProperty.link( () => {
+
+      // Ensure that expandedFormButton is always above the chart, regardless of how tall the equation is.
       const maxHeight = Math.max( equationNode.height, expandedFormButton.height );
+
+      // Center the equation above the chart
       equationNode.centerX = chartRectangle.centerX;
       equationNode.centerY = chartRectangle.top - ( maxHeight / 2 ) - 5;
+
+      // Button to the right of the equation
       expandedFormButton.left = equationNode.right + 20;
       expandedFormButton.centerY = equationNode.centerY;
     } );

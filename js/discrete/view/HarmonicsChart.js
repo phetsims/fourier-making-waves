@@ -104,7 +104,7 @@ class HarmonicsChart extends Node {
       maxWidth: 0.5 * chartModel.width
     } );
 
-    // Center the equation above the graph.
+    // Center the equation above the chart.
     equationNode.localBoundsProperty.link( () => {
       equationNode.centerX = chartRectangle.centerX;
       equationNode.bottom = chartRectangle.top - 5;

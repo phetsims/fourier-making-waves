@@ -100,7 +100,7 @@ const FMWConstants = {
 
   LABEL_SET_OPTIONS: {
     edge: 'min',
-    createLabel: createTickLabel
+    createLabel: createNumericTickLabel
   },
 
   TICK_MARK_OPTIONS: {
@@ -112,11 +112,11 @@ const FMWConstants = {
 };
 
 /**
- * Creates a numeric tick label for the graphs.
+ * Creates a numeric tick label for the charts.
  * @param {number} value
  * @returns {Node}
  */
-function createTickLabel( value ) {
+function createNumericTickLabel( value ) {
   return new Text( Utils.toFixedNumber( value, FMWConstants.TICK_LABEL_DECIMAL_PLACES ), {
     font: FMWConstants.TICK_LABEL_FONT
   } );
