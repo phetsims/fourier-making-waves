@@ -35,7 +35,7 @@ import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
 import WaveType from '../model/WaveType.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
-import ExpandedSumDialog from './ExpandedSumDialog.js';
+import ExpandedFormDialog from './ExpandedFormDialog.js';
 import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 import SumEquationNode from './SumEquationNode.js';
 
@@ -119,7 +119,7 @@ class SumChart extends Node {
     const infoButton = new InfoButton( {
       scale: 0.45,
       listener: () => {
-        const dialog = new ExpandedSumDialog( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty, {
+        const dialog = new ExpandedFormDialog( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty, {
           hideCallback: () => dialog.dispose()
         } );
         dialog.show();

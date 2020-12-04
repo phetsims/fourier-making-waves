@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * ExpandedSumDialog is a modal dialog that displays the expanded sum of a Fourier series.
+ * ExpandedFormDialog is a modal dialog that displays the expanded sum of a Fourier series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -25,7 +25,7 @@ import WaveType from '../model/WaveType.js';
 import EquationMarkup from './EquationMarkup.js';
 import SumEquationNode from './SumEquationNode.js';
 
-class ExpandedSumDialog extends Dialog {
+class ExpandedFormDialog extends Dialog {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -45,8 +45,8 @@ class ExpandedSumDialog extends Dialog {
       xSpacing: 30
     }, options );
 
-    assert && assert( !options.title, 'ExpandedSumDialog sets children' );
-    options.title = new Text( fourierMakingWavesStrings.expandedSum, {
+    assert && assert( !options.title, 'ExpandedFormDialog sets children' );
+    options.title = new Text( fourierMakingWavesStrings.expandedForm, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 400 // determined empirically
     } );
@@ -66,6 +66,8 @@ class ExpandedSumDialog extends Dialog {
 
     let expandedSumMarkup = '';
     for ( let order = 1; order <= amplitudes.length; order++ ) {
+
+      // Limit number of decimal places, drop trailing zeros
       const amplitude = Utils.toFixedNumber( amplitudes[ order - 1 ], FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
       expandedSumMarkup += EquationMarkup.getRichTextMarkup( domain, waveType, mathForm, order, amplitude );
       if ( order < amplitudes.length ) {
@@ -109,5 +111,5 @@ class ExpandedSumDialog extends Dialog {
   }
 }
 
-fourierMakingWaves.register( 'ExpandedSumDialog', ExpandedSumDialog );
-export default ExpandedSumDialog;
+fourierMakingWaves.register( 'ExpandedFormDialog', ExpandedFormDialog );
+export default ExpandedFormDialog;

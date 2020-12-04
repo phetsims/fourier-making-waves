@@ -122,8 +122,8 @@
   "xMeters": {
     "value": "{{x}} (m)"
   },
-  "expandedSum": {
-    "value": "Expanded Sum"
+  "expandedForm": {
+    "value": "Expanded Form"
   },
   "symbol.A": {
     "value": "A"
