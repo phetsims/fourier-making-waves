@@ -25,6 +25,9 @@ import WaveType from '../model/WaveType.js';
 import EquationMarkup from './EquationMarkup.js';
 import SumEquationNode from './SumEquationNode.js';
 
+// Maximum number of terms per line in the expanded form
+const TERMS_PER_LINE = 3;
+
 class ExpandedFormDialog extends Dialog {
 
   /**
@@ -53,43 +56,52 @@ class ExpandedFormDialog extends Dialog {
 
     // links to Properties, must be disposed.
     const sumEquationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
-      waveTypeProperty, mathFormProperty );
+      waveTypeProperty, mathFormProperty, {
+        font: FMWConstants.EQUATION_FONT
+      } );
 
     const amplitudes = fourierSeries.amplitudesProperty.value;
     const domain = domainProperty.value;
     const waveType = waveTypeProperty.value;
     const mathForm = mathFormProperty.value;
 
-    const equalToNode = new RichText( `${MathSymbols.EQUAL_TO} `, {
+    // F(...) =
+    // There's a bit of CSS cleverness here that's worth explaining. Without resorting to using multiple Nodes here
+    // and in SumEquationNode, we don't want to see the 'F(..)' portion of this markup. But we need it to be present
+    // in order for the '=' to align with 'F(...) =' that's at the beginning of sumEquationNode. So we're hiding the
+    // 'F(...)' bit using 'color: transparent'.
+    const functionEqualToNode = new RichText( `<span style='color: transparent'>${EquationMarkup.getFunctionOfMarkup( domain )}</span> ${MathSymbols.EQUAL_TO}`, {
       font: FMWConstants.EQUATION_FONT
     } );
 
     let expandedSumMarkup = '';
     for ( let order = 1; order <= amplitudes.length; order++ ) {
 
-      // Limit number of decimal places, drop trailing zeros
+      // Limit number of decimal places, and drop trailing zeros.
+      // See https://github.com/phetsims/fourier-making-waves/issues/20
       const amplitude = Utils.toFixedNumber( amplitudes[ order - 1 ], FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
+
       expandedSumMarkup += EquationMarkup.getRichTextMarkup( domain, waveType, mathForm, order, amplitude );
       if ( order < amplitudes.length ) {
         expandedSumMarkup += ` ${MathSymbols.PLUS} `;
       }
-      if ( order % 4 === 0 ) {
+      if ( order % TERMS_PER_LINE === 0 ) {
         expandedSumMarkup += '<br>';
       }
     }
     const expandedSumNode = new RichText( expandedSumMarkup, {
       font: FMWConstants.EQUATION_FONT,
-      leading: 6
+      leading: 11
     } );
 
     const expandedSumHBox = new HBox( {
-      spacing: 5,
+      spacing: 4,
       align: 'origin',
-      children: [ equalToNode, expandedSumNode ]
+      children: [ functionEqualToNode, expandedSumNode ]
     } );
 
     const content = new VBox( {
-      spacing: 5,
+      spacing: 8,
       align: 'left',
       children: [ sumEquationNode, expandedSumHBox ]
     } );

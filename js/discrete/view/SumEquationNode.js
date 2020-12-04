@@ -24,10 +24,7 @@ import SummationSymbolNode from './SummationSymbolNode.js';
 // To improve readability of markup creation. Each of these is a string than may also include markup.
 const A = FMWSymbols.A;
 const EQUAL_TO = MathSymbols.EQUAL_TO;
-const F = FMWSymbols.F;
 const n = FMWSymbols.n;
-const t = FMWSymbols.t;
-const x = FMWSymbols.x;
 const An = `${A}<sub>${n}</sub>`;
 
 class SumEquationNode extends Node {
@@ -78,8 +75,7 @@ class SumEquationNode extends Node {
         this.visible = ( mathForm !== MathForm.HIDDEN );
 
         // F(...) =
-        const variables = ( domain === Domain.SPACE ) ? x : ( ( domain === Domain.TIME ) ? t : `${x},${t}` );
-        leftNode.text = `${F}(${variables}) ${EQUAL_TO}`;
+        leftNode.text = `${EquationMarkup.getFunctionOfMarkup( domain )} ${EQUAL_TO}`;
 
         summationNode.left = leftNode.right + 2;
         summationNode.y = leftNode.y + 5; // lower summation a bit, determined empirically

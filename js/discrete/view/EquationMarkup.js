@@ -17,6 +17,7 @@ import WaveType from '../model/WaveType.js';
 const HIDDEN_STRING = ''; // string for MathForm.HIDDEN
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
+const F = FMWSymbols.F;
 const f = FMWSymbols.f;
 const k = FMWSymbols.k;
 const L = FMWSymbols.L;
@@ -62,6 +63,17 @@ const EquationMarkup = {
       assert && assert( false, `unsupported domain: ${domain}` );
     }
     return markup;
+  },
+
+  /**
+   * Gets the markup for 'F(...)', where the '...' depends on the domain.
+   * @param {Domain} domain
+   * @returns {string}
+   * @public
+   */
+  getFunctionOfMarkup( domain ) {
+    const variables = ( domain === Domain.SPACE ) ? x : ( ( domain === Domain.TIME ) ? t : `${x},${t}` );
+    return `${F}(${variables})`;
   }
 };
 
