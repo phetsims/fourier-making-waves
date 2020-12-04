@@ -134,8 +134,9 @@ class SumChart extends Node {
 
     // Center the equation above the graph, with expandedFormButton to the right of the equation.
     equationNode.localBoundsProperty.link( () => {
+      const maxHeight = Math.max( equationNode.height, expandedFormButton.height );
       equationNode.centerX = chartRectangle.centerX;
-      equationNode.bottom = chartRectangle.top - 5;
+      equationNode.centerY = chartRectangle.top - ( maxHeight / 2 ) - 5;
       expandedFormButton.left = equationNode.right + 20;
       expandedFormButton.centerY = equationNode.centerY;
     } );
