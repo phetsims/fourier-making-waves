@@ -10,6 +10,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import NumberPicker from '../../../../scenery-phet/js/NumberPicker.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -60,8 +61,8 @@ class FourierSeriesLayoutBox extends VBox {
     } );
 
     const harmonicsPicker = new NumberPicker( numberOfHarmonicsProperty, numberOfHarmonicsProperty.rangeProperty, {
-      font: FMWConstants.CONTROL_FONT,
-      cornerRadius: 5,
+      font: new PhetFont( 16 ),
+      cornerRadius: 3,
       color: 'black'
     } );
 
