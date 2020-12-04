@@ -20,7 +20,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import ZoomButtonGroup from '../../../../scenery-phet/js/ZoomButtonGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -35,6 +34,7 @@ import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
 import WaveType from '../model/WaveType.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
+import ExpandedFormButton from './ExpandedFormButton.js';
 import ExpandedFormDialog from './ExpandedFormDialog.js';
 import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 import SumEquationNode from './SumEquationNode.js';
@@ -115,8 +115,8 @@ class SumChart extends Node {
     const equationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
       waveTypeProperty, mathFormProperty );
 
-    // Info button opens the 'Expanded Sum' dialog
-    const infoButton = new InfoButton( {
+    // Button that opens the 'Expanded Sum' dialog
+    const expandedFormButton = new ExpandedFormButton( {
       scale: 0.45,
       listener: () => {
         const dialog = new ExpandedFormDialog( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty, {
@@ -126,16 +126,16 @@ class SumChart extends Node {
       }
     } );
     mathFormProperty.link( mathForm => {
-      infoButton.interruptSubtreeInput();
-      infoButton.visible = ( mathForm !== MathForm.HIDDEN );
+      expandedFormButton.interruptSubtreeInput();
+      expandedFormButton.visible = ( mathForm !== MathForm.HIDDEN );
     } );
 
-    // Center the equation above the graph, with info button to the right of the equation.
+    // Center the equation above the graph, with expandedFormButton to the right of the equation.
     equationNode.localBoundsProperty.link( () => {
       equationNode.centerX = chartRectangle.centerX;
       equationNode.bottom = chartRectangle.top - 5;
-      infoButton.left = equationNode.right + 20;
-      infoButton.centerY = equationNode.centerY;
+      expandedFormButton.left = equationNode.right + 20;
+      expandedFormButton.centerY = equationNode.centerY;
     } );
 
     const xZoomButtonGroup = new ZoomButtonGroup( xZoomLevelProperty, {
@@ -174,7 +174,7 @@ class SumChart extends Node {
       xAxisLabel, xGridLineSet, xLabelSet,
       yAxisLabel, yGridLineSet, yLabelSet,
       clippedParent,
-      equationNode, infoButton,
+      equationNode, expandedFormButton,
       checkboxesParent,
       xZoomButtonGroup, yZoomButtonGroup
     ];
