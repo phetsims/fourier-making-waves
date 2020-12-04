@@ -78,7 +78,8 @@ class ExpandedFormDialog extends Dialog {
       }
     }
     const expandedSumNode = new RichText( expandedSumMarkup, {
-      font: FMWConstants.EQUATION_FONT
+      font: FMWConstants.EQUATION_FONT,
+      leading: 6
     } );
 
     const expandedSumHBox = new HBox( {
