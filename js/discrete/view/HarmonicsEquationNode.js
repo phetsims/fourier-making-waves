@@ -12,17 +12,11 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
 import WaveType from '../model/WaveType.js';
 import EquationMarkup from './EquationMarkup.js';
-
-// To improve readability of markup creation. Each of these is a string than may also include markup.
-const A = FMWSymbols.A;
-const n = FMWSymbols.n;
-const An = `${A}<sub>${n}</sub>`;
 
 class HarmonicsEquationNode extends Node {
 
@@ -57,7 +51,7 @@ class HarmonicsEquationNode extends Node {
       [ domainProperty, waveTypeProperty, mathFormProperty ],
       ( domain, waveType, mathForm ) => {
         this.visible = ( mathForm !== MathForm.HIDDEN );
-        richText.text = EquationMarkup.getRichTextMarkup( domain, waveType, mathForm, n, An );
+        richText.text = EquationMarkup.getGeneralFormMarkup( domain, waveType, mathForm );
       }
     );
   }

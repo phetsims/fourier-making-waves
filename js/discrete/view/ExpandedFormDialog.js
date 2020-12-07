@@ -82,7 +82,7 @@ class ExpandedFormDialog extends Dialog {
       // See https://github.com/phetsims/fourier-making-waves/issues/20
       const amplitude = Utils.toFixedNumber( amplitudes[ order - 1 ], FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
 
-      expandedSumMarkup += EquationMarkup.getRichTextMarkup( domain, waveType, mathForm, order, amplitude );
+      expandedSumMarkup += EquationMarkup.getSpecificFormMarkup( domain, waveType, mathForm, order, amplitude );
       if ( order < amplitudes.length ) {
         expandedSumMarkup += ` ${MathSymbols.PLUS} `;
       }

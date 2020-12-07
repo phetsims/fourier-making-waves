@@ -22,10 +22,8 @@ import EquationMarkup from './EquationMarkup.js';
 import SummationSymbolNode from './SummationSymbolNode.js';
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
-const A = FMWSymbols.A;
 const EQUAL_TO = MathSymbols.EQUAL_TO;
 const n = FMWSymbols.n;
-const An = `${A}<sub>${n}</sub>`;
 
 class SumEquationNode extends Node {
 
@@ -80,7 +78,7 @@ class SumEquationNode extends Node {
         summationNode.left = leftNode.right + 2;
         summationNode.y = leftNode.y + 5; // lower summation a bit, determined empirically
 
-        rightNode.text = EquationMarkup.getRichTextMarkup( domain, waveType, mathForm, n, An );
+        rightNode.text = EquationMarkup.getGeneralFormMarkup( domain, waveType, mathForm );
         rightNode.left = summationNode.right + 2;
         rightNode.y = leftNode.y;
       } );

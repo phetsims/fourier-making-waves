@@ -1,7 +1,8 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * EquationMarkup is a set of utility functions for creating markup used to render equations.
+ * EquationMarkup is a set of utility functions for creating markup used to render equations that describe a
+ * Fourier series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,22 +18,37 @@ import WaveType from '../model/WaveType.js';
 const HIDDEN_STRING = ''; // string for MathForm.HIDDEN
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
+const A = FMWSymbols.A;
 const F = FMWSymbols.F;
 const f = FMWSymbols.f;
 const k = FMWSymbols.k;
 const L = FMWSymbols.L;
 const lambda = FMWSymbols.lambda;
 const MINUS = MathSymbols.MINUS;
+const n = FMWSymbols.n;
 const omega = FMWSymbols.omega;
 const pi = FMWSymbols.pi;
 const T = FMWSymbols.T;
 const t = FMWSymbols.t;
 const x = FMWSymbols.x;
+const An = `${A}<sub>${n}</sub>`;
 
 const EquationMarkup = {
 
   /**
-   * Gets the RichText markup for an equation.
+   * Gets the RichText markup for the general form that describes a Fourier series.
+   * @param {Domain} domain
+   * @param {WaveType} waveType
+   * @param {MathForm} mathForm
+   * @returns {string}
+   * @public
+   */
+  getGeneralFormMarkup( domain, waveType, mathForm ) {
+    return EquationMarkup.getSpecificFormMarkup( domain, waveType, mathForm, n, An );
+  },
+
+  /**
+   * Gets the RichText markup for a specific form that describes a Fourier series.
    * @param {Domain} domain
    * @param {WaveType} waveType
    * @param {MathForm} mathForm
@@ -41,7 +57,7 @@ const EquationMarkup = {
    * @returns {string}
    * @public
    */
-  getRichTextMarkup( domain, waveType, mathForm, order, amplitude ) {
+  getSpecificFormMarkup( domain, waveType, mathForm, order, amplitude ) {
 
     assert && assert( Domain.includes( domain ), `invalid domain: ${domain}` );
     assert && assert( WaveType.includes( waveType ), `invalid waveType: ${waveType}` );
