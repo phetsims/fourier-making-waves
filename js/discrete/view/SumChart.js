@@ -1,6 +1,5 @@
 // Copyright 2020, University of Colorado Boulder
 
-//TODO lots of duplication with HarmonicsChart, factor out a base class
 /**
  * SumChart is the 'Sum' chart in the 'Discrete' screen. It renders 1 plot showing the sum of the harmonics in
  * the Fourier series.
@@ -9,37 +8,25 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import AxisNode from '../../../../bamboo/js/AxisNode.js';
-import ChartModel from '../../../../bamboo/js/ChartModel.js';
-import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
-import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
-import LabelSet from '../../../../bamboo/js/LabelSet.js';
-import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
-import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Orientation from '../../../../phet-core/js/Orientation.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ZoomButtonGroup from '../../../../scenery-phet/js/ZoomButtonGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import FMWSymbols from '../../common/FMWSymbols.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
 import WaveType from '../model/WaveType.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
+import DiscreteChart from './DiscreteChart.js';
 import ExpandedFormButton from './ExpandedFormButton.js';
 import ExpandedFormDialog from './ExpandedFormDialog.js';
 import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 import SumEquationNode from './SumEquationNode.js';
 
-class SumChart extends Node {
+class SumChart extends DiscreteChart {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -71,49 +58,13 @@ class SumChart extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const L = FMWConstants.L;
-
-    const chartModel = new ChartModel( FMWConstants.CHART_WIDTH, FMWConstants.CHART_HEIGHT, {
-      modelXRange: new Range( -L / 2, L / 2 ),
-      modelYRange: fourierSeries.amplitudeRange
-    } );
-
-    const chartRectangle = new ChartRectangle( chartModel, {
-      fill: 'white',
-      stroke: 'black'
-    } );
-
-    // x axis
-    const xAxis = new AxisNode( chartModel, Orientation.HORIZONTAL, FMWConstants.AXIS_OPTIONS );
-    const xGridLineSet = new GridLineSet( chartModel, Orientation.HORIZONTAL, L / 8, FMWConstants.GRID_LINE_OPTIONS );
-    const xLabelSet = new LabelSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.LABEL_SET_OPTIONS );
-    const xTickMarkSet = new TickMarkSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.TICK_MARK_OPTIONS );
-    const xAxisLabel = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.xMeters, {
-      x: FMWSymbols.x
-    } ), {
-      font: FMWConstants.AXIS_LABEL_FONT,
-      left: chartRectangle.right + 10,
-      centerY: chartRectangle.centerY,
-      maxWidth: 50 // determined empirically
-    } );
-
-    // y axis
-    const yAxis = new AxisNode( chartModel, Orientation.VERTICAL, FMWConstants.AXIS_OPTIONS );
-    const yGridLineSet = new GridLineSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.GRID_LINE_OPTIONS );
-    const yLabelSet = new LabelSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.LABEL_SET_OPTIONS );
-    const yTickMarkSet = new TickMarkSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.TICK_MARK_OPTIONS );
-    const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
-      font: FMWConstants.AXIS_LABEL_FONT,
-      rotation: -Math.PI / 2,
-      right: yLabelSet.left - 10,
-      centerY: chartRectangle.centerY,
-      maxWidth: 0.85 * chartRectangle.height
-    } );
+    super( fourierSeries, options );
 
     const equationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
       waveTypeProperty, mathFormProperty, {
-        maxWidth: 0.5 * chartModel.width
+        maxWidth: 0.5 * this.chartRectangle.width
       } );
+    this.addChild( equationNode );
 
     // Button that opens the 'Expanded Sum' dialog
     const expandedFormButton = new ExpandedFormButton( {
@@ -125,10 +76,7 @@ class SumChart extends Node {
         dialog.show();
       }
     } );
-    mathFormProperty.link( mathForm => {
-      expandedFormButton.interruptSubtreeInput();
-      expandedFormButton.visible = ( mathForm !== MathForm.HIDDEN );
-    } );
+    this.addChild( expandedFormButton );
 
     //TODO this is not working as expected with stringTest=long
     equationNode.localBoundsProperty.link( () => {
@@ -137,65 +85,47 @@ class SumChart extends Node {
       const maxHeight = Math.max( equationNode.height, expandedFormButton.height );
 
       // Center the equation above the chart
-      equationNode.centerX = chartRectangle.centerX;
-      equationNode.centerY = chartRectangle.top - ( maxHeight / 2 ) - 5;
+      equationNode.centerX = this.chartRectangle.centerX;
+      equationNode.centerY = this.chartRectangle.top - ( maxHeight / 2 ) - 5;
 
       // Button to the right of the equation
       expandedFormButton.left = equationNode.right + 20;
       expandedFormButton.centerY = equationNode.centerY;
     } );
 
+    // expandedFormButton is visible only when a math form is selected.
+    mathFormProperty.link( mathForm => {
+      expandedFormButton.interruptSubtreeInput();
+      expandedFormButton.visible = ( mathForm !== MathForm.HIDDEN );
+    } );
+
+    // Zoom buttons for the x-axis range
     const xZoomButtonGroup = new ZoomButtonGroup( xZoomLevelProperty, {
       orientation: 'horizontal',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
-      left: chartRectangle.right + 5,
-      bottom: chartRectangle.bottom
+      left: this.chartRectangle.right + 5,
+      bottom: this.chartRectangle.bottom
     } );
+    this.addChild( xZoomButtonGroup );
 
+    // Zoom buttons for the y-axis range
     const yZoomButtonGroup = new ZoomButtonGroup( yZoomLevelProperty, {
       orientation: 'vertical',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
-      left: chartRectangle.right + 5,
-      top: chartRectangle.top
+      left: this.chartRectangle.right + 5,
+      top: this.chartRectangle.top
     } );
+    this.addChild( yZoomButtonGroup );
 
     const autoScaleCheckbox = new AutoScaleCheckbox( autoScaleProperty );
     const infiniteHarmonicsCheckbox = new InfiniteHarmonicsCheckbox( infiniteHarmonicsVisibleProperty );
     const checkboxesParent = new HBox( {
       spacing: 25,
       children: [ autoScaleCheckbox, infiniteHarmonicsCheckbox ],
-      left: chartRectangle.left,
-      top: xLabelSet.bottom + 5
+      left: this.chartRectangle.left,
+      top: this.xLabelSet.bottom + 5
     } );
-
-    // Parent for Nodes that must be clipped to the bounds of chartRectangle
-    const clippedParent = new Node( {
-      clipArea: chartRectangle.getShape(),
-      children: [ xAxis, yAxis ]
-    } );
-
-    assert && assert( !options.children, 'AmplitudesChart sets children' );
-    options.children = [
-      xTickMarkSet, yTickMarkSet,
-      chartRectangle,
-      xAxisLabel, xGridLineSet, xLabelSet,
-      yAxisLabel, yGridLineSet, yLabelSet,
-      clippedParent,
-      equationNode, expandedFormButton,
-      checkboxesParent,
-      xZoomButtonGroup, yZoomButtonGroup
-    ];
-
-    super( options );
-  }
-
-  /**
-   * Steps the chart.
-   * @param {number} dt - time step, in seconds
-   * @public
-   */
-  step( dt ) {
-    //TODO
+    this.addChild( checkboxesParent );
   }
 }
 
