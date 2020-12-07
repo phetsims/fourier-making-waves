@@ -33,15 +33,16 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import PresetFunction from '../model/PresetFunction.js';
 
-//TODO set dimensions based on available space
-const CHART_VIEW_WIDTH = 650;
-const CHART_VIEW_HEIGHT = 120;
+// constants
+const CHART_VIEW_WIDTH = FMWConstants.CHART_WIDTH + 40; // a bit wider, determined empirically
+const CHART_VIEW_HEIGHT = FMWConstants.CHART_HEIGHT;
 
 class AmplitudesChart extends Node {
 
   /**
    * @param {FourierSeries} fourierSeries
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog
+   * @param {EnumerationProperty.<PresetFunction>} presetFunctionProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, amplitudeKeypadDialog, presetFunctionProperty, options ) {
