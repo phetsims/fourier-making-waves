@@ -45,7 +45,7 @@ class HarmonicsChart extends DiscreteChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( fourierSeries, options );
+    super( fourierSeries, domainProperty, options );
 
     // Equation that appears above the chart
     const equationNode = new HarmonicsEquationNode( domainProperty, waveTypeProperty, mathFormProperty, {

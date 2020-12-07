@@ -58,7 +58,7 @@ class SumChart extends DiscreteChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( fourierSeries, options );
+    super( fourierSeries, domainProperty, options );
 
     const equationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
       waveTypeProperty, mathFormProperty, {

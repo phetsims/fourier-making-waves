@@ -15,6 +15,7 @@ import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -24,16 +25,19 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import Domain from '../model/Domain.js';
 
 class DiscreteChart extends Node {
 
   /**
    * @param {FourierSeries} fourierSeries
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, options ) {
+  constructor( fourierSeries, domainProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     options = merge( {
 
@@ -49,6 +53,7 @@ class DiscreteChart extends Node {
       modelYRange: fourierSeries.amplitudeRange
     } );
 
+    // The chart's background rectangle
     const chartRectangle = new ChartRectangle( chartModel, {
       fill: 'white',
       stroke: 'black'
@@ -59,13 +64,23 @@ class DiscreteChart extends Node {
     const xGridLineSet = new GridLineSet( chartModel, Orientation.HORIZONTAL, L / 8, FMWConstants.GRID_LINE_OPTIONS );
     const xLabelSet = new LabelSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.LABEL_SET_OPTIONS );
     const xTickMarkSet = new TickMarkSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.TICK_MARK_OPTIONS );
-    const xAxisLabel = new RichText( StringUtils.fillIn( fourierMakingWavesStrings.xMeters, {
-      x: FMWSymbols.x
-    } ), {
+    const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
-      left: chartRectangle.right + 10,
-      centerY: chartRectangle.centerY,
       maxWidth: 50 // determined empirically
+    } );
+
+    // Set the x-axis label based on domain.
+    const xAxisSpaceLabel = StringUtils.fillIn( fourierMakingWavesStrings.xMeters, { x: FMWSymbols.x } );
+    const xAxisTimeLabel = StringUtils.fillIn( fourierMakingWavesStrings.tMilliseconds, { t: FMWSymbols.t } );
+    domainProperty.link( domain => {
+      if ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME ) {
+        xAxisLabel.text = xAxisSpaceLabel;
+      }
+      else {
+        xAxisLabel.text = xAxisTimeLabel;
+      }
+      xAxisLabel.left = chartRectangle.right + 10;
+      xAxisLabel.centerY = chartRectangle.centerY;
     } );
 
     // y axis
@@ -118,20 +133,6 @@ class DiscreteChart extends Node {
    * @public
    */
   step( dt ) {
-    //TODO
-  }
-
-  /**
-   * @public
-   */
-  setXAxisLabel() {
-    //TODO
-  }
-
-  /**
-   * @public
-   */
-  setYAxisLabel() {
     //TODO
   }
 

@@ -122,6 +122,9 @@
   "xMeters": {
     "value": "{{x}} (m)"
   },
+  "tMilliseconds": {
+    "value": "{{t}} (ms)"
+  },
   "expandedForm": {
     "value": "Expanded Form"
   },
