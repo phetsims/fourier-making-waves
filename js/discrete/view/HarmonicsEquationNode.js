@@ -19,9 +19,6 @@ import MathForm from '../model/MathForm.js';
 import WaveType from '../model/WaveType.js';
 import EquationMarkup from './EquationMarkup.js';
 
-// constants
-const HIDDEN_STRING = ''; // string for MathForm.HIDDEN
-
 // To improve readability of markup creation. Each of these is a string than may also include markup.
 const A = FMWSymbols.A;
 const n = FMWSymbols.n;
@@ -45,8 +42,8 @@ class HarmonicsEquationNode extends Node {
       font: FMWConstants.EQUATION_FONT
     }, options );
 
-    // initialize with something so that layout works nicely
-    const richText = new RichText( HIDDEN_STRING, {
+    // text is set in multilink below
+    const richText = new RichText( '', {
       font: options.font
     } );
 
