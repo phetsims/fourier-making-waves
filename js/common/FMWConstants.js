@@ -7,7 +7,6 @@
  */
 
 import Utils from '../../../dot/js/Utils.js';
-import ScreenView from '../../../joist/js/ScreenView.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../scenery/js/nodes/Text.js';
 import Color from '../../../scenery/js/util/Color.js';
@@ -82,10 +81,6 @@ const FMWConstants = {
   // Number of decimal places for amplitude sliders
   AMPLITUDE_SLIDER_DECIMAL_PLACES: 2,
   AMPLITUDE_SLIDER_SNAP_INTERVAL: 0.05,
-
-  // Chart dimensions based on layoutBounds
-  CHART_WIDTH: 0.6 * ScreenView.DEFAULT_LAYOUT_BOUNDS.width,
-  CHART_HEIGHT: 0.2 * ScreenView.DEFAULT_LAYOUT_BOUNDS.height,
 
   ZOOM_BUTTON_GROUP_SCALE: 0.75,
 

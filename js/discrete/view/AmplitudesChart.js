@@ -33,10 +33,6 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import PresetFunction from '../model/PresetFunction.js';
 
-// constants
-const CHART_VIEW_WIDTH = FMWConstants.CHART_WIDTH + 40; // a bit wider, determined empirically
-const CHART_VIEW_HEIGHT = FMWConstants.CHART_HEIGHT;
-
 class AmplitudesChart extends Node {
 
   /**
@@ -53,11 +49,15 @@ class AmplitudesChart extends Node {
 
     options = merge( {
 
+      // {number} dimensions of the chart rectangle, in view coordinates
+      viewWidth: 100,
+      viewHeight: 100,
+
       // phet-io
       tandem: Tandem.REQUIRED
     }, options );
 
-    const chartModel = new ChartModel( CHART_VIEW_WIDTH, CHART_VIEW_HEIGHT, {
+    const chartModel = new ChartModel( options.viewWidth, options.viewHeight, {
       modelXRange: new Range( fourierSeries.numberOfHarmonicsProperty.range.min - 0.5, fourierSeries.numberOfHarmonicsProperty.range.max + 0.5 ),
       modelYRange: fourierSeries.amplitudeRange
     } );
@@ -97,7 +97,7 @@ class AmplitudesChart extends Node {
     // Create a slider for each harmonic's amplitude
     const sliders = _.map( fourierSeries.harmonics, harmonic =>
       new AmplitudeSlider( harmonic.amplitudeProperty, harmonic.colorProperty, presetFunctionProperty, {
-        trackHeight: CHART_VIEW_HEIGHT,
+        trackHeight: options.viewHeight,
         center: chartModel.modelToViewPosition( new Vector2( harmonic.order, 0 ) ),
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` )
       } )

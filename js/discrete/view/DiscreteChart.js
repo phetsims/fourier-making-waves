@@ -41,6 +41,10 @@ class DiscreteChart extends Node {
 
     options = merge( {
 
+      // {number} dimensions of the chart rectangle, in view coordinates
+      viewWidth: 100,
+      viewHeight: 100,
+
       // phet-io
       tandem: Tandem.REQUIRED
     }, options );
@@ -48,7 +52,7 @@ class DiscreteChart extends Node {
     const L = FMWConstants.L;
 
     // bamboo chart model
-    const chartModel = new ChartModel( FMWConstants.CHART_WIDTH, FMWConstants.CHART_HEIGHT, {
+    const chartModel = new ChartModel( options.viewWidth, options.viewHeight, {
       modelXRange: new Range( -L / 2, L / 2 ),
       modelYRange: fourierSeries.amplitudeRange
     } );

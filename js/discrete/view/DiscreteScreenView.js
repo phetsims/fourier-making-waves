@@ -57,7 +57,12 @@ class DiscreteScreenView extends ScreenView {
     // KeypadDialog
     const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, this.layoutBounds );
 
+    const chartViewWidth = 0.6 * this.layoutBounds.width;
+    const chartViewHeight = 0.2 * this.layoutBounds.height;
+
     const amplitudesChart = new AmplitudesChart( model.fourierSeries, amplitudeKeypadDialog, model.presetFunctionProperty, {
+      viewWidth: chartViewWidth + 40, // a bit wider than the other charts
+      viewHeight: chartViewHeight,
       tandem: tandem.createTandem( 'amplitudesChart' )
     } );
 
@@ -76,6 +81,8 @@ class DiscreteScreenView extends ScreenView {
 
     const harmonicsChart = new HarmonicsChart( model.fourierSeries, model.domainProperty, model.waveTypeProperty,
       model.mathFormProperty, viewProperties.xZoomLevelProperty, {
+        viewWidth: chartViewWidth,
+        viewHeight: chartViewHeight,
         left: harmonicsHBox.left,
         y: harmonicsHBox.bottom + 15,
         tandem: tandem.createTandem( 'harmonicsChart' )
@@ -107,6 +114,8 @@ class DiscreteScreenView extends ScreenView {
     const sumChart = new SumChart( model.fourierSeries, model.domainProperty, model.waveTypeProperty,
       model.mathFormProperty, viewProperties.xZoomLevelProperty, viewProperties.yZoomLevelProperty,
       viewProperties.autoScaleProperty, viewProperties.infiniteHarmonicsProperty, {
+        viewWidth: chartViewWidth,
+        viewHeight: chartViewHeight,
         left: sumHBox.left,
         y: sumHBox.bottom + 15,
         tandem: tandem.createTandem( 'sumChart' )
@@ -115,7 +124,7 @@ class DiscreteScreenView extends ScreenView {
     const sumParent = new Node( {
       children: [ sumHBox, sumChart ],
       left: harmonicsParent.left,
-      top: harmonicsParent.bottom + 15
+      top: harmonicsParent.bottom + 10
     } );
 
     viewProperties.sumChartVisibleProperty.link( sumChartVisible => {
