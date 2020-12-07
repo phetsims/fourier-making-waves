@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * TODO
+ * SumEquationNode is the equation that appears above the 'Sum' chart in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
