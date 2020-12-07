@@ -47,7 +47,7 @@ class SumEquationNode extends Node {
       font: FMWConstants.EQUATION_FONT
     }, options );
 
-    // Everything to the left of the summation symbol
+    // Everything to the left of the summation symbol, set in multilink below
     const leftNode = new RichText( '', {
       font: options.font
     } );
@@ -57,7 +57,7 @@ class SumEquationNode extends Node {
       font: options.font
     } );
 
-    // Everything to the right of the summation symbol
+    // Everything to the right of the summation symbol, set in multilink below
     const rightNode = new RichText( '', {
       font: options.font
     } );
