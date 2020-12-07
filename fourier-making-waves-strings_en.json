@@ -98,8 +98,8 @@
   "mathFormChoice.waveNumberAndAngularFrequency": {
     "value": "Wave num ({{waveNumberSymbol}}) & Angular freq ({{angularFrequencySymbol}})"
   },
-  "amplitudeSymbol": {
-    "value": "Amplitude ({{symbol}})"
+  "amplitude": {
+    "value": "Amplitude"
   },
   "sum": {
     "value": "Sum"
