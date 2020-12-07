@@ -117,12 +117,12 @@ class SumChart extends DiscreteChart {
     } );
     this.addChild( yZoomButtonGroup );
 
-    const autoScaleCheckbox = new AutoScaleCheckbox( autoScaleProperty );
     const infiniteHarmonicsCheckbox = new InfiniteHarmonicsCheckbox( infiniteHarmonicsVisibleProperty );
+    const autoScaleCheckbox = new AutoScaleCheckbox( autoScaleProperty );
     const checkboxesParent = new HBox( {
       spacing: 25,
-      children: [ autoScaleCheckbox, infiniteHarmonicsCheckbox ],
-      left: this.chartRectangle.left,
+      children: [ infiniteHarmonicsCheckbox, autoScaleCheckbox ],
+      right: this.chartRectangle.right,
       top: this.xLabelSet.bottom + 5
     } );
     this.addChild( checkboxesParent );
