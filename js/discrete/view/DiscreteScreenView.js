@@ -57,6 +57,7 @@ class DiscreteScreenView extends ScreenView {
     // KeypadDialog
     const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, this.layoutBounds );
 
+    // Chart dimensions, determined empirically as a function of layoutBounds
     const chartViewWidth = 0.6 * this.layoutBounds.width;
     const chartViewHeight = 0.2 * this.layoutBounds.height;
 
