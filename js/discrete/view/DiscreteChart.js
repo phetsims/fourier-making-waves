@@ -70,15 +70,10 @@ class DiscreteChart extends Node {
     } );
 
     // Set the x-axis label based on domain.
-    const xAxisSpaceLabel = StringUtils.fillIn( fourierMakingWavesStrings.xMeters, { x: FMWSymbols.x } );
-    const xAxisTimeLabel = StringUtils.fillIn( fourierMakingWavesStrings.tMilliseconds, { t: FMWSymbols.t } );
+    const spaceLabel = StringUtils.fillIn( fourierMakingWavesStrings.xMeters, { x: FMWSymbols.x } );
+    const timeLabel = StringUtils.fillIn( fourierMakingWavesStrings.tMilliseconds, { t: FMWSymbols.t } );
     domainProperty.link( domain => {
-      if ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME ) {
-        xAxisLabel.text = xAxisSpaceLabel;
-      }
-      else {
-        xAxisLabel.text = xAxisTimeLabel;
-      }
+      xAxisLabel.text = ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME ) ? spaceLabel : timeLabel;
       xAxisLabel.left = chartRectangle.right + 10;
       xAxisLabel.centerY = chartRectangle.centerY;
     } );
