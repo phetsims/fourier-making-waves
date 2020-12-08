@@ -31,7 +31,7 @@ class HarmonicsChart extends DiscreteChart {
    * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
-   * @param {Property.<XZoomDescription>} xZoomDescriptionProperty
+   * @param {Property.<ZoomDescription>} xZoomDescriptionProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty, xZoomLevelProperty, xZoomDescriptionProperty, options ) {
@@ -80,11 +80,11 @@ class HarmonicsChart extends DiscreteChart {
     Property.multilink(
       [ xZoomDescriptionProperty, domainProperty ],
       ( xZoomDescription, domain ) => {
-        const description = ( domain === Domain.TIME ) ? xZoomDescription.time : xZoomDescription.space;
-        this.setXRange( new Range( -description.max, description.max ) );
-        this.setXGridLineSpacing( description.gridLineSpacing );
-        this.setXTickMarkSpacing( description.max );
-        this.setXTickLabelSpacing( description.max );
+        const m = ( domain === Domain.TIME ) ? FMWConstants.T : FMWConstants.L;
+        this.setXRange( new Range( -m * xZoomDescription.max, m * xZoomDescription.max ) );
+        this.setXGridLineSpacing( m * xZoomDescription.gridLineSpacing );
+        this.setXTickMarkSpacing( m * xZoomDescription.tickMarkSpacing );
+        this.setXTickLabelSpacing( m * xZoomDescription.tickLabelSpacing );
       }
     );
   }

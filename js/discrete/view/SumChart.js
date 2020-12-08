@@ -36,15 +36,16 @@ class SumChart extends DiscreteChart {
    * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
-   * @param {Property.<XZoomDescription>} xZoomDescriptionProperty
+   * @param {Property.<ZoomDescription>} xZoomDescriptionProperty
    * @param {NumberProperty} yZoomLevelProperty
-   * @param {Property.<YZoomDescription>} yZoomDescriptionProperty
+   * @param {Property.<ZoomDescription>} yZoomDescriptionProperty
    * @param {Property.<boolean>} autoScaleProperty
    * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty,
-               xZoomLevelProperty, xZoomDescriptionProperty, yZoomLevelProperty, yZoomDescriptionProperty,
+               xZoomLevelProperty, xZoomDescriptionProperty,
+               yZoomLevelProperty, yZoomDescriptionProperty,
                autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
@@ -158,11 +159,11 @@ class SumChart extends DiscreteChart {
     Property.multilink(
       [ xZoomDescriptionProperty, domainProperty ],
       ( xZoomDescription, domain ) => {
-        const description = ( domain === Domain.TIME ) ? xZoomDescription.time : xZoomDescription.space;
-        this.setXRange( new Range( -description.max, description.max ) );
-        this.setXGridLineSpacing( description.gridLineSpacing );
-        this.setXTickMarkSpacing( description.max );
-        this.setXTickLabelSpacing( description.max );
+        const m = ( domain === Domain.TIME ) ? FMWConstants.T : FMWConstants.L;
+        this.setXRange( new Range( -m * xZoomDescription.max, m * xZoomDescription.max ) );
+        this.setXGridLineSpacing( m * xZoomDescription.gridLineSpacing );
+        this.setXTickMarkSpacing( m * xZoomDescription.tickMarkSpacing );
+        this.setXTickLabelSpacing( m * xZoomDescription.tickLabelSpacing );
       }
     );
 
