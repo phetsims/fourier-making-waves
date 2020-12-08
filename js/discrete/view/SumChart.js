@@ -148,7 +148,7 @@ class SumChart extends DiscreteChart {
       spacing: 25,
       children: [ infiniteHarmonicsCheckbox, autoScaleCheckbox ],
       right: this.chartRectangle.right,
-      top: this.xNumericTickLabels.bottom + 5
+      top: this.xTickLabels.bottom + 5
     } );
     this.addChild( checkboxesParent );
   }

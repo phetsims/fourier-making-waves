@@ -84,13 +84,9 @@ class DiscreteChart extends Node {
     const xAxis = new AxisNode( chartModel, Orientation.HORIZONTAL, FMWConstants.AXIS_OPTIONS );
     const xGridLines = new GridLineSet( chartModel, Orientation.HORIZONTAL, DEFAULT_SPACING, FMWConstants.GRID_LINE_OPTIONS );
     const xTickMarks = new TickMarkSet( chartModel, Orientation.HORIZONTAL, DEFAULT_SPACING, FMWConstants.TICK_MARK_OPTIONS );
-    const xNumericTickLabels = new LabelSet( chartModel, Orientation.HORIZONTAL, DEFAULT_SPACING, {
+    const xTickLabels = new LabelSet( chartModel, Orientation.HORIZONTAL, DEFAULT_SPACING, {
       edge: 'min',
-      createLabel: createNumericTickLabel
-    } );
-    const xSymbolicTickLabels = new LabelSet( chartModel, Orientation.HORIZONTAL, DEFAULT_SPACING, {
-      edge: 'min',
-      createLabel: value => createSymbolicTickLabel( value, domainProperty.value )
+      createLabel: value => createTickLabel( value, domainProperty.value, mathFormProperty.value )
     } );
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
@@ -124,16 +120,12 @@ class DiscreteChart extends Node {
         chartModel.setModelXRange( new Range( -xZoomDescription.max * value, xZoomDescription.max * value ) );
         xGridLines.setSpacing( xZoomDescription.gridLineSpacing * value );
         xTickMarks.setSpacing( xZoomDescription.tickMarkSpacing * value );
-        xNumericTickLabels.setSpacing( xZoomDescription.tickLabelSpacing * value );
-        xSymbolicTickLabels.setSpacing( xZoomDescription.tickLabelSpacing * value );
+        xTickLabels.setSpacing( xZoomDescription.tickLabelSpacing * value );
+        xTickLabels.invalidateLabelSet();
       } );
 
-    // Switch x-axis labels between numeric and symbolic. unlink in not needed.
-    mathFormProperty.link( mathForm => {
-      const isNumeric = ( mathForm === MathForm.HIDDEN );
-      xNumericTickLabels.visible = isNumeric;
-      xSymbolicTickLabels.visible = !isNumeric;
-    } );
+    // unlink is not needed
+    mathFormProperty.link( mathForm => xTickLabels.invalidateLabelSet() );
 
     // y axis
     const yAxis = new AxisNode( chartModel, Orientation.VERTICAL, FMWConstants.AXIS_OPTIONS );
@@ -162,7 +154,7 @@ class DiscreteChart extends Node {
     options.children = [
       xTickMarks, yTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
       chartRectangle,
-      xAxisLabel, xGridLines, xNumericTickLabels, xSymbolicTickLabels, xZoomButtonGroup,
+      xAxisLabel, xGridLines, xTickLabels, xZoomButtonGroup,
       yAxisLabel, yGridLines, yTickLabels,
       clippedParent
     ];
@@ -174,7 +166,7 @@ class DiscreteChart extends Node {
 
     // @protected for setting range and spacing by subclasses
     this.chartModel = chartModel;
-    this.xNumericTickLabels = xNumericTickLabels;
+    this.xTickLabels = xTickLabels;
     this.yGridLines = yGridLines;
     this.yTickMarks = yTickMarks;
     this.yTickLabels = yTickLabels;
@@ -199,6 +191,15 @@ class DiscreteChart extends Node {
   }
 }
 
+function createTickLabel( value, domain, mathForm ) {
+  if ( mathForm === MathForm.HIDDEN ) {
+    return createNumericTickLabel( value );
+  }
+  else {
+    return createSymbolicTickLabel( value, domain );
+  }
+}
+
 /**
  * Creates a numeric tick label for the chart.
  * @param {number} value
@@ -220,19 +221,19 @@ function createNumericTickLabel( value ) {
  */
 function createSymbolicTickLabel( value, domain ) {
 
+  const constantSymbol = ( domain === Domain.TIME ) ? FMWSymbols.T : FMWSymbols.L;
   let text;
   if ( value === 0 ) {
-    text = '0';
+    text = `0${constantSymbol}`;
   }
   else {
-    const constantSymbol = ( domain === Domain.TIME ) ? FMWSymbols.T : FMWSymbols.L;
 
     // Convert the coefficient to a fraction
     const constantValue = ( domain === Domain.TIME ) ? FMWConstants.T : FMWConstants.L;
     const coefficient = value / constantValue;
     const fraction = Fraction.fromDecimal( coefficient );
 
-    // Pieces of the fraction that we need to create the RichText markup
+    // Pieces of the fraction that we need to create the RichText markup, with trailing zeros truncated
     const sign = Math.sign( value );
     const numerator = Math.abs( Utils.toFixedNumber( fraction.numerator, FMWConstants.TICK_LABEL_DECIMAL_PLACES ) );
     const denominator = Math.abs( Utils.toFixedNumber( fraction.denominator, FMWConstants.TICK_LABEL_DECIMAL_PLACES ) );
