@@ -19,7 +19,9 @@ import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Fraction from '../../../../phetcommon/js/model/Fraction.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import ZoomButtonGroup from '../../../../scenery-phet/js/ZoomButtonGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -88,7 +90,7 @@ class DiscreteChart extends Node {
     } );
     const xSymbolicTickLabels = new LabelSet( chartModel, Orientation.HORIZONTAL, DEFAULT_SPACING, {
       edge: 'min',
-      createLabel: multiplier => createSymbolicTickLabel( multiplier, domainProperty.value )
+      createLabel: value => createSymbolicTickLabel( value, domainProperty.value )
     } );
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
@@ -128,8 +130,9 @@ class DiscreteChart extends Node {
 
     // Switch x-axis labels between numeric and symbolic. unlink in not needed.
     mathFormProperty.link( mathForm => {
-      xNumericTickLabels.visible = ( mathForm === MathForm.HIDDEN );
-      xSymbolicTickLabels.visible = ( mathForm !== MathForm.HIDDEN );
+      const isNumeric = ( mathForm === MathForm.HIDDEN );
+      xNumericTickLabels.visible = isNumeric;
+      xSymbolicTickLabels.visible = !isNumeric;
     } );
 
     // y axis
@@ -171,6 +174,7 @@ class DiscreteChart extends Node {
 
     // @protected for setting range and spacing by subclasses
     this.chartModel = chartModel;
+    this.xNumericTickLabels = xNumericTickLabels;
     this.yGridLines = yGridLines;
     this.yTickMarks = yTickMarks;
     this.yTickLabels = yTickLabels;
@@ -216,12 +220,39 @@ function createNumericTickLabel( value ) {
  */
 function createSymbolicTickLabel( value, domain ) {
 
-  const constantSymbol = ( domain === Domain.TIME ) ? FMWSymbols.T : FMWSymbols.L;
-  const constantValue = ( domain === Domain.TIME ) ? FMWConstants.T : FMWConstants.L;
-  const multiplier = value / constantValue;
+  let text;
+  if ( value === 0 ) {
+    text = '0';
+  }
+  else {
+    const constantSymbol = ( domain === Domain.TIME ) ? FMWSymbols.T : FMWSymbols.L;
 
-  return new RichText( `${Utils.toFixedNumber( multiplier, FMWConstants.TICK_LABEL_DECIMAL_PLACES )}${constantSymbol}`, {
-    font: FMWConstants.TICK_LABEL_FONT
+    // Convert the coefficient to a fraction
+    const constantValue = ( domain === Domain.TIME ) ? FMWConstants.T : FMWConstants.L;
+    const coefficient = value / constantValue;
+    const fraction = Fraction.fromDecimal( coefficient );
+
+    // Pieces of the fraction that we need to create the RichText markup
+    const sign = Math.sign( value );
+    const numerator = Math.abs( Utils.toFixedNumber( fraction.numerator, FMWConstants.TICK_LABEL_DECIMAL_PLACES ) );
+    const denominator = Math.abs( Utils.toFixedNumber( fraction.denominator, FMWConstants.TICK_LABEL_DECIMAL_PLACES ) );
+
+    text = '';
+    if ( sign === -1 ) {
+      text += MathSymbols.UNARY_MINUS;
+    }
+    if ( numerator !== 1 ) {
+      text += numerator;
+    }
+    text += constantSymbol;
+    if ( denominator !== 1 ) {
+      text += `/${denominator}`;
+    }
+  }
+
+  return new RichText( text, {
+    font: FMWConstants.TICK_LABEL_FONT,
+    maxWidth: 25 // determined empirically
   } );
 }
 
