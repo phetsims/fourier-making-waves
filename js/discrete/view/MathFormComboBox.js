@@ -120,6 +120,15 @@ class MathFormComboBox extends FMWComboBox {
       this.setItemVisible( MathForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY, isSpaceAmdTime );
     } );
   }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 fourierMakingWaves.register( 'MathFormComboBox', MathFormComboBox );

@@ -73,6 +73,15 @@ class SoundLayoutBox extends HBox {
       volumeUpIcon.opacity = enabled ? 1 : SunConstants.DISABLED_OPACITY;
     } );
   }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 fourierMakingWaves.register( 'SoundLayoutBox', SoundLayoutBox );
