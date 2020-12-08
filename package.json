@@ -21,7 +21,7 @@
       "adapted-from-phet"
     ],
     "phetLibs": [
-      "griddle"
+      "bamboo"
     ],
     "phet-io": {
       "validation": false
