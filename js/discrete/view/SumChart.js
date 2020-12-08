@@ -8,6 +8,8 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import ZoomButtonGroup from '../../../../scenery-phet/js/ZoomButtonGroup.js';
@@ -34,13 +36,14 @@ class SumChart extends DiscreteChart {
    * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
+   * @param {Property.<ZoomDescription>} xZoomDescriptionProperty
    * @param {NumberProperty} yZoomLevelProperty
    * @param {Property.<boolean>} autoScaleProperty
    * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty,
-               xZoomLevelProperty, yZoomLevelProperty,
+               xZoomLevelProperty, xZoomDescriptionProperty, yZoomLevelProperty,
                autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
@@ -48,6 +51,7 @@ class SumChart extends DiscreteChart {
     assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
+    assert && assert( xZoomDescriptionProperty instanceof Property, 'invalid xZoomDescriptionProperty' );
     assert && assert( yZoomLevelProperty instanceof NumberProperty, 'invalid yZoomLevelProperty' );
     assert && AssertUtils.assertPropertyOf( autoScaleProperty, 'boolean' );
     assert && AssertUtils.assertPropertyOf( infiniteHarmonicsVisibleProperty, 'boolean' );
@@ -146,6 +150,19 @@ class SumChart extends DiscreteChart {
       top: this.xTickLabels.bottom + 5
     } );
     this.addChild( checkboxesParent );
+
+    //TODO duplicated in HarmonicsChart
+    // unmultilink is not needed
+    Property.multilink(
+      [ xZoomDescriptionProperty, domainProperty ],
+      ( xZoomDescription, domain ) => {
+        const description = ( domain === Domain.TIME ) ? xZoomDescription.time : xZoomDescription.space;
+        this.setXRange( new Range( -description.max, description.max ) );
+        this.setXGridLineSpacing( description.gridLineSpacing );
+        this.setXTickMarkSpacing( description.max );
+        this.setXTickLabelSpacing( description.max );
+      }
+    );
   }
 }
 

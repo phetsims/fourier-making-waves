@@ -19,22 +19,138 @@ function isSortedDescending( array ) {
   return _.every( array, ( value, index, array ) => ( index === 0 || array[ index - 1 ] > value ) );
 }
 
-// Multipliers for x-axis range maximums, applied to L and T
-const X_MAXIMUM_MULTIPLIERS = [ 2, 1.5, 1, 0.75, 0.5, 0.25 ];
-assert && assert( isSortedDescending( X_MAXIMUM_MULTIPLIERS ), 'x-axis zoom levels must be in descending order' );
+const L = FMWConstants.L;
+const T = FMWConstants.T;
 
-// Multipliers for x-axis tick spacing, applied to L and T
-const X_TICK_SPACING_MULTIPLIERS = [ 0.5, 0.5, 0.25, 0.25, 0.25, 0.25 ];
-assert && assert( X_MAXIMUM_MULTIPLIERS.length === X_TICK_SPACING_MULTIPLIERS.length,
-  'tick spacing required for each zoom level' );
+/**
+ *
+ * @type DomainDescription
+ * @property {number} max - maximum of range, actual range is [-max,max]
+ * @property {number} gridLineSpacing - grid line spacing
+ * @property {number} tickMarkSpacing - tick mark spacing
+ * @property {number[]} symbolicTickValues - values for symbolic tick labels
+ * @property {string[]} symbolicTickValues - a symbolic label for each value in symbolicTickValues
+ */
 
-// Maximums for each y-axis zoom level
-const Y_MAXIMUMS = [ 12, 10, 8, 6, 4, 2, FMWConstants.MAX_ABSOLUTE_AMPLITUDE ];
-assert && assert( isSortedDescending( Y_MAXIMUMS ), 'y-axis zoom levels must be in descending order' );
+/**
+ * @typedef ZoomDescription
+ * @property {DomainDescription} space - descriptions for space domains
+ * @property {DomainDescription} time - description for time domains
+ */
 
-// Tick spacings for y-axis zoom levels
-const Y_TICK_SPACINGS = [ 5, 5, 5, 5, 1, 1, 0.5 ];
-assert && assert( Y_MAXIMUMS.length === Y_TICK_SPACINGS.length, 'tick spacing required for each zoom level' );
+// {ZoomDescription[]} zoom descriptions for the x axis, one for each zoom level
+const X_ZOOM_DESCRIPTIONS = [
+  {
+    space: {
+      max: 2 * L,
+      gridLineSpacing: L / 8,
+      tickMarkSpacing: L / 4,
+      symbolicTickValues: [ 2 * L, 3 * L / 2, L, L / 2, 0 ],
+      symbolicTickLabels: [ '2L', '3L/2', 'L', 'L/2', '0' ] //TODO i18n
+    },
+    time: {
+      max: 2 * T,
+      gridLineSpacing: T / 8,
+      tickMarkSpacing: T / 4,
+      symbolicTickValues: [ 2 * T, 3 * T / 2, T, T / 2, 0 ],
+      symbolicTickLabels: [ '2T', '3T/2', 'T', 'T/2', '0' ] //TODO i18n
+    }
+  },
+  {
+    space: {
+      max: 3 * L / 2,
+      gridLineSpacing: L / 8,
+      tickMarkSpacing: L / 4,
+      symbolicTickValues: [ 3 * L / 2, L, L / 2, 0 ],
+      symbolicTickLabels: [ '3L/2', 'L', 'L/2', '0' ] //TODO i18n
+    },
+    time: {
+      max: 3 * T / 2,
+      gridLineSpacing: T / 8,
+      tickMarkSpacing: T / 4,
+      symbolicTickValues: [ 3 * T / 2, T, T / 2, 0 ],
+      symbolicTickLabels: [ '3T/2', 'T', 'T/2', '0' ] //TODO i18n
+    }
+  },
+  {
+    space: {
+      max: L,
+      gridLineSpacing: L / 8,
+      tickMarkSpacing: L / 4,
+      symbolicTickValues: [ L, 3 * L / 4, L / 2, L / 4, 0 ],
+      symbolicTickLabels: [ 'L', '3L/4', 'L/2', 'L/4', '0' ] //TODO i18n
+    },
+    time: {
+      max: T,
+      gridLineSpacing: T / 8,
+      tickMarkSpacing: T / 4,
+      symbolicTickValues: [ T, 3 * T / 4, T / 2, T / 4, 0 ],
+      symbolicTickLabels: [ 'T', '3T/4', 'T/2', 'T/4', '0' ] //TODO i18n
+    }
+  },
+  {
+    space: {
+      max: 3 * L / 4,
+      gridLineSpacing: L / 8,
+      tickMarkSpacing: L / 4,
+      symbolicTickValues: [ 3 * L / 4, L / 2, L / 4, 0 ],
+      symbolicTickLabels: [ '3L/4', 'L/2', 'L/4', '0' ] //TODO i18n
+    },
+    time: {
+      max: 3 * T / 4,
+      gridLineSpacing: T / 8,
+      tickMarkSpacing: T / 4,
+      symbolicTickValues: [ 3 * T / 4, T / 2, T / 4, 0 ],
+      symbolicTickLabels: [ '3T/4', 'T/2', 'T/4', '0' ] //TODO i18n
+    }
+  },
+  {
+    space: {
+      max: L / 2,
+      gridLineSpacing: L / 8,
+      tickMarkSpacing: L / 4,
+      symbolicTickValues: [ L / 2, L / 4, 0 ],
+      symbolicTickLabels: [ 'L/2', 'L/4', '0' ] //TODO i18n
+    },
+    time: {
+      max: T / 2,
+      gridLineSpacing: T / 8,
+      tickMarkSpacing: T / 4,
+      symbolicTickValues: [ T / 2, T / 4, 0 ],
+      symbolicTickLabels: [ 'T/2', 'T/4', '0' ] //TODO i18n
+    }
+  },
+  {
+    space: {
+      max: L / 4,
+      gridLineSpacing: L / 8,
+      tickMarkSpacing: L / 4,
+      symbolicTickValues: [ L / 4, 0 ],
+      symbolicTickLabels: [ 'L/4', '0' ] //TODO i18n
+    },
+    time: {
+      max: T / 4,
+      gridLineSpacing: T / 8,
+      tickMarkSpacing: T / 4,
+      symbolicTickValues: [ T / 4, 0 ],
+      symbolicTickLabels: [ 'T/4', '0' ] //TODO i18n
+    }
+  }
+];
+
+// Validate X_ZOOM_DESCRIPTIONS
+assert && assert( _.every( X_ZOOM_DESCRIPTIONS, zoomDescription =>
+  isSortedDescending( zoomDescription.space.symbolicTickValues )
+), 'symbolicTickValues must be sorted in descending order' );
+assert && assert( _.every( X_ZOOM_DESCRIPTIONS, zoomDescription =>
+  isSortedDescending( zoomDescription.time.symbolicTickValues )
+), 'symbolicTickValues must be sorted in descending order' );
+assert && assert( _.every( X_ZOOM_DESCRIPTIONS, zoomDescription =>
+  zoomDescription.space.symbolicTickValues.length === zoomDescription.space.symbolicTickLabels.length
+), 'a tick label is required for every tick value' );
+assert && assert( _.every( X_ZOOM_DESCRIPTIONS, zoomDescription =>
+  zoomDescription.time.symbolicTickValues.length === zoomDescription.time.symbolicTickLabels.length
+), 'a tick label is required for every tick value' );
 
 class DiscreteViewProperties {
 
@@ -60,41 +176,23 @@ class DiscreteViewProperties {
       range: new Range( 0, 1 )
     } );
 
-    //TODO move all of the chart Properties somewhere else? FMWChartModel?
+    //TODO move chart Properties somewhere else? FMWChartModel?
 
     // @public zoom level for the x axis, index into X_MAXIMUM_MULTIPLIERS and X_TICK_SPACING_MULTIPLIERS
-    this.xZoomLevelProperty = new NumberProperty( 4, {
-      range: new Range( 0, X_MAXIMUM_MULTIPLIERS.length - 1 )
+    this.xZoomLevelProperty = new NumberProperty( 0, {
+      range: new Range( 0, X_ZOOM_DESCRIPTIONS.length - 1 )
     } );
 
-    // @public {DerivedProperty.<Range>} multiplier for x-axis range, applied to L or T
-    this.xRangeMultiplierProperty = new DerivedProperty(
+    // @public {DerivedProperty.<Object>} x-axis description
+    this.xZoomDescriptionProperty = new DerivedProperty(
       [ this.xZoomLevelProperty ],
-      xZoomLevel => new Range( -X_MAXIMUM_MULTIPLIERS[ xZoomLevel ], X_MAXIMUM_MULTIPLIERS[ xZoomLevel ] )
-    );
-
-    // @public {DerivedProperty.<number>} multiplier for x-axis tick spacing, applied to L or T
-    this.xTickSpacingMultiplierProperty = new DerivedProperty(
-      [ this.xZoomLevelProperty ],
-      xZoomLevel => X_TICK_SPACING_MULTIPLIERS[ xZoomLevel ]
+      xZoomLevel => X_ZOOM_DESCRIPTIONS[ xZoomLevel ]
     );
 
     // @public zoom level for the y axis, index into Y_MAXIMUMS and Y_TICK_SPACINGS
     this.yZoomLevelProperty = new NumberProperty( 0, {
-      range: new Range( 0, Y_MAXIMUMS.length - 1 )
+      range: new Range( 0, 6 )
     } );
-
-    // @public {DerivedProperty.<Range>} y-axis range
-    this.yRangeProperty = new DerivedProperty(
-      [ this.yZoomLevelProperty ],
-      yZoomLevel => new Range( -Y_MAXIMUMS[ yZoomLevel ], Y_MAXIMUMS[ yZoomLevel ] )
-    );
-
-    // @public {DerivedProperty.<number>} y-axis tick spacing
-    this.yTickSpacingProperty = new DerivedProperty(
-      [ this.yZoomLevelProperty ],
-      yZoomLevel => Y_TICK_SPACINGS[ yZoomLevel ]
-    );
   }
 
   /**

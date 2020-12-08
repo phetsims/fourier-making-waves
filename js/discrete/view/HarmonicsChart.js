@@ -7,7 +7,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Range from '../../../../dot/js/Range.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import ZoomButtonGroup from '../../../../scenery-phet/js/ZoomButtonGroup.js';
@@ -29,15 +31,17 @@ class HarmonicsChart extends DiscreteChart {
    * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
+   * @param {Property.<ZoomDescription>} xZoomDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty, xZoomLevelProperty, options ) {
+  constructor( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty, xZoomLevelProperty, xZoomDescriptionProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
+    assert && assert( xZoomDescriptionProperty instanceof Property, 'invalid xZoomDescriptionProperty' );
 
     options = merge( {
 
@@ -71,6 +75,18 @@ class HarmonicsChart extends DiscreteChart {
       tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
     } );
     this.addChild( xZoomButtonGroup );
+
+    // unmultilink is not needed
+    Property.multilink(
+      [ xZoomDescriptionProperty, domainProperty ],
+      ( xZoomDescription, domain ) => {
+        const description = ( domain === Domain.TIME ) ? xZoomDescription.time : xZoomDescription.space;
+        this.setXRange( new Range( -description.max, description.max ) );
+        this.setXGridLineSpacing( description.gridLineSpacing );
+        this.setXTickMarkSpacing( description.max );
+        this.setXTickLabelSpacing( description.max );
+      }
+    );
   }
 }
 

@@ -104,7 +104,7 @@ const FMWConstants = {
     extent: 6
   },
 
-  TICK_LABEL_DECIMAL_PLACES: 1
+  TICK_LABEL_DECIMAL_PLACES: 2
 };
 
 /**
@@ -113,6 +113,8 @@ const FMWConstants = {
  * @returns {Node}
  */
 function createNumericTickLabel( value ) {
+
+  // Truncate trailing zeros
   return new Text( Utils.toFixedNumber( value, FMWConstants.TICK_LABEL_DECIMAL_PLACES ), {
     font: FMWConstants.TICK_LABEL_FONT
   } );

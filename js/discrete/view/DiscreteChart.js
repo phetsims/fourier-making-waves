@@ -27,6 +27,8 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
 
+const DEFAULT_SPACING = 1;
+
 class DiscreteChart extends Node {
 
   /**
@@ -64,11 +66,12 @@ class DiscreteChart extends Node {
       tandem: options.tandem.createTandem( 'chartRectangle' )
     } );
 
+    //TODO revisit default spacings
     // x axis
     const xAxis = new AxisNode( chartModel, Orientation.HORIZONTAL, FMWConstants.AXIS_OPTIONS );
-    const xGridLines = new GridLineSet( chartModel, Orientation.HORIZONTAL, L / 8, FMWConstants.GRID_LINE_OPTIONS );
-    const xTickLabels = new LabelSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.LABEL_SET_OPTIONS );
-    const xTickMarks = new TickMarkSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.TICK_MARK_OPTIONS );
+    const xGridLines = new GridLineSet( chartModel, Orientation.HORIZONTAL, DEFAULT_SPACING, FMWConstants.GRID_LINE_OPTIONS );
+    const xTickMarks = new TickMarkSet( chartModel, Orientation.HORIZONTAL, DEFAULT_SPACING, FMWConstants.TICK_MARK_OPTIONS );
+    const xTickLabels = new LabelSet( chartModel, Orientation.HORIZONTAL, DEFAULT_SPACING, FMWConstants.LABEL_SET_OPTIONS );
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
       maxWidth: 50, // determined empirically
@@ -84,11 +87,12 @@ class DiscreteChart extends Node {
       xAxisLabel.centerY = chartRectangle.centerY;
     } );
 
+    //TODO revisit default spacings
     // y axis
     const yAxis = new AxisNode( chartModel, Orientation.VERTICAL, FMWConstants.AXIS_OPTIONS );
     const yGridLines = new GridLineSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.GRID_LINE_OPTIONS );
-    const yTickLabels = new LabelSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.LABEL_SET_OPTIONS );
     const yTickMarks = new TickMarkSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.TICK_MARK_OPTIONS );
+    const yTickLabels = new LabelSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.LABEL_SET_OPTIONS );
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
@@ -118,6 +122,12 @@ class DiscreteChart extends Node {
     // @protected for layout of decorations added by subclasses
     this.chartRectangle = chartRectangle;
     this.xTickLabels = xTickLabels;
+
+    // @private
+    this.chartModel = chartModel;
+    this.xGridLines = xGridLines;
+    this.xTickMarks = xTickMarks;
+    this.xTickLabels = xTickLabels;
   }
 
   /**
@@ -139,10 +149,11 @@ class DiscreteChart extends Node {
   }
 
   /**
+   * @param {Range} range
    * @public
    */
-  setXRange() {
-    //TODO
+  setXRange( range ) {
+    this.chartModel.setModelXRange( range );
   }
 
   /**
@@ -153,24 +164,26 @@ class DiscreteChart extends Node {
   }
 
   /**
+   * @param {number} spacing
    * @public
    */
-  setXTickLabels() {
-    //TODO
+  setXGridLineSpacing( spacing ) {
+    this.xGridLines.setSpacing( spacing );
   }
 
   /**
    * @public
    */
-  setYTickLabels() {
+  setYGridLineSpacing() {
     //TODO
   }
 
   /**
+   * @param {number} spacing
    * @public
    */
-  setXTickMarkSpacing() {
-    //TODO
+  setXTickMarkSpacing( spacing ) {
+    this.xTickMarks.setSpacing( spacing );
   }
 
   /**
@@ -181,16 +194,17 @@ class DiscreteChart extends Node {
   }
 
   /**
+   * @param {number} spacing
    * @public
    */
-  setXGridLineSpacing() {
-    //TODO
+  setXTickLabelSpacing( spacing ) {
+    this.xTickLabels.setSpacing( spacing );
   }
 
   /**
    * @public
    */
-  setYGridLineSpacing() {
+  setYTickLabelSpacing() {
     //TODO
   }
 }
