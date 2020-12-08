@@ -65,7 +65,7 @@ const FMWConstants = {
 
   // Options for classes named *LayoutBox
   LAYOUT_BOX_OPTIONS: {
-    align: 'center',
+    align: 'left',
     spacing: 10
   },
 

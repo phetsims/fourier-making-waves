@@ -40,7 +40,7 @@ class DiscreteControlPanel extends Panel {
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
     options = merge( {}, FMWConstants.PANEL_OPTIONS, {
-      align: 'center',
+      xMargin: 15,
       yMargin: 15
     }, options );
 
@@ -71,7 +71,7 @@ class DiscreteControlPanel extends Panel {
     }
 
     const content = new VBox( {
-      align: 'center',
+      align: 'left',
       spacing: 15,
       children: children
     } );
