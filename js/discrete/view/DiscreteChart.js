@@ -60,17 +60,19 @@ class DiscreteChart extends Node {
     // The chart's background rectangle
     const chartRectangle = new ChartRectangle( chartModel, {
       fill: 'white',
-      stroke: 'black'
+      stroke: 'black',
+      tandem: options.tandem.createTandem( 'chartRectangle' )
     } );
 
     // x axis
     const xAxis = new AxisNode( chartModel, Orientation.HORIZONTAL, FMWConstants.AXIS_OPTIONS );
-    const xGridLineSet = new GridLineSet( chartModel, Orientation.HORIZONTAL, L / 8, FMWConstants.GRID_LINE_OPTIONS );
-    const xLabelSet = new LabelSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.LABEL_SET_OPTIONS );
-    const xTickMarkSet = new TickMarkSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.TICK_MARK_OPTIONS );
+    const xGridLines = new GridLineSet( chartModel, Orientation.HORIZONTAL, L / 8, FMWConstants.GRID_LINE_OPTIONS );
+    const xTickLabels = new LabelSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.LABEL_SET_OPTIONS );
+    const xTickMarks = new TickMarkSet( chartModel, Orientation.HORIZONTAL, L / 2, FMWConstants.TICK_MARK_OPTIONS );
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
-      maxWidth: 50 // determined empirically
+      maxWidth: 50, // determined empirically
+      tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
     // Set the x-axis label based on domain.
@@ -84,15 +86,16 @@ class DiscreteChart extends Node {
 
     // y axis
     const yAxis = new AxisNode( chartModel, Orientation.VERTICAL, FMWConstants.AXIS_OPTIONS );
-    const yGridLineSet = new GridLineSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.GRID_LINE_OPTIONS );
-    const yLabelSet = new LabelSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.LABEL_SET_OPTIONS );
-    const yTickMarkSet = new TickMarkSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.TICK_MARK_OPTIONS );
+    const yGridLines = new GridLineSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.GRID_LINE_OPTIONS );
+    const yTickLabels = new LabelSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.LABEL_SET_OPTIONS );
+    const yTickMarks = new TickMarkSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.TICK_MARK_OPTIONS );
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
-      right: yLabelSet.left - 10,
+      right: yTickLabels.left - 10,
       centerY: chartRectangle.centerY,
-      maxWidth: 0.85 * chartRectangle.height
+      maxWidth: 0.85 * chartRectangle.height,
+      tandem: options.tandem.createTandem( 'yAxisLabel' )
     } );
 
     // Parent for Nodes that must be clipped to the bounds of chartRectangle
@@ -103,10 +106,10 @@ class DiscreteChart extends Node {
 
     assert && assert( !options.children, 'AmplitudesChart sets children' );
     options.children = [
-      xTickMarkSet, yTickMarkSet, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
+      xTickMarks, yTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
       chartRectangle,
-      xAxisLabel, xGridLineSet, xLabelSet,
-      yAxisLabel, yGridLineSet, yLabelSet,
+      xAxisLabel, xGridLines, xTickLabels,
+      yAxisLabel, yGridLines, yTickLabels,
       clippedParent
     ];
 
@@ -114,7 +117,7 @@ class DiscreteChart extends Node {
 
     // @protected for layout of decorations added by subclasses
     this.chartRectangle = chartRectangle;
-    this.xLabelSet = xLabelSet;
+    this.xTickLabels = xTickLabels;
   }
 
   /**
