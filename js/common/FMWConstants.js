@@ -6,9 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
-import Utils from '../../../dot/js/Utils.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import Text from '../../../scenery/js/nodes/Text.js';
 import Color from '../../../scenery/js/util/Color.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWColorProfile from './FMWColorProfile.js';
@@ -94,11 +92,6 @@ const FMWConstants = {
     stroke: new Color( 0, 0, 0, 0.15 )
   },
 
-  LABEL_SET_OPTIONS: {
-    edge: 'min',
-    createLabel: createNumericTickLabel
-  },
-
   TICK_MARK_OPTIONS: {
     edge: 'min',
     extent: 6
@@ -106,19 +99,6 @@ const FMWConstants = {
 
   TICK_LABEL_DECIMAL_PLACES: 2
 };
-
-/**
- * Creates a numeric tick label for the charts.
- * @param {number} value
- * @returns {Node}
- */
-function createNumericTickLabel( value ) {
-
-  // Truncate trailing zeros
-  return new Text( Utils.toFixedNumber( value, FMWConstants.TICK_LABEL_DECIMAL_PLACES ), {
-    font: FMWConstants.TICK_LABEL_FONT
-  } );
-}
 
 fourierMakingWaves.register( 'FMWConstants', FMWConstants );
 export default FMWConstants;

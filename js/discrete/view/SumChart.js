@@ -65,7 +65,7 @@ class SumChart extends DiscreteChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( fourierSeries, domainProperty, options );
+    super( fourierSeries, domainProperty, mathFormProperty, xZoomLevelProperty, xZoomDescriptionProperty, options );
 
     const equationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
       waveTypeProperty, mathFormProperty, {
@@ -110,16 +110,6 @@ class SumChart extends DiscreteChart {
       expandedFormButton.visible = visible;
     } );
 
-    // Zoom buttons for the x-axis range
-    const xZoomButtonGroup = new ZoomButtonGroup( xZoomLevelProperty, {
-      orientation: 'horizontal',
-      scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
-      left: this.chartRectangle.right + 5,
-      bottom: this.chartRectangle.bottom,
-      tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
-    } );
-    this.addChild( xZoomButtonGroup );
-
     // Zoom buttons for the y-axis range
     const yZoomButtonGroup = new ZoomButtonGroup( yZoomLevelProperty, {
       orientation: 'vertical',
@@ -129,6 +119,14 @@ class SumChart extends DiscreteChart {
       tandem: options.tandem.createTandem( 'yZoomButtonGroup' )
     } );
     this.addChild( yZoomButtonGroup );
+
+    // unlink is not needed.
+    yZoomDescriptionProperty.link( yZoomDescription => {
+      this.chartModel.setModelYRange( new Range( -yZoomDescription.max, yZoomDescription.max ) );
+      this.yGridLines.setSpacing( yZoomDescription.gridLineSpacing );
+      this.yTickMarks.setSpacing( yZoomDescription.tickMarkSpacing );
+      this.yTickLabels.setSpacing( yZoomDescription.tickLabelSpacing );
+    } );
 
     // Shows the wave that the Fourier series is attempting to approximate
     const infiniteHarmonicsCheckbox = new InfiniteHarmonicsCheckbox( infiniteHarmonicsVisibleProperty, {
@@ -150,30 +148,9 @@ class SumChart extends DiscreteChart {
       spacing: 25,
       children: [ infiniteHarmonicsCheckbox, autoScaleCheckbox ],
       right: this.chartRectangle.right,
-      top: this.xTickLabels.bottom + 5
+      top: this.bottom + 5
     } );
     this.addChild( checkboxesParent );
-
-    //TODO duplicated in HarmonicsChart
-    // unmultilink is not needed
-    Property.multilink(
-      [ xZoomDescriptionProperty, domainProperty ],
-      ( xZoomDescription, domain ) => {
-        const m = ( domain === Domain.TIME ) ? FMWConstants.T : FMWConstants.L;
-        this.setXRange( new Range( -m * xZoomDescription.max, m * xZoomDescription.max ) );
-        this.setXGridLineSpacing( m * xZoomDescription.gridLineSpacing );
-        this.setXTickMarkSpacing( m * xZoomDescription.tickMarkSpacing );
-        this.setXTickLabelSpacing( m * xZoomDescription.tickLabelSpacing );
-      }
-    );
-
-    // unlink is not needed.
-    yZoomDescriptionProperty.link( yZoomDescription => {
-      this.setYRange( new Range( -yZoomDescription.max, yZoomDescription.max ) );
-      this.setYGridLineSpacing( yZoomDescription.gridLineSpacing );
-      this.setYTickMarkSpacing( yZoomDescription.tickMarkSpacing );
-      this.setYTickLabelSpacing( yZoomDescription.tickLabelSpacing );
-    } );
   }
 }
 

@@ -7,14 +7,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Range from '../../../../dot/js/Range.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import ZoomButtonGroup from '../../../../scenery-phet/js/ZoomButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
@@ -49,7 +46,7 @@ class HarmonicsChart extends DiscreteChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( fourierSeries, domainProperty, options );
+    super( fourierSeries, domainProperty, mathFormProperty, xZoomLevelProperty, xZoomDescriptionProperty, options );
 
     // Equation that appears above the chart
     const equationNode = new HarmonicsEquationNode( domainProperty, waveTypeProperty, mathFormProperty, {
@@ -65,28 +62,6 @@ class HarmonicsChart extends DiscreteChart {
       equationNode.centerX = this.chartRectangle.centerX;
       equationNode.bottom = this.chartRectangle.top - 5;
     } );
-
-    // Zoom buttons for the x-axis range
-    const xZoomButtonGroup = new ZoomButtonGroup( xZoomLevelProperty, {
-      orientation: 'horizontal',
-      scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
-      left: this.chartRectangle.right + 5,
-      bottom: this.chartRectangle.bottom,
-      tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
-    } );
-    this.addChild( xZoomButtonGroup );
-
-    // unmultilink is not needed
-    Property.multilink(
-      [ xZoomDescriptionProperty, domainProperty ],
-      ( xZoomDescription, domain ) => {
-        const m = ( domain === Domain.TIME ) ? FMWConstants.T : FMWConstants.L;
-        this.setXRange( new Range( -m * xZoomDescription.max, m * xZoomDescription.max ) );
-        this.setXGridLineSpacing( m * xZoomDescription.gridLineSpacing );
-        this.setXTickMarkSpacing( m * xZoomDescription.tickMarkSpacing );
-        this.setXTickLabelSpacing( m * xZoomDescription.tickLabelSpacing );
-      }
-    );
   }
 }
 
