@@ -49,7 +49,9 @@ class HarmonicsChart extends DiscreteChart {
 
     // Equation that appears above the chart
     const equationNode = new HarmonicsEquationNode( domainProperty, waveTypeProperty, mathFormProperty, {
-      maxWidth: 0.5 * this.chartRectangle.width
+      maxWidth: 0.5 * this.chartRectangle.width,
+      tandem: options.tandem.createTandem( 'equationNode' ),
+      phetioReadOnly: true
     } );
     this.addChild( equationNode );
 
@@ -65,7 +67,8 @@ class HarmonicsChart extends DiscreteChart {
       orientation: 'horizontal',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
       left: this.chartRectangle.right + 5,
-      bottom: this.chartRectangle.bottom
+      bottom: this.chartRectangle.bottom,
+      tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
     } );
     this.addChild( xZoomButtonGroup );
   }

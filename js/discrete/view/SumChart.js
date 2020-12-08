@@ -62,7 +62,9 @@ class SumChart extends DiscreteChart {
 
     const equationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
       waveTypeProperty, mathFormProperty, {
-        maxWidth: 0.5 * this.chartRectangle.width
+        maxWidth: 0.5 * this.chartRectangle.width,
+        tandem: options.tandem.createTandem( 'equationNode' ),
+        phetioReadOnly: true
       } );
     this.addChild( equationNode );
 
@@ -74,7 +76,9 @@ class SumChart extends DiscreteChart {
           hideCallback: () => dialog.dispose()
         } );
         dialog.show();
-      }
+      },
+      tandem: options.tandem.createTandem( 'expandedFormButton' ),
+      phetioReadOnly: true
     } );
     this.addChild( expandedFormButton );
 
@@ -93,10 +97,10 @@ class SumChart extends DiscreteChart {
       expandedFormButton.centerY = equationNode.centerY;
     } );
 
-    // expandedFormButton is visible only when a math form is selected.
-    mathFormProperty.link( mathForm => {
+    // expandedFormButton is visible only when the equation is visible.
+    equationNode.visibleProperty.link( visible => {
       expandedFormButton.interruptSubtreeInput();
-      expandedFormButton.visible = ( mathForm !== MathForm.HIDDEN );
+      expandedFormButton.visible = visible;
     } );
 
     // Zoom buttons for the x-axis range
@@ -104,7 +108,8 @@ class SumChart extends DiscreteChart {
       orientation: 'horizontal',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
       left: this.chartRectangle.right + 5,
-      bottom: this.chartRectangle.bottom
+      bottom: this.chartRectangle.bottom,
+      tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
     } );
     this.addChild( xZoomButtonGroup );
 
@@ -113,12 +118,17 @@ class SumChart extends DiscreteChart {
       orientation: 'vertical',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
       left: this.chartRectangle.right + 5,
-      top: this.chartRectangle.top
+      top: this.chartRectangle.top,
+      tandem: options.tandem.createTandem( 'yZoomButtonGroup' )
     } );
     this.addChild( yZoomButtonGroup );
 
-    const infiniteHarmonicsCheckbox = new InfiniteHarmonicsCheckbox( infiniteHarmonicsVisibleProperty );
-    const autoScaleCheckbox = new AutoScaleCheckbox( autoScaleProperty );
+    const infiniteHarmonicsCheckbox = new InfiniteHarmonicsCheckbox( infiniteHarmonicsVisibleProperty, {
+      tandem: options.tandem.createTandem( 'infiniteHarmonicsCheckbox' )
+    } );
+    const autoScaleCheckbox = new AutoScaleCheckbox( autoScaleProperty, {
+      tandem: options.tandem.createTandem( 'autoScaleCheckbox' )
+    } );
     const checkboxesParent = new HBox( {
       spacing: 25,
       children: [ infiniteHarmonicsCheckbox, autoScaleCheckbox ],
