@@ -252,7 +252,7 @@ function createSymbolicTickLabel( value, domain ) {
 
   return new RichText( text, {
     font: FMWConstants.TICK_LABEL_FONT,
-    maxWidth: 25 // determined empirically
+    maxWidth: 35 // determined empirically
   } );
 }
 
