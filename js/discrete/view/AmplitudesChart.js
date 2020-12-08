@@ -83,7 +83,8 @@ class AmplitudesChart extends Node {
       font: FMWConstants.AXIS_LABEL_FONT,
       left: chartRectangle.right + 10,
       centerY: chartRectangle.centerY,
-      maxWidth: 25
+      maxWidth: 25,
+      tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
@@ -91,7 +92,8 @@ class AmplitudesChart extends Node {
       rotation: -Math.PI / 2,
       right: yLabelSet.left - 10,
       centerY: chartRectangle.centerY,
-      maxWidth: 0.85 * chartRectangle.height
+      maxWidth: 0.85 * chartRectangle.height,
+      tandem: options.tandem.createTandem( 'yAxisLabel' )
     } );
 
     // Create a slider for each harmonic's amplitude

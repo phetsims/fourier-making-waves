@@ -7,6 +7,7 @@
  */
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
+import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import OopsDialog from '../../../../scenery-phet/js/OopsDialog.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
@@ -68,11 +69,14 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     const harmonicsExpandCollapseButton = new ExpandCollapseButton( viewProperties.harmonicsChartVisibleProperty,
-      FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS );
+      merge( {
+        tandem: tandem.createTandem( 'harmonicsExpandCollapseButton' )
+      }, FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS ) );
 
     const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonics, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 150 // determined empirically, prevent overlap with equation
+      maxWidth: 150, // determined empirically, prevent overlap with equation,
+      tandem: tandem.createTandem( 'harmonicsTitleNode' )
     } );
 
     const harmonicsHBox = new HBox( {
@@ -100,11 +104,14 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     const sumExpandCollapseButton = new ExpandCollapseButton( viewProperties.sumChartVisibleProperty,
-      FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS );
+      merge( {
+        tandem: tandem.createTandem( 'sumExpandCollapseButton' )
+      }, FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS ) );
 
     const sumTitleNode = new Text( fourierMakingWavesStrings.sum, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 150 // determined empirically, prevent overlap with equation
+      maxWidth: 150, // determined empirically, prevent overlap with equation
+      tandem: tandem.createTandem( 'sumTitleNode' )
     } );
 
     const sumHBox = new HBox( {
@@ -141,13 +148,15 @@ class DiscreteScreenView extends ScreenView {
     const controlPanel = new DiscreteControlPanel( model,
       viewProperties.soundEnabledProperty, viewProperties.soundOutputLevelProperty, popupParent, {
         right: this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN,
-        top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN
+        top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN,
+        tandem: tandem.createTandem( 'controlPanel' )
       } );
     this.addChild( controlPanel );
 
     const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
       left: controlPanel.left,
-      bottom: this.layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN
+      bottom: this.layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN,
+      tandem: tandem.createTandem( 'timeControlNode' )
     } );
     this.addChild( timeControlNode );
 
