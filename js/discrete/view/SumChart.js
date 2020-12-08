@@ -123,12 +123,22 @@ class SumChart extends DiscreteChart {
     } );
     this.addChild( yZoomButtonGroup );
 
+    // Shows the wave that the Fourier series is attempting to approximate
     const infiniteHarmonicsCheckbox = new InfiniteHarmonicsCheckbox( infiniteHarmonicsVisibleProperty, {
+      listener: () => {
+        //TODO
+      },
       tandem: options.tandem.createTandem( 'infiniteHarmonicsCheckbox' )
     } );
+
+    // Automatically scales the y axis to show the entire plot
     const autoScaleCheckbox = new AutoScaleCheckbox( autoScaleProperty, {
+      listener: () => {
+        //TODO
+      },
       tandem: options.tandem.createTandem( 'autoScaleCheckbox' )
     } );
+
     const checkboxesParent = new HBox( {
       spacing: 25,
       children: [ infiniteHarmonicsCheckbox, autoScaleCheckbox ],
