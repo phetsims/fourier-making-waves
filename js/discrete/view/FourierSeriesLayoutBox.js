@@ -18,41 +18,40 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import PresetFunction from '../model/PresetFunction.js';
-import PresetFunctionComboBox from './PresetFunctionComboBox.js';
+import Waveform from '../model/Waveform.js';
+import WaveformComboBox from './WaveformComboBox.js';
 
 class FourierSeriesLayoutBox extends VBox {
 
   /**
-   * @param {EnumerationProperty.<PresetFunction>} presetFunctionProperty
+   * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {NumberProperty} numberOfHarmonicsProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
-  constructor( presetFunctionProperty, numberOfHarmonicsProperty, popupParent, options ) {
+  constructor( waveformProperty, numberOfHarmonicsProperty, popupParent, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( presetFunctionProperty, PresetFunction );
+    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
     options = merge( {}, FMWConstants.LAYOUT_BOX_OPTIONS, options );
 
-    // Preset Function
     const titleText = new Text( fourierMakingWavesStrings.fourierSeries, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 200 // determined empirically
     } );
 
-    const presetText = new Text( fourierMakingWavesStrings.preset, {
+    const waveformText = new Text( fourierMakingWavesStrings.waveform, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 70 // determined empirically
     } );
 
-    const presetFunctionComboBox = new PresetFunctionComboBox( presetFunctionProperty, popupParent );
+    const waveformComboBox = new WaveformComboBox( waveformProperty, popupParent );
 
-    const presetBox = new HBox( {
+    const waveformBox = new HBox( {
       spacing: 3,
-      children: [ presetText, presetFunctionComboBox ]
+      children: [ waveformText, waveformComboBox ]
     } );
 
     const harmonicsText = new Text( fourierMakingWavesStrings.harmonics, {
@@ -72,7 +71,7 @@ class FourierSeriesLayoutBox extends VBox {
     } );
 
     assert && assert( !options.children, 'FourierSeriesLayoutBox sets children' );
-    options.children = [ titleText, presetBox, harmonicsBox ];
+    options.children = [ titleText, waveformBox, harmonicsBox ];
 
     super( options );
   }

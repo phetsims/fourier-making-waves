@@ -2,7 +2,7 @@
 
 //TODO equations in Preset.java do not match values
 /**
- * Preset functions for the 'Discrete' screen.
+ * Waveforms for the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +14,7 @@ import WaveType from './WaveType.js';
 // constants
 const PI = Math.PI; // to improve readability
 
-class PresetValue {
+class WaveformValue {
 
   /**
    * @param {function(numberOfHarmonics:number, waveType:WaveType)} [getAmplitudes]
@@ -26,7 +26,7 @@ class PresetValue {
   }
 }
 
-const SINE_COSINE = new PresetValue( ( numberOfHarmonics, waveType ) => {
+const SINE_COSINE = new WaveformValue( ( numberOfHarmonics, waveType ) => {
   const amplitudes = [];
   for ( let n = 1; n <= numberOfHarmonics; n++ ) {
 
@@ -37,7 +37,7 @@ const SINE_COSINE = new PresetValue( ( numberOfHarmonics, waveType ) => {
   return amplitudes;
 } );
 
-const TRIANGLE = new PresetValue( ( numberOfHarmonics, waveType ) => {
+const TRIANGLE = new WaveformValue( ( numberOfHarmonics, waveType ) => {
   // const amplitudes = [];
   // for ( let n = 1; n <= numberOfHarmonics; n++ ) {
   //   waveType === WaveType.SINE ?
@@ -60,21 +60,21 @@ const TRIANGLE = new PresetValue( ( numberOfHarmonics, waveType ) => {
   }
 } );
 
-const SQUARE = new PresetValue( ( numberOfHarmonics, waveType ) => {
+const SQUARE = new WaveformValue( ( numberOfHarmonics, waveType ) => {
   const amplitudes = [];
   for ( let n = 1; n <= numberOfHarmonics; n++ ) {
     waveType === WaveType.SINE ?
-    //TODO describe these values with a simpler equation: 4/PI, 0, 4/(3*PI), 0, 4/(5*PI), 0, 4/(7*PI), 0, 4/(9*PI), 0, 4/(11*PI)
+      //TODO describe these values with a simpler equation: 4/PI, 0, 4/(3*PI), 0, 4/(5*PI), 0, 4/(7*PI), 0, 4/(9*PI), 0, 4/(11*PI)
     amplitudes.push( ( 2 - ( 2 * Math.cos( n * PI ) ) ) / ( n * PI ) ) :
 
-    //TODO describe these values with a simpler equation:  4/PI, 0, -4/(3*PI), 0, 4/(5*PI), 0, -4/(7*PI), 0, 4/(9*PI), 0, -4/(11*PI)
+      //TODO describe these values with a simpler equation:  4/PI, 0, -4/(3*PI), 0, 4/(5*PI), 0, -4/(7*PI), 0, 4/(9*PI), 0, -4/(11*PI)
     amplitudes.push( ( ( 4 * Math.sin( n * PI / 2 ) ) - ( 2 * Math.sin( n * PI ) ) ) / ( n * PI ) );
   }
   assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
   return amplitudes;
 } );
 
-const SAWTOOTH = new PresetValue( ( numberOfHarmonics, waveType ) => {
+const SAWTOOTH = new WaveformValue( ( numberOfHarmonics, waveType ) => {
 
   //TODO enable this assertion when it's handled correctly in the model
   // assert && assert( waveType !== WaveType.COSINE, 'cannot make a sawtooth wave out of cosines' );
@@ -89,7 +89,7 @@ const SAWTOOTH = new PresetValue( ( numberOfHarmonics, waveType ) => {
   return amplitudes;
 } );
 
-const WAVE_PACKET = new PresetValue( ( numberOfHarmonics, waveType ) => {
+const WAVE_PACKET = new WaveformValue( ( numberOfHarmonics, waveType ) => {
   // const amplitudes = [];
   // const p = 1.5;
   // const no = ( numberOfHarmonics + 1 ) / 2;
@@ -120,9 +120,9 @@ const WAVE_PACKET = new PresetValue( ( numberOfHarmonics, waveType ) => {
   ][ numberOfHarmonics - 1 ];
 } );
 
-const CUSTOM = new PresetValue();
+const CUSTOM = new WaveformValue();
 
-const PresetFunction = Enumeration.byMap( {
+const Waveform = Enumeration.byMap( {
   SINE_COSINE: SINE_COSINE,
   TRIANGLE: TRIANGLE,
   SQUARE: SQUARE,
@@ -131,5 +131,5 @@ const PresetFunction = Enumeration.byMap( {
   CUSTOM: CUSTOM
 } );
 
-fourierMakingWaves.register( 'PresetFunction', PresetFunction );
-export default PresetFunction;
+fourierMakingWaves.register( 'Waveform', Waveform );
+export default Waveform;

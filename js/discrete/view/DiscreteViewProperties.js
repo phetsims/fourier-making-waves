@@ -121,7 +121,7 @@ class DiscreteViewProperties {
     // @public whether the Sum chart's y-axis automatically scales to show all data
     this.autoScaleProperty = new BooleanProperty( false );
 
-    // @public whether the Sum chart shows what the preset function looks like for an infinite Fourier series
+    // @public whether the Sum chart shows what the waveform looks like for an infinite Fourier series
     this.infiniteHarmonicsProperty = new BooleanProperty( false );
 
     // @public whether the sound of the Fourier series is enabled

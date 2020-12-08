@@ -38,8 +38,8 @@
   "custom": {
     "value": "custom"
   },
-  "preset": {
-    "value": "Preset:"
+  "waveform": {
+    "value": "Waveform:"
   },
   "harmonics": {
     "value": "Harmonics:"

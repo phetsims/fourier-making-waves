@@ -18,7 +18,7 @@ import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from './Domain.js';
 import MathForm from './MathForm.js';
-import PresetFunction from './PresetFunction.js';
+import Waveform from './Waveform.js';
 import WaveType from './WaveType.js';
 
 class DiscreteModel {
@@ -40,7 +40,7 @@ class DiscreteModel {
     } );
 
     // @public
-    this.presetFunctionProperty = new EnumerationProperty( PresetFunction, PresetFunction.SINE_COSINE );
+    this.waveformProperty = new EnumerationProperty( Waveform, Waveform.SINE_COSINE );
 
     // @public
     this.waveTypeProperty = new EnumerationProperty( WaveType, WaveType.SINE );
@@ -81,10 +81,10 @@ class DiscreteModel {
     // @public emits if you try to make a sawtooth wave with cosines
     this.oopsSawtoothWithCosinesEmitter = new Emitter();
 
-    // Set amplitudes for preset functions.
-    const updateAmplitudes = ( numberOfHarmonics, presetFunction, waveType ) => {
+    // Set amplitudes for pre-defined waveforms
+    const updateAmplitudes = ( numberOfHarmonics, waveform, waveType ) => {
 
-      if ( presetFunction === PresetFunction.SAWTOOTH && waveType === WaveType.COSINE ) {
+      if ( waveform === Waveform.SAWTOOTH && waveType === WaveType.COSINE ) {
 
         phet.log && phet.log( 'not possible to make a sawtooth out of cosines, switching to sine' );
         this.oopsSawtoothWithCosinesEmitter.emit();
@@ -94,8 +94,8 @@ class DiscreteModel {
           this.waveTypeProperty.value = WaveType.SINE;
         } );
       }
-      else if ( presetFunction !== PresetFunction.CUSTOM ) {
-        const amplitudes = presetFunction.getAmplitudes( numberOfHarmonics, waveType );
+      else if ( waveform !== Waveform.CUSTOM ) {
+        const amplitudes = waveform.getAmplitudes( numberOfHarmonics, waveType );
         assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
         for ( let i = 0; i < numberOfHarmonics; i++ ) {
           this.fourierSeries.harmonics[ i ].amplitudeProperty.value = amplitudes[ i ];
@@ -105,8 +105,8 @@ class DiscreteModel {
 
     // umultilink is not needed.
     Property.multilink(
-      [ this.fourierSeries.numberOfHarmonicsProperty, this.presetFunctionProperty, this.waveTypeProperty ],
-      ( numberOfHarmonics, presetFunction, waveType ) => updateAmplitudes( numberOfHarmonics, presetFunction, waveType )
+      [ this.fourierSeries.numberOfHarmonicsProperty, this.waveformProperty, this.waveTypeProperty ],
+      ( numberOfHarmonics, waveform, waveType ) => updateAmplitudes( numberOfHarmonics, waveform, waveType )
     );
 
     // Ensure that the math form is appropriate for the domain. MathForm.MODE is supported by for all Domain values.
@@ -124,7 +124,7 @@ class DiscreteModel {
 
       // Reset Properties
       this.isPlayingProperty.reset();
-      this.presetFunctionProperty.reset();
+      this.waveformProperty.reset();
       this.waveTypeProperty.reset();
       this.domainProperty.reset();
       this.wavelengthToolEnabledProperty.reset();
@@ -135,7 +135,7 @@ class DiscreteModel {
       this.sumExpandedProperty.reset();
 
       // Set the amplitudes of the Fourier series to match Property settings.
-      updateAmplitudes( this.fourierSeries.numberOfHarmonicsProperty.value, this.presetFunctionProperty.value, this.waveTypeProperty.value );
+      updateAmplitudes( this.fourierSeries.numberOfHarmonicsProperty.value, this.waveformProperty.value, this.waveTypeProperty.value );
     };
   }
 

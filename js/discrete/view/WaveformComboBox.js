@@ -1,0 +1,50 @@
+// Copyright 2020, University of Colorado Boulder
+
+/**
+ * WaveformComboBox is the combo box for choosing a pre-defined waveform in the 'Discrete' screen.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
+
+import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
+import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import Waveform from '../model/Waveform.js';
+import FMWComboBox from './FMWComboBox.js';
+
+class WaveformComboBox extends FMWComboBox {
+
+  /**
+   * @param {EnumerationProperty.<Waveform>} waveformProperty
+   * @param {Node} popupParent
+   * @param {Object} [options]
+   */
+  constructor( waveformProperty, popupParent, options ) {
+
+    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
+    assert && assert( popupParent instanceof Node, 'invalid popupParent' );
+
+    options = merge( {
+      textOptions: {
+        maxWidth: 120 // determined empirically
+      }
+    }, options );
+
+    // {{string:string, value:Waveform}[]}
+    const choices = [
+      { value: Waveform.SINE_COSINE, string: fourierMakingWavesStrings.sineCosine },
+      { value: Waveform.TRIANGLE, string: fourierMakingWavesStrings.triangle },
+      { value: Waveform.SQUARE, string: fourierMakingWavesStrings.square },
+      { value: Waveform.SAWTOOTH, string: fourierMakingWavesStrings.sawtooth },
+      { value: Waveform.WAVE_PACKET, string: fourierMakingWavesStrings.wavePacket },
+      { value: Waveform.CUSTOM, string: fourierMakingWavesStrings.custom }
+    ];
+
+    super( choices, waveformProperty, popupParent, options );
+  }
+}
+
+fourierMakingWaves.register( 'WaveformComboBox', WaveformComboBox );
+export default WaveformComboBox;

@@ -19,7 +19,7 @@ import Color from '../../../../scenery/js/util/Color.js';
 import ColorDef from '../../../../scenery/js/util/ColorDef.js';
 import SliderTrack from '../../../../sun/js/SliderTrack.js';
 import VSlider from '../../../../sun/js/VSlider.js';
-import PresetFunction from '../../discrete/model/PresetFunction.js';
+import Waveform from '../../discrete/model/Waveform.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 
@@ -31,14 +31,14 @@ class AmplitudeSlider extends VSlider {
   /**
    * @param {NumberProperty} amplitudeProperty
    * @param {Property.<ColorDef>} colorProperty
-   * @param {EnumerationProperty.<PresetFunction>} presetFunctionProperty
+   * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {Object} [options]
    */
-  constructor( amplitudeProperty, colorProperty, presetFunctionProperty, options ) {
+  constructor( amplitudeProperty, colorProperty, waveformProperty, options ) {
 
     assert && assert( amplitudeProperty instanceof NumberProperty, 'invalid amplitudeProperty' );
     assert && AssertUtils.assertProperty( colorProperty, value => ColorDef.isColorDef( value ) );
-    assert && AssertUtils.assertEnumerationPropertyOf( presetFunctionProperty, PresetFunction );
+    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
     options = merge( {
 
@@ -75,7 +75,7 @@ class AmplitudeSlider extends VSlider {
     // When we edit an amplitude, switch to custom.
     assert && assert( !options.startDrag, 'AmplitudeSlider sets startDrag' );
     options.startDrag = () => {
-      presetFunctionProperty.value = PresetFunction.CUSTOM;
+      waveformProperty.value = Waveform.CUSTOM;
     };
 
     // Snap to interval

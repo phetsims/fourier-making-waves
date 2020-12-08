@@ -15,7 +15,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
-import PresetFunction from '../../discrete/model/PresetFunction.js';
+import Waveform from '../../discrete/model/Waveform.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Harmonic from '../model/Harmonic.js';
@@ -29,14 +29,14 @@ class AmplitudeNumberDisplay extends VBox {
   /**
    * @param {Harmonic} harmonic
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog
-   * @param {EnumerationProperty.<PresetFunction>} presetFunctionProperty
+   * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {Object} [options]
    */
-  constructor( harmonic, amplitudeKeypadDialog, presetFunctionProperty, options ) {
+  constructor( harmonic, amplitudeKeypadDialog, waveformProperty, options ) {
 
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
     assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog, 'invalid amplitudeKeypadDialog' );
-    assert && AssertUtils.assertEnumerationPropertyOf( presetFunctionProperty, PresetFunction );
+    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
     options = merge( {
 
@@ -73,7 +73,7 @@ class AmplitudeNumberDisplay extends VBox {
       press: () => {
 
         // When we edit an amplitude, switch to custom.
-        presetFunctionProperty.value = PresetFunction.CUSTOM;
+        waveformProperty.value = Waveform.CUSTOM;
 
         // Change the background fill to indicate which amplitude we're editing.
         const restoreBackgroundFill = numberDisplay.getBackgroundFill();
