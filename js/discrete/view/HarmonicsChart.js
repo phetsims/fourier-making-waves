@@ -31,7 +31,7 @@ class HarmonicsChart extends DiscreteChart {
    * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
-   * @param {Property.<ZoomDescription>} xZoomDescriptionProperty
+   * @param {Property.<XZoomDescription>} xZoomDescriptionProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty, xZoomLevelProperty, xZoomDescriptionProperty, options ) {

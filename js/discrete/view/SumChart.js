@@ -36,14 +36,15 @@ class SumChart extends DiscreteChart {
    * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
-   * @param {Property.<ZoomDescription>} xZoomDescriptionProperty
+   * @param {Property.<XZoomDescription>} xZoomDescriptionProperty
    * @param {NumberProperty} yZoomLevelProperty
+   * @param {Property.<YZoomDescription>} yZoomDescriptionProperty
    * @param {Property.<boolean>} autoScaleProperty
    * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty,
-               xZoomLevelProperty, xZoomDescriptionProperty, yZoomLevelProperty,
+               xZoomLevelProperty, xZoomDescriptionProperty, yZoomLevelProperty, yZoomDescriptionProperty,
                autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
@@ -53,6 +54,7 @@ class SumChart extends DiscreteChart {
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
     assert && assert( xZoomDescriptionProperty instanceof Property, 'invalid xZoomDescriptionProperty' );
     assert && assert( yZoomLevelProperty instanceof NumberProperty, 'invalid yZoomLevelProperty' );
+    assert && assert( yZoomDescriptionProperty instanceof Property, 'invalid yZoomDescriptionProperty' );
     assert && AssertUtils.assertPropertyOf( autoScaleProperty, 'boolean' );
     assert && AssertUtils.assertPropertyOf( infiniteHarmonicsVisibleProperty, 'boolean' );
 
@@ -163,6 +165,14 @@ class SumChart extends DiscreteChart {
         this.setXTickLabelSpacing( description.max );
       }
     );
+
+    // unlink is not needed.
+    yZoomDescriptionProperty.link( yZoomDescription => {
+      this.setYRange( new Range( -yZoomDescription.max, yZoomDescription.max ) );
+      this.setYGridLineSpacing( yZoomDescription.gridLineSpacing );
+      this.setYTickMarkSpacing( yZoomDescription.tickMarkSpacing );
+      this.setYTickLabelSpacing( yZoomDescription.tickLabelSpacing );
+    } );
   }
 }
 

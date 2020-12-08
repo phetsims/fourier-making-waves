@@ -121,7 +121,8 @@ class DiscreteScreenView extends ScreenView {
 
     const sumChart = new SumChart( model.fourierSeries, model.domainProperty, model.waveTypeProperty,
       model.mathFormProperty, viewProperties.xZoomLevelProperty, viewProperties.xZoomDescriptionProperty,
-      viewProperties.yZoomLevelProperty, viewProperties.autoScaleProperty, viewProperties.infiniteHarmonicsProperty, {
+      viewProperties.yZoomLevelProperty, viewProperties.yZoomDescriptionProperty,
+      viewProperties.autoScaleProperty, viewProperties.infiniteHarmonicsProperty, {
         viewWidth: chartViewWidth,
         viewHeight: chartViewHeight,
         left: sumHBox.left,

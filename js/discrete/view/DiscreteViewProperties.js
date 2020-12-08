@@ -33,12 +33,12 @@ const T = FMWConstants.T;
  */
 
 /**
- * @typedef ZoomDescription
+ * @typedef XZoomDescription
  * @property {DomainDescription} space - descriptions for space domains
  * @property {DomainDescription} time - description for time domains
  */
 
-// {ZoomDescription[]} zoom descriptions for the x axis, one for each zoom level
+// {XZoomDescription[]} zoom descriptions for the x axis, one for each zoom level
 const X_ZOOM_DESCRIPTIONS = [
   {
     space: {
@@ -152,6 +152,60 @@ assert && assert( _.every( X_ZOOM_DESCRIPTIONS, zoomDescription =>
   zoomDescription.time.symbolicTickValues.length === zoomDescription.time.symbolicTickLabels.length
 ), 'a tick label is required for every tick value' );
 
+/**
+ * @type YZoomDescription
+ * @property {number} max - maximum of range, actual range is [-max,max]
+ * @property {number} gridLineSpacing
+ * @property {number} tickMarkSpacing
+ * @property {number} tickLabelSpacing
+ */
+
+// {YZoomDescription[]} zoom descriptions for the y axis, one for each zoom level
+const Y_ZOOM_DESCRIPTIONS = [
+  {
+    max: 12,
+    gridLineSpacing: 5,
+    tickMarkSpacing: 5,
+    tickLabelSpacing: 5
+  },
+  {
+    max: 10,
+    gridLineSpacing: 5,
+    tickMarkSpacing: 5,
+    tickLabelSpacing: 5
+  },
+  {
+    max: 8,
+    gridLineSpacing: 1,
+    tickMarkSpacing: 5,
+    tickLabelSpacing: 5
+  },
+  {
+    max: 6,
+    gridLineSpacing: 1,
+    tickMarkSpacing: 5,
+    tickLabelSpacing: 5
+  },
+  {
+    max: 4,
+    gridLineSpacing: 1,
+    tickMarkSpacing: 2,
+    tickLabelSpacing: 2
+  },
+  {
+    max: 2,
+    gridLineSpacing: 1,
+    tickMarkSpacing: 1,
+    tickLabelSpacing: 1
+  },
+  {
+    max: FMWConstants.MAX_ABSOLUTE_AMPLITUDE,
+    gridLineSpacing: 0.5,
+    tickMarkSpacing: 0.5,
+    tickLabelSpacing: 0.5
+  }
+];
+
 class DiscreteViewProperties {
 
   constructor() {
@@ -183,7 +237,7 @@ class DiscreteViewProperties {
       range: new Range( 0, X_ZOOM_DESCRIPTIONS.length - 1 )
     } );
 
-    // @public {DerivedProperty.<Object>} x-axis description
+    // @public {DerivedProperty.<XZoomDescription>} x-axis zoom description
     this.xZoomDescriptionProperty = new DerivedProperty(
       [ this.xZoomLevelProperty ],
       xZoomLevel => X_ZOOM_DESCRIPTIONS[ xZoomLevel ]
@@ -191,8 +245,14 @@ class DiscreteViewProperties {
 
     // @public zoom level for the y axis, index into Y_MAXIMUMS and Y_TICK_SPACINGS
     this.yZoomLevelProperty = new NumberProperty( 0, {
-      range: new Range( 0, 6 )
+      range: new Range( 0, Y_ZOOM_DESCRIPTIONS.length - 1 )
     } );
+
+    // @public {DerivedProperty.<YZoomDescription>} y-axis zoom description
+    this.yZoomDescriptionProperty = new DerivedProperty(
+      [ this.yZoomLevelProperty ],
+      yZoomLevel => Y_ZOOM_DESCRIPTIONS[ yZoomLevel ]
+    );
   }
 
   /**

@@ -123,11 +123,14 @@ class DiscreteChart extends Node {
     this.chartRectangle = chartRectangle;
     this.xTickLabels = xTickLabels;
 
-    // @private
+    // @private used by methods
     this.chartModel = chartModel;
     this.xGridLines = xGridLines;
+    this.yGridLines = yGridLines;
     this.xTickMarks = xTickMarks;
+    this.yTickMarks = yTickMarks;
     this.xTickLabels = xTickLabels;
+    this.yTickLabels = yTickLabels;
   }
 
   /**
@@ -157,10 +160,11 @@ class DiscreteChart extends Node {
   }
 
   /**
+   * @param {Range} range
    * @public
    */
-  setYRange() {
-    //TODO
+  setYRange( range ) {
+    this.chartModel.setModelYRange( range );
   }
 
   /**
@@ -172,10 +176,11 @@ class DiscreteChart extends Node {
   }
 
   /**
+   * @param {number} spacing
    * @public
    */
-  setYGridLineSpacing() {
-    //TODO
+  setYGridLineSpacing( spacing ) {
+    this.yGridLines.setSpacing( spacing );
   }
 
   /**
@@ -187,10 +192,11 @@ class DiscreteChart extends Node {
   }
 
   /**
+   * @param {number} spacing
    * @public
    */
-  setYTickMarkSpacing() {
-    //TODO
+  setYTickMarkSpacing( spacing ) {
+    this.yTickMarks.setSpacing( spacing );
   }
 
   /**
@@ -202,10 +208,11 @@ class DiscreteChart extends Node {
   }
 
   /**
+   * @param {number} spacing
    * @public
    */
-  setYTickLabelSpacing() {
-    //TODO
+  setYTickLabelSpacing( spacing ) {
+    this.yTickLabels.setSpacing( spacing );
   }
 }
 
