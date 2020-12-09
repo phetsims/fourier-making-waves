@@ -8,9 +8,14 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import LinePlot from '../../../../bamboo/js/LinePlot.js';
+import Range from '../../../../dot/js/Range.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FWMConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
@@ -19,6 +24,13 @@ import WaveType from '../model/WaveType.js';
 import ZoomDescription from '../model/ZoomDescription.js';
 import DiscreteChart from './DiscreteChart.js';
 import HarmonicsEquationNode from './HarmonicsEquationNode.js';
+
+// constants
+
+//TODO compute this dynamically, so that fewer points are needed as we zoom in.
+// Number of points in the data set for each plot. This value was chosen empirically, such that the highest order
+// harmonic looks smooth when the chart is fully zoomed out.
+const POINTS_PER_PLOT = 2000;
 
 class HarmonicsChart extends DiscreteChart {
 
@@ -62,7 +74,74 @@ class HarmonicsChart extends DiscreteChart {
       equationNode.centerX = this.chartRectangle.centerX;
       equationNode.bottom = this.chartRectangle.top - 5;
     } );
+
+    // Create a LinePlot for each harmonic
+    for ( let order = 1; order <= fourierSeries.harmonics.length; order++ ) {
+
+      const harmonic = fourierSeries.harmonics[ order - 1 ];
+
+      const linePlot = new LinePlot( this.chartModel, [], {
+        stroke: harmonic.colorProperty
+      } );
+      this.addChild( linePlot );
+
+      const updateDataSet = () => {
+        if ( harmonic.order <= fourierSeries.numberOfHarmonicsProperty.value ) {
+          linePlot.setDataSet( createDataSet( harmonic.order, harmonic.amplitudeProperty.value, this.chartModel.modelXRange, domainProperty.value, waveTypeProperty.value ) );
+        }
+        else {
+          linePlot.setDataSet( [] );
+        }
+      };
+
+      this.chartModel.transformChangedEmitter.addListener( updateDataSet );
+      Property.multilink( [ fourierSeries.numberOfHarmonicsProperty, harmonic.amplitudeProperty, domainProperty, waveTypeProperty ], updateDataSet );
+    }
   }
+}
+
+//TODO support for Domain.SPACE_AND_TIME
+/**
+ * Creates a data set used to create a LinePlot for a harmonic.
+ * @param {number} order
+ * @param {number} amplitude
+ * @param {Range} range
+ * @param {Domain} domain
+ * @param {WaveType} waveType
+ * @returns {Vector2[]}
+ */
+function createDataSet( order, amplitude, range, domain, waveType ) {
+
+  assert && AssertUtils.assertPositiveInteger( order );
+  assert && assert( typeof amplitude === 'number', 'invalid amplitude' );
+  assert && assert( range instanceof Range, 'invalid range' );
+  assert && assert( Domain.includes( domain ), 'invalid domain' );
+  assert && assert( WaveType.includes( waveType ), 'invalid waveType' );
+
+  const dx = range.getLength() / POINTS_PER_PLOT;
+
+  const dataSet = [];
+  for ( let x = range.min; x <= range.max; x += dx ) {
+    let y;
+    if ( domain === Domain.TIME ) {
+      if ( waveType === WaveType.SINE ) {
+        y = amplitude * Math.sin( 2 * Math.PI * order * x / FWMConstants.T );
+      }
+      else {
+        y = amplitude * Math.cos( 2 * Math.PI * order * x / FWMConstants.T );
+      }
+    }
+    else {
+      if ( waveType === WaveType.SINE ) {
+        y = amplitude * Math.sin( 2 * Math.PI * order * x / FWMConstants.L );
+      }
+      else {
+        y = amplitude * Math.cos( 2 * Math.PI * order * x / FWMConstants.L );
+      }
+    }
+    dataSet.push( new Vector2( x, y ) );
+  }
+  return dataSet;
 }
 
 fourierMakingWaves.register( 'HarmonicsChart', HarmonicsChart );
