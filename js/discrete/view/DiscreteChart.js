@@ -26,6 +26,7 @@ import ZoomButtonGroup from '../../../../scenery-phet/js/ZoomButtonGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
@@ -36,7 +37,27 @@ import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
 import ZoomDescription from '../model/ZoomDescription.js';
 
-const DEFAULT_SPACING = 1; // this can be anything, just need a value for initialization
+// constants
+const AXIS_OPTIONS = {
+  fill: Color.BLACK,
+  stroke: null,
+  tailWidth: 1
+};
+
+const GRID_LINE_OPTIONS = {
+  stroke: new Color( 0, 0, 0, 0.15 )
+};
+
+const TICK_MARK_OPTIONS = {
+  edge: 'min',
+  extent: 6
+};
+
+const TICK_LABEL_OPTIONS = {
+  edge: 'min'
+};
+
+const TICK_LABEL_DECIMAL_PLACES = 2;
 
 class DiscreteChart extends Node {
 
@@ -66,12 +87,13 @@ class DiscreteChart extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const L = FMWConstants.L;
+    const xZoomDescription = xZoomDescriptionProperty.value;
+    const yZoomDescription = ZoomDescription.Y_ZOOM_DESCRIPTIONS[ ZoomDescription.Y_DEFAULT_ZOOM_LEVEL ];
 
     // bamboo chart model
     const chartModel = new ChartModel( options.viewWidth, options.viewHeight, {
-      modelXRange: new Range( -L / 2, L / 2 ),
-      modelYRange: fourierSeries.amplitudeRange
+      modelXRange: new Range( -xZoomDescription.max, xZoomDescription.max ),
+      modelYRange: new Range( -yZoomDescription.max, yZoomDescription.max )
     } );
 
     // The chart's background rectangle
@@ -82,13 +104,12 @@ class DiscreteChart extends Node {
     } );
 
     // x axis
-    const xAxis = new AxisNode( chartModel, Orientation.HORIZONTAL, FMWConstants.AXIS_OPTIONS );
-    const xGridLines = new GridLineSet( chartModel, Orientation.HORIZONTAL, DEFAULT_SPACING, FMWConstants.GRID_LINE_OPTIONS );
-    const xTickMarks = new TickMarkSet( chartModel, Orientation.HORIZONTAL, DEFAULT_SPACING, FMWConstants.TICK_MARK_OPTIONS );
-    const xTickLabels = new LabelSet( chartModel, Orientation.HORIZONTAL, DEFAULT_SPACING, {
-      edge: 'min',
+    const xAxis = new AxisNode( chartModel, Orientation.HORIZONTAL, AXIS_OPTIONS );
+    const xGridLines = new GridLineSet( chartModel, Orientation.HORIZONTAL, xZoomDescription.gridLineSpacing, GRID_LINE_OPTIONS );
+    const xTickMarks = new TickMarkSet( chartModel, Orientation.HORIZONTAL, xZoomDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
+    const xTickLabels = new LabelSet( chartModel, Orientation.HORIZONTAL, xZoomDescription.tickLabelSpacing, merge( {
       createLabel: value => createTickLabel( value, domainProperty.value, mathFormProperty.value )
-    } );
+    }, TICK_LABEL_OPTIONS ) );
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
       maxWidth: 35, // determined empirically
@@ -108,7 +129,7 @@ class DiscreteChart extends Node {
     const spaceLabel = StringUtils.fillIn( fourierMakingWavesStrings.xMeters, { x: FMWSymbols.x } );
     const timeLabel = StringUtils.fillIn( fourierMakingWavesStrings.tMilliseconds, { t: FMWSymbols.t } );
     domainProperty.link( domain => {
-      xAxisLabel.text = ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME ) ? spaceLabel : timeLabel;
+      xAxisLabel.text = ( domain === Domain.TIME ) ? timeLabel : spaceLabel;
       xAxisLabel.left = chartRectangle.right + 6;
       xAxisLabel.centerY = chartRectangle.centerY;
     } );
@@ -129,13 +150,12 @@ class DiscreteChart extends Node {
     mathFormProperty.link( mathForm => xTickLabels.invalidateLabelSet() );
 
     // y axis
-    const yAxis = new AxisNode( chartModel, Orientation.VERTICAL, FMWConstants.AXIS_OPTIONS );
-    const yGridLines = new GridLineSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.GRID_LINE_OPTIONS );
-    const yTickMarks = new TickMarkSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.TICK_MARK_OPTIONS );
-    const yTickLabels = new LabelSet( chartModel, Orientation.VERTICAL, 0.5, {
-      edge: 'min',
+    const yAxis = new AxisNode( chartModel, Orientation.VERTICAL, AXIS_OPTIONS );
+    const yGridLines = new GridLineSet( chartModel, Orientation.VERTICAL, yZoomDescription.gridLineSpacing, GRID_LINE_OPTIONS );
+    const yTickMarks = new TickMarkSet( chartModel, Orientation.VERTICAL, yZoomDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
+    const yTickLabels = new LabelSet( chartModel, Orientation.VERTICAL, yZoomDescription.tickLabelSpacing, merge( {
       createLabel: createNumericTickLabel
-    } );
+    }, TICK_LABEL_OPTIONS ) );
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
@@ -209,7 +229,7 @@ function createTickLabel( value, domain, mathForm ) {
 function createNumericTickLabel( value ) {
 
   // Truncate trailing zeros
-  return new Text( Utils.toFixedNumber( value, FMWConstants.TICK_LABEL_DECIMAL_PLACES ), {
+  return new Text( Utils.toFixedNumber( value, TICK_LABEL_DECIMAL_PLACES ), {
     font: FMWConstants.TICK_LABEL_FONT
   } );
 }
@@ -236,8 +256,8 @@ function createSymbolicTickLabel( value, domain ) {
 
     // Pieces of the fraction that we need to create the RichText markup, with trailing zeros truncated
     const sign = Math.sign( value );
-    const numerator = Math.abs( Utils.toFixedNumber( fraction.numerator, FMWConstants.TICK_LABEL_DECIMAL_PLACES ) );
-    const denominator = Math.abs( Utils.toFixedNumber( fraction.denominator, FMWConstants.TICK_LABEL_DECIMAL_PLACES ) );
+    const numerator = Math.abs( Utils.toFixedNumber( fraction.numerator, TICK_LABEL_DECIMAL_PLACES ) );
+    const denominator = Math.abs( Utils.toFixedNumber( fraction.denominator, TICK_LABEL_DECIMAL_PLACES ) );
 
     text = '';
     if ( sign === -1 ) {

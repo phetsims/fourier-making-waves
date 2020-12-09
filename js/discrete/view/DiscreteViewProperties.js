@@ -41,7 +41,7 @@ class DiscreteViewProperties {
     //TODO move chart Properties somewhere else? FMWChartModel?
 
     // @public zoom level for the x axis
-    this.xZoomLevelProperty = new NumberProperty( 0, {
+    this.xZoomLevelProperty = new NumberProperty( ZoomDescription.X_DEFAULT_ZOOM_LEVEL, {
       range: new Range( 0, ZoomDescription.X_ZOOM_DESCRIPTIONS.length - 1 )
     } );
 
@@ -52,7 +52,7 @@ class DiscreteViewProperties {
     );
 
     // @public zoom level for the y axis
-    this.yZoomLevelProperty = new NumberProperty( 0, {
+    this.yZoomLevelProperty = new NumberProperty( ZoomDescription.Y_DEFAULT_ZOOM_LEVEL, {
       range: new Range( 0, ZoomDescription.Y_ZOOM_DESCRIPTIONS.length - 1 )
     } );
 

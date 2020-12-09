@@ -7,7 +7,6 @@
  */
 
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import Color from '../../../scenery/js/util/Color.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWColorProfile from './FMWColorProfile.js';
 
@@ -79,24 +78,7 @@ const FMWConstants = {
   AMPLITUDE_SLIDER_DECIMAL_PLACES: 2,
   AMPLITUDE_SLIDER_SNAP_INTERVAL: 0.05,
 
-  ZOOM_BUTTON_GROUP_SCALE: 0.75,
-
-  AXIS_OPTIONS: {
-    fill: Color.BLACK,
-    stroke: null,
-    tailWidth: 1
-  },
-
-  GRID_LINE_OPTIONS: {
-    stroke: new Color( 0, 0, 0, 0.15 )
-  },
-
-  TICK_MARK_OPTIONS: {
-    edge: 'min',
-    extent: 6
-  },
-
-  TICK_LABEL_DECIMAL_PLACES: 2
+  ZOOM_BUTTON_GROUP_SCALE: 0.75
 };
 
 fourierMakingWaves.register( 'FMWConstants', FMWConstants );
