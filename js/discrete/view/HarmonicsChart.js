@@ -99,8 +99,13 @@ class HarmonicsChart extends DiscreteChart {
         }
       };
 
+      // removeListener is not needed.
       this.chartModel.transformChangedEmitter.addListener( updateDataSet );
-      Property.multilink( [ fourierSeries.numberOfHarmonicsProperty, harmonic.amplitudeProperty, domainProperty, waveTypeProperty ], updateDataSet );
+
+      // unmultilink is not needed.
+      Property.multilink(
+        [ fourierSeries.numberOfHarmonicsProperty, harmonic.amplitudeProperty, domainProperty, waveTypeProperty ],
+        updateDataSet );
     }
 
     // Clip LinePlots to chartRectangle.
@@ -122,6 +127,7 @@ class HarmonicsChart extends DiscreteChart {
 
 /**
  * Creates a data set used to create a LinePlot for a harmonic.
+ * This algorithm uses the equations that correspond to MathForm.MODE.
  * @param {number} order
  * @param {number} amplitude
  * @param {Range} range
@@ -142,7 +148,15 @@ function createDataSet( order, amplitude, range, domain, waveType ) {
   const dataSet = [];
   for ( let x = range.min; x <= range.max; x += dx ) {
     let y;
-    if ( domain === Domain.TIME ) {
+    if ( domain === Domain.SPACE ) {
+      if ( waveType === WaveType.SINE ) {
+        y = amplitude * Math.sin( 2 * Math.PI * order * x / FWMConstants.L );
+      }
+      else {
+        y = amplitude * Math.cos( 2 * Math.PI * order * x / FWMConstants.L );
+      }
+    }
+    else if ( domain === Domain.TIME ) {
       if ( waveType === WaveType.SINE ) {
         y = amplitude * Math.sin( 2 * Math.PI * order * x / FWMConstants.T );
       }
@@ -151,12 +165,8 @@ function createDataSet( order, amplitude, range, domain, waveType ) {
       }
     }
     else {
-      if ( waveType === WaveType.SINE ) {
-        y = amplitude * Math.sin( 2 * Math.PI * order * x / FWMConstants.L );
-      }
-      else {
-        y = amplitude * Math.cos( 2 * Math.PI * order * x / FWMConstants.L );
-      }
+      //TODO support for Domain.SPACE_AND_TIME
+      y = 0;
     }
     dataSet.push( new Vector2( x, y ) );
   }
