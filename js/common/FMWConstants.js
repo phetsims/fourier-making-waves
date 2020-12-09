@@ -14,7 +14,6 @@ import FMWColorProfile from './FMWColorProfile.js';
 // constants - model
 const FUNDAMENTAL_FREQUENCY = 440; // Hz
 const SPEED_OF_SOUND = 343.2; // meters/second
-const FUNDAMENTAL_WAVELENGTH = SPEED_OF_SOUND / FUNDAMENTAL_FREQUENCY; // meters
 
 // constants - view
 const PANEL_CORNER_RADIUS = 5;
@@ -32,9 +31,10 @@ const FMWConstants = {
   // see https://github.com/phetsims/fourier-making-waves/issues/22
   MAX_ABSOLUTE_AMPLITUDE: 1.5,
 
-  FUNDAMENTAL_FREQUENCY: FUNDAMENTAL_FREQUENCY,
-  FUNDAMENTAL_WAVELENGTH: FUNDAMENTAL_WAVELENGTH,
+  FUNDAMENTAL_FREQUENCY: FUNDAMENTAL_FREQUENCY, // frequency of the fundamental, in Hz
   T: 1000 / FUNDAMENTAL_FREQUENCY, // period of the fundamental, in milliseconds
+
+  FUNDAMENTAL_WAVELENGTH: SPEED_OF_SOUND / FUNDAMENTAL_FREQUENCY, // meters
 
   // View ============================================================================================================
 
