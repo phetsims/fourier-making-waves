@@ -28,9 +28,8 @@ const FMWConstants = {
   // string length, in meters
   L: 1,
 
-  // The amplitude range is [-4/pi, 4/pi] because of the factor of 4/pi in the Fourier series of a square wave.
-  // For n=1, the amplitude is 4/pi. See https://mathworld.wolfram.com/FourierSeriesSquareWave.html and
-  // https://github.com/phetsims/fourier-making-waves/issues/11
+  // amplitude range is [-MAX_ABSOLUTE_AMPLITUDE, MAX_ABSOLUTE_AMPLITUDE]
+  // see https://github.com/phetsims/fourier-making-waves/issues/22
   MAX_ABSOLUTE_AMPLITUDE: 1.5,
 
   FUNDAMENTAL_FREQUENCY: FUNDAMENTAL_FREQUENCY,
