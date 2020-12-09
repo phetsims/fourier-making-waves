@@ -61,6 +61,8 @@ const X_ZOOM_DESCRIPTIONS = [
     tickLabelSpacing: 1 / 4
   }
 ];
+assert && assert( _.every( X_ZOOM_DESCRIPTIONS, ( value, index, array ) => ( index === 0 || array[ index - 1 ].max > value.max ) ),
+  'X_ZOOM_DESCRIPTIONS must be sorted by descending max value' );
 
 // {ZoomDescription[]} zoom descriptions for the y axis, one for each zoom level
 const Y_ZOOM_DESCRIPTIONS = [
@@ -119,6 +121,8 @@ const Y_ZOOM_DESCRIPTIONS = [
     tickLabelSpacing: 0.5
   }
 ];
+assert && assert( _.every( Y_ZOOM_DESCRIPTIONS, ( value, index, array ) => ( index === 0 || array[ index - 1 ].max > value.max ) ),
+  'Y_ZOOM_DESCRIPTIONS must be sorted by descending max value' );
 
 class DiscreteViewProperties {
 
