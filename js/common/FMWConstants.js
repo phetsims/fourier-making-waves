@@ -3,7 +3,7 @@
 /**
  * FMWConstants defines constants used throughout this simulation.
  *
- * @author Chris Malley (PixelZoom, Inc.
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
