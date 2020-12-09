@@ -63,7 +63,7 @@ class DiscreteScreenView extends ScreenView {
     const chartViewHeight = 0.2 * this.layoutBounds.height;
 
     const amplitudesChart = new AmplitudesChart( model.fourierSeries, amplitudeKeypadDialog, model.waveformProperty, {
-      viewWidth: chartViewWidth + 40, // a bit wider than the other charts
+      viewWidth: chartViewWidth + 30, // a bit wider than the other charts
       viewHeight: chartViewHeight,
       tandem: tandem.createTandem( 'amplitudesChart' )
     } );
