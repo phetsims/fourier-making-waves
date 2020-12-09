@@ -91,7 +91,7 @@ class DiscreteChart extends Node {
     } );
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
-      maxWidth: 50, // determined empirically
+      maxWidth: 35, // determined empirically
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
@@ -99,7 +99,7 @@ class DiscreteChart extends Node {
     const xZoomButtonGroup = new ZoomButtonGroup( xZoomLevelProperty, {
       orientation: 'horizontal',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
-      left: chartRectangle.right + 5,
+      left: chartRectangle.right + 6,
       bottom: chartRectangle.bottom,
       tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
     } );
@@ -109,7 +109,7 @@ class DiscreteChart extends Node {
     const timeLabel = StringUtils.fillIn( fourierMakingWavesStrings.tMilliseconds, { t: FMWSymbols.t } );
     domainProperty.link( domain => {
       xAxisLabel.text = ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME ) ? spaceLabel : timeLabel;
-      xAxisLabel.left = chartRectangle.right + 10;
+      xAxisLabel.left = chartRectangle.right + 6;
       xAxisLabel.centerY = chartRectangle.centerY;
     } );
 

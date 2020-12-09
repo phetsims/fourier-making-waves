@@ -114,7 +114,7 @@ class SumChart extends DiscreteChart {
     const yZoomButtonGroup = new ZoomButtonGroup( yZoomLevelProperty, {
       orientation: 'vertical',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
-      left: this.chartRectangle.right + 5,
+      left: this.chartRectangle.right + 6,
       top: this.chartRectangle.top,
       tandem: options.tandem.createTandem( 'yZoomButtonGroup' )
     } );
