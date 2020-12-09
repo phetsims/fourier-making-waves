@@ -201,15 +201,6 @@ class DiscreteChart extends Node {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
-
-  /**
-   * Steps the chart.
-   * @param {number} dt - time step, in seconds
-   * @public
-   */
-  step( dt ) {
-    //TODO
-  }
 }
 
 function createTickLabel( value, domain, mathForm ) {

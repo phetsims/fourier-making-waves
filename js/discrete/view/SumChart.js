@@ -152,6 +152,15 @@ class SumChart extends DiscreteChart {
     } );
     this.addChild( checkboxesParent );
   }
+
+  /**
+   * Steps the chart.
+   * @param {number} dt - time step, in seconds
+   * @public
+   */
+  step( dt ) {
+    //TODO
+  }
 }
 
 fourierMakingWaves.register( 'SumChart', SumChart );

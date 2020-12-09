@@ -109,9 +109,17 @@ class HarmonicsChart extends DiscreteChart {
       clipArea: this.chartRectangle.getShape()
     } ) );
   }
+
+  /**
+   * Steps the chart.
+   * @param {number} dt - time step, in seconds
+   * @public
+   */
+  step( dt ) {
+    //TODO support for Domain.SPACE_AND_TIME
+  }
 }
 
-//TODO support for Domain.SPACE_AND_TIME
 /**
  * Creates a data set used to create a LinePlot for a harmonic.
  * @param {number} order
