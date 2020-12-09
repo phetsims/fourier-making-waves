@@ -14,6 +14,7 @@ import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FWMConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
@@ -75,19 +76,23 @@ class HarmonicsChart extends DiscreteChart {
       equationNode.bottom = this.chartRectangle.top - 5;
     } );
 
-    // Create a LinePlot for each harmonic
-    for ( let order = 1; order <= fourierSeries.harmonics.length; order++ ) {
+    // Create a LinePlot for each harmonic, in reverse order so that the fundamental is on top.
+    const linePlots = [];
+    for ( let order = fourierSeries.harmonics.length; order >= 1; order-- ) {
 
       const harmonic = fourierSeries.harmonics[ order - 1 ];
 
       const linePlot = new LinePlot( this.chartModel, [], {
         stroke: harmonic.colorProperty
       } );
-      this.addChild( linePlot );
+      linePlots.push( linePlot );
 
       const updateDataSet = () => {
-        if ( harmonic.order <= fourierSeries.numberOfHarmonicsProperty.value ) {
-          linePlot.setDataSet( createDataSet( harmonic.order, harmonic.amplitudeProperty.value, this.chartModel.modelXRange, domainProperty.value, waveTypeProperty.value ) );
+        const amplitude = harmonic.amplitudeProperty.value;
+
+        //TODO do we want to show 0 amplitudes? Java version does not.
+        if ( harmonic.order <= fourierSeries.numberOfHarmonicsProperty.value && amplitude !== 0 ) {
+          linePlot.setDataSet( createDataSet( harmonic.order, amplitude, this.chartModel.modelXRange, domainProperty.value, waveTypeProperty.value ) );
         }
         else {
           linePlot.setDataSet( [] );
@@ -97,6 +102,12 @@ class HarmonicsChart extends DiscreteChart {
       this.chartModel.transformChangedEmitter.addListener( updateDataSet );
       Property.multilink( [ fourierSeries.numberOfHarmonicsProperty, harmonic.amplitudeProperty, domainProperty, waveTypeProperty ], updateDataSet );
     }
+
+    // Clip LinePlots to chartRectangle.
+    this.addChild( new Node( {
+      children: linePlots,
+      clipArea: this.chartRectangle.getShape()
+    } ) );
   }
 }
 
