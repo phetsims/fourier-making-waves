@@ -1,7 +1,8 @@
 // Copyright 2020, University of Colorado Boulder
 
+//TODO need a better name for this
 /**
- * TODO
+ * WaveType indicates whether the waveform is being approximated using sines or cosines.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

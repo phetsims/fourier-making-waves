@@ -54,6 +54,7 @@ class GraphControlsLayoutBox extends VBox {
       children: [ functionOfText, domainComboBox ]
     } );
 
+    //TODO should this group be labeled?
     const waveTypeRadioButtonGroup = new WaveTypeRadioButtonGroup( waveTypeProperty );
 
     assert && assert( !options.children, 'GraphControls sets children' );
