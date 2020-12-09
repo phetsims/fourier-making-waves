@@ -65,7 +65,13 @@ const X_ZOOM_DESCRIPTIONS = [
 // {ZoomDescription[]} zoom descriptions for the y axis, one for each zoom level
 const Y_ZOOM_DESCRIPTIONS = [
   {
-    max: 12,
+    max: 20,
+    gridLineSpacing: 5,
+    tickMarkSpacing: 10,
+    tickLabelSpacing: 10
+  },
+  {
+    max: 15,
     gridLineSpacing: 5,
     tickMarkSpacing: 5,
     tickLabelSpacing: 5
@@ -83,7 +89,7 @@ const Y_ZOOM_DESCRIPTIONS = [
     tickLabelSpacing: 5
   },
   {
-    max: 6,
+    max: 5,
     gridLineSpacing: 1,
     tickMarkSpacing: 5,
     tickLabelSpacing: 5
@@ -93,6 +99,12 @@ const Y_ZOOM_DESCRIPTIONS = [
     gridLineSpacing: 1,
     tickMarkSpacing: 2,
     tickLabelSpacing: 2
+  },
+  {
+    max: 3,
+    gridLineSpacing: 1,
+    tickMarkSpacing: 1,
+    tickLabelSpacing: 1
   },
   {
     max: 2,

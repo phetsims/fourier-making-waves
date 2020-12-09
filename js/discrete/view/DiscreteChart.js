@@ -129,9 +129,9 @@ class DiscreteChart extends Node {
 
     // y axis
     const yAxis = new AxisNode( chartModel, Orientation.VERTICAL, FMWConstants.AXIS_OPTIONS );
-    const yGridLines = new GridLineSet( chartModel, Orientation.VERTICAL, DEFAULT_SPACING, FMWConstants.GRID_LINE_OPTIONS );
-    const yTickMarks = new TickMarkSet( chartModel, Orientation.VERTICAL, DEFAULT_SPACING, FMWConstants.TICK_MARK_OPTIONS );
-    const yTickLabels = new LabelSet( chartModel, Orientation.VERTICAL, DEFAULT_SPACING, {
+    const yGridLines = new GridLineSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.GRID_LINE_OPTIONS );
+    const yTickMarks = new TickMarkSet( chartModel, Orientation.VERTICAL, 0.5, FMWConstants.TICK_MARK_OPTIONS );
+    const yTickLabels = new LabelSet( chartModel, Orientation.VERTICAL, 0.5, {
       edge: 'min',
       createLabel: createNumericTickLabel
     } );

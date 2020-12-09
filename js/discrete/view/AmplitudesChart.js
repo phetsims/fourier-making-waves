@@ -68,12 +68,6 @@ class AmplitudesChart extends Node {
       stroke: new Color( 0, 0, 0, 0.3 )
     } );
 
-    // Faint grid lines at min and max
-    const yMinMaxGridLineSet = new GridLineSet( chartModel, Orientation.VERTICAL, fourierSeries.amplitudeRange.max, {
-      stroke: new Color( 0, 0, 0, 0.2 ),
-      lineWidth: 0.5
-    } );
-
     const yLabelSet = new LabelSet( chartModel, Orientation.VERTICAL, 0.5, {
       edge: 'min',
       createLabel: value => new Text( Utils.toFixedNumber( value, 1 ), { fontSize: 12 } )
@@ -118,7 +112,7 @@ class AmplitudesChart extends Node {
     options.children = [
       chartRectangle,
       xAxisLabel,
-      yAxisLabel, yGridLineSet, yMinMaxGridLineSet, yLabelSet,
+      yAxisLabel, yGridLineSet, yLabelSet,
       ...sliders,
       ...numberDisplays
     ];
