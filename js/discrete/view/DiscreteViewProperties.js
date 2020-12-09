@@ -11,118 +11,8 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
-import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-
-/**
- * @typedef {Object} ZoomDescription
- * @property {number} max - multiplier for L or T
- * @property {number} gridLineSpacing - multiplier for L or T
- * @property {number} tickMarkSpacing - multiplier for L or T
- */
-
-// {ZoomDescription[]} zoom descriptions for the x axis, one for each zoom level
-// These values are all multipliers for L and T.
-const X_ZOOM_DESCRIPTIONS = [
-  {
-    max: 2,
-    gridLineSpacing: 1 / 8,
-    tickMarkSpacing: 1 / 4,
-    tickLabelSpacing: 1 / 2
-  },
-  {
-    max: 3 / 2,
-    gridLineSpacing: 1 / 8,
-    tickMarkSpacing: 1 / 4,
-    tickLabelSpacing: 1 / 2
-  },
-  {
-    max: 1,
-    gridLineSpacing: 1 / 8,
-    tickMarkSpacing: 1 / 4,
-    tickLabelSpacing: 1 / 4
-  },
-  {
-    max: 3 / 4,
-    gridLineSpacing: 1 / 8,
-    tickMarkSpacing: 1 / 4,
-    tickLabelSpacing: 1 / 4
-  },
-  {
-    max: 1 / 2,
-    gridLineSpacing: 1 / 8,
-    tickMarkSpacing: 1 / 4,
-    tickLabelSpacing: 1 / 4
-  },
-  {
-    max: 1 / 4,
-    gridLineSpacing: 1 / 8,
-    tickMarkSpacing: 1 / 4,
-    tickLabelSpacing: 1 / 4
-  }
-];
-assert && assert( _.every( X_ZOOM_DESCRIPTIONS, ( value, index, array ) => ( index === 0 || array[ index - 1 ].max > value.max ) ),
-  'X_ZOOM_DESCRIPTIONS must be sorted by descending max value' );
-
-// {ZoomDescription[]} zoom descriptions for the y axis, one for each zoom level
-const Y_ZOOM_DESCRIPTIONS = [
-  {
-    max: 20,
-    gridLineSpacing: 5,
-    tickMarkSpacing: 10,
-    tickLabelSpacing: 10
-  },
-  {
-    max: 15,
-    gridLineSpacing: 5,
-    tickMarkSpacing: 5,
-    tickLabelSpacing: 5
-  },
-  {
-    max: 10,
-    gridLineSpacing: 5,
-    tickMarkSpacing: 5,
-    tickLabelSpacing: 5
-  },
-  {
-    max: 8,
-    gridLineSpacing: 1,
-    tickMarkSpacing: 5,
-    tickLabelSpacing: 5
-  },
-  {
-    max: 5,
-    gridLineSpacing: 1,
-    tickMarkSpacing: 5,
-    tickLabelSpacing: 5
-  },
-  {
-    max: 4,
-    gridLineSpacing: 1,
-    tickMarkSpacing: 2,
-    tickLabelSpacing: 2
-  },
-  {
-    max: 3,
-    gridLineSpacing: 1,
-    tickMarkSpacing: 1,
-    tickLabelSpacing: 1
-  },
-  {
-    max: 2,
-    gridLineSpacing: 1,
-    tickMarkSpacing: 1,
-    tickLabelSpacing: 1
-  },
-  {
-    max: FMWConstants.MAX_ABSOLUTE_AMPLITUDE,
-    gridLineSpacing: 0.5,
-    tickMarkSpacing: 0.5,
-    tickLabelSpacing: 0.5
-  }
-];
-assert && assert( _.every( Y_ZOOM_DESCRIPTIONS, ( value, index, array ) => ( index === 0 || array[ index - 1 ].max > value.max ) ),
-  'Y_ZOOM_DESCRIPTIONS must be sorted by descending max value' );
+import ZoomDescription from '../model/ZoomDescription.js';
 
 class DiscreteViewProperties {
 
@@ -150,26 +40,26 @@ class DiscreteViewProperties {
 
     //TODO move chart Properties somewhere else? FMWChartModel?
 
-    // @public zoom level for the x axis, index into X_MAXIMUM_MULTIPLIERS and X_TICK_SPACING_MULTIPLIERS
+    // @public zoom level for the x axis
     this.xZoomLevelProperty = new NumberProperty( 0, {
-      range: new Range( 0, X_ZOOM_DESCRIPTIONS.length - 1 )
+      range: new Range( 0, ZoomDescription.X_ZOOM_DESCRIPTIONS.length - 1 )
     } );
 
     // @public {DerivedProperty.<ZoomDescription>} x-axis zoom description
     this.xZoomDescriptionProperty = new DerivedProperty(
       [ this.xZoomLevelProperty ],
-      xZoomLevel => X_ZOOM_DESCRIPTIONS[ xZoomLevel ]
+      xZoomLevel => ZoomDescription.X_ZOOM_DESCRIPTIONS[ xZoomLevel ]
     );
 
-    // @public zoom level for the y axis, index into Y_MAXIMUMS and Y_TICK_SPACINGS
+    // @public zoom level for the y axis
     this.yZoomLevelProperty = new NumberProperty( 0, {
-      range: new Range( 0, Y_ZOOM_DESCRIPTIONS.length - 1 )
+      range: new Range( 0, ZoomDescription.Y_ZOOM_DESCRIPTIONS.length - 1 )
     } );
 
     // @public {DerivedProperty.<ZoomDescription>} y-axis zoom description
     this.yZoomDescriptionProperty = new DerivedProperty(
       [ this.yZoomLevelProperty ],
-      yZoomLevel => Y_ZOOM_DESCRIPTIONS[ yZoomLevel ]
+      yZoomLevel => ZoomDescription.Y_ZOOM_DESCRIPTIONS[ yZoomLevel ]
     );
   }
 

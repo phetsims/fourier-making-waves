@@ -8,7 +8,6 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -17,6 +16,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
 import WaveType from '../model/WaveType.js';
+import ZoomDescription from '../model/ZoomDescription.js';
 import DiscreteChart from './DiscreteChart.js';
 import HarmonicsEquationNode from './HarmonicsEquationNode.js';
 
@@ -38,7 +38,7 @@ class HarmonicsChart extends DiscreteChart {
     assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
-    assert && assert( xZoomDescriptionProperty instanceof Property, 'invalid xZoomDescriptionProperty' );
+    assert && AssertUtils.assertPropertyOf( xZoomDescriptionProperty, ZoomDescription );
 
     options = merge( {
 

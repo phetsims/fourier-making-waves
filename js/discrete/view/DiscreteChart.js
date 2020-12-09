@@ -34,6 +34,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
+import ZoomDescription from '../model/ZoomDescription.js';
 
 const DEFAULT_SPACING = 1; // this can be anything, just need a value for initialization
 
@@ -53,7 +54,7 @@ class DiscreteChart extends Node {
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
-    assert && assert( xZoomDescriptionProperty instanceof Property, 'invalid xZoomDescriptionProperty' );
+    assert && AssertUtils.assertPropertyOf( xZoomDescriptionProperty, ZoomDescription );
 
     options = merge( {
 

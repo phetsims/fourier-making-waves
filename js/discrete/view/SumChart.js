@@ -8,7 +8,6 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -21,6 +20,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
 import WaveType from '../model/WaveType.js';
+import ZoomDescription from '../model/ZoomDescription.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
 import DiscreteChart from './DiscreteChart.js';
 import ExpandedFormButton from './ExpandedFormButton.js';
@@ -53,9 +53,9 @@ class SumChart extends DiscreteChart {
     assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
-    assert && assert( xZoomDescriptionProperty instanceof Property, 'invalid xZoomDescriptionProperty' );
+    assert && AssertUtils.assertPropertyOf( xZoomDescriptionProperty, ZoomDescription );
     assert && assert( yZoomLevelProperty instanceof NumberProperty, 'invalid yZoomLevelProperty' );
-    assert && assert( yZoomDescriptionProperty instanceof Property, 'invalid yZoomDescriptionProperty' );
+    assert && AssertUtils.assertPropertyOf( yZoomDescriptionProperty, ZoomDescription );
     assert && AssertUtils.assertPropertyOf( autoScaleProperty, 'boolean' );
     assert && AssertUtils.assertPropertyOf( infiniteHarmonicsVisibleProperty, 'boolean' );
 
