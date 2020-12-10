@@ -203,6 +203,13 @@ class DiscreteChart extends Node {
   }
 }
 
+/**
+ * Creates a tick label of the correct form (numeric or symbolic) depending on MathForm.
+ * @param {number} value
+ * @param {Domain} domain
+ * @param {MathForm} mathForm
+ * @returns {Node}
+ */
 function createTickLabel( value, domain, mathForm ) {
   if ( mathForm === MathForm.HIDDEN ) {
     return createNumericTickLabel( value );

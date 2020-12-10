@@ -12,7 +12,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 const MathForm = Enumeration.byKeys( [
 
   // appropriate for all Domain values
-  'HIDDEN',
+  'HIDDEN', // equations are not shown, and tick labels are numeric values
   'MODE',
 
   // specific to Domain.SPACE
