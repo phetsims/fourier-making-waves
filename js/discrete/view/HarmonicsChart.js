@@ -91,7 +91,7 @@ class HarmonicsChart extends DiscreteChart {
       const updateDataSet = () => {
         const amplitude = harmonic.amplitudeProperty.value;
 
-        //TODO do we want to show 0 amplitudes? Java version does not.
+        //TODO https://github.com/phetsims/fourier-making-waves/issues/23 do we want to show 0 amplitudes? Java version does not.
         if ( harmonic.order <= fourierSeries.numberOfHarmonicsProperty.value && amplitude !== 0 ) {
           linePlot.setDataSet( createDataSet( harmonic.order, amplitude, this.chartModel.modelXRange, domainProperty.value, waveTypeProperty.value ) );
         }
