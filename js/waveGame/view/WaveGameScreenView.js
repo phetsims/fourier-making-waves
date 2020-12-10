@@ -56,15 +56,6 @@ class WaveGameScreenView extends ScreenView {
   reset() {
     //TODO
   }
-
-  /**
-   * Steps the view.
-   * @param {number} dt - time step, in seconds
-   * @public
-   */
-  step( dt ) {
-    //TODO
-  }
 }
 
 fourierMakingWaves.register( 'WaveGameScreenView', WaveGameScreenView );

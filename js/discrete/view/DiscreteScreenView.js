@@ -22,7 +22,6 @@ import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import Domain from '../model/Domain.js';
 import AmplitudesChart from './AmplitudesChart.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
 import DiscreteViewProperties from './DiscreteViewProperties.js';
@@ -199,18 +198,6 @@ class DiscreteScreenView extends ScreenView {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
-  }
-
-  /**
-   * Steps the view.
-   * @param {number} dt - time step, in seconds
-   * @public
-   */
-  step( dt ) {
-    if ( this.isPlayingProperty.value && this.domainProperty.value === Domain.SPACE_AND_TIME ) {
-      this.harmonicsChart.step();
-      this.sumChart.step();
-    }
   }
 }
 

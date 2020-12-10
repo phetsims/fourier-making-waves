@@ -164,15 +164,6 @@ class SumChart extends DiscreteChart {
     // unlink is not needed.
     sumDataSetProperty.link( dataSet => sumPlot.setDataSet( dataSet ) );
   }
-
-  /**
-   * Steps the chart.
-   * @param {number} dt - time step, in seconds
-   * @public
-   */
-  step( dt ) {
-    //TODO
-  }
 }
 
 fourierMakingWaves.register( 'SumChart', SumChart );

@@ -150,15 +150,6 @@ class HarmonicsChart extends DiscreteChart {
       clipArea: this.chartRectangle.getShape()
     } ) );
   }
-
-  /**
-   * Steps the chart.
-   * @param {number} dt - time step, in seconds
-   * @public
-   */
-  step( dt ) {
-    //TODO support for Domain.SPACE_AND_TIME
-  }
 }
 
 /**

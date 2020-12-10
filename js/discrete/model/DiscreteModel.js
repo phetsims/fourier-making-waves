@@ -39,6 +39,9 @@ class DiscreteModel {
       tandem: tandem.createTandem( 'isPlayingProperty' )
     } );
 
+    // @public time (t) in seconds
+    this.tProperty = new NumberProperty( 0 );
+
     // @public
     this.waveformProperty = new EnumerationProperty( Waveform, Waveform.SINE_COSINE );
 
@@ -109,6 +112,10 @@ class DiscreteModel {
       ( numberOfHarmonics, waveform, waveType ) => updateAmplitudes( numberOfHarmonics, waveform, waveType )
     );
 
+    //TODO are there other things that should reset t ?
+    // Changing the domain resets t.
+    this.domainProperty.link( () => { this.tProperty.value = 0; } );
+
     // Ensure that the math form is appropriate for the domain. MathForm.MODE is supported by for all Domain values.
     this.domainProperty.link( domain => {
       if ( this.mathFormProperty.value !== MathForm.MODE ) {
@@ -124,6 +131,7 @@ class DiscreteModel {
 
       // Reset Properties
       this.isPlayingProperty.reset();
+      this.tProperty.reset();
       this.waveformProperty.reset();
       this.waveTypeProperty.reset();
       this.domainProperty.reset();
@@ -160,7 +168,9 @@ class DiscreteModel {
    * @public
    */
   step( dt ) {
-    //TODO
+    if ( this.isPlayingProperty && this.domainProperty.value === Domain.SPACE_AND_TIME ) {
+      this.tProperty.value += dt;
+    }
   }
 }
 
