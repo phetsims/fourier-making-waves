@@ -147,7 +147,7 @@ class DiscreteChart extends Node {
       } );
 
     // unlink is not needed
-    mathFormProperty.link( mathForm => xTickLabels.invalidateLabelSet() );
+    mathFormProperty.link( () => xTickLabels.invalidateLabelSet() );
 
     // y axis
     const yAxis = new AxisNode( chartModel, Orientation.VERTICAL, AXIS_OPTIONS );
