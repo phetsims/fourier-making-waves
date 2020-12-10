@@ -77,7 +77,7 @@ class HarmonicsChart extends DiscreteChart {
     } );
 
     // Create a LinePlot for each harmonic, in reverse order so that the fundamental is on top.
-    const linePlots = [];
+    const harmonicPlots = [];
     for ( let order = fourierSeries.harmonics.length; order >= 1; order-- ) {
 
       const harmonic = fourierSeries.harmonics[ order - 1 ];
@@ -85,7 +85,7 @@ class HarmonicsChart extends DiscreteChart {
       const linePlot = new LinePlot( this.chartModel, [], {
         stroke: harmonic.colorProperty
       } );
-      linePlots.push( linePlot );
+      harmonicPlots.push( linePlot );
 
       //TODO move this to model, add dataSetProperty for each Harmonic, reuse the dataSet for each Harmonic to compute the sum.
       const updateDataSet = () => {
@@ -111,7 +111,7 @@ class HarmonicsChart extends DiscreteChart {
 
     // Plots are clipped to chartRectangle.
     this.addChild( new Node( {
-      children: linePlots,
+      children: harmonicPlots,
       clipArea: this.chartRectangle.getShape()
     } ) );
   }
