@@ -120,7 +120,7 @@ class DiscreteModel {
     );
 
     // Ensure that the math form is appropriate for the domain. MathForm.MODE is supported by for all Domain values.
-    this.domainProperty.link( domain => {
+    this.domainProperty.link( () => {
       if ( this.mathFormProperty.value !== MathForm.MODE ) {
         this.mathFormProperty.value = MathForm.HIDDEN;
       }
