@@ -119,8 +119,9 @@ class DiscreteScreenView extends ScreenView {
       spacing: 5
     } );
 
-    const sumChart = new SumChart( model.fourierSeries, model.domainProperty, model.waveTypeProperty,
-      model.mathFormProperty, viewProperties.xZoomLevelProperty, viewProperties.xZoomDescriptionProperty,
+    const sumChart = new SumChart( model.fourierSeries, harmonicsChart.sumDataSetProperty,
+      model.domainProperty, model.waveTypeProperty, model.mathFormProperty,
+      viewProperties.xZoomLevelProperty, viewProperties.xZoomDescriptionProperty,
       viewProperties.yZoomLevelProperty, viewProperties.yZoomDescriptionProperty,
       viewProperties.autoScaleProperty, viewProperties.infiniteHarmonicsProperty, {
         viewWidth: chartViewWidth,

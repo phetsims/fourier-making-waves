@@ -33,6 +33,7 @@ class SumChart extends DiscreteChart {
 
   /**
    * @param {FourierSeries} fourierSeries
+   * @param {Property.<Vector2[]>} sumDataSetProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
@@ -44,12 +45,13 @@ class SumChart extends DiscreteChart {
    * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty,
+  constructor( fourierSeries, sumDataSetProperty, domainProperty, waveTypeProperty, mathFormProperty,
                xZoomLevelProperty, xZoomDescriptionProperty,
                yZoomLevelProperty, yZoomDescriptionProperty,
                autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
+    assert && AssertUtils.assertPropertyOf( sumDataSetProperty, Array );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
@@ -154,10 +156,13 @@ class SumChart extends DiscreteChart {
     this.addChild( checkboxesParent );
 
     // Plot that shows the sum, clipped to chartRectangle
-    const sumPlot = new LinePlot( this.chartModel, [], {
+    const sumPlot = new LinePlot( this.chartModel, sumDataSetProperty.value, {
       clipArea: this.chartRectangle.getShape()
     } );
     this.addChild( sumPlot );
+
+    // unlink is not needed.
+    sumDataSetProperty.link( dataSet => sumPlot.setDataSet( dataSet ) );
   }
 
   /**
