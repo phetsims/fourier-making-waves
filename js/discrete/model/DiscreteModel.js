@@ -116,7 +116,7 @@ class DiscreteModel {
     // Changing these things resets t.
     Property.multilink(
       [ this.waveformProperty, this.domainProperty, this.waveTypeProperty ],
-      () => { this.tProperty.value = 0; }
+      () => this.tProperty.reset()
     );
 
     // Ensure that the math form is appropriate for the domain. MathForm.MODE is supported by for all Domain values.
