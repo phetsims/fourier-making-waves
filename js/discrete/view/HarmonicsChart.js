@@ -87,6 +87,7 @@ class HarmonicsChart extends DiscreteChart {
       } );
       linePlots.push( linePlot );
 
+      //TODO move this to model, add dataSetProperty for each Harmonic, reuse the dataSet for each Harmonic to compute the sum.
       const updateDataSet = () => {
         const amplitude = harmonic.amplitudeProperty.value;
 
@@ -108,7 +109,7 @@ class HarmonicsChart extends DiscreteChart {
         updateDataSet );
     }
 
-    // Clip LinePlots to chartRectangle.
+    // Plots are clipped to chartRectangle.
     this.addChild( new Node( {
       children: linePlots,
       clipArea: this.chartRectangle.getShape()

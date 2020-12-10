@@ -8,6 +8,7 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import LinePlot from '../../../../bamboo/js/LinePlot.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -151,6 +152,12 @@ class SumChart extends DiscreteChart {
       top: this.xTickLabels.bottom + 5
     } );
     this.addChild( checkboxesParent );
+
+    // Plot that shows the sum, clipped to chartRectangle
+    const sumPlot = new LinePlot( this.chartModel, [], {
+      clipArea: this.chartRectangle.getShape()
+    } );
+    this.addChild( sumPlot );
   }
 
   /**
