@@ -38,6 +38,7 @@ class HarmonicsChart extends DiscreteChart {
 
   /**
    * @param {FourierSeries} fourierSeries
+   * @param {Property.<number>} tProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
@@ -45,9 +46,11 @@ class HarmonicsChart extends DiscreteChart {
    * @param {Property.<ZoomDescription>} xZoomDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty, xZoomLevelProperty, xZoomDescriptionProperty, options ) {
+  constructor( fourierSeries, tProperty, domainProperty, waveTypeProperty, mathFormProperty,
+               xZoomLevelProperty, xZoomDescriptionProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
+    assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
@@ -103,7 +106,7 @@ class HarmonicsChart extends DiscreteChart {
 
         // Create the data set for a relevant harmonic.
         harmonicPlot.setDataSet( createHarmonicDataSet( harmonic.order, harmonic.amplitudeProperty.value,
-          this.chartModel.modelXRange, domainProperty.value, waveTypeProperty.value ) );
+          this.chartModel.modelXRange, domainProperty.value, waveTypeProperty.value, tProperty.value ) );
       }
       else {
 
@@ -144,6 +147,9 @@ class HarmonicsChart extends DiscreteChart {
     // removeListener is not needed.
     this.chartModel.transformChangedEmitter.addListener( updateAllDataSets );
 
+    // unlink is not needed.
+    tProperty.link( () => updateAllDataSets() );
+
     // Plots are clipped to chartRectangle.
     this.addChild( new Node( {
       children: harmonicPlots.slice().reverse(), // in reverse order, so that fundamental is on top
@@ -158,16 +164,18 @@ class HarmonicsChart extends DiscreteChart {
  * @param {number} amplitude
  * @param {Range} xRange
  * @param {Domain} domain
- * @param {WaveType} waveType
+ * @param {WaveTy pe} waveType
+ * @param {number} t
  * @returns {Vector2[]}
  */
-function createHarmonicDataSet( order, amplitude, xRange, domain, waveType ) {
+function createHarmonicDataSet( order, amplitude, xRange, domain, waveType, t ) {
 
   assert && AssertUtils.assertPositiveInteger( order );
   assert && assert( typeof amplitude === 'number', 'invalid amplitude' );
   assert && assert( xRange instanceof Range, 'invalid xRange' );
   assert && assert( Domain.includes( domain ), 'invalid domain' );
   assert && assert( WaveType.includes( waveType ), 'invalid waveType' );
+  assert && assert( typeof t === 'number', 'invalid t' );
 
   const dx = xRange.getLength() / POINTS_PER_PLOT;
 
@@ -190,9 +198,13 @@ function createHarmonicDataSet( order, amplitude, xRange, domain, waveType ) {
         y = amplitude * Math.cos( 2 * Math.PI * order * x / FWMConstants.T );
       }
     }
-    else {
-      //TODO support for Domain.SPACE_AND_TIME
-      y = 0;
+    else { // Domain.SPACE_AND_TIME
+      if ( waveType === WaveType.SINE ) {
+        y = amplitude * Math.sin( 2 * Math.PI * order * ( x / FWMConstants.L - t / FWMConstants.T ) );
+      }
+      else {
+        y = amplitude * Math.cos( 2 * Math.PI * order * ( x / FWMConstants.L - t / FWMConstants.T ) );
+      }
     }
     dataSet.push( new Vector2( x, y ) );
   }

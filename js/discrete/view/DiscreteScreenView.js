@@ -83,8 +83,9 @@ class DiscreteScreenView extends ScreenView {
       spacing: 5
     } );
 
-    const harmonicsChart = new HarmonicsChart( model.fourierSeries, model.domainProperty, model.waveTypeProperty,
-      model.mathFormProperty, viewProperties.xZoomLevelProperty, viewProperties.xZoomDescriptionProperty, {
+    const harmonicsChart = new HarmonicsChart( model.fourierSeries, model.tProperty,
+      model.domainProperty, model.waveTypeProperty, model.mathFormProperty,
+      viewProperties.xZoomLevelProperty, viewProperties.xZoomDescriptionProperty, {
         viewWidth: chartViewWidth,
         viewHeight: chartViewHeight,
         left: harmonicsHBox.left,
