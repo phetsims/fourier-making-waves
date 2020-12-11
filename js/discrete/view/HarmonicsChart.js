@@ -146,7 +146,7 @@ class HarmonicsChart extends DiscreteChart {
     Property.multilink( [ fourierSeries.numberOfHarmonicsProperty, domainProperty, waveTypeProperty ], updateAllDataSets );
 
     // removeListener is not needed.
-    this.chartTransform.transformChangedEmitter.addListener( updateAllDataSets );
+    this.chartTransform.changedEmitter.addListener( updateAllDataSets );
 
     // unlink is not needed.
     tProperty.link( () => updateAllDataSets() );
