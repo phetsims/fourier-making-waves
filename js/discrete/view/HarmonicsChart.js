@@ -223,7 +223,7 @@ function createSumDataSet( harmonicPlots ) {
   assert && assert( harmonicPlots.length > 0, 'requires at least 1 plot' );
 
   const numberOfPoints = harmonicPlots[ 0 ].dataSet.length;
-  assert( _.every( harmonicPlots, plot => plot.dataSet.length === numberOfPoints ),
+  assert && assert( _.every( harmonicPlots, plot => plot.dataSet.length === numberOfPoints ),
     'all data sets must have the same number of points' );
 
   // Sum the corresponding y values of all data sets.
