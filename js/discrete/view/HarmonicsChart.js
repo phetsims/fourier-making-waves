@@ -16,7 +16,6 @@ import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FWMConstants from '../../common/FMWConstants.js';
@@ -138,14 +137,12 @@ class HarmonicsChart extends DiscreteChart {
       updateOneHarmonic( harmonicPlot );
     }
 
-    // Render all of the plots using Canvas. Reverse the order, so that the fundamental is in the foreground.
-    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, harmonicPlots.slice().reverse() );
-
-    // Plots are clipped to chartRectangle.
-    this.addChild( new Node( {
-      children: [ chartCanvasNode ],
+    // Render all of the plots using Canvas, clipped to chartRectangle.
+    // Reverse the order, so that the fundamental is in the foreground.
+    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, harmonicPlots.slice().reverse(), {
       clipArea: this.chartRectangle.getShape()
-    } ) );
+    } );
+    this.addChild( chartCanvasNode );
 
     // Updates the data sets for all harmonics, then updates the data set for the sum
     const updateAllDataSets = () => {
