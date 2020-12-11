@@ -1,0 +1,54 @@
+// Copyright 2020, University of Colorado Boulder
+
+/**
+ * HarmonicPlot is a specialization of CanvasLinePlot that adds:
+ * - a reference to the associated harmonic
+ * - visibility of the plot
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
+
+import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Harmonic from '../../common/model/Harmonic.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
+
+class HarmonicPlot extends CanvasLinePlot {
+
+  /**
+   * @param {Harmonic} harmonic
+   * @param {ChartTransform} chartTransform
+   * @param {Vector2[]} dataSet
+   * @param {Object} [options]
+   */
+  constructor( harmonic, chartTransform, dataSet, options ) {
+
+    assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
+    assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
+    assert && AssertUtils.assertArray( dataSet );
+
+    super( chartTransform, dataSet, options );
+
+    // @public (read-only)
+    this.harmonic = harmonic;
+
+    // @public if you change this, you are responsible for calling ChartCanvasNode.update
+    this.visible = true;
+  }
+
+  /**
+   * Intended to be called by ChartCanvasNode.
+   * @param {CanvasRenderingContext2D} context
+   * @public
+   * @override
+   */
+  paintCanvas( context ) {
+    if ( this.visible ) {
+      super.paintCanvas( context );
+    }
+  }
+}
+
+fourierMakingWaves.register( 'HarmonicPlot', HarmonicPlot );
+export default HarmonicPlot;

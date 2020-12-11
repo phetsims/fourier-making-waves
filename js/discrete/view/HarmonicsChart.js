@@ -10,22 +10,24 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import LinePlot from '../../../../bamboo/js/LinePlot.js';
+import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
+import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FWMConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
-import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
 import WaveType from '../model/WaveType.js';
 import ZoomDescription from '../model/ZoomDescription.js';
 import DiscreteChart from './DiscreteChart.js';
+import HarmonicPlot from './HarmonicPlot.js';
 import HarmonicsEquationNode from './HarmonicsEquationNode.js';
 
 // constants
@@ -81,9 +83,6 @@ class HarmonicsChart extends DiscreteChart {
       equationNode.bottom = this.chartRectangle.top - 5;
     } );
 
-    // {LinePlot[]} a plot for each harmonic in the Fourier series
-    const harmonicPlots = [];
-
     // @public {Property.<Vector2[]>} data set for the sum of the harmonics, drawn by the Sum chart
     this.sumDataSetProperty = new Property( [] );
 
@@ -94,9 +93,10 @@ class HarmonicsChart extends DiscreteChart {
     };
 
     // Updates the data set for one harmonic
-    const updateOneHarmonic = ( harmonic, harmonicPlot ) => {
-      assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
-      assert && assert( harmonicPlot instanceof LinePlot, 'invalid harmonicPlot' );
+    const updateOneHarmonic = harmonicPlot => {
+      assert && assert( harmonicPlot instanceof CanvasLinePlot, 'invalid harmonicPlot' );
+
+      const harmonic = harmonicPlot.harmonic;
 
       //TODO https://github.com/phetsims/fourier-making-waves/issues/23 do we want to show 0 amplitudes? Java version does not.
       // Show plots for relevant harmonics with non-zero amplitude.
@@ -116,31 +116,56 @@ class HarmonicsChart extends DiscreteChart {
       }
     };
 
-    // Updates the data sets for all harmonics, then updates the data set for the sum
-    const updateAllDataSets = () => {
-      for ( let i = 0; i < fourierSeries.harmonics.length; i++ ) {
-        updateOneHarmonic( fourierSeries.harmonics[ i ], harmonicPlots[ i ] );
-      }
-      updateSum();
-    };
-
-    // Create a plot for each harmonic, in harmonic order.
+    // {CanvasLinePlot[]} a plot for each harmonic in the Fourier series, in harmonic order
+    const harmonicPlots = [];
     for ( let i = 0; i < fourierSeries.harmonics.length; i++ ) {
 
       const harmonic = fourierSeries.harmonics[ i ];
 
       // Plot for this harmonic.
-      const harmonicPlot = new LinePlot( this.chartTransform, [], {
-        stroke: harmonic.colorProperty
+      const harmonicPlot = new HarmonicPlot( harmonic, this.chartTransform, [], {
+        //TODO support for ColorDef in CanvasLinePlot, bamboo#16
+        stroke: Color.toColor( harmonic.colorProperty.value ).toCSS()
       } );
       harmonicPlots.push( harmonicPlot );
 
+      //TODO support for ColorDef in CanvasLinePlot, bamboo#16
       // unlink is not needed.
-      harmonic.amplitudeProperty.link( () => {
-        updateOneHarmonic( harmonic, harmonicPlot );
+      harmonic.colorProperty.link( color => {
+        harmonicPlot.stroke = Color.toColor( color ).toCSS();
+      } );
+
+      updateOneHarmonic( harmonicPlot );
+    }
+
+    // Render all of the plots using Canvas. Reverse the order, so that the fundamental is in the foreground.
+    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, harmonicPlots.slice().reverse() );
+
+    // Plots are clipped to chartRectangle.
+    this.addChild( new Node( {
+      children: [ chartCanvasNode ],
+      clipArea: this.chartRectangle.getShape()
+    } ) );
+
+    // Updates the data sets for all harmonics, then updates the data set for the sum
+    const updateAllDataSets = () => {
+      for ( let i = 0; i < harmonicPlots.length; i++ ) {
+        updateOneHarmonic( harmonicPlots[ i ] );
+      }
+      chartCanvasNode.update();
+      updateSum();
+    };
+
+    // Update a plot when its amplitude changes.
+    harmonicPlots.forEach( plot => {
+
+      // unlink is not needed.
+      plot.harmonic.amplitudeProperty.lazyLink( () => {
+        updateOneHarmonic( plot );
+        chartCanvasNode.update();
         updateSum();
       } );
-    }
+    } );
 
     // unmultilink is not needed.
     Property.multilink( [ fourierSeries.numberOfHarmonicsProperty, domainProperty, waveTypeProperty ], updateAllDataSets );
@@ -151,11 +176,7 @@ class HarmonicsChart extends DiscreteChart {
     // unlink is not needed.
     tProperty.link( () => updateAllDataSets() );
 
-    // Plots are clipped to chartRectangle.
-    this.addChild( new Node( {
-      children: harmonicPlots.slice().reverse(), // in reverse order, so that fundamental is on top
-      clipArea: this.chartRectangle.getShape()
-    } ) );
+
   }
 }
 
@@ -214,12 +235,12 @@ function createHarmonicDataSet( order, amplitude, xRange, domain, waveType, t ) 
 
 /**
  * Creates the data set for the sum of harmonics. This algorithm uses the equation that corresponds to MathForm.MODE.
- * @param {LinePlot[]} harmonicPlots
+ * @param {CanvasLinePlot[]} harmonicPlots
  * @returns {Vector2[]}
  */
 function createSumDataSet( harmonicPlots ) {
 
-  assert && AssertUtils.assertArrayOf( harmonicPlots, LinePlot );
+  assert && AssertUtils.assertArrayOf( harmonicPlots, CanvasLinePlot );
   assert && assert( harmonicPlots.length > 0, 'requires at least 1 plot' );
 
   const numberOfPoints = harmonicPlots[ 0 ].dataSet.length;
