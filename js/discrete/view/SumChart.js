@@ -8,7 +8,8 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import LinePlot from '../../../../bamboo/js/LinePlot.js';
+import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
+import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -155,14 +156,22 @@ class SumChart extends DiscreteChart {
     } );
     this.addChild( checkboxesParent );
 
-    // Plot that shows the sum, clipped to chartRectangle
-    const sumPlot = new LinePlot( this.chartTransform, sumDataSetProperty.value, {
+    // Plot that shows the sum
+    const sumPlot = new CanvasLinePlot( this.chartTransform, sumDataSetProperty.value, {
+      stroke: 'black'
+    } );
+
+    // Draw the sum plot using Canvas, clipped to chartRectangle.
+    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [ sumPlot ], {
       clipArea: this.chartRectangle.getShape()
     } );
-    this.addChild( sumPlot );
+    this.addChild( chartCanvasNode );
 
     // unlink is not needed.
-    sumDataSetProperty.link( dataSet => sumPlot.setDataSet( dataSet ) );
+    sumDataSetProperty.link( dataSet => {
+      sumPlot.setDataSet( dataSet );
+      chartCanvasNode.update();
+    } );
   }
 }
 
