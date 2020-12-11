@@ -123,12 +123,12 @@ class HarmonicsChart extends DiscreteChart {
 
       // Plot for this harmonic.
       const harmonicPlot = new HarmonicPlot( harmonic, this.chartTransform, [], {
-        //TODO support for ColorDef in CanvasLinePlot, bamboo#16
+        //TODO https://github.com/phetsims/bamboo/issues/16 CanvasLinePlot requires stroke to be a CSS string
         stroke: Color.toColor( harmonic.colorProperty.value ).toCSS()
       } );
       harmonicPlots.push( harmonicPlot );
 
-      //TODO support for ColorDef in CanvasLinePlot, bamboo#16
+      //TODO https://github.com/phetsims/bamboo/issues/16 CanvasLinePlot requires stroke to be a CSS string
       // unlink is not needed.
       harmonic.colorProperty.link( color => {
         harmonicPlot.stroke = Color.toColor( color ).toCSS();
@@ -164,16 +164,15 @@ class HarmonicsChart extends DiscreteChart {
       } );
     } );
 
+    // Initialize
+    updateAllDataSets();
+
     // unmultilink is not needed.
-    Property.multilink( [ fourierSeries.numberOfHarmonicsProperty, domainProperty, waveTypeProperty ], updateAllDataSets );
+    Property.lazyMultilink( [ fourierSeries.numberOfHarmonicsProperty, domainProperty, waveTypeProperty, tProperty ],
+      updateAllDataSets );
 
     // removeListener is not needed.
     this.chartTransform.changedEmitter.addListener( updateAllDataSets );
-
-    // unlink is not needed.
-    tProperty.link( () => updateAllDataSets() );
-
-
   }
 }
 
