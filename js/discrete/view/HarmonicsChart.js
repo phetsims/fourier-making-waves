@@ -160,7 +160,7 @@ class HarmonicsChart extends DiscreteChart {
 }
 
 /**
- * Creates the data set for a harmonic. This algorithm uses the equations that correspond to MathForm.MODE.
+ * Creates the data set for a harmonic. This algorithm uses the equation that corresponds to MathForm.MODE.
  * @param {number} order
  * @param {number} amplitude
  * @param {Range} xRange
@@ -213,7 +213,7 @@ function createHarmonicDataSet( order, amplitude, xRange, domain, waveType, t ) 
 }
 
 /**
- * Creates the data set for the sum of harmonics. This algorithm uses the equations that correspond to MathForm.MODE.
+ * Creates the data set for the sum of harmonics. This algorithm uses the equation that corresponds to MathForm.MODE.
  * @param {LinePlot[]} harmonicPlots
  * @returns {Vector2[]}
  */
