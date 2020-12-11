@@ -9,7 +9,7 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import AxisNode from '../../../../bamboo/js/AxisNode.js';
-import ChartModel from '../../../../bamboo/js/ChartModel.js';
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
@@ -90,24 +90,24 @@ class DiscreteChart extends Node {
     const xZoomDescription = xZoomDescriptionProperty.value;
     const yZoomDescription = ZoomDescription.Y_ZOOM_DESCRIPTIONS[ ZoomDescription.Y_DEFAULT_ZOOM_LEVEL ];
 
-    // bamboo chart model
-    const chartModel = new ChartModel( options.viewWidth, options.viewHeight, {
+    // the transform between model and view coordinate frames
+    const chartTransform = new ChartTransform( options.viewWidth, options.viewHeight, {
       modelXRange: new Range( -xZoomDescription.max, xZoomDescription.max ),
       modelYRange: new Range( -yZoomDescription.max, yZoomDescription.max )
     } );
 
     // The chart's background rectangle
-    const chartRectangle = new ChartRectangle( chartModel, {
+    const chartRectangle = new ChartRectangle( chartTransform, {
       fill: 'white',
       stroke: 'black',
       tandem: options.tandem.createTandem( 'chartRectangle' )
     } );
 
     // x axis
-    const xAxis = new AxisNode( chartModel, Orientation.HORIZONTAL, AXIS_OPTIONS );
-    const xGridLines = new GridLineSet( chartModel, Orientation.HORIZONTAL, xZoomDescription.gridLineSpacing, GRID_LINE_OPTIONS );
-    const xTickMarks = new TickMarkSet( chartModel, Orientation.HORIZONTAL, xZoomDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
-    const xTickLabels = new LabelSet( chartModel, Orientation.HORIZONTAL, xZoomDescription.tickLabelSpacing, merge( {
+    const xAxis = new AxisNode( chartTransform, Orientation.HORIZONTAL, AXIS_OPTIONS );
+    const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, xZoomDescription.gridLineSpacing, GRID_LINE_OPTIONS );
+    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, xZoomDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
+    const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, xZoomDescription.tickLabelSpacing, merge( {
       createLabel: value => createTickLabel( value, domainProperty.value, mathFormProperty.value )
     }, TICK_LABEL_OPTIONS ) );
     const xAxisLabel = new RichText( '', {
@@ -139,7 +139,7 @@ class DiscreteChart extends Node {
       [ xZoomDescriptionProperty, domainProperty ],
       ( xZoomDescription, domain ) => {
         const value = ( domain === Domain.TIME ) ? FMWConstants.T : FMWConstants.L;
-        chartModel.setModelXRange( new Range( -xZoomDescription.max * value, xZoomDescription.max * value ) );
+        chartTransform.setModelXRange( new Range( -xZoomDescription.max * value, xZoomDescription.max * value ) );
         xGridLines.setSpacing( xZoomDescription.gridLineSpacing * value );
         xTickMarks.setSpacing( xZoomDescription.tickMarkSpacing * value );
         xTickLabels.setSpacing( xZoomDescription.tickLabelSpacing * value );
@@ -150,10 +150,10 @@ class DiscreteChart extends Node {
     mathFormProperty.link( () => xTickLabels.invalidateLabelSet() );
 
     // y axis
-    const yAxis = new AxisNode( chartModel, Orientation.VERTICAL, AXIS_OPTIONS );
-    const yGridLines = new GridLineSet( chartModel, Orientation.VERTICAL, yZoomDescription.gridLineSpacing, GRID_LINE_OPTIONS );
-    const yTickMarks = new TickMarkSet( chartModel, Orientation.VERTICAL, yZoomDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
-    const yTickLabels = new LabelSet( chartModel, Orientation.VERTICAL, yZoomDescription.tickLabelSpacing, merge( {
+    const yAxis = new AxisNode( chartTransform, Orientation.VERTICAL, AXIS_OPTIONS );
+    const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, yZoomDescription.gridLineSpacing, GRID_LINE_OPTIONS );
+    const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, yZoomDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
+    const yTickLabels = new LabelSet( chartTransform, Orientation.VERTICAL, yZoomDescription.tickLabelSpacing, merge( {
       createLabel: createNumericTickLabel
     }, TICK_LABEL_OPTIONS ) );
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
@@ -186,7 +186,7 @@ class DiscreteChart extends Node {
     this.chartRectangle = chartRectangle;
 
     // @protected for setting range and spacing by subclasses
-    this.chartModel = chartModel;
+    this.chartTransform = chartTransform;
     this.xTickLabels = xTickLabels;
     this.yGridLines = yGridLines;
     this.yTickMarks = yTickMarks;

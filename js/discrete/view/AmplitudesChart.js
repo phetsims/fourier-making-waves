@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ChartModel from '../../../../bamboo/js/ChartModel.js';
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
@@ -57,18 +57,19 @@ class AmplitudesChart extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const chartModel = new ChartModel( options.viewWidth, options.viewHeight, {
+    // the transform between model and view coordinate frames
+    const chartTransform = new ChartTransform( options.viewWidth, options.viewHeight, {
       modelXRange: new Range( fourierSeries.numberOfHarmonicsProperty.range.min - 0.5, fourierSeries.numberOfHarmonicsProperty.range.max + 0.5 ),
       modelYRange: fourierSeries.amplitudeRange
     } );
 
-    const chartRectangle = new ChartRectangle( chartModel );
+    const chartRectangle = new ChartRectangle( chartTransform );
 
-    const yGridLineSet = new GridLineSet( chartModel, Orientation.VERTICAL, 0.5, {
+    const yGridLineSet = new GridLineSet( chartTransform, Orientation.VERTICAL, 0.5, {
       stroke: new Color( 0, 0, 0, 0.3 )
     } );
 
-    const yLabelSet = new LabelSet( chartModel, Orientation.VERTICAL, 0.5, {
+    const yLabelSet = new LabelSet( chartTransform, Orientation.VERTICAL, 0.5, {
       edge: 'min',
       createLabel: value => new Text( Utils.toFixedNumber( value, 1 ), { fontSize: 12 } )
     } );
@@ -94,7 +95,7 @@ class AmplitudesChart extends Node {
     const sliders = _.map( fourierSeries.harmonics, harmonic =>
       new AmplitudeSlider( harmonic.amplitudeProperty, harmonic.colorProperty, waveformProperty, {
         trackHeight: options.viewHeight,
-        center: chartModel.modelToViewPosition( new Vector2( harmonic.order, 0 ) ),
+        center: chartTransform.modelToViewPosition( new Vector2( harmonic.order, 0 ) ),
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` )
       } )
     );
@@ -102,7 +103,7 @@ class AmplitudesChart extends Node {
     // Create a number display for each harmonic's amplitude
     const numberDisplays = _.map( fourierSeries.harmonics, harmonic =>
       new AmplitudeNumberDisplay( harmonic, amplitudeKeypadDialog, waveformProperty, {
-        centerX: chartModel.modelToView( Orientation.HORIZONTAL, harmonic.order ),
+        centerX: chartTransform.modelToView( Orientation.HORIZONTAL, harmonic.order ),
         bottom: chartRectangle.top - 10,
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}NumberDisplay` )
       } )

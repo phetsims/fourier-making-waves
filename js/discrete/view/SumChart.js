@@ -125,7 +125,7 @@ class SumChart extends DiscreteChart {
 
     // unlink is not needed.
     yZoomDescriptionProperty.link( yZoomDescription => {
-      this.chartModel.setModelYRange( new Range( -yZoomDescription.max, yZoomDescription.max ) );
+      this.chartTransform.setModelYRange( new Range( -yZoomDescription.max, yZoomDescription.max ) );
       this.yGridLines.setSpacing( yZoomDescription.gridLineSpacing );
       this.yTickMarks.setSpacing( yZoomDescription.tickMarkSpacing );
       this.yTickLabels.setSpacing( yZoomDescription.tickLabelSpacing );
@@ -156,7 +156,7 @@ class SumChart extends DiscreteChart {
     this.addChild( checkboxesParent );
 
     // Plot that shows the sum, clipped to chartRectangle
-    const sumPlot = new LinePlot( this.chartModel, sumDataSetProperty.value, {
+    const sumPlot = new LinePlot( this.chartTransform, sumDataSetProperty.value, {
       clipArea: this.chartRectangle.getShape()
     } );
     this.addChild( sumPlot );

@@ -107,7 +107,7 @@ class HarmonicsChart extends DiscreteChart {
 
         // Create the data set for a relevant harmonic.
         harmonicPlot.setDataSet( createHarmonicDataSet( harmonic.order, harmonic.amplitudeProperty.value,
-          this.chartModel.modelXRange, domainProperty.value, waveTypeProperty.value, tProperty.value ) );
+          this.chartTransform.modelXRange, domainProperty.value, waveTypeProperty.value, tProperty.value ) );
       }
       else {
 
@@ -130,7 +130,7 @@ class HarmonicsChart extends DiscreteChart {
       const harmonic = fourierSeries.harmonics[ i ];
 
       // Plot for this harmonic.
-      const harmonicPlot = new LinePlot( this.chartModel, [], {
+      const harmonicPlot = new LinePlot( this.chartTransform, [], {
         stroke: harmonic.colorProperty
       } );
       harmonicPlots.push( harmonicPlot );
@@ -146,7 +146,7 @@ class HarmonicsChart extends DiscreteChart {
     Property.multilink( [ fourierSeries.numberOfHarmonicsProperty, domainProperty, waveTypeProperty ], updateAllDataSets );
 
     // removeListener is not needed.
-    this.chartModel.transformChangedEmitter.addListener( updateAllDataSets );
+    this.chartTransform.transformChangedEmitter.addListener( updateAllDataSets );
 
     // unlink is not needed.
     tProperty.link( () => updateAllDataSets() );
