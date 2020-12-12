@@ -32,21 +32,6 @@ class HarmonicPlot extends CanvasLinePlot {
 
     // @public (read-only)
     this.harmonic = harmonic;
-
-    // @public if you change this, you are responsible for calling ChartCanvasNode.update
-    this.visible = true;
-  }
-
-  /**
-   * Intended to be called by ChartCanvasNode.
-   * @param {CanvasRenderingContext2D} context
-   * @public
-   * @override
-   */
-  paintCanvas( context ) {
-    if ( this.visible ) {
-      super.paintCanvas( context );
-    }
   }
 }
 
