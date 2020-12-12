@@ -115,7 +115,7 @@ class DiscreteModel {
     //TODO are there other things that should reset t ?
     // Changing these things resets t.
     Property.multilink(
-      [ this.waveformProperty, this.domainProperty, this.waveTypeProperty ],
+      [ this.waveformProperty, this.domainProperty ],
       () => this.tProperty.reset()
     );
 
