@@ -15,7 +15,6 @@ import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FWMConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
@@ -92,16 +91,9 @@ class HarmonicsChart extends DiscreteChart {
 
       // Plot for this harmonic.
       const harmonicPlot = new HarmonicPlot( harmonic, this.chartTransform, [], {
-        //TODO https://github.com/phetsims/bamboo/issues/16 CanvasLinePlot requires stroke to be a CSS string
-        stroke: Color.toColor( harmonic.colorProperty.value ).toCSS()
+        stroke: harmonic.colorProperty
       } );
       harmonicPlots.push( harmonicPlot );
-
-      //TODO https://github.com/phetsims/bamboo/issues/16 CanvasLinePlot requires stroke to be a CSS string
-      // unlink is not needed.
-      harmonic.colorProperty.link( color => {
-        harmonicPlot.stroke = Color.toColor( color ).toCSS();
-      } );
 
       updateOneHarmonicPlot( harmonicPlot, this.chartTransform.modelXRange,
         fourierSeries.numberOfHarmonicsProperty.value, domainProperty.value, waveTypeProperty.value, tProperty.value );
