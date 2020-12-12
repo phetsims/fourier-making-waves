@@ -22,6 +22,7 @@ import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
+import Domain from '../model/Domain.js';
 import AmplitudesChart from './AmplitudesChart.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
 import DiscreteViewProperties from './DiscreteViewProperties.js';
@@ -156,6 +157,15 @@ class DiscreteScreenView extends ScreenView {
     this.addChild( controlPanel );
 
     const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
+      playPauseStepButtonOptions: {
+        stepForwardButtonOptions: {
+          listener: () => {
+            if ( model.domainProperty.value === Domain.SPACE_AND_TIME ) {
+              model.tProperty.value += FMWConstants.STEP_DT;
+            }
+          }
+        }
+      },
       left: controlPanel.left,
       bottom: this.layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: tandem.createTandem( 'timeControlNode' )

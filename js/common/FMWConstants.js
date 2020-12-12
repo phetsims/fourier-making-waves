@@ -35,6 +35,9 @@ const FMWConstants = {
 
   FUNDAMENTAL_WAVELENGTH: SPEED_OF_SOUND / FUNDAMENTAL_FREQUENCY, // meters
 
+  // dt for the time control's step button, in seconds
+  STEP_DT: 0.05,
+
   // View ============================================================================================================
 
   SCREEN_VIEW_X_MARGIN: 15,
