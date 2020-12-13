@@ -3,6 +3,8 @@
 /**
  * AmplitudeSlider is a slider for changing the amplitude of a harmonic.
  *
+ * NOTE: Dimension2 instances will be flipped, because VSlider rotates its subcomponents -90 degrees.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
@@ -23,7 +25,11 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 
 // constants
-const LINE_WIDTH = 1;
+const TRACK_WIDTH = 45; // track height specified in constructor options
+const THUMB_WIDTH = TRACK_WIDTH;
+const THUMB_HEIGHT = 4;
+const THUMB_TOUCH_AREA_DILATION = new Dimension2( 0, 8 ).flipped();
+const THUMB_MOUSE_AREA_DILATION = new Dimension2( 0, 4 ).flipped();
 
 class AmplitudeSlider extends VSlider {
 
@@ -44,18 +50,18 @@ class AmplitudeSlider extends VSlider {
       // {number|null} On end drag, snap to this interval, unless the value is min or max
       snapInterval: FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL,
 
-      // Options for our custom thumb (AmplitudeSliderThumb) and track (AmplitudeSliderTrack).
-      // Note that dimensions will be flipped, because VSlider rotates its subcomponents -90 degrees.
-      // We'll also need to remove these fields from options before calling super, because they are mutually
-      // exclusive with the options thumbNode and trackNode.
-      thumbSize: new Dimension2( 45, 4 ),
-      trackSize: new Dimension2( 45, 120 )
+      // {number} height of the track
+      trackHeight: 120
 
     }, options );
 
-    const thumbNode = new AmplitudeSliderThumb( options.thumbSize.flipped() );
-    thumbNode.touchArea = thumbNode.localBounds.dilatedXY( 8, 0 );
-    thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( 4, 0 );
+    // flipped because VSlider rotates its subcomponents -90 degrees
+    const thumbSize = new Dimension2( THUMB_WIDTH, THUMB_HEIGHT ).flipped();
+    const trackSize = new Dimension2( TRACK_WIDTH, options.trackHeight ).flipped();
+
+    const thumbNode = new AmplitudeSliderThumb( thumbSize );
+    thumbNode.touchArea = thumbNode.localBounds.dilatedXY( THUMB_TOUCH_AREA_DILATION.width, THUMB_TOUCH_AREA_DILATION.height );
+    thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( THUMB_MOUSE_AREA_DILATION.width, THUMB_MOUSE_AREA_DILATION.height );
 
     // Constrain the range to the desired number of decimal places.
     const amplitudeRange = new Range(
@@ -63,7 +69,7 @@ class AmplitudeSlider extends VSlider {
       Utils.toFixedNumber( amplitudeProperty.range.max, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES )
     );
 
-    const trackNode = new AmplitudeSliderTrack( amplitudeProperty, amplitudeRange, colorProperty, options.trackSize.flipped() );
+    const trackNode = new AmplitudeSliderTrack( amplitudeProperty, amplitudeRange, colorProperty, trackSize );
 
     assert && assert( !options.trackNode, 'AmplitudeSlider sets trackNode' );
     options.trackNode = trackNode;
@@ -89,7 +95,7 @@ class AmplitudeSlider extends VSlider {
     }
 
     // Omit options for our custom thumb and track, so that Slider doesn't complain.
-    super( amplitudeProperty, amplitudeRange, _.omit( options, [ 'thumbSize', 'trackSize' ] ) );
+    super( amplitudeProperty, amplitudeRange, options );
   }
 
   /**
@@ -116,7 +122,7 @@ class AmplitudeSliderThumb extends Rectangle {
     super( 0, 0, thumbSize.width, thumbSize.height, {
       fill: 'black',
       stroke: 'black',
-      lineWidth: LINE_WIDTH
+      lineWidth: 1
     } );
   }
 }
@@ -150,7 +156,7 @@ class AmplitudeSliderTrack extends SliderTrack {
     const visibleTrackNode = new Rectangle( 0, 0, trackSize.width, trackSize.height, {
       fill: colorProperty,
       stroke: 'black',
-      lineWidth: LINE_WIDTH
+      lineWidth: 1
     } );
 
     const trackNode = new Node( {
