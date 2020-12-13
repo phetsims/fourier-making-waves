@@ -8,19 +8,19 @@ It's assumed that the reader has some basic knowledge of Fourier Series.
 ## Mathematical symbols:
 
 * A = amplitude
-* A<sub>n</sub> = amplitude of nth harmonic
-* f = frequency, function of time (or space, etc.)
-* F = function of frequency
-* λ = lambda, wavelength
+* A<sub>n</sub> = amplitude of the n<sup>th</sup> harmonic
+* f = frequency, in Hz
+* F = function of
+* λ = wavelength, in meters
 * k = wave number
-* L = string length, if this were a plucked string
-* n = mode, order, or harmonic number
+* L = string length, if this were a plucked string, in meters
+* n = harmonic number, order, or mode
 * π = pi
-* σ = sigma, width of the Gaussian wave packet (dx)
-* t = time
-* T = sampling period, or period of the 1st harmonic
-* ω = omega, angular frequency
-* x = position in space along L
+* σ = Gaussian wave packet width, in radians/meter
+* t = time, in milliseconds
+* T = period, in milliseconds
+* ω = omega, angular frequency, in radians
+* x = position in space along L, in meters
 
 ## Terminology
 
