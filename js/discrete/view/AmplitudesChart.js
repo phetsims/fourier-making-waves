@@ -58,7 +58,9 @@ class AmplitudesChart extends Node {
     }, options );
 
     // the transform between model and view coordinate frames
-    const chartTransform = new ChartTransform( options.viewWidth, options.viewHeight, {
+    const chartTransform = new ChartTransform( {
+      viewWidth: options.viewWidth,
+      viewHeight: options.viewHeight,
       modelXRange: new Range( fourierSeries.numberOfHarmonicsProperty.range.min - 0.5, fourierSeries.numberOfHarmonicsProperty.range.max + 0.5 ),
       modelYRange: fourierSeries.amplitudeRange
     } );

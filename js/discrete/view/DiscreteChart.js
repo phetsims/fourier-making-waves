@@ -91,7 +91,9 @@ class DiscreteChart extends Node {
     const yZoomDescription = ZoomDescription.Y_ZOOM_DESCRIPTIONS[ ZoomDescription.Y_DEFAULT_ZOOM_LEVEL ];
 
     // the transform between model and view coordinate frames
-    const chartTransform = new ChartTransform( options.viewWidth, options.viewHeight, {
+    const chartTransform = new ChartTransform( {
+      viewWidth: options.viewWidth,
+      viewHeight: options.viewHeight,
       modelXRange: new Range( -xZoomDescription.max, xZoomDescription.max ),
       modelYRange: new Range( -yZoomDescription.max, yZoomDescription.max )
     } );
