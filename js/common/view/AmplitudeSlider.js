@@ -1,6 +1,5 @@
 // Copyright 2020, University of Colorado Boulder
 
-//TODO it's odd that VSlider requires all of the widths and heights to be swapped herein
 /**
  * AmplitudeSlider is a slider for changing the amplitude of a harmonic.
  *
@@ -45,16 +44,16 @@ class AmplitudeSlider extends VSlider {
       // {number|null} On end drag, snap to this interval, unless the value is min or max
       snapInterval: FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL,
 
-      // AmplitudeSliderThumb options
-      thumbHeight: 4,
-
-      // AmplitudeSliderTrack options
-      trackWidth: 40,
-      trackHeight: 120
+      // Options for our custom thumb (AmplitudeSliderThumb) and track (AmplitudeSliderTrack).
+      // Note that dimensions will be flipped, because VSlider rotates its subcomponents -90 degrees.
+      // We'll also need to remove these fields from options before calling super, because they are mutually
+      // exclusive with the options thumbNode and trackNode.
+      thumbSize: new Dimension2( 45, 4 ),
+      trackSize: new Dimension2( 45, 120 )
 
     }, options );
 
-    const thumbNode = new AmplitudeSliderThumb( options.thumbHeight, options.trackWidth );
+    const thumbNode = new AmplitudeSliderThumb( options.thumbSize.flipped() );
     thumbNode.touchArea = thumbNode.localBounds.dilatedXY( 8, 0 );
     thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( 4, 0 );
 
@@ -64,10 +63,7 @@ class AmplitudeSlider extends VSlider {
       Utils.toFixedNumber( amplitudeProperty.range.max, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES )
     );
 
-    const trackNode = new AmplitudeSliderTrack( amplitudeProperty, amplitudeRange, colorProperty, {
-      trackWidth: options.trackWidth,
-      trackHeight: options.trackHeight
-    } );
+    const trackNode = new AmplitudeSliderTrack( amplitudeProperty, amplitudeRange, colorProperty, options.trackSize.flipped() );
 
     assert && assert( !options.trackNode, 'AmplitudeSlider sets trackNode' );
     options.trackNode = trackNode;
@@ -92,7 +88,8 @@ class AmplitudeSlider extends VSlider {
       };
     }
 
-    super( amplitudeProperty, amplitudeRange, options );
+    // Omit options for our custom thumb and track, so that Slider doesn't complain.
+    super( amplitudeProperty, amplitudeRange, _.omit( options, [ 'thumbSize', 'trackSize' ] ) );
   }
 
   /**
@@ -111,11 +108,12 @@ class AmplitudeSlider extends VSlider {
 class AmplitudeSliderThumb extends Rectangle {
 
   /**
-   * @param {number} width
-   * @param {number} height
+   * @param {Dimension2} thumbSize
    */
-  constructor( width, height ) {
-    super( 0, 0, width, height, {
+  constructor( thumbSize ) {
+    assert && assert( thumbSize instanceof Dimension2, 'invalid thumbSize' );
+
+    super( 0, 0, thumbSize.width, thumbSize.height, {
       fill: 'black',
       stroke: 'black',
       lineWidth: LINE_WIDTH
@@ -133,27 +131,23 @@ class AmplitudeSliderTrack extends SliderTrack {
    * @param {Property.<number>} amplitudeProperty
    * @param {Range} amplitudeRange
    * @param {Property.<Color>} colorProperty
-   * @param {Object} [options]
+   * @param {Dimension2} trackSize
    */
-  constructor( amplitudeProperty, amplitudeRange, colorProperty, options ) {
+  constructor( amplitudeProperty, amplitudeRange, colorProperty, trackSize ) {
 
     assert && AssertUtils.assertPropertyOf( amplitudeProperty, 'number' );
     assert && assert( amplitudeRange instanceof Range, 'invalid amplitudeRange' );
     assert && assert( amplitudeRange.getCenter() === 0, 'implementation assumes that range is symmetric' );
     assert && AssertUtils.assertPropertyOf( colorProperty, Color );
+    assert && assert( trackSize instanceof Dimension2, 'invalid trackSize' );
 
-    options = merge( {
-      trackWidth: 5,
-      trackHeight: 5
-    }, options );
-
-    const invisibleTrackNode = new Rectangle( 0, 0, options.trackHeight, options.trackWidth, {
+    const invisibleTrackNode = new Rectangle( 0, 0, trackSize.width, trackSize.height, {
       fill: 'transparent',
       stroke: phet.chipper.queryParameters.dev ? 'red' : null,
       lineWidth: 0.25
     } );
 
-    const visibleTrackNode = new Rectangle( 0, 0, options.trackHeight, options.trackWidth, {
+    const visibleTrackNode = new Rectangle( 0, 0, trackSize.width, trackSize.height, {
       fill: colorProperty,
       stroke: 'black',
       lineWidth: LINE_WIDTH
@@ -164,22 +158,23 @@ class AmplitudeSliderTrack extends SliderTrack {
     } );
 
     super( trackNode, amplitudeProperty, amplitudeRange, {
-      size: new Dimension2( options.trackHeight, options.trackWidth )
+      size: new Dimension2( trackSize.width, trackSize.height )
     } );
 
     // When the amplitude changes, redraw the track to make it look like a bar extends up or down from amplitude = 0.
+    // Note that this code is actually extending left or right, because VSlider rotates its track -90 degrees.
     const amplitudeListener = amplitude => {
       visibleTrackNode.visible = ( amplitude !== 0 );
       if ( amplitude === 0 ) {
         visibleTrackNode.setRect( 0, 0, 1, 1 );
       }
       else if ( amplitude > 0 ) {
-        const trackHeight = ( options.trackHeight / 2 ) * amplitude / amplitudeRange.max;
-        visibleTrackNode.setRect( options.trackHeight / 2, 0, trackHeight, options.trackWidth );
+        const trackWidth = ( trackSize.width / 2 ) * amplitude / amplitudeRange.max;
+        visibleTrackNode.setRect( trackSize.width / 2, 0, trackWidth, trackSize.height );
       }
       else {
-        const trackHeight = ( options.trackHeight / 2 ) * amplitude / amplitudeRange.min;
-        visibleTrackNode.setRect( ( options.trackHeight / 2 ) - trackHeight, 0, trackHeight, options.trackWidth );
+        const trackWidth = ( trackSize.width / 2 ) * amplitude / amplitudeRange.min;
+        visibleTrackNode.setRect( ( trackSize.width / 2 ) - trackWidth, 0, trackWidth, trackSize.height );
       }
     };
     amplitudeProperty.link( amplitudeListener );
