@@ -148,6 +148,7 @@ class AmplitudeSliderTrack extends SliderTrack {
     }, options );
 
     const invisibleTrackNode = new Rectangle( 0, 0, options.trackHeight, options.trackWidth, {
+      fill: 'transparent',
       stroke: phet.chipper.queryParameters.dev ? 'red' : null,
       lineWidth: 0.25
     } );
@@ -163,7 +164,6 @@ class AmplitudeSliderTrack extends SliderTrack {
     } );
 
     super( trackNode, amplitudeProperty, amplitudeRange, {
-      pickable: false, //TODO add support for pressing in track
       size: new Dimension2( options.trackHeight, options.trackWidth )
     } );
 
