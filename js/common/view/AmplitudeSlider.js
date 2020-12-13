@@ -45,10 +45,13 @@ class AmplitudeSlider extends VSlider {
       // {number|null} On end drag, snap to this interval, unless the value is min or max
       snapInterval: FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL,
 
-      // AmplitudeSlider options
+      // AmplitudeSliderThumb options
+      thumbHeight: 4,
+
+      // AmplitudeSliderTrack options
       trackWidth: 40,
-      trackHeight: 120,
-      thumbHeight: 4
+      trackHeight: 120
+
     }, options );
 
     const thumbNode = new AmplitudeSliderThumb( options.thumbHeight, options.trackWidth );
