@@ -19,7 +19,7 @@ It's assumed that the reader has some basic knowledge of Fourier Series.
 * σ = Gaussian wave packet width, in radians/meter
 * t = time, in milliseconds
 * T = period, in milliseconds
-* ω = omega, angular frequency, in radians
+* ω = angular frequency, in radians
 * x = position in space along L, in meters
 
 ## Terminology
