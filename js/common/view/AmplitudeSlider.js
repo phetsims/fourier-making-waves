@@ -90,11 +90,6 @@ class AmplitudeSlider extends VSlider {
     }
 
     super( amplitudeProperty, amplitudeRange, options );
-
-    // @private
-    this.disposeAmplitudeSlider = () => {
-      options.trackNode.dispose();
-    };
   }
 
   /**
@@ -102,10 +97,9 @@ class AmplitudeSlider extends VSlider {
    * @override
    */
   dispose() {
-    this.disposeAmplitudeSlider();
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
-
 }
 
 /**
