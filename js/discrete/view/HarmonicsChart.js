@@ -109,6 +109,11 @@ class HarmonicsChart extends DiscreteChart {
     // Update a plot when its amplitude changes.
     harmonicPlots.forEach( plot => {
 
+      // If a harmonic's color Property changes, redraw.
+      // unlink is not needed.
+      plot.harmonic.colorProperty.link( () => chartCanvasNode.update() );
+
+      // If any amplitude changes, redraw and update the sum.
       // unlink is not needed.
       plot.harmonic.amplitudeProperty.lazyLink( () => {
         updateOneHarmonicPlot( plot, this.chartTransform.modelXRange,
