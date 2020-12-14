@@ -13,7 +13,7 @@ import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import ZoomButtonGroup from '../../../../scenery-phet/js/ZoomButtonGroup.js';
+import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -115,7 +115,7 @@ class SumChart extends DiscreteChart {
     } );
 
     // Zoom buttons for the y-axis range
-    const yZoomButtonGroup = new ZoomButtonGroup( yZoomLevelProperty, {
+    const yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {
       orientation: 'vertical',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
       left: this.chartRectangle.right + 6,

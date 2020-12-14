@@ -22,7 +22,7 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Fraction from '../../../../phetcommon/js/model/Fraction.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import ZoomButtonGroup from '../../../../scenery-phet/js/ZoomButtonGroup.js';
+import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -119,7 +119,7 @@ class DiscreteChart extends Node {
     } );
 
     // Zoom buttons for the x-axis range
-    const xZoomButtonGroup = new ZoomButtonGroup( xZoomLevelProperty, {
+    const xZoomButtonGroup = new PlusMinusZoomButtonGroup( xZoomLevelProperty, {
       orientation: 'horizontal',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
       left: chartRectangle.right + 6,
