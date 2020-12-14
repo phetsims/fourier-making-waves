@@ -134,14 +134,14 @@ class GrippyThumb extends Node {
     // Note that this code is actually drawing a column of dots, because VSlider rotates its thumb -90 degrees.
     const numberOfDots = 4;
     const xMargin = 2.5;
-    const dotsShape = new Shape();
-    const radius = ( rectangle.width - 2 * xMargin ) / 2;
-    assert && assert( radius > 0, 'invalid radius' );
     const ySpacing = rectangle.height / ( numberOfDots + 1 );
+    const dotRadius = ( rectangle.width - 2 * xMargin ) / 2;
+    assert && assert( dotRadius > 0, 'invalid dotRadius' );
+    const dotsShape = new Shape();
     for ( let i = 0; i < numberOfDots; i++ ) {
       const y = i * ySpacing;
-      dotsShape.moveTo( radius, y );
-      dotsShape.arc( 0, y, radius, 0, 2 * Math.PI );
+      dotsShape.moveTo( dotRadius, y );
+      dotsShape.arc( 0, y, dotRadius, 0, 2 * Math.PI );
     }
     const dotsNode = new Path( dotsShape, {
       fill: colorProperty,
