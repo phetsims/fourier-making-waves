@@ -2,6 +2,7 @@ TODO.txt for fourier-making-waves
 
 # Discrete screen
 
+#25 all data sets must have the same number of points
 Measurement tools
 Move chart model out of HarmonicsChart.js
 Always compute at least one full cycle of the lowest-order harmonic, so that we know the max for auto scale
