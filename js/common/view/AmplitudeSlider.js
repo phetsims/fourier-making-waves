@@ -12,9 +12,11 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
+import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import ColorDef from '../../../../scenery/js/util/ColorDef.js';
@@ -25,9 +27,9 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 
 // constants
-const TRACK_WIDTH = 45; // track height specified in constructor options
-const THUMB_WIDTH = TRACK_WIDTH;
-const THUMB_HEIGHT = 4;
+const TRACK_WIDTH = 40; // track height specified in constructor options
+const THUMB_WIDTH = TRACK_WIDTH + 2;
+const THUMB_HEIGHT = 10;
 const THUMB_TOUCH_AREA_DILATION = new Dimension2( 0, 8 ).flipped();
 const THUMB_MOUSE_AREA_DILATION = new Dimension2( 0, 4 ).flipped();
 
@@ -59,7 +61,7 @@ class AmplitudeSlider extends VSlider {
     const thumbSize = new Dimension2( THUMB_WIDTH, THUMB_HEIGHT ).flipped();
     const trackSize = new Dimension2( TRACK_WIDTH, options.trackHeight ).flipped();
 
-    const thumbNode = new AmplitudeSliderThumb( thumbSize );
+    const thumbNode = new GrippyThumb( thumbSize, colorProperty );
     thumbNode.touchArea = thumbNode.localBounds.dilatedXY( THUMB_TOUCH_AREA_DILATION.width, THUMB_TOUCH_AREA_DILATION.height );
     thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( THUMB_MOUSE_AREA_DILATION.width, THUMB_MOUSE_AREA_DILATION.height );
 
@@ -69,7 +71,7 @@ class AmplitudeSlider extends VSlider {
       Utils.toFixedNumber( amplitudeProperty.range.max, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES )
     );
 
-    const trackNode = new AmplitudeSliderTrack( amplitudeProperty, amplitudeRange, colorProperty, trackSize );
+    const trackNode = new BarTrack( amplitudeProperty, amplitudeRange, colorProperty, trackSize );
 
     assert && assert( !options.trackNode, 'AmplitudeSlider sets trackNode' );
     options.trackNode = trackNode;
@@ -109,29 +111,54 @@ class AmplitudeSlider extends VSlider {
 }
 
 /**
- * AmplitudeSliderThumb is a custom thumb for AmplitudeSlider.
+ * GrippyThumb is a custom thumb for AmplitudeSlider.
  */
-class AmplitudeSliderThumb extends Rectangle {
+class GrippyThumb extends Node {
 
   /**
    * @param {Dimension2} thumbSize
+   * @param {Property.<ColorDef>} colorProperty
    */
-  constructor( thumbSize ) {
+  constructor( thumbSize, colorProperty ) {
     assert && assert( thumbSize instanceof Dimension2, 'invalid thumbSize' );
+    assert && AssertUtils.assertProperty( colorProperty, value => ColorDef.isColorDef( value ) );
 
-    super( 0, 0, thumbSize.width, thumbSize.height, {
-      fill: 'black',
+    const rectangle = new Rectangle( 0, 0, thumbSize.width, thumbSize.height, {
+      fill: Color.grayColor( 200 ),
       stroke: 'black',
-      lineWidth: 1
+      lineWidth: 1,
+      cornerRadius: 2
+    } );
+
+    // A row of dots, color-coded to the harmonic
+    // Note that this code is actually drawing a column of dots, because VSlider rotates its thumb -90 degrees.
+    const numberOfDots = 4;
+    const dotsShape = new Shape();
+    const radius = 2;
+    const spacing = rectangle.height / ( numberOfDots + 1 );
+    for ( let i = 0; i < numberOfDots; i++ ) {
+      const y = i * spacing;
+      dotsShape.moveTo( radius, y );
+      dotsShape.arc( 0, y, radius, 0, 2 * Math.PI );
+    }
+    const dotsNode = new Path( dotsShape, {
+      fill: colorProperty,
+      stroke: 'black',
+      lineWidth: 0.5,
+      center: rectangle.center
+    } );
+
+    super( {
+      children: [ rectangle, dotsNode ]
     } );
   }
 }
 
 /**
- * AmplitudeSliderTrack is a custom track for AmplitudeSlider.  It fills a colored bar that grows up and down from
+ * BarTrack is a custom track for AmplitudeSlider.  It fills a colored bar that grows up and down from
  * the center of the track.
  */
-class AmplitudeSliderTrack extends SliderTrack {
+class BarTrack extends SliderTrack {
 
   /**
    * @param {Property.<number>} amplitudeProperty
