@@ -41,6 +41,7 @@ class FourierSeries extends PhetioObject {
 
     // @public the number of harmonics in this series
     this.numberOfHarmonicsProperty = new NumberProperty( MAX_HARMONICS, {
+      numberType: 'Integer',
       range: new Range( 1, MAX_HARMONICS ),
       tandem: options.tandem.createTandem( 'numberOfHarmonicsProperty' )
     } );
