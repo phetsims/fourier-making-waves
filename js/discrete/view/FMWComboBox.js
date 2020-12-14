@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * FMWComboBox creates a combo box using a set of string/value choices, used to generate the standard set of
+ * FMWComboBox creates a combo box using a set of value/string choices, used to generate the standard set of
  * {ComboBoxItem[]} items needed by a ComboBox.
  *
  * @author Chris Malley (PixelZoom, Inc.)
