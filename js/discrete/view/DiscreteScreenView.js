@@ -172,6 +172,11 @@ class DiscreteScreenView extends ScreenView {
     } );
     this.addChild( timeControlNode );
 
+    // Enabled time controls only when there is the possibility of animation.
+    model.domainProperty.link( domain => {
+      timeControlNode.enabled = ( domain === Domain.SPACE_AND_TIME );
+    } );
+
     const resetAllButton = new ResetAllButton( {
       listener: () => {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
