@@ -20,17 +20,17 @@ const FMWColorProfile = new ColorProfile( [ 'default' ], {
 
   // Fill for all Panels
   panelFill: {
-    default: new Color( 245, 245, 245 )
+    default: Color.grayColor( 245 )
   },
 
   // Stroke for all Panels
   panelStroke: {
-    default: new Color( 160, 160, 160 )
+    default: Color.grayColor( 160 )
   },
 
   // Stroke for horizontal separators in Panels
   separatorStroke: {
-    default: new Color( 200, 200, 200 )
+    default: Color.grayColor( 200 )
   },
 
   // Colors for each harmonics. Name format is `harmonic${order}Color` to facilitate lookup by order.
