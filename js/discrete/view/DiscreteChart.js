@@ -45,7 +45,7 @@ const AXIS_OPTIONS = {
 };
 
 const GRID_LINE_OPTIONS = {
-  stroke: new Color( 0, 0, 0, 0.15 )
+  stroke: Color.grayColor( 0, 0.15 )
 };
 
 const TICK_MARK_OPTIONS = {

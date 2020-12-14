@@ -11,6 +11,7 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import HSlider from '../../../../sun/js/HSlider.js';
@@ -45,7 +46,7 @@ class SoundLayoutBox extends HBox {
     const outputLevelSlider = new HSlider( outputLevelProperty, outputLevelProperty.range, {
       thumbSize: new Dimension2( 10, 20 ),
       trackSize: new Dimension2( 100, 3 ),
-      trackStroke: 'rgb( 160, 160, 160 )'
+      trackStroke: Color.grayColor( 160 )
     } );
 
     // Icons at the extremes of the slider

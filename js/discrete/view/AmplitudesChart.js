@@ -68,7 +68,7 @@ class AmplitudesChart extends Node {
     const chartRectangle = new ChartRectangle( chartTransform );
 
     const yGridLineSet = new GridLineSet( chartTransform, Orientation.VERTICAL, 0.5, {
-      stroke: new Color( 0, 0, 0, 0.3 )
+      stroke: Color.grayColor( 0, 0.3 )
     } );
 
     const yLabelSet = new LabelSet( chartTransform, Orientation.VERTICAL, 0.5, {

@@ -7,6 +7,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
 import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -19,7 +20,7 @@ class ExpandedFormButton extends RoundPushButton {
   constructor( options ) {
 
     options = merge( {
-      baseColor: 'rgb( 238, 238, 238 )',
+      baseColor: Color.grayColor( 238 ),
       xMargin: 10,
       yMargin: 10
     }, options );
