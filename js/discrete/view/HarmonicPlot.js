@@ -1,9 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * HarmonicPlot is a specialization of CanvasLinePlot that adds:
- * - a reference to the associated harmonic
- * - visibility of the plot
+ * HarmonicPlot is a specialization of CanvasLinePlot that adds a reference to the associated harmonic.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
