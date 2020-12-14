@@ -29,7 +29,7 @@ import FMWConstants from '../FMWConstants.js';
 // constants
 const TRACK_WIDTH = 40; // track height specified in constructor options
 const THUMB_WIDTH = TRACK_WIDTH + 2;
-const THUMB_HEIGHT = 10;
+const THUMB_HEIGHT = 8;
 const THUMB_TOUCH_AREA_DILATION = new Dimension2( 0, 8 ).flipped();
 const THUMB_MOUSE_AREA_DILATION = new Dimension2( 0, 4 ).flipped();
 
@@ -133,11 +133,13 @@ class GrippyThumb extends Node {
     // A row of dots, color-coded to the harmonic
     // Note that this code is actually drawing a column of dots, because VSlider rotates its thumb -90 degrees.
     const numberOfDots = 4;
+    const xMargin = 2.5;
     const dotsShape = new Shape();
-    const radius = 2;
-    const spacing = rectangle.height / ( numberOfDots + 1 );
+    const radius = ( rectangle.width - 2 * xMargin ) / 2;
+    assert && assert( radius > 0, 'invalid radius' );
+    const ySpacing = rectangle.height / ( numberOfDots + 1 );
     for ( let i = 0; i < numberOfDots; i++ ) {
-      const y = i * spacing;
+      const y = i * ySpacing;
       dotsShape.moveTo( radius, y );
       dotsShape.arc( 0, y, radius, 0, 2 * Math.PI );
     }
