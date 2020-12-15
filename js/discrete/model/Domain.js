@@ -9,7 +9,11 @@
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-const Domain = Enumeration.byKeys( [ 'SPACE', 'TIME', 'SPACE_AND_TIME' ] );
+const Domain = Enumeration.byKeys( [
+  'SPACE',         // F(x)
+  'TIME',          // F(t)
+  'SPACE_AND_TIME' // F(x,t)
+] );
 
 fourierMakingWaves.register( 'Domain', Domain );
 export default Domain;
