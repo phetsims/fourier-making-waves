@@ -63,25 +63,25 @@ class DiscreteViewProperties {
 
     //TODO move chart Properties somewhere else? FMWChartModel?
 
-    // @public zoom level for the x axis, index into this.xAxisDescriptionProperty.value
+    // @public zoom level for the x axis, index into AxisDescription.X_AXIS_DESCRIPTIONS
     this.xZoomLevelProperty = new NumberProperty( AxisDescription.X_DEFAULT_ZOOM_LEVEL, {
       numberType: 'Integer',
       range: new Range( 0, AxisDescription.X_AXIS_DESCRIPTIONS.length - 1 )
     } );
 
-    // @public {DerivedProperty.<AxisDescription>} x-axis description
+    // @public {DerivedProperty.<AxisDescription>} describes the properties of the x axis
     this.xAxisDescriptionProperty = new DerivedProperty(
       [ this.xZoomLevelProperty ],
       xZoomLevel => AxisDescription.X_AXIS_DESCRIPTIONS[ xZoomLevel ]
     );
 
-    // @public zoom level for the y axis, index into this.yAxisDescriptionProperty.value
+    // @public zoom level for the y axis, index into AxisDescription.Y_AXIS_DESCRIPTIONS
     this.yZoomLevelProperty = new NumberProperty( AxisDescription.Y_DEFAULT_ZOOM_LEVEL, {
       numberType: 'Integer',
       range: new Range( 0, AxisDescription.Y_AXIS_DESCRIPTIONS.length - 1 )
     } );
 
-    // @public {DerivedProperty.<AxisDescription>} y-axis zoom description
+    // @public {DerivedProperty.<AxisDescription>} describes the properties of the y axis
     this.yAxisDescriptionProperty = new DerivedProperty(
       [ this.yZoomLevelProperty ],
       yZoomLevel => AxisDescription.Y_AXIS_DESCRIPTIONS[ yZoomLevel ]
