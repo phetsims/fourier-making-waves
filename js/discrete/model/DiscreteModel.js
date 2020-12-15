@@ -64,9 +64,6 @@ class DiscreteModel {
     // @public
     this.mathFormProperty = new EnumerationProperty( MathForm, MathForm.HIDDEN );
 
-    // @public TODO move to view?
-    this.sumExpandedProperty = new BooleanProperty( false );
-
     // Adjust the range of selectable wavelength and period based on how many harmonics we have.
     this.fourierSeries.numberOfHarmonicsProperty.link( numberOfHarmonics => {
       this.wavelengthToolOrderProperty.value = Math.min( numberOfHarmonics, this.wavelengthToolOrderProperty.value );
@@ -135,7 +132,6 @@ class DiscreteModel {
       this.wavelengthToolOrderProperty.reset();
       this.periodToolOrderProperty.reset();
       this.mathFormProperty.reset();
-      this.sumExpandedProperty.reset();
 
       // Set the amplitudes of the Fourier series to match Property settings.
       updateAmplitudes( this.fourierSeries.numberOfHarmonicsProperty.value, this.waveformProperty.value, this.waveTypeProperty.value );
