@@ -11,7 +11,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // constants
@@ -45,7 +45,7 @@ class StringDisplay extends Node {
 
     const backgroundNode = new Rectangle( 0, 0, options.width, options.height, options.rectangleOptions );
 
-    const stringNode = new Text( '0', merge( {
+    const stringNode = new RichText( '0', merge( {
       maxWidth: backgroundNode.width - 2 * options.xMargin,
       maxHeight: backgroundNode.height - 2 * options.yMargin
     }, options.textOptions ) );
