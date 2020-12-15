@@ -224,12 +224,6 @@ class DiscreteScreenView extends ScreenView {
     model.oopsSawtoothWithCosinesEmitter.addListener( () => {
       oopsSawtoothWithCosinesDialog.show();
     } );
-
-    // @private
-    this.isPlayingProperty = model.isPlayingProperty;
-    this.domainProperty = model.domainProperty;
-    this.harmonicsChart = harmonicsChart;
-    this.sumChart = sumChart;
   }
 
   /**
