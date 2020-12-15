@@ -2,7 +2,8 @@
 
 //TODO this is a bit like NumberDisplay, but not currently general enough for common code
 /**
- * StringDisplay displays a string value in a rectangle.
+ * StringDisplay displays a string value in a rectangle. It's used to display what the user has typed on the
+ * Keypad, which is in string format.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
