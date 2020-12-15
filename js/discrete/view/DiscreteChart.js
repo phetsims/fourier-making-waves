@@ -35,7 +35,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
-import ZoomDescription from '../model/ZoomDescription.js';
+import AxisDescription from '../model/AxisDescription.js';
 
 // constants
 const AXIS_OPTIONS = {
@@ -66,16 +66,16 @@ class DiscreteChart extends Node {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
-   * @param {Property.<ZoomDescription>} xZoomDescriptionProperty
+   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, mathFormProperty, xZoomLevelProperty, xZoomDescriptionProperty, options ) {
+  constructor( fourierSeries, domainProperty, mathFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
-    assert && AssertUtils.assertPropertyOf( xZoomDescriptionProperty, ZoomDescription );
+    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
 
     options = merge( {
 
@@ -87,15 +87,15 @@ class DiscreteChart extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const xZoomDescription = xZoomDescriptionProperty.value;
-    const yZoomDescription = ZoomDescription.Y_ZOOM_DESCRIPTIONS[ ZoomDescription.Y_DEFAULT_ZOOM_LEVEL ];
+    const xAxisDescription = xAxisDescriptionProperty.value;
+    const yAxisDescription = AxisDescription.Y_AXIS_DESCRIPTIONS[ AxisDescription.Y_DEFAULT_ZOOM_LEVEL ];
 
     // the transform between model and view coordinate frames
     const chartTransform = new ChartTransform( {
       viewWidth: options.viewWidth,
       viewHeight: options.viewHeight,
-      modelXRange: new Range( -xZoomDescription.max, xZoomDescription.max ),
-      modelYRange: new Range( -yZoomDescription.max, yZoomDescription.max )
+      modelXRange: new Range( -xAxisDescription.max, xAxisDescription.max ),
+      modelYRange: new Range( -yAxisDescription.max, yAxisDescription.max )
     } );
 
     // The chart's background rectangle
@@ -107,9 +107,9 @@ class DiscreteChart extends Node {
 
     // x axis
     const xAxis = new AxisNode( chartTransform, Orientation.HORIZONTAL, AXIS_OPTIONS );
-    const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, xZoomDescription.gridLineSpacing, GRID_LINE_OPTIONS );
-    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, xZoomDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
-    const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, xZoomDescription.tickLabelSpacing, merge( {
+    const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.gridLineSpacing, GRID_LINE_OPTIONS );
+    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
+    const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.tickLabelSpacing, merge( {
       createLabel: value => createTickLabel( value, domainProperty.value, mathFormProperty.value, fourierSeries.L, fourierSeries.T )
     }, TICK_LABEL_OPTIONS ) );
     const xAxisLabel = new RichText( '', {
@@ -138,13 +138,13 @@ class DiscreteChart extends Node {
 
     // unmultilink is not needed
     Property.multilink(
-      [ xZoomDescriptionProperty, domainProperty ],
-      ( xZoomDescription, domain ) => {
+      [ xAxisDescriptionProperty, domainProperty ],
+      ( xAxisDescription, domain ) => {
         const value = ( domain === Domain.TIME ) ? fourierSeries.T : fourierSeries.L;
-        chartTransform.setModelXRange( new Range( -xZoomDescription.max * value, xZoomDescription.max * value ) );
-        xGridLines.setSpacing( xZoomDescription.gridLineSpacing * value );
-        xTickMarks.setSpacing( xZoomDescription.tickMarkSpacing * value );
-        xTickLabels.setSpacing( xZoomDescription.tickLabelSpacing * value );
+        chartTransform.setModelXRange( new Range( -xAxisDescription.max * value, xAxisDescription.max * value ) );
+        xGridLines.setSpacing( xAxisDescription.gridLineSpacing * value );
+        xTickMarks.setSpacing( xAxisDescription.tickMarkSpacing * value );
+        xTickLabels.setSpacing( xAxisDescription.tickLabelSpacing * value );
         xTickLabels.invalidateLabelSet();
       } );
 
@@ -153,9 +153,9 @@ class DiscreteChart extends Node {
 
     // y axis
     const yAxis = new AxisNode( chartTransform, Orientation.VERTICAL, AXIS_OPTIONS );
-    const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, yZoomDescription.gridLineSpacing, GRID_LINE_OPTIONS );
-    const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, yZoomDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
-    const yTickLabels = new LabelSet( chartTransform, Orientation.VERTICAL, yZoomDescription.tickLabelSpacing, merge( {
+    const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, yAxisDescription.gridLineSpacing, GRID_LINE_OPTIONS );
+    const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, yAxisDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
+    const yTickLabels = new LabelSet( chartTransform, Orientation.VERTICAL, yAxisDescription.tickLabelSpacing, merge( {
       createLabel: createNumericTickLabel
     }, TICK_LABEL_OPTIONS ) );
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {

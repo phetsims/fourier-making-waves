@@ -22,7 +22,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
 import WaveType from '../model/WaveType.js';
-import ZoomDescription from '../model/ZoomDescription.js';
+import AxisDescription from '../model/AxisDescription.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
 import DiscreteChart from './DiscreteChart.js';
 import ExpandedFormButton from './ExpandedFormButton.js';
@@ -39,16 +39,16 @@ class SumChart extends DiscreteChart {
    * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
-   * @param {Property.<ZoomDescription>} xZoomDescriptionProperty
+   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {NumberProperty} yZoomLevelProperty
-   * @param {Property.<ZoomDescription>} yZoomDescriptionProperty
+   * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Property.<boolean>} autoScaleProperty
    * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, sumDataSetProperty, domainProperty, waveTypeProperty, mathFormProperty,
-               xZoomLevelProperty, xZoomDescriptionProperty,
-               yZoomLevelProperty, yZoomDescriptionProperty,
+               xZoomLevelProperty, xAxisDescriptionProperty,
+               yZoomLevelProperty, yAxisDescriptionProperty,
                autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
@@ -57,9 +57,9 @@ class SumChart extends DiscreteChart {
     assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
-    assert && AssertUtils.assertPropertyOf( xZoomDescriptionProperty, ZoomDescription );
+    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
     assert && assert( yZoomLevelProperty instanceof NumberProperty, 'invalid yZoomLevelProperty' );
-    assert && AssertUtils.assertPropertyOf( yZoomDescriptionProperty, ZoomDescription );
+    assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
     assert && AssertUtils.assertPropertyOf( autoScaleProperty, 'boolean' );
     assert && AssertUtils.assertPropertyOf( infiniteHarmonicsVisibleProperty, 'boolean' );
 
@@ -69,7 +69,7 @@ class SumChart extends DiscreteChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( fourierSeries, domainProperty, mathFormProperty, xZoomLevelProperty, xZoomDescriptionProperty, options );
+    super( fourierSeries, domainProperty, mathFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options );
 
     const equationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
       waveTypeProperty, mathFormProperty, {
@@ -125,11 +125,11 @@ class SumChart extends DiscreteChart {
     this.addChild( yZoomButtonGroup );
 
     // unlink is not needed.
-    yZoomDescriptionProperty.link( yZoomDescription => {
-      this.chartTransform.setModelYRange( new Range( -yZoomDescription.max, yZoomDescription.max ) );
-      this.yGridLines.setSpacing( yZoomDescription.gridLineSpacing );
-      this.yTickMarks.setSpacing( yZoomDescription.tickMarkSpacing );
-      this.yTickLabels.setSpacing( yZoomDescription.tickLabelSpacing );
+    yAxisDescriptionProperty.link( yAxisDescription => {
+      this.chartTransform.setModelYRange( new Range( -yAxisDescription.max, yAxisDescription.max ) );
+      this.yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
+      this.yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
+      this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
     } );
 
     // Shows the wave that the Fourier series is attempting to approximate

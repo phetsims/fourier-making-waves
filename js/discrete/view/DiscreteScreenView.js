@@ -88,7 +88,7 @@ class DiscreteScreenView extends ScreenView {
 
     const harmonicsChart = new HarmonicsChart( model.fourierSeries, model.tProperty,
       model.domainProperty, model.waveTypeProperty, model.mathFormProperty,
-      viewProperties.xZoomLevelProperty, viewProperties.xZoomDescriptionProperty, {
+      viewProperties.xZoomLevelProperty, viewProperties.xAxisDescriptionProperty, {
         viewWidth: chartViewWidth,
         viewHeight: chartViewHeight,
         left: harmonicsHBox.left,
@@ -124,8 +124,8 @@ class DiscreteScreenView extends ScreenView {
 
     const sumChart = new SumChart( model.fourierSeries, harmonicsChart.sumDataSetProperty,
       model.domainProperty, model.waveTypeProperty, model.mathFormProperty,
-      viewProperties.xZoomLevelProperty, viewProperties.xZoomDescriptionProperty,
-      viewProperties.yZoomLevelProperty, viewProperties.yZoomDescriptionProperty,
+      viewProperties.xZoomLevelProperty, viewProperties.xAxisDescriptionProperty,
+      viewProperties.yZoomLevelProperty, viewProperties.yAxisDescriptionProperty,
       viewProperties.autoScaleProperty, viewProperties.infiniteHarmonicsProperty, {
         viewWidth: chartViewWidth,
         viewHeight: chartViewHeight,

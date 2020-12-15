@@ -12,7 +12,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import ZoomDescription from '../model/ZoomDescription.js';
+import AxisDescription from '../model/AxisDescription.js';
 
 class DiscreteViewProperties {
 
@@ -63,28 +63,28 @@ class DiscreteViewProperties {
 
     //TODO move chart Properties somewhere else? FMWChartModel?
 
-    // @public zoom level for the x axis
-    this.xZoomLevelProperty = new NumberProperty( ZoomDescription.X_DEFAULT_ZOOM_LEVEL, {
+    // @public zoom level for the x axis, index into this.xAxisDescriptionProperty.value
+    this.xZoomLevelProperty = new NumberProperty( AxisDescription.X_DEFAULT_ZOOM_LEVEL, {
       numberType: 'Integer',
-      range: new Range( 0, ZoomDescription.X_ZOOM_DESCRIPTIONS.length - 1 )
+      range: new Range( 0, AxisDescription.X_AXIS_DESCRIPTIONS.length - 1 )
     } );
 
-    // @public {DerivedProperty.<ZoomDescription>} x-axis zoom description
-    this.xZoomDescriptionProperty = new DerivedProperty(
+    // @public {DerivedProperty.<AxisDescription>} x-axis description
+    this.xAxisDescriptionProperty = new DerivedProperty(
       [ this.xZoomLevelProperty ],
-      xZoomLevel => ZoomDescription.X_ZOOM_DESCRIPTIONS[ xZoomLevel ]
+      xZoomLevel => AxisDescription.X_AXIS_DESCRIPTIONS[ xZoomLevel ]
     );
 
-    // @public zoom level for the y axis
-    this.yZoomLevelProperty = new NumberProperty( ZoomDescription.Y_DEFAULT_ZOOM_LEVEL, {
+    // @public zoom level for the y axis, index into this.yAxisDescriptionProperty.value
+    this.yZoomLevelProperty = new NumberProperty( AxisDescription.Y_DEFAULT_ZOOM_LEVEL, {
       numberType: 'Integer',
-      range: new Range( 0, ZoomDescription.Y_ZOOM_DESCRIPTIONS.length - 1 )
+      range: new Range( 0, AxisDescription.Y_AXIS_DESCRIPTIONS.length - 1 )
     } );
 
-    // @public {DerivedProperty.<ZoomDescription>} y-axis zoom description
-    this.yZoomDescriptionProperty = new DerivedProperty(
+    // @public {DerivedProperty.<AxisDescription>} y-axis zoom description
+    this.yAxisDescriptionProperty = new DerivedProperty(
       [ this.yZoomLevelProperty ],
-      yZoomLevel => ZoomDescription.Y_ZOOM_DESCRIPTIONS[ yZoomLevel ]
+      yZoomLevel => AxisDescription.Y_AXIS_DESCRIPTIONS[ yZoomLevel ]
     );
 
     // unlink is not needed.

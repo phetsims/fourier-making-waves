@@ -21,7 +21,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
 import WaveType from '../model/WaveType.js';
-import ZoomDescription from '../model/ZoomDescription.js';
+import AxisDescription from '../model/AxisDescription.js';
 import DiscreteChart from './DiscreteChart.js';
 import HarmonicPlot from './HarmonicPlot.js';
 import HarmonicsEquationNode from './HarmonicsEquationNode.js';
@@ -42,11 +42,11 @@ class HarmonicsChart extends DiscreteChart {
    * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
-   * @param {Property.<ZoomDescription>} xZoomDescriptionProperty
+   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, tProperty, domainProperty, waveTypeProperty, mathFormProperty,
-               xZoomLevelProperty, xZoomDescriptionProperty, options ) {
+               xZoomLevelProperty, xAxisDescriptionProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
@@ -54,7 +54,7 @@ class HarmonicsChart extends DiscreteChart {
     assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
-    assert && AssertUtils.assertPropertyOf( xZoomDescriptionProperty, ZoomDescription );
+    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
 
     options = merge( {
 
@@ -62,7 +62,7 @@ class HarmonicsChart extends DiscreteChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( fourierSeries, domainProperty, mathFormProperty, xZoomLevelProperty, xZoomDescriptionProperty, options );
+    super( fourierSeries, domainProperty, mathFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options );
 
     // Equation that appears above the chart
     const equationNode = new HarmonicsEquationNode( domainProperty, waveTypeProperty, mathFormProperty, {
