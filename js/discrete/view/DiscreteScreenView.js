@@ -28,6 +28,7 @@ import DiscreteControlPanel from './DiscreteControlPanel.js';
 import DiscreteViewProperties from './DiscreteViewProperties.js';
 import FourierSoundGenerator from './FourierSoundGenerator.js';
 import HarmonicsChart from './HarmonicsChart.js';
+import PeriodToolNode from './PeriodToolNode.js';
 import SumChart from './SumChart.js';
 import WavelengthToolNode from './WavelengthToolNode.js';
 
@@ -194,7 +195,7 @@ class DiscreteScreenView extends ScreenView {
     //TODO this needs some work
     const toolDragBounds = this.layoutBounds.erodedXY( FMWConstants.SCREEN_VIEW_X_MARGIN, FMWConstants.SCREEN_VIEW_Y_MARGIN );
 
-    // For measuring the wavelength of a specific harmonic
+    // For measuring the wavelength of a specific harmonic in the 'space' and 'space & time' domains.
     const wavelengthToolNode = new WavelengthToolNode( harmonicsChart.chartTransform,
       model.fourierSeries.harmonics, model.selectedWavelengthProperty, model.domainProperty,
       viewProperties.wavelengthToolVisibleProperty, toolDragBounds );
@@ -202,6 +203,15 @@ class DiscreteScreenView extends ScreenView {
 
     //TODO use harmonicsChart.chartTransform to position on harmonicsChart
     wavelengthToolNode.center = this.layoutBounds.center;
+
+    // For measuring the period of a specific harmonic in the 'time' domain.
+    const periodToolNode = new PeriodToolNode( harmonicsChart.chartTransform,
+      model.fourierSeries.harmonics, model.selectedPeriodProperty, model.domainProperty,
+      viewProperties.periodToolVisibleProperty, toolDragBounds );
+    this.addChild( periodToolNode );
+
+    //TODO use harmonicsChart.chartTransform to position on harmonicsChart
+    periodToolNode.center = this.layoutBounds.center;
 
     // parent for popups on top
     this.addChild( popupParent );

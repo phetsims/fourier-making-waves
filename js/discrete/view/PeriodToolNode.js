@@ -1,8 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * WavelengthToolNode is the tool used to measure the wavelength of a specific harmonic in the 'space' and
- * 'space & time' domains.
+ * PeriodToolNode is the tool used to measure the period of a specific harmonic in the 'time' domain.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,7 +12,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import LengthToolNode from './LengthToolNode.js';
 
-class WavelengthToolNode extends LengthToolNode {
+class PeriodToolNode extends LengthToolNode {
 
   /**
    * @param {ChartTransform} chartTransform
@@ -25,12 +24,12 @@ class WavelengthToolNode extends LengthToolNode {
    * @param {Object} [options]
    */
   constructor( chartTransform, harmonics, orderProperty, domainProperty, visibleProperty, dragBounds, options ) {
-    super( chartTransform, FMWSymbols.lambda, harmonics, orderProperty, domainProperty, visibleProperty, dragBounds,
-      harmonic => FMWConstants.L / harmonic.order,
-      ( domain, visible ) => ( domain !== Domain.TIME ) && visible,
+    super( chartTransform, FMWSymbols.T, harmonics, orderProperty, domainProperty, visibleProperty, dragBounds,
+      harmonic => FMWConstants.T / harmonic.order,
+      ( domain, visible ) => ( domain === Domain.TIME ) && visible,
       options );
   }
 }
 
-fourierMakingWaves.register( 'WavelengthToolNode', WavelengthToolNode );
-export default WavelengthToolNode;
+fourierMakingWaves.register( 'PeriodToolNode', PeriodToolNode );
+export default PeriodToolNode;
