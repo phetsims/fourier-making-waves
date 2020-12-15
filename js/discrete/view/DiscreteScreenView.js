@@ -193,6 +193,7 @@ class DiscreteScreenView extends ScreenView {
     //TODO this needs some work
     const toolDragBounds = this.layoutBounds.erodedXY( FMWConstants.SCREEN_VIEW_X_MARGIN, FMWConstants.SCREEN_VIEW_Y_MARGIN );
 
+    //TODO do not reach into HarmonicsChart for chartTransform
     // For measuring the wavelength of a specific harmonic in the 'space' and 'space & time' domains.
     const wavelengthToolNode = new WavelengthToolNode( harmonicsChart.chartTransform,
       model.fourierSeries.harmonics, model.domainProperty,
@@ -202,6 +203,7 @@ class DiscreteScreenView extends ScreenView {
     //TODO use harmonicsChart.chartTransform to position on harmonicsChart
     wavelengthToolNode.center = this.layoutBounds.center;
 
+    //TODO do not reach into HarmonicsChart for chartTransform
     // For measuring the period of a specific harmonic in the 'time' domain.
     const periodToolNode = new PeriodToolNode( harmonicsChart.chartTransform,
       model.fourierSeries.harmonics, model.domainProperty,
