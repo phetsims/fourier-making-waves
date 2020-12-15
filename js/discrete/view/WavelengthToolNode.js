@@ -2,6 +2,7 @@
 
 /**
  * WavelengthToolNode is the tool used to measure the wavelength of a specific harmonic in the 'Discrete' screen.
+ * Responsible for synchronizing with the selected harmonic, and for its own visibility.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -23,7 +24,7 @@ class WavelengthToolNode extends VBox {
   /**
    * @param {ChartTransform} chartTransform
    * @param {Harmonic[]} harmonics
-   * @param {Property.<number>} orderProperty
+   * @param {Property.<number>} orderProperty - order of the harmonic to display
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<boolean>} visibleProperty
    * @param {Bounds2} dragBounds
@@ -52,14 +53,14 @@ class WavelengthToolNode extends VBox {
     // Update when the range of the associated axis changes. removeListener is not needed.
     chartTransform.changedEmitter.addListener( () => this.update() );
 
-    // Display the wavelength for the selected harmonic
+    // Display the wavelength for the selected harmonic. unlink is not needed.
     orderProperty.link( order => {
       this.harmonic = harmonics[ order - 1 ];
       this.viewWavelength = 0; // to force an update, in case 2 harmonics had the same wavelength but different colors
       this.update();
     } );
 
-    // Visibility
+    // Visibility, unmultilink is not needed.
     Property.multilink( [ domainProperty, visibleProperty ],
       ( domain, visible ) => {
         this.visible = ( domain !== Domain.TIME ) && visible;
