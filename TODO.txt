@@ -4,8 +4,10 @@ TODO.txt for fourier-making-waves
 
 #25 all data sets must have the same number of points
 Period tool for 'space & time'
+Initial location of measurement tools
 Move chart model out of HarmonicsChart.js
 Always compute at least one full cycle of the lowest-order harmonic, so that we know the max for auto scale
 Dynamically optimize number of points in dataSets
 Auto Scale checkbox
 Infinite Harmonics checkbox
+Highlight & thicken harmonic plot on pointer-over of amplitude slider or measurement tool
