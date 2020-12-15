@@ -6,9 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import HSeparator from '../../../../sun/js/HSeparator.js';
@@ -17,31 +15,25 @@ import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
+import DiscreteViewProperties from './DiscreteViewProperties.js';
+import FourierSeriesLayoutBox from './FourierSeriesLayoutBox.js';
 import GraphControlsLayoutBox from './GraphControlsLayoutBox.js';
 import MathFormLayoutBox from './MathFormLayoutBox.js';
 import MeasurementToolsLayoutBox from './MeasurementToolsLayoutBox.js';
-import FourierSeriesLayoutBox from './FourierSeriesLayoutBox.js';
 import SoundLayoutBox from './SoundLayoutBox.js';
 
 class DiscreteControlPanel extends Panel {
 
   /**
    * @param {DiscreteModel} model
-   * @param {Property.<boolean>} wavelengthToolSelectedProperty
-   * @param {Property.<boolean>} periodToolSelectedProperty
-   * @param {Property.<boolean>} soundEnabledProperty
-   * @param {NumberProperty} soundOutputLevelProperty
+   * @param {DiscreteViewProperties} viewProperties
    * @param {Node} popupParent
    * @param {Object} [options]
    */
-  constructor( model, wavelengthToolSelectedProperty, periodToolSelectedProperty,
-               soundEnabledProperty, soundOutputLevelProperty, popupParent, options ) {
+  constructor( model, viewProperties, popupParent, options ) {
 
     assert && assert( model instanceof DiscreteModel, 'invalid model' );
-    assert && AssertUtils.assertPropertyOf( wavelengthToolSelectedProperty, 'boolean' );
-    assert && AssertUtils.assertPropertyOf( periodToolSelectedProperty, 'boolean' );
-    assert && AssertUtils.assertPropertyOf( soundEnabledProperty, 'boolean' );
-    assert && assert( soundOutputLevelProperty instanceof NumberProperty, 'invalid soundOutputLevelProperty' );
+    assert && assert( viewProperties instanceof DiscreteViewProperties, 'invalid viewProperties' );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
     options = merge( {}, FMWConstants.PANEL_OPTIONS, {
@@ -53,11 +45,12 @@ class DiscreteControlPanel extends Panel {
     const sectionNodes = [
       new FourierSeriesLayoutBox( model.waveformProperty, model.fourierSeries.numberOfHarmonicsProperty, popupParent ),
       new GraphControlsLayoutBox( model.domainProperty, model.waveTypeProperty, popupParent ),
-      new MeasurementToolsLayoutBox( wavelengthToolSelectedProperty, model.wavelengthToolOrderProperty,
-        periodToolSelectedProperty, model.periodToolOrderProperty,
+      new MeasurementToolsLayoutBox(
+        viewProperties.wavelengthToolSelectedProperty, viewProperties.wavelengthToolOrderProperty,
+        viewProperties.periodToolSelectedProperty, viewProperties.periodToolOrderProperty,
         model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty ),
       new MathFormLayoutBox( model.fourierSeries, model.mathFormProperty, model.domainProperty, popupParent ),
-      new SoundLayoutBox( soundEnabledProperty, soundOutputLevelProperty )
+      new SoundLayoutBox( viewProperties.soundEnabledProperty, viewProperties.soundOutputLevelProperty )
     ];
 
     // Separate width is 

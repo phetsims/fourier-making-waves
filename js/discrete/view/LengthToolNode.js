@@ -24,24 +24,25 @@ import Domain from '../model/Domain.js';
 class LengthToolNode extends VBox {
 
   /**
-   * @param {ChartTransform} chartTransform
    * @param {string} symbol
+   * @param {ChartTransform} chartTransform
    * @param {Harmonic[]} harmonics
    * @param {Property.<number>} orderProperty - order of the harmonic to be measured
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<boolean>} selectedProperty - whether the tool is selected
    * @param {Bounds2} dragBounds
    * @param {function(harmonic:Harmonic):number} getModelValue
-   * @param {function(domain:Domain, selected:boolean)} getVisible
+   * @param {function(selected:boolean, domain:Domain):boolean} getVisible
    * @param {Object} [options]
    */
-  constructor( chartTransform, symbol, harmonics, orderProperty, domainProperty, selectedProperty, dragBounds,
+  constructor( symbol, chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, dragBounds,
                getModelValue, getVisible, options ) {
 
+    assert && assert( typeof symbol === 'string', 'invalid symbol' );
     assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
     assert && assert( Array.isArray( harmonics ), 'invalid harmonics' );
-    assert && AssertUtils.assertPropertyOf( orderProperty, 'number' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && AssertUtils.assertPropertyOf( orderProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( selectedProperty, 'boolean' );
     assert && assert( dragBounds instanceof Bounds2, 'invalid dragBounds' );
     assert && assert( typeof getModelValue === 'function', 'invalid getModelValue' );
@@ -78,10 +79,10 @@ class LengthToolNode extends VBox {
     } );
 
     // Visibility, unmultilink is not needed.
-    Property.multilink( [ domainProperty, selectedProperty ],
-      ( domain, visible ) => {
+    Property.multilink( [ selectedProperty, domainProperty ],
+      ( selected, domain ) => {
         this.interruptSubtreeInput();
-        this.visible = getVisible( domain, visible );
+        this.visible = getVisible( selected, domain );
       } );
 
     // removeInputListener is not needed.

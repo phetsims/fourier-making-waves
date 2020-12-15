@@ -12,7 +12,6 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -51,28 +50,8 @@ class DiscreteModel {
     // @public
     this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
 
-    // @public order of the harmonic measured by the Wavelength tool
-    this.wavelengthToolOrderProperty = new NumberProperty( 1, {
-      numberType: 'Integer',
-      range: new Range( 1, this.fourierSeries.numberOfHarmonicsProperty.value )
-    } );
-
-    // @public order of the harmonic measured by the Period tool
-    this.periodToolOrderProperty = new NumberProperty( 1, {
-      numberType: 'Integer',
-      range: new Range( 1, this.fourierSeries.numberOfHarmonicsProperty.value )
-    } );
-
     // @public
     this.mathFormProperty = new EnumerationProperty( MathForm, MathForm.HIDDEN );
-
-    // Adjust the range of selectable wavelength and period based on how many harmonics we have.
-    this.fourierSeries.numberOfHarmonicsProperty.link( numberOfHarmonics => {
-      this.wavelengthToolOrderProperty.value = Math.min( numberOfHarmonics, this.wavelengthToolOrderProperty.value );
-      this.wavelengthToolOrderProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
-      this.periodToolOrderProperty.value = Math.min( numberOfHarmonics, this.periodToolOrderProperty.value );
-      this.periodToolOrderProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
-    } );
 
     // @public emits if you try to make a sawtooth wave with cosines
     this.oopsSawtoothWithCosinesEmitter = new Emitter();
@@ -131,8 +110,6 @@ class DiscreteModel {
       this.waveformProperty.reset();
       this.waveTypeProperty.reset();
       this.domainProperty.reset();
-      this.wavelengthToolOrderProperty.reset();
-      this.periodToolOrderProperty.reset();
       this.mathFormProperty.reset();
 
       // Set the amplitudes of the Fourier series to match Property settings.
