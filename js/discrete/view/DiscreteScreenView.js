@@ -54,7 +54,7 @@ class DiscreteScreenView extends ScreenView {
       viewProperties.soundEnabledProperty, viewProperties.soundOutputLevelProperty );
     soundManager.addSoundGenerator( fourierSoundGenerator );
 
-    // Parent for all popups (listbox, keypad, etc.)
+    // Parent for all popups
     const popupParent = new Node();
 
     // KeypadDialog
