@@ -13,6 +13,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import DragBoundsProperty from '../../../../scenery-phet/js/DragBoundsProperty.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -33,12 +34,12 @@ class LengthToolNode extends VBox {
    * @param {Property.<number>} orderProperty - order of the harmonic to be measured
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<boolean>} selectedProperty - whether the tool is selected
-   * @param {Bounds2} dragBounds
+   * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {function(harmonic:Harmonic):number} getModelValue
    * @param {function(selected:boolean, domain:Domain):boolean} getVisible
    * @param {Object} [options]
    */
-  constructor( symbol, chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, dragBounds,
+  constructor( symbol, chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, dragBoundsProperty,
                getModelValue, getVisible, options ) {
 
     assert && assert( typeof symbol === 'string', 'invalid symbol' );
@@ -47,7 +48,7 @@ class LengthToolNode extends VBox {
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( orderProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( selectedProperty, 'boolean' );
-    assert && assert( dragBounds instanceof Bounds2, 'invalid dragBounds' );
+    assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
     assert && assert( typeof getModelValue === 'function', 'invalid getModelValue' );
     assert && assert( typeof getVisible === 'function', 'invalid getVisible' );
 
@@ -88,11 +89,25 @@ class LengthToolNode extends VBox {
         this.visible = getVisible( selected, domain );
       } );
 
+    const positionProperty = new Property( this.translation );
+    positionProperty.lazyLink( position => {
+      this.translation = position;
+    } );
+
+    const derivedDragBoundsProperty = new DragBoundsProperty( this, dragBoundsProperty );
+
     // removeInputListener is not needed.
     this.addInputListener( new DragListener( {
-      dragBoundsProperty: new Property( dragBounds ),
-      translateNode: true
+      positionProperty: positionProperty,
+      dragBoundsProperty: derivedDragBoundsProperty
     } ) );
+
+    // If the tool is outside the drag bounds, move it inside.
+    derivedDragBoundsProperty.link( derivedDragBounds => {
+      if ( !derivedDragBounds.containsPoint( positionProperty.value ) ) {
+        positionProperty.value = derivedDragBounds.closestPointTo( positionProperty.value );
+      }
+    } );
   }
 
   // @private

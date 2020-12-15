@@ -21,11 +21,11 @@ class WavelengthToolNode extends LengthToolNode {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<number>} orderProperty - order of the harmonic to display
    * @param {Property.<boolean>} selectedProperty - whether the tool is selected
-   * @param {Bounds2} dragBounds
+   * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {Object} [options]
    */
-  constructor( chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, dragBounds, options ) {
-    super( FMWSymbols.lambda, chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, dragBounds,
+  constructor( chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, dragBoundsProperty, options ) {
+    super( FMWSymbols.lambda, chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, dragBoundsProperty,
       harmonic => FMWConstants.L / harmonic.order,
       ( selected, domain ) => selected && ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME ),
       options );
