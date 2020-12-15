@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
@@ -25,7 +24,7 @@ class PeriodToolNode extends LengthToolNode {
    */
   constructor( chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, dragBoundsProperty, options ) {
     super( FMWSymbols.T, chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, dragBoundsProperty,
-      harmonic => FMWConstants.T / harmonic.order,
+      harmonic => harmonic.period,
       ( selected, domain ) => selected && ( domain === Domain.TIME ),
       options );
   }

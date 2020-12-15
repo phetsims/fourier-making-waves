@@ -52,9 +52,10 @@ class FourierSeries extends PhetioObject {
     // See https://github.com/phetsims/fourier-making-waves/issues/6.
     this.harmonics = [];
     for ( let order = 1; order <= this.numberOfHarmonicsProperty.range.max; order++ ) {
+      const frequency = FMWConstants.FUNDAMENTAL_FREQUENCY * order;
+      const wavelength = FMWConstants.L / order;
       const colorProperty = FMWColorProfile.getHarmonicColorProperty( order );
-      this.harmonics.push( new Harmonic( order, colorProperty, this.amplitudeRange, {
-        range: this.amplitudeRange,
+      this.harmonics.push( new Harmonic( order, frequency, wavelength, colorProperty, this.amplitudeRange, {
         tandem: options.tandem.createTandem( `harmonic${order}` )
       } ) );
     }

@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
@@ -26,7 +25,7 @@ class WavelengthToolNode extends LengthToolNode {
    */
   constructor( chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, dragBoundsProperty, options ) {
     super( FMWSymbols.lambda, chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, dragBoundsProperty,
-      harmonic => FMWConstants.L / harmonic.order,
+      harmonic => harmonic.wavelength,
       ( selected, domain ) => selected && ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME ),
       options );
   }

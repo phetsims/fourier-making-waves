@@ -19,11 +19,13 @@ class Harmonic extends PhetioObject {
 
   /**
    * @param {number} order - the order of the harmonic
+   * @param {number} frequency - frequency, in Hz
+   * @param {number} wavelength - wavelength, in meters
    * @param {Property.<Color>} colorProperty - the color used to render visual representations of the harmonic
    * @param {Range} amplitudeRange
    * @param {Object} [options]
    */
-  constructor( order, colorProperty, amplitudeRange, options ) {
+  constructor( order, frequency, wavelength, colorProperty, amplitudeRange, options ) {
     assert && AssertUtils.assertPositiveInteger( order );
     assert && AssertUtils.assertPropertyOf( colorProperty, Color );
     assert && assert( amplitudeRange instanceof Range, 'invalid amplitudeRange' );
@@ -38,8 +40,13 @@ class Harmonic extends PhetioObject {
 
     // @public (read-only)
     this.order = order;
+    this.frequency = frequency;
+    this.wavelength = wavelength;
     this.colorProperty = colorProperty;
     this.amplitudeRange = amplitudeRange;
+
+    // public (read-only)
+    this.period = 1000 / frequency;
 
     // @public
     this.amplitudeProperty = new NumberProperty( options.amplitude, {
