@@ -29,20 +29,20 @@ class LengthToolNode extends VBox {
    * @param {Harmonic[]} harmonics
    * @param {Property.<number>} orderProperty - order of the harmonic to be measured
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<boolean>} visibleProperty
+   * @param {Property.<boolean>} selectedProperty - whether the tool is selected
    * @param {Bounds2} dragBounds
    * @param {function(harmonic:Harmonic):number} getModelValue
-   * @param {function(domain:Domain, visible:boolean)} getVisible
+   * @param {function(domain:Domain, selected:boolean)} getVisible
    * @param {Object} [options]
    */
-  constructor( chartTransform, symbol, harmonics, orderProperty, domainProperty, visibleProperty, dragBounds,
+  constructor( chartTransform, symbol, harmonics, orderProperty, domainProperty, selectedProperty, dragBounds,
                getModelValue, getVisible, options ) {
 
     assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
     assert && assert( Array.isArray( harmonics ), 'invalid harmonics' );
     assert && AssertUtils.assertPropertyOf( orderProperty, 'number' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( visibleProperty, 'boolean' );
+    assert && AssertUtils.assertPropertyOf( selectedProperty, 'boolean' );
     assert && assert( dragBounds instanceof Bounds2, 'invalid dragBounds' );
     assert && assert( typeof getModelValue === 'function', 'invalid getModelValue' );
     assert && assert( typeof getVisible === 'function', 'invalid getVisible' );
@@ -78,7 +78,7 @@ class LengthToolNode extends VBox {
     } );
 
     // Visibility, unmultilink is not needed.
-    Property.multilink( [ domainProperty, visibleProperty ],
+    Property.multilink( [ domainProperty, selectedProperty ],
       ( domain, visible ) => {
         this.interruptSubtreeInput();
         this.visible = getVisible( domain, visible );

@@ -20,14 +20,14 @@ class WavelengthToolNode extends LengthToolNode {
    * @param {Harmonic[]} harmonics
    * @param {Property.<number>} orderProperty - order of the harmonic to display
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<boolean>} visibleProperty
+   * @param {Property.<boolean>} selectedProperty
    * @param {Bounds2} dragBounds
    * @param {Object} [options]
    */
-  constructor( chartTransform, harmonics, orderProperty, domainProperty, visibleProperty, dragBounds, options ) {
-    super( chartTransform, FMWSymbols.lambda, harmonics, orderProperty, domainProperty, visibleProperty, dragBounds,
+  constructor( chartTransform, harmonics, orderProperty, domainProperty, selectedProperty, dragBounds, options ) {
+    super( chartTransform, FMWSymbols.lambda, harmonics, orderProperty, domainProperty, selectedProperty, dragBounds,
       harmonic => FMWConstants.L / harmonic.order,
-      ( domain, visible ) => ( domain !== Domain.TIME ) && visible,
+      ( domain, selected ) => ( domain !== Domain.TIME ) && selected,
       options );
   }
 }

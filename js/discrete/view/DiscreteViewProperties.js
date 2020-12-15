@@ -38,11 +38,11 @@ class DiscreteViewProperties {
       range: new Range( 0, 1 )
     } );
 
-    // @public whether the Wavelength tool is visible
-    this.wavelengthToolVisibleProperty = new BooleanProperty( false );
+    // @public whether the Wavelength tool is selected
+    this.wavelengthToolSelectedProperty = new BooleanProperty( false );
 
-    // @public whether the Period tool is visible
-    this.periodToolVisibleProperty = new BooleanProperty( false );
+    // @public whether the Period tool is selected
+    this.periodToolSelectedProperty = new BooleanProperty( false );
 
     //TODO move chart Properties somewhere else? FMWChartModel?
 

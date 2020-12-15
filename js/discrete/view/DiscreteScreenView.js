@@ -151,7 +151,7 @@ class DiscreteScreenView extends ScreenView {
     } ) );
 
     const controlPanel = new DiscreteControlPanel( model,
-      viewProperties.wavelengthToolVisibleProperty, viewProperties.periodToolVisibleProperty,
+      viewProperties.wavelengthToolSelectedProperty, viewProperties.periodToolSelectedProperty,
       viewProperties.soundEnabledProperty, viewProperties.soundOutputLevelProperty, popupParent, {
         right: this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN,
         top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN,
@@ -198,7 +198,7 @@ class DiscreteScreenView extends ScreenView {
     // For measuring the wavelength of a specific harmonic in the 'space' and 'space & time' domains.
     const wavelengthToolNode = new WavelengthToolNode( harmonicsChart.chartTransform,
       model.fourierSeries.harmonics, model.wavelengthToolOrderProperty, model.domainProperty,
-      viewProperties.wavelengthToolVisibleProperty, toolDragBounds );
+      viewProperties.wavelengthToolSelectedProperty, toolDragBounds );
     this.addChild( wavelengthToolNode );
 
     //TODO use harmonicsChart.chartTransform to position on harmonicsChart
@@ -207,7 +207,7 @@ class DiscreteScreenView extends ScreenView {
     // For measuring the period of a specific harmonic in the 'time' domain.
     const periodToolNode = new PeriodToolNode( harmonicsChart.chartTransform,
       model.fourierSeries.harmonics, model.periodToolOrderProperty, model.domainProperty,
-      viewProperties.periodToolVisibleProperty, toolDragBounds );
+      viewProperties.periodToolSelectedProperty, toolDragBounds );
     this.addChild( periodToolNode );
 
     //TODO use harmonicsChart.chartTransform to position on harmonicsChart
