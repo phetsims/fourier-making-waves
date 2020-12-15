@@ -11,3 +11,5 @@ Dynamically optimize number of points in dataSets
 Auto Scale checkbox
 Infinite Harmonics checkbox
 Highlight & thicken harmonic plot on pointer-over of amplitude slider or measurement tool
+
+Do measurement tools need resettable initial positions?
