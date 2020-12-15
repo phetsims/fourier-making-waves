@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * Domain defines the independent variables in the function that describes the Fourier series.
+ * Domain identifies the independent variables in the function that describes the Fourier series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
