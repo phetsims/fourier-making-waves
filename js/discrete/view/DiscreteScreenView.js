@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
-import Property from '../../../../axon/js/Property.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -195,22 +194,14 @@ class DiscreteScreenView extends ScreenView {
     //TODO this needs some work
     const toolDragBounds = this.layoutBounds.erodedXY( FMWConstants.SCREEN_VIEW_X_MARGIN, FMWConstants.SCREEN_VIEW_Y_MARGIN );
 
+    // For measuring the wavelength of a specific harmonic
     const wavelengthToolNode = new WavelengthToolNode( harmonicsChart.chartTransform,
-      model.fourierSeries.harmonics[ 0 ], toolDragBounds, {
-        center: this.layoutBounds.center
-      } );
+      model.fourierSeries.harmonics, model.selectedWavelengthProperty, model.domainProperty,
+      viewProperties.wavelengthToolVisibleProperty, toolDragBounds );
     this.addChild( wavelengthToolNode );
 
-    // Visibility of the Wavelength tool
-    Property.multilink( [ model.domainProperty, viewProperties.wavelengthToolVisibleProperty ],
-      ( domain, wavelengthToolVisible ) => {
-        wavelengthToolNode.visible = ( domain !== Domain.TIME ) && wavelengthToolVisible;
-      } );
-
-    // Set the Wavelength tool to display the wavelength for the selected harmonic
-    model.selectedWavelengthProperty.link( selectedWavelength => {
-      wavelengthToolNode.setHarmonic( model.fourierSeries.harmonics[ selectedWavelength - 1 ] );
-    } );
+    //TODO use harmonicsChart.chartTransform to position on harmonicsChart
+    wavelengthToolNode.center = this.layoutBounds.center;
 
     // parent for popups on top
     this.addChild( popupParent );

@@ -76,7 +76,7 @@ const FMWConstants = {
   AXIS_LABEL_FONT: new PhetFont( 12 ),
   TICK_LABEL_FONT: new PhetFont( 12 ),
   EQUATION_FONT: new PhetFont( 18 ),
-  TOOL_LABEL_FONT: new PhetFont( 14 ),
+  TOOL_LABEL_FONT: new PhetFont( 16 ),
 
   // Number of decimal places for amplitude sliders
   AMPLITUDE_SLIDER_DECIMAL_PLACES: 2,

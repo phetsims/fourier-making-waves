@@ -16,16 +16,20 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import Domain from '../model/Domain.js';
 
 class WavelengthToolNode extends VBox {
 
   /**
    * @param {ChartTransform} chartTransform
-   * @param {Harmonic} harmonic
+   * @param {Harmonic[]} harmonics
+   * @param {Property.<number>} orderProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {Property.<boolean>} visibleProperty
    * @param {Bounds2} dragBounds
    * @param {Object} [options]
    */
-  constructor( chartTransform, harmonic, dragBounds, options ) {
+  constructor( chartTransform, harmonics, orderProperty, domainProperty, visibleProperty, dragBounds, options ) {
 
     options = merge( {
       spacing: 2, // between label and tool
@@ -36,7 +40,7 @@ class WavelengthToolNode extends VBox {
 
     // @private
     this.chartTransform = chartTransform;
-    this.harmonic = harmonic;
+    this.harmonic = harmonics[ orderProperty.value ];
     this.viewWavelength = 0;
 
     // Initialize
@@ -48,23 +52,24 @@ class WavelengthToolNode extends VBox {
     // Update when the range of the associated axis changes. removeListener is not needed.
     chartTransform.changedEmitter.addListener( () => this.update() );
 
+    // Display the wavelength for the selected harmonic
+    orderProperty.link( order => {
+      this.harmonic = harmonics[ order - 1 ];
+      this.viewWavelength = 0; // to force an update, in case 2 harmonics had the same wavelength but different colors
+      this.update();
+    } );
+
+    // Visibility
+    Property.multilink( [ domainProperty, visibleProperty ],
+      ( domain, visible ) => {
+        this.visible = ( domain !== Domain.TIME ) && visible;
+      } );
+
     // removeInputListener is not needed.
     this.addInputListener( new DragListener( {
       dragBoundsProperty: new Property( dragBounds ),
       translateNode: true
     } ) );
-  }
-
-  /**
-   * @param {Harmonic} harmonic
-   * @public
-   */
-  setHarmonic( harmonic ) {
-    if ( harmonic !== this.harmonic ) {
-      this.harmonic = harmonic;
-      this.viewWavelength = 0; // to force an update, in case 2 harmonics had the same wavelength but different colors
-      this.update();
-    }
   }
 
   // @private
