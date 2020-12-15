@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
+import Property from '../../../../axon/js/Property.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -29,6 +30,7 @@ import DiscreteViewProperties from './DiscreteViewProperties.js';
 import FourierSoundGenerator from './FourierSoundGenerator.js';
 import HarmonicsChart from './HarmonicsChart.js';
 import SumChart from './SumChart.js';
+import WavelengthToolNode from './WavelengthToolNode.js';
 
 class DiscreteScreenView extends ScreenView {
 
@@ -149,6 +151,7 @@ class DiscreteScreenView extends ScreenView {
     } ) );
 
     const controlPanel = new DiscreteControlPanel( model,
+      viewProperties.wavelengthToolVisibleProperty, viewProperties.periodToolVisibleProperty,
       viewProperties.soundEnabledProperty, viewProperties.soundOutputLevelProperty, popupParent, {
         right: this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN,
         top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN,
@@ -188,6 +191,26 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( resetAllButton );
+
+    //TODO this needs some work
+    const toolDragBounds = this.layoutBounds.erodedXY( FMWConstants.SCREEN_VIEW_X_MARGIN, FMWConstants.SCREEN_VIEW_Y_MARGIN );
+
+    const wavelengthToolNode = new WavelengthToolNode( harmonicsChart.chartTransform,
+      model.fourierSeries.harmonics[ 0 ], toolDragBounds, {
+        center: this.layoutBounds.center
+      } );
+    this.addChild( wavelengthToolNode );
+
+    // Visibility of the Wavelength tool
+    Property.multilink( [ model.domainProperty, viewProperties.wavelengthToolVisibleProperty ],
+      ( domain, wavelengthToolVisible ) => {
+        wavelengthToolNode.visible = ( domain !== Domain.TIME ) && wavelengthToolVisible;
+      } );
+
+    // Set the Wavelength tool to display the wavelength for the selected harmonic
+    model.selectedWavelengthProperty.link( selectedWavelength => {
+      wavelengthToolNode.setHarmonic( model.fourierSeries.harmonics[ selectedWavelength - 1 ] );
+    } );
 
     // parent for popups on top
     this.addChild( popupParent );

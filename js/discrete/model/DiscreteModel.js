@@ -52,15 +52,9 @@ class DiscreteModel {
     this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
 
     // @public
-    this.wavelengthToolEnabledProperty = new BooleanProperty( false );
-
-    // @public
     this.selectedWavelengthProperty = new NumberProperty( 1, {
       range: new Range( 1, this.fourierSeries.numberOfHarmonicsProperty.value )
     } );
-
-    // @public
-    this.periodToolEnabledProperty = new BooleanProperty( false );
 
     // @public
     this.selectedPeriodProperty = new NumberProperty( 1, {
@@ -138,9 +132,7 @@ class DiscreteModel {
       this.waveformProperty.reset();
       this.waveTypeProperty.reset();
       this.domainProperty.reset();
-      this.wavelengthToolEnabledProperty.reset();
       this.selectedWavelengthProperty.reset();
-      this.periodToolEnabledProperty.reset();
       this.selectedPeriodProperty.reset();
       this.mathFormProperty.reset();
       this.sumExpandedProperty.reset();

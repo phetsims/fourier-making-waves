@@ -27,14 +27,19 @@ class DiscreteControlPanel extends Panel {
 
   /**
    * @param {DiscreteModel} model
+   * @param {Property.<boolean>} wavelengthToolVisibleProperty
+   * @param {Property.<boolean>} periodToolVisibleProperty
    * @param {Property.<boolean>} soundEnabledProperty
    * @param {NumberProperty} soundOutputLevelProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
-  constructor( model, soundEnabledProperty, soundOutputLevelProperty, popupParent, options ) {
+  constructor( model, wavelengthToolVisibleProperty, periodToolVisibleProperty,
+               soundEnabledProperty, soundOutputLevelProperty, popupParent, options ) {
 
     assert && assert( model instanceof DiscreteModel, 'invalid model' );
+    assert && AssertUtils.assertPropertyOf( wavelengthToolVisibleProperty, 'boolean' );
+    assert && AssertUtils.assertPropertyOf( periodToolVisibleProperty, 'boolean' );
     assert && AssertUtils.assertPropertyOf( soundEnabledProperty, 'boolean' );
     assert && assert( soundOutputLevelProperty instanceof NumberProperty, 'invalid soundOutputLevelProperty' );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
@@ -48,8 +53,8 @@ class DiscreteControlPanel extends Panel {
     const sectionNodes = [
       new FourierSeriesLayoutBox( model.waveformProperty, model.fourierSeries.numberOfHarmonicsProperty, popupParent ),
       new GraphControlsLayoutBox( model.domainProperty, model.waveTypeProperty, popupParent ),
-      new MeasurementToolsLayoutBox( model.wavelengthToolEnabledProperty, model.selectedWavelengthProperty,
-        model.periodToolEnabledProperty, model.selectedPeriodProperty,
+      new MeasurementToolsLayoutBox( wavelengthToolVisibleProperty, model.selectedWavelengthProperty,
+        periodToolVisibleProperty, model.selectedPeriodProperty,
         model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty ),
       new MathFormLayoutBox( model.fourierSeries, model.mathFormProperty, model.domainProperty, popupParent ),
       new SoundLayoutBox( soundEnabledProperty, soundOutputLevelProperty )

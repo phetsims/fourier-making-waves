@@ -184,11 +184,13 @@ class DiscreteChart extends Node {
 
     super( options );
 
+    // @public TODO would prefer this to be @protected
+    this.chartTransform = chartTransform;
+
     // @protected for layout of decorations added by subclasses
     this.chartRectangle = chartRectangle;
 
     // @protected for setting range and spacing by subclasses
-    this.chartTransform = chartTransform;
     this.xTickLabels = xTickLabels;
     this.yGridLines = yGridLines;
     this.yTickMarks = yTickMarks;
