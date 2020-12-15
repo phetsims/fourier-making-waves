@@ -192,26 +192,22 @@ class DiscreteScreenView extends ScreenView {
     this.addChild( resetAllButton );
 
     //TODO do not reach into HarmonicsChart for chartTransform
+    const harmonicsChartTransform = harmonicsChart.chartTransform;
+
     // For measuring the wavelength of a specific harmonic in the 'space' and 'space & time' domains.
-    const wavelengthToolNode = new WavelengthToolNode( harmonicsChart.chartTransform,
+    const wavelengthToolNode = new WavelengthToolNode( harmonicsChartTransform,
       model.fourierSeries.harmonics, model.domainProperty,
       viewProperties.wavelengthToolOrderProperty, viewProperties.wavelengthToolSelectedProperty,
       this.visibleBoundsProperty );
     this.addChild( wavelengthToolNode );
 
-    //TODO use harmonicsChart.chartTransform to position on harmonicsChart
-    wavelengthToolNode.center = this.layoutBounds.center;
-
     //TODO do not reach into HarmonicsChart for chartTransform
     // For measuring the period of a specific harmonic in the 'time' domain.
-    const periodToolNode = new PeriodToolNode( harmonicsChart.chartTransform,
+    const periodToolNode = new PeriodToolNode( harmonicsChartTransform,
       model.fourierSeries.harmonics, model.domainProperty,
       viewProperties.periodToolOrderProperty, viewProperties.periodToolSelectedProperty,
       this.visibleBoundsProperty );
     this.addChild( periodToolNode );
-
-    //TODO use harmonicsChart.chartTransform to position on harmonicsChart
-    periodToolNode.center = this.layoutBounds.center;
 
     // For measuring the period of a specific harmonic in the 'space & time' domain.
     const periodClockNode = new PeriodClockNode( model.fourierSeries.harmonics, model.domainProperty,
@@ -219,7 +215,9 @@ class DiscreteScreenView extends ScreenView {
       model.tProperty, this.visibleBoundsProperty );
     this.addChild( periodClockNode );
 
-    //TODO decide where to initially position this
+    //TODO Where to position tools? Should initial position be resettable?
+    wavelengthToolNode.center = this.layoutBounds.center;
+    periodToolNode.center = this.layoutBounds.center; //TODO This isn't working as expected.
     periodClockNode.center = this.layoutBounds.center;
 
     // parent for popups on top
