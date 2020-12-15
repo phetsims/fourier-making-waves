@@ -19,7 +19,9 @@ import Circle from '../../../../scenery/js/nodes/Circle.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Harmonic from '../../common/model/Harmonic.js';
@@ -55,13 +57,24 @@ class PeriodClockNode extends HBox {
 
     const clockFaceNode = new ClockFaceNode( harmonicProperty, tProperty );
 
-    //TODO put the label on a translucent background, like the other measurement tools
     const labelNode = new RichText( '', {
       font: FMWConstants.TOOL_LABEL_FONT
     } );
 
+    // A translucent background for the label
+    const backgroundNode = new Rectangle( 0, 0, 1, 1, {
+      fill: Color.grayColor( 255, 0.75 )
+    } );
+
+    // Resize the background to fit the label, and keep label centered in background.
+    // unlink is not needed.
+    labelNode.localBoundsProperty.link( () => {
+      backgroundNode.setRect( 0, 0, 1.2 * labelNode.width, 1.1 * labelNode.height );
+      backgroundNode.center = labelNode.center;
+    } );
+
     assert && assert( !options.children, 'PeriodClockNode sets children' );
-    options.children = [ clockFaceNode, labelNode ];
+    options.children = [ clockFaceNode, new Node( { children: [ backgroundNode, labelNode ] } ) ];
 
     super( options );
 

@@ -147,7 +147,7 @@ class LengthToolNode extends VBox {
 
       // A translucent background for the label
       const backgroundNode = new Rectangle( 0, 0, 1.2 * labelNode.width, 1.1 * labelNode.height, {
-        fill: Color.grayColor( 255, 0.7 ),
+        fill: Color.grayColor( 255, 0.75 ),
         center: labelNode.center
       } );
 
