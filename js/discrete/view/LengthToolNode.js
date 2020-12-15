@@ -77,6 +77,7 @@ class LengthToolNode extends VBox {
 
     // Display the wavelength for the selected harmonic. unlink is not needed.
     orderProperty.link( order => {
+      this.interruptSubtreeInput();
       this.harmonic = harmonics[ order - 1 ];
       this.viewValue = 0; // to force an update, in case 2 harmonics had the same value but different colors
       this.update();
@@ -105,6 +106,7 @@ class LengthToolNode extends VBox {
     // If the tool is outside the drag bounds, move it inside.
     derivedDragBoundsProperty.link( derivedDragBounds => {
       if ( !derivedDragBounds.containsPoint( positionProperty.value ) ) {
+        this.interruptSubtreeInput();
         positionProperty.value = derivedDragBounds.closestPointTo( positionProperty.value );
       }
     } );

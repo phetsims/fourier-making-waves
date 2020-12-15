@@ -28,6 +28,7 @@ import DiscreteControlPanel from './DiscreteControlPanel.js';
 import DiscreteViewProperties from './DiscreteViewProperties.js';
 import FourierSoundGenerator from './FourierSoundGenerator.js';
 import HarmonicsChart from './HarmonicsChart.js';
+import PeriodClockNode from './PeriodClockNode.js';
 import PeriodToolNode from './PeriodToolNode.js';
 import SumChart from './SumChart.js';
 import WavelengthToolNode from './WavelengthToolNode.js';
@@ -211,6 +212,15 @@ class DiscreteScreenView extends ScreenView {
 
     //TODO use harmonicsChart.chartTransform to position on harmonicsChart
     periodToolNode.center = this.layoutBounds.center;
+
+    // For measuring the period of a specific harmonic in the 'space & time' domain.
+    const periodClockNode = new PeriodClockNode( model.fourierSeries.harmonics, model.domainProperty,
+      viewProperties.periodToolOrderProperty, viewProperties.periodToolSelectedProperty,
+      model.tProperty, this.visibleBoundsProperty );
+    this.addChild( periodClockNode );
+
+    //TODO decide where to initially position this
+    periodClockNode.center = this.layoutBounds.center;
 
     // parent for popups on top
     this.addChild( popupParent );
