@@ -14,7 +14,6 @@ import Range from '../../../../dot/js/Range.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import OscillatorSoundGenerator from '../../../../tambo/js/sound-generators/OscillatorSoundGenerator.js';
 import SoundGenerator from '../../../../tambo/js/sound-generators/SoundGenerator.js';
-import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -50,9 +49,10 @@ class FourierSoundGenerator extends SoundGenerator {
     // {OscillatorSoundGenerator[]} Create an oscillator for each harmonic.
     const oscillatorSoundGenerators = [];
     for ( let i = 0; i < maxNumberOfHarmonics; i++ ) {
+      const harmonic = fourierSeries.harmonics[ i ];
       const oscillatorSoundGenerator = new OscillatorSoundGenerator( {
-        initialFrequency: ( i + 1 ) * FMWConstants.FUNDAMENTAL_FREQUENCY,
-        initialOutputLevel: amplitudeToOutputLevel( fourierSeries.amplitudesProperty.value[ i ] )
+        initialFrequency: harmonic.frequency,
+        initialOutputLevel: amplitudeToOutputLevel( harmonic.amplitudeProperty.value )
       } );
       oscillatorSoundGenerator.connect( this.masterGainNode );
       oscillatorSoundGenerators.push( oscillatorSoundGenerator );

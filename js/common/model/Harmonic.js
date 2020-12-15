@@ -7,8 +7,11 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -37,6 +40,13 @@ class Harmonic extends PhetioObject {
       phetioState: false
     }, config );
 
+    assert && AssertUtils.assertPositiveInteger( config.order );
+    assert && AssertUtils.assertPositiveNumber( config.frequency );
+    assert && AssertUtils.assertPositiveNumber( config.wavelength );
+    assert && assert( config.amplitudeRange instanceof Range, 'invalid amplitudeRange' );
+    assert && AssertUtils.assertPropertyOf( config.colorProperty, Color );
+    assert && assert( typeof config.amplitude === 'number', 'invalid amplitude' );
+
     super( config );
 
     // @public (read-only)
@@ -46,10 +56,10 @@ class Harmonic extends PhetioObject {
     this.colorProperty = config.colorProperty;
     this.amplitudeRange = config.amplitudeRange;
 
-    // public (read-only)
+    // public (read-only) period of the harmonic, in milliseconds
     this.period = 1000 / this.frequency;
 
-    // @public
+    // @public amplitude of the harmonic, no units
     this.amplitudeProperty = new NumberProperty( config.amplitude, {
       range: this.amplitudeRange,
       tandem: config.tandem.createTandem( 'amplitudeProperty' )

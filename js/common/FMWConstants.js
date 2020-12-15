@@ -10,10 +10,6 @@ import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWColorProfile from './FMWColorProfile.js';
 
-// constants - model
-const FUNDAMENTAL_FREQUENCY = 440; // Hz
-const SPEED_OF_SOUND = 343.2; // meters/second
-
 // constants - view
 const PANEL_CORNER_RADIUS = 5;
 const PANEL_X_MARGIN = 8;
@@ -23,17 +19,9 @@ const FMWConstants = {
 
   // Model ===========================================================================================================
 
-  // string length, in meters
-  L: 1,
-
   // amplitude range is [-MAX_ABSOLUTE_AMPLITUDE, MAX_ABSOLUTE_AMPLITUDE]
   // see https://github.com/phetsims/fourier-making-waves/issues/22
   MAX_ABSOLUTE_AMPLITUDE: 1.5,
-
-  FUNDAMENTAL_FREQUENCY: FUNDAMENTAL_FREQUENCY, // frequency of the fundamental, in Hz
-  T: 1000 / FUNDAMENTAL_FREQUENCY, // period of the fundamental, in milliseconds
-
-  FUNDAMENTAL_WAVELENGTH: SPEED_OF_SOUND / FUNDAMENTAL_FREQUENCY, // meters
 
   // dt for the time control's step button, in seconds
   STEP_DT: 0.05,

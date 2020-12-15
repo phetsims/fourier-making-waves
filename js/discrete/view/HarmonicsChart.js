@@ -16,7 +16,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FWMConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
@@ -96,7 +95,8 @@ class HarmonicsChart extends DiscreteChart {
       harmonicPlots.push( harmonicPlot );
 
       updateOneHarmonicPlot( harmonicPlot, this.chartTransform.modelXRange,
-        fourierSeries.numberOfHarmonicsProperty.value, domainProperty.value, waveTypeProperty.value, tProperty.value );
+        fourierSeries.numberOfHarmonicsProperty.value, domainProperty.value, waveTypeProperty.value,
+        fourierSeries.L, fourierSeries.T, tProperty.value );
     }
 
     // Render all of the plots using Canvas, clipped to chartRectangle.
@@ -117,7 +117,8 @@ class HarmonicsChart extends DiscreteChart {
       // unlink is not needed.
       plot.harmonic.amplitudeProperty.lazyLink( () => {
         updateOneHarmonicPlot( plot, this.chartTransform.modelXRange,
-          fourierSeries.numberOfHarmonicsProperty.value, domainProperty.value, waveTypeProperty.value, tProperty.value );
+          fourierSeries.numberOfHarmonicsProperty.value, domainProperty.value, waveTypeProperty.value,
+          fourierSeries.L, fourierSeries.T, tProperty.value );
         chartCanvasNode.update();
         updateSumDataSet( this.sumDataSetProperty, harmonicPlots, fourierSeries.numberOfHarmonicsProperty.value );
       } );
@@ -125,7 +126,8 @@ class HarmonicsChart extends DiscreteChart {
 
     const updateEverything = () => {
       updateAllHarmonicPlots( chartCanvasNode, harmonicPlots, this.chartTransform.modelXRange,
-        fourierSeries.numberOfHarmonicsProperty.value, domainProperty.value, waveTypeProperty.value, tProperty.value );
+        fourierSeries.numberOfHarmonicsProperty.value, domainProperty.value, waveTypeProperty.value,
+        fourierSeries.L, fourierSeries.T, tProperty.value );
       updateSumDataSet( this.sumDataSetProperty, harmonicPlots, fourierSeries.numberOfHarmonicsProperty.value );
     };
 
@@ -148,16 +150,20 @@ class HarmonicsChart extends DiscreteChart {
  * @param {number} numberOfHarmonics
  * @param {Domain} domain
  * @param {WaveType} waveType
+ * @param {number} L
+ * @param {number} T
  * @param {number} t
  */
-function updateOneHarmonicPlot( harmonicPlot, modelXRange, numberOfHarmonics, domain, waveType, t ) {
+function updateOneHarmonicPlot( harmonicPlot, modelXRange, numberOfHarmonics, domain, waveType, L, T, t ) {
 
   assert && assert( harmonicPlot instanceof HarmonicPlot, 'invalid harmonicPlot' );
   assert && assert( modelXRange instanceof Range, 'invalid modelXRange' );
   assert && AssertUtils.assertPositiveInteger( numberOfHarmonics );
   assert && assert( Domain.includes( domain ), 'invalid domain' );
   assert && assert( WaveType.includes( waveType ), 'invalid waveType' );
-  assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
+  assert && AssertUtils.assertPositiveNumber( L );
+  assert && AssertUtils.assertPositiveNumber( T );
+  assert && assert( typeof t === 'number' && t >= 0, `invalid t: ${t}` );
 
   const harmonic = harmonicPlot.harmonic;
   const order = harmonic.order;
@@ -170,7 +176,7 @@ function updateOneHarmonicPlot( harmonicPlot, modelXRange, numberOfHarmonics, do
   if ( harmonic.order <= numberOfHarmonics ) {
 
     // Create the data set for a relevant harmonic.
-    harmonicPlot.setDataSet( createHarmonicDataSet( order, amplitude, modelXRange, domain, waveType, t ) );
+    harmonicPlot.setDataSet( createHarmonicDataSet( order, amplitude, modelXRange, domain, waveType, L, T, t ) );
   }
   else {
 
@@ -187,15 +193,17 @@ function updateOneHarmonicPlot( harmonicPlot, modelXRange, numberOfHarmonics, do
  * @param {number} numberOfHarmonics
  * @param {Domain} domain
  * @param {WaveType} waveType
+ * @param {number} L
+ * @param {number} T
  * @param {number} t
  */
-function updateAllHarmonicPlots( chartCanvasNode, harmonicPlots, modelXRange, numberOfHarmonics, domain, waveType, t ) {
+function updateAllHarmonicPlots( chartCanvasNode, harmonicPlots, modelXRange, numberOfHarmonics, domain, waveType, L, T, t ) {
 
   assert && assert( chartCanvasNode instanceof ChartCanvasNode, 'invalid chartCanvasNode' );
   // Other args are validated by updateOneHarmonicPlot
 
   for ( let i = 0; i < harmonicPlots.length; i++ ) {
-    updateOneHarmonicPlot( harmonicPlots[ i ], modelXRange, numberOfHarmonics, domain, waveType, t );
+    updateOneHarmonicPlot( harmonicPlots[ i ], modelXRange, numberOfHarmonics, domain, waveType, L, T, t );
   }
   chartCanvasNode.update();
 }
@@ -222,18 +230,22 @@ function updateSumDataSet( sumDataSetProperty, harmonicPlots, numberOfHarmonics 
  * @param {number} amplitude
  * @param {Range} xRange
  * @param {Domain} domain
- * @param {WaveTy pe} waveType
+ * @param {WaveType} waveType
+ * @param {number} L
+ * @param {number} T
  * @param {number} t
  * @returns {Vector2[]}
  */
-function createHarmonicDataSet( order, amplitude, xRange, domain, waveType, t ) {
+function createHarmonicDataSet( order, amplitude, xRange, domain, waveType, L, T, t ) {
 
   assert && AssertUtils.assertPositiveInteger( order );
   assert && assert( typeof amplitude === 'number', 'invalid amplitude' );
   assert && assert( xRange instanceof Range, 'invalid xRange' );
   assert && assert( Domain.includes( domain ), 'invalid domain' );
   assert && assert( WaveType.includes( waveType ), 'invalid waveType' );
-  assert && assert( typeof t === 'number', 'invalid t' );
+  assert && AssertUtils.assertPositiveNumber( L );
+  assert && AssertUtils.assertPositiveNumber( T );
+  assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
 
   const dx = xRange.getLength() / POINTS_PER_PLOT;
 
@@ -242,26 +254,26 @@ function createHarmonicDataSet( order, amplitude, xRange, domain, waveType, t ) 
     let y;
     if ( domain === Domain.SPACE ) {
       if ( waveType === WaveType.SINE ) {
-        y = amplitude * Math.sin( 2 * Math.PI * order * x / FWMConstants.L );
+        y = amplitude * Math.sin( 2 * Math.PI * order * x / L );
       }
       else {
-        y = amplitude * Math.cos( 2 * Math.PI * order * x / FWMConstants.L );
+        y = amplitude * Math.cos( 2 * Math.PI * order * x / L );
       }
     }
     else if ( domain === Domain.TIME ) {
       if ( waveType === WaveType.SINE ) {
-        y = amplitude * Math.sin( 2 * Math.PI * order * x / FWMConstants.T );
+        y = amplitude * Math.sin( 2 * Math.PI * order * x / T );
       }
       else {
-        y = amplitude * Math.cos( 2 * Math.PI * order * x / FWMConstants.T );
+        y = amplitude * Math.cos( 2 * Math.PI * order * x / T );
       }
     }
     else { // Domain.SPACE_AND_TIME
       if ( waveType === WaveType.SINE ) {
-        y = amplitude * Math.sin( 2 * Math.PI * order * ( x / FWMConstants.L - t / FWMConstants.T ) );
+        y = amplitude * Math.sin( 2 * Math.PI * order * ( x / L - t / T ) );
       }
       else {
-        y = amplitude * Math.cos( 2 * Math.PI * order * ( x / FWMConstants.L - t / FWMConstants.T ) );
+        y = amplitude * Math.cos( 2 * Math.PI * order * ( x / L - t / T ) );
       }
     }
     dataSet.push( new Vector2( x, y ) );

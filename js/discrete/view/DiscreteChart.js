@@ -110,7 +110,7 @@ class DiscreteChart extends Node {
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, xZoomDescription.gridLineSpacing, GRID_LINE_OPTIONS );
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, xZoomDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
     const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, xZoomDescription.tickLabelSpacing, merge( {
-      createLabel: value => createTickLabel( value, domainProperty.value, mathFormProperty.value )
+      createLabel: value => createTickLabel( value, domainProperty.value, mathFormProperty.value, fourierSeries.L, fourierSeries.T )
     }, TICK_LABEL_OPTIONS ) );
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
@@ -140,7 +140,7 @@ class DiscreteChart extends Node {
     Property.multilink(
       [ xZoomDescriptionProperty, domainProperty ],
       ( xZoomDescription, domain ) => {
-        const value = ( domain === Domain.TIME ) ? FMWConstants.T : FMWConstants.L;
+        const value = ( domain === Domain.TIME ) ? fourierSeries.T : fourierSeries.L;
         chartTransform.setModelXRange( new Range( -xZoomDescription.max * value, xZoomDescription.max * value ) );
         xGridLines.setSpacing( xZoomDescription.gridLineSpacing * value );
         xTickMarks.setSpacing( xZoomDescription.tickMarkSpacing * value );
@@ -212,14 +212,16 @@ class DiscreteChart extends Node {
  * @param {number} value
  * @param {Domain} domain
  * @param {MathForm} mathForm
+ * @param {number} L - the wavelength of the fundamental harmonic
+ * @param {number} T - the period of the fundamental harmonic
  * @returns {Node}
  */
-function createTickLabel( value, domain, mathForm ) {
+function createTickLabel( value, domain, mathForm, L, T ) {
   if ( mathForm === MathForm.HIDDEN ) {
     return createNumericTickLabel( value );
   }
   else {
-    return createSymbolicTickLabel( value, domain );
+    return createSymbolicTickLabel( value, domain, L, T );
   }
 }
 
@@ -240,9 +242,11 @@ function createNumericTickLabel( value ) {
  * Creates a symbolic tick label for the chart.
  * @param {number} value
  * @param {Domain} domain
+ * @param {number} L - the wavelength of the fundamental harmonic
+ * @param {number} T - the period of the fundamental harmonic
  * @returns {Node}
  */
-function createSymbolicTickLabel( value, domain ) {
+function createSymbolicTickLabel( value, domain, L, T ) {
 
   const constantSymbol = ( domain === Domain.TIME ) ? FMWSymbols.T : FMWSymbols.L;
   let text;
@@ -252,7 +256,7 @@ function createSymbolicTickLabel( value, domain ) {
   else {
 
     // Convert the coefficient to a fraction
-    const constantValue = ( domain === Domain.TIME ) ? FMWConstants.T : FMWConstants.L;
+    const constantValue = ( domain === Domain.TIME ) ? T : L;
     const coefficient = value / constantValue;
     const fraction = Fraction.fromDecimal( coefficient );
 
