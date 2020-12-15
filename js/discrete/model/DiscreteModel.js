@@ -53,11 +53,13 @@ class DiscreteModel {
 
     // @public order of the harmonic measured by the Wavelength tool
     this.wavelengthToolOrderProperty = new NumberProperty( 1, {
+      numberType: 'Integer',
       range: new Range( 1, this.fourierSeries.numberOfHarmonicsProperty.value )
     } );
 
     // @public order of the harmonic measured by the Period tool
     this.periodToolOrderProperty = new NumberProperty( 1, {
+      numberType: 'Integer',
       range: new Range( 1, this.fourierSeries.numberOfHarmonicsProperty.value )
     } );
 
