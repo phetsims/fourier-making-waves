@@ -42,7 +42,7 @@ class ZoomDescription {
 }
 
 // @public {ZoomDescription[]} zoom levels for the x axis, one for each zoom level
-// These values are all multipliers for L and T.
+// These values are all multipliers for L (fundamental wavelength) and T (fundamental period).
 ZoomDescription.X_ZOOM_DESCRIPTIONS = [
   new ZoomDescription( {
     max: 2,
