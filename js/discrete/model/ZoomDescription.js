@@ -2,6 +2,7 @@
 
 /**
  * ZoomDescription is used to describe the range, grid lines, and ticks for an axis at a specific zoom level.
+ * A zoom level is an index into a {ZoomDescription[]}.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
