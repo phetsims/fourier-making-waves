@@ -38,7 +38,7 @@ class FourierSeries extends PhetioObject {
 
     // @public (read-only) properties of the fundamental (first, n=1) harmonic
     this.fundamentalFrequency = 440;  // frequency, in Hz
-    this.fundamentalPeriod = 1000 / this.fundamentalFrequency; // period, in Hz
+    this.fundamentalPeriod = 1000 / this.fundamentalFrequency; // period, in milliseconds
     this.fundamentalWavelength = 1; //  wavelength, in meters
 
     // @public (read-only) aliases that correspond to symbols used in equations
