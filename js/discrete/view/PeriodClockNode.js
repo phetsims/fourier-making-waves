@@ -55,6 +55,7 @@ class PeriodClockNode extends HBox {
 
     const clockFaceNode = new ClockFaceNode( harmonicProperty, tProperty );
 
+    //TODO put the label on a translucent background, like the other measurement tools
     const labelNode = new RichText( '', {
       font: FMWConstants.TOOL_LABEL_FONT
     } );
