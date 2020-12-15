@@ -68,8 +68,10 @@ class PeriodClockNode extends HBox {
     // Display the period for the selected harmonic. unlink is not needed.
     orderProperty.link( order => {
       this.interruptSubtreeInput();
-      const harmonic = harmonics[ order - 1 ];
-      harmonicProperty.value = harmonic;
+      harmonicProperty.value = harmonics[ order - 1 ];
+    } );
+
+    harmonicProperty.link( harmonic => {
       labelNode.text = `${FMWSymbols.T}<sub>${harmonic.order}</sub>`;
     } );
 
@@ -103,24 +105,39 @@ class PeriodClockNode extends HBox {
   }
 }
 
+/**
+ * ClockFaceNode displays a clock face, with a portion of the clock face filled in with a harmonic's color.
+ * The portion filled in represents the portion of the harmonic's period that has elapsed.
+ */
 class ClockFaceNode extends Node {
 
+  /**
+   * @param {Property.<Harmonic>} harmonicProperty
+   * @param {Property.<number>} tProperty
+   * @param [options]
+   */
   constructor( harmonicProperty, tProperty, options ) {
+
+    assert && AssertUtils.assertPropertyOf( harmonicProperty, Harmonic );
+    assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
 
     options = merge( {
       radius: 15
     }, options );
 
+    // White background circle
     const backgroundNode = new Circle( options.radius, {
       fill: 'white'
     } );
 
+    // Partial circle filled with the harmonic's color
     const elapsedTimeNode = new Path( null, {
       fill: harmonicProperty.value.colorProperty,
       stroke: 'black',
       lineWidth: 0.5
     } );
 
+    // Black rim in the foreground, to hide any seams
     const rimNode = new Circle( options.radius, {
       stroke: 'black',
       lineWidth: 2
@@ -131,12 +148,15 @@ class ClockFaceNode extends Node {
 
     super( options );
 
+    // When the harmonic changes, update the color used to fill in the elapsed time, and
+    // update the elapsed time to correspond to the new harmonic's period at the current time t.
     // unlink is not needed.
     harmonicProperty.link( harmonic => {
       elapsedTimeNode.fill = harmonic.colorProperty;
       elapsedTimeNode.shape = createElapsedTimeShape( harmonic, tProperty.value, options.radius );
     } );
 
+    // When the time changes, update the elapsed time to correspond to the harmonic's period at the current time t.
     // unlink is not needed.
     tProperty.link( t => {
       elapsedTimeNode.shape = createElapsedTimeShape( harmonicProperty.value, t, options.radius );
