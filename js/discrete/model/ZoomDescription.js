@@ -84,8 +84,10 @@ ZoomDescription.X_ZOOM_DESCRIPTIONS = [
 assert && assert( isSortedDescending( ZoomDescription.X_ZOOM_DESCRIPTIONS ),
   'X_ZOOM_DESCRIPTIONS must be sorted by descending max value' );
 
-// @public default for the x axis
+// @public default zoom level for the x axis
 ZoomDescription.X_DEFAULT_ZOOM_LEVEL = ZoomDescription.X_ZOOM_DESCRIPTIONS.length - 2;
+
+// Guard again accidentally changing the default when X_ZOOM_DESCRIPTIONS is modified.
 assert && assert( ZoomDescription.X_ZOOM_DESCRIPTIONS[ ZoomDescription.X_DEFAULT_ZOOM_LEVEL ].max === 1 / 2,
   'X_DEFAULT_ZOOM_LEVEL is probably incorrect - did you add a ZoomDescription?' );
 
@@ -150,8 +152,10 @@ ZoomDescription.Y_ZOOM_DESCRIPTIONS = [
 assert && assert( isSortedDescending( ZoomDescription.Y_ZOOM_DESCRIPTIONS ),
   'Y_ZOOM_DESCRIPTIONS must be sorted by descending max value' );
 
-// @public default for the y axis
+// @public default zoom level for the y axis
 ZoomDescription.Y_DEFAULT_ZOOM_LEVEL = ZoomDescription.Y_ZOOM_DESCRIPTIONS.length - 1;
+
+// Guard again accidentally changing the default when Y_ZOOM_DESCRIPTIONS is modified.
 assert && assert( ZoomDescription.Y_ZOOM_DESCRIPTIONS[ ZoomDescription.Y_DEFAULT_ZOOM_LEVEL ].max === FMWConstants.MAX_ABSOLUTE_AMPLITUDE,
   'Y_DEFAULT_ZOOM_LEVEL is probably incorrect - did you add a ZoomDescription?' );
 
