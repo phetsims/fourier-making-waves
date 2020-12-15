@@ -89,7 +89,8 @@ ZoomDescription.X_DEFAULT_ZOOM_LEVEL = ZoomDescription.X_ZOOM_DESCRIPTIONS.lengt
 assert && assert( ZoomDescription.X_ZOOM_DESCRIPTIONS[ ZoomDescription.X_DEFAULT_ZOOM_LEVEL ].max === 1 / 2,
   'X_DEFAULT_ZOOM_LEVEL is probably incorrect - did you add a ZoomDescription?' );
 
-// @public {ZoomDescription[]} zoom levels for the y axis, one for each zoom level
+// @public {ZoomDescription[]} zoom levels for the y axis, one for each zoom level. These values have been tuned for
+// the specific amplitude range [-1.5,1.5]. If you change FMWConstants.MAX_ABSOLUTE_AMPLITUDE, you'll need to revise.
 ZoomDescription.Y_ZOOM_DESCRIPTIONS = [
   new ZoomDescription( {
     max: 20,
