@@ -14,9 +14,12 @@ import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
@@ -116,11 +119,18 @@ class LengthToolNode extends VBox {
         stroke: 'black'
       } );
 
+      // Label is the symbol with harmonic order subscript
       const labelNode = new RichText( `${this.symbol}<sub>${this.harmonic.order}</sub>`, {
         font: FMWConstants.TOOL_LABEL_FONT
       } );
 
-      this.children = [ labelNode, toolNode ];
+      // A translucent background for the label
+      const backgroundNode = new Rectangle( 0, 0, 1.2 * labelNode.width, 1.1 * labelNode.height, {
+        fill: Color.grayColor( 255, 0.7 ),
+        center: labelNode.center
+      } );
+
+      this.children = [ new Node( { children: [ backgroundNode, labelNode ] } ), toolNode ];
 
       //TODO does position need to be adjusted?
     }
