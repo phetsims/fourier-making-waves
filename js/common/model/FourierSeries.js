@@ -36,12 +36,15 @@ class FourierSeries extends PhetioObject {
 
     super( options );
 
-    // @public (read-only) frequency of the fundamental harmonic, in Hz
-    this.fundamentalFrequency = 440;
+    // @public (read-only) properties of the fundamental (first, n=1) harmonic
+    this.fundamentalFrequency = 440;  // frequency, in Hz
+    this.fundamentalPeriod = 1000 / this.fundamentalFrequency; // period, in Hz
+    this.fundamentalWavelength = 1; //  wavelength, in meters
 
-    // @public (read-only)
-    this.L = 1; // wavelength of the fundamental harmonic, in meters
-    this.T = 1000 / this.fundamentalFrequency; // period of the fundamental harmonic, in milliseconds
+    // @public (read-only) aliases that correspond to symbols used in equations
+    this.f1 = this.fundamentalFrequency;
+    this.L = this.fundamentalWavelength;
+    this.T = this.fundamentalPeriod;
 
     // @public (read-only)
     this.amplitudeRange = new Range( -FMWConstants.MAX_ABSOLUTE_AMPLITUDE, FMWConstants.MAX_ABSOLUTE_AMPLITUDE );
@@ -61,7 +64,7 @@ class FourierSeries extends PhetioObject {
     for ( let order = 1; order <= this.numberOfHarmonicsProperty.range.max; order++ ) {
       this.harmonics.push( new Harmonic( {
         order: order,
-        frequency: this.fundamentalFrequency * order,
+        frequency: this.f1 * order,
         wavelength: this.L / order,
         colorProperty: FMWColorProfile.getHarmonicColorProperty( order ),
         amplitudeRange: this.amplitudeRange,
