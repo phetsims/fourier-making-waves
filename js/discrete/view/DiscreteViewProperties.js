@@ -90,7 +90,7 @@ class DiscreteViewProperties {
     // unlink is not needed.
     numberOfHarmonicsProperty.link( numberOfHarmonics => {
 
-      // If a measurement tools is selected and its harmonic goes away, unselect the tool.
+      // If a measurement tool is selected and its harmonic is no longer relevant, unselect the tool.
       if ( this.wavelengthToolSelectedProperty.value ) {
         this.wavelengthToolSelectedProperty.value = ( this.wavelengthToolOrderProperty.value <= numberOfHarmonics );
       }
@@ -98,7 +98,8 @@ class DiscreteViewProperties {
         this.periodToolSelectedProperty.value = ( this.periodToolOrderProperty.value <= numberOfHarmonics );
       }
 
-      // Adjust the selection ranges for the measurement tools based on how many harmonics we have.
+      // If a measurement tool is associated with a harmonic that is no longer relevant, associate the tool with
+      // the highest-order harmonic.
       this.wavelengthToolOrderProperty.value = Math.min( numberOfHarmonics, this.wavelengthToolOrderProperty.value );
       this.wavelengthToolOrderProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
       this.periodToolOrderProperty.value = Math.min( numberOfHarmonics, this.periodToolOrderProperty.value );
