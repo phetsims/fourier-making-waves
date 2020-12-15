@@ -105,14 +105,18 @@ class LengthToolNode extends VBox {
     // Update if the change is visually noticeable.
     if ( Math.abs( viewValue - this.viewValue ) > 0.25 ) {
 
-      // Clockwise from upper left.
+      // The main part of the tool is a horizontal bar, whose ends are caliper-like.
+      // The Shape is described clockwise from the upper-left.
+      const barThickness = 5;
+      const caliperThickness = 5;
+      const caliperLength = 20;
       const toolShape = new Shape()
         .moveTo( 0, 0 )
         .lineTo( viewValue, 0 )
-        .lineTo( viewValue, 20 )
-        .lineTo( viewValue - 5, 5 )
-        .lineTo( 5, 5 )
-        .lineTo( 0, 20 )
+        .lineTo( viewValue, caliperLength )
+        .lineTo( viewValue - caliperThickness, barThickness )
+        .lineTo( caliperThickness, barThickness )
+        .lineTo( 0, caliperLength )
         .close();
       const toolNode = new Path( toolShape, {
         fill: this.harmonic.colorProperty,
