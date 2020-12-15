@@ -53,8 +53,8 @@ class DiscreteControlPanel extends Panel {
     const sectionNodes = [
       new FourierSeriesLayoutBox( model.waveformProperty, model.fourierSeries.numberOfHarmonicsProperty, popupParent ),
       new GraphControlsLayoutBox( model.domainProperty, model.waveTypeProperty, popupParent ),
-      new MeasurementToolsLayoutBox( wavelengthToolVisibleProperty, model.selectedWavelengthProperty,
-        periodToolVisibleProperty, model.selectedPeriodProperty,
+      new MeasurementToolsLayoutBox( wavelengthToolVisibleProperty, model.wavelengthToolOrderProperty,
+        periodToolVisibleProperty, model.periodToolOrderProperty,
         model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty ),
       new MathFormLayoutBox( model.fourierSeries, model.mathFormProperty, model.domainProperty, popupParent ),
       new SoundLayoutBox( soundEnabledProperty, soundOutputLevelProperty )

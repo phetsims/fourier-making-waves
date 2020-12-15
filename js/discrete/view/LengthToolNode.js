@@ -27,7 +27,7 @@ class LengthToolNode extends VBox {
    * @param {ChartTransform} chartTransform
    * @param {string} symbol
    * @param {Harmonic[]} harmonics
-   * @param {Property.<number>} orderProperty - order of the harmonic to display
+   * @param {Property.<number>} orderProperty - order of the harmonic to be measured
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<boolean>} visibleProperty
    * @param {Bounds2} dragBounds

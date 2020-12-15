@@ -197,7 +197,7 @@ class DiscreteScreenView extends ScreenView {
 
     // For measuring the wavelength of a specific harmonic in the 'space' and 'space & time' domains.
     const wavelengthToolNode = new WavelengthToolNode( harmonicsChart.chartTransform,
-      model.fourierSeries.harmonics, model.selectedWavelengthProperty, model.domainProperty,
+      model.fourierSeries.harmonics, model.wavelengthToolOrderProperty, model.domainProperty,
       viewProperties.wavelengthToolVisibleProperty, toolDragBounds );
     this.addChild( wavelengthToolNode );
 
@@ -206,7 +206,7 @@ class DiscreteScreenView extends ScreenView {
 
     // For measuring the period of a specific harmonic in the 'time' domain.
     const periodToolNode = new PeriodToolNode( harmonicsChart.chartTransform,
-      model.fourierSeries.harmonics, model.selectedPeriodProperty, model.domainProperty,
+      model.fourierSeries.harmonics, model.periodToolOrderProperty, model.domainProperty,
       viewProperties.periodToolVisibleProperty, toolDragBounds );
     this.addChild( periodToolNode );
 

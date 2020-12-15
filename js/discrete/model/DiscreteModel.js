@@ -51,13 +51,13 @@ class DiscreteModel {
     // @public
     this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
 
-    // @public
-    this.selectedWavelengthProperty = new NumberProperty( 1, {
+    // @public order of the harmonic measured by the Wavelength tool
+    this.wavelengthToolOrderProperty = new NumberProperty( 1, {
       range: new Range( 1, this.fourierSeries.numberOfHarmonicsProperty.value )
     } );
 
-    // @public
-    this.selectedPeriodProperty = new NumberProperty( 1, {
+    // @public order of the harmonic measured by the Period tool
+    this.periodToolOrderProperty = new NumberProperty( 1, {
       range: new Range( 1, this.fourierSeries.numberOfHarmonicsProperty.value )
     } );
 
@@ -69,10 +69,10 @@ class DiscreteModel {
 
     // Adjust the range of selectable wavelength and period based on how many harmonics we have.
     this.fourierSeries.numberOfHarmonicsProperty.link( numberOfHarmonics => {
-      this.selectedWavelengthProperty.value = Math.min( numberOfHarmonics, this.selectedWavelengthProperty.value );
-      this.selectedWavelengthProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
-      this.selectedPeriodProperty.value = Math.min( numberOfHarmonics, this.selectedPeriodProperty.value );
-      this.selectedPeriodProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
+      this.wavelengthToolOrderProperty.value = Math.min( numberOfHarmonics, this.wavelengthToolOrderProperty.value );
+      this.wavelengthToolOrderProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
+      this.periodToolOrderProperty.value = Math.min( numberOfHarmonics, this.periodToolOrderProperty.value );
+      this.periodToolOrderProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
     } );
 
     // @public emits if you try to make a sawtooth wave with cosines
@@ -132,8 +132,8 @@ class DiscreteModel {
       this.waveformProperty.reset();
       this.waveTypeProperty.reset();
       this.domainProperty.reset();
-      this.selectedWavelengthProperty.reset();
-      this.selectedPeriodProperty.reset();
+      this.wavelengthToolOrderProperty.reset();
+      this.periodToolOrderProperty.reset();
       this.mathFormProperty.reset();
       this.sumExpandedProperty.reset();
 

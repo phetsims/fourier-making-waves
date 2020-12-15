@@ -39,21 +39,21 @@ class MeasurementToolsLayoutBox extends VBox {
 
   /**
    * @param {Property.<boolean>} wavelengthToolVisibleProperty
-   * @param {NumberProperty} selectedWavelengthProperty
+   * @param {NumberProperty} wavelengthToolOrderProperty
    * @param {Property.<boolean>} periodToolVisibleProperty
-   * @param {NumberProperty} selectedPeriodProperty
+   * @param {NumberProperty} periodToolOrderProperty
    * @param {NumberProperty} numberOfHarmonicsProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
-  constructor( wavelengthToolVisibleProperty, selectedWavelengthProperty,
-               periodToolVisibleProperty, selectedPeriodProperty,
+  constructor( wavelengthToolVisibleProperty, wavelengthToolOrderProperty,
+               periodToolVisibleProperty, periodToolOrderProperty,
                numberOfHarmonicsProperty, domainProperty, options ) {
 
     assert && AssertUtils.assertPropertyOf( wavelengthToolVisibleProperty, 'boolean' );
-    assert && assert( selectedWavelengthProperty instanceof NumberProperty, 'invalid selectedWavelengthProperty' );
+    assert && assert( wavelengthToolOrderProperty instanceof NumberProperty, 'invalid wavelengthToolOrderProperty' );
     assert && AssertUtils.assertPropertyOf( periodToolVisibleProperty, 'boolean' );
-    assert && assert( selectedPeriodProperty instanceof NumberProperty, 'invalid selectedPeriodProperty' );
+    assert && assert( periodToolOrderProperty instanceof NumberProperty, 'invalid periodToolOrderProperty' );
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
@@ -87,7 +87,7 @@ class MeasurementToolsLayoutBox extends VBox {
       maxWidth: 110 // determined empirically
     } );
     const wavelengthCheckbox = new Checkbox( wavelengthText, wavelengthToolVisibleProperty, FMWConstants.CHECKBOX_OPTIONS );
-    const wavelengthSpinner = new NumberSpinner( selectedWavelengthProperty, selectedWavelengthProperty.rangeProperty, merge( {}, {
+    const wavelengthSpinner = new NumberSpinner( wavelengthToolOrderProperty, wavelengthToolOrderProperty.rangeProperty, merge( {}, {
       numberDisplayOptions: {
         numberFormatter: order => `${FMWSymbols.lambda}<sub>${order}</sub>`,
         textOptions: {
@@ -108,7 +108,7 @@ class MeasurementToolsLayoutBox extends VBox {
       maxWidth: 110 // determined empirically
     } );
     const periodCheckbox = new Checkbox( periodText, periodToolVisibleProperty, FMWConstants.CHECKBOX_OPTIONS );
-    const periodSpinner = new NumberSpinner( selectedPeriodProperty, selectedPeriodProperty.rangeProperty, merge( {}, {
+    const periodSpinner = new NumberSpinner( periodToolOrderProperty, periodToolOrderProperty.rangeProperty, merge( {}, {
       numberDisplayOptions: {
         numberFormatter: order => `${FMWSymbols.T}<sub>${order}</sub>`,
         textOptions: {
