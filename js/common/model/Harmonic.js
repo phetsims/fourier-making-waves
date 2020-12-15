@@ -7,10 +7,8 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Color from '../../../../scenery/js/util/Color.js';
+import required from '../../../../phet-core/js/required.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -18,45 +16,48 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class Harmonic extends PhetioObject {
 
   /**
-   * @param {number} order - the order of the harmonic
-   * @param {number} frequency - frequency, in Hz
-   * @param {number} wavelength - wavelength, in meters
-   * @param {Property.<Color>} colorProperty - the color used to render visual representations of the harmonic
-   * @param {Range} amplitudeRange
-   * @param {Object} [options]
+   * @param {Object} config
    */
-  constructor( order, frequency, wavelength, colorProperty, amplitudeRange, options ) {
-    assert && AssertUtils.assertPositiveInteger( order );
-    assert && AssertUtils.assertPropertyOf( colorProperty, Color );
-    assert && assert( amplitudeRange instanceof Range, 'invalid amplitudeRange' );
+  constructor( config ) {
 
-    options = merge( {
+    config = merge( {
+
+      // required
+      order: required( config.order ), // {number} the order of the harmonic, numbered from 1
+      frequency: required( config.frequency ), // {number} frequency, in Hz
+      wavelength: required( config.wavelength ), // {number} wavelength, in meters
+      amplitudeRange: required( config.amplitudeRange ), // {Range} range of amplitude
+      colorProperty: required( config.colorProperty ), // {Property.<Color>} the color used to visualize the harmonic
+
+      // optional
       amplitude: 0,
+
+      // phet-io
       tandem: Tandem.REQUIRED,
       phetioState: false
-    }, options );
+    }, config );
 
-    super( options );
+    super( config );
 
     // @public (read-only)
-    this.order = order;
-    this.frequency = frequency;
-    this.wavelength = wavelength;
-    this.colorProperty = colorProperty;
-    this.amplitudeRange = amplitudeRange;
+    this.order = config.order;
+    this.frequency = config.frequency;
+    this.wavelength = config.wavelength;
+    this.colorProperty = config.colorProperty;
+    this.amplitudeRange = config.amplitudeRange;
 
     // public (read-only)
-    this.period = 1000 / frequency;
+    this.period = 1000 / this.frequency;
 
     // @public
-    this.amplitudeProperty = new NumberProperty( options.amplitude, {
-      range: amplitudeRange,
-      tandem: options.tandem.createTandem( 'amplitudeProperty' )
+    this.amplitudeProperty = new NumberProperty( config.amplitude, {
+      range: this.amplitudeRange,
+      tandem: config.tandem.createTandem( 'amplitudeProperty' )
     } );
 
     // Show link to colorProperty in Studio
     this.addLinkedElement( this.colorProperty, {
-      tandem: options.tandem.createTandem( 'colorProperty' )
+      tandem: config.tandem.createTandem( 'colorProperty' )
     } );
   }
 
