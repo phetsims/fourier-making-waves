@@ -201,7 +201,6 @@ class DiscreteScreenView extends ScreenView {
       this.visibleBoundsProperty );
     this.addChild( wavelengthToolNode );
 
-    //TODO do not reach into HarmonicsChart for chartTransform
     // For measuring the period of a specific harmonic in the 'time' domain.
     const periodToolNode = new PeriodToolNode( harmonicsChartTransform,
       model.fourierSeries.harmonics, model.domainProperty,
