@@ -63,6 +63,9 @@ class DiscreteViewProperties {
 
     //TODO move chart Properties somewhere else? FMWChartModel?
 
+    // @public {Property.<Harmonic|null>} the harmonic to be emphasized in the Harmonics chart
+    this.emphasizedHarmonicProperty = new Property( null );
+
     // @public zoom level for the x axis, index into AxisDescription.X_AXIS_DESCRIPTIONS
     this.xZoomLevelProperty = new NumberProperty( AxisDescription.X_DEFAULT_ZOOM_LEVEL, {
       numberType: 'Integer',

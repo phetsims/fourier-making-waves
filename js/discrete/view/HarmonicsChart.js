@@ -15,6 +15,7 @@ import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -33,6 +34,11 @@ import HarmonicsEquationNode from './HarmonicsEquationNode.js';
 // harmonic looks smooth when the chart is fully zoomed out.
 const POINTS_PER_PLOT = 2000;
 
+const NORMAL_LINE_WIDTH = 1;
+const EMPHASIZED_LINE_WIDTH = 2;
+const DE_EMPHASIZED_LINE_WIDTH = 0.5;
+const DE_EMPHASIZED_STROKE = Color.grayColor( 150 );
+
 class HarmonicsChart extends DiscreteChart {
 
   /**
@@ -43,10 +49,11 @@ class HarmonicsChart extends DiscreteChart {
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
+   * @param {Property.<Harmonic|null>} emphasizedHarmonicProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, tProperty, domainProperty, waveTypeProperty, mathFormProperty,
-               xZoomLevelProperty, xAxisDescriptionProperty, options ) {
+               xZoomLevelProperty, xAxisDescriptionProperty, emphasizedHarmonicProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
@@ -55,6 +62,7 @@ class HarmonicsChart extends DiscreteChart {
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
+    assert && assert( emphasizedHarmonicProperty instanceof Property, 'invalid emphasizedHarmonicProperty' );
 
     options = merge( {
 
@@ -140,6 +148,26 @@ class HarmonicsChart extends DiscreteChart {
 
     // removeListener is not needed.
     this.chartTransform.changedEmitter.addListener( updateEverything );
+
+    //TODO emphasize only if amplitude !== 0, listen to amplitude
+    // Emphasize a harmonic by using a thicker lineWidth for it's plot, and stroking all other plots with gray.
+    emphasizedHarmonicProperty.link( emphasizedHarmonic => {
+      harmonicPlots.forEach( plot => {
+        if ( emphasizedHarmonic === null ) {
+          plot.lineWidth = NORMAL_LINE_WIDTH;
+          plot.setStroke( plot.harmonic.colorProperty );
+        }
+        else if ( plot.harmonic === emphasizedHarmonic ) {
+          plot.lineWidth = EMPHASIZED_LINE_WIDTH;
+          plot.setStroke( plot.harmonic.colorProperty );
+        }
+        else {
+          plot.lineWidth = DE_EMPHASIZED_LINE_WIDTH;
+          plot.setStroke( DE_EMPHASIZED_STROKE );
+        }
+      } );
+      chartCanvasNode.update();
+    } );
   }
 }
 

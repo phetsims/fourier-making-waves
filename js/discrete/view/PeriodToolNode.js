@@ -19,11 +19,13 @@ class PeriodToolNode extends LengthToolNode {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<number>} orderProperty - order of the harmonic to display
    * @param {Property.<boolean>} selectedProperty - whether the tool is selected
+   * @param {Property.<Harmonic|null>} emphasizedHarmonicProperty
    * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {Object} [options]
    */
-  constructor( chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, dragBoundsProperty, options ) {
-    super( FMWSymbols.T, chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, dragBoundsProperty,
+  constructor( chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, emphasizedHarmonicProperty, dragBoundsProperty, options ) {
+    super( FMWSymbols.T, chartTransform, harmonics, domainProperty, orderProperty, selectedProperty,
+      emphasizedHarmonicProperty, dragBoundsProperty,
       harmonic => harmonic.period,
       ( selected, domain ) => selected && ( domain === Domain.TIME ),
       options );

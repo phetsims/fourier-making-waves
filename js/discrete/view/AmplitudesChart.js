@@ -8,6 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
@@ -39,13 +40,15 @@ class AmplitudesChart extends Node {
    * @param {FourierSeries} fourierSeries
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog
    * @param {EnumerationProperty.<Waveform>} waveformProperty
+   * @param {Property.<Harmonic|null>} emphasizedHarmonicProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, amplitudeKeypadDialog, waveformProperty, options ) {
+  constructor( fourierSeries, amplitudeKeypadDialog, waveformProperty, emphasizedHarmonicProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
     assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog, 'invalid amplitudeKeypadDialog' );
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
+    assert && assert( emphasizedHarmonicProperty instanceof Property, 'invalid emphasizedHarmonicProperty' );
 
     options = merge( {
 
@@ -95,7 +98,7 @@ class AmplitudesChart extends Node {
 
     // Create a slider for each harmonic's amplitude
     const sliders = _.map( fourierSeries.harmonics, harmonic =>
-      new AmplitudeSlider( harmonic.amplitudeProperty, harmonic.colorProperty, waveformProperty, {
+      new AmplitudeSlider( harmonic, waveformProperty, emphasizedHarmonicProperty, {
         trackHeight: options.viewHeight,
         center: chartTransform.modelToViewPosition( new Vector2( harmonic.order, 0 ) ),
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` )

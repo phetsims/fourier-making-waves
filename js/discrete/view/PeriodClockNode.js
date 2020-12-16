@@ -36,16 +36,18 @@ class PeriodClockNode extends HBox {
    * @param {Property.<number>} orderProperty - order of the harmonic to be measured
    * @param {Property.<boolean>} selectedProperty
    * @param {Property.<number>} tProperty
+   * @param {Property.<Harmonic|null>} emphasizedHarmonicProperty
    * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {Object} [options]
    */
-  constructor( harmonics, domainProperty, orderProperty, selectedProperty, tProperty, dragBoundsProperty, options ) {
+  constructor( harmonics, domainProperty, orderProperty, selectedProperty, tProperty, emphasizedHarmonicProperty, dragBoundsProperty, options ) {
 
     assert && assert( Array.isArray( harmonics ), 'invalid harmonics' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( orderProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( selectedProperty, 'boolean' );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
+    assert && assert( emphasizedHarmonicProperty instanceof Property, 'invalid emphasizedHarmonicProperty' );
     assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
 
     options = merge( {
@@ -113,6 +115,19 @@ class PeriodClockNode extends HBox {
       if ( !derivedDragBounds.containsPoint( positionProperty.value ) ) {
         this.interruptSubtreeInput();
         positionProperty.value = derivedDragBounds.closestPointTo( positionProperty.value );
+      }
+    } );
+
+    //TODO test this with multi-touch
+    // Emphasize the associated harmonic on pointer over
+    this.addInputListener( {
+      over: () => {
+        emphasizedHarmonicProperty.value = this.harmonic;
+      },
+      out: () => {
+        if ( emphasizedHarmonicProperty.value === harmonicProperty.value ) {
+          emphasizedHarmonicProperty.value = null;
+        }
       }
     } );
   }

@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -25,6 +25,7 @@ import VSlider from '../../../../sun/js/VSlider.js';
 import Waveform from '../../discrete/model/Waveform.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
+import Harmonic from '../model/Harmonic.js';
 
 // constants
 const TRACK_WIDTH = 40; // track height specified in constructor options
@@ -36,16 +37,16 @@ const THUMB_MOUSE_AREA_DILATION = new Dimension2( 0, 4 ).flipped();
 class AmplitudeSlider extends VSlider {
 
   /**
-   * @param {NumberProperty} amplitudeProperty
-   * @param {Property.<ColorDef>} colorProperty
+   * @param {Harmonic} harmonic
    * @param {EnumerationProperty.<Waveform>} waveformProperty
+   * @param {Property.<Harmonic|null>} emphasizedHarmonicProperty
    * @param {Object} [options]
    */
-  constructor( amplitudeProperty, colorProperty, waveformProperty, options ) {
+  constructor( harmonic, waveformProperty, emphasizedHarmonicProperty, options ) {
 
-    assert && assert( amplitudeProperty instanceof NumberProperty, 'invalid amplitudeProperty' );
-    assert && AssertUtils.assertProperty( colorProperty, value => ColorDef.isColorDef( value ) );
+    assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
+    assert && assert( emphasizedHarmonicProperty instanceof Property, 'invalid emphasizedHarmonicProperty' );
 
     options = merge( {
 
@@ -61,17 +62,17 @@ class AmplitudeSlider extends VSlider {
     const thumbSize = new Dimension2( THUMB_WIDTH, THUMB_HEIGHT ).flipped();
     const trackSize = new Dimension2( TRACK_WIDTH, options.trackHeight ).flipped();
 
-    const thumbNode = new GrippyThumb( thumbSize, colorProperty );
+    const thumbNode = new GrippyThumb( thumbSize, harmonic.colorProperty );
     thumbNode.touchArea = thumbNode.localBounds.dilatedXY( THUMB_TOUCH_AREA_DILATION.width, THUMB_TOUCH_AREA_DILATION.height );
     thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( THUMB_MOUSE_AREA_DILATION.width, THUMB_MOUSE_AREA_DILATION.height );
 
     // Constrain the range to the desired number of decimal places.
     const amplitudeRange = new Range(
-      Utils.toFixedNumber( amplitudeProperty.range.min, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES ),
-      Utils.toFixedNumber( amplitudeProperty.range.max, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES )
+      Utils.toFixedNumber( harmonic.amplitudeProperty.range.min, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES ),
+      Utils.toFixedNumber( harmonic.amplitudeProperty.range.max, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES )
     );
 
-    const trackNode = new BarTrack( amplitudeProperty, amplitudeRange, colorProperty, trackSize );
+    const trackNode = new BarTrack( harmonic.amplitudeProperty, amplitudeRange, harmonic.colorProperty, trackSize );
 
     assert && assert( !options.trackNode, 'AmplitudeSlider sets trackNode' );
     options.trackNode = trackNode;
@@ -89,15 +90,29 @@ class AmplitudeSlider extends VSlider {
     if ( options.snapInterval ) {
       assert && assert( !options.endDrag, 'AmplitudeSlider sets endDrag' );
       options.endDrag = () => {
-        const amplitude = amplitudeProperty.value;
+        const amplitude = harmonic.amplitudeProperty.value;
         if ( amplitude !== amplitudeRange.min && amplitude !== amplitudeRange.max ) {
-          amplitudeProperty.value = Utils.roundToInterval( amplitude, options.snapInterval );
+          harmonic.amplitudeProperty.value = Utils.roundToInterval( amplitude, options.snapInterval );
         }
       };
     }
 
     // Omit options for our custom thumb and track, so that Slider doesn't complain.
-    super( amplitudeProperty, amplitudeRange, options );
+    super( harmonic.amplitudeProperty, amplitudeRange, options );
+
+    //TODO test this with multi-touch
+    //TODO do this only for thumb and visible bar
+    // Emphasize the associated harmonic on pointer over
+    this.addInputListener( {
+      over: () => {
+        emphasizedHarmonicProperty.value = harmonic;
+      },
+      out: () => {
+        if ( emphasizedHarmonicProperty.value === harmonic ) {
+          emphasizedHarmonicProperty.value = null;
+        }
+      }
+    } );
   }
 
   /**

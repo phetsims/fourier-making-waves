@@ -34,12 +34,14 @@ class LengthToolNode extends VBox {
    * @param {Property.<number>} orderProperty - order of the harmonic to be measured
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<boolean>} selectedProperty - whether the tool is selected
+   * @param {Property.<Harmonic|null>} emphasizedHarmonicProperty
    * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {function(harmonic:Harmonic):number} getModelValue
    * @param {function(selected:boolean, domain:Domain):boolean} getVisible
    * @param {Object} [options]
    */
-  constructor( symbol, chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, dragBoundsProperty,
+  constructor( symbol, chartTransform, harmonics, domainProperty, orderProperty, selectedProperty,
+               emphasizedHarmonicProperty, dragBoundsProperty,
                getModelValue, getVisible, options ) {
 
     assert && assert( typeof symbol === 'string', 'invalid symbol' );
@@ -48,6 +50,7 @@ class LengthToolNode extends VBox {
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( orderProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( selectedProperty, 'boolean' );
+    assert && assert( emphasizedHarmonicProperty instanceof Property, 'invalid emphasizedHarmonicProperty' );
     assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
     assert && assert( typeof getModelValue === 'function', 'invalid getModelValue' );
     assert && assert( typeof getVisible === 'function', 'invalid getVisible' );
@@ -102,6 +105,19 @@ class LengthToolNode extends VBox {
       positionProperty: positionProperty,
       dragBoundsProperty: derivedDragBoundsProperty
     } ) );
+
+    //TODO test this with multi-touch
+    // Emphasize the associated harmonic on pointer over
+    this.addInputListener( {
+      over: () => {
+        emphasizedHarmonicProperty.value = this.harmonic;
+      },
+      out: () => {
+        if ( emphasizedHarmonicProperty.value === this.harmonic ) {
+          emphasizedHarmonicProperty.value = null;
+        }
+      }
+    } );
 
     // If the tool is outside the drag bounds, move it inside.
     derivedDragBoundsProperty.link( derivedDragBounds => {
