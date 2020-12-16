@@ -21,6 +21,7 @@ import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
+import Waveform from '../model/Waveform.js';
 import WaveType from '../model/WaveType.js';
 import AxisDescription from '../model/AxisDescription.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
@@ -35,6 +36,7 @@ class SumChart extends DiscreteChart {
   /**
    * @param {FourierSeries} fourierSeries
    * @param {Property.<Vector2[]>} sumDataSetProperty
+   * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<WaveType>} waveTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
@@ -46,13 +48,14 @@ class SumChart extends DiscreteChart {
    * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, sumDataSetProperty, domainProperty, waveTypeProperty, mathFormProperty,
+  constructor( fourierSeries, sumDataSetProperty, waveformProperty, domainProperty, waveTypeProperty, mathFormProperty,
                xZoomLevelProperty, xAxisDescriptionProperty,
                yZoomLevelProperty, yAxisDescriptionProperty,
                autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
     assert && AssertUtils.assertPropertyOf( sumDataSetProperty, Array );
+    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
@@ -138,6 +141,11 @@ class SumChart extends DiscreteChart {
         //TODO
       },
       tandem: options.tandem.createTandem( 'infiniteHarmonicsCheckbox' )
+    } );
+
+    // Disable infiniteHarmonicsCheckbox for custom waveform. unlink is not needed.
+    waveformProperty.link( waveform => {
+      infiniteHarmonicsCheckbox.enabled = ( waveform !== Waveform.CUSTOM );
     } );
 
     // Automatically scales the y axis to show the entire plot
