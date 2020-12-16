@@ -52,13 +52,13 @@ class DiscreteViewProperties {
     // @public order of the harmonic measured by the Wavelength tool
     this.wavelengthToolOrderProperty = new NumberProperty( 1, {
       numberType: 'Integer',
-      range: numberOfHarmonicsProperty.range
+      range: new Range( 1, numberOfHarmonicsProperty.value )
     } );
 
     // @public order of the harmonic measured by the Period tool
     this.periodToolOrderProperty = new NumberProperty( 1, {
       numberType: 'Integer',
-      range: numberOfHarmonicsProperty.range
+      range: new Range( 1, numberOfHarmonicsProperty.value )
     } );
 
     //TODO move chart Properties somewhere else? FMWChartModel?
