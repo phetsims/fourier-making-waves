@@ -60,6 +60,7 @@ const FMWConstants = {
 
   // Fonts
   TITLE_FONT: new PhetFont( { size: 14, weight: 'bold' } ),
+  DIALOG_TITLE_FONT: new PhetFont( { size: 18, weight: 'bold' } ),
   CONTROL_FONT: new PhetFont( 12 ),
   AXIS_LABEL_FONT: new PhetFont( 12 ),
   TICK_LABEL_FONT: new PhetFont( 12 ),

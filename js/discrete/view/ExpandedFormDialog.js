@@ -51,7 +51,7 @@ class ExpandedFormDialog extends Dialog {
 
     assert && assert( !options.title, 'ExpandedFormDialog sets children' );
     options.title = new Text( fourierMakingWavesStrings.expandedForm, {
-      font: FMWConstants.TITLE_FONT,
+      font: FMWConstants.DIALOG_TITLE_FONT,
       maxWidth: MAX_WIDTH
     } );
 
