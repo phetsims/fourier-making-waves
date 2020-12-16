@@ -155,6 +155,7 @@ class GrippyThumb extends Node {
       children: [ rectangle, dotsNode ]
     } );
 
+    //TODO test that attach:false doesn't prevent this from being interrupted with Reset All
     // Emphasize the associated harmonic. removeInputListener and unlink are not needed.
     const pressListener = new PressListener( { attach: false } );
     this.addInputListener( pressListener );
