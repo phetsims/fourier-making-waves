@@ -94,6 +94,7 @@ class LengthToolNode extends VBox {
         this.visible = getVisible( selected, domain );
       } );
 
+    // unlink is not needed.
     const positionProperty = new Property( this.translation );
     positionProperty.lazyLink( position => {
       this.translation = position;
@@ -101,7 +102,7 @@ class LengthToolNode extends VBox {
 
     const derivedDragBoundsProperty = new DragBoundsProperty( this, dragBoundsProperty );
 
-    // If the tool is outside the drag bounds, move it inside.
+    // If the tool is outside the drag bounds, move it inside. unlink is not needed.
     derivedDragBoundsProperty.link( derivedDragBounds => {
       if ( !derivedDragBounds.containsPoint( positionProperty.value ) ) {
         this.interruptSubtreeInput();
@@ -115,15 +116,13 @@ class LengthToolNode extends VBox {
     } );
     this.addInputListener( dragListener ); // removeInputListener is not needed.
 
-    // Emphasize the associated harmonic.
+    // Emphasize the associated harmonic. unlink is not needed.
     dragListener.isHighlightedProperty.link( isHighlighted => {
       if ( isHighlighted ) {
         emphasizedHarmonics.push( this.harmonic );
       }
-      else {
-        if ( emphasizedHarmonics.includes( this.harmonic ) ) {
-          emphasizedHarmonics.remove( this.harmonic );
-        }
+      else if ( emphasizedHarmonics.includes( this.harmonic ) ) {
+        emphasizedHarmonics.remove( this.harmonic );
       }
     } );
   }

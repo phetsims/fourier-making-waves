@@ -99,6 +99,7 @@ class PeriodClockNode extends HBox {
         this.visible = selected && ( domain === Domain.SPACE_AND_TIME );
       } );
 
+    // unlink is not needed.
     const positionProperty = new Property( this.translation );
     positionProperty.lazyLink( position => {
       this.translation = position;
@@ -106,7 +107,7 @@ class PeriodClockNode extends HBox {
 
     const derivedDragBoundsProperty = new DragBoundsProperty( this, dragBoundsProperty );
 
-    // If the tool is outside the drag bounds, move it inside.
+    // If the tool is outside the drag bounds, move it inside. unlink is not needed.
     derivedDragBoundsProperty.link( derivedDragBounds => {
       if ( !derivedDragBounds.containsPoint( positionProperty.value ) ) {
         this.interruptSubtreeInput();
@@ -120,15 +121,13 @@ class PeriodClockNode extends HBox {
     } );
     this.addInputListener( dragListener ); // removeInputListener is not needed.
 
-    // Emphasize the associated harmonic.
+    // Emphasize the associated harmonic. unlink is not needed.
     dragListener.isHighlightedProperty.link( isHighlighted => {
       if ( isHighlighted ) {
         emphasizedHarmonics.push( harmonicProperty.value );
       }
-      else {
-        if ( emphasizedHarmonics.includes( harmonicProperty.value ) ) {
-          emphasizedHarmonics.remove( harmonicProperty.value );
-        }
+      else if ( emphasizedHarmonics.includes( harmonicProperty.value ) ) {
+        emphasizedHarmonics.remove( harmonicProperty.value );
       }
     } );
   }

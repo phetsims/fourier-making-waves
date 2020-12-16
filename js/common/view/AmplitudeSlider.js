@@ -15,11 +15,11 @@ import Utils from '../../../../dot/js/Utils.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import ColorDef from '../../../../scenery/js/util/ColorDef.js';
 import SliderTrack from '../../../../sun/js/SliderTrack.js';
 import VSlider from '../../../../sun/js/VSlider.js';
 import Waveform from '../../discrete/model/Waveform.js';
@@ -62,7 +62,7 @@ class AmplitudeSlider extends VSlider {
     const thumbSize = new Dimension2( THUMB_WIDTH, THUMB_HEIGHT ).flipped();
     const trackSize = new Dimension2( TRACK_WIDTH, options.trackHeight ).flipped();
 
-    const thumbNode = new GrippyThumb( thumbSize, harmonic.colorProperty );
+    const thumbNode = new GrippyThumb( thumbSize, harmonic, emphasizedHarmonics );
     thumbNode.touchArea = thumbNode.localBounds.dilatedXY( THUMB_TOUCH_AREA_DILATION.width, THUMB_TOUCH_AREA_DILATION.height );
     thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( THUMB_MOUSE_AREA_DILATION.width, THUMB_MOUSE_AREA_DILATION.height );
 
@@ -72,7 +72,7 @@ class AmplitudeSlider extends VSlider {
       Utils.toFixedNumber( harmonic.amplitudeProperty.range.max, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES )
     );
 
-    const trackNode = new BarTrack( harmonic.amplitudeProperty, amplitudeRange, harmonic.colorProperty, trackSize );
+    const trackNode = new BarTrack( trackSize, harmonic, amplitudeRange, emphasizedHarmonics );
 
     assert && assert( !options.trackNode, 'AmplitudeSlider sets trackNode' );
     options.trackNode = trackNode;
@@ -96,20 +96,6 @@ class AmplitudeSlider extends VSlider {
 
     // Omit options for our custom thumb and track, so that Slider doesn't complain.
     super( harmonic.amplitudeProperty, amplitudeRange, options );
-
-    //TODO do this only for thumb and visible bar
-    //TODO emphasize while dragging
-    // Emphasize the associated harmonic on pointer over
-    this.addInputListener( {
-      over: () => {
-        emphasizedHarmonics.push( harmonic );
-      },
-      out: () => {
-        if ( emphasizedHarmonics.includes( harmonic ) ) {
-          emphasizedHarmonics.remove( harmonic );
-        }
-      }
-    } );
   }
 
   /**
@@ -129,11 +115,14 @@ class GrippyThumb extends Node {
 
   /**
    * @param {Dimension2} thumbSize
-   * @param {Property.<ColorDef>} colorProperty
+   * @param {Harmonic} harmonic
+   * @param {ObservableArrayDef} emphasizedHarmonics
    */
-  constructor( thumbSize, colorProperty ) {
+  constructor( thumbSize, harmonic, emphasizedHarmonics ) {
+
     assert && assert( thumbSize instanceof Dimension2, 'invalid thumbSize' );
-    assert && AssertUtils.assertProperty( colorProperty, value => ColorDef.isColorDef( value ) );
+    assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
+    assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
 
     const rectangle = new Rectangle( 0, 0, thumbSize.width, thumbSize.height, {
       fill: Color.grayColor( 200 ),
@@ -156,7 +145,7 @@ class GrippyThumb extends Node {
       dotsShape.arc( 0, y, dotRadius, 0, 2 * Math.PI );
     }
     const dotsNode = new Path( dotsShape, {
-      fill: colorProperty,
+      fill: harmonic.colorProperty,
       stroke: 'black',
       lineWidth: 0.5,
       center: rectangle.center
@@ -164,6 +153,18 @@ class GrippyThumb extends Node {
 
     super( {
       children: [ rectangle, dotsNode ]
+    } );
+
+    // Emphasize the associated harmonic. removeInputListener and unmultilink are not needed.
+    const pressListener = new PressListener( { attach: false } );
+    this.addInputListener( pressListener );
+    pressListener.isHighlightedProperty.link( isHighlighted => {
+      if ( isHighlighted ) {
+        emphasizedHarmonics.push( harmonic );
+      }
+      else if ( emphasizedHarmonics.includes( harmonic ) ) {
+        emphasizedHarmonics.remove( harmonic );
+      }
     } );
   }
 }
@@ -175,18 +176,18 @@ class GrippyThumb extends Node {
 class BarTrack extends SliderTrack {
 
   /**
-   * @param {Property.<number>} amplitudeProperty
-   * @param {Range} amplitudeRange
-   * @param {Property.<Color>} colorProperty
    * @param {Dimension2} trackSize
+   * @param {Harmonic} harmonic
+   * @param {Range} amplitudeRange
+   * @param {ObservableArrayDef} emphasizedHarmonics
    */
-  constructor( amplitudeProperty, amplitudeRange, colorProperty, trackSize ) {
+  constructor( trackSize, harmonic, amplitudeRange, emphasizedHarmonics ) {
 
-    assert && AssertUtils.assertPropertyOf( amplitudeProperty, 'number' );
+    assert && assert( trackSize instanceof Dimension2, 'invalid trackSize' );
+    assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
     assert && assert( amplitudeRange instanceof Range, 'invalid amplitudeRange' );
     assert && assert( amplitudeRange.getCenter() === 0, 'implementation assumes that range is symmetric' );
-    assert && AssertUtils.assertPropertyOf( colorProperty, Color );
-    assert && assert( trackSize instanceof Dimension2, 'invalid trackSize' );
+    assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
 
     const invisibleTrackNode = new Rectangle( 0, 0, trackSize.width, trackSize.height, {
       fill: 'transparent',
@@ -195,7 +196,7 @@ class BarTrack extends SliderTrack {
     } );
 
     const visibleTrackNode = new Rectangle( 0, 0, trackSize.width, trackSize.height, {
-      fill: colorProperty,
+      fill: harmonic.colorProperty,
       stroke: 'black',
       lineWidth: 1
     } );
@@ -204,7 +205,7 @@ class BarTrack extends SliderTrack {
       children: [ invisibleTrackNode, visibleTrackNode ]
     } );
 
-    super( trackNode, amplitudeProperty, amplitudeRange, {
+    super( trackNode, harmonic.amplitudeProperty, amplitudeRange, {
       size: new Dimension2( trackSize.width, trackSize.height )
     } );
 
@@ -224,7 +225,21 @@ class BarTrack extends SliderTrack {
         visibleTrackNode.setRect( ( trackSize.width / 2 ) - trackWidth, 0, trackWidth, trackSize.height );
       }
     };
-    amplitudeProperty.link( amplitudeListener );
+    harmonic.amplitudeProperty.link( amplitudeListener ); // unlink is not needed.
+
+    //TODO duplication with GrippyThumb
+    // Emphasize the associated harmonic when interacting with the visible part of the track.
+    // removeInputListener and unlink are not needed.
+    const pressListener = new PressListener( { attach: false } );
+    visibleTrackNode.addInputListener( pressListener );
+    pressListener.isHighlightedProperty.link( isHighlighted => {
+      if ( isHighlighted ) {
+        emphasizedHarmonics.push( harmonic );
+      }
+      else if ( emphasizedHarmonics.includes( harmonic ) ) {
+        emphasizedHarmonics.remove( harmonic );
+      }
+    } );
   }
 
   /**
