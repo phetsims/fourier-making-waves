@@ -9,5 +9,7 @@ Always compute at least one full cycle of the lowest-order harmonic, so that we 
 Dynamically optimize number of points in dataSets
 Auto Scale checkbox
 Infinite Harmonics checkbox
-Harmonic plot emphasis
+Harmonic plot emphasis #31
 Move y-axis zoom to upper-left of Sum chart
+Key for math symbols #30
+Label for sine/cosine radio button group #28
