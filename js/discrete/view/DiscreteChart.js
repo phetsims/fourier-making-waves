@@ -251,7 +251,7 @@ function createSymbolicTickLabel( value, domain, L, T ) {
   const constantSymbol = ( domain === Domain.TIME ) ? FMWSymbols.T : FMWSymbols.L;
   let text;
   if ( value === 0 ) {
-    text = `0${constantSymbol}`;
+    text = '0';
   }
   else {
 
