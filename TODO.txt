@@ -9,6 +9,7 @@ Dynamically optimize number of points in dataSets
 Auto Scale checkbox
 Infinite Harmonics checkbox
 Move y-axis zoom to upper-left of Sum chart
+Too many params in constructors
 
 # GitHub issues
 
