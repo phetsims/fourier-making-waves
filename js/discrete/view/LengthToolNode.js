@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ObservableArrayDef from '../../../../axon/js/ObservableArrayDef.js';
 import Property from '../../../../axon/js/Property.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -34,14 +35,14 @@ class LengthToolNode extends VBox {
    * @param {Property.<number>} orderProperty - order of the harmonic to be measured
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<boolean>} selectedProperty - whether the tool is selected
-   * @param {Property.<Harmonic|null>} emphasizedHarmonicProperty
+   * @param {ObservableArrayDef} emphasizedHarmonics
    * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {function(harmonic:Harmonic):number} getModelValue
    * @param {function(selected:boolean, domain:Domain):boolean} getVisible
    * @param {Object} [options]
    */
   constructor( symbol, chartTransform, harmonics, domainProperty, orderProperty, selectedProperty,
-               emphasizedHarmonicProperty, dragBoundsProperty,
+               emphasizedHarmonics, dragBoundsProperty,
                getModelValue, getVisible, options ) {
 
     assert && assert( typeof symbol === 'string', 'invalid symbol' );
@@ -50,7 +51,7 @@ class LengthToolNode extends VBox {
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( orderProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( selectedProperty, 'boolean' );
-    assert && assert( emphasizedHarmonicProperty instanceof Property, 'invalid emphasizedHarmonicProperty' );
+    assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
     assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
     assert && assert( typeof getModelValue === 'function', 'invalid getModelValue' );
     assert && assert( typeof getVisible === 'function', 'invalid getVisible' );
@@ -106,15 +107,15 @@ class LengthToolNode extends VBox {
       dragBoundsProperty: derivedDragBoundsProperty
     } ) );
 
-    //TODO test this with multi-touch
+    ///TODO emphasize while dragging
     // Emphasize the associated harmonic on pointer over
     this.addInputListener( {
       over: () => {
-        emphasizedHarmonicProperty.value = this.harmonic;
+        emphasizedHarmonics.push( this.harmonic );
       },
       out: () => {
-        if ( emphasizedHarmonicProperty.value === this.harmonic ) {
-          emphasizedHarmonicProperty.value = null;
+        if ( emphasizedHarmonics.includes( this.harmonic ) ) {
+          emphasizedHarmonics.remove( this.harmonic );
         }
       }
     } );

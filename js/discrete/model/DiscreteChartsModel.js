@@ -8,6 +8,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -31,8 +32,8 @@ class DiscreteChartsModel {
     // @public whether the Sum chart shows what the waveform looks like for an infinite Fourier series
     this.infiniteHarmonicsProperty = new BooleanProperty( false );
 
-    // @public {Property.<Harmonic|null>} the harmonic to be emphasized in the Harmonics chart
-    this.emphasizedHarmonicProperty = new Property( null );
+    // @public {ObservableArrayDef} the harmonics to be emphasized in the Harmonics chart
+    this.emphasizedHarmonics = createObservableArray();
 
     // @public zoom level for the x axis, index into AxisDescription.X_AXIS_DESCRIPTIONS
     this.xZoomLevelProperty = new NumberProperty( AxisDescription.X_DEFAULT_ZOOM_LEVEL, {
@@ -60,6 +61,8 @@ class DiscreteChartsModel {
 
     // @private
     this.resetDiscreteChartsModel = () => {
+
+      this.emphasizedHarmonics.clear();
 
       // Reset all non-derived Properties
       for ( const propertyName in this ) {

@@ -9,6 +9,7 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import ObservableArrayDef from '../../../../axon/js/ObservableArrayDef.js';
 import Property from '../../../../axon/js/Property.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
@@ -19,10 +20,10 @@ import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import AxisDescription from '../model/AxisDescription.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
 import WaveType from '../model/WaveType.js';
-import AxisDescription from '../model/AxisDescription.js';
 import DiscreteChart from './DiscreteChart.js';
 import HarmonicPlot from './HarmonicPlot.js';
 import HarmonicsEquationNode from './HarmonicsEquationNode.js';
@@ -49,11 +50,11 @@ class HarmonicsChart extends DiscreteChart {
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {Property.<Harmonic|null>} emphasizedHarmonicProperty
+   * @param {ObservableArrayDef} emphasizedHarmonics
    * @param {Object} [options]
    */
   constructor( fourierSeries, tProperty, domainProperty, waveTypeProperty, mathFormProperty,
-               xZoomLevelProperty, xAxisDescriptionProperty, emphasizedHarmonicProperty, options ) {
+               xZoomLevelProperty, xAxisDescriptionProperty, emphasizedHarmonics, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
@@ -62,7 +63,7 @@ class HarmonicsChart extends DiscreteChart {
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
-    assert && assert( emphasizedHarmonicProperty instanceof Property, 'invalid emphasizedHarmonicProperty' );
+    assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
 
     options = merge( {
 
@@ -151,13 +152,13 @@ class HarmonicsChart extends DiscreteChart {
 
     //TODO emphasize only if amplitude !== 0, listen to amplitude
     // Emphasize a harmonic by using a thicker lineWidth for it's plot, and stroking all other plots with gray.
-    emphasizedHarmonicProperty.link( emphasizedHarmonic => {
+    const emphasizedHarmonicsListener = () => {
       harmonicPlots.forEach( plot => {
-        if ( emphasizedHarmonic === null ) {
+        if ( emphasizedHarmonics.length === 0 ) {
           plot.lineWidth = NORMAL_LINE_WIDTH;
           plot.setStroke( plot.harmonic.colorProperty );
         }
-        else if ( plot.harmonic === emphasizedHarmonic ) {
+        else if ( emphasizedHarmonics.includes( plot.harmonic ) ) {
           plot.lineWidth = EMPHASIZED_LINE_WIDTH;
           plot.setStroke( plot.harmonic.colorProperty );
         }
@@ -167,7 +168,9 @@ class HarmonicsChart extends DiscreteChart {
         }
       } );
       chartCanvasNode.update();
-    } );
+    };
+    emphasizedHarmonics.addItemAddedListener( emphasizedHarmonicsListener ); // removeItemAddedListener is not needed.
+    emphasizedHarmonics.addItemRemovedListener( emphasizedHarmonicsListener ); // removeItemRemovedListener is not needed.
   }
 }
 

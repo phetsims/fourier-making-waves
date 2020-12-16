@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import ObservableArrayDef from '../../../../axon/js/ObservableArrayDef.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -39,14 +39,14 @@ class AmplitudeSlider extends VSlider {
   /**
    * @param {Harmonic} harmonic
    * @param {EnumerationProperty.<Waveform>} waveformProperty
-   * @param {Property.<Harmonic|null>} emphasizedHarmonicProperty
+   * @param {ObservableArrayDef} emphasizedHarmonics
    * @param {Object} [options]
    */
-  constructor( harmonic, waveformProperty, emphasizedHarmonicProperty, options ) {
+  constructor( harmonic, waveformProperty, emphasizedHarmonics, options ) {
 
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
-    assert && assert( emphasizedHarmonicProperty instanceof Property, 'invalid emphasizedHarmonicProperty' );
+    assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
 
     options = merge( {
 
@@ -100,16 +100,18 @@ class AmplitudeSlider extends VSlider {
     // Omit options for our custom thumb and track, so that Slider doesn't complain.
     super( harmonic.amplitudeProperty, amplitudeRange, options );
 
-    //TODO test this with multi-touch
     //TODO do this only for thumb and visible bar
+    //TODO emphasize while dragging
     // Emphasize the associated harmonic on pointer over
     this.addInputListener( {
       over: () => {
-        emphasizedHarmonicProperty.value = harmonic;
+        console.log( `adding harmonic ${harmonic.order} to emphasizedHarmonics` );
+        emphasizedHarmonics.push( harmonic );
       },
       out: () => {
-        if ( emphasizedHarmonicProperty.value === harmonic ) {
-          emphasizedHarmonicProperty.value = null;
+        if ( emphasizedHarmonics.includes( harmonic ) ) {
+          console.log( `removing harmonic ${harmonic.order} from emphasizedHarmonics` );
+          emphasizedHarmonics.remove( harmonic );
         }
       }
     } );

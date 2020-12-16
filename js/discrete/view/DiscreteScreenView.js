@@ -62,7 +62,7 @@ class DiscreteScreenView extends ScreenView {
     const chartViewHeight = 0.2 * this.layoutBounds.height;
 
     const amplitudesChart = new AmplitudesChart( model.fourierSeries, amplitudeKeypadDialog, model.waveformProperty,
-      model.chartsModel.emphasizedHarmonicProperty, {
+      model.chartsModel.emphasizedHarmonics, {
         viewWidth: chartViewWidth + 30, // a bit wider than the other charts
         viewHeight: chartViewHeight,
         tandem: tandem.createTandem( 'amplitudesChart' )
@@ -87,7 +87,7 @@ class DiscreteScreenView extends ScreenView {
     const harmonicsChart = new HarmonicsChart( model.fourierSeries, model.tProperty,
       model.domainProperty, model.waveTypeProperty, model.mathFormProperty,
       model.chartsModel.xZoomLevelProperty, model.chartsModel.xAxisDescriptionProperty,
-      model.chartsModel.emphasizedHarmonicProperty, {
+      model.chartsModel.emphasizedHarmonics, {
         viewWidth: chartViewWidth,
         viewHeight: chartViewHeight,
         left: harmonicsHBox.left,
@@ -197,20 +197,20 @@ class DiscreteScreenView extends ScreenView {
     const wavelengthToolNode = new WavelengthToolNode( harmonicsChartTransform,
       model.fourierSeries.harmonics, model.domainProperty,
       model.wavelengthToolOrderProperty, model.wavelengthToolSelectedProperty,
-      model.chartsModel.emphasizedHarmonicProperty, this.visibleBoundsProperty );
+      model.chartsModel.emphasizedHarmonics, this.visibleBoundsProperty );
     this.addChild( wavelengthToolNode );
 
     // For measuring the period of a specific harmonic in the 'time' domain.
     const periodToolNode = new PeriodToolNode( harmonicsChartTransform,
       model.fourierSeries.harmonics, model.domainProperty,
       model.periodToolOrderProperty, model.periodToolSelectedProperty,
-      model.chartsModel.emphasizedHarmonicProperty, this.visibleBoundsProperty );
+      model.chartsModel.emphasizedHarmonics, this.visibleBoundsProperty );
     this.addChild( periodToolNode );
 
     // For measuring the period of a specific harmonic in the 'space & time' domain.
     const periodClockNode = new PeriodClockNode( model.fourierSeries.harmonics, model.domainProperty,
       model.periodToolOrderProperty, model.periodToolSelectedProperty,
-      model.tProperty, model.chartsModel.emphasizedHarmonicProperty, this.visibleBoundsProperty );
+      model.tProperty, model.chartsModel.emphasizedHarmonics, this.visibleBoundsProperty );
     this.addChild( periodClockNode );
 
     //TODO Where to position tools? Should initial position be resettable?
