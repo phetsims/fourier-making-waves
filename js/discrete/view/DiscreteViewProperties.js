@@ -29,7 +29,7 @@ class DiscreteViewProperties {
     // @public whether the Sum chart is visible
     this.sumChartVisibleProperty = new BooleanProperty( true );
 
-    // @public whether the Sum chart's y-axis automatically scales to show all data
+    // @public whether the Sum chart's y-axis automatically scales to fit its data set
     this.autoScaleProperty = new BooleanProperty( false );
 
     // @public whether the Sum chart shows what the waveform looks like for an infinite Fourier series
