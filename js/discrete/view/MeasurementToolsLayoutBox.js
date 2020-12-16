@@ -15,25 +15,12 @@ import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
-import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import FMWSymbols from '../../common/FMWSymbols.js';
+import FMWSymobls from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
-
-// constants
-const NUMBER_SPINNER_OPTIONS = {
-  arrowsPosition: 'leftRight',
-  arrowsScale: 0.85,
-  numberDisplayOptions: {
-    useRichText: true,
-    cornerRadius: 3,
-    textOptions: {
-      font: FMWConstants.CONTROL_FONT
-    }
-  }
-};
+import OrderSpinner from './OrderSpinner.js';
 
 class MeasurementToolsLayoutBox extends VBox {
 
@@ -87,14 +74,7 @@ class MeasurementToolsLayoutBox extends VBox {
       maxWidth: 110 // determined empirically
     } );
     const wavelengthCheckbox = new Checkbox( wavelengthText, wavelengthToolSelectedProperty, FMWConstants.CHECKBOX_OPTIONS );
-    const wavelengthSpinner = new NumberSpinner( wavelengthToolOrderProperty, wavelengthToolOrderProperty.rangeProperty, merge( {}, {
-      numberDisplayOptions: {
-        numberFormatter: order => `${FMWSymbols.lambda}<sub>${order}</sub>`,
-        textOptions: {
-          maxWidth: 50
-        }
-      }
-    }, NUMBER_SPINNER_OPTIONS ) );
+    const wavelengthSpinner = new OrderSpinner( FMWSymobls.lambda, wavelengthToolOrderProperty );
     const wavelengthBox = new HBox( merge( {}, hBoxOptions, {
       children: [
         new AlignBox( wavelengthCheckbox, checkboxAlignBoxOptions ),
@@ -108,14 +88,7 @@ class MeasurementToolsLayoutBox extends VBox {
       maxWidth: 110 // determined empirically
     } );
     const periodCheckbox = new Checkbox( periodText, periodToolSelectedProperty, FMWConstants.CHECKBOX_OPTIONS );
-    const periodSpinner = new NumberSpinner( periodToolOrderProperty, periodToolOrderProperty.rangeProperty, merge( {}, {
-      numberDisplayOptions: {
-        numberFormatter: order => `${FMWSymbols.T}<sub>${order}</sub>`,
-        textOptions: {
-          maxWidth: 50
-        }
-      }
-    }, NUMBER_SPINNER_OPTIONS ) );
+    const periodSpinner = new OrderSpinner( FMWSymobls.T, periodToolOrderProperty );
     const periodBox = new HBox( merge( {}, hBoxOptions, {
       children: [
         new AlignBox( periodCheckbox, checkboxAlignBoxOptions ),
