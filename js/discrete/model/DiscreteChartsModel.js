@@ -1,7 +1,8 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * DiscreteViewProperties is the set of view-specific Properties for the 'Discrete' screen.
+ * DiscreteChartsModel is the model for charts in the 'Discrete' screen.
+ * An instance of this sub-model is instantiated by DiscreteModel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -12,13 +13,11 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import AxisDescription from '../model/AxisDescription.js';
+import AxisDescription from './AxisDescription.js';
 
-class DiscreteViewProperties {
+class DiscreteChartsModel {
 
   constructor() {
-
-    //TODO move chart Properties somewhere else? FMWChartModel?
 
     // @public whether the Harmonics chart is visible
     this.harmonicsChartVisibleProperty = new BooleanProperty( true );
@@ -58,6 +57,19 @@ class DiscreteViewProperties {
       [ this.yZoomLevelProperty ],
       yZoomLevel => AxisDescription.Y_AXIS_DESCRIPTIONS[ yZoomLevel ]
     );
+
+    // @private
+    this.resetDiscreteChartsModel = () => {
+
+      // Reset all non-derived Properties
+      for ( const propertyName in this ) {
+        if ( this.hasOwnProperty( propertyName ) &&
+             ( this[ propertyName ] instanceof Property ) &&
+             !( this[ propertyName ] instanceof DerivedProperty ) ) {
+          this[ propertyName ].reset();
+        }
+      }
+    };
   }
 
   /**
@@ -83,5 +95,5 @@ class DiscreteViewProperties {
   }
 }
 
-fourierMakingWaves.register( 'DiscreteViewProperties', DiscreteViewProperties );
-export default DiscreteViewProperties;
+fourierMakingWaves.register( 'DiscreteChartsModel', DiscreteChartsModel );
+export default DiscreteChartsModel;

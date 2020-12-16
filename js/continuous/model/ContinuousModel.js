@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * ContinuousModel is the model for the 'Continuous' screen.
+ * ContinuousModel is the top-level model for the 'Continuous' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.
  */

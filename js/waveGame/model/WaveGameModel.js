@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * WaveGameModel is the model for the 'Wave Game' screen.
+ * WaveGameModel is the top-level model for the 'Wave Game' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.
  */

@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * DiscreteModel is the model for the 'Discrete' screen.
+ * DiscreteModel is the top-level model for the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.
  */
@@ -17,6 +17,7 @@ import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import DiscreteChartsModel from './DiscreteChartsModel.js';
 import Domain from './Domain.js';
 import MathForm from './MathForm.js';
 import Waveform from './Waveform.js';
@@ -80,6 +81,9 @@ class DiscreteModel {
       numberType: 'Integer',
       range: new Range( 1, this.fourierSeries.numberOfHarmonicsProperty.value )
     } );
+
+    // @public
+    this.chartsModel = new DiscreteChartsModel();
 
     // @public emits if you try to make a sawtooth wave with cosines
     this.oopsSawtoothWithCosinesEmitter = new Emitter();
@@ -151,6 +155,9 @@ class DiscreteModel {
 
       // Reset the fourier series
       this.fourierSeries.reset();
+
+      // Reset the charts
+      this.chartsModel.reset();
 
       // Reset all non-derived Properties
       for ( const propertyName in this ) {

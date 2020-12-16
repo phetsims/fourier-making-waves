@@ -15,7 +15,7 @@ import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import DiscreteViewProperties from './DiscreteViewProperties.js';
+import DiscreteChartsModel from '../model/DiscreteChartsModel.js';
 import FourierSeriesLayoutBox from './FourierSeriesLayoutBox.js';
 import GraphControlsLayoutBox from './GraphControlsLayoutBox.js';
 import MathFormLayoutBox from './MathFormLayoutBox.js';
@@ -26,14 +26,14 @@ class DiscreteControlPanel extends Panel {
 
   /**
    * @param {DiscreteModel} model
-   * @param {DiscreteViewProperties} viewProperties
+   * @param {DiscreteChartsModel} viewProperties
    * @param {Node} popupParent
    * @param {Object} [options]
    */
   constructor( model, viewProperties, popupParent, options ) {
 
     assert && assert( model instanceof DiscreteModel, 'invalid model' );
-    assert && assert( viewProperties instanceof DiscreteViewProperties, 'invalid viewProperties' );
+    assert && assert( viewProperties instanceof DiscreteChartsModel, 'invalid viewProperties' );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
     options = merge( {}, FMWConstants.PANEL_OPTIONS, {

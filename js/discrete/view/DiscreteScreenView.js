@@ -25,7 +25,6 @@ import DiscreteModel from '../model/DiscreteModel.js';
 import Domain from '../model/Domain.js';
 import AmplitudesChart from './AmplitudesChart.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
-import DiscreteViewProperties from './DiscreteViewProperties.js';
 import FourierSoundGenerator from './FourierSoundGenerator.js';
 import HarmonicsChart from './HarmonicsChart.js';
 import PeriodClockNode from './PeriodClockNode.js';
@@ -47,9 +46,6 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem
     } );
 
-    // Properties that are specific to the view
-    const viewProperties = new DiscreteViewProperties( model.fourierSeries.numberOfHarmonicsProperty );
-
     // Sound for the Fourier series
     const fourierSoundGenerator = new FourierSoundGenerator( model.fourierSeries,
       model.soundEnabledProperty, model.soundOutputLevelProperty );
@@ -66,13 +62,13 @@ class DiscreteScreenView extends ScreenView {
     const chartViewHeight = 0.2 * this.layoutBounds.height;
 
     const amplitudesChart = new AmplitudesChart( model.fourierSeries, amplitudeKeypadDialog, model.waveformProperty,
-      viewProperties.emphasizedHarmonicProperty, {
+      model.chartsModel.emphasizedHarmonicProperty, {
         viewWidth: chartViewWidth + 30, // a bit wider than the other charts
         viewHeight: chartViewHeight,
         tandem: tandem.createTandem( 'amplitudesChart' )
       } );
 
-    const harmonicsExpandCollapseButton = new ExpandCollapseButton( viewProperties.harmonicsChartVisibleProperty,
+    const harmonicsExpandCollapseButton = new ExpandCollapseButton( model.chartsModel.harmonicsChartVisibleProperty,
       merge( {
         tandem: tandem.createTandem( 'harmonicsExpandCollapseButton' )
       }, FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS ) );
@@ -90,8 +86,8 @@ class DiscreteScreenView extends ScreenView {
 
     const harmonicsChart = new HarmonicsChart( model.fourierSeries, model.tProperty,
       model.domainProperty, model.waveTypeProperty, model.mathFormProperty,
-      viewProperties.xZoomLevelProperty, viewProperties.xAxisDescriptionProperty,
-      viewProperties.emphasizedHarmonicProperty, {
+      model.chartsModel.xZoomLevelProperty, model.chartsModel.xAxisDescriptionProperty,
+      model.chartsModel.emphasizedHarmonicProperty, {
         viewWidth: chartViewWidth,
         viewHeight: chartViewHeight,
         left: harmonicsHBox.left,
@@ -105,11 +101,12 @@ class DiscreteScreenView extends ScreenView {
       top: amplitudesChart.bottom + 15
     } );
 
-    viewProperties.harmonicsChartVisibleProperty.link( harmonicsChartVisible => {
+    //TODO pass directly to HarmonicsChart via visibleProperty?
+    model.chartsModel.harmonicsChartVisibleProperty.link( harmonicsChartVisible => {
       harmonicsChart.visible = harmonicsChartVisible;
     } );
 
-    const sumExpandCollapseButton = new ExpandCollapseButton( viewProperties.sumChartVisibleProperty,
+    const sumExpandCollapseButton = new ExpandCollapseButton( model.chartsModel.sumChartVisibleProperty,
       merge( {
         tandem: tandem.createTandem( 'sumExpandCollapseButton' )
       }, FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS ) );
@@ -127,9 +124,9 @@ class DiscreteScreenView extends ScreenView {
 
     const sumChart = new SumChart( model.fourierSeries, harmonicsChart.sumDataSetProperty,
       model.waveformProperty, model.domainProperty, model.waveTypeProperty, model.mathFormProperty,
-      viewProperties.xZoomLevelProperty, viewProperties.xAxisDescriptionProperty,
-      viewProperties.yZoomLevelProperty, viewProperties.yAxisDescriptionProperty,
-      viewProperties.autoScaleProperty, viewProperties.infiniteHarmonicsProperty, {
+      model.chartsModel.xZoomLevelProperty, model.chartsModel.xAxisDescriptionProperty,
+      model.chartsModel.yZoomLevelProperty, model.chartsModel.yAxisDescriptionProperty,
+      model.chartsModel.autoScaleProperty, model.chartsModel.infiniteHarmonicsProperty, {
         viewWidth: chartViewWidth,
         viewHeight: chartViewHeight,
         left: sumHBox.left,
@@ -143,7 +140,8 @@ class DiscreteScreenView extends ScreenView {
       top: harmonicsParent.bottom + 10
     } );
 
-    viewProperties.sumChartVisibleProperty.link( sumChartVisible => {
+    //TODO pass directly to SumChart via visibleProperty?
+    model.chartsModel.sumChartVisibleProperty.link( sumChartVisible => {
       sumChart.visible = sumChartVisible;
     } );
 
@@ -153,7 +151,7 @@ class DiscreteScreenView extends ScreenView {
       top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN
     } ) );
 
-    const controlPanel = new DiscreteControlPanel( model, viewProperties, popupParent, {
+    const controlPanel = new DiscreteControlPanel( model, model.chartsModel, popupParent, {
       right: this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN,
       top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: tandem.createTandem( 'controlPanel' )
@@ -185,7 +183,6 @@ class DiscreteScreenView extends ScreenView {
       listener: () => {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
         model.reset();
-        viewProperties.reset();
       },
       right: this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN,
       bottom: this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN,
@@ -200,20 +197,20 @@ class DiscreteScreenView extends ScreenView {
     const wavelengthToolNode = new WavelengthToolNode( harmonicsChartTransform,
       model.fourierSeries.harmonics, model.domainProperty,
       model.wavelengthToolOrderProperty, model.wavelengthToolSelectedProperty,
-      viewProperties.emphasizedHarmonicProperty, this.visibleBoundsProperty );
+      model.chartsModel.emphasizedHarmonicProperty, this.visibleBoundsProperty );
     this.addChild( wavelengthToolNode );
 
     // For measuring the period of a specific harmonic in the 'time' domain.
     const periodToolNode = new PeriodToolNode( harmonicsChartTransform,
       model.fourierSeries.harmonics, model.domainProperty,
       model.periodToolOrderProperty, model.periodToolSelectedProperty,
-      viewProperties.emphasizedHarmonicProperty, this.visibleBoundsProperty );
+      model.chartsModel.emphasizedHarmonicProperty, this.visibleBoundsProperty );
     this.addChild( periodToolNode );
 
     // For measuring the period of a specific harmonic in the 'space & time' domain.
     const periodClockNode = new PeriodClockNode( model.fourierSeries.harmonics, model.domainProperty,
       model.periodToolOrderProperty, model.periodToolSelectedProperty,
-      model.tProperty, viewProperties.emphasizedHarmonicProperty, this.visibleBoundsProperty );
+      model.tProperty, model.chartsModel.emphasizedHarmonicProperty, this.visibleBoundsProperty );
     this.addChild( periodClockNode );
 
     //TODO Where to position tools? Should initial position be resettable?
