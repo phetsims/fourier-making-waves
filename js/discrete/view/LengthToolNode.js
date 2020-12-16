@@ -101,30 +101,29 @@ class LengthToolNode extends VBox {
 
     const derivedDragBoundsProperty = new DragBoundsProperty( this, dragBoundsProperty );
 
-    // removeInputListener is not needed.
-    this.addInputListener( new DragListener( {
-      positionProperty: positionProperty,
-      dragBoundsProperty: derivedDragBoundsProperty
-    } ) );
-
-    ///TODO emphasize while dragging
-    // Emphasize the associated harmonic on pointer over
-    this.addInputListener( {
-      over: () => {
-        emphasizedHarmonics.push( this.harmonic );
-      },
-      out: () => {
-        if ( emphasizedHarmonics.includes( this.harmonic ) ) {
-          emphasizedHarmonics.remove( this.harmonic );
-        }
-      }
-    } );
-
     // If the tool is outside the drag bounds, move it inside.
     derivedDragBoundsProperty.link( derivedDragBounds => {
       if ( !derivedDragBounds.containsPoint( positionProperty.value ) ) {
         this.interruptSubtreeInput();
         positionProperty.value = derivedDragBounds.closestPointTo( positionProperty.value );
+      }
+    } );
+
+    const dragListener = new DragListener( {
+      positionProperty: positionProperty,
+      dragBoundsProperty: derivedDragBoundsProperty
+    } );
+    this.addInputListener( dragListener ); // removeInputListener is not needed.
+
+    // Emphasize the associated harmonic.
+    dragListener.isHighlightedProperty.link( isHighlighted => {
+      if ( isHighlighted ) {
+        emphasizedHarmonics.push( this.harmonic );
+      }
+      else {
+        if ( emphasizedHarmonics.includes( this.harmonic ) ) {
+          emphasizedHarmonics.remove( this.harmonic );
+        }
       }
     } );
   }

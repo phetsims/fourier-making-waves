@@ -1,5 +1,6 @@
 // Copyright 2020, University of Colorado Boulder
 
+//TODO factor out stuff related to DragListener that this shares with LengthToolNode
 /**
  * PeriodClockNode is the measurement tool for period in the 'space & time' domain. It looks like a clock, with a
  * portion of the clock face filled in with the harmonic's color.  The portion filled in represents the portion of
@@ -105,12 +106,6 @@ class PeriodClockNode extends HBox {
 
     const derivedDragBoundsProperty = new DragBoundsProperty( this, dragBoundsProperty );
 
-    // removeInputListener is not needed.
-    this.addInputListener( new DragListener( {
-      positionProperty: positionProperty,
-      dragBoundsProperty: derivedDragBoundsProperty
-    } ) );
-
     // If the tool is outside the drag bounds, move it inside.
     derivedDragBoundsProperty.link( derivedDragBounds => {
       if ( !derivedDragBounds.containsPoint( positionProperty.value ) ) {
@@ -119,13 +114,18 @@ class PeriodClockNode extends HBox {
       }
     } );
 
-    //TODO test this with multi-touch
-    // Emphasize the associated harmonic on pointer over
-    this.addInputListener( {
-      over: () => {
+    const dragListener = new DragListener( {
+      positionProperty: positionProperty,
+      dragBoundsProperty: derivedDragBoundsProperty
+    } );
+    this.addInputListener( dragListener ); // removeInputListener is not needed.
+
+    // Emphasize the associated harmonic.
+    dragListener.isHighlightedProperty.link( isHighlighted => {
+      if ( isHighlighted ) {
         emphasizedHarmonics.push( harmonicProperty.value );
-      },
-      out: () => {
+      }
+      else {
         if ( emphasizedHarmonics.includes( harmonicProperty.value ) ) {
           emphasizedHarmonics.remove( harmonicProperty.value );
         }
