@@ -2,14 +2,17 @@ TODO.txt for fourier-making-waves
 
 # Discrete screen
 
-#25 all data sets must have the same number of points
 Initial, resettable positions for measurement tools
 Move chart model out of HarmonicsChart.js
 Always compute at least one full cycle of the lowest-order harmonic, so that we know the max for auto scale
 Dynamically optimize number of points in dataSets
 Auto Scale checkbox
 Infinite Harmonics checkbox
-Harmonic plot emphasis #31
 Move y-axis zoom to upper-left of Sum chart
+
+# GitHub issues
+
+all data sets must have the same number of points #25
+Harmonic plot emphasis #31
 Key for math symbols #30
 Label for sine/cosine radio button group #28
