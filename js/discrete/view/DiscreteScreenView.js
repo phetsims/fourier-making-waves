@@ -52,7 +52,7 @@ class DiscreteScreenView extends ScreenView {
 
     // Sound for the Fourier series
     const fourierSoundGenerator = new FourierSoundGenerator( model.fourierSeries,
-      viewProperties.soundEnabledProperty, viewProperties.soundOutputLevelProperty );
+      model.soundEnabledProperty, model.soundOutputLevelProperty );
     soundManager.addSoundGenerator( fourierSoundGenerator );
 
     // Parent for all popups
@@ -199,20 +199,20 @@ class DiscreteScreenView extends ScreenView {
     // For measuring the wavelength of a specific harmonic in the 'space' and 'space & time' domains.
     const wavelengthToolNode = new WavelengthToolNode( harmonicsChartTransform,
       model.fourierSeries.harmonics, model.domainProperty,
-      viewProperties.wavelengthToolOrderProperty, viewProperties.wavelengthToolSelectedProperty,
+      model.wavelengthToolOrderProperty, model.wavelengthToolSelectedProperty,
       viewProperties.emphasizedHarmonicProperty, this.visibleBoundsProperty );
     this.addChild( wavelengthToolNode );
 
     // For measuring the period of a specific harmonic in the 'time' domain.
     const periodToolNode = new PeriodToolNode( harmonicsChartTransform,
       model.fourierSeries.harmonics, model.domainProperty,
-      viewProperties.periodToolOrderProperty, viewProperties.periodToolSelectedProperty,
+      model.periodToolOrderProperty, model.periodToolSelectedProperty,
       viewProperties.emphasizedHarmonicProperty, this.visibleBoundsProperty );
     this.addChild( periodToolNode );
 
     // For measuring the period of a specific harmonic in the 'space & time' domain.
     const periodClockNode = new PeriodClockNode( model.fourierSeries.harmonics, model.domainProperty,
-      viewProperties.periodToolOrderProperty, viewProperties.periodToolSelectedProperty,
+      model.periodToolOrderProperty, model.periodToolSelectedProperty,
       model.tProperty, viewProperties.emphasizedHarmonicProperty, this.visibleBoundsProperty );
     this.addChild( periodClockNode );
 

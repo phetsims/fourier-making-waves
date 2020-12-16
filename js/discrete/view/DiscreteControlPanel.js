@@ -46,11 +46,11 @@ class DiscreteControlPanel extends Panel {
       new FourierSeriesLayoutBox( model.waveformProperty, model.fourierSeries.numberOfHarmonicsProperty, popupParent ),
       new GraphControlsLayoutBox( model.domainProperty, model.waveTypeProperty, popupParent ),
       new MeasurementToolsLayoutBox(
-        viewProperties.wavelengthToolSelectedProperty, viewProperties.wavelengthToolOrderProperty,
-        viewProperties.periodToolSelectedProperty, viewProperties.periodToolOrderProperty,
+        model.wavelengthToolSelectedProperty, model.wavelengthToolOrderProperty,
+        model.periodToolSelectedProperty, model.periodToolOrderProperty,
         model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty ),
       new MathFormLayoutBox( model.fourierSeries, model.mathFormProperty, model.domainProperty, popupParent ),
-      new SoundLayoutBox( viewProperties.soundEnabledProperty, viewProperties.soundOutputLevelProperty )
+      new SoundLayoutBox( model.soundEnabledProperty, model.soundOutputLevelProperty )
     ];
 
     // Separate width is 

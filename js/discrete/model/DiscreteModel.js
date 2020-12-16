@@ -8,10 +8,12 @@
 
 import animationFrameTimer from '../../../../axon/js/animationFrameTimer.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -53,6 +55,32 @@ class DiscreteModel {
     // @public
     this.mathFormProperty = new EnumerationProperty( MathForm, MathForm.HIDDEN );
 
+    // @public whether the sound of the Fourier series is enabled
+    this.soundEnabledProperty = new BooleanProperty( false );
+
+    // @public volume of the sound for the Fourier series
+    this.soundOutputLevelProperty = new NumberProperty( 0.25, {
+      range: new Range( 0, 1 )
+    } );
+
+    // @public whether the Wavelength tool is selected
+    this.wavelengthToolSelectedProperty = new BooleanProperty( false );
+
+    // @public whether the Period tool is selected
+    this.periodToolSelectedProperty = new BooleanProperty( false );
+
+    // @public order of the harmonic measured by the Wavelength tool
+    this.wavelengthToolOrderProperty = new NumberProperty( 1, {
+      numberType: 'Integer',
+      range: new Range( 1, this.fourierSeries.numberOfHarmonicsProperty.value )
+    } );
+
+    // @public order of the harmonic measured by the Period tool
+    this.periodToolOrderProperty = new NumberProperty( 1, {
+      numberType: 'Integer',
+      range: new Range( 1, this.fourierSeries.numberOfHarmonicsProperty.value )
+    } );
+
     // @public emits if you try to make a sawtooth wave with cosines
     this.oopsSawtoothWithCosinesEmitter = new Emitter();
 
@@ -85,17 +113,37 @@ class DiscreteModel {
     );
 
     //TODO are there other things that should reset t ?
-    // Changing these things resets t.
+    // Changing these things resets time (t).
     Property.multilink(
       [ this.waveformProperty, this.domainProperty ],
       () => this.tProperty.reset()
     );
 
-    // Ensure that the math form is appropriate for the domain. MathForm.MODE is supported by for all Domain values.
+    // Ensure that the math form is appropriate for the domain. MathForm.MODE is supported for all Domain values.
     this.domainProperty.link( () => {
       if ( this.mathFormProperty.value !== MathForm.MODE ) {
         this.mathFormProperty.value = MathForm.HIDDEN;
       }
+    } );
+
+    // Adjust measurement tools when a harmonic becomes irrelevant.
+    // unlink is not needed.
+    this.fourierSeries.numberOfHarmonicsProperty.link( numberOfHarmonics => {
+
+      // If a measurement tool is selected and its harmonic is no longer relevant, unselect the tool.
+      if ( this.wavelengthToolSelectedProperty.value ) {
+        this.wavelengthToolSelectedProperty.value = ( this.wavelengthToolOrderProperty.value <= numberOfHarmonics );
+      }
+      if ( this.periodToolSelectedProperty.value ) {
+        this.periodToolSelectedProperty.value = ( this.periodToolOrderProperty.value <= numberOfHarmonics );
+      }
+
+      // If a measurement tool is associated with a harmonic that is no longer relevant, associate the tool with
+      // the highest-order harmonic.
+      this.wavelengthToolOrderProperty.value = Math.min( numberOfHarmonics, this.wavelengthToolOrderProperty.value );
+      this.wavelengthToolOrderProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
+      this.periodToolOrderProperty.value = Math.min( numberOfHarmonics, this.periodToolOrderProperty.value );
+      this.periodToolOrderProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
     } );
 
     // @private
@@ -105,12 +153,13 @@ class DiscreteModel {
       this.fourierSeries.reset();
 
       // Reset Properties
-      this.isPlayingProperty.reset();
-      this.tProperty.reset();
-      this.waveformProperty.reset();
-      this.waveTypeProperty.reset();
-      this.domainProperty.reset();
-      this.mathFormProperty.reset();
+      for ( const propertyName in this ) {
+        if ( this.hasOwnProperty( propertyName ) &&
+             ( this[ propertyName ] instanceof Property ) &&
+             !( this[ propertyName ] instanceof DerivedProperty ) ) {
+          this[ propertyName ].reset();
+        }
+      }
 
       // Set the amplitudes of the Fourier series to match Property settings.
       updateAmplitudes( this.fourierSeries.numberOfHarmonicsProperty.value, this.waveformProperty.value, this.waveTypeProperty.value );

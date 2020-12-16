@@ -16,12 +16,9 @@ import AxisDescription from '../model/AxisDescription.js';
 
 class DiscreteViewProperties {
 
-  /**
-   * @param {NumberProperty} numberOfHarmonicsProperty
-   */
-  constructor( numberOfHarmonicsProperty ) {
-    assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
-    assert && assert( numberOfHarmonicsProperty.range, 'numberOfHarmonicsProperty.range is required' );
+  constructor() {
+
+    //TODO move chart Properties somewhere else? FMWChartModel?
 
     // @public whether the Harmonics chart is visible
     this.harmonicsChartVisibleProperty = new BooleanProperty( true );
@@ -34,34 +31,6 @@ class DiscreteViewProperties {
 
     // @public whether the Sum chart shows what the waveform looks like for an infinite Fourier series
     this.infiniteHarmonicsProperty = new BooleanProperty( false );
-
-    // @public whether the sound of the Fourier series is enabled
-    this.soundEnabledProperty = new BooleanProperty( false );
-
-    // @public volume of the sound for the Fourier series
-    this.soundOutputLevelProperty = new NumberProperty( 0.25, {
-      range: new Range( 0, 1 )
-    } );
-
-    // @public whether the Wavelength tool is selected
-    this.wavelengthToolSelectedProperty = new BooleanProperty( false );
-
-    // @public whether the Period tool is selected
-    this.periodToolSelectedProperty = new BooleanProperty( false );
-
-    // @public order of the harmonic measured by the Wavelength tool
-    this.wavelengthToolOrderProperty = new NumberProperty( 1, {
-      numberType: 'Integer',
-      range: new Range( 1, numberOfHarmonicsProperty.value )
-    } );
-
-    // @public order of the harmonic measured by the Period tool
-    this.periodToolOrderProperty = new NumberProperty( 1, {
-      numberType: 'Integer',
-      range: new Range( 1, numberOfHarmonicsProperty.value )
-    } );
-
-    //TODO move chart Properties somewhere else? FMWChartModel?
 
     // @public {Property.<Harmonic|null>} the harmonic to be emphasized in the Harmonics chart
     this.emphasizedHarmonicProperty = new Property( null );
@@ -89,25 +58,6 @@ class DiscreteViewProperties {
       [ this.yZoomLevelProperty ],
       yZoomLevel => AxisDescription.Y_AXIS_DESCRIPTIONS[ yZoomLevel ]
     );
-
-    // unlink is not needed.
-    numberOfHarmonicsProperty.link( numberOfHarmonics => {
-
-      // If a measurement tool is selected and its harmonic is no longer relevant, unselect the tool.
-      if ( this.wavelengthToolSelectedProperty.value ) {
-        this.wavelengthToolSelectedProperty.value = ( this.wavelengthToolOrderProperty.value <= numberOfHarmonics );
-      }
-      if ( this.periodToolSelectedProperty.value ) {
-        this.periodToolSelectedProperty.value = ( this.periodToolOrderProperty.value <= numberOfHarmonics );
-      }
-
-      // If a measurement tool is associated with a harmonic that is no longer relevant, associate the tool with
-      // the highest-order harmonic.
-      this.wavelengthToolOrderProperty.value = Math.min( numberOfHarmonics, this.wavelengthToolOrderProperty.value );
-      this.wavelengthToolOrderProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
-      this.periodToolOrderProperty.value = Math.min( numberOfHarmonics, this.periodToolOrderProperty.value );
-      this.periodToolOrderProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
-    } );
   }
 
   /**
