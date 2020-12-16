@@ -122,7 +122,7 @@ class PeriodClockNode extends HBox {
     // Emphasize the associated harmonic on pointer over
     this.addInputListener( {
       over: () => {
-        emphasizedHarmonicProperty.value = this.harmonic;
+        emphasizedHarmonicProperty.value = harmonicProperty.value;
       },
       out: () => {
         if ( emphasizedHarmonicProperty.value === harmonicProperty.value ) {
