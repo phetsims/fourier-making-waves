@@ -50,7 +50,7 @@ class AmplitudeSlider extends VSlider {
 
     options = merge( {
 
-      // {number|null} On end drag, snap to this interval, unless the value is min or max
+      // {number} snap to this interval, unless the value is min or max
       snapInterval: FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL,
 
       // {number} height of the track
@@ -86,16 +86,13 @@ class AmplitudeSlider extends VSlider {
       waveformProperty.value = Waveform.CUSTOM;
     };
 
-    // Snap to interval
-    if ( options.snapInterval ) {
-      assert && assert( !options.endDrag, 'AmplitudeSlider sets endDrag' );
-      options.endDrag = () => {
-        const amplitude = harmonic.amplitudeProperty.value;
-        if ( amplitude !== amplitudeRange.min && amplitude !== amplitudeRange.max ) {
-          harmonic.amplitudeProperty.value = Utils.roundToInterval( amplitude, options.snapInterval );
-        }
-      };
-    }
+    assert && assert( !options.constrainValue, 'AmplitudeSlider sets constrainValue' );
+    options.constrainValue = amplitude => {
+      if ( amplitude !== amplitudeRange.min && amplitude !== amplitudeRange.max ) {
+        amplitude = Utils.roundToInterval( amplitude, options.snapInterval );
+      }
+      return amplitude;
+    };
 
     // Omit options for our custom thumb and track, so that Slider doesn't complain.
     super( harmonic.amplitudeProperty, amplitudeRange, options );
@@ -105,12 +102,10 @@ class AmplitudeSlider extends VSlider {
     // Emphasize the associated harmonic on pointer over
     this.addInputListener( {
       over: () => {
-        console.log( `adding harmonic ${harmonic.order} to emphasizedHarmonics` );
         emphasizedHarmonics.push( harmonic );
       },
       out: () => {
         if ( emphasizedHarmonics.includes( harmonic ) ) {
-          console.log( `removing harmonic ${harmonic.order} from emphasizedHarmonics` );
           emphasizedHarmonics.remove( harmonic );
         }
       }
