@@ -61,7 +61,7 @@ class DiscreteViewProperties {
   }
 
   /**
-   * Resets all Properties that are defined by this class.
+   * Resets all non-derived Properties that are defined by this class.
    * @public
    */
   reset() {

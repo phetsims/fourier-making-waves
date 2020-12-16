@@ -152,7 +152,7 @@ class DiscreteModel {
       // Reset the fourier series
       this.fourierSeries.reset();
 
-      // Reset Properties
+      // Reset all non-derived Properties
       for ( const propertyName in this ) {
         if ( this.hasOwnProperty( propertyName ) &&
              ( this[ propertyName ] instanceof Property ) &&
