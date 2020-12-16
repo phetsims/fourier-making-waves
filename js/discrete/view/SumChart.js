@@ -158,8 +158,8 @@ class SumChart extends DiscreteChart {
 
     const checkboxesParent = new HBox( {
       spacing: 25,
-      children: [ infiniteHarmonicsCheckbox, autoScaleCheckbox ],
-      right: this.chartRectangle.right,
+      children: [ autoScaleCheckbox, infiniteHarmonicsCheckbox ],
+      left: this.chartRectangle.left,
       top: this.xTickLabels.bottom + 5
     } );
     this.addChild( checkboxesParent );
