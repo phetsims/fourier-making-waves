@@ -155,7 +155,7 @@ class GrippyThumb extends Node {
       children: [ rectangle, dotsNode ]
     } );
 
-    // Emphasize the associated harmonic. removeInputListener and unmultilink are not needed.
+    // Emphasize the associated harmonic. removeInputListener and unlink are not needed.
     const pressListener = new PressListener( { attach: false } );
     this.addInputListener( pressListener );
     pressListener.isHighlightedProperty.link( isHighlighted => {
