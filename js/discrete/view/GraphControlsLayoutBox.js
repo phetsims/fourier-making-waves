@@ -54,14 +54,23 @@ class GraphControlsLayoutBox extends VBox {
       children: [ functionOfText, domainComboBox ]
     } );
 
-    //TODO should this group be labeled?
+    const seriesText = new Text( fourierMakingWavesStrings.series, {
+      font: FMWConstants.CONTROL_FONT,
+      maxWidth: 70 // determined empirically
+    } );
+
     const seriesTypeRadioButtonGroup = new SeriesTypeRadioButtonGroup( seriesTypeProperty );
+
+    const seriesBox = new HBox( {
+      spacing: 10,
+      children: [ seriesText, seriesTypeRadioButtonGroup ]
+    } );
 
     assert && assert( !options.children, 'GraphControls sets children' );
     options.children = [
       titleText,
       functionOfBox,
-      seriesTypeRadioButtonGroup
+      seriesBox
     ];
 
     super( options );

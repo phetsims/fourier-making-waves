@@ -50,6 +50,9 @@
   "functionOf": {
     "value": "Function of:"
   },
+  "series": {
+    "value": "Series:"
+  },
   "spaceSymbol": {
     "value": "space ({{symbol}})"
   },
