@@ -22,7 +22,6 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
@@ -71,7 +70,8 @@ class AmplitudesChart extends Node {
     const chartRectangle = new ChartRectangle( chartTransform );
 
     const yGridLineSet = new GridLineSet( chartTransform, Orientation.VERTICAL, 0.5, {
-      stroke: Color.grayColor( 0, 0.3 )
+      stroke: 'black',
+      lineWidth: 0.5
     } );
 
     const yLabelSet = new LabelSet( chartTransform, Orientation.VERTICAL, 0.5, {
