@@ -44,7 +44,7 @@ class DiscreteControlPanel extends Panel {
     // {Node[]} logical sections of the control panel
     const sectionNodes = [
       new FourierSeriesLayoutBox( model.waveformProperty, model.fourierSeries.numberOfHarmonicsProperty, popupParent ),
-      new GraphControlsLayoutBox( model.domainProperty, model.waveTypeProperty, popupParent ),
+      new GraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty, popupParent ),
       new MeasurementToolsLayoutBox(
         model.wavelengthToolSelectedProperty, model.wavelengthToolOrderProperty,
         model.periodToolSelectedProperty, model.periodToolOrderProperty,

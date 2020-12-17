@@ -22,7 +22,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
 import Waveform from '../model/Waveform.js';
-import WaveType from '../model/WaveType.js';
+import SeriesType from '../model/SeriesType.js';
 import AxisDescription from '../model/AxisDescription.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
 import DiscreteChart from './DiscreteChart.js';
@@ -38,7 +38,7 @@ class SumChart extends DiscreteChart {
    * @param {Property.<Vector2[]>} sumDataSetProperty
    * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<WaveType>} waveTypeProperty
+   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {NumberProperty} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
@@ -48,7 +48,7 @@ class SumChart extends DiscreteChart {
    * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, sumDataSetProperty, waveformProperty, domainProperty, waveTypeProperty, mathFormProperty,
+  constructor( fourierSeries, sumDataSetProperty, waveformProperty, domainProperty, seriesTypeProperty, mathFormProperty,
                xZoomLevelProperty, xAxisDescriptionProperty,
                yZoomLevelProperty, yAxisDescriptionProperty,
                autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
@@ -57,7 +57,7 @@ class SumChart extends DiscreteChart {
     assert && AssertUtils.assertPropertyOf( sumDataSetProperty, Array );
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
+    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
@@ -75,7 +75,7 @@ class SumChart extends DiscreteChart {
     super( fourierSeries, domainProperty, mathFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options );
 
     const equationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
-      waveTypeProperty, mathFormProperty, {
+      seriesTypeProperty, mathFormProperty, {
         maxWidth: 0.5 * this.chartRectangle.width,
         tandem: options.tandem.createTandem( 'equationNode' ),
         phetioReadOnly: true
@@ -86,7 +86,7 @@ class SumChart extends DiscreteChart {
     const expandedFormButton = new ExpandedFormButton( {
       scale: 0.45,
       listener: () => {
-        const dialog = new ExpandedFormDialog( fourierSeries, domainProperty, waveTypeProperty, mathFormProperty, {
+        const dialog = new ExpandedFormDialog( fourierSeries, domainProperty, seriesTypeProperty, mathFormProperty, {
           hideCallback: () => dialog.dispose()
         } );
         dialog.show();

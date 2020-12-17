@@ -9,7 +9,7 @@
 
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WaveType from './WaveType.js';
+import SeriesType from './SeriesType.js';
 
 // constants
 const PI = Math.PI; // to improve readability
@@ -17,7 +17,7 @@ const PI = Math.PI; // to improve readability
 class WaveformValue {
 
   /**
-   * @param {function(numberOfHarmonics:number, waveType:WaveType)} [getAmplitudes]
+   * @param {function(numberOfHarmonics:number, seriesType:SeriesType)} [getAmplitudes]
    */
   constructor( getAmplitudes ) {
 
@@ -26,7 +26,7 @@ class WaveformValue {
   }
 }
 
-const SINE_COSINE = new WaveformValue( ( numberOfHarmonics, waveType ) => {
+const SINE_COSINE = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
   const amplitudes = [];
   for ( let n = 1; n <= numberOfHarmonics; n++ ) {
 
@@ -37,10 +37,10 @@ const SINE_COSINE = new WaveformValue( ( numberOfHarmonics, waveType ) => {
   return amplitudes;
 } );
 
-const TRIANGLE = new WaveformValue( ( numberOfHarmonics, waveType ) => {
+const TRIANGLE = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
   // const amplitudes = [];
   // for ( let n = 1; n <= numberOfHarmonics; n++ ) {
-  //   waveType === WaveType.SINE ?
+  //   seriesType === SeriesType.SINE ?
   //
   //     //TODO amplitudes are smaller than Java version
   //     amplitudes.push( ( ( 2 * Math.sin( n * PI / 2 ) ) - ( 2 * Math.sin( n * PI ) ) ) / ( n * n * PI * PI ) ) :
@@ -52,7 +52,7 @@ const TRIANGLE = new WaveformValue( ( numberOfHarmonics, waveType ) => {
   // return amplitudes;
 
   //TODO workaround by using hardcoded values from Preset.java, describe these values with new equations
-  if ( waveType === WaveType.SINE ) {
+  if ( seriesType === SeriesType.SINE ) {
     return [ 8 / ( PI * PI ), 0, -8 / ( 9 * PI * PI ), 0, 8 / ( 25 * PI * PI ), 0, -8 / ( 49 * PI * PI ), 0, 8 / ( 81 * PI * PI ), 0, -8 / ( 121 * PI * PI ) ].slice( 0, numberOfHarmonics );
   }
   else {
@@ -60,10 +60,10 @@ const TRIANGLE = new WaveformValue( ( numberOfHarmonics, waveType ) => {
   }
 } );
 
-const SQUARE = new WaveformValue( ( numberOfHarmonics, waveType ) => {
+const SQUARE = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
   const amplitudes = [];
   for ( let n = 1; n <= numberOfHarmonics; n++ ) {
-    waveType === WaveType.SINE ?
+    seriesType === SeriesType.SINE ?
       //TODO describe these values with a simpler equation: 4/PI, 0, 4/(3*PI), 0, 4/(5*PI), 0, 4/(7*PI), 0, 4/(9*PI), 0, 4/(11*PI)
     amplitudes.push( ( 2 - ( 2 * Math.cos( n * PI ) ) ) / ( n * PI ) ) :
 
@@ -74,10 +74,10 @@ const SQUARE = new WaveformValue( ( numberOfHarmonics, waveType ) => {
   return amplitudes;
 } );
 
-const SAWTOOTH = new WaveformValue( ( numberOfHarmonics, waveType ) => {
+const SAWTOOTH = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
 
   //TODO enable this assertion when it's handled correctly in the model
-  // assert && assert( waveType !== WaveType.COSINE, 'cannot make a sawtooth wave out of cosines' );
+  // assert && assert( seriesType !== SeriesType.COSINE, 'cannot make a sawtooth wave out of cosines' );
 
   const amplitudes = [];
   for ( let n = 1; n <= numberOfHarmonics; n++ ) {
@@ -89,7 +89,7 @@ const SAWTOOTH = new WaveformValue( ( numberOfHarmonics, waveType ) => {
   return amplitudes;
 } );
 
-const WAVE_PACKET = new WaveformValue( ( numberOfHarmonics, waveType ) => {
+const WAVE_PACKET = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
   // const amplitudes = [];
   // const p = 1.5;
   // const no = ( numberOfHarmonics + 1 ) / 2;

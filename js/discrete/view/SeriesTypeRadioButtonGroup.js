@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * TODO
+ * SeriesTypeRadioButtonGroup is used to switch the type of the Fourier series between sine and cosine.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,15 +13,15 @@ import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRad
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import WaveType from '../model/WaveType.js';
+import SeriesType from '../model/SeriesType.js';
 
-class WaveTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
+class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
 
   /**
-   * @param {EnumerationProperty.<WaveType>} waveTypeProperty
+   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Object} [options]
    */
-  constructor( waveTypeProperty, options ) {
+  constructor( seriesTypeProperty, options ) {
 
     options = merge( {
       spacing: 12,
@@ -30,7 +30,7 @@ class WaveTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
       }
     }, options );
 
-    assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
+    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
 
     const textOptions = {
       font: FMWConstants.CONTROL_FONT,
@@ -38,13 +38,13 @@ class WaveTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
     };
 
     const items = [
-      { value: WaveType.SINE, node: new Text( fourierMakingWavesStrings.sine, textOptions ) },
-      { value: WaveType.COSINE, node: new Text( fourierMakingWavesStrings.cosine, textOptions ) }
+      { value: SeriesType.SINE, node: new Text( fourierMakingWavesStrings.sine, textOptions ) },
+      { value: SeriesType.COSINE, node: new Text( fourierMakingWavesStrings.cosine, textOptions ) }
     ];
 
-    super( waveTypeProperty, items, options );
+    super( seriesTypeProperty, items, options );
   }
 }
 
-fourierMakingWaves.register( 'WaveTypeRadioButtonGroup', WaveTypeRadioButtonGroup );
-export default WaveTypeRadioButtonGroup;
+fourierMakingWaves.register( 'SeriesTypeRadioButtonGroup', SeriesTypeRadioButtonGroup );
+export default SeriesTypeRadioButtonGroup;

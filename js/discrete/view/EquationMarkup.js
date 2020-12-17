@@ -12,7 +12,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
-import WaveType from '../model/WaveType.js';
+import SeriesType from '../model/SeriesType.js';
 
 // constants
 const HIDDEN_STRING = ''; // string for MathForm.HIDDEN
@@ -38,42 +38,42 @@ const EquationMarkup = {
   /**
    * Gets the RichText markup for the general form that describes a Fourier series.
    * @param {Domain} domain
-   * @param {WaveType} waveType
+   * @param {SeriesType} seriesType
    * @param {MathForm} mathForm
    * @returns {string}
    * @public
    */
-  getGeneralFormMarkup( domain, waveType, mathForm ) {
-    return EquationMarkup.getSpecificFormMarkup( domain, waveType, mathForm, n, An );
+  getGeneralFormMarkup( domain, seriesType, mathForm ) {
+    return EquationMarkup.getSpecificFormMarkup( domain, seriesType, mathForm, n, An );
   },
 
   /**
    * Gets the RichText markup for a specific form that describes a Fourier series.
    * @param {Domain} domain
-   * @param {WaveType} waveType
+   * @param {SeriesType} seriesType
    * @param {MathForm} mathForm
    * @param {string|number} order - {string} for general form (e.g. 'n') or {number} for a specific harmonic
    * @param {string|number} amplitude - {string} for general form (e.g. 'An') or {number} for a specific amplitude
    * @returns {string}
    * @public
    */
-  getSpecificFormMarkup( domain, waveType, mathForm, order, amplitude ) {
+  getSpecificFormMarkup( domain, seriesType, mathForm, order, amplitude ) {
 
     assert && assert( Domain.includes( domain ), `invalid domain: ${domain}` );
-    assert && assert( WaveType.includes( waveType ), `invalid waveType: ${waveType}` );
+    assert && assert( SeriesType.includes( seriesType ), `invalid seriesType: ${seriesType}` );
     assert && assert( MathForm.includes( mathForm ), `invalid mathForm: ${mathForm}` );
     assert && assert( typeof order === 'string' || typeof order === 'number', `invalid order: ${order}` );
     assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number', `invalid amplitude: ${amplitude}` );
 
     let markup;
     if ( domain === Domain.SPACE ) {
-      markup = getSpaceMarkup( waveType, mathForm, order, amplitude );
+      markup = getSpaceMarkup( seriesType, mathForm, order, amplitude );
     }
     else if ( domain === Domain.TIME ) {
-      markup = getTimeMarkup( waveType, mathForm, order, amplitude );
+      markup = getTimeMarkup( seriesType, mathForm, order, amplitude );
     }
     else if ( domain === Domain.SPACE_AND_TIME ) {
-      markup = getSpaceAndTimeMarkup( waveType, mathForm, order, amplitude );
+      markup = getSpaceAndTimeMarkup( seriesType, mathForm, order, amplitude );
     }
     else {
       assert && assert( false, `unsupported domain: ${domain}` );
@@ -95,33 +95,33 @@ const EquationMarkup = {
 
 /**
  * Gets the RichText markup for an equation in the space domain.
- * @param {WaveType} waveType
+ * @param {SeriesType} seriesType
  * @param {MathForm} mathForm
  * @param {string|number} order - {string} for general form (e.g. 'n') or number for a specific harmonic
  * @param {string|number} amplitude - {string} for general form (e.g. 'An') or {number} for a specific amplitude
  * @returns {string}
  */
-function getSpaceMarkup( waveType, mathForm, order, amplitude ) {
-  assert && assert( WaveType.includes( waveType ), `invalid waveType: ${waveType}` );
+function getSpaceMarkup( seriesType, mathForm, order, amplitude ) {
+  assert && assert( SeriesType.includes( seriesType ), `invalid seriesType: ${seriesType}` );
   assert && assert( [ MathForm.HIDDEN, MathForm.WAVELENGTH, MathForm.WAVE_NUMBER, MathForm.MODE ].includes( mathForm ),
     `unsupported mathForm: ${mathForm}` );
   assert && assert( typeof order === 'string' || typeof order === 'number', `invalid order: ${order}` );
   assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number', `invalid amplitude: ${amplitude}` );
 
-  const waveTypeMarkup = waveTypeToMarkup( waveType );
+  const seriesTypeMarkup = seriesTypeToMarkup( seriesType );
 
   let markup;
   if ( mathForm === MathForm.HIDDEN ) {
     markup = HIDDEN_STRING;
   }
   else if ( mathForm === MathForm.WAVELENGTH ) {
-    markup = `${amplitude} ${waveTypeMarkup}( 2${pi}${x} / ${lambda}<sub>${order}</sub> )`;
+    markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${x} / ${lambda}<sub>${order}</sub> )`;
   }
   else if ( mathForm === MathForm.WAVE_NUMBER ) {
-    markup = `${amplitude} ${waveTypeMarkup}( ${k}<sub>${order}</sub>${x} )`;
+    markup = `${amplitude} ${seriesTypeMarkup}( ${k}<sub>${order}</sub>${x} )`;
   }
   else if ( mathForm === MathForm.MODE ) {
-    markup = `${amplitude} ${waveTypeMarkup}( 2${pi}${order}${x} / ${L} )`;
+    markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${order}${x} / ${L} )`;
   }
   else {
     assert && assert( false, `unsupported mathForm: ${mathForm}` );
@@ -131,36 +131,36 @@ function getSpaceMarkup( waveType, mathForm, order, amplitude ) {
 
 /**
  * Gets the RichText markup for an equation in the time domain.
- * @param {WaveType} waveType
+ * @param {SeriesType} seriesType
  * @param {MathForm} mathForm
  * @param {string|number} order - {string} for general form (e.g. 'n') or number for a specific harmonic
  * @param {string|number} amplitude - {string} for general form (e.g. 'An') or {number} for a specific amplitude
  * @returns {string}
  */
-function getTimeMarkup( waveType, mathForm, order, amplitude ) {
-  assert && assert( WaveType.includes( waveType ), `invalid waveType: ${waveType}` );
+function getTimeMarkup( seriesType, mathForm, order, amplitude ) {
+  assert && assert( SeriesType.includes( seriesType ), `invalid seriesType: ${seriesType}` );
   assert && assert( [ MathForm.HIDDEN, MathForm.FREQUENCY, MathForm.PERIOD, MathForm.ANGULAR_FREQUENCY, MathForm.MODE ].includes( mathForm ),
     `unsupported mathForm: ${mathForm}` );
   assert && assert( typeof order === 'string' || typeof order === 'number', `invalid order: ${order}` );
   assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number', `invalid amplitude: ${amplitude}` );
 
-  const waveTypeMarkup = waveTypeToMarkup( waveType );
+  const seriesTypeMarkup = seriesTypeToMarkup( seriesType );
 
   let markup;
   if ( mathForm === MathForm.HIDDEN ) {
     markup = HIDDEN_STRING;
   }
   else if ( mathForm === MathForm.FREQUENCY ) {
-    markup = `${amplitude} ${waveTypeMarkup}( 2${pi}${f}<sub>${order}</sub>${t} )`;
+    markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${f}<sub>${order}</sub>${t} )`;
   }
   else if ( mathForm === MathForm.PERIOD ) {
-    markup = `${amplitude} ${waveTypeMarkup}( 2${pi}${t} / ${T}<sub>${order}</sub> )`;
+    markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${t} / ${T}<sub>${order}</sub> )`;
   }
   else if ( mathForm === MathForm.ANGULAR_FREQUENCY ) {
-    markup = `${amplitude} ${waveTypeMarkup}( ${omega}<sub>${order}</sub>${t} )`;
+    markup = `${amplitude} ${seriesTypeMarkup}( ${omega}<sub>${order}</sub>${t} )`;
   }
   else if ( mathForm === MathForm.MODE ) {
-    return `${amplitude} ${waveTypeMarkup}( 2${pi}${order}${t} / ${T} )`;
+    return `${amplitude} ${seriesTypeMarkup}( 2${pi}${order}${t} / ${T} )`;
   }
   else {
     assert && assert( false, `unsupported mathForm: ${mathForm}` );
@@ -170,33 +170,33 @@ function getTimeMarkup( waveType, mathForm, order, amplitude ) {
 
 /**
  * Gets the RichText markup for an equation in the space & time domain.
- * @param {WaveType} waveType
+ * @param {SeriesType} seriesType
  * @param {MathForm} mathForm
  * @param {string|number} order - {string} for general form (e.g. 'n') or number for a specific harmonic
  * @param {string|number} amplitude - {string} for general form (e.g. 'An') or {number} for a specific amplitude
  * @returns {string}
  */
-function getSpaceAndTimeMarkup( waveType, mathForm, order, amplitude ) {
-  assert && assert( WaveType.includes( waveType ), `invalid waveType: ${waveType}` );
+function getSpaceAndTimeMarkup( seriesType, mathForm, order, amplitude ) {
+  assert && assert( SeriesType.includes( seriesType ), `invalid seriesType: ${seriesType}` );
   assert && assert( [ MathForm.HIDDEN, MathForm.WAVELENGTH_AND_PERIOD, MathForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY, MathForm.MODE ].includes( mathForm ),
     `unsupported mathForm: ${mathForm}` );
   assert && assert( typeof order === 'string' || typeof order === 'number', `invalid order: ${order}` );
   assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number', `invalid amplitude: ${amplitude}` );
 
-  const waveTypeMarkup = waveTypeToMarkup( waveType );
+  const seriesTypeMarkup = seriesTypeToMarkup( seriesType );
 
   let markup;
   if ( mathForm === MathForm.HIDDEN ) {
     markup = HIDDEN_STRING;
   }
   else if ( mathForm === MathForm.WAVELENGTH_AND_PERIOD ) {
-    markup = `${amplitude} ${waveTypeMarkup}( 2${pi}( ${x}/${lambda}<sub>${order}</sub> ${MINUS} ${t}/${T}<sub>${order}</sub> ) )`;
+    markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}( ${x}/${lambda}<sub>${order}</sub> ${MINUS} ${t}/${T}<sub>${order}</sub> ) )`;
   }
   else if ( mathForm === MathForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY ) {
-    markup = `${amplitude} ${waveTypeMarkup}( ${k}<sub>${order}</sub>${x} ${MINUS} ${omega}<sub>${order}</sub>${t} )`;
+    markup = `${amplitude} ${seriesTypeMarkup}( ${k}<sub>${order}</sub>${x} ${MINUS} ${omega}<sub>${order}</sub>${t} )`;
   }
   else if ( mathForm === MathForm.MODE ) {
-    markup = `${amplitude} ${waveTypeMarkup}( 2${pi}${order}( ${x}/${L} ${MINUS} ${t}/${T} ) )`;
+    markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${order}( ${x}/${L} ${MINUS} ${t}/${T} ) )`;
   }
   else {
     assert && assert( false, `unsupported mathForm: ${mathForm}` );
@@ -205,13 +205,13 @@ function getSpaceAndTimeMarkup( waveType, mathForm, order, amplitude ) {
 }
 
 /**
- * Converts a WaveType to markup.
- * @param {WaveType} waveType
+ * Converts a SeriesType to markup.
+ * @param {SeriesType} seriesType
  * @returns {string}
  */
-function waveTypeToMarkup( waveType ) {
-  assert && assert( WaveType.includes( waveType ), `invalid waveType: ${waveType}` );
-  return ( waveType === WaveType.SINE ) ? 'sin' : 'cos';
+function seriesTypeToMarkup( seriesType ) {
+  assert && assert( SeriesType.includes( seriesType ), `invalid seriesType: ${seriesType}` );
+  return ( seriesType === SeriesType.SINE ) ? 'sin' : 'cos';
 }
 
 fourierMakingWaves.register( 'EquationMarkup', EquationMarkup );

@@ -16,22 +16,22 @@ import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
-import WaveType from '../model/WaveType.js';
+import SeriesType from '../model/SeriesType.js';
 import DomainComboBox from './DomainComboBox.js';
-import WaveTypeRadioButtonGroup from './WaveTypeRadioButtonGroup.js';
+import SeriesTypeRadioButtonGroup from './SeriesTypeRadioButtonGroup.js';
 
 class GraphControlsLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<WaveType>} waveTypeProperty
+   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
-  constructor( domainProperty, waveTypeProperty, popupParent, options ) {
+  constructor( domainProperty, seriesTypeProperty, popupParent, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertEnumerationPropertyOf( waveTypeProperty, WaveType );
+    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
     options = merge( {}, FMWConstants.LAYOUT_BOX_OPTIONS, options );
@@ -55,13 +55,13 @@ class GraphControlsLayoutBox extends VBox {
     } );
 
     //TODO should this group be labeled?
-    const waveTypeRadioButtonGroup = new WaveTypeRadioButtonGroup( waveTypeProperty );
+    const seriesTypeRadioButtonGroup = new SeriesTypeRadioButtonGroup( seriesTypeProperty );
 
     assert && assert( !options.children, 'GraphControls sets children' );
     options.children = [
       titleText,
       functionOfBox,
-      waveTypeRadioButtonGroup
+      seriesTypeRadioButtonGroup
     ];
 
     super( options );

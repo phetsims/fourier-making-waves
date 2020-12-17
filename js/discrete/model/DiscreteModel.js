@@ -21,7 +21,7 @@ import DiscreteChartsModel from './DiscreteChartsModel.js';
 import Domain from './Domain.js';
 import MathForm from './MathForm.js';
 import Waveform from './Waveform.js';
-import WaveType from './WaveType.js';
+import SeriesType from './SeriesType.js';
 
 class DiscreteModel {
 
@@ -48,7 +48,7 @@ class DiscreteModel {
     this.waveformProperty = new EnumerationProperty( Waveform, Waveform.SINE_COSINE );
 
     // @public
-    this.waveTypeProperty = new EnumerationProperty( WaveType, WaveType.SINE );
+    this.seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE );
 
     // @public
     this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
@@ -89,20 +89,20 @@ class DiscreteModel {
     this.oopsSawtoothWithCosinesEmitter = new Emitter();
 
     // Set amplitudes for pre-defined waveforms
-    const updateAmplitudes = ( numberOfHarmonics, waveform, waveType ) => {
+    const updateAmplitudes = ( numberOfHarmonics, waveform, seriesType ) => {
 
-      if ( waveform === Waveform.SAWTOOTH && waveType === WaveType.COSINE ) {
+      if ( waveform === Waveform.SAWTOOTH && seriesType === SeriesType.COSINE ) {
 
         phet.log && phet.log( 'not possible to make a sawtooth out of cosines, switching to sine' );
         this.oopsSawtoothWithCosinesEmitter.emit();
 
-        // Switch to sine on the next tick, so that we don't have a reentry problem with waveTypeProperty.
+        // Switch to sine on the next tick, so that we don't have a reentry problem with seriesTypeProperty.
         animationFrameTimer.runOnNextTick( () => {
-          this.waveTypeProperty.value = WaveType.SINE;
+          this.seriesTypeProperty.value = SeriesType.SINE;
         } );
       }
       else if ( waveform !== Waveform.CUSTOM ) {
-        const amplitudes = waveform.getAmplitudes( numberOfHarmonics, waveType );
+        const amplitudes = waveform.getAmplitudes( numberOfHarmonics, seriesType );
         assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
         for ( let i = 0; i < numberOfHarmonics; i++ ) {
           this.fourierSeries.harmonics[ i ].amplitudeProperty.value = amplitudes[ i ];
@@ -112,8 +112,8 @@ class DiscreteModel {
 
     // umultilink is not needed.
     Property.multilink(
-      [ this.fourierSeries.numberOfHarmonicsProperty, this.waveformProperty, this.waveTypeProperty ],
-      ( numberOfHarmonics, waveform, waveType ) => updateAmplitudes( numberOfHarmonics, waveform, waveType )
+      [ this.fourierSeries.numberOfHarmonicsProperty, this.waveformProperty, this.seriesTypeProperty ],
+      ( numberOfHarmonics, waveform, seriesType ) => updateAmplitudes( numberOfHarmonics, waveform, seriesType )
     );
 
     //TODO are there other things that should reset t ?
@@ -163,7 +163,7 @@ class DiscreteModel {
       FMWUtils.resetOwnProperties( this );
 
       // Set the amplitudes of the Fourier series to match Property settings.
-      updateAmplitudes( this.fourierSeries.numberOfHarmonicsProperty.value, this.waveformProperty.value, this.waveTypeProperty.value );
+      updateAmplitudes( this.fourierSeries.numberOfHarmonicsProperty.value, this.waveformProperty.value, this.seriesTypeProperty.value );
     };
   }
 
