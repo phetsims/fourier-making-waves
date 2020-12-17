@@ -27,6 +27,9 @@ class ContinuousModel {
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
+    // @public the range over which components are significant, in radians/meter
+    this.significantWidthRange = new Range( 0, 24 * Math.PI );
+
     // @public index into SPACING_BETWEEN_COMPONENTS_VALUES, so that we have a linear value to control via Slider
     this.spacingBetweenComponentsIndexProperty = new NumberProperty( 3, {
       numberType: 'Integer',
