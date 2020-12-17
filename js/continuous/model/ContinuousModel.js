@@ -7,6 +7,7 @@
  */
 
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWUtils from '../../common/FMWUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class ContinuousModel {
@@ -17,6 +18,20 @@ class ContinuousModel {
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
     //TODO
+
+    // @private
+    this.resetContinuousModel = () => {
+
+      // Reset all non-inherited, non-derived Properties
+      FMWUtils.resetOwnProperties( this );
+    };
+  }
+
+  /**
+   * @public
+   */
+  reset() {
+    this.resetContinuousModel();
   }
 
   /**
@@ -24,23 +39,6 @@ class ContinuousModel {
    */
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-  }
-
-  /**
-   * Resets the model.
-   * @public
-   */
-  reset() {
-    //TODO
-  }
-
-  /**
-   * Steps the model.
-   * @param {number} dt - time step, in seconds
-   * @public
-   */
-  step( dt ) {
-    //TODO
   }
 }
 

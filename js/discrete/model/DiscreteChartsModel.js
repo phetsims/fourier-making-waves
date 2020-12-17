@@ -11,8 +11,8 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
+import FMWUtils from '../../common/FMWUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 
@@ -66,29 +66,16 @@ class DiscreteChartsModel {
 
       this.emphasizedHarmonics.clear();
 
-      // Reset all non-derived Properties
-      for ( const propertyName in this ) {
-        if ( this.hasOwnProperty( propertyName ) &&
-             ( this[ propertyName ] instanceof Property ) &&
-             !( this[ propertyName ] instanceof DerivedProperty ) ) {
-          this[ propertyName ].reset();
-        }
-      }
+      // Reset all non-inherited, non-derived Properties
+      FMWUtils.resetOwnProperties( this );
     };
   }
 
   /**
-   * Resets all non-derived Properties that are defined by this class.
    * @public
    */
   reset() {
-    for ( const propertyName in this ) {
-      if ( this.hasOwnProperty( propertyName ) &&
-           ( this[ propertyName ] instanceof Property ) &&
-           !( this[ propertyName ] instanceof DerivedProperty ) ) {
-        this[ propertyName ].reset();
-      }
-    }
+    this.resetDiscreteChartsModel();
   }
 
   /**

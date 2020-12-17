@@ -8,13 +8,13 @@
 
 import animationFrameTimer from '../../../../axon/js/animationFrameTimer.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWUtils from '../../common/FMWUtils.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteChartsModel from './DiscreteChartsModel.js';
@@ -159,14 +159,8 @@ class DiscreteModel {
       // Reset the charts
       this.chartsModel.reset();
 
-      // Reset all non-derived Properties
-      for ( const propertyName in this ) {
-        if ( this.hasOwnProperty( propertyName ) &&
-             ( this[ propertyName ] instanceof Property ) &&
-             !( this[ propertyName ] instanceof DerivedProperty ) ) {
-          this[ propertyName ].reset();
-        }
-      }
+      // Reset all non-inherited, non-derived Properties
+      FMWUtils.resetOwnProperties( this );
 
       // Set the amplitudes of the Fourier series to match Property settings.
       updateAmplitudes( this.fourierSeries.numberOfHarmonicsProperty.value, this.waveformProperty.value, this.waveTypeProperty.value );
