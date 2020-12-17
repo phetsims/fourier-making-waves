@@ -14,11 +14,10 @@ import Panel from '../../../../sun/js/Panel.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import DiscreteModel from '../model/DiscreteModel.js';
 import DiscreteChartsModel from '../model/DiscreteChartsModel.js';
+import DiscreteModel from '../model/DiscreteModel.js';
 import FourierSeriesLayoutBox from './FourierSeriesLayoutBox.js';
 import GraphControlsLayoutBox from './GraphControlsLayoutBox.js';
-import MathFormLayoutBox from './MathFormLayoutBox.js';
 import MeasurementToolsLayoutBox from './MeasurementToolsLayoutBox.js';
 import SoundLayoutBox from './SoundLayoutBox.js';
 
@@ -44,12 +43,11 @@ class DiscreteControlPanel extends Panel {
     // {Node[]} logical sections of the control panel
     const sectionNodes = [
       new FourierSeriesLayoutBox( model.waveformProperty, model.fourierSeries.numberOfHarmonicsProperty, popupParent ),
-      new GraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty, popupParent ),
+      new GraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty, model.mathFormProperty, popupParent ),
       new MeasurementToolsLayoutBox(
         model.wavelengthToolSelectedProperty, model.wavelengthToolOrderProperty,
         model.periodToolSelectedProperty, model.periodToolOrderProperty,
         model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty ),
-      new MathFormLayoutBox( model.fourierSeries, model.mathFormProperty, model.domainProperty, popupParent ),
       new SoundLayoutBox( model.soundEnabledProperty, model.soundOutputLevelProperty )
     ];
 

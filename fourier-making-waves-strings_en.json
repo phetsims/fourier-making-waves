@@ -68,35 +68,11 @@
   "period": {
     "value": "Period"
   },
-  "mathForm": {
-    "value": "Math Form"
+  "equation": {
+    "value": "Equation:"
   },
-  "mathFormChoice.hidden": {
+  "hidden": {
     "value": "Hidden"
-  },
-  "mathFormChoice.wavelength": {
-    "value": "Wavelength ({{symbol}})"
-  },
-  "mathFormChoice.waveNumber": {
-    "value": "Wave Number ({{symbol}})"
-  },
-  "mathFormChoice.mode": {
-    "value": "Mode ({{symbol}})"
-  },
-  "mathFormChoice.frequency": {
-    "value": "Frequency ({{symbol}})"
-  },
-  "mathFormChoice.period": {
-    "value": "Period ({{symbol}})"
-  },
-  "mathFormChoice.angularFrequency": {
-    "value": "Angular frequency ({{symbol}})"
-  },
-  "mathFormChoice.wavelengthAndPeriod": {
-    "value": "Wavelength ({{wavelengthSymbol}}) & Period ({{periodSymbol}})"
-  },
-  "mathFormChoice.waveNumberAndAngularFrequency": {
-    "value": "Wave num ({{waveNumberSymbol}}) & Angular freq ({{angularFrequencySymbol}})"
   },
   "amplitude": {
     "value": "Amplitude"

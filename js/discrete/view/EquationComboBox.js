@@ -1,14 +1,13 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * MathFormComboBox is the combo box for choosing the math form that is displayed in the 'Discrete' screen.
+ * EquationComboBox is the combo box for choosing the equation form that is displayed in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -17,7 +16,7 @@ import Domain from '../model/Domain.js';
 import MathForm from '../model/MathForm.js';
 import FMWComboBox from './FMWComboBox.js';
 
-class MathFormComboBox extends FMWComboBox {
+class EquationComboBox extends FMWComboBox {
 
   /**
    * @param {EnumerationProperty.<MathForm>} mathFormProperty
@@ -41,57 +40,39 @@ class MathFormComboBox extends FMWComboBox {
     const choices = [
       {
         value: MathForm.HIDDEN,
-        string: fourierMakingWavesStrings.mathFormChoice.hidden
+        string: fourierMakingWavesStrings.hidden
       },
       {
         value: MathForm.WAVELENGTH,
-        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.wavelength, {
-          symbol: FMWSymbols.lambda
-        } )
+        string: FMWSymbols.lambda
       },
       {
         value: MathForm.WAVE_NUMBER,
-        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.waveNumber, {
-          symbol: FMWSymbols.k
-        } )
+        string: FMWSymbols.k
       },
       {
         value: MathForm.FREQUENCY,
-        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.frequency, {
-          symbol: FMWSymbols.F
-        } )
+        string: FMWSymbols.F
       },
       {
         value: MathForm.PERIOD,
-        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.period, {
-          symbol: FMWSymbols.T
-        } )
+        string: FMWSymbols.T
       },
       {
         value: MathForm.ANGULAR_FREQUENCY,
-        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.angularFrequency, {
-          symbol: FMWSymbols.omega
-        } )
+        string: FMWSymbols.omega
       },
       {
         value: MathForm.WAVELENGTH_AND_PERIOD,
-        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.wavelengthAndPeriod, {
-          wavelengthSymbol: FMWSymbols.lambda,
-          periodSymbol: FMWSymbols.T
-        } )
+        string: FMWSymbols.T
       },
       {
         value: MathForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY,
-        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.waveNumberAndAngularFrequency, {
-          waveNumberSymbol: FMWSymbols.k,
-          angularFrequencySymbol: FMWSymbols.omega
-        } )
+        string: `${FMWSymbols.k} & ${FMWSymbols.omega}` //TODO i18n
       },
       {
         value: MathForm.MODE,
-        string: StringUtils.fillIn( fourierMakingWavesStrings.mathFormChoice.mode, {
-          symbol: FMWSymbols.n
-        } )
+        string: FMWSymbols.n
       }
     ];
 
@@ -131,5 +112,5 @@ class MathFormComboBox extends FMWComboBox {
   }
 }
 
-fourierMakingWaves.register( 'MathFormComboBox', MathFormComboBox );
-export default MathFormComboBox;
+fourierMakingWaves.register( 'EquationComboBox', EquationComboBox );
+export default EquationComboBox;

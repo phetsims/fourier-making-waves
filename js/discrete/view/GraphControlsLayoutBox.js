@@ -16,8 +16,10 @@ import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
+import MathForm from '../model/MathForm.js';
 import SeriesType from '../model/SeriesType.js';
 import DomainComboBox from './DomainComboBox.js';
+import EquationComboBox from './EquationComboBox.js';
 import SeriesTypeRadioButtonGroup from './SeriesTypeRadioButtonGroup.js';
 
 class GraphControlsLayoutBox extends VBox {
@@ -25,13 +27,15 @@ class GraphControlsLayoutBox extends VBox {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationProperty.<MathForm>} mathFormProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
-  constructor( domainProperty, seriesTypeProperty, popupParent, options ) {
+  constructor( domainProperty, seriesTypeProperty, mathFormProperty, popupParent, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
+    assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
     options = merge( {}, FMWConstants.LAYOUT_BOX_OPTIONS, options );
@@ -66,11 +70,24 @@ class GraphControlsLayoutBox extends VBox {
       children: [ seriesText, seriesTypeRadioButtonGroup ]
     } );
 
+    const equationText = new Text( fourierMakingWavesStrings.equation, {
+      font: FMWConstants.CONTROL_FONT,
+      maxWidth: 70 // determined empirically
+    } );
+
+    const equationComboBox = new EquationComboBox( mathFormProperty, domainProperty, popupParent );
+
+    const equationBox = new HBox( {
+      spacing: 5,
+      children: [ equationText, equationComboBox ]
+    } );
+
     assert && assert( !options.children, 'GraphControls sets children' );
     options.children = [
       titleText,
       functionOfBox,
-      seriesBox
+      seriesBox,
+      equationBox
     ];
 
     super( options );
