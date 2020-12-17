@@ -29,7 +29,7 @@ import Harmonic from '../model/Harmonic.js';
 
 // constants
 const TRACK_WIDTH = 40; // track height specified in constructor options
-const THUMB_WIDTH = TRACK_WIDTH + 2;
+const THUMB_WIDTH = TRACK_WIDTH - 15;
 const THUMB_HEIGHT = 8;
 const THUMB_TOUCH_AREA_DILATION = new Dimension2( 0, 4 ).flipped();
 const THUMB_MOUSE_AREA_DILATION = new Dimension2( 0, 4 ).flipped();
@@ -133,7 +133,7 @@ class GrippyThumb extends Node {
 
     // A row of dots, color-coded to the harmonic
     // Note that this code is actually drawing a column of dots, because VSlider rotates its thumb -90 degrees.
-    const numberOfDots = 4;
+    const numberOfDots = 3;
     const xMargin = 2.5;
     const ySpacing = rectangle.height / ( numberOfDots + 1 );
     const dotRadius = ( rectangle.width - 2 * xMargin ) / 2;
