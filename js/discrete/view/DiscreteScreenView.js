@@ -73,7 +73,7 @@ class DiscreteScreenView extends ScreenView {
         tandem: tandem.createTandem( 'harmonicsExpandCollapseButton' )
       }, FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS ) );
 
-    const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonics, {
+    const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonicsChart, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 150, // determined empirically, prevent overlap with equation,
       tandem: tandem.createTandem( 'harmonicsTitleNode' )

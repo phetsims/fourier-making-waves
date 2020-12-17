@@ -44,6 +44,9 @@
   "harmonics": {
     "value": "Harmonics:"
   },
+  "harmonicsChart": {
+    "value": "Harmonics"
+  },
   "sine": {
     "value": "sine"
   },
