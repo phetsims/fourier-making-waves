@@ -211,7 +211,7 @@ function getSpaceAndTimeMarkup( seriesType, mathForm, order, amplitude ) {
  */
 function seriesTypeToMarkup( seriesType ) {
   assert && assert( SeriesType.includes( seriesType ), `invalid seriesType: ${seriesType}` );
-  return ( seriesType === SeriesType.SINE ) ? 'sin' : 'cos';
+  return ( seriesType === SeriesType.SINE ) ? FMWSymbols.sin : FMWSymbols.cos;
 }
 
 fourierMakingWaves.register( 'EquationMarkup', EquationMarkup );

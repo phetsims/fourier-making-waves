@@ -8,11 +8,11 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import SeriesType from '../model/SeriesType.js';
 
 class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
@@ -38,8 +38,8 @@ class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
     };
 
     const items = [
-      { value: SeriesType.SINE, node: new Text( fourierMakingWavesStrings.sine, textOptions ) },
-      { value: SeriesType.COSINE, node: new Text( fourierMakingWavesStrings.cosine, textOptions ) }
+      { value: SeriesType.SINE, node: new RichText( FMWSymbols.sin, textOptions ) },
+      { value: SeriesType.COSINE, node: new RichText( FMWSymbols.cos, textOptions ) }
     ];
 
     super( seriesTypeProperty, items, options );

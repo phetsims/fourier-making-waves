@@ -22,6 +22,7 @@ import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
 
 const FMWSymbols = {
   A: fourierMakingWavesStrings.symbol.A, // amplitude
+  cos: fourierMakingWavesStrings.symbol.cos, // cosine
   F: fourierMakingWavesStrings.symbol.F, // function of frequency
   f: MathSymbolFont.getRichTextMarkup( fourierMakingWavesStrings.symbol.f ), // frequency
   k: MathSymbolFont.getRichTextMarkup( fourierMakingWavesStrings.symbol.k ), // wave number
@@ -32,6 +33,7 @@ const FMWSymbols = {
   pi: MathSymbolFont.getRichTextMarkup( '\u03c0', 'normal' ), // pi
   SIGMA: MathSymbolFont.getRichTextMarkup( '\u03a3', 'normal' ), // summation symbol
   sigma: MathSymbolFont.getRichTextMarkup( fourierMakingWavesStrings.symbol.sigma, 'normal' ), // width of the Gaussian wave packet (dx)
+  sin: fourierMakingWavesStrings.symbol.sin, // sine
   T: fourierMakingWavesStrings.symbol.T, // sampling period, or period of the 1st harmonic
   t: MathSymbolFont.getRichTextMarkup( fourierMakingWavesStrings.symbol.t ), // time
   x: MathSymbolFont.getRichTextMarkup( fourierMakingWavesStrings.symbol.x ) // position in space along L

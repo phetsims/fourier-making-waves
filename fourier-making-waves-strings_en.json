@@ -47,12 +47,6 @@
   "harmonicsChart": {
     "value": "Harmonics"
   },
-  "sine": {
-    "value": "sine"
-  },
-  "cosine": {
-    "value": "cosine"
-  },
   "functionOf": {
     "value": "Function of:"
   },
@@ -134,6 +128,9 @@
   "symbol.A": {
     "value": "A"
   },
+  "symbol.cos": {
+    "value": "cos"
+  },
   "symbol.F": {
     "value": "F"
   },
@@ -160,6 +157,9 @@
   },
   "symbol.sigma": {
     "value": "\u03c3"
+  },
+  "symbol.sin": {
+    "value": "sin"
   },
   "symbol.t": {
     "value": "t"
