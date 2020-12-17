@@ -16,7 +16,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
-import MathForm from '../model/MathForm.js';
+import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../model/SeriesType.js';
 import EquationMarkup from './EquationMarkup.js';
 import SummationSymbolNode from './SummationSymbolNode.js';
@@ -31,15 +31,15 @@ class SumEquationNode extends Node {
    * @param {Property.<number>} numberOfHarmonicsProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationProperty.<MathForm>} mathFormProperty
+   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
-  constructor( numberOfHarmonicsProperty, domainProperty, seriesTypeProperty, mathFormProperty, options ) {
+  constructor( numberOfHarmonicsProperty, domainProperty, seriesTypeProperty, equationFormProperty, options ) {
 
     assert && AssertUtils.assertPropertyOf( numberOfHarmonicsProperty, 'number' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
-    assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
+    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
 
     options = merge( {
       font: FMWConstants.EQUATION_FONT
@@ -67,10 +67,10 @@ class SumEquationNode extends Node {
 
     // Update the equation to match the domain and math form.
     const multilink = new Multilink(
-      [ domainProperty, seriesTypeProperty, mathFormProperty ],
-      ( domain, seriesType, mathForm ) => {
+      [ domainProperty, seriesTypeProperty, equationFormProperty ],
+      ( domain, seriesType, equationForm ) => {
 
-        this.visible = ( mathForm !== MathForm.HIDDEN );
+        this.visible = ( equationForm !== EquationForm.HIDDEN );
 
         // F(...) =
         leftNode.text = `${EquationMarkup.getFunctionOfMarkup( domain )} ${EQUAL_TO}`;
@@ -78,7 +78,7 @@ class SumEquationNode extends Node {
         summationNode.left = leftNode.right + 2;
         summationNode.y = leftNode.y + 5; // lower summation a bit, determined empirically
 
-        rightNode.text = EquationMarkup.getGeneralFormMarkup( domain, seriesType, mathForm );
+        rightNode.text = EquationMarkup.getGeneralFormMarkup( domain, seriesType, equationForm );
         rightNode.left = summationNode.right + 2;
         rightNode.y = leftNode.y;
       } );

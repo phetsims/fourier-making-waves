@@ -16,7 +16,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
-import MathForm from '../model/MathForm.js';
+import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../model/SeriesType.js';
 import DomainComboBox from './DomainComboBox.js';
 import EquationComboBox from './EquationComboBox.js';
@@ -27,15 +27,15 @@ class GraphControlsLayoutBox extends VBox {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationProperty.<MathForm>} mathFormProperty
+   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
-  constructor( domainProperty, seriesTypeProperty, mathFormProperty, popupParent, options ) {
+  constructor( domainProperty, seriesTypeProperty, equationFormProperty, popupParent, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
-    assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
+    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
     options = merge( {}, FMWConstants.LAYOUT_BOX_OPTIONS, options );
@@ -75,7 +75,7 @@ class GraphControlsLayoutBox extends VBox {
       maxWidth: 70 // determined empirically
     } );
 
-    const equationComboBox = new EquationComboBox( mathFormProperty, domainProperty, popupParent );
+    const equationComboBox = new EquationComboBox( equationFormProperty, domainProperty, popupParent );
 
     const equationBox = new HBox( {
       spacing: 5,

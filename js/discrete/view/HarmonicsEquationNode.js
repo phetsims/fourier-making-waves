@@ -14,7 +14,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
-import MathForm from '../model/MathForm.js';
+import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../model/SeriesType.js';
 import EquationMarkup from './EquationMarkup.js';
 
@@ -23,14 +23,14 @@ class HarmonicsEquationNode extends Node {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationProperty.<MathForm>} mathFormProperty
+   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, seriesTypeProperty, mathFormProperty, options ) {
+  constructor( domainProperty, seriesTypeProperty, equationFormProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
-    assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
+    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
 
     options = merge( {
       font: FMWConstants.EQUATION_FONT
@@ -48,10 +48,10 @@ class HarmonicsEquationNode extends Node {
 
     // unmultilink is not needed.
     Property.multilink(
-      [ domainProperty, seriesTypeProperty, mathFormProperty ],
-      ( domain, seriesType, mathForm ) => {
-        this.visible = ( mathForm !== MathForm.HIDDEN );
-        richText.text = EquationMarkup.getGeneralFormMarkup( domain, seriesType, mathForm );
+      [ domainProperty, seriesTypeProperty, equationFormProperty ],
+      ( domain, seriesType, equationForm ) => {
+        this.visible = ( equationForm !== EquationForm.HIDDEN );
+        richText.text = EquationMarkup.getGeneralFormMarkup( domain, seriesType, equationForm );
       }
     );
   }

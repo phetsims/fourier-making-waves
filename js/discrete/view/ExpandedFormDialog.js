@@ -20,7 +20,7 @@ import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
-import MathForm from '../model/MathForm.js';
+import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../model/SeriesType.js';
 import EquationMarkup from './EquationMarkup.js';
 import SumEquationNode from './SumEquationNode.js';
@@ -35,15 +35,15 @@ class ExpandedFormDialog extends Dialog {
    * @param {FourierSeries} fourierSeries
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationProperty.<MathForm>} mathFormProperty
+   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, seriesTypeProperty, mathFormProperty, options ) {
+  constructor( fourierSeries, domainProperty, seriesTypeProperty, equationFormProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
-    assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
+    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
 
     options = merge( {
       xSpacing: 30
@@ -57,14 +57,14 @@ class ExpandedFormDialog extends Dialog {
 
     // links to Properties, must be disposed.
     const sumEquationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
-      seriesTypeProperty, mathFormProperty, {
+      seriesTypeProperty, equationFormProperty, {
         font: FMWConstants.EQUATION_FONT
       } );
 
     const amplitudes = fourierSeries.amplitudesProperty.value;
     const domain = domainProperty.value;
     const seriesType = seriesTypeProperty.value;
-    const mathForm = mathFormProperty.value;
+    const equationForm = equationFormProperty.value;
 
     // F(...) =
     // There's a bit of CSS cleverness here that's worth explaining. Without resorting to using multiple Nodes here
@@ -82,7 +82,7 @@ class ExpandedFormDialog extends Dialog {
       // See https://github.com/phetsims/fourier-making-waves/issues/20
       const amplitude = Utils.toFixedNumber( amplitudes[ order - 1 ], FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
 
-      expandedSumMarkup += EquationMarkup.getSpecificFormMarkup( domain, seriesType, mathForm, order, amplitude );
+      expandedSumMarkup += EquationMarkup.getSpecificFormMarkup( domain, seriesType, equationForm, order, amplitude );
       if ( order < amplitudes.length ) {
         expandedSumMarkup += ` ${MathSymbols.PLUS} `;
       }

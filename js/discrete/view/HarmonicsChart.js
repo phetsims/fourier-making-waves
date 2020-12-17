@@ -22,7 +22,7 @@ import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from '../model/AxisDescription.js';
 import Domain from '../model/Domain.js';
-import MathForm from '../model/MathForm.js';
+import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../model/SeriesType.js';
 import DiscreteChart from './DiscreteChart.js';
 import HarmonicPlot from './HarmonicPlot.js';
@@ -47,20 +47,20 @@ class HarmonicsChart extends DiscreteChart {
    * @param {Property.<number>} tProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationProperty.<MathForm>} mathFormProperty
+   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {NumberProperty} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {ObservableArrayDef} emphasizedHarmonics
    * @param {Object} [options]
    */
-  constructor( fourierSeries, tProperty, domainProperty, seriesTypeProperty, mathFormProperty,
+  constructor( fourierSeries, tProperty, domainProperty, seriesTypeProperty, equationFormProperty,
                xZoomLevelProperty, xAxisDescriptionProperty, emphasizedHarmonics, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
-    assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
+    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
     assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
@@ -71,10 +71,10 @@ class HarmonicsChart extends DiscreteChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( fourierSeries, domainProperty, mathFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options );
+    super( fourierSeries, domainProperty, equationFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options );
 
     // Equation that appears above the chart
-    const equationNode = new HarmonicsEquationNode( domainProperty, seriesTypeProperty, mathFormProperty, {
+    const equationNode = new HarmonicsEquationNode( domainProperty, seriesTypeProperty, equationFormProperty, {
       maxWidth: 0.5 * this.chartRectangle.width,
       tandem: options.tandem.createTandem( 'equationNode' ),
       phetioReadOnly: true
@@ -256,7 +256,7 @@ function updateSumDataSet( sumDataSetProperty, harmonicPlots, numberOfHarmonics 
 }
 
 /**
- * Creates the data set for a harmonic. This algorithm uses the equation that corresponds to MathForm.MODE.
+ * Creates the data set for a harmonic. This algorithm uses the equation that corresponds to EquationForm.MODE.
  * @param {number} order
  * @param {number} amplitude
  * @param {Range} xRange
@@ -313,7 +313,7 @@ function createHarmonicDataSet( order, amplitude, xRange, domain, seriesType, L,
 }
 
 /**
- * Creates the data set for the sum of harmonics. This algorithm uses the equation that corresponds to MathForm.MODE.
+ * Creates the data set for the sum of harmonics. This algorithm uses the equation that corresponds to EquationForm.MODE.
  * @param {HarmonicPlot[]} harmonicPlots
  * @returns {Vector2[]}
  */

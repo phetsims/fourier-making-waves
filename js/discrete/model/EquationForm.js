@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * Math forms for the 'Discrete' screen.
+ * EquationForm enumeration the forms of the equations shown in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -9,7 +9,7 @@
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-const MathForm = Enumeration.byKeys( [
+const EquationForm = Enumeration.byKeys( [
 
   // appropriate for all Domain values
   'HIDDEN', // equations are not shown, and tick labels are numeric values
@@ -29,5 +29,5 @@ const MathForm = Enumeration.byKeys( [
   'WAVE_NUMBER_AND_ANGULAR_FREQUENCY'
 ] );
 
-fourierMakingWaves.register( 'MathForm', MathForm );
-export default MathForm;
+fourierMakingWaves.register( 'EquationForm', EquationForm );
+export default EquationForm;

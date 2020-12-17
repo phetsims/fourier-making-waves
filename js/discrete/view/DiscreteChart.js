@@ -34,7 +34,7 @@ import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
-import MathForm from '../model/MathForm.js';
+import EquationForm from '../model/EquationForm.js';
 import AxisDescription from '../model/AxisDescription.js';
 
 // constants
@@ -64,16 +64,16 @@ class DiscreteChart extends Node {
   /**
    * @param {FourierSeries} fourierSeries
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<MathForm>} mathFormProperty
+   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {NumberProperty} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, mathFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options ) {
+  constructor( fourierSeries, domainProperty, equationFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertEnumerationPropertyOf( mathFormProperty, MathForm );
+    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
 
@@ -110,7 +110,7 @@ class DiscreteChart extends Node {
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.gridLineSpacing, GRID_LINE_OPTIONS );
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
     const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.tickLabelSpacing, merge( {
-      createLabel: value => createTickLabel( value, domainProperty.value, mathFormProperty.value, fourierSeries.L, fourierSeries.T )
+      createLabel: value => createTickLabel( value, domainProperty.value, equationFormProperty.value, fourierSeries.L, fourierSeries.T )
     }, TICK_LABEL_OPTIONS ) );
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
@@ -149,7 +149,7 @@ class DiscreteChart extends Node {
       } );
 
     // unlink is not needed
-    mathFormProperty.link( () => xTickLabels.invalidateLabelSet() );
+    equationFormProperty.link( () => xTickLabels.invalidateLabelSet() );
 
     // y axis
     const yAxis = new AxisNode( chartTransform, Orientation.VERTICAL, AXIS_OPTIONS );
@@ -208,16 +208,16 @@ class DiscreteChart extends Node {
 }
 
 /**
- * Creates a tick label of the correct form (numeric or symbolic) depending on MathForm.
+ * Creates a tick label of the correct form (numeric or symbolic) depending on EquationForm.
  * @param {number} value
  * @param {Domain} domain
- * @param {MathForm} mathForm
+ * @param {EquationForm} equationForm
  * @param {number} L - the wavelength of the fundamental harmonic
  * @param {number} T - the period of the fundamental harmonic
  * @returns {Node}
  */
-function createTickLabel( value, domain, mathForm, L, T ) {
-  if ( mathForm === MathForm.HIDDEN ) {
+function createTickLabel( value, domain, equationForm, L, T ) {
+  if ( equationForm === EquationForm.HIDDEN ) {
     return createNumericTickLabel( value );
   }
   else {

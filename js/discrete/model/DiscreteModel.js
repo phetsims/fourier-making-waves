@@ -19,7 +19,7 @@ import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteChartsModel from './DiscreteChartsModel.js';
 import Domain from './Domain.js';
-import MathForm from './MathForm.js';
+import EquationForm from './EquationForm.js';
 import Waveform from './Waveform.js';
 import SeriesType from './SeriesType.js';
 
@@ -54,7 +54,7 @@ class DiscreteModel {
     this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
 
     // @public
-    this.mathFormProperty = new EnumerationProperty( MathForm, MathForm.HIDDEN );
+    this.equationFormProperty = new EnumerationProperty( EquationForm, EquationForm.HIDDEN );
 
     // @public whether the sound of the Fourier series is enabled
     this.soundEnabledProperty = new BooleanProperty( false );
@@ -123,10 +123,10 @@ class DiscreteModel {
       () => this.tProperty.reset()
     );
 
-    // Ensure that the math form is appropriate for the domain. MathForm.MODE is supported for all Domain values.
+    // Ensure that the math form is appropriate for the domain. EquationForm.MODE is supported for all Domain values.
     this.domainProperty.link( () => {
-      if ( this.mathFormProperty.value !== MathForm.MODE ) {
-        this.mathFormProperty.value = MathForm.HIDDEN;
+      if ( this.equationFormProperty.value !== EquationForm.MODE ) {
+        this.equationFormProperty.value = EquationForm.HIDDEN;
       }
     } );
 
