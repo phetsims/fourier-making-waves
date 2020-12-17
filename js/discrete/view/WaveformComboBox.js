@@ -34,7 +34,7 @@ class WaveformComboBox extends FMWComboBox {
 
     // {{string:string, value:Waveform}[]}
     const choices = [
-      { value: Waveform.SINE_COSINE, string: fourierMakingWavesStrings.sineCosine },
+      { value: Waveform.SINUSOID, string: fourierMakingWavesStrings.sinusoid },
       { value: Waveform.TRIANGLE, string: fourierMakingWavesStrings.triangle },
       { value: Waveform.SQUARE, string: fourierMakingWavesStrings.square },
       { value: Waveform.SAWTOOTH, string: fourierMakingWavesStrings.sawtooth },

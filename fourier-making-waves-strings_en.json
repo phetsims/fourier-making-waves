@@ -20,8 +20,8 @@
   "measurementTools": {
     "value": "Measurement Tools"
   },
-  "sineCosine": {
-    "value": "sine/cosine"
+  "sinusoid": {
+    "value": "sinusoid"
   },
   "triangle": {
     "value": "triangle"

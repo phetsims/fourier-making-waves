@@ -45,7 +45,7 @@ class DiscreteModel {
     this.tProperty = new NumberProperty( 0 );
 
     // @public
-    this.waveformProperty = new EnumerationProperty( Waveform, Waveform.SINE_COSINE );
+    this.waveformProperty = new EnumerationProperty( Waveform, Waveform.SINUSOID );
 
     // @public
     this.seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE );

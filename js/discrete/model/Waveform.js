@@ -26,7 +26,7 @@ class WaveformValue {
   }
 }
 
-const SINE_COSINE = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
+const SINUSOID = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
   const amplitudes = [];
   for ( let n = 1; n <= numberOfHarmonics; n++ ) {
 
@@ -123,7 +123,7 @@ const WAVE_PACKET = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
 const CUSTOM = new WaveformValue();
 
 const Waveform = Enumeration.byMap( {
-  SINE_COSINE: SINE_COSINE,
+  SINUSOID: SINUSOID,
   TRIANGLE: TRIANGLE,
   SQUARE: SQUARE,
   SAWTOOTH: SAWTOOTH,
