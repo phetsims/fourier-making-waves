@@ -63,10 +63,10 @@
     "value": "space & time ({{spaceSymbol}},{{timeSymbol}})"
   },
   "wavelength": {
-    "value": "Wavelength"
+    "value": "Wavelength:"
   },
   "period": {
-    "value": "Period"
+    "value": "Period:"
   },
   "equation": {
     "value": "Equation:"

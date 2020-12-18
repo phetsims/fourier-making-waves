@@ -8,6 +8,8 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
+import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -40,6 +42,14 @@ class GraphControlsLayoutBox extends VBox {
 
     options = merge( {}, FMWConstants.LAYOUT_BOX_OPTIONS, options );
 
+    // To make all labels have the same effective width
+    const labelsAlignBoxOptions = {
+      xAlign: 'left',
+      group: new AlignGroup( {
+        matchVertical: false
+      } )
+    };
+
     // Graph Controls
     const titleText = new Text( fourierMakingWavesStrings.graphControls, {
       font: FMWConstants.TITLE_FONT,
@@ -55,7 +65,7 @@ class GraphControlsLayoutBox extends VBox {
 
     const functionOfBox = new HBox( {
       spacing: 5,
-      children: [ functionOfText, domainComboBox ]
+      children: [ new AlignBox( functionOfText, labelsAlignBoxOptions ), domainComboBox ]
     } );
 
     const seriesText = new Text( fourierMakingWavesStrings.series, {
@@ -67,7 +77,7 @@ class GraphControlsLayoutBox extends VBox {
 
     const seriesBox = new HBox( {
       spacing: 10,
-      children: [ seriesText, seriesTypeRadioButtonGroup ]
+      children: [ new AlignBox( seriesText, labelsAlignBoxOptions ), seriesTypeRadioButtonGroup ]
     } );
 
     const equationText = new Text( fourierMakingWavesStrings.equation, {
@@ -79,7 +89,7 @@ class GraphControlsLayoutBox extends VBox {
 
     const equationBox = new HBox( {
       spacing: 5,
-      children: [ equationText, equationComboBox ]
+      children: [ new AlignBox( equationText, labelsAlignBoxOptions ), equationComboBox ]
     } );
 
     assert && assert( !options.children, 'GraphControls sets children' );

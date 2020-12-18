@@ -13,6 +13,7 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import HSeparator from '../../../../sun/js/HSeparator.js';
 import Panel from '../../../../sun/js/Panel.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
+import FWMConstants from '../../common/FMWConstants.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteChartsModel from '../model/DiscreteChartsModel.js';
@@ -68,11 +69,9 @@ class DiscreteControlPanel extends Panel {
       }
     }
 
-    const vBox = new VBox( {
-      align: 'left',
-      spacing: 15,
+    const vBox = new VBox( merge( {}, FWMConstants.LAYOUT_BOX_OPTIONS, {
       children: children
-    } );
+    } ) );
 
     const symbolsDialog = new DiscreteSymbolsDialog();
     const symbolsButton = new InfoButton( {

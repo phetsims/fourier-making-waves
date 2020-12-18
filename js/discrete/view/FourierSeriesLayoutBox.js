@@ -9,6 +9,8 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
+import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -36,6 +38,14 @@ class FourierSeriesLayoutBox extends VBox {
 
     options = merge( {}, FMWConstants.LAYOUT_BOX_OPTIONS, options );
 
+    // To make all labels have the same effective width
+    const labelsAlignBoxOptions = {
+      xAlign: 'left',
+      group: new AlignGroup( {
+        matchVertical: false
+      } )
+    };
+
     const titleText = new Text( fourierMakingWavesStrings.fourierSeries, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 200 // determined empirically
@@ -50,7 +60,7 @@ class FourierSeriesLayoutBox extends VBox {
 
     const waveformBox = new HBox( {
       spacing: 3,
-      children: [ waveformText, waveformComboBox ]
+      children: [ new AlignBox( waveformText, labelsAlignBoxOptions ), waveformComboBox ]
     } );
 
     const harmonicsText = new Text( fourierMakingWavesStrings.harmonics, {
@@ -62,7 +72,7 @@ class FourierSeriesLayoutBox extends VBox {
 
     const harmonicsBox = new HBox( {
       spacing: 5,
-      children: [ harmonicsText, harmonicsPicker ]
+      children: [ new AlignBox( harmonicsText, labelsAlignBoxOptions ), harmonicsPicker ]
     } );
 
     assert && assert( !options.children, 'FourierSeriesLayoutBox sets children' );
