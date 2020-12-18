@@ -104,7 +104,8 @@ class SumChart extends DiscreteChart {
 
       // Center the equation above the chart
       equationNode.centerX = this.chartRectangle.centerX;
-      equationNode.centerY = this.chartRectangle.top - ( maxHeight / 2 ) - 5;
+      equationNode.centerY = this.chartRectangle.top - ( maxHeight / 2 ) - 2;
+      equationNode.bottom = this.chartRectangle.top - 2;
 
       // Button to the right of the equation
       expandedFormButton.left = equationNode.right + 20;
