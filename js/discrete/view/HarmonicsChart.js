@@ -85,7 +85,7 @@ class HarmonicsChart extends DiscreteChart {
     // Center the equation above the chart.
     equationNode.localBoundsProperty.link( () => {
       equationNode.centerX = this.chartRectangle.centerX;
-      equationNode.bottom = this.chartRectangle.top - 2;
+      equationNode.bottom = this.chartRectangle.top - 3;
     } );
 
     // @public {Property.<Vector2[]>} data set for the sum of the harmonics, drawn by the Sum chart
