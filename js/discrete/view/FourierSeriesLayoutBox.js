@@ -9,8 +9,6 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import NumberPicker from '../../../../scenery-phet/js/NumberPicker.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -19,6 +17,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Waveform from '../model/Waveform.js';
+import HarmonicsSpinner from './HarmonicsSpinner.js';
 import WaveformComboBox from './WaveformComboBox.js';
 
 class FourierSeriesLayoutBox extends VBox {
@@ -59,11 +58,7 @@ class FourierSeriesLayoutBox extends VBox {
       maxWidth: 150 // determined empirically
     } );
 
-    const harmonicsPicker = new NumberPicker( numberOfHarmonicsProperty, numberOfHarmonicsProperty.rangeProperty, {
-      font: new PhetFont( 16 ),
-      cornerRadius: 3,
-      color: 'black'
-    } );
+    const harmonicsPicker = new HarmonicsSpinner( numberOfHarmonicsProperty );
 
     const harmonicsBox = new HBox( {
       spacing: 5,
