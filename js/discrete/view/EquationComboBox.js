@@ -8,6 +8,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -68,7 +69,10 @@ class EquationComboBox extends FMWComboBox {
       },
       {
         value: EquationForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY,
-        string: `${FMWSymbols.k} & ${FMWSymbols.omega}` //TODO i18n
+        string: StringUtils.fillIn( fourierMakingWavesStrings.kAndOmega, {
+          k: FMWSymbols.k,
+          omega: FMWSymbols.omega
+        } )
       },
       {
         value: EquationForm.MODE,

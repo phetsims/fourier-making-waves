@@ -74,6 +74,9 @@
   "hidden": {
     "value": "Hidden"
   },
+  "kAndOmega": {
+    "value": "{{k}} & {{omega}}"
+  },
   "amplitude": {
     "value": "Amplitude"
   },
