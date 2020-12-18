@@ -65,6 +65,9 @@ class DiscreteScreenView extends ScreenView {
       model.chartsModel.emphasizedHarmonics, {
         viewWidth: chartViewWidth + 30, // a bit wider than the other charts
         viewHeight: chartViewHeight,
+        left: this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN,
+        // encroach into top margin, see https://github.com/phetsims/fourier-making-waves/issues/34
+        top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN - 8,
         tandem: tandem.createTandem( 'amplitudesChart' )
       } );
 
@@ -145,18 +148,11 @@ class DiscreteScreenView extends ScreenView {
       sumChart.visible = sumChartVisible;
     } );
 
-    this.addChild( new Node( {
-      children: [ amplitudesChart, harmonicsParent, sumParent ],
-      left: this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN,
-      top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN
-    } ) );
-
     const controlPanel = new DiscreteControlPanel( model, model.chartsModel, popupParent, {
       right: this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN,
       top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: tandem.createTandem( 'controlPanel' )
     } );
-    this.addChild( controlPanel );
 
     const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
       playPauseStepButtonOptions: {
@@ -172,7 +168,6 @@ class DiscreteScreenView extends ScreenView {
       bottom: this.layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: tandem.createTandem( 'timeControlNode' )
     } );
-    this.addChild( timeControlNode );
 
     // Enabled time controls only when there is the possibility of animation.
     model.domainProperty.link( domain => {
@@ -188,7 +183,6 @@ class DiscreteScreenView extends ScreenView {
       bottom: this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
-    this.addChild( resetAllButton );
 
     //TODO do not reach into HarmonicsChart for chartTransform
     const harmonicsChartTransform = harmonicsChart.chartTransform;
@@ -198,36 +192,40 @@ class DiscreteScreenView extends ScreenView {
       model.fourierSeries.harmonics, model.domainProperty,
       model.wavelengthToolOrderProperty, model.wavelengthToolSelectedProperty,
       model.chartsModel.emphasizedHarmonics, this.visibleBoundsProperty );
-    this.addChild( wavelengthToolNode );
 
     // For measuring the period of a specific harmonic in the 'time' domain.
     const periodToolNode = new PeriodToolNode( harmonicsChartTransform,
       model.fourierSeries.harmonics, model.domainProperty,
       model.periodToolOrderProperty, model.periodToolSelectedProperty,
       model.chartsModel.emphasizedHarmonics, this.visibleBoundsProperty );
-    this.addChild( periodToolNode );
 
     // For measuring the period of a specific harmonic in the 'space & time' domain.
     const periodClockNode = new PeriodClockNode( model.fourierSeries.harmonics, model.domainProperty,
       model.periodToolOrderProperty, model.periodToolSelectedProperty,
       model.tProperty, model.chartsModel.emphasizedHarmonics, this.visibleBoundsProperty );
-    this.addChild( periodClockNode );
 
     //TODO Where to position tools? Should initial position be resettable?
     wavelengthToolNode.center = this.layoutBounds.center;
     periodToolNode.center = this.layoutBounds.center; //TODO This isn't working as expected.
     periodClockNode.center = this.layoutBounds.center;
 
-    // parent for popups on top
-    this.addChild( popupParent );
+    // Rendering order
+    this.addChild( amplitudesChart );
+    this.addChild( harmonicsParent );
+    this.addChild( sumParent );
+    this.addChild( controlPanel );
+    this.addChild( timeControlNode );
+    this.addChild( resetAllButton );
+    this.addChild( wavelengthToolNode ); // Measurement Tools on top of everything else
+    this.addChild( periodToolNode );
+    this.addChild( periodClockNode );
+    this.addChild( popupParent ); // parent for popups on top
 
     // Creating a sawtooth wave using cosines is impossible because it is asymmetric. Display a dialog if the user
     // attempts this.  The model is responsible for other adjustments. This dialog is created eagerly because it's
     // highly likely that this situation will be encountered.
     const oopsSawtoothWithCosinesDialog = new OopsDialog( fourierMakingWavesStrings.sawtoothWithCosines );
-    model.oopsSawtoothWithCosinesEmitter.addListener( () => {
-      oopsSawtoothWithCosinesDialog.show();
-    } );
+    model.oopsSawtoothWithCosinesEmitter.addListener( () => oopsSawtoothWithCosinesDialog.show() );
   }
 
   /**
