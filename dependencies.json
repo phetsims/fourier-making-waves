@@ -1,5 +1,5 @@
 {
-  "comment": "# fourier-making-waves 1.0.0-dev.7 Wed Dec 16 2020 14:53:32 GMT-0700 (Mountain Standard Time)",
+  "comment": "# fourier-making-waves 1.0.0-dev.8 Thu Dec 17 2020 20:35:35 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "3df8c5ff9a465b031f84195a90bbb7e1be10a14d",
     "branch": "master"
@@ -9,7 +9,7 @@
     "branch": "master"
   },
   "bamboo": {
-    "sha": "46ba1c094fb8480f2b5641a4a0d2f16ee7ea407a",
+    "sha": "9c0ca2a6d47667fe94c905b6b22ea11502fa32f5",
     "branch": "master"
   },
   "brand": {
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "fourier-making-waves": {
-    "sha": "1f56199e0e96c2955268125a3b0d49dcc4b6d7cb",
+    "sha": "63ce2eb8780ca451a553b53854c900dea7cd213b",
     "branch": "master"
   },
   "joist": {
@@ -69,7 +69,7 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "f4790a608fef5f12b0cc8f686ef65155ab4859b4",
+    "sha": "d14b04b663c12caef9782f403518dfca4d89a16e",
     "branch": "master"
   },
   "sherpa": {
