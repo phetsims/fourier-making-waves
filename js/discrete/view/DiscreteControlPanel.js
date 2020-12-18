@@ -7,6 +7,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import HSeparator from '../../../../sun/js/HSeparator.js';
@@ -16,6 +17,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteChartsModel from '../model/DiscreteChartsModel.js';
 import DiscreteModel from '../model/DiscreteModel.js';
+import DiscreteSymbolsDialog from './DiscreteSymbolsDialog.js';
 import FourierSeriesLayoutBox from './FourierSeriesLayoutBox.js';
 import GraphControlsLayoutBox from './GraphControlsLayoutBox.js';
 import MeasurementToolsLayoutBox from './MeasurementToolsLayoutBox.js';
@@ -66,10 +68,24 @@ class DiscreteControlPanel extends Panel {
       }
     }
 
-    const content = new VBox( {
+    const vBox = new VBox( {
       align: 'left',
       spacing: 15,
       children: children
+    } );
+
+    const symbolsDialog = new DiscreteSymbolsDialog();
+    const symbolsButton = new InfoButton( {
+      listener: () => {
+        symbolsDialog.show();
+      },
+      scale: 0.4,
+      right: vBox.right - 5,
+      top: vBox.top - 5
+    } );
+
+    const content = new Node( {
+      children: [ vBox, symbolsButton ]
     } );
 
     super( content, options );

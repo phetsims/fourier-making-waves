@@ -145,5 +145,35 @@
   },
   "symbol.x": {
     "value": "x"
+  },
+  "symbolsDialog.title": {
+    "value": "Symbols"
+  },
+  "symbolsDialog.A": {
+    "value": "{{A}} = amplitude"
+  },
+  "symbolsDialog.f": {
+    "value": "{{f}} = frequency, in Hz"
+  },
+  "symbolsDialog.lambda": {
+    "value": "{{lambda}} = wavelength, in meters"
+  },
+  "symbolsDialog.k": {
+    "value": "{{k}} = wave number"
+  },
+  "symbolsDialog.L": {
+    "value": "{{L}} = string length, in meters (if this were a plucked string)"
+  },
+  "symbolsDialog.n": {
+    "value": "{{n}} = mode, harmonic number, order"
+  },
+  "symbolsDialog.t": {
+    "value": "{{t}} = time, in milliseconds"
+  },
+  "symbolsDialog.T": {
+    "value": "{{T}} = period, in milliseconds"
+  },
+  "symbolsDialog.x": {
+    "value": "{{x}} = position in space, in meters"
   }
 }
