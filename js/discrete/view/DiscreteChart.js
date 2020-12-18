@@ -189,6 +189,7 @@ class DiscreteChart extends Node {
 
     // @protected for layout of decorations added by subclasses
     this.chartRectangle = chartRectangle;
+    this.yAxisLabel = yAxisLabel;
 
     // @protected for setting range and spacing by subclasses
     this.xTickLabels = xTickLabels;
