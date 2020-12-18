@@ -76,6 +76,14 @@ const FMWColorProfile = new ColorProfile( [ 'default' ], {
 
   harmonic11Color: {
     default: new Color( 255, 105, 180 )
+  },
+
+  amplitudeGridLinesStroke: {
+    default: Color.BLACK
+  },
+
+  chartGridLinesStroke: {
+    default: Color.grayColor( 226 )
   }
 } );
 

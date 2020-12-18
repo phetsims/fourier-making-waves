@@ -28,6 +28,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
@@ -45,7 +46,7 @@ const AXIS_OPTIONS = {
 };
 
 const GRID_LINE_OPTIONS = {
-  stroke: Color.grayColor( 0, 0.15 )
+  stroke: FMWColorProfile.chartGridLinesStrokeProperty
 };
 
 const TICK_MARK_OPTIONS = {
