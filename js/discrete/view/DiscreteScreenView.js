@@ -65,9 +65,6 @@ class DiscreteScreenView extends ScreenView {
       model.chartsModel.emphasizedHarmonics, {
         viewWidth: chartViewWidth + 30, // a bit wider than the other charts
         viewHeight: chartViewHeight,
-        left: this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN,
-        // encroach into top margin, see https://github.com/phetsims/fourier-making-waves/issues/34
-        top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN - 8,
         tandem: tandem.createTandem( 'amplitudesChart' )
       } );
 
@@ -99,9 +96,7 @@ class DiscreteScreenView extends ScreenView {
       } );
 
     const harmonicsParent = new Node( {
-      children: [ harmonicsHBox, harmonicsChart ],
-      left: amplitudesChart.left,
-      top: amplitudesChart.bottom + 15
+      children: [ harmonicsHBox, harmonicsChart ]
     } );
 
     //TODO pass directly to HarmonicsChart via visibleProperty?
@@ -138,9 +133,7 @@ class DiscreteScreenView extends ScreenView {
       } );
 
     const sumParent = new Node( {
-      children: [ sumHBox, sumChart ],
-      left: harmonicsParent.left,
-      top: harmonicsParent.bottom + 10
+      children: [ sumHBox, sumChart ]
     } );
 
     //TODO pass directly to SumChart via visibleProperty?
@@ -149,8 +142,6 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     const controlPanel = new DiscreteControlPanel( model, model.chartsModel, popupParent, {
-      right: this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN,
-      top: this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: tandem.createTandem( 'controlPanel' )
     } );
 
@@ -164,8 +155,6 @@ class DiscreteScreenView extends ScreenView {
           }
         }
       },
-      left: controlPanel.left,
-      bottom: this.layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: tandem.createTandem( 'timeControlNode' )
     } );
 
@@ -179,8 +168,6 @@ class DiscreteScreenView extends ScreenView {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
         model.reset();
       },
-      right: this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN,
-      bottom: this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
@@ -204,11 +191,6 @@ class DiscreteScreenView extends ScreenView {
       model.periodToolOrderProperty, model.periodToolSelectedProperty,
       model.tProperty, model.chartsModel.emphasizedHarmonics, this.visibleBoundsProperty );
 
-    //TODO Where to position tools? Should initial position be resettable?
-    wavelengthToolNode.center = this.layoutBounds.center;
-    periodToolNode.center = this.layoutBounds.center; //TODO This isn't working as expected.
-    periodClockNode.center = this.layoutBounds.center;
-
     // Rendering order
     this.addChild( amplitudesChart );
     this.addChild( harmonicsParent );
@@ -220,6 +202,26 @@ class DiscreteScreenView extends ScreenView {
     this.addChild( periodToolNode );
     this.addChild( periodClockNode );
     this.addChild( popupParent ); // parent for popups on top
+
+    // Layout
+    amplitudesChart.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+    // encroach into top margin, see https://github.com/phetsims/fourier-making-waves/issues/34
+    amplitudesChart.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN - 8;
+    harmonicsParent.left = amplitudesChart.left;
+    harmonicsParent.top = amplitudesChart.bottom + 15;
+    sumParent.left = harmonicsParent.left;
+    sumParent.top = harmonicsParent.bottom + 10;
+    controlPanel.right = this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
+    controlPanel.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
+    timeControlNode.left = controlPanel.left;
+    timeControlNode.bottom = this.layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+    resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
+    resetAllButton.bottom = this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+
+    //TODO Where to position tools? Should initial position be resettable?
+    wavelengthToolNode.center = this.layoutBounds.center;
+    periodToolNode.center = this.layoutBounds.center; //TODO This isn't working as expected.
+    periodClockNode.center = this.layoutBounds.center;
 
     // Creating a sawtooth wave using cosines is impossible because it is asymmetric. Display a dialog if the user
     // attempts this.  The model is responsible for other adjustments. This dialog is created eagerly because it's
