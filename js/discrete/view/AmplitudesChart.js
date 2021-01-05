@@ -82,16 +82,16 @@ class AmplitudesChart extends Node {
 
     const xAxisLabel = new RichText( FMWSymbols.n, {
       font: FMWConstants.AXIS_LABEL_FONT,
-      left: chartRectangle.right + 10,
+      left: chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING,
       centerY: chartRectangle.centerY,
-      maxWidth: 25,
+      maxWidth: 35, // determined empirically
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
-      right: yLabelSet.left - 10,
+      right: yLabelSet.left - FMWConstants.Y_AXIS_LABEL_SPACING,
       centerY: chartRectangle.centerY,
       maxWidth: 0.85 * chartRectangle.height,
       tandem: options.tandem.createTandem( 'yAxisLabel' )

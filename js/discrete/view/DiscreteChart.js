@@ -133,7 +133,7 @@ class DiscreteChart extends Node {
     const timeLabel = StringUtils.fillIn( fourierMakingWavesStrings.tMilliseconds, { t: FMWSymbols.t } );
     domainProperty.link( domain => {
       xAxisLabel.text = ( domain === Domain.TIME ) ? timeLabel : spaceLabel;
-      xAxisLabel.left = chartRectangle.right + 6;
+      xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
       xAxisLabel.centerY = chartRectangle.centerY;
     } );
 
@@ -162,7 +162,7 @@ class DiscreteChart extends Node {
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
-      right: yTickLabels.left - 10,
+      right: yTickLabels.left - FMWConstants.Y_AXIS_LABEL_SPACING,
       centerY: chartRectangle.centerY,
       maxWidth: 0.85 * chartRectangle.height,
       tandem: options.tandem.createTandem( 'yAxisLabel' )

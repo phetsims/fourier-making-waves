@@ -71,7 +71,10 @@ const FMWConstants = {
   AMPLITUDE_SLIDER_DECIMAL_PLACES: 2,
   AMPLITUDE_SLIDER_SNAP_INTERVAL: 0.05,
 
-  ZOOM_BUTTON_GROUP_SCALE: 0.75
+  ZOOM_BUTTON_GROUP_SCALE: 0.75,
+
+  X_AXIS_LABEL_SPACING: 10, // horizontal space between chart and x-axis label
+  Y_AXIS_LABEL_SPACING: 10  // horizontal space between chart and y-axis label
 };
 
 fourierMakingWaves.register( 'FMWConstants', FMWConstants );
