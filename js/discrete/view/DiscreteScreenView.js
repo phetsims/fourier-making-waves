@@ -146,17 +146,14 @@ class DiscreteScreenView extends ScreenView {
       sumChart.visible = sumChartVisible;
     } );
 
-    // Leader lines to tie together the pieces of the Harmonics and Sum charts,
+    // Leader lines, to tie together the pieces of the Harmonics and Sum charts,
     // see https://github.com/phetsims/fourier-making-waves/issues/37
-    const leaderLineWidth = 3;
-    const harmonicsLeaderLine = new VSeparator( harmonicsParent.height, {
-      stroke: FMWColorProfile.harmnonicsLeaderLineStrokeProperty,
-      lineWidth: leaderLineWidth
-    } );
-    const sumLeaderLine = new VSeparator( sumParent.visibleBounds.height, {
-      stroke: FMWColorProfile.sumLeaderLineStrokeProperty,
-      lineWidth: leaderLineWidth
-    } );
+    const leaderLineOptions = {
+      stroke: FMWColorProfile.leaderLinesStrokeProperty,
+      lineWidth: 3
+    };
+    const harmonicsLeaderLine = new VSeparator( harmonicsParent.height, leaderLineOptions );
+    const sumLeaderLine = new VSeparator( sumParent.visibleBounds.height, leaderLineOptions );
 
     const controlPanel = new DiscreteControlPanel( model, model.chartsModel, popupParent, {
       tandem: tandem.createTandem( 'controlPanel' )
