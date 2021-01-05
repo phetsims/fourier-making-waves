@@ -15,8 +15,10 @@ import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ExpandCollapseButton from '../../../../sun/js/ExpandCollapseButton.js';
+import VSeparator from '../../../../sun/js/VSeparator.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -31,6 +33,9 @@ import PeriodClockNode from './PeriodClockNode.js';
 import PeriodToolNode from './PeriodToolNode.js';
 import SumChart from './SumChart.js';
 import WavelengthToolNode from './WavelengthToolNode.js';
+
+const EXPAND_TITLE_SPACING = 6;
+const LEADER_LINE_SPACING = 10;
 
 class DiscreteScreenView extends ScreenView {
 
@@ -58,12 +63,12 @@ class DiscreteScreenView extends ScreenView {
     const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, this.layoutBounds );
 
     // Chart dimensions, determined empirically as a function of layoutBounds
-    const chartViewWidth = 0.6 * this.layoutBounds.width;
+    const chartViewWidth = 0.62 * this.layoutBounds.width;
     const chartViewHeight = 0.2 * this.layoutBounds.height;
 
     const amplitudesChart = new AmplitudesChart( model.fourierSeries, amplitudeKeypadDialog, model.waveformProperty,
       model.chartsModel.emphasizedHarmonics, {
-        viewWidth: chartViewWidth + 30, // a bit wider than the other charts
+        viewWidth: chartViewWidth,
         viewHeight: chartViewHeight,
         tandem: tandem.createTandem( 'amplitudesChart' )
       } );
@@ -81,7 +86,7 @@ class DiscreteScreenView extends ScreenView {
 
     const harmonicsHBox = new HBox( {
       children: [ harmonicsExpandCollapseButton, harmonicsTitleNode ],
-      spacing: 5
+      spacing: EXPAND_TITLE_SPACING
     } );
 
     const harmonicsChart = new HarmonicsChart( model.fourierSeries, model.tProperty,
@@ -117,7 +122,7 @@ class DiscreteScreenView extends ScreenView {
 
     const sumHBox = new HBox( {
       children: [ sumExpandCollapseButton, sumTitleNode ],
-      spacing: 5
+      spacing: EXPAND_TITLE_SPACING
     } );
 
     const sumChart = new SumChart( model.fourierSeries, harmonicsChart.sumDataSetProperty,
@@ -139,6 +144,18 @@ class DiscreteScreenView extends ScreenView {
     //TODO pass directly to SumChart via visibleProperty?
     model.chartsModel.sumChartVisibleProperty.link( sumChartVisible => {
       sumChart.visible = sumChartVisible;
+    } );
+
+    // Leader lines to tie together the pieces of the Harmonics and Sum charts,
+    // see https://github.com/phetsims/fourier-making-waves/issues/37
+    const leaderLineWidth = 3;
+    const harmonicsLeaderLine = new VSeparator( harmonicsParent.height, {
+      stroke: FMWColorProfile.harmnonicsLeaderLineStrokeProperty,
+      lineWidth: leaderLineWidth
+    } );
+    const sumLeaderLine = new VSeparator( sumParent.visibleBounds.height, {
+      stroke: FMWColorProfile.sumLeaderLineStrokeProperty,
+      lineWidth: leaderLineWidth
     } );
 
     const controlPanel = new DiscreteControlPanel( model, model.chartsModel, popupParent, {
@@ -193,7 +210,9 @@ class DiscreteScreenView extends ScreenView {
 
     // Rendering order
     this.addChild( amplitudesChart );
+    this.addChild( harmonicsLeaderLine );
     this.addChild( harmonicsParent );
+    this.addChild( sumLeaderLine );
     this.addChild( sumParent );
     this.addChild( controlPanel );
     this.addChild( timeControlNode );
@@ -204,16 +223,20 @@ class DiscreteScreenView extends ScreenView {
     this.addChild( popupParent ); // parent for popups on top
 
     // Layout
-    amplitudesChart.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-    // encroach into top margin, see https://github.com/phetsims/fourier-making-waves/issues/34
+    // amplitudesChart.left will be set later, to left-align with other charts
     amplitudesChart.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN - 8;
-    harmonicsParent.left = amplitudesChart.left;
+    harmonicsLeaderLine.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+    harmonicsLeaderLine.top = amplitudesChart.bottom + 15;
+    harmonicsParent.left = harmonicsLeaderLine.right + LEADER_LINE_SPACING;
     harmonicsParent.top = amplitudesChart.bottom + 15;
-    sumParent.left = harmonicsParent.left;
+    sumLeaderLine.left = harmonicsLeaderLine.left;
+    sumParent.left = sumLeaderLine.right + LEADER_LINE_SPACING;
     sumParent.top = harmonicsParent.bottom + 10;
+    sumLeaderLine.bottom = sumParent.bottom;
     controlPanel.right = this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
     controlPanel.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
-    timeControlNode.left = controlPanel.left;
+    amplitudesChart.left = harmonicsParent.left;
+    timeControlNode.left = controlPanel.left + 30;
     timeControlNode.bottom = this.layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN;
     resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;

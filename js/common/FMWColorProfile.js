@@ -84,6 +84,18 @@ const FMWColorProfile = new ColorProfile( [ 'default' ], {
 
   chartGridLinesStroke: {
     default: Color.grayColor( 226 )
+  },
+
+  amplitudeLeaderLineStroke: {
+    default: Color.transparent
+  },
+
+  harmnonicsLeaderLineStroke: {
+    default: new Color( 157, 181, 208 )
+  },
+
+  sumLeaderLineStroke: {
+    default: new Color( 157, 181, 208 )
   }
 } );
 
