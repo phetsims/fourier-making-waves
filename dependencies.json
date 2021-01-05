@@ -1,15 +1,15 @@
 {
-  "comment": "# fourier-making-waves 1.0.0-dev.9 Thu Dec 17 2020 21:07:54 GMT-0700 (Mountain Standard Time)",
+  "comment": "# fourier-making-waves 1.0.0-dev.10 Tue Jan 05 2021 12:18:45 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "3df8c5ff9a465b031f84195a90bbb7e1be10a14d",
     "branch": "master"
   },
   "axon": {
-    "sha": "d0c6a5aed5c0715c84b7462131f96e2abbb28d2b",
+    "sha": "9f4c861881033323f2a481240d3b846e49f0c163",
     "branch": "master"
   },
   "bamboo": {
-    "sha": "9c0ca2a6d47667fe94c905b6b22ea11502fa32f5",
+    "sha": "9f13e30848eb3ceeb20d0ffa78ef4919a6ec6ca5",
     "branch": "master"
   },
   "brand": {
@@ -17,19 +17,19 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "77fe17e20a6f054e2ab4bef8520c3a02c57eb283",
+    "sha": "b6b465e73b32e8b8afae6bb314438f62cb5ab1f5",
     "branch": "master"
   },
   "dot": {
-    "sha": "1547745000dfa43738c948cfeab4cdccf706bf2d",
+    "sha": "201299760eff80804c33e32c58ed4fab9d608f3a",
     "branch": "master"
   },
   "fourier-making-waves": {
-    "sha": "0999714281c5e80b002af503b034490955474d0b",
+    "sha": "eb133e13e29bcea1e8f104253139b88bc1ec58d4",
     "branch": "master"
   },
   "joist": {
-    "sha": "e0b018e279d3011821f909d1dc0f362f7a573454",
+    "sha": "2831968c11947e642449d371e9efc1be95c52aa8",
     "branch": "master"
   },
   "kite": {
@@ -41,7 +41,7 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "0f2077e1955dba4e057cb27cf83779f00d5b1276",
+    "sha": "abec9a2d806eabe407ac7cfaad753f7ace552ded",
     "branch": "master"
   },
   "phet-io-client-guides": {
@@ -49,7 +49,7 @@
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "f243504d63d8f4a16a18d41bc9b1d58310dd18cd",
+    "sha": "feb0849d7c2af263bdd36f49ffd636b21793485e",
     "branch": "master"
   },
   "phetcommon": {
@@ -65,11 +65,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "c047a16c7a184497990a2bb5c0f45598a2305027",
+    "sha": "4a65d15e1fb1dc5b34f48482d25f1236c844fbdd",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "d14b04b663c12caef9782f403518dfca4d89a16e",
+    "sha": "a626a15b016f948c9123dae3a8ad50ad4e25e324",
     "branch": "master"
   },
   "sherpa": {
@@ -77,11 +77,11 @@
     "branch": "master"
   },
   "studio": {
-    "sha": "b4a7b1eb763e96c5afbaedbdb9ca5415b2364299",
+    "sha": "7972d7a23dc19dcda551ba875b42f37640a3976d",
     "branch": "master"
   },
   "sun": {
-    "sha": "dd8ffc4685040b92fc6c5021184e24142842c647",
+    "sha": "2e8038d83d6475bed389fc024a7df3f4445785b7",
     "branch": "master"
   },
   "tambo": {
@@ -89,7 +89,7 @@
     "branch": "master"
   },
   "tandem": {
-    "sha": "420ccdef0c4b4cd17fe1e1a9d331400ec11de5c0",
+    "sha": "97a7a65047d6242047c72030650813235e687327",
     "branch": "master"
   },
   "twixt": {
