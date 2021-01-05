@@ -87,7 +87,7 @@ const FMWColorProfile = new ColorProfile( [ 'default' ], {
   },
 
   leaderLinesStroke: {
-    default: new Color( 157, 181, 208 )
+    default: new Color( 190, 217, 224 )
   }
 } );
 
