@@ -12,8 +12,6 @@ import FMWColorProfile from './FMWColorProfile.js';
 
 // constants - view
 const PANEL_CORNER_RADIUS = 5;
-const PANEL_X_MARGIN = 8;
-const PANEL_Y_MARGIN = 5;
 
 const FMWConstants = {
 
@@ -42,8 +40,8 @@ const FMWConstants = {
 
   PANEL_OPTIONS: {
     cornerRadius: PANEL_CORNER_RADIUS,
-    xMargin: PANEL_X_MARGIN,
-    yMargin: PANEL_Y_MARGIN,
+    xMargin: 8,
+    yMargin: 5,
     fill: FMWColorProfile.panelFillProperty,
     stroke: FMWColorProfile.panelStrokeProperty
   },

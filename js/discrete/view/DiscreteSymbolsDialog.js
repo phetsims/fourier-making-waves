@@ -27,7 +27,8 @@ class DiscreteSymbolsDialog extends Dialog {
   constructor( options ) {
 
     options = merge( {
-      xSpacing: 30
+      xSpacing: 30,
+      cornerRadius: FMWConstants.PANEL_CORNER_RADIUS
     }, options );
 
     assert && assert( !options.title, 'DiscreteSymbolsDialog sets children' );
