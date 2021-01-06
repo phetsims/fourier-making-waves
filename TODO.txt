@@ -14,7 +14,7 @@ Too many params in constructors
 
 # GitHub issues
 
-CT: all data sets must have the same number of points #25
-CT: Cannot read property 'y' of undefined type:automated-testing #33
-Harmonic plot emphasis #31
-Key for math symbols #30
+#25 CT: all data sets must have the same number of points
+#33 CT: Cannot read property 'y' of undefined type:automated-testing
+#31 Harmonic plot emphasis #31
+#30 Key for math symbols #30
