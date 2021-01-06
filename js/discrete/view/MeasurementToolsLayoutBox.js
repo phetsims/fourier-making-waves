@@ -71,7 +71,7 @@ class MeasurementToolsLayoutBox extends VBox {
     // Wavelength
     const wavelengthText = new Text( fourierMakingWavesStrings.wavelength, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 110 // determined empirically
+      maxWidth: 80 // determined empirically
     } );
     const wavelengthCheckbox = new Checkbox( wavelengthText, wavelengthToolSelectedProperty, FMWConstants.CHECKBOX_OPTIONS );
     const wavelengthSpinner = new OrderSpinner( FMWSymobls.lambda, wavelengthToolOrderProperty );
@@ -85,7 +85,7 @@ class MeasurementToolsLayoutBox extends VBox {
     // Period
     const periodText = new Text( fourierMakingWavesStrings.period, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 110 // determined empirically
+      maxWidth: 80 // determined empirically
     } );
     const periodCheckbox = new Checkbox( periodText, periodToolSelectedProperty, FMWConstants.CHECKBOX_OPTIONS );
     const periodSpinner = new OrderSpinner( FMWSymobls.T, periodToolOrderProperty );

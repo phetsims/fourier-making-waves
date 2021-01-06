@@ -93,7 +93,7 @@ class AmplitudeKeypadDialog extends Dialog {
     // Displays what has been entered on the keypad
     const stringDisplay = new StringDisplay( keypad.stringProperty, {
       width: keypad.width,
-      height: 2 * rangeNode.height,
+      height: 28, // determined empirically
       rectangleOptions: {
         cornerRadius: 2
       },

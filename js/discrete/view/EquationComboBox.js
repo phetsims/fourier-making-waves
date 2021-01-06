@@ -33,7 +33,7 @@ class EquationComboBox extends FMWComboBox {
 
     options = merge( {
       textOptions: {
-        maxWidth: 180 // determined empirically
+        maxWidth: 100 // determined empirically
       }
     }, options );
 

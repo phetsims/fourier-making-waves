@@ -84,7 +84,7 @@ class AmplitudesChart extends Node {
       font: FMWConstants.AXIS_LABEL_FONT,
       left: chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING,
       centerY: chartRectangle.centerY,
-      maxWidth: 35, // determined empirically
+      maxWidth: 30, // determined empirically
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 

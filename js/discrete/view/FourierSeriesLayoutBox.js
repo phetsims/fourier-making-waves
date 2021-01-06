@@ -48,7 +48,7 @@ class FourierSeriesLayoutBox extends VBox {
 
     const titleText = new Text( fourierMakingWavesStrings.fourierSeries, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 200 // determined empirically
+      maxWidth: 180 // determined empirically
     } );
 
     const waveformText = new Text( fourierMakingWavesStrings.waveform, {
@@ -65,7 +65,7 @@ class FourierSeriesLayoutBox extends VBox {
 
     const harmonicsText = new Text( fourierMakingWavesStrings.harmonics, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 150 // determined empirically
+      maxWidth: 70  // determined empirically
     } );
 
     const harmonicsPicker = new HarmonicsSpinner( numberOfHarmonicsProperty );

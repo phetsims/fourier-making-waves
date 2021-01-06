@@ -34,7 +34,7 @@ class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
 
     const textOptions = {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 75 // determined empirically
+      maxWidth: 40 // determined empirically
     };
 
     const items = [

@@ -115,7 +115,7 @@ class DiscreteChart extends Node {
     }, TICK_LABEL_OPTIONS ) );
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
-      maxWidth: 35, // determined empirically
+      maxWidth: 30, // determined empirically
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
