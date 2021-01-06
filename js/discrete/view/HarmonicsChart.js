@@ -99,7 +99,7 @@ class HarmonicsChart extends DiscreteChart {
 
       // Plot for this harmonic.
       const harmonicPlot = new HarmonicPlot( harmonic, this.chartTransform, [], {
-        stroke: harmonic.colorProperty
+        stroke: harmonic.colorProperty.value
       } );
       harmonicPlots.push( harmonicPlot );
 
@@ -115,15 +115,9 @@ class HarmonicsChart extends DiscreteChart {
     } );
     this.addChild( chartCanvasNode );
 
-    // Update a plot when its amplitude changes.
+    // If any amplitude changes, redraw and update the sum.
+    // unlink is not needed.
     harmonicPlots.forEach( plot => {
-
-      // If a harmonic's color Property changes, redraw.
-      // unlink is not needed.
-      plot.harmonic.colorProperty.link( () => chartCanvasNode.update() );
-
-      // If any amplitude changes, redraw and update the sum.
-      // unlink is not needed.
       plot.harmonic.amplitudeProperty.lazyLink( () => {
         updateOneHarmonicPlot( plot, this.chartTransform.modelXRange,
           fourierSeries.numberOfHarmonicsProperty.value, domainProperty.value, seriesTypeProperty.value,
@@ -132,6 +126,14 @@ class HarmonicsChart extends DiscreteChart {
         updateSumDataSet( this.sumDataSetProperty, harmonicPlots, fourierSeries.numberOfHarmonicsProperty.value );
       } );
     } );
+
+    // Harmonic colors can be changed via fourier-making-waves-colors.html, or (perhaps in the future) via PHET-iO.
+    // If that happens, update the plot stroke accordingly.
+    // unlink is  not needed.
+    harmonicPlots.forEach( plot => plot.harmonic.colorProperty.lazyLink( color => {
+      plot.setStroke( color );
+      chartCanvasNode.update();
+    } ) );
 
     const updateEverything = () => {
       updateAllHarmonicPlots( chartCanvasNode, harmonicPlots, this.chartTransform.modelXRange,
@@ -150,7 +152,7 @@ class HarmonicsChart extends DiscreteChart {
     // removeListener is not needed.
     this.chartTransform.changedEmitter.addListener( updateEverything );
 
-    // Visually emphasize harmonics
+    // Visually emphasize harmonics, see https://github.com/phetsims/fourier-making-waves/issues/31
     const emphasizedHarmonicsListener = () => {
       harmonicPlots.forEach( plot => {
         if ( emphasizedHarmonics.length === 0 ) {
