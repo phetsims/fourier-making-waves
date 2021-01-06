@@ -84,10 +84,6 @@ const FMWColorProfile = new ColorProfile( [ 'default' ], {
 
   chartGridLinesStroke: {
     default: Color.grayColor( 226 )
-  },
-
-  leaderLinesStroke: {
-    default: new Color( 190, 217, 224 )
   }
 } );
 
