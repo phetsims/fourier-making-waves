@@ -44,7 +44,7 @@ class MeasurementToolsLayoutBox extends VBox {
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
-    options = merge( {}, FMWConstants.LAYOUT_BOX_OPTIONS, options );
+    options = merge( {}, FMWConstants.VBOX_OPTIONS, options );
 
     // Measurement Tools
     const titleText = new Text( fourierMakingWavesStrings.measurementTools, {

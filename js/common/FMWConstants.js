@@ -50,10 +50,9 @@ const FMWConstants = {
     boxWidth: 15
   },
 
-  // Options for classes named *LayoutBox
-  LAYOUT_BOX_OPTIONS: {
+  VBOX_OPTIONS: {
     align: 'left',
-    spacing: 15
+    spacing: 18
   },
 
   // Fonts

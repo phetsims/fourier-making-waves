@@ -36,7 +36,7 @@ class FourierSeriesLayoutBox extends VBox {
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
-    options = merge( {}, FMWConstants.LAYOUT_BOX_OPTIONS, options );
+    options = merge( {}, FMWConstants.VBOX_OPTIONS, options );
 
     // To make all labels have the same effective width
     const labelsAlignBoxOptions = {

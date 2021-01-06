@@ -40,7 +40,7 @@ class GraphControlsLayoutBox extends VBox {
     assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
-    options = merge( {}, FMWConstants.LAYOUT_BOX_OPTIONS, options );
+    options = merge( {}, FMWConstants.VBOX_OPTIONS, options );
 
     // To make all labels have the same effective width
     const labelsAlignBoxOptions = {

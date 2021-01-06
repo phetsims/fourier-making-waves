@@ -69,7 +69,7 @@ class DiscreteControlPanel extends Panel {
       }
     }
 
-    const vBox = new VBox( merge( {}, FWMConstants.LAYOUT_BOX_OPTIONS, {
+    const vBox = new VBox( merge( {}, FWMConstants.VBOX_OPTIONS, {
       children: children
     } ) );
 
