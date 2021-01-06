@@ -150,41 +150,32 @@ class HarmonicsChart extends DiscreteChart {
     // removeListener is not needed.
     this.chartTransform.changedEmitter.addListener( updateEverything );
 
-    //TODO emphasize only if amplitude !== 0, listen to amplitude
+    // Visually emphasize harmonics
+    const emphasizedHarmonicsListener = () => {
+      harmonicPlots.forEach( plot => {
+        if ( emphasizedHarmonics.length === 0 ) {
 
-    // Emphasize a harmonic by using a thicker lineWidth for its plot
-    const updatePlotLineWidth = plot => {
-      plot.lineWidth = emphasizedHarmonics.length === 0 ? NORMAL_LINE_WIDTH :
-                       emphasizedHarmonics.includes( plot.harmonic ) ? EMPHASIZED_LINE_WIDTH :
-                       DE_EMPHASIZED_LINE_WIDTH;
-    };
+          // no emphasis, all plots have their normal colors and lineWidth
+          plot.lineWidth = NORMAL_LINE_WIDTH;
+          plot.setStroke( plot.harmonic.colorProperty.value );
+        }
+        else {
 
-    // Emphasize a harmonic by stroking all other plots with gray
-    const updatePlotStroke = plot => {
-      plot.setStroke( emphasizedHarmonics.length === 0 ? plot.harmonic.colorProperty.value :
-                      emphasizedHarmonics.includes( plot.harmonic ) ? plot.harmonic.colorProperty.value :
-                      DE_EMPHASIZED_STROKE
-      );
-    };
-
-    // Update the plot's stroke and line width
-    const updatePlot = plot => {
-      updatePlotStroke( plot );
-      updatePlotLineWidth( plot );
-    };
-
-    const updatePlots = () => {
-      harmonicPlots.forEach( updatePlot );
+          // emphasize some plots, de-emphasize other plots
+          if ( emphasizedHarmonics.includes( plot.harmonic ) ) {
+            plot.lineWidth = EMPHASIZED_LINE_WIDTH;
+            plot.setStroke( plot.harmonic.colorProperty.value );
+          }
+          else {
+            plot.lineWidth = DE_EMPHASIZED_LINE_WIDTH;
+            plot.setStroke( DE_EMPHASIZED_STROKE );
+          }
+        }
+      } );
       chartCanvasNode.update();
     };
-
-    // When a harmonic's colorProperty changes, update the plot stroke accordingly
-    harmonicPlots.forEach( plot => plot.harmonic.colorProperty.link( () => { // unlink is  not needed.
-      updatePlotStroke( plot );
-      chartCanvasNode.update();
-    } ) );
-    emphasizedHarmonics.addItemAddedListener( updatePlots ); // removeItemAddedListener is not needed.
-    emphasizedHarmonics.addItemRemovedListener( updatePlots ); // removeItemRemovedListener is not needed.
+    emphasizedHarmonics.addItemAddedListener( emphasizedHarmonicsListener ); // removeItemAddedListener is not needed.
+    emphasizedHarmonics.addItemRemovedListener( emphasizedHarmonicsListener ); // removeItemRemovedListener is not needed.
   }
 }
 
