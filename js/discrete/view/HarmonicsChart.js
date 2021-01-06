@@ -155,7 +155,7 @@ class HarmonicsChart extends DiscreteChart {
       harmonicPlots.forEach( plot => {
         if ( emphasizedHarmonics.length === 0 ) {
 
-          // no emphasis, all plots have their normal colors and lineWidth
+          // no emphasis, all plots have their normal color and lineWidth
           plot.lineWidth = NORMAL_LINE_WIDTH;
           plot.setStroke( plot.harmonic.colorProperty.value );
         }
