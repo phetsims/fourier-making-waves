@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -34,6 +35,8 @@ import WavelengthToolNode from './WavelengthToolNode.js';
 
 // constants
 const EXPAND_TITLE_SPACING = 6;
+const CHART_TITLE_Y_SPACING = 15; // space between chart title and the chart
+const CHART_SIZE = new Dimension2( 645, 123 ); // determined empirically
 
 class DiscreteScreenView extends ScreenView {
 
@@ -60,14 +63,10 @@ class DiscreteScreenView extends ScreenView {
     // KeypadDialog
     const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, this.layoutBounds );
 
-    // Chart dimensions, determined empirically
-    const chartViewWidth = 645;
-    const chartViewHeight = 123;
-
     const amplitudesChart = new AmplitudesChart( model.fourierSeries, amplitudeKeypadDialog, model.waveformProperty,
       model.chartsModel.emphasizedHarmonics, {
-        viewWidth: chartViewWidth,
-        viewHeight: chartViewHeight,
+        viewWidth: CHART_SIZE.width,
+        viewHeight: CHART_SIZE.height,
         tandem: tandem.createTandem( 'amplitudesChart' )
       } );
 
@@ -91,10 +90,10 @@ class DiscreteScreenView extends ScreenView {
       model.domainProperty, model.seriesTypeProperty, model.equationFormProperty,
       model.chartsModel.xZoomLevelProperty, model.chartsModel.xAxisDescriptionProperty,
       model.chartsModel.emphasizedHarmonics, {
-        viewWidth: chartViewWidth,
-        viewHeight: chartViewHeight,
+        viewWidth: CHART_SIZE.width,
+        viewHeight: CHART_SIZE.height,
         left: harmonicsHBox.left,
-        y: harmonicsHBox.bottom + 15,
+        y: harmonicsHBox.bottom + CHART_TITLE_Y_SPACING,
         tandem: tandem.createTandem( 'harmonicsChart' )
       } );
 
@@ -128,10 +127,10 @@ class DiscreteScreenView extends ScreenView {
       model.chartsModel.xZoomLevelProperty, model.chartsModel.xAxisDescriptionProperty,
       model.chartsModel.yZoomLevelProperty, model.chartsModel.yAxisDescriptionProperty,
       model.chartsModel.autoScaleProperty, model.chartsModel.infiniteHarmonicsProperty, {
-        viewWidth: chartViewWidth,
-        viewHeight: chartViewHeight,
+        viewWidth: CHART_SIZE.width,
+        viewHeight: CHART_SIZE.height,
         left: sumHBox.left,
-        y: sumHBox.bottom + 15,
+        y: sumHBox.bottom + CHART_TITLE_Y_SPACING,
         tandem: tandem.createTandem( 'sumChart' )
       } );
 
