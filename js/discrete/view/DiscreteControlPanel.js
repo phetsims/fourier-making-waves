@@ -79,7 +79,7 @@ class DiscreteControlPanel extends Panel {
         symbolsDialog.show();
       },
       scale: 0.4,
-      right: vBox.right - 5,
+      right: vBox.right,
       top: vBox.top - 5
     } );
 
