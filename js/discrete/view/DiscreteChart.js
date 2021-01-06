@@ -188,8 +188,10 @@ class DiscreteChart extends Node {
     // @public TODO would prefer this to be @protected
     this.chartTransform = chartTransform;
 
-    // @protected for layout of decorations added by subclasses
+    // @public for layout and clipping
     this.chartRectangle = chartRectangle;
+
+    // @protected for layout of decorations added by subclasses
     this.yAxisLabel = yAxisLabel;
 
     // @protected for setting range and spacing by subclasses

@@ -70,8 +70,6 @@ class SumEquationNode extends Node {
       [ domainProperty, seriesTypeProperty, equationFormProperty ],
       ( domain, seriesType, equationForm ) => {
 
-        this.visible = ( equationForm !== EquationForm.HIDDEN );
-
         // F(...) =
         leftNode.text = `${EquationMarkup.getFunctionOfMarkup( domain )} ${EQUAL_TO}`;
 

@@ -26,7 +26,6 @@ import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../model/SeriesType.js';
 import DiscreteChart from './DiscreteChart.js';
 import HarmonicPlot from './HarmonicPlot.js';
-import HarmonicsEquationNode from './HarmonicsEquationNode.js';
 
 // constants
 
@@ -72,21 +71,6 @@ class HarmonicsChart extends DiscreteChart {
     }, options );
 
     super( fourierSeries, domainProperty, equationFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options );
-
-    // Equation that appears above the chart
-    const equationNode = new HarmonicsEquationNode( domainProperty, seriesTypeProperty, equationFormProperty, {
-      maxWidth: 0.5 * this.chartRectangle.width,
-      tandem: options.tandem.createTandem( 'equationNode' ),
-      phetioReadOnly: true
-    } );
-    this.addChild( equationNode );
-
-    //TODO this is not working as expected with stringTest=long
-    // Center the equation above the chart.
-    equationNode.localBoundsProperty.link( () => {
-      equationNode.centerX = this.chartRectangle.centerX;
-      equationNode.bottom = this.chartRectangle.top - 3;
-    } );
 
     // @public {Property.<Vector2[]>} data set for the sum of the harmonics, drawn by the Sum chart
     this.sumDataSetProperty = new Property( [] );

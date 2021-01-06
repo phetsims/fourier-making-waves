@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -24,13 +25,18 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import Domain from '../model/Domain.js';
+import EquationForm from '../model/EquationForm.js';
 import AmplitudesChart from './AmplitudesChart.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
+import ExpandedFormButton from './ExpandedFormButton.js';
+import ExpandedFormDialog from './ExpandedFormDialog.js';
 import FourierSoundGenerator from './FourierSoundGenerator.js';
 import HarmonicsChart from './HarmonicsChart.js';
+import HarmonicsEquationNode from './HarmonicsEquationNode.js';
 import PeriodClockNode from './PeriodClockNode.js';
 import PeriodToolNode from './PeriodToolNode.js';
 import SumChart from './SumChart.js';
+import SumEquationNode from './SumEquationNode.js';
 import WavelengthToolNode from './WavelengthToolNode.js';
 
 // constants
@@ -97,14 +103,29 @@ class DiscreteScreenView extends ScreenView {
         tandem: tandem.createTandem( 'harmonicsChart' )
       } );
 
-    const harmonicsParent = new Node( {
-      children: [ harmonicsHBox, harmonicsChart ]
-    } );
-
     //TODO pass directly to HarmonicsChart via visibleProperty?
     model.chartsModel.harmonicsChartVisibleProperty.link( harmonicsChartVisible => {
       harmonicsChart.visible = harmonicsChartVisible;
     } );
+
+    const harmonicsParent = new Node( {
+      children: [ harmonicsHBox, harmonicsChart ]
+    } );
+
+    // Equation that appears above the Harmonics chart
+    const harmonicsEquationNode = new HarmonicsEquationNode(
+      model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, {
+        maxWidth: 0.5 * CHART_SIZE.width,
+        tandem: tandem.createTandem( 'harmonicsEquationNode' ),
+        phetioReadOnly: true
+      } );
+
+    // Visibility of the equation above the Harmonics chart
+    Property.multilink(
+      [ model.chartsModel.harmonicsChartVisibleProperty, model.equationFormProperty ],
+      ( harmonicsChartVisible, equationForm ) => {
+        harmonicsEquationNode.visible = harmonicsChartVisible && ( equationForm !== EquationForm.HIDDEN );
+      } );
 
     const sumExpandCollapseButton = new ExpandCollapseButton( model.chartsModel.sumChartVisibleProperty,
       merge( {
@@ -123,7 +144,7 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     const sumChart = new SumChart( model.fourierSeries, harmonicsChart.sumDataSetProperty,
-      model.waveformProperty, model.domainProperty, model.seriesTypeProperty, model.equationFormProperty,
+      model.waveformProperty, model.domainProperty, model.equationFormProperty,
       model.chartsModel.xZoomLevelProperty, model.chartsModel.xAxisDescriptionProperty,
       model.chartsModel.yZoomLevelProperty, model.chartsModel.yAxisDescriptionProperty,
       model.chartsModel.autoScaleProperty, model.chartsModel.infiniteHarmonicsProperty, {
@@ -134,14 +155,46 @@ class DiscreteScreenView extends ScreenView {
         tandem: tandem.createTandem( 'sumChart' )
       } );
 
-    const sumParent = new Node( {
-      children: [ sumHBox, sumChart ]
-    } );
-
     //TODO pass directly to SumChart via visibleProperty?
     model.chartsModel.sumChartVisibleProperty.link( sumChartVisible => {
       sumChart.visible = sumChartVisible;
     } );
+
+    const sumParent = new Node( {
+      children: [ sumHBox, sumChart ]
+    } );
+
+    // Equation that appears above the Sum chart
+    const sumEquationNode = new SumEquationNode( model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty,
+      model.seriesTypeProperty, model.equationFormProperty, {
+        maxWidth: 0.5 * CHART_SIZE.width,
+        tandem: tandem.createTandem( 'sumEquationNode' ),
+        phetioReadOnly: true
+      } );
+
+    // Push button that opens the 'Expanded Sum' dialog
+    const expandedFormButton = new ExpandedFormButton( {
+      scale: 0.45,
+      listener: () => {
+        const dialog = new ExpandedFormDialog(
+          model.fourierSeries, model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, {
+            hideCallback: () => dialog.dispose()
+          } );
+        dialog.show();
+      },
+      tandem: tandem.createTandem( 'expandedFormButton' ),
+      phetioReadOnly: true
+    } );
+
+    // Visibility of the equation and push button above the Sum chart
+    Property.multilink(
+      [ model.chartsModel.sumChartVisibleProperty, model.equationFormProperty ],
+      ( sumChartVisible, equationForm ) => {
+        const visible = sumChartVisible && ( equationForm !== EquationForm.HIDDEN );
+        sumEquationNode.visible = visible;
+        expandedFormButton.interruptSubtreeInput();
+        expandedFormButton.visible = visible;
+      } );
 
     const controlPanel = new DiscreteControlPanel( model, model.chartsModel, popupParent, {
       tandem: tandem.createTandem( 'controlPanel' )
@@ -196,7 +249,10 @@ class DiscreteScreenView extends ScreenView {
     // Rendering order
     this.addChild( amplitudesChart );
     this.addChild( harmonicsParent );
+    this.addChild( harmonicsEquationNode );
     this.addChild( sumParent );
+    this.addChild( sumEquationNode );
+    this.addChild( expandedFormButton );
     this.addChild( controlPanel );
     this.addChild( timeControlNode );
     this.addChild( resetAllButton );
@@ -205,13 +261,15 @@ class DiscreteScreenView extends ScreenView {
     this.addChild( periodClockNode );
     this.addChild( popupParent ); // parent for popups on top
 
-    // Layout
+    // Layout, spacing set empirically
     amplitudesChart.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
     amplitudesChart.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN - 8;
     harmonicsParent.left = amplitudesChart.left;
     harmonicsParent.top = amplitudesChart.bottom + 15;
+    harmonicsEquationNode.center = harmonicsChart.center;
+    harmonicsEquationNode.bottom = harmonicsChart.top - 3;
     sumParent.left = harmonicsParent.left;
-    sumParent.top = harmonicsParent.bottom + 10;
+    sumParent.top = harmonicsParent.bottom + 30;
     controlPanel.right = this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
     controlPanel.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
     amplitudesChart.left = harmonicsParent.left;
@@ -219,6 +277,36 @@ class DiscreteScreenView extends ScreenView {
     timeControlNode.bottom = this.layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN;
     resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+
+    //TODO this is not working as expected with stringTest=long
+    // Center equations above their respective charts
+    harmonicsEquationNode.localBoundsProperty.link( () => {
+
+      // Get the bounds of the chart's rectangle in the proper coordinate frame.
+      const chartRectangleGlobalBounds = harmonicsChart.chartRectangle.parentToGlobalBounds( harmonicsChart.chartRectangle.bounds );
+      const chartRectangleLocalBounds = this.globalToLocalBounds( chartRectangleGlobalBounds );
+
+      // Center the equation above the chart.
+      harmonicsEquationNode.centerX = chartRectangleLocalBounds.centerX;
+      harmonicsEquationNode.bottom = chartRectangleLocalBounds.top - 3;
+    } );
+    sumEquationNode.localBoundsProperty.link( () => {
+
+      // Ensure that expandedFormButton is always above the chart, regardless of how tall the equation is.
+      const maxHeight = Math.max( sumEquationNode.height, expandedFormButton.height );
+
+      // Get the bounds of the chart's rectangle in the proper coordinate frame.
+      const chartRectangleGlobalBounds = sumChart.chartRectangle.parentToGlobalBounds( sumChart.chartRectangle.bounds );
+      const chartRectangleLocalBounds = this.globalToLocalBounds( chartRectangleGlobalBounds );
+
+      // Center the equation above the chart.
+      sumEquationNode.centerX = chartRectangleLocalBounds.centerX;
+      sumEquationNode.centerY = chartRectangleLocalBounds.top - ( maxHeight / 2 ) - 3;
+
+      // Button to the right of the equation
+      expandedFormButton.left = sumEquationNode.right + 20;
+      expandedFormButton.centerY = sumEquationNode.centerY;
+    } );
 
     //TODO Where to position tools? Should initial position be resettable?
     wavelengthToolNode.center = this.layoutBounds.center;

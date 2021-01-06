@@ -19,17 +19,13 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import AxisDescription from '../model/AxisDescription.js';
 import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import Waveform from '../model/Waveform.js';
-import SeriesType from '../model/SeriesType.js';
-import AxisDescription from '../model/AxisDescription.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
 import DiscreteChart from './DiscreteChart.js';
-import ExpandedFormButton from './ExpandedFormButton.js';
-import ExpandedFormDialog from './ExpandedFormDialog.js';
 import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
-import SumEquationNode from './SumEquationNode.js';
 
 class SumChart extends DiscreteChart {
 
@@ -38,7 +34,6 @@ class SumChart extends DiscreteChart {
    * @param {Property.<Vector2[]>} sumDataSetProperty
    * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {NumberProperty} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
@@ -48,7 +43,7 @@ class SumChart extends DiscreteChart {
    * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, sumDataSetProperty, waveformProperty, domainProperty, seriesTypeProperty, equationFormProperty,
+  constructor( fourierSeries, sumDataSetProperty, waveformProperty, domainProperty, equationFormProperty,
                xZoomLevelProperty, xAxisDescriptionProperty,
                yZoomLevelProperty, yAxisDescriptionProperty,
                autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
@@ -57,7 +52,6 @@ class SumChart extends DiscreteChart {
     assert && AssertUtils.assertPropertyOf( sumDataSetProperty, Array );
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
     assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
@@ -73,50 +67,6 @@ class SumChart extends DiscreteChart {
     }, options );
 
     super( fourierSeries, domainProperty, equationFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options );
-
-    const equationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
-      seriesTypeProperty, equationFormProperty, {
-        maxWidth: 0.5 * this.chartRectangle.width,
-        tandem: options.tandem.createTandem( 'equationNode' ),
-        phetioReadOnly: true
-      } );
-    this.addChild( equationNode );
-
-    // Button that opens the 'Expanded Sum' dialog
-    const expandedFormButton = new ExpandedFormButton( {
-      scale: 0.45,
-      listener: () => {
-        const dialog = new ExpandedFormDialog( fourierSeries, domainProperty, seriesTypeProperty, equationFormProperty, {
-          hideCallback: () => dialog.dispose()
-        } );
-        dialog.show();
-      },
-      tandem: options.tandem.createTandem( 'expandedFormButton' ),
-      phetioReadOnly: true
-    } );
-    this.addChild( expandedFormButton );
-
-    //TODO this is not working as expected with stringTest=long
-    equationNode.localBoundsProperty.link( () => {
-
-      // Ensure that expandedFormButton is always above the chart, regardless of how tall the equation is.
-      const maxHeight = Math.max( equationNode.height, expandedFormButton.height );
-
-      // Center the equation above the chart
-      equationNode.centerX = this.chartRectangle.centerX;
-      equationNode.centerY = this.chartRectangle.top - ( maxHeight / 2 ) - 2;
-      equationNode.bottom = this.chartRectangle.top - 3;
-
-      // Button to the right of the equation
-      expandedFormButton.left = equationNode.right + 20;
-      expandedFormButton.centerY = equationNode.centerY;
-    } );
-
-    // expandedFormButton is visible only when the equation is visible.
-    equationNode.visibleProperty.link( visible => {
-      expandedFormButton.interruptSubtreeInput();
-      expandedFormButton.visible = visible;
-    } );
 
     // Zoom buttons for the y-axis range
     const yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {
