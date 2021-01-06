@@ -88,6 +88,9 @@ class SumEquationNode extends Node {
   }
 
   /**
+   * This equation is used in 2 places: above the Sum chart, and in the Expanded Form dialog.
+   * In the former, one instance is created and it exists for the lifetime of the sim.
+   * In the latter, a new instance is created each time the dialog is opened, and therefore needs to be disposed.
    * @public
    * @override
    */
