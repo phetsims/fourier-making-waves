@@ -75,6 +75,7 @@ class DiscreteControlPanel extends Panel {
 
     const symbolsDialog = new DiscreteSymbolsDialog();
     const symbolsButton = new InfoButton( {
+      iconFill: 'rgb( 50, 145, 184 )',
       listener: () => {
         symbolsDialog.show();
       },
