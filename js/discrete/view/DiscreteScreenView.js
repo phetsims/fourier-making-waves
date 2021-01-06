@@ -100,13 +100,9 @@ class DiscreteScreenView extends ScreenView {
         viewHeight: CHART_SIZE.height,
         left: harmonicsHBox.left,
         y: harmonicsHBox.bottom + CHART_TITLE_Y_SPACING,
+        visibleProperty: model.chartsModel.harmonicsChartVisibleProperty,
         tandem: tandem.createTandem( 'harmonicsChart' )
       } );
-
-    //TODO pass directly to HarmonicsChart via visibleProperty?
-    model.chartsModel.harmonicsChartVisibleProperty.link( harmonicsChartVisible => {
-      harmonicsChart.visible = harmonicsChartVisible;
-    } );
 
     const harmonicsParent = new Node( {
       children: [ harmonicsHBox, harmonicsChart ]
@@ -152,13 +148,9 @@ class DiscreteScreenView extends ScreenView {
         viewHeight: CHART_SIZE.height,
         left: sumHBox.left,
         y: sumHBox.bottom + CHART_TITLE_Y_SPACING,
+        visibleProperty: model.chartsModel.sumChartVisibleProperty,
         tandem: tandem.createTandem( 'sumChart' )
       } );
-
-    //TODO pass directly to SumChart via visibleProperty?
-    model.chartsModel.sumChartVisibleProperty.link( sumChartVisible => {
-      sumChart.visible = sumChartVisible;
-    } );
 
     const sumParent = new Node( {
       children: [ sumHBox, sumChart ]
@@ -282,11 +274,11 @@ class DiscreteScreenView extends ScreenView {
     // Center equations above their respective charts
     harmonicsEquationNode.localBoundsProperty.link( () => {
 
-      // Get the bounds of the chart's rectangle in the proper coordinate frame.
+      // Get the bounds of the Harmonics chart's rectangle in the proper coordinate frame.
       const chartRectangleGlobalBounds = harmonicsChart.chartRectangle.parentToGlobalBounds( harmonicsChart.chartRectangle.bounds );
       const chartRectangleLocalBounds = this.globalToLocalBounds( chartRectangleGlobalBounds );
 
-      // Center the equation above the chart.
+      // Center the equation above the Harmonics chart.
       harmonicsEquationNode.centerX = chartRectangleLocalBounds.centerX;
       harmonicsEquationNode.bottom = chartRectangleLocalBounds.top - 3;
     } );
@@ -295,11 +287,11 @@ class DiscreteScreenView extends ScreenView {
       // Ensure that expandedFormButton is always above the chart, regardless of how tall the equation is.
       const maxHeight = Math.max( sumEquationNode.height, expandedFormButton.height );
 
-      // Get the bounds of the chart's rectangle in the proper coordinate frame.
+      // Get the bounds of the Sum chart's rectangle in the proper coordinate frame.
       const chartRectangleGlobalBounds = sumChart.chartRectangle.parentToGlobalBounds( sumChart.chartRectangle.bounds );
       const chartRectangleLocalBounds = this.globalToLocalBounds( chartRectangleGlobalBounds );
 
-      // Center the equation above the chart.
+      // Center the equation above the Sum chart.
       sumEquationNode.centerX = chartRectangleLocalBounds.centerX;
       sumEquationNode.centerY = chartRectangleLocalBounds.top - ( maxHeight / 2 ) - 3;
 
