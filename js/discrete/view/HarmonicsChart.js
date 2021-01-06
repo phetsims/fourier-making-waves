@@ -159,14 +159,14 @@ class HarmonicsChart extends DiscreteChart {
 
           // no emphasis, all plots have their normal color and lineWidth
           plot.lineWidth = NORMAL_LINE_WIDTH;
-          plot.setStroke( plot.harmonic.colorProperty );
+          plot.setStroke( plot.harmonic.colorProperty.value );
         }
         else {
 
           // emphasize some plots, de-emphasize other plots
           if ( emphasizedHarmonics.includes( plot.harmonic ) ) {
             plot.lineWidth = EMPHASIZED_LINE_WIDTH;
-            plot.setStroke( plot.harmonic.colorProperty );
+            plot.setStroke( plot.harmonic.colorProperty.value );
           }
           else {
             plot.lineWidth = DE_EMPHASIZED_LINE_WIDTH;
