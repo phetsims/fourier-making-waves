@@ -131,8 +131,10 @@ class AmplitudesChartNode extends Node {
     assert && assert( !options.children, 'AmplitudesChartNode sets children' );
     options.children = [
       chartRectangle,
-      xAxisLabel, ...sliders, ...numberDisplays,
-      yAxisLabel, yGridLineSet, yLabelSet
+      xAxisLabel,
+      yAxisLabel, yGridLineSet, yLabelSet,
+      ...sliders,
+      ...numberDisplays
     ];
 
     super( options );
