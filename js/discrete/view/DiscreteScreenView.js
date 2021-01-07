@@ -266,7 +266,7 @@ class DiscreteScreenView extends ScreenView {
     resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
 
-    //TODO this is not working as expected with stringTest=long
+    //TODO https://github.com/phetsims/fourier-making-waves/issues/40, position incorrect with stringTest=long
     // Center equations above their respective charts
     harmonicsEquationNode.localBoundsProperty.link( () => {
 
@@ -296,7 +296,7 @@ class DiscreteScreenView extends ScreenView {
       expandedFormButton.centerY = sumEquationNode.centerY;
     } );
 
-    //TODO Where to position tools? Should initial position be resettable?
+    //TODO https://github.com/phetsims/fourier-making-waves/issues/39 initial position, resettable?
     wavelengthToolNode.center = this.layoutBounds.center;
     periodToolNode.center = this.layoutBounds.center; //TODO This isn't working as expected.
     periodClockNode.center = this.layoutBounds.center;
