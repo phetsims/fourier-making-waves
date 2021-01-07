@@ -18,10 +18,6 @@ Too many params in constructors:
 * PeriodToolNode 7
 * WavelengthToolNode 7
 * MeasurementToolsLayoutBox 6
-* ExpandedFormDialog 4
-* GraphControlsLayoutBox 4
-* SumEquationNode 4
-
 
 ## GitHub issues
 
