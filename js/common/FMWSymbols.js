@@ -3,15 +3,15 @@
 /**
  * Symbols used throughout this sim, as described in model.md.
  *
- * This is also where MathSymbolFont is applied to symbols. By surrounding the symbol with
- * MathSymbolFont.getRichTextMarkup, all occurrences of a symbol will be rendered using MathSymbolFont.
+ * This is also where MathSymbolFont is applied to symbols. By adding markup to a symbol with
+ * MathSymbolFont.getRichTextMarkup, all occurrences of that symbol will be rendered using MathSymbolFont.
  *
- * The naming convention used here is capital letters for symbols that are capital letters (e.g. SIGMA, T)
- * and lowercase letters for symbols that are lowercase letters (sigma, t).  This same naming convention is
- * used for string keys.
+ * The naming convention for fields in this object and associated string keys are:
+ * - capital letters for symbols that are capital letters (e.g. SIGMA, T)
+ * - lowercase letters for symbols that are lowercase letters (sigma, t).
  *
  * See https://github.com/phetsims/fourier-making-waves/issues/15 for the specification of which symbols
- * are translated, and how MathSymbolFont is applied.
+ * are translated, and which are rendered with MathSymbolFont.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
