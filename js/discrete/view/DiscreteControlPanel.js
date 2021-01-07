@@ -43,9 +43,12 @@ class DiscreteControlPanel extends Panel {
       yMargin: 15
     }, options );
 
+    const fourierSeriesLayoutBox =
+      new FourierSeriesLayoutBox( model.waveformProperty, model.fourierSeries.numberOfHarmonicsProperty, popupParent );
+
     // {Node[]} logical sections of the control panel
     const sectionNodes = [
-      new FourierSeriesLayoutBox( model.waveformProperty, model.fourierSeries.numberOfHarmonicsProperty, popupParent ),
+      fourierSeriesLayoutBox,
       new GraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, popupParent ),
       new MeasurementToolsLayoutBox(
         model.wavelengthToolSelectedProperty, model.wavelengthToolOrderProperty,
@@ -54,13 +57,12 @@ class DiscreteControlPanel extends Panel {
       new SoundLayoutBox( model.soundEnabledProperty, model.soundOutputLevelProperty )
     ];
 
-    // Separate width is 
+    // Put a separator between each logical section.
+    // Use a uniform separator width, sized to fit the widest section
     const separatorWidth = _.maxBy( sectionNodes, layoutBox => layoutBox.width ).width;
     const separatorOptions = {
       stroke: FMWColorProfile.separatorStrokeProperty
     };
-
-    // Put a separator between each logical section
     const children = [];
     for ( let i = 0; i < sectionNodes.length; i++ ) {
       children.push( sectionNodes[ i ] );
@@ -73,7 +75,10 @@ class DiscreteControlPanel extends Panel {
       children: children
     } ) );
 
+    // Dialog that displays a key for math symbols
     const symbolsDialog = new DiscreteSymbolsDialog();
+
+    // Push button to open the dialog, vertically centered on the 'Fourier Series' title.
     const symbolsButton = new InfoButton( {
       iconFill: 'rgb( 50, 145, 184 )',
       listener: () => {
@@ -81,7 +86,8 @@ class DiscreteControlPanel extends Panel {
       },
       scale: 0.4,
       right: vBox.right,
-      top: vBox.top - 5
+      centerY: fourierSeriesLayoutBox.globalToParentBounds(
+        fourierSeriesLayoutBox.titleText.parentToGlobalBounds( fourierSeriesLayoutBox.titleText.bounds ) ).centerY
     } );
 
     const content = new Node( {

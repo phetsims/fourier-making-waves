@@ -79,6 +79,9 @@ class FourierSeriesLayoutBox extends VBox {
     options.children = [ titleText, waveformBox, harmonicsBox ];
 
     super( options );
+
+    // @public for layout
+    this.titleText = titleText;
   }
 
   /**
