@@ -39,10 +39,11 @@ import SumChart from './SumChart.js';
 import SumEquationNode from './SumEquationNode.js';
 import WavelengthToolNode from './WavelengthToolNode.js';
 
-// constants
+// constants, determined empirically
 const EXPAND_TITLE_SPACING = 6;
 const CHART_TITLE_Y_SPACING = 15; // space between chart title and the chart
-const CHART_SIZE = new Dimension2( 645, 123 ); // determined empirically
+const CHART_SIZE = new Dimension2( 645, 123 ); // size of the chart rectangles
+const X_CHART_RECTANGLES = 65; // x origin of the rectangle part of the charts, so that they are all aligned
 
 class DiscreteScreenView extends ScreenView {
 
@@ -98,15 +99,9 @@ class DiscreteScreenView extends ScreenView {
       model.chartsModel.emphasizedHarmonics, {
         viewWidth: CHART_SIZE.width,
         viewHeight: CHART_SIZE.height,
-        left: harmonicsHBox.left,
-        y: harmonicsHBox.bottom + CHART_TITLE_Y_SPACING,
         visibleProperty: model.chartsModel.harmonicsChartVisibleProperty,
         tandem: tandem.createTandem( 'harmonicsChart' )
       } );
-
-    const harmonicsParent = new Node( {
-      children: [ harmonicsHBox, harmonicsChart ]
-    } );
 
     // Equation that appears above the Harmonics chart
     const harmonicsEquationNode = new HarmonicsEquationNode(
@@ -151,10 +146,6 @@ class DiscreteScreenView extends ScreenView {
         visibleProperty: model.chartsModel.sumChartVisibleProperty,
         tandem: tandem.createTandem( 'sumChart' )
       } );
-
-    const sumParent = new Node( {
-      children: [ sumHBox, sumChart ]
-    } );
 
     // Equation that appears above the Sum chart
     const sumEquationNode = new SumEquationNode( model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty,
@@ -240,9 +231,11 @@ class DiscreteScreenView extends ScreenView {
 
     // Rendering order
     this.addChild( amplitudesChart );
-    this.addChild( harmonicsParent );
+    this.addChild( harmonicsHBox );
+    this.addChild( harmonicsChart );
     this.addChild( harmonicsEquationNode );
-    this.addChild( sumParent );
+    this.addChild( sumHBox );
+    this.addChild( sumChart );
     this.addChild( sumEquationNode );
     this.addChild( expandedFormButton );
     this.addChild( controlPanel );
@@ -254,17 +247,20 @@ class DiscreteScreenView extends ScreenView {
     this.addChild( popupParent ); // parent for popups on top
 
     // Layout, spacing set empirically
-    amplitudesChart.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-    amplitudesChart.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN - 8;
-    harmonicsParent.left = amplitudesChart.left;
-    harmonicsParent.top = amplitudesChart.bottom + 15;
+    amplitudesChart.x = X_CHART_RECTANGLES;
+    amplitudesChart.y = 54;
+    harmonicsHBox.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+    harmonicsHBox.top = amplitudesChart.bottom + 15;
+    harmonicsChart.x = X_CHART_RECTANGLES;
+    harmonicsChart.y = harmonicsHBox.bottom + CHART_TITLE_Y_SPACING;
     harmonicsEquationNode.center = harmonicsChart.center;
     harmonicsEquationNode.bottom = harmonicsChart.top - 3;
-    sumParent.left = harmonicsParent.left;
-    sumParent.top = harmonicsParent.bottom + 30;
+    sumHBox.left = harmonicsHBox.left;
+    sumHBox.top = harmonicsChart.bottom + 30;
+    sumChart.x = X_CHART_RECTANGLES;
+    sumChart.y = sumHBox.bottom + CHART_TITLE_Y_SPACING;
     controlPanel.right = this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
     controlPanel.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
-    amplitudesChart.left = harmonicsParent.left;
     timeControlNode.left = controlPanel.left + 30;
     timeControlNode.bottom = this.layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN;
     resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;

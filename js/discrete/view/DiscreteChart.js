@@ -162,7 +162,7 @@ class DiscreteChart extends Node {
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
-      right: yTickLabels.left - FMWConstants.Y_AXIS_LABEL_SPACING,
+      right: chartRectangle.left - FMWConstants.Y_AXIS_LABEL_SPACING,
       centerY: chartRectangle.centerY,
       maxWidth: 0.85 * chartRectangle.height,
       tandem: options.tandem.createTandem( 'yAxisLabel' )
