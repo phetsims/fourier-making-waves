@@ -2,8 +2,8 @@
 
 //TODO move data set creation (especially sum data set) somewhere else
 /**
- * HarmonicsChart is the 'Harmonics' chart in the 'Discrete' screen. It renders a plot for each of the harmonics in
- * the Fourier series.
+ * HarmonicsChartNode displays the 'Harmonics' chart in the 'Discrete' screen. It renders a plot for each of
+ * the harmonics in the Fourier series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -24,7 +24,7 @@ import AxisDescription from '../model/AxisDescription.js';
 import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../model/SeriesType.js';
-import DiscreteChart from './DiscreteChart.js';
+import DiscreteChartNode from './DiscreteChartNode.js';
 import HarmonicPlot from './HarmonicPlot.js';
 
 // constants
@@ -39,7 +39,7 @@ const EMPHASIZED_LINE_WIDTH = 2;
 const DE_EMPHASIZED_LINE_WIDTH = 0.5;
 const DE_EMPHASIZED_STROKE = Color.grayColor( 150 );
 
-class HarmonicsChart extends DiscreteChart {
+class HarmonicsChartNode extends DiscreteChartNode {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -332,5 +332,5 @@ function createSumDataSet( harmonicPlots ) {
   return sumDataSet;
 }
 
-fourierMakingWaves.register( 'HarmonicsChart', HarmonicsChart );
-export default HarmonicsChart;
+fourierMakingWaves.register( 'HarmonicsChartNode', HarmonicsChartNode );
+export default HarmonicsChartNode;

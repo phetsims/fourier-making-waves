@@ -1,8 +1,8 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * SumChart is the 'Sum' chart in the 'Discrete' screen. It renders 1 plot showing the sum of the harmonics in
- * the Fourier series.
+ * SumChartNode displays the 'Sum' chart in the 'Discrete' screen. It renders 1 plot showing the sum of the harmonics
+ * in the Fourier series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -24,10 +24,10 @@ import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import Waveform from '../model/Waveform.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
-import DiscreteChart from './DiscreteChart.js';
+import DiscreteChartNode from './DiscreteChartNode.js';
 import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 
-class SumChart extends DiscreteChart {
+class SumChartNode extends DiscreteChartNode {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -134,5 +134,5 @@ class SumChart extends DiscreteChart {
   }
 }
 
-fourierMakingWaves.register( 'SumChart', SumChart );
-export default SumChart;
+fourierMakingWaves.register( 'SumChartNode', SumChartNode );
+export default SumChartNode;

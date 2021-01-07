@@ -26,16 +26,16 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
-import AmplitudesChart from './AmplitudesChart.js';
+import AmplitudesChartNode from './AmplitudesChartNode.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
 import ExpandedFormButton from './ExpandedFormButton.js';
 import ExpandedFormDialog from './ExpandedFormDialog.js';
 import FourierSoundGenerator from './FourierSoundGenerator.js';
-import HarmonicsChart from './HarmonicsChart.js';
+import HarmonicsChartNode from './HarmonicsChartNode.js';
 import HarmonicsEquationNode from './HarmonicsEquationNode.js';
 import PeriodClockNode from './PeriodClockNode.js';
 import PeriodToolNode from './PeriodToolNode.js';
-import SumChart from './SumChart.js';
+import SumChartNode from './SumChartNode.js';
 import SumEquationNode from './SumEquationNode.js';
 import WavelengthToolNode from './WavelengthToolNode.js';
 
@@ -70,11 +70,11 @@ class DiscreteScreenView extends ScreenView {
     // KeypadDialog
     const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, this.layoutBounds );
 
-    const amplitudesChart = new AmplitudesChart( model.fourierSeries, amplitudeKeypadDialog, model.waveformProperty,
+    const amplitudesChartNode = new AmplitudesChartNode( model.fourierSeries, amplitudeKeypadDialog, model.waveformProperty,
       model.chartsModel.emphasizedHarmonics, {
         viewWidth: CHART_SIZE.width,
         viewHeight: CHART_SIZE.height,
-        tandem: tandem.createTandem( 'amplitudesChart' )
+        tandem: tandem.createTandem( 'amplitudesChartNode' )
       } );
 
     const harmonicsExpandCollapseButton = new ExpandCollapseButton( model.chartsModel.harmonicsChartVisibleProperty,
@@ -93,14 +93,14 @@ class DiscreteScreenView extends ScreenView {
       spacing: EXPAND_TITLE_SPACING
     } );
 
-    const harmonicsChart = new HarmonicsChart( model.fourierSeries, model.tProperty,
+    const harmonicsChartNode = new HarmonicsChartNode( model.fourierSeries, model.tProperty,
       model.domainProperty, model.seriesTypeProperty, model.equationFormProperty,
       model.chartsModel.xZoomLevelProperty, model.chartsModel.xAxisDescriptionProperty,
       model.chartsModel.emphasizedHarmonics, {
         viewWidth: CHART_SIZE.width,
         viewHeight: CHART_SIZE.height,
         visibleProperty: model.chartsModel.harmonicsChartVisibleProperty,
-        tandem: tandem.createTandem( 'harmonicsChart' )
+        tandem: tandem.createTandem( 'harmonicsChartNode' )
       } );
 
     // Equation that appears above the Harmonics chart
@@ -134,7 +134,7 @@ class DiscreteScreenView extends ScreenView {
       spacing: EXPAND_TITLE_SPACING
     } );
 
-    const sumChart = new SumChart( model.fourierSeries, harmonicsChart.sumDataSetProperty,
+    const sumChartNode = new SumChartNode( model.fourierSeries, harmonicsChartNode.sumDataSetProperty,
       model.waveformProperty, model.domainProperty, model.equationFormProperty,
       model.chartsModel.xZoomLevelProperty, model.chartsModel.xAxisDescriptionProperty,
       model.chartsModel.yZoomLevelProperty, model.chartsModel.yAxisDescriptionProperty,
@@ -144,7 +144,7 @@ class DiscreteScreenView extends ScreenView {
         left: sumHBox.left,
         y: sumHBox.bottom + CHART_TITLE_Y_SPACING,
         visibleProperty: model.chartsModel.sumChartVisibleProperty,
-        tandem: tandem.createTandem( 'sumChart' )
+        tandem: tandem.createTandem( 'sumChartNode' )
       } );
 
     // Equation that appears above the Sum chart
@@ -209,8 +209,8 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
-    //TODO do not reach into HarmonicsChart for chartTransform
-    const harmonicsChartTransform = harmonicsChart.chartTransform;
+    //TODO do not reach into HarmonicsChartNode for chartTransform
+    const harmonicsChartTransform = harmonicsChartNode.chartTransform;
 
     // For measuring the wavelength of a specific harmonic in the 'space' and 'space & time' domains.
     const wavelengthToolNode = new WavelengthToolNode( harmonicsChartTransform,
@@ -230,12 +230,12 @@ class DiscreteScreenView extends ScreenView {
       model.tProperty, model.chartsModel.emphasizedHarmonics, this.visibleBoundsProperty );
 
     // Rendering order
-    this.addChild( amplitudesChart );
+    this.addChild( amplitudesChartNode );
     this.addChild( harmonicsHBox );
-    this.addChild( harmonicsChart );
+    this.addChild( harmonicsChartNode );
     this.addChild( harmonicsEquationNode );
     this.addChild( sumHBox );
-    this.addChild( sumChart );
+    this.addChild( sumChartNode );
     this.addChild( sumEquationNode );
     this.addChild( expandedFormButton );
     this.addChild( controlPanel );
@@ -247,18 +247,18 @@ class DiscreteScreenView extends ScreenView {
     this.addChild( popupParent ); // parent for popups on top
 
     // Layout, spacing set empirically
-    amplitudesChart.x = X_CHART_RECTANGLES;
-    amplitudesChart.y = 54;
+    amplitudesChartNode.x = X_CHART_RECTANGLES;
+    amplitudesChartNode.y = 54;
     harmonicsHBox.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-    harmonicsHBox.top = amplitudesChart.bottom + 15;
-    harmonicsChart.x = X_CHART_RECTANGLES;
-    harmonicsChart.y = harmonicsHBox.bottom + CHART_TITLE_Y_SPACING;
-    harmonicsEquationNode.center = harmonicsChart.center;
-    harmonicsEquationNode.bottom = harmonicsChart.top - 3;
+    harmonicsHBox.top = amplitudesChartNode.bottom + 15;
+    harmonicsChartNode.x = X_CHART_RECTANGLES;
+    harmonicsChartNode.y = harmonicsHBox.bottom + CHART_TITLE_Y_SPACING;
+    harmonicsEquationNode.center = harmonicsChartNode.center;
+    harmonicsEquationNode.bottom = harmonicsChartNode.top - 3;
     sumHBox.left = harmonicsHBox.left;
-    sumHBox.top = harmonicsChart.bottom + 30;
-    sumChart.x = X_CHART_RECTANGLES;
-    sumChart.y = sumHBox.bottom + CHART_TITLE_Y_SPACING;
+    sumHBox.top = harmonicsChartNode.bottom + 30;
+    sumChartNode.x = X_CHART_RECTANGLES;
+    sumChartNode.y = sumHBox.bottom + CHART_TITLE_Y_SPACING;
     controlPanel.right = this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
     controlPanel.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
     timeControlNode.left = controlPanel.left + 30;
@@ -271,7 +271,7 @@ class DiscreteScreenView extends ScreenView {
     harmonicsEquationNode.localBoundsProperty.link( () => {
 
       // Get the bounds of the Harmonics chart's rectangle in the proper coordinate frame.
-      const chartRectangleGlobalBounds = harmonicsChart.chartRectangle.parentToGlobalBounds( harmonicsChart.chartRectangle.bounds );
+      const chartRectangleGlobalBounds = harmonicsChartNode.chartRectangle.parentToGlobalBounds( harmonicsChartNode.chartRectangle.bounds );
       const chartRectangleLocalBounds = this.globalToLocalBounds( chartRectangleGlobalBounds );
 
       // Center the equation above the Harmonics chart.
@@ -284,7 +284,7 @@ class DiscreteScreenView extends ScreenView {
       const maxHeight = Math.max( sumEquationNode.height, expandedFormButton.height );
 
       // Get the bounds of the Sum chart's rectangle in the proper coordinate frame.
-      const chartRectangleGlobalBounds = sumChart.chartRectangle.parentToGlobalBounds( sumChart.chartRectangle.bounds );
+      const chartRectangleGlobalBounds = sumChartNode.chartRectangle.parentToGlobalBounds( sumChartNode.chartRectangle.bounds );
       const chartRectangleLocalBounds = this.globalToLocalBounds( chartRectangleGlobalBounds );
 
       // Center the equation above the Sum chart.

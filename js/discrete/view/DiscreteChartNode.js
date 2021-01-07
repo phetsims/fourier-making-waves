@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * DiscreteChart is the base class for the charts in the 'Discrete' screen.
+ * DiscreteChartNode is the base class for displaying the charts in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -60,7 +60,7 @@ const TICK_LABEL_OPTIONS = {
 
 const TICK_LABEL_DECIMAL_PLACES = 2;
 
-class DiscreteChart extends Node {
+class DiscreteChartNode extends Node {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -174,7 +174,7 @@ class DiscreteChart extends Node {
       children: [ xAxis, yAxis ]
     } );
 
-    assert && assert( !options.children, 'AmplitudesChart sets children' );
+    assert && assert( !options.children, 'AmplitudesChartNode sets children' );
     options.children = [
       xTickMarks, yTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
       chartRectangle,
@@ -288,5 +288,5 @@ function createSymbolicTickLabel( value, domain, L, T ) {
   } );
 }
 
-fourierMakingWaves.register( 'DiscreteChart', DiscreteChart );
-export default DiscreteChart;
+fourierMakingWaves.register( 'DiscreteChartNode', DiscreteChartNode );
+export default DiscreteChartNode;

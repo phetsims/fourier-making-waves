@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * AmplitudesChart displays and controls the amplitudes for harmonics in a Fourier series. Amplitudes are displayed
+ * AmplitudesChartNode displays and controls the amplitudes for harmonics in a Fourier series. Amplitudes are displayed
  * as a bar chart, where each bar is a slider. Amplitude can be adjusted using the slider, or by using a Keypad that
  * opens when a NumberDisplay is pressed.
  *
@@ -34,7 +34,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Waveform from '../model/Waveform.js';
 
-class AmplitudesChart extends Node {
+class AmplitudesChartNode extends Node {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -115,7 +115,7 @@ class AmplitudesChart extends Node {
       } )
     );
 
-    assert && assert( !options.children, 'AmplitudesChart sets children' );
+    assert && assert( !options.children, 'AmplitudesChartNode sets children' );
     options.children = [
       chartRectangle,
       xAxisLabel,
@@ -148,5 +148,5 @@ class AmplitudesChart extends Node {
   }
 }
 
-fourierMakingWaves.register( 'AmplitudesChart', AmplitudesChart );
-export default AmplitudesChart;
+fourierMakingWaves.register( 'AmplitudesChartNode', AmplitudesChartNode );
+export default AmplitudesChartNode;
