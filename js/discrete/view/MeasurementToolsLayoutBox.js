@@ -29,19 +29,16 @@ class MeasurementToolsLayoutBox extends VBox {
    * @param {NumberProperty} wavelengthToolOrderProperty
    * @param {Property.<boolean>} periodToolSelectedProperty
    * @param {NumberProperty} periodToolOrderProperty
-   * @param {NumberProperty} numberOfHarmonicsProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( wavelengthToolSelectedProperty, wavelengthToolOrderProperty,
-               periodToolSelectedProperty, periodToolOrderProperty,
-               numberOfHarmonicsProperty, domainProperty, options ) {
+               periodToolSelectedProperty, periodToolOrderProperty, domainProperty, options ) {
 
     assert && AssertUtils.assertPropertyOf( wavelengthToolSelectedProperty, 'boolean' );
     assert && assert( wavelengthToolOrderProperty instanceof NumberProperty, 'invalid wavelengthToolOrderProperty' );
     assert && AssertUtils.assertPropertyOf( periodToolSelectedProperty, 'boolean' );
     assert && assert( periodToolOrderProperty instanceof NumberProperty, 'invalid periodToolOrderProperty' );
-    assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, options );
