@@ -1,6 +1,6 @@
 // Copyright 2020, University of Colorado Boulder
 
-//TODO equations in Preset.java do not match values
+//TODO https://github.com/phetsims/fourier-making-waves/issues/18 equations in Preset.java do not match values
 /**
  * Waveforms for the 'Discrete' screen.
  *
