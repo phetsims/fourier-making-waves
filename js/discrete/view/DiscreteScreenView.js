@@ -36,10 +36,10 @@ import SumChartNode from './SumChartNode.js';
 import SumEquationNode from './SumEquationNode.js';
 import WavelengthToolNode from './WavelengthToolNode.js';
 
-// constants, determined empirically
-const CHART_TITLE_Y_SPACING = 15; // space between chart title and the chart
-const CHART_SIZE = new Dimension2( 645, 123 ); // size of the chart rectangles
+// constants, in view coordinates, determined empirically
+const CHART_RECTANGLE_SIZE = new Dimension2( 645, 123 ); // size of the chart rectangles
 const X_CHART_RECTANGLES = 65; // x origin of the rectangle part of the charts, so that they are all aligned
+const CHART_TITLE_Y_SPACING = 15; // space between chart title and the chart
 
 class DiscreteScreenView extends ScreenView {
 
@@ -68,8 +68,8 @@ class DiscreteScreenView extends ScreenView {
 
     const amplitudesChartNode = new AmplitudesChartNode( model.fourierSeries, amplitudeKeypadDialog, model.waveformProperty,
       model.chartsModel.emphasizedHarmonics, {
-        viewWidth: CHART_SIZE.width,
-        viewHeight: CHART_SIZE.height,
+        viewWidth: CHART_RECTANGLE_SIZE.width,
+        viewHeight: CHART_RECTANGLE_SIZE.height,
         tandem: tandem.createTandem( 'amplitudesChartNode' )
       } );
 
@@ -83,8 +83,8 @@ class DiscreteScreenView extends ScreenView {
       model.domainProperty, model.seriesTypeProperty, model.equationFormProperty,
       model.chartsModel.xZoomLevelProperty, model.chartsModel.xAxisDescriptionProperty,
       model.chartsModel.emphasizedHarmonics, {
-        viewWidth: CHART_SIZE.width,
-        viewHeight: CHART_SIZE.height,
+        viewWidth: CHART_RECTANGLE_SIZE.width,
+        viewHeight: CHART_RECTANGLE_SIZE.height,
         visibleProperty: model.chartsModel.harmonicsChartVisibleProperty,
         tandem: tandem.createTandem( 'harmonicsChartNode' )
       } );
@@ -92,7 +92,7 @@ class DiscreteScreenView extends ScreenView {
     // Equation that appears above the Harmonics chart
     const harmonicsEquationNode = new HarmonicsEquationNode(
       model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, {
-        maxWidth: 0.5 * CHART_SIZE.width,
+        maxWidth: 0.5 * CHART_RECTANGLE_SIZE.width,
         tandem: tandem.createTandem( 'harmonicsEquationNode' ),
         phetioReadOnly: true
       } );
@@ -115,8 +115,8 @@ class DiscreteScreenView extends ScreenView {
       model.chartsModel.xZoomLevelProperty, model.chartsModel.xAxisDescriptionProperty,
       model.chartsModel.yZoomLevelProperty, model.chartsModel.yAxisDescriptionProperty,
       model.chartsModel.autoScaleProperty, model.chartsModel.infiniteHarmonicsProperty, {
-        viewWidth: CHART_SIZE.width,
-        viewHeight: CHART_SIZE.height,
+        viewWidth: CHART_RECTANGLE_SIZE.width,
+        viewHeight: CHART_RECTANGLE_SIZE.height,
         left: sumExpandCollapseButton.left,
         y: sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING,
         visibleProperty: model.chartsModel.sumChartVisibleProperty,
@@ -126,7 +126,7 @@ class DiscreteScreenView extends ScreenView {
     // Equation that appears above the Sum chart
     const sumEquationNode = new SumEquationNode( model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty,
       model.seriesTypeProperty, model.equationFormProperty, {
-        maxWidth: 0.5 * CHART_SIZE.width,
+        maxWidth: 0.5 * CHART_RECTANGLE_SIZE.width,
         tandem: tandem.createTandem( 'sumEquationNode' ),
         phetioReadOnly: true
       } );
