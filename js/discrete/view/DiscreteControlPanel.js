@@ -54,7 +54,7 @@ class DiscreteControlPanel extends Panel {
         model.wavelengthToolSelectedProperty, model.wavelengthToolOrderProperty,
         model.periodToolSelectedProperty, model.periodToolOrderProperty,
         model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty ),
-      new SoundLayoutBox( model.soundEnabledProperty, model.soundOutputLevelProperty )
+      new SoundLayoutBox( model.fourierSeriesSoundEnabledProperty, model.fourierSeriesSoundOutputLevelProperty )
     ];
 
     // Put a separator between each logical section.

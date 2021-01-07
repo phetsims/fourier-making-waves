@@ -56,11 +56,11 @@ class DiscreteModel {
     // @public
     this.equationFormProperty = new EnumerationProperty( EquationForm, EquationForm.HIDDEN );
 
-    // @public whether the sound of the Fourier series is enabled
-    this.soundEnabledProperty = new BooleanProperty( false );
+    // @public whether sound is enabled for the Fourier series
+    this.fourierSeriesSoundEnabledProperty = new BooleanProperty( false );
 
     // @public volume of the sound for the Fourier series
-    this.soundOutputLevelProperty = new NumberProperty( 0.25, {
+    this.fourierSeriesSoundOutputLevelProperty = new NumberProperty( 0.25, {
       range: new Range( 0, 1 )
     } );
 
