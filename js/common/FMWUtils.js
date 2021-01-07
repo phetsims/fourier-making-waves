@@ -14,7 +14,7 @@ const FMWUtils = {
 
   /**
    * Resets all non-inherited, non-derived Properties of an object instance.
-   * It does not look up the prototype chain of the object.
+   * This does not look up the prototype chain of the object.
    * @param {Object }object
    * @public
    */
