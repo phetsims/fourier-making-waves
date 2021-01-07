@@ -8,7 +8,20 @@ Always compute at least one full cycle of the lowest-order harmonic, so that we 
 Dynamically optimize number of points in dataSets
 Auto Scale checkbox
 Infinite Harmonics checkbox
+
 Too many params in constructors
+SumChart 11
+LengthToolNode 10
+HarmonicsChart 8
+PeriodClockNode 7
+PeriodToolNode 7
+WavelengthToolNode 7
+MeasurementToolsLayoutBox 6
+DiscreteChart 5
+ExpandedFormDialog 4
+GraphControlsLayoutBox 4
+SumEquationNode 4
+
 
 # GitHub issues
 
