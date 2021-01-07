@@ -2,7 +2,7 @@
 
 /**
  * SoundLayoutBox contains controls for enabling sound and adjusting output level. It's used to control the sound
- * associated with the Fourier Series.
+ * associated with the Fourier series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
