@@ -32,8 +32,8 @@ class LengthToolNode extends VBox {
    * @param {string} symbol
    * @param {ChartTransform} chartTransform
    * @param {Harmonic[]} harmonics
-   * @param {Property.<number>} orderProperty - order of the harmonic to be measured
    * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {Property.<number>} orderProperty - order of the harmonic to be measured
    * @param {Property.<boolean>} selectedProperty - whether the tool is selected
    * @param {ObservableArrayDef} emphasizedHarmonics
    * @param {Property.<Bounds2>} dragBoundsProperty
@@ -42,8 +42,7 @@ class LengthToolNode extends VBox {
    * @param {Object} [options]
    */
   constructor( symbol, chartTransform, harmonics, domainProperty, orderProperty, selectedProperty,
-               emphasizedHarmonics, dragBoundsProperty,
-               getModelValue, getVisible, options ) {
+               emphasizedHarmonics, dragBoundsProperty, getModelValue, getVisible, options ) {
 
     assert && assert( typeof symbol === 'string', 'invalid symbol' );
     assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
