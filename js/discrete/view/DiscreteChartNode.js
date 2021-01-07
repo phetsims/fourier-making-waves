@@ -106,7 +106,8 @@ class DiscreteChartNode extends Node {
       tandem: options.tandem.createTandem( 'chartRectangle' )
     } );
 
-    // x axis
+    // x axis ---------------------------------------------------------
+
     const xAxis = new AxisNode( chartTransform, Orientation.HORIZONTAL, AXIS_OPTIONS );
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.gridLineSpacing, GRID_LINE_OPTIONS );
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
@@ -152,7 +153,8 @@ class DiscreteChartNode extends Node {
     // unlink is not needed
     equationFormProperty.link( () => xTickLabels.invalidateLabelSet() );
 
-    // y axis
+    // y axis ---------------------------------------------------------
+
     const yAxis = new AxisNode( chartTransform, Orientation.VERTICAL, AXIS_OPTIONS );
     const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, yAxisDescription.gridLineSpacing, GRID_LINE_OPTIONS );
     const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, yAxisDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
@@ -167,6 +169,8 @@ class DiscreteChartNode extends Node {
       maxWidth: 0.85 * chartRectangle.height,
       tandem: options.tandem.createTandem( 'yAxisLabel' )
     } );
+
+    // ---------------------------------------------------------------
 
     // Parent for Nodes that must be clipped to the bounds of chartRectangle
     const clippedParent = new Node( {

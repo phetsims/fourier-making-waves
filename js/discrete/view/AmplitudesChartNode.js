@@ -126,6 +126,8 @@ class AmplitudesChartNode extends Node {
       createLabel: value => new Text( Utils.toFixedNumber( value, Y_TICK_LABEL_DECIMAL_PLACES ), { fontSize: 12 } )
     } );
 
+    // ---------------------------------------------------------------
+
     assert && assert( !options.children, 'AmplitudesChartNode sets children' );
     options.children = [
       chartRectangle,
