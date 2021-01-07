@@ -9,18 +9,15 @@
 import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import OopsDialog from '../../../../scenery-phet/js/OopsDialog.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
-import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
-import ExpandCollapseButton from '../../../../sun/js/ExpandCollapseButton.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
+import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapseButton.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
@@ -40,7 +37,6 @@ import SumEquationNode from './SumEquationNode.js';
 import WavelengthToolNode from './WavelengthToolNode.js';
 
 // constants, determined empirically
-const EXPAND_TITLE_SPACING = 6;
 const CHART_TITLE_Y_SPACING = 15; // space between chart title and the chart
 const CHART_SIZE = new Dimension2( 645, 123 ); // size of the chart rectangles
 const X_CHART_RECTANGLES = 65; // x origin of the rectangle part of the charts, so that they are all aligned
@@ -77,21 +73,11 @@ class DiscreteScreenView extends ScreenView {
         tandem: tandem.createTandem( 'amplitudesChartNode' )
       } );
 
-    const harmonicsExpandCollapseButton = new ExpandCollapseButton( model.chartsModel.harmonicsChartVisibleProperty,
-      merge( {
+    const harmonicsExpandCollapseButton = new LabeledExpandCollapseButton(
+      fourierMakingWavesStrings.harmonicsChart, model.chartsModel.harmonicsChartVisibleProperty, {
+        textOptions: { maxWidth: 150 }, // determined empirically
         tandem: tandem.createTandem( 'harmonicsExpandCollapseButton' )
-      }, FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS ) );
-
-    const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonicsChart, {
-      font: FMWConstants.TITLE_FONT,
-      maxWidth: 150, // determined empirically, prevent overlap with equation,
-      tandem: tandem.createTandem( 'harmonicsTitleNode' )
-    } );
-
-    const harmonicsHBox = new HBox( {
-      children: [ harmonicsExpandCollapseButton, harmonicsTitleNode ],
-      spacing: EXPAND_TITLE_SPACING
-    } );
+      } );
 
     const harmonicsChartNode = new HarmonicsChartNode( model.fourierSeries, model.tProperty,
       model.domainProperty, model.seriesTypeProperty, model.equationFormProperty,
@@ -118,21 +104,11 @@ class DiscreteScreenView extends ScreenView {
         harmonicsEquationNode.visible = harmonicsChartVisible && ( equationForm !== EquationForm.HIDDEN );
       } );
 
-    const sumExpandCollapseButton = new ExpandCollapseButton( model.chartsModel.sumChartVisibleProperty,
-      merge( {
+    const sumExpandCollapseButton = new LabeledExpandCollapseButton(
+      fourierMakingWavesStrings.sum, model.chartsModel.sumChartVisibleProperty, {
+        textOptions: { maxWidth: 150 }, // determined empirically
         tandem: tandem.createTandem( 'sumExpandCollapseButton' )
-      }, FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS ) );
-
-    const sumTitleNode = new Text( fourierMakingWavesStrings.sum, {
-      font: FMWConstants.TITLE_FONT,
-      maxWidth: 150, // determined empirically, prevent overlap with equation
-      tandem: tandem.createTandem( 'sumTitleNode' )
-    } );
-
-    const sumHBox = new HBox( {
-      children: [ sumExpandCollapseButton, sumTitleNode ],
-      spacing: EXPAND_TITLE_SPACING
-    } );
+      } );
 
     const sumChartNode = new SumChartNode( model.fourierSeries, harmonicsChartNode.sumDataSetProperty,
       model.waveformProperty, model.domainProperty, model.equationFormProperty,
@@ -141,8 +117,8 @@ class DiscreteScreenView extends ScreenView {
       model.chartsModel.autoScaleProperty, model.chartsModel.infiniteHarmonicsProperty, {
         viewWidth: CHART_SIZE.width,
         viewHeight: CHART_SIZE.height,
-        left: sumHBox.left,
-        y: sumHBox.bottom + CHART_TITLE_Y_SPACING,
+        left: sumExpandCollapseButton.left,
+        y: sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING,
         visibleProperty: model.chartsModel.sumChartVisibleProperty,
         tandem: tandem.createTandem( 'sumChartNode' )
       } );
@@ -231,10 +207,10 @@ class DiscreteScreenView extends ScreenView {
 
     // Rendering order
     this.addChild( amplitudesChartNode );
-    this.addChild( harmonicsHBox );
+    this.addChild( harmonicsExpandCollapseButton );
     this.addChild( harmonicsChartNode );
     this.addChild( harmonicsEquationNode );
-    this.addChild( sumHBox );
+    this.addChild( sumExpandCollapseButton );
     this.addChild( sumChartNode );
     this.addChild( sumEquationNode );
     this.addChild( expandedFormButton );
@@ -249,16 +225,16 @@ class DiscreteScreenView extends ScreenView {
     // Layout, spacing set empirically
     amplitudesChartNode.x = X_CHART_RECTANGLES;
     amplitudesChartNode.y = 54;
-    harmonicsHBox.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-    harmonicsHBox.top = amplitudesChartNode.bottom + 15;
+    harmonicsExpandCollapseButton.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+    harmonicsExpandCollapseButton.top = amplitudesChartNode.bottom + 15;
     harmonicsChartNode.x = X_CHART_RECTANGLES;
-    harmonicsChartNode.y = harmonicsHBox.bottom + CHART_TITLE_Y_SPACING;
+    harmonicsChartNode.y = harmonicsExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
     harmonicsEquationNode.center = harmonicsChartNode.center;
     harmonicsEquationNode.bottom = harmonicsChartNode.top - 3;
-    sumHBox.left = harmonicsHBox.left;
-    sumHBox.top = harmonicsChartNode.bottom + 30;
+    sumExpandCollapseButton.left = harmonicsExpandCollapseButton.left;
+    sumExpandCollapseButton.top = harmonicsChartNode.bottom + 30;
     sumChartNode.x = X_CHART_RECTANGLES;
-    sumChartNode.y = sumHBox.bottom + CHART_TITLE_Y_SPACING;
+    sumChartNode.y = sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
     controlPanel.right = this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
     controlPanel.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
     timeControlNode.left = controlPanel.left + 30;
