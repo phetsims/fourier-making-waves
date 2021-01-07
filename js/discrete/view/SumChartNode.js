@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
@@ -17,11 +16,8 @@ import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomB
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import AxisDescription from '../model/AxisDescription.js';
-import Domain from '../model/Domain.js';
-import EquationForm from '../model/EquationForm.js';
+import DiscreteModel from '../model/DiscreteModel.js';
 import Waveform from '../model/Waveform.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
 import DiscreteChartNode from './DiscreteChartNode.js';
@@ -30,35 +26,14 @@ import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 class SumChartNode extends DiscreteChartNode {
 
   /**
-   * @param {FourierSeries} fourierSeries
+   * @param {DiscreteModel} model
    * @param {Property.<Vector2[]>} sumDataSetProperty
-   * @param {EnumerationProperty.<Waveform>} waveformProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
-   * @param {NumberProperty} xZoomLevelProperty
-   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {NumberProperty} yZoomLevelProperty
-   * @param {Property.<AxisDescription>} yAxisDescriptionProperty
-   * @param {Property.<boolean>} autoScaleProperty
-   * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, sumDataSetProperty, waveformProperty, domainProperty, equationFormProperty,
-               xZoomLevelProperty, xAxisDescriptionProperty,
-               yZoomLevelProperty, yAxisDescriptionProperty,
-               autoScaleProperty, infiniteHarmonicsVisibleProperty, options ) {
+  constructor( model, sumDataSetProperty, options ) {
 
-    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
+    assert && assert( model instanceof DiscreteModel, 'invalid model' );
     assert && AssertUtils.assertPropertyOf( sumDataSetProperty, Array );
-    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
-    assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
-    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
-    assert && assert( yZoomLevelProperty instanceof NumberProperty, 'invalid yZoomLevelProperty' );
-    assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
-    assert && AssertUtils.assertPropertyOf( autoScaleProperty, 'boolean' );
-    assert && AssertUtils.assertPropertyOf( infiniteHarmonicsVisibleProperty, 'boolean' );
 
     options = merge( {
 
@@ -66,7 +41,14 @@ class SumChartNode extends DiscreteChartNode {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( fourierSeries, domainProperty, equationFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options );
+    super( model, options );
+
+    // fields of interest in the model, to improve readability
+    const waveformProperty = model.waveformProperty;
+    const yZoomLevelProperty = model.chartsModel.yZoomLevelProperty;
+    const yAxisDescriptionProperty = model.chartsModel.yAxisDescriptionProperty;
+    const autoScaleProperty = model.chartsModel.autoScaleProperty;
+    const infiniteHarmonicsVisibleProperty = model.chartsModel.infiniteHarmonicsVisibleProperty;
 
     // Zoom buttons for the y-axis range
     const yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {

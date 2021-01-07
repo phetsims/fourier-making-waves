@@ -6,11 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import AxisNode from '../../../../bamboo/js/AxisNode.js';
-import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
@@ -18,7 +17,6 @@ import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Fraction from '../../../../phetcommon/js/model/Fraction.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
@@ -31,12 +29,12 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
-import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import AxisDescription from '../model/AxisDescription.js';
+import DiscreteModel from '../model/DiscreteModel.js';
 import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
-import AxisDescription from '../model/AxisDescription.js';
 
 // constants
 const AXIS_OPTIONS = {
@@ -63,20 +61,12 @@ const TICK_LABEL_DECIMAL_PLACES = 2;
 class DiscreteChartNode extends Node {
 
   /**
-   * @param {FourierSeries} fourierSeries
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
-   * @param {NumberProperty} xZoomLevelProperty
-   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
+   * @param {DiscreteModel} model
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, equationFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options ) {
+  constructor( model, options ) {
 
-    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
-    assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
-    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
+    assert && assert( model instanceof DiscreteModel, 'invalid model' );
 
     options = merge( {
 
@@ -87,6 +77,13 @@ class DiscreteChartNode extends Node {
       // phet-io
       tandem: Tandem.REQUIRED
     }, options );
+
+    // fields of interest in the model, to improve readability
+    const fourierSeries = model.fourierSeries;
+    const domainProperty = model.domainProperty;
+    const equationFormProperty = model.equationFormProperty;
+    const xZoomLevelProperty = model.chartsModel.xZoomLevelProperty;
+    const xAxisDescriptionProperty = model.chartsModel.xAxisDescriptionProperty;
 
     const xAxisDescription = xAxisDescriptionProperty.value;
     const yAxisDescription = AxisDescription.Y_AXIS_DESCRIPTIONS[ AxisDescription.Y_DEFAULT_ZOOM_LEVEL ];

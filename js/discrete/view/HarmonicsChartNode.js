@@ -8,8 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import ObservableArrayDef from '../../../../axon/js/ObservableArrayDef.js';
 import Property from '../../../../axon/js/Property.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
@@ -18,11 +16,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import AxisDescription from '../model/AxisDescription.js';
+import DiscreteModel from '../model/DiscreteModel.js';
 import Domain from '../model/Domain.js';
-import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../model/SeriesType.js';
 import DiscreteChartNode from './DiscreteChartNode.js';
 import HarmonicPlot from './HarmonicPlot.js';
@@ -42,27 +38,12 @@ const DE_EMPHASIZED_STROKE = Color.grayColor( 150 );
 class HarmonicsChartNode extends DiscreteChartNode {
 
   /**
-   * @param {FourierSeries} fourierSeries
-   * @param {Property.<number>} tProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
-   * @param {NumberProperty} xZoomLevelProperty
-   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {ObservableArrayDef} emphasizedHarmonics
+   * @param {DiscreteModel} model
    * @param {Object} [options]
    */
-  constructor( fourierSeries, tProperty, domainProperty, seriesTypeProperty, equationFormProperty,
-               xZoomLevelProperty, xAxisDescriptionProperty, emphasizedHarmonics, options ) {
+  constructor( model, options ) {
 
-    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
-    assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
-    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
-    assert && assert( xZoomLevelProperty instanceof NumberProperty, 'invalid xZoomLevelProperty' );
-    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
-    assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
+    assert && assert( model instanceof DiscreteModel, 'invalid model' );
 
     options = merge( {
 
@@ -70,7 +51,14 @@ class HarmonicsChartNode extends DiscreteChartNode {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( fourierSeries, domainProperty, equationFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options );
+    super( model, options );
+
+    // fields of interest in the model, to improve readability
+    const fourierSeries = model.fourierSeries;
+    const tProperty = model.tProperty;
+    const domainProperty = model.domainProperty;
+    const seriesTypeProperty = model.seriesTypeProperty;
+    const emphasizedHarmonics = model.chartsModel.emphasizedHarmonics;
 
     // @public {Property.<Vector2[]>} data set for the sum of the harmonics, drawn by the Sum chart
     this.sumDataSetProperty = new Property( [] );

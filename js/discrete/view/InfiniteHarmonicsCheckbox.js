@@ -16,10 +16,10 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 class InfiniteHarmonicsCheckbox extends Checkbox {
 
   /**
-   * @param {Property.<boolean>} infiniteHarmonicsProperty
+   * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( infiniteHarmonicsProperty, options ) {
+  constructor( infiniteHarmonicsVisibleProperty, options ) {
 
     options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, options );
 
@@ -28,7 +28,7 @@ class InfiniteHarmonicsCheckbox extends Checkbox {
       maxWidth: 200 // determined empirically
     } );
 
-    super( labelNode, infiniteHarmonicsProperty, options );
+    super( labelNode, infiniteHarmonicsVisibleProperty, options );
   }
 }
 

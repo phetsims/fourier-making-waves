@@ -10,14 +10,11 @@ Auto Scale checkbox
 Infinite Harmonics checkbox
 
 Too many params in constructors:
-SumChartNode 11
 LengthToolNode 10
-HarmonicsChartNode 8
 PeriodClockNode 7
 PeriodToolNode 7
 WavelengthToolNode 7
 MeasurementToolsLayoutBox 6
-DiscreteChartNode 5
 ExpandedFormDialog 4
 GraphControlsLayoutBox 4
 SumEquationNode 4

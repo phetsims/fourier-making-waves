@@ -79,15 +79,12 @@ class DiscreteScreenView extends ScreenView {
         tandem: tandem.createTandem( 'harmonicsExpandCollapseButton' )
       } );
 
-    const harmonicsChartNode = new HarmonicsChartNode( model.fourierSeries, model.tProperty,
-      model.domainProperty, model.seriesTypeProperty, model.equationFormProperty,
-      model.chartsModel.xZoomLevelProperty, model.chartsModel.xAxisDescriptionProperty,
-      model.chartsModel.emphasizedHarmonics, {
-        viewWidth: CHART_RECTANGLE_SIZE.width,
-        viewHeight: CHART_RECTANGLE_SIZE.height,
-        visibleProperty: model.chartsModel.harmonicsChartVisibleProperty,
-        tandem: tandem.createTandem( 'harmonicsChartNode' )
-      } );
+    const harmonicsChartNode = new HarmonicsChartNode( model, {
+      viewWidth: CHART_RECTANGLE_SIZE.width,
+      viewHeight: CHART_RECTANGLE_SIZE.height,
+      visibleProperty: model.chartsModel.harmonicsChartVisibleProperty,
+      tandem: tandem.createTandem( 'harmonicsChartNode' )
+    } );
 
     // Equation that appears above the Harmonics chart
     const harmonicsEquationNode = new HarmonicsEquationNode(
@@ -110,18 +107,15 @@ class DiscreteScreenView extends ScreenView {
         tandem: tandem.createTandem( 'sumExpandCollapseButton' )
       } );
 
-    const sumChartNode = new SumChartNode( model.fourierSeries, harmonicsChartNode.sumDataSetProperty,
-      model.waveformProperty, model.domainProperty, model.equationFormProperty,
-      model.chartsModel.xZoomLevelProperty, model.chartsModel.xAxisDescriptionProperty,
-      model.chartsModel.yZoomLevelProperty, model.chartsModel.yAxisDescriptionProperty,
-      model.chartsModel.autoScaleProperty, model.chartsModel.infiniteHarmonicsProperty, {
-        viewWidth: CHART_RECTANGLE_SIZE.width,
-        viewHeight: CHART_RECTANGLE_SIZE.height,
-        left: sumExpandCollapseButton.left,
-        y: sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING,
-        visibleProperty: model.chartsModel.sumChartVisibleProperty,
-        tandem: tandem.createTandem( 'sumChartNode' )
-      } );
+    //TODO move sumDataSetProperty to model.chartsModel?
+    const sumChartNode = new SumChartNode( model, harmonicsChartNode.sumDataSetProperty, {
+      viewWidth: CHART_RECTANGLE_SIZE.width,
+      viewHeight: CHART_RECTANGLE_SIZE.height,
+      left: sumExpandCollapseButton.left,
+      y: sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING,
+      visibleProperty: model.chartsModel.sumChartVisibleProperty,
+      tandem: tandem.createTandem( 'sumChartNode' )
+    } );
 
     // Equation that appears above the Sum chart
     const sumEquationNode = new SumEquationNode( model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty,
