@@ -1,9 +1,11 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * AmplitudesChartNode displays and controls the amplitudes for harmonics in a Fourier series. Amplitudes are displayed
- * as a bar chart, where each bar is a slider. Amplitude can be adjusted using the slider, or by using a Keypad that
- * opens when a NumberDisplay is pressed.
+ * AmplitudesChartNode displays and controls the amplitudes for harmonics in a Fourier series.
+ * The x axis is harmonic order (1-N), the y axis is amplitude.
+ *
+ * Amplitudes are displayed as a bar chart, where each bar is a slider. Amplitude can be adjusted using the slider,
+ * or by using a Keypad that opens when a NumberDisplay is pressed.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -34,51 +36,47 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Waveform from '../model/Waveform.js';
 
+// constants
+const X_MARGIN = 0.5; // x-axis margins, in model coordinates
+const Y_TICK_SPACING = 0.5; // spacing of y-axis tick marks, in model coordinates
+const Y_TICK_LABEL_DECIMAL_PLACES = 1;
+
 class AmplitudesChartNode extends Node {
 
   /**
    * @param {FourierSeries} fourierSeries
-   * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog
    * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {ObservableArrayDef} emphasizedHarmonics
+   * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
    * @param {Object} [options]
    */
-  constructor( fourierSeries, amplitudeKeypadDialog, waveformProperty, emphasizedHarmonics, options ) {
+  constructor( fourierSeries, waveformProperty, emphasizedHarmonics, amplitudeKeypadDialog, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
-    assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog, 'invalid amplitudeKeypadDialog' );
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
     assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
+    assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog, 'invalid amplitudeKeypadDialog' );
 
     options = merge( {
-
-      // {number} dimensions of the chart rectangle, in view coordinates
-      viewWidth: 100,
-      viewHeight: 100,
 
       // phet-io
       tandem: Tandem.REQUIRED
     }, options );
 
-    // the transform between model and view coordinate frames
+    // the transform from model to view coordinates
     const chartTransform = new ChartTransform( {
       viewWidth: options.viewWidth,
       viewHeight: options.viewHeight,
-      modelXRange: new Range( fourierSeries.numberOfHarmonicsProperty.range.min - 0.5, fourierSeries.numberOfHarmonicsProperty.range.max + 0.5 ),
+      modelXRange: new Range(
+        fourierSeries.numberOfHarmonicsProperty.range.min - X_MARGIN,
+        fourierSeries.numberOfHarmonicsProperty.range.max + X_MARGIN
+      ),
       modelYRange: fourierSeries.amplitudeRange
     } );
 
     const chartRectangle = new ChartRectangle( chartTransform );
 
-    const yGridLineSet = new GridLineSet( chartTransform, Orientation.VERTICAL, 0.5, {
-      stroke: FMWColorProfile.amplitudeGridLinesStrokeProperty,
-      lineWidth: 0.5
-    } );
-
-    const yLabelSet = new LabelSet( chartTransform, Orientation.VERTICAL, 0.5, {
-      edge: 'min',
-      createLabel: value => new Text( Utils.toFixedNumber( value, 1 ), { fontSize: 12 } )
-    } );
+    // x axis ---------------------------------------------------------
 
     const xAxisLabel = new RichText( FMWSymbols.n, {
       font: FMWConstants.AXIS_LABEL_FONT,
@@ -86,15 +84,6 @@ class AmplitudesChartNode extends Node {
       centerY: chartRectangle.centerY,
       maxWidth: 30, // determined empirically
       tandem: options.tandem.createTandem( 'xAxisLabel' )
-    } );
-
-    const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
-      font: FMWConstants.AXIS_LABEL_FONT,
-      rotation: -Math.PI / 2,
-      right: -FMWConstants.Y_AXIS_LABEL_SPACING,
-      centerY: chartRectangle.centerY,
-      maxWidth: 0.85 * chartRectangle.height,
-      tandem: options.tandem.createTandem( 'yAxisLabel' )
     } );
 
     // Create a slider for each harmonic's amplitude
@@ -115,18 +104,39 @@ class AmplitudesChartNode extends Node {
       } )
     );
 
+    // y axis ---------------------------------------------------------
+
+    const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
+      font: FMWConstants.AXIS_LABEL_FONT,
+      rotation: -Math.PI / 2,
+      right: -FMWConstants.Y_AXIS_LABEL_SPACING,
+      centerY: chartRectangle.centerY,
+      maxWidth: 0.85 * chartRectangle.height,
+      tandem: options.tandem.createTandem( 'yAxisLabel' )
+    } );
+
+    const yGridLineSet = new GridLineSet( chartTransform, Orientation.VERTICAL, Y_TICK_SPACING, {
+      stroke: FMWColorProfile.amplitudeGridLinesStrokeProperty,
+      lineWidth: 0.5
+    } );
+
+    const yLabelSet = new LabelSet( chartTransform, Orientation.VERTICAL, Y_TICK_SPACING, {
+      edge: 'min',
+      // Create tick labels with trailing zeros removed from decimal places.
+      createLabel: value => new Text( Utils.toFixedNumber( value, Y_TICK_LABEL_DECIMAL_PLACES ), { fontSize: 12 } )
+    } );
+
     assert && assert( !options.children, 'AmplitudesChartNode sets children' );
     options.children = [
       chartRectangle,
-      xAxisLabel,
-      yAxisLabel, yGridLineSet, yLabelSet,
-      ...sliders,
-      ...numberDisplays
+      xAxisLabel, ...sliders, ...numberDisplays,
+      yAxisLabel, yGridLineSet, yLabelSet
     ];
 
     super( options );
 
-    // Hide sliders and number displays that are not part of the series
+    // Hide sliders and number displays that are not part of the series.
+    // Note that it's the model's responsibility to set the amplitude for hidden harmonics to zero.
     fourierSeries.numberOfHarmonicsProperty.link( numberOfHarmonics => {
       assert && assert( numberOfHarmonics > 0 && numberOfHarmonics <= sliders.length,
         `unsupported numberOfHarmonics: ${numberOfHarmonics}` );
