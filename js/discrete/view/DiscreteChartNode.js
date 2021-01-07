@@ -189,10 +189,8 @@ class DiscreteChartNode extends Node {
 
     super( options );
 
-    // @public for layout and clipping
+    // @public for use by subclasses and clients
     this.chartRectangle = chartRectangle;
-
-    // @public for decorations added by clients
     this.chartTransform = chartTransform;
 
     // @protected for layout of decorations added by subclasses
