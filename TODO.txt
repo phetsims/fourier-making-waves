@@ -6,7 +6,6 @@ Move chart model out of HarmonicsChartNode.js:
 * Move {Property.<Array.<Vector2>>} sumDataSetProperty and the logic for computing it from HarmonicsChartNode to DiscreteChartsModel
 * Add {Array.<Property.<Vector2>>} harmonicDataSetProperties and logic that sets them to DiscreteChartsModel
 
-Initial, resettable positions for measurement tools
 Always compute at least one full cycle of the lowest-order harmonic, so that we know the max for auto scale
 Dynamically optimize number of points in dataSets
 Auto Scale checkbox
@@ -22,5 +21,7 @@ Too many params in constructors:
 ## GitHub issues
 
 #25 CT: all data sets must have the same number of points
-#33 CT: Cannot read property 'y' of undefined type:automated-testing
 #31 Harmonic plot emphasis #31
+#33 CT: Cannot read property 'y' of undefined type:automated-testing
+#39 Measurement Tools: initial positions, resettable positions, drag bounds
+#40 Discrete equation positions are incorrect with ?stringTest=long
