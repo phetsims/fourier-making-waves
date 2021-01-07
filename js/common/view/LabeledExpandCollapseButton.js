@@ -50,7 +50,6 @@ class LabeledExpandCollapseButton extends HBox {
         tandem: options.tandem.createTandem( 'expandCollapseButton' )
       }, options.expandCollapseButtonOptions ) );
 
-
     assert && assert( !options.children, 'LabeledExpandCollapseButton sets children' );
     options.children = [ expandCollapseButton, labelNode ];
 
