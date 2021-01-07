@@ -10,6 +10,7 @@ Always compute at least one full cycle of the lowest-order harmonic, so that we 
 Dynamically optimize number of points in dataSets
 Auto Scale checkbox
 Infinite Harmonics checkbox
+Factor out DragListener to share between all Measurement Tools
 
 Too many params in constructors:
 * LengthToolNode 10
