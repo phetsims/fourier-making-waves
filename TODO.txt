@@ -13,10 +13,10 @@ Infinite Harmonics checkbox
 
 Too many params in constructors:
 * LengthToolNode 10
+  * WavelengthToolNode 7
+  * PeriodToolNode 7
 * PeriodClockNode 7
-* PeriodToolNode 7
-* WavelengthToolNode 7
-* MeasurementToolsLayoutBox 6
+
 
 ## GitHub issues
 
