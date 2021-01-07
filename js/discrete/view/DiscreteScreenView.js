@@ -185,17 +185,14 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
-    //TODO do not reach into HarmonicsChartNode for chartTransform
-    const harmonicsChartTransform = harmonicsChartNode.chartTransform;
-
     // For measuring the wavelength of a specific harmonic in the 'space' and 'space & time' domains.
-    const wavelengthToolNode = new WavelengthToolNode( harmonicsChartTransform,
+    const wavelengthToolNode = new WavelengthToolNode( harmonicsChartNode.chartTransform,
       model.fourierSeries.harmonics, model.domainProperty,
       model.wavelengthToolOrderProperty, model.wavelengthToolSelectedProperty,
       model.chartsModel.emphasizedHarmonics, this.visibleBoundsProperty );
 
     // For measuring the period of a specific harmonic in the 'time' domain.
-    const periodToolNode = new PeriodToolNode( harmonicsChartTransform,
+    const periodToolNode = new PeriodToolNode( harmonicsChartNode.chartTransform,
       model.fourierSeries.harmonics, model.domainProperty,
       model.periodToolOrderProperty, model.periodToolSelectedProperty,
       model.chartsModel.emphasizedHarmonics, this.visibleBoundsProperty );
