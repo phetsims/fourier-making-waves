@@ -9,9 +9,9 @@
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
-import LengthToolNode from './LengthToolNode.js';
+import WidthToolNode from './WidthToolNode.js';
 
-class PeriodToolNode extends LengthToolNode {
+class PeriodToolNode extends WidthToolNode {
 
   /**
    * @param {ChartTransform} chartTransform

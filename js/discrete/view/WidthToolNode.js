@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * LengthToolNode is the base class for tools used to measure a quantity of a harmonic that has a width.
+ * WidthToolNode is the base class for tools used to measure a quantity of a harmonic that has a width.
  * Responsible for synchronizing with the selected harmonic, and for its own visibility.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -26,7 +26,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 
-class LengthToolNode extends VBox {
+class WidthToolNode extends VBox {
 
   /**
    * @param {string} symbol
@@ -193,5 +193,5 @@ class LengthToolNode extends VBox {
   }
 }
 
-fourierMakingWaves.register( 'LengthToolNode', LengthToolNode );
-export default LengthToolNode;
+fourierMakingWaves.register( 'WidthToolNode', WidthToolNode );
+export default WidthToolNode;
