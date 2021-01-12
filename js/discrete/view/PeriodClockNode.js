@@ -18,7 +18,6 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import DragBoundsProperty from '../../../../scenery-phet/js/DragBoundsProperty.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
-import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
@@ -31,7 +30,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import Domain from '../model/Domain.js';
 
-class PeriodClockNode extends HBox {
+class PeriodClockNode extends Node {
 
   /**
    * @param {DiscreteModel} model
@@ -56,7 +55,8 @@ class PeriodClockNode extends HBox {
     const clockFaceNode = new ClockFaceNode( harmonicProperty, model.tProperty );
 
     const labelNode = new RichText( '', {
-      font: FMWConstants.TOOL_LABEL_FONT
+      font: FMWConstants.TOOL_LABEL_FONT,
+      maxWidth: 50
     } );
 
     // A translucent background for the label
@@ -65,7 +65,7 @@ class PeriodClockNode extends HBox {
     } );
 
     assert && assert( !options.children, 'PeriodClockNode sets children' );
-    options.children = [ clockFaceNode, new Node( { children: [ backgroundNode, labelNode ] } ) ];
+    options.children = [ clockFaceNode, backgroundNode, labelNode ];
 
     super( options );
 
@@ -94,6 +94,8 @@ class PeriodClockNode extends HBox {
 
       // Change the label
       labelNode.text = `${FMWSymbols.T}<sub>${harmonic.order}</sub>`;
+      labelNode.left = clockFaceNode.right + 6;
+      labelNode.centerY = clockFaceNode.centerY;
 
       // Resize the background to fit the label, and keep label centered in background.
       backgroundNode.setRect( 0, 0, 1.2 * labelNode.width, 1.1 * labelNode.height );

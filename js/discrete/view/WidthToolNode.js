@@ -151,7 +151,8 @@ class WidthToolNode extends VBox {
       //TODO reuse
       // Label is the symbol with harmonic order subscript
       const labelNode = new RichText( `${this.symbol}<sub>${this.harmonic.order}</sub>`, {
-        font: FMWConstants.TOOL_LABEL_FONT
+        font: FMWConstants.TOOL_LABEL_FONT,
+        maxWidth: 50
       } );
 
       //TODO reuse
