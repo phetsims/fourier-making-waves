@@ -86,13 +86,16 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem.createTandem( 'harmonicsChartNode' )
     } );
 
-    // Equation that appears above the Harmonics chart
+    // Equation that appears above the Harmonics chart, with wrapper Node to handle centering
     const harmonicsEquationNode = new HarmonicsEquationNode(
       model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, {
         maxWidth: 0.5 * CHART_RECTANGLE_SIZE.width,
         tandem: tandem.createTandem( 'harmonicsEquationNode' ),
         phetioReadOnly: true
       } );
+    const harmonicsEquationWrapperNode = new Node( {
+      children: [ harmonicsEquationNode ]
+    } );
 
     // Visibility of the equation above the Harmonics chart
     Property.multilink(
@@ -117,13 +120,16 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem.createTandem( 'sumChartNode' )
     } );
 
-    // Equation that appears above the Sum chart
+    // Equation that appears above the Sum chart, with wrapper Node to handle centering
     const sumEquationNode = new SumEquationNode( model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty,
       model.seriesTypeProperty, model.equationFormProperty, {
         maxWidth: 0.5 * CHART_RECTANGLE_SIZE.width,
         tandem: tandem.createTandem( 'sumEquationNode' ),
         phetioReadOnly: true
       } );
+    const sumEquationWrapperNode = new Node( {
+      children: [ sumEquationNode ]
+    } );
 
     // Push button that opens the 'Expanded Sum' dialog
     const expandedFormButton = new ExpandedFormButton( {
@@ -200,10 +206,10 @@ class DiscreteScreenView extends ScreenView {
     this.addChild( amplitudesChartNode );
     this.addChild( harmonicsExpandCollapseButton );
     this.addChild( harmonicsChartNode );
-    this.addChild( harmonicsEquationNode );
+    this.addChild( harmonicsEquationWrapperNode );
     this.addChild( sumExpandCollapseButton );
     this.addChild( sumChartNode );
-    this.addChild( sumEquationNode );
+    this.addChild( sumEquationWrapperNode );
     this.addChild( expandedFormButton );
     this.addChild( controlPanel );
     this.addChild( timeControlNode );
@@ -220,8 +226,6 @@ class DiscreteScreenView extends ScreenView {
     harmonicsExpandCollapseButton.top = amplitudesChartNode.bottom + 15;
     harmonicsChartNode.x = X_CHART_RECTANGLES;
     harmonicsChartNode.y = harmonicsExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
-    harmonicsEquationNode.center = harmonicsChartNode.center;
-    harmonicsEquationNode.bottom = harmonicsChartNode.top - 3;
     sumExpandCollapseButton.left = harmonicsExpandCollapseButton.left;
     sumExpandCollapseButton.top = harmonicsChartNode.bottom + 30;
     sumChartNode.x = X_CHART_RECTANGLES;
@@ -233,19 +237,20 @@ class DiscreteScreenView extends ScreenView {
     resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
 
-    //TODO https://github.com/phetsims/fourier-making-waves/issues/40, position incorrect with stringTest=long
-    // Center equations above their respective charts
-    harmonicsEquationNode.localBoundsProperty.link( () => {
+    // Center equations above their respective charts.
+    // Since we need to listen to the bounds of these equations in order to respect their maxWidth, wrapper Nodes are
+    // transformed. See https://github.com/phetsims/fourier-making-waves/issues/40
+    harmonicsEquationNode.boundsProperty.link( () => {
 
       // Get the bounds of the Harmonics chart's rectangle in the proper coordinate frame.
       const chartRectangleGlobalBounds = harmonicsChartNode.chartRectangle.parentToGlobalBounds( harmonicsChartNode.chartRectangle.bounds );
       const chartRectangleLocalBounds = this.globalToLocalBounds( chartRectangleGlobalBounds );
 
       // Center the equation above the Harmonics chart.
-      harmonicsEquationNode.centerX = chartRectangleLocalBounds.centerX;
-      harmonicsEquationNode.bottom = chartRectangleLocalBounds.top - 3;
+      harmonicsEquationWrapperNode.centerX = chartRectangleLocalBounds.centerX;
+      harmonicsEquationWrapperNode.bottom = chartRectangleLocalBounds.top - 3;
     } );
-    sumEquationNode.localBoundsProperty.link( () => {
+    sumEquationNode.boundsProperty.link( () => {
 
       // Ensure that expandedFormButton is always above the chart, regardless of how tall the equation is.
       const maxHeight = Math.max( sumEquationNode.height, expandedFormButton.height );
@@ -255,12 +260,12 @@ class DiscreteScreenView extends ScreenView {
       const chartRectangleLocalBounds = this.globalToLocalBounds( chartRectangleGlobalBounds );
 
       // Center the equation above the Sum chart.
-      sumEquationNode.centerX = chartRectangleLocalBounds.centerX;
-      sumEquationNode.centerY = chartRectangleLocalBounds.top - ( maxHeight / 2 ) - 3;
+      sumEquationWrapperNode.centerX = chartRectangleLocalBounds.centerX;
+      sumEquationWrapperNode.centerY = chartRectangleLocalBounds.top - ( maxHeight / 2 ) - 3;
 
       // Button to the right of the equation
-      expandedFormButton.left = sumEquationNode.right + 20;
-      expandedFormButton.centerY = sumEquationNode.centerY;
+      expandedFormButton.left = sumEquationWrapperNode.right + 20;
+      expandedFormButton.centerY = sumEquationWrapperNode.centerY;
     } );
 
     //TODO https://github.com/phetsims/fourier-making-waves/issues/39 initial position, resettable?
