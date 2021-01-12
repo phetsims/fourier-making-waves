@@ -6,6 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
@@ -16,19 +18,30 @@ class PeriodToolNode extends WidthToolNode {
   /**
    * @param {ChartTransform} chartTransform
    * @param {Harmonic[]} harmonics
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    * @param {Property.<number>} orderProperty - order of the harmonic to display
-   * @param {Property.<boolean>} selectedProperty - whether the tool is selected
-   * @param {ObservableArrayDef} emphasizedHarmonics
    * @param {Property.<Bounds2>} dragBoundsProperty
+   * @param {Property.<boolean>} selectedProperty - whether the tool is selected
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
-  constructor( chartTransform, harmonics, domainProperty, orderProperty, selectedProperty, emphasizedHarmonics, dragBoundsProperty, options ) {
-    super( FMWSymbols.T, chartTransform, harmonics, domainProperty, orderProperty, selectedProperty,
-      emphasizedHarmonics, dragBoundsProperty,
+  constructor( chartTransform, harmonics, emphasizedHarmonics, orderProperty, dragBoundsProperty, selectedProperty, domainProperty, options ) {
+
+    // other args will be validated by super
+    assert && AssertUtils.assertPropertyOf( selectedProperty, 'boolean' );
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+
+    super( FMWSymbols.T,
+      chartTransform, harmonics, emphasizedHarmonics, orderProperty, dragBoundsProperty,
       harmonic => harmonic.period,
-      ( selected, domain ) => selected && ( domain === Domain.TIME ),
       options );
+
+    // Visibility, unmultilink is not needed.
+    Property.multilink( [ selectedProperty, domainProperty ],
+      ( selected, domain ) => {
+        this.interruptDrag();
+        this.visible = ( selected && ( domain === Domain.TIME ) );
+      } );
   }
 }
 

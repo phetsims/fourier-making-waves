@@ -13,7 +13,7 @@ Infinite Harmonics checkbox
 Factor out DragListener to share between all Measurement Tools
 
 Too many params in constructors:
-* WidthToolNode 10
+* WidthToolNode 7
   * WavelengthToolNode 7
   * PeriodToolNode 7
 * PeriodClockNode 7

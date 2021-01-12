@@ -24,7 +24,6 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import Domain from '../model/Domain.js';
 
 class WidthToolNode extends VBox {
 
@@ -32,28 +31,21 @@ class WidthToolNode extends VBox {
    * @param {string} symbol
    * @param {ChartTransform} chartTransform
    * @param {Harmonic[]} harmonics
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    * @param {Property.<number>} orderProperty - order of the harmonic to be measured
-   * @param {Property.<boolean>} selectedProperty - whether the tool is selected
-   * @param {ObservableArrayDef} emphasizedHarmonics
    * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {function(harmonic:Harmonic):number} getModelValue
-   * @param {function(selected:boolean, domain:Domain):boolean} getVisible
    * @param {Object} [options]
    */
-  constructor( symbol, chartTransform, harmonics, domainProperty, orderProperty, selectedProperty,
-               emphasizedHarmonics, dragBoundsProperty, getModelValue, getVisible, options ) {
+  constructor( symbol, chartTransform, harmonics, emphasizedHarmonics, orderProperty, dragBoundsProperty, getModelValue, options ) {
 
     assert && assert( typeof symbol === 'string', 'invalid symbol' );
     assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
     assert && assert( Array.isArray( harmonics ), 'invalid harmonics' );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( orderProperty, 'number' );
-    assert && AssertUtils.assertPropertyOf( selectedProperty, 'boolean' );
     assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
+    assert && AssertUtils.assertPropertyOf( orderProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
     assert && assert( typeof getModelValue === 'function', 'invalid getModelValue' );
-    assert && assert( typeof getVisible === 'function', 'invalid getVisible' );
 
     options = merge( {
       spacing: 2, // between label and tool
@@ -63,8 +55,9 @@ class WidthToolNode extends VBox {
     super();
 
     // @private
-    this.chartTransform = chartTransform;
     this.symbol = symbol;
+    this.chartTransform = chartTransform;
+    this.emphasizedHarmonics = emphasizedHarmonics;
     this.getModelValue = getModelValue;
     this.harmonic = harmonics[ orderProperty.value ];
     this.viewValue = 0;
@@ -82,44 +75,28 @@ class WidthToolNode extends VBox {
 
     const derivedDragBoundsProperty = new DragBoundsProperty( this, dragBoundsProperty );
 
-    const dragListener = new DragListener( {
+    // @private
+    this.dragListener = new DragListener( {
       positionProperty: positionProperty,
       dragBoundsProperty: derivedDragBoundsProperty
     } );
-    this.addInputListener( dragListener ); // removeInputListener is not needed.
-
-    // Interrupts a drag and ensures that the associated harmonic is no longer emphasized.
-    function interruptDrag() {
-      if ( dragListener.isPressed ) {
-        this.interruptSubtreeInput();
-        if ( emphasizedHarmonics.includes( this.harmonic ) ) {
-          emphasizedHarmonics.remove( this.harmonic );
-        }
-      }
-    }
+    this.addInputListener( this.dragListener ); // removeInputListener is not needed.
 
     // Move the tool to its position. unlink is not needed.
     positionProperty.lazyLink( position => {
       this.translation = position;
     } );
 
-    // Visibility, unmultilink is not needed.
-    Property.multilink( [ selectedProperty, domainProperty ],
-      ( selected, domain ) => {
-        interruptDrag();
-        this.visible = getVisible( selected, domain );
-      } );
-
     // Update the tool to match the selected harmonic. unlink is not needed.
     orderProperty.link( order => {
-      interruptDrag();
+      this.interruptDrag();
       this.harmonic = harmonics[ order - 1 ];
       this.viewValue = 0; // to force an update, in case 2 harmonics had the same value but different colors
       this.update();
     } );
 
     // If ( isPressed || isHovering ), emphasize the associated harmonic. unlink is not needed.
-    dragListener.isHighlightedProperty.link( isHighlighted => {
+    this.dragListener.isHighlightedProperty.link( isHighlighted => {
       if ( isHighlighted ) {
         emphasizedHarmonics.push( this.harmonic );
       }
@@ -131,13 +108,16 @@ class WidthToolNode extends VBox {
     // If the tool is outside the drag bounds, move it inside. unlink is not needed.
     derivedDragBoundsProperty.link( derivedDragBounds => {
       if ( !derivedDragBounds.containsPoint( positionProperty.value ) ) {
-        interruptDrag();
+        this.interruptDrag();
         positionProperty.value = derivedDragBounds.closestPointTo( positionProperty.value );
       }
     } );
   }
 
-  // @private
+  /**
+   * Updates the tool to match the selected harmonic.
+   * @private
+   */
   update() {
 
     // Compute the value in view coordinates
@@ -192,6 +172,19 @@ class WidthToolNode extends VBox {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+
+  /**
+   * Interrupts a drag and ensures that the associated harmonic is no longer emphasized.
+   * @protected
+   */
+  interruptDrag() {
+    if ( this.dragListener.isPressed ) {
+      this.interruptSubtreeInput();
+      if ( this.emphasizedHarmonics.includes( this.harmonic ) ) {
+        this.emphasizedHarmonics.remove( this.harmonic );
+      }
+    }
   }
 }
 

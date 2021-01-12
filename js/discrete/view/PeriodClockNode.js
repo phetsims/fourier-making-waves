@@ -34,15 +34,15 @@ class PeriodClockNode extends HBox {
 
   /**
    * @param {Harmonic[]} harmonics
+   *  @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<number>} orderProperty - order of the harmonic to be measured
    * @param {Property.<boolean>} selectedProperty
    * @param {Property.<number>} tProperty
-   * @param {ObservableArrayDef} emphasizedHarmonics
    * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {Object} [options]
    */
-  constructor( harmonics, domainProperty, orderProperty, selectedProperty, tProperty, emphasizedHarmonics, dragBoundsProperty, options ) {
+  constructor( harmonics, emphasizedHarmonics, domainProperty, orderProperty, selectedProperty, tProperty, dragBoundsProperty, options ) {
 
     assert && assert( Array.isArray( harmonics ), 'invalid harmonics' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );

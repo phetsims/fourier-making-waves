@@ -187,20 +187,20 @@ class DiscreteScreenView extends ScreenView {
 
     // For measuring the wavelength of a specific harmonic in the 'space' and 'space & time' domains.
     const wavelengthToolNode = new WavelengthToolNode( harmonicsChartNode.chartTransform,
-      model.fourierSeries.harmonics, model.domainProperty,
-      model.wavelengthToolOrderProperty, model.wavelengthToolSelectedProperty,
-      model.chartsModel.emphasizedHarmonics, this.visibleBoundsProperty );
+      model.fourierSeries.harmonics, model.chartsModel.emphasizedHarmonics,
+      model.wavelengthToolOrderProperty, this.visibleBoundsProperty,
+      model.wavelengthToolSelectedProperty, model.domainProperty );
 
     // For measuring the period of a specific harmonic in the 'time' domain.
     const periodToolNode = new PeriodToolNode( harmonicsChartNode.chartTransform,
-      model.fourierSeries.harmonics, model.domainProperty,
-      model.periodToolOrderProperty, model.periodToolSelectedProperty,
-      model.chartsModel.emphasizedHarmonics, this.visibleBoundsProperty );
+      model.fourierSeries.harmonics, model.chartsModel.emphasizedHarmonics,
+      model.periodToolOrderProperty, this.visibleBoundsProperty,
+      model.periodToolSelectedProperty, model.domainProperty );
 
     // For measuring the period of a specific harmonic in the 'space & time' domain.
-    const periodClockNode = new PeriodClockNode( model.fourierSeries.harmonics, model.domainProperty,
-      model.periodToolOrderProperty, model.periodToolSelectedProperty,
-      model.tProperty, model.chartsModel.emphasizedHarmonics, this.visibleBoundsProperty );
+    const periodClockNode = new PeriodClockNode( model.fourierSeries.harmonics, model.chartsModel.emphasizedHarmonics,
+      model.domainProperty, model.periodToolOrderProperty, model.periodToolSelectedProperty,
+      model.tProperty, this.visibleBoundsProperty );
 
     // Rendering order
     this.addChild( amplitudesChartNode );
