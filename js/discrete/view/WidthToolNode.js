@@ -142,16 +142,19 @@ class WidthToolNode extends VBox {
         .lineTo( 0, caliperLength )
         .lineTo( -caliperThickness, barThickness )
         .close();
+      //TODO reuse
       const toolNode = new Path( toolShape, {
         fill: this.harmonic.colorProperty,
         stroke: 'black'
       } );
 
+      //TODO reuse
       // Label is the symbol with harmonic order subscript
       const labelNode = new RichText( `${this.symbol}<sub>${this.harmonic.order}</sub>`, {
         font: FMWConstants.TOOL_LABEL_FONT
       } );
 
+      //TODO reuse
       // A translucent background for the label
       const backgroundNode = new Rectangle( 0, 0, 1.2 * labelNode.width, 1.1 * labelNode.height, {
         fill: Color.grayColor( 255, 0.75 ),
