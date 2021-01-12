@@ -37,18 +37,18 @@ class WidthToolNode extends Node {
    * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    * @param {Property.<number>} orderProperty - order of the harmonic to be measured
    * @param {ChartTransform} chartTransform
-   * @param {Property.<Bounds2>} dragBoundsProperty
+   * @param {Property.<Bounds2>} visibleBoundsProperty - visible bounds of the associated ScreenView
    * @param {function(harmonic:Harmonic):number} getModelValue
    * @param {Object} [options]
    */
-  constructor( symbol, harmonics, emphasizedHarmonics, orderProperty, chartTransform, dragBoundsProperty, getModelValue, options ) {
+  constructor( symbol, harmonics, emphasizedHarmonics, orderProperty, chartTransform, visibleBoundsProperty, getModelValue, options ) {
 
     assert && assert( typeof symbol === 'string', 'invalid symbol' );
     assert && assert( Array.isArray( harmonics ), 'invalid harmonics' );
     assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
     assert && AssertUtils.assertPropertyOf( orderProperty, 'number' );
     assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
-    assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
+    assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
     assert && assert( typeof getModelValue === 'function', 'invalid getModelValue' );
 
     options = merge( {
@@ -100,14 +100,16 @@ class WidthToolNode extends Node {
     // Update when the range of the associated axis changes. removeListener is not needed.
     chartTransform.changedEmitter.addListener( () => this.update() );
 
+    // Position of the tool in view coordinates
     const positionProperty = new Property( this.translation );
 
-    const derivedDragBoundsProperty = new DragBoundsProperty( this, dragBoundsProperty );
+    // Drag bounds, derived from visible bounds of the associates ScreenView
+    const dragBoundsProperty = new DragBoundsProperty( this, visibleBoundsProperty );
 
     // @private
     this.dragListener = new DragListener( {
       positionProperty: positionProperty,
-      dragBoundsProperty: derivedDragBoundsProperty
+      dragBoundsProperty: dragBoundsProperty
     } );
     this.addInputListener( this.dragListener ); // removeInputListener is not needed.
 
@@ -134,10 +136,10 @@ class WidthToolNode extends Node {
     } );
 
     // If the tool is outside the drag bounds, move it inside. unlink is not needed.
-    derivedDragBoundsProperty.link( derivedDragBounds => {
-      if ( !derivedDragBounds.containsPoint( positionProperty.value ) ) {
+    dragBoundsProperty.link( dragBounds => {
+      if ( !dragBounds.containsPoint( positionProperty.value ) ) {
         this.interruptDrag();
-        positionProperty.value = derivedDragBounds.closestPointTo( positionProperty.value );
+        positionProperty.value = dragBounds.closestPointTo( positionProperty.value );
       }
     } );
   }

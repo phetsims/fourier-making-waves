@@ -38,13 +38,13 @@ class PeriodClockNode extends Node {
 
   /**
    * @param {DiscreteModel} model
-   * @param {Property.<Bounds2>} dragBoundsProperty
+   * @param {Property.<Bounds2>} visibleBoundsProperty - visible bounds of the associated ScreenView
    * @param {Object} [options]
    */
-  constructor( model, dragBoundsProperty, options ) {
+  constructor( model, visibleBoundsProperty, options ) {
 
     assert && assert( model instanceof DiscreteModel, 'invalid model' );
-    assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
+    assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
 
     options = merge( {
       cursor: 'pointer'
@@ -83,14 +83,16 @@ class PeriodClockNode extends Node {
     // Initialize
     this.update();
 
+    // Position of the tool in view coordinates
     const positionProperty = new Property( this.translation );
 
-    const derivedDragBoundsProperty = new DragBoundsProperty( this, dragBoundsProperty );
+    // Drag bounds, derived from visible bounds of the associates ScreenView
+    const dragBoundsProperty = new DragBoundsProperty( this, visibleBoundsProperty );
 
     // @private
     this.dragListener = new DragListener( {
       positionProperty: positionProperty,
-      dragBoundsProperty: derivedDragBoundsProperty
+      dragBoundsProperty: dragBoundsProperty
     } );
     this.addInputListener( this.dragListener ); // removeInputListener is not needed.
 
@@ -124,10 +126,10 @@ class PeriodClockNode extends Node {
     } );
 
     // If the tool is outside the drag bounds, move it inside. unlink is not needed.
-    derivedDragBoundsProperty.link( derivedDragBounds => {
-      if ( !derivedDragBounds.containsPoint( positionProperty.value ) ) {
+    dragBoundsProperty.link( dragBounds => {
+      if ( !dragBounds.containsPoint( positionProperty.value ) ) {
         this.interruptDrag();
-        positionProperty.value = derivedDragBounds.closestPointTo( positionProperty.value );
+        positionProperty.value = dragBounds.closestPointTo( positionProperty.value );
       }
     } );
 

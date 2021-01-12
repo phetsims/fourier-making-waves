@@ -22,18 +22,18 @@ class WavelengthToolNode extends WidthToolNode {
   /**
    * @param {DiscreteModel} model
    * @param {ChartTransform} chartTransform
-   * @param {Property.<Bounds2>} dragBoundsProperty
+   * @param {Property.<Bounds2>} visibleBoundsProperty - visible bounds of the associated ScreenView
    * @param {Object} [options]
    */
-  constructor( model, chartTransform, dragBoundsProperty, options ) {
+  constructor( model, chartTransform, visibleBoundsProperty, options ) {
 
     assert && assert( model instanceof DiscreteModel, 'invalid model' );
     assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
-    assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
+    assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
 
     super( FMWSymbols.lambda,
       model.fourierSeries.harmonics, model.chartsModel.emphasizedHarmonics, model.wavelengthToolOrderProperty,
-      chartTransform, dragBoundsProperty,
+      chartTransform, visibleBoundsProperty,
       harmonic => harmonic.wavelength, // gets the quantity of Harmonic that is being measured
       options );
 
