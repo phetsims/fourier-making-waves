@@ -30,6 +30,10 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import Domain from '../model/Domain.js';
 
+// Margins for the translucent background behind the label
+const BACKGROUND_X_MARGIN = 2;
+const BACKGROUND_Y_MARGIN = 2;
+
 class PeriodClockNode extends Node {
 
   /**
@@ -43,10 +47,10 @@ class PeriodClockNode extends Node {
     assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
 
     options = merge( {
-      cursor: 'pointer',
-      spacing: 5
+      cursor: 'pointer'
     }, options );
 
+    // The harmonic associated with this tool
     const harmonicProperty = new DerivedProperty(
       [ model.periodToolOrderProperty ],
       order => model.fourierSeries.harmonics[ order - 1 ]
@@ -71,6 +75,10 @@ class PeriodClockNode extends Node {
 
     // @private
     this.emphasizedHarmonics = model.chartsModel.emphasizedHarmonics;
+    this.harmonicProperty = harmonicProperty;
+    this.clockFaceNode = clockFaceNode;
+    this.labelNode = labelNode;
+    this.backgroundNode = backgroundNode;
 
     const positionProperty = new Property( this.translation );
 
@@ -89,17 +97,9 @@ class PeriodClockNode extends Node {
     } );
 
     // Display the period for the selected harmonic. unlink is not needed.
-    harmonicProperty.link( harmonic => {
+    harmonicProperty.link( () => {
       this.interruptDrag();
-
-      // Change the label
-      labelNode.text = `${FMWSymbols.T}<sub>${harmonic.order}</sub>`;
-      labelNode.left = clockFaceNode.right + 6;
-      labelNode.centerY = clockFaceNode.centerY;
-
-      // Resize the background to fit the label, and keep label centered in background.
-      backgroundNode.setRect( 0, 0, 1.2 * labelNode.width, 1.1 * labelNode.height );
-      backgroundNode.center = labelNode.center;
+      this.update();
     } );
 
     // Visibility, unmultilink is not needed.
@@ -111,11 +111,12 @@ class PeriodClockNode extends Node {
 
     // If ( isPressed || isHovering ), emphasize the associated harmonic. unlink is not needed.
     this.dragListener.isHighlightedProperty.link( isHighlighted => {
+      const harmonic = harmonicProperty.value;
       if ( isHighlighted ) {
-        model.chartsModel.emphasizedHarmonics.push( harmonicProperty.value );
+        model.chartsModel.emphasizedHarmonics.push( harmonic );
       }
-      else if ( model.chartsModel.emphasizedHarmonics.includes( harmonicProperty.value ) ) {
-        model.chartsModel.emphasizedHarmonics.remove( harmonicProperty.value );
+      else if ( model.chartsModel.emphasizedHarmonics.includes( harmonic ) ) {
+        model.chartsModel.emphasizedHarmonics.remove( harmonic );
       }
     } );
 
@@ -126,6 +127,29 @@ class PeriodClockNode extends Node {
         positionProperty.value = derivedDragBounds.closestPointTo( positionProperty.value );
       }
     } );
+
+    // Synchronize visibility of the clock face, so we can short-circuit updates while it's invisible.
+    this.visibleProperty.link( visible => {
+      clockFaceNode.visible = visible;
+    } );
+  }
+
+  /**
+   * Updates the tool to match the selected harmonic.
+   * @private
+   */
+  update() {
+
+    const order = this.harmonicProperty.value.order;
+
+    // Change the label
+    this.labelNode.text = `${FMWSymbols.T}<sub>${order}</sub>`;
+    this.labelNode.left = this.clockFaceNode.right + BACKGROUND_X_MARGIN + 2;
+    this.labelNode.centerY = this.clockFaceNode.centerY;
+
+    // Resize the background to fit the label, and keep label centered in background.
+    this.backgroundNode.setRect( 0, 0, this.labelNode.width + 2 * BACKGROUND_X_MARGIN, this.labelNode.height + 2 * BACKGROUND_Y_MARGIN );
+    this.backgroundNode.center = this.labelNode.center;
   }
 
   /**
@@ -135,8 +159,9 @@ class PeriodClockNode extends Node {
   interruptDrag() {
     if ( this.dragListener.isPressed ) {
       this.interruptSubtreeInput();
-      if ( this.emphasizedHarmonics.includes( this.harmonic ) ) {
-        this.emphasizedHarmonics.remove( this.harmonic );
+      const harmonic = this.harmonicProperty.value;
+      if ( this.emphasizedHarmonics.includes( harmonic ) ) {
+        this.emphasizedHarmonics.remove( harmonic );
       }
     }
   }
@@ -190,13 +215,17 @@ class ClockFaceNode extends Node {
     // unlink is not needed.
     harmonicProperty.link( harmonic => {
       elapsedTimeNode.fill = harmonic.colorProperty;
-      elapsedTimeNode.shape = createElapsedTimeShape( harmonic, tProperty.value, options.radius );
+      if ( this.visible ) {
+        elapsedTimeNode.shape = createElapsedTimeShape( harmonic, tProperty.value, options.radius );
+      }
     } );
 
-    // When the time changes, update the elapsed time to correspond to the harmonic's period at the current time t.
-    // unlink is not needed.
+    // When the time changes while the tool is visible, update the elapsed time to correspond to the harmonic's period
+    // at the current time t. unlink is not needed.
     tProperty.link( t => {
-      elapsedTimeNode.shape = createElapsedTimeShape( harmonicProperty.value, t, options.radius );
+      if ( this.visible ) {
+        elapsedTimeNode.shape = createElapsedTimeShape( harmonicProperty.value, t, options.radius );
+      }
     } );
   }
 
