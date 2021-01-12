@@ -4,7 +4,7 @@
 /**
  * PeriodClockNode is the measurement tool for period in the 'space & time' domain. It looks like a clock, with a
  * portion of the clock face filled in with the harmonic's color.  The portion filled in represents the portion of
- * the harmonic's period that has elapsed.
+ * the harmonic's period that has elapsed.  The origin is at the center of the clock face.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -72,6 +72,11 @@ class PeriodClockNode extends Node {
     options.children = [ clockFaceNode, backgroundNode, labelNode ];
 
     super( options );
+
+    // Show a red dot at the origin, which is the center of clockFaceNode.
+    if ( phet.chipper.queryParameters.dev ) {
+      this.addChild( new Circle( 2, { fill: 'red' } ) );
+    }
 
     // @private
     this.emphasizedHarmonics = model.chartsModel.emphasizedHarmonics;

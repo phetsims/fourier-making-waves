@@ -85,7 +85,7 @@ class WidthToolNode extends Node {
 
     super( options );
 
-    // Show a red dot at the origin
+    // Show a red dot at the origin, which is at the left tip.
     if ( phet.chipper.queryParameters.dev ) {
       this.addChild( new Circle( 2, { fill: 'red' } ) );
     }
