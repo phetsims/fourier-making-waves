@@ -9,7 +9,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ObservableArrayDef from '../../../../axon/js/ObservableArrayDef.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -28,28 +27,19 @@ import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import DiscreteModel from '../model/DiscreteModel.js';
 import Domain from '../model/Domain.js';
 
 class PeriodClockNode extends HBox {
 
   /**
-   * @param {Harmonic[]} harmonics
-   *  @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<number>} orderProperty - order of the harmonic to be measured
-   * @param {Property.<boolean>} selectedProperty
-   * @param {Property.<number>} tProperty
+   * @param {DiscreteModel} model
    * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {Object} [options]
    */
-  constructor( harmonics, emphasizedHarmonics, domainProperty, orderProperty, selectedProperty, tProperty, dragBoundsProperty, options ) {
+  constructor( model, dragBoundsProperty, options ) {
 
-    assert && assert( Array.isArray( harmonics ), 'invalid harmonics' );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( orderProperty, 'number' );
-    assert && AssertUtils.assertPropertyOf( selectedProperty, 'boolean' );
-    assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
-    assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
+    assert && assert( model instanceof DiscreteModel, 'invalid model' );
     assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
 
     options = merge( {
@@ -57,9 +47,9 @@ class PeriodClockNode extends HBox {
       spacing: 5
     }, options );
 
-    const harmonicProperty = new Property( harmonics[ orderProperty.value ] );
+    const harmonicProperty = new Property( model.fourierSeries.harmonics[ model.periodToolOrderProperty.value ] );
 
-    const clockFaceNode = new ClockFaceNode( harmonicProperty, tProperty );
+    const clockFaceNode = new ClockFaceNode( harmonicProperty, model.tProperty );
 
     const labelNode = new RichText( '', {
       font: FMWConstants.TOOL_LABEL_FONT
@@ -83,9 +73,9 @@ class PeriodClockNode extends HBox {
     super( options );
 
     // Display the period for the selected harmonic. unlink is not needed.
-    orderProperty.link( order => {
+    model.periodToolOrderProperty.link( order => {
       this.interruptSubtreeInput();
-      harmonicProperty.value = harmonics[ order - 1 ];
+      harmonicProperty.value = model.fourierSeries.harmonics[ order - 1 ];
     } );
 
     harmonicProperty.link( harmonic => {
@@ -93,7 +83,7 @@ class PeriodClockNode extends HBox {
     } );
 
     // Visibility, unmultilink is not needed.
-    Property.multilink( [ selectedProperty, domainProperty ],
+    Property.multilink( [ model.periodToolSelectedProperty, model.domainProperty ],
       ( selected, domain ) => {
         this.interruptSubtreeInput();
         this.visible = selected && ( domain === Domain.SPACE_AND_TIME );
@@ -124,10 +114,10 @@ class PeriodClockNode extends HBox {
     // Emphasize the associated harmonic. unlink is not needed.
     dragListener.isHighlightedProperty.link( isHighlighted => {
       if ( isHighlighted ) {
-        emphasizedHarmonics.push( harmonicProperty.value );
+        model.chartsModel.emphasizedHarmonics.push( harmonicProperty.value );
       }
-      else if ( emphasizedHarmonics.includes( harmonicProperty.value ) ) {
-        emphasizedHarmonics.remove( harmonicProperty.value );
+      else if ( model.chartsModel.emphasizedHarmonics.includes( harmonicProperty.value ) ) {
+        model.chartsModel.emphasizedHarmonics.remove( harmonicProperty.value );
       }
     } );
   }

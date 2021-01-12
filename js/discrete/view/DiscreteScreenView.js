@@ -192,9 +192,7 @@ class DiscreteScreenView extends ScreenView {
     const periodToolNode = new PeriodToolNode( model, harmonicsChartNode.chartTransform, this.visibleBoundsProperty );
 
     // For measuring the period of a specific harmonic in the 'space & time' domain.
-    const periodClockNode = new PeriodClockNode( model.fourierSeries.harmonics, model.chartsModel.emphasizedHarmonics,
-      model.domainProperty, model.periodToolOrderProperty, model.periodToolSelectedProperty,
-      model.tProperty, this.visibleBoundsProperty );
+    const periodClockNode = new PeriodClockNode( model, this.visibleBoundsProperty );
 
     // Rendering order
     this.addChild( amplitudesChartNode );
