@@ -15,7 +15,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import DragBoundsProperty from '../../../../scenery-phet/js/DragBoundsProperty.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -91,8 +90,11 @@ class PeriodClockNode extends Node {
     // Position of the tool in view coordinates
     const positionProperty = new Property( this.translation );
 
-    // Drag bounds, derived from visible bounds of the associates ScreenView
-    const dragBoundsProperty = new DragBoundsProperty( this, visibleBoundsProperty );
+    // Drag bounds, derived from visible bounds of the associated ScreenView
+    const dragBoundsProperty = new DerivedProperty(
+      [ visibleBoundsProperty ],
+      visibleBounds => visibleBounds.eroded( 25 ) // determined empirically
+    );
 
     // @private
     this.dragListener = new DragListener( {
