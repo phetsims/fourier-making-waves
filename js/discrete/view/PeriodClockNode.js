@@ -80,6 +80,9 @@ class PeriodClockNode extends Node {
     this.labelNode = labelNode;
     this.backgroundNode = backgroundNode;
 
+    // Initialize
+    this.update();
+
     const positionProperty = new Property( this.translation );
 
     const derivedDragBoundsProperty = new DragBoundsProperty( this, dragBoundsProperty );
