@@ -229,41 +229,43 @@ class DiscreteScreenView extends ScreenView {
     resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
 
+    // Get the bounds of the chart rectangles in this coordinate frame, used for layout.
+    const harmonicsChartRectangleLocalBounds = this.globalToLocalBounds( harmonicsChartNode.chartRectangle.parentToGlobalBounds( harmonicsChartNode.chartRectangle.bounds ) );
+    const sumChartRectangleLocalBounds = this.globalToLocalBounds( sumChartNode.chartRectangle.parentToGlobalBounds( sumChartNode.chartRectangle.bounds ) );
+
     // Center equations above their respective charts.
     // Since we need to listen to the bounds of these equations in order to respect their maxWidth, wrapper Nodes are
     // transformed. See https://github.com/phetsims/fourier-making-waves/issues/40
     harmonicsEquationNode.boundsProperty.link( () => {
 
-      // Get the bounds of the Harmonics chart's rectangle in the proper coordinate frame.
-      const chartRectangleGlobalBounds = harmonicsChartNode.chartRectangle.parentToGlobalBounds( harmonicsChartNode.chartRectangle.bounds );
-      const chartRectangleLocalBounds = this.globalToLocalBounds( chartRectangleGlobalBounds );
-
       // Center the equation above the Harmonics chart.
-      harmonicsEquationWrapperNode.centerX = chartRectangleLocalBounds.centerX;
-      harmonicsEquationWrapperNode.bottom = chartRectangleLocalBounds.top - 3;
+      harmonicsEquationWrapperNode.centerX = harmonicsChartRectangleLocalBounds.centerX;
+      harmonicsEquationWrapperNode.bottom = harmonicsChartRectangleLocalBounds.top - 3;
     } );
+
     sumEquationNode.boundsProperty.link( () => {
 
       // Ensure that expandedFormButton is always above the chart, regardless of how tall the equation is.
       const maxHeight = Math.max( sumEquationNode.height, expandedFormButton.height );
 
-      // Get the bounds of the Sum chart's rectangle in the proper coordinate frame.
-      const chartRectangleGlobalBounds = sumChartNode.chartRectangle.parentToGlobalBounds( sumChartNode.chartRectangle.bounds );
-      const chartRectangleLocalBounds = this.globalToLocalBounds( chartRectangleGlobalBounds );
-
       // Center the equation above the Sum chart.
-      sumEquationWrapperNode.centerX = chartRectangleLocalBounds.centerX;
-      sumEquationWrapperNode.centerY = chartRectangleLocalBounds.top - ( maxHeight / 2 ) - 3;
+      sumEquationWrapperNode.centerX = sumChartRectangleLocalBounds.centerX;
+      sumEquationWrapperNode.centerY = sumChartRectangleLocalBounds.top - ( maxHeight / 2 ) - 3;
 
       // Button to the right of the equation
       expandedFormButton.left = sumEquationWrapperNode.right + 20;
       expandedFormButton.centerY = sumEquationWrapperNode.centerY;
     } );
 
-    //TODO https://github.com/phetsims/fourier-making-waves/issues/39 initial position, resettable?
-    wavelengthCalipersNode.center = this.layoutBounds.center;
-    periodCalipersNode.center = this.layoutBounds.center; //TODO This isn't working as expected.
-    periodClockNode.center = this.layoutBounds.center;
+    // Position the measurement tools.
+    // Caliper-like tools are positioned on the Harmonics chart.
+    // Clock-like tool is in the space between the Harmonics and Sum chart, right justified.
+    wavelengthCalipersNode.x = harmonicsChartRectangleLocalBounds.left;
+    wavelengthCalipersNode.bottom = harmonicsChartRectangleLocalBounds.centerY;
+    periodCalipersNode.x = harmonicsChartRectangleLocalBounds.left;
+    periodCalipersNode.bottom = harmonicsChartRectangleLocalBounds.centerY;
+    periodClockNode.right = harmonicsChartRectangleLocalBounds.right;
+    periodClockNode.centerY = harmonicsChartRectangleLocalBounds.maxY + ( sumChartRectangleLocalBounds.minY - harmonicsChartRectangleLocalBounds.maxY ) / 2;
 
     // Creating a sawtooth wave using cosines is impossible because it is asymmetric. Display a dialog if the user
     // attempts this.  The model is responsible for other adjustments. This dialog is created eagerly because it's
