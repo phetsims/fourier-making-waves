@@ -1,6 +1,6 @@
 // Copyright 2020, University of Colorado Boulder
 
-//TODO factor out stuff related to DragListener that this shares with WidthToolNode
+//TODO factor out stuff that this shares with WidthToolNode
 /**
  * PeriodClockNode is the measurement tool for period in the 'space & time' domain. It looks like a clock, with a
  * portion of the clock face filled in with the harmonic's color.  The portion filled in represents the portion of
@@ -9,6 +9,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -47,7 +48,10 @@ class PeriodClockNode extends HBox {
       spacing: 5
     }, options );
 
-    const harmonicProperty = new Property( model.fourierSeries.harmonics[ model.periodToolOrderProperty.value ] );
+    const harmonicProperty = new DerivedProperty(
+      [ model.periodToolOrderProperty ],
+      order => model.fourierSeries.harmonics[ order - 1 ]
+    );
 
     const clockFaceNode = new ClockFaceNode( harmonicProperty, model.tProperty );
 
@@ -60,59 +64,51 @@ class PeriodClockNode extends HBox {
       fill: Color.grayColor( 255, 0.75 )
     } );
 
-    // Resize the background to fit the label, and keep label centered in background.
-    // unlink is not needed.
-    labelNode.localBoundsProperty.link( () => {
-      backgroundNode.setRect( 0, 0, 1.2 * labelNode.width, 1.1 * labelNode.height );
-      backgroundNode.center = labelNode.center;
-    } );
-
     assert && assert( !options.children, 'PeriodClockNode sets children' );
     options.children = [ clockFaceNode, new Node( { children: [ backgroundNode, labelNode ] } ) ];
 
     super( options );
 
-    // Display the period for the selected harmonic. unlink is not needed.
-    model.periodToolOrderProperty.link( order => {
-      this.interruptSubtreeInput();
-      harmonicProperty.value = model.fourierSeries.harmonics[ order - 1 ];
+    // @private
+    this.emphasizedHarmonics = model.chartsModel.emphasizedHarmonics;
+
+    const positionProperty = new Property( this.translation );
+
+    const derivedDragBoundsProperty = new DragBoundsProperty( this, dragBoundsProperty );
+
+    // @private
+    this.dragListener = new DragListener( {
+      positionProperty: positionProperty,
+      dragBoundsProperty: derivedDragBoundsProperty
+    } );
+    this.addInputListener( this.dragListener ); // removeInputListener is not needed.
+
+    // Move the tool to its position. unlink is not needed.
+    positionProperty.lazyLink( position => {
+      this.translation = position;
     } );
 
+    // Display the period for the selected harmonic. unlink is not needed.
     harmonicProperty.link( harmonic => {
+      this.interruptDrag();
+
+      // Change the label
       labelNode.text = `${FMWSymbols.T}<sub>${harmonic.order}</sub>`;
+
+      // Resize the background to fit the label, and keep label centered in background.
+      backgroundNode.setRect( 0, 0, 1.2 * labelNode.width, 1.1 * labelNode.height );
+      backgroundNode.center = labelNode.center;
     } );
 
     // Visibility, unmultilink is not needed.
     Property.multilink( [ model.periodToolSelectedProperty, model.domainProperty ],
       ( selected, domain ) => {
-        this.interruptSubtreeInput();
+        this.interruptDrag();
         this.visible = selected && ( domain === Domain.SPACE_AND_TIME );
       } );
 
-    // unlink is not needed.
-    const positionProperty = new Property( this.translation );
-    positionProperty.lazyLink( position => {
-      this.translation = position;
-    } );
-
-    const derivedDragBoundsProperty = new DragBoundsProperty( this, dragBoundsProperty );
-
-    // If the tool is outside the drag bounds, move it inside. unlink is not needed.
-    derivedDragBoundsProperty.link( derivedDragBounds => {
-      if ( !derivedDragBounds.containsPoint( positionProperty.value ) ) {
-        this.interruptSubtreeInput();
-        positionProperty.value = derivedDragBounds.closestPointTo( positionProperty.value );
-      }
-    } );
-
-    const dragListener = new DragListener( {
-      positionProperty: positionProperty,
-      dragBoundsProperty: derivedDragBoundsProperty
-    } );
-    this.addInputListener( dragListener ); // removeInputListener is not needed.
-
-    // Emphasize the associated harmonic. unlink is not needed.
-    dragListener.isHighlightedProperty.link( isHighlighted => {
+    // If ( isPressed || isHovering ), emphasize the associated harmonic. unlink is not needed.
+    this.dragListener.isHighlightedProperty.link( isHighlighted => {
       if ( isHighlighted ) {
         model.chartsModel.emphasizedHarmonics.push( harmonicProperty.value );
       }
@@ -120,6 +116,27 @@ class PeriodClockNode extends HBox {
         model.chartsModel.emphasizedHarmonics.remove( harmonicProperty.value );
       }
     } );
+
+    // If the tool is outside the drag bounds, move it inside. unlink is not needed.
+    derivedDragBoundsProperty.link( derivedDragBounds => {
+      if ( !derivedDragBounds.containsPoint( positionProperty.value ) ) {
+        this.interruptDrag();
+        positionProperty.value = derivedDragBounds.closestPointTo( positionProperty.value );
+      }
+    } );
+  }
+
+  /**
+   * Interrupts a drag and ensures that the associated harmonic is no longer emphasized.
+   * @protected
+   */
+  interruptDrag() {
+    if ( this.dragListener.isPressed ) {
+      this.interruptSubtreeInput();
+      if ( this.emphasizedHarmonics.includes( this.harmonic ) ) {
+        this.emphasizedHarmonics.remove( this.harmonic );
+      }
+    }
   }
 }
 
