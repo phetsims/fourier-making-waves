@@ -31,10 +31,10 @@ import FourierSoundGenerator from './FourierSoundGenerator.js';
 import HarmonicsChartNode from './HarmonicsChartNode.js';
 import HarmonicsEquationNode from './HarmonicsEquationNode.js';
 import PeriodClockNode from './PeriodClockNode.js';
-import PeriodToolNode from './PeriodToolNode.js';
+import PeriodCalipersNode from './PeriodCalipersNode.js';
 import SumChartNode from './SumChartNode.js';
 import SumEquationNode from './SumEquationNode.js';
-import WavelengthToolNode from './WavelengthToolNode.js';
+import WavelengthCalipersNode from './WavelengthCalipersNode.js';
 
 // constants, in view coordinates, determined empirically
 const CHART_RECTANGLE_SIZE = new Dimension2( 645, 123 ); // size of the chart rectangles
@@ -185,13 +185,13 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
-    // For measuring the wavelength of a specific harmonic in the 'space' and 'space & time' domains.
-    const wavelengthToolNode = new WavelengthToolNode( model, harmonicsChartNode.chartTransform, this.visibleBoundsProperty );
+    // For measuring a harmonic's wavelength in the 'space' and 'space & time' domains.
+    const wavelengthCalipersNode = new WavelengthCalipersNode( model, harmonicsChartNode.chartTransform, this.visibleBoundsProperty );
 
-    // For measuring the period of a specific harmonic in the 'time' domain.
-    const periodToolNode = new PeriodToolNode( model, harmonicsChartNode.chartTransform, this.visibleBoundsProperty );
+    // For measuring a harmonic's period in the 'time' domain.
+    const periodCalipersNode = new PeriodCalipersNode( model, harmonicsChartNode.chartTransform, this.visibleBoundsProperty );
 
-    // For measuring the period of a specific harmonic in the 'space & time' domain.
+    // For measuring a harmonic's period in the 'space & time' domain.
     const periodClockNode = new PeriodClockNode( model, this.visibleBoundsProperty );
 
     // Rendering order
@@ -206,8 +206,8 @@ class DiscreteScreenView extends ScreenView {
     this.addChild( controlPanel );
     this.addChild( timeControlNode );
     this.addChild( resetAllButton );
-    this.addChild( wavelengthToolNode ); // Measurement Tools on top of everything else
-    this.addChild( periodToolNode );
+    this.addChild( wavelengthCalipersNode ); // Measurement Tools on top of everything else
+    this.addChild( periodCalipersNode );
     this.addChild( periodClockNode );
     this.addChild( popupParent ); // parent for popups on top
 
@@ -261,8 +261,8 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     //TODO https://github.com/phetsims/fourier-making-waves/issues/39 initial position, resettable?
-    wavelengthToolNode.center = this.layoutBounds.center;
-    periodToolNode.center = this.layoutBounds.center; //TODO This isn't working as expected.
+    wavelengthCalipersNode.center = this.layoutBounds.center;
+    periodCalipersNode.center = this.layoutBounds.center; //TODO This isn't working as expected.
     periodClockNode.center = this.layoutBounds.center;
 
     // Creating a sawtooth wave using cosines is impossible because it is asymmetric. Display a dialog if the user

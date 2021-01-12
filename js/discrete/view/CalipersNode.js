@@ -1,8 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * WidthToolNode is the base class for tools used to measure a quantity of a harmonic that has a width.
- * Responsible for synchronizing with the selected harmonic, and for its own visibility.
+ * CalipersNode is the base class for tools used to measure a horizontal dimension of a harmonic.
  * Origin is at the left tip.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -30,7 +29,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 const BACKGROUND_X_MARGIN = 2;
 const BACKGROUND_Y_MARGIN = 2;
 
-class WidthToolNode extends Node {
+class CalipersNode extends Node {
 
   /**
    * @param {string} symbol
@@ -223,5 +222,5 @@ class WidthToolNode extends Node {
   }
 }
 
-fourierMakingWaves.register( 'WidthToolNode', WidthToolNode );
-export default WidthToolNode;
+fourierMakingWaves.register( 'CalipersNode', CalipersNode );
+export default CalipersNode;

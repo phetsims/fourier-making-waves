@@ -1,6 +1,6 @@
 // Copyright 2020, University of Colorado Boulder
 
-//TODO factor out stuff that this shares with WidthToolNode
+//TODO factor out stuff that this shares with CalipersNode
 /**
  * PeriodClockNode is the measurement tool for period in the 'space & time' domain. It looks like a clock, with a
  * portion of the clock face filled in with the harmonic's color.  The portion filled in represents the portion of

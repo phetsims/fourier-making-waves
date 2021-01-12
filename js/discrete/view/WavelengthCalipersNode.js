@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * PeriodToolNode is the tool used to measure the period of a specific harmonic in the 'time' domain.
+ * WavelengthCalipersNode is the tool used to measure a harmonic's wavelength in the 'space' and 'space & time' domains.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,9 +14,9 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import Domain from '../model/Domain.js';
-import WidthToolNode from './WidthToolNode.js';
+import CalipersNode from './CalipersNode.js';
 
-class PeriodToolNode extends WidthToolNode {
+class WavelengthCalipersNode extends CalipersNode {
 
   /**
    * @param {DiscreteModel} model
@@ -30,20 +30,20 @@ class PeriodToolNode extends WidthToolNode {
     assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
 
-    super( FMWSymbols.T,
-      model.fourierSeries.harmonics, model.chartsModel.emphasizedHarmonics, model.periodToolOrderProperty,
+    super( FMWSymbols.lambda,
+      model.fourierSeries.harmonics, model.chartsModel.emphasizedHarmonics, model.wavelengthToolOrderProperty,
       chartTransform, visibleBoundsProperty,
-      harmonic => harmonic.period, // gets the quantity of Harmonic that is being measured
+      harmonic => harmonic.wavelength, // gets the quantity of Harmonic that is being measured
       options );
 
     // Visibility, unmultilink is not needed.
-    Property.multilink( [ model.periodToolSelectedProperty, model.domainProperty ],
+    Property.multilink( [ model.wavelengthToolSelectedProperty, model.domainProperty ],
       ( selected, domain ) => {
         this.interruptDrag();
-        this.visible = ( selected && ( domain === Domain.TIME ) );
+        this.visible = ( selected && ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME ) );
       } );
   }
 }
 
-fourierMakingWaves.register( 'PeriodToolNode', PeriodToolNode );
-export default PeriodToolNode;
+fourierMakingWaves.register( 'WavelengthCalipersNode', WavelengthCalipersNode );
+export default WavelengthCalipersNode;
