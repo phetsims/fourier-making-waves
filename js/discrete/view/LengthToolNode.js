@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * LengthToolNode is the base class for tools used to measure a quantity of a harmonic that has a length.
+ * LengthToolNode is the base class for tools used to measure a quantity of a harmonic that has a width.
  * Responsible for synchronizing with the selected harmonic, and for its own visibility.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -78,36 +78,9 @@ class LengthToolNode extends VBox {
     // Update when the range of the associated axis changes. removeListener is not needed.
     chartTransform.changedEmitter.addListener( () => this.update() );
 
-    // Display the wavelength for the selected harmonic. unlink is not needed.
-    orderProperty.link( order => {
-      this.interruptSubtreeInput();
-      this.harmonic = harmonics[ order - 1 ];
-      this.viewValue = 0; // to force an update, in case 2 harmonics had the same value but different colors
-      this.update();
-    } );
-
-    // Visibility, unmultilink is not needed.
-    Property.multilink( [ selectedProperty, domainProperty ],
-      ( selected, domain ) => {
-        this.interruptSubtreeInput();
-        this.visible = getVisible( selected, domain );
-      } );
-
-    // unlink is not needed.
     const positionProperty = new Property( this.translation );
-    positionProperty.lazyLink( position => {
-      this.translation = position;
-    } );
 
     const derivedDragBoundsProperty = new DragBoundsProperty( this, dragBoundsProperty );
-
-    // If the tool is outside the drag bounds, move it inside. unlink is not needed.
-    derivedDragBoundsProperty.link( derivedDragBounds => {
-      if ( !derivedDragBounds.containsPoint( positionProperty.value ) ) {
-        this.interruptSubtreeInput();
-        positionProperty.value = derivedDragBounds.closestPointTo( positionProperty.value );
-      }
-    } );
 
     const dragListener = new DragListener( {
       positionProperty: positionProperty,
@@ -115,13 +88,51 @@ class LengthToolNode extends VBox {
     } );
     this.addInputListener( dragListener ); // removeInputListener is not needed.
 
-    // Emphasize the associated harmonic. unlink is not needed.
+    // Interrupts a drag and ensures that the associated harmonic is no longer emphasized.
+    function interruptDrag() {
+      if ( dragListener.isPressed ) {
+        this.interruptSubtreeInput();
+        if ( emphasizedHarmonics.includes( this.harmonic ) ) {
+          emphasizedHarmonics.remove( this.harmonic );
+        }
+      }
+    }
+
+    // Move the tool to its position. unlink is not needed.
+    positionProperty.lazyLink( position => {
+      this.translation = position;
+    } );
+
+    // Visibility, unmultilink is not needed.
+    Property.multilink( [ selectedProperty, domainProperty ],
+      ( selected, domain ) => {
+        interruptDrag();
+        this.visible = getVisible( selected, domain );
+      } );
+
+    // Update the tool to match the selected harmonic. unlink is not needed.
+    orderProperty.link( order => {
+      interruptDrag();
+      this.harmonic = harmonics[ order - 1 ];
+      this.viewValue = 0; // to force an update, in case 2 harmonics had the same value but different colors
+      this.update();
+    } );
+
+    // If ( isPressed || isHovering ), emphasize the associated harmonic. unlink is not needed.
     dragListener.isHighlightedProperty.link( isHighlighted => {
       if ( isHighlighted ) {
         emphasizedHarmonics.push( this.harmonic );
       }
       else if ( emphasizedHarmonics.includes( this.harmonic ) ) {
         emphasizedHarmonics.remove( this.harmonic );
+      }
+    } );
+
+    // If the tool is outside the drag bounds, move it inside. unlink is not needed.
+    derivedDragBoundsProperty.link( derivedDragBounds => {
+      if ( !derivedDragBounds.containsPoint( positionProperty.value ) ) {
+        interruptDrag();
+        positionProperty.value = derivedDragBounds.closestPointTo( positionProperty.value );
       }
     } );
   }
@@ -167,7 +178,8 @@ class LengthToolNode extends VBox {
 
       this.children = [ new Node( { children: [ backgroundNode, labelNode ] } ), toolNode ];
 
-      //TODO does position need to be adjusted?
+      // No not adjust position. We want the left edge of the tool to remain where it was, since that is
+      // the edge that the user should be positioning in order to measure the width of something.
     }
   }
 
