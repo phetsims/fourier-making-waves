@@ -3,6 +3,7 @@
 /**
  * WidthToolNode is the base class for tools used to measure a quantity of a harmonic that has a width.
  * Responsible for synchronizing with the selected harmonic, and for its own visibility.
+ * Origin is at the left tip.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,6 +18,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import DragBoundsProperty from '../../../../scenery-phet/js/DragBoundsProperty.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
@@ -82,6 +84,11 @@ class WidthToolNode extends Node {
     options.children = [ beamNode, backgroundNode, labelNode ];
 
     super( options );
+
+    // Show a red dot at the origin
+    if ( phet.chipper.queryParameters.dev ) {
+      this.addChild( new Circle( 2, { fill: 'red' } ) );
+    }
 
     // @private
     this.symbol = symbol;
@@ -169,19 +176,19 @@ class WidthToolNode extends Node {
     if ( Math.abs( viewValue - this.viewValue ) > 0.25 ) {
 
       // The horizontal beam has ends that are caliper-like.
-      // The Shape is described clockwise from the upper-left.
+      // The Shape is described clockwise from the origin (the left tip).
       const barThickness = 5;
       const caliperThickness = 5;
       const caliperLength = 20;
       this.beamNode.shape = new Shape()
-        .moveTo( -caliperThickness, 0 )
-        .lineTo( viewValue + caliperThickness, 0 )
-        .lineTo( viewValue + caliperThickness, barThickness )
-        .lineTo( viewValue, caliperLength )
-        .lineTo( viewValue, barThickness )
-        .lineTo( 0, barThickness )
-        .lineTo( 0, caliperLength )
-        .lineTo( -caliperThickness, barThickness )
+        .moveTo( 0, 0 )
+        .lineTo( -caliperThickness, -( caliperLength - barThickness ) )
+        .lineTo( -caliperThickness, -caliperLength )
+        .lineTo( viewValue + caliperThickness, -caliperLength )
+        .lineTo( viewValue + caliperThickness, -( caliperLength - barThickness ) )
+        .lineTo( viewValue, 0 )
+        .lineTo( viewValue, -( caliperLength - barThickness ) )
+        .lineTo( 0, -( caliperLength - barThickness ) )
         .close();
       this.beamNode.fill = harmonic.colorProperty;
 
