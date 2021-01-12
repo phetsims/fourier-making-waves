@@ -36,7 +36,7 @@ class ContinuousModel {
       range: new Range( 0, SPACING_BETWEEN_COMPONENTS_VALUES.length )
     } );
 
-    // @public spacing between Fourier components, in radians/meter
+    // @public spacing between Fourier components, in radians/meter. dispose is not needed
     this.spacingBetweenComponentsProperty = new DerivedProperty(
       [ this.spacingBetweenComponentsIndexProperty ],
       index => SPACING_BETWEEN_COMPONENTS_VALUES[ index ]

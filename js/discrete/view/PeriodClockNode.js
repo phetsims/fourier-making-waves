@@ -49,7 +49,7 @@ class PeriodClockNode extends Node {
       cursor: 'pointer'
     }, options );
 
-    // The harmonic associated with this tool
+    // The harmonic associated with this tool. dispose is not needed.
     const harmonicProperty = new DerivedProperty(
       [ model.periodToolOrderProperty ],
       order => model.fourierSeries.harmonics[ order - 1 ]
@@ -90,7 +90,7 @@ class PeriodClockNode extends Node {
     // Position of the tool in view coordinates
     const positionProperty = new Property( this.translation );
 
-    // Drag bounds, derived from visible bounds of the associated ScreenView
+    // Drag bounds, derived from visible bounds of the associated ScreenView. dispose is not needed
     const dragBoundsProperty = new DerivedProperty(
       [ visibleBoundsProperty ],
       visibleBounds => visibleBounds.eroded( 25 ) // determined empirically

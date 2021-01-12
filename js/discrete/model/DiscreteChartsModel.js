@@ -43,7 +43,7 @@ class DiscreteChartsModel {
       range: new Range( 0, AxisDescription.X_AXIS_DESCRIPTIONS.length - 1 )
     } );
 
-    // @public {DerivedProperty.<AxisDescription>} describes the properties of the x axis
+    // @public {DerivedProperty.<AxisDescription>} describes the properties of the x axis. dispose is not needed
     this.xAxisDescriptionProperty = new DerivedProperty(
       [ this.xZoomLevelProperty ],
       xZoomLevel => AxisDescription.X_AXIS_DESCRIPTIONS[ xZoomLevel ]
@@ -55,7 +55,7 @@ class DiscreteChartsModel {
       range: new Range( 0, AxisDescription.Y_AXIS_DESCRIPTIONS.length - 1 )
     } );
 
-    // @public {DerivedProperty.<AxisDescription>} describes the properties of the y axis
+    // @public {DerivedProperty.<AxisDescription>} describes the properties of the y axis. dispose is not needed
     this.yAxisDescriptionProperty = new DerivedProperty(
       [ this.yZoomLevelProperty ],
       yZoomLevel => AxisDescription.Y_AXIS_DESCRIPTIONS[ yZoomLevel ]
