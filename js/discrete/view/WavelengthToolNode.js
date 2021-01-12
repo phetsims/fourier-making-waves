@@ -8,37 +8,37 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import DiscreteModel from '../model/DiscreteModel.js';
 import Domain from '../model/Domain.js';
 import WidthToolNode from './WidthToolNode.js';
 
 class WavelengthToolNode extends WidthToolNode {
 
   /**
+   * @param {DiscreteModel} model
    * @param {ChartTransform} chartTransform
-   * @param {Harmonic[]} harmonics
-   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
-   * @param {Property.<number>} orderProperty - order of the harmonic to display
    * @param {Property.<Bounds2>} dragBoundsProperty
-   * @param {Property.<boolean>} selectedProperty - whether the tool is selected
-   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
-  constructor( chartTransform, harmonics, emphasizedHarmonics, orderProperty, dragBoundsProperty, selectedProperty, domainProperty, options ) {
+  constructor( model, chartTransform, dragBoundsProperty, options ) {
 
-    // other args will be validated by super
-    assert && AssertUtils.assertPropertyOf( selectedProperty, 'boolean' );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( model instanceof DiscreteModel, 'invalid model' );
+    assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
+    assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
 
     super( FMWSymbols.lambda,
-      chartTransform, harmonics, emphasizedHarmonics, orderProperty, dragBoundsProperty,
-      harmonic => harmonic.wavelength,
+      model.fourierSeries.harmonics, model.chartsModel.emphasizedHarmonics, model.wavelengthToolOrderProperty,
+      chartTransform, dragBoundsProperty,
+      harmonic => harmonic.wavelength, // gets the quantity of Harmonic that is being measured
       options );
 
     // Visibility, unmultilink is not needed.
-    Property.multilink( [ selectedProperty, domainProperty ],
+    Property.multilink( [ model.wavelengthToolSelectedProperty, model.domainProperty ],
       ( selected, domain ) => {
         this.interruptDrag();
         this.visible = ( selected && ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME ) );

@@ -12,13 +12,6 @@ Auto Scale checkbox
 Infinite Harmonics checkbox
 Factor out DragListener to share between all Measurement Tools
 
-Too many params in constructors:
-* WidthToolNode 7
-  * WavelengthToolNode 7
-  * PeriodToolNode 7
-* PeriodClockNode 7
-
-
 ## GitHub issues
 
 #25 CT: all data sets must have the same number of points

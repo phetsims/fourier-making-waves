@@ -7,37 +7,37 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import DiscreteModel from '../model/DiscreteModel.js';
 import Domain from '../model/Domain.js';
 import WidthToolNode from './WidthToolNode.js';
 
 class PeriodToolNode extends WidthToolNode {
 
   /**
+   * @param {DiscreteModel} model
    * @param {ChartTransform} chartTransform
-   * @param {Harmonic[]} harmonics
-   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
-   * @param {Property.<number>} orderProperty - order of the harmonic to display
    * @param {Property.<Bounds2>} dragBoundsProperty
-   * @param {Property.<boolean>} selectedProperty - whether the tool is selected
-   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
-  constructor( chartTransform, harmonics, emphasizedHarmonics, orderProperty, dragBoundsProperty, selectedProperty, domainProperty, options ) {
+  constructor( model, chartTransform, dragBoundsProperty, options ) {
 
-    // other args will be validated by super
-    assert && AssertUtils.assertPropertyOf( selectedProperty, 'boolean' );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( model instanceof DiscreteModel, 'invalid model' );
+    assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
+    assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
 
     super( FMWSymbols.T,
-      chartTransform, harmonics, emphasizedHarmonics, orderProperty, dragBoundsProperty,
-      harmonic => harmonic.period,
+      model.fourierSeries.harmonics, model.chartsModel.emphasizedHarmonics, model.periodToolOrderProperty,
+      chartTransform, dragBoundsProperty,
+      harmonic => harmonic.period, // gets the quantity of Harmonic that is being measured
       options );
 
     // Visibility, unmultilink is not needed.
-    Property.multilink( [ selectedProperty, domainProperty ],
+    Property.multilink( [ model.periodToolSelectedProperty, model.domainProperty ],
       ( selected, domain ) => {
         this.interruptDrag();
         this.visible = ( selected && ( domain === Domain.TIME ) );

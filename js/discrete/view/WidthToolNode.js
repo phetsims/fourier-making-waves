@@ -29,21 +29,21 @@ class WidthToolNode extends VBox {
 
   /**
    * @param {string} symbol
-   * @param {ChartTransform} chartTransform
    * @param {Harmonic[]} harmonics
    * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    * @param {Property.<number>} orderProperty - order of the harmonic to be measured
+   * @param {ChartTransform} chartTransform
    * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {function(harmonic:Harmonic):number} getModelValue
    * @param {Object} [options]
    */
-  constructor( symbol, chartTransform, harmonics, emphasizedHarmonics, orderProperty, dragBoundsProperty, getModelValue, options ) {
+  constructor( symbol, harmonics, emphasizedHarmonics, orderProperty, chartTransform, dragBoundsProperty, getModelValue, options ) {
 
     assert && assert( typeof symbol === 'string', 'invalid symbol' );
-    assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
     assert && assert( Array.isArray( harmonics ), 'invalid harmonics' );
     assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
     assert && AssertUtils.assertPropertyOf( orderProperty, 'number' );
+    assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
     assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
     assert && assert( typeof getModelValue === 'function', 'invalid getModelValue' );
 
