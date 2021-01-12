@@ -153,12 +153,14 @@ class WidthToolNode extends VBox {
       const caliperThickness = 5;
       const caliperLength = 20;
       const toolShape = new Shape()
-        .moveTo( 0, 0 )
-        .lineTo( viewValue, 0 )
+        .moveTo( -caliperThickness, 0 )
+        .lineTo( viewValue + caliperThickness, 0 )
+        .lineTo( viewValue + caliperThickness, barThickness )
         .lineTo( viewValue, caliperLength )
-        .lineTo( viewValue - caliperThickness, barThickness )
-        .lineTo( caliperThickness, barThickness )
+        .lineTo( viewValue, barThickness )
+        .lineTo( 0, barThickness )
         .lineTo( 0, caliperLength )
+        .lineTo( -caliperThickness, barThickness )
         .close();
       const toolNode = new Path( toolShape, {
         fill: this.harmonic.colorProperty,
