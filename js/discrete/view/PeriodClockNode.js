@@ -2,9 +2,9 @@
 
 //TODO factor out stuff that this shares with CalipersNode
 /**
- * PeriodClockNode is the measurement tool for period in the 'space & time' domain. It looks like a clock, with a
- * portion of the clock face filled in with the harmonic's color.  The portion filled in represents the portion of
- * the harmonic's period that has elapsed.  The origin is at the center of the clock face.
+ * PeriodClockNode is the tool for measuring a harmonic's period in the 'space & time' domain. It looks like a clock,
+ * with a portion of the clock face filled in with the harmonic's color.  The portion filled in represents the portion
+ * of the harmonic's period that has elapsed.  The origin is at the center of the clock face.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
