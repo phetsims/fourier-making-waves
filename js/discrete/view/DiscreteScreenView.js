@@ -257,6 +257,7 @@ class DiscreteScreenView extends ScreenView {
       expandedFormButton.centerY = sumEquationWrapperNode.centerY;
     } );
 
+    //TODO https://github.com/phetsims/fourier-making-waves/issues/39 should initial positions be resettable?
     // Position the measurement tools.
     // Caliper-like tools are positioned on the Harmonics chart.
     // Clock-like tool is in the space between the Harmonics and Sum chart, right justified.
