@@ -32,7 +32,7 @@ class CalipersNode extends MeasurementToolNode {
    * @param {Harmonic[]} harmonics
    * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    * @param {Property.<number>} orderProperty - order of the harmonic to be measured
-   * @param {ChartTransform} chartTransform
+   * @param {ChartTransform} chartTransform - transform for the Harmonics chart
    * @param {Property.<Bounds2>} visibleBoundsProperty - visible bounds of the associated ScreenView
    * @param {function(harmonic:Harmonic):number} getModelValue - gets the quantity of the harmonic that is being measured
    * @param {Object} [options]

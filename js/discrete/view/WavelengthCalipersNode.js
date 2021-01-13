@@ -20,7 +20,7 @@ class WavelengthCalipersNode extends CalipersNode {
 
   /**
    * @param {DiscreteModel} model
-   * @param {ChartTransform} chartTransform
+   * @param {ChartTransform} chartTransform - transform for the Harmonics chart
    * @param {Property.<Bounds2>} visibleBoundsProperty - visible bounds of the associated ScreenView
    * @param {Object} [options]
    */
