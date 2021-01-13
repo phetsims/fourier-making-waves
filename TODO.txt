@@ -17,5 +17,3 @@ Factor out DragListener to share between all Measurement Tools
 #25 CT: all data sets must have the same number of points
 #31 Harmonic plot emphasis #31
 #33 CT: Cannot read property 'y' of undefined type:automated-testing
-#39 Measurement Tools: initial positions, resettable positions, drag bounds
-#40 Discrete equation positions are incorrect with ?stringTest=long
