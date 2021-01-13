@@ -2,6 +2,14 @@
 
 /**
  * MeasurementToolNode is the base class for tools that are used to measure harmonics.
+ * Responsibilities include:
+ * - positioning the tool
+ * - updating when the associated harmonic changes
+ * - emphasizing the associated harmonic on ( isPressed || isHovering )
+ * - dragging, constrained to drag bounds
+ * - updating drag bounds
+ * - keeping the tool inside drag bounds
+ * - interrupting a drag
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
