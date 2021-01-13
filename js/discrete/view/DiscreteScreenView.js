@@ -181,6 +181,7 @@ class DiscreteScreenView extends ScreenView {
       listener: () => {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
         model.reset();
+        resetMeasurementToolPositions();
       },
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
@@ -257,16 +258,22 @@ class DiscreteScreenView extends ScreenView {
       expandedFormButton.centerY = sumEquationWrapperNode.centerY;
     } );
 
-    //TODO https://github.com/phetsims/fourier-making-waves/issues/39 should initial positions be resettable?
     // Position the measurement tools.
-    // Caliper-like tools are positioned on the Harmonics chart.
-    // Clock-like tool is in the space between the Harmonics and Sum chart, right justified.
-    wavelengthCalipersNode.x = harmonicsChartRectangleLocalBounds.left;
-    wavelengthCalipersNode.bottom = harmonicsChartRectangleLocalBounds.centerY;
-    periodCalipersNode.x = harmonicsChartRectangleLocalBounds.left;
-    periodCalipersNode.bottom = harmonicsChartRectangleLocalBounds.centerY;
-    periodClockNode.right = harmonicsChartRectangleLocalBounds.right;
-    periodClockNode.centerY = harmonicsChartRectangleLocalBounds.maxY + ( sumChartRectangleLocalBounds.minY - harmonicsChartRectangleLocalBounds.maxY ) / 2;
+    function resetMeasurementToolPositions() {
+
+      // Caliper-like tools are positioned on the Harmonics chart.
+      wavelengthCalipersNode.x = harmonicsChartRectangleLocalBounds.left;
+      wavelengthCalipersNode.bottom = harmonicsChartRectangleLocalBounds.centerY;
+      periodCalipersNode.x = harmonicsChartRectangleLocalBounds.left;
+      periodCalipersNode.bottom = harmonicsChartRectangleLocalBounds.centerY;
+
+      // Clock-like tool is in the space between the Harmonics and Sum chart, right justified.
+      periodClockNode.right = harmonicsChartRectangleLocalBounds.right;
+      periodClockNode.centerY = harmonicsChartRectangleLocalBounds.maxY + ( sumChartRectangleLocalBounds.minY - harmonicsChartRectangleLocalBounds.maxY ) / 2;
+    }
+
+    // Call this after layout has been done, since tool positions are relative to other Nodes.
+    resetMeasurementToolPositions();
 
     // Creating a sawtooth wave using cosines is impossible because it is asymmetric. Display a dialog if the user
     // attempts this.  The model is responsible for other adjustments. This dialog is created eagerly because it's
