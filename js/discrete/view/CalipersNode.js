@@ -129,10 +129,10 @@ class CalipersNode extends MeasurementToolNode {
       );
     }
 
-    super( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, update, createDragBounds, options );
-
     // Initialize
     update();
+
+    super( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, update, createDragBounds, options );
 
     // Update when the range of the associated axis changes. removeListener is not needed.
     chartTransform.changedEmitter.addListener( update );

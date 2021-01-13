@@ -69,9 +69,6 @@ class PeriodClockNode extends MeasurementToolNode {
       fill: Color.grayColor( 255, 0.75 )
     } );
 
-    // Initialize Nodes
-    update();
-
     assert && assert( !options.children, 'PeriodClockNode sets children' );
     options.children = [ clockFaceNode, backgroundNode, labelNode ];
 
@@ -105,6 +102,9 @@ class PeriodClockNode extends MeasurementToolNode {
         visibleBounds.maxY - thisLocalBounds.height / 2
       );
     }
+
+    // Initialize Nodes
+    update();
 
     super( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, update, createDragBounds, options );
 

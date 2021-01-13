@@ -261,10 +261,6 @@ class DiscreteScreenView extends ScreenView {
     // Position the measurement tools.
     function resetMeasurementToolPositions() {
 
-      //TODO weird problem with tools showing up at the wrong x location, this fixes it for some reason
-      wavelengthCalipersNode.left = harmonicsChartRectangleLocalBounds.left;
-      periodCalipersNode.left = harmonicsChartRectangleLocalBounds.left;
-
       // Caliper-like tools are positioned on the Harmonics chart.
       wavelengthCalipersNode.x = harmonicsChartRectangleLocalBounds.left;
       wavelengthCalipersNode.bottom = harmonicsChartRectangleLocalBounds.centerY;

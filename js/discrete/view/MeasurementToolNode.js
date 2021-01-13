@@ -77,13 +77,13 @@ class MeasurementToolNode extends Node {
     } );
 
     // Update the tool to match the selected harmonic. unlink is not needed.
-    harmonicProperty.link( () => {
+    harmonicProperty.lazyLink( () => {
       this.interruptDrag();
       update();
     } );
 
     // If ( isPressed || isHovering ), emphasize the associated harmonic. unlink is not needed.
-    this.dragListener.isHighlightedProperty.link( isHighlighted => {
+    this.dragListener.isHighlightedProperty.lazyLink( isHighlighted => {
       const harmonic = harmonicProperty.value;
       if ( isHighlighted ) {
         emphasizedHarmonics.push( harmonic );
