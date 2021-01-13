@@ -2,8 +2,6 @@ TODO.txt for fourier-making-waves
 
 ## Discrete screen
 
-Incorrect initial position of CalipersNode tools
-
 Move chart model out of HarmonicsChartNode.js:
 * Move {Property.<Array.<Vector2>>} sumDataSetProperty and the logic for computing it from HarmonicsChartNode to DiscreteChartsModel
 * Add {Array.<Property.<Vector2>>} harmonicDataSetProperties and logic that sets them to DiscreteChartsModel
