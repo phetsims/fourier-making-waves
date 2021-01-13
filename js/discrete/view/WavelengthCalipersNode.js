@@ -30,14 +30,19 @@ class WavelengthCalipersNode extends CalipersNode {
     assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
 
-    super( FMWSymbols.lambda,
-      model.fourierSeries.harmonics, model.chartsModel.emphasizedHarmonics, model.wavelengthToolOrderProperty,
-      chartTransform, visibleBoundsProperty,
+    // Model properties that we'll be using - these were formerly constructor params.
+    const harmonics = model.fourierSeries.harmonics;
+    const emphasizedHarmonics = model.chartsModel.emphasizedHarmonics;
+    const orderProperty = model.wavelengthToolOrderProperty;
+    const selectedProperty = model.wavelengthToolSelectedProperty;
+    const domainProperty = model.domainProperty;
+
+    super( FMWSymbols.lambda, harmonics, emphasizedHarmonics, orderProperty, chartTransform, visibleBoundsProperty,
       harmonic => harmonic.wavelength, // gets the quantity of Harmonic that is being measured
       options );
 
     // Visibility, unmultilink is not needed.
-    Property.multilink( [ model.wavelengthToolSelectedProperty, model.domainProperty ],
+    Property.multilink( [ selectedProperty, domainProperty ],
       ( selected, domain ) => {
         this.interruptDrag();
         this.visible = ( selected && ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME ) );

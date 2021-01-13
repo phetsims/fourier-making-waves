@@ -1,6 +1,5 @@
 // Copyright 2020, University of Colorado Boulder
 
-//TODO factor out stuff that this shares with CalipersNode
 /**
  * PeriodClockNode is the tool for measuring a harmonic's period in the 'space & time' domain. It looks like a clock,
  * with a portion of the clock face filled in with the harmonic's color.  The portion filled in represents the portion
@@ -15,7 +14,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -28,12 +26,13 @@ import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import Domain from '../model/Domain.js';
+import MeasurementToolNode from './MeasurementToolNode.js';
 
 // Margins for the translucent background behind the label
 const BACKGROUND_X_MARGIN = 2;
 const BACKGROUND_Y_MARGIN = 2;
 
-class PeriodClockNode extends Node {
+class PeriodClockNode extends MeasurementToolNode {
 
   /**
    * @param {DiscreteModel} model
@@ -45,141 +44,81 @@ class PeriodClockNode extends Node {
     assert && assert( model instanceof DiscreteModel, 'invalid model' );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
 
-    options = merge( {
-      cursor: 'pointer'
-    }, options );
+    options = options || {};
+
+    // Model properties that we'll be using - these were formerly constructor params.
+    const harmonics = model.fourierSeries.harmonics;
+    const emphasizedHarmonics = model.chartsModel.emphasizedHarmonics;
+    const tProperty = model.tProperty;
+    const orderProperty = model.periodToolOrderProperty;
+    const selectedProperty = model.periodToolSelectedProperty;
+    const domainProperty = model.domainProperty;
 
     // The harmonic associated with this tool. dispose is not needed.
-    const harmonicProperty = new DerivedProperty(
-      [ model.periodToolOrderProperty ],
-      order => model.fourierSeries.harmonics[ order - 1 ]
-    );
+    const harmonicProperty = new DerivedProperty( [ orderProperty ], order => harmonics[ order - 1 ] );
 
-    const clockFaceNode = new ClockFaceNode( harmonicProperty, model.tProperty );
+    const clockFaceNode = new ClockFaceNode( harmonicProperty, tProperty );
 
     const labelNode = new RichText( '', {
       font: FMWConstants.TOOL_LABEL_FONT,
       maxWidth: 50
     } );
 
-    // A translucent background for the label
+    // Translucent background for the label
     const backgroundNode = new Rectangle( 0, 0, 1, 1, {
       fill: Color.grayColor( 255, 0.75 )
     } );
 
+    // Initialize Nodes
+    update();
+
     assert && assert( !options.children, 'PeriodClockNode sets children' );
     options.children = [ clockFaceNode, backgroundNode, labelNode ];
 
-    super( options );
+    /**
+     * Updates this tool to match the selected harmonic
+     */
+    function update() {
+      const order = harmonicProperty.value.order;
 
-    // Show a red dot at the origin, which is the center of clockFaceNode.
-    if ( phet.chipper.queryParameters.dev ) {
-      this.addChild( new Circle( 2, { fill: 'red' } ) );
+      // Change the label
+      labelNode.text = `${FMWSymbols.T}<sub>${order}</sub>`;
+      labelNode.left = clockFaceNode.right + BACKGROUND_X_MARGIN + 2;
+      labelNode.centerY = clockFaceNode.centerY;
+
+      // Resize the background to fit the label, and keep label centered in background.
+      backgroundNode.setRect( 0, 0, labelNode.width + 2 * BACKGROUND_X_MARGIN, labelNode.height + 2 * BACKGROUND_Y_MARGIN );
+      backgroundNode.center = labelNode.center;
     }
 
-    // @private
-    this.emphasizedHarmonics = model.chartsModel.emphasizedHarmonics;
-    this.harmonicProperty = harmonicProperty;
-    this.clockFaceNode = clockFaceNode;
-    this.labelNode = labelNode;
-    this.backgroundNode = backgroundNode;
+    /**
+     * Creates the drag bounds for this tool.
+     * This tool is constrained to be fully in bounds in the x & y dimensions.
+     * @param {Bounds2} visibleBounds - visible bounds of the associated ScreenView
+     * @param {Bounds2} thisLocalBounds - local bounds of this Node
+     */
+    function createDragBounds( visibleBounds, thisLocalBounds ) {
+      return visibleBounds.copy().setMinMax(
+        visibleBounds.minX - thisLocalBounds.minX,
+        visibleBounds.minY + thisLocalBounds.height / 2,
+        visibleBounds.maxX - thisLocalBounds.maxX,
+        visibleBounds.maxY - thisLocalBounds.height / 2
+      );
+    }
 
-    // Initialize
-    this.update();
-
-    // Position of the tool in view coordinates
-    const positionProperty = new Property( this.translation );
-
-    // Drag bounds, dispose is not needed.
-    // The tool is constrained to be fully in bounds in the x & y dimensions.
-    const dragBoundsProperty = new DerivedProperty(
-      [ visibleBoundsProperty, this.localBoundsProperty ],
-      visibleBounds => visibleBounds
-        .erodedX( this.width / 2 )
-        .shiftedX( -this.width / 2 + ( this.x - this.left ) )
-        .erodedY( this.height / 2 )
-    );
-
-    // @private
-    this.dragListener = new DragListener( {
-      positionProperty: positionProperty,
-      dragBoundsProperty: dragBoundsProperty
-    } );
-    this.addInputListener( this.dragListener ); // removeInputListener is not needed.
-
-    // Move the tool to its position. unlink is not needed.
-    positionProperty.lazyLink( position => {
-      this.translation = position;
-    } );
-
-    // Display the period for the selected harmonic. unlink is not needed.
-    harmonicProperty.link( () => {
-      this.interruptDrag();
-      this.update();
-    } );
+    super( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, update, createDragBounds, options );
 
     // Visibility, unmultilink is not needed.
-    Property.multilink( [ model.periodToolSelectedProperty, model.domainProperty ],
+    Property.multilink( [ selectedProperty, domainProperty ],
       ( selected, domain ) => {
         this.interruptDrag();
         this.visible = selected && ( domain === Domain.SPACE_AND_TIME );
       } );
 
-    // If ( isPressed || isHovering ), emphasize the associated harmonic. unlink is not needed.
-    this.dragListener.isHighlightedProperty.link( isHighlighted => {
-      const harmonic = harmonicProperty.value;
-      if ( isHighlighted ) {
-        model.chartsModel.emphasizedHarmonics.push( harmonic );
-      }
-      else if ( model.chartsModel.emphasizedHarmonics.includes( harmonic ) ) {
-        model.chartsModel.emphasizedHarmonics.remove( harmonic );
-      }
-    } );
-
-    // If the tool is outside the drag bounds, move it inside. unlink is not needed.
-    dragBoundsProperty.link( dragBounds => {
-      if ( !dragBounds.containsPoint( positionProperty.value ) ) {
-        this.interruptDrag();
-        positionProperty.value = dragBounds.closestPointTo( positionProperty.value );
-      }
-    } );
-
     // Synchronize visibility of the clock face, so we can short-circuit updates while it's invisible.
     this.visibleProperty.link( visible => {
       clockFaceNode.visible = visible;
     } );
-  }
-
-  /**
-   * Updates the tool to match the selected harmonic.
-   * @private
-   */
-  update() {
-
-    const order = this.harmonicProperty.value.order;
-
-    // Change the label
-    this.labelNode.text = `${FMWSymbols.T}<sub>${order}</sub>`;
-    this.labelNode.left = this.clockFaceNode.right + BACKGROUND_X_MARGIN + 2;
-    this.labelNode.centerY = this.clockFaceNode.centerY;
-
-    // Resize the background to fit the label, and keep label centered in background.
-    this.backgroundNode.setRect( 0, 0, this.labelNode.width + 2 * BACKGROUND_X_MARGIN, this.labelNode.height + 2 * BACKGROUND_Y_MARGIN );
-    this.backgroundNode.center = this.labelNode.center;
-  }
-
-  /**
-   * Interrupts a drag and ensures that the associated harmonic is no longer emphasized.
-   * @protected
-   */
-  interruptDrag() {
-    if ( this.dragListener.isPressed ) {
-      this.interruptSubtreeInput();
-      const harmonic = this.harmonicProperty.value;
-      if ( this.emphasizedHarmonics.includes( harmonic ) ) {
-        this.emphasizedHarmonics.remove( harmonic );
-      }
-    }
   }
 }
 

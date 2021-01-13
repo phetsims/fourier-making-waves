@@ -30,14 +30,19 @@ class PeriodCalipersNode extends CalipersNode {
     assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
 
-    super( FMWSymbols.T,
-      model.fourierSeries.harmonics, model.chartsModel.emphasizedHarmonics, model.periodToolOrderProperty,
-      chartTransform, visibleBoundsProperty,
+    // Model properties that we'll be using - these were formerly constructor params.
+    const harmonics = model.fourierSeries.harmonics;
+    const emphasizedHarmonics = model.chartsModel.emphasizedHarmonics;
+    const orderProperty = model.periodToolOrderProperty;
+    const selectedProperty = model.periodToolSelectedProperty;
+    const domainProperty = model.domainProperty;
+
+    super( FMWSymbols.T, harmonics, emphasizedHarmonics, orderProperty, chartTransform, visibleBoundsProperty,
       harmonic => harmonic.period, // gets the quantity of Harmonic that is being measured
       options );
 
     // Visibility, unmultilink is not needed.
-    Property.multilink( [ model.periodToolSelectedProperty, model.domainProperty ],
+    Property.multilink( [ selectedProperty, domainProperty ],
       ( selected, domain ) => {
         this.interruptDrag();
         this.visible = ( selected && ( domain === Domain.TIME ) );
