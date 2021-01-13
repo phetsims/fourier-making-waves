@@ -73,9 +73,9 @@ class CalipersNode extends MeasurementToolNode {
     options.children = [ beamNode, backgroundNode, labelNode ];
 
     /**
-     * Updates this tool to match the selected harmonic
+     * Updates this tool's child Nodes to match the selected harmonic
      */
-    function update() {
+    function updateNodes() {
 
       const harmonic = harmonicProperty.value;
 
@@ -130,12 +130,12 @@ class CalipersNode extends MeasurementToolNode {
     }
 
     // Initialize child Nodes before calling super
-    update();
+    updateNodes();
 
-    super( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, update, createDragBounds, options );
+    super( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, updateNodes, createDragBounds, options );
 
     // Update when the range of the associated axis changes. removeListener is not needed.
-    chartTransform.changedEmitter.addListener( update );
+    chartTransform.changedEmitter.addListener( updateNodes );
   }
 }
 

@@ -32,16 +32,16 @@ class MeasurementToolNode extends Node {
    * @param {Property.<Harmonic>} harmonicProperty
    * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    * @param {Property.<Bounds2>} visibleBoundsProperty - visible bounds of the associated ScreenView
-   * @param {function} update - updates the tool to match the selected harmonic
+   * @param {function} updateNodes - updates this tool's child Nodes to match the selected harmonic
    * @param {function(visibleBounds:Bounds2, thisLocalBounds:Bounds2)} computeDragBounds
    * @param {Object} [options]
    */
-  constructor( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, update, computeDragBounds, options ) {
+  constructor( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, updateNodes, computeDragBounds, options ) {
 
     assert && AssertUtils.assertPropertyOf( harmonicProperty, Harmonic );
     assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
-    assert && assert( typeof update === 'function', 'invalid update' );
+    assert && assert( typeof updateNodes === 'function', 'invalid updateNodes' );
     assert && assert( typeof computeDragBounds === 'function', 'invalid computeDragBounds' );
 
     options = merge( {
@@ -79,7 +79,7 @@ class MeasurementToolNode extends Node {
     // Update the tool to match the selected harmonic. unlink is not needed.
     harmonicProperty.lazyLink( () => {
       this.interruptDrag();
-      update();
+      updateNodes();
     } );
 
     // If ( isPressed || isHovering ), emphasize the associated harmonic. unlink is not needed.

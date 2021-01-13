@@ -73,9 +73,9 @@ class PeriodClockNode extends MeasurementToolNode {
     options.children = [ clockFaceNode, backgroundNode, labelNode ];
 
     /**
-     * Updates this tool to match the selected harmonic
+     * Updates this tool's child Nodes to match the selected harmonic
      */
-    function update() {
+    function updateNodes() {
       const order = harmonicProperty.value.order;
 
       // Change the label
@@ -104,9 +104,9 @@ class PeriodClockNode extends MeasurementToolNode {
     }
 
     // Initialize child Nodes before calling super
-    update();
+    updateNodes();
 
-    super( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, update, createDragBounds, options );
+    super( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, updateNodes, createDragBounds, options );
 
     // Visibility, unmultilink is not needed.
     Property.multilink( [ selectedProperty, domainProperty ],
