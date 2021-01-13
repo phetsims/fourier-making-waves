@@ -90,10 +90,14 @@ class PeriodClockNode extends Node {
     // Position of the tool in view coordinates
     const positionProperty = new Property( this.translation );
 
-    // Drag bounds, derived from visible bounds of the associated ScreenView. dispose is not needed
+    // Drag bounds, dispose is not needed.
+    // The tool is constrained to fully in bounds in the x & y dimensions.
     const dragBoundsProperty = new DerivedProperty(
-      [ visibleBoundsProperty ],
-      visibleBounds => visibleBounds.eroded( 25 ) // determined empirically
+      [ visibleBoundsProperty, this.localBoundsProperty ],
+      visibleBounds => visibleBounds
+        .erodedX( this.width / 2 )
+        .shiftedX( -this.width / 2 + ( this.x - this.left ) )
+        .erodedY( this.height / 2 )
     );
 
     // @private
