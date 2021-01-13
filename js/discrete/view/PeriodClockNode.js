@@ -103,7 +103,7 @@ class PeriodClockNode extends MeasurementToolNode {
       );
     }
 
-    // Initialize Nodes
+    // Initialize child Nodes before calling super
     update();
 
     super( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, update, createDragBounds, options );
