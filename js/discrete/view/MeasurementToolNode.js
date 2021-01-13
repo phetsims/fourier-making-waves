@@ -74,9 +74,6 @@ class MeasurementToolNode extends Node {
       update();
     } );
 
-    // @protected
-    this.harmonicProperty = harmonicProperty;
-
     // If ( isPressed || isHovering ), emphasize the associated harmonic. unlink is not needed.
     this.dragListener.isHighlightedProperty.link( isHighlighted => {
       const harmonic = harmonicProperty.value;
@@ -95,6 +92,9 @@ class MeasurementToolNode extends Node {
         positionProperty.value = dragBounds.closestPointTo( positionProperty.value );
       }
     } );
+
+    // @private
+    this.harmonicProperty = harmonicProperty;
   }
 
   /**
