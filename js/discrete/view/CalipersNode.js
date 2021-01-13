@@ -108,10 +108,15 @@ class CalipersNode extends Node {
     // Position of the tool in view coordinates
     const positionProperty = new Property( this.translation );
 
-    // Drag bounds, derived from visible bounds of the associated ScreenView. dispose is not needed.
+    // Drag bounds, dispose is not needed.
+    // The tool is constrained to be mostly in bounds in the x dimension, and fully in bounds in the y dimension.
     const dragBoundsProperty = new DerivedProperty(
-      [ visibleBoundsProperty ],
-      visibleBounds => visibleBounds.eroded( 25 ) // determined empirically
+      [ visibleBoundsProperty, this.localBoundsProperty ],
+      visibleBounds => visibleBounds.erodedX( 50 ) // determined empirically
+        .dilatedX( this.width / 2 )
+        .shiftedX( -this.width / 2 )
+        .erodedY( this.height / 2 )
+        .shiftedY( this.height / 2 )
     );
 
     // @private
