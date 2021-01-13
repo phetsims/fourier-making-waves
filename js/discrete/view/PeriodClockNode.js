@@ -91,7 +91,7 @@ class PeriodClockNode extends Node {
     const positionProperty = new Property( this.translation );
 
     // Drag bounds, dispose is not needed.
-    // The tool is constrained to fully in bounds in the x & y dimensions.
+    // The tool is constrained to be fully in bounds in the x & y dimensions.
     const dragBoundsProperty = new DerivedProperty(
       [ visibleBoundsProperty, this.localBoundsProperty ],
       visibleBounds => visibleBounds
