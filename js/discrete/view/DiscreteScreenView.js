@@ -261,11 +261,9 @@ class DiscreteScreenView extends ScreenView {
     // Position the measurement tools.
     function resetMeasurementToolPositions() {
 
-      // Caliper-like tools are positioned on the Harmonics chart.
-      wavelengthCalipersNode.x = harmonicsChartRectangleLocalBounds.left;
-      wavelengthCalipersNode.bottom = harmonicsChartRectangleLocalBounds.centerY;
-      periodCalipersNode.x = harmonicsChartRectangleLocalBounds.left;
-      periodCalipersNode.bottom = harmonicsChartRectangleLocalBounds.centerY;
+      // Caliper-like tools are centered on the origin of the Harmonics chart.
+      wavelengthCalipersNode.centerBottom = harmonicsChartRectangleLocalBounds.center;
+      periodCalipersNode.centerBottom = harmonicsChartRectangleLocalBounds.center;
 
       // Clock-like tool is in the space between the Harmonics and Sum chart, right justified.
       periodClockNode.right = harmonicsChartRectangleLocalBounds.right;
