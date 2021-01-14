@@ -33,16 +33,14 @@ class MeasurementToolNode extends Node {
    * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    * @param {Property.<Bounds2>} visibleBoundsProperty - visible bounds of the associated ScreenView
    * @param {function} updateNodes - updates this tool's child Nodes to match the selected harmonic
-   * @param {function(visibleBounds:Bounds2, thisLocalBounds:Bounds2)} computeDragBounds
    * @param {Object} [options]
    */
-  constructor( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, updateNodes, computeDragBounds, options ) {
+  constructor( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, updateNodes, options ) {
 
     assert && AssertUtils.assertPropertyOf( harmonicProperty, Harmonic );
     assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
     assert && assert( typeof updateNodes === 'function', 'invalid updateNodes' );
-    assert && assert( typeof computeDragBounds === 'function', 'invalid computeDragBounds' );
 
     options = merge( {
       cursor: 'pointer'
@@ -58,10 +56,15 @@ class MeasurementToolNode extends Node {
     // Position of the tool in view coordinates
     const positionProperty = new Property( this.translation );
 
-    // Drag bounds, derived from the ScreenView's visible bounds and this Node's local bounds. dispose is not needed.
+    // Derives the drag bounds. Tools are constrained to be fully inside the visible bounds of the ScreenView.
     const dragBoundsProperty = new DerivedProperty(
       [ visibleBoundsProperty, this.localBoundsProperty ],
-      ( visibleBounds, localBounds ) => computeDragBounds( visibleBounds, localBounds )
+      ( visibleBounds, localBounds ) => visibleBounds.copy().setMinMax(
+        visibleBounds.minX - localBounds.minX,
+        visibleBounds.minY - localBounds.minY,
+        visibleBounds.maxX - localBounds.maxX,
+        visibleBounds.maxY - localBounds.maxY
+      )
     );
 
     // @private
