@@ -31,6 +31,8 @@ import Harmonic from '../model/Harmonic.js';
 const TRACK_WIDTH = 40; // track height specified in constructor options
 const THUMB_WIDTH = TRACK_WIDTH - 15;
 const THUMB_HEIGHT = 8;
+
+// flipped because VSlider rotates its subcomponents -90 degrees
 const THUMB_TOUCH_AREA_DILATION = new Dimension2( 10, 4 ).flipped();
 const THUMB_MOUSE_AREA_DILATION = new Dimension2( 10, 4 ).flipped();
 
@@ -109,7 +111,7 @@ class AmplitudeSlider extends VSlider {
 }
 
 /**
- * GrippyThumb is a custom thumb for AmplitudeSlider.
+ * GrippyThumb is a custom thumb for AmplitudeSlider. It has grippy dots on it that are color-coded to the harmonic.
  */
 class GrippyThumb extends Node {
 
@@ -155,18 +157,8 @@ class GrippyThumb extends Node {
       children: [ rectangle, dotsNode ]
     } );
 
-    //TODO test that attach:false doesn't prevent this from being interrupted with Reset All
     // Emphasize the associated harmonic. removeInputListener and unlink are not needed.
-    const pressListener = new PressListener( { attach: false } );
-    this.addInputListener( pressListener );
-    pressListener.isHighlightedProperty.lazyLink( isHighlighted => {
-      if ( isHighlighted ) {
-        emphasizedHarmonics.push( harmonic );
-      }
-      else if ( emphasizedHarmonics.includes( harmonic ) ) {
-        emphasizedHarmonics.remove( harmonic );
-      }
-    } );
+    this.addInputListener( new EmphasisListener( harmonic, emphasizedHarmonics ) );
   }
 }
 
@@ -228,19 +220,9 @@ class BarTrack extends SliderTrack {
     };
     harmonic.amplitudeProperty.link( amplitudeListener ); // unlink is not needed.
 
-    //TODO duplication with GrippyThumb
     // Emphasize the associated harmonic when interacting with the visible part of the track.
-    // removeInputListener and unlink are not needed.
-    const pressListener = new PressListener( { attach: false } );
-    visibleTrackNode.addInputListener( pressListener );
-    pressListener.isHighlightedProperty.lazyLink( isHighlighted => {
-      if ( isHighlighted ) {
-        emphasizedHarmonics.push( harmonic );
-      }
-      else if ( emphasizedHarmonics.includes( harmonic ) ) {
-        emphasizedHarmonics.remove( harmonic );
-      }
-    } );
+    // removeInputListener is not needed.
+    visibleTrackNode.addInputListener( new EmphasisListener( harmonic, emphasizedHarmonics ) );
   }
 
   /**
@@ -250,6 +232,36 @@ class BarTrack extends SliderTrack {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+}
+
+/**
+ * EmphasisListener emphasizes the harmonic associated with the AmplitudeSlider.
+ */
+class EmphasisListener extends PressListener {
+
+  /**
+   * @param {Harmonic} harmonic - the harmonic associated with the AmplitudeSlider
+   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics - the set of harmonics to be emphasized
+   * @param {Object} [options]
+   */
+  constructor( harmonic, emphasizedHarmonics, options ) {
+
+    options = merge( {
+      attach: false  //TODO test that attach:false doesn't prevent this from being interrupted with Reset All
+    }, options );
+
+    super( options );
+
+    // Emphasize the harmonic ( onPress || onHover ). unlink is not needed
+    this.isHighlightedProperty.lazyLink( isHighlighted => {
+      if ( isHighlighted ) {
+        emphasizedHarmonics.push( harmonic );
+      }
+      else if ( emphasizedHarmonics.includes( harmonic ) ) {
+        emphasizedHarmonics.remove( harmonic );
+      }
+    } );
   }
 }
 
