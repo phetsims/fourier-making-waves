@@ -159,7 +159,7 @@ class GrippyThumb extends Node {
     // Emphasize the associated harmonic. removeInputListener and unlink are not needed.
     const pressListener = new PressListener( { attach: false } );
     this.addInputListener( pressListener );
-    pressListener.isHighlightedProperty.link( isHighlighted => {
+    pressListener.isHighlightedProperty.lazyLink( isHighlighted => {
       if ( isHighlighted ) {
         emphasizedHarmonics.push( harmonic );
       }
@@ -233,7 +233,7 @@ class BarTrack extends SliderTrack {
     // removeInputListener and unlink are not needed.
     const pressListener = new PressListener( { attach: false } );
     visibleTrackNode.addInputListener( pressListener );
-    pressListener.isHighlightedProperty.link( isHighlighted => {
+    pressListener.isHighlightedProperty.lazyLink( isHighlighted => {
       if ( isHighlighted ) {
         emphasizedHarmonics.push( harmonic );
       }
