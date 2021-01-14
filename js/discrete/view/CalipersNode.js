@@ -2,7 +2,7 @@
 
 /**
  * CalipersNode is the base class for tools used to measure a horizontal dimension of a harmonic.
- * Origin is at the left tip.
+ * Origin is at the tip of the left caliper.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -89,7 +89,7 @@ class CalipersNode extends MeasurementToolNode {
       const viewValue = chartTransform.modelToViewDeltaX( modelValue );
 
       // The horizontal beam has ends that are caliper-like.
-      // The Shape is described clockwise from the origin (the left tip).
+      // The Shape is described clockwise from the origin (the tip of the left caliper).
       const barThickness = 5;
       const caliperThickness = 5;
       const caliperLength = 20;
@@ -123,17 +123,16 @@ class CalipersNode extends MeasurementToolNode {
     }
 
     /**
-     * Creates the drag bounds for this tool.
-     * Calipers are constrained to be mostly in bounds in the x dimension, and fully in bounds in the y dimension.
+     * Creates the drag bounds for this tool, constraining the tool to be fully withing the visible bounds of the
+     * associated ScreenView. This relies on the assumption that the tool's origin is at the tip of the left caliper.
      * @param {Bounds2} visibleBounds - visible bounds of the associated ScreenView
      * @param {Bounds2} thisLocalBounds - local bounds of this Node
      */
     function createDragBounds( visibleBounds, thisLocalBounds ) {
-      const erodeX = 50;
       return visibleBounds.copy().setMinMax(
-        visibleBounds.minX - thisLocalBounds.width + erodeX,
+        visibleBounds.minX - thisLocalBounds.minX,
         visibleBounds.minY + thisLocalBounds.height,
-        visibleBounds.maxX - erodeX,
+        visibleBounds.maxX - thisLocalBounds.maxX,
         visibleBounds.maxY
       );
     }

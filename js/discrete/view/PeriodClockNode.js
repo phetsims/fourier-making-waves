@@ -89,8 +89,8 @@ class PeriodClockNode extends MeasurementToolNode {
     }
 
     /**
-     * Creates the drag bounds for this tool.
-     * This tool is constrained to be fully in bounds in the x & y dimensions.
+     * Creates the drag bounds for this tool, constraining the tool to be fully withing the visible bounds of the
+     * associated ScreenView. This relies on the assumption that the tool's origin is at the center of the clock face.
      * @param {Bounds2} visibleBounds - visible bounds of the associated ScreenView
      * @param {Bounds2} thisLocalBounds - local bounds of this Node
      */
