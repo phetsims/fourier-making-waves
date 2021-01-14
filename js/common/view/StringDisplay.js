@@ -60,7 +60,7 @@ class StringDisplay extends Node {
       stringNode.text = value;
       stringNode.center = backgroundNode.center;
     };
-    stringProperty.link( stringListener );
+    stringProperty.link( stringListener ); // unlink is required on dispose
 
     // @private
     this.stringNode = stringNode;
