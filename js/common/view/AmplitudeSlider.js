@@ -160,6 +160,15 @@ class GrippyThumb extends Node {
     // Emphasize the associated harmonic. removeInputListener and unlink are not needed.
     this.addInputListener( new EmphasisListener( harmonic, emphasizedHarmonics ) );
   }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 /**
@@ -262,6 +271,15 @@ class EmphasisListener extends PressListener {
         emphasizedHarmonics.remove( harmonic );
       }
     } );
+  }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
   }
 }
 
