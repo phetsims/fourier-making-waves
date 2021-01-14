@@ -57,6 +57,11 @@ class CalipersNode extends MeasurementToolNode {
       stroke: 'black'
     } );
 
+    // Transparent rectangle that covers beamNode, so you can drag by clicking in the space between the calipers
+    const transparentRectangle = new Rectangle( 0, 0, 1, 1, {
+      fill: 'transparent'
+    } );
+
     // Label above the beam
     const labelNode = new RichText( '', {
       font: FMWConstants.TOOL_LABEL_FONT,
@@ -70,7 +75,7 @@ class CalipersNode extends MeasurementToolNode {
     } );
 
     assert && assert( !options.children, 'CalipersNode sets children' );
-    options.children = [ beamNode, backgroundNode, labelNode ];
+    options.children = [ transparentRectangle, beamNode, backgroundNode, labelNode ];
 
     /**
      * Updates this tool's child Nodes to match the selected harmonic
@@ -99,6 +104,10 @@ class CalipersNode extends MeasurementToolNode {
         .lineTo( 0, -( caliperLength - barThickness ) )
         .close();
       beamNode.fill = harmonic.colorProperty;
+
+      // Cover the beam with a transparent rectangle, so you can drag by clicking in the space between the calipers.
+      transparentRectangle.setRect( 0, 0, beamNode.width, beamNode.height );
+      transparentRectangle.center = beamNode.center;
 
       // Label is the symbol with harmonic order subscript
       labelNode.text = `${symbol}<sub>${harmonic.order}</sub>`;
@@ -136,6 +145,12 @@ class CalipersNode extends MeasurementToolNode {
 
     // Update when the range of the associated axis changes. removeListener is not needed.
     chartTransform.changedEmitter.addListener( updateNodes );
+
+    // Pointer areas
+    this.localBoundsProperty.link( localBounds => {
+      this.mouseArea = beamNode.bounds.dilatedY( 1 );
+      this.touchArea = beamNode.bounds.dilatedY( 6 );
+    } );
   }
 }
 

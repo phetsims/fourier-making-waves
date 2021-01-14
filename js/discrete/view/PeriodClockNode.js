@@ -119,6 +119,12 @@ class PeriodClockNode extends MeasurementToolNode {
     this.visibleProperty.link( visible => {
       clockFaceNode.visible = visible;
     } );
+
+    // Pointer areas
+    this.localBoundsProperty.link( localBounds => {
+      this.mouseArea = localBounds;
+      this.touchArea = localBounds.dilatedXY( 5, 5 );
+    } );
   }
 }
 
