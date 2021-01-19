@@ -48,6 +48,10 @@ class MeasurementToolNode extends Node {
 
     super( options );
 
+    // @private
+    this.harmonicProperty = harmonicProperty;
+    this.emphasizedHarmonics = emphasizedHarmonics;
+
     // Show a red dot at the tool's origin.
     if ( phet.chipper.queryParameters.dev ) {
       this.addChild( new Circle( 2, { fill: 'red' } ) );
@@ -103,9 +107,6 @@ class MeasurementToolNode extends Node {
         positionProperty.value = dragBounds.closestPointTo( positionProperty.value );
       }
     } );
-
-    // @private
-    this.harmonicProperty = harmonicProperty;
   }
 
   /**
