@@ -13,6 +13,7 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -24,6 +25,11 @@ import MeasurementToolNode from './MeasurementToolNode.js';
 // Margins for the translucent background behind the label
 const BACKGROUND_X_MARGIN = 2;
 const BACKGROUND_Y_MARGIN = 2;
+
+// Caliper properties
+const BAR_THICKNESS = 5;
+const CALIPER_THICKNESS = 5;
+const CALIPER_LENGTH = 20;
 
 class CalipersNode extends MeasurementToolNode {
 
@@ -74,8 +80,12 @@ class CalipersNode extends MeasurementToolNode {
       center: labelNode.center
     } );
 
+    const parentNode = new Node( {
+      children: [ transparentRectangle, beamNode, backgroundNode, labelNode ]
+    } );
+
     assert && assert( !options.children, 'CalipersNode sets children' );
-    options.children = [ transparentRectangle, beamNode, backgroundNode, labelNode ];
+    options.children = [ parentNode ];
 
     /**
      * Updates this tool's child Nodes to match the selected harmonic
@@ -90,18 +100,15 @@ class CalipersNode extends MeasurementToolNode {
 
       // The horizontal beam has ends that are caliper-like.
       // The Shape is described clockwise from the origin (the tip of the left caliper).
-      const barThickness = 5;
-      const caliperThickness = 5;
-      const caliperLength = 20;
       beamNode.shape = new Shape()
         .moveTo( 0, 0 )
-        .lineTo( -caliperThickness, -( caliperLength - barThickness ) )
-        .lineTo( -caliperThickness, -caliperLength )
-        .lineTo( viewValue + caliperThickness, -caliperLength )
-        .lineTo( viewValue + caliperThickness, -( caliperLength - barThickness ) )
+        .lineTo( -CALIPER_THICKNESS, -( CALIPER_LENGTH - BAR_THICKNESS ) )
+        .lineTo( -CALIPER_THICKNESS, -CALIPER_LENGTH )
+        .lineTo( viewValue + CALIPER_THICKNESS, -CALIPER_LENGTH )
+        .lineTo( viewValue + CALIPER_THICKNESS, -( CALIPER_LENGTH - BAR_THICKNESS ) )
         .lineTo( viewValue, 0 )
-        .lineTo( viewValue, -( caliperLength - barThickness ) )
-        .lineTo( 0, -( caliperLength - barThickness ) )
+        .lineTo( viewValue, -( CALIPER_LENGTH - BAR_THICKNESS ) )
+        .lineTo( 0, -( CALIPER_LENGTH - BAR_THICKNESS ) )
         .close();
       beamNode.fill = harmonic.colorProperty;
 
@@ -124,6 +131,17 @@ class CalipersNode extends MeasurementToolNode {
 
     // Initialize child Nodes before calling super
     updateNodes();
+
+    // Derives the drag bounds. Calipers may be wider than the ScreenView, so the tip of the left caliper is
+    // constrained to be inside the visible bounds of the ScreenView, minus some margin.
+    assert && assert( !options.dragBoundsProperty, 'CalipersNode defines dragBoundsProperty' );
+    options.dragBoundsProperty = new DerivedProperty(
+      [ visibleBoundsProperty ],
+      visibleBounds => {
+        const yOffset = parentNode.height / 2;
+        return visibleBounds.erodedXY( 40, yOffset ).shiftedY( yOffset );
+      }
+    );
 
     super( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, updateNodes, options );
 

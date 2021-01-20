@@ -43,6 +43,7 @@ class MeasurementToolNode extends Node {
     assert && assert( typeof updateNodes === 'function', 'invalid updateNodes' );
 
     options = merge( {
+      dragBoundsProperty: null, // {Property.<Bounds2>} dragging is constrained to these bounds
       cursor: 'pointer'
     }, options );
 
@@ -60,8 +61,8 @@ class MeasurementToolNode extends Node {
     // Position of the tool in view coordinates
     const positionProperty = new Property( this.translation );
 
-    // Derives the drag bounds. Tools are constrained to be fully inside the visible bounds of the ScreenView.
-    const dragBoundsProperty = new DerivedProperty(
+    // By default, tools are constrained to be fully inside the visible bounds of the ScreenView.
+    const dragBoundsProperty = options.dragBoundsProperty || new DerivedProperty(
       [ visibleBoundsProperty, this.localBoundsProperty ],
       ( visibleBounds, localBounds ) => visibleBounds.copy().setMinMax(
         visibleBounds.minX - localBounds.minX,
