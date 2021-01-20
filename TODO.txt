@@ -2,9 +2,9 @@ TODO.txt for fourier-making-waves
 
 ## Discrete screen
 
-Move chart model out of HarmonicsChartNode.js:
-* Move {Property.<Array.<Vector2>>} sumDataSetProperty and the logic for computing it from HarmonicsChartNode to DiscreteChartsModel
-* Add {Array.<Property.<Vector2>>} harmonicDataSetProperties and logic that sets them to DiscreteChartsModel
+Migrate chart model from HarmonicsChartNode to DiscreteChartsModel:
+* Move {Property.<Array.<Vector2>>} sumDataSetProperty and the logic for computing it
+* Add {Array.<Property.<Vector2>>} harmonicDataSetProperties and logic that sets them
 
 Always compute at least one full cycle of the lowest-order harmonic, so that we know the max for auto scale
 Dynamically optimize number of points in dataSets
