@@ -129,7 +129,7 @@ class CalipersNode extends MeasurementToolNode {
       // the edge that the user should be positioning in order to measure the width of something.
     }
 
-    // Initialize child Nodes before calling super
+    // Initialize child Nodes before deriving drag bounds and calling super
     updateNodes();
 
     // Derives the drag bounds. Calipers may be wider than the ScreenView, so we cannot constrain the entire tool
