@@ -105,7 +105,7 @@ class MeasurementToolNode extends Node {
       }
     } );
 
-    // If the tool is outside the drag bounds, move it inside. unlink is not needed.
+    // If the tool's origin is outside the drag bounds, move it inside. unlink is not needed.
     dragBoundsProperty.link( dragBounds => {
       if ( !dragBounds.containsPoint( positionProperty.value ) ) {
         this.interruptDrag();
