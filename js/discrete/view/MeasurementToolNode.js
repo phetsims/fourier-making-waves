@@ -43,7 +43,7 @@ class MeasurementToolNode extends Node {
     assert && assert( typeof updateNodes === 'function', 'invalid updateNodes' );
 
     options = merge( {
-      dragBoundsProperty: null, // {Property.<Bounds2>} dragging is constrained to these bounds
+      dragBoundsProperty: null, // {Property.<Bounds2>|null} dragging is constrained to these bounds
       cursor: 'pointer'
     }, options );
 
