@@ -46,7 +46,7 @@ class AmplitudesChartNode extends Node {
   /**
    * @param {FourierSeries} fourierSeries
    * @param {EnumerationProperty.<Waveform>} waveformProperty
-   * @param {ObservableArrayDef} emphasizedHarmonics
+   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
    * @param {Object} [options]
    */

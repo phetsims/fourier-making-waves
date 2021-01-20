@@ -41,7 +41,7 @@ class AmplitudeSlider extends VSlider {
   /**
    * @param {Harmonic} harmonic
    * @param {EnumerationProperty.<Waveform>} waveformProperty
-   * @param {ObservableArrayDef} emphasizedHarmonics
+   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    * @param {Object} [options]
    */
   constructor( harmonic, waveformProperty, emphasizedHarmonics, options ) {
@@ -118,7 +118,7 @@ class GrippyThumb extends Node {
   /**
    * @param {Dimension2} thumbSize
    * @param {Harmonic} harmonic
-   * @param {ObservableArrayDef} emphasizedHarmonics
+   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    */
   constructor( thumbSize, harmonic, emphasizedHarmonics ) {
 
@@ -181,7 +181,7 @@ class BarTrack extends SliderTrack {
    * @param {Dimension2} trackSize
    * @param {Harmonic} harmonic
    * @param {Range} amplitudeRange
-   * @param {ObservableArrayDef} emphasizedHarmonics
+   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    */
   constructor( trackSize, harmonic, amplitudeRange, emphasizedHarmonics ) {
 

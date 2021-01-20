@@ -32,7 +32,7 @@ class DiscreteChartsModel {
     // @public whether the Sum chart shows what the waveform looks like for an infinite Fourier series
     this.infiniteHarmonicsVisibleProperty = new BooleanProperty( false );
 
-    // @public {ObservableArrayDef} the harmonics to be emphasized in the Harmonics chart
+    // @public {ObservableArrayDef.<Harmonic>} the harmonics to be emphasized in the Harmonics chart
     // This will contain duplicates if the user is interacting with multiple UI components related to
     // a harmonic (for example an amplitude slider and a wavelength tool, via multi-touch).
     this.emphasizedHarmonics = createObservableArray();
