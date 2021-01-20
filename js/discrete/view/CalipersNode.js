@@ -132,8 +132,9 @@ class CalipersNode extends MeasurementToolNode {
     // Initialize child Nodes before calling super
     updateNodes();
 
-    // Derives the drag bounds. Calipers may be wider than the ScreenView, so the tip of the left caliper is
-    // constrained to be inside the visible bounds of the ScreenView, minus some margin.
+    // Derives the drag bounds. Calipers may be wider than the ScreenView, so we cannot constrain the entire tool
+    // to be within the visible bounds of the ScreenView.  So the tip of the left caliper is constrained to be inside
+    // the visible bounds of the ScreenView, minus some x margin.
     assert && assert( !options.dragBoundsProperty, 'CalipersNode defines dragBoundsProperty' );
     options.dragBoundsProperty = new DerivedProperty(
       [ visibleBoundsProperty ],
