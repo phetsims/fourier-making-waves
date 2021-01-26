@@ -9,6 +9,7 @@
 import Property from '../../../../axon/js/Property.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -29,6 +30,10 @@ class PeriodCalipersNode extends CalipersNode {
     assert && assert( model instanceof DiscreteModel, 'invalid model' );
     assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
+
+    options = merge( {
+      debugName: 'periodCalipers'
+    }, options );
 
     // Model properties that we'll be using - these were formerly constructor params.
     const harmonics = model.fourierSeries.harmonics;

@@ -44,6 +44,9 @@ class MeasurementToolNode extends Node {
 
     options = merge( {
 
+      // For debugging
+      debugName: 'tool',
+
       // {Property.<Bounds2>|null} dragging is constrained to these bounds. If null, default is set below.
       dragBoundsProperty: null,
 
@@ -97,6 +100,7 @@ class MeasurementToolNode extends Node {
     // If ( isPressed || isHovering ), emphasize the associated harmonic. unlink is not needed.
     this.dragListener.isHighlightedProperty.lazyLink( isHighlighted => {
       const harmonic = harmonicProperty.value;
+      phet.log && phet.log( `${options.debugName} isHighlighted=${isHighlighted}` );
       if ( isHighlighted ) {
         emphasizedHarmonics.push( harmonic );
       }

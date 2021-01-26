@@ -44,7 +44,9 @@ class PeriodClockNode extends MeasurementToolNode {
     assert && assert( model instanceof DiscreteModel, 'invalid model' );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
 
-    options = options || {};
+    options = merge( {
+      debugName: 'periodClock'
+    }, options );
 
     // Model properties that we'll be using - these were formerly constructor params.
     const harmonics = model.fourierSeries.harmonics;

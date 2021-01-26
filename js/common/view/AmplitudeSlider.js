@@ -169,7 +169,7 @@ class GrippyThumb extends Node {
     } );
 
     // Emphasize the associated harmonic. removeInputListener and unlink are not needed.
-    this.addInputListener( new EmphasisListener( harmonic, emphasizedHarmonics ) );
+    this.addInputListener( new EmphasisListener( harmonic, emphasizedHarmonics, { debugName: 'thumb' } ) );
   }
 
   /**
@@ -242,7 +242,7 @@ class BarTrack extends SliderTrack {
 
     // Emphasize the associated harmonic when interacting with the visible part of the track.
     // removeInputListener is not needed.
-    visibleTrackNode.addInputListener( new EmphasisListener( harmonic, emphasizedHarmonics ) );
+    visibleTrackNode.addInputListener( new EmphasisListener( harmonic, emphasizedHarmonics, { debugName: 'track' } ) );
   }
 
   /**
@@ -268,6 +268,9 @@ class EmphasisListener extends PressListener {
   constructor( harmonic, emphasizedHarmonics, options ) {
 
     options = merge( {
+      debugName: 'emphasisListener', // for debugging
+
+      // PressListener options
       attach: false  //TODO test that attach:false doesn't prevent this from being interrupted with Reset All
     }, options );
 
@@ -275,6 +278,7 @@ class EmphasisListener extends PressListener {
 
     // Emphasize the harmonic ( onPress || onHover ). unlink is not needed
     this.isHighlightedProperty.lazyLink( isHighlighted => {
+      phet.log && phet.log( `A${harmonic.order} ${options.debugName} isHighlighted=${isHighlighted}` );
       if ( isHighlighted ) {
         emphasizedHarmonics.push( harmonic );
       }
