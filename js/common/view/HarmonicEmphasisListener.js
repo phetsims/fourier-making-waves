@@ -2,7 +2,7 @@
 
 /**
  * HarmonicEmphasisListener emphasizes a harmonic that is associated with a Node. When the pointer state is
- * ( onPress || onHover ), the harmonic associated with the Node is emphasized by adding it to an ObservableArrayDef.
+ * pressed or hovering, the harmonic associated with the Node is emphasized by adding it to an ObservableArrayDef.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -33,17 +33,7 @@ class HarmonicEmphasisListener extends PressListener {
 
     super( options );
 
-    // If the associated harmonic changes, change the emphasis.
-    harmonicProperty.lazyLink( ( newHarmonic, oldHarmonic ) => {
-      if ( emphasizedHarmonics.includes( oldHarmonic ) ) {
-        emphasizedHarmonics.remove( oldHarmonic );
-      }
-      if ( this.isPressedProperty.value || this.isOverProperty.value ) {
-        emphasizedHarmonics.push( newHarmonic );
-      }
-    } );
-
-    // Emphasize the harmonic ( onPress || onHover ). unlink is not needed
+    // Emphasize the harmonic when the pointer state is pressed or hovering. unlink is not needed
     this.isHighlightedProperty.lazyLink( isHighlighted => {
       const harmonic = harmonicProperty.value;
       phet.log && phet.log( `${options.debugName} isHighlighted=${isHighlighted}` );
