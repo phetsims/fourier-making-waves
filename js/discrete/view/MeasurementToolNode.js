@@ -24,6 +24,7 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Harmonic from '../../common/model/Harmonic.js';
+import HarmonicEmphasisListener from '../../common/view/HarmonicEmphasisListener.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class MeasurementToolNode extends Node {
@@ -79,12 +80,17 @@ class MeasurementToolNode extends Node {
       )
     );
 
-    // @private
-    this.dragListener = new DragListener( {
+    // removeInputListener is not needed.
+    this.addInputListener( new DragListener( {
       positionProperty: positionProperty,
       dragBoundsProperty: dragBoundsProperty
-    } );
-    this.addInputListener( this.dragListener ); // removeInputListener is not needed.
+    } ) );
+
+    // Emphasize the associated harmonic. removeInputListener is not needed.
+    this.addInputListener( new HarmonicEmphasisListener( harmonicProperty, emphasizedHarmonics, {
+      debugName: options.debugName,
+      attach: false  //TODO test that attach:false doesn't prevent this from being interrupted with Reset All
+    } ) );
 
     // Move the tool to its position. unlink is not needed.
     positionProperty.link( position => {
@@ -95,18 +101,6 @@ class MeasurementToolNode extends Node {
     harmonicProperty.lazyLink( () => {
       this.interruptDrag();
       updateNodes();
-    } );
-
-    // If ( isPressed || isHovering ), emphasize the associated harmonic. unlink is not needed.
-    this.dragListener.isHighlightedProperty.lazyLink( isHighlighted => {
-      const harmonic = harmonicProperty.value;
-      phet.log && phet.log( `${options.debugName} isHighlighted=${isHighlighted}` );
-      if ( isHighlighted ) {
-        emphasizedHarmonics.push( harmonic );
-      }
-      else if ( emphasizedHarmonics.includes( harmonic ) ) {
-        emphasizedHarmonics.remove( harmonic );
-      }
     } );
 
     // If the tool's origin is outside the drag bounds, move it inside. unlink is not needed.
@@ -128,17 +122,11 @@ class MeasurementToolNode extends Node {
   }
 
   /**
-   * Interrupts a drag and ensures that the associated harmonic is no longer emphasized.
+   * Interrupts a drag.
    * @protected
    */
   interruptDrag() {
-    if ( this.dragListener.isPressed ) {
-      this.interruptSubtreeInput();
-      const harmonic = this.harmonicProperty.value;
-      if ( this.emphasizedHarmonics.includes( harmonic ) ) {
-        this.emphasizedHarmonics.remove( harmonic );
-      }
-    }
+    this.interruptSubtreeInput();
   }
 }
 

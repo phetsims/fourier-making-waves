@@ -88,7 +88,7 @@ class AmplitudesChartNode extends Node {
 
     // Create a slider for each harmonic's amplitude
     const sliders = _.map( fourierSeries.harmonics, harmonic =>
-      new AmplitudeSlider( harmonic, waveformProperty, emphasizedHarmonics, {
+      new AmplitudeSlider( harmonic, emphasizedHarmonics, waveformProperty, {
         trackHeight: options.viewHeight,
         center: chartTransform.modelToViewPosition( new Vector2( harmonic.order, 0 ) ),
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` )

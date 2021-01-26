@@ -15,7 +15,6 @@ import Utils from '../../../../dot/js/Utils.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
@@ -26,6 +25,7 @@ import Waveform from '../../discrete/model/Waveform.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import Harmonic from '../model/Harmonic.js';
+import HarmonicEmphasisListener from './HarmonicEmphasisListener.js';
 
 // constants
 const TRACK_WIDTH = 40; // track height specified in constructor options
@@ -40,15 +40,15 @@ class AmplitudeSlider extends VSlider {
 
   /**
    * @param {Harmonic} harmonic
-   * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
+   * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {Object} [options]
    */
-  constructor( harmonic, waveformProperty, emphasizedHarmonics, options ) {
+  constructor( harmonic, emphasizedHarmonics, waveformProperty, options ) {
 
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
-    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
     assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
+    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
     options = merge( {
 
@@ -169,8 +169,9 @@ class GrippyThumb extends Node {
     } );
 
     // Emphasize the associated harmonic. removeInputListener and unlink are not needed.
-    this.addInputListener( new EmphasisListener( harmonic, emphasizedHarmonics, {
-      debugName: `A${harmonic.order} thumb`
+    this.addInputListener( HarmonicEmphasisListener.withHarmonic( harmonic, emphasizedHarmonics, {
+      debugName: `A${harmonic.order} thumb`,
+      attach: false  //TODO test that attach:false doesn't prevent this from being interrupted with Reset All
     } ) );
   }
 
@@ -244,52 +245,10 @@ class BarTrack extends SliderTrack {
 
     // Emphasize the associated harmonic when interacting with the visible part of the track.
     // removeInputListener is not needed.
-    visibleTrackNode.addInputListener( new EmphasisListener( harmonic, emphasizedHarmonics, {
-      debugName: `A${harmonic.order} track`
-    } ) );
-  }
-
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
-  }
-}
-
-/**
- * EmphasisListener emphasizes the harmonic associated with the AmplitudeSlider.
- */
-class EmphasisListener extends PressListener {
-
-  /**
-   * @param {Harmonic} harmonic - the harmonic associated with the AmplitudeSlider
-   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics - the set of harmonics to be emphasized
-   * @param {Object} [options]
-   */
-  constructor( harmonic, emphasizedHarmonics, options ) {
-
-    options = merge( {
-      debugName: 'emphasisListener', // for debugging
-
-      // PressListener options
+    visibleTrackNode.addInputListener( HarmonicEmphasisListener.withHarmonic( harmonic, emphasizedHarmonics, {
+      debugName: `A${harmonic.order} track`,
       attach: false  //TODO test that attach:false doesn't prevent this from being interrupted with Reset All
-    }, options );
-
-    super( options );
-
-    // Emphasize the harmonic ( onPress || onHover ). unlink is not needed
-    this.isHighlightedProperty.lazyLink( isHighlighted => {
-      phet.log && phet.log( `${options.debugName} isHighlighted=${isHighlighted}` );
-      if ( isHighlighted ) {
-        emphasizedHarmonics.push( harmonic );
-      }
-      else if ( emphasizedHarmonics.includes( harmonic ) ) {
-        emphasizedHarmonics.remove( harmonic );
-      }
-    } );
+    } ) );
   }
 
   /**
