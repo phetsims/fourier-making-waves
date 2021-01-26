@@ -58,7 +58,7 @@ class EmphasizedHarmonics {
     assert && assert( listener instanceof HarmonicEmphasisListener, 'invalid listener' );
     const element = _.find( this.observableArray, element => element.listener === listener );
     assert && assert( element, 'no element in set' );
-    this.observableArray.remove( element );
+    element && this.observableArray.remove( element );
   }
 
   /**
