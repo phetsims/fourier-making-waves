@@ -49,7 +49,7 @@ class PeriodCalipersNode extends CalipersNode {
     // Visibility, unmultilink is not needed.
     Property.multilink( [ selectedProperty, domainProperty ],
       ( selected, domain ) => {
-        this.interruptDrag();
+        this.interruptSubtreeInput();
         this.visible = ( selected && ( domain === Domain.TIME ) );
       } );
   }

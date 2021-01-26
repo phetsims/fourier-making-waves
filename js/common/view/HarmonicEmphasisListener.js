@@ -33,6 +33,9 @@ class HarmonicEmphasisListener extends PressListener {
 
     super( options );
 
+    // If the associated harmonic changes, interrupt interaction.
+    harmonicProperty.lazyLink( () => this.interrupt() );
+
     // Emphasize the harmonic when the pointer state is pressed or hovering. unlink is not needed
     this.isHighlightedProperty.lazyLink( isHighlighted => {
       const harmonic = harmonicProperty.value;

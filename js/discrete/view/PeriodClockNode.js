@@ -98,7 +98,7 @@ class PeriodClockNode extends MeasurementToolNode {
     // Visibility, unmultilink is not needed.
     Property.multilink( [ selectedProperty, domainProperty ],
       ( selected, domain ) => {
-        this.interruptDrag();
+        this.interruptSubtreeInput();
         this.visible = selected && ( domain === Domain.SPACE_AND_TIME );
       } );
 

@@ -99,14 +99,14 @@ class MeasurementToolNode extends Node {
 
     // Update the tool to match the selected harmonic. unlink is not needed.
     harmonicProperty.lazyLink( () => {
-      this.interruptDrag();
+      this.interruptSubtreeInput();
       updateNodes();
     } );
 
     // If the tool's origin is outside the drag bounds, move it inside. unlink is not needed.
     dragBoundsProperty.link( dragBounds => {
       if ( !dragBounds.containsPoint( positionProperty.value ) ) {
-        this.interruptDrag();
+        this.interruptSubtreeInput();
         positionProperty.value = dragBounds.closestPointTo( positionProperty.value );
       }
     } );
@@ -119,14 +119,6 @@ class MeasurementToolNode extends Node {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
-  }
-
-  /**
-   * Interrupts a drag.
-   * @protected
-   */
-  interruptDrag() {
-    this.interruptSubtreeInput();
   }
 }
 
