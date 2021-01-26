@@ -8,11 +8,11 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import FMWUtils from '../../common/FMWUtils.js';
+import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 
@@ -32,10 +32,8 @@ class DiscreteChartsModel {
     // @public whether the Sum chart shows what the waveform looks like for an infinite Fourier series
     this.infiniteHarmonicsVisibleProperty = new BooleanProperty( false );
 
-    // @public {ObservableArrayDef.<Harmonic>} the harmonics to be emphasized in the Harmonics chart
-    // This will contain duplicates if the user is interacting with multiple UI components related to
-    // a harmonic (for example an amplitude slider and a wavelength tool, via multi-touch).
-    this.emphasizedHarmonics = createObservableArray();
+    // @public the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
+    this.emphasizedHarmonics = new EmphasizedHarmonics();
 
     // @public zoom level for the x axis, index into AxisDescription.X_AXIS_DESCRIPTIONS
     this.xZoomLevelProperty = new NumberProperty( AxisDescription.X_DEFAULT_ZOOM_LEVEL, {

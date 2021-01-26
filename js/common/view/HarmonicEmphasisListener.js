@@ -7,12 +7,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ObservableArrayDef from '../../../../axon/js/ObservableArrayDef.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
 
 class HarmonicEmphasisListener extends PressListener {
@@ -25,7 +25,7 @@ class HarmonicEmphasisListener extends PressListener {
   constructor( harmonicProperty, emphasizedHarmonics, options ) {
 
     assert && AssertUtils.assertPropertyOf( harmonicProperty, Harmonic );
-    assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
+    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
 
     options = merge( {
       debugName: 'harmonicEmphasisListener' // for debugging
@@ -41,10 +41,10 @@ class HarmonicEmphasisListener extends PressListener {
       const harmonic = harmonicProperty.value;
       phet.log && phet.log( `${options.debugName} isHighlighted=${isHighlighted}` );
       if ( isHighlighted ) {
-        emphasizedHarmonics.push( harmonic );
+        emphasizedHarmonics.push( this, harmonic );
       }
-      else if ( emphasizedHarmonics.includes( harmonic ) ) {
-        emphasizedHarmonics.remove( harmonic );
+      else if ( emphasizedHarmonics.includesListener( this ) ) {
+        emphasizedHarmonics.remove( this );
       }
     } );
   }

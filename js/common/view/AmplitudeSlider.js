@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ObservableArrayDef from '../../../../axon/js/ObservableArrayDef.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -24,6 +23,7 @@ import VSlider from '../../../../sun/js/VSlider.js';
 import Waveform from '../../discrete/model/Waveform.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
+import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
 import HarmonicEmphasisListener from './HarmonicEmphasisListener.js';
 
@@ -47,7 +47,7 @@ class AmplitudeSlider extends VSlider {
   constructor( harmonic, emphasizedHarmonics, waveformProperty, options ) {
 
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
-    assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
+    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
     options = merge( {
@@ -135,7 +135,7 @@ class GrippyThumb extends Node {
 
     assert && assert( thumbSize instanceof Dimension2, 'invalid thumbSize' );
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
-    assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
+    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
 
     const rectangle = new Rectangle( 0, 0, thumbSize.width, thumbSize.height, {
       fill: Color.grayColor( 200 ),
@@ -203,7 +203,7 @@ class BarTrack extends SliderTrack {
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
     assert && assert( amplitudeRange instanceof Range, 'invalid amplitudeRange' );
     assert && assert( amplitudeRange.getCenter() === 0, 'implementation assumes that range is symmetric' );
-    assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
+    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
 
     const invisibleTrackNode = new Rectangle( 0, 0, trackSize.width, trackSize.height, {
       fill: 'transparent',

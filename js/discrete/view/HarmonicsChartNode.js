@@ -125,7 +125,7 @@ class HarmonicsChartNode extends DiscreteChartNode {
     this.chartTransform.changedEmitter.addListener( updateEverything );
 
     // Visually emphasize harmonics, see https://github.com/phetsims/fourier-making-waves/issues/31
-    const emphasizedHarmonicsListener = () => {
+    const emphasizedHarmonicsChangedListener = () => {
       harmonicPlots.forEach( plot => {
         if ( emphasizedHarmonics.length === 0 ) {
 
@@ -136,7 +136,7 @@ class HarmonicsChartNode extends DiscreteChartNode {
         else {
 
           // emphasize some plots, de-emphasize other plots
-          if ( emphasizedHarmonics.includes( plot.harmonic ) ) {
+          if ( emphasizedHarmonics.includesHarmonic( plot.harmonic ) ) {
             plot.lineWidth = EMPHASIZED_LINE_WIDTH;
             plot.setStroke( plot.harmonic.colorProperty.value );
           }
@@ -148,8 +148,7 @@ class HarmonicsChartNode extends DiscreteChartNode {
       } );
       chartCanvasNode.update();
     };
-    emphasizedHarmonics.addItemAddedListener( emphasizedHarmonicsListener ); // removeItemAddedListener is not needed.
-    emphasizedHarmonics.addItemRemovedListener( emphasizedHarmonicsListener ); // removeItemRemovedListener is not needed.
+    emphasizedHarmonics.addChangedListener( emphasizedHarmonicsChangedListener ); // removeChangedListener is not needed
   }
 }
 

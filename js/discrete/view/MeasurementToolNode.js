@@ -15,7 +15,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import ObservableArrayDef from '../../../../axon/js/ObservableArrayDef.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -23,6 +22,7 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import HarmonicEmphasisListener from '../../common/view/HarmonicEmphasisListener.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -39,7 +39,7 @@ class MeasurementToolNode extends Node {
   constructor( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, updateNodes, options ) {
 
     assert && AssertUtils.assertPropertyOf( harmonicProperty, Harmonic );
-    assert && assert( ObservableArrayDef.isObservableArray( emphasizedHarmonics ), 'invalid emphasizedHarmonics' );
+    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
     assert && assert( typeof updateNodes === 'function', 'invalid updateNodes' );
 
