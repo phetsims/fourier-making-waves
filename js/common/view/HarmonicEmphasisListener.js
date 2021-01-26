@@ -1,8 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * HarmonicEmphasisListener emphasizes a harmonic when the pointer is ( onPress || onHover ) for a Node associated
- * with that harmonic.
+ * HarmonicEmphasisListener emphasizes a harmonic that is associated with a Node. When the pointer state is
+ * ( onPress || onHover ), the harmonic associated with the Node is emphasized by adding it to an ObservableArrayDef.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
