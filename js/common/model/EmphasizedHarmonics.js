@@ -38,7 +38,7 @@ class EmphasizedHarmonics {
   }
 
   /**
-   * Adds listener/harmonic pair to the set. Enforces uniqueness of the listener key.
+   * Adds a listener/harmonic pair to the set. Enforces uniqueness of the listener key.
    * @param {HarmonicEmphasisListener} listener
    * @param {Harmonic} harmonic
    * @public
