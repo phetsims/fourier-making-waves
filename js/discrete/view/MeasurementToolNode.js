@@ -24,7 +24,6 @@ import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import Harmonic from '../../common/model/Harmonic.js';
-import HarmonicEmphasisListener from '../../common/view/HarmonicEmphasisListener.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class MeasurementToolNode extends Node {
@@ -80,17 +79,24 @@ class MeasurementToolNode extends Node {
       )
     );
 
-    // removeInputListener is not needed.
-    this.addInputListener( new DragListener( {
+    // Constrained dragging of the tool
+    const dragListener = new DragListener( {
       positionProperty: positionProperty,
       dragBoundsProperty: dragBoundsProperty
-    } ) );
+    } );
+    this.addInputListener( dragListener ); // removeInputListener is not needed.
 
-    // Emphasize the associated harmonic. removeInputListener is not needed.
-    this.addInputListener( new HarmonicEmphasisListener( harmonicProperty, emphasizedHarmonics, {
-      debugName: options.debugName,
-      attach: false  //TODO test that attach:false doesn't prevent this from being interrupted with Reset All
-    } ) );
+    // Emphasize the associated harmonic while interacting with this tool.
+    dragListener.isHighlightedProperty.lazyLink( isHighlighted => {
+      const harmonic = harmonicProperty.value;
+      phet.log && phet.log( `${options.debugName} isHighlighted=${isHighlighted} n=${harmonic.order}` );
+      if ( isHighlighted ) {
+        emphasizedHarmonics.push( this, harmonic );
+      }
+      else if ( emphasizedHarmonics.includesNode( this ) ) {
+        emphasizedHarmonics.remove( this );
+      }
+    } );
 
     // Move the tool to its position. unlink is not needed.
     positionProperty.link( position => {

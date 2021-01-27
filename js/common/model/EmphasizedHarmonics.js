@@ -1,30 +1,31 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * EmphasizedHarmonics is an observable set of associations between listeners and harmonics.
- * While a harmonic appears in this set, it is emphasized in the Harmonics chart.
+ * EmphasizedHarmonics is an observable set of associations between interactive Nodes and harmonics.
  *
- * When the user begins interacting with a harmonic, an entry is added to this set.
- * When the user ends interacting with a harmonic, an entry is removed from this set.
+ * When the user begins interaction with a Node, an entry is added to this set.
+ * When the user ends interaction with a Node, an entry is removed from this set.
+ * All harmonics appearing in this set are to be emphasized in the Harmonics chart, and that is the
+ * responsibility of HarmonicsChartNode.
  *
- * Each input listener can interact with 1 harmonic at a time, while a harmonic can be manipulated by multiple
- * input listeners simultaneously (e.g. an amplitude slider and a measurement tool) via multi-touch. 'listener'
- * is therefore a unique key for elements in the set.
+ * Each Node can interact with 1 harmonic at a time, while a harmonic can be manipulated by multiple Nodes
+ * simultaneously (e.g. an amplitude slider and a measurement tool) via multi-touch. 'node' is therefore a
+ * unique key for elements in this set.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import createObservableArray from '../../../../axon/js/createObservableArray.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import HarmonicEmphasisListener from '../view/HarmonicEmphasisListener.js';
 import Harmonic from './Harmonic.js';
 
 class EmphasizedHarmonics {
 
   constructor() {
 
-    // @private {ObservableArrayDef.<{listener:HarmonicEmphasisListener, harmonic: Harmonic}>}
-    // Each element identifies a listener and the harmonic that it's manipulating.
+    // @private {ObservableArrayDef.<{node:Node, harmonic: Harmonic}>}
+    // Each element identifies an interactive Node and the harmonic that it is manipulating.
     this.observableArray = createObservableArray();
   }
 
@@ -38,43 +39,43 @@ class EmphasizedHarmonics {
   }
 
   /**
-   * Adds a listener/harmonic pair to the set. Enforces uniqueness of the listener key.
-   * @param {HarmonicEmphasisListener} listener
+   * Adds a node/harmonic pair to the set. Enforces uniqueness of the node key.
+   * @param {Node} node
    * @param {Harmonic} harmonic
    * @public
    */
-  push( listener, harmonic ) {
+  push( node, harmonic ) {
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
-    assert && assert( listener instanceof HarmonicEmphasisListener, 'invalid listener' );
-    assert && assert( !this.includesListener( listener ), 'listener is already in the set' );
-    this.observableArray.push( { listener: listener, harmonic: harmonic } );
+    assert && assert( node instanceof Node, 'invalid node' );
+    assert && assert( !this.includesNode( node ), 'node is already in the set' );
+    this.observableArray.push( { node: node, harmonic: harmonic } );
   }
 
   /**
-   * Removes the element that corresponds to listener, which is a unique key.
-   * @param {HarmonicEmphasisListener} listener
+   * Removes the element that corresponds to node, which is a unique key.
+   * @param {Node} node
    * @public
    */
-  remove( listener ) {
-    assert && assert( listener instanceof HarmonicEmphasisListener, 'invalid listener' );
-    const element = _.find( this.observableArray, element => element.listener === listener );
+  remove( node ) {
+    assert && assert( node instanceof Node, 'invalid node' );
+    const element = _.find( this.observableArray, element => element.node === node );
     assert && assert( element, 'no element in set' );
     element && this.observableArray.remove( element );
   }
 
   /**
-   * Does the set include an element related to listener?
-   * @param {HarmonicEmphasisListener} listener
+   * Does the set include an element related to a specified node?
+   * @param {Node} node
    * @returns {boolean}
    * @public
    */
-  includesListener( listener ) {
-    assert && assert( listener instanceof HarmonicEmphasisListener, 'invalid listener' );
-    return _.some( this.observableArray, element => element.listener === listener );
+  includesNode( node ) {
+    assert && assert( node instanceof Node, 'invalid node' );
+    return _.some( this.observableArray, element => element.node === node );
   }
 
   /**
-   * Does the set include an element related to harmonic?
+   * Does the set include an element related to a specified harmonic?
    * @param {Harmonic} harmonic
    * @returns {boolean}
    * @public

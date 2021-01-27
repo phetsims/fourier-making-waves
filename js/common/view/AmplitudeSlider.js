@@ -8,12 +8,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
@@ -25,7 +27,6 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
-import HarmonicEmphasisListener from './HarmonicEmphasisListener.js';
 
 // constants
 const TRACK_WIDTH = 40; // track height specified in constructor options
@@ -96,8 +97,23 @@ class AmplitudeSlider extends VSlider {
       return amplitude;
     };
 
-    // Omit options for our custom thumb and track, so that Slider doesn't complain.
     super( harmonic.amplitudeProperty, amplitudeRange, options );
+
+    // The associated harmonic is emphasized if we're interacting with either the thumb or the visible part of the track.
+    const isEmphasizedProperty = new DerivedProperty(
+      [ this.thumbDragListener.isHighlightedProperty, trackNode.isHighlightedProperty ],
+      ( thumbIsHighlighted, trackIsHighlighted ) => ( thumbIsHighlighted || trackIsHighlighted )
+    );
+
+    // Emphasize the associated harmonic. unmultilink is not needed.
+    isEmphasizedProperty.lazyLink( isEmphasized => {
+      if ( isEmphasized ) {
+        emphasizedHarmonics.push( this, harmonic );
+      }
+      else if ( emphasizedHarmonics.includesNode( this ) ) {
+        emphasizedHarmonics.remove( this );
+      }
+    } );
   }
 
   /**
@@ -167,12 +183,6 @@ class GrippyThumb extends Node {
     super( {
       children: [ rectangle, dotsNode ]
     } );
-
-    // Emphasize the associated harmonic. removeInputListener and unlink are not needed.
-    this.addInputListener( HarmonicEmphasisListener.withHarmonic( harmonic, emphasizedHarmonics, {
-      debugName: `A${harmonic.order} thumb`,
-      attach: false  //TODO test that attach:false doesn't prevent this from being interrupted with Reset All
-    } ) );
   }
 
   /**
@@ -243,12 +253,17 @@ class BarTrack extends SliderTrack {
     };
     harmonic.amplitudeProperty.link( amplitudeListener ); // unlink is not needed.
 
-    // Emphasize the associated harmonic when interacting with the visible part of the track.
-    // removeInputListener is not needed.
-    visibleTrackNode.addInputListener( HarmonicEmphasisListener.withHarmonic( harmonic, emphasizedHarmonics, {
-      debugName: `A${harmonic.order} track`,
-      attach: false  //TODO test that attach:false doesn't prevent this from being interrupted with Reset All
-    } ) );
+    const visibleTrackPressListener = new PressListener( {
+      attach: false // so that the DragListener for the track isn't ignored
+    } );
+    visibleTrackNode.addInputListener( visibleTrackPressListener );
+
+    // @public This tells us when the track should be considered highlighted. We can't simply look at
+    // this.dragListener.isHighlightedProperty, because that will include the invisible portion of the track.
+    this.isHighlightedProperty = new DerivedProperty(
+      [ this.dragListener.isPressedProperty, visibleTrackPressListener.isOverProperty ],
+      ( isPressed, isOverVisible ) => ( isPressed || isOverVisible )
+    );
   }
 
   /**
