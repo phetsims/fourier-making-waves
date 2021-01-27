@@ -1,11 +1,11 @@
 {
-  "comment": "# fourier-making-waves 1.0.0-dev.14 Tue Jan 26 2021 16:44:16 GMT-0700 (Mountain Standard Time)",
+  "comment": "# fourier-making-waves 1.0.0-dev.15 Wed Jan 27 2021 13:22:44 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "3df8c5ff9a465b031f84195a90bbb7e1be10a14d",
     "branch": "master"
   },
   "axon": {
-    "sha": "12b50a6b03484ebebb6caaccf0a79619f3b54d7f",
+    "sha": "8df323fefbabba52b49c5eea7e394e2330ad8c7f",
     "branch": "master"
   },
   "bamboo": {
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "fourier-making-waves": {
-    "sha": "408179ec59e6a68ad53686af35d9f1ebe98799ff",
+    "sha": "e515064b71396b6758b400ea6d4d0a4e2da642be",
     "branch": "master"
   },
   "joist": {
@@ -65,7 +65,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "b46f45d90c778053b18fcd9e10d5d7af8f78d183",
+    "sha": "f14c4321df26d56b25115bbdebed583c6d7b199d",
     "branch": "master"
   },
   "scenery-phet": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "03187fbb29ec42fa8851b06898a202502e0008f4",
+    "sha": "8ce10cb4e4776f437ed12485c666fb051ac7048f",
     "branch": "master"
   },
   "tambo": {
