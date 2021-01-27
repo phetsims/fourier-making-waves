@@ -7,8 +7,9 @@
  * When the user begins interacting with a harmonic, an entry is added to this set.
  * When the user ends interacting with a harmonic, an entry is removed from this set.
  *
- * Each listener can interact with 1 harmonic at a time, while a harmonic can be manipulated by multiple listeners
- * simultaneously (e.g. an amplitude slider and a measurement tool) via multi-touch. listener is therefore a unique key.
+ * Each input listener can interact with 1 harmonic at a time, while a harmonic can be manipulated by multiple
+ * input listeners simultaneously (e.g. an amplitude slider and a measurement tool) via multi-touch. 'listener'
+ * is therefore a unique key for elements in the set.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
