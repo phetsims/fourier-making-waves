@@ -13,7 +13,6 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
-import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
@@ -92,8 +91,8 @@ class DiscreteChartNode extends Node {
     const chartTransform = new ChartTransform( {
       viewWidth: options.viewWidth,
       viewHeight: options.viewHeight,
-      modelXRange: new Range( -xAxisDescription.max, xAxisDescription.max ),
-      modelYRange: new Range( -yAxisDescription.max, yAxisDescription.max )
+      modelXRange: xAxisDescription.range,
+      modelYRange: yAxisDescription.range
     } );
 
     // The chart's background rectangle
@@ -140,7 +139,7 @@ class DiscreteChartNode extends Node {
       [ xAxisDescriptionProperty, domainProperty ],
       ( xAxisDescription, domain ) => {
         const value = ( domain === Domain.TIME ) ? fourierSeries.T : fourierSeries.L;
-        chartTransform.setModelXRange( new Range( -xAxisDescription.max * value, xAxisDescription.max * value ) );
+        chartTransform.setModelXRange( xAxisDescription.range );
         xGridLines.setSpacing( xAxisDescription.gridLineSpacing * value );
         xTickMarks.setSpacing( xAxisDescription.tickMarkSpacing * value );
         xTickLabels.setSpacing( xAxisDescription.tickLabelSpacing * value );

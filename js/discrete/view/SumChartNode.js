@@ -9,7 +9,6 @@
 
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
-import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
@@ -60,7 +59,7 @@ class SumChartNode extends DiscreteChartNode {
 
     // unlink is not needed.
     yAxisDescriptionProperty.link( yAxisDescription => {
-      this.chartTransform.setModelYRange( new Range( -yAxisDescription.max, yAxisDescription.max ) );
+      this.chartTransform.setModelYRange( yAxisDescription.range );
       this.yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
       this.yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
       this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );

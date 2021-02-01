@@ -41,7 +41,7 @@ class DiscreteModel {
       tandem: tandem.createTandem( 'isPlayingProperty' )
     } );
 
-    // @public time (t) in seconds
+    // @public time (t) in seconds, updated only when domainProperty is Domain.SPACE_AND_TIME
     this.tProperty = new NumberProperty( 0 );
 
     // @public
@@ -83,7 +83,7 @@ class DiscreteModel {
     } );
 
     // @public
-    this.chartsModel = new DiscreteChartsModel();
+    this.chartsModel = new DiscreteChartsModel( this.fourierSeries, this.domainProperty, this.seriesTypeProperty, this.tProperty );
 
     // @public emits if you try to make a sawtooth wave with cosines
     this.oopsSawtoothWithCosinesEmitter = new Emitter();

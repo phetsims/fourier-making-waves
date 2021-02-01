@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -21,8 +22,8 @@ class AxisDescription {
 
     config = merge( {
 
-      // {number} the absolute maximum value of the range, actual range is [-max,max]
-      max: required( config.max ),
+      // {number} the absolute maximum value of the range, actual range is [-absoluteMax,absoluteMax]
+      absoluteMax: required( config.absoluteMax ),
 
       // {number} spacing between grid lines
       gridLineSpacing: required( config.gridLineSpacing ),
@@ -35,7 +36,8 @@ class AxisDescription {
     }, config );
 
     // @public (read-only)
-    this.max = config.max;
+    this.absoluteMax = config.absoluteMax;
+    this.range = new Range( -config.absoluteMax, config.absoluteMax );
     this.gridLineSpacing = config.gridLineSpacing;
     this.tickMarkSpacing = config.tickMarkSpacing;
     this.tickLabelSpacing = config.tickLabelSpacing;
@@ -46,111 +48,111 @@ class AxisDescription {
 // These values are all multipliers for L (fundamental wavelength) and T (fundamental period).
 AxisDescription.X_AXIS_DESCRIPTIONS = [
   new AxisDescription( {
-    max: 2,
+    absoluteMax: 2,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 2
   } ),
   new AxisDescription( {
-    max: 3 / 2,
+    absoluteMax: 3 / 2,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 2
   } ),
   new AxisDescription( {
-    max: 1,
+    absoluteMax: 1,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 4
   } ),
   new AxisDescription( {
-    max: 3 / 4,
+    absoluteMax: 3 / 4,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 4
   } ),
   new AxisDescription( {
-    max: 1 / 2,
+    absoluteMax: 1 / 2,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 4
   } ),
   new AxisDescription( {
-    max: 1 / 4,
+    absoluteMax: 1 / 4,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 4
   } )
 ];
 assert && assert( isSortedDescending( AxisDescription.X_AXIS_DESCRIPTIONS ),
-  'X_AXIS_DESCRIPTIONS must be sorted by descending max value' );
+  'X_AXIS_DESCRIPTIONS must be sorted by descending absoluteMax value' );
 
 // @public default zoom level for the x axis
 AxisDescription.X_DEFAULT_ZOOM_LEVEL = AxisDescription.X_AXIS_DESCRIPTIONS.length - 2;
 
 // Guard again accidentally changing the default when X_AXIS_DESCRIPTIONS is modified.
-assert && assert( AxisDescription.X_AXIS_DESCRIPTIONS[ AxisDescription.X_DEFAULT_ZOOM_LEVEL ].max === 1 / 2,
+assert && assert( AxisDescription.X_AXIS_DESCRIPTIONS[ AxisDescription.X_DEFAULT_ZOOM_LEVEL ].absoluteMax === 1 / 2,
   'X_DEFAULT_ZOOM_LEVEL is probably incorrect - did you add a AxisDescription?' );
 
 // @public {AxisDescription[]} descriptions for the y axis, one for each zoom level.
 AxisDescription.Y_AXIS_DESCRIPTIONS = [
   new AxisDescription( {
-    max: 20,
+    absoluteMax: 20,
     gridLineSpacing: 5,
     tickMarkSpacing: 10,
     tickLabelSpacing: 10
   } ),
   new AxisDescription( {
-    max: 15,
+    absoluteMax: 15,
     gridLineSpacing: 5,
     tickMarkSpacing: 5,
     tickLabelSpacing: 5
   } ),
   new AxisDescription( {
-    max: 10,
+    absoluteMax: 10,
     gridLineSpacing: 5,
     tickMarkSpacing: 5,
     tickLabelSpacing: 5
   } ),
   new AxisDescription( {
-    max: 8,
+    absoluteMax: 8,
     gridLineSpacing: 1,
     tickMarkSpacing: 5,
     tickLabelSpacing: 5
   } ),
   new AxisDescription( {
-    max: 5,
+    absoluteMax: 5,
     gridLineSpacing: 1,
     tickMarkSpacing: 5,
     tickLabelSpacing: 5
   } ),
   new AxisDescription( {
-    max: 4,
+    absoluteMax: 4,
     gridLineSpacing: 1,
     tickMarkSpacing: 2,
     tickLabelSpacing: 2
   } ),
   new AxisDescription( {
-    max: 3,
+    absoluteMax: 3,
     gridLineSpacing: 1,
     tickMarkSpacing: 1,
     tickLabelSpacing: 1
   } ),
   new AxisDescription( {
-    max: 2,
+    absoluteMax: 2,
     gridLineSpacing: 1,
     tickMarkSpacing: 1,
     tickLabelSpacing: 1
   } ),
   new AxisDescription( {
-    max: FMWConstants.MAX_ABSOLUTE_AMPLITUDE,
+    absoluteMax: FMWConstants.MAX_ABSOLUTE_AMPLITUDE,
     gridLineSpacing: 0.5,
     tickMarkSpacing: 0.5,
     tickLabelSpacing: 0.5
   } )
 ];
 assert && assert( isSortedDescending( AxisDescription.Y_AXIS_DESCRIPTIONS ),
-  'Y_AXIS_DESCRIPTIONS must be sorted by descending max value' );
+  'Y_AXIS_DESCRIPTIONS must be sorted by descending absoluteMax value' );
 
 // Alert that you've done something that may require revising Y_AXIS_DESCRIPTIONS.
 assert && assert( FMWConstants.MAX_ABSOLUTE_AMPLITUDE === 1.5,
@@ -161,17 +163,17 @@ assert && assert( FMWConstants.MAX_ABSOLUTE_AMPLITUDE === 1.5,
 AxisDescription.Y_DEFAULT_ZOOM_LEVEL = AxisDescription.Y_AXIS_DESCRIPTIONS.length - 1;
 
 // Guard again accidentally changing the default when Y_AXIS_DESCRIPTIONS is modified.
-assert && assert( AxisDescription.Y_AXIS_DESCRIPTIONS[ AxisDescription.Y_DEFAULT_ZOOM_LEVEL ].max === FMWConstants.MAX_ABSOLUTE_AMPLITUDE,
+assert && assert( AxisDescription.Y_AXIS_DESCRIPTIONS[ AxisDescription.Y_DEFAULT_ZOOM_LEVEL ].absoluteMax === FMWConstants.MAX_ABSOLUTE_AMPLITUDE,
   'Y_DEFAULT_ZOOM_LEVEL is probably incorrect - did you add a AxisDescription?' );
 
 /**
- * Determines whether an array to AxisDescription is sorted by descending max value.
+ * Determines whether an array to AxisDescription is sorted by descending absoluteMax value.
  * @param {AxisDescription[]} axisDescriptions
  * @returns {boolean}
  */
 function isSortedDescending( axisDescriptions ) {
   return _.every( axisDescriptions,
-    ( axisDescription, index, axisDescriptions ) => ( index === 0 || axisDescriptions[ index - 1 ].max > axisDescription.max )
+    ( axisDescription, index, axisDescriptions ) => ( index === 0 || axisDescriptions[ index - 1 ].absoluteMax > axisDescription.absoluteMax )
   );
 }
 

@@ -16,9 +16,9 @@ import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import FMWConstants from '../../common/FMWConstants.js';
 import FMWUtils from '../../common/FMWUtils.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
@@ -32,7 +32,18 @@ const POINTS_PER_DATA_SET = 2000;
 
 class DiscreteChartsModel {
 
-  constructor() {
+  /**
+   * @param {FourierSeries} fourierSeries
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {Property.<number>} tProperty
+   */
+  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty ) {
+
+    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
+    assert && AssertUtils.assertPropertyOf( tProperty, 'number');
 
     // @public whether the Harmonics chart is visible
     this.harmonicsChartVisibleProperty = new BooleanProperty( true );
@@ -49,22 +60,8 @@ class DiscreteChartsModel {
     // @public the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
     this.emphasizedHarmonics = new EmphasizedHarmonics();
 
-    //TODO this is not used yet, but this is where data sets for each harmonic should live
-    // @public {Array.<Property.<Array.<Vector2>>>} a data set for each harmonic, indexed in harmonic order
-    this.harmonicDataSets = [];
-    for ( let i = 0; i < FMWConstants.MAX_HARMONICS; i++ ) {
-      this.harmonicDataSets.push( new Property( [], {
-        isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
-      } ) );
-    }
-
-    //TODO should this be DerivedProperty from the set of harmonic amplitude Properties?
-    // @public {Property.<Array.<Vector2>>>} the data set for the sum of the harmonics
-    this.sumDataSetProperty = new Property( [], {
-      isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
-    } );
-
     // @public zoom level for the x axis, index into AxisDescription.X_AXIS_DESCRIPTIONS
+    // This is shared by the Harmonics and Sum charts.
     this.xZoomLevelProperty = new NumberProperty( AxisDescription.X_DEFAULT_ZOOM_LEVEL, {
       numberType: 'Integer',
       range: new Range( 0, AxisDescription.X_AXIS_DESCRIPTIONS.length - 1 )
@@ -77,6 +74,7 @@ class DiscreteChartsModel {
     );
 
     // @public zoom level for the y axis, index into AxisDescription.Y_AXIS_DESCRIPTIONS
+    // This is specific to the Sum chart. The Harmonics chart has a fixed y-axis range.
     this.yZoomLevelProperty = new NumberProperty( AxisDescription.Y_DEFAULT_ZOOM_LEVEL, {
       numberType: 'Integer',
       range: new Range( 0, AxisDescription.Y_AXIS_DESCRIPTIONS.length - 1 )
@@ -88,10 +86,57 @@ class DiscreteChartsModel {
       yZoomLevel => AxisDescription.Y_AXIS_DESCRIPTIONS[ yZoomLevel ]
     );
 
+    // @public {Property.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order
+    // A data set is updated when any of its dependencies changes.
+    this.harmonicDataSetProperties = [];
+    for ( let i = 0; i < fourierSeries.harmonics.length; i++ ) {
+
+      const harmonic = fourierSeries.harmonics[ i ];
+
+      // {Vector2[]} the default data set for this harmonic
+      const defaultHarmonicDataSet = createHarmonicDataSet( harmonic, this.xAxisDescriptionProperty.value.range,
+        domainProperty.value, seriesTypeProperty.value, fourierSeries.L, fourierSeries.T, tProperty.value );
+
+      // @public {Property.<Vector2[]>} the data set for this harmonic
+      const harmonicDataSetProperty = new Property( defaultHarmonicDataSet, {
+        isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
+      } );
+      this.harmonicDataSetProperties.push( harmonicDataSetProperty );
+
+      // Update the harmonic's data set when dependencies change. unmultilink is not needed.
+      Property.lazyMultilink( [ harmonic.amplitudeProperty, fourierSeries.numberOfHarmonicsProperty,
+          this.xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
+        ( amplitude, numberOfHarmonics, xAxisDescription, domain, seriesType, t ) => {
+          harmonicDataSetProperty.value = createHarmonicDataSet( harmonic, xAxisDescription.range,
+            domain, seriesType, fourierSeries.L, fourierSeries.T, t );
+        } );
+    }
+
+    // {Vector[2]} the default data set for the sum
+    const defaultSumDataSet = createSumDataSet( fourierSeries.harmonics, fourierSeries.numberOfHarmonicsProperty.value,
+      this.xAxisDescriptionProperty.value.range, domainProperty.value, seriesTypeProperty.value,
+      fourierSeries.L, fourierSeries.T, tProperty.value );
+
+    // @public {Property.<Vector2[]>} the data set for the sum
+    this.sumDataSetProperty = new Property( defaultSumDataSet, {
+      isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
+    } );
+
+    // Update the sum when dependencies change. unmultilink is not needed.
+    const amplitudeProperties = _.map( fourierSeries.harmonics, harmonic => harmonic.amplitudeProperty );
+    Property.lazyMultilink( [ fourierSeries.numberOfHarmonicsProperty, this.xAxisDescriptionProperty,
+        domainProperty, seriesTypeProperty, tProperty, ...amplitudeProperties ],
+      ( numberOfHarmonics, xAxisDescription, domain, seriesType, t ) => {
+        this.sumDataSetProperty.value = createSumDataSet( fourierSeries.harmonics, numberOfHarmonics,
+          xAxisDescription.range, domain, seriesType, fourierSeries.L, fourierSeries.T, t );
+      } );
+
     // @private
     this.resetDiscreteChartsModel = () => {
 
       this.emphasizedHarmonics.clear();
+
+      this.harmonicDataSetProperties.forEach( property => property.reset() );
 
       // Reset all non-inherited, non-derived Properties
       FMWUtils.resetOwnProperties( this );
@@ -112,66 +157,67 @@ class DiscreteChartsModel {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
+}
 
-  /**
-   * Creates the data set for one harmonic.
-   * @param {Harmonic} harmonic
-   * @param {Range} xRange
-   * @param {Domain} domain
-   * @param {SeriesType} seriesType
-   * @param {number} L
-   * @param {number} T
-   * @param {number} t
-   * @returns {Vector2[]}
-   * @public
-   */
-  static createHarmonicDataSet( harmonic, xRange, domain, seriesType, L, T, t ) {
+/**
+ * Creates the data set for one harmonic.
+ * @param {Harmonic} harmonic
+ * @param {Range} xRange
+ * @param {Domain} domain
+ * @param {SeriesType} seriesType
+ * @param {number} L
+ * @param {number} T
+ * @param {number} t
+ * @returns {Vector2[]}
+ */
+function createHarmonicDataSet( harmonic, xRange, domain, seriesType, L, T, t ) {
 
-    assert && assert( xRange instanceof Range, 'invalid xRange' );
-    // other args are validated by getAmplitudeAt
+  assert && assert( xRange instanceof Range, 'invalid xRange' );
+  // other args are validated by getAmplitudeAt
 
-    const dataSet = [];
-    const dx = xRange.getLength() / POINTS_PER_DATA_SET;
-    for ( let x = xRange.min; x <= xRange.max; x += dx ) {
-      const y = getAmplitudeAt( x, harmonic, domain, seriesType, L, T, t );
-      dataSet.push( new Vector2( x, y ) );
-    }
-    return dataSet;
+  const dataSet = [];
+  const dx = xRange.getLength() / POINTS_PER_DATA_SET;
+  for ( let x = xRange.min; x <= xRange.max; x += dx ) {
+    const y = getAmplitudeAt( x, harmonic, domain, seriesType, L, T, t );
+    dataSet.push( new Vector2( x, y ) );
   }
+  return dataSet;
+}
 
-  //TODO use createHarmonicDataSet here, and pass in dx?
-  /**
-   * Creates the data set for the sum of harmonics. The datasets for each harmonic are optimized for the resolution
-   * needed for that harmonic, so we can't rely on a common dx.  So rather than reuse those datasets, the contribution
-   * of each harmonic is explicitly computed here.
-   * @param {Harmonic[]} harmonics
-   * @param {Range} xRange
-   * @param {Domain} domain
-   * @param {SeriesType} seriesType
-   * @param {number} L
-   * @param {number} T
-   * @param {number} t
-   * @returns {Vector2[]}
-   * @public
-   */
-  static createSumDataSet( harmonics, xRange, domain, seriesType, L, T, t ) {
+//TODO use createHarmonicDataSet here, and pass in dx?
+/**
+ * Creates the data set for the sum of harmonics. The datasets for each harmonic are optimized for the resolution
+ * needed for that harmonic, so we can't rely on a common dx.  So rather than reuse those datasets, the contribution
+ * of each harmonic is explicitly computed here.
+ * @param {Harmonic[]} harmonics
+ * @param {number} numberOfHarmonics
+ * @param {Range} xRange
+ * @param {Domain} domain
+ * @param {SeriesType} seriesType
+ * @param {number} L
+ * @param {number} T
+ * @param {number} t
+ * @returns {Vector2[]}
+ */
+function createSumDataSet( harmonics, numberOfHarmonics, xRange, domain, seriesType, L, T, t ) {
 
-    assert && assert( Array.isArray( harmonics ), 'invalid harmonics' );
-    assert && assert( harmonics.length > 0, 'at least 1 harmonic is required' );
-    assert && assert( xRange instanceof Range, 'invalid xRange' );
-    // other args are validated by getAmplitudeAt
+  assert && assert( Array.isArray( harmonics ), 'invalid harmonics' );
+  assert && assert( harmonics.length > 0, 'at least 1 harmonic is required' );
+  assert && assert( typeof numberOfHarmonics === 'number' && numberOfHarmonics > 0, 'invalid numberOfHarmonics' );
+  assert && assert( xRange instanceof Range, 'invalid xRange' );
+  // other args are validated by getAmplitudeAt
 
-    const sumDataSet = [];
-    const dx = xRange.getLength() / POINTS_PER_DATA_SET;
-    for ( let x = xRange.min; x <= xRange.max; x += dx ) {
-      let ySum = 0;
-      harmonics.forEach( harmonic => {
-        ySum += getAmplitudeAt( x, harmonic, domain, seriesType, L, T, t );
-      } );
-      sumDataSet.push( new Vector2( x, ySum ) );
-    }
-    return sumDataSet;
+  const relevantHarmonics = harmonics.slice( 0, numberOfHarmonics );
+  const sumDataSet = [];
+  const dx = xRange.getLength() / POINTS_PER_DATA_SET;
+  for ( let x = xRange.min; x <= xRange.max; x += dx ) {
+    let ySum = 0;
+    relevantHarmonics.forEach( harmonic => {
+      ySum += getAmplitudeAt( x, harmonic, domain, seriesType, L, T, t );
+    } );
+    sumDataSet.push( new Vector2( x, ySum ) );
   }
+  return sumDataSet;
 }
 
 /**
