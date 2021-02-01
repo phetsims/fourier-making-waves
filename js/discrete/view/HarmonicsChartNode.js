@@ -73,12 +73,11 @@ class HarmonicsChartNode extends DiscreteChartNode {
     }
 
     /**
-     * Gets the harmonic data sets that are relevant, based on the number of harmonics in the Fourier series.
-     * @returns {Array.<Array.<Vector2>>}
+     * Gets the harmonics that are relevant, based on the number of harmonics in the Fourier series.
+     * @returns {Harmonic[]}
      */
-    function getRelevantDataSets() {
-      const plots = harmonicPlots.slice( 0, fourierSeries.numberOfHarmonicsProperty.value );
-      return _.map( plots, plot => plot.dataSet );
+    function getRelevantHarmonics() {
+      return fourierSeries.harmonics.slice( 0, fourierSeries.numberOfHarmonicsProperty.value );
     }
 
     // Render all of the plots using Canvas, clipped to chartRectangle.
@@ -98,7 +97,9 @@ class HarmonicsChartNode extends DiscreteChartNode {
           fourierSeries.L, fourierSeries.T, tProperty.value );
         chartCanvasNode.update();
 
-        sumDataSetProperty.value = DiscreteChartsModel.createSumDataSet( getRelevantDataSets() );
+        sumDataSetProperty.value = DiscreteChartsModel.createSumDataSet( getRelevantHarmonics(),
+          this.chartTransform.modelXRange, domainProperty.value, seriesTypeProperty.value,
+          fourierSeries.L, fourierSeries.T, tProperty.value );
       } );
     } );
 
@@ -119,7 +120,9 @@ class HarmonicsChartNode extends DiscreteChartNode {
       }
       chartCanvasNode.update();
 
-      sumDataSetProperty.value = DiscreteChartsModel.createSumDataSet( getRelevantDataSets() );
+      sumDataSetProperty.value = DiscreteChartsModel.createSumDataSet( getRelevantHarmonics(),
+        this.chartTransform.modelXRange, domainProperty.value, seriesTypeProperty.value,
+        fourierSeries.L, fourierSeries.T, tProperty.value );
     };
 
     // Initialize
@@ -193,7 +196,7 @@ function updateHarmonicPlot( harmonicPlot, modelXRange, numberOfHarmonics, domai
   if ( harmonic.order <= numberOfHarmonics ) {
 
     // Create the data set for a relevant harmonic.
-    harmonicPlot.setDataSet( DiscreteChartsModel.createHarmonicDataSet( order, amplitude, modelXRange, domain, seriesType, L, T, t ) );
+    harmonicPlot.setDataSet( DiscreteChartsModel.createHarmonicDataSet( harmonicPlot.harmonic, modelXRange, domain, seriesType, L, T, t ) );
   }
   else {
 

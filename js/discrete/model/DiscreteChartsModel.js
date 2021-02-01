@@ -19,12 +19,13 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWUtils from '../../common/FMWUtils.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
+import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
 import SeriesType from './SeriesType.js';
 
-//TODO compute this dynamically, so that fewer points are needed as we zoom in.
+//TODO compute this based on zoom level and harmonic order, because higher-order harmonics require more points to look good
 // Number of points in the data set for each harmonic. This value was chosen empirically, such that the highest order
 // harmonic looks smooth when the chart is fully zoomed out.
 const POINTS_PER_DATA_SET = 2000;
@@ -112,9 +113,8 @@ class DiscreteChartsModel {
   }
 
   /**
-   * Creates the data set for one harmonic. This algorithm uses the equation that corresponds to EquationForm.MODE.
-   * @param {number} order
-   * @param {number} amplitude
+   * Creates the data set for one harmonic.
+   * @param {Harmonic} harmonic
    * @param {Range} xRange
    * @param {Domain} domain
    * @param {SeriesType} seriesType
@@ -124,83 +124,106 @@ class DiscreteChartsModel {
    * @returns {Vector2[]}
    * @public
    */
-  static createHarmonicDataSet( order, amplitude, xRange, domain, seriesType, L, T, t ) {
+  static createHarmonicDataSet( harmonic, xRange, domain, seriesType, L, T, t ) {
 
-    assert && AssertUtils.assertPositiveInteger( order );
-    assert && assert( typeof amplitude === 'number', 'invalid amplitude' );
     assert && assert( xRange instanceof Range, 'invalid xRange' );
-    assert && assert( Domain.includes( domain ), 'invalid domain' );
-    assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
-    assert && AssertUtils.assertPositiveNumber( L );
-    assert && AssertUtils.assertPositiveNumber( T );
-    assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
-
-    const dx = xRange.getLength() / POINTS_PER_DATA_SET;
+    // other args are validated by getAmplitudeAt
 
     const dataSet = [];
+    const dx = xRange.getLength() / POINTS_PER_DATA_SET;
     for ( let x = xRange.min; x <= xRange.max; x += dx ) {
-      let y;
-      if ( domain === Domain.SPACE ) {
-        if ( seriesType === SeriesType.SINE ) {
-          y = amplitude * Math.sin( 2 * Math.PI * order * x / L );
-        }
-        else {
-          y = amplitude * Math.cos( 2 * Math.PI * order * x / L );
-        }
-      }
-      else if ( domain === Domain.TIME ) {
-        if ( seriesType === SeriesType.SINE ) {
-          y = amplitude * Math.sin( 2 * Math.PI * order * x / T );
-        }
-        else {
-          y = amplitude * Math.cos( 2 * Math.PI * order * x / T );
-        }
-      }
-      else { // Domain.SPACE_AND_TIME
-        if ( seriesType === SeriesType.SINE ) {
-          y = amplitude * Math.sin( 2 * Math.PI * order * ( x / L - t / T ) );
-        }
-        else {
-          y = amplitude * Math.cos( 2 * Math.PI * order * ( x / L - t / T ) );
-        }
-      }
+      const y = getAmplitudeAt( x, harmonic, domain, seriesType, L, T, t );
       dataSet.push( new Vector2( x, y ) );
     }
     return dataSet;
   }
 
-  //TODO compute sum separately instead of reusing harmonicDataSets, so that each harmonicDataSet can have different # points
+  //TODO use createHarmonicDataSet here, and pass in dx?
   /**
-   * Creates the data set for the sum of harmonics.
-   * @param {Array.<Array.<Vector2>>} harmonicDataSets - data sets to be summed
+   * Creates the data set for the sum of harmonics. The datasets for each harmonic are optimized for the resolution
+   * needed for that harmonic, so we can't rely on a common dx.  So rather than reuse those datasets, the contribution
+   * of each harmonic is explicitly computed here.
+   * @param {Harmonic[]} harmonics
+   * @param {Range} xRange
+   * @param {Domain} domain
+   * @param {SeriesType} seriesType
+   * @param {number} L
+   * @param {number} T
+   * @param {number} t
    * @returns {Vector2[]}
    * @public
    */
-  static createSumDataSet( harmonicDataSets ) {
+  static createSumDataSet( harmonics, xRange, domain, seriesType, L, T, t ) {
 
-    assert && assert( Array.isArray( harmonicDataSets ), 'invalid harmonicDataSets' );
-    assert && assert( harmonicDataSets.length > 0, 'at least 1 data set is required' );
+    assert && assert( Array.isArray( harmonics ), 'invalid harmonics' );
+    assert && assert( harmonics.length > 0, 'at least 1 harmonic is required' );
+    assert && assert( xRange instanceof Range, 'invalid xRange' );
+    // other args are validated by getAmplitudeAt
 
-    // All data sets must have the same number of points.
-    const numberOfPoints = harmonicDataSets[ 0 ].length;
-    assert && assert( _.every( harmonicDataSets, dataSet => dataSet.length === numberOfPoints ),
-      'all data sets used to create the sum must have the same number of points' );
-
-    // Sum the corresponding y values of the relevant data sets.
-    const numberOfDataSets = harmonicDataSets.length;
     const sumDataSet = [];
-    for ( let pointIndex = 0; pointIndex < numberOfPoints; pointIndex++ ) {
+    const dx = xRange.getLength() / POINTS_PER_DATA_SET;
+    for ( let x = xRange.min; x <= xRange.max; x += dx ) {
       let ySum = 0;
-      const x = harmonicDataSets[ 0 ][ pointIndex ].x;
-      for ( let dataSetIndex = 0; dataSetIndex < numberOfDataSets; dataSetIndex++ ) {
-        const point = harmonicDataSets[ dataSetIndex ][ pointIndex ];
-        assert && assert( point.x === x, `all data sets should have the same x coordinates, ${point.x} !== ${x}` );
-        ySum += point.y;
-      }
+      harmonics.forEach( harmonic => {
+        ySum += getAmplitudeAt( x, harmonic, domain, seriesType, L, T, t );
+      } );
       sumDataSet.push( new Vector2( x, ySum ) );
     }
     return sumDataSet;
   }
+}
+
+/**
+ * Gets the amplitude at an x coordinate, where the semantics of x depends on what the domain is.
+ * This algorithm uses the equation that corresponds to EquationForm.MODE.
+ * @param {number} x
+ * @param {Harmonic} harmonic
+ * @param {Domain} domain
+ * @param {SeriesType} seriesType
+ * @param {number} L
+ * @param {number} T
+ * @param {number} t
+ * @returns {number}
+ */
+function getAmplitudeAt( x, harmonic, domain, seriesType, L, T, t ) {
+
+  assert && assert( typeof x === 'number', 'invalid x' );
+  assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
+  assert && assert( Domain.includes( domain ), 'invalid domain' );
+  assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
+  assert && AssertUtils.assertPositiveNumber( L );
+  assert && AssertUtils.assertPositiveNumber( T );
+  assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
+
+  const order = harmonic.order;
+  const amplitude = harmonic.amplitudeProperty.value;
+
+  let y;
+  if ( domain === Domain.SPACE ) {
+    if ( seriesType === SeriesType.SINE ) {
+      y = amplitude * Math.sin( 2 * Math.PI * order * x / L );
+    }
+    else {
+      y = amplitude * Math.cos( 2 * Math.PI * order * x / L );
+    }
+  }
+  else if ( domain === Domain.TIME ) {
+    if ( seriesType === SeriesType.SINE ) {
+      y = amplitude * Math.sin( 2 * Math.PI * order * x / T );
+    }
+    else {
+      y = amplitude * Math.cos( 2 * Math.PI * order * x / T );
+    }
+  }
+  else { // Domain.SPACE_AND_TIME
+    if ( seriesType === SeriesType.SINE ) {
+      y = amplitude * Math.sin( 2 * Math.PI * order * ( x / L - t / T ) );
+    }
+    else {
+      y = amplitude * Math.cos( 2 * Math.PI * order * ( x / L - t / T ) );
+    }
+  }
+  return y;
 }
 
 fourierMakingWaves.register( 'DiscreteChartsModel', DiscreteChartsModel );
