@@ -30,8 +30,8 @@ import ExpandedFormDialog from './ExpandedFormDialog.js';
 import FourierSoundGenerator from './FourierSoundGenerator.js';
 import HarmonicsChartNode from './HarmonicsChartNode.js';
 import HarmonicsEquationNode from './HarmonicsEquationNode.js';
-import PeriodClockNode from './PeriodClockNode.js';
 import PeriodCalipersNode from './PeriodCalipersNode.js';
+import PeriodClockNode from './PeriodClockNode.js';
 import SumChartNode from './SumChartNode.js';
 import SumEquationNode from './SumEquationNode.js';
 import WavelengthCalipersNode from './WavelengthCalipersNode.js';
@@ -110,8 +110,7 @@ class DiscreteScreenView extends ScreenView {
         tandem: tandem.createTandem( 'sumExpandCollapseButton' )
       } );
 
-    //TODO move sumDataSetProperty to model.chartsModel?
-    const sumChartNode = new SumChartNode( model, harmonicsChartNode.sumDataSetProperty, {
+    const sumChartNode = new SumChartNode( model, {
       viewWidth: CHART_RECTANGLE_SIZE.width,
       viewHeight: CHART_RECTANGLE_SIZE.height,
       left: sumExpandCollapseButton.left,

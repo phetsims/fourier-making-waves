@@ -11,7 +11,6 @@ import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -27,13 +26,11 @@ class SumChartNode extends DiscreteChartNode {
 
   /**
    * @param {DiscreteModel} model
-   * @param {Property.<Vector2[]>} sumDataSetProperty
    * @param {Object} [options]
    */
-  constructor( model, sumDataSetProperty, options ) {
+  constructor( model, options ) {
 
     assert && assert( model instanceof DiscreteModel, 'invalid model' );
-    assert && AssertUtils.assertPropertyOf( sumDataSetProperty, Array );
 
     options = merge( {
 
@@ -49,6 +46,7 @@ class SumChartNode extends DiscreteChartNode {
     const yAxisDescriptionProperty = model.chartsModel.yAxisDescriptionProperty;
     const autoScaleProperty = model.chartsModel.autoScaleProperty;
     const infiniteHarmonicsVisibleProperty = model.chartsModel.infiniteHarmonicsVisibleProperty;
+    const sumDataSetProperty = model.chartsModel.sumDataSetProperty;
 
     // Zoom buttons for the y-axis range
     const yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {

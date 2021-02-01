@@ -19,9 +19,6 @@ import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';
 import Harmonic from './Harmonic.js';
 
-// constants
-const MAX_HARMONICS = 11;
-
 class FourierSeries extends PhetioObject {
 
   /**
@@ -50,9 +47,9 @@ class FourierSeries extends PhetioObject {
     this.amplitudeRange = new Range( -FMWConstants.MAX_ABSOLUTE_AMPLITUDE, FMWConstants.MAX_ABSOLUTE_AMPLITUDE );
 
     // @public the number of harmonics in this series
-    this.numberOfHarmonicsProperty = new NumberProperty( MAX_HARMONICS, {
+    this.numberOfHarmonicsProperty = new NumberProperty( FMWConstants.MAX_HARMONICS, {
       numberType: 'Integer',
-      range: new Range( 1, MAX_HARMONICS ),
+      range: new Range( 1, FMWConstants.MAX_HARMONICS ),
       tandem: options.tandem.createTandem( 'numberOfHarmonicsProperty' )
     } );
 

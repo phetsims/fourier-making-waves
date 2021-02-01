@@ -11,12 +11,12 @@
 import Property from '../../../../axon/js/Property.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import DiscreteChartsModel from '../model/DiscreteChartsModel.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import Domain from '../model/Domain.js';
 import SeriesType from '../model/SeriesType.js';
@@ -24,12 +24,6 @@ import DiscreteChartNode from './DiscreteChartNode.js';
 import HarmonicPlot from './HarmonicPlot.js';
 
 // constants
-
-//TODO compute this dynamically, so that fewer points are needed as we zoom in.
-// Number of points in the data set for each plot. This value was chosen empirically, such that the highest order
-// harmonic looks smooth when the chart is fully zoomed out.
-const POINTS_PER_PLOT = 2000;
-
 const NORMAL_LINE_WIDTH = 1;
 const EMPHASIZED_LINE_WIDTH = 2;
 const DE_EMPHASIZED_LINE_WIDTH = 0.5;
@@ -59,9 +53,7 @@ class HarmonicsChartNode extends DiscreteChartNode {
     const domainProperty = model.domainProperty;
     const seriesTypeProperty = model.seriesTypeProperty;
     const emphasizedHarmonics = model.chartsModel.emphasizedHarmonics;
-
-    // @public {Property.<Vector2[]>} data set for the sum of the harmonics, drawn by the Sum chart
-    this.sumDataSetProperty = new Property( [] );
+    const sumDataSetProperty = model.chartsModel.sumDataSetProperty;
 
     // {HarmonicPlot[]} a plot for each harmonic in the Fourier series, in harmonic order
     const harmonicPlots = [];
@@ -75,9 +67,18 @@ class HarmonicsChartNode extends DiscreteChartNode {
       } );
       harmonicPlots.push( harmonicPlot );
 
-      updateOneHarmonicPlot( harmonicPlot, this.chartTransform.modelXRange,
+      updateHarmonicPlot( harmonicPlot, this.chartTransform.modelXRange,
         fourierSeries.numberOfHarmonicsProperty.value, domainProperty.value, seriesTypeProperty.value,
         fourierSeries.L, fourierSeries.T, tProperty.value );
+    }
+
+    /**
+     * Gets the harmonic data sets that are relevant, based on the number of harmonics in the Fourier series.
+     * @returns {Array.<Array.<Vector2>>}
+     */
+    function getRelevantDataSets() {
+      const plots = harmonicPlots.slice( 0, fourierSeries.numberOfHarmonicsProperty.value );
+      return _.map( plots, plot => plot.dataSet );
     }
 
     // Render all of the plots using Canvas, clipped to chartRectangle.
@@ -87,15 +88,17 @@ class HarmonicsChartNode extends DiscreteChartNode {
     } );
     this.addChild( chartCanvasNode );
 
-    // If any amplitude changes, redraw and update the sum.
+    // If any amplitude changes, update the associated harmonic data set, and update the sum.
     // unlink is not needed.
     harmonicPlots.forEach( plot => {
       plot.harmonic.amplitudeProperty.lazyLink( () => {
-        updateOneHarmonicPlot( plot, this.chartTransform.modelXRange,
+
+        updateHarmonicPlot( plot, this.chartTransform.modelXRange,
           fourierSeries.numberOfHarmonicsProperty.value, domainProperty.value, seriesTypeProperty.value,
           fourierSeries.L, fourierSeries.T, tProperty.value );
         chartCanvasNode.update();
-        updateSumDataSet( this.sumDataSetProperty, harmonicPlots, fourierSeries.numberOfHarmonicsProperty.value );
+
+        sumDataSetProperty.value = DiscreteChartsModel.createSumDataSet( getRelevantDataSets() );
       } );
     } );
 
@@ -108,10 +111,15 @@ class HarmonicsChartNode extends DiscreteChartNode {
     } ) );
 
     const updateEverything = () => {
-      updateAllHarmonicPlots( chartCanvasNode, harmonicPlots, this.chartTransform.modelXRange,
-        fourierSeries.numberOfHarmonicsProperty.value, domainProperty.value, seriesTypeProperty.value,
-        fourierSeries.L, fourierSeries.T, tProperty.value );
-      updateSumDataSet( this.sumDataSetProperty, harmonicPlots, fourierSeries.numberOfHarmonicsProperty.value );
+
+      for ( let i = 0; i < harmonicPlots.length; i++ ) {
+        updateHarmonicPlot( harmonicPlots[ i ], this.chartTransform.modelXRange,
+          fourierSeries.numberOfHarmonicsProperty.value, domainProperty.value, seriesTypeProperty.value,
+          fourierSeries.L, fourierSeries.T, tProperty.value );
+      }
+      chartCanvasNode.update();
+
+      sumDataSetProperty.value = DiscreteChartsModel.createSumDataSet( getRelevantDataSets() );
     };
 
     // Initialize
@@ -163,7 +171,7 @@ class HarmonicsChartNode extends DiscreteChartNode {
  * @param {number} T
  * @param {number} t
  */
-function updateOneHarmonicPlot( harmonicPlot, modelXRange, numberOfHarmonics, domain, seriesType, L, T, t ) {
+function updateHarmonicPlot( harmonicPlot, modelXRange, numberOfHarmonics, domain, seriesType, L, T, t ) {
 
   assert && assert( harmonicPlot instanceof HarmonicPlot, 'invalid harmonicPlot' );
   assert && assert( modelXRange instanceof Range, 'invalid modelXRange' );
@@ -185,138 +193,13 @@ function updateOneHarmonicPlot( harmonicPlot, modelXRange, numberOfHarmonics, do
   if ( harmonic.order <= numberOfHarmonics ) {
 
     // Create the data set for a relevant harmonic.
-    harmonicPlot.setDataSet( createHarmonicDataSet( order, amplitude, modelXRange, domain, seriesType, L, T, t ) );
+    harmonicPlot.setDataSet( DiscreteChartsModel.createHarmonicDataSet( order, amplitude, modelXRange, domain, seriesType, L, T, t ) );
   }
   else {
 
-    // Empty an data set for a harmonic that is not relevant.
+    // Empty data set for a harmonic that is not relevant.
     harmonicPlot.setDataSet( [] );
   }
-}
-
-/**
- * Updates all HarmonicPlots.
- * @param {ChartCanvasNode} chartCanvasNode
- * @param {HarmonicPlot[]} harmonicPlots
- * @param {Range} modelXRange
- * @param {number} numberOfHarmonics
- * @param {Domain} domain
- * @param {SeriesType} seriesType
- * @param {number} L
- * @param {number} T
- * @param {number} t
- */
-function updateAllHarmonicPlots( chartCanvasNode, harmonicPlots, modelXRange, numberOfHarmonics, domain, seriesType, L, T, t ) {
-
-  assert && assert( chartCanvasNode instanceof ChartCanvasNode, 'invalid chartCanvasNode' );
-  // Other args are validated by updateOneHarmonicPlot
-
-  for ( let i = 0; i < harmonicPlots.length; i++ ) {
-    updateOneHarmonicPlot( harmonicPlots[ i ], modelXRange, numberOfHarmonics, domain, seriesType, L, T, t );
-  }
-  chartCanvasNode.update();
-}
-
-/**
- * Updates the data set for the sum.
- * @param {Property.<Vector2[]>} sumDataSetProperty
- * @param {HarmonicPlot[]} harmonicPlots
- * @param {number} numberOfHarmonics
- */
-function updateSumDataSet( sumDataSetProperty, harmonicPlots, numberOfHarmonics ) {
-
-  assert && AssertUtils.assertPropertyOf( sumDataSetProperty, Array );
-  assert && AssertUtils.assertArrayOf( harmonicPlots, HarmonicPlot );
-  assert && AssertUtils.assertPositiveInteger( numberOfHarmonics );
-
-  const relevantHarmonicPlots = harmonicPlots.slice( 0, numberOfHarmonics );
-  sumDataSetProperty.value = createSumDataSet( relevantHarmonicPlots );
-}
-
-/**
- * Creates the data set for a harmonic. This algorithm uses the equation that corresponds to EquationForm.MODE.
- * @param {number} order
- * @param {number} amplitude
- * @param {Range} xRange
- * @param {Domain} domain
- * @param {SeriesType} seriesType
- * @param {number} L
- * @param {number} T
- * @param {number} t
- * @returns {Vector2[]}
- */
-function createHarmonicDataSet( order, amplitude, xRange, domain, seriesType, L, T, t ) {
-
-  assert && AssertUtils.assertPositiveInteger( order );
-  assert && assert( typeof amplitude === 'number', 'invalid amplitude' );
-  assert && assert( xRange instanceof Range, 'invalid xRange' );
-  assert && assert( Domain.includes( domain ), 'invalid domain' );
-  assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
-  assert && AssertUtils.assertPositiveNumber( L );
-  assert && AssertUtils.assertPositiveNumber( T );
-  assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
-
-  const dx = xRange.getLength() / POINTS_PER_PLOT;
-
-  const dataSet = [];
-  for ( let x = xRange.min; x <= xRange.max; x += dx ) {
-    let y;
-    if ( domain === Domain.SPACE ) {
-      if ( seriesType === SeriesType.SINE ) {
-        y = amplitude * Math.sin( 2 * Math.PI * order * x / L );
-      }
-      else {
-        y = amplitude * Math.cos( 2 * Math.PI * order * x / L );
-      }
-    }
-    else if ( domain === Domain.TIME ) {
-      if ( seriesType === SeriesType.SINE ) {
-        y = amplitude * Math.sin( 2 * Math.PI * order * x / T );
-      }
-      else {
-        y = amplitude * Math.cos( 2 * Math.PI * order * x / T );
-      }
-    }
-    else { // Domain.SPACE_AND_TIME
-      if ( seriesType === SeriesType.SINE ) {
-        y = amplitude * Math.sin( 2 * Math.PI * order * ( x / L - t / T ) );
-      }
-      else {
-        y = amplitude * Math.cos( 2 * Math.PI * order * ( x / L - t / T ) );
-      }
-    }
-    dataSet.push( new Vector2( x, y ) );
-  }
-  return dataSet;
-}
-
-/**
- * Creates the data set for the sum of harmonics. This algorithm uses the equation that corresponds to EquationForm.MODE.
- * @param {HarmonicPlot[]} harmonicPlots
- * @returns {Vector2[]}
- */
-function createSumDataSet( harmonicPlots ) {
-
-  assert && AssertUtils.assertArrayOf( harmonicPlots, HarmonicPlot );
-  assert && assert( harmonicPlots.length > 0, 'requires at least 1 plot' );
-
-  const numberOfPoints = harmonicPlots[ 0 ].dataSet.length;
-  assert && assert( _.every( harmonicPlots, plot => plot.dataSet.length === numberOfPoints ),
-    'all data sets must have the same number of points' );
-
-  // Sum the corresponding y values of all data sets.
-  const sumDataSet = [];
-  for ( let pointIndex = 0; pointIndex < numberOfPoints; pointIndex++ ) {
-    let ySum = 0;
-    const x0 = harmonicPlots[ 0 ].dataSet[ pointIndex ].x;
-    for ( let plotIndex = 0; plotIndex < harmonicPlots.length; plotIndex++ ) {
-      const point = harmonicPlots[ plotIndex ].dataSet[ pointIndex ];
-      assert && assert( point.x === x0, `all data sets should have the same dx, ${point.x} !== ${x0}` );
-      ySum += point.y;
-    }
-    sumDataSet.push( new Vector2( x0, ySum ) );
-  }
-  return sumDataSet;
 }
 
 fourierMakingWaves.register( 'HarmonicsChartNode', HarmonicsChartNode );

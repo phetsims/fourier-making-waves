@@ -28,6 +28,7 @@ class HarmonicPlot extends CanvasLinePlot {
 
     super( chartTransform, dataSet, options );
 
+    //TODO is this field needed? is this subclass needed?
     // @public (read-only)
     this.harmonic = harmonic;
   }

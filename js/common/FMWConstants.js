@@ -17,6 +17,8 @@ const FMWConstants = {
 
   // Model ===========================================================================================================
 
+  MAX_HARMONICS: 11,
+
   // amplitude range is [-MAX_ABSOLUTE_AMPLITUDE, MAX_ABSOLUTE_AMPLITUDE]
   // see https://github.com/phetsims/fourier-making-waves/issues/22
   MAX_ABSOLUTE_AMPLITUDE: 1.5,
