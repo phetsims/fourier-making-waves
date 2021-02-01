@@ -58,6 +58,7 @@ class DiscreteChartsModel {
       } ) );
     }
 
+    //TODO should this be DerivedProperty( harmonicDataSets ) ?
     // @public {Property.<Array.<Vector2>>>} the data set for the sum of the harmonics
     this.sumDataSetProperty = new Property( [], {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
