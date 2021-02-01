@@ -103,6 +103,7 @@ class DiscreteChartsModel {
       } );
       this.harmonicDataSetProperties.push( harmonicDataSetProperty );
 
+      //TODO duplication with defaultHarmonicDataSet above
       // Update the harmonic's data set when dependencies change. unmultilink is not needed.
       Property.lazyMultilink( [ harmonic.amplitudeProperty, fourierSeries.numberOfHarmonicsProperty,
           this.xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
@@ -122,6 +123,7 @@ class DiscreteChartsModel {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
     } );
 
+    //TODO duplication with defaultSumDataSet above
     // Update the sum when dependencies change. unmultilink is not needed.
     const amplitudeProperties = _.map( fourierSeries.harmonics, harmonic => harmonic.amplitudeProperty );
     Property.lazyMultilink( [ fourierSeries.numberOfHarmonicsProperty, this.xAxisDescriptionProperty,
