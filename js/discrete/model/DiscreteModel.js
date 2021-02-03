@@ -17,10 +17,10 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWUtils from '../../common/FMWUtils.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import HarmonicsChartModel from './HarmonicsChartModel.js';
+import HarmonicsChart from './HarmonicsChart.js';
 import Domain from './Domain.js';
 import EquationForm from './EquationForm.js';
-import SumChartModel from './SumChartModel.js';
+import SumChart from './SumChart.js';
 import Waveform from './Waveform.js';
 import SeriesType from './SeriesType.js';
 
@@ -84,12 +84,12 @@ class DiscreteModel {
     } );
 
     // @public
-    this.harmonicsChartModel = new HarmonicsChartModel( this.fourierSeries, this.domainProperty,
+    this.harmonicsChart = new HarmonicsChart( this.fourierSeries, this.domainProperty,
       this.seriesTypeProperty, this.tProperty );
 
     // @public
-    this.sumChartModel = new SumChartModel( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
-      this.tProperty, this.harmonicsChartModel.xZoomLevelProperty, this.harmonicsChartModel.xAxisDescriptionProperty );
+    this.sumChart = new SumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
+      this.tProperty, this.harmonicsChart.xZoomLevelProperty, this.harmonicsChart.xAxisDescriptionProperty );
 
     // @public emits if you try to make a sawtooth wave with cosines
     this.oopsSawtoothWithCosinesEmitter = new Emitter();
@@ -163,8 +163,8 @@ class DiscreteModel {
       this.fourierSeries.reset();
 
       // Reset the charts
-      this.harmonicsChartModel.reset();
-      this.sumChartModel.reset();
+      this.harmonicsChart.reset();
+      this.sumChart.reset();
 
       // Reset all non-inherited, non-derived Properties
       FMWUtils.resetOwnProperties( this );

@@ -19,7 +19,7 @@ import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
-import SumChartModel from '../model/SumChartModel.js';
+import SumChart from '../model/SumChart.js';
 import Waveform from '../model/Waveform.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
 import DiscreteChartNode from './DiscreteChartNode.js';
@@ -28,16 +28,16 @@ import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 class SumChartNode extends DiscreteChartNode {
 
   /**
-   * @param {SumChartModel} sumChartModel
+   * @param {SumChart} sumChart
    * @param {FourierSeries} fourierSeries
    * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
-  constructor( sumChartModel, fourierSeries, waveformProperty, domainProperty, equationFormProperty, options ) {
+  constructor( sumChart, fourierSeries, waveformProperty, domainProperty, equationFormProperty, options ) {
 
-    assert && assert( sumChartModel instanceof SumChartModel, 'invalid sumChartModel' );
+    assert && assert( sumChart instanceof SumChart, 'invalid sumChart' );
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
@@ -49,14 +49,14 @@ class SumChartNode extends DiscreteChartNode {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // Fields of interest in sumChartModel, to improve readability
-    const xZoomLevelProperty = sumChartModel.xZoomLevelProperty;
-    const xAxisDescriptionProperty = sumChartModel.xAxisDescriptionProperty;
-    const yZoomLevelProperty = sumChartModel.yZoomLevelProperty;
-    const yAxisDescriptionProperty = sumChartModel.yAxisDescriptionProperty;
-    const autoScaleProperty = sumChartModel.autoScaleProperty;
-    const infiniteHarmonicsVisibleProperty = sumChartModel.infiniteHarmonicsVisibleProperty;
-    const sumDataSetProperty = sumChartModel.sumDataSetProperty;
+    // Fields of interest in sumChart, to improve readability
+    const xZoomLevelProperty = sumChart.xZoomLevelProperty;
+    const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;
+    const yZoomLevelProperty = sumChart.yZoomLevelProperty;
+    const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
+    const autoScaleProperty = sumChart.autoScaleProperty;
+    const infiniteHarmonicsVisibleProperty = sumChart.infiniteHarmonicsVisibleProperty;
+    const sumDataSetProperty = sumChart.sumDataSetProperty;
 
     super( fourierSeries, domainProperty, equationFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options );
 

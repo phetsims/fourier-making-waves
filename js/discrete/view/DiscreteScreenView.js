@@ -67,23 +67,23 @@ class DiscreteScreenView extends ScreenView {
     const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, this.layoutBounds );
 
     const amplitudesChartNode = new AmplitudesChartNode( model.fourierSeries, model.waveformProperty,
-      model.harmonicsChartModel.emphasizedHarmonics, amplitudeKeypadDialog, {
+      model.harmonicsChart.emphasizedHarmonics, amplitudeKeypadDialog, {
         viewWidth: CHART_RECTANGLE_SIZE.width,
         viewHeight: CHART_RECTANGLE_SIZE.height,
         tandem: tandem.createTandem( 'amplitudesChartNode' )
       } );
 
     const harmonicsExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.harmonicsChart, model.harmonicsChartModel.chartVisibleProperty, {
+      fourierMakingWavesStrings.harmonicsChart, model.harmonicsChart.chartVisibleProperty, {
         textOptions: { maxWidth: 150 }, // determined empirically
         tandem: tandem.createTandem( 'harmonicsExpandCollapseButton' )
       } );
 
-    const harmonicsChartNode = new HarmonicsChartNode( model.harmonicsChartModel, model.fourierSeries,
+    const harmonicsChartNode = new HarmonicsChartNode( model.harmonicsChart, model.fourierSeries,
       model.waveformProperty, model.domainProperty, model.equationFormProperty, {
         viewWidth: CHART_RECTANGLE_SIZE.width,
         viewHeight: CHART_RECTANGLE_SIZE.height,
-        visibleProperty: model.harmonicsChartModel.chartVisibleProperty,
+        visibleProperty: model.harmonicsChart.chartVisibleProperty,
         tandem: tandem.createTandem( 'harmonicsChartNode' )
       } );
 
@@ -100,24 +100,24 @@ class DiscreteScreenView extends ScreenView {
 
     // Visibility of the equation above the Harmonics chart
     Property.multilink(
-      [ model.harmonicsChartModel.chartVisibleProperty, model.equationFormProperty ],
+      [ model.harmonicsChart.chartVisibleProperty, model.equationFormProperty ],
       ( chartVisible, equationForm ) => {
         harmonicsEquationNode.visible = chartVisible && ( equationForm !== EquationForm.HIDDEN );
       } );
 
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.sum, model.sumChartModel.chartVisibleProperty, {
+      fourierMakingWavesStrings.sum, model.sumChart.chartVisibleProperty, {
         textOptions: { maxWidth: 150 }, // determined empirically
         tandem: tandem.createTandem( 'sumExpandCollapseButton' )
       } );
 
-    const sumChartNode = new SumChartNode( model.sumChartModel, model.fourierSeries,
+    const sumChartNode = new SumChartNode( model.sumChart, model.fourierSeries,
       model.waveformProperty, model.domainProperty, model.equationFormProperty, {
         viewWidth: CHART_RECTANGLE_SIZE.width,
         viewHeight: CHART_RECTANGLE_SIZE.height,
         left: sumExpandCollapseButton.left,
         y: sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING,
-        visibleProperty: model.sumChartModel.chartVisibleProperty,
+        visibleProperty: model.sumChart.chartVisibleProperty,
         tandem: tandem.createTandem( 'sumChartNode' )
       } );
 
@@ -148,7 +148,7 @@ class DiscreteScreenView extends ScreenView {
 
     // Visibility of the equation and push button above the Sum chart
     Property.multilink(
-      [ model.sumChartModel.chartVisibleProperty, model.equationFormProperty ],
+      [ model.sumChart.chartVisibleProperty, model.equationFormProperty ],
       ( chartVisible, equationForm ) => {
         const visible = chartVisible && ( equationForm !== EquationForm.HIDDEN );
         sumEquationNode.visible = visible;

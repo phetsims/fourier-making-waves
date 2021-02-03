@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * HarmonicsChartModel is the model for the 'Harmonics' chart in the 'Discrete' screen.
+ * HarmonicsChart is the model for the 'Harmonics' chart in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -26,7 +26,7 @@ import SeriesType from './SeriesType.js';
 // harmonic looks smooth when the chart is fully zoomed out.
 const POINTS_PER_DATA_SET = 2000;
 
-class HarmonicsChartModel {
+class HarmonicsChart {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -88,7 +88,7 @@ class HarmonicsChartModel {
     }
 
     // @private
-    this.resetHarmonicsChartModel = () => {
+    this.resetHarmonicsChart = () => {
 
       this.emphasizedHarmonics.clear();
 
@@ -103,7 +103,7 @@ class HarmonicsChartModel {
    * @public
    */
   reset() {
-    this.resetHarmonicsChartModel();
+    this.resetHarmonicsChart();
   }
 
   /**
@@ -141,5 +141,5 @@ function createHarmonicDataSet( harmonic, xRange, domain, seriesType, L, T, t ) 
   return dataSet;
 }
 
-fourierMakingWaves.register( 'HarmonicsChartModel', HarmonicsChartModel );
-export default HarmonicsChartModel;
+fourierMakingWaves.register( 'HarmonicsChart', HarmonicsChart );
+export default HarmonicsChart;

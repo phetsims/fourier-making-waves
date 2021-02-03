@@ -16,7 +16,7 @@ import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
-import HarmonicsChartModel from '../model/HarmonicsChartModel.js';
+import HarmonicsChart from '../model/HarmonicsChart.js';
 import Waveform from '../model/Waveform.js';
 import DiscreteChartNode from './DiscreteChartNode.js';
 import HarmonicPlot from './HarmonicPlot.js';
@@ -30,16 +30,16 @@ const DE_EMPHASIZED_STROKE = Color.grayColor( 150 );
 class HarmonicsChartNode extends DiscreteChartNode {
 
   /**
-   * @param {HarmonicsChartModel} harmonicsChartModel
+   * @param {HarmonicsChart} harmonicsChart
    * @param {FourierSeries} fourierSeries
    * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
-  constructor( harmonicsChartModel, fourierSeries, waveformProperty, domainProperty, equationFormProperty, options ) {
+  constructor( harmonicsChart, fourierSeries, waveformProperty, domainProperty, equationFormProperty, options ) {
 
-    assert && assert( harmonicsChartModel instanceof HarmonicsChartModel, 'invalid harmonicsChartModel' );
+    assert && assert( harmonicsChart instanceof HarmonicsChart, 'invalid harmonicsChart' );
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
@@ -53,13 +53,13 @@ class HarmonicsChartNode extends DiscreteChartNode {
 
     const harmonics = fourierSeries.harmonics;
 
-    // Fields of interest in harmonicsChartModel, to improve readability
-    const harmonicDataSetProperties = harmonicsChartModel.harmonicDataSetProperties;
+    // Fields of interest in harmonicsChart, to improve readability
+    const harmonicDataSetProperties = harmonicsChart.harmonicDataSetProperties;
     assert && assert( harmonics.length === harmonicDataSetProperties.length,
       'a data set is required for each harmonic' );
-    const emphasizedHarmonics = harmonicsChartModel.emphasizedHarmonics;
-    const xZoomLevelProperty = harmonicsChartModel.xZoomLevelProperty;
-    const xAxisDescriptionProperty = harmonicsChartModel.xAxisDescriptionProperty;
+    const emphasizedHarmonics = harmonicsChart.emphasizedHarmonics;
+    const xZoomLevelProperty = harmonicsChart.xZoomLevelProperty;
+    const xAxisDescriptionProperty = harmonicsChart.xAxisDescriptionProperty;
 
     super( fourierSeries, domainProperty, equationFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options );
 

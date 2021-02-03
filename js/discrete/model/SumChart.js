@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * SumChartModel is the model for the 'Sum' chart in the 'Discrete' screen.
+ * SumChart is the model for the 'Sum' chart in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -24,7 +24,7 @@ import SeriesType from './SeriesType.js';
 // smooth when the chart is fully zoomed out.
 const POINTS_PER_DATA_SET = 2000;
 
-class SumChartModel {
+class SumChart {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -89,7 +89,7 @@ class SumChartModel {
       } );
 
     // @private
-    this.resetSumChartModel = () => {
+    this.resetSumChart = () => {
 
       // Reset all non-inherited, non-derived Properties
       FMWUtils.resetOwnProperties( this );
@@ -100,7 +100,7 @@ class SumChartModel {
    * @public
    */
   reset() {
-    this.resetSumChartModel();
+    this.resetSumChart();
   }
 
   /**
@@ -149,5 +149,5 @@ function createSumDataSet( harmonics, numberOfHarmonics, xRange, domain, seriesT
   return sumDataSet;
 }
 
-fourierMakingWaves.register( 'SumChartModel', SumChartModel );
-export default SumChartModel;
+fourierMakingWaves.register( 'SumChart', SumChart );
+export default SumChart;
