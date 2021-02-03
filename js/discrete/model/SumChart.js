@@ -69,9 +69,9 @@ class SumChart {
     );
 
     // {Vector[2]} the default data set for the sum
-    const defaultSumDataSet = createSumDataSet( fourierSeries.harmonics, fourierSeries.numberOfHarmonicsProperty.value,
-      xAxisDescriptionProperty.value.range, domainProperty.value, seriesTypeProperty.value,
-      fourierSeries.L, fourierSeries.T, tProperty.value );
+    const defaultSumDataSet = fourierSeries.createSumDataSet(
+      xAxisDescriptionProperty.value.range, POINTS_PER_DATA_SET,
+      domainProperty.value, seriesTypeProperty.value, fourierSeries.L, fourierSeries.T, tProperty.value );
 
     // @public {Property.<Vector2[]>} the data set for the sum
     this.sumDataSetProperty = new Property( defaultSumDataSet, {
@@ -84,8 +84,9 @@ class SumChart {
     Property.lazyMultilink( [ fourierSeries.numberOfHarmonicsProperty, xAxisDescriptionProperty,
         domainProperty, seriesTypeProperty, tProperty, ...amplitudeProperties ],
       ( numberOfHarmonics, xAxisDescription, domain, seriesType, t ) => {
-        this.sumDataSetProperty.value = createSumDataSet( fourierSeries.harmonics, numberOfHarmonics,
-          xAxisDescription.range, domain, seriesType, fourierSeries.L, fourierSeries.T, t );
+        this.sumDataSetProperty.value = fourierSeries.createSumDataSet(
+          xAxisDescription.range, POINTS_PER_DATA_SET,
+          domain, seriesType, fourierSeries.L, fourierSeries.T, t );
       } );
 
     // @private
@@ -110,43 +111,6 @@ class SumChart {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
-}
-
-//TODO use createHarmonicDataSet here, and pass in dx?
-//TODO move to FourierSeries?
-/**
- * Creates the data set for the sum of harmonics. The datasets for each harmonic are optimized for the resolution
- * needed for that harmonic, so we can't rely on a common dx.  So rather than reuse those datasets, the contribution
- * of each harmonic is explicitly computed here.
- * @param {Harmonic[]} harmonics
- * @param {number} numberOfHarmonics
- * @param {Range} xRange
- * @param {Domain} domain
- * @param {SeriesType} seriesType
- * @param {number} L
- * @param {number} T
- * @param {number} t
- * @returns {Vector2[]}
- */
-function createSumDataSet( harmonics, numberOfHarmonics, xRange, domain, seriesType, L, T, t ) {
-
-  assert && assert( Array.isArray( harmonics ), 'invalid harmonics' );
-  assert && assert( harmonics.length > 0, 'at least 1 harmonic is required' );
-  assert && assert( typeof numberOfHarmonics === 'number' && numberOfHarmonics > 0, 'invalid numberOfHarmonics' );
-  assert && assert( xRange instanceof Range, 'invalid xRange' );
-  // other args are validated by getAmplitudeAt
-
-  const relevantHarmonics = harmonics.slice( 0, numberOfHarmonics );
-  const sumDataSet = [];
-  const dx = xRange.getLength() / POINTS_PER_DATA_SET;
-  for ( let x = xRange.min; x <= xRange.max; x += dx ) {
-    let ySum = 0;
-    relevantHarmonics.forEach( harmonic => {
-      ySum += FourierSeries.getAmplitudeAt( x, harmonic, domain, seriesType, L, T, t );
-    } );
-    sumDataSet.push( new Vector2( x, ySum ) );
-  }
-  return sumDataSet;
 }
 
 fourierMakingWaves.register( 'SumChart', SumChart );

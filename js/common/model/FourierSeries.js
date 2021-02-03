@@ -9,6 +9,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
@@ -112,58 +113,120 @@ class FourierSeries extends PhetioObject {
   }
 
   /**
-   * Gets the amplitude at an x coordinate, where the semantics of x depends on what the domain is.
-   * This algorithm uses the equation that corresponds to EquationForm.MODE.
-   * @param {number} x
+   * Creates the data set for one harmonic.
    * @param {Harmonic} harmonic
+   * @param {Range} xRange
+   * @param {number} numberOfPoints
    * @param {Domain} domain
    * @param {SeriesType} seriesType
    * @param {number} L
    * @param {number} T
    * @param {number} t
-   * @returns {number}
+   * @returns {Vector2[]}
    * @public
    */
-  static getAmplitudeAt( x, harmonic, domain, seriesType, L, T, t ) {
+  createHarmonicDataSet( harmonic, xRange, numberOfPoints, domain, seriesType, L, T, t ) {
 
-    assert && assert( typeof x === 'number', 'invalid x' );
-    assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
-    assert && assert( Domain.includes( domain ), 'invalid domain' );
-    assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
-    assert && AssertUtils.assertPositiveNumber( L );
-    assert && AssertUtils.assertPositiveNumber( T );
-    assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
+    assert && assert( harmonic instanceof Harmonic, 'harmonic' );
+    assert && assert( this.harmonics.includes( harmonic ), 'harmonic is not part of this series' );
+    assert && assert( xRange instanceof Range, 'invalid xRange' );
+    assert && assert( typeof numberOfPoints === 'number' && numberOfPoints > 0, 'invalid numberOfPoints' );
+    // other args are validated by getAmplitudeAt
 
-    const order = harmonic.order;
-    const amplitude = harmonic.amplitudeProperty.value;
+    const dx = xRange.getLength() / numberOfPoints;
 
-    let y;
-    if ( domain === Domain.SPACE ) {
-      if ( seriesType === SeriesType.SINE ) {
-        y = amplitude * Math.sin( 2 * Math.PI * order * x / L );
-      }
-      else {
-        y = amplitude * Math.cos( 2 * Math.PI * order * x / L );
-      }
+    const dataSet = [];
+    for ( let x = xRange.min; x <= xRange.max; x += dx ) {
+      const y = getAmplitudeAt( x, harmonic.order, harmonic.amplitudeProperty.value, domain, seriesType, L, T, t );
+      dataSet.push( new Vector2( x, y ) );
     }
-    else if ( domain === Domain.TIME ) {
-      if ( seriesType === SeriesType.SINE ) {
-        y = amplitude * Math.sin( 2 * Math.PI * order * x / T );
-      }
-      else {
-        y = amplitude * Math.cos( 2 * Math.PI * order * x / T );
-      }
-    }
-    else { // Domain.SPACE_AND_TIME
-      if ( seriesType === SeriesType.SINE ) {
-        y = amplitude * Math.sin( 2 * Math.PI * order * ( x / L - t / T ) );
-      }
-      else {
-        y = amplitude * Math.cos( 2 * Math.PI * order * ( x / L - t / T ) );
-      }
-    }
-    return y;
+    return dataSet;
   }
+
+  //TODO use createHarmonicDataSet
+  /**
+   * Creates the data set for the sum of the relevant harmonics in the Fourier Series.
+   * @param {Range} xRange
+   * @param {number} numberOfPoints
+   * @param {Domain} domain
+   * @param {SeriesType} seriesType
+   * @param {number} L
+   * @param {number} T
+   * @param {number} t
+   * @returns {Vector2[]}
+   * @public
+   */
+  createSumDataSet( xRange, numberOfPoints, domain, seriesType, L, T, t ) {
+
+    assert && assert( xRange instanceof Range, 'invalid xRange' );
+    assert && assert( typeof numberOfPoints === 'number' && numberOfPoints > 0, 'invalid numberOfPoints' );
+    // other args are validated by getAmplitudeAt
+
+    const dx = xRange.getLength() / numberOfPoints;
+    const relevantHarmonics = this.harmonics.slice( 0, this.numberOfHarmonicsProperty.value );
+
+    const sumDataSet = [];
+    for ( let x = xRange.min; x <= xRange.max; x += dx ) {
+      let ySum = 0;
+      relevantHarmonics.forEach( harmonic => {
+        ySum += getAmplitudeAt( x, harmonic.order, harmonic.amplitudeProperty.value, domain, seriesType, L, T, t );
+      } );
+      sumDataSet.push( new Vector2( x, ySum ) );
+    }
+    return sumDataSet;
+  }
+}
+
+/**
+ * Gets the amplitude at an x coordinate, where the semantics of x depends on what the domain is.
+ * This algorithm uses the equation that corresponds to EquationForm.MODE.
+ * @param {number} x
+ * @param {number} order
+ * @param {number} amplitude
+ * @param {number} domain
+ * @param {SeriesType} seriesType
+ * @param {number} L
+ * @param {number} T
+ * @param {number} t
+ * @returns {number}
+ */
+function getAmplitudeAt( x, order, amplitude, domain, seriesType, L, T, t ) {
+
+  assert && assert( typeof x === 'number', 'invalid x' );
+  assert && assert( typeof order === 'number' && order > 0, 'invalid order' );
+  assert && assert( typeof amplitude === 'number', 'invalid amplitude' );
+  assert && assert( Domain.includes( domain ), 'invalid domain' );
+  assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
+  assert && AssertUtils.assertPositiveNumber( L );
+  assert && AssertUtils.assertPositiveNumber( T );
+  assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
+
+  let y;
+  if ( domain === Domain.SPACE ) {
+    if ( seriesType === SeriesType.SINE ) {
+      y = amplitude * Math.sin( 2 * Math.PI * order * x / L );
+    }
+    else {
+      y = amplitude * Math.cos( 2 * Math.PI * order * x / L );
+    }
+  }
+  else if ( domain === Domain.TIME ) {
+    if ( seriesType === SeriesType.SINE ) {
+      y = amplitude * Math.sin( 2 * Math.PI * order * x / T );
+    }
+    else {
+      y = amplitude * Math.cos( 2 * Math.PI * order * x / T );
+    }
+  }
+  else { // Domain.SPACE_AND_TIME
+    if ( seriesType === SeriesType.SINE ) {
+      y = amplitude * Math.sin( 2 * Math.PI * order * ( x / L - t / T ) );
+    }
+    else {
+      y = amplitude * Math.cos( 2 * Math.PI * order * ( x / L - t / T ) );
+    }
+  }
+  return y;
 }
 
 fourierMakingWaves.register( 'FourierSeries', FourierSeries );

@@ -68,7 +68,8 @@ class HarmonicsChart {
       const harmonic = fourierSeries.harmonics[ i ];
 
       // {Vector2[]} the default data set for this harmonic
-      const defaultHarmonicDataSet = createHarmonicDataSet( harmonic, this.xAxisDescriptionProperty.value.range,
+      const defaultHarmonicDataSet = fourierSeries.createHarmonicDataSet(
+        harmonic, this.xAxisDescriptionProperty.value.range, POINTS_PER_DATA_SET,
         domainProperty.value, seriesTypeProperty.value, fourierSeries.L, fourierSeries.T, tProperty.value );
 
       // @public {Property.<Vector2[]>} the data set for this harmonic
@@ -82,7 +83,8 @@ class HarmonicsChart {
       Property.lazyMultilink( [ harmonic.amplitudeProperty, fourierSeries.numberOfHarmonicsProperty,
           this.xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
         ( amplitude, numberOfHarmonics, xAxisDescription, domain, seriesType, t ) => {
-          harmonicDataSetProperty.value = createHarmonicDataSet( harmonic, xAxisDescription.range,
+          harmonicDataSetProperty.value = fourierSeries.createHarmonicDataSet(
+            harmonic, xAxisDescription.range, POINTS_PER_DATA_SET,
             domain, seriesType, fourierSeries.L, fourierSeries.T, t );
         } );
     }
@@ -113,32 +115,6 @@ class HarmonicsChart {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
-}
-
-//TODO move to FourierSeries?
-/**
- * Creates the data set for one harmonic.
- * @param {Harmonic} harmonic
- * @param {Range} xRange
- * @param {Domain} domain
- * @param {SeriesType} seriesType
- * @param {number} L
- * @param {number} T
- * @param {number} t
- * @returns {Vector2[]}
- */
-function createHarmonicDataSet( harmonic, xRange, domain, seriesType, L, T, t ) {
-
-  assert && assert( xRange instanceof Range, 'invalid xRange' );
-  // other args are validated by getAmplitudeAt
-
-  const dataSet = [];
-  const dx = xRange.getLength() / POINTS_PER_DATA_SET;
-  for ( let x = xRange.min; x <= xRange.max; x += dx ) {
-    const y = FourierSeries.getAmplitudeAt( x, harmonic, domain, seriesType, L, T, t );
-    dataSet.push( new Vector2( x, y ) );
-  }
-  return dataSet;
 }
 
 fourierMakingWaves.register( 'HarmonicsChart', HarmonicsChart );
