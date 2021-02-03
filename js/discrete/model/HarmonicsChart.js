@@ -66,7 +66,10 @@ class HarmonicsChart {
      * @returns {Vector2[]}
      */
     const createDataSet = harmonic => {
-      return fourierSeries.createHarmonicDataSet( harmonic, this.xAxisDescriptionProperty.value.range,
+      const xMultiplier = ( domainProperty.value === Domain.TIME ) ? fourierSeries.T : fourierSeries.L;
+      const xMin = xMultiplier * this.xAxisDescriptionProperty.value.range.min;
+      const xMax = xMultiplier * this.xAxisDescriptionProperty.value.range.max;
+      return fourierSeries.createHarmonicDataSet( harmonic, new Range( xMin, xMax ),
         POINTS_PER_DATA_SET, domainProperty.value, seriesTypeProperty.value,
         fourierSeries.L, fourierSeries.T, tProperty.value );
     };

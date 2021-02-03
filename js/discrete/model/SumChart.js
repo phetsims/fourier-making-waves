@@ -73,7 +73,10 @@ class SumChart {
      * @returns {Vector2[]}
      */
     const createDataSet = () => {
-      return fourierSeries.createSumDataSet( xAxisDescriptionProperty.value.range, POINTS_PER_DATA_SET,
+      const xMultiplier = ( domainProperty.value === Domain.TIME ) ? fourierSeries.T : fourierSeries.L;
+      const xMin = xMultiplier * this.xAxisDescriptionProperty.value.range.min;
+      const xMax = xMultiplier * this.xAxisDescriptionProperty.value.range.max;
+      return fourierSeries.createSumDataSet( new Range( xMin, xMax ), POINTS_PER_DATA_SET,
         domainProperty.value, seriesTypeProperty.value, fourierSeries.L, fourierSeries.T, tProperty.value );
     };
 

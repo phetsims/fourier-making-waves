@@ -13,6 +13,7 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
+import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
@@ -88,12 +89,15 @@ class DiscreteChartNode extends Node {
 
     const xAxisDescription = xAxisDescriptionProperty.value;
     const yAxisDescription = AxisDescription.Y_AXIS_DESCRIPTIONS[ AxisDescription.Y_DEFAULT_ZOOM_LEVEL ];
+    const xMultiplier = ( domainProperty.value === Domain.TIME ) ? fourierSeries.T : fourierSeries.L;
+    const xMin = xMultiplier * xAxisDescription.range.min;
+    const xMax = xMultiplier * xAxisDescription.range.max;
 
     // the transform between model and view coordinate frames
     const chartTransform = new ChartTransform( {
       viewWidth: options.viewWidth,
       viewHeight: options.viewHeight,
-      modelXRange: xAxisDescription.range,
+      modelXRange: new Range( xMin, xMax ),
       modelYRange: yAxisDescription.range
     } );
 
@@ -141,7 +145,9 @@ class DiscreteChartNode extends Node {
       [ xAxisDescriptionProperty, domainProperty ],
       ( xAxisDescription, domain ) => {
         const value = ( domain === Domain.TIME ) ? fourierSeries.T : fourierSeries.L;
-        chartTransform.setModelXRange( xAxisDescription.range );
+        const xMin = value * xAxisDescription.range.min;
+        const xMax = value * xAxisDescription.range.max;
+        chartTransform.setModelXRange( new Range( xMin, xMax ) );
         xGridLines.setSpacing( xAxisDescription.gridLineSpacing * value );
         xTickMarks.setSpacing( xAxisDescription.tickMarkSpacing * value );
         xTickLabels.setSpacing( xAxisDescription.tickLabelSpacing * value );
