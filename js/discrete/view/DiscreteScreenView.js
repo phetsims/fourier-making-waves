@@ -67,24 +67,25 @@ class DiscreteScreenView extends ScreenView {
     const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, this.layoutBounds );
 
     const amplitudesChartNode = new AmplitudesChartNode( model.fourierSeries, model.waveformProperty,
-      model.chartsModel.emphasizedHarmonics, amplitudeKeypadDialog, {
+      model.harmonicsChartModel.emphasizedHarmonics, amplitudeKeypadDialog, {
         viewWidth: CHART_RECTANGLE_SIZE.width,
         viewHeight: CHART_RECTANGLE_SIZE.height,
         tandem: tandem.createTandem( 'amplitudesChartNode' )
       } );
 
     const harmonicsExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.harmonicsChart, model.chartsModel.harmonicsChartVisibleProperty, {
+      fourierMakingWavesStrings.harmonicsChart, model.harmonicsChartModel.chartVisibleProperty, {
         textOptions: { maxWidth: 150 }, // determined empirically
         tandem: tandem.createTandem( 'harmonicsExpandCollapseButton' )
       } );
 
-    const harmonicsChartNode = new HarmonicsChartNode( model, {
-      viewWidth: CHART_RECTANGLE_SIZE.width,
-      viewHeight: CHART_RECTANGLE_SIZE.height,
-      visibleProperty: model.chartsModel.harmonicsChartVisibleProperty,
-      tandem: tandem.createTandem( 'harmonicsChartNode' )
-    } );
+    const harmonicsChartNode = new HarmonicsChartNode( model.harmonicsChartModel, model.fourierSeries,
+      model.waveformProperty, model.domainProperty, model.equationFormProperty, {
+        viewWidth: CHART_RECTANGLE_SIZE.width,
+        viewHeight: CHART_RECTANGLE_SIZE.height,
+        visibleProperty: model.harmonicsChartModel.chartVisibleProperty,
+        tandem: tandem.createTandem( 'harmonicsChartNode' )
+      } );
 
     // Equation that appears above the Harmonics chart, with wrapper Node to handle centering
     const harmonicsEquationNode = new HarmonicsEquationNode(
@@ -99,25 +100,26 @@ class DiscreteScreenView extends ScreenView {
 
     // Visibility of the equation above the Harmonics chart
     Property.multilink(
-      [ model.chartsModel.harmonicsChartVisibleProperty, model.equationFormProperty ],
-      ( harmonicsChartVisible, equationForm ) => {
-        harmonicsEquationNode.visible = harmonicsChartVisible && ( equationForm !== EquationForm.HIDDEN );
+      [ model.harmonicsChartModel.chartVisibleProperty, model.equationFormProperty ],
+      ( chartVisible, equationForm ) => {
+        harmonicsEquationNode.visible = chartVisible && ( equationForm !== EquationForm.HIDDEN );
       } );
 
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.sum, model.chartsModel.sumChartVisibleProperty, {
+      fourierMakingWavesStrings.sum, model.sumChartModel.chartVisibleProperty, {
         textOptions: { maxWidth: 150 }, // determined empirically
         tandem: tandem.createTandem( 'sumExpandCollapseButton' )
       } );
 
-    const sumChartNode = new SumChartNode( model, {
-      viewWidth: CHART_RECTANGLE_SIZE.width,
-      viewHeight: CHART_RECTANGLE_SIZE.height,
-      left: sumExpandCollapseButton.left,
-      y: sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING,
-      visibleProperty: model.chartsModel.sumChartVisibleProperty,
-      tandem: tandem.createTandem( 'sumChartNode' )
-    } );
+    const sumChartNode = new SumChartNode( model.sumChartModel, model.fourierSeries,
+      model.waveformProperty, model.domainProperty, model.equationFormProperty, {
+        viewWidth: CHART_RECTANGLE_SIZE.width,
+        viewHeight: CHART_RECTANGLE_SIZE.height,
+        left: sumExpandCollapseButton.left,
+        y: sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING,
+        visibleProperty: model.sumChartModel.chartVisibleProperty,
+        tandem: tandem.createTandem( 'sumChartNode' )
+      } );
 
     // Equation that appears above the Sum chart, with wrapper Node to handle centering
     const sumEquationNode = new SumEquationNode( model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty,
@@ -146,15 +148,15 @@ class DiscreteScreenView extends ScreenView {
 
     // Visibility of the equation and push button above the Sum chart
     Property.multilink(
-      [ model.chartsModel.sumChartVisibleProperty, model.equationFormProperty ],
-      ( sumChartVisible, equationForm ) => {
-        const visible = sumChartVisible && ( equationForm !== EquationForm.HIDDEN );
+      [ model.sumChartModel.chartVisibleProperty, model.equationFormProperty ],
+      ( chartVisible, equationForm ) => {
+        const visible = chartVisible && ( equationForm !== EquationForm.HIDDEN );
         sumEquationNode.visible = visible;
         expandedFormButton.interruptSubtreeInput();
         expandedFormButton.visible = visible;
       } );
 
-    const controlPanel = new DiscreteControlPanel( model, model.chartsModel, popupParent, {
+    const controlPanel = new DiscreteControlPanel( model, popupParent, {
       tandem: tandem.createTandem( 'controlPanel' )
     } );
 

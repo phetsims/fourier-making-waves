@@ -50,7 +50,7 @@ class PeriodClockNode extends MeasurementToolNode {
 
     // Model properties that we'll be using - these were formerly constructor params.
     const harmonics = model.fourierSeries.harmonics;
-    const emphasizedHarmonics = model.chartsModel.emphasizedHarmonics;
+    const emphasizedHarmonics = model.harmonicsChartModel.emphasizedHarmonics;
     const tProperty = model.tProperty;
     const orderProperty = model.periodToolOrderProperty;
     const selectedProperty = model.periodToolSelectedProperty;

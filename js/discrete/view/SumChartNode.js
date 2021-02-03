@@ -10,12 +10,16 @@
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import DiscreteModel from '../model/DiscreteModel.js';
+import Domain from '../model/Domain.js';
+import EquationForm from '../model/EquationForm.js';
+import SumChartModel from '../model/SumChartModel.js';
 import Waveform from '../model/Waveform.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
 import DiscreteChartNode from './DiscreteChartNode.js';
@@ -24,12 +28,20 @@ import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 class SumChartNode extends DiscreteChartNode {
 
   /**
-   * @param {DiscreteModel} model
+   * @param {SumChartModel} sumChartModel
+   * @param {FourierSeries} fourierSeries
+   * @param {EnumerationProperty.<Waveform>} waveformProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
-  constructor( model, options ) {
+  constructor( sumChartModel, fourierSeries, waveformProperty, domainProperty, equationFormProperty, options ) {
 
-    assert && assert( model instanceof DiscreteModel, 'invalid model' );
+    assert && assert( sumChartModel instanceof SumChartModel, 'invalid sumChartModel' );
+    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
+    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
 
     options = merge( {
 
@@ -37,15 +49,16 @@ class SumChartNode extends DiscreteChartNode {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( model, options );
+    // Fields of interest in sumChartModel, to improve readability
+    const xZoomLevelProperty = sumChartModel.xZoomLevelProperty;
+    const xAxisDescriptionProperty = sumChartModel.xAxisDescriptionProperty;
+    const yZoomLevelProperty = sumChartModel.yZoomLevelProperty;
+    const yAxisDescriptionProperty = sumChartModel.yAxisDescriptionProperty;
+    const autoScaleProperty = sumChartModel.autoScaleProperty;
+    const infiniteHarmonicsVisibleProperty = sumChartModel.infiniteHarmonicsVisibleProperty;
+    const sumDataSetProperty = sumChartModel.sumDataSetProperty;
 
-    // fields of interest in the model, to improve readability
-    const waveformProperty = model.waveformProperty;
-    const yZoomLevelProperty = model.chartsModel.yZoomLevelProperty;
-    const yAxisDescriptionProperty = model.chartsModel.yAxisDescriptionProperty;
-    const autoScaleProperty = model.chartsModel.autoScaleProperty;
-    const infiniteHarmonicsVisibleProperty = model.chartsModel.infiniteHarmonicsVisibleProperty;
-    const sumDataSetProperty = model.chartsModel.sumDataSetProperty;
+    super( fourierSeries, domainProperty, equationFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options );
 
     // Zoom buttons for the y-axis range
     const yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {

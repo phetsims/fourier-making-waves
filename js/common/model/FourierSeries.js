@@ -10,10 +10,13 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
+import Domain from '../../discrete/model/Domain.js';
+import SeriesType from '../../discrete/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';
@@ -106,6 +109,60 @@ class FourierSeries extends PhetioObject {
   reset() {
     this.numberOfHarmonicsProperty.reset();
     this.harmonics.forEach( harmonic => harmonic.reset() );
+  }
+
+  /**
+   * Gets the amplitude at an x coordinate, where the semantics of x depends on what the domain is.
+   * This algorithm uses the equation that corresponds to EquationForm.MODE.
+   * @param {number} x
+   * @param {Harmonic} harmonic
+   * @param {Domain} domain
+   * @param {SeriesType} seriesType
+   * @param {number} L
+   * @param {number} T
+   * @param {number} t
+   * @returns {number}
+   * @public
+   */
+  static getAmplitudeAt( x, harmonic, domain, seriesType, L, T, t ) {
+
+    assert && assert( typeof x === 'number', 'invalid x' );
+    assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
+    assert && assert( Domain.includes( domain ), 'invalid domain' );
+    assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
+    assert && AssertUtils.assertPositiveNumber( L );
+    assert && AssertUtils.assertPositiveNumber( T );
+    assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
+
+    const order = harmonic.order;
+    const amplitude = harmonic.amplitudeProperty.value;
+
+    let y;
+    if ( domain === Domain.SPACE ) {
+      if ( seriesType === SeriesType.SINE ) {
+        y = amplitude * Math.sin( 2 * Math.PI * order * x / L );
+      }
+      else {
+        y = amplitude * Math.cos( 2 * Math.PI * order * x / L );
+      }
+    }
+    else if ( domain === Domain.TIME ) {
+      if ( seriesType === SeriesType.SINE ) {
+        y = amplitude * Math.sin( 2 * Math.PI * order * x / T );
+      }
+      else {
+        y = amplitude * Math.cos( 2 * Math.PI * order * x / T );
+      }
+    }
+    else { // Domain.SPACE_AND_TIME
+      if ( seriesType === SeriesType.SINE ) {
+        y = amplitude * Math.sin( 2 * Math.PI * order * ( x / L - t / T ) );
+      }
+      else {
+        y = amplitude * Math.cos( 2 * Math.PI * order * ( x / L - t / T ) );
+      }
+    }
+    return y;
   }
 }
 

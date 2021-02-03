@@ -9,10 +9,15 @@
 
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import DiscreteModel from '../model/DiscreteModel.js';
+import Domain from '../model/Domain.js';
+import EquationForm from '../model/EquationForm.js';
+import HarmonicsChartModel from '../model/HarmonicsChartModel.js';
+import Waveform from '../model/Waveform.js';
 import DiscreteChartNode from './DiscreteChartNode.js';
 import HarmonicPlot from './HarmonicPlot.js';
 
@@ -25,12 +30,20 @@ const DE_EMPHASIZED_STROKE = Color.grayColor( 150 );
 class HarmonicsChartNode extends DiscreteChartNode {
 
   /**
-   * @param {DiscreteModel} model
+   * @param {HarmonicsChartModel} harmonicsChartModel
+   * @param {FourierSeries} fourierSeries
+   * @param {EnumerationProperty.<Waveform>} waveformProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
-  constructor( model, options ) {
+  constructor( harmonicsChartModel, fourierSeries, waveformProperty, domainProperty, equationFormProperty, options ) {
 
-    assert && assert( model instanceof DiscreteModel, 'invalid model' );
+    assert && assert( harmonicsChartModel instanceof HarmonicsChartModel, 'invalid harmonicsChartModel' );
+    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
+    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
 
     options = merge( {
 
@@ -38,13 +51,17 @@ class HarmonicsChartNode extends DiscreteChartNode {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( model, options );
+    const harmonics = fourierSeries.harmonics;
 
-    // fields of interest in the model, to improve readability
-    const harmonics = model.fourierSeries.harmonics;
-    const harmonicDataSetProperties = model.chartsModel.harmonicDataSetProperties;
-    assert && assert( harmonics.length === harmonicDataSetProperties.length, 'a data set is required for each harmonic' );
-    const emphasizedHarmonics = model.chartsModel.emphasizedHarmonics;
+    // Fields of interest in harmonicsChartModel, to improve readability
+    const harmonicDataSetProperties = harmonicsChartModel.harmonicDataSetProperties;
+    assert && assert( harmonics.length === harmonicDataSetProperties.length,
+      'a data set is required for each harmonic' );
+    const emphasizedHarmonics = harmonicsChartModel.emphasizedHarmonics;
+    const xZoomLevelProperty = harmonicsChartModel.xZoomLevelProperty;
+    const xAxisDescriptionProperty = harmonicsChartModel.xAxisDescriptionProperty;
+
+    super( fourierSeries, domainProperty, equationFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options );
 
     // {HarmonicPlot[]} a plot for each harmonic in the Fourier series, in harmonic order, rendered using Canvas
     const plots = [];
@@ -69,13 +86,13 @@ class HarmonicsChartNode extends DiscreteChartNode {
         const harmonic = plot.harmonic;
         if ( emphasizedHarmonics.length === 0 ) {
 
-          // no emphasis, all plots have their normal color and lineWidth
+          // No emphasis, all plots have their normal color and lineWidth.
           plot.lineWidth = NORMAL_LINE_WIDTH;
           plot.setStroke( harmonic.colorProperty.value );
         }
         else {
 
-          // emphasize some plots, de-emphasize other plots
+          // Emphasize some plots, de-emphasize other plots.
           if ( emphasizedHarmonics.includesHarmonic( harmonic ) ) {
             plot.lineWidth = EMPHASIZED_LINE_WIDTH;
             plot.setStroke( harmonic.colorProperty.value );

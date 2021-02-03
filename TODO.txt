@@ -2,7 +2,7 @@ TODO.txt for fourier-making-waves
 
 ## Discrete screen
 
-Cleanup in DiscreteChartsModel
+Cleanup in HarmonicsChartModel
 
 Always compute at least one full cycle of the lowest-order harmonic, so that we know the max for auto scale
 Dynamically optimize number of points in dataSets
