@@ -60,6 +60,17 @@ class HarmonicsChart {
       xZoomLevel => AxisDescription.X_AXIS_DESCRIPTIONS[ xZoomLevel ]
     );
 
+    /**
+     * Creates the dataset for a harmonic using current arg values.
+     * @param {Harmonic} harmonic
+     * @returns {Vector2[]}
+     */
+    const createDataSet = harmonic => {
+      return fourierSeries.createHarmonicDataSet( harmonic, this.xAxisDescriptionProperty.value.range,
+        POINTS_PER_DATA_SET, domainProperty.value, seriesTypeProperty.value,
+        fourierSeries.L, fourierSeries.T, tProperty.value );
+    };
+
     // @public {Property.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order
     // A data set is updated when any of its dependencies changes.
     this.harmonicDataSetProperties = [];
@@ -67,26 +78,17 @@ class HarmonicsChart {
 
       const harmonic = fourierSeries.harmonics[ i ];
 
-      // {Vector2[]} the default data set for this harmonic
-      const defaultHarmonicDataSet = fourierSeries.createHarmonicDataSet(
-        harmonic, this.xAxisDescriptionProperty.value.range, POINTS_PER_DATA_SET,
-        domainProperty.value, seriesTypeProperty.value, fourierSeries.L, fourierSeries.T, tProperty.value );
-
       // @public {Property.<Vector2[]>} the data set for this harmonic
-      const harmonicDataSetProperty = new Property( defaultHarmonicDataSet, {
+      const harmonicDataSetProperty = new Property( createDataSet( harmonic ), {
         isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
       } );
       this.harmonicDataSetProperties.push( harmonicDataSetProperty );
 
-      //TODO duplication with defaultHarmonicDataSet above
       // Update the harmonic's data set when dependencies change. unmultilink is not needed.
       Property.lazyMultilink( [ harmonic.amplitudeProperty, fourierSeries.numberOfHarmonicsProperty,
           this.xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
-        ( amplitude, numberOfHarmonics, xAxisDescription, domain, seriesType, t ) => {
-          harmonicDataSetProperty.value = fourierSeries.createHarmonicDataSet(
-            harmonic, xAxisDescription.range, POINTS_PER_DATA_SET,
-            domain, seriesType, fourierSeries.L, fourierSeries.T, t );
-        } );
+        () => { harmonicDataSetProperty.value = createDataSet( harmonic ); }
+      );
     }
 
     // @private

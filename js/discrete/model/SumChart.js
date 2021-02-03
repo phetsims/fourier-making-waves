@@ -68,26 +68,26 @@ class SumChart {
       yZoomLevel => AxisDescription.Y_AXIS_DESCRIPTIONS[ yZoomLevel ]
     );
 
-    // {Vector[2]} the default data set for the sum
-    const defaultSumDataSet = fourierSeries.createSumDataSet(
-      xAxisDescriptionProperty.value.range, POINTS_PER_DATA_SET,
-      domainProperty.value, seriesTypeProperty.value, fourierSeries.L, fourierSeries.T, tProperty.value );
+    /**
+     * Creates the sum data set using current arg values.
+     * @returns {Vector2[]}
+     */
+    const createDataSet = () => {
+      return fourierSeries.createSumDataSet( xAxisDescriptionProperty.value.range, POINTS_PER_DATA_SET,
+        domainProperty.value, seriesTypeProperty.value, fourierSeries.L, fourierSeries.T, tProperty.value );
+    };
 
     // @public {Property.<Vector2[]>} the data set for the sum
-    this.sumDataSetProperty = new Property( defaultSumDataSet, {
+    this.sumDataSetProperty = new Property( createDataSet(), {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
     } );
 
-    //TODO duplication with defaultSumDataSet above
     // Update the sum when dependencies change. unmultilink is not needed.
     const amplitudeProperties = _.map( fourierSeries.harmonics, harmonic => harmonic.amplitudeProperty );
     Property.lazyMultilink( [ fourierSeries.numberOfHarmonicsProperty, xAxisDescriptionProperty,
         domainProperty, seriesTypeProperty, tProperty, ...amplitudeProperties ],
-      ( numberOfHarmonics, xAxisDescription, domain, seriesType, t ) => {
-        this.sumDataSetProperty.value = fourierSeries.createSumDataSet(
-          xAxisDescription.range, POINTS_PER_DATA_SET,
-          domain, seriesType, fourierSeries.L, fourierSeries.T, t );
-      } );
+      () => { this.sumDataSetProperty.value = createDataSet(); }
+    );
 
     // @private
     this.resetSumChart = () => {
