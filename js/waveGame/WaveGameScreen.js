@@ -21,7 +21,7 @@ class WaveGameScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      //TODO if you include homeScreenIcon or navigationBarIcon, use JOIST/ScreenIcon
+      //TODO add homeScreenIcon using ScreenIcon, see https://github.com/phetsims/fourier-making-waves/issues/44
       name: fourierMakingWavesStrings.screen.waveGame,
       backgroundColorProperty: FMWColorProfile.screenBackgroundColorProperty,
       tandem: tandem
