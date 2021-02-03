@@ -45,7 +45,7 @@ class AxisDescription {
 }
 
 // @public {AxisDescription[]} descriptions for the x axis, one for each zoom level
-// These values are all multipliers for L (fundamental wavelength) and T (fundamental period).
+// NOTE! For the x axis, these values are coefficients (multipliers) for L or T, depending on which domain is plotted.
 AxisDescription.X_AXIS_DESCRIPTIONS = [
   new AxisDescription( {
     absoluteMax: 2,
