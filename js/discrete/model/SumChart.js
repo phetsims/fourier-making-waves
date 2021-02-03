@@ -20,8 +20,8 @@ import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
 import SeriesType from './SeriesType.js';
 
-// Number of points in the data set for each harmonic. This value was chosen empirically, so that the plot looks
-// smooth when the chart is fully zoomed out.
+// Number of points in the data set for the sum. This value was chosen empirically, so that the plot looks smooth when
+// the chart is fully zoomed out.
 const POINTS_PER_DATA_SET = 2000;
 
 class SumChart {
