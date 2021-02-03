@@ -94,7 +94,7 @@ AxisDescription.X_DEFAULT_ZOOM_LEVEL = AxisDescription.X_AXIS_DESCRIPTIONS.lengt
 assert && assert( AxisDescription.X_AXIS_DESCRIPTIONS[ AxisDescription.X_DEFAULT_ZOOM_LEVEL ].absoluteMax === 1 / 2,
   'X_DEFAULT_ZOOM_LEVEL is probably incorrect - did you add a AxisDescription?' );
 
-// @public {AxisDescription[]} descriptions for the y axis, one for each zoom level.
+// @public {AxisDescription[]} descriptions for the y axis, one for each zoom level. Values are amplitude (unitless).
 AxisDescription.Y_AXIS_DESCRIPTIONS = [
   new AxisDescription( {
     absoluteMax: 20,
