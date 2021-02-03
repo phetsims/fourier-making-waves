@@ -143,7 +143,6 @@ class FourierSeries extends PhetioObject {
     return dataSet;
   }
 
-  //TODO use createHarmonicDataSet
   /**
    * Creates the data set for the sum of the relevant harmonics in the Fourier Series.
    * @param {Range} xRange
@@ -162,15 +161,28 @@ class FourierSeries extends PhetioObject {
     assert && assert( typeof numberOfPoints === 'number' && numberOfPoints > 0, 'invalid numberOfPoints' );
     // other args are validated by getAmplitudeAt
 
-    const dx = xRange.getLength() / numberOfPoints;
+    // {Vector2[][]}
+    const harmonicDataSets = [];
     const relevantHarmonics = this.harmonics.slice( 0, this.numberOfHarmonicsProperty.value );
+    relevantHarmonics.forEach( harmonic => {
+      harmonicDataSets.push( this.createHarmonicDataSet( harmonic, xRange, numberOfPoints, domain, seriesType, L, T, t ) );
+    } );
+    assert && assert( _.every( harmonicDataSets, dataSet => dataSet.length === numberOfPoints ),
+      `all data sets should contain ${numberOfPoints} points` );
 
+    // Sum the data sets
     const sumDataSet = [];
-    for ( let x = xRange.min; x <= xRange.max; x += dx ) {
+    for ( let i = 0; i < numberOfPoints; i++ ) {
+
+      const x = harmonicDataSets[ 0 ][ i ].x;
+      assert && assert( _.every( harmonicDataSets, dataSet => dataSet[ i ].x === x ),
+        'the corresponding points in all data sets should have the same x coordinate' );
+
       let ySum = 0;
-      relevantHarmonics.forEach( harmonic => {
+      for ( let j = 0; j < harmonicDataSets.length; j++ ) {
+        const harmonic = this.harmonics[ j ];
         ySum += getAmplitudeAt( x, harmonic.order, harmonic.amplitudeProperty.value, domain, seriesType, L, T, t );
-      } );
+      }
       sumDataSet.push( new Vector2( x, ySum ) );
     }
     return sumDataSet;
