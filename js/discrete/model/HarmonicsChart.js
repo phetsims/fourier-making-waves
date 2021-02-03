@@ -61,7 +61,7 @@ class HarmonicsChart {
     );
 
     /**
-     * Creates the dataset for a harmonic using current arg values.
+     * Creates the data set for a harmonic using current arg values.
      * @param {Harmonic} harmonic
      * @returns {Vector2[]}
      */
