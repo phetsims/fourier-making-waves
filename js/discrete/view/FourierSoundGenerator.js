@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
-//TODO do we need a limiter to prevent overdrive/clipping?
-//TODO should output level be converted to log scale?
+//TODO https://github.com/phetsims/fourier-making-waves/issues/45 do we need a limiter to prevent overdrive/clipping?
+//TODO https://github.com/phetsims/fourier-making-waves/issues/45 should output level be converted to log scale?
 /**
  * FourierSoundGenerator generates sound for a fourier series.
  *
