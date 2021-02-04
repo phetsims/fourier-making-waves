@@ -4,6 +4,9 @@
  * AxisDescription is a data structure used to describe the range, grid lines, and ticks for an axis at a specific
  * zoom level. A zoom level is an index into a {AxisDescription[]}.
  *
+ * NOTE that for the x axis, the values in AxisDescription are coefficients (multipliers) for L or T, depending on
+ * which domain is plotted.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
