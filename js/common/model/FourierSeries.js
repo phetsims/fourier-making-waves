@@ -133,10 +133,11 @@ class FourierSeries extends PhetioObject {
     assert && assert( typeof numberOfPoints === 'number' && numberOfPoints > 0, 'invalid numberOfPoints' );
     // other args are validated by getAmplitudeAt
 
-    const dx = xRange.getLength() / numberOfPoints;
+    const dx = xRange.getLength() / ( numberOfPoints - 1 );
 
     const dataSet = [];
-    for ( let x = xRange.min; x <= xRange.max; x += dx ) {
+    for ( let i = 0; i < numberOfPoints; i++ ) {
+      const x = xRange.min + ( i * dx );
       const y = getAmplitudeAt( x, harmonic.order, harmonic.amplitudeProperty.value, domain, seriesType, L, T, t );
       dataSet.push( new Vector2( x, y ) );
     }
