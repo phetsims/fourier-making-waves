@@ -86,9 +86,8 @@ class SumChart {
     } );
 
     // Update the sum when dependencies change. unmultilink is not needed.
-    const amplitudeProperties = _.map( fourierSeries.harmonics, harmonic => harmonic.amplitudeProperty );
-    Property.lazyMultilink( [ fourierSeries.numberOfHarmonicsProperty, xAxisDescriptionProperty,
-        domainProperty, seriesTypeProperty, tProperty, ...amplitudeProperties ],
+    Property.lazyMultilink( [ fourierSeries.amplitudesProperty, fourierSeries.numberOfHarmonicsProperty,
+        xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
       () => { this.sumDataSetProperty.value = createDataSet(); }
     );
 
