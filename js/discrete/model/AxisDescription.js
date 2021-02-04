@@ -15,6 +15,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import Domain from './Domain.js';
 
 class AxisDescription {
 
@@ -44,6 +45,29 @@ class AxisDescription {
     this.gridLineSpacing = config.gridLineSpacing;
     this.tickMarkSpacing = config.tickMarkSpacing;
     this.tickLabelSpacing = config.tickLabelSpacing;
+  }
+
+  /**
+   * Creates the range for the x-axis. For the x axis, AxisDescription contains coefficients to be applied to L or T,
+   * depending on which domain is being plotted.
+   * @param {AxisDescription} axisDescription
+   * @param {Domain} domain
+   * @param {number} L - wavelength of the fundamental harmonic, in m
+   * @param {number} T - period of the fundamental harmonic, in
+   * @returns {Range}
+   * @public
+   */
+  static createXRange( axisDescription, domain, L, T ) {
+
+    assert && assert( axisDescription instanceof AxisDescription, 'invalid axisDescription' );
+    assert && assert( Domain.includes( domain ), 'invalid domain' );
+    assert && assert( typeof L === 'number' && L > 0, 'invalid L' );
+    assert && assert( typeof T === 'number' && T > 0, 'invalid T' );
+
+    const value = ( domain === Domain.TIME ) ? T : L;
+    const xMin = value * axisDescription.range.min;
+    const xMax = value * axisDescription.range.max;
+    return new Range( xMin, xMax );
   }
 }
 

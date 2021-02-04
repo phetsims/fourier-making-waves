@@ -89,15 +89,12 @@ class DiscreteChartNode extends Node {
 
     const xAxisDescription = xAxisDescriptionProperty.value;
     const yAxisDescription = AxisDescription.Y_AXIS_DESCRIPTIONS[ AxisDescription.Y_DEFAULT_ZOOM_LEVEL ];
-    const xMultiplier = ( domainProperty.value === Domain.TIME ) ? fourierSeries.T : fourierSeries.L;
-    const xMin = xMultiplier * xAxisDescription.range.min;
-    const xMax = xMultiplier * xAxisDescription.range.max;
 
     // the transform between model and view coordinate frames
     const chartTransform = new ChartTransform( {
       viewWidth: options.viewWidth,
       viewHeight: options.viewHeight,
-      modelXRange: new Range( xMin, xMax ),
+      modelXRange: AxisDescription.createXRange( xAxisDescription, domainProperty.value, fourierSeries.L, fourierSeries.T ),
       modelYRange: yAxisDescription.range
     } );
 
