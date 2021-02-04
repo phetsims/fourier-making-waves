@@ -141,6 +141,8 @@ class FourierSeries extends PhetioObject {
       const y = getAmplitudeAt( x, harmonic.order, harmonic.amplitudeProperty.value, domain, seriesType, L, T, t );
       dataSet.push( new Vector2( x, y ) );
     }
+    assert && assert( dataSet.length === numberOfPoints, 'incorrect number of points in dataSet' );
+
     return dataSet;
   }
 
