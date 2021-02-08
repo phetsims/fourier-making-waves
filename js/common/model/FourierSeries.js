@@ -131,7 +131,9 @@ class FourierSeries extends PhetioObject {
     assert && assert( this.harmonics.includes( harmonic ), 'harmonic is not part of this series' );
     assert && assert( typeof numberOfPoints === 'number' && numberOfPoints > 0, 'invalid numberOfPoints' );
     assert && assert( xAxisDescription instanceof AxisDescription, 'invalid xAxisDescription' );
-    // other args are validated by getAmplitudeAt
+    assert && assert( Domain.includes( domain ), 'invalid domain' );
+    assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
+    assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
 
     const xRange = AxisDescription.createXRange( xAxisDescription, domain, this.L, this.T );
     const dx = xRange.getLength() / ( numberOfPoints - 1 );
