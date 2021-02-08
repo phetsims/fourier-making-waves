@@ -16,7 +16,6 @@ import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -90,7 +89,7 @@ class AmplitudesChartNode extends Node {
     const sliders = _.map( fourierSeries.harmonics, harmonic =>
       new AmplitudeSlider( harmonic, emphasizedHarmonics, waveformProperty, {
         trackHeight: options.viewHeight,
-        center: chartTransform.modelToViewPosition( new Vector2( harmonic.order, 0 ) ),
+        center: chartTransform.modelToViewXY( harmonic.order, 0 ),
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` )
       } )
     );
