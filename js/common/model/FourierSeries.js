@@ -11,7 +11,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
@@ -135,13 +134,17 @@ class FourierSeries extends PhetioObject {
     assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
     assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
 
+    const amplitudeFunction = AMPLITUDE_FUNCTIONS.getFunction( domain, seriesType );
+    const order = harmonic.order;
+    const amplitude = harmonic.amplitudeProperty.value;
+
     const xRange = AxisDescription.createXRange( xAxisDescription, domain, this.L, this.T );
     const dx = xRange.getLength() / ( numberOfPoints - 1 );
 
     const dataSet = [];
     for ( let i = 0; i < numberOfPoints; i++ ) {
       const x = xRange.min + ( i * dx );
-      const y = getAmplitudeAt( x, harmonic.order, harmonic.amplitudeProperty.value, domain, seriesType, this.L, this.T, t );
+      const y = amplitudeFunction( x, order, amplitude, this.L, this.T, t );
       dataSet.push( new Vector2( x, y ) );
     }
     assert && assert( dataSet.length === numberOfPoints, 'incorrect number of points in dataSet' );
@@ -196,56 +199,73 @@ class FourierSeries extends PhetioObject {
 }
 
 /**
- * Gets the amplitude at an x coordinate, where the semantics of x depends on what the domain is.
- * This algorithm uses the equation that corresponds to EquationForm.MODE.
- * @param {number} x
- * @param {number} order
- * @param {number} amplitude
- * @param {number} domain
- * @param {SeriesType} seriesType
- * @param {number} L
- * @param {number} T
- * @param {number} t
- * @returns {number}
+ * The equation that is used to compute amplitude depends on what domain (space, time, space & time) and
+ * equation form (sin/cos) is being used. This object provides an optimized way to retrieve a function
+ * that implements the appropriate equation.
  */
-function getAmplitudeAt( x, order, amplitude, domain, seriesType, L, T, t ) {
+const AMPLITUDE_FUNCTIONS = {
 
-  assert && assert( typeof x === 'number', 'invalid x' );
-  assert && assert( typeof order === 'number' && order > 0, 'invalid order' );
-  assert && assert( typeof amplitude === 'number', 'invalid amplitude' );
-  assert && assert( Domain.includes( domain ), 'invalid domain' );
-  assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
-  assert && AssertUtils.assertPositiveNumber( L );
-  assert && AssertUtils.assertPositiveNumber( T );
-  assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
+  /**
+   * Gets the function that computes amplitude at an x value.
+   * @param {Domain} domain
+   * @param {SeriesType} seriesType
+   * @returns {function(x:number, order:number, amplitude:number, L:number, T:number, t:number):number}
+   * @public
+   */
+  getFunction( domain, seriesType ) {
 
-  let y;
-  if ( domain === Domain.SPACE ) {
-    if ( seriesType === SeriesType.SINE ) {
-      y = amplitude * Math.sin( 2 * Math.PI * order * x / L );
+    assert && assert( Domain.includes( domain ), 'invalid domain' );
+    assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
+
+    let f;
+    if ( domain === Domain.SPACE ) {
+      f = ( seriesType === SeriesType.SINE ) ? AMPLITUDE_FUNCTIONS.getAmplitudeSpaceSin : AMPLITUDE_FUNCTIONS.getAmplitudeSpaceCos;
     }
-    else {
-      y = amplitude * Math.cos( 2 * Math.PI * order * x / L );
+    else if ( domain === Domain.TIME ) {
+      f = ( seriesType === SeriesType.SINE ) ? AMPLITUDE_FUNCTIONS.getAmplitudeTimeSin : AMPLITUDE_FUNCTIONS.getAmplitudeTimeCos;
     }
+    else { // Domain.SPACE_AND_TIME
+      f = ( seriesType === SeriesType.SINE ) ? AMPLITUDE_FUNCTIONS.getAmplitudeSpaceAndTimeSin : AMPLITUDE_FUNCTIONS.getAmplitudeSpaceAndTimeCos;
+    }
+    return f;
+  },
+
+  /**
+   * These 6 functions all have the same signature, and use the equation that corresponds to EquationForm.MODE.
+   * @param {number} x - x coordinate, whose semantics depends on domain
+   * @param {number} n - the harmonic's order
+   * @param {number} A - the harmonic's amplitude, unitless
+   * @param {number} L - the harmonic's wavelength, in meters
+   * @param {number} T - the harmonic's period, in milliseconds
+   * @param {number} t - the current time, in milliseconds
+   * @returns {number} y value (amplitude) at x
+   * @private
+   */
+
+  getAmplitudeSpaceSin( x, n, A, L, T, t ) {
+    return A * Math.sin( 2 * Math.PI * n * x / L );
+  },
+
+  getAmplitudeSpaceCos( x, n, A, L, T, t ) {
+    return A * Math.cos( 2 * Math.PI * n * x / L );
+  },
+
+  getAmplitudeTimeSin( x, n, A, L, T, t ) {
+    return A * Math.sin( 2 * Math.PI * n * x / T );
+  },
+
+  getAmplitudeTimeCos( x, n, A, L, T, t ) {
+    return A * Math.cos( 2 * Math.PI * n * x / T );
+  },
+
+  getAmplitudeSpaceAndTimeSin( x, n, A, L, T, t ) {
+    return A * Math.sin( 2 * Math.PI * n * ( x / L - t / T ) );
+  },
+
+  getAmplitudeSpaceAndTimeCos( x, n, A, L, T, t ) {
+    return A * Math.cos( 2 * Math.PI * n * ( x / L - t / T ) );
   }
-  else if ( domain === Domain.TIME ) {
-    if ( seriesType === SeriesType.SINE ) {
-      y = amplitude * Math.sin( 2 * Math.PI * order * x / T );
-    }
-    else {
-      y = amplitude * Math.cos( 2 * Math.PI * order * x / T );
-    }
-  }
-  else { // Domain.SPACE_AND_TIME
-    if ( seriesType === SeriesType.SINE ) {
-      y = amplitude * Math.sin( 2 * Math.PI * order * ( x / L - t / T ) );
-    }
-    else {
-      y = amplitude * Math.cos( 2 * Math.PI * order * ( x / L - t / T ) );
-    }
-  }
-  return y;
-}
+};
 
 fourierMakingWaves.register( 'FourierSeries', FourierSeries );
 export default FourierSeries;
