@@ -53,6 +53,11 @@ class HarmonicPlot extends CanvasLinePlot {
       this.setStroke( color );
       this.changedEmitter.emit();
     } );
+
+    // Hide the plot when its amplitude is zero.
+    harmonic.amplitudeProperty.link( amplitude => {
+      this.visible = ( amplitude !== 0 );
+    } );
   }
 }
 
