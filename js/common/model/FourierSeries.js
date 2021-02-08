@@ -44,7 +44,6 @@ class FourierSeries extends PhetioObject {
     this.fundamentalWavelength = 1; //  wavelength, in meters
 
     // @public (read-only) aliases that correspond to symbols used in equations
-    this.f1 = this.fundamentalFrequency;
     this.L = this.fundamentalWavelength;
     this.T = this.fundamentalPeriod;
 
@@ -66,7 +65,7 @@ class FourierSeries extends PhetioObject {
     for ( let order = 1; order <= this.numberOfHarmonicsProperty.range.max; order++ ) {
       this.harmonics.push( new Harmonic( {
         order: order,
-        frequency: this.f1 * order,
+        frequency: this.fundamentalFrequency * order,
         wavelength: this.L / order,
         colorProperty: FMWColorProfile.getHarmonicColorProperty( order ),
         amplitudeRange: this.amplitudeRange,
