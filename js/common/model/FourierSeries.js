@@ -166,7 +166,10 @@ class FourierSeries extends PhetioObject {
    */
   createSumDataSet( xAxisDescription, domain, seriesType, t ) {
 
-    // args are validated by createHarmonicDataSet
+    assert && assert( xAxisDescription instanceof AxisDescription, 'invalid xAxisDescription' );
+    assert && assert( Domain.includes( domain ), 'invalid domain' );
+    assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
+    assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
 
     // The presence of higher-frequency harmonics require more points to draw a smooth plot.
     // See documentation for HarmonicsChart.MAX_POINTS_PER_DATA_SET.
