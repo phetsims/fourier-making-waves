@@ -123,6 +123,11 @@ class SumChartNode extends DiscreteChartNode {
       sumPlot.setDataSet( dataSet );
       chartCanvasNode.update();
     } );
+
+    // Hide the plot when the sum is zero (all amplitudes are zero)
+    fourierSeries.amplitudesProperty.link( amplitudes => {
+      sumPlot.visible = _.some( amplitudes, amplitude => amplitude !== 0 );
+    } );
   }
 }
 
