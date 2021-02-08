@@ -5,7 +5,6 @@ TODO.txt for fourier-making-waves
 Should harmonic data sets be used to compute sum data set?
 
 Reuse Vector2 instances for data sets in FourierSeries (new Vector2)
-Reuse Range instances in HarmonicsChart, SumChart, DiscreteChartNode (new Range)
 
 Always compute at least one full cycle of the lowest-order harmonic, so that we know the max for auto scale
 Auto Scale checkbox
