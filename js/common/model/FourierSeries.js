@@ -18,6 +18,7 @@ import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import AxisDescription from '../../discrete/model/AxisDescription.js';
 import Domain from '../../discrete/model/Domain.js';
+import HarmonicsChart from '../../discrete/model/HarmonicsChart.js';
 import SeriesType from '../../discrete/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColorProfile from '../FMWColorProfile.js';
@@ -151,7 +152,6 @@ class FourierSeries extends PhetioObject {
    * This does not reuse HarmonicsChart harmonicDataSetProperties, because (1) that creates all kinds of problems with
    * ordering and intermediate states, and (2) harmonic plots use different numbers of points based on harmonic
    * frequency, because more points are required to draw higher-frequency harmonics.
-   * @param {number} numberOfPoints
    * @param {AxisDescription} xAxisDescription
    * @param {Domain} domain
    * @param {SeriesType} seriesType
@@ -159,9 +159,14 @@ class FourierSeries extends PhetioObject {
    * @returns {Vector2[]}
    * @public
    */
-  createSumDataSet( numberOfPoints, xAxisDescription, domain, seriesType, t ) {
+  createSumDataSet( xAxisDescription, domain, seriesType, t ) {
 
     // args are validated by createHarmonicDataSet
+
+    // The presence of higher-frequency harmonics require more points to draw a smooth plot.
+    // See documentation for HarmonicsChart.MAX_POINTS_PER_DATA_SET.
+    const numberOfPoints = Math.ceil( HarmonicsChart.MAX_POINTS_PER_DATA_SET *
+                                      this.numberOfHarmonicsProperty.value / this.harmonics.length );
 
     // {Vector2[][]}
     const harmonicDataSets = [];

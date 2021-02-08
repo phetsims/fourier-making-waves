@@ -18,7 +18,6 @@ import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
-import HarmonicsChart from './HarmonicsChart.js';
 import SeriesType from './SeriesType.js';
 
 class SumChart {
@@ -70,13 +69,7 @@ class SumChart {
      * @returns {Vector2[]}
      */
     const createDataSet = () => {
-
-      // The presence of higher-frequency harmonics require more points to draw a smooth plot.
-      // See documentation for HarmonicsChart.MAX_POINTS_PER_DATA_SET.
-      const numberOfPoints = Math.ceil( HarmonicsChart.MAX_POINTS_PER_DATA_SET *
-                                        fourierSeries.numberOfHarmonicsProperty.value / fourierSeries.harmonics.length );
-
-      return fourierSeries.createSumDataSet( numberOfPoints, this.xAxisDescriptionProperty.value,
+      return fourierSeries.createSumDataSet( this.xAxisDescriptionProperty.value,
         domainProperty.value, seriesTypeProperty.value, tProperty.value );
     };
 
