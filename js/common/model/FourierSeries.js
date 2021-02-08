@@ -158,9 +158,7 @@ class FourierSeries extends PhetioObject {
    */
   createSumDataSet( numberOfPoints, xAxisDescription, domain, seriesType, t ) {
 
-    assert && assert( typeof numberOfPoints === 'number' && numberOfPoints > 0, 'invalid numberOfPoints' );
-    assert && assert( xAxisDescription instanceof AxisDescription, 'invalid xAxisDescription' );
-    // other args are validated by getAmplitudeAt
+    // args are validated by createHarmonicDataSet
 
     // {Vector2[][]}
     const harmonicDataSets = [];
