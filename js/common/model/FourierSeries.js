@@ -171,14 +171,16 @@ class FourierSeries extends PhetioObject {
     assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
     assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
 
+    // Sum only the relevant harmonics.
+    const relevantHarmonics = this.harmonics.slice( 0, this.numberOfHarmonicsProperty.value );
+
     // The presence of higher-frequency harmonics require more points to draw a smooth plot.
     // See documentation for HarmonicsChart.MAX_POINTS_PER_DATA_SET.
     const numberOfPoints = Math.ceil( HarmonicsChart.MAX_POINTS_PER_DATA_SET *
-                                      this.numberOfHarmonicsProperty.value / this.harmonics.length );
+                                      relevantHarmonics.length / this.harmonics.length );
 
-    // {Vector2[][]}
+    // {Vector2[][]} compute a data set for each relevant harmonic
     const harmonicDataSets = [];
-    const relevantHarmonics = this.harmonics.slice( 0, this.numberOfHarmonicsProperty.value );
     relevantHarmonics.forEach( harmonic => {
       harmonicDataSets.push( this.createHarmonicDataSet( harmonic, numberOfPoints, xAxisDescription, domain, seriesType, t ) );
     } );
