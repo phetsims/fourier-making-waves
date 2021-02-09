@@ -23,9 +23,6 @@ const FMWConstants = {
   // see https://github.com/phetsims/fourier-making-waves/issues/22
   MAX_ABSOLUTE_AMPLITUDE: 1.5,
 
-  // dt for the time control's step button, in seconds
-  STEP_DT: 0.05,
-
   // View ============================================================================================================
 
   SCREEN_VIEW_X_MARGIN: 15,

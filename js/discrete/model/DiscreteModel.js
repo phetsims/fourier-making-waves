@@ -27,6 +27,9 @@ import SeriesType from './SeriesType.js';
 // This factor slows down time for the 'space & time' domain, determined empirically.
 const TIME_SCALE = 0.001;
 
+// How much to step the simulation when the Step button is pressed, in milliseconds, determined empirically.
+const STEP_DT = 50;
+
 class DiscreteModel {
 
   /**
@@ -204,6 +207,14 @@ class DiscreteModel {
       const milliseconds = dt * 1000;
       this.tProperty.value += ( milliseconds * TIME_SCALE );
     }
+  }
+
+  /**
+   * Steps the model once step. This is called when the Step button is pressed.
+   * @public
+   */
+  stepOnce() {
+    this.tProperty.value += ( STEP_DT * TIME_SCALE );
   }
 }
 

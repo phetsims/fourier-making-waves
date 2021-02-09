@@ -165,7 +165,7 @@ class DiscreteScreenView extends ScreenView {
         stepForwardButtonOptions: {
           listener: () => {
             if ( model.domainProperty.value === Domain.SPACE_AND_TIME ) {
-              model.tProperty.value += FMWConstants.STEP_DT;
+              model.stepOnce();
             }
           }
         }
