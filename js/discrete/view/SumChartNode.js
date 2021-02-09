@@ -88,7 +88,9 @@ class SumChartNode extends DiscreteChartNode {
 
     // Disable infiniteHarmonicsCheckbox for custom waveform. unlink is not needed.
     waveformProperty.link( waveform => {
-      infiniteHarmonicsCheckbox.enabled = ( waveform !== Waveform.CUSTOM );
+
+      //TODO move right-hand side expression into Waveform?
+      infiniteHarmonicsCheckbox.enabled = ( waveform !== Waveform.CUSTOM && waveform !== Waveform.WAVE_PACKET );
     } );
 
     // Automatically scales the y axis to show the entire plot
