@@ -24,6 +24,9 @@ import SumChart from './SumChart.js';
 import Waveform from './Waveform.js';
 import SeriesType from './SeriesType.js';
 
+// This factor slows down time for the 'space & time' domain, determined empirically.
+const TIME_SCALE = 0.001;
+
 class DiscreteModel {
 
   /**
@@ -42,7 +45,9 @@ class DiscreteModel {
       tandem: tandem.createTandem( 'isPlayingProperty' )
     } );
 
-    // @public time (t) in seconds, updated only when domainProperty is Domain.SPACE_AND_TIME
+    // @public time (t), updated only when domainProperty is Domain.SPACE_AND_TIME
+    // While the units are in milliseconds, the value is scaled so that it's practical to show high-frequency
+    // phenomena in the sim, specifically in the 'space & time' domain.
     this.tProperty = new NumberProperty( 0 );
 
     // @public
@@ -196,7 +201,8 @@ class DiscreteModel {
    */
   step( dt ) {
     if ( this.isPlayingProperty.value && ( this.domainProperty.value === Domain.SPACE_AND_TIME ) ) {
-      this.tProperty.value += dt;
+      const milliseconds = dt * 1000;
+      this.tProperty.value += ( milliseconds * TIME_SCALE );
     }
   }
 }
