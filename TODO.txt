@@ -2,6 +2,8 @@ TODO.txt for fourier-making-waves
 
 ## Discrete screen
 
+Handle time correctly in model: convert to milliseconds, then apply a scale factor
+
 Reuse Vector2 instances for data sets in FourierSeries (new Vector2)
 
 Always compute at least one full cycle of the lowest-order harmonic, so that we know the max for auto scale
