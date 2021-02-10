@@ -22,8 +22,15 @@ class WaveformValue {
 
     assert && assert( typeof getAmplitudes === 'function', 'invalid getAmplitudes' );
 
-    // @public (read-only)
-    this.getAmplitudes = getAmplitudes;
+    // @public (read-only) wrap getAmplitudes with common validation for args and return value
+    this.getAmplitudes = ( numberOfHarmonics, seriesType ) => {
+      assert && assert( typeof numberOfHarmonics === 'number' && numberOfHarmonics > 0, 'invalid numberOfHarmonics' );
+      assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
+
+      const amplitudes = getAmplitudes( numberOfHarmonics, seriesType );
+      assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
+      return amplitudes;
+    };
   }
 }
 
@@ -34,7 +41,6 @@ const SINUSOID = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
     // A1 = 1, all others are 0
     amplitudes.push( n === 1 ? 1 : 0 );
   }
-  assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
   return amplitudes;
 } );
 
@@ -53,7 +59,6 @@ const TRIANGLE = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
       amplitudes.push( n % 2 === 0 ? 0 : ( 8 / ( n * n * PI * PI ) ) );
     }
   }
-  assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
   return amplitudes;
 } );
 
@@ -72,7 +77,6 @@ const SQUARE = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
       amplitudes.push( n % 2 === 0 ? 0 : Math.pow( -1, ( n - 1 ) / 2 ) * ( 4 / ( n * PI ) ) );
     }
   }
-  assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
   return amplitudes;
 } );
 
@@ -87,7 +91,6 @@ const SAWTOOTH = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
     // 2/(1*PI), -2/(2*PI), 2/(3*PI), -2/(4*PI), 2/(5*PI), -2/(6*PI), 2/(7*PI), -2/(8*PI), 2/(9*PI), -2/(10*PI), 2/(11*PI), ...
     amplitudes.push( Math.pow( -1, n - 1 ) * ( 2 / ( n * PI ) ) );
   }
-  assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
   return amplitudes;
 } );
 
@@ -107,7 +110,6 @@ const WAVE_PACKET = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
   //   console.log( `N=${numberOfHarmonics} n=${n} amplitude=${amplitude}` );//TODO delete me
   //   amplitudes.push( amplitude );
   // }
-  // assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
   // return amplitudes;
 
   //TODO https://github.com/phetsims/fourier-making-waves/issues/18 workaround by using hardcoded values from Preset.java
