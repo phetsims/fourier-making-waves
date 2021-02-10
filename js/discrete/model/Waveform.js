@@ -67,8 +67,7 @@ const SQUARE = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
 
 const SAWTOOTH = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
 
-  //TODO enable this assertion when it's handled correctly in the model
-  // assert && assert( seriesType !== SeriesType.COSINE, 'cannot make a sawtooth wave out of cosines' );
+  assert && assert( seriesType !== SeriesType.COSINE, 'cannot make a sawtooth wave out of cosines' );
 
   const amplitudes = [];
   for ( let n = 1; n <= numberOfHarmonics; n++ ) {
