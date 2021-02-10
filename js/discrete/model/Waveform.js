@@ -43,7 +43,7 @@ const TRIANGLE = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
   for ( let n = 1; n <= numberOfHarmonics; n++ ) {
     seriesType === SeriesType.SINE ?
       // 8/(1*PI^2), 0, -8/(9*PI^2), 0, 8/(25*PI^2), 0, -8/(49*PI^2), 0, 8/(81*PI^2), 0, -8/(121*PI^2), ...
-    amplitudes.push( n % 2 === 0 ? 0 : ( 8 / ( n * n * PI * PI ) ) * Math.pow( -1, ( n - 1 ) / 2 ) ) :
+    amplitudes.push( n % 2 === 0 ? 0 : Math.pow( -1, ( n - 1 ) / 2 ) * ( 8 / ( n * n * PI * PI ) ) ) :
       // 8/(1*PI^2), 0, 8/(9*PI^2), 0, 8/(25*PI^2), 0, 8/(49*PI^2), 0, 8/(81*PI^2), 0, 8/(121*PI^2), ...
     amplitudes.push( n % 2 === 0 ? 0 : ( 8 / ( n * n * PI * PI ) ) );
   }
@@ -65,15 +65,15 @@ const SQUARE = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
   return amplitudes;
 } );
 
+// See https://mathworld.wolfram.com/FourierSeriesSawtoothWave.html
 const SAWTOOTH = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
 
   assert && assert( seriesType !== SeriesType.COSINE, 'cannot make a sawtooth wave out of cosines' );
 
   const amplitudes = [];
   for ( let n = 1; n <= numberOfHarmonics; n++ ) {
-
-    //TODO equation in Preset.java did not match values, used https://lpsa.swarthmore.edu/Fourier/Series/ExFS.html
-    amplitudes.push( -( 2 / ( n * PI ) ) * Math.pow( -1, n ) );
+    // 2/(1*PI), -2/(2*PI), 2/(3*PI), -2/(4*PI), 2/(5*PI), -2/(6*PI), 2/(7*PI), -2/(8*PI), 2/(9*PI), -2/(10*PI), 2/(11*PI), ...
+    amplitudes.push( Math.pow( -1, n - 1 ) * ( 2 / ( n * PI ) ) );
   }
   assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
   return amplitudes;
