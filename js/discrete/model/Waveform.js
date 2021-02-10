@@ -93,9 +93,10 @@ const SAWTOOTH = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
 
 const WAVE_PACKET = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
 
-  //TODO https://github.com/phetsims/fourier-making-waves/issues/18 this fails with invalid value, doesn't match hardcoded values from Preset.java
   // An = (1 / (p * sqrt(2 * PI))) ^ (-(n-no)^2 / (2 * p^2))
   // where p = 1.5, N = number of harmonics, no = (N + 1) / 2
+
+  //TODO https://github.com/phetsims/fourier-making-waves/issues/18 this fails with invalid value, doesn't match hardcoded values from Preset.java
   // const amplitudes = [];
   // const p = 1.5;
   // const no = ( numberOfHarmonics + 1 ) / 2;
