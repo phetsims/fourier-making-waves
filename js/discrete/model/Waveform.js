@@ -37,38 +37,29 @@ const SINUSOID = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
   return amplitudes;
 } );
 
+// See https://mathworld.wolfram.com/FourierSeriesTriangleWave.html
 const TRIANGLE = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
-  // const amplitudes = [];
-  // for ( let n = 1; n <= numberOfHarmonics; n++ ) {
-  //   seriesType === SeriesType.SINE ?
-  //
-  //     //TODO amplitudes are smaller than Java version
-  //     amplitudes.push( ( ( 2 * Math.sin( n * PI / 2 ) ) - ( 2 * Math.sin( n * PI ) ) ) / ( n * n * PI * PI ) ) :
-  //
-  //     //TODO fails with invalid value
-  //     amplitudes.push( ( ( 4 * Math.cos( n * PI ) ) - ( 2 * n * PI * Math.sin( n * PI ) ) / ( n * n * PI * PI ) ) );
-  // }
-  // assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
-  // return amplitudes;
-
-  //TODO workaround by using hardcoded values from Preset.java, describe these values with new equations
-  if ( seriesType === SeriesType.SINE ) {
-    return [ 8 / ( PI * PI ), 0, -8 / ( 9 * PI * PI ), 0, 8 / ( 25 * PI * PI ), 0, -8 / ( 49 * PI * PI ), 0, 8 / ( 81 * PI * PI ), 0, -8 / ( 121 * PI * PI ) ].slice( 0, numberOfHarmonics );
+  const amplitudes = [];
+  for ( let n = 1; n <= numberOfHarmonics; n++ ) {
+    seriesType === SeriesType.SINE ?
+      // 8/(1*PI^2), 0, -8/(9*PI^2), 0, 8/(25*PI^2), 0, -8/(49*PI^2), 0, 8/(81*PI^2), 0, -8/(121*PI^2), ...
+    amplitudes.push( n % 2 === 0 ? 0 : ( 8 / ( n * n * PI * PI ) ) * Math.pow( -1, ( n - 1 ) / 2 ) ) :
+      // 8/(1*PI^2), 0, 8/(9*PI^2), 0, 8/(25*PI^2), 0, 8/(49*PI^2), 0, 8/(81*PI^2), 0, 8/(121*PI^2), ...
+    amplitudes.push( n % 2 === 0 ? 0 : ( 8 / ( n * n * PI * PI ) ) );
   }
-  else {
-    return [ 8 / ( PI * PI ), 0, 8 / ( 9 * PI * PI ), 0, 8 / ( 25 * PI * PI ), 0, 8 / ( 49 * PI * PI ), 0, 8 / ( 81 * PI * PI ), 0, 8 / ( 121 * PI * PI ) ].slice( 0, numberOfHarmonics );
-  }
+  assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
+  return amplitudes;
 } );
 
+// See https://mathworld.wolfram.com/FourierSeriesSquareWave.html
 const SQUARE = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
   const amplitudes = [];
   for ( let n = 1; n <= numberOfHarmonics; n++ ) {
     seriesType === SeriesType.SINE ?
-      //TODO describe these values with a simpler equation: 4/PI, 0, 4/(3*PI), 0, 4/(5*PI), 0, 4/(7*PI), 0, 4/(9*PI), 0, 4/(11*PI)
-    amplitudes.push( ( 2 - ( 2 * Math.cos( n * PI ) ) ) / ( n * PI ) ) :
-
-      //TODO describe these values with a simpler equation:  4/PI, 0, -4/(3*PI), 0, 4/(5*PI), 0, -4/(7*PI), 0, 4/(9*PI), 0, -4/(11*PI)
-    amplitudes.push( ( ( 4 * Math.sin( n * PI / 2 ) ) - ( 2 * Math.sin( n * PI ) ) ) / ( n * PI ) );
+      // 4/(1*PI), 0, 4/(3*PI), 0, 4/(5*PI), 0, 4/(7*PI), 0, 4/(9*PI), 0, 4/(11*PI), ...
+    amplitudes.push( n % 2 === 0 ? 0 : ( 4 / ( n * PI ) ) ) :
+      // 4/(1*PI), 0, -4/(3*PI), 0, 4/(5*PI), 0, -4/(7*PI), 0, 4/(9*PI), 0, -4/(11*PI), ...
+    amplitudes.push( n % 2 === 0 ? 0 : Math.pow( -1, ( n - 1 ) / 2 ) * ( 4 / ( n * PI ) ) );
   }
   assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
   return amplitudes;
