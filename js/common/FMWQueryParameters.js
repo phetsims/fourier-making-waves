@@ -9,14 +9,20 @@
 
 import fourierMakingWaves from '../fourierMakingWaves.js';
 
-const FMWQueryParameters = QueryStringMachine.getAll( {
+const SCHEMA = {
 
-  //TODO delete this file if this remains empty
-} );
+  // Enables sounds for the SoundManager 'user-interface' category.
+  // For internal use only.
+  uiSoundsEnabled: {
+    type: 'boolean',
+    defaultValue: false //TODO disabled for 1.0 release?
+  }
+};
 
-fourierMakingWaves.register( 'FMWQueryParameters', FMWQueryParameters );
+const FMWQueryParameters = QueryStringMachine.getAll( SCHEMA );
 
 // log the values of all sim-specific query parameters
 phet.log && phet.log( 'query parameters: ' + JSON.stringify( FMWQueryParameters, null, 2 ) );
 
+fourierMakingWaves.register( 'FMWQueryParameters', FMWQueryParameters );
 export default FMWQueryParameters;

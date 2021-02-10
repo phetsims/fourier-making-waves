@@ -10,6 +10,7 @@ import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import soundManager from '../../tambo/js/soundManager.js';
 import Tandem from '../../tandem/js/Tandem.js';
+import FMWQueryParameters from './common/FMWQueryParameters.js';
 import ContinuousScreen from './continuous/ContinuousScreen.js';
 import DiscreteScreen from './discrete/DiscreteScreen.js';
 import fourierMakingWavesStrings from './fourierMakingWavesStrings.js';
@@ -40,7 +41,6 @@ simLauncher.launch( () => {
   ], simOptions );
   sim.start();
 
-  //TODO do we want to enable user-interface sounds in 1.0 ?
-  // Disable sounds for UI components.
-  soundManager.setOutputLevelForCategory( 'user-interface', 0 );
+  // Sounds for standard UI components.
+  soundManager.setOutputLevelForCategory( 'user-interface', FMWQueryParameters.uiSoundsEnabled ? 1 : 0 );
 } );
