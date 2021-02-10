@@ -94,6 +94,7 @@ const SAWTOOTH = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
   return amplitudes;
 } );
 
+//TODO https://github.com/phetsims/fourier-making-waves/issues/18 provide a reference for how amplitudes are computed
 const WAVE_PACKET = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
 
   // An = (1 / (p * sqrt(2 * PI))) ^ (-(n-no)^2 / (2 * p^2))
