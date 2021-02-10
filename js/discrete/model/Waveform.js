@@ -1,6 +1,5 @@
 // Copyright 2020, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/fourier-making-waves/issues/18 equations in Preset.java do not match values
 /**
  * Waveforms for the 'Discrete' screen.
  *
@@ -20,6 +19,8 @@ class WaveformValue {
    * @param {function(numberOfHarmonics:number, seriesType:SeriesType)} [getAmplitudes]
    */
   constructor( getAmplitudes ) {
+
+    assert && assert( typeof getAmplitudes === 'function', 'invalid getAmplitudes' );
 
     // @public (read-only)
     this.getAmplitudes = getAmplitudes;
@@ -91,21 +92,24 @@ const SAWTOOTH = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
 } );
 
 const WAVE_PACKET = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
+
+  //TODO https://github.com/phetsims/fourier-making-waves/issues/18 this fails with invalid value, doesn't match hardcoded values from Preset.java
+  // An = (1 / (p * sqrt(2 * PI))) ^ (-(n-no)^2 / (2 * p^2))
+  // where p = 1.5, N = number of harmonics, no = (N + 1) / 2
   // const amplitudes = [];
   // const p = 1.5;
   // const no = ( numberOfHarmonics + 1 ) / 2;
   // for ( let n = 1; n <= numberOfHarmonics; n++ ) {
-  //
-  //   //TODO fails with invalid value
-  //   amplitudes.push( Math.pow(
-  //     1 / ( p * Math.sqrt( 2 * PI ) ),
-  //     -( ( numberOfHarmonics - no ) * ( ( numberOfHarmonics - no ) ) / ( 2 * p * p ) )
-  //   ) );
+  //   const base = 1 / ( p * Math.sqrt( 2 * PI ) );
+  //   const exponent = -Math.pow( n - no, 2 ) / ( 2 * p * p );
+  //   const amplitude = Math.pow( base, exponent );
+  //   console.log( `N=${numberOfHarmonics} n=${n} amplitude=${amplitude}` );//TODO delete me
+  //   amplitudes.push( amplitude );
   // }
   // assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
   // return amplitudes;
 
-  //TODO workaround by using hardcoded values from Preset.java
+  //TODO https://github.com/phetsims/fourier-making-waves/issues/18 workaround by using hardcoded values from Preset.java
   return [
     [ 1.000000 ],
     [ 0.457833, 0.457833 ],
@@ -121,7 +125,9 @@ const WAVE_PACKET = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
   ][ numberOfHarmonics - 1 ];
 } );
 
-const CUSTOM = new WaveformValue();
+const CUSTOM = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
+  throw new Error( 'getAmplitudes is not supported for custom waveform' );
+} );
 
 const Waveform = Enumeration.byMap( {
   SINUSOID: SINUSOID,
