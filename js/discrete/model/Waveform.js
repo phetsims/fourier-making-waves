@@ -41,11 +41,16 @@ const SINUSOID = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
 const TRIANGLE = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
   const amplitudes = [];
   for ( let n = 1; n <= numberOfHarmonics; n++ ) {
-    seriesType === SeriesType.SINE ?
+    if ( seriesType === SeriesType.SINE ) {
+
       // 8/(1*PI^2), 0, -8/(9*PI^2), 0, 8/(25*PI^2), 0, -8/(49*PI^2), 0, 8/(81*PI^2), 0, -8/(121*PI^2), ...
-    amplitudes.push( n % 2 === 0 ? 0 : Math.pow( -1, ( n - 1 ) / 2 ) * ( 8 / ( n * n * PI * PI ) ) ) :
+      amplitudes.push( n % 2 === 0 ? 0 : Math.pow( -1, ( n - 1 ) / 2 ) * ( 8 / ( n * n * PI * PI ) ) );
+    }
+    else {
+
       // 8/(1*PI^2), 0, 8/(9*PI^2), 0, 8/(25*PI^2), 0, 8/(49*PI^2), 0, 8/(81*PI^2), 0, 8/(121*PI^2), ...
-    amplitudes.push( n % 2 === 0 ? 0 : ( 8 / ( n * n * PI * PI ) ) );
+      amplitudes.push( n % 2 === 0 ? 0 : ( 8 / ( n * n * PI * PI ) ) );
+    }
   }
   assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
   return amplitudes;
@@ -55,11 +60,16 @@ const TRIANGLE = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
 const SQUARE = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
   const amplitudes = [];
   for ( let n = 1; n <= numberOfHarmonics; n++ ) {
-    seriesType === SeriesType.SINE ?
+    if ( seriesType === SeriesType.SINE ) {
+
       // 4/(1*PI), 0, 4/(3*PI), 0, 4/(5*PI), 0, 4/(7*PI), 0, 4/(9*PI), 0, 4/(11*PI), ...
-    amplitudes.push( n % 2 === 0 ? 0 : ( 4 / ( n * PI ) ) ) :
+      amplitudes.push( n % 2 === 0 ? 0 : ( 4 / ( n * PI ) ) );
+    }
+    else {
+
       // 4/(1*PI), 0, -4/(3*PI), 0, 4/(5*PI), 0, -4/(7*PI), 0, 4/(9*PI), 0, -4/(11*PI), ...
-    amplitudes.push( n % 2 === 0 ? 0 : Math.pow( -1, ( n - 1 ) / 2 ) * ( 4 / ( n * PI ) ) );
+      amplitudes.push( n % 2 === 0 ? 0 : Math.pow( -1, ( n - 1 ) / 2 ) * ( 4 / ( n * PI ) ) );
+    }
   }
   assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
   return amplitudes;
@@ -72,6 +82,7 @@ const SAWTOOTH = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
 
   const amplitudes = [];
   for ( let n = 1; n <= numberOfHarmonics; n++ ) {
+
     // 2/(1*PI), -2/(2*PI), 2/(3*PI), -2/(4*PI), 2/(5*PI), -2/(6*PI), 2/(7*PI), -2/(8*PI), 2/(9*PI), -2/(10*PI), 2/(11*PI), ...
     amplitudes.push( Math.pow( -1, n - 1 ) * ( 2 / ( n * PI ) ) );
   }
