@@ -15,7 +15,7 @@ const SCHEMA = {
   // For internal use only.
   uiSoundsEnabled: {
     type: 'boolean',
-    defaultValue: false //TODO disabled for 1.0 release?
+    defaultValue: false //TODO https://github.com/phetsims/fourier-making-waves/issues/48 change to true for a future release?
   }
 };
 
