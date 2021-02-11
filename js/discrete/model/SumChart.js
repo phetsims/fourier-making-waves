@@ -90,15 +90,17 @@ class SumChart {
       'max amplitude is in data set only if at least 1/2 of the sum is visible when fully zoomed out' );
 
     //TODO derive this value only while auto scale is enabled?
-    // @public (read-only) {DerivedProperty.<Range>} auto-scale range of the y axis
+    // @public (read-only) {DerivedProperty.<Range>} auto-scale range of the y axis, fitted to the sum's max amplitude
     this.yAxisAutoScaleRangeProperty = new DerivedProperty(
       [ this.maxAmplitudeProperty ],
       maxAmplitude => {
-        const maxY = Math.max( maxAmplitude, FMWConstants.MAX_ABSOLUTE_AMPLITUDE ); // no smaller than range of amplitude sliders
+        // no smaller than range of amplitude sliders!
+        const maxY = Math.max( maxAmplitude, FMWConstants.MAX_ABSOLUTE_AMPLITUDE );
         return new Range( -maxY, maxY );
       } );
 
-    // If auto scale is enabled, adjust the y-axis zoom level to match the auto-scale range. unlink is not needed.
+    // When auto scale is enabled, link this listener to yAxisAutoScaleRangeProperty, and adjust the y-axis zoom
+    // range so that's it's appropriate for the auto-scale range.
     const updateZoomLevel = yAxisAutoScaleRange => {
       assert && assert( this.autoScaleProperty.value, 'should not be called when auto scale is disabled' );
       const yAxisDescriptions = AxisDescription.Y_AXIS_DESCRIPTIONS;
