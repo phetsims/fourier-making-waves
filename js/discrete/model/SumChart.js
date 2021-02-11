@@ -53,19 +53,6 @@ class SumChart {
     this.xZoomLevelProperty = xZoomLevelProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
 
-    //TODO initial value should be computed based on whether auto scale is enabled
-    // @public zoom level for the y axis, index into AxisDescription.Y_AXIS_DESCRIPTIONS
-    this.yZoomLevelProperty = new NumberProperty( AxisDescription.Y_DEFAULT_ZOOM_LEVEL, {
-      numberType: 'Integer',
-      range: new Range( 0, AxisDescription.Y_AXIS_DESCRIPTIONS.length - 1 )
-    } );
-
-    // @public {DerivedProperty.<AxisDescription>} describes the properties of the y axis. dispose is not needed
-    this.yAxisDescriptionProperty = new DerivedProperty(
-      [ this.yZoomLevelProperty ],
-      yZoomLevel => AxisDescription.Y_AXIS_DESCRIPTIONS[ yZoomLevel ]
-    );
-
     /**
      * Creates the sum data set using current arg values.
      * @returns {Vector2[]}
@@ -99,19 +86,28 @@ class SumChart {
         return new Range( -maxY, maxY );
       } );
 
+    // The initial y-axis zoom level depends on whether auto scale is initially enabled.
+    const initialYZoomLevel = this.autoScaleProperty.value ?
+                              getZoomLevelForYRange( this.yAxisAutoScaleRangeProperty.value ) :
+                              AxisDescription.Y_DEFAULT_ZOOM_LEVEL;
+
+    // @public zoom level for the y axis, index into AxisDescription.Y_AXIS_DESCRIPTIONS
+    this.yZoomLevelProperty = new NumberProperty( initialYZoomLevel, {
+      numberType: 'Integer',
+      range: new Range( 0, AxisDescription.Y_AXIS_DESCRIPTIONS.length - 1 )
+    } );
+
+    // @public {DerivedProperty.<AxisDescription>} describes the properties of the y axis. dispose is not needed
+    this.yAxisDescriptionProperty = new DerivedProperty(
+      [ this.yZoomLevelProperty ],
+      yZoomLevel => AxisDescription.Y_AXIS_DESCRIPTIONS[ yZoomLevel ]
+    );
+
     // When auto scale is enabled, link this listener to yAxisAutoScaleRangeProperty, and adjust the y-axis zoom
     // range so that's it's appropriate for the auto-scale range.
     const updateZoomLevel = yAxisAutoScaleRange => {
       assert && assert( this.autoScaleProperty.value, 'should not be called when auto scale is disabled' );
-      const yAxisDescriptions = AxisDescription.Y_AXIS_DESCRIPTIONS;
-      let yZoomLevel = yAxisDescriptions.length - 1;
-      for ( let i = 0; i < yAxisDescriptions.length - 1; i++ ) {
-        if ( yAxisAutoScaleRange.max >= yAxisDescriptions[ i ].absoluteMax ) {
-          yZoomLevel = i;
-          break;
-        }
-      }
-      this.yZoomLevelProperty.value = yZoomLevel;
+      this.yZoomLevelProperty.value = getZoomLevelForYRange( yAxisAutoScaleRange );
     };
     this.autoScaleProperty.link( autoScale => {
       if ( autoScale ) {
@@ -152,6 +148,25 @@ class SumChart {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
+}
+
+/**
+ * Gets the zoom level that corresponds to a y-axis range.
+ * @param {Range} yRange
+ * @returns {number} - the zoom level, an index into AxisDescription.Y_AXIS_DESCRIPTIONS
+ */
+function getZoomLevelForYRange( yRange ) {
+  assert && assert( yRange instanceof Range, 'invalid yRange' );
+  const yAxisDescriptions = AxisDescription.Y_AXIS_DESCRIPTIONS;
+  let zoomLevel = yAxisDescriptions.length - 1;
+  for ( let i = 0; i < yAxisDescriptions.length - 1; i++ ) {
+    if ( yRange.max >= yAxisDescriptions[ i ].absoluteMax ) {
+      zoomLevel = i;
+      break;
+    }
+  }
+  assert && assert( zoomLevel >= 0 && zoomLevel < yAxisDescriptions.length, `invalid zoomLevel: ${zoomLevel}` );
+  return zoomLevel;
 }
 
 fourierMakingWaves.register( 'SumChart', SumChart );
