@@ -100,8 +100,12 @@ class DiscreteChartNode extends Node {
 
     // The chart's background rectangle
     const chartRectangle = new ChartRectangle( chartTransform, {
+
+      // Use the same color as the grid lines. If use a different color (e.g. 'black') then we'll see a black line
+      // appearing and disappearing at the top of the chart when the y-axis range is auto scaling. This is because
+      // sometimes a grid line will coincide with min/max of the range, and sometimes it won't.
+      stroke: FMWColorProfile.chartGridLinesStrokeProperty,
       fill: 'white',
-      stroke: 'black',
       tandem: options.tandem.createTandem( 'chartRectangle' )
     } );
 
