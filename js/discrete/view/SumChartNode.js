@@ -149,8 +149,10 @@ class SumChartNode extends DiscreteChartNode {
         if ( autoScale ) {
           this.chartTransform.setModelYRange( yAxisAutoScaleRange );
         }
-        // Do not setModelYRange when auto scale becomes false. We want the range to remain unchanged
-        // until the user explicitly changes it via the y-axis zoom buttons.
+        else {
+          // Do not setModelYRange when auto scale becomes false. We want the range to remain unchanged
+          // until the user explicitly changes it via the y-axis zoom buttons.
+        }
       } );
   }
 }
