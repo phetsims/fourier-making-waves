@@ -191,7 +191,7 @@ assert && assert( AxisDescription.Y_AXIS_DESCRIPTIONS[ AxisDescription.Y_DEFAULT
   'Y_DEFAULT_ZOOM_LEVEL is probably incorrect - did you add a AxisDescription?' );
 
 /**
- * Determines whether an array to AxisDescription is sorted by descending absoluteMax value.
+ * Determines whether an array of AxisDescription is sorted by descending absoluteMax value.
  * @param {AxisDescription[]} axisDescriptions
  * @returns {boolean}
  */
