@@ -13,6 +13,7 @@ import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import FMWUtils from '../../common/FMWUtils.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -52,6 +53,7 @@ class SumChart {
     this.xZoomLevelProperty = xZoomLevelProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
 
+    //TODO initial value should be computed based on whether auto scale is enabled
     // @public zoom level for the y axis, index into AxisDescription.Y_AXIS_DESCRIPTIONS
     this.yZoomLevelProperty = new NumberProperty( AxisDescription.Y_DEFAULT_ZOOM_LEVEL, {
       numberType: 'Integer',
@@ -76,6 +78,47 @@ class SumChart {
     // @public {Property.<Vector2[]>} the data set for the sum
     this.sumDataSetProperty = new Property( createDataSet(), {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
+    } );
+
+    //TODO performance: determine this while creating the sum data set
+    // @public {DerivedProperty.<number>} the maximum amplitude of the sum
+    this.maxAmplitudeProperty = new DerivedProperty(
+      [ this.sumDataSetProperty ],
+      sumDataSet => _.maxBy( sumDataSet, point => point.y ).y
+    );
+    assert && assert( 2 * AxisDescription.X_FULLY_ZOOMED_OUT.absoluteMax >= 0.5,
+      'max amplitude is in data set only if at least 1/2 of the sum is visible when fully zoomed out' );
+
+    // @public (read-only) {DerivedProperty.<Range>} auto-scale range of the y axis
+    this.yAxisAutoScaleRangeProperty = new DerivedProperty(
+      [ this.maxAmplitudeProperty ],
+      maxAmplitude => {
+        const maxY = Math.max( maxAmplitude, FMWConstants.MAX_ABSOLUTE_AMPLITUDE ); // no smaller than range of amplitude sliders
+        return new Range( -maxY, maxY );
+      } );
+
+    // If auto scale is enabled, adjust the y-axis zoom level to match the auto-scale range. unlink is not needed.
+    const updateZoomLevel = yAxisAutoScaleRange => {
+      assert && assert( this.autoScaleProperty.value, 'should not be called when auto scale is disabled' );
+      const yAxisDescriptions = AxisDescription.Y_AXIS_DESCRIPTIONS;
+      let yZoomLevel = yAxisDescriptions.length - 1;
+      for ( let i = 0; i < yAxisDescriptions.length - 1; i++ ) {
+        if ( yAxisAutoScaleRange.max >= yAxisDescriptions[ i ].absoluteMax ) {
+          yZoomLevel = i;
+          break;
+        }
+      }
+      this.yZoomLevelProperty.value = yZoomLevel;
+    };
+    this.autoScaleProperty.link( autoScale => {
+      if ( autoScale ) {
+        this.yAxisAutoScaleRangeProperty.link( updateZoomLevel );
+      }
+      else {
+        if ( this.yAxisAutoScaleRangeProperty.hasListener( updateZoomLevel ) ) {
+          this.yAxisAutoScaleRangeProperty.unlink( updateZoomLevel );
+        }
+      }
     } );
 
     // Update the sum when dependencies change. unmultilink is not needed.

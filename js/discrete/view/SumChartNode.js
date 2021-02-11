@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -55,6 +56,7 @@ class SumChartNode extends DiscreteChartNode {
     const yZoomLevelProperty = sumChart.yZoomLevelProperty;
     const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
     const autoScaleProperty = sumChart.autoScaleProperty;
+    const yAxisAutoScaleRangeProperty = sumChart.yAxisAutoScaleRangeProperty;
     const infiniteHarmonicsVisibleProperty = sumChart.infiniteHarmonicsVisibleProperty;
     const sumDataSetProperty = sumChart.sumDataSetProperty;
 
@@ -69,14 +71,6 @@ class SumChartNode extends DiscreteChartNode {
       tandem: options.tandem.createTandem( 'yZoomButtonGroup' )
     } );
     this.addChild( yZoomButtonGroup );
-
-    // unlink is not needed.
-    yAxisDescriptionProperty.link( yAxisDescription => {
-      this.chartTransform.setModelYRange( yAxisDescription.range );
-      this.yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
-      this.yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
-      this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
-    } );
 
     // Shows the wave that the Fourier series is attempting to approximate
     const infiniteHarmonicsCheckbox = new InfiniteHarmonicsCheckbox( infiniteHarmonicsVisibleProperty, {
@@ -95,9 +89,6 @@ class SumChartNode extends DiscreteChartNode {
 
     // Automatically scales the y axis to show the entire plot
     const autoScaleCheckbox = new AutoScaleCheckbox( autoScaleProperty, {
-      listener: () => {
-        //TODO
-      },
       tandem: options.tandem.createTandem( 'autoScaleCheckbox' )
     } );
 
@@ -130,6 +121,37 @@ class SumChartNode extends DiscreteChartNode {
     fourierSeries.amplitudesProperty.link( amplitudes => {
       sumPlot.visible = _.some( amplitudes, amplitude => amplitude !== 0 );
     } );
+
+    // Disable the y-axis zoom buttons when auto scale is enabled. unlink is not needed.
+    autoScaleProperty.link( autoScale => {
+      yZoomButtonGroup.enabled = !autoScale;
+    } );
+
+    // Update the y-axis. unlink is not needed.
+    yAxisDescriptionProperty.link( yAxisDescription => {
+
+      // Range is determined by zoom level only if auto scale is disabled.
+      if ( !autoScaleProperty.value ) {
+        this.chartTransform.setModelYRange( yAxisDescription.range );
+      }
+
+      // Grid lines and tick marks are determined by zoom level regardless of whether auto scale is enabled.
+      // This is because the model keep the zoom level in sync with yAxisAutoScaleRange.
+      this.yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
+      this.yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
+      this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
+    } );
+
+    // Update the auto-scale range for the y-axis.
+    Property.multilink(
+      [ autoScaleProperty, yAxisAutoScaleRangeProperty ],
+      ( autoScale, yAxisAutoScaleRange ) => {
+        if ( autoScale ) {
+          this.chartTransform.setModelYRange( yAxisAutoScaleRange );
+        }
+        // Do not setModelYRange when auto scale becomes false. We want the range to remain unchanged
+        // until the user explicitly changes it via the y-axis zoom buttons.
+      } );
   }
 }
 

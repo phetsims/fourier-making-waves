@@ -117,18 +117,15 @@ assert && assert( isSortedDescending( AxisDescription.X_AXIS_DESCRIPTIONS ),
 // @public default zoom level for the x axis
 AxisDescription.X_DEFAULT_ZOOM_LEVEL = AxisDescription.X_AXIS_DESCRIPTIONS.length - 2;
 
+// @public zoomed out as far as possible
+AxisDescription.X_FULLY_ZOOMED_OUT = AxisDescription.X_AXIS_DESCRIPTIONS[ AxisDescription.X_AXIS_DESCRIPTIONS.length - 1 ];
+
 // Guard again accidentally changing the default when X_AXIS_DESCRIPTIONS is modified.
 assert && assert( AxisDescription.X_AXIS_DESCRIPTIONS[ AxisDescription.X_DEFAULT_ZOOM_LEVEL ].absoluteMax === 1 / 2,
   'X_DEFAULT_ZOOM_LEVEL is probably incorrect - did you add a AxisDescription?' );
 
 // @public {AxisDescription[]} descriptions for the y axis, one for each zoom level. Values are amplitude (unitless).
 AxisDescription.Y_AXIS_DESCRIPTIONS = [
-  new AxisDescription( {
-    absoluteMax: 20,
-    gridLineSpacing: 5,
-    tickMarkSpacing: 10,
-    tickLabelSpacing: 10
-  } ),
   new AxisDescription( {
     absoluteMax: 15,
     gridLineSpacing: 5,
