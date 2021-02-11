@@ -8,6 +8,7 @@
  */
 
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
+import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Color from '../../../../scenery/js/util/Color.js';
@@ -72,7 +73,7 @@ class HarmonicsChartNode extends DiscreteChartNode {
     // Render the plots using Canvas, clipped to chartRectangle.
     // Reverse the order, so that the fundamental is rendered last and is therefore in the foreground.
     const chartCanvasNode = new ChartCanvasNode( this.chartTransform, plots.slice().reverse(), {
-      clipArea: this.chartRectangle.getShape()
+      clipArea: Shape.bounds( this.chartRectangle.bounds )
     } );
     this.addChild( chartCanvasNode );
 

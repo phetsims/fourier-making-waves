@@ -10,6 +10,7 @@
 import Property from '../../../../axon/js/Property.js';
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
+import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
@@ -107,7 +108,7 @@ class SumChartNode extends DiscreteChartNode {
 
     // Draw the sum plot using Canvas, clipped to chartRectangle.
     const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [ sumPlot ], {
-      clipArea: this.chartRectangle.getShape()
+      clipArea: Shape.bounds( this.chartRectangle.bounds )
     } );
     this.addChild( chartCanvasNode );
 
