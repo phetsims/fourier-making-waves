@@ -25,7 +25,6 @@ import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomB
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -39,13 +38,14 @@ import EquationForm from '../model/EquationForm.js';
 
 // constants
 const AXIS_OPTIONS = {
-  fill: Color.BLACK,
+  fill: FMWColorProfile.axisStrokeProperty,
   stroke: null,
   tailWidth: 1
 };
 
 const GRID_LINE_OPTIONS = {
-  stroke: FMWColorProfile.chartGridLinesStrokeProperty
+  stroke: FMWColorProfile.chartGridLinesStrokeProperty,
+  lineWidth: 0.5
 };
 
 const TICK_MARK_OPTIONS = {
