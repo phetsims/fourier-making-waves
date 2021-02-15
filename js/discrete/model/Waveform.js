@@ -1,5 +1,6 @@
 // Copyright 2020, University of Colorado Boulder
 
+//TODO maybe this shouldn't be an enum
 /**
  * Waveforms for the 'Discrete' screen.
  *
