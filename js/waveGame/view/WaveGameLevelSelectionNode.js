@@ -83,8 +83,10 @@ class WaveGameLevelSelectionNode extends Node {
         content: new Text( 'test challenge generators', { fill: 'white', font: new PhetFont( 20 ) } ),
         baseColor: 'red',
         listener: () => {
+          console.log( 'begin test of challenge generators...' );
           //TODO
           // model.testChallengeGenerators();
+          console.log( 'end test of challenge generators' );
           const messageNode = new RichText( 'Test completed.<br>See results in browser console.' );
           const dialog = new Dialog( messageNode, {
             topMargin: 20,
