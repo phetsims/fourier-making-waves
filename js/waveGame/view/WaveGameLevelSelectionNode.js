@@ -84,8 +84,7 @@ class WaveGameLevelSelectionNode extends Node {
         baseColor: 'red',
         listener: () => {
           console.log( 'begin test of challenge generators...' );
-          //TODO
-          // model.testChallengeGenerators();
+          model.levels.forEach( level => level.challengeGenerator.test() );
           console.log( 'end test of challenge generators' );
           const messageNode = new RichText( 'Test completed.<br>See results in browser console.' );
           const dialog = new Dialog( messageNode, {

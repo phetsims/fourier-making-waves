@@ -17,7 +17,7 @@ class WaveGameLevel {
   /**
    * @param {number} levelNumber - game level, numbered from 1 in the model and view
    * @param {string} description - displayed in the status bar
-   * @param {WaveGameChallengeGenerator1} challengeGenerator
+   * @param {WaveGameChallengeGenerator} challengeGenerator
    */
   constructor( levelNumber, description, challengeGenerator ) {
 

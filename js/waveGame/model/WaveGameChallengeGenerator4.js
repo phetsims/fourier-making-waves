@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WaveGameChallengeGenerator1 is the challenge generator for level 1.
+ * WaveGameChallengeGenerator4 is the challenge generator for level 4.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -10,7 +10,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
 
-class WaveGameChallengeGenerator1 extends WaveGameChallengeGenerator {
+class WaveGameChallengeGenerator4 extends WaveGameChallengeGenerator {
 
   /**
    * @param {Object} [options]
@@ -37,10 +37,10 @@ class WaveGameChallengeGenerator1 extends WaveGameChallengeGenerator {
    * @override
    */
   test() {
-    console.log( 'testing WaveGameChallengeGenerator1...' );
+    console.log( 'testing WaveGameChallengeGenerator4...' );
     //TODO
   }
 }
 
-fourierMakingWaves.register( 'WaveGameChallengeGenerator1', WaveGameChallengeGenerator1 );
-export default WaveGameChallengeGenerator1;
+fourierMakingWaves.register( 'WaveGameChallengeGenerator4', WaveGameChallengeGenerator4 );
+export default WaveGameChallengeGenerator4;
