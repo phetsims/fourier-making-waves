@@ -88,6 +88,14 @@ const FMWColorProfile = new ColorProfile( [ 'default' ], {
 
   axisStroke: {
     default: Color.grayColor( 170 )
+  },
+
+  levelSelectionButtonColor: {
+    default: new Color( 111, 217, 158 )
+  },
+
+  scoreBoardFillColor: {
+    default: new Color( 111, 217, 158 )
   }
 } );
 
