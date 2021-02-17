@@ -21,7 +21,9 @@
       "adapted-from-phet"
     ],
     "phetLibs": [
-      "bamboo"
+      "bamboo",
+      "twixt",
+      "vegas"
     ],
     "phet-io": {
       "validation": false
