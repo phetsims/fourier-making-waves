@@ -4,4 +4,4 @@ TODO.txt for fourier-making-waves
 
 Reuse Vector2 instances for data sets in FourierSeries (new Vector2)
 
-Infinite Harmonics feature
+Infinite Harmonics feature, see Preset.java
