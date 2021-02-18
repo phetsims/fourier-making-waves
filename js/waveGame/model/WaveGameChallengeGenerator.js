@@ -1,12 +1,15 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WaveGameChallengeGenerator is the abstract base class for generating game challenges.
+ * WaveGameChallengeGenerator is responsible for generating game challenges.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import merge from '../../../../phet-core/js/merge.js';
+import WaveGameChallenge from './WaveGameChallenge.js';
 
 class WaveGameChallengeGenerator {
 
@@ -15,26 +18,31 @@ class WaveGameChallengeGenerator {
    * @abstract
    */
   constructor( options ) {
-    //TODO
+
+    options = merge( {
+      getNumberOfNonZeroHarmonics: () => 1
+    }, options );
+
+    // @public (read-only)
+    this.userSeries = new FourierSeries();
+    this.challengeSeries = new FourierSeries();
   }
 
   /**
    * Creates the next challenge.
    * @returns {WaveGameChallenge}
    * @public
-   * @abstract
    */
   nextChallenge() {
-    throw new Error( 'nextChallenge must be implemented by subclass' );
+    return new WaveGameChallenge();
   }
 
   /**
-   * Called when the 'test challenge generators' button is pressed in the level-selection UI.
+   * Tests this challenge generator.
    * @public
-   * @abstract
    */
   test() {
-    throw new Error( 'test must be implemented by subclass' );
+    //TODO
   }
 }
 
