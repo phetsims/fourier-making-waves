@@ -7,3 +7,5 @@ Reuse Vector2 instances for data sets in FourierSeries (new Vector2)
 Infinite Harmonics feature, see Preset.java
 
 ## Wave Game screen
+
+See GameManager.java. There are 2 Fourier series (userSeries & randomSeries) and we compare them.
