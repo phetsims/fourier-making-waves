@@ -52,8 +52,8 @@ class PeriodClockNode extends MeasurementToolNode {
     const harmonics = model.fourierSeries.harmonics;
     const emphasizedHarmonics = model.harmonicsChart.emphasizedHarmonics;
     const tProperty = model.tProperty;
-    const orderProperty = model.periodToolOrderProperty;
-    const selectedProperty = model.periodToolSelectedProperty;
+    const selectedProperty = model.periodTool.isSelectedProperty;
+    const orderProperty = model.periodTool.orderProperty;
     const domainProperty = model.domainProperty;
 
     // The harmonic associated with this tool. dispose is not needed.

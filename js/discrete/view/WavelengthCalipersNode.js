@@ -38,8 +38,8 @@ class WavelengthCalipersNode extends CalipersNode {
     // Model properties that we'll be using - these were formerly constructor params.
     const harmonics = model.fourierSeries.harmonics;
     const emphasizedHarmonics = model.harmonicsChart.emphasizedHarmonics;
-    const orderProperty = model.wavelengthToolOrderProperty;
-    const selectedProperty = model.wavelengthToolSelectedProperty;
+    const selectedProperty = model.wavelengthTool.isSelectedProperty;
+    const orderProperty = model.wavelengthTool.orderProperty;
     const domainProperty = model.domainProperty;
 
     super( FMWSymbols.lambda, harmonics, emphasizedHarmonics, orderProperty, chartTransform, visibleBoundsProperty,

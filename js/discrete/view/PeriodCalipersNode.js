@@ -38,8 +38,8 @@ class PeriodCalipersNode extends CalipersNode {
     // Model properties that we'll be using - these were formerly constructor params.
     const harmonics = model.fourierSeries.harmonics;
     const emphasizedHarmonics = model.harmonicsChart.emphasizedHarmonics;
-    const orderProperty = model.periodToolOrderProperty;
-    const selectedProperty = model.periodToolSelectedProperty;
+    const orderProperty = model.periodTool.orderProperty;
+    const selectedProperty = model.periodTool.isSelectedProperty;
     const domainProperty = model.domainProperty;
 
     super( FMWSymbols.T, harmonics, emphasizedHarmonics, orderProperty, chartTransform, visibleBoundsProperty,

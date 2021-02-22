@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
@@ -20,25 +19,21 @@ import FMWSymobls from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
+import MeasurementTool from '../model/MeasurementTool.js';
 import OrderSpinner from './OrderSpinner.js';
 
 class MeasurementToolsLayoutBox extends VBox {
 
   /**
-   * @param {Property.<boolean>} wavelengthToolSelectedProperty
-   * @param {NumberProperty} wavelengthToolOrderProperty
-   * @param {Property.<boolean>} periodToolSelectedProperty
-   * @param {NumberProperty} periodToolOrderProperty
+   * @param {MeasurementTool} wavelengthTool
+   * @param {MeasurementTool} periodTool
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
-  constructor( wavelengthToolSelectedProperty, wavelengthToolOrderProperty,
-               periodToolSelectedProperty, periodToolOrderProperty, domainProperty, options ) {
+  constructor( wavelengthTool, periodTool, domainProperty, options ) {
 
-    assert && AssertUtils.assertPropertyOf( wavelengthToolSelectedProperty, 'boolean' );
-    assert && assert( wavelengthToolOrderProperty instanceof NumberProperty, 'invalid wavelengthToolOrderProperty' );
-    assert && AssertUtils.assertPropertyOf( periodToolSelectedProperty, 'boolean' );
-    assert && assert( periodToolOrderProperty instanceof NumberProperty, 'invalid periodToolOrderProperty' );
+    assert && assert( wavelengthTool instanceof MeasurementTool, 'invalid wavelengthTool' );
+    assert && assert( periodTool instanceof MeasurementTool, 'invalid periodTool' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, options );
@@ -70,8 +65,8 @@ class MeasurementToolsLayoutBox extends VBox {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 80 // determined empirically
     } );
-    const wavelengthCheckbox = new Checkbox( wavelengthText, wavelengthToolSelectedProperty, FMWConstants.CHECKBOX_OPTIONS );
-    const wavelengthSpinner = new OrderSpinner( FMWSymobls.lambda, wavelengthToolOrderProperty );
+    const wavelengthCheckbox = new Checkbox( wavelengthText, wavelengthTool.isSelectedProperty, FMWConstants.CHECKBOX_OPTIONS );
+    const wavelengthSpinner = new OrderSpinner( FMWSymobls.lambda, wavelengthTool.orderProperty );
     const wavelengthBox = new HBox( merge( {}, hBoxOptions, {
       children: [
         new AlignBox( wavelengthCheckbox, checkboxAlignBoxOptions ),
@@ -84,8 +79,8 @@ class MeasurementToolsLayoutBox extends VBox {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 80 // determined empirically
     } );
-    const periodCheckbox = new Checkbox( periodText, periodToolSelectedProperty, FMWConstants.CHECKBOX_OPTIONS );
-    const periodSpinner = new OrderSpinner( FMWSymobls.T, periodToolOrderProperty );
+    const periodCheckbox = new Checkbox( periodText, periodTool.isSelectedProperty, FMWConstants.CHECKBOX_OPTIONS );
+    const periodSpinner = new OrderSpinner( FMWSymobls.T, periodTool.orderProperty );
     const periodBox = new HBox( merge( {}, hBoxOptions, {
       children: [
         new AlignBox( periodCheckbox, checkboxAlignBoxOptions ),
@@ -103,12 +98,12 @@ class MeasurementToolsLayoutBox extends VBox {
     super( options );
 
     // unlink is not necessary
-    wavelengthToolSelectedProperty.link( enabled => {
+    wavelengthTool.isSelectedProperty.link( enabled => {
       !enabled && wavelengthSpinner.interruptSubtreeInput();
     } );
 
     // unlink is not necessary
-    periodToolSelectedProperty.link( enabled => {
+    periodTool.isSelectedProperty.link( enabled => {
       !enabled && periodSpinner.interruptSubtreeInput();
     } );
 

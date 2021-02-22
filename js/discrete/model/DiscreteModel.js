@@ -20,6 +20,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import HarmonicsChart from './HarmonicsChart.js';
 import Domain from './Domain.js';
 import EquationForm from './EquationForm.js';
+import MeasurementTool from './MeasurementTool.js';
 import SumChart from './SumChart.js';
 import Waveform from './Waveform.js';
 import SeriesType from './SeriesType.js';
@@ -51,44 +52,55 @@ class DiscreteModel {
     // @public time (t), updated only when domainProperty is Domain.SPACE_AND_TIME
     // While the units are in milliseconds, the value is scaled so that it's practical to show high-frequency
     // phenomena in the sim, specifically in the 'space & time' domain.
-    this.tProperty = new NumberProperty( 0 );
+    this.tProperty = new NumberProperty( 0, {
+      phetioDocumentation: 'time in millisecond, relevant only for function of space & time',
+      phetioReadOnly: true,
+      tandem: tandem.createTandem( 'tProperty' )
+    } );
 
     // @public
-    this.waveformProperty = new EnumerationProperty( Waveform, Waveform.SINUSOID );
+    this.waveformProperty = new EnumerationProperty( Waveform, Waveform.SINUSOID, {
+      tandem: tandem.createTandem( 'waveformProperty' )
+    } );
 
     // @public
-    this.seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE );
+    this.seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE, {
+      tandem: tandem.createTandem( 'seriesTypeProperty' )
+    } );
 
     // @public
-    this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
+    this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE, {
+      tandem: tandem.createTandem( 'domainProperty' )
+    } );
 
     // @public
-    this.equationFormProperty = new EnumerationProperty( EquationForm, EquationForm.HIDDEN );
+    this.equationFormProperty = new EnumerationProperty( EquationForm, EquationForm.HIDDEN, {
+      tandem: tandem.createTandem( 'equationFormProperty' )
+    } );
+
+    const soundTandem = tandem.createTandem( 'sound' );
 
     // @public whether sound is enabled for the Fourier series
-    this.fourierSeriesSoundEnabledProperty = new BooleanProperty( false );
+    this.fourierSeriesSoundEnabledProperty = new BooleanProperty( false, {
+      tandem: soundTandem.createTandem( 'fourierSeriesSoundEnabledProperty' )
+    } );
 
     // @public volume of the sound for the Fourier series
     this.fourierSeriesSoundOutputLevelProperty = new NumberProperty( 0.25, {
-      range: new Range( 0, 1 )
+      range: new Range( 0, 1 ),
+      tandem: soundTandem.createTandem( 'fourierSeriesSoundOutputLevelProperty' )
     } );
 
-    // @public whether the Wavelength tool is selected
-    this.wavelengthToolSelectedProperty = new BooleanProperty( false );
+    const measurementToolsTandem = tandem.createTandem( 'measurementTools' );
 
-    // @public whether the Period tool is selected
-    this.periodToolSelectedProperty = new BooleanProperty( false );
-
-    // @public order of the harmonic measured by the Wavelength tool
-    this.wavelengthToolOrderProperty = new NumberProperty( 1, {
-      numberType: 'Integer',
-      range: new Range( 1, this.fourierSeries.numberOfHarmonicsProperty.value )
+    // @public the wavelength measurement tool
+    this.wavelengthTool = new MeasurementTool( this.fourierSeries.numberOfHarmonicsProperty, {
+      tandem: measurementToolsTandem.createTandem( 'wavelengthTool' )
     } );
 
-    // @public order of the harmonic measured by the Period tool
-    this.periodToolOrderProperty = new NumberProperty( 1, {
-      numberType: 'Integer',
-      range: new Range( 1, this.fourierSeries.numberOfHarmonicsProperty.value )
+    // @public the period measurement tool
+    this.periodTool = new MeasurementTool( this.fourierSeries.numberOfHarmonicsProperty, {
+      tandem: measurementToolsTandem.createTandem( 'periodTool' )
     } );
 
     // @public
@@ -144,35 +156,15 @@ class DiscreteModel {
       }
     } );
 
-    // Adjust measurement tools when a harmonic becomes irrelevant.
-    // unlink is not needed.
-    this.fourierSeries.numberOfHarmonicsProperty.link( numberOfHarmonics => {
-
-      // If a measurement tool is selected and its harmonic is no longer relevant, unselect the tool.
-      if ( this.wavelengthToolSelectedProperty.value ) {
-        this.wavelengthToolSelectedProperty.value = ( this.wavelengthToolOrderProperty.value <= numberOfHarmonics );
-      }
-      if ( this.periodToolSelectedProperty.value ) {
-        this.periodToolSelectedProperty.value = ( this.periodToolOrderProperty.value <= numberOfHarmonics );
-      }
-
-      // If a measurement tool is associated with a harmonic that is no longer relevant, associate the tool with
-      // the highest-order harmonic.
-      this.wavelengthToolOrderProperty.value = Math.min( numberOfHarmonics, this.wavelengthToolOrderProperty.value );
-      this.wavelengthToolOrderProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
-      this.periodToolOrderProperty.value = Math.min( numberOfHarmonics, this.periodToolOrderProperty.value );
-      this.periodToolOrderProperty.rangeProperty.value = new Range( 1, numberOfHarmonics );
-    } );
-
     // @private
     this.resetDiscreteModel = () => {
 
-      // Reset the fourier series
+      // Reset subcomponents
       this.fourierSeries.reset();
-
-      // Reset the charts
       this.harmonicsChart.reset();
       this.sumChart.reset();
+      this.wavelengthTool.reset();
+      this.periodTool.reset();
 
       // Reset all non-inherited, non-derived Properties
       FMWUtils.resetOwnProperties( this );
