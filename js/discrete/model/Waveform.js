@@ -105,13 +105,14 @@ const WAVE_PACKET = new WaveformValue( ( numberOfHarmonics, seriesType ) => {
   // const amplitudes = [];
   // const p = 1.5;
   // const no = ( numberOfHarmonics + 1 ) / 2;
+  // const base = 1 / ( p * Math.sqrt( 2 * PI ) );
   // for ( let n = 1; n <= numberOfHarmonics; n++ ) {
-  //   const base = 1 / ( p * Math.sqrt( 2 * PI ) );
   //   const exponent = -Math.pow( n - no, 2 ) / ( 2 * p * p );
   //   const amplitude = Math.pow( base, exponent );
-  //   console.log( `N=${numberOfHarmonics} n=${n} amplitude=${amplitude}` );//TODO delete me
   //   amplitudes.push( amplitude );
   // }
+  // console.log( `N=${numberOfHarmonics} amplitudes=${amplitudes}` );//TODO delete me
+  // debugger;
   // return amplitudes;
 
   //TODO https://github.com/phetsims/fourier-making-waves/issues/18 workaround by using hardcoded values from Preset.java
