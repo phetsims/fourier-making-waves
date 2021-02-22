@@ -57,6 +57,9 @@ class FourierSeries extends PhetioObject {
       tandem: options.tandem.createTandem( 'numberOfHarmonicsProperty' )
     } );
 
+    // Parent tandem for harmonics
+    const harmonicsTandem = options.tandem.createTandem( 'harmonics' );
+
     // @public {Harmonic[]} an instance for each possible harmonic, with order numbered from 1.
     // All possible harmonics are created eagerly, and only the relevant ones should be considered, based on
     // numberOfHarmonicsProperty. This was a fundamental team decision, based on anticipated PhET-iO requirements.
@@ -69,7 +72,7 @@ class FourierSeries extends PhetioObject {
         wavelength: this.L / order,
         colorProperty: FMWColorProfile.getHarmonicColorProperty( order ),
         amplitudeRange: this.amplitudeRange,
-        tandem: options.tandem.createTandem( `harmonic${order}` )
+        tandem: harmonicsTandem.createTandem( `harmonic${order}` )
       } ) );
     }
 
@@ -85,6 +88,7 @@ class FourierSeries extends PhetioObject {
         }
         return amplitudes;
       }, {
+        phetioDocumentation: 'the amplitudes of all harmonics',
         phetioType: DerivedProperty.DerivedPropertyIO( ArrayIO( NumberIO ) ),
         tandem: options.tandem.createTandem( 'amplitudesProperty' )
       } );

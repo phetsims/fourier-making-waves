@@ -62,6 +62,7 @@ class Harmonic extends PhetioObject {
     // @public amplitude of the harmonic, no units
     this.amplitudeProperty = new NumberProperty( config.amplitude, {
       range: this.amplitudeRange,
+      phetioDocumentation: 'the amplitude of this harmonic',
       tandem: config.tandem.createTandem( 'amplitudeProperty' )
     } );
 
