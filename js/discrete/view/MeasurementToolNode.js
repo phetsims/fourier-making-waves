@@ -4,6 +4,7 @@
  * MeasurementToolNode is the base class for tools that are used to measure harmonics.
  * Responsibilities include:
  * - positioning the tool
+ * - visibility
  * - updating when the associated harmonic changes
  * - emphasizing the associated harmonic on ( isPressed || isHovering )
  * - dragging, constrained to drag bounds
@@ -25,21 +26,30 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import Domain from '../model/Domain.js';
+import MeasurementTool from '../model/MeasurementTool.js';
 
 class MeasurementToolNode extends Node {
 
   /**
+   * @param {MeasurementTool} tool
    * @param {Property.<Harmonic>} harmonicProperty
    * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    * @param {Property.<Bounds2>} visibleBoundsProperty - visible bounds of the associated ScreenView
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {Domain[]} relevantDomains - the Domain values that are relevant for this tool
    * @param {function} updateNodes - updates this tool's child Nodes to match the selected harmonic
    * @param {Object} [options]
    */
-  constructor( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, updateNodes, options ) {
+  constructor( tool, harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, domainProperty, relevantDomains,
+               updateNodes, options ) {
 
+    assert && assert( tool instanceof MeasurementTool, 'invalid tool' );
     assert && AssertUtils.assertPropertyOf( harmonicProperty, Harmonic );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( Array.isArray( relevantDomains ), 'invalid relevantDomains' );
     assert && assert( typeof updateNodes === 'function', 'invalid updateNodes' );
 
     options = merge( {
@@ -108,6 +118,13 @@ class MeasurementToolNode extends Node {
       this.interruptSubtreeInput();
       updateNodes();
     } );
+
+    // Visibility, unmultilink is not needed.
+    Property.multilink( [ tool.isSelectedProperty, domainProperty ],
+      ( isSelected, domain ) => {
+        this.interruptSubtreeInput();
+        this.visible = ( isSelected && relevantDomains.includes( domain ) );
+      } );
 
     // If the tool's origin is outside the drag bounds, move it inside. unlink is not needed.
     dragBoundsProperty.link( dragBounds => {

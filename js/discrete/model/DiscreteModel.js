@@ -14,6 +14,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
 import FMWUtils from '../../common/FMWUtils.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -94,12 +95,12 @@ class DiscreteModel {
     const measurementToolsTandem = tandem.createTandem( 'measurementTools' );
 
     // @public the wavelength measurement tool
-    this.wavelengthTool = new MeasurementTool( this.fourierSeries.numberOfHarmonicsProperty, {
+    this.wavelengthTool = new MeasurementTool( FMWSymbols.lambda, this.fourierSeries.numberOfHarmonicsProperty, {
       tandem: measurementToolsTandem.createTandem( 'wavelengthTool' )
     } );
 
     // @public the period measurement tool
-    this.periodTool = new MeasurementTool( this.fourierSeries.numberOfHarmonicsProperty, {
+    this.periodTool = new MeasurementTool( FMWSymbols.T, this.fourierSeries.numberOfHarmonicsProperty, {
       tandem: measurementToolsTandem.createTandem( 'periodTool' )
     } );
 

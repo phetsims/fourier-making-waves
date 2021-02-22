@@ -9,7 +9,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -49,15 +48,14 @@ class PeriodClockNode extends MeasurementToolNode {
     }, options );
 
     // Model properties that we'll be using - these were formerly constructor params.
+    const tool = model.periodTool;
     const harmonics = model.fourierSeries.harmonics;
     const emphasizedHarmonics = model.harmonicsChart.emphasizedHarmonics;
     const tProperty = model.tProperty;
-    const selectedProperty = model.periodTool.isSelectedProperty;
-    const orderProperty = model.periodTool.orderProperty;
     const domainProperty = model.domainProperty;
 
     // The harmonic associated with this tool. dispose is not needed.
-    const harmonicProperty = new DerivedProperty( [ orderProperty ], order => harmonics[ order - 1 ] );
+    const harmonicProperty = new DerivedProperty( [ tool.orderProperty ], order => harmonics[ order - 1 ] );
 
     const clockFaceNode = new ClockFaceNode( harmonicProperty, tProperty );
 
@@ -93,14 +91,10 @@ class PeriodClockNode extends MeasurementToolNode {
     // Initialize child Nodes before calling super
     updateNodes();
 
-    super( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, updateNodes, options );
-
-    // Visibility, unmultilink is not needed.
-    Property.multilink( [ selectedProperty, domainProperty ],
-      ( selected, domain ) => {
-        this.interruptSubtreeInput();
-        this.visible = selected && ( domain === Domain.SPACE_AND_TIME );
-      } );
+    super( tool, harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, domainProperty,
+      [ Domain.SPACE_AND_TIME ], // relevant Domains
+      updateNodes,
+      options );
 
     // Synchronize visibility of the clock face, so we can short-circuit updates while it's invisible.
     this.visibleProperty.link( visible => {

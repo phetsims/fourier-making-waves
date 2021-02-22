@@ -12,22 +12,27 @@ import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
 import FMWUtils from '../../common/FMWUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class MeasurementTool {
 
   /**
+   * @param {string} symbol
    * @param {Property.<number>} numberOfHarmonicsProperty - number of relevant harmonics in the Fourier series
    * @param {Object} [options]
    */
-  constructor( numberOfHarmonicsProperty, options ) {
+  constructor( symbol, numberOfHarmonicsProperty, options ) {
 
     assert && AssertUtils.assertPropertyOf( numberOfHarmonicsProperty, 'number' );
 
     options = merge( {
       tandem: Tandem.REQUIRED
     }, options );
+
+    // @public (read-only)
+    this.symbol = FMWSymbols.lambda;
 
     // @public whether the Wavelength tool is selected
     this.isSelectedProperty = new BooleanProperty( false, {

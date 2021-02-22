@@ -20,6 +20,8 @@ import Color from '../../../../scenery/js/util/Color.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import Domain from '../model/Domain.js';
+import MeasurementTool from '../model/MeasurementTool.js';
 import MeasurementToolNode from './MeasurementToolNode.js';
 
 // Margins for the translucent background behind the label
@@ -34,29 +36,32 @@ const CALIPER_LENGTH = 20;
 class CalipersNode extends MeasurementToolNode {
 
   /**
-   * @param {string} symbol
+   * @param {MeasurementTool} tool
    * @param {Harmonic[]} harmonics
    * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
-   * @param {Property.<number>} orderProperty - order of the harmonic to be measured
    * @param {ChartTransform} chartTransform - transform for the Harmonics chart
    * @param {Property.<Bounds2>} visibleBoundsProperty - visible bounds of the associated ScreenView
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {Domain[]} relevantDomains - the Domain values that are relevant for this tool
    * @param {function(harmonic:Harmonic):number} getModelValue - gets the quantity of the harmonic that is being measured
    * @param {Object} [options]
    */
-  constructor( symbol, harmonics, emphasizedHarmonics, orderProperty, chartTransform, visibleBoundsProperty, getModelValue, options ) {
+  constructor( tool, harmonics, emphasizedHarmonics, chartTransform, visibleBoundsProperty,
+               domainProperty, relevantDomains, getModelValue, options ) {
 
-    assert && assert( typeof symbol === 'string', 'invalid symbol' );
+    assert && assert( tool instanceof MeasurementTool, 'invalid tool' );
     assert && assert( Array.isArray( harmonics ), 'invalid harmonics' );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
-    assert && AssertUtils.assertPropertyOf( orderProperty, 'number' );
     assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( Array.isArray( relevantDomains ), 'invalid relevantDomains' );
     assert && assert( typeof getModelValue === 'function', 'invalid getModelValue' );
 
     options = options || {};
 
     // The harmonic associated with this tool. dispose is not needed.
-    const harmonicProperty = new DerivedProperty( [ orderProperty ], order => harmonics[ order - 1 ] );
+    const harmonicProperty = new DerivedProperty( [ tool.orderProperty ], order => harmonics[ order - 1 ] );
 
     // Horizontal beam
     const beamNode = new Path( null, {
@@ -117,7 +122,7 @@ class CalipersNode extends MeasurementToolNode {
       transparentRectangle.center = beamNode.center;
 
       // Label is the symbol with harmonic order subscript
-      labelNode.text = `${symbol}<sub>${harmonic.order}</sub>`;
+      labelNode.text = `${tool.symbol}<sub>${harmonic.order}</sub>`;
       labelNode.centerX = beamNode.centerX;
       labelNode.bottom = beamNode.top - BACKGROUND_Y_MARGIN - 1;
 
@@ -144,7 +149,7 @@ class CalipersNode extends MeasurementToolNode {
       }
     );
 
-    super( harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, updateNodes, options );
+    super( tool, harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, domainProperty, relevantDomains, updateNodes, options );
 
     // Update when the range of the associated axis changes. removeListener is not needed.
     chartTransform.changedEmitter.addListener( updateNodes );
