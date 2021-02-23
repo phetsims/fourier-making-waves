@@ -20,6 +20,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import Dialog from '../../../../sun/js/Dialog.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FMWColorProfile from '../FMWColorProfile.js';
@@ -58,7 +59,10 @@ class AmplitudeKeypadDialog extends Dialog {
         // a little below center in the layoutBounds
         dialog.centerX = layoutBounds.centerX;
         dialog.centerY = layoutBounds.centerY + 50;
-      }
+      },
+
+      // phet-io
+      tandem: Tandem.REQUIRED
     }, options );
 
     // Compute the maximum number of digits that can be entered on the keypad.

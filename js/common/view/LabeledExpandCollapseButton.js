@@ -40,15 +40,13 @@ class LabeledExpandCollapseButton extends HBox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const labelNode = new Text( labelString,
-      merge( {
-        tandem: options.tandem.createTandem( 'labelNode' )
-      }, options.textOptions ) );
+    const labelNode = new Text( labelString, merge( {
+      tandem: options.tandem.createTandem( 'labelNode' )
+    }, options.textOptions ) );
 
-    const expandCollapseButton = new ExpandCollapseButton( expandedProperty,
-      merge( {
-        tandem: options.tandem.createTandem( 'expandCollapseButton' )
-      }, options.expandCollapseButtonOptions ) );
+    const expandCollapseButton = new ExpandCollapseButton( expandedProperty, merge( {
+      tandem: options.tandem.createTandem( 'expandCollapseButton' )
+    }, options.expandCollapseButtonOptions ) );
 
     assert && assert( !options.children, 'LabeledExpandCollapseButton sets children' );
     options.children = [ expandCollapseButton, labelNode ];

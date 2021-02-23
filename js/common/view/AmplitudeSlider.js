@@ -22,6 +22,7 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import SliderTrack from '../../../../sun/js/SliderTrack.js';
 import VSlider from '../../../../sun/js/VSlider.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import Waveform from '../../discrete/model/Waveform.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
@@ -57,8 +58,10 @@ class AmplitudeSlider extends VSlider {
       snapInterval: FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL,
 
       // {number} height of the track
-      trackHeight: 120
+      trackHeight: 120,
 
+      // phet-io
+      tandem: Tandem.REQUIRED
     }, options );
 
     // flipped because VSlider rotates its subcomponents -90 degrees
