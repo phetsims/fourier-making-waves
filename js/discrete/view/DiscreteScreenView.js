@@ -63,22 +63,28 @@ class DiscreteScreenView extends ScreenView {
     // Parent for all popups
     const popupParent = new Node();
 
+    // Parent tandem for all components related to the Amplitudes chart
+    const amplitudesTandem = tandem.createTandem( 'amplitudes' );
+
     // KeypadDialog
     const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, this.layoutBounds, {
-      tandem: tandem.createTandem( 'amplitudeKeypadDialog' )
+      tandem: amplitudesTandem.createTandem( 'amplitudeKeypadDialog' )
     } );
 
     const amplitudesChartNode = new AmplitudesChartNode( model.fourierSeries, model.waveformProperty,
       model.harmonicsChart.emphasizedHarmonics, amplitudeKeypadDialog, {
         viewWidth: CHART_RECTANGLE_SIZE.width,
         viewHeight: CHART_RECTANGLE_SIZE.height,
-        tandem: tandem.createTandem( 'amplitudesChartNode' )
+        tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
       } );
+
+    // Parent tandem for all components related to the Harmonics chart
+    const harmonicsTandem = tandem.createTandem( 'harmonics' );
 
     const harmonicsExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.harmonicsChart, model.harmonicsChart.chartVisibleProperty, {
         textOptions: { maxWidth: 150 }, // determined empirically
-        tandem: tandem.createTandem( 'harmonicsExpandCollapseButton' )
+        tandem: harmonicsTandem.createTandem( 'harmonicsExpandCollapseButton' )
       } );
 
     const harmonicsChartNode = new HarmonicsChartNode( model.harmonicsChart, model.fourierSeries,
@@ -86,14 +92,14 @@ class DiscreteScreenView extends ScreenView {
         viewWidth: CHART_RECTANGLE_SIZE.width,
         viewHeight: CHART_RECTANGLE_SIZE.height,
         visibleProperty: model.harmonicsChart.chartVisibleProperty,
-        tandem: tandem.createTandem( 'harmonicsChartNode' )
+        tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
       } );
 
     // Equation that appears above the Harmonics chart, with wrapper Node to handle centering
     const harmonicsEquationNode = new HarmonicsEquationNode(
       model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, {
         maxWidth: 0.5 * CHART_RECTANGLE_SIZE.width,
-        tandem: tandem.createTandem( 'harmonicsEquationNode' ),
+        tandem: harmonicsTandem.createTandem( 'harmonicsEquationNode' ),
         phetioReadOnly: true
       } );
     const harmonicsEquationWrapperNode = new Node( {
@@ -107,10 +113,13 @@ class DiscreteScreenView extends ScreenView {
         harmonicsEquationNode.visible = chartVisible && ( equationForm !== EquationForm.HIDDEN );
       } );
 
+    // Parent tandem for all components related to the Sum chart
+    const sumTandem = tandem.createTandem( 'sum' );
+
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.sum, model.sumChart.chartVisibleProperty, {
         textOptions: { maxWidth: 150 }, // determined empirically
-        tandem: tandem.createTandem( 'sumExpandCollapseButton' )
+        tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
       } );
 
     const sumChartNode = new SumChartNode( model.sumChart, model.fourierSeries,
@@ -120,14 +129,14 @@ class DiscreteScreenView extends ScreenView {
         left: sumExpandCollapseButton.left,
         y: sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING,
         visibleProperty: model.sumChart.chartVisibleProperty,
-        tandem: tandem.createTandem( 'sumChartNode' )
+        tandem: sumTandem.createTandem( 'sumChartNode' )
       } );
 
     // Equation that appears above the Sum chart, with wrapper Node to handle centering
     const sumEquationNode = new SumEquationNode( model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty,
       model.seriesTypeProperty, model.equationFormProperty, {
         maxWidth: 0.5 * CHART_RECTANGLE_SIZE.width,
-        tandem: tandem.createTandem( 'sumEquationNode' ),
+        tandem: sumTandem.createTandem( 'sumEquationNode' ),
         phetioReadOnly: true
       } );
     const sumEquationWrapperNode = new Node( {
@@ -144,7 +153,7 @@ class DiscreteScreenView extends ScreenView {
           } );
         dialog.show();
       },
-      tandem: tandem.createTandem( 'expandedFormButton' ),
+      tandem: sumTandem.createTandem( 'expandedFormButton' ),
       phetioReadOnly: true
     } );
 
@@ -189,21 +198,24 @@ class DiscreteScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
+    // Parent tandem for all measurement tools
+    const measurementToolsTandem = tandem.createTandem( 'measurementTools' );
+
     // For measuring a harmonic's wavelength in the 'space' and 'space & time' domains.
     const wavelengthCalipersNode = new WavelengthCalipersNode( model, harmonicsChartNode.chartTransform,
       this.visibleBoundsProperty, {
-        tandem: tandem.createTandem( 'wavelengthCalipersNode' )
+        tandem: measurementToolsTandem.createTandem( 'wavelengthCalipersNode' )
       } );
 
     // For measuring a harmonic's period in the 'time' domain.
     const periodCalipersNode = new PeriodCalipersNode( model, harmonicsChartNode.chartTransform,
       this.visibleBoundsProperty, {
-        tandem: tandem.createTandem( 'periodCalipersNode' )
+        tandem: measurementToolsTandem.createTandem( 'periodCalipersNode' )
       } );
 
     // For measuring a harmonic's period in the 'space & time' domain.
     const periodClockNode = new PeriodClockNode( model, this.visibleBoundsProperty, {
-      tandem: tandem.createTandem( 'periodClockNode' )
+      tandem: measurementToolsTandem.createTandem( 'periodClockNode' )
     } );
 
     // Rendering order
