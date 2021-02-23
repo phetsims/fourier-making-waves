@@ -15,6 +15,7 @@ import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -36,7 +37,9 @@ class FourierSeriesLayoutBox extends VBox {
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
     assert && assert( popupParent instanceof Node, 'invalid popupParent' );
 
-    options = merge( {}, FMWConstants.VBOX_OPTIONS, options );
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, FMWConstants.VBOX_OPTIONS, options );
 
     // To make all labels have the same effective width
     const labelsAlignBoxOptions = {
@@ -46,17 +49,21 @@ class FourierSeriesLayoutBox extends VBox {
       } )
     };
 
-    const titleText = new Text( fourierMakingWavesStrings.fourierSeries, {
+    const fourierSeriesText = new Text( fourierMakingWavesStrings.fourierSeries, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 180 // determined empirically
+      maxWidth: 180, // determined empirically
+      tandem: options.tandem.createTandem( 'fourierSeriesText' )
     } );
 
     const waveformText = new Text( fourierMakingWavesStrings.waveform, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 70 // determined empirically
+      maxWidth: 70, // determined empirically
+      tandem: options.tandem.createTandem( 'waveformText' )
     } );
 
-    const waveformComboBox = new WaveformComboBox( waveformProperty, popupParent );
+    const waveformComboBox = new WaveformComboBox( waveformProperty, popupParent, {
+      tandem: options.tandem.createTandem( 'waveformComboBox' )
+    } );
 
     const waveformBox = new HBox( {
       spacing: 3,
@@ -65,23 +72,26 @@ class FourierSeriesLayoutBox extends VBox {
 
     const harmonicsText = new Text( fourierMakingWavesStrings.harmonics, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 70  // determined empirically
+      maxWidth: 70,  // determined empirically
+      tandem: options.tandem.createTandem( 'harmonicsText' )
     } );
 
-    const harmonicsPicker = new HarmonicsSpinner( numberOfHarmonicsProperty );
+    const harmonicsSpinner = new HarmonicsSpinner( numberOfHarmonicsProperty, {
+      tandem: options.tandem.createTandem( 'harmonicsSpinner' )
+    } );
 
     const harmonicsBox = new HBox( {
       spacing: 5,
-      children: [ new AlignBox( harmonicsText, labelsAlignBoxOptions ), harmonicsPicker ]
+      children: [ new AlignBox( harmonicsText, labelsAlignBoxOptions ), harmonicsSpinner ]
     } );
 
     assert && assert( !options.children, 'FourierSeriesLayoutBox sets children' );
-    options.children = [ titleText, waveformBox, harmonicsBox ];
+    options.children = [ fourierSeriesText, waveformBox, harmonicsBox ];
 
     super( options );
 
     // @public for layout
-    this.titleText = titleText;
+    this.fourierSeriesText = fourierSeriesText;
   }
 
   /**

@@ -14,6 +14,7 @@ import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymobls from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -36,12 +37,15 @@ class MeasurementToolsLayoutBox extends VBox {
     assert && assert( periodTool instanceof MeasurementTool, 'invalid periodTool' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
-    options = merge( {}, FMWConstants.VBOX_OPTIONS, options );
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, FMWConstants.VBOX_OPTIONS, options );
 
     // Measurement Tools
-    const titleText = new Text( fourierMakingWavesStrings.measurementTools, {
+    const measurementToolsText = new Text( fourierMakingWavesStrings.measurementTools, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 200 // determined empirically
+      maxWidth: 200, // determined empirically
+      tandem: options.tandem.createTandem( 'measurementToolsText' )
     } );
 
     // To make checkboxes have the same effective width
@@ -63,10 +67,16 @@ class MeasurementToolsLayoutBox extends VBox {
     // Wavelength
     const wavelengthText = new Text( fourierMakingWavesStrings.wavelength, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 80 // determined empirically
+      maxWidth: 80, // determined empirically
+      tandem: options.tandem.createTandem( 'wavelengthText' )
     } );
-    const wavelengthCheckbox = new Checkbox( wavelengthText, wavelengthTool.isSelectedProperty, FMWConstants.CHECKBOX_OPTIONS );
-    const wavelengthSpinner = new OrderSpinner( FMWSymobls.lambda, wavelengthTool.orderProperty );
+    const wavelengthCheckbox = new Checkbox( wavelengthText, wavelengthTool.isSelectedProperty,
+      merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
+        tandem: options.tandem.createTandem( 'wavelengthCheckbox' )
+      } ) );
+    const wavelengthSpinner = new OrderSpinner( FMWSymobls.lambda, wavelengthTool.orderProperty, {
+      tandem: options.tandem.createTandem( 'wavelengthSpinner' )
+    } );
     const wavelengthBox = new HBox( merge( {}, hBoxOptions, {
       children: [
         new AlignBox( wavelengthCheckbox, checkboxAlignBoxOptions ),
@@ -77,10 +87,16 @@ class MeasurementToolsLayoutBox extends VBox {
     // Period
     const periodText = new Text( fourierMakingWavesStrings.period, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 80 // determined empirically
+      maxWidth: 80, // determined empirically
+      tandem: options.tandem.createTandem( 'periodText' )
     } );
-    const periodCheckbox = new Checkbox( periodText, periodTool.isSelectedProperty, FMWConstants.CHECKBOX_OPTIONS );
-    const periodSpinner = new OrderSpinner( FMWSymobls.T, periodTool.orderProperty );
+    const periodCheckbox = new Checkbox( periodText, periodTool.isSelectedProperty,
+      merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
+        tandem: options.tandem.createTandem( 'periodCheckbox' )
+      } ) );
+    const periodSpinner = new OrderSpinner( FMWSymobls.T, periodTool.orderProperty, {
+      tandem: options.tandem.createTandem( 'periodSpinner' )
+    } );
     const periodBox = new HBox( merge( {}, hBoxOptions, {
       children: [
         new AlignBox( periodCheckbox, checkboxAlignBoxOptions ),
@@ -90,7 +106,7 @@ class MeasurementToolsLayoutBox extends VBox {
 
     assert && assert( !options.children, 'MeasurementToolsLayoutBox sets children' );
     options.children = [
-      titleText,
+      measurementToolsText,
       wavelengthBox,
       periodBox
     ];

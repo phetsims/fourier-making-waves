@@ -12,6 +12,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import HSeparator from '../../../../sun/js/HSeparator.js';
 import Panel from '../../../../sun/js/Panel.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FWMConstants from '../../common/FMWConstants.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -37,18 +38,29 @@ class DiscreteControlPanel extends Panel {
 
     options = merge( {}, FMWConstants.PANEL_OPTIONS, {
       xMargin: 15,
-      yMargin: 15
+      yMargin: 15,
+
+      // phet-io
+      tandem: Tandem.REQUIRED
     }, options );
 
-    const fourierSeriesLayoutBox =
-      new FourierSeriesLayoutBox( model.waveformProperty, model.fourierSeries.numberOfHarmonicsProperty, popupParent );
+    const fourierSeriesLayoutBox = new FourierSeriesLayoutBox( model.waveformProperty,
+      model.fourierSeries.numberOfHarmonicsProperty, popupParent, {
+        tandem: options.tandem.createTandem( 'fourierSeriesLayoutBox' )
+      } );
 
     // {Node[]} logical sections of the control panel
     const sectionNodes = [
       fourierSeriesLayoutBox,
-      new GraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, popupParent ),
-      new MeasurementToolsLayoutBox( model.wavelengthTool, model.periodTool, model.domainProperty ),
-      new SoundLayoutBox( model.fourierSeriesSoundEnabledProperty, model.fourierSeriesSoundOutputLevelProperty )
+      new GraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, popupParent, {
+        tandem: options.tandem.createTandem( 'graphControlsLayoutBox' )
+      } ),
+      new MeasurementToolsLayoutBox( model.wavelengthTool, model.periodTool, model.domainProperty, {
+        tandem: options.tandem.createTandem( 'measurementToolsLayoutBox' )
+      } ),
+      new SoundLayoutBox( model.fourierSeriesSoundEnabledProperty, model.fourierSeriesSoundOutputLevelProperty, {
+        tandem: options.tandem.createTandem( 'soundLayoutBox' )
+      } )
     ];
 
     // Put a separator between each logical section.
@@ -81,7 +93,7 @@ class DiscreteControlPanel extends Panel {
       scale: 0.4,
       right: vBox.right,
       centerY: fourierSeriesLayoutBox.globalToParentBounds(
-        fourierSeriesLayoutBox.titleText.parentToGlobalBounds( fourierSeriesLayoutBox.titleText.bounds ) ).centerY
+        fourierSeriesLayoutBox.fourierSeriesText.parentToGlobalBounds( fourierSeriesLayoutBox.fourierSeriesText.bounds ) ).centerY
     } );
 
     const content = new Node( {

@@ -18,6 +18,7 @@ import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import SunConstants from '../../../../sun/js/SunConstants.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -35,19 +36,25 @@ class SoundLayoutBox extends HBox {
     assert && assert( outputLevelProperty.range, 'outputLevelProperty.range required' );
 
     options = merge( {
-      spacing: 20
+      spacing: 20,
+
+      // phet-io
+      tandem: Tandem.REQUIRED
     }, options );
 
     // Checkbox with music notes icon
     const soundEnabledCheckbox = new Checkbox( new FontAwesomeNode( 'music_solid', {
       scale: 0.35
-    } ), soundEnabledProperty, FMWConstants.CHECKBOX_OPTIONS );
+    } ), soundEnabledProperty, merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
+      tandem: options.tandem.createTandem( 'soundEnabledCheckbox' )
+    } ) );
 
     // Slider for controlling output level
     const outputLevelSlider = new HSlider( outputLevelProperty, outputLevelProperty.range, {
       thumbSize: new Dimension2( 10, 20 ),
       trackSize: new Dimension2( 100, 3 ),
-      trackStroke: Color.grayColor( 160 )
+      trackStroke: Color.grayColor( 160 ),
+      tandem: options.tandem.createTandem( 'outputLevelSlider' )
     } );
 
     // Icons at the extremes of the slider
