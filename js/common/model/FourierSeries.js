@@ -47,7 +47,7 @@ class FourierSeries extends PhetioObject {
     this.L = this.fundamentalWavelength;
     this.T = this.fundamentalPeriod;
 
-    // @public (read-only)
+    // @public (read-only) the range of all harmonic amplitudes
     this.amplitudeRange = new Range( -FMWConstants.MAX_ABSOLUTE_AMPLITUDE, FMWConstants.MAX_ABSOLUTE_AMPLITUDE );
 
     // @public the number of harmonics in this series
