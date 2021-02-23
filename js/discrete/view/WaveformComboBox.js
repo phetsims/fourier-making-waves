@@ -12,7 +12,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Waveform from '../model/Waveform.js';
-import FMWComboBox from './FMWComboBox.js';
+import FMWComboBox from '../../common/view/FMWComboBox.js';
 
 class WaveformComboBox extends FMWComboBox {
 

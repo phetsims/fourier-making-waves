@@ -15,7 +15,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
-import FMWComboBox from './FMWComboBox.js';
+import FMWComboBox from '../../common/view/FMWComboBox.js';
 
 class EquationComboBox extends FMWComboBox {
 

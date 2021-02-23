@@ -14,7 +14,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
-import FMWComboBox from './FMWComboBox.js';
+import FMWComboBox from '../../common/view/FMWComboBox.js';
 
 class DomainComboBox extends FMWComboBox {
 
