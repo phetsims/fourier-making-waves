@@ -68,8 +68,10 @@ class AmplitudeKeypadDialog extends Dialog {
     );
 
     const keypad = new Keypad( Keypad.PositiveAndNegativeFloatingPointLayout, {
-      maxDigits: maxDigits,
-      maxDigitsRightOfMantissa: FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES,
+      accumulatorOptions: {
+        maxDigits: maxDigits,
+        maxDigitsRightOfMantissa: FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES
+      },
       buttonWidth: 25,
       buttonHeight: 25,
       buttonFont: BUTTON_FONT
