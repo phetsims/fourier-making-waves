@@ -23,6 +23,7 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -61,7 +62,11 @@ class MeasurementToolNode extends Node {
       dragBoundsProperty: null,
 
       // Node options
-      cursor: 'pointer'
+      cursor: 'pointer',
+
+      // phet-io
+      visiblePropertyOptions: { phetioReadOnly: true },
+      tandem: Tandem.REQUIRED
     }, options );
 
     super( options );

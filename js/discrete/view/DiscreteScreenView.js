@@ -64,7 +64,9 @@ class DiscreteScreenView extends ScreenView {
     const popupParent = new Node();
 
     // KeypadDialog
-    const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, this.layoutBounds );
+    const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, this.layoutBounds, {
+      tandem: tandem.createTandem( 'amplitudeKeypadDialog' )
+    } );
 
     const amplitudesChartNode = new AmplitudesChartNode( model.fourierSeries, model.waveformProperty,
       model.harmonicsChart.emphasizedHarmonics, amplitudeKeypadDialog, {
@@ -188,13 +190,21 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     // For measuring a harmonic's wavelength in the 'space' and 'space & time' domains.
-    const wavelengthCalipersNode = new WavelengthCalipersNode( model, harmonicsChartNode.chartTransform, this.visibleBoundsProperty );
+    const wavelengthCalipersNode = new WavelengthCalipersNode( model, harmonicsChartNode.chartTransform,
+      this.visibleBoundsProperty, {
+        tandem: tandem.createTandem( 'wavelengthCalipersNode' )
+      } );
 
     // For measuring a harmonic's period in the 'time' domain.
-    const periodCalipersNode = new PeriodCalipersNode( model, harmonicsChartNode.chartTransform, this.visibleBoundsProperty );
+    const periodCalipersNode = new PeriodCalipersNode( model, harmonicsChartNode.chartTransform,
+      this.visibleBoundsProperty, {
+        tandem: tandem.createTandem( 'periodCalipersNode' )
+      } );
 
     // For measuring a harmonic's period in the 'space & time' domain.
-    const periodClockNode = new PeriodClockNode( model, this.visibleBoundsProperty );
+    const periodClockNode = new PeriodClockNode( model, this.visibleBoundsProperty, {
+      tandem: tandem.createTandem( 'periodClockNode' )
+    } );
 
     // Rendering order
     this.addChild( amplitudesChartNode );
@@ -279,7 +289,11 @@ class DiscreteScreenView extends ScreenView {
     // Creating a sawtooth wave using cosines is impossible because it is asymmetric. Display a dialog if the user
     // attempts this.  The model is responsible for other adjustments. This dialog is created eagerly because it's
     // highly likely that this situation will be encountered.
-    const oopsSawtoothWithCosinesDialog = new OopsDialog( fourierMakingWavesStrings.sawtoothWithCosines );
+    const oopsSawtoothWithCosinesDialog = new OopsDialog( fourierMakingWavesStrings.sawtoothWithCosines, {
+      phetioReadOnly: true,
+      visiblePropertyOptions: { phetioReadOnly: true },
+      tandem: tandem.createTandem( 'oopsSawtoothWithCosinesDialog' )
+    } );
     model.oopsSawtoothWithCosinesEmitter.addListener( () => oopsSawtoothWithCosinesDialog.show() );
   }
 
