@@ -32,7 +32,7 @@ class FourierSeries extends PhetioObject {
   constructor( options ) {
 
     options = merge( {
-      tandem: Tandem.REQUIRED,
+      tandem: Tandem.OPTIONAL,
       phetioState: false
     }, options );
 

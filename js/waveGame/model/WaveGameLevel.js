@@ -48,9 +48,13 @@ class WaveGameLevel {
     } );
 
     // @public (read-only) {Property.<WaveGameChallenge>} the current challenge
-    this.challengeProperty = new Property( this.challengeGenerator.nextChallenge(), {
+    this.challengeProperty = new Property( this.challengeGenerator.nextChallenge( null ), {
       isValidValue: value => ( value instanceof WaveGameChallenge )
       //TODO tandem
+    } );
+
+    phet.log && this.challengeProperty.link( challenge => {
+      phet.log && phet.log( `level=${levelNumber} challenge=${challenge.toString()}` );
     } );
   }
 
@@ -67,7 +71,7 @@ class WaveGameLevel {
    * @public
    */
   next() {
-    this.challengeProperty.value = this.challengeGenerator.nextChallenge();
+    this.challengeProperty.value = this.challengeGenerator.nextChallenge( this.challengeProperty.value );
   }
 }
 
