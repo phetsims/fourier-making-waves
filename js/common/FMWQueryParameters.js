@@ -28,4 +28,4 @@ FMWUtils.logGlobal( 'phet.chipper.queryParameters' );
 FMWUtils.logGlobal( 'phet.preloads.phetio.queryParameters' );
 FMWUtils.logGlobal( 'phet.fourierMakingWaves.FMWQueryParameters' );
 
-export default FMWQueryParameters;  x
+export default FMWQueryParameters;
