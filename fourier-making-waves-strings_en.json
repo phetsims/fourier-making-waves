@@ -178,5 +178,14 @@
   },
   "symbolsDialog.x": {
     "value": "{{x}} = position in space, in meters"
+  },
+  "oneNonZeroHarmonic": {
+    "value": "1 non-zero harmonic"
+  },
+  "numberNonZeroHarmonics": {
+    "value": "{{number}} non-zero harmonics"
+  },
+  "numberOrMoreNonZeroHarmonics": {
+    "value": "{{number}} or more non-zero harmonics"
   }
 }
