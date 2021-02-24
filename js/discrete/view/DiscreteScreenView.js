@@ -9,6 +9,7 @@
 import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
+import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import OopsDialog from '../../../../scenery-phet/js/OopsDialog.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
@@ -45,15 +46,16 @@ class DiscreteScreenView extends ScreenView {
 
   /**
    * @param {DiscreteModel} model
-   * @param {Tandem} tandem
+   * @param {Object} [options]
    */
-  constructor( model, tandem ) {
+  constructor( model, options ) {
     assert && assert( model instanceof DiscreteModel, 'invalid model' );
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    super( {
-      tandem: tandem
-    } );
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, options );
+
+    super( options );
 
     // Sound for the Fourier series
     const fourierSoundGenerator = new FourierSoundGenerator( model.fourierSeries,
@@ -64,7 +66,7 @@ class DiscreteScreenView extends ScreenView {
     const popupParent = new Node();
 
     // Parent tandem for all components related to the Amplitudes chart
-    const amplitudesTandem = tandem.createTandem( 'amplitudes' );
+    const amplitudesTandem = options.tandem.createTandem( 'amplitudes' );
 
     // KeypadDialog
     const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, this.layoutBounds, {
@@ -79,7 +81,7 @@ class DiscreteScreenView extends ScreenView {
       } );
 
     // Parent tandem for all components related to the Harmonics chart
-    const harmonicsTandem = tandem.createTandem( 'harmonics' );
+    const harmonicsTandem = options.tandem.createTandem( 'harmonics' );
 
     const harmonicsExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.harmonicsChart, model.harmonicsChart.chartVisibleProperty, {
@@ -114,7 +116,7 @@ class DiscreteScreenView extends ScreenView {
       } );
 
     // Parent tandem for all components related to the Sum chart
-    const sumTandem = tandem.createTandem( 'sum' );
+    const sumTandem = options.tandem.createTandem( 'sum' );
 
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.sum, model.sumChart.chartVisibleProperty, {
@@ -168,7 +170,7 @@ class DiscreteScreenView extends ScreenView {
       } );
 
     const controlPanel = new DiscreteControlPanel( model, popupParent, {
-      tandem: tandem.createTandem( 'controlPanel' )
+      tandem: options.tandem.createTandem( 'controlPanel' )
     } );
 
     const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
@@ -181,7 +183,7 @@ class DiscreteScreenView extends ScreenView {
           }
         }
       },
-      tandem: tandem.createTandem( 'timeControlNode' )
+      tandem: options.tandem.createTandem( 'timeControlNode' )
     } );
 
     // Enabled time controls only when there is the possibility of animation.
@@ -195,11 +197,11 @@ class DiscreteScreenView extends ScreenView {
         model.reset();
         resetMeasurementToolPositions();
       },
-      tandem: tandem.createTandem( 'resetAllButton' )
+      tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
 
     // Parent tandem for all measurement tools
-    const measurementToolsTandem = tandem.createTandem( 'measurementTools' );
+    const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
 
     // For measuring a harmonic's wavelength in the 'space' and 'space & time' domains.
     const wavelengthCalipersNode = new WavelengthCalipersNode( model, harmonicsChartNode.chartTransform,
@@ -304,7 +306,7 @@ class DiscreteScreenView extends ScreenView {
     const oopsSawtoothWithCosinesDialog = new OopsDialog( fourierMakingWavesStrings.sawtoothWithCosines, {
       phetioReadOnly: true,
       visiblePropertyOptions: { phetioReadOnly: true },
-      tandem: tandem.createTandem( 'oopsSawtoothWithCosinesDialog' )
+      tandem: options.tandem.createTandem( 'oopsSawtoothWithCosinesDialog' )
     } );
     model.oopsSawtoothWithCosinesEmitter.addListener( () => oopsSawtoothWithCosinesDialog.show() );
   }

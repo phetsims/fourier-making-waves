@@ -8,49 +8,55 @@
 
 import Property from '../../../../axon/js/Property.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
+import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWUtils from '../../common/FMWUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
 import WaveGameLevel from './WaveGameLevel.js';
 
 class WaveGameModel {
-  get levelProperty() {
-    return this._levelProperty;
-  }
 
   /**
-   * @param {Tandem} tandem
+   * @param {Object} [options]
    */
-  constructor( tandem ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+  constructor( options ) {
+
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, options );
 
     //TODO descriptions
     //TODO i18n
     //TODO level-specific subclasses of WaveGameChallengeGenerator
     // @public
     this.levels = [
-      new WaveGameLevel( 1, '1 non-zero harmonic', new WaveGameChallengeGenerator( {
-        getNumberOfNonZeroHarmonics: () => 1
-      } ) ),
-      new WaveGameLevel( 2, '2 non-zero harmonics', new WaveGameChallengeGenerator( {
-        getNumberOfNonZeroHarmonics: () => 2
-      } ) ),
-      new WaveGameLevel( 3, '3 non-zero harmonics', new WaveGameChallengeGenerator( {
-        getNumberOfNonZeroHarmonics: () => 3
-      } ) ),
-      new WaveGameLevel( 4, '4 non-zero harmonics', new WaveGameChallengeGenerator( {
-        getNumberOfNonZeroHarmonics: () => 4
-      } ) ),
-      new WaveGameLevel( 5, '5 or more non-zero harmonics', new WaveGameChallengeGenerator( {
-        getNumberOfNonZeroHarmonics: () => dotRandom.nextIntBetween( 5, FMWConstants.MAX_HARMONICS )
-      } ) )
+      new WaveGameLevel( 1, '1 non-zero harmonic', {
+        getNumberOfNonZeroHarmonics: () => 1,
+        tandem: options.tandem.createTandem( 'level1' )
+      } ),
+      new WaveGameLevel( 2, '2 non-zero harmonics', {
+        getNumberOfNonZeroHarmonics: () => 2,
+        tandem: options.tandem.createTandem( 'level2' )
+      } ),
+      new WaveGameLevel( 3, '3 non-zero harmonics', {
+        getNumberOfNonZeroHarmonics: () => 3,
+        tandem: options.tandem.createTandem( 'level3' )
+      } ),
+      new WaveGameLevel( 4, '4 non-zero harmonics', {
+        getNumberOfNonZeroHarmonics: () => 4,
+        tandem: options.tandem.createTandem( 'level4' )
+      } ),
+      new WaveGameLevel( 5, '5 or more non-zero harmonics', {
+        getNumberOfNonZeroHarmonics: () => dotRandom.nextIntBetween( 5, FMWConstants.MAX_HARMONICS ),
+        tandem: options.tandem.createTandem( 'level5' )
+      } )
     ];
 
     // @public {Property.<null|WaveGameLevel>} the selected game level, null returns to the level-selection UI
-    this._levelProperty = new Property( null, {
+    this.levelProperty = new Property( null, {
       validValues: [ null, ...this.levels ]
+      //TODO tandem
     } );
 
     // @private

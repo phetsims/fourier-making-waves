@@ -13,18 +13,19 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
+import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import FMWUtils from '../../common/FMWUtils.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import HarmonicsChart from './HarmonicsChart.js';
 import Domain from './Domain.js';
 import EquationForm from './EquationForm.js';
+import HarmonicsChart from './HarmonicsChart.js';
 import MeasurementTool from './MeasurementTool.js';
+import SeriesType from './SeriesType.js';
 import SumChart from './SumChart.js';
 import Waveform from './Waveform.js';
-import SeriesType from './SeriesType.js';
 
 // This factor slows down time for the 'space & time' domain, determined empirically.
 const TIME_SCALE = 0.001;
@@ -35,19 +36,22 @@ const STEP_DT = 50;
 class DiscreteModel {
 
   /**
-   * @param {Tandem} tandem
+   * @param {Object} [options]
    */
-  constructor( tandem ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+  constructor( options ) {
+
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, options );
 
     // @public
     this.fourierSeries = new FourierSeries( {
-      tandem: tandem.createTandem( 'fourierSeries' )
+      tandem: options.tandem.createTandem( 'fourierSeries' )
     } );
 
     // @public
     this.isPlayingProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'isPlayingProperty' )
+      tandem: options.tandem.createTandem( 'isPlayingProperty' )
     } );
 
     // @public time (t), updated only when domainProperty is Domain.SPACE_AND_TIME
@@ -56,30 +60,30 @@ class DiscreteModel {
     this.tProperty = new NumberProperty( 0, {
       phetioDocumentation: 'time in millisecond, relevant only for function of space & time',
       phetioReadOnly: true,
-      tandem: tandem.createTandem( 'tProperty' )
+      tandem: options.tandem.createTandem( 'tProperty' )
     } );
 
     // @public
     this.waveformProperty = new EnumerationProperty( Waveform, Waveform.SINUSOID, {
-      tandem: tandem.createTandem( 'waveformProperty' )
+      tandem: options.tandem.createTandem( 'waveformProperty' )
     } );
 
     // @public
     this.seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE, {
-      tandem: tandem.createTandem( 'seriesTypeProperty' )
+      tandem: options.tandem.createTandem( 'seriesTypeProperty' )
     } );
 
     // @public
     this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE, {
-      tandem: tandem.createTandem( 'domainProperty' )
+      tandem: options.tandem.createTandem( 'domainProperty' )
     } );
 
     // @public
     this.equationFormProperty = new EnumerationProperty( EquationForm, EquationForm.HIDDEN, {
-      tandem: tandem.createTandem( 'equationFormProperty' )
+      tandem: options.tandem.createTandem( 'equationFormProperty' )
     } );
 
-    const soundTandem = tandem.createTandem( 'sound' );
+    const soundTandem = options.tandem.createTandem( 'sound' );
 
     // @public whether sound is enabled for the Fourier series
     this.fourierSeriesSoundEnabledProperty = new BooleanProperty( false, {
@@ -92,7 +96,7 @@ class DiscreteModel {
       tandem: soundTandem.createTandem( 'fourierSeriesSoundOutputLevelProperty' )
     } );
 
-    const measurementToolsTandem = tandem.createTandem( 'measurementTools' );
+    const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
 
     // @public the wavelength measurement tool
     this.wavelengthTool = new MeasurementTool( FMWSymbols.lambda, this.fourierSeries.numberOfHarmonicsProperty, {
@@ -106,14 +110,20 @@ class DiscreteModel {
 
     // @public
     this.harmonicsChart = new HarmonicsChart( this.fourierSeries, this.domainProperty,
-      this.seriesTypeProperty, this.tProperty );
+      this.seriesTypeProperty, this.tProperty, {
+        tandem: options.tandem.createTandem( 'harmonicsChart' )
+      } );
 
     // @public
     this.sumChart = new SumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
-      this.tProperty, this.harmonicsChart.xZoomLevelProperty, this.harmonicsChart.xAxisDescriptionProperty );
+      this.tProperty, this.harmonicsChart.xZoomLevelProperty, this.harmonicsChart.xAxisDescriptionProperty, {
+        tandem: options.tandem.createTandem( 'sumChart' )
+      } );
 
     // @public emits if you try to make a sawtooth wave with cosines
-    this.oopsSawtoothWithCosinesEmitter = new Emitter();
+    this.oopsSawtoothWithCosinesEmitter = new Emitter( {
+      tandem: options.tandem.createTandem( 'oopsSawtoothWithCosinesEmitter' )
+    } );
 
     // Set amplitudes for pre-defined waveforms
     const updateAmplitudes = ( numberOfHarmonics, waveform, seriesType ) => {

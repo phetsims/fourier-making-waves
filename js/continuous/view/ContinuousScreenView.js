@@ -7,6 +7,7 @@
  */
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
+import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -17,15 +18,16 @@ class ContinuousScreenView extends ScreenView {
 
   /**
    * @param {ContinuousModel} model
-   * @param {Tandem} tandem
+   * @param {Object} [options]
    */
-  constructor( model, tandem ) {
+  constructor( model, options ) {
     assert && assert( model instanceof ContinuousModel, 'invalid model' );
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    super( {
-      tandem: tandem
-    } );
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, options );
+
+    super( options );
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {
@@ -35,7 +37,7 @@ class ContinuousScreenView extends ScreenView {
       },
       right: this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN,
       bottom: this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN,
-      tandem: tandem.createTandem( 'resetAllButton' )
+      tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( resetAllButton );
   }

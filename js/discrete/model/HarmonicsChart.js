@@ -12,7 +12,9 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWUtils from '../../common/FMWUtils.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
@@ -29,19 +31,28 @@ class HarmonicsChart {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
+   * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty ) {
+  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
-    assert && AssertUtils.assertPropertyOf( tProperty, 'number');
+    assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
+
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, options );
 
     // @public whether the Harmonics chart is visible
-    this.chartVisibleProperty = new BooleanProperty( true );
+    this.chartVisibleProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
+    } );
 
     // @public the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
-    this.emphasizedHarmonics = new EmphasizedHarmonics();
+    this.emphasizedHarmonics = new EmphasizedHarmonics( {
+      tandem: options.tandem.createTandem( 'emphasizedHarmonics' )
+    } );
 
     // @public zoom level for the x axis, index into AxisDescription.X_AXIS_DESCRIPTIONS
     // This is shared by the Harmonics and Sum charts.
@@ -82,6 +93,7 @@ class HarmonicsChart {
       // @public {Property.<Vector2[]>} the data set for this harmonic
       const harmonicDataSetProperty = new Property( createDataSet( harmonic ), {
         isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
+        //TODO tandem
       } );
       this.harmonicDataSetProperties.push( harmonicDataSetProperty );
 

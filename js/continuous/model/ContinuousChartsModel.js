@@ -8,18 +8,31 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWUtils from '../../common/FMWUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class ContinuousChartsModel {
 
-  constructor() {
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
+
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, options );
 
     // @public whether the Components chart is visible
-    this.componentsChartVisibleProperty = new BooleanProperty( true );
+    this.componentsChartVisibleProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'componentsChartVisibleProperty' )
+    } );
 
     // @public whether the Sum chart is visible
-    this.sumChartVisibleProperty = new BooleanProperty( true );
+    this.sumChartVisibleProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'sumChartVisibleProperty' )
+    } );
 
     // @private
     this.resetContinuousChartsModel = () => {

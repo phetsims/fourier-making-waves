@@ -7,8 +7,10 @@
  */
 
 import Screen from '../../../joist/js/Screen.js';
-import fourierMakingWaves from '../fourierMakingWaves.js';
+import merge from '../../../phet-core/js/merge.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 import FMWColorProfile from '../common/FMWColorProfile.js';
+import fourierMakingWaves from '../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
 import WaveGameModel from './model/WaveGameModel.js';
 import WaveGameScreenView from './view/WaveGameScreenView.js';
@@ -16,20 +18,20 @@ import WaveGameScreenView from './view/WaveGameScreenView.js';
 class WaveGameScreen extends Screen {
 
   /**
-   * @param {Tandem} tandem
+   * @param {Object} [options]
    */
-  constructor( tandem ) {
+  constructor( options ) {
 
-    const options = {
+    options = merge( {
       //TODO add homeScreenIcon using ScreenIcon, see https://github.com/phetsims/fourier-making-waves/issues/44
       name: fourierMakingWavesStrings.screen.waveGame,
       backgroundColorProperty: FMWColorProfile.screenBackgroundColorProperty,
-      tandem: tandem
-    };
+      tandem: Tandem.REQUIRED
+    }, options );
 
     super(
-      () => new WaveGameModel( tandem.createTandem( 'model' ) ),
-      model => new WaveGameScreenView( model, tandem.createTandem( 'view' ) ),
+      () => new WaveGameModel( { tandem: options.tandem.createTandem( 'model' ) } ),
+      model => new WaveGameScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
       options
     );
   }

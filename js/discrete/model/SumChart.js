@@ -12,7 +12,9 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWUtils from '../../common/FMWUtils.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
@@ -30,8 +32,10 @@ class SumChart {
    * @param {Property.<number>} tProperty
    * @param {Property.<number>} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
+   * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xZoomLevelProperty, xAxisDescriptionProperty ) {
+  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xZoomLevelProperty,
+               xAxisDescriptionProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
@@ -40,14 +44,24 @@ class SumChart {
     assert && AssertUtils.assertPropertyOf( xZoomLevelProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
 
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, options );
+
     // @public whether the Sum chart is visible
-    this.chartVisibleProperty = new BooleanProperty( true );
+    this.chartVisibleProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
+    } );
 
     // @public whether the Sum chart's y-axis automatically scales to fit its data set
-    this.autoScaleProperty = new BooleanProperty( false );
+    this.autoScaleProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'autoScaleProperty' )
+    } );
 
     // @public whether the Sum chart shows what the waveform looks like for an infinite Fourier series
-    this.infiniteHarmonicsVisibleProperty = new BooleanProperty( false );
+    this.infiniteHarmonicsVisibleProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'infiniteHarmonicsVisibleProperty' )
+    } );
 
     // @public x-axis zoom level and description is shared with the Harmonics chart
     this.xZoomLevelProperty = xZoomLevelProperty;
@@ -65,6 +79,7 @@ class SumChart {
     // @public {Property.<Vector2[]>} the data set for the sum
     this.sumDataSetProperty = new Property( createDataSet(), {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
+      //TODO tandem
     } );
 
     //TODO performance: determine this while creating the sum data set
@@ -84,6 +99,8 @@ class SumChart {
         // no smaller than range of amplitude sliders!
         const maxY = Math.max( maxAmplitude, FMWConstants.MAX_ABSOLUTE_AMPLITUDE );
         return new Range( -maxY, maxY );
+      }, {
+        //TODO tandem
       } );
 
     // The initial y-axis zoom level depends on whether auto scale is initially enabled.

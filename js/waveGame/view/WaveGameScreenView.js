@@ -7,6 +7,7 @@
  */
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
+import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Easing from '../../../../twixt/js/Easing.js';
@@ -29,15 +30,16 @@ class WaveGameScreenView extends ScreenView {
 
   /**
    * @param {WaveGameModel} model
-   * @param {Tandem} tandem
+   * @param {Object} [options]
    */
-  constructor( model, tandem ) {
+  constructor( model, options ) {
     assert && assert( model instanceof WaveGameModel, 'invalid model' );
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    super( {
-      tandem: tandem
-    } );
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, options );
+
+    super( options );
 
     const gameAudioPlayer = new GameAudioPlayer();
 
@@ -46,12 +48,15 @@ class WaveGameScreenView extends ScreenView {
       resetCallback: () => {
         model.reset();
         this.reset();
-      }
+      },
+      tandem: options.tandem.createTandem( 'levelSelectionNode' )
     } );
 
     // @private {SolveItSceneNode[]} a Node for each level of the game
     this.levelNodes = _.map( model.levels, level => new WaveGameLevelNode( level, model.levelProperty,
-      this.layoutBounds, this.visibleBoundsProperty, gameAudioPlayer ) );
+      this.layoutBounds, this.visibleBoundsProperty, gameAudioPlayer, {
+        tandem: options.tandem.createTandem( `level${level.levelNumber}Node` )
+      } ) );
 
     // Parent for all WaveGameLevelNode instances
     const levelsParent = new Node( {

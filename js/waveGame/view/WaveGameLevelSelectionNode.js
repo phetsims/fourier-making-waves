@@ -16,6 +16,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import Dialog from '../../../../sun/js/Dialog.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameLevelSelectionButton from './WaveGameLevelSelectionButton.js';
@@ -30,12 +31,15 @@ class WaveGameLevelSelectionNode extends Node {
   constructor( model, layoutBounds, options ) {
 
     options = merge( {
-      resetCallback: null // {function|null}
+      resetCallback: null, // {function|null}
+      tandem: Tandem.REQUIRED
     }, options );
 
     // {WaveGameLevelSelectionButton[]} a level-selection button for each level
     const levelSelectionButtons = _.map( model.levels,
-      level => new WaveGameLevelSelectionButton( level, model.levelProperty )
+      level => new WaveGameLevelSelectionButton( level, model.levelProperty, {
+        tandem: options.tandem.createTandem( `level${level.levelNumber}SelectionButton` )
+      } )
     );
 
     // Layout the level-selection buttons in a grid.
@@ -69,7 +73,8 @@ class WaveGameLevelSelectionNode extends Node {
         options.resetCallback && options.resetCallback();
       },
       right: layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN,
-      bottom: layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN
+      bottom: layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN,
+      tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
 
     assert && assert( !options.children, 'LevelSelectionNode sets children' );
