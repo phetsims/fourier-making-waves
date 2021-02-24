@@ -62,8 +62,12 @@ class WaveGameLevelSelectionNode extends Node {
     const levelSelectionButtonsBox = new VBox( {
       children: vBoxChildren,
       align: 'center',
-      spacing: 30,
-      center: layoutBounds.center
+      spacing: 30
+    } );
+
+    // Center the buttons on the screen. Observe bounds in case PhET-iO hides a button.
+    levelSelectionButtonsBox.boundsProperty.link( () => {
+      levelSelectionButtonsBox.center = layoutBounds.center;
     } );
 
     // Reset All button, at lower right
