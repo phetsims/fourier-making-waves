@@ -29,11 +29,13 @@ const FMWUtils = {
   },
 
   /**
-   * Logs a set of query parameters to phet.log.  If the global is undefined, the log will show 'undefined'.
-   * @param {string} globalString - the name of the global that contains the query parameters.
+   * Logs a global variable by converting it to JSON, then writing it to phet.log. If the global is undefined,
+   * the log will show 'undefined'.  This is currently used to log collection of query parameters (which exist
+   * as globals), but could be applied to other globals.
+   * @param {string} globalString - the name of the global
    * @public
    */
-  logQueryParameters( globalString ) {
+  logGlobal( globalString ) {
     assert && assert( typeof globalString === 'string', 'invalid globalString' );
     
     const tokens = globalString.split( '.' );
