@@ -9,3 +9,5 @@ Infinite Harmonics feature, see Preset.java
 ## Wave Game screen
 
 See GameManager.java, newGame creates a challenge, AMPLITUDE_STEP (0.01) is how close the guess must be to the answer.
+
+Icons for level-selection buttons?
