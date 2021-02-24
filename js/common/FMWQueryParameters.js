@@ -24,6 +24,7 @@ const FMWQueryParameters = QueryStringMachine.getAll( SCHEMA );
 
 fourierMakingWaves.register( 'FMWQueryParameters', FMWQueryParameters );
 
+// Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );
 logGlobal( 'phet.preloads.phetio.queryParameters' );
 logGlobal( 'phet.fourierMakingWaves.FMWQueryParameters' );
