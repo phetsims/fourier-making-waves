@@ -26,6 +26,22 @@ const FMWUtils = {
         object[ propertyName ].reset();
       }
     }
+  },
+
+  /**
+   * Logs a set of query parameters to phet.log.  If the global is undefined, the log will show 'undefined'.
+   * @param {string} globalString - the name of the global that contains the query parameters.
+   * @public
+   */
+  logQueryParameters( globalString ) {
+    assert && assert( typeof globalString === 'string', 'invalid globalString' );
+    
+    const tokens = globalString.split( '.' );
+    let result = window;
+    for ( let i = 0; i < tokens.length && result; i++ ) {
+      result = result[ tokens[ i ] ];
+    }
+    phet.log && phet.log( `${globalString}: ${JSON.stringify( result, null, 2 )}` );
   }
 };
 

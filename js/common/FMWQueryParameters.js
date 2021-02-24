@@ -8,6 +8,7 @@
  */
 
 import fourierMakingWaves from '../fourierMakingWaves.js';
+import FMWUtils from './FMWUtils.js';
 
 const SCHEMA = {
 
@@ -21,8 +22,10 @@ const SCHEMA = {
 
 const FMWQueryParameters = QueryStringMachine.getAll( SCHEMA );
 
-// log the values of all sim-specific query parameters
-phet.log && phet.log( 'query parameters: ' + JSON.stringify( FMWQueryParameters, null, 2 ) );
-
 fourierMakingWaves.register( 'FMWQueryParameters', FMWQueryParameters );
+
+FMWUtils.logQueryParameters( 'phet.chipper.queryParameters' );
+FMWUtils.logQueryParameters( 'phet.preloads.phetio.queryParameters' );
+FMWUtils.logQueryParameters( 'phet.fourierMakingWaves.FMWQueryParameters' );
+
 export default FMWQueryParameters;
