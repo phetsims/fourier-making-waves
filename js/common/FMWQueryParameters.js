@@ -7,8 +7,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import logGlobal from '../../../phet-core/js/logGlobal.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
-import FMWUtils from './FMWUtils.js';
 
 const SCHEMA = {
 
@@ -24,8 +24,8 @@ const FMWQueryParameters = QueryStringMachine.getAll( SCHEMA );
 
 fourierMakingWaves.register( 'FMWQueryParameters', FMWQueryParameters );
 
-FMWUtils.logGlobal( 'phet.chipper.queryParameters' );
-FMWUtils.logGlobal( 'phet.preloads.phetio.queryParameters' );
-FMWUtils.logGlobal( 'phet.fourierMakingWaves.FMWQueryParameters' );
+logGlobal( 'phet.chipper.queryParameters' );
+logGlobal( 'phet.preloads.phetio.queryParameters' );
+logGlobal( 'phet.fourierMakingWaves.FMWQueryParameters' );
 
 export default FMWQueryParameters;
