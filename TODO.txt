@@ -8,14 +8,4 @@ Infinite Harmonics feature, see Preset.java
 
 ## Wave Game screen
 
-See GameManager.java.
-There are 2 Fourier series (userSeries & randomSeries) and we compare them.
-Model:
-* The number of non-zero harmonics will be fixed for levels 1-4, and randomly generated (5…11) for level 5.
-* Based on the number of non-zero harmonics for a challenge, specific harmonics are randomly selected, and
-  random non-zero amplitudes for those harmonics are set. See GameManager newGame.
-* The number of zero-amplitude harmonics is also randomly selected, and additional zero-amplitude harmonics (sliders)
-  are chosen at random as needed.
-* Random generation has no knowledge of previously-generated challenges.
-* A challenge is successfully completed when the user has released all sliders AND the amplitudes that the user has
-  set are within 0.01 of the randomly-generate amplitudes. See GameManager AMPLITUDE_STEP.
+See GameManager.java, newGame creates a challenge, AMPLITUDE_STEP (0.01) is how close the guess must be to the answer.
