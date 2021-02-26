@@ -41,7 +41,7 @@ class WaveGameChallenge {
       let isCorrect = true;
       const answerAmplitudes = this.answerFourierSeries.amplitudesProperty.value;
       for ( let i = 0; i < guessAmplitudes.length && isCorrect; i++ ) {
-         isCorrect = Math.abs( guessAmplitudes[ i ] - answerAmplitudes[ i ] ) <= AMPLITUDE_THRESHOLD;
+        isCorrect = Math.abs( guessAmplitudes[ i ] - answerAmplitudes[ i ] ) <= AMPLITUDE_THRESHOLD;
       }
       isCorrect && this.isCorrectEmitter.emit();
     } );
