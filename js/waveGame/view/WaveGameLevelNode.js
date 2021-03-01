@@ -20,6 +20,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
+import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import InfiniteStatusBar from '../../../../vegas/js/InfiniteStatusBar.js';
@@ -29,6 +30,9 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
 import AmplitudeControlsSpinner from './AmplitudeControlsSpinner.js';
+
+// constants
+const DEFAULT_FONT = new PhetFont( 16 );
 
 class WaveGameLevelNode extends Node {
 
@@ -54,7 +58,7 @@ class WaveGameLevelNode extends Node {
 
     // Level description, displayed in the status bar
     const levelDescriptionText = new RichText( level.description, {
-      font: new PhetFont( 20 ),
+      font: DEFAULT_FONT,
       maxWidth: 650, // determined empirically
       tandem: options.tandem.createTandem( 'levelDescriptionText' )
     } );
@@ -86,7 +90,7 @@ class WaveGameLevelNode extends Node {
     } );
 
     const tryToMatchText = new Text( fourierMakingWavesStrings.tryToMatchThePinkFunction, {
-      font: new PhetFont( 16 ),
+      font: DEFAULT_FONT,
       maxWidth: 200,
       tandem: options.tandem.createTandem( 'tryToMatchText' )
     } );
@@ -110,7 +114,7 @@ class WaveGameLevelNode extends Node {
     // Next button is shown after a challenge has been successfully completed.
     const nextButton = new RectangularPushButton( {
       content: new Text( fourierMakingWavesStrings.next, {
-        font: new PhetFont( 16 ),
+        font: DEFAULT_FONT,
         maxWidth: 200 // determined empirically
       } ),
       listener: next,
@@ -120,17 +124,54 @@ class WaveGameLevelNode extends Node {
       phetioReadOnly: true
     } );
 
-    //TODO temporary
-    const vBox = new VBox( {
+    const controlPanelChildren = [
+      tryToMatchText,
+      refreshButton,
+      amplitudeControlsSpinner,
+      faceNode,
+      nextButton
+    ];
+
+    // When the ?showAnswers query parameter is present, add some stuff to assist with development and QA.
+    if ( phet.chipper.queryParameters.showAnswers ) {
+
+      // Pressing this button solves the challenge.
+      const solveButton = new RectangularPushButton( {
+        content: new Text( 'Solve', {
+          font: DEFAULT_FONT,
+          fill: 'white'
+        } ),
+        baseColor: 'red',
+        listener: () => {
+          //TODO copy answer to guess
+        }
+      } );
+      controlPanelChildren.push( solveButton );
+
+      // Shows the answer (amplitudes) for the challenge.
+      const answerText = new Text( '', {
+        font: DEFAULT_FONT,
+        fill: 'red'
+      } );
+      controlPanelChildren.push( answerText );
+
+      // unlink is not needed.
+      level.challengeProperty.link( challenge => {
+        const amplitudes = challenge.answerFourierSeries.amplitudesProperty.value;
+        answerText.text = `[${amplitudes}]`;
+      } );
+    }
+
+    const controlPanel = new Panel( new VBox( {
       align: 'center',
       spacing: 20,
-      children: [
-        tryToMatchText,
-        refreshButton,
-        amplitudeControlsSpinner,
-        faceNode,
-        nextButton
-      ],
+      children: controlPanelChildren
+    } ), {
+      fill: null,
+      stroke: null,
+      xMargin: 0,
+      yMargin: 0,
+      cornerRadius: 0,
       right: layoutBounds.right - 20,
       top: statusBar.bottom + 20
     } );
@@ -138,7 +179,7 @@ class WaveGameLevelNode extends Node {
     //TODO display the challenge
 
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
-    options.children = [ statusBar, vBox ];
+    options.children = [ statusBar, controlPanel ];
 
     super( options );
 
