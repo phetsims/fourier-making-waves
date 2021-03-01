@@ -180,19 +180,16 @@
     "value": "{{x}} = position in space, in meters"
   },
   "oneNonZeroHarmonic": {
-    "value": "1 non-zero harmonic"
+    "value": "<b>Level 1</b>          Try to match the pink function, using <b>1</b> harmonic."
   },
   "numberNonZeroHarmonics": {
-    "value": "{{number}} non-zero harmonics"
+    "value": "<b>Level {{levelNumber}}</b>          Try to match the pink function, using <b>{{numberOfHarmonics}}</b> harmonics."
   },
   "numberOrMoreNonZeroHarmonics": {
-    "value": "{{number}} or more non-zero harmonics"
+    "value": "<b>Level {{levelNumber}}</b>          Try to match the pink function, using <b>{{numberOfHarmonics}} or more</b> harmonics."
   },
   "next": {
     "value": "Next"
-  },
-  "tryToMatchThePinkFunction": {
-    "value": "Try to match the pink function!"
   },
   "amplitudeControls": {
     "value": "Amplitude Controls:"

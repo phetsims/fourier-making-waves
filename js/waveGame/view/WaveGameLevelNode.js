@@ -83,12 +83,6 @@ class WaveGameLevelNode extends Node {
       tandem: options.tandem.createTandem( 'refreshButton' )
     } );
 
-    const tryToMatchText = new Text( fourierMakingWavesStrings.tryToMatchThePinkFunction, {
-      font: DEFAULT_FONT,
-      maxWidth: 200,
-      tandem: options.tandem.createTandem( 'tryToMatchText' )
-    } );
-
     //TODO this needs to be properly initialized and adjusted when level.challengeProperty changes
     const numberOfAmplitudeControlsProperty = new NumberProperty( 1, {
       range: new Range( 1, FMWConstants.MAX_HARMONICS )
@@ -132,7 +126,6 @@ class WaveGameLevelNode extends Node {
     refreshButton.addListener( next );
 
     const controlPanelChildren = [
-      tryToMatchText,
       refreshButton,
       amplitudeControlsSpinner,
       faceNode,

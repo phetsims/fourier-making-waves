@@ -42,7 +42,8 @@ class WaveGameModel {
       const description = ( i === 1 ) ?
                           fourierMakingWavesStrings.oneNonZeroHarmonic :
                           StringUtils.fillIn( fourierMakingWavesStrings.numberNonZeroHarmonics, {
-                            number: i
+                            levelNumber: i,
+                            numberOfHarmonics: i
                           } );
       this.levels.push( new WaveGameLevel( i, description, {
         getNumberOfNonZeroHarmonics: () => i,
@@ -54,7 +55,8 @@ class WaveGameModel {
     this.levels.push(
       new WaveGameLevel( NUMBER_OF_LEVELS,
         StringUtils.fillIn( fourierMakingWavesStrings.numberOrMoreNonZeroHarmonics, {
-          number: NUMBER_OF_LEVELS
+          levelNumber: NUMBER_OF_LEVELS,
+          numberOfHarmonics: NUMBER_OF_LEVELS
         } ), {
           getNumberOfNonZeroHarmonics: () => dotRandom.nextIntBetween( NUMBER_OF_LEVELS, FMWConstants.MAX_HARMONICS ),
           tandem: options.tandem.createTandem( `level${NUMBER_OF_LEVELS}` )
