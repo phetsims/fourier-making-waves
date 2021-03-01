@@ -50,11 +50,9 @@ class WaveGameChallenge {
         isCorrect = Math.abs( guessAmplitudes[ i ] - answerAmplitudes[ i ] ) <= AMPLITUDE_THRESHOLD;
       }
 
+      // If the guess is correct, unlink this listener and call the callback.
       if ( isCorrect ) {
-
-        // unlink this listener because a challenge can only be completed once.
         this.guessFourierSeries.amplitudesProperty.unlink( guessAmplitudesListener );
-
         isCorrectCallback();
       }
     };
