@@ -31,7 +31,6 @@ class WaveGameLevelSelectionButton extends LevelSelectionButton {
     options = merge( {
       baseColor: FMWColorProfile.levelSelectionButtonColorProperty,
       listener: () => {
-        phet.log && phet.log( 'Level' + level.levelNumber + ' button pressed' );
         this.interruptSubtreeInput();
         levelProperty.value = level;
       },
