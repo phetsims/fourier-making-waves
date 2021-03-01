@@ -24,6 +24,9 @@ import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';
 import Harmonic from './Harmonic.js';
 
+// constants
+const DEFAULT_AMPLITUDES = Array( FMWConstants.MAX_HARMONICS ).fill( 0 );
+
 class FourierSeries extends PhetioObject {
 
   /**
@@ -32,6 +35,7 @@ class FourierSeries extends PhetioObject {
   constructor( options ) {
 
     options = merge( {
+      amplitudes: DEFAULT_AMPLITUDES, // {number[]} initial amplitudes for the harmonics
       tandem: Tandem.OPTIONAL,
       phetioState: false
     }, options );
@@ -71,6 +75,7 @@ class FourierSeries extends PhetioObject {
         frequency: this.fundamentalFrequency * order,
         wavelength: this.L / order,
         colorProperty: FMWColorProfile.getHarmonicColorProperty( order ),
+        amplitude: options.amplitudes[ order - 1 ],
         amplitudeRange: this.amplitudeRange,
         tandem: harmonicsTandem.createTandem( `harmonic${order}` )
       } ) );
