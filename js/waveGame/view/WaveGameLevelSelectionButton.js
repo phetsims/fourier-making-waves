@@ -29,7 +29,7 @@ class WaveGameLevelSelectionButton extends LevelSelectionButton {
     assert && assert( levelProperty instanceof Property, 'invalid levelProperty' );
 
     options = merge( {
-      baseColor: FMWColorProfile.levelSelectionButtonColorProperty,
+      baseColor: FMWColorProfile.levelSelectionButtonFillProperty,
       listener: () => {
         this.interruptSubtreeInput();
         levelProperty.value = level;

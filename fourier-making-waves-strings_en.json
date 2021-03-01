@@ -187,5 +187,14 @@
   },
   "numberOrMoreNonZeroHarmonics": {
     "value": "{{number}} or more non-zero harmonics"
+  },
+  "next": {
+    "value": "Next"
+  },
+  "tryToMatchThePinkFunction": {
+    "value": "Try to match the pink function!"
+  },
+  "amplitudeControls": {
+    "value": "Amplitude Controls:"
   }
 }

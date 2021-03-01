@@ -6,19 +6,29 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import RefreshButton from '../../../../scenery-phet/js/buttons/RefreshButton.js';
+import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
+import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import InfiniteStatusBar from '../../../../vegas/js/InfiniteStatusBar.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
+import AmplitudeControlsSpinner from './AmplitudeControlsSpinner.js';
 
 class WaveGameLevelNode extends Node {
 
@@ -39,40 +49,96 @@ class WaveGameLevelNode extends Node {
     assert && assert( gameAudioPlayer instanceof GameAudioPlayer, 'invalid gameAudioPlayer' );
 
     options = merge( {
-      //TODO
+      tandem: Tandem.REQUIRED
     }, options );
 
-    const children = [];
-
     // Level description, displayed in the status bar
-    const levelDescriptionNode = new RichText( level.description, {
+    const levelDescriptionText = new RichText( level.description, {
       font: new PhetFont( 20 ),
-      maxWidth: 650 // determined empirically
+      maxWidth: 650, // determined empirically
+      tandem: options.tandem.createTandem( 'levelDescriptionText' )
     } );
 
     // Bar across the top of the screen
-    const statusBar = new InfiniteStatusBar( layoutBounds, visibleBoundsProperty, levelDescriptionNode, level.scoreProperty, {
-      floatToTop: true,
+    const statusBar = new InfiniteStatusBar( layoutBounds, visibleBoundsProperty, levelDescriptionText, level.scoreProperty, {
+      floatToTop: false,
       spacing: 20,
-      barFill: FMWColorProfile.scoreBoardFillColorProperty,
+      barFill: FMWColorProfile.scoreBoardFillProperty,
       backButtonListener: () => {
         this.interruptSubtreeInput();
         levelProperty.value = null; // back to the level-selection UI
-      }
+      },
+      tandem: options.tandem.createTandem( 'statusBar' )
     } );
-    children.push( statusBar );
+
+    const next = () => {
+      this.interruptSubtreeInput();
+      level.nextChallenge();
+    };
 
     // Pressing the refresh button creates the next random challenge.
     const refreshButton = new RefreshButton( {
-      listener: () => level.nextChallenge(),
-      center: layoutBounds.center
+      listener: next,
+      scale: 0.75,
+      right: layoutBounds.right - 20,
+      top: statusBar.bottom + 20,
+      tandem: options.tandem.createTandem( 'refreshButton' )
     } );
-    children.push( refreshButton );
+
+    const tryToMatchText = new Text( fourierMakingWavesStrings.tryToMatchThePinkFunction, {
+      font: new PhetFont( 16 ),
+      maxWidth: 200,
+      tandem: options.tandem.createTandem( 'tryToMatchText' )
+    } );
+
+    //TODO this needs to be properly initialized and adjusted when level.challengeProperty changes
+    const numberOfAmplitudeControlsProperty = new NumberProperty( 1, {
+      range: new Range( 1, FMWConstants.MAX_HARMONICS )
+    } );
+
+    const amplitudeControlsSpinner = new AmplitudeControlsSpinner( numberOfAmplitudeControlsProperty, {
+      tandem: options.tandem.createTandem( 'amplitudeControlsSpinner' )
+    } );
+
+    // Smiley face, shown when a challenge has been successfully completed. Fades out to reveal the Next button.
+    const faceNode = new FaceNode( 200 /* headDiameter */, {
+      //TODO visible: false
+      tandem: options.tandem.createTandem( 'faceNode' ),
+      phetioReadOnly: true
+    } );
+
+    // Next button is shown after a challenge has been successfully completed.
+    const nextButton = new RectangularPushButton( {
+      content: new Text( fourierMakingWavesStrings.next, {
+        font: new PhetFont( 16 ),
+        maxWidth: 200 // determined empirically
+      } ),
+      listener: next,
+      baseColor: FMWColorProfile.nextButtonFillProperty,
+      //TODO visible: false
+      tandem: options.tandem.createTandem( 'nextButton' ),
+      phetioReadOnly: true
+    } );
+
+    //TODO temporary
+    const vBox = new VBox( {
+      align: 'center',
+      spacing: 20,
+      children: [
+        tryToMatchText,
+        refreshButton,
+        amplitudeControlsSpinner,
+        faceNode,
+        nextButton
+      ],
+      right: layoutBounds.right - 20,
+      top: statusBar.bottom + 20
+    } );
 
     //TODO display the challenge
 
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
-    options.children = children;
+    options.children = [ statusBar, vBox ];
 
     super( options );
 

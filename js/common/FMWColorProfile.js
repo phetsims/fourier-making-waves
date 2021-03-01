@@ -8,6 +8,7 @@
  */
 
 import ColorProfile from '../../../scenery-phet/js/ColorProfile.js';
+import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 import Color from '../../../scenery/js/util/Color.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 
@@ -90,12 +91,16 @@ const FMWColorProfile = new ColorProfile( [ 'default' ], {
     default: Color.grayColor( 170 )
   },
 
-  levelSelectionButtonColor: {
+  levelSelectionButtonFill: {
     default: new Color( 243, 177, 175 )
   },
 
-  scoreBoardFillColor: {
+  scoreBoardFill: {
     default: new Color( 243, 177, 175 )
+  },
+
+  nextButtonFill: {
+    default: PhetColorScheme.BUTTON_YELLOW
   }
 } );
 
