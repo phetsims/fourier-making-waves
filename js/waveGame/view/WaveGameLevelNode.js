@@ -99,6 +99,9 @@ class WaveGameLevelNode extends Node {
     } );
 
     const amplitudeControlsSpinner = new AmplitudeControlsSpinner( numberOfAmplitudeControlsProperty, {
+      textOptions: {
+        font: DEFAULT_FONT
+      },
       tandem: options.tandem.createTandem( 'amplitudeControlsSpinner' )
     } );
 

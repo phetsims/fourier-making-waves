@@ -8,7 +8,6 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -29,7 +28,6 @@ class AmplitudeControlsSpinner extends Node {
     options = merge( {
       spinnerOptions: FMWConstants.SPINNER_OPTIONS,
       textOptions: {
-        font: new PhetFont( 16 ),
         maxWidth: 200
       }
     }, options );
