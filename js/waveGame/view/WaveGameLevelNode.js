@@ -77,10 +77,6 @@ class WaveGameLevelNode extends Node {
 
     // Pressing the refresh button creates the next random challenge.
     const refreshButton = new RefreshButton( {
-      listener: () => {
-        this.interruptSubtreeInput();
-        level.nextChallenge();
-      },
       scale: 0.75,
       right: layoutBounds.right - 20,
       top: statusBar.bottom + 20,
@@ -112,23 +108,28 @@ class WaveGameLevelNode extends Node {
       phetioReadOnly: true
     } );
 
+
     // Next button is shown after a challenge has been successfully completed.
     const nextButton = new RectangularPushButton( {
       content: new Text( fourierMakingWavesStrings.next, {
         font: DEFAULT_FONT,
         maxWidth: 200 // determined empirically
       } ),
-      listener: () => {
-        this.interruptSubtreeInput();
-        nextButton.visible = false;
-        faceNode.visible = false;
-        level.nextChallenge();
-      },
       baseColor: FMWColorProfile.nextButtonFillProperty,
       visible: false,
       tandem: options.tandem.createTandem( 'nextButton' ),
       phetioReadOnly: true
     } );
+
+    // Next and Refresh buttons do the same thing.
+    const next = () => {
+      this.interruptSubtreeInput();
+      nextButton.visible = false;
+      faceNode.visible = false;
+      level.nextChallenge();
+    };
+    nextButton.addListener( next );
+    refreshButton.addListener( next );
 
     const controlPanelChildren = [
       tryToMatchText,
