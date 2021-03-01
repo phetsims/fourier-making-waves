@@ -102,7 +102,6 @@ class WaveGameLevelNode extends Node {
       phetioReadOnly: true
     } );
 
-
     // Next button is shown after a challenge has been successfully completed.
     const nextButton = new RectangularPushButton( {
       content: new Text( fourierMakingWavesStrings.next, {
