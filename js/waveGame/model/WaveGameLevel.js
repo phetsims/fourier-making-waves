@@ -53,6 +53,7 @@ class WaveGameLevel {
       //TODO tandem
     } );
 
+    // Log the challenge whenever it changes.
     phet.log && this.challengeProperty.link( challenge => {
       phet.log && phet.log( `level=${levelNumber} challenge=${challenge.toString()}` );
     } );
@@ -70,7 +71,7 @@ class WaveGameLevel {
    * Creates the next challenge.
    * @public
    */
-  next() {
+  nextChallenge() {
     this.challengeProperty.value = this.challengeGenerator.nextChallenge( this.challengeProperty.value );
   }
 
