@@ -114,16 +114,6 @@ class WaveGameLevelNode extends Node {
       phetioReadOnly: true
     } );
 
-    // Next and Refresh buttons do the same thing.
-    const next = () => {
-      this.interruptSubtreeInput();
-      nextButton.visible = false;
-      faceNode.visible = false;
-      level.nextChallenge();
-    };
-    nextButton.addListener( next );
-    refreshButton.addListener( next );
-
     const controlPanelChildren = [
       refreshButton,
       amplitudeControlsSpinner,
@@ -131,11 +121,10 @@ class WaveGameLevelNode extends Node {
       nextButton
     ];
 
-    // When the ?showAnswers query parameter is present, add some stuff to assist with development and QA.
+    // When the ?showAnswers query parameter is present, add a button for immediately solving the challenge.
+    let solveButton = null;
     if ( phet.chipper.queryParameters.showAnswers ) {
-
-      // Pressing this button solves the challenge.
-      const solveButton = new RectangularPushButton( {
+      solveButton = new RectangularPushButton( {
         content: new Text( 'Solve', {
           font: DEFAULT_FONT,
           fill: 'white'
@@ -147,18 +136,6 @@ class WaveGameLevelNode extends Node {
         }
       } );
       controlPanelChildren.push( solveButton );
-
-      // Shows the answer (amplitudes) for the challenge.
-      const answerText = new Text( '', {
-        font: DEFAULT_FONT,
-        fill: 'red'
-      } );
-      controlPanelChildren.push( answerText );
-
-      // unlink is not needed.
-      level.challengeProperty.link( challenge => {
-        answerText.text = `[${challenge.getAnswerAmplitudes()}]`;
-      } );
     }
 
     const controlPanel = new Panel( new VBox( {
@@ -176,10 +153,40 @@ class WaveGameLevelNode extends Node {
       top: statusBar.bottom + 20
     } );
 
+    // Next and Refresh buttons do the same thing.
+    const next = () => {
+      this.interruptSubtreeInput();
+      nextButton.visible = false;
+      faceNode.visible = false;
+      level.nextChallenge();
+      refreshButton.enabled = true;
+      solveButton.enabled = true;
+    };
+    nextButton.addListener( next );
+    refreshButton.addListener( next );
+
     //TODO display the challenge
 
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
     options.children = [ statusBar, controlPanel ];
+
+    // When the ?showAnswers query parameter is present, show the answers near the amplitude sliders.
+    if ( phet.chipper.queryParameters.showAnswers ) {
+
+      // Shows the answer (amplitudes) for the challenge.
+      const answerText = new Text( '', {
+        font: DEFAULT_FONT,
+        fill: 'red',
+        left: layoutBounds.left + 20,
+        top: statusBar.bottom + 20
+      } );
+      options.children.push( answerText );
+
+      // unlink is not needed.
+      level.challengeProperty.link( challenge => {
+        answerText.text = `[${challenge.getAnswerAmplitudes()}]`;
+      } );
+    }
 
     super( options );
 
@@ -193,6 +200,8 @@ class WaveGameLevelNode extends Node {
       gameAudioPlayer.correctAnswer();
       faceNode.visible = true; //TODO animated fade out
       nextButton.visible = true; //TODO show after faceNode fades out
+      refreshButton.enabled = false;
+      solveButton && ( solveButton.enabled = false );
     } );
   }
 }
