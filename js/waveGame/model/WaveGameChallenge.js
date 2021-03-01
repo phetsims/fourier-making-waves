@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Emitter from '../../../../axon/js/Emitter.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import Utils from '../../../../dot/js/Utils.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -23,13 +22,15 @@ class WaveGameChallenge {
    * @param {number} numberOfHarmonics
    * @param {number} numberOfNonZeroHarmonics
    * @param {number} maxAbsoluteAmplitude
+   * @param {function} isCorrectCallback
    * @param {Object} [options]
    */
-  constructor( numberOfHarmonics, numberOfNonZeroHarmonics, maxAbsoluteAmplitude, options ) {
+  constructor( numberOfHarmonics, numberOfNonZeroHarmonics, maxAbsoluteAmplitude, isCorrectCallback, options ) {
     assert && AssertUtils.assertPositiveInteger( numberOfHarmonics );
     assert && AssertUtils.assertPositiveInteger( numberOfNonZeroHarmonics );
     assert && assert( numberOfHarmonics >= numberOfNonZeroHarmonics, 'requested too many numberOfNonZeroHarmonics' );
     assert && AssertUtils.assertPositiveNumber( maxAbsoluteAmplitude );
+    assert && assert( typeof isCorrectCallback === 'function', 'invalid isCorrectCallback' );
 
     // @public (read-only) the Fourier series that corresponds to the answer to the challenge
     this.answerFourierSeries = new FourierSeries( {
@@ -39,19 +40,21 @@ class WaveGameChallenge {
     // @public (read-only) the Fourier series that corresponds to the user's guess
     this.guessFourierSeries = new FourierSeries();
 
-    // @public emits when the guess is sufficiently close to the answer
-    this.isCorrectEmitter = new Emitter();
-
     //TODO do not evaluate the guess until the user has released all sliders
-    // Evaluate the guess to see if it's close enough to the answer. unlink is not needed.
-    this.guessFourierSeries.amplitudesProperty.lazyLink( guessAmplitudes => {
+    const guessAmplitudesListener = guessAmplitudes => {
+
+      // unlink this listener because a challenge can only be completed once.
+      this.guessFourierSeries.amplitudesProperty.unlink( guessAmplitudesListener );
+
+      // Evaluate the guess to see if it's close enough to the answer.
       let isCorrect = true;
       const answerAmplitudes = this.answerFourierSeries.amplitudesProperty.value;
       for ( let i = 0; i < guessAmplitudes.length && isCorrect; i++ ) {
         isCorrect = Math.abs( guessAmplitudes[ i ] - answerAmplitudes[ i ] ) <= AMPLITUDE_THRESHOLD;
       }
-      isCorrect && this.isCorrectEmitter.emit();
-    } );
+      isCorrect && isCorrectCallback();
+    };
+    this.guessFourierSeries.amplitudesProperty.lazyLink( guessAmplitudesListener ); // unlink is not needed.
   }
 
   /**
@@ -74,6 +77,27 @@ class WaveGameChallenge {
   toString() {
     return `{\nanswer:[${this.answerFourierSeries.amplitudesProperty.value}],\n` +
            `guess:[${this.guessFourierSeries.amplitudesProperty.value}]\n}`;
+  }
+
+  /**
+   * Gets the amplitudes for the answer, in harmonic order.
+   * @returns {number[]}
+   * @public
+   */
+  getAnswerAmplitudes() {
+    return this.answerFourierSeries.amplitudesProperty.value;
+  }
+
+  /**
+   * Solves the challenge by copying the amplitudes for the answer to the guess.
+   * This is used for development and QA, when ?showAnswers is present.
+   * @public
+   */
+  solve() {
+    const answerAmplitudes = this.getAnswerAmplitudes();
+    for ( let i = 0; i < answerAmplitudes.length; i++ ) {
+      this.guessFourierSeries.harmonics[ i ].amplitudeProperty.value = answerAmplitudes[ i ];
+    }
   }
 }
 

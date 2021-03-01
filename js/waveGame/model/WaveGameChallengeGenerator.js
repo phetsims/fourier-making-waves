@@ -26,12 +26,18 @@ class WaveGameChallengeGenerator {
       // {function():number} gets the number of non-zero harmonics in the challenge
       getNumberOfNonZeroHarmonics: () => 1,
 
+      // {function} called when a challenge is correctly answered
+      isCorrectCallback: null,
+
       // phet-io
       tandem: Tandem.REQUIRED
     }, options );
 
-    // @private {function():number} gets the number of non-zero harmonics in the challenge
+    // @private
     this.getNumberOfNonZeroHarmonics = options.getNumberOfNonZeroHarmonics;
+
+    // @private
+    this.isCorrectCallback = options.isCorrectCallback;
   }
 
   /**
@@ -76,7 +82,8 @@ class WaveGameChallengeGenerator {
   createWaveGameChallenge() {
     const numberOfNonZeroHarmonics = this.getNumberOfNonZeroHarmonics();
     assert && AssertUtils.assertPositiveInteger( numberOfNonZeroHarmonics );
-    return new WaveGameChallenge( FMWConstants.MAX_HARMONICS, numberOfNonZeroHarmonics, FMWConstants.MAX_ABSOLUTE_AMPLITUDE );
+    return new WaveGameChallenge( FMWConstants.MAX_HARMONICS, numberOfNonZeroHarmonics,
+      FMWConstants.MAX_ABSOLUTE_AMPLITUDE, this.isCorrectCallback );
   }
 
   /**

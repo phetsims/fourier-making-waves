@@ -75,14 +75,12 @@ class WaveGameLevelNode extends Node {
       tandem: options.tandem.createTandem( 'statusBar' )
     } );
 
-    const next = () => {
-      this.interruptSubtreeInput();
-      level.nextChallenge();
-    };
-
     // Pressing the refresh button creates the next random challenge.
     const refreshButton = new RefreshButton( {
-      listener: next,
+      listener: () => {
+        this.interruptSubtreeInput();
+        level.nextChallenge();
+      },
       scale: 0.75,
       right: layoutBounds.right - 20,
       top: statusBar.bottom + 20,
@@ -106,7 +104,7 @@ class WaveGameLevelNode extends Node {
 
     // Smiley face, shown when a challenge has been successfully completed. Fades out to reveal the Next button.
     const faceNode = new FaceNode( 200 /* headDiameter */, {
-      //TODO visible: false
+      visible: false,
       tandem: options.tandem.createTandem( 'faceNode' ),
       phetioReadOnly: true
     } );
@@ -117,9 +115,14 @@ class WaveGameLevelNode extends Node {
         font: DEFAULT_FONT,
         maxWidth: 200 // determined empirically
       } ),
-      listener: next,
+      listener: () => {
+        this.interruptSubtreeInput();
+        nextButton.visible = false;
+        faceNode.visible = false;
+        level.nextChallenge();
+      },
       baseColor: FMWColorProfile.nextButtonFillProperty,
-      //TODO visible: false
+      visible: false,
       tandem: options.tandem.createTandem( 'nextButton' ),
       phetioReadOnly: true
     } );
@@ -143,7 +146,8 @@ class WaveGameLevelNode extends Node {
         } ),
         baseColor: 'red',
         listener: () => {
-          //TODO copy answer to guess
+          this.interruptSubtreeInput();
+          level.solve();
         }
       } );
       controlPanelChildren.push( solveButton );
@@ -157,12 +161,12 @@ class WaveGameLevelNode extends Node {
 
       // unlink is not needed.
       level.challengeProperty.link( challenge => {
-        const amplitudes = challenge.answerFourierSeries.amplitudesProperty.value;
-        answerText.text = `[${amplitudes}]`;
+        answerText.text = `[${challenge.getAnswerAmplitudes()}]`;
       } );
     }
 
     const controlPanel = new Panel( new VBox( {
+      excludeInvisibleChildrenFromBounds: false,
       align: 'center',
       spacing: 20,
       children: controlPanelChildren
@@ -186,6 +190,13 @@ class WaveGameLevelNode extends Node {
     // This Node is visible when its level is selected.
     levelProperty.link( levelValue => {
       this.visible = ( levelValue === level );
+    } );
+
+    level.isCorrectEmitter.addListener( () => {
+      phet.log && phet.log( 'Correct answer!' );
+      gameAudioPlayer.correctAnswer();
+      faceNode.visible = true; //TODO animated fade out
+      nextButton.visible = true; //TODO show after faceNode fades out
     } );
   }
 }

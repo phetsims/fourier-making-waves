@@ -6,12 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
+
+// constants
+const POINTS_PER_CHALLENGE = 1;
 
 class WaveGameLevel {
 
@@ -33,11 +37,8 @@ class WaveGameLevel {
     this.levelNumber = levelNumber;
     this.description = description;
 
-    // @private
-    this.challengeGenerator = new WaveGameChallengeGenerator( {
-      getNumberOfNonZeroHarmonics: options.getNumberOfNonZeroHarmonics,
-      tandem: options.tandem.createTandem( 'challengeGenerator' )
-    } );
+    // @public emits when a challenge has been successfully completed
+    this.isCorrectEmitter = new Emitter();
 
     // @public
     this.scoreProperty = new NumberProperty( 0, {
@@ -45,6 +46,16 @@ class WaveGameLevel {
       isValidValue: value => ( value >= 0 ),
       phetioReadOnly: true,
       tandem: options.tandem.createTandem( 'scoreProperty' )
+    } );
+
+    // @private
+    this.challengeGenerator = new WaveGameChallengeGenerator( {
+      getNumberOfNonZeroHarmonics: options.getNumberOfNonZeroHarmonics,
+      isCorrectCallback: () => {
+        this.scoreProperty.value += POINTS_PER_CHALLENGE;
+        this.isCorrectEmitter.emit();
+      },
+      tandem: options.tandem.createTandem( 'challengeGenerator' )
     } );
 
     // @public (read-only) {Property.<WaveGameChallenge>} the current challenge
@@ -73,6 +84,15 @@ class WaveGameLevel {
    */
   nextChallenge() {
     this.challengeProperty.value = this.challengeGenerator.nextChallenge( this.challengeProperty.value );
+  }
+
+  /**
+   * Solves the current challenge.
+   * This is used for development and QA, when ?showAnswers is present.
+   * @public
+   */
+  solve() {
+    this.challengeProperty.value.solve();
   }
 
   /**

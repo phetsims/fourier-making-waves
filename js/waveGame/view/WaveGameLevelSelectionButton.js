@@ -12,6 +12,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import LevelSelectionButton from '../../../../vegas/js/LevelSelectionButton.js';
+import ScoreDisplayNumberAndStar from '../../../../vegas/js/ScoreDisplayNumberAndStar.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
@@ -29,6 +30,7 @@ class WaveGameLevelSelectionButton extends LevelSelectionButton {
     assert && assert( levelProperty instanceof Property, 'invalid levelProperty' );
 
     options = merge( {
+      scoreDisplayConstructor: ScoreDisplayNumberAndStar,
       baseColor: FMWColorProfile.levelSelectionButtonFillProperty,
       listener: () => {
         this.interruptSubtreeInput();
