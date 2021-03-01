@@ -43,16 +43,20 @@ class WaveGameChallenge {
     //TODO do not evaluate the guess until the user has released all sliders
     const guessAmplitudesListener = guessAmplitudes => {
 
-      // unlink this listener because a challenge can only be completed once.
-      this.guessFourierSeries.amplitudesProperty.unlink( guessAmplitudesListener );
-
       // Evaluate the guess to see if it's close enough to the answer.
       let isCorrect = true;
       const answerAmplitudes = this.answerFourierSeries.amplitudesProperty.value;
       for ( let i = 0; i < guessAmplitudes.length && isCorrect; i++ ) {
         isCorrect = Math.abs( guessAmplitudes[ i ] - answerAmplitudes[ i ] ) <= AMPLITUDE_THRESHOLD;
       }
-      isCorrect && isCorrectCallback();
+
+      if ( isCorrect ) {
+
+        // unlink this listener because a challenge can only be completed once.
+        this.guessFourierSeries.amplitudesProperty.unlink( guessAmplitudesListener );
+
+        isCorrectCallback();
+      }
     };
     this.guessFourierSeries.amplitudesProperty.lazyLink( guessAmplitudesListener ); // unlink is not needed.
   }
