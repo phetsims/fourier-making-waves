@@ -35,7 +35,6 @@ class WaveGameChallenge {
     this.isCorrectEmitter = new Emitter();
 
     //TODO do not evaluate the guess until the user has released all sliders
-
     // Evaluate the guess to see if it's close enough to the answer. unlink is not needed.
     this.guessFourierSeries.amplitudesProperty.lazyLink( guessAmplitudes => {
       let isCorrect = true;
