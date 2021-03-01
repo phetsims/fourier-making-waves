@@ -7,7 +7,9 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 
@@ -42,7 +44,8 @@ class WaveGameChallengeGenerator {
     assert && assert( previousChallenge instanceof WaveGameChallenge || previousChallenge === null,
       'invalid previousChallenge' );
 
-    let challenge = new WaveGameChallenge( this.getNumberOfNonZeroHarmonics() );
+    // {WaveGameChallenge} Generate a challenge.
+    let challenge = this.createWaveGameChallenge();
 
     if ( previousChallenge ) {
 
@@ -51,7 +54,7 @@ class WaveGameChallengeGenerator {
       let attempts = 1;
       const maxAttempts = 10;
       while ( challenge.isSimilar( previousChallenge ) && attempts < maxAttempts ) {
-        challenge = new WaveGameChallenge( this.getNumberOfNonZeroHarmonics() );
+        challenge = this.createWaveGameChallenge();
         attempts++;
       }
 
@@ -66,11 +69,25 @@ class WaveGameChallengeGenerator {
   }
 
   /**
+   * Creates a random WaveGameChallenge.
+   * @returns {WaveGameChallenge}
+   * @private
+   */
+  createWaveGameChallenge() {
+    const numberOfNonZeroHarmonics = this.getNumberOfNonZeroHarmonics();
+    assert && AssertUtils.assertPositiveInteger( numberOfNonZeroHarmonics );
+    return new WaveGameChallenge( FMWConstants.MAX_HARMONICS, numberOfNonZeroHarmonics, FMWConstants.MAX_ABSOLUTE_AMPLITUDE );
+  }
+
+  /**
    * Tests this challenge generator.
    * @public
    */
   test() {
-    //TODO
+    const numberOfTests = 1000;
+    for ( let i = 0; i < numberOfTests; i++ ) {
+      this.createWaveGameChallenge();
+    }
   }
 }
 

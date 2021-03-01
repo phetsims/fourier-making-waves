@@ -7,6 +7,9 @@
  */
 
 import Emitter from '../../../../axon/js/Emitter.js';
+import dotRandom from '../../../../dot/js/dotRandom.js';
+import Utils from '../../../../dot/js/Utils.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -17,16 +20,21 @@ const AMPLITUDE_THRESHOLD = 0.01; // a guess amplitude must be at least this clo
 class WaveGameChallenge {
 
   /**
+   * @param {number} numberOfHarmonics
    * @param {number} numberOfNonZeroHarmonics
+   * @param {number} maxAbsoluteAmplitude
    * @param {Object} [options]
    */
-  constructor( numberOfNonZeroHarmonics, options ) {
-    assert && assert( typeof numberOfNonZeroHarmonics === 'number' &&
-    numberOfNonZeroHarmonics > 0 && numberOfNonZeroHarmonics <= FMWConstants.MAX_HARMONICS,
-      'invalid numberOfNonZeroHarmonics' );
+  constructor( numberOfHarmonics, numberOfNonZeroHarmonics, maxAbsoluteAmplitude, options ) {
+    assert && AssertUtils.assertPositiveInteger( numberOfHarmonics );
+    assert && AssertUtils.assertPositiveInteger( numberOfNonZeroHarmonics );
+    assert && assert( numberOfHarmonics >= numberOfNonZeroHarmonics, 'requested too many numberOfNonZeroHarmonics' );
+    assert && AssertUtils.assertPositiveNumber( maxAbsoluteAmplitude );
 
     // @public (read-only) the Fourier series that corresponds to the answer to the challenge
-    this.answerFourierSeries = new FourierSeries();
+    this.answerFourierSeries = new FourierSeries( {
+      amplitudes: generateRandomAmplitudes( numberOfHarmonics, numberOfNonZeroHarmonics, maxAbsoluteAmplitude )
+    } );
 
     // @public (read-only) the Fourier series that corresponds to the user's guess
     this.guessFourierSeries = new FourierSeries();
@@ -64,9 +72,57 @@ class WaveGameChallenge {
    * @public
    */
   toString() {
-    return `{ answer:[${this.answerFourierSeries.amplitudesProperty.value}], ` +
-           `guess:[${this.guessFourierSeries.amplitudesProperty.value}] }`;
+    return `{\nanswer:[${this.answerFourierSeries.amplitudesProperty.value}],\n` +
+           `guess:[${this.guessFourierSeries.amplitudesProperty.value}]\n}`;
   }
+}
+
+/**
+ * Generates a set of random amplitudes.
+ * @param {number} numberOfAmplitudes - total number of amplitudes
+ * @param {number} numberOfNonZeroHarmonics - number of non-zero amplitudes
+ * @param {number} maxAbsoluteAmplitude
+ * @returns {number[]}
+ */
+function generateRandomAmplitudes( numberOfAmplitudes, numberOfNonZeroHarmonics, maxAbsoluteAmplitude ) {
+  assert && AssertUtils.assertPositiveInteger( numberOfAmplitudes );
+  assert && AssertUtils.assertPositiveInteger( numberOfNonZeroHarmonics );
+  assert && assert( numberOfAmplitudes >= numberOfNonZeroHarmonics, 'requested too many numberOfNonZeroHarmonics' );
+  assert && AssertUtils.assertPositiveNumber( maxAbsoluteAmplitude );
+
+  // Indices for the amplitudes. We'll choose randomly from this set.
+  const amplitudesIndices = [];
+  for ( let i = 0; i < numberOfAmplitudes; i++ ) {
+    amplitudesIndices.push( i );
+  }
+
+  // All amplitudes default to zero.
+  const amplitudes = Array( numberOfAmplitudes ).fill( 0 );
+
+  // Choose non-zero amplitudes and randomly generate their values.
+  for ( let i = 0; i < numberOfNonZeroHarmonics; i++ ) {
+
+    // Randomly choose which amplitude to set.
+    const index = dotRandom.nextIntBetween( 0, amplitudesIndices.length - 1 ); // [min,max)
+    const amplitudesIndex = amplitudesIndices[ index ];
+    amplitudesIndices.splice( index, 1 );
+
+    // Randomly choose a non-zero amplitude value, rounded to the same interval used for the amplitude sliders.
+    let amplitude = dotRandom.nextDoubleBetween( -maxAbsoluteAmplitude, 0 );
+    if ( amplitude !== -maxAbsoluteAmplitude ) {
+      amplitude = Utils.roundToInterval( amplitude, FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL );
+    }
+    if ( amplitude === 0 ) {
+      amplitude = -FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL;
+    }
+    amplitude *= dotRandom.nextBoolean() ? 1 : -1;
+    assert && assert( amplitude >= -maxAbsoluteAmplitude && amplitude <= maxAbsoluteAmplitude && amplitude !== 0,
+      `unexpected amplitude: ${amplitude}` );
+    amplitudes[ amplitudesIndex ] = amplitude;
+  }
+  assert && assert( amplitudes.length === numberOfAmplitudes, `expected ${numberOfAmplitudes} amplitudes` );
+
+  return amplitudes;
 }
 
 fourierMakingWaves.register( 'WaveGameChallenge', WaveGameChallenge );

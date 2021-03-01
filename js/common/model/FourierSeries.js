@@ -26,6 +26,7 @@ import Harmonic from './Harmonic.js';
 
 // constants
 const DEFAULT_AMPLITUDES = Array( FMWConstants.MAX_HARMONICS ).fill( 0 );
+const DEFAULT_AMPLITUDE_RANGE = new Range( -FMWConstants.MAX_ABSOLUTE_AMPLITUDE, FMWConstants.MAX_ABSOLUTE_AMPLITUDE );
 
 class FourierSeries extends PhetioObject {
 
@@ -36,9 +37,13 @@ class FourierSeries extends PhetioObject {
 
     options = merge( {
       amplitudes: DEFAULT_AMPLITUDES, // {number[]} initial amplitudes for the harmonics
+      amplitudeRange: DEFAULT_AMPLITUDE_RANGE, // {Range} the range of all harmonic amplitudes
       tandem: Tandem.OPTIONAL,
       phetioState: false
     }, options );
+
+    assert && assert( _.every( options.amplitudes, amplitude => options.amplitudeRange.contains( amplitude ) ),
+      'one or more amplitudes are out of range' );
 
     super( options );
 
@@ -52,7 +57,7 @@ class FourierSeries extends PhetioObject {
     this.T = this.fundamentalPeriod;
 
     // @public (read-only) the range of all harmonic amplitudes
-    this.amplitudeRange = new Range( -FMWConstants.MAX_ABSOLUTE_AMPLITUDE, FMWConstants.MAX_ABSOLUTE_AMPLITUDE );
+    this.amplitudeRange = options.amplitudeRange;
 
     // @public the number of harmonics in this series
     this.numberOfHarmonicsProperty = new NumberProperty( FMWConstants.MAX_HARMONICS, {

@@ -73,6 +73,14 @@ class WaveGameLevel {
   next() {
     this.challengeProperty.value = this.challengeGenerator.nextChallenge( this.challengeProperty.value );
   }
+
+  /**
+   * Tests this game level.
+   * @public
+   */
+  test() {
+    this.challengeGenerator.test();
+  }
 }
 
 fourierMakingWaves.register( 'WaveGameLevel', WaveGameLevel );

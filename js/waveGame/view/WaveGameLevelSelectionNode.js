@@ -84,17 +84,20 @@ class WaveGameLevelSelectionNode extends Node {
     assert && assert( !options.children, 'LevelSelectionNode sets children' );
     options.children = [ levelSelectionButtonsBox, resetAllButton ];
 
-    // Press this button to test challenge generators. See output in console.
+    // Press this button to test each game level. See output in console.
     // This test is only useful if assertions are enabled.
     // Also disable if fuzz is enabled, since this takes a long time and is not relevant to fuzz testing.
     if ( assert && phet.chipper.queryParameters.showAnswers && !phet.chipper.isFuzzEnabled() ) {
       const testButton = new RectangularPushButton( {
-        content: new Text( 'test challenge generators', { fill: 'white', font: new PhetFont( 20 ) } ),
+        content: new Text( 'test game levels', { fill: 'white', font: new PhetFont( 20 ) } ),
         baseColor: 'red',
         listener: () => {
-          console.log( 'begin test of challenge generators...' );
-          model.levels.forEach( level => level.challengeGenerator.test() );
-          console.log( 'end test of challenge generators' );
+          console.log( 'begin test of game levels...' );
+          model.levels.forEach( level => {
+            console.log( `testing level ${level.levelNumber}` );
+            level.test();
+          } );
+          console.log( 'end test of game levels' );
           const messageNode = new RichText( 'Test completed.<br>See results in browser console.' );
           const dialog = new Dialog( messageNode, {
             topMargin: 20,
