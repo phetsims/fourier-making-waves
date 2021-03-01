@@ -35,7 +35,7 @@ class WaveGameModel {
     // @public {WaveGameLevel[]}
     this.levels = [];
 
-    // All levels except the last one are 'N non-zero harmonics'
+    // All levels except the last one are 'N harmonics'
     for ( let i = 1; i < NUMBER_OF_LEVELS; i++ ) {
 
       // Handle singular vs plural description of the level, which appears in the scoreboard.
@@ -51,7 +51,7 @@ class WaveGameModel {
       } ) );
     }
 
-    // The last level is 'N or more non-zero harmonics'
+    // The last level is 'N or more harmonics'
     this.levels.push(
       new WaveGameLevel( NUMBER_OF_LEVELS,
         StringUtils.fillIn( fourierMakingWavesStrings.numberOrMoreNonZeroHarmonics, {
