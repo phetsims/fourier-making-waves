@@ -121,20 +121,20 @@ class WaveGameLevelNode extends Node {
       nextButton
     ];
 
-    // When the ?showAnswers query parameter is present, add a button for immediately solving the challenge.
-    let solveButton = null;
+    // Solve button immediately solves the challenge.  It's for development and QA, and is added to the
+    // scenegraph only when the ?showAnswers query parameter is present.
+    const solveButton = new RectangularPushButton( {
+      content: new Text( 'Solve', {
+        font: DEFAULT_FONT,
+        fill: 'white'
+      } ),
+      baseColor: 'red',
+      listener: () => {
+        this.interruptSubtreeInput();
+        level.solve();
+      }
+    } );
     if ( phet.chipper.queryParameters.showAnswers ) {
-      solveButton = new RectangularPushButton( {
-        content: new Text( 'Solve', {
-          font: DEFAULT_FONT,
-          fill: 'white'
-        } ),
-        baseColor: 'red',
-        listener: () => {
-          this.interruptSubtreeInput();
-          level.solve();
-        }
-      } );
       controlPanelChildren.push( solveButton );
     }
 
