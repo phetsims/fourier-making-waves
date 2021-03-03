@@ -217,8 +217,10 @@ class WaveGameLevelNode extends Node {
       this.visible = ( levelValue === level );
     } );
 
+    const rewardScore = FMWQueryParameters.rewardScore;
+
     // {RewardDialog} dialog that is displayed when score reaches the reward value
-    const rewardDialog = new RewardDialog( level.scoreProperty.value, {
+    const rewardDialog = new RewardDialog( rewardScore, {
 
       // 'Keep Going' hides the dialog
       keepGoingButtonListener: () => rewardDialog.hide(),
@@ -254,7 +256,7 @@ class WaveGameLevelNode extends Node {
       refreshButton.enabled = false;
       solveButton.enabled = false;
 
-      if ( score === FMWQueryParameters.rewardScore ) {
+      if ( score === rewardScore ) {
 
         // The score has reached the magic number where a reward is display.
         gameAudioPlayer.gameOverPerfectScore();
