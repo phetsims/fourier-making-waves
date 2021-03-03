@@ -73,8 +73,9 @@ class FourierSoundGenerator extends SoundGenerator {
     } );
 
     // Set the master output level. unlink is not needed.
-    outputLevelProperty.lazyLink( outputLevel => {
+    outputLevelProperty.link( outputLevel => {
       this.setOutputLevel( outputLevel );
+      phet.log && phet.log( `FourierSoundGenerator outputLevel=${outputLevel}` );
     } );
 
     // Turn sound on/off. unlink is not needed.  We could have controlled this via options.enableControlProperties,
