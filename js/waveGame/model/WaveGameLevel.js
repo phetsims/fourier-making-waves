@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -37,9 +36,6 @@ class WaveGameLevel {
     this.levelNumber = levelNumber;
     this.description = description;
 
-    // @public emits when a challenge has been successfully completed
-    this.isCorrectEmitter = new Emitter();
-
     // @public
     this.scoreProperty = new NumberProperty( 0, {
       numberType: 'Integer',
@@ -52,12 +48,13 @@ class WaveGameLevel {
     this.challengeGenerator = new WaveGameChallengeGenerator( {
       getNumberOfNonZeroHarmonics: options.getNumberOfNonZeroHarmonics,
       isCorrectCallback: () => {
+        phet.log && phet.log( 'Correct answer!' );
         this.scoreProperty.value += POINTS_PER_CHALLENGE;
-        this.isCorrectEmitter.emit();
       },
       tandem: options.tandem.createTandem( 'challengeGenerator' )
     } );
 
+    //TODO this should probably be null initially, we don't want to always reset to the same challenge
     // @public (read-only) {Property.<WaveGameChallenge>} the current challenge
     this.challengeProperty = new Property( this.challengeGenerator.nextChallenge( null ), {
       isValidValue: value => ( value instanceof WaveGameChallenge )

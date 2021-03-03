@@ -71,6 +71,8 @@ class WaveGameModel {
     // @private
     this.resetWaveGameModel = () => {
 
+      this.levels.forEach( level => level.reset() );
+
       // Reset all non-inherited, non-derived Properties
       FMWUtils.resetOwnProperties( this );
     };

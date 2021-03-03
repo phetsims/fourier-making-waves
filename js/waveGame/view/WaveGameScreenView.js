@@ -97,6 +97,23 @@ class WaveGameScreenView extends ScreenView {
   reset() {
     //TODO
   }
+
+  /**
+   * Steps the view.
+   * @param {number} dt - time step, in seconds
+   * @public
+   */
+  step( dt ) {
+
+    // animate the view for the selected level
+    for ( let i = 0; i < this.levelNodes.length; i++ ) {
+      const levelNode = this.levelNodes[ i ];
+      if ( levelNode.visible ) {
+        levelNode.step( dt );
+        break;
+      }
+    }
+  }
 }
 
 fourierMakingWaves.register( 'WaveGameScreenView', WaveGameScreenView );

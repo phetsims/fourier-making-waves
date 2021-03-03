@@ -17,6 +17,14 @@ const SCHEMA = {
   uiSoundsEnabled: {
     type: 'boolean',
     defaultValue: false //TODO https://github.com/phetsims/fourier-making-waves/issues/48 change to true for a future release?
+  },
+
+  // Reaching this score results in a reward.
+  // For internal use only, not public facing.
+  rewardScore: {
+    type: 'number',
+    defaultValue: 10,
+    isValidValue: value => ( value > 0 )
   }
 };
 

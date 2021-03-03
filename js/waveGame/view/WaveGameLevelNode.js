@@ -22,14 +22,19 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Animation from '../../../../twixt/js/Animation.js';
+import Easing from '../../../../twixt/js/Easing.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import InfiniteStatusBar from '../../../../vegas/js/InfiniteStatusBar.js';
+import RewardDialog from '../../../../vegas/js/RewardDialog.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
 import AmplitudeControlsSpinner from './AmplitudeControlsSpinner.js';
+import WaveGameRewardNode from './WaveGameRewardNode.js';
 
 // constants
 const DEFAULT_FONT = new PhetFont( 16 );
@@ -63,15 +68,18 @@ class WaveGameLevelNode extends Node {
       tandem: options.tandem.createTandem( 'levelDescriptionText' )
     } );
 
+    const backButtonListener = () => {
+      this.interruptSubtreeInput();
+      levelProperty.value = null; // back to the level-selection UI
+      //TODO clean up faceAnimation, rewardDialog, rewardNode?
+    };
+
     // Bar across the top of the screen
     const statusBar = new InfiniteStatusBar( layoutBounds, visibleBoundsProperty, levelDescriptionText, level.scoreProperty, {
       floatToTop: false,
       spacing: 20,
       barFill: FMWColorProfile.scoreBoardFillProperty,
-      backButtonListener: () => {
-        this.interruptSubtreeInput();
-        levelProperty.value = null; // back to the level-selection UI
-      },
+      backButtonListener: backButtonListener,
       tandem: options.tandem.createTandem( 'statusBar' )
     } );
 
@@ -100,6 +108,15 @@ class WaveGameLevelNode extends Node {
       visible: false,
       tandem: options.tandem.createTandem( 'faceNode' ),
       phetioReadOnly: true
+    } );
+
+    // Property that controls opacity of smiley face.  This is required because opacityProperty is a TinyProperty,
+    // which currently does not qualify as an AnimationTarget. See https://github.com/phetsims/twixt/issues/29.
+    const faceOpacityProperty = new NumberProperty( faceNode.opacity, {
+      range: new Range( 0, 1 )
+    } );
+    faceOpacityProperty.link( faceOpacity => {
+      faceNode.opacity = faceOpacity;
     } );
 
     // Next button is shown after a challenge has been successfully completed.
@@ -165,10 +182,15 @@ class WaveGameLevelNode extends Node {
     nextButton.addListener( next );
     refreshButton.addListener( next );
 
+    // @private {WaveGameRewardNode|null} reward shown while rewardDialog is open
+    const rewardNode = new WaveGameRewardNode( level.levelNumber, {
+      visible: false
+    } );
+
     //TODO display the challenge
 
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
-    options.children = [ statusBar, controlPanel ];
+    options.children = [ statusBar, controlPanel, rewardNode ];
 
     // When the ?showAnswers query parameter is present, show the answers near the amplitude sliders.
     if ( phet.chipper.queryParameters.showAnswers ) {
@@ -195,14 +217,94 @@ class WaveGameLevelNode extends Node {
       this.visible = ( levelValue === level );
     } );
 
-    level.isCorrectEmitter.addListener( () => {
-      phet.log && phet.log( 'Correct answer!' );
-      gameAudioPlayer.correctAnswer();
-      faceNode.visible = true; //TODO animated fade out
-      nextButton.visible = true; //TODO show after faceNode fades out
-      refreshButton.enabled = false;
-      solveButton && ( solveButton.enabled = false );
+    // {RewardDialog} dialog that is displayed when score reaches the reward value
+    const rewardDialog = new RewardDialog( level.scoreProperty.value, {
+
+      // 'Keep Going' hides the dialog
+      keepGoingButtonListener: () => rewardDialog.hide(),
+
+      // 'New Level' has the same effect as the back button in the status bar
+      newLevelButtonListener: () => {
+        rewardDialog.hide();
+        backButtonListener();
+      },
+
+      // When the dialog is shown, show the reward.
+      showCallback: () => {
+        rewardNode.visible = true;
+      },
+
+      // When the dialog is hidden, hide the reward.
+      hideCallback: () => {
+        rewardNode.visible = false;
+      }
     } );
+
+    // @private {Animation|null} animation of faceNode
+    this.faceAnimation = null;
+
+    // unlink not needed.
+    level.scoreProperty.lazyLink( ( score, oldScore ) => {
+
+      // do nothing when the score is reset
+      if ( score < oldScore ) {
+        return;
+      }
+
+      refreshButton.enabled = false;
+      solveButton.enabled = false;
+
+      if ( score === FMWQueryParameters.rewardScore ) {
+
+        // The score has reached the magic number where a reward is display.
+        gameAudioPlayer.gameOverPerfectScore();
+        nextButton.visible = true;
+        rewardDialog.show();
+      }
+      else {
+
+        // The score doesn't warrant a reward, so just show a smiley face, etc.
+
+        // ding!
+        gameAudioPlayer.correctAnswer();
+
+        // Show smiley face, fade it out, then show the Next button.
+        faceOpacityProperty.value = 1;
+        faceNode.visible = true;
+
+        this.faceAnimation = new Animation( {
+          stepEmitter: null, // via step function
+          delay: 1,
+          duration: 0.8,
+          targets: [ {
+            property: faceOpacityProperty,
+            easing: Easing.LINEAR,
+            to: 0
+          } ]
+        } );
+
+        // removeListener not needed
+        this.faceAnimation.finishEmitter.addListener( () => {
+          faceNode.visible = false;
+          nextButton.visible = true;
+          this.faceAnimation = null;
+        } );
+
+        this.faceAnimation.start();
+      }
+    } );
+
+    // @private
+    this.rewardNode = rewardNode;
+  }
+
+  /**
+   * @param {number} dt - elapsed time, in seconds
+   * @public
+   */
+  step( dt ) {
+    this.faceAnimation && this.faceAnimation.step( dt );
+    this.rewardNode.visible && this.rewardNode.step( dt );
   }
 }
 
