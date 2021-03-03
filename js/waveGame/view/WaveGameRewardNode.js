@@ -16,7 +16,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 // constants
 const NUMBER_OF_NODES = 100;
 
-//TODO different Nodes for each level?
+//TODO https://github.com/phetsims/fourier-making-waves/issues/50 different Nodes for each level?
 const NODES = [
   new FaceNode( 40, { headStroke: 'black' } ),
   new StarNode()
