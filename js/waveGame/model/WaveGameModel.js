@@ -34,33 +34,37 @@ class WaveGameModel {
 
     // @public {WaveGameLevel[]}
     this.levels = [];
+    for ( let i = 1; i <= NUMBER_OF_LEVELS; i++ ) {
 
-    // All levels except the last one are 'N harmonics'
-    for ( let i = 1; i < NUMBER_OF_LEVELS; i++ ) {
+      let getNumberOfNonZeroHarmonics; // {function():number
+      let description; // {string}
 
-      // Handle singular vs plural description of the level, which appears in the scoreboard.
-      const description = ( i === 1 ) ?
-                          fourierMakingWavesStrings.oneNonZeroHarmonic :
-                          StringUtils.fillIn( fourierMakingWavesStrings.numberNonZeroHarmonics, {
-                            levelNumber: i,
-                            numberOfHarmonics: i
-                          } );
+      if ( i === 1 ) {
+        getNumberOfNonZeroHarmonics = () => i;
+        description = StringUtils.fillIn( fourierMakingWavesStrings.oneNonZeroHarmonic, {
+          levelNumber: i
+        } );
+      }
+      else if ( i === NUMBER_OF_LEVELS ) {
+        getNumberOfNonZeroHarmonics = () => dotRandom.nextIntBetween( NUMBER_OF_LEVELS, FMWConstants.MAX_HARMONICS );
+        description = StringUtils.fillIn( fourierMakingWavesStrings.numberOrMoreNonZeroHarmonics, {
+          levelNumber: i,
+          numberOfHarmonics: i
+        } );
+      }
+      else {
+        getNumberOfNonZeroHarmonics = () => i;
+        description = StringUtils.fillIn( fourierMakingWavesStrings.numberNonZeroHarmonics, {
+          levelNumber: i,
+          numberOfHarmonics: i
+        } );
+      }
+
       this.levels.push( new WaveGameLevel( i, description, {
-        getNumberOfNonZeroHarmonics: () => i,
+        getNumberOfNonZeroHarmonics: getNumberOfNonZeroHarmonics,
         tandem: options.tandem.createTandem( `level${i}` )
       } ) );
     }
-
-    // The last level is 'N or more harmonics'
-    this.levels.push(
-      new WaveGameLevel( NUMBER_OF_LEVELS,
-        StringUtils.fillIn( fourierMakingWavesStrings.numberOrMoreNonZeroHarmonics, {
-          levelNumber: NUMBER_OF_LEVELS,
-          numberOfHarmonics: NUMBER_OF_LEVELS
-        } ), {
-          getNumberOfNonZeroHarmonics: () => dotRandom.nextIntBetween( NUMBER_OF_LEVELS, FMWConstants.MAX_HARMONICS ),
-          tandem: options.tandem.createTandem( `level${NUMBER_OF_LEVELS}` )
-        } ) );
 
     // @public {Property.<null|WaveGameLevel>} the selected game level, null returns to the level-selection UI
     this.levelProperty = new Property( null, {
