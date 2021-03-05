@@ -117,6 +117,9 @@ class AmplitudeSlider extends VSlider {
         emphasizedHarmonics.remove( this );
       }
     } );
+
+    // When a slider becomes visible, interrupt any interaction that may be in progress.
+    this.visibleProperty.link( visible => visible && this.interruptSubtreeInput() );
   }
 
   /**
@@ -126,17 +129,6 @@ class AmplitudeSlider extends VSlider {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
-  }
-
-  /**
-   * When a slider becomes invisible, interrupt any interaction that may be in progress.
-   * @param {boolean} visible
-   * @public
-   * @override
-   */
-  setVisible( visible ) {
-    super.setVisible( visible );
-    !visible && this.interruptSubtreeInput();
   }
 }
 
