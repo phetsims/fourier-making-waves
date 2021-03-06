@@ -110,15 +110,6 @@ class WaveGameLevelNode extends Node {
       phetioReadOnly: true
     } );
 
-    // Property that controls opacity of smiley face.  This is required because opacityProperty is a TinyProperty,
-    // which currently does not qualify as an AnimationTarget. See https://github.com/phetsims/twixt/issues/29.
-    const faceOpacityProperty = new NumberProperty( faceNode.opacity, {
-      range: new Range( 0, 1 )
-    } );
-    faceOpacityProperty.link( faceOpacity => {
-      faceNode.opacity = faceOpacity;
-    } );
-
     // Next button is shown after a challenge has been successfully completed.
     const nextButton = new RectangularPushButton( {
       content: new Text( fourierMakingWavesStrings.next, {
@@ -271,7 +262,7 @@ class WaveGameLevelNode extends Node {
         gameAudioPlayer.correctAnswer();
 
         // Show smiley face, fade it out, then show the Next button.
-        faceOpacityProperty.value = 1;
+        faceNode.opacityProperty.value = 1;
         faceNode.visible = true;
 
         this.faceAnimation = new Animation( {
@@ -279,7 +270,7 @@ class WaveGameLevelNode extends Node {
           delay: 1,
           duration: 0.8,
           targets: [ {
-            property: faceOpacityProperty,
+            property: faceNode.opacityProperty,
             easing: Easing.LINEAR,
             to: 0
           } ]
