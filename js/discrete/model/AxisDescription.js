@@ -180,7 +180,7 @@ assert && assert( isSortedDescending( AxisDescription.Y_AXIS_DESCRIPTIONS ),
 
 // Alert that you've done something that may require revising Y_AXIS_DESCRIPTIONS.
 assert && assert( FMWConstants.MAX_ABSOLUTE_AMPLITUDE === 1.5,
-  'Y_AXIS_DESCRIPTIONS have been tuned for the specific amplitude range [-1.5,1.5]. ' + '' +
+  'Y_AXIS_DESCRIPTIONS have been tuned for the specific amplitude range [-1.5,1.5]. ' +
   'It looks like you have changed FMWConstants.MAX_ABSOLUTE_AMPLITUDE, and may need to revise.' );
 
 // @public default zoom level for the y axis
