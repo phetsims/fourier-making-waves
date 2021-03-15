@@ -96,7 +96,7 @@ class AmplitudesChartNode extends Node {
 
     // Create a number display for each harmonic's amplitude
     const numberDisplays = _.map( fourierSeries.harmonics, harmonic =>
-      new AmplitudeNumberDisplay( harmonic, amplitudeKeypadDialog, {
+      new AmplitudeNumberDisplay( harmonic, emphasizedHarmonics, amplitudeKeypadDialog, {
         press: options.onEdit,
         centerX: chartTransform.modelToViewX( harmonic.order ),
         bottom: chartRectangle.top - 10,

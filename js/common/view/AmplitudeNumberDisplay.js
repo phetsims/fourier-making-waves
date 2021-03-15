@@ -16,6 +16,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWSymbols from '../FMWSymbols.js';
+import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
 import AmplitudeKeypadDialog from './AmplitudeKeypadDialog.js';
 
@@ -26,12 +27,14 @@ class AmplitudeNumberDisplay extends VBox {
 
   /**
    * @param {Harmonic} harmonic
+   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog
    * @param {Object} [options]
    */
-  constructor( harmonic, amplitudeKeypadDialog, options ) {
+  constructor( harmonic, emphasizedHarmonics, amplitudeKeypadDialog, options ) {
 
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
+    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
     assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog, 'invalid amplitudeKeypadDialog' );
 
     options = merge( {
@@ -67,7 +70,7 @@ class AmplitudeNumberDisplay extends VBox {
 
     super( options );
 
-    this.addInputListener( new PressListener( {
+    const pressListener = new PressListener( {
       press: () => {
 
         // We have started editing
@@ -87,7 +90,18 @@ class AmplitudeNumberDisplay extends VBox {
           () => numberDisplay.setBackgroundFill( restoreBackgroundFill )
         );
       }
-    } ) );
+    } );
+    this.addInputListener( pressListener );
+
+    // Emphasize the associated harmonic. unlink is not needed.
+    pressListener.isHighlightedProperty.link( isHighlighted => {
+      if ( isHighlighted ) {
+        emphasizedHarmonics.push( this, harmonic );
+      }
+      else if ( emphasizedHarmonics.includesNode( this ) ) {
+        emphasizedHarmonics.remove( this );
+      }
+    } );
   }
 
   /**
