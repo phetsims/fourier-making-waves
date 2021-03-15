@@ -42,7 +42,7 @@ class AmplitudesChartNode extends Node {
 
   /**
    * @param {FourierSeries} fourierSeries
-   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
+   * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
    * @param {Object} [options]
    */

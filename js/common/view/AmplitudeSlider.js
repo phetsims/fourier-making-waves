@@ -40,7 +40,7 @@ class AmplitudeSlider extends VSlider {
 
   /**
    * @param {Harmonic} harmonic
-   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
+   * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {Object} [options]
    */
   constructor( harmonic, emphasizedHarmonics, options ) {

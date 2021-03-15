@@ -27,7 +27,7 @@ class AmplitudeNumberDisplay extends VBox {
 
   /**
    * @param {Harmonic} harmonic
-   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
+   * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog
    * @param {Object} [options]
    */

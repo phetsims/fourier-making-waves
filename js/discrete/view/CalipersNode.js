@@ -38,7 +38,7 @@ class CalipersNode extends MeasurementToolNode {
   /**
    * @param {MeasurementTool} tool
    * @param {Harmonic[]} harmonics
-   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
+   * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {ChartTransform} chartTransform - transform for the Harmonics chart
    * @param {Property.<Bounds2>} visibleBoundsProperty - visible bounds of the associated ScreenView
    * @param {EnumerationProperty.<Domain>} domainProperty

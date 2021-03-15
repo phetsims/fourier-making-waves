@@ -35,7 +35,7 @@ class MeasurementToolNode extends Node {
   /**
    * @param {MeasurementTool} tool
    * @param {Property.<Harmonic>} harmonicProperty
-   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
+   * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {Property.<Bounds2>} visibleBoundsProperty - visible bounds of the associated ScreenView
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Domain[]} relevantDomains - the Domain values that are relevant for this tool
