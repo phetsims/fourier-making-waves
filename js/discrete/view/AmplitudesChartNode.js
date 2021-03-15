@@ -18,7 +18,6 @@ import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -33,7 +32,6 @@ import AmplitudeNumberDisplay from '../../common/view/AmplitudeNumberDisplay.js'
 import AmplitudeSlider from '../../common/view/AmplitudeSlider.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import Waveform from '../model/Waveform.js';
 
 // constants
 const X_MARGIN = 0.5; // x-axis margins, in model coordinates
@@ -44,19 +42,20 @@ class AmplitudesChartNode extends Node {
 
   /**
    * @param {FourierSeries} fourierSeries
-   * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
    * @param {Object} [options]
    */
-  constructor( fourierSeries, waveformProperty, emphasizedHarmonics, amplitudeKeypadDialog, options ) {
+  constructor( fourierSeries, emphasizedHarmonics, amplitudeKeypadDialog, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
-    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
     assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog, 'invalid amplitudeKeypadDialog' );
 
     options = merge( {
+
+      // {function} called when the user starts editing any amplitude value
+      onEdit: _.noop,
 
       // phet-io
       tandem: Tandem.REQUIRED
@@ -87,7 +86,8 @@ class AmplitudesChartNode extends Node {
 
     // Create a slider for each harmonic's amplitude
     const sliders = _.map( fourierSeries.harmonics, harmonic =>
-      new AmplitudeSlider( harmonic, emphasizedHarmonics, waveformProperty, {
+      new AmplitudeSlider( harmonic, emphasizedHarmonics, {
+        press: options.onEdit,
         trackHeight: options.viewHeight,
         center: chartTransform.modelToViewXY( harmonic.order, 0 ),
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` )
@@ -96,7 +96,8 @@ class AmplitudesChartNode extends Node {
 
     // Create a number display for each harmonic's amplitude
     const numberDisplays = _.map( fourierSeries.harmonics, harmonic =>
-      new AmplitudeNumberDisplay( harmonic, amplitudeKeypadDialog, waveformProperty, {
+      new AmplitudeNumberDisplay( harmonic, amplitudeKeypadDialog, {
+        press: options.onEdit,
         centerX: chartTransform.modelToViewX( harmonic.order ),
         bottom: chartRectangle.top - 10,
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}NumberDisplay` )

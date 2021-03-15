@@ -8,14 +8,12 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
-import Waveform from '../../discrete/model/Waveform.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Harmonic from '../model/Harmonic.js';
@@ -29,20 +27,20 @@ class AmplitudeNumberDisplay extends VBox {
   /**
    * @param {Harmonic} harmonic
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog
-   * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {Object} [options]
    */
-  constructor( harmonic, amplitudeKeypadDialog, waveformProperty, options ) {
+  constructor( harmonic, amplitudeKeypadDialog, options ) {
 
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
     assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog, 'invalid amplitudeKeypadDialog' );
-    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
     options = merge( {
 
-      cursor: 'pointer',
+      // {function} called when there's a press anywhere on this Node
+      press: _.noop,
 
       // VBox options
+      cursor: 'pointer',
       spacing: 2,
       align: 'center',
 
@@ -72,8 +70,8 @@ class AmplitudeNumberDisplay extends VBox {
     this.addInputListener( new PressListener( {
       press: () => {
 
-        // When we edit an amplitude, switch to custom.
-        waveformProperty.value = Waveform.CUSTOM;
+        // We have started editing
+        options.press();
 
         // Change the background fill to indicate which amplitude we're editing.
         const restoreBackgroundFill = numberDisplay.getBackgroundFill();

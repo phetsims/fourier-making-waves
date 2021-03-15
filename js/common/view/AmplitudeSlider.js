@@ -14,7 +14,6 @@ import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -23,7 +22,6 @@ import Color from '../../../../scenery/js/util/Color.js';
 import SliderTrack from '../../../../sun/js/SliderTrack.js';
 import VSlider from '../../../../sun/js/VSlider.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Waveform from '../../discrete/model/Waveform.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
@@ -43,16 +41,17 @@ class AmplitudeSlider extends VSlider {
   /**
    * @param {Harmonic} harmonic
    * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
-   * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {Object} [options]
    */
-  constructor( harmonic, emphasizedHarmonics, waveformProperty, options ) {
+  constructor( harmonic, emphasizedHarmonics, options ) {
 
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
-    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
     options = merge( {
+
+      // {function} called when there's a press anywhere on this Node
+      press: _.noop,
 
       // {number} snap to this interval, unless the value is min or max
       snapInterval: FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL,
@@ -86,12 +85,6 @@ class AmplitudeSlider extends VSlider {
     assert && assert( !options.thumbNode, 'AmplitudeSlider sets thumbNode' );
     options.thumbNode = thumbNode;
 
-    // When we edit an amplitude, switch to custom.
-    assert && assert( !options.startDrag, 'AmplitudeSlider sets startDrag' );
-    options.startDrag = () => {
-      waveformProperty.value = Waveform.CUSTOM;
-    };
-
     assert && assert( !options.constrainValue, 'AmplitudeSlider sets constrainValue' );
     options.constrainValue = amplitude => {
       if ( amplitude !== amplitudeRange.min && amplitude !== amplitudeRange.max ) {
@@ -101,6 +94,11 @@ class AmplitudeSlider extends VSlider {
     };
 
     super( harmonic.amplitudeProperty, amplitudeRange, options );
+
+    this.addInputListener( new PressListener( {
+      attach: false,
+      press: options.press
+    } ) );
 
     // The associated harmonic is emphasized if we're interacting with either the thumb or the visible part of the track.
     const isEmphasizedProperty = new DerivedProperty(

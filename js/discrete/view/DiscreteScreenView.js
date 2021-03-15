@@ -24,6 +24,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
+import Waveform from '../model/Waveform.js';
 import AmplitudesChartNode from './AmplitudesChartNode.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
 import ExpandedFormButton from './ExpandedFormButton.js';
@@ -73,8 +74,9 @@ class DiscreteScreenView extends ScreenView {
       tandem: amplitudesTandem.createTandem( 'amplitudeKeypadDialog' )
     } );
 
-    const amplitudesChartNode = new AmplitudesChartNode( model.fourierSeries, model.waveformProperty,
+    const amplitudesChartNode = new AmplitudesChartNode( model.fourierSeries,
       model.harmonicsChart.emphasizedHarmonics, amplitudeKeypadDialog, {
+        onEdit: () => { model.waveformProperty.value = Waveform.CUSTOM; },
         viewWidth: CHART_RECTANGLE_SIZE.width,
         viewHeight: CHART_RECTANGLE_SIZE.height,
         tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
