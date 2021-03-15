@@ -76,6 +76,8 @@ class DiscreteScreenView extends ScreenView {
 
     const amplitudesChartNode = new AmplitudesChartNode( model.fourierSeries,
       model.harmonicsChart.emphasizedHarmonics, amplitudeKeypadDialog, {
+
+        // Changing any amplitude switches the waveform to 'custom'.
         onEdit: () => { model.waveformProperty.value = Waveform.CUSTOM; },
         viewWidth: CHART_RECTANGLE_SIZE.width,
         viewHeight: CHART_RECTANGLE_SIZE.height,
