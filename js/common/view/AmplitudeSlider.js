@@ -67,7 +67,7 @@ class AmplitudeSlider extends VSlider {
     const thumbSize = new Dimension2( THUMB_WIDTH, THUMB_HEIGHT ).flipped();
     const trackSize = new Dimension2( TRACK_WIDTH, options.trackHeight ).flipped();
 
-    const thumbNode = new GrippyThumb( thumbSize, harmonic, emphasizedHarmonics );
+    const thumbNode = new GrippyThumb( thumbSize, harmonic );
     thumbNode.touchArea = thumbNode.localBounds.dilatedXY( THUMB_TOUCH_AREA_DILATION.width, THUMB_TOUCH_AREA_DILATION.height );
     thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( THUMB_MOUSE_AREA_DILATION.width, THUMB_MOUSE_AREA_DILATION.height );
 
@@ -77,7 +77,7 @@ class AmplitudeSlider extends VSlider {
       Utils.toFixedNumber( harmonic.amplitudeProperty.range.max, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES )
     );
 
-    const trackNode = new BarTrack( trackSize, harmonic, amplitudeRange, emphasizedHarmonics );
+    const trackNode = new BarTrack( trackSize, harmonic, amplitudeRange );
 
     assert && assert( !options.trackNode, 'AmplitudeSlider sets trackNode' );
     options.trackNode = trackNode;
@@ -138,13 +138,11 @@ class GrippyThumb extends Node {
   /**
    * @param {Dimension2} thumbSize
    * @param {Harmonic} harmonic
-   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    */
-  constructor( thumbSize, harmonic, emphasizedHarmonics ) {
+  constructor( thumbSize, harmonic ) {
 
     assert && assert( thumbSize instanceof Dimension2, 'invalid thumbSize' );
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
-    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
 
     const rectangle = new Rectangle( 0, 0, thumbSize.width, thumbSize.height, {
       fill: Color.grayColor( 200 ),
@@ -198,15 +196,13 @@ class BarTrack extends SliderTrack {
    * @param {Dimension2} trackSize
    * @param {Harmonic} harmonic
    * @param {Range} amplitudeRange
-   * @param {ObservableArrayDef.<Harmonic>} emphasizedHarmonics
    */
-  constructor( trackSize, harmonic, amplitudeRange, emphasizedHarmonics ) {
+  constructor( trackSize, harmonic, amplitudeRange ) {
 
     assert && assert( trackSize instanceof Dimension2, 'invalid trackSize' );
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
     assert && assert( amplitudeRange instanceof Range, 'invalid amplitudeRange' );
     assert && assert( amplitudeRange.getCenter() === 0, 'implementation assumes that range is symmetric' );
-    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
 
     const invisibleTrackNode = new Rectangle( 0, 0, trackSize.width, trackSize.height, {
       fill: 'transparent',
