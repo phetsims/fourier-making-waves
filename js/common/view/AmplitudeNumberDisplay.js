@@ -80,6 +80,9 @@ class AmplitudeNumberDisplay extends VBox {
         const restoreBackgroundFill = numberDisplay.getBackgroundFill();
         numberDisplay.setBackgroundFill( PhetColorScheme.BUTTON_YELLOW );
 
+        // Emphasize the associated harmonic.
+        emphasizedHarmonics.push( amplitudeKeypadDialog, harmonic );
+
         // Open the keypad dialog.
         amplitudeKeypadDialog.show( harmonic.order,
 
@@ -87,7 +90,14 @@ class AmplitudeNumberDisplay extends VBox {
           amplitude => { harmonic.amplitudeProperty.value = amplitude; },
 
           // closeCallback, called when the dialog is closed.
-          () => numberDisplay.setBackgroundFill( restoreBackgroundFill )
+          () => {
+            numberDisplay.setBackgroundFill( restoreBackgroundFill );
+
+            // De-emphasize the associated harmonic.
+            if ( emphasizedHarmonics.includesNode( amplitudeKeypadDialog ) ) {
+              emphasizedHarmonics.remove( amplitudeKeypadDialog );
+            }
+          }
         );
       }
     } );
