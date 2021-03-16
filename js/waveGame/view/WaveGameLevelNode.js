@@ -212,13 +212,25 @@ class WaveGameLevelNode extends Node {
       tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
     } );
 
+    // Parent tandem for all components related to the Sum chart
+    const sumTandem = options.tandem.createTandem( 'sum' );
+
+    const sumTitleNode = new Text( fourierMakingWavesStrings.sum, {
+      font: FMWConstants.TITLE_FONT,
+      tandem: sumTandem.createTandem( 'harmonicsTitleNode' )
+    } );
+
     // Layout
     amplitudesChartNode.x = X_CHART_RECTANGLES;
     amplitudesChartNode.top = statusBar.bottom + 5;
     harmonicsTitleNode.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-    harmonicsTitleNode.top = amplitudesChartNode.bottom + 15;
-    harmonicsChartNode.x = X_CHART_RECTANGLES;
+    harmonicsTitleNode.top = amplitudesChartNode.bottom + 30;
+    harmonicsChartNode.x = amplitudesChartNode.x;
     harmonicsChartNode.y = harmonicsTitleNode.bottom + 15;
+    sumTitleNode.left = harmonicsTitleNode.left;
+    sumTitleNode.top = harmonicsChartNode.bottom + 30;
+    // sumChartNode.x = amplitudesChartNode.x;
+    // sumChartNode.y = sumTitleNode.bottom + 15;
     controlPanel.right = layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
     controlPanel.top = statusBar.bottom + 20;
 
@@ -229,6 +241,7 @@ class WaveGameLevelNode extends Node {
       amplitudesChartNode,
       harmonicsTitleNode,
       harmonicsChartNode,
+      sumTitleNode,
       rewardNode
     ];
 
