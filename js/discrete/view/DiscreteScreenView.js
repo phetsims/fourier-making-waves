@@ -132,8 +132,6 @@ class DiscreteScreenView extends ScreenView {
       model.waveformProperty, model.domainProperty, model.equationFormProperty, {
         viewWidth: CHART_RECTANGLE_SIZE.width,
         viewHeight: CHART_RECTANGLE_SIZE.height,
-        left: sumExpandCollapseButton.left,
-        y: sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING,
         visibleProperty: model.sumChart.chartVisibleProperty,
         tandem: sumTandem.createTandem( 'sumChartNode' )
       } );
