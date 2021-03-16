@@ -32,16 +32,21 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
 
     super( adapterFourierSeries, emphasizedHarmonics, amplitudeKeypadDialog, options );
 
-    // When the challenge changes, set the amplitudes to match the guess amplitudes (typically all zero).
-    challengeProperty.link( challenge =>
-      adapterFourierSeries.setAmplitudes( challenge.guessFourierSeries.amplitudesProperty.value ) );
+    // When the challenge changes, set the amplitudes to match the guess amplitudes.  When a challenge is created
+    // the guess amplitudes will be zero. But if we use the "solve" debug feature, the guess amplitudes will be
+    // filled in with the correct amplitudes, and we want that to be reflected in the Amplitudes chart.
+    const guessAmplitudesListener = amplitudes => adapterFourierSeries.setAmplitudes( amplitudes );
+    challengeProperty.link( ( challenge, previousChallenge ) => {
+      if ( previousChallenge ) {
+        previousChallenge.guessFourierSeries.amplitudesProperty.unlink( guessAmplitudesListener );
+      }
+      challenge.guessFourierSeries.amplitudesProperty.link( guessAmplitudesListener );
+    } );
 
     // When an amplitude is changed via the chart, update the corresponding amplitude in the challenge's guess.
-    for ( let i = 0; i < adapterFourierSeries.harmonics.length; i++ ) {
-      const harmonic = adapterFourierSeries.harmonics[ i ];
-      const order = i + 1;
-      harmonic.amplitudeProperty.link( amplitude => challengeProperty.value.setGuessAmplitude( order, amplitude ) );
-    }
+    // This is simpler, but less efficient, than listening to each harmonic's amplitudeProperty.
+    adapterFourierSeries.amplitudesProperty.link(
+      amplitudes => challengeProperty.value.guessFourierSeries.setAmplitudes( amplitudes ) );
   }
 }
 
