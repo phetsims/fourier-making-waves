@@ -222,23 +222,6 @@ class DiscreteScreenView extends ScreenView {
       tandem: measurementToolsTandem.createTandem( 'periodClockNode' )
     } );
 
-    // Rendering order
-    this.addChild( amplitudesChartNode );
-    this.addChild( harmonicsExpandCollapseButton );
-    this.addChild( harmonicsChartNode );
-    this.addChild( harmonicsEquationWrapperNode );
-    this.addChild( sumExpandCollapseButton );
-    this.addChild( sumChartNode );
-    this.addChild( sumEquationWrapperNode );
-    this.addChild( expandedFormButton );
-    this.addChild( controlPanel );
-    this.addChild( timeControlNode );
-    this.addChild( resetAllButton );
-    this.addChild( wavelengthCalipersNode ); // Measurement Tools on top of everything else
-    this.addChild( periodCalipersNode );
-    this.addChild( periodClockNode );
-    this.addChild( popupParent ); // parent for popups on top
-
     // Layout, spacing set empirically
     amplitudesChartNode.x = X_CHART_RECTANGLES;
     amplitudesChartNode.y = 54;
@@ -256,6 +239,23 @@ class DiscreteScreenView extends ScreenView {
     timeControlNode.bottom = this.layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN;
     resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+
+    // Rendering order
+    this.addChild( amplitudesChartNode );
+    this.addChild( harmonicsExpandCollapseButton );
+    this.addChild( harmonicsChartNode );
+    this.addChild( harmonicsEquationWrapperNode );
+    this.addChild( sumExpandCollapseButton );
+    this.addChild( sumChartNode );
+    this.addChild( sumEquationWrapperNode );
+    this.addChild( expandedFormButton );
+    this.addChild( controlPanel );
+    this.addChild( timeControlNode );
+    this.addChild( resetAllButton );
+    this.addChild( wavelengthCalipersNode ); // Measurement Tools on top of everything else
+    this.addChild( periodCalipersNode );
+    this.addChild( periodClockNode );
+    this.addChild( popupParent ); // parent for popups on top
 
     // Get the bounds of the chart rectangles in this coordinate frame, used for layout.
     const harmonicsChartRectangleLocalBounds = this.globalToLocalBounds( harmonicsChartNode.chartRectangle.parentToGlobalBounds( harmonicsChartNode.chartRectangle.bounds ) );
