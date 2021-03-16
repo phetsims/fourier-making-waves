@@ -13,6 +13,7 @@ import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
+import WaveGameHarmonicsChart from './WaveGameHarmonicsChart.js';
 
 // constants
 const POINTS_PER_CHALLENGE = 1;
@@ -65,6 +66,9 @@ class WaveGameLevel {
     // @public
     this.emphasizedHarmonics = new EmphasizedHarmonics();
 
+    // @public
+    this.harmonicsChart = new WaveGameHarmonicsChart( this.challengeProperty );
+
     this.challengeProperty.link( challenge => {
       phet.log && phet.log( `level=${levelNumber} challenge=${challenge.toString()}` );
       this.emphasizedHarmonics.clear();
@@ -77,6 +81,7 @@ class WaveGameLevel {
   reset() {
     this.scoreProperty.reset();
     this.challengeProperty.reset();
+    //TODO call this.nextChallenge(), so that we're not always resetting to the same initial challenge?
   }
 
   /**

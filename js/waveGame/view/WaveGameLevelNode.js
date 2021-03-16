@@ -38,6 +38,7 @@ import WaveGameLevel from '../model/WaveGameLevel.js';
 import AmplitudeControlsSpinner from './AmplitudeControlsSpinner.js';
 import AnswersNode from './AnswersNode.js';
 import WaveGameAmplitudesChartNode from './WaveGameAmplitudesChartNode.js';
+import WaveGameHarmonicsChartNode from './WaveGameHarmonicsChartNode.js';
 import WaveGameRewardNode from './WaveGameRewardNode.js';
 
 // constants
@@ -92,8 +93,6 @@ class WaveGameLevelNode extends Node {
     // Pressing the refresh button creates the next random challenge.
     const refreshButton = new RefreshButton( {
       scale: 0.75,
-      right: layoutBounds.right - 20,
-      top: statusBar.bottom + 20,
       tandem: options.tandem.createTandem( 'refreshButton' )
     } );
 
@@ -162,9 +161,7 @@ class WaveGameLevelNode extends Node {
       stroke: null,
       xMargin: 0,
       yMargin: 0,
-      cornerRadius: 0,
-      right: layoutBounds.right - 20,
-      top: statusBar.bottom + 20
+      cornerRadius: 0
     } );
 
     // Next and Refresh buttons do the same thing.
@@ -198,13 +195,42 @@ class WaveGameLevelNode extends Node {
       level.challengeProperty, level.emphasizedHarmonics, amplitudeKeypadDialog, {
         viewWidth: CHART_RECTANGLE_SIZE.width,
         viewHeight: CHART_RECTANGLE_SIZE.height,
-        x: X_CHART_RECTANGLES,
-        top: statusBar.bottom + 5,
         tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
       } );
 
+    // Parent tandem for all components related to the Harmonics chart
+    const harmonicsTandem = options.tandem.createTandem( 'harmonics' );
+
+    const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonicsChart, {
+      font: FMWConstants.TITLE_FONT,
+      tandem: harmonicsTandem.createTandem( 'harmonicsTitleNode' )
+    } );
+
+    const harmonicsChartNode = new WaveGameHarmonicsChartNode( level.harmonicsChart, {
+      viewWidth: CHART_RECTANGLE_SIZE.width,
+      viewHeight: CHART_RECTANGLE_SIZE.height,
+      tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
+    } );
+
+    // Layout
+    amplitudesChartNode.x = X_CHART_RECTANGLES;
+    amplitudesChartNode.top = statusBar.bottom + 5;
+    harmonicsTitleNode.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+    harmonicsTitleNode.top = amplitudesChartNode.bottom + 15;
+    harmonicsChartNode.x = X_CHART_RECTANGLES;
+    harmonicsChartNode.y = harmonicsTitleNode.bottom + 15;
+    controlPanel.right = layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
+    controlPanel.top = statusBar.bottom + 20;
+
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
-    options.children = [ statusBar, controlPanel, amplitudesChartNode, rewardNode ];
+    options.children = [
+      statusBar,
+      controlPanel,
+      amplitudesChartNode,
+      harmonicsTitleNode,
+      harmonicsChartNode,
+      rewardNode
+    ];
 
     // When the ?showAnswers query parameter is present, show the answer to the current challenge.
     if ( phet.chipper.queryParameters.showAnswers ) {

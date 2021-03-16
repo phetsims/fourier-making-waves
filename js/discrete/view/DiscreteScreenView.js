@@ -94,7 +94,7 @@ class DiscreteScreenView extends ScreenView {
       } );
 
     const harmonicsChartNode = new HarmonicsChartNode( model.harmonicsChart, model.fourierSeries,
-      model.waveformProperty, model.domainProperty, model.equationFormProperty, {
+      model.domainProperty, model.equationFormProperty, {
         viewWidth: CHART_RECTANGLE_SIZE.width,
         viewHeight: CHART_RECTANGLE_SIZE.height,
         visibleProperty: model.harmonicsChart.chartVisibleProperty,

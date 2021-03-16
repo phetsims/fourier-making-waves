@@ -18,7 +18,6 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import HarmonicsChart from '../model/HarmonicsChart.js';
-import Waveform from '../model/Waveform.js';
 import DiscreteChartNode from './DiscreteChartNode.js';
 import HarmonicPlot from './HarmonicPlot.js';
 
@@ -33,16 +32,14 @@ class HarmonicsChartNode extends DiscreteChartNode {
   /**
    * @param {HarmonicsChart} harmonicsChart
    * @param {FourierSeries} fourierSeries
-   * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
-  constructor( harmonicsChart, fourierSeries, waveformProperty, domainProperty, equationFormProperty, options ) {
+  constructor( harmonicsChart, fourierSeries, domainProperty, equationFormProperty, options ) {
 
     assert && assert( harmonicsChart instanceof HarmonicsChart, 'invalid harmonicsChart' );
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
-    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
 
