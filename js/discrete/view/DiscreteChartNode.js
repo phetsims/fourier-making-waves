@@ -1,5 +1,6 @@
 // Copyright 2020, University of Colorado Boulder
 
+//TODO x zoom, y zoom, and y auto-scale should be handled by this class
 /**
  * DiscreteChartNode is the base class for displaying the charts in the 'Discrete' screen.
  *
