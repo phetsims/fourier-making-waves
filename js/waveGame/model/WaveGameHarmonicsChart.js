@@ -10,9 +10,9 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
-import Domain from '../../discrete/model/Domain.js';
-import HarmonicsChart from '../../discrete/model/HarmonicsChart.js';
-import SeriesType from '../../discrete/model/SeriesType.js';
+import Domain from '../../discrete/model/Domain.js'; //TODO discrete
+import HarmonicsChart from '../../discrete/model/HarmonicsChart.js'; //TODO discrete
+import SeriesType from '../../discrete/model/SeriesType.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 

@@ -8,9 +8,9 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Domain from '../../discrete/model/Domain.js';
-import EquationForm from '../../discrete/model/EquationForm.js';
-import HarmonicsChartNode from '../../discrete/view/HarmonicsChartNode.js';
+import Domain from '../../discrete/model/Domain.js'; //TODO discrete
+import EquationForm from '../../discrete/model/EquationForm.js'; //TODO discrete
+import HarmonicsChartNode from '../../discrete/view/HarmonicsChartNode.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameHarmonicsChart from '../model/WaveGameHarmonicsChart.js';
 
