@@ -11,6 +11,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
@@ -124,6 +125,20 @@ class FourierSeries extends PhetioObject {
   reset() {
     this.numberOfHarmonicsProperty.reset();
     this.harmonics.forEach( harmonic => harmonic.reset() );
+  }
+
+  /**
+   * Sets the amplitudes for all harmonics.
+   * @param {number[]} amplitudes
+   * @public
+   */
+  setAmplitudes( amplitudes ) {
+    assert && AssertUtils.assertArrayOf( amplitudes, 'number' );
+    assert && assert( amplitudes.length === this.harmonics.length, 'requires an amplitude for each harmonic' );
+
+    for ( let i = 0; i < amplitudes.length; i++ ) {
+      this.harmonics[ i ].amplitudeProperty.value = amplitudes[ i ];
+    }
   }
 
   /**

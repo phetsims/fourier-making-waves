@@ -9,6 +9,7 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
+import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
@@ -58,12 +59,15 @@ class WaveGameLevel {
     // @public (read-only) {Property.<WaveGameChallenge>} the current challenge
     this.challengeProperty = new Property( this.challengeGenerator.nextChallenge( null ), {
       isValidValue: value => ( value instanceof WaveGameChallenge )
-      //TODO tandem
+      //TODO tandem, phetioType
     } );
 
-    // Log the challenge whenever it changes.
-    phet.log && this.challengeProperty.link( challenge => {
+    // @public
+    this.emphasizedHarmonics = new EmphasizedHarmonics();
+
+    this.challengeProperty.link( challenge => {
       phet.log && phet.log( `level=${levelNumber} challenge=${challenge.toString()}` );
+      this.emphasizedHarmonics.clear();
     } );
   }
 

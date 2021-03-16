@@ -9,6 +9,7 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -30,14 +31,19 @@ import RewardDialog from '../../../../vegas/js/RewardDialog.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
+import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
 import AmplitudeControlsSpinner from './AmplitudeControlsSpinner.js';
+import AnswersNode from './AnswersNode.js';
+import WaveGameAmplitudesChartNode from './WaveGameAmplitudesChartNode.js';
 import WaveGameRewardNode from './WaveGameRewardNode.js';
 
 // constants
 const DEFAULT_FONT = new PhetFont( 16 );
+const CHART_RECTANGLE_SIZE = new Dimension2( 645, 123 ); //TODO copied from DiscreteScreenView
+const X_CHART_RECTANGLES = 65; //TODO copied from DiscreteScreenView
 
 class WaveGameLevelNode extends Node {
 
@@ -178,27 +184,35 @@ class WaveGameLevelNode extends Node {
       visible: false
     } );
 
-    //TODO display the challenge
+    // Parent tandem for all components related to the Amplitudes chart
+    const amplitudesTandem = options.tandem.createTandem( 'amplitudes' );
+
+    const guessFourierSeries = level.challengeProperty.value.guessFourierSeries;
+
+    // Keypad Dialog, for changing amplitude value
+    const amplitudeKeypadDialog = new AmplitudeKeypadDialog( guessFourierSeries.amplitudeRange, layoutBounds, {
+      tandem: amplitudesTandem.createTandem( 'amplitudeKeypadDialog' )
+    } );
+
+    const amplitudesChartNode = new WaveGameAmplitudesChartNode(
+      level.challengeProperty, level.emphasizedHarmonics, amplitudeKeypadDialog, {
+        viewWidth: CHART_RECTANGLE_SIZE.width,
+        viewHeight: CHART_RECTANGLE_SIZE.height,
+        x: X_CHART_RECTANGLES,
+        top: statusBar.bottom + 5,
+        tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
+      } );
 
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
-    options.children = [ statusBar, controlPanel, rewardNode ];
+    options.children = [ statusBar, controlPanel, amplitudesChartNode, rewardNode ];
 
-    // When the ?showAnswers query parameter is present, show the answers near the amplitude sliders.
+    // When the ?showAnswers query parameter is present, show the answer to the current challenge.
     if ( phet.chipper.queryParameters.showAnswers ) {
-
-      // Shows the answer (amplitudes) for the challenge.
-      const answerText = new Text( '', {
-        font: DEFAULT_FONT,
-        fill: 'red',
-        left: layoutBounds.left + 20,
-        top: statusBar.bottom + 20
+      const answersNode = new AnswersNode( level.challengeProperty, {
+        left: amplitudesChartNode.x,
+        top: amplitudesChartNode.bottom
       } );
-      options.children.push( answerText );
-
-      // unlink is not needed.
-      level.challengeProperty.link( challenge => {
-        answerText.text = `[${challenge.getAnswerAmplitudes()}]`;
-      } );
+      options.children.push( answersNode );
     }
 
     super( options );
