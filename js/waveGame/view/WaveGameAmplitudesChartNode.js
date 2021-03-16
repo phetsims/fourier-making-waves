@@ -10,7 +10,7 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
-import AmplitudesChartNode from '../../discrete/view/AmplitudesChartNode.js';
+import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from '../model/WaveGameChallenge.js';
 

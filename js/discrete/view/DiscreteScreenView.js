@@ -25,7 +25,7 @@ import DiscreteModel from '../model/DiscreteModel.js';
 import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import Waveform from '../model/Waveform.js';
-import AmplitudesChartNode from './AmplitudesChartNode.js';
+import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
 import ExpandedFormButton from './ExpandedFormButton.js';
 import ExpandedFormDialog from './ExpandedFormDialog.js';
