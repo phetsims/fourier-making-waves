@@ -220,6 +220,8 @@ class WaveGameLevelNode extends Node {
       tandem: sumTandem.createTandem( 'harmonicsTitleNode' )
     } );
 
+    //TODO add Sum chart, auto-scaled to answerFourierSeries sum
+
     // Layout
     amplitudesChartNode.x = X_CHART_RECTANGLES;
     amplitudesChartNode.top = statusBar.bottom + 5;
