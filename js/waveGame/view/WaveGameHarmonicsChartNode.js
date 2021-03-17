@@ -1,6 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO no x-axis zoom buttons - remove from HarmonicsChartNode and add in new DiscreteHarmonicsChartNode ?
+//TODO no x-axis zoom buttons
 /**
  * WaveGameHarmonicsChartNode is the view for the 'Harmonics' chart in the 'Wave Game' screen.
  *
