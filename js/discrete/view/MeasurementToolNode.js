@@ -66,7 +66,6 @@ class MeasurementToolNode extends Node {
       cursor: 'pointer',
 
       // phet-io
-      visiblePropertyOptions: { phetioReadOnly: true },
       tandem: Tandem.REQUIRED
     }, options );
 
