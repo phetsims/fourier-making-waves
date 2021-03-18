@@ -24,6 +24,7 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -68,6 +69,14 @@ class MeasurementToolNode extends Node {
       visiblePropertyOptions: { phetioReadOnly: true },
       tandem: Tandem.REQUIRED
     }, options );
+
+    // Visibility, unmultilink is not needed.
+    assert && assert( !options.visibleProperty, 'MeasurementToolNode sets visibleProperty' );
+    options.visibleProperty = new DerivedProperty( [ tool.isSelectedProperty, domainProperty ],
+      ( isSelected, domain ) => ( isSelected && relevantDomains.includes( domain ) ), {
+        tandem: options.tandem.createTandem( 'visibleProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+      } );
 
     super( options );
 
@@ -124,12 +133,8 @@ class MeasurementToolNode extends Node {
       updateNodes();
     } );
 
-    // Visibility, unmultilink is not needed.
-    Property.multilink( [ tool.isSelectedProperty, domainProperty ],
-      ( isSelected, domain ) => {
-        this.interruptSubtreeInput();
-        this.visible = ( isSelected && relevantDomains.includes( domain ) );
-      } );
+    // Interrupt interaction when visibility changes.
+    options.visibleProperty.link( () => this.interruptSubtreeInput() );
 
     // If the tool's origin is outside the drag bounds, move it inside. unlink is not needed.
     dragBoundsProperty.link( dragBounds => {
