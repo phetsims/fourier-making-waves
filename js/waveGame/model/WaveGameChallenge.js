@@ -91,16 +91,6 @@ class WaveGameChallenge {
   }
 
   /**
-   * Sets the amplitude for a specific harmonic in the guess.
-   * @param {number} order
-   * @param {number} amplitude
-   * @public
-   */
-  setGuessAmplitude( order, amplitude ) {
-    this.guessFourierSeries.harmonics[ order - 1 ].amplitudeProperty.value = amplitude;
-  }
-
-  /**
    * Solves the challenge by copying the amplitudes for the answer to the guess.
    * This is used for development and QA, when ?showAnswers is present.
    * @public

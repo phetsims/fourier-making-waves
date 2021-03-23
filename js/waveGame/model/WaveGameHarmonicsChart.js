@@ -47,9 +47,13 @@ class WaveGameHarmonicsChart extends HarmonicsChart {
     } );
 
     // When an amplitude is changed via the chart, update the corresponding amplitude in the challenge's guess.
-    // This is simpler, but less efficient, than listening to each harmonic's amplitudeProperty.
-    adapterFourierSeries.amplitudesProperty.link(
-      amplitudes => challengeProperty.value.guessFourierSeries.setAmplitudes( amplitudes ) );
+    // unlink is not needed.
+    for ( let i = 0; i < adapterFourierSeries.harmonics.length; i++ ) {
+      const order = i + 1;
+      adapterFourierSeries.harmonics[ i ].amplitudeProperty.link( amplitude => {
+        challengeProperty.value.guessFourierSeries.harmonics[ order - 1 ].amplitudeProperty.value = amplitude;
+      } );
+    }
 
     // @public (read-only)
     this.adapterFourierSeries = adapterFourierSeries;
