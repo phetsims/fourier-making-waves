@@ -7,6 +7,7 @@
  */
 
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -25,7 +26,7 @@ const TEXT_OPTIONS = {
 class AnswersNode extends Node {
 
   /**
-   * @param {ChartTransform} chartTransform
+   * @param {ChartTransform} chartTransform - transform for the Amplitudes chart
    * @param {Property.<WaveGameChallenge>} challengeProperty
    * @param {Object} [options]
    */
@@ -40,12 +41,19 @@ class AnswersNode extends Node {
       amplitudeNodes.push( new Text( '', TEXT_OPTIONS ) );
     }
 
-    // unlink is not needed.
+    // When the challenge changes, display all non-zero amplitudes for the answer, horizontally aligned with
+    // the sliders on the Amplitudes chart. unlink is not needed.
     challengeProperty.link( challenge => {
       const amplitudes = challenge.getAnswerAmplitudes();
       for ( let i = 0; i < amplitudes.length; i++ ) {
-        amplitudeNodes[ i ].text = ( amplitudes[ i ] === 0 ) ? '' : `${amplitudes[ i ]}`;
-        amplitudeNodes[ i ].centerX = chartTransform.modelToViewX( i + 1 );
+        const amplitudeNode = amplitudeNodes[ i ];
+        const amplitude = amplitudes[ i ];
+        let amplitudeString = '';
+        if ( amplitude !== 0 ) {
+          amplitudeString = Utils.toFixed( amplitudes[ i ], FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
+        }
+        amplitudeNode.text = amplitudeString;
+        amplitudeNode.centerX = chartTransform.modelToViewX( i + 1 );
       }
     } );
 
