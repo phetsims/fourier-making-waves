@@ -6,54 +6,54 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import WaveGameChallenge from '../model/WaveGameChallenge.js';
 
 // constants
-const DEFAULT_FONT = new PhetFont( 14 );
+const TEXT_OPTIONS = {
+  font: new PhetFont( 14 ),
+  fill: 'red'
+};
 
-class AnswersNode extends RichText {
+class AnswersNode extends Node {
 
   /**
+   * @param {ChartTransform} chartTransform
    * @param {Property.<WaveGameChallenge>} challengeProperty
    * @param {Object} [options]
    */
-  constructor( challengeProperty, options ) {
+  constructor( chartTransform, challengeProperty, options ) {
+    assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
+    assert && AssertUtils.assertPropertyOf( challengeProperty, WaveGameChallenge );
 
-    options = merge( {
-      font: DEFAULT_FONT,
-      fill: 'red'
-    }, options );
+    options = merge( {}, options );
 
-    super( '', options );
+    const amplitudeNodes = []; // {Text[]}
+    for ( let i = 0; i < FMWConstants.MAX_HARMONICS; i++ ) {
+      amplitudeNodes.push( new Text( '', TEXT_OPTIONS ) );
+    }
 
     // unlink is not needed.
     challengeProperty.link( challenge => {
-      this.text = amplitudesToDebugString( challenge.getAnswerAmplitudes() );
-    } );
-  }
-}
-
-/**
- * Converts an array of amplitudes to a string that shows which ones are non-zero.
- * E.g. [0,1,0,0.5] => 'A<sub>2</sub>=1, A<sub>4</sub>=0.5'
- * @param {number[]} amplitudes - in harmonic order
- * @returns {string}
- */
-function amplitudesToDebugString( amplitudes ) {
-  let s = '';
-  for ( let order = 1; order <= amplitudes.length; order++ ) {
-    const amplitude = amplitudes[ order - 1 ];
-    if ( amplitude !== 0 ) {
-      if ( s ) {
-        s += ', ';
+      const amplitudes = challenge.getAnswerAmplitudes();
+      for ( let i = 0; i < amplitudes.length; i++ ) {
+        amplitudeNodes[ i ].text = ( amplitudes[ i ] === 0 ) ? '' : `${amplitudes[ i ]}`;
+        amplitudeNodes[ i ].centerX = chartTransform.modelToViewX( i + 1 );
       }
-      s += `A<sub>${order}</sub> = ${amplitude}`;
-    }
+    } );
+
+    assert && assert( !options.children, 'AnswersNode sets children' );
+    options.children = amplitudeNodes;
+
+    super( options );
   }
-  return s;
 }
 
 fourierMakingWaves.register( 'AnswersNode', AnswersNode );

@@ -151,6 +151,9 @@ class AmplitudesChartNode extends Node {
         numberDisplays[ i ].visible = visible;
       }
     } );
+
+    // @public
+    this.chartTransform = chartTransform;
   }
 
   /**
