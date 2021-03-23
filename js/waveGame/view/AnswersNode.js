@@ -19,7 +19,7 @@ import WaveGameChallenge from '../model/WaveGameChallenge.js';
 
 // constants
 const TEXT_OPTIONS = {
-  font: new PhetFont( 14 ),
+  font: new PhetFont( 12 ),
   fill: 'red'
 };
 
