@@ -127,8 +127,10 @@ class WaveGameLevel {
    */
   reset() {
     this.scoreProperty.reset();
-    this.challengeProperty.reset();
-    //TODO call this.nextChallenge(), so that we're not always resetting to the same initial challenge?
+
+    // Instead of this.challengeProperty.reset(), call this.nextChallenge(), so that we're not always
+    // resetting to same challenge
+    this.nextChallenge();
   }
 
   /**
