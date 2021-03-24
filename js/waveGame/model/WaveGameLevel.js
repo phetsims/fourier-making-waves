@@ -41,13 +41,6 @@ class WaveGameLevel {
       getNumberOfNonZeroHarmonics: () => 1
     }, options );
 
-    // These Properties do not change in the Wave Game screen.
-    const domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
-    const seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE );
-    const tProperty = new NumberProperty( 0 );
-    this.equationFormProperty = new EnumerationProperty( EquationForm, EquationForm.HIDDEN );
-    this.waveformProperty = new EnumerationProperty( Waveform, Waveform.CUSTOM );
-
     // @public (read-only)
     this.levelNumber = levelNumber;
     this.description = description;
@@ -113,6 +106,17 @@ class WaveGameLevel {
         this.challengeProperty.value.guessFourierSeries.harmonics[ order - 1 ].amplitudeProperty.value = amplitude;
       } );
     }
+
+    // These Properties do not change in the Wave Game screen, but are needed by chart models.
+    const domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
+    const seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE );
+    const tProperty = new NumberProperty( 0 );
+
+    // @public These Properties do not change in the Wave Game screen, but are needed by chart views.
+    this.equationFormProperty = new EnumerationProperty( EquationForm, EquationForm.HIDDEN );
+    this.equationFormProperty.lazyLink( () => assert && assert( false, 'equationFormProperty should not be changed in Wave Game' ) );
+    this.waveformProperty = new EnumerationProperty( Waveform, Waveform.CUSTOM );
+    this.waveformProperty.lazyLink( () => assert && assert( false, 'waveformProperty should not be changed in Wave Game' ) );
 
     // @public
     this.harmonicsChart = new HarmonicsChart( this.adapterGuessFourierSeries, domainProperty, seriesTypeProperty, tProperty );
