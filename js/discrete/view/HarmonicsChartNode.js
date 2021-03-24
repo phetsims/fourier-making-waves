@@ -13,9 +13,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import HarmonicsChart from '../model/HarmonicsChart.js';
 import DiscreteChartNode from './DiscreteChartNode.js';
@@ -31,16 +29,12 @@ class HarmonicsChartNode extends DiscreteChartNode {
 
   /**
    * @param {HarmonicsChart} harmonicsChart
-   * @param {FourierSeries} fourierSeries
-   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
-  constructor( harmonicsChart, fourierSeries, domainProperty, equationFormProperty, options ) {
+  constructor( harmonicsChart, equationFormProperty, options ) {
 
     assert && assert( harmonicsChart instanceof HarmonicsChart, 'invalid harmonicsChart' );
-    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
 
     options = merge( {
@@ -49,9 +43,10 @@ class HarmonicsChartNode extends DiscreteChartNode {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const harmonics = fourierSeries.harmonics;
-
     // Fields of interest in harmonicsChart, to improve readability
+    const fourierSeries = harmonicsChart.fourierSeries;
+    const harmonics = fourierSeries.harmonics;
+    const domainProperty = harmonicsChart.domainProperty;
     const harmonicDataSetProperties = harmonicsChart.harmonicDataSetProperties;
     assert && assert( harmonics.length === harmonicDataSetProperties.length,
       'a data set is required for each harmonic' );
@@ -59,7 +54,7 @@ class HarmonicsChartNode extends DiscreteChartNode {
     const xZoomLevelProperty = harmonicsChart.xZoomLevelProperty;
     const xAxisDescriptionProperty = harmonicsChart.xAxisDescriptionProperty;
 
-    super( fourierSeries, domainProperty, equationFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options );
+    super( fourierSeries, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty, equationFormProperty, options );
 
     // {HarmonicPlot[]} a plot for each harmonic in the Fourier series, in harmonic order, rendered using Canvas
     const plots = [];

@@ -8,7 +8,6 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Domain from '../../discrete/model/Domain.js'; //TODO discrete
 import EquationForm from '../../discrete/model/EquationForm.js'; //TODO discrete
 import HarmonicsChartNode from '../../discrete/view/HarmonicsChartNode.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -26,11 +25,10 @@ class WaveGameHarmonicsChartNode extends HarmonicsChartNode {
 
     //TODO duplicated elsewhere
     // These aspects of the Harmonics chart do not change in the Wave Game screen.
-    const domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
     const equationFormProperty = new EnumerationProperty( EquationForm, EquationForm.HIDDEN );
 
     //TODO emphasized harmonics do not work because we're using adapterFourierSeries
-    super( harmonicsChart, harmonicsChart.adapterFourierSeries, domainProperty, equationFormProperty, options );
+    super( harmonicsChart, equationFormProperty, options );
   }
 }
 

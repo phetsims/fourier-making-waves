@@ -6,12 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
-import Domain from '../../discrete/model/Domain.js';
-import SeriesType from '../../discrete/model/SeriesType.js';
 import SumChart from '../../discrete/model/SumChart.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
@@ -20,19 +16,17 @@ class WaveGameSumChart extends SumChart {
 
   /**
    * @param {Property.<WaveGameChallenge>} challengeProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {Property.<number>} tProperty
    * @param {Property.<number>} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( challengeProperty, xZoomLevelProperty, xAxisDescriptionProperty, options ) {
+  constructor( challengeProperty, domainProperty, seriesTypeProperty, tProperty,
+               xZoomLevelProperty, xAxisDescriptionProperty, options ) {
 
     assert && AssertUtils.assertPropertyOf( challengeProperty, WaveGameChallenge );
-
-    //TODO duplicated elsewhere
-    // These aspects of the Harmonics chart do not change in the Wave Game screen.
-    const domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
-    const seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE );
-    const tProperty = new NumberProperty( 0 );
 
     const adapterFourierSeries = new FourierSeries();
 

@@ -65,18 +65,18 @@ class DiscreteChartNode extends Node {
   /**
    * @param {FourierSeries} fourierSeries
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Property.<number>} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
+   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, equationFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options ) {
+  constructor( fourierSeries, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty, equationFormProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
     assert && AssertUtils.assertPropertyOf( xZoomLevelProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
+    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
 
     options = merge( {
 

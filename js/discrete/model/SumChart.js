@@ -1,5 +1,6 @@
 // Copyright 2020, University of Colorado Boulder
 
+//TODO change this to display the sums for more than 1 FourierSeries?
 /**
  * SumChart is the model for the 'Sum' chart in the 'Discrete' screen.
  *
@@ -48,6 +49,12 @@ class SumChart {
       tandem: Tandem.REQUIRED
     }, options );
 
+    // @public
+    this.fourierSeries = fourierSeries;
+    this.domainProperty = domainProperty;
+    this.xZoomLevelProperty = xZoomLevelProperty;
+    this.xAxisDescriptionProperty = xAxisDescriptionProperty;
+
     // @public whether the Sum chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'chartVisibleProperty' )
@@ -62,10 +69,6 @@ class SumChart {
     this.infiniteHarmonicsVisibleProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'infiniteHarmonicsVisibleProperty' )
     } );
-
-    // @public x-axis zoom level and description is shared with the Harmonics chart
-    this.xZoomLevelProperty = xZoomLevelProperty;
-    this.xAxisDescriptionProperty = xAxisDescriptionProperty;
 
     /**
      * Creates the sum data set using current arg values.

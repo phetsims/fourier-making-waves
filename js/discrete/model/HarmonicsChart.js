@@ -44,6 +44,10 @@ class HarmonicsChart {
       tandem: Tandem.REQUIRED
     }, options );
 
+    // @public
+    this.fourierSeries = fourierSeries;
+    this.domainProperty = domainProperty;
+
     // @public whether the Harmonics chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'chartVisibleProperty' )

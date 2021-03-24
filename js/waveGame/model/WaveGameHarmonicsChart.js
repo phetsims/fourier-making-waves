@@ -6,13 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
-import Domain from '../../discrete/model/Domain.js'; //TODO discrete
 import HarmonicsChart from '../../discrete/model/HarmonicsChart.js'; //TODO discrete
-import SeriesType from '../../discrete/model/SeriesType.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 
@@ -20,17 +16,14 @@ class WaveGameHarmonicsChart extends HarmonicsChart {
 
   /**
    * @param {Property.<WaveGameChallenge>} challengeProperty
+   *  @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {Property.<number>} tProperty
    * @param {Object} [options]
    */
-  constructor( challengeProperty, options ) {
+  constructor( challengeProperty, domainProperty, seriesTypeProperty, tProperty, options ) {
 
     assert && AssertUtils.assertPropertyOf( challengeProperty, WaveGameChallenge );
-
-    //TODO duplicated elsewhere
-    // These aspects of the Harmonics chart do not change in the Wave Game screen.
-    const domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
-    const seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE );
-    const tProperty = new NumberProperty( 0 );
 
     const adapterFourierSeries = new FourierSeries();
 

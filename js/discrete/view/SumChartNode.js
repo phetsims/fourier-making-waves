@@ -1,5 +1,6 @@
 // Copyright 2020, University of Colorado Boulder
 
+//TODO change this to display the sums for more than 1 FourierSeries?
 /**
  * SumChartNode displays the 'Sum' chart in the 'Discrete' screen. It renders 1 plot showing the sum of the harmonics
  * in the Fourier series.
@@ -17,9 +18,7 @@ import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomB
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import SumChart from '../model/SumChart.js';
 import Waveform from '../model/Waveform.js';
@@ -31,18 +30,14 @@ class SumChartNode extends DiscreteChartNode {
 
   /**
    * @param {SumChart} sumChart
-   * @param {FourierSeries} fourierSeries
    * @param {EnumerationProperty.<Waveform>} waveformProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
-  constructor( sumChart, fourierSeries, waveformProperty, domainProperty, equationFormProperty, options ) {
+  constructor( sumChart, waveformProperty, equationFormProperty, options ) {
 
     assert && assert( sumChart instanceof SumChart, 'invalid sumChart' );
-    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
 
     options = merge( {
@@ -52,6 +47,8 @@ class SumChartNode extends DiscreteChartNode {
     }, options );
 
     // Fields of interest in sumChart, to improve readability
+    const fourierSeries = sumChart.fourierSeries;
+    const domainProperty = sumChart.domainProperty;
     const xZoomLevelProperty = sumChart.xZoomLevelProperty;
     const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;
     const yZoomLevelProperty = sumChart.yZoomLevelProperty;
@@ -61,7 +58,7 @@ class SumChartNode extends DiscreteChartNode {
     const infiniteHarmonicsVisibleProperty = sumChart.infiniteHarmonicsVisibleProperty;
     const sumDataSetProperty = sumChart.sumDataSetProperty;
 
-    super( fourierSeries, domainProperty, equationFormProperty, xZoomLevelProperty, xAxisDescriptionProperty, options );
+    super( fourierSeries, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty, equationFormProperty, options );
 
     // Zoom buttons for the y-axis range
     const yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {

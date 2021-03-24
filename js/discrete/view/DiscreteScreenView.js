@@ -93,13 +93,12 @@ class DiscreteScreenView extends ScreenView {
         tandem: harmonicsTandem.createTandem( 'harmonicsExpandCollapseButton' )
       } );
 
-    const harmonicsChartNode = new HarmonicsChartNode( model.harmonicsChart, model.fourierSeries,
-      model.domainProperty, model.equationFormProperty, {
-        viewWidth: CHART_RECTANGLE_SIZE.width,
-        viewHeight: CHART_RECTANGLE_SIZE.height,
-        visibleProperty: model.harmonicsChart.chartVisibleProperty,
-        tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
-      } );
+    const harmonicsChartNode = new HarmonicsChartNode( model.harmonicsChart, model.equationFormProperty, {
+      viewWidth: CHART_RECTANGLE_SIZE.width,
+      viewHeight: CHART_RECTANGLE_SIZE.height,
+      visibleProperty: model.harmonicsChart.chartVisibleProperty,
+      tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
+    } );
 
     // Equation that appears above the Harmonics chart, with wrapper Node to handle centering
     const harmonicsEquationNode = new HarmonicsEquationNode(
@@ -128,13 +127,12 @@ class DiscreteScreenView extends ScreenView {
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
       } );
 
-    const sumChartNode = new SumChartNode( model.sumChart, model.fourierSeries,
-      model.waveformProperty, model.domainProperty, model.equationFormProperty, {
-        viewWidth: CHART_RECTANGLE_SIZE.width,
-        viewHeight: CHART_RECTANGLE_SIZE.height,
-        visibleProperty: model.sumChart.chartVisibleProperty,
-        tandem: sumTandem.createTandem( 'sumChartNode' )
-      } );
+    const sumChartNode = new SumChartNode( model.sumChart, model.waveformProperty, model.equationFormProperty, {
+      viewWidth: CHART_RECTANGLE_SIZE.width,
+      viewHeight: CHART_RECTANGLE_SIZE.height,
+      visibleProperty: model.sumChart.chartVisibleProperty,
+      tandem: sumTandem.createTandem( 'sumChartNode' )
+    } );
 
     // Equation that appears above the Sum chart, with wrapper Node to handle centering
     const sumEquationNode = new SumEquationNode( model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty,

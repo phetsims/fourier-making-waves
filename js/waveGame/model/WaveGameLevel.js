@@ -6,10 +6,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
+import Domain from '../../discrete/model/Domain.js';
+import SeriesType from '../../discrete/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
@@ -34,6 +37,11 @@ class WaveGameLevel {
     options = merge( {
       getNumberOfNonZeroHarmonics: () => 1
     }, options );
+
+    // These Properties do not change in the Wave Game screen.
+    const domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
+    const seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE );
+    const tProperty = new NumberProperty( 0 );
 
     // @public (read-only)
     this.levelNumber = levelNumber;
@@ -68,11 +76,11 @@ class WaveGameLevel {
     this.emphasizedHarmonics = new EmphasizedHarmonics();
 
     // @public
-    this.harmonicsChart = new WaveGameHarmonicsChart( this.challengeProperty );
+    this.harmonicsChart = new WaveGameHarmonicsChart( this.challengeProperty, domainProperty, seriesTypeProperty, tProperty );
 
     // @public
-    this.sumChart = new WaveGameSumChart( this.challengeProperty, this.harmonicsChart.xZoomLevelProperty,
-      this.harmonicsChart.xAxisDescriptionProperty );
+    this.sumChart = new WaveGameSumChart( this.challengeProperty, domainProperty, seriesTypeProperty, tProperty,
+      this.harmonicsChart.xZoomLevelProperty, this.harmonicsChart.xAxisDescriptionProperty );
 
     this.challengeProperty.link( challenge => {
       phet.log && phet.log( `level=${levelNumber} challenge=${challenge.toString()}` );
