@@ -32,7 +32,7 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
 
     super( adapterFourierSeries, emphasizedHarmonics, amplitudeKeypadDialog, options );
 
-    //TODO duplicated in WaveGameHarmonicsChart
+    //TODO copied from WaveGameHarmonicsChart
     // When the challenge changes, set the amplitudes to match the guess amplitudes.  When a challenge is created
     // the guess amplitudes will be zero. But if we use the "solve" debug feature, the guess amplitudes will be
     // filled in with the correct amplitudes, and we want that to be reflected in the Amplitudes chart.
@@ -44,7 +44,7 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
       challenge.guessFourierSeries.amplitudesProperty.link( guessAmplitudesListener );
     } );
 
-    //TODO duplicated in WaveGameHarmonicsChart
+    //TODO copied from WaveGameHarmonicsChart
     // When an amplitude is changed via the chart, update the corresponding amplitude in the challenge's guess.
     // unlink is not needed.
     for ( let i = 0; i < adapterFourierSeries.harmonics.length; i++ ) {

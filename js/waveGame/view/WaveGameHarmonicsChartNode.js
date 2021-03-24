@@ -24,6 +24,7 @@ class WaveGameHarmonicsChartNode extends HarmonicsChartNode {
 
     assert && assert( harmonicsChart instanceof WaveGameHarmonicsChart, 'invalid harmonicsChart' );
 
+    //TODO duplicated elsewhere
     // These aspects of the Harmonics chart do not change in the Wave Game screen.
     const domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
     const equationFormProperty = new EnumerationProperty( EquationForm, EquationForm.HIDDEN );

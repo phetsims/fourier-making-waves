@@ -40,6 +40,7 @@ import AnswersNode from './AnswersNode.js';
 import WaveGameAmplitudesChartNode from './WaveGameAmplitudesChartNode.js';
 import WaveGameHarmonicsChartNode from './WaveGameHarmonicsChartNode.js';
 import WaveGameRewardNode from './WaveGameRewardNode.js';
+import WaveGameSumChartNode from './WaveGameSumChartNode.js';
 
 // constants
 const DEFAULT_FONT = new PhetFont( 16 );
@@ -212,6 +213,12 @@ class WaveGameLevelNode extends Node {
       tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
     } );
 
+    const sumChartNode = new WaveGameSumChartNode( level.sumChart, {
+      viewWidth: CHART_RECTANGLE_SIZE.width,
+      viewHeight: CHART_RECTANGLE_SIZE.height,
+      tandem: harmonicsTandem.createTandem( 'sumChartNode' )
+    } );
+
     // Parent tandem for all components related to the Sum chart
     const sumTandem = options.tandem.createTandem( 'sum' );
 
@@ -226,13 +233,13 @@ class WaveGameLevelNode extends Node {
     amplitudesChartNode.x = X_CHART_RECTANGLES;
     amplitudesChartNode.top = statusBar.bottom + 5;
     harmonicsTitleNode.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-    harmonicsTitleNode.top = amplitudesChartNode.bottom + 30;
+    harmonicsTitleNode.top = amplitudesChartNode.bottom + 10;
     harmonicsChartNode.x = amplitudesChartNode.x;
-    harmonicsChartNode.y = harmonicsTitleNode.bottom + 15;
+    harmonicsChartNode.y = harmonicsTitleNode.bottom + 10;
     sumTitleNode.left = harmonicsTitleNode.left;
-    sumTitleNode.top = harmonicsChartNode.bottom + 30;
-    // sumChartNode.x = amplitudesChartNode.x;
-    // sumChartNode.y = sumTitleNode.bottom + 15;
+    sumTitleNode.top = harmonicsChartNode.bottom + 10;
+    sumChartNode.x = amplitudesChartNode.x;
+    sumChartNode.y = sumTitleNode.bottom + 10;
     controlPanel.right = layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
     controlPanel.top = statusBar.bottom + 20;
 
@@ -244,6 +251,7 @@ class WaveGameLevelNode extends Node {
       harmonicsTitleNode,
       harmonicsChartNode,
       sumTitleNode,
+      sumChartNode,
       rewardNode
     ];
 

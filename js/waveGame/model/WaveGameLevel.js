@@ -14,6 +14,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
 import WaveGameHarmonicsChart from './WaveGameHarmonicsChart.js';
+import WaveGameSumChart from './WaveGameSumChart.js';
 
 // constants
 const POINTS_PER_CHALLENGE = 1;
@@ -68,6 +69,10 @@ class WaveGameLevel {
 
     // @public
     this.harmonicsChart = new WaveGameHarmonicsChart( this.challengeProperty );
+
+    // @public
+    this.sumChart = new WaveGameSumChart( this.challengeProperty, this.harmonicsChart.xZoomLevelProperty,
+      this.harmonicsChart.xAxisDescriptionProperty );
 
     this.challengeProperty.link( challenge => {
       phet.log && phet.log( `level=${levelNumber} challenge=${challenge.toString()}` );
