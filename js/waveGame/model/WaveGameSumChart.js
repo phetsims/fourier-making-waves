@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import SumChart from '../../discrete/model/SumChart.js';
+import SumChart from '../../discrete/model/SumChart.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class WaveGameSumChart extends SumChart {

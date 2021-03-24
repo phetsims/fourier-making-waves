@@ -12,11 +12,11 @@ import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
-import Domain from '../../discrete/model/Domain.js';
-import EquationForm from '../../discrete/model/EquationForm.js';
-import HarmonicsChart from '../../discrete/model/HarmonicsChart.js';
-import SeriesType from '../../discrete/model/SeriesType.js';
-import Waveform from '../../discrete/model/Waveform.js';
+import Domain from '../../discrete/model/Domain.js'; //TODO discrete
+import EquationForm from '../../discrete/model/EquationForm.js'; //TODO discrete
+import HarmonicsChart from '../../discrete/model/HarmonicsChart.js'; //TODO discrete
+import SeriesType from '../../discrete/model/SeriesType.js'; //TODO discrete
+import Waveform from '../../discrete/model/Waveform.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
