@@ -11,12 +11,15 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
 import Domain from '../../discrete/model/Domain.js';
+import EquationForm from '../../discrete/model/EquationForm.js';
+import HarmonicsChart from '../../discrete/model/HarmonicsChart.js';
 import SeriesType from '../../discrete/model/SeriesType.js';
+import Waveform from '../../discrete/model/Waveform.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
-import WaveGameHarmonicsChart from './WaveGameHarmonicsChart.js';
 import WaveGameSumChart from './WaveGameSumChart.js';
 
 // constants
@@ -42,6 +45,8 @@ class WaveGameLevel {
     const domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
     const seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE );
     const tProperty = new NumberProperty( 0 );
+    this.equationFormProperty = new EnumerationProperty( EquationForm, EquationForm.HIDDEN );
+    this.waveformProperty = new EnumerationProperty( Waveform, Waveform.CUSTOM );
 
     // @public (read-only)
     this.levelNumber = levelNumber;
@@ -75,17 +80,46 @@ class WaveGameLevel {
     // @public
     this.emphasizedHarmonics = new EmphasizedHarmonics();
 
-    // @public
-    this.harmonicsChart = new WaveGameHarmonicsChart( this.challengeProperty, domainProperty, seriesTypeProperty, tProperty );
+    //TODO emphasized harmonics do not work because of adapterGuessFourierSeries
+    //TODO eliminate the need for adapterGuessFourierSeries by making charts mutable
 
-    // @public
-    this.sumChart = new WaveGameSumChart( this.challengeProperty, domainProperty, seriesTypeProperty, tProperty,
-      this.harmonicsChart.xZoomLevelProperty, this.harmonicsChart.xAxisDescriptionProperty );
+    // @public This is a static instance of FourierSeries that is passed to the charts.
+    // We update the charts by keeping this series in sync with the current challenge's guessFourierSeries.
+    this.adapterGuessFourierSeries = new FourierSeries();
 
-    this.challengeProperty.link( challenge => {
+    const guessAmplitudesListener = amplitudes => this.adapterGuessFourierSeries.setAmplitudes( amplitudes );
+
+    // When the challenge changes...
+    this.challengeProperty.link( ( challenge, previousChallenge ) => {
+
+      // Log the challenge to the console.
       phet.log && phet.log( `level=${levelNumber} challenge=${challenge.toString()}` );
+
+      // Clear any emphasized harmonics.
       this.emphasizedHarmonics.clear();
+
+      // Add a listener to keep adapterGuessFourierSeries synchronized with the challenge's guessFourierSeries.
+      if ( previousChallenge ) {
+        previousChallenge.guessFourierSeries.amplitudesProperty.unlink( guessAmplitudesListener );
+      }
+      challenge.guessFourierSeries.amplitudesProperty.link( guessAmplitudesListener );
     } );
+
+    // When an amplitude is changed via the chart, update the corresponding amplitude in the challenge's guess.
+    // unlink is not needed.
+    for ( let i = 0; i < this.adapterGuessFourierSeries.harmonics.length; i++ ) {
+      const order = i + 1;
+      this.adapterGuessFourierSeries.harmonics[ i ].amplitudeProperty.link( amplitude => {
+        this.challengeProperty.value.guessFourierSeries.harmonics[ order - 1 ].amplitudeProperty.value = amplitude;
+      } );
+    }
+
+    // @public
+    this.harmonicsChart = new HarmonicsChart( this.adapterGuessFourierSeries, domainProperty, seriesTypeProperty, tProperty );
+
+    // @public
+    this.sumChart = new WaveGameSumChart( this.adapterGuessFourierSeries, domainProperty, seriesTypeProperty, tProperty,
+      this.harmonicsChart.xZoomLevelProperty, this.harmonicsChart.xAxisDescriptionProperty );
   }
 
   /**

@@ -32,13 +32,13 @@ import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
+import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
+import HarmonicsChartNode from '../../discrete/view/HarmonicsChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
 import AmplitudeControlsSpinner from './AmplitudeControlsSpinner.js';
 import AnswersNode from './AnswersNode.js';
-import WaveGameAmplitudesChartNode from './WaveGameAmplitudesChartNode.js';
-import WaveGameHarmonicsChartNode from './WaveGameHarmonicsChartNode.js';
 import WaveGameRewardNode from './WaveGameRewardNode.js';
 import WaveGameSumChartNode from './WaveGameSumChartNode.js';
 
@@ -185,15 +185,13 @@ class WaveGameLevelNode extends Node {
     // Parent tandem for all components related to the Amplitudes chart
     const amplitudesTandem = options.tandem.createTandem( 'amplitudes' );
 
-    const guessFourierSeries = level.challengeProperty.value.guessFourierSeries;
-
     // Keypad Dialog, for changing amplitude value
-    const amplitudeKeypadDialog = new AmplitudeKeypadDialog( guessFourierSeries.amplitudeRange, layoutBounds, {
+    const amplitudeKeypadDialog = new AmplitudeKeypadDialog( level.adapterGuessFourierSeries.amplitudeRange, layoutBounds, {
       tandem: amplitudesTandem.createTandem( 'amplitudeKeypadDialog' )
     } );
 
-    const amplitudesChartNode = new WaveGameAmplitudesChartNode(
-      level.challengeProperty, level.emphasizedHarmonics, amplitudeKeypadDialog, {
+    const amplitudesChartNode = new AmplitudesChartNode(
+      level.adapterGuessFourierSeries, level.emphasizedHarmonics, amplitudeKeypadDialog, {
         viewWidth: CHART_RECTANGLE_SIZE.width,
         viewHeight: CHART_RECTANGLE_SIZE.height,
         tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
@@ -207,13 +205,13 @@ class WaveGameLevelNode extends Node {
       tandem: harmonicsTandem.createTandem( 'harmonicsTitleNode' )
     } );
 
-    const harmonicsChartNode = new WaveGameHarmonicsChartNode( level.harmonicsChart, {
+    const harmonicsChartNode = new HarmonicsChartNode( level.harmonicsChart, level.equationFormProperty, {
       viewWidth: CHART_RECTANGLE_SIZE.width,
       viewHeight: CHART_RECTANGLE_SIZE.height,
       tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
     } );
 
-    const sumChartNode = new WaveGameSumChartNode( level.sumChart, {
+    const sumChartNode = new WaveGameSumChartNode( level.sumChart, level.waveformProperty, level.equationFormProperty, {
       viewWidth: CHART_RECTANGLE_SIZE.width,
       viewHeight: CHART_RECTANGLE_SIZE.height,
       tandem: harmonicsTandem.createTandem( 'sumChartNode' )

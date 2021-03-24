@@ -10,9 +10,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import EquationForm from '../../discrete/model/EquationForm.js'; //TODO discrete
-import Waveform from '../../discrete/model/Waveform.js'; //TODO discrete
 import SumChartNode from '../../discrete/view/SumChartNode.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameSumChart from '../model/WaveGameSumChart.js';
@@ -21,21 +18,16 @@ class WaveGameSumChartNode extends SumChartNode {
 
   /**
    * @param {WaveGameSumChart} sumChart
+   * @param {EnumerationProperty.<Waveform>} waveformProperty
+   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
-  constructor( sumChart, options ) {
-
+  constructor( sumChart, waveformProperty, equationFormProperty, options ) {
     assert && assert( sumChart instanceof WaveGameSumChart, 'invalid sumChart' );
 
-    //TODO duplicated elsewhere
-    // These aspects of the Harmonics chart do not change in the Wave Game screen.
-    const waveformProperty = new EnumerationProperty( Waveform, Waveform.CUSTOM );
-    const equationFormProperty = new EnumerationProperty( EquationForm, EquationForm.HIDDEN );
-
-    //TODO emphasized harmonics do not work because we're using adapterFourierSeries
     super( sumChart, waveformProperty, equationFormProperty, options );
 
-    //TODO add sum for sumChart.challengeProperty.value.answerSeries
+    //TODO add a plot for answerSeries sum, behind guessSeries sum
   }
 }
 
