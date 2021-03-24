@@ -282,6 +282,7 @@ class WaveGameLevelNode extends Node {
       newLevelButtonListener: () => {
         rewardDialog.hide();
         backButtonListener();
+        // Does backButtonListener call level.nextChallenge, or should we call it here?
       },
 
       // When the dialog is shown, show the reward.
