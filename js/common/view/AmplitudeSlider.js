@@ -30,7 +30,7 @@ const TRACK_WIDTH = 40; // track height specified in constructor options
 const THUMB_WIDTH = TRACK_WIDTH - 15;
 const THUMB_HEIGHT = 8;
 
-// flipped because VSlider rotates its subcomponents -90 degrees
+// Dimension2 instances must be flipped, because VSlider rotates its subcomponents -90 degrees.
 const THUMB_TOUCH_AREA_DILATION = new Dimension2( 10, 4 ).flipped();
 const THUMB_MOUSE_AREA_DILATION = new Dimension2( 10, 4 ).flipped();
 
