@@ -124,6 +124,7 @@ class FourierSeries extends PhetioObject {
     }
   }
 
+  //TODO this feels like it belongs in HarmonicsChart
   /**
    * Creates the data set for one harmonic.
    * @param {Harmonic} harmonic
@@ -163,6 +164,7 @@ class FourierSeries extends PhetioObject {
     return dataSet;
   }
 
+  //TODO this feels like it belongs in SumChart
   //TODO performance: reuse harmonic data sets to compute the sum
   /**
    * Creates the data set for the sum of the harmonics in the Fourier Series.
