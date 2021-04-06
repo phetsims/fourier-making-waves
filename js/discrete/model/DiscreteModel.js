@@ -17,8 +17,8 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import FMWUtils from '../../common/FMWUtils.js';
-import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import DiscreteFourierSeries from './DiscreteFourierSeries.js';
 import Domain from './Domain.js';
 import EquationForm from './EquationForm.js';
 import HarmonicsChart from './HarmonicsChart.js';
@@ -45,7 +45,7 @@ class DiscreteModel {
     }, options );
 
     // @public
-    this.fourierSeries = new FourierSeries( {
+    this.fourierSeries = new DiscreteFourierSeries( {
       tandem: options.tandem.createTandem( 'fourierSeries' )
     } );
 

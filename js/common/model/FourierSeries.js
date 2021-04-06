@@ -7,7 +7,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -37,6 +36,7 @@ class FourierSeries extends PhetioObject {
   constructor( options ) {
 
     options = merge( {
+      numberOfHarmonics: FMWConstants.MAX_HARMONICS,
       amplitudes: DEFAULT_AMPLITUDES, // {number[]} initial amplitudes for the harmonics
       amplitudeRange: DEFAULT_AMPLITUDE_RANGE, // {Range} the range of all harmonic amplitudes
       tandem: Tandem.OPTIONAL,
@@ -60,22 +60,12 @@ class FourierSeries extends PhetioObject {
     // @public (read-only) the range of all harmonic amplitudes
     this.amplitudeRange = options.amplitudeRange;
 
-    // @public the number of harmonics in this series
-    this.numberOfHarmonicsProperty = new NumberProperty( FMWConstants.MAX_HARMONICS, {
-      numberType: 'Integer',
-      range: new Range( 1, FMWConstants.MAX_HARMONICS ),
-      tandem: options.tandem.createTandem( 'numberOfHarmonicsProperty' )
-    } );
-
     // Parent tandem for harmonics
     const harmonicsTandem = options.tandem.createTandem( 'harmonics' );
 
-    // @public {Harmonic[]} an instance for each possible harmonic, with order numbered from 1.
-    // All possible harmonics are created eagerly, and only the relevant ones should be considered, based on
-    // numberOfHarmonicsProperty. This was a fundamental team decision, based on anticipated PhET-iO requirements.
-    // See https://github.com/phetsims/fourier-making-waves/issues/6.
+    // @public {Harmonic[]}
     this.harmonics = [];
-    for ( let order = 1; order <= this.numberOfHarmonicsProperty.range.max; order++ ) {
+    for ( let order = 1; order <= options.numberOfHarmonics; order++ ) {
       this.harmonics.push( new Harmonic( {
         order: order,
         frequency: this.fundamentalFrequency * order,
@@ -86,15 +76,16 @@ class FourierSeries extends PhetioObject {
         tandem: harmonicsTandem.createTandem( `harmonic${order}` )
       } ) );
     }
+    assert && assert( this.harmonics.length === options.numberOfHarmonics, 'unexpected number of harmonics' );
 
-    // @public {DerivedProperty.<number[]>} amplitudesProperty - amplitudes for the relevant harmonics
-    // This was requested for the PhET-iO API, but has proven to be generally useful.
+    // @public {DerivedProperty.<number[]>} amplitudesProperty - amplitudes for all harmonics
+    // This was requested for PhET-iO, but has proven to be generally useful.
     // dispose is not needed
     this.amplitudesProperty = new DerivedProperty(
-      [ this.numberOfHarmonicsProperty, ..._.map( this.harmonics, harmonic => harmonic.amplitudeProperty ) ],
-      numberOfHarmonics => {
+      [ ..._.map( this.harmonics, harmonic => harmonic.amplitudeProperty ) ],
+      () => {
         const amplitudes = [];
-        for ( let i = 0; i < numberOfHarmonics; i++ ) {
+        for ( let i = 0; i < this.harmonics.length; i++ ) {
           amplitudes.push( this.harmonics[ i ].amplitudeProperty.value );
         }
         return amplitudes;
@@ -103,13 +94,6 @@ class FourierSeries extends PhetioObject {
         phetioType: DerivedProperty.DerivedPropertyIO( ArrayIO( NumberIO ) ),
         tandem: options.tandem.createTandem( 'amplitudesProperty' )
       } );
-
-    // Zero out amplitudes that are not relevant. unlink is not necessary.
-    this.numberOfHarmonicsProperty.link( numberOfHarmonics => {
-      for ( let i = numberOfHarmonics; i < this.numberOfHarmonicsProperty.range.max; i++ ) {
-        this.harmonics[ i ].amplitudeProperty.value = 0;
-      }
-    } );
   }
 
   /**
@@ -123,7 +107,6 @@ class FourierSeries extends PhetioObject {
    * @public
    */
   reset() {
-    this.numberOfHarmonicsProperty.reset();
     this.harmonics.forEach( harmonic => harmonic.reset() );
   }
 
@@ -182,7 +165,7 @@ class FourierSeries extends PhetioObject {
 
   //TODO performance: reuse harmonic data sets to compute the sum
   /**
-   * Creates the data set for the sum of the relevant harmonics in the Fourier Series.
+   * Creates the data set for the sum of the harmonics in the Fourier Series.
    * This does not reuse HarmonicsChart harmonicDataSetProperties, because (1) that creates all kinds of problems with
    * ordering and intermediate states, and (2) harmonic plots use different numbers of points based on harmonic
    * frequency, because more points are required to draw higher-frequency harmonics.
@@ -200,17 +183,11 @@ class FourierSeries extends PhetioObject {
     assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
     assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
 
-    // Sum only the relevant harmonics.
-    const relevantHarmonics = this.harmonics.slice( 0, this.numberOfHarmonicsProperty.value );
+    const numberOfPoints = HarmonicsChart.MAX_POINTS_PER_DATA_SET;
 
-    // The presence of higher-frequency harmonics require more points to draw a smooth plot.
-    // See documentation for HarmonicsChart.MAX_POINTS_PER_DATA_SET.
-    const numberOfPoints = Math.ceil( HarmonicsChart.MAX_POINTS_PER_DATA_SET *
-                                      relevantHarmonics.length / this.harmonics.length );
-
-    // {Vector2[][]} compute a data set for each relevant harmonic
+    // {Vector2[][]} compute a data set for each harmonic
     const harmonicDataSets = [];
-    relevantHarmonics.forEach( harmonic => {
+    this.harmonics.forEach( harmonic => {
       harmonicDataSets.push( this.createHarmonicDataSet( harmonic, numberOfPoints, xAxisDescription, domain, seriesType, t ) );
     } );
     assert && assert( _.every( harmonicDataSets, dataSet => dataSet.length === numberOfPoints ),

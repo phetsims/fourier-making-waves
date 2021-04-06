@@ -16,9 +16,9 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import DiscreteFourierSeries from '../model/DiscreteFourierSeries.js';
 import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../model/SeriesType.js';
@@ -32,7 +32,7 @@ const MAX_WIDTH = 800; // determined empirically
 class ExpandedFormDialog extends Dialog {
 
   /**
-   * @param {FourierSeries} fourierSeries
+   * @param {DiscreteFourierSeries} fourierSeries
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {EnumerationProperty.<EquationForm>} equationFormProperty
@@ -40,7 +40,7 @@ class ExpandedFormDialog extends Dialog {
    */
   constructor( fourierSeries, domainProperty, seriesTypeProperty, equationFormProperty, options ) {
 
-    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
+    assert && assert( fourierSeries instanceof DiscreteFourierSeries, 'invalid fourierSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
@@ -61,6 +61,7 @@ class ExpandedFormDialog extends Dialog {
         font: FMWConstants.EQUATION_FONT
       } );
 
+    const numberOfHarmonics = fourierSeries.numberOfHarmonicsProperty.value;
     const amplitudes = fourierSeries.amplitudesProperty.value;
     const domain = domainProperty.value;
     const seriesType = seriesTypeProperty.value;
@@ -76,14 +77,14 @@ class ExpandedFormDialog extends Dialog {
     } );
 
     let expandedSumMarkup = '';
-    for ( let order = 1; order <= amplitudes.length; order++ ) {
+    for ( let order = 1; order <= numberOfHarmonics; order++ ) {
 
       // Limit number of decimal places, and drop trailing zeros.
       // See https://github.com/phetsims/fourier-making-waves/issues/20
       const amplitude = Utils.toFixedNumber( amplitudes[ order - 1 ], FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
 
       expandedSumMarkup += EquationMarkup.getSpecificFormMarkup( domain, seriesType, equationForm, order, amplitude );
-      if ( order < amplitudes.length ) {
+      if ( order < numberOfHarmonics ) {
         expandedSumMarkup += ` ${MathSymbols.PLUS} `;
       }
       if ( order % TERMS_PER_LINE === 0 ) {

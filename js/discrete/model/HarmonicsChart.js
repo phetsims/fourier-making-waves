@@ -102,8 +102,8 @@ class HarmonicsChart {
       this.harmonicDataSetProperties.push( harmonicDataSetProperty );
 
       // Update the harmonic's data set when dependencies change. unmultilink is not needed.
-      Property.lazyMultilink( [ harmonic.amplitudeProperty, fourierSeries.numberOfHarmonicsProperty,
-          this.xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
+      Property.lazyMultilink( [ harmonic.amplitudeProperty, this.xAxisDescriptionProperty, domainProperty,
+          seriesTypeProperty, tProperty ],
         () => { harmonicDataSetProperty.value = createDataSet( harmonic ); }
       );
     }

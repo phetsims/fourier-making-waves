@@ -9,16 +9,18 @@
 
 import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import DiscreteFourierSeries from '../model/DiscreteFourierSeries.js';
 
 class DiscreteAmplitudesChartNode extends AmplitudesChartNode {
 
   /**
-   * @param {FourierSeries} fourierSeries
+   * @param {DiscreteFourierSeries} fourierSeries
    * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
    * @param {Object} [options]
    */
   constructor( fourierSeries, emphasizedHarmonics, amplitudeKeypadDialog, options ) {
+    assert && assert( fourierSeries instanceof DiscreteFourierSeries, 'invalid fourierSeries' );
 
     super( fourierSeries, emphasizedHarmonics, amplitudeKeypadDialog, options );
 

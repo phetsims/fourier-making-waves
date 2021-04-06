@@ -38,8 +38,6 @@ class FourierSoundGenerator extends SoundGenerator {
       initialOutputLevel: outputLevelProperty.value
     } );
 
-    const maxNumberOfHarmonics = fourierSeries.numberOfHarmonicsProperty.range.max;
-
     // Maps amplitude to an output level that is appropriate for SoundGenerator.
     const amplitudeToOutputLevel = new LinearFunction(
       fourierSeries.amplitudeRange.min, fourierSeries.amplitudeRange.max,
@@ -48,7 +46,7 @@ class FourierSoundGenerator extends SoundGenerator {
 
     // {OscillatorSoundGenerator[]} Create an oscillator for each harmonic.
     const oscillatorSoundGenerators = [];
-    for ( let i = 0; i < maxNumberOfHarmonics; i++ ) {
+    for ( let i = 0; i < fourierSeries.harmonics.length; i++ ) {
       const harmonic = fourierSeries.harmonics[ i ];
       const oscillatorSoundGenerator = new OscillatorSoundGenerator( {
         initialFrequency: harmonic.frequency,
@@ -61,14 +59,9 @@ class FourierSoundGenerator extends SoundGenerator {
     // Set amplitudes for harmonics. unlink is not needed.
     fourierSeries.amplitudesProperty.lazyLink( amplitudes => {
 
-      // Set amplitudes for the relevant harmonics.
+      // Set amplitudes for the harmonics.
       for ( let i = 0; i < amplitudes.length; i++ ) {
         oscillatorSoundGenerators[ i ].setOutputLevel( amplitudeToOutputLevel( amplitudes[ i ] ) );
-      }
-
-      // Set amplitudes of irrelevant harmonics to zero.
-      for ( let i = amplitudes.length; i < maxNumberOfHarmonics; i++ ) {
-        oscillatorSoundGenerators[ i ].setOutputLevel( 0 );
       }
     } );
 
