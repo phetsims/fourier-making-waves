@@ -32,13 +32,13 @@ import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
-import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
 import HarmonicsChartNode from '../../discrete/view/HarmonicsChartNode.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
 import AmplitudeControlsSpinner from './AmplitudeControlsSpinner.js';
 import AnswersNode from './AnswersNode.js';
+import WaveGameAmplitudesChartNode from './WaveGameAmplitudesChartNode.js';
 import WaveGameRewardNode from './WaveGameRewardNode.js';
 import WaveGameSumChartNode from './WaveGameSumChartNode.js';
 
@@ -191,7 +191,7 @@ class WaveGameLevelNode extends Node {
       tandem: amplitudesTandem.createTandem( 'amplitudeKeypadDialog' )
     } );
 
-    const amplitudesChartNode = new AmplitudesChartNode(
+    const amplitudesChartNode = new WaveGameAmplitudesChartNode(
       level.adapterGuessFourierSeries, level.emphasizedHarmonics, amplitudeKeypadDialog, {
         viewWidth: CHART_RECTANGLE_SIZE.width,
         viewHeight: CHART_RECTANGLE_SIZE.height,

@@ -128,6 +128,7 @@ class AmplitudeKeypadDialog extends Dialog {
     // @private
     this.keypad = keypad;
     this.titleNode = titleNode;
+    this.order = null; // { number|null} number when showing, null when hidden
 
     // @private {function(amplitude:number)|null} called when the Enter button fires
     this.enterCallback = null;
@@ -176,10 +177,12 @@ class AmplitudeKeypadDialog extends Dialog {
     assert && assert( typeof enterCallback === 'function', 'invalid enterCallback' );
     assert && assert( typeof closeCallback === 'function', 'invalid closeCallback' );
 
-    this.setOrder( order );
+    this.titleNode.text = `${FMWSymbols.A}<sub>${order}</sub>`;
+    this.order = order;
     this.enterCallback = enterCallback;
     this.closeCallback = closeCallback;
     this.keypad.clear();
+
     super.show();
   }
 
@@ -190,21 +193,13 @@ class AmplitudeKeypadDialog extends Dialog {
    */
   hide() {
     super.hide();
+
+    this.interruptSubtreeInput();
     this.closeCallback();
+    this.order = null;
     this.enterCallback = null;
     this.closeCallback = null;
     this.keypad.clear();
-  }
-
-  /**
-   * Sets the order of the harmonic that we're editing, as displayed in the title.
-   * @param {number} order
-   * @private
-   */
-  setOrder( order ) {
-    assert && AssertUtils.assertPositiveInteger( order );
-
-    this.titleNode.text = `${FMWSymbols.A}<sub>${order}</sub>`;
   }
 
   /**
