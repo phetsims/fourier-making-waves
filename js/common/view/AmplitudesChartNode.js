@@ -22,6 +22,8 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
+import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
@@ -30,8 +32,6 @@ import FourierSeries from '../model/FourierSeries.js';
 import AmplitudeKeypadDialog from './AmplitudeKeypadDialog.js';
 import AmplitudeNumberDisplay from './AmplitudeNumberDisplay.js';
 import AmplitudeSlider from './AmplitudeSlider.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
 // constants
 const X_MARGIN = 0.5; // x-axis margins, in model coordinates
@@ -65,10 +65,7 @@ class AmplitudesChartNode extends Node {
     const chartTransform = new ChartTransform( {
       viewWidth: options.viewWidth,
       viewHeight: options.viewHeight,
-      modelXRange: new Range(
-        fourierSeries.numberOfHarmonicsProperty.range.min - X_MARGIN,
-        fourierSeries.numberOfHarmonicsProperty.range.max + X_MARGIN
-      ),
+      modelXRange: new Range( 1 - X_MARGIN, fourierSeries.harmonics.length + X_MARGIN ),
       modelYRange: fourierSeries.amplitudeRange
     } );
 
@@ -139,18 +136,9 @@ class AmplitudesChartNode extends Node {
 
     super( options );
 
-    // Hide sliders and number displays that are not part of the series.
-    // Note that it's the model's responsibility to set the amplitude for hidden harmonics to zero.
-    fourierSeries.numberOfHarmonicsProperty.link( numberOfHarmonics => {
-      assert && assert( numberOfHarmonics > 0 && numberOfHarmonics <= sliders.length,
-        `unsupported numberOfHarmonics: ${numberOfHarmonics}` );
-
-      for ( let i = 0; i < sliders.length; i++ ) {
-        const visible = ( i < numberOfHarmonics );
-        sliders[ i ].visible = visible;
-        numberDisplays[ i ].visible = visible;
-      }
-    } );
+    // @protected
+    this.sliders = sliders;
+    this.numberDisplays = numberDisplays;
 
     // @public
     this.chartTransform = chartTransform;
