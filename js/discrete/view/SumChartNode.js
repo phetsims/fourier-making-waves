@@ -64,6 +64,8 @@ class SumChartNode extends DiscreteChartNode {
     const yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {
       orientation: 'vertical',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
+      touchAreaXDilation: 10,
+      touchAreaYDilation: 5,
       right: this.chartRectangle.left - 31, // determined empirically
       top: this.chartRectangle.bottom,
       tandem: options.tandem.createTandem( 'yZoomButtonGroup' )

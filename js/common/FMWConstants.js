@@ -49,23 +49,6 @@ const FMWConstants = {
     boxWidth: 15
   },
 
-  SPINNER_OPTIONS: {
-    arrowPosition: 'bothRight',
-    numberDisplayOptions: {
-      align: 'center',
-      xMargin: 8,
-      yMargin: 5,
-      cornerRadius: 3,
-      textOptions: {
-        font: new PhetFont( 16 )
-      }
-    },
-    touchAreaXDilation: 20,
-    touchAreaYDilation: 8,
-    mouseAreaXDilation: 5,
-    mouseAreaYDilation: 5
-  },
-
   VBOX_OPTIONS: {
     align: 'left',
     spacing: 18

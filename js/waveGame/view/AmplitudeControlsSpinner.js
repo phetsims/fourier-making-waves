@@ -8,11 +8,11 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
-import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
@@ -26,7 +26,22 @@ class AmplitudeControlsSpinner extends Node {
     assert && assert( numberOfAmplitudeControlsProperty instanceof NumberProperty, 'invalid numberOfAmplitudeControlsProperty' );
 
     options = merge( {
-      spinnerOptions: FMWConstants.SPINNER_OPTIONS,
+      spinnerOptions: {
+        arrowPosition: 'bothRight',
+        numberDisplayOptions: {
+          align: 'center',
+          xMargin: 8,
+          yMargin: 5,
+          cornerRadius: 3,
+          textOptions: {
+            font: new PhetFont( 16 )
+          }
+        },
+        touchAreaXDilation: 25,
+        touchAreaYDilation: 12,
+        mouseAreaXDilation: 5,
+        mouseAreaYDilation: 5
+      },
       textOptions: {
         maxWidth: 200
       }

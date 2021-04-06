@@ -25,6 +25,7 @@ class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
 
     options = merge( {
       spacing: 12,
+      touchAreaYDilation: 6,
       radioButtonOptions: {
         xSpacing: 6
       }

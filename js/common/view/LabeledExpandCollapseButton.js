@@ -7,6 +7,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ExpandCollapseButton from '../../../../sun/js/ExpandCollapseButton.js';
@@ -41,10 +42,13 @@ class LabeledExpandCollapseButton extends HBox {
     }, options );
 
     const labelNode = new Text( labelString, merge( {
+      cursor: 'pointer',
       tandem: options.tandem.createTandem( 'labelNode' )
     }, options.textOptions ) );
 
     const expandCollapseButton = new ExpandCollapseButton( expandedProperty, merge( {
+      touchAreaXDilation: 6,
+      touchAreaYDilation: 6,
       tandem: options.tandem.createTandem( 'expandCollapseButton' )
     }, options.expandCollapseButtonOptions ) );
 
@@ -52,6 +56,13 @@ class LabeledExpandCollapseButton extends HBox {
     options.children = [ expandCollapseButton, labelNode ];
 
     super( options );
+
+    // Clicking on the label toggles expandedProperty
+    labelNode.addInputListener( new PressListener( {
+      release: () => {
+        expandedProperty.value = !expandedProperty.value;
+      }
+    } ) );
   }
 }
 

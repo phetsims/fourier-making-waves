@@ -128,6 +128,8 @@ class DiscreteChartNode extends Node {
     const xZoomButtonGroup = new PlusMinusZoomButtonGroup( xZoomLevelProperty, {
       orientation: 'horizontal',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
+      touchAreaXDilation: 5,
+      touchAreaYDilation: 10,
       left: chartRectangle.right + 6,
       bottom: chartRectangle.bottom,
       tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
