@@ -3,8 +3,6 @@
 /**
  * AmplitudeSlider is a slider for changing the amplitude of a harmonic.
  *
- * NOTE: Dimension2 instances will be flipped, because VSlider rotates its subcomponents -90 degrees.
- *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
