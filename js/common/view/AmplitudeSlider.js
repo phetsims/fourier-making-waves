@@ -30,7 +30,7 @@ const TRACK_WIDTH = 40; // track height specified in constructor options
 const THUMB_WIDTH = TRACK_WIDTH - 15;
 const THUMB_HEIGHT = 8;
 
-// Dimension2 instances must be swapped, because VSlider rotates its subcomponents -90 degrees. So we'll specify the
+// Dimension2 instances must be swapped, because VSlider rotates its thumb and track -90 degrees. So we'll specify the
 // dimensions related to our custom thumb and track in vertical orientation, create our custom thumb and track in
 // horizontal orientation, and Slider will rotate them into vertical orientation. Pretty gross, eh?
 const THUMB_TOUCH_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
