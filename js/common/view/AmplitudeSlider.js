@@ -30,9 +30,9 @@ const TRACK_WIDTH = 40; // track height specified in constructor options
 const THUMB_WIDTH = TRACK_WIDTH - 15;
 const THUMB_HEIGHT = 8;
 
-// Dimension2 instances must be flipped, because VSlider rotates its subcomponents -90 degrees.
-const THUMB_TOUCH_AREA_DILATION = new Dimension2( 10, 4 ).flipped();
-const THUMB_MOUSE_AREA_DILATION = new Dimension2( 10, 4 ).flipped();
+// Dimension2 instances must be swapped, because VSlider rotates its subcomponents -90 degrees.
+const THUMB_TOUCH_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
+const THUMB_MOUSE_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
 
 class AmplitudeSlider extends VSlider {
 
@@ -61,9 +61,9 @@ class AmplitudeSlider extends VSlider {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // flipped because VSlider rotates its subcomponents -90 degrees
-    const thumbSize = new Dimension2( THUMB_WIDTH, THUMB_HEIGHT ).flipped();
-    const trackSize = new Dimension2( TRACK_WIDTH, options.trackHeight ).flipped();
+    // Width and height are swapped because VSlider rotates its subcomponents -90 degrees.
+    const thumbSize = new Dimension2( THUMB_WIDTH, THUMB_HEIGHT ).swapped();
+    const trackSize = new Dimension2( TRACK_WIDTH, options.trackHeight ).swapped();
 
     const thumbNode = new GrippyThumb( thumbSize, harmonic );
     thumbNode.touchArea = thumbNode.localBounds.dilatedXY( THUMB_TOUCH_AREA_DILATION.width, THUMB_TOUCH_AREA_DILATION.height );
