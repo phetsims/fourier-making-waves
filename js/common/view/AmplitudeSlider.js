@@ -30,7 +30,9 @@ const TRACK_WIDTH = 40; // track height specified in constructor options
 const THUMB_WIDTH = TRACK_WIDTH - 15;
 const THUMB_HEIGHT = 8;
 
-// Dimension2 instances must be swapped, because VSlider rotates its subcomponents -90 degrees.
+// Dimension2 instances must be swapped, because VSlider rotates its subcomponents -90 degrees. So we'll specify the
+// dimensions related to our custom thumb and track in vertical orientation, create our custom thumb and track in
+// horizontal orientation, and Slider will rotate them into vertical orientation. Pretty gross, eh?
 const THUMB_TOUCH_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
 const THUMB_MOUSE_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
 
@@ -61,27 +63,27 @@ class AmplitudeSlider extends VSlider {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // Width and height are swapped because VSlider rotates its subcomponents -90 degrees.
-    const thumbSize = new Dimension2( THUMB_WIDTH, THUMB_HEIGHT ).swapped();
-    const trackSize = new Dimension2( TRACK_WIDTH, options.trackHeight ).swapped();
-
-    const thumbNode = new GrippyThumb( thumbSize, harmonic );
-    thumbNode.touchArea = thumbNode.localBounds.dilatedXY( THUMB_TOUCH_AREA_DILATION.width, THUMB_TOUCH_AREA_DILATION.height );
-    thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( THUMB_MOUSE_AREA_DILATION.width, THUMB_MOUSE_AREA_DILATION.height );
-
     // Constrain the range to the desired number of decimal places.
     const amplitudeRange = new Range(
       Utils.toFixedNumber( harmonic.amplitudeProperty.range.min, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES ),
       Utils.toFixedNumber( harmonic.amplitudeProperty.range.max, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES )
     );
 
-    const trackNode = new BarTrack( trackSize, harmonic, amplitudeRange );
+    // See note above about what swapped is necessary.
+    const thumbSize = new Dimension2( THUMB_WIDTH, THUMB_HEIGHT ).swapped();
+    const trackSize = new Dimension2( TRACK_WIDTH, options.trackHeight ).swapped();
 
-    assert && assert( !options.trackNode, 'AmplitudeSlider sets trackNode' );
-    options.trackNode = trackNode;
-
+    // Custom thumb
+    const thumbNode = new GrippyThumb( thumbSize, harmonic );
+    thumbNode.touchArea = thumbNode.localBounds.dilatedXY( THUMB_TOUCH_AREA_DILATION.width, THUMB_TOUCH_AREA_DILATION.height );
+    thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( THUMB_MOUSE_AREA_DILATION.width, THUMB_MOUSE_AREA_DILATION.height );
     assert && assert( !options.thumbNode, 'AmplitudeSlider sets thumbNode' );
     options.thumbNode = thumbNode;
+
+    // Custom track
+    const trackNode = new BarTrack( trackSize, harmonic, amplitudeRange );
+    assert && assert( !options.trackNode, 'AmplitudeSlider sets trackNode' );
+    options.trackNode = trackNode;
 
     assert && assert( !options.constrainValue, 'AmplitudeSlider sets constrainValue' );
     options.constrainValue = amplitude => {
