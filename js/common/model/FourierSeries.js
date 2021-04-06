@@ -43,6 +43,9 @@ class FourierSeries extends PhetioObject {
       phetioState: false
     }, options );
 
+    assert && AssertUtils.assertPositiveInteger( options.numberOfHarmonics );
+    assert && assert( options.amplitudeRange instanceof Range, 'invalid amplitudeRange' );
+    assert && AssertUtils.assertArrayOf( options.amplitudes, 'number' );
     assert && assert( _.every( options.amplitudes, amplitude => options.amplitudeRange.contains( amplitude ) ),
       'one or more amplitudes are out of range' );
 
