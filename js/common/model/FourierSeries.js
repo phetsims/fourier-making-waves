@@ -231,7 +231,7 @@ class FourierSeries extends PhetioObject {
 
 /**
  * The equation that is used to compute amplitude depends on what domain (space, time, space & time) and
- * equation form (sin/cos) is being used. This object provides an optimized way to retrieve a function
+ * series type (sin/cos) is being used. This object provides an optimized way to retrieve a function
  * that implements the appropriate equation.
  */
 const AMPLITUDE_FUNCTIONS = {
