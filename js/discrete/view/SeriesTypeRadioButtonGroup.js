@@ -13,7 +13,7 @@ import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRad
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import SeriesType from '../model/SeriesType.js';
+import SeriesType from '../../common/model/SeriesType.js';
 
 class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
 

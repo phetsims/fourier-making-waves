@@ -9,7 +9,7 @@
 
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import SeriesType from './SeriesType.js';
+import SeriesType from '../../common/model/SeriesType.js';
 
 // constants
 const PI = Math.PI; // to improve readability

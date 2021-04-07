@@ -21,7 +21,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteFourierSeries from '../model/DiscreteFourierSeries.js';
 import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
-import SeriesType from '../model/SeriesType.js';
+import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from './EquationMarkup.js';
 import SumEquationNode from './SumEquationNode.js';
 

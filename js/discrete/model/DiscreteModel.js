@@ -24,7 +24,7 @@ import Domain from './Domain.js';
 import EquationForm from './EquationForm.js';
 import HarmonicsChart from './HarmonicsChart.js';
 import MeasurementTool from './MeasurementTool.js';
-import SeriesType from './SeriesType.js';
+import SeriesType from '../../common/model/SeriesType.js';
 import SumChart from './SumChart.js';
 import TickLabelFormat from './TickLabelFormat.js';
 import Waveform from './Waveform.js';

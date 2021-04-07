@@ -17,7 +17,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
-import SeriesType from '../model/SeriesType.js';
+import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from './EquationMarkup.js';
 import SummationSymbolNode from './SummationSymbolNode.js';
 

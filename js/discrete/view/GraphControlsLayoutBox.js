@@ -20,7 +20,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
-import SeriesType from '../model/SeriesType.js';
+import SeriesType from '../../common/model/SeriesType.js';
 import DomainComboBox from './DomainComboBox.js';
 import EquationComboBox from './EquationComboBox.js';
 import SeriesTypeRadioButtonGroup from './SeriesTypeRadioButtonGroup.js';

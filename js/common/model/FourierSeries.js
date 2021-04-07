@@ -18,7 +18,7 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import AxisDescription from '../../discrete/model/AxisDescription.js';
 import Domain from '../../discrete/model/Domain.js';
 import HarmonicsChart from '../../discrete/model/HarmonicsChart.js';
-import SeriesType from '../../discrete/model/SeriesType.js';
+import SeriesType from './SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';

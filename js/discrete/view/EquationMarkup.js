@@ -12,7 +12,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
-import SeriesType from '../model/SeriesType.js';
+import SeriesType from '../../common/model/SeriesType.js';
 
 // constants
 const HIDDEN_STRING = ''; // string for EquationForm.HIDDEN

@@ -9,7 +9,7 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Domain from '../../discrete/model/Domain.js';
-import SeriesType from '../../discrete/model/SeriesType.js'; //TODO discrete
+import SeriesType from '../../common/model/SeriesType.js';
 import SumChart from '../../discrete/model/SumChart.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
