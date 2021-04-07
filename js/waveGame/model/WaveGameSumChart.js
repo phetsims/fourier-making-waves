@@ -6,6 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Domain from '../../discrete/model/Domain.js';
+import SeriesType from '../../discrete/model/SeriesType.js'; //TODO discrete
 import SumChart from '../../discrete/model/SumChart.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -13,18 +17,21 @@ class WaveGameSumChart extends SumChart {
 
   /**
    * @param {FourierSeries} guessFourierSeries
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {Property.<number>} tProperty
    * @param {Property.<number>} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( guessFourierSeries, domainProperty, seriesTypeProperty, tProperty, xZoomLevelProperty,
-               xAxisDescriptionProperty, options ) {
+  constructor( guessFourierSeries, xZoomLevelProperty, xAxisDescriptionProperty, options ) {
 
-    super( guessFourierSeries, domainProperty, seriesTypeProperty, tProperty, xZoomLevelProperty,
-      xAxisDescriptionProperty, options );
+    super(
+      guessFourierSeries,
+      new EnumerationProperty( Domain, Domain.SPACE ), //TODO eliminate?
+      new EnumerationProperty( SeriesType, SeriesType.SINE ), //TODO eliminate?
+      new NumberProperty( 0 ), //TODO eliminate?
+      xZoomLevelProperty,
+      xAxisDescriptionProperty,
+      options
+    );
 
     //TODO compute sum for answerFourierSeries
     //TODO scale y-axis to sum for answerFourierSeries (by toggling auto-scale on & off?)

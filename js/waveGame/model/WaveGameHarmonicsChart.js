@@ -6,21 +6,28 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Domain from '../../discrete/model/Domain.js';
 import HarmonicsChart from '../../discrete/model/HarmonicsChart.js'; //TODO discrete
+import SeriesType from '../../discrete/model/SeriesType.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class WaveGameHarmonicsChart extends HarmonicsChart {
 
   /**
-   * @param {FourierSeries} fourierSeries
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {Property.<number>} tProperty
+   * @param {FourierSeries} guessFourierSeries
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, options ) {
+  constructor( guessFourierSeries, options ) {
 
-    super( fourierSeries, domainProperty, seriesTypeProperty, tProperty, options );
+    super(
+      guessFourierSeries,
+      new EnumerationProperty( Domain, Domain.SPACE ), //TODO eliminate?
+      new EnumerationProperty( SeriesType, SeriesType.SINE ), //TODO eliminate?
+      new NumberProperty( 0 ), //TODO eliminate?
+      options
+    );
   }
 }
 

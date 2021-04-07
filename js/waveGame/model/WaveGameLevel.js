@@ -6,14 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
-import Domain from '../../discrete/model/Domain.js'; //TODO discrete
-import SeriesType from '../../discrete/model/SeriesType.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
@@ -105,17 +102,11 @@ class WaveGameLevel {
       } );
     }
 
-    // These Properties do not change in the Wave Game screen, but are needed by chart models.
-    const domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
-    const seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE );
-    const tProperty = new NumberProperty( 0 );
+    // @public
+    this.harmonicsChart = new WaveGameHarmonicsChart( this.adapterGuessFourierSeries );
 
     // @public
-    this.harmonicsChart = new WaveGameHarmonicsChart( this.adapterGuessFourierSeries, domainProperty,
-      seriesTypeProperty, tProperty );
-
-    // @public
-    this.sumChart = new WaveGameSumChart( this.adapterGuessFourierSeries, domainProperty, seriesTypeProperty, tProperty,
+    this.sumChart = new WaveGameSumChart( this.adapterGuessFourierSeries,
       this.harmonicsChart.xZoomLevelProperty, this.harmonicsChart.xAxisDescriptionProperty );
   }
 
