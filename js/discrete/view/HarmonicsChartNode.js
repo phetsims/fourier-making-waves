@@ -54,7 +54,8 @@ class HarmonicsChartNode extends DiscreteChartNode {
     const xZoomLevelProperty = harmonicsChart.xZoomLevelProperty;
     const xAxisDescriptionProperty = harmonicsChart.xAxisDescriptionProperty;
 
-    super( fourierSeries, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty, equationFormProperty, options );
+    super( fourierSeries.L, fourierSeries.T, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty,
+      equationFormProperty, options );
 
     // {HarmonicPlot[]} a plot for each harmonic in the Fourier series, in harmonic order, rendered using Canvas
     const plots = [];

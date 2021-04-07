@@ -63,16 +63,18 @@ const TICK_LABEL_DECIMAL_PLACES = 2;
 class DiscreteChartNode extends Node {
 
   /**
-   * @param {FourierSeries} fourierSeries
+   * @param {number} L - the wavelength of the fundamental harmonic, in meters
+   * @param {number} T - the period of the fundamental harmonic, in milliseconds
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<number>} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty, equationFormProperty, options ) {
+  constructor( L, T, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty, equationFormProperty, options ) {
 
-    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
+    assert && AssertUtils.assertPositiveNumber( L );
+    assert && AssertUtils.assertPositiveNumber( T );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( xZoomLevelProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
@@ -95,7 +97,7 @@ class DiscreteChartNode extends Node {
     const chartTransform = new ChartTransform( {
       viewWidth: options.viewWidth,
       viewHeight: options.viewHeight,
-      modelXRange: AxisDescription.createXRange( xAxisDescription, domainProperty.value, fourierSeries.L, fourierSeries.T ),
+      modelXRange: AxisDescription.createXRange( xAxisDescription, domainProperty.value, L, T ),
       modelYRange: yAxisDescription.range
     } );
 
@@ -116,7 +118,7 @@ class DiscreteChartNode extends Node {
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.gridLineSpacing, GRID_LINE_OPTIONS );
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
     const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.tickLabelSpacing, merge( {
-      createLabel: value => createTickLabel( value, domainProperty.value, equationFormProperty.value, fourierSeries.L, fourierSeries.T )
+      createLabel: value => createTickLabel( value, domainProperty.value, equationFormProperty.value, L, T )
     }, TICK_LABEL_OPTIONS ) );
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
@@ -148,7 +150,7 @@ class DiscreteChartNode extends Node {
     Property.multilink(
       [ xAxisDescriptionProperty, domainProperty ],
       ( xAxisDescription, domain ) => {
-        const value = ( domain === Domain.TIME ) ? fourierSeries.T : fourierSeries.L;
+        const value = ( domain === Domain.TIME ) ? T : L;
         const xMin = value * xAxisDescription.range.min;
         const xMax = value * xAxisDescription.range.max;
         chartTransform.setModelXRange( new Range( xMin, xMax ) );
@@ -226,8 +228,8 @@ class DiscreteChartNode extends Node {
  * @param {number} value
  * @param {Domain} domain
  * @param {EquationForm} equationForm
- * @param {number} L - the wavelength of the fundamental harmonic
- * @param {number} T - the period of the fundamental harmonic
+ * @param {number} L - the wavelength of the fundamental harmonic, in meters
+ * @param {number} T - the period of the fundamental harmonic, in milliseconds
  * @returns {Node}
  */
 function createTickLabel( value, domain, equationForm, L, T ) {
@@ -256,8 +258,8 @@ function createNumericTickLabel( value ) {
  * Creates a symbolic tick label for the chart.
  * @param {number} value
  * @param {Domain} domain
- * @param {number} L - the wavelength of the fundamental harmonic
- * @param {number} T - the period of the fundamental harmonic
+ * @param {number} L - the wavelength of the fundamental harmonic, in meters
+ * @param {number} T - the period of the fundamental harmonic, in milliseconds
  * @returns {Node}
  */
 function createSymbolicTickLabel( value, domain, L, T ) {

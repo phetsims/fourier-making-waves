@@ -58,7 +58,8 @@ class SumChartNode extends DiscreteChartNode {
     const infiniteHarmonicsVisibleProperty = sumChart.infiniteHarmonicsVisibleProperty;
     const sumDataSetProperty = sumChart.sumDataSetProperty;
 
-    super( fourierSeries, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty, equationFormProperty, options );
+    super( fourierSeries.L, fourierSeries.T, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty,
+      equationFormProperty, options );
 
     // Zoom buttons for the y-axis range
     const yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {
