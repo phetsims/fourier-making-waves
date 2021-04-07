@@ -27,6 +27,7 @@ import EquationForm from '../model/EquationForm.js';
 import Waveform from '../model/Waveform.js';
 import DiscreteAmplitudesChartNode from './DiscreteAmplitudesChartNode.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
+import DiscreteHarmonicsChartNode from './DiscreteHarmonicsChartNode.js';
 import ExpandedFormButton from './ExpandedFormButton.js';
 import ExpandedFormDialog from './ExpandedFormDialog.js';
 import FourierSoundGenerator from './FourierSoundGenerator.js';
@@ -93,7 +94,7 @@ class DiscreteScreenView extends ScreenView {
         tandem: harmonicsTandem.createTandem( 'harmonicsExpandCollapseButton' )
       } );
 
-    const harmonicsChartNode = new HarmonicsChartNode( model.harmonicsChart, model.xAxisTickLabelFormatProperty, {
+    const harmonicsChartNode = new DiscreteHarmonicsChartNode( model.harmonicsChart, model.xAxisTickLabelFormatProperty, {
       viewWidth: CHART_RECTANGLE_SIZE.width,
       viewHeight: CHART_RECTANGLE_SIZE.height,
       visibleProperty: model.harmonicsChart.chartVisibleProperty,
