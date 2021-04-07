@@ -80,7 +80,7 @@ class SumChartNode extends DiscreteChartNode {
       tandem: options.tandem.createTandem( 'infiniteHarmonicsCheckbox' )
     } );
 
-    // Disable infiniteHarmonicsCheckbox for custom waveform. unlink is not needed.
+    // Disable infiniteHarmonicsCheckbox for custom and wave-packet waveforms. unlink is not needed.
     waveformProperty.link( waveform => {
 
       //TODO move right-hand side expression into Waveform?
