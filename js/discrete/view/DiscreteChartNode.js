@@ -30,12 +30,11 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
-import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import AxisDescription from '../model/AxisDescription.js';
 import Domain from '../model/Domain.js';
-import EquationForm from '../model/EquationForm.js';
+import TickLabelFormat from '../model/TickLabelFormat.js';
 
 // constants
 const AXIS_OPTIONS = {
@@ -68,17 +67,17 @@ class DiscreteChartNode extends Node {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<number>} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
+   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Object} [options]
    */
-  constructor( L, T, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty, equationFormProperty, options ) {
+  constructor( L, T, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty, xAxisTickLabelFormatProperty, options ) {
 
     assert && AssertUtils.assertPositiveNumber( L );
     assert && AssertUtils.assertPositiveNumber( T );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( xZoomLevelProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
-    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
+    assert && assert( xAxisTickLabelFormatProperty instanceof Property, 'invalid xAxisTickLabelFormatProperty' );
 
     options = merge( {
 
@@ -118,7 +117,7 @@ class DiscreteChartNode extends Node {
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.gridLineSpacing, GRID_LINE_OPTIONS );
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
     const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.tickLabelSpacing, merge( {
-      createLabel: value => createTickLabel( value, domainProperty.value, equationFormProperty.value, L, T )
+      createLabel: value => createTickLabel( value, domainProperty.value, xAxisTickLabelFormatProperty.value, L, T )
     }, TICK_LABEL_OPTIONS ) );
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
@@ -161,7 +160,7 @@ class DiscreteChartNode extends Node {
       } );
 
     // unlink is not needed
-    equationFormProperty.link( () => xTickLabels.invalidateLabelSet() );
+    xAxisTickLabelFormatProperty.link( () => xTickLabels.invalidateLabelSet() );
 
     // y axis ---------------------------------------------------------
 
@@ -227,13 +226,13 @@ class DiscreteChartNode extends Node {
  * Creates a tick label of the correct form (numeric or symbolic) depending on EquationForm.
  * @param {number} value
  * @param {Domain} domain
- * @param {EquationForm} equationForm
+ * @param {TickLabelFormat} tickLabelFormat
  * @param {number} L - the wavelength of the fundamental harmonic, in meters
  * @param {number} T - the period of the fundamental harmonic, in milliseconds
  * @returns {Node}
  */
-function createTickLabel( value, domain, equationForm, L, T ) {
-  if ( equationForm === EquationForm.HIDDEN ) {
+function createTickLabel( value, domain, tickLabelFormat, L, T ) {
+  if ( tickLabelFormat === TickLabelFormat.NUMERIC ) {
     return createNumericTickLabel( value );
   }
   else {

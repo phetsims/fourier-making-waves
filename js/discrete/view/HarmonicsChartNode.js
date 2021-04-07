@@ -7,14 +7,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import EquationForm from '../model/EquationForm.js';
 import HarmonicsChart from '../model/HarmonicsChart.js';
 import DiscreteChartNode from './DiscreteChartNode.js';
 import HarmonicPlot from './HarmonicPlot.js';
@@ -29,13 +28,13 @@ class HarmonicsChartNode extends DiscreteChartNode {
 
   /**
    * @param {HarmonicsChart} harmonicsChart
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
+   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Object} [options]
    */
-  constructor( harmonicsChart, equationFormProperty, options ) {
+  constructor( harmonicsChart, xAxisTickLabelFormatProperty, options ) {
 
     assert && assert( harmonicsChart instanceof HarmonicsChart, 'invalid harmonicsChart' );
-    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
+    assert && assert( xAxisTickLabelFormatProperty instanceof Property, 'invalid xAxisTickLabelFormatProperty' );
 
     options = merge( {
 
@@ -55,7 +54,7 @@ class HarmonicsChartNode extends DiscreteChartNode {
     const xAxisDescriptionProperty = harmonicsChart.xAxisDescriptionProperty;
 
     super( fourierSeries.L, fourierSeries.T, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty,
-      equationFormProperty, options );
+      xAxisTickLabelFormatProperty, options );
 
     // {HarmonicPlot[]} a plot for each harmonic in the Fourier series, in harmonic order, rendered using Canvas
     const plots = [];

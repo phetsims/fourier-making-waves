@@ -13,9 +13,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import Domain from '../../discrete/model/Domain.js'; //TODO discrete
-import EquationForm from '../../discrete/model/EquationForm.js'; //TODO discrete
 import HarmonicsChart from '../../discrete/model/HarmonicsChart.js'; //TODO discrete
-import SeriesType from '../../discrete/model/SeriesType.js'; //TODO discrete
+import SeriesType from '../../discrete/model/SeriesType.js';
+import TickLabelFormat from '../../discrete/model/TickLabelFormat.js'; //TODO discrete
 import Waveform from '../../discrete/model/Waveform.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
@@ -113,8 +113,8 @@ class WaveGameLevel {
     const tProperty = new NumberProperty( 0 );
 
     // @public These Properties do not change in the Wave Game screen, but are needed by chart views.
-    this.equationFormProperty = new EnumerationProperty( EquationForm, EquationForm.HIDDEN );
-    this.equationFormProperty.lazyLink( () => assert && assert( false, 'equationFormProperty should not be changed in Wave Game' ) );
+    this.xAxisTickLabelFormatProperty = new EnumerationProperty( TickLabelFormat, TickLabelFormat.NUMERIC );
+    this.xAxisTickLabelFormatProperty.lazyLink( () => assert && assert( false, 'xAxisTickLabelFormatProperty should not be changed in Wave Game' ) );
     this.waveformProperty = new EnumerationProperty( Waveform, Waveform.CUSTOM );
     this.waveformProperty.lazyLink( () => assert && assert( false, 'waveformProperty should not be changed in Wave Game' ) );
 

@@ -19,13 +19,13 @@ class WaveGameSumChartNode extends SumChartNode {
   /**
    * @param {WaveGameSumChart} sumChart
    * @param {EnumerationProperty.<Waveform>} waveformProperty
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
+   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Object} [options]
    */
-  constructor( sumChart, waveformProperty, equationFormProperty, options ) {
+  constructor( sumChart, waveformProperty, xAxisTickLabelFormatProperty, options ) {
     assert && assert( sumChart instanceof WaveGameSumChart, 'invalid sumChart' );
 
-    super( sumChart, waveformProperty, equationFormProperty, options );
+    super( sumChart, waveformProperty, xAxisTickLabelFormatProperty, options );
 
     //TODO add a plot for answerSeries sum, behind guessSeries sum
   }

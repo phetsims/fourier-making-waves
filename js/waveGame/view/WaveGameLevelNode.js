@@ -206,13 +206,13 @@ class WaveGameLevelNode extends Node {
       tandem: harmonicsTandem.createTandem( 'harmonicsTitleNode' )
     } );
 
-    const harmonicsChartNode = new HarmonicsChartNode( level.harmonicsChart, level.equationFormProperty, {
+    const harmonicsChartNode = new HarmonicsChartNode( level.harmonicsChart, level.xAxisTickLabelFormatProperty, {
       viewWidth: CHART_RECTANGLE_SIZE.width,
       viewHeight: CHART_RECTANGLE_SIZE.height,
       tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
     } );
 
-    const sumChartNode = new WaveGameSumChartNode( level.sumChart, level.waveformProperty, level.equationFormProperty, {
+    const sumChartNode = new WaveGameSumChartNode( level.sumChart, level.waveformProperty, level.xAxisTickLabelFormatProperty, {
       viewWidth: CHART_RECTANGLE_SIZE.width,
       viewHeight: CHART_RECTANGLE_SIZE.height,
       tandem: harmonicsTandem.createTandem( 'sumChartNode' )

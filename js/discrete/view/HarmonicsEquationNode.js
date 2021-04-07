@@ -23,6 +23,7 @@ class HarmonicsEquationNode extends Node {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
   constructor( domainProperty, seriesTypeProperty, equationFormProperty, options ) {

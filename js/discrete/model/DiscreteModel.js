@@ -8,6 +8,7 @@
 
 import animationFrameTimer from '../../../../axon/js/animationFrameTimer.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -25,6 +26,7 @@ import HarmonicsChart from './HarmonicsChart.js';
 import MeasurementTool from './MeasurementTool.js';
 import SeriesType from './SeriesType.js';
 import SumChart from './SumChart.js';
+import TickLabelFormat from './TickLabelFormat.js';
 import Waveform from './Waveform.js';
 
 // This factor slows down time for the 'space & time' domain, determined empirically.
@@ -82,6 +84,12 @@ class DiscreteModel {
     this.equationFormProperty = new EnumerationProperty( EquationForm, EquationForm.HIDDEN, {
       tandem: options.tandem.createTandem( 'equationFormProperty' )
     } );
+
+    // @public
+    this.xAxisTickLabelFormatProperty = new DerivedProperty(
+      [ this.equationFormProperty ],
+      equationForm => ( equationForm === EquationForm.HIDDEN ) ? TickLabelFormat.NUMERIC : TickLabelFormat.SYMBOLIC
+    );
 
     const soundTandem = options.tandem.createTandem( 'sound' );
 

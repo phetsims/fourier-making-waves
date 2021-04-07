@@ -93,7 +93,7 @@ class DiscreteScreenView extends ScreenView {
         tandem: harmonicsTandem.createTandem( 'harmonicsExpandCollapseButton' )
       } );
 
-    const harmonicsChartNode = new HarmonicsChartNode( model.harmonicsChart, model.equationFormProperty, {
+    const harmonicsChartNode = new HarmonicsChartNode( model.harmonicsChart, model.xAxisTickLabelFormatProperty, {
       viewWidth: CHART_RECTANGLE_SIZE.width,
       viewHeight: CHART_RECTANGLE_SIZE.height,
       visibleProperty: model.harmonicsChart.chartVisibleProperty,
@@ -127,7 +127,7 @@ class DiscreteScreenView extends ScreenView {
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
       } );
 
-    const sumChartNode = new SumChartNode( model.sumChart, model.waveformProperty, model.equationFormProperty, {
+    const sumChartNode = new SumChartNode( model.sumChart, model.waveformProperty, model.xAxisTickLabelFormatProperty, {
       viewWidth: CHART_RECTANGLE_SIZE.width,
       viewHeight: CHART_RECTANGLE_SIZE.height,
       visibleProperty: model.sumChart.chartVisibleProperty,

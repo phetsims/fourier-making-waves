@@ -19,7 +19,6 @@ import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import EquationForm from '../model/EquationForm.js';
 import SumChart from '../model/SumChart.js';
 import Waveform from '../model/Waveform.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
@@ -31,14 +30,14 @@ class SumChartNode extends DiscreteChartNode {
   /**
    * @param {SumChart} sumChart
    * @param {EnumerationProperty.<Waveform>} waveformProperty
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
+   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Object} [options]
    */
-  constructor( sumChart, waveformProperty, equationFormProperty, options ) {
+  constructor( sumChart, waveformProperty, xAxisTickLabelFormatProperty, options ) {
 
     assert && assert( sumChart instanceof SumChart, 'invalid sumChart' );
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
-    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
+    assert && assert( xAxisTickLabelFormatProperty instanceof Property, 'invalid xAxisTickLabelFormatProperty' );
 
     options = merge( {
 
@@ -59,7 +58,7 @@ class SumChartNode extends DiscreteChartNode {
     const sumDataSetProperty = sumChart.sumDataSetProperty;
 
     super( fourierSeries.L, fourierSeries.T, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty,
-      equationFormProperty, options );
+      xAxisTickLabelFormatProperty, options );
 
     // Zoom buttons for the y-axis range
     const yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {
