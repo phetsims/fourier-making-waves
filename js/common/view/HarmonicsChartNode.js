@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2021, University of Colorado Boulder
 
 /**
  * HarmonicsChartNode displays the 'Harmonics' chart in the 'Discrete' screen. It renders a plot for each of
@@ -14,9 +14,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import HarmonicsChart from '../../common/model/HarmonicsChart.js';
-import FMWChartNode from '../../common/view/FMWChartNode.js';
-import HarmonicPlot from './HarmonicPlot.js';
+import HarmonicsChart from '../model/HarmonicsChart.js';
+import FMWChartNode from './FMWChartNode.js';
+import HarmonicPlot from '../../discrete/view/HarmonicPlot.js';
 
 // constants
 const NORMAL_LINE_WIDTH = 1;

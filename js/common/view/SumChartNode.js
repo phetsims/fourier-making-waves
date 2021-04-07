@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2021, University of Colorado Boulder
 
 //TODO change this to display the sums for more than 1 FourierSeries?
 /**
@@ -17,13 +17,13 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FMWConstants from '../../common/FMWConstants.js';
+import FMWConstants from '../FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import SumChart from '../../common/model/SumChart.js';
-import Waveform from '../model/Waveform.js';
-import AutoScaleCheckbox from './AutoScaleCheckbox.js';
-import FMWChartNode from '../../common/view/FMWChartNode.js';
-import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
+import SumChart from '../model/SumChart.js';
+import Waveform from '../../discrete/model/Waveform.js';
+import AutoScaleCheckbox from '../../discrete/view/AutoScaleCheckbox.js';
+import FMWChartNode from './FMWChartNode.js';
+import InfiniteHarmonicsCheckbox from '../../discrete/view/InfiniteHarmonicsCheckbox.js';
 
 class SumChartNode extends FMWChartNode {
 

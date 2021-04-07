@@ -30,11 +30,11 @@ import DiscreteControlPanel from './DiscreteControlPanel.js';
 import ExpandedFormButton from './ExpandedFormButton.js';
 import ExpandedFormDialog from './ExpandedFormDialog.js';
 import FourierSoundGenerator from './FourierSoundGenerator.js';
-import HarmonicsChartNode from './HarmonicsChartNode.js';
+import HarmonicsChartNode from '../../common/view/HarmonicsChartNode.js';
 import HarmonicsEquationNode from './HarmonicsEquationNode.js';
 import PeriodCalipersNode from './PeriodCalipersNode.js';
 import PeriodClockNode from './PeriodClockNode.js';
-import SumChartNode from './SumChartNode.js';
+import SumChartNode from '../../common/view/SumChartNode.js';
 import SumEquationNode from './SumEquationNode.js';
 import WavelengthCalipersNode from './WavelengthCalipersNode.js';
 
