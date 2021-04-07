@@ -1,8 +1,9 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO better name for this class
 //TODO x zoom, y zoom, and y auto-scale should be handled by this class
 /**
- * DiscreteChartNode is the base class for displaying the charts in the 'Discrete' screen.
+ * FMWChartNode is the view base class for charts in the 'Discrete' and 'Wave Game' screens.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -59,7 +60,7 @@ const TICK_LABEL_OPTIONS = {
 
 const TICK_LABEL_DECIMAL_PLACES = 2;
 
-class DiscreteChartNode extends Node {
+class FMWChartNode extends Node {
 
   /**
    * @param {number} L - the wavelength of the fundamental harmonic, in meters
@@ -299,5 +300,5 @@ function createSymbolicTickLabel( value, domain, L, T ) {
   } );
 }
 
-fourierMakingWaves.register( 'DiscreteChartNode', DiscreteChartNode );
-export default DiscreteChartNode;
+fourierMakingWaves.register( 'FMWChartNode', FMWChartNode );
+export default FMWChartNode;

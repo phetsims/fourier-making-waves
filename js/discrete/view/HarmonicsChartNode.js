@@ -15,7 +15,7 @@ import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import HarmonicsChart from '../../common/model/HarmonicsChart.js';
-import DiscreteChartNode from '../../common/view/DiscreteChartNode.js';
+import FMWChartNode from '../../common/view/FMWChartNode.js';
 import HarmonicPlot from './HarmonicPlot.js';
 
 // constants
@@ -24,7 +24,7 @@ const EMPHASIZED_LINE_WIDTH = 2;
 const DE_EMPHASIZED_LINE_WIDTH = 0.5;
 const DE_EMPHASIZED_STROKE = Color.grayColor( 150 );
 
-class HarmonicsChartNode extends DiscreteChartNode {
+class HarmonicsChartNode extends FMWChartNode {
 
   /**
    * @param {HarmonicsChart} harmonicsChart
