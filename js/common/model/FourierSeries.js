@@ -159,7 +159,7 @@ class FourierSeries extends PhetioObject {
     const dataSet = [];
     for ( let i = 0; i < numberOfPoints; i++ ) {
       const x = xRange.min + ( i * dx );
-      const y = amplitudeFunction( x, order, amplitude, this.L, this.T, t );
+      const y = amplitudeFunction( x, t, this.L, this.T, order, amplitude );
       dataSet.push( new Vector2( x, y ) );
     }
     assert && assert( dataSet.length === numberOfPoints, 'incorrect number of points in dataSet' );
@@ -240,7 +240,7 @@ const AMPLITUDE_FUNCTIONS = {
    * Gets the function that computes amplitude at an x value.
    * @param {Domain} domain
    * @param {SeriesType} seriesType
-   * @returns {function(x:number, order:number, amplitude:number, L:number, T:number, t:number):number}
+   * @returns {function(x:number, t:number, L:number, T:number, order:number, amplitude:number):number}
    * @public
    */
   getFunction( domain, seriesType ) {
@@ -269,43 +269,43 @@ const AMPLITUDE_FUNCTIONS = {
 
   /**
    * These 6 functions all have the same signature, and use the equation that corresponds to EquationForm.MODE.
-   * @param {number} x - x coordinate, whose semantics depends on domain
-   * @param {number} n - the harmonic's order
-   * @param {number} A - the harmonic's amplitude, unitless
+   * @param {number} x - x-axis coordinate, whose semantics depend on the domain of the function
+   * @param {number} t - the current time, in milliseconds
    * @param {number} L - the harmonic's wavelength, in meters
    * @param {number} T - the harmonic's period, in milliseconds
-   * @param {number} t - the current time, in milliseconds
+   * @param {number} n - the harmonic's order
+   * @param {number} A - the harmonic's amplitude, unitless
    * @returns {number} y value (amplitude) at x
    * @private
    */
 
   // Domain.SPACE, SeriesType.SINE
-  getAmplitudeSpaceSine( x, n, A, L, T, t ) {
+  getAmplitudeSpaceSine( x, t, L, T, n, A ) {
     return A * Math.sin( 2 * Math.PI * n * x / L );
   },
 
   // Domain.SPACE, SeriesType.COSINE
-  getAmplitudeSpaceCosine( x, n, A, L, T, t ) {
+  getAmplitudeSpaceCosine( x, t, L, T, n, A ) {
     return A * Math.cos( 2 * Math.PI * n * x / L );
   },
 
   // Domain.TIME, SeriesType.SINE
-  getAmplitudeTimeSine( x, n, A, L, T, t ) {
+  getAmplitudeTimeSine( x, t, L, T, n, A ) {
     return A * Math.sin( 2 * Math.PI * n * x / T );
   },
 
   // Domain.TIME, SeriesType.COSINE
-  getAmplitudeTimeCosine( x, n, A, L, T, t ) {
+  getAmplitudeTimeCosine( x, t, L, T, n, A ) {
     return A * Math.cos( 2 * Math.PI * n * x / T );
   },
 
   // Domain.SPACE_AND_TIME, SeriesType.SINE
-  getAmplitudeSpaceAndTimeSine( x, n, A, L, T, t ) {
+  getAmplitudeSpaceAndTimeSine( x, t, L, T, n, A ) {
     return A * Math.sin( 2 * Math.PI * n * ( x / L - t / T ) );
   },
 
   // Domain.SPACE_AND_TIME, SeriesType.COSINE
-  getAmplitudeSpaceAndTimeCosine( x, n, A, L, T, t ) {
+  getAmplitudeSpaceAndTimeCosine( x, t, L, T, n, A ) {
     return A * Math.cos( 2 * Math.PI * n * ( x / L - t / T ) );
   }
 };
