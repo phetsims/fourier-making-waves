@@ -29,7 +29,7 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
 
   /**
    * Sets the visibility of an amplitude slider and its associated NumberDisplay.
-   * @param {number} order - order of the harmonic associate with the amplitude
+   * @param {number} order - order of the harmonic associated with the amplitude
    * @param {boolean} visible
    * @public
    */
