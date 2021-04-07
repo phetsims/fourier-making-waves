@@ -11,8 +11,8 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import TickLabelFormat from '../../common/model/TickLabelFormat.js'; //TODO discrete
-import HarmonicsChartNode from '../../common/view/HarmonicsChartNode.js'; //TODO discrete
+import TickLabelFormat from '../../common/model/TickLabelFormat.js';
+import HarmonicsChartNode from '../../common/view/HarmonicsChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameHarmonicsChart from '../model/WaveGameHarmonicsChart.js';
 
