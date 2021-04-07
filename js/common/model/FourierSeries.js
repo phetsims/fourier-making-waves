@@ -190,26 +190,41 @@ class FourierSeries extends PhetioObject {
 
     const numberOfPoints = HarmonicsChart.MAX_POINTS_PER_DATA_SET;
 
-    // {Vector2[][]} compute a data set for each harmonic
+    // {Vector2[][]} compute a data set for each non-zero harmonic
     const harmonicDataSets = [];
     this.harmonics.forEach( harmonic => {
-      harmonicDataSets.push( this.createHarmonicDataSet( harmonic, numberOfPoints, xAxisDescription, domain, seriesType, t ) );
+      if ( harmonic.amplitudeProperty.value !== 0 ) {
+        harmonicDataSets.push( this.createHarmonicDataSet( harmonic, numberOfPoints, xAxisDescription, domain, seriesType, t ) );
+      }
     } );
     assert && assert( _.every( harmonicDataSets, dataSet => dataSet.length === numberOfPoints ),
       `all data sets should contain ${numberOfPoints} points` );
 
-    // Sum the data sets
     const sumDataSet = [];
-    for ( let i = 0; i < numberOfPoints; i++ ) {
-      const x = harmonicDataSets[ 0 ][ i ].x;
-      let ySum = 0;
-      for ( let j = 0; j < harmonicDataSets.length; j++ ) {
-        const point = harmonicDataSets[ j ][ i ];
-        assert && assert( point.x === x, 'the corresponding points in all data sets should have the same x coordinate' );
-        ySum += point.y;
-      }
-      sumDataSet.push( new Vector2( x, ySum ) );
+    if ( harmonicDataSets.length === 0 ) {
+      assert && assert( _.every( this.harmonics, harmonic => ( harmonic.amplitudeProperty.value === 0 ) ),
+        'expected all harmonics to have zero amplitude' );
+
+      // All harmonics had zero amplitude, so the sum is zero.
+      const xRange = AxisDescription.createXRange( xAxisDescription, domain, this.L, this.T );
+      sumDataSet.push( new Vector2( xRange.min, 0 ) );
+      sumDataSet.push( new Vector2( xRange.max, 0 ) );
     }
+    else {
+
+      // Sum the data sets
+      for ( let i = 0; i < numberOfPoints; i++ ) {
+        const x = harmonicDataSets[ 0 ][ i ].x;
+        let ySum = 0;
+        for ( let j = 0; j < harmonicDataSets.length; j++ ) {
+          const point = harmonicDataSets[ j ][ i ];
+          assert && assert( point.x === x, 'the corresponding points in all data sets should have the same x coordinate' );
+          ySum += point.y;
+        }
+        sumDataSet.push( new Vector2( x, ySum ) );
+      }
+    }
+
     return sumDataSet;
   }
 }
