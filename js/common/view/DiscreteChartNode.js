@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2021, University of Colorado Boulder
 
 //TODO x zoom, y zoom, and y auto-scale should be handled by this class
 /**
@@ -27,14 +27,14 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FMWColorProfile from '../../common/FMWColorProfile.js';
-import FMWConstants from '../../common/FMWConstants.js';
-import FMWSymbols from '../../common/FMWSymbols.js';
+import FMWColorProfile from '../FMWColorProfile.js';
+import FMWConstants from '../FMWConstants.js';
+import FMWSymbols from '../FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import AxisDescription from '../model/AxisDescription.js';
-import Domain from '../../common/model/Domain.js';
-import TickLabelFormat from '../../common/model/TickLabelFormat.js';
+import AxisDescription from '../../discrete/model/AxisDescription.js';
+import Domain from '../model/Domain.js';
+import TickLabelFormat from '../model/TickLabelFormat.js';
 
 // constants
 const AXIS_OPTIONS = {

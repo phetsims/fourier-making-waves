@@ -22,7 +22,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import SumChart from '../../common/model/SumChart.js';
 import Waveform from '../model/Waveform.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
-import DiscreteChartNode from './DiscreteChartNode.js';
+import DiscreteChartNode from '../../common/view/DiscreteChartNode.js';
 import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 
 class SumChartNode extends DiscreteChartNode {
