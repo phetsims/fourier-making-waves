@@ -250,13 +250,19 @@ const AMPLITUDE_FUNCTIONS = {
 
     let f;
     if ( domain === Domain.SPACE ) {
-      f = ( seriesType === SeriesType.SINE ) ? AMPLITUDE_FUNCTIONS.getAmplitudeSpaceSin : AMPLITUDE_FUNCTIONS.getAmplitudeSpaceCos;
+      f = ( seriesType === SeriesType.SINE ) ?
+          AMPLITUDE_FUNCTIONS.getAmplitudeSpaceSine :
+          AMPLITUDE_FUNCTIONS.getAmplitudeSpaceCosine;
     }
     else if ( domain === Domain.TIME ) {
-      f = ( seriesType === SeriesType.SINE ) ? AMPLITUDE_FUNCTIONS.getAmplitudeTimeSin : AMPLITUDE_FUNCTIONS.getAmplitudeTimeCos;
+      f = ( seriesType === SeriesType.SINE ) ?
+          AMPLITUDE_FUNCTIONS.getAmplitudeTimeSine :
+          AMPLITUDE_FUNCTIONS.getAmplitudeTimeCosine;
     }
     else { // Domain.SPACE_AND_TIME
-      f = ( seriesType === SeriesType.SINE ) ? AMPLITUDE_FUNCTIONS.getAmplitudeSpaceAndTimeSin : AMPLITUDE_FUNCTIONS.getAmplitudeSpaceAndTimeCos;
+      f = ( seriesType === SeriesType.SINE ) ?
+          AMPLITUDE_FUNCTIONS.getAmplitudeSpaceAndTimeSine :
+          AMPLITUDE_FUNCTIONS.getAmplitudeSpaceAndTimeCosine;
     }
     return f;
   },
@@ -273,27 +279,33 @@ const AMPLITUDE_FUNCTIONS = {
    * @private
    */
 
-  getAmplitudeSpaceSin( x, n, A, L, T, t ) {
+  // Domain.SPACE, SeriesType.SINE
+  getAmplitudeSpaceSine( x, n, A, L, T, t ) {
     return A * Math.sin( 2 * Math.PI * n * x / L );
   },
 
-  getAmplitudeSpaceCos( x, n, A, L, T, t ) {
+  // Domain.SPACE, SeriesType.COSINE
+  getAmplitudeSpaceCosine( x, n, A, L, T, t ) {
     return A * Math.cos( 2 * Math.PI * n * x / L );
   },
 
-  getAmplitudeTimeSin( x, n, A, L, T, t ) {
+  // Domain.TIME, SeriesType.SINE
+  getAmplitudeTimeSine( x, n, A, L, T, t ) {
     return A * Math.sin( 2 * Math.PI * n * x / T );
   },
 
-  getAmplitudeTimeCos( x, n, A, L, T, t ) {
+  // Domain.TIME, SeriesType.COSINE
+  getAmplitudeTimeCosine( x, n, A, L, T, t ) {
     return A * Math.cos( 2 * Math.PI * n * x / T );
   },
 
-  getAmplitudeSpaceAndTimeSin( x, n, A, L, T, t ) {
+  // Domain.SPACE_AND_TIME, SeriesType.SINE
+  getAmplitudeSpaceAndTimeSine( x, n, A, L, T, t ) {
     return A * Math.sin( 2 * Math.PI * n * ( x / L - t / T ) );
   },
 
-  getAmplitudeSpaceAndTimeCos( x, n, A, L, T, t ) {
+  // Domain.SPACE_AND_TIME, SeriesType.COSINE
+  getAmplitudeSpaceAndTimeCosine( x, n, A, L, T, t ) {
     return A * Math.cos( 2 * Math.PI * n * ( x / L - t / T ) );
   }
 };
