@@ -127,7 +127,7 @@ class DiscreteScreenView extends ScreenView {
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
       } );
 
-    const sumChartNode = new SumChartNode( model.sumChart, model.waveformProperty, model.xAxisTickLabelFormatProperty, {
+    const sumChartNode = new SumChartNode( model.sumChart, model.xAxisTickLabelFormatProperty, model.waveformProperty, {
       viewWidth: CHART_RECTANGLE_SIZE.width,
       viewHeight: CHART_RECTANGLE_SIZE.height,
       visibleProperty: model.sumChart.chartVisibleProperty,

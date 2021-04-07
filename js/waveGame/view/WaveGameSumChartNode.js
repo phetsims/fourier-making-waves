@@ -10,6 +10,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import TickLabelFormat from '../../discrete/model/TickLabelFormat.js';
+import Waveform from '../../discrete/model/Waveform.js';
 import SumChartNode from '../../discrete/view/SumChartNode.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameSumChart from '../model/WaveGameSumChart.js';
@@ -18,14 +22,12 @@ class WaveGameSumChartNode extends SumChartNode {
 
   /**
    * @param {WaveGameSumChart} sumChart
-   * @param {EnumerationProperty.<Waveform>} waveformProperty
-   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Object} [options]
    */
-  constructor( sumChart, waveformProperty, xAxisTickLabelFormatProperty, options ) {
+  constructor( sumChart, options ) {
     assert && assert( sumChart instanceof WaveGameSumChart, 'invalid sumChart' );
 
-    super( sumChart, waveformProperty, xAxisTickLabelFormatProperty, options );
+    super( sumChart, new Property( TickLabelFormat.NUMERIC ), new EnumerationProperty( Waveform, Waveform.CUSTOM ), options );
 
     //TODO add a plot for answerSeries sum, behind guessSeries sum
   }

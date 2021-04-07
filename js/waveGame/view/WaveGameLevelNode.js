@@ -39,6 +39,7 @@ import WaveGameLevel from '../model/WaveGameLevel.js';
 import AmplitudeControlsSpinner from './AmplitudeControlsSpinner.js';
 import AnswersNode from './AnswersNode.js';
 import WaveGameAmplitudesChartNode from './WaveGameAmplitudesChartNode.js';
+import WaveGameHarmonicsChartNode from './WaveGameHarmonicsChartNode.js';
 import WaveGameRewardNode from './WaveGameRewardNode.js';
 import WaveGameSumChartNode from './WaveGameSumChartNode.js';
 
@@ -206,13 +207,13 @@ class WaveGameLevelNode extends Node {
       tandem: harmonicsTandem.createTandem( 'harmonicsTitleNode' )
     } );
 
-    const harmonicsChartNode = new HarmonicsChartNode( level.harmonicsChart, level.xAxisTickLabelFormatProperty, {
+    const harmonicsChartNode = new WaveGameHarmonicsChartNode( level.harmonicsChart, {
       viewWidth: CHART_RECTANGLE_SIZE.width,
       viewHeight: CHART_RECTANGLE_SIZE.height,
       tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
     } );
 
-    const sumChartNode = new WaveGameSumChartNode( level.sumChart, level.waveformProperty, level.xAxisTickLabelFormatProperty, {
+    const sumChartNode = new WaveGameSumChartNode( level.sumChart, {
       viewWidth: CHART_RECTANGLE_SIZE.width,
       viewHeight: CHART_RECTANGLE_SIZE.height,
       tandem: harmonicsTandem.createTandem( 'sumChartNode' )

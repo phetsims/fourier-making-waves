@@ -29,15 +29,15 @@ class SumChartNode extends DiscreteChartNode {
 
   /**
    * @param {SumChart} sumChart
-   * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
+   * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {Object} [options]
    */
-  constructor( sumChart, waveformProperty, xAxisTickLabelFormatProperty, options ) {
+  constructor( sumChart, xAxisTickLabelFormatProperty, waveformProperty, options ) {
 
     assert && assert( sumChart instanceof SumChart, 'invalid sumChart' );
-    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
     assert && assert( xAxisTickLabelFormatProperty instanceof Property, 'invalid xAxisTickLabelFormatProperty' );
+    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
     options = merge( {
 

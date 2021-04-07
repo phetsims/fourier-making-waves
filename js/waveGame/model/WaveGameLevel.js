@@ -15,8 +15,6 @@ import FourierSeries from '../../common/model/FourierSeries.js';
 import Domain from '../../discrete/model/Domain.js'; //TODO discrete
 import HarmonicsChart from '../../discrete/model/HarmonicsChart.js'; //TODO discrete
 import SeriesType from '../../discrete/model/SeriesType.js'; //TODO discrete
-import TickLabelFormat from '../../discrete/model/TickLabelFormat.js'; //TODO discrete
-import Waveform from '../../discrete/model/Waveform.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
@@ -111,12 +109,6 @@ class WaveGameLevel {
     const domainProperty = new EnumerationProperty( Domain, Domain.SPACE );
     const seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE );
     const tProperty = new NumberProperty( 0 );
-
-    // @public These Properties do not change in the Wave Game screen, but are needed by chart views.
-    this.xAxisTickLabelFormatProperty = new EnumerationProperty( TickLabelFormat, TickLabelFormat.NUMERIC );
-    this.xAxisTickLabelFormatProperty.lazyLink( () => assert && assert( false, 'xAxisTickLabelFormatProperty should not be changed in Wave Game' ) );
-    this.waveformProperty = new EnumerationProperty( Waveform, Waveform.CUSTOM );
-    this.waveformProperty.lazyLink( () => assert && assert( false, 'waveformProperty should not be changed in Wave Game' ) );
 
     // @public
     this.harmonicsChart = new HarmonicsChart( this.adapterGuessFourierSeries, domainProperty, seriesTypeProperty, tProperty );
