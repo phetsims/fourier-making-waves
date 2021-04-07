@@ -12,7 +12,7 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import TickLabelFormat from '../../discrete/model/TickLabelFormat.js';
+import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import Waveform from '../../discrete/model/Waveform.js';
 import SumChartNode from '../../discrete/view/SumChartNode.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';

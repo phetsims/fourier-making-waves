@@ -26,7 +26,7 @@ import HarmonicsChart from './HarmonicsChart.js';
 import MeasurementTool from './MeasurementTool.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import SumChart from './SumChart.js';
-import TickLabelFormat from './TickLabelFormat.js';
+import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import Waveform from './Waveform.js';
 
 // This factor slows down time for the 'space & time' domain, determined empirically.
