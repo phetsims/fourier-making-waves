@@ -11,19 +11,19 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import HarmonicsChart from '../../discrete/model/HarmonicsChart.js'; //TODO discrete
 import TickLabelFormat from '../../discrete/model/TickLabelFormat.js'; //TODO discrete
 import HarmonicsChartNode from '../../discrete/view/HarmonicsChartNode.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import WaveGameHarmonicsChart from '../model/WaveGameHarmonicsChart.js';
 
 class WaveGameHarmonicsChartNode extends HarmonicsChartNode {
 
   /**
-   * @param {HarmonicsChart} harmonicsChart
+   * @param {WaveGameHarmonicsChart} harmonicsChart
    * @param {Object} [options]
    */
   constructor( harmonicsChart, options ) {
-    assert && assert( harmonicsChart instanceof HarmonicsChart, 'invalid harmonicsChart' );
+    assert && assert( harmonicsChart instanceof WaveGameHarmonicsChart, 'invalid harmonicsChart' );
 
     super( harmonicsChart, new Property( TickLabelFormat.NUMERIC ), options );
   }

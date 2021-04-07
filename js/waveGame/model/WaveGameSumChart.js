@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * TODO
+ * WaveGameSumChart is the model for the 'Sum' chart in the 'Wave Game' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

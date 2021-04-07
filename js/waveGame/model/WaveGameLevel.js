@@ -13,11 +13,11 @@ import merge from '../../../../phet-core/js/merge.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import Domain from '../../discrete/model/Domain.js'; //TODO discrete
-import HarmonicsChart from '../../discrete/model/HarmonicsChart.js'; //TODO discrete
 import SeriesType from '../../discrete/model/SeriesType.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
+import WaveGameHarmonicsChart from './WaveGameHarmonicsChart.js';
 import WaveGameSumChart from './WaveGameSumChart.js';
 
 // constants
@@ -111,7 +111,8 @@ class WaveGameLevel {
     const tProperty = new NumberProperty( 0 );
 
     // @public
-    this.harmonicsChart = new HarmonicsChart( this.adapterGuessFourierSeries, domainProperty, seriesTypeProperty, tProperty );
+    this.harmonicsChart = new WaveGameHarmonicsChart( this.adapterGuessFourierSeries, domainProperty,
+      seriesTypeProperty, tProperty );
 
     // @public
     this.sumChart = new WaveGameSumChart( this.adapterGuessFourierSeries, domainProperty, seriesTypeProperty, tProperty,
