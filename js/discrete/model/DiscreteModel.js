@@ -18,15 +18,15 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import FMWUtils from '../../common/FMWUtils.js';
+import Domain from '../../common/model/Domain.js';
+import SeriesType from '../../common/model/SeriesType.js';
+import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteFourierSeries from './DiscreteFourierSeries.js';
-import Domain from '../../common/model/Domain.js';
+import DiscreteHarmonicsChart from './DiscreteHarmonicsChart.js';
+import DiscreteSumChart from './DiscreteSumChart.js';
 import EquationForm from './EquationForm.js';
-import HarmonicsChart from './HarmonicsChart.js';
 import MeasurementTool from './MeasurementTool.js';
-import SeriesType from '../../common/model/SeriesType.js';
-import SumChart from './SumChart.js';
-import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import Waveform from './Waveform.js';
 
 // This factor slows down time for the 'space & time' domain, determined empirically.
@@ -117,13 +117,13 @@ class DiscreteModel {
     } );
 
     // @public
-    this.harmonicsChart = new HarmonicsChart( this.fourierSeries, this.domainProperty,
+    this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, this.domainProperty,
       this.seriesTypeProperty, this.tProperty, {
         tandem: options.tandem.createTandem( 'harmonicsChart' )
       } );
 
     // @public
-    this.sumChart = new SumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
+    this.sumChart = new DiscreteSumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
       this.tProperty, this.harmonicsChart.xZoomLevelProperty, this.harmonicsChart.xAxisDescriptionProperty, {
         tandem: options.tandem.createTandem( 'sumChart' )
       } );

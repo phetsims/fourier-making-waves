@@ -19,7 +19,7 @@ import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import SumChart from '../model/SumChart.js';
+import SumChart from '../../common/model/SumChart.js';
 import Waveform from '../model/Waveform.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
 import DiscreteChartNode from './DiscreteChartNode.js';

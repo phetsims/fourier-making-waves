@@ -1,8 +1,8 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2021, University of Colorado Boulder
 
 //TODO change this to display the sums for more than 1 FourierSeries?
 /**
- * SumChart is the model for the 'Sum' chart in the 'Discrete' screen.
+ * SumChart is the model base class for the 'Sum' chart.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,13 +16,13 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FMWConstants from '../../common/FMWConstants.js';
-import FMWUtils from '../../common/FMWUtils.js';
-import FourierSeries from '../../common/model/FourierSeries.js';
+import FMWConstants from '../FMWConstants.js';
+import FMWUtils from '../FMWUtils.js';
+import FourierSeries from './FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import AxisDescription from './AxisDescription.js';
-import Domain from '../../common/model/Domain.js';
-import SeriesType from '../../common/model/SeriesType.js';
+import AxisDescription from '../../discrete/model/AxisDescription.js';
+import Domain from './Domain.js';
+import SeriesType from './SeriesType.js';
 
 class SumChart {
 

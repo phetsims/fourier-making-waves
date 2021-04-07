@@ -14,7 +14,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import HarmonicsChart from '../model/HarmonicsChart.js';
+import HarmonicsChart from '../../common/model/HarmonicsChart.js';
 import DiscreteChartNode from './DiscreteChartNode.js';
 import HarmonicPlot from './HarmonicPlot.js';
 

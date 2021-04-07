@@ -9,7 +9,7 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Domain from '../../common/model/Domain.js';
-import HarmonicsChart from '../../discrete/model/HarmonicsChart.js'; //TODO discrete
+import HarmonicsChart from '../../common/model/HarmonicsChart.js'; //TODO discrete
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
