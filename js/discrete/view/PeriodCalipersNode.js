@@ -12,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import Domain from '../model/Domain.js';
+import Domain from '../../common/model/Domain.js';
 import CalipersNode from './CalipersNode.js';
 
 class PeriodCalipersNode extends CalipersNode {

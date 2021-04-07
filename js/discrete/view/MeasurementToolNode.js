@@ -28,7 +28,7 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import Domain from '../model/Domain.js';
+import Domain from '../../common/model/Domain.js';
 import MeasurementTool from '../model/MeasurementTool.js';
 
 class MeasurementToolNode extends Node {

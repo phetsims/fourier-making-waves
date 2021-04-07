@@ -19,7 +19,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymobls from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import Domain from '../model/Domain.js';
+import Domain from '../../common/model/Domain.js';
 import MeasurementTool from '../model/MeasurementTool.js';
 import OrderSpinner from './OrderSpinner.js';
 

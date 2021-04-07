@@ -22,7 +22,7 @@ import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapse
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import Domain from '../model/Domain.js';
+import Domain from '../../common/model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import Waveform from '../model/Waveform.js';
 import DiscreteAmplitudesChartNode from './DiscreteAmplitudesChartNode.js';

@@ -20,7 +20,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import FMWUtils from '../../common/FMWUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteFourierSeries from './DiscreteFourierSeries.js';
-import Domain from './Domain.js';
+import Domain from '../../common/model/Domain.js';
 import EquationForm from './EquationForm.js';
 import HarmonicsChart from './HarmonicsChart.js';
 import MeasurementTool from './MeasurementTool.js';

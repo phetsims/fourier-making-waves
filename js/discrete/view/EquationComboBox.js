@@ -13,7 +13,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import Domain from '../model/Domain.js';
+import Domain from '../../common/model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import FMWComboBox from '../../common/view/FMWComboBox.js';
 

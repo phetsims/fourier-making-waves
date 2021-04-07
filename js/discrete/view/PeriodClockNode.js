@@ -24,7 +24,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import Domain from '../model/Domain.js';
+import Domain from '../../common/model/Domain.js';
 import MeasurementToolNode from './MeasurementToolNode.js';
 
 // Margins for the translucent background behind the label

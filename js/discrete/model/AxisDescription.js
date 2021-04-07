@@ -15,7 +15,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import Domain from './Domain.js';
+import Domain from '../../common/model/Domain.js';
 
 class AxisDescription {
 

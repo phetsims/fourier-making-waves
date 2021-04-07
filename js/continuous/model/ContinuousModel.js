@@ -15,7 +15,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import FMWUtils from '../../common/FMWUtils.js';
-import Domain from '../../discrete/model/Domain.js';
+import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import ContinuousChartsModel from './ContinuousChartsModel.js';
 

@@ -21,7 +21,7 @@ import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
-import Domain from './Domain.js';
+import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 
 class HarmonicsChart {

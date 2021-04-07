@@ -20,7 +20,7 @@ import Color from '../../../../scenery/js/util/Color.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import Domain from '../model/Domain.js';
+import Domain from '../../common/model/Domain.js';
 import MeasurementTool from '../model/MeasurementTool.js';
 import MeasurementToolNode from './MeasurementToolNode.js';
 

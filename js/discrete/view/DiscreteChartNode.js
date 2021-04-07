@@ -33,7 +33,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import AxisDescription from '../model/AxisDescription.js';
-import Domain from '../model/Domain.js';
+import Domain from '../../common/model/Domain.js';
 import TickLabelFormat from '../model/TickLabelFormat.js';
 
 // constants
