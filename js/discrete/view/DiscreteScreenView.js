@@ -17,25 +17,24 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import Domain from '../../common/model/Domain.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapseButton.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import Domain from '../../common/model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import Waveform from '../model/Waveform.js';
 import DiscreteAmplitudesChartNode from './DiscreteAmplitudesChartNode.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
 import DiscreteHarmonicsChartNode from './DiscreteHarmonicsChartNode.js';
+import DiscreteSumChartNode from './DiscreteSumChartNode.js';
 import ExpandedFormButton from './ExpandedFormButton.js';
 import ExpandedFormDialog from './ExpandedFormDialog.js';
 import FourierSoundGenerator from './FourierSoundGenerator.js';
-import HarmonicsChartNode from '../../common/view/HarmonicsChartNode.js';
 import HarmonicsEquationNode from './HarmonicsEquationNode.js';
 import PeriodCalipersNode from './PeriodCalipersNode.js';
 import PeriodClockNode from './PeriodClockNode.js';
-import SumChartNode from '../../common/view/SumChartNode.js';
 import SumEquationNode from './SumEquationNode.js';
 import WavelengthCalipersNode from './WavelengthCalipersNode.js';
 
@@ -128,7 +127,7 @@ class DiscreteScreenView extends ScreenView {
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
       } );
 
-    const sumChartNode = new SumChartNode( model.sumChart, model.xAxisTickLabelFormatProperty, model.waveformProperty, {
+    const sumChartNode = new DiscreteSumChartNode( model.sumChart, model.xAxisTickLabelFormatProperty, model.waveformProperty, {
       viewWidth: CHART_RECTANGLE_SIZE.width,
       viewHeight: CHART_RECTANGLE_SIZE.height,
       visibleProperty: model.sumChart.chartVisibleProperty,

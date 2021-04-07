@@ -1,8 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * HarmonicsChartNode displays the 'Harmonics' chart in the 'Discrete' screen. It renders a plot for each of
- * the harmonics in the Fourier series.
+ * HarmonicsChartNode is the view base class for the 'Harmonics' chart.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

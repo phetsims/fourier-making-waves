@@ -2,8 +2,7 @@
 
 //TODO change this to display the sums for more than 1 FourierSeries?
 /**
- * SumChartNode displays the 'Sum' chart in the 'Discrete' screen. It renders 1 plot showing the sum of the harmonics
- * in the Fourier series.
+ * SumChartNode is the view base class for the 'Sum' chart.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
