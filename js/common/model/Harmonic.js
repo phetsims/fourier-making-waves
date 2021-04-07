@@ -29,7 +29,7 @@ class Harmonic extends PhetioObject {
       order: required( config.order ), // {number} the order of the harmonic, numbered from 1
       frequency: required( config.frequency ), // {number} frequency, in Hz
       wavelength: required( config.wavelength ), // {number} wavelength, in meters
-      amplitudeRange: required( config.amplitudeRange ), // {Range} range of amplitude
+      amplitudeRange: required( config.amplitudeRange ), // {Range} range of amplitude, no units
       colorProperty: required( config.colorProperty ), // {Property.<Color>} the color used to visualize the harmonic
 
       // optional
