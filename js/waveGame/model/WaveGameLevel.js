@@ -14,7 +14,7 @@ import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import Domain from '../../discrete/model/Domain.js'; //TODO discrete
 import HarmonicsChart from '../../discrete/model/HarmonicsChart.js'; //TODO discrete
-import SeriesType from '../../discrete/model/SeriesType.js';
+import SeriesType from '../../discrete/model/SeriesType.js'; //TODO discrete
 import TickLabelFormat from '../../discrete/model/TickLabelFormat.js'; //TODO discrete
 import Waveform from '../../discrete/model/Waveform.js'; //TODO discrete
 import fourierMakingWaves from '../../fourierMakingWaves.js';
