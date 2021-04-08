@@ -55,11 +55,6 @@ class SumChart {
     this.xZoomLevelProperty = xZoomLevelProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
 
-    // @public whether the Sum chart is visible
-    this.chartVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
-    } );
-
     // @public whether the Sum chart's y-axis automatically scales to fit its data set
     this.autoScaleProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'autoScaleProperty' )

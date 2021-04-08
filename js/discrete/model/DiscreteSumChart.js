@@ -6,6 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import FMWUtils from '../../common/FMWUtils.js';
 import SumChart from '../../common/model/SumChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -24,6 +26,20 @@ class DiscreteSumChart extends SumChart {
                xAxisDescriptionProperty, options ) {
     super( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xZoomLevelProperty,
       xAxisDescriptionProperty, options );
+
+    // @public whether the Sum chart is visible
+    this.chartVisibleProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
+    } );
+  }
+
+  /**
+   * @public
+   * @override
+   */
+  reset() {
+    super.reset();
+    FMWUtils.resetOwnProperties( this );
   }
 }
 

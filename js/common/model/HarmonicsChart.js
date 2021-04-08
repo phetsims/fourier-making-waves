@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -15,13 +14,13 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import AxisDescription from '../../discrete/model/AxisDescription.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWUtils from '../FMWUtils.js';
+import Domain from './Domain.js';
 import EmphasizedHarmonics from './EmphasizedHarmonics.js';
 import FourierSeries from './FourierSeries.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
-import AxisDescription from '../../discrete/model/AxisDescription.js';
-import Domain from './Domain.js';
 import SeriesType from './SeriesType.js';
 
 class HarmonicsChart {
@@ -47,11 +46,6 @@ class HarmonicsChart {
     // @public
     this.fourierSeries = fourierSeries;
     this.domainProperty = domainProperty;
-
-    // @public whether the Harmonics chart is visible
-    this.chartVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
-    } );
 
     // @public the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
     this.emphasizedHarmonics = new EmphasizedHarmonics( {
