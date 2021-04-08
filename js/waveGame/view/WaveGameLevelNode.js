@@ -192,7 +192,7 @@ class WaveGameLevelNode extends Node {
     } );
 
     const amplitudesChartNode = new WaveGameAmplitudesChartNode(
-      level.adapterGuessFourierSeries, level.emphasizedHarmonics, amplitudeKeypadDialog, {
+      level.adapterGuessFourierSeries, level.harmonicsChart.emphasizedHarmonics, amplitudeKeypadDialog, {
         viewWidth: CHART_RECTANGLE_SIZE.width,
         viewHeight: CHART_RECTANGLE_SIZE.height,
         tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )

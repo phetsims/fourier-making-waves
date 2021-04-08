@@ -65,10 +65,6 @@ class WaveGameLevel {
       //TODO tandem, phetioType
     } );
 
-    // @public
-    this.emphasizedHarmonics = new EmphasizedHarmonics();
-
-    //TODO emphasized harmonics do not work because of adapterGuessFourierSeries
     //TODO eliminate the need for adapterGuessFourierSeries by making charts mutable
 
     // @public This is a static instance of FourierSeries that is passed to the charts.
@@ -82,9 +78,6 @@ class WaveGameLevel {
 
       // Log the challenge to the console.
       phet.log && phet.log( `level=${levelNumber} challenge=${challenge.toString()}` );
-
-      // Clear any emphasized harmonics.
-      this.emphasizedHarmonics.clear();
 
       // Add a listener to keep adapterGuessFourierSeries synchronized with the challenge's guessFourierSeries.
       if ( previousChallenge ) {
