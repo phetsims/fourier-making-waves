@@ -135,7 +135,7 @@ class DiscreteModel {
     // umultilink is not needed.
     Property.multilink(
       [ this.fourierSeries.numberOfHarmonicsProperty, this.waveformProperty, this.seriesTypeProperty ],
-      ( numberOfHarmonics, waveform, seriesType ) => this.updateAmplitudes()
+      () => this.updateAmplitudes()
     );
 
     //TODO are there other things that should reset t ?
