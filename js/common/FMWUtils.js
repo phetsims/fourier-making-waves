@@ -13,9 +13,11 @@ import fourierMakingWaves from '../fourierMakingWaves.js';
 const FMWUtils = {
 
   /**
-   * Resets all non-inherited, non-derived Properties of an object instance.
-   * This does not look up the prototype chain of the object.
-   * @param {Object }object
+   * Resets all non-inherited, non-derived Properties of an object instance. This does not look up the prototype
+   * chain of the object. This function is a bit of an experiment in this sim. While implementing or maintaining a
+   * sim, it's easy to add a Property to a constructor, and forget to add it to the reset method. Ditto for removing
+   * a Property. This makes it unnecessary to do anything to the reset method other than call resetOwnProperties.
+   * @param {Object} object
    * @public
    */
   resetOwnProperties( object ) {

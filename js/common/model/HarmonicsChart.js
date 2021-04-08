@@ -107,24 +107,15 @@ class HarmonicsChart {
         () => { harmonicDataSetProperty.value = createDataSet( harmonic ); }
       );
     }
-
-    // @private
-    this.resetHarmonicsChart = () => {
-
-      this.emphasizedHarmonics.clear();
-
-      this.harmonicDataSetProperties.forEach( property => property.reset() );
-
-      // Reset all non-inherited, non-derived Properties
-      FMWUtils.resetOwnProperties( this );
-    };
   }
 
   /**
    * @public
    */
   reset() {
-    this.resetHarmonicsChart();
+    this.emphasizedHarmonics.clear();
+    this.harmonicDataSetProperties.forEach( property => property.reset() );
+    FMWUtils.resetOwnProperties( this );
   }
 
   /**

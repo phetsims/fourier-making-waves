@@ -33,20 +33,13 @@ class ContinuousChartsModel {
     this.sumChartVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'sumChartVisibleProperty' )
     } );
-
-    // @private
-    this.resetContinuousChartsModel = () => {
-
-      // Reset all non-inherited, non-derived Properties
-      FMWUtils.resetOwnProperties( this );
-    };
   }
 
   /**
    * @public
    */
   reset() {
-    this.resetContinuousChartsModel();
+    FMWUtils.resetOwnProperties( this );
   }
 }
 

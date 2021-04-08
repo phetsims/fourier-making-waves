@@ -88,23 +88,14 @@ class ContinuousModel {
     this.chartsModel = new ContinuousChartsModel( {
       tandem: options.tandem.createTandem( 'chartsModel' )
     } );
-
-    // @private
-    this.resetContinuousModel = () => {
-
-      // Reset the charts
-      this.chartsModel.reset();
-
-      // Reset all non-inherited, non-derived Properties
-      FMWUtils.resetOwnProperties( this );
-    };
   }
 
   /**
    * @public
    */
   reset() {
-    this.resetContinuousModel();
+    this.chartsModel.reset();
+    FMWUtils.resetOwnProperties( this );
   }
 
   /**

@@ -71,22 +71,14 @@ class WaveGameModel {
       validValues: [ null, ...this.levels ]
       //TODO tandem, phetioType
     } );
-
-    // @private
-    this.resetWaveGameModel = () => {
-
-      this.levels.forEach( level => level.reset() );
-
-      // Reset all non-inherited, non-derived Properties
-      FMWUtils.resetOwnProperties( this );
-    };
   }
 
   /**
    * @public
    */
   reset() {
-    this.resetWaveGameModel();
+    this.levels.forEach( level => level.reset() );
+    FMWUtils.resetOwnProperties( this );
   }
 
   /**

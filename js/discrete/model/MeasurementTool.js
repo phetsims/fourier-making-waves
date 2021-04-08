@@ -77,7 +77,6 @@ class MeasurementTool {
    * @public
    */
   reset() {
-    // Reset all non-inherited, non-derived Properties
     FMWUtils.resetOwnProperties( this );
   }
 }
