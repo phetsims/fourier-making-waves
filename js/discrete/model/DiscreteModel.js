@@ -17,7 +17,6 @@ import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
-import FMWUtils from '../../common/FMWUtils.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import TickLabelFormat from '../../common/model/TickLabelFormat.js';
@@ -45,11 +44,6 @@ class DiscreteModel {
     options = merge( {
       tandem: Tandem.REQUIRED
     }, options );
-
-    // @public
-    this.fourierSeries = new DiscreteFourierSeries( {
-      tandem: options.tandem.createTandem( 'fourierSeries' )
-    } );
 
     // @public
     this.isPlayingProperty = new BooleanProperty( true, {
@@ -104,6 +98,11 @@ class DiscreteModel {
       tandem: soundTandem.createTandem( 'fourierSeriesSoundOutputLevelProperty' )
     } );
 
+    // @public
+    this.fourierSeries = new DiscreteFourierSeries( {
+      tandem: options.tandem.createTandem( 'fourierSeries' )
+    } );
+
     const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
 
     // @public the wavelength measurement tool
@@ -133,32 +132,10 @@ class DiscreteModel {
       tandem: options.tandem.createTandem( 'oopsSawtoothWithCosinesEmitter' )
     } );
 
-    // Set amplitudes for pre-defined waveforms
-    const updateAmplitudes = ( numberOfHarmonics, waveform, seriesType ) => {
-
-      if ( waveform === Waveform.SAWTOOTH && seriesType === SeriesType.COSINE ) {
-
-        phet.log && phet.log( 'not possible to make a sawtooth out of cosines, switching to sine' );
-        this.oopsSawtoothWithCosinesEmitter.emit();
-
-        // Switch to sine on the next tick, so that we don't have a reentry problem with seriesTypeProperty.
-        animationFrameTimer.runOnNextTick( () => {
-          this.seriesTypeProperty.value = SeriesType.SINE;
-        } );
-      }
-      else if ( waveform !== Waveform.CUSTOM ) {
-        const amplitudes = waveform.getAmplitudes( numberOfHarmonics, seriesType );
-        assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
-        for ( let i = 0; i < numberOfHarmonics; i++ ) {
-          this.fourierSeries.harmonics[ i ].amplitudeProperty.value = amplitudes[ i ];
-        }
-      }
-    };
-
     // umultilink is not needed.
     Property.multilink(
       [ this.fourierSeries.numberOfHarmonicsProperty, this.waveformProperty, this.seriesTypeProperty ],
-      ( numberOfHarmonics, waveform, seriesType ) => updateAmplitudes( numberOfHarmonics, waveform, seriesType )
+      ( numberOfHarmonics, waveform, seriesType ) => this.updateAmplitudes()
     );
 
     //TODO are there other things that should reset t ?
@@ -174,23 +151,6 @@ class DiscreteModel {
         this.equationFormProperty.value = EquationForm.HIDDEN;
       }
     } );
-
-    // @private
-    this.resetDiscreteModel = () => {
-
-      // Reset subcomponents
-      this.fourierSeries.reset();
-      this.harmonicsChart.reset();
-      this.sumChart.reset();
-      this.wavelengthTool.reset();
-      this.periodTool.reset();
-
-      // Reset all non-inherited, non-derived Properties
-      FMWUtils.resetOwnProperties( this );
-
-      // Set the amplitudes of the Fourier series to match Property settings.
-      updateAmplitudes( this.fourierSeries.numberOfHarmonicsProperty.value, this.waveformProperty.value, this.seriesTypeProperty.value );
-    };
   }
 
   /**
@@ -198,7 +158,26 @@ class DiscreteModel {
    * @public
    */
   reset() {
-    this.resetDiscreteModel();
+
+    // Reset Properties
+    this.isPlayingProperty.reset();
+    this.tProperty.reset();
+    this.waveformProperty.reset();
+    this.seriesTypeProperty.reset();
+    this.domainProperty.reset();
+    this.equationFormProperty.reset();
+    this.fourierSeriesSoundEnabledProperty.reset();
+    this.fourierSeriesSoundOutputLevelProperty.reset();
+
+    // Reset subcomponents
+    this.fourierSeries.reset();
+    this.wavelengthTool.reset();
+    this.periodTool.reset();
+    this.harmonicsChart.reset();
+    this.sumChart.reset();
+
+    // Update the amplitudes of the Fourier series to match Property settings.
+    this.updateAmplitudes();
   }
 
   /**
@@ -226,6 +205,34 @@ class DiscreteModel {
    */
   stepOnce() {
     this.tProperty.value += ( STEP_DT * TIME_SCALE );
+  }
+
+  /**
+   * Updates amplitudes to match a pre-defined waveform.
+   * @private
+   */
+  updateAmplitudes() {
+
+    const waveform = this.waveformProperty.value;
+    const seriesType = this.seriesTypeProperty.value;
+
+    if ( waveform === Waveform.SAWTOOTH && seriesType === SeriesType.COSINE ) {
+      phet.log && phet.log( 'not possible to make a sawtooth out of cosines, switching to sine' );
+      this.oopsSawtoothWithCosinesEmitter.emit();
+
+      // Switch to sine on the next tick, so that we don't have a reentry problem with seriesTypeProperty.
+      animationFrameTimer.runOnNextTick( () => {
+        this.seriesTypeProperty.value = SeriesType.SINE;
+      } );
+    }
+    else if ( waveform !== Waveform.CUSTOM ) {
+      const numberOfHarmonics = this.fourierSeries.numberOfHarmonicsProperty.value;
+      const amplitudes = waveform.getAmplitudes( numberOfHarmonics, seriesType );
+      assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
+      for ( let i = 0; i < numberOfHarmonics; i++ ) {
+        this.fourierSeries.harmonics[ i ].amplitudeProperty.value = amplitudes[ i ];
+      }
+    }
   }
 }
 
