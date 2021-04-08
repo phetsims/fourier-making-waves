@@ -17,7 +17,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import AxisDescription from '../../discrete/model/AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
-import FMWUtils from '../FMWUtils.js';
 import Domain from './Domain.js';
 import EmphasizedHarmonics from './EmphasizedHarmonics.js';
 import FourierSeries from './FourierSeries.js';
@@ -47,11 +46,6 @@ class HarmonicsChart {
     this.fourierSeries = fourierSeries;
     this.domainProperty = domainProperty;
 
-    // @public the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
-    this.emphasizedHarmonics = new EmphasizedHarmonics( {
-      tandem: options.tandem.createTandem( 'emphasizedHarmonics' )
-    } );
-
     // @public zoom level for the x axis, index into AxisDescription.X_AXIS_DESCRIPTIONS
     // This is shared by the Harmonics and Sum charts.
     this.xZoomLevelProperty = new NumberProperty( AxisDescription.X_DEFAULT_ZOOM_LEVEL, {
@@ -64,6 +58,11 @@ class HarmonicsChart {
       [ this.xZoomLevelProperty ],
       xZoomLevel => AxisDescription.X_AXIS_DESCRIPTIONS[ xZoomLevel ]
     );
+
+    // @public the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
+    this.emphasizedHarmonics = new EmphasizedHarmonics( {
+      tandem: options.tandem.createTandem( 'emphasizedHarmonics' )
+    } );
 
     /**
      * Creates the data set for a harmonic using current arg values.
@@ -107,9 +106,9 @@ class HarmonicsChart {
    * @public
    */
   reset() {
+    this.xZoomLevelProperty.reset();
     this.emphasizedHarmonics.clear();
     this.harmonicDataSetProperties.forEach( property => property.reset() );
-    FMWUtils.resetOwnProperties( this );
   }
 
   /**

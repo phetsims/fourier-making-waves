@@ -7,7 +7,6 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import FMWUtils from '../../common/FMWUtils.js';
 import SumChart from '../../common/model/SumChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -39,7 +38,7 @@ class DiscreteSumChart extends SumChart {
    */
   reset() {
     super.reset();
-    FMWUtils.resetOwnProperties( this );
+    this.chartVisibleProperty.reset();
   }
 }
 

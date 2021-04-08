@@ -14,7 +14,6 @@ import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import FMWUtils from '../../common/FMWUtils.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import ContinuousChartsModel from './ContinuousChartsModel.js';
@@ -94,8 +93,14 @@ class ContinuousModel {
    * @public
    */
   reset() {
+    this.spacingBetweenComponentsIndexProperty.reset();
+    this.wavePacketCenterProperty.reset();
+    this.kWidthProperty.reset();
+    this.xWidthProperty.reset();
+    this.domainProperty.reset();
+    this.xSpaceEnvelopeVisibleProperty.reset();
+    this.widthIndicatorsVisibleProperty.reset();
     this.chartsModel.reset();
-    FMWUtils.resetOwnProperties( this );
   }
 
   /**

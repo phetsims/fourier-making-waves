@@ -7,7 +7,6 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import FMWUtils from '../../common/FMWUtils.js';
 import HarmonicsChart from '../../common/model/HarmonicsChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -35,7 +34,7 @@ class DiscreteHarmonicsChart extends HarmonicsChart {
    */
   reset() {
     super.reset();
-    FMWUtils.resetOwnProperties( this );
+    this.chartVisibleProperty.reset();
   }
 }
 

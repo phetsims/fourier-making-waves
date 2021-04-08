@@ -12,7 +12,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import FMWUtils from '../../common/FMWUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WaveGameLevel from './WaveGameLevel.js';
@@ -78,7 +77,7 @@ class WaveGameModel {
    */
   reset() {
     this.levels.forEach( level => level.reset() );
-    FMWUtils.resetOwnProperties( this );
+    this.levelProperty.reset();
   }
 
   /**

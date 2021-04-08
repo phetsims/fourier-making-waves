@@ -19,7 +19,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import AxisDescription from '../../discrete/model/AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
-import FMWUtils from '../FMWUtils.js';
 import Domain from './Domain.js';
 import FourierSeries from './FourierSeries.js';
 import SeriesType from './SeriesType.js';
@@ -146,7 +145,10 @@ class SumChart {
    * @public
    */
   reset() {
-    FMWUtils.resetOwnProperties( this );
+    this.autoScaleProperty.reset();
+    this.infiniteHarmonicsVisibleProperty.reset();
+    this.sumDataSetProperty.reset();
+    this.yZoomLevelProperty.reset();
   }
 
   /**

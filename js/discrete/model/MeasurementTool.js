@@ -13,7 +13,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
-import FMWUtils from '../../common/FMWUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class MeasurementTool {
@@ -77,7 +76,8 @@ class MeasurementTool {
    * @public
    */
   reset() {
-    FMWUtils.resetOwnProperties( this );
+    this.isSelectedProperty.reset();
+    this.orderProperty.reset();
   }
 }
 

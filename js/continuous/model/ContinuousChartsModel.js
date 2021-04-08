@@ -39,7 +39,8 @@ class ContinuousChartsModel {
    * @public
    */
   reset() {
-    FMWUtils.resetOwnProperties( this );
+    this.componentsChartVisibleProperty.reset();
+    this.sumChartVisibleProperty.reset();
   }
 }
 
