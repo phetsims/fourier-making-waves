@@ -17,6 +17,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Color from '../../../../scenery/js/util/Color.js';
+import Slider from '../../../../sun/js/Slider.js';
 import SliderTrack from '../../../../sun/js/SliderTrack.js';
 import VSlider from '../../../../sun/js/VSlider.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -74,14 +75,19 @@ class AmplitudeSlider extends VSlider {
     const trackSize = new Dimension2( TRACK_WIDTH, options.trackHeight ).swapped();
 
     // Custom thumb
-    const thumbNode = new GrippyThumb( thumbSize, harmonic );
+    const thumbNode = new GrippyThumb( thumbSize, harmonic, {
+      tandem: options.tandem.createTandem( Slider.THUMB_NODE_TANDEM_NAME )
+    } );
     thumbNode.touchArea = thumbNode.localBounds.dilatedXY( THUMB_TOUCH_AREA_DILATION.width, THUMB_TOUCH_AREA_DILATION.height );
     thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( THUMB_MOUSE_AREA_DILATION.width, THUMB_MOUSE_AREA_DILATION.height );
     assert && assert( !options.thumbNode, 'AmplitudeSlider sets thumbNode' );
     options.thumbNode = thumbNode;
 
     // Custom track
-    const trackNode = new BarTrack( trackSize, harmonic, amplitudeRange );
+    const trackNode = new BarTrack( harmonic, amplitudeRange, {
+      size: trackSize,
+      tandem: options.tandem.createTandem( Slider.TRACK_NODE_TANDEM_NAME )
+    } );
     assert && assert( !options.trackNode, 'AmplitudeSlider sets trackNode' );
     options.trackNode = trackNode;
 
@@ -138,11 +144,16 @@ class GrippyThumb extends Node {
   /**
    * @param {Dimension2} thumbSize
    * @param {Harmonic} harmonic
+   * @param {Object} [options]
    */
-  constructor( thumbSize, harmonic ) {
+  constructor( thumbSize, harmonic, options ) {
 
     assert && assert( thumbSize instanceof Dimension2, 'invalid thumbSize' );
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
+
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, options );
 
     const rectangle = new Rectangle( 0, 0, thumbSize.width, thumbSize.height, {
       fill: Color.grayColor( 200 ),
@@ -171,9 +182,10 @@ class GrippyThumb extends Node {
       center: rectangle.center
     } );
 
-    super( {
-      children: [ rectangle, dotsNode ]
-    } );
+    assert && assert( !options.children, 'GrippyThumb sets children' );
+    options.children = [ rectangle, dotsNode ];
+
+    super( options );
   }
 
   /**
@@ -193,24 +205,32 @@ class GrippyThumb extends Node {
 class BarTrack extends SliderTrack {
 
   /**
-   * @param {Dimension2} trackSize
    * @param {Harmonic} harmonic
    * @param {Range} amplitudeRange
+   * @param {Object} [options]
    */
-  constructor( trackSize, harmonic, amplitudeRange ) {
+  constructor( harmonic, amplitudeRange, options ) {
 
-    assert && assert( trackSize instanceof Dimension2, 'invalid trackSize' );
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
     assert && assert( amplitudeRange instanceof Range, 'invalid amplitudeRange' );
     assert && assert( amplitudeRange.getCenter() === 0, 'implementation assumes that range is symmetric' );
 
-    const invisibleTrackNode = new Rectangle( 0, 0, trackSize.width, trackSize.height, {
+    options = merge( {
+      size: new Dimension2( 10, 10 ),
+      tandem: Tandem.REQUIRED
+    }, options );
+
+    // To improve readability
+    const width = options.size.width;
+    const height = options.size.height;
+
+    const invisibleTrackNode = new Rectangle( 0, 0, width, height, {
       fill: 'transparent',
       stroke: phet.chipper.queryParameters.dev ? 'red' : null,
       lineWidth: 0.25
     } );
 
-    const visibleTrackNode = new Rectangle( 0, 0, trackSize.width, trackSize.height, {
+    const visibleTrackNode = new Rectangle( 0, 0, width, height, {
       fill: harmonic.colorProperty,
       stroke: 'black',
       lineWidth: 1
@@ -220,9 +240,7 @@ class BarTrack extends SliderTrack {
       children: [ invisibleTrackNode, visibleTrackNode ]
     } );
 
-    super( trackNode, harmonic.amplitudeProperty, amplitudeRange, {
-      size: new Dimension2( trackSize.width, trackSize.height )
-    } );
+    super( trackNode, harmonic.amplitudeProperty, amplitudeRange, options );
 
     // When the amplitude changes, redraw the track to make it look like a bar extends up or down from amplitude = 0.
     // Note that this code is actually extending left or right, because VSlider rotates its track -90 degrees.
@@ -232,12 +250,12 @@ class BarTrack extends SliderTrack {
         visibleTrackNode.setRect( 0, 0, 1, 1 );
       }
       else if ( amplitude > 0 ) {
-        const trackWidth = ( trackSize.width / 2 ) * amplitude / amplitudeRange.max;
-        visibleTrackNode.setRect( trackSize.width / 2, 0, trackWidth, trackSize.height );
+        const trackWidth = ( width / 2 ) * amplitude / amplitudeRange.max;
+        visibleTrackNode.setRect( width / 2, 0, trackWidth, height );
       }
       else {
-        const trackWidth = ( trackSize.width / 2 ) * amplitude / amplitudeRange.min;
-        visibleTrackNode.setRect( ( trackSize.width / 2 ) - trackWidth, 0, trackWidth, trackSize.height );
+        const trackWidth = ( width / 2 ) * amplitude / amplitudeRange.min;
+        visibleTrackNode.setRect( ( width / 2 ) - trackWidth, 0, trackWidth, height );
       }
     };
     harmonic.amplitudeProperty.link( amplitudeListener ); // unlink is not needed.
