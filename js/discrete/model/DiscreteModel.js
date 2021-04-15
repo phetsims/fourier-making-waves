@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2021, University of Colorado Boulder
 
 /**
  * DiscreteModel is the top-level model for the 'Discrete' screen.
@@ -154,8 +154,9 @@ class DiscreteModel {
     } );
 
     // When sound is enabled for the Fourier series, duck all user-interface sounds.
+    const defaultOutputLevel = soundManager.getOutputLevelForCategory( 'user-interface' );
     this.fourierSeriesSoundEnabledProperty.link( enabled => {
-      soundManager.setOutputLevelForCategory( 'user-interface', enabled ? 0.1 : 1 );
+      soundManager.setOutputLevelForCategory( 'user-interface', enabled ? 0.1 * defaultOutputLevel : defaultOutputLevel );
     } );
   }
 
