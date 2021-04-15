@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2021, University of Colorado Boulder
 
 /**
  * DiscreteScreenView is the view for the 'Discrete' screen.
@@ -309,6 +309,13 @@ class DiscreteScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'oopsSawtoothWithCosinesDialog' )
     } );
     model.oopsSawtoothWithCosinesEmitter.addListener( () => oopsSawtoothWithCosinesDialog.show() );
+
+    // When sound is enabled for the Fourier series, duck all user-interface sounds.
+    const userInterfaceDefaultOutputLevel = soundManager.getOutputLevelForCategory( 'user-interface' );
+    model.fourierSeriesSoundEnabledProperty.link( enabled => {
+      const outputLevel = enabled ? 0.1 * userInterfaceDefaultOutputLevel : userInterfaceDefaultOutputLevel;
+      soundManager.setOutputLevelForCategory( 'user-interface', outputLevel );
+    } );
   }
 
   /**

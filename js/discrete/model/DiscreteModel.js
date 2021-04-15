@@ -15,7 +15,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
-import soundManager from '../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
@@ -151,12 +150,6 @@ class DiscreteModel {
       if ( this.equationFormProperty.value !== EquationForm.MODE ) {
         this.equationFormProperty.value = EquationForm.HIDDEN;
       }
-    } );
-
-    // When sound is enabled for the Fourier series, duck all user-interface sounds.
-    const defaultOutputLevel = soundManager.getOutputLevelForCategory( 'user-interface' );
-    this.fourierSeriesSoundEnabledProperty.link( enabled => {
-      soundManager.setOutputLevelForCategory( 'user-interface', enabled ? 0.1 * defaultOutputLevel : defaultOutputLevel );
     } );
   }
 
