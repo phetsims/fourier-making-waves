@@ -12,12 +12,11 @@ import fourierMakingWaves from '../fourierMakingWaves.js';
 
 const SCHEMA = {
 
-  // Reaching this score results in a reward.
+  // Shows the reward after any correct answer, for testing the reward.
   // For internal use only, not public facing.
-  rewardScore: {
-    type: 'number',
-    defaultValue: 10,
-    isValidValue: value => ( value > 0 )
+  showReward: {
+    type: 'boolean',
+    defaultValue: false
   }
 };
 
