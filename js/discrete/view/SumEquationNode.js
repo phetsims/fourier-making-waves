@@ -7,6 +7,7 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
@@ -28,7 +29,7 @@ const n = FMWSymbols.n;
 class SumEquationNode extends Node {
 
   /**
-   * @param {Property.<number>} numberOfHarmonicsProperty
+   * @param {NumberProperty} numberOfHarmonicsProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {EnumerationProperty.<EquationForm>} equationFormProperty
@@ -36,7 +37,7 @@ class SumEquationNode extends Node {
    */
   constructor( numberOfHarmonicsProperty, domainProperty, seriesTypeProperty, equationFormProperty, options ) {
 
-    assert && AssertUtils.assertPropertyOf( numberOfHarmonicsProperty, 'number' );
+    assert && assert( numberOfHarmonicsProperty instanceof NumberProperty );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );

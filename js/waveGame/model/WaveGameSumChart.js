@@ -17,7 +17,7 @@ class WaveGameSumChart extends SumChart {
 
   /**
    * @param {FourierSeries} guessFourierSeries
-   * @param {Property.<number>} xZoomLevelProperty
+   * @param {NumberProperty} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */

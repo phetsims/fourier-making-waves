@@ -10,7 +10,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -19,12 +18,12 @@ class MeasurementTool {
 
   /**
    * @param {string} symbol
-   * @param {Property.<number>} numberOfHarmonicsProperty - number of relevant harmonics in the Fourier series
+   * @param {NumberProperty} numberOfHarmonicsProperty - number of relevant harmonics in the Fourier series
    * @param {Object} [options]
    */
   constructor( symbol, numberOfHarmonicsProperty, options ) {
 
-    assert && AssertUtils.assertPropertyOf( numberOfHarmonicsProperty, 'number' );
+    assert && assert( numberOfHarmonicsProperty instanceof NumberProperty );
 
     options = merge( {
       tandem: Tandem.REQUIRED

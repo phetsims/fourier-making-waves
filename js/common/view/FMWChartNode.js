@@ -8,6 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import AxisNode from '../../../../bamboo/js/AxisNode.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
@@ -66,7 +67,7 @@ class FMWChartNode extends Node {
    * @param {number} L - the wavelength of the fundamental harmonic, in meters
    * @param {number} T - the period of the fundamental harmonic, in milliseconds
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<number>} xZoomLevelProperty
+   * @param {NumberProperty} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Object} [options]
@@ -76,7 +77,7 @@ class FMWChartNode extends Node {
     assert && AssertUtils.assertPositiveNumber( L );
     assert && AssertUtils.assertPositiveNumber( T );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( xZoomLevelProperty, 'number' );
+    assert && assert( xZoomLevelProperty instanceof NumberProperty );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
     assert && assert( xAxisTickLabelFormatProperty instanceof Property, 'invalid xAxisTickLabelFormatProperty' );
 
