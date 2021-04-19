@@ -12,13 +12,6 @@ import fourierMakingWaves from '../fourierMakingWaves.js';
 
 const SCHEMA = {
 
-  // Enables sounds for the SoundManager 'user-interface' category.
-  // For internal use only.
-  uiSoundsEnabled: {
-    type: 'boolean',
-    defaultValue: true
-  },
-
   // Reaching this score results in a reward.
   // For internal use only, not public facing.
   rewardScore: {
