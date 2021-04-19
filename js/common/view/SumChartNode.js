@@ -45,7 +45,6 @@ class SumChartNode extends FMWChartNode {
     const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;
     const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
     const autoScaleProperty = sumChart.autoScaleProperty;
-    const yAxisAutoScaleRangeProperty = sumChart.yAxisAutoScaleRangeProperty;
     const sumDataSetProperty = sumChart.sumDataSetProperty;
 
     super( fourierSeries.L, fourierSeries.T, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty,
@@ -87,19 +86,6 @@ class SumChartNode extends FMWChartNode {
       this.yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
       this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
     } );
-
-    // Update the auto-scale range for the y-axis.
-    Property.multilink(
-      [ autoScaleProperty, yAxisAutoScaleRangeProperty ],
-      ( autoScale, yAxisAutoScaleRange ) => {
-        if ( autoScale ) {
-          this.chartTransform.setModelYRange( yAxisAutoScaleRange );
-        }
-        else {
-          // Do not setModelYRange when auto scale becomes false. We want the range to remain unchanged
-          // until the user explicitly changes it via the y-axis zoom buttons.
-        }
-      } );
   }
 }
 
