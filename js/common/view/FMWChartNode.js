@@ -1,14 +1,12 @@
 // Copyright 2021, University of Colorado Boulder
 
 //TODO better name for this class
-//TODO x zoom, y zoom, and y auto-scale should be handled by this class
 /**
  * FMWChartNode is the view base class for charts in the 'Discrete' and 'Wave Game' screens.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import AxisNode from '../../../../bamboo/js/AxisNode.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
@@ -24,17 +22,16 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Fraction from '../../../../phetcommon/js/model/Fraction.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import AxisDescription from '../../discrete/model/AxisDescription.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
+import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import AxisDescription from '../../discrete/model/AxisDescription.js';
 import Domain from '../model/Domain.js';
 import TickLabelFormat from '../model/TickLabelFormat.js';
 
@@ -67,17 +64,15 @@ class FMWChartNode extends Node {
    * @param {number} L - the wavelength of the fundamental harmonic, in meters
    * @param {number} T - the period of the fundamental harmonic, in milliseconds
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Object} [options]
    */
-  constructor( L, T, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty, xAxisTickLabelFormatProperty, options ) {
+  constructor( L, T, domainProperty, xAxisDescriptionProperty, xAxisTickLabelFormatProperty, options ) {
 
     assert && AssertUtils.assertPositiveNumber( L );
     assert && AssertUtils.assertPositiveNumber( T );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( xZoomLevelProperty instanceof NumberProperty );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
     assert && assert( xAxisTickLabelFormatProperty instanceof Property, 'invalid xAxisTickLabelFormatProperty' );
 
@@ -125,17 +120,6 @@ class FMWChartNode extends Node {
       font: FMWConstants.AXIS_LABEL_FONT,
       maxWidth: 30, // determined empirically
       tandem: options.tandem.createTandem( 'xAxisLabel' )
-    } );
-
-    // Zoom buttons for the x-axis range
-    const xZoomButtonGroup = new PlusMinusZoomButtonGroup( xZoomLevelProperty, {
-      orientation: 'horizontal',
-      scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
-      touchAreaXDilation: 5,
-      touchAreaYDilation: 10,
-      left: chartRectangle.right + 6,
-      bottom: chartRectangle.bottom,
-      tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
     } );
 
     // Set the x-axis label based on domain.
@@ -193,7 +177,7 @@ class FMWChartNode extends Node {
     options.children = [
       xTickMarks, yTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
       chartRectangle,
-      xAxisLabel, xGridLines, xTickLabels, xZoomButtonGroup,
+      xAxisLabel, xGridLines, xTickLabels,
       yAxisLabel, yGridLines, yTickLabels,
       clippedParent
     ];

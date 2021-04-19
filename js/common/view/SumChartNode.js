@@ -41,13 +41,12 @@ class SumChartNode extends FMWChartNode {
     // Fields of interest in sumChart, to improve readability
     const fourierSeries = sumChart.fourierSeries;
     const domainProperty = sumChart.domainProperty;
-    const xZoomLevelProperty = sumChart.xZoomLevelProperty;
     const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;
     const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
     const autoScaleProperty = sumChart.autoScaleProperty;
     const sumDataSetProperty = sumChart.sumDataSetProperty;
 
-    super( fourierSeries.L, fourierSeries.T, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty,
+    super( fourierSeries.L, fourierSeries.T, domainProperty, xAxisDescriptionProperty,
       xAxisTickLabelFormatProperty, options );
 
     // Plot that shows the sum

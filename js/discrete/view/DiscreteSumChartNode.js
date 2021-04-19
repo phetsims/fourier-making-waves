@@ -1,7 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * DiscreteSumChartNode displays the 'Sum' chart in the 'Discrete' screen.
+ * DiscreteSumChartNode displays the 'Sum' chart in the 'Discrete' screen. It adds zoom buttons for the x and y axes,
+ * and checkboxes for 'auto scale' and 'infinite harmonics'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -32,10 +33,23 @@ class DiscreteSumChartNode extends SumChartNode {
     super( sumChart, xAxisTickLabelFormatProperty, waveformProperty, options );
 
     // Fields of interest in sumChart, to improve readability
+    const xZoomLevelProperty = sumChart.xZoomLevelProperty;
     const yZoomLevelProperty = sumChart.yZoomLevelProperty;
     const autoScaleProperty = sumChart.autoScaleProperty;
     const yAxisAutoScaleRangeProperty = sumChart.yAxisAutoScaleRangeProperty;
     const infiniteHarmonicsVisibleProperty = sumChart.infiniteHarmonicsVisibleProperty;
+
+    // Zoom buttons for the x-axis range, at bottom right.
+    const xZoomButtonGroup = new PlusMinusZoomButtonGroup( xZoomLevelProperty, {
+      orientation: 'horizontal',
+      scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
+      touchAreaXDilation: 5,
+      touchAreaYDilation: 10,
+      left: this.chartRectangle.right + 6,
+      bottom: this.chartRectangle.bottom,
+      tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
+    } );
+    this.addChild( xZoomButtonGroup );
 
     // Zoom buttons for the y-axis range, at bottom left.
     const yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {
