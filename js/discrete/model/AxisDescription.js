@@ -72,7 +72,8 @@ class AxisDescription {
   }
 
   /**
-   * Gets the zoom level that corresponds to an axis range.
+   * Gets the zoom level that corresponds to an axis range.  This is used to keep the y-axis zoom level in-sync with
+   * auto scaling, but is general enough to be used with either axis.
    * @param {Range} range
    * @param {AxisDescription[]} axisDescriptions
    * @returns {number} - the zoom level, an index into axisDescriptions
