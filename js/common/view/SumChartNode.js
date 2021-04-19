@@ -14,15 +14,12 @@ import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
-import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FMWConstants from '../FMWConstants.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
-import SumChart from '../model/SumChart.js';
 import Waveform from '../../discrete/model/Waveform.js';
-import AutoScaleCheckbox from '../../discrete/view/AutoScaleCheckbox.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
+import FMWConstants from '../FMWConstants.js';
+import SumChart from '../model/SumChart.js';
 import FMWChartNode from './FMWChartNode.js';
-import InfiniteHarmonicsCheckbox from '../../discrete/view/InfiniteHarmonicsCheckbox.js';
 
 class SumChartNode extends FMWChartNode {
 
@@ -40,6 +37,9 @@ class SumChartNode extends FMWChartNode {
 
     options = merge( {
 
+      hasAutoScaleCheckbox: false,
+      hasInfiniteHarmonicsCheckbox: false,
+
       // phet-io
       tandem: Tandem.REQUIRED
     }, options );
@@ -53,7 +53,6 @@ class SumChartNode extends FMWChartNode {
     const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
     const autoScaleProperty = sumChart.autoScaleProperty;
     const yAxisAutoScaleRangeProperty = sumChart.yAxisAutoScaleRangeProperty;
-    const infiniteHarmonicsVisibleProperty = sumChart.infiniteHarmonicsVisibleProperty;
     const sumDataSetProperty = sumChart.sumDataSetProperty;
 
     super( fourierSeries.L, fourierSeries.T, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty,
@@ -70,34 +69,6 @@ class SumChartNode extends FMWChartNode {
       tandem: options.tandem.createTandem( 'yZoomButtonGroup' )
     } );
     this.addChild( yZoomButtonGroup );
-
-    // Shows the wave that the Fourier series is attempting to approximate
-    const infiniteHarmonicsCheckbox = new InfiniteHarmonicsCheckbox( infiniteHarmonicsVisibleProperty, {
-      listener: () => {
-        //TODO
-      },
-      tandem: options.tandem.createTandem( 'infiniteHarmonicsCheckbox' )
-    } );
-
-    // Disable infiniteHarmonicsCheckbox for custom and wave-packet waveforms. unlink is not needed.
-    waveformProperty.link( waveform => {
-
-      //TODO move right-hand side expression into Waveform?
-      infiniteHarmonicsCheckbox.enabled = ( waveform !== Waveform.CUSTOM && waveform !== Waveform.WAVE_PACKET );
-    } );
-
-    // Automatically scales the y axis to show the entire plot
-    const autoScaleCheckbox = new AutoScaleCheckbox( autoScaleProperty, {
-      tandem: options.tandem.createTandem( 'autoScaleCheckbox' )
-    } );
-
-    const checkboxesParent = new HBox( {
-      spacing: 25,
-      children: [ autoScaleCheckbox, infiniteHarmonicsCheckbox ],
-      left: this.chartRectangle.left,
-      top: this.xTickLabels.bottom + 5
-    } );
-    this.addChild( checkboxesParent );
 
     // Plot that shows the sum
     const sumPlot = new CanvasLinePlot( this.chartTransform, sumDataSetProperty.value, {
@@ -153,6 +124,9 @@ class SumChartNode extends FMWChartNode {
           // until the user explicitly changes it via the y-axis zoom buttons.
         }
       } );
+
+    // @protected
+    this.yZoomButtonGroup = yZoomButtonGroup;
   }
 }
 

@@ -30,6 +30,11 @@ class DiscreteSumChart extends SumChart {
     this.chartVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'chartVisibleProperty' )
     } );
+
+    // @public whether the Sum chart shows what the waveform looks like for an infinite Fourier series
+    this.infiniteHarmonicsVisibleProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'infiniteHarmonicsVisibleProperty' )
+    } );
   }
 
   /**
@@ -39,6 +44,7 @@ class DiscreteSumChart extends SumChart {
   reset() {
     super.reset();
     this.chartVisibleProperty.reset();
+    this.infiniteHarmonicsVisibleProperty.reset();
   }
 }
 

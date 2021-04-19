@@ -59,11 +59,6 @@ class SumChart {
       tandem: options.tandem.createTandem( 'autoScaleProperty' )
     } );
 
-    // @public whether the Sum chart shows what the waveform looks like for an infinite Fourier series
-    this.infiniteHarmonicsVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'infiniteHarmonicsVisibleProperty' )
-    } );
-
     /**
      * Creates the sum data set using current arg values.
      * @returns {Vector2[]}
@@ -146,7 +141,6 @@ class SumChart {
    */
   reset() {
     this.autoScaleProperty.reset();
-    this.infiniteHarmonicsVisibleProperty.reset();
     this.sumDataSetProperty.reset();
     this.yZoomLevelProperty.reset();
   }
