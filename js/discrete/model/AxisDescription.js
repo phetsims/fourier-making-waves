@@ -88,7 +88,7 @@ function isSortedDescending( axisDescriptions ) {
 //======================================================================================================================
 
 // @public {AxisDescription[]} descriptions for the x axis, one for each zoom level
-// NOTE! For the x axis, these values are coefficients (multipliers) for L or T, depending on which domain is plotted.
+// Values are coefficients (multipliers) for L or T, depending on which domain is plotted.
 AxisDescription.X_AXIS_DESCRIPTIONS = [
   new AxisDescription( {
     absoluteMax: 2,
