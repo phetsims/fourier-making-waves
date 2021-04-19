@@ -13,6 +13,7 @@
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../../common/model/Domain.js';
@@ -68,6 +69,29 @@ class AxisDescription {
     const xMin = value * axisDescription.range.min;
     const xMax = value * axisDescription.range.max;
     return new Range( xMin, xMax );
+  }
+
+  /**
+   * Gets the zoom level that corresponds to an axis range.
+   * @param {Range} range
+   * @param {AxisDescription[]} axisDescriptions
+   * @returns {number} - the zoom level, an index into axisDescriptions
+   * @public
+   */
+  static getZoomLevelForRange( range, axisDescriptions ) {
+    assert && assert( range instanceof Range, 'invalid range' );
+    assert && assert( Math.abs( range.min ) === range.max, 'expected range to be symmetrical' );
+    assert && AssertUtils.assertArrayOf( axisDescriptions, AxisDescription );
+
+    let zoomLevel = axisDescriptions.length - 1;
+    for ( let i = 0; i < axisDescriptions.length - 1; i++ ) {
+      if ( range.max >= axisDescriptions[ i ].absoluteMax ) {
+        zoomLevel = i;
+        break;
+      }
+    }
+    assert && assert( zoomLevel >= 0 && zoomLevel < axisDescriptions.length, `invalid zoomLevel: ${zoomLevel}` );
+    return zoomLevel;
   }
 }
 

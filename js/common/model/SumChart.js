@@ -97,7 +97,7 @@ class SumChart {
 
     // The initial y-axis zoom level depends on whether auto scale is initially enabled.
     const initialYZoomLevel = this.autoScaleProperty.value ?
-                              getZoomLevelForYRange( this.yAxisAutoScaleRangeProperty.value ) :
+                              AxisDescription.getZoomLevelForRange( this.yAxisAutoScaleRangeProperty.value, AxisDescription.Y_AXIS_DESCRIPTIONS ) :
                               AxisDescription.Y_DEFAULT_ZOOM_LEVEL;
 
     // @public zoom level for the y axis, index into AxisDescription.Y_AXIS_DESCRIPTIONS
@@ -116,7 +116,7 @@ class SumChart {
     // range so that's it's appropriate for the auto-scale range.
     const updateZoomLevel = yAxisAutoScaleRange => {
       assert && assert( this.autoScaleProperty.value, 'should not be called when auto scale is disabled' );
-      this.yZoomLevelProperty.value = getZoomLevelForYRange( yAxisAutoScaleRange );
+      this.yZoomLevelProperty.value = AxisDescription.getZoomLevelForRange( yAxisAutoScaleRange, AxisDescription.Y_AXIS_DESCRIPTIONS );
     };
     this.autoScaleProperty.link( autoScale => {
       if ( autoScale ) {
@@ -152,25 +152,6 @@ class SumChart {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
-}
-
-/**
- * Gets the zoom level that corresponds to a y-axis range.
- * @param {Range} yRange
- * @returns {number} - the zoom level, an index into AxisDescription.Y_AXIS_DESCRIPTIONS
- */
-function getZoomLevelForYRange( yRange ) {
-  assert && assert( yRange instanceof Range, 'invalid yRange' );
-  const yAxisDescriptions = AxisDescription.Y_AXIS_DESCRIPTIONS;
-  let zoomLevel = yAxisDescriptions.length - 1;
-  for ( let i = 0; i < yAxisDescriptions.length - 1; i++ ) {
-    if ( yRange.max >= yAxisDescriptions[ i ].absoluteMax ) {
-      zoomLevel = i;
-      break;
-    }
-  }
-  assert && assert( zoomLevel >= 0 && zoomLevel < yAxisDescriptions.length, `invalid zoomLevel: ${zoomLevel}` );
-  return zoomLevel;
 }
 
 fourierMakingWaves.register( 'SumChart', SumChart );
