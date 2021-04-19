@@ -71,6 +71,22 @@ class AxisDescription {
   }
 }
 
+/**
+ * Determines whether an array of AxisDescription is sorted by descending absoluteMax value.
+ * @param {AxisDescription[]} axisDescriptions
+ * @returns {boolean}
+ */
+function isSortedDescending( axisDescriptions ) {
+  return _.every( axisDescriptions,
+    ( axisDescription, index, axisDescriptions ) =>
+      ( index === 0 || axisDescriptions[ index - 1 ].absoluteMax > axisDescription.absoluteMax )
+  );
+}
+
+//======================================================================================================================
+// x axis
+//======================================================================================================================
+
 // @public {AxisDescription[]} descriptions for the x axis, one for each zoom level
 // NOTE! For the x axis, these values are coefficients (multipliers) for L or T, depending on which domain is plotted.
 AxisDescription.X_AXIS_DESCRIPTIONS = [
@@ -123,6 +139,10 @@ AxisDescription.X_FULLY_ZOOMED_OUT = AxisDescription.X_AXIS_DESCRIPTIONS[ AxisDe
 // Guard again accidentally changing the default when X_AXIS_DESCRIPTIONS is modified.
 assert && assert( AxisDescription.X_AXIS_DESCRIPTIONS[ AxisDescription.X_DEFAULT_ZOOM_LEVEL ].absoluteMax === 1 / 2,
   'X_DEFAULT_ZOOM_LEVEL is probably incorrect - did you add a AxisDescription?' );
+
+//======================================================================================================================
+// y axis
+//======================================================================================================================
 
 // @public {AxisDescription[]} descriptions for the y axis, one for each zoom level. Values are amplitude (unitless).
 AxisDescription.Y_AXIS_DESCRIPTIONS = [
@@ -189,17 +209,6 @@ AxisDescription.Y_DEFAULT_ZOOM_LEVEL = AxisDescription.Y_AXIS_DESCRIPTIONS.lengt
 // Guard again accidentally changing the default when Y_AXIS_DESCRIPTIONS is modified.
 assert && assert( AxisDescription.Y_AXIS_DESCRIPTIONS[ AxisDescription.Y_DEFAULT_ZOOM_LEVEL ].absoluteMax === FMWConstants.MAX_ABSOLUTE_AMPLITUDE,
   'Y_DEFAULT_ZOOM_LEVEL is probably incorrect - did you add a AxisDescription?' );
-
-/**
- * Determines whether an array of AxisDescription is sorted by descending absoluteMax value.
- * @param {AxisDescription[]} axisDescriptions
- * @returns {boolean}
- */
-function isSortedDescending( axisDescriptions ) {
-  return _.every( axisDescriptions,
-    ( axisDescription, index, axisDescriptions ) => ( index === 0 || axisDescriptions[ index - 1 ].absoluteMax > axisDescription.absoluteMax )
-  );
-}
 
 fourierMakingWaves.register( 'AxisDescription', AxisDescription );
 export default AxisDescription;
