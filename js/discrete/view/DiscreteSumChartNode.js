@@ -6,7 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import SumChartNode from '../../common/view/SumChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteSumChart from '../model/DiscreteSumChart.js';
@@ -29,8 +31,26 @@ class DiscreteSumChartNode extends SumChartNode {
     super( sumChart, xAxisTickLabelFormatProperty, waveformProperty, options );
 
     // Fields of interest in sumChart, to improve readability
+    const yZoomLevelProperty = sumChart.yZoomLevelProperty;
     const autoScaleProperty = sumChart.autoScaleProperty;
     const infiniteHarmonicsVisibleProperty = sumChart.infiniteHarmonicsVisibleProperty;
+
+    // Zoom buttons for the y-axis range, at bottom left.
+    const yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {
+      orientation: 'vertical',
+      scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
+      touchAreaXDilation: 10,
+      touchAreaYDilation: 5,
+      right: this.chartRectangle.left - 31, // determined empirically
+      top: this.chartRectangle.bottom,
+      tandem: options.tandem.createTandem( 'yZoomButtonGroup' )
+    } );
+    this.addChild( yZoomButtonGroup );
+
+    // Disable the y-axis zoom buttons when auto scale is enabled. unlink is not needed.
+    autoScaleProperty.link( autoScale => {
+      yZoomButtonGroup.enabled = !autoScale;
+    } );
 
     // Automatically scales the y axis to show the entire plot
     const autoScaleCheckbox = new AutoScaleCheckbox( autoScaleProperty, {
@@ -52,7 +72,7 @@ class DiscreteSumChartNode extends SumChartNode {
       infiniteHarmonicsCheckbox.enabled = ( waveform !== Waveform.CUSTOM && waveform !== Waveform.WAVE_PACKET );
     } );
 
-    // Group the checkboxes at the lower-right of the chart's rectangle.
+    // Group the checkboxes at the lower-left of the chart's rectangle.
     const checkboxesParent = new HBox( {
       spacing: 25,
       children: [ autoScaleCheckbox, infiniteHarmonicsCheckbox ],

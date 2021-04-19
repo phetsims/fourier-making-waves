@@ -13,11 +13,9 @@ import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Waveform from '../../discrete/model/Waveform.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import FMWConstants from '../FMWConstants.js';
 import SumChart from '../model/SumChart.js';
 import FMWChartNode from './FMWChartNode.js';
 
@@ -36,10 +34,6 @@ class SumChartNode extends FMWChartNode {
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
     options = merge( {
-
-      hasAutoScaleCheckbox: false,
-      hasInfiniteHarmonicsCheckbox: false,
-
       // phet-io
       tandem: Tandem.REQUIRED
     }, options );
@@ -49,7 +43,6 @@ class SumChartNode extends FMWChartNode {
     const domainProperty = sumChart.domainProperty;
     const xZoomLevelProperty = sumChart.xZoomLevelProperty;
     const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;
-    const yZoomLevelProperty = sumChart.yZoomLevelProperty;
     const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
     const autoScaleProperty = sumChart.autoScaleProperty;
     const yAxisAutoScaleRangeProperty = sumChart.yAxisAutoScaleRangeProperty;
@@ -57,18 +50,6 @@ class SumChartNode extends FMWChartNode {
 
     super( fourierSeries.L, fourierSeries.T, domainProperty, xZoomLevelProperty, xAxisDescriptionProperty,
       xAxisTickLabelFormatProperty, options );
-
-    // Zoom buttons for the y-axis range
-    const yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {
-      orientation: 'vertical',
-      scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
-      touchAreaXDilation: 10,
-      touchAreaYDilation: 5,
-      right: this.chartRectangle.left - 31, // determined empirically
-      top: this.chartRectangle.bottom,
-      tandem: options.tandem.createTandem( 'yZoomButtonGroup' )
-    } );
-    this.addChild( yZoomButtonGroup );
 
     // Plot that shows the sum
     const sumPlot = new CanvasLinePlot( this.chartTransform, sumDataSetProperty.value, {
@@ -90,11 +71,6 @@ class SumChartNode extends FMWChartNode {
     // Hide the plot when the sum is zero (all amplitudes are zero)
     fourierSeries.amplitudesProperty.link( amplitudes => {
       sumPlot.visible = _.some( amplitudes, amplitude => amplitude !== 0 );
-    } );
-
-    // Disable the y-axis zoom buttons when auto scale is enabled. unlink is not needed.
-    autoScaleProperty.link( autoScale => {
-      yZoomButtonGroup.enabled = !autoScale;
     } );
 
     // Update the y-axis. unlink is not needed.
@@ -124,9 +100,6 @@ class SumChartNode extends FMWChartNode {
           // until the user explicitly changes it via the y-axis zoom buttons.
         }
       } );
-
-    // @protected
-    this.yZoomButtonGroup = yZoomButtonGroup;
   }
 }
 
