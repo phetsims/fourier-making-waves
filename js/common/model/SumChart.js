@@ -89,8 +89,13 @@ class SumChart {
     this.yAxisAutoScaleRangeProperty = new DerivedProperty(
       [ this.maxAmplitudeProperty ],
       maxAmplitude => {
+
         // no smaller than range of amplitude sliders!
-        const maxY = Math.max( maxAmplitude, FMWConstants.MAX_ABSOLUTE_AMPLITUDE );
+        let maxY = Math.max( maxAmplitude, FMWConstants.MAX_ABSOLUTE_AMPLITUDE );
+
+        // a bit larger to provide some padding at top and bottom
+        maxY *= 1.05;
+
         return new Range( -maxY, maxY );
       }, {
         //TODO tandem
