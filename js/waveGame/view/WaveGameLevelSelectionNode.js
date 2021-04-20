@@ -8,14 +8,9 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
-import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
-import Dialog from '../../../../sun/js/Dialog.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -83,35 +78,6 @@ class WaveGameLevelSelectionNode extends Node {
 
     assert && assert( !options.children, 'LevelSelectionNode sets children' );
     options.children = [ levelSelectionButtonsBox, resetAllButton ];
-
-    // Press this button to test each game level. See output in console.
-    // This test is only useful if assertions are enabled.
-    // Also disable if fuzz is enabled, since this takes a long time and is not relevant to fuzz testing.
-    if ( assert && phet.chipper.queryParameters.showAnswers && !phet.chipper.isFuzzEnabled() ) {
-      const testButton = new RectangularPushButton( {
-        content: new Text( 'test game levels', { fill: 'white', font: new PhetFont( 20 ) } ),
-        baseColor: 'red',
-        listener: () => {
-          console.log( 'begin test of game levels...' );
-          model.levels.forEach( level => {
-            console.log( `testing level ${level.levelNumber}` );
-            level.test();
-          } );
-          console.log( 'end test of game levels' );
-          const messageNode = new RichText( 'Test completed.<br>See results in browser console.' );
-          const dialog = new Dialog( messageNode, {
-            topMargin: 20,
-            bottomMargin: 20,
-            leftMargin: 20,
-            rightMargin: 20
-          } );
-          dialog.show();
-        },
-        centerX: layoutBounds.centerX,
-        bottom: layoutBounds.bottom - 20
-      } );
-      options.children.push( testButton );
-    }
 
     super( options );
   }
