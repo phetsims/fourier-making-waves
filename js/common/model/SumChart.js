@@ -45,6 +45,7 @@ class SumChart {
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
 
     options = merge( {
+      autoScale: false,
       tandem: Tandem.REQUIRED
     }, options );
 
@@ -55,7 +56,7 @@ class SumChart {
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
 
     // @public whether the Sum chart's y-axis automatically scales to fit its data set
-    this.autoScaleProperty = new BooleanProperty( false, {
+    this.autoScaleProperty = new BooleanProperty( options.autoScale, {
       tandem: options.tandem.createTandem( 'autoScaleProperty' )
     } );
 

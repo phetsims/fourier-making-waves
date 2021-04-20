@@ -101,6 +101,18 @@ const FMWColorProfile = new ColorProfile( [ 'default' ], {
 
   nextButtonFill: {
     default: PhetColorScheme.BUTTON_YELLOW
+  },
+
+  sumStroke: {
+    default: new Color( 0, 0, 0 )
+  },
+
+  answerSumStroke: {
+    default: new Color( 255, 0, 255 )
+  },
+
+  guessSumStroke: {
+    default: new Color( 0, 0, 0 )
   }
 } );
 

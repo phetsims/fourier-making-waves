@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -36,7 +35,6 @@ class DiscreteSumChartNode extends SumChartNode {
     const xZoomLevelProperty = sumChart.xZoomLevelProperty;
     const yZoomLevelProperty = sumChart.yZoomLevelProperty;
     const autoScaleProperty = sumChart.autoScaleProperty;
-    const yAxisAutoScaleRangeProperty = sumChart.yAxisAutoScaleRangeProperty;
     const infiniteHarmonicsVisibleProperty = sumChart.infiniteHarmonicsVisibleProperty;
 
     // Zoom buttons for the x-axis range, at bottom right.
@@ -96,19 +94,6 @@ class DiscreteSumChartNode extends SumChartNode {
       top: this.xTickLabels.bottom + 5
     } );
     this.addChild( checkboxesParent );
-
-    // Update the auto-scale range for the y-axis.
-    Property.multilink(
-      [ autoScaleProperty, yAxisAutoScaleRangeProperty ],
-      ( autoScale, yAxisAutoScaleRange ) => {
-        if ( autoScale ) {
-          this.chartTransform.setModelYRange( yAxisAutoScaleRange );
-        }
-        else {
-          // Do not setModelYRange when auto scale becomes false. We want the range to remain unchanged
-          // until the user explicitly changes it via the y-axis zoom buttons.
-        }
-      } );
   }
 }
 

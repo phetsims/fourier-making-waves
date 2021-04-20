@@ -70,6 +70,17 @@ class WaveGameLevel {
     // We update the charts by keeping this series in sync with the current challenge's guessFourierSeries.
     this.adapterGuessFourierSeries = new FourierSeries();
 
+    // @public  This is a static instance of FourierSeries that is passed to the Sum chart.
+    // We update the Sum chart by keeping this series in sync with the current challenge's answerFourierSeries.
+    this.adapterAnswerFourierSeries = new FourierSeries();
+
+    // @public
+    this.harmonicsChart = new WaveGameHarmonicsChart( this.adapterGuessFourierSeries );
+
+    // @public
+    this.sumChart = new WaveGameSumChart( this.adapterAnswerFourierSeries, this.adapterGuessFourierSeries,
+      this.harmonicsChart.xZoomLevelProperty, this.harmonicsChart.xAxisDescriptionProperty );
+
     const guessAmplitudesListener = amplitudes => this.adapterGuessFourierSeries.setAmplitudes( amplitudes );
 
     // When the challenge changes...
@@ -83,6 +94,12 @@ class WaveGameLevel {
         previousChallenge.guessFourierSeries.amplitudesProperty.unlink( guessAmplitudesListener );
       }
       challenge.guessFourierSeries.amplitudesProperty.link( guessAmplitudesListener );
+
+      // Set the amplitudes for the new answer
+      for ( let i = 0; i < this.adapterAnswerFourierSeries.harmonics.length; i++ ) {
+        this.adapterAnswerFourierSeries.harmonics[ i ].amplitudeProperty.value =
+          challenge.answerFourierSeries.harmonics[ i ].amplitudeProperty.value;
+      }
     } );
 
     // When an amplitude is changed via the chart, update the corresponding amplitude in the challenge's guess.
@@ -93,13 +110,6 @@ class WaveGameLevel {
         this.challengeProperty.value.guessFourierSeries.harmonics[ order - 1 ].amplitudeProperty.value = amplitude;
       } );
     }
-
-    // @public
-    this.harmonicsChart = new WaveGameHarmonicsChart( this.adapterGuessFourierSeries );
-
-    // @public
-    this.sumChart = new WaveGameSumChart( this.adapterGuessFourierSeries,
-      this.harmonicsChart.xZoomLevelProperty, this.harmonicsChart.xAxisDescriptionProperty );
   }
 
   /**

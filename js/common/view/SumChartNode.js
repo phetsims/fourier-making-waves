@@ -16,6 +16,7 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Waveform from '../../discrete/model/Waveform.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import FMWColorProfile from '../FMWColorProfile.js';
 import SumChart from '../model/SumChart.js';
 import FMWChartNode from './FMWChartNode.js';
 
@@ -34,6 +35,9 @@ class SumChartNode extends FMWChartNode {
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
     options = merge( {
+      sumPlotStrokeProperty: FMWColorProfile.sumStrokeProperty,
+      sumPlotLineWidth: 1,
+
       // phet-io
       tandem: Tandem.REQUIRED
     }, options );
@@ -44,6 +48,7 @@ class SumChartNode extends FMWChartNode {
     const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;
     const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
     const autoScaleProperty = sumChart.autoScaleProperty;
+    const yAxisAutoScaleRangeProperty = sumChart.yAxisAutoScaleRangeProperty;
     const sumDataSetProperty = sumChart.sumDataSetProperty;
 
     super( fourierSeries.L, fourierSeries.T, domainProperty, xAxisDescriptionProperty,
@@ -51,7 +56,8 @@ class SumChartNode extends FMWChartNode {
 
     // Plot that shows the sum
     const sumPlot = new CanvasLinePlot( this.chartTransform, sumDataSetProperty.value, {
-      stroke: 'black'
+      stroke: options.sumPlotStrokeProperty.value,
+      lineWidth: options.sumPlotLineWidth
     } );
 
     // Draw the sum plot using Canvas, clipped to chartRectangle.
@@ -59,6 +65,13 @@ class SumChartNode extends FMWChartNode {
       clipArea: Shape.bounds( this.chartRectangle.bounds )
     } );
     this.addChild( chartCanvasNode );
+
+    // CanvasLinePlot does not allow stroke to be a Property, so we have to manage changes ourselves.
+    // unlink in not needed.
+    options.sumPlotStrokeProperty.link( stroke => {
+      sumPlot.stroke = stroke;
+      chartCanvasNode.update();
+    } );
 
     // unlink is not needed.
     sumDataSetProperty.link( dataSet => {
@@ -85,6 +98,23 @@ class SumChartNode extends FMWChartNode {
       this.yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
       this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
     } );
+
+    // Update the auto-scale range for the y-axis.
+    Property.multilink(
+      [ autoScaleProperty, yAxisAutoScaleRangeProperty ],
+      ( autoScale, yAxisAutoScaleRange ) => {
+        if ( autoScale ) {
+          this.chartTransform.setModelYRange( yAxisAutoScaleRange );
+        }
+        else {
+          // Do not setModelYRange when auto scale becomes false. We want the range to remain unchanged
+          // until the user explicitly changes it via the y-axis zoom buttons.
+        }
+      } );
+
+    // @protected
+    this.chartCanvasNode = chartCanvasNode;
+    this.sumPlot = sumPlot;
   }
 }
 
