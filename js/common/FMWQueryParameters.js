@@ -14,10 +14,7 @@ const SCHEMA = {
 
   // Shows the reward after any correct answer, for testing the Wave Game reward.
   // For internal use only, not public facing.
-  showReward: {
-    type: 'boolean',
-    defaultValue: false
-  }
+  showReward: { type: 'flag' }
 };
 
 const FMWQueryParameters = QueryStringMachine.getAll( SCHEMA );
