@@ -47,12 +47,14 @@ class AudibleSlider extends Slider {
     let tPlay = 0;
 
     assert && assert( !options.drag, 'AudibleSlider defines drag' );
-    options.drag = () => {
+    options.drag = event => {
 
       // options.drag is called after the Property is set, so this is the current value.
       const currentValue = property.value;
 
       const dtPlay = Date.now() - tPlay;
+
+      //TODO https://github.com/phetsims/fourier-making-waves/issues/56 Is special handling needed if event.isFromPDOM(), like WaveInterferenceSlider ?
 
       if ( currentValue !== previousValue ) {
 
