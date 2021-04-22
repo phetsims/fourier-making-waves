@@ -12,6 +12,7 @@ import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
+import Orientation from '../../../../phet-core/js/Orientation.js';
 import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -19,12 +20,12 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Slider from '../../../../sun/js/Slider.js';
 import SliderTrack from '../../../../sun/js/SliderTrack.js';
-import VSlider from '../../../../sun/js/VSlider.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
+import AudibleSlider from './AudibleSlider.js';
 
 // constants
 const TRACK_WIDTH = 40; // track height specified in constructor options
@@ -37,7 +38,7 @@ const THUMB_HEIGHT = 8;
 const THUMB_TOUCH_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
 const THUMB_MOUSE_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
 
-class AmplitudeSlider extends VSlider {
+class AmplitudeSlider extends AudibleSlider {
 
   /**
    * @param {Harmonic} harmonic
@@ -59,6 +60,9 @@ class AmplitudeSlider extends VSlider {
 
       // {number} height of the track
       trackHeight: 120,
+
+      // AudibleSlider options
+      orientation: Orientation.VERTICAL,
 
       // phet-io
       tandem: Tandem.REQUIRED
