@@ -20,7 +20,8 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 // constants
 const DEFAULT_MIN_MAX_SOUND = generalBoundaryBoopSoundPlayer;
 const DEFAULT_SNAP_SOUND = generalSoftClickSoundPlayer;
-const MIN_SOUND_INTERVAL = 100; // minimum time between sounds, in milliseconds
+const SNAP_SOUND_DURATION = 25; //TODO generalSoftClickSoundPlayer.duration, https://github.com/phetsims/tandem/issues/234
+const SNAP_SOUND_MIN_SILENCE = 15; // minimum silence between snap sounds, in milliseconds
 
 class AudibleSlider extends Slider {
 
@@ -43,25 +44,30 @@ class AudibleSlider extends Slider {
     let previousValue = property.value;
 
     // The time at which the most recent sound started playing, in milliseconds.
-    let tPlay = Date.now();
+    let tPlay = 0;
 
     assert && assert( !options.drag, 'AudibleSlider defines drag' );
     options.drag = () => {
 
       // options.drag is called after the Property is set, so this is the current value.
       const currentValue = property.value;
-      
+
       const dtPlay = Date.now() - tPlay;
 
-      if ( currentValue !== previousValue && dtPlay >= MIN_SOUND_INTERVAL ) {
+      if ( currentValue !== previousValue ) {
 
         options.snapSound.isPlaying && options.snapSound.stop();
         options.minMaxSound.isPlaying && options.minMaxSound.stop();
 
         if ( currentValue === range.min || currentValue === range.max ) {
+
+          // Play min/max sound regardless of time since previous sound, otherwise we will sometime not hear them.
           options.minMaxSound.play();
         }
-        else {
+        else if ( dtPlay >= SNAP_SOUND_DURATION + SNAP_SOUND_MIN_SILENCE ) {
+
+          // Play snap sound at some minimum interval, so that moving the slider doesn't create a bunch of sounds
+          // playing on top of each other, which sounds like garbage.
           options.snapSound.play();
         }
 
