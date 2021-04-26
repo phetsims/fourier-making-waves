@@ -64,6 +64,11 @@ class AmplitudeSlider extends AudibleSlider {
       // AudibleSlider options
       orientation: Orientation.VERTICAL,
 
+      // pdom
+      keyboardStep: FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL,
+      shiftKeyboardStep: 1 / Math.pow( 10, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES ), // finer grain
+      pageKeyboardStep: 2 * FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL, // coarser grain
+
       // phet-io
       tandem: Tandem.REQUIRED
     }, options );
@@ -95,6 +100,7 @@ class AmplitudeSlider extends AudibleSlider {
     assert && assert( !options.trackNode, 'AmplitudeSlider sets trackNode' );
     options.trackNode = trackNode;
 
+    //TODO https://github.com/phetsims/sun/issues/698 constrainValue is overriding shiftKeyboardStep
     assert && assert( !options.constrainValue, 'AmplitudeSlider sets constrainValue' );
     options.constrainValue = amplitude => {
       if ( amplitude !== amplitudeRange.min && amplitude !== amplitudeRange.max ) {
