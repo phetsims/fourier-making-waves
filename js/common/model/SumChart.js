@@ -18,7 +18,6 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import AxisDescription from '../../discrete/model/AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import FMWConstants from '../FMWConstants.js';
 import Domain from './Domain.js';
 import FourierSeries from './FourierSeries.js';
 import SeriesType from './SeriesType.js';
@@ -90,8 +89,8 @@ class SumChart {
       [ this.maxAmplitudeProperty ],
       maxAmplitude => {
 
-        // no smaller than range of amplitude sliders!
-        let maxY = Math.max( maxAmplitude, FMWConstants.MAX_AMPLITUDE );
+        // no smaller than range of amplitude
+        let maxY = Math.max( maxAmplitude, fourierSeries.amplitudeRange.max );
 
         // a bit larger to provide some padding at top and bottom
         maxY *= 1.05;
