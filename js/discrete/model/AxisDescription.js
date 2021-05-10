@@ -1,5 +1,6 @@
 // Copyright 2020, University of Colorado Boulder
 
+//TODO move constants for x-axis and y-axis to a separate file
 /**
  * AxisDescription is a data structure used to describe the range, grid lines, and ticks for an axis at a specific
  * zoom level. A zoom level is an index into a {AxisDescription[]}.
