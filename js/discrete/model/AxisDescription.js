@@ -173,9 +173,9 @@ AxisDescription.X_FULLY_ZOOMED_OUT = AxisDescription.X_AXIS_DESCRIPTIONS[ AxisDe
 //======================================================================================================================
 
 // Alert that you've done something that may require revising Y_AXIS_DESCRIPTIONS.
-assert && assert( FMWConstants.MAX_ABSOLUTE_AMPLITUDE === 1.5,
+assert && assert( FMWConstants.MAX_AMPLITUDE === 1.5,
   'Y_AXIS_DESCRIPTIONS have been tuned for the specific amplitude range [-1.5,1.5]. ' +
-  'It looks like you have changed FMWConstants.MAX_ABSOLUTE_AMPLITUDE, and may need to revise.' );
+  'It looks like you have changed FMWConstants.MAX_AMPLITUDE, and may need to revise.' );
 
 // @public {AxisDescription[]} descriptions for the y axis, one for each zoom level. Values are amplitude (unitless).
 AxisDescription.Y_AXIS_DESCRIPTIONS = [
@@ -222,7 +222,7 @@ AxisDescription.Y_AXIS_DESCRIPTIONS = [
     tickLabelSpacing: 1
   } ),
   new AxisDescription( {
-    absoluteMax: FMWConstants.MAX_ABSOLUTE_AMPLITUDE,
+    absoluteMax: FMWConstants.MAX_AMPLITUDE,
     gridLineSpacing: 0.5,
     tickMarkSpacing: 0.5,
     tickLabelSpacing: 0.5
@@ -238,7 +238,7 @@ AxisDescription.Y_DEFAULT_ZOOM_LEVEL = AxisDescription.Y_AXIS_DESCRIPTIONS.lengt
 AxisDescription.Y_DEFAULT_AXIS_DESCRIPTION = AxisDescription.Y_AXIS_DESCRIPTIONS[ AxisDescription.Y_DEFAULT_ZOOM_LEVEL ];
 
 // Guard again accidentally changing the default when Y_AXIS_DESCRIPTIONS is modified.
-assert && assert( AxisDescription.Y_DEFAULT_AXIS_DESCRIPTION.absoluteMax === FMWConstants.MAX_ABSOLUTE_AMPLITUDE,
+assert && assert( AxisDescription.Y_DEFAULT_AXIS_DESCRIPTION.absoluteMax === FMWConstants.MAX_AMPLITUDE,
   'Y_DEFAULT_ZOOM_LEVEL is probably incorrect - did you add an AxisDescription?' );
 
 fourierMakingWaves.register( 'AxisDescription', AxisDescription );

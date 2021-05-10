@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import AssertUtils from '../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWColorProfile from './FMWColorProfile.js';
@@ -19,9 +20,9 @@ const FMWConstants = {
 
   MAX_HARMONICS: 11,
 
-  // amplitude range is [-MAX_ABSOLUTE_AMPLITUDE, MAX_ABSOLUTE_AMPLITUDE]
+  // amplitude range is [-MAX_AMPLITUDE, MAX_AMPLITUDE]
   // see https://github.com/phetsims/fourier-making-waves/issues/22
-  MAX_ABSOLUTE_AMPLITUDE: 1.5,
+  MAX_AMPLITUDE: 1.5,
 
   // View ============================================================================================================
 
@@ -72,6 +73,10 @@ const FMWConstants = {
   X_AXIS_LABEL_SPACING: 10, // horizontal space between chart rectangle and x-axis label
   Y_AXIS_LABEL_SPACING: 36  // horizontal space between chart rectangle and y-axis label
 };
+
+// Verify some of the above constants
+assert && AssertUtils.assertPositiveInteger( FMWConstants.MAX_HARMONICS );
+assert && assert( FMWConstants.MAX_AMPLITUDE > 0 );
 
 fourierMakingWaves.register( 'FMWConstants', FMWConstants );
 export default FMWConstants;

@@ -83,7 +83,7 @@ class WaveGameChallengeGenerator {
     const numberOfNonZeroHarmonics = this.getNumberOfNonZeroHarmonics();
     assert && AssertUtils.assertPositiveInteger( numberOfNonZeroHarmonics );
     return new WaveGameChallenge( FMWConstants.MAX_HARMONICS, numberOfNonZeroHarmonics,
-      FMWConstants.MAX_ABSOLUTE_AMPLITUDE, this.isCorrectCallback );
+      FMWConstants.MAX_AMPLITUDE, this.isCorrectCallback );
   }
 
   /**

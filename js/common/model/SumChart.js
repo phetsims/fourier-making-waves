@@ -91,7 +91,7 @@ class SumChart {
       maxAmplitude => {
 
         // no smaller than range of amplitude sliders!
-        let maxY = Math.max( maxAmplitude, FMWConstants.MAX_ABSOLUTE_AMPLITUDE );
+        let maxY = Math.max( maxAmplitude, FMWConstants.MAX_AMPLITUDE );
 
         // a bit larger to provide some padding at top and bottom
         maxY *= 1.05;

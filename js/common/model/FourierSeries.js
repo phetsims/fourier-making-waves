@@ -26,7 +26,7 @@ import Harmonic from './Harmonic.js';
 
 // constants
 const DEFAULT_AMPLITUDES = Array( FMWConstants.MAX_HARMONICS ).fill( 0 );
-const DEFAULT_AMPLITUDE_RANGE = new Range( -FMWConstants.MAX_ABSOLUTE_AMPLITUDE, FMWConstants.MAX_ABSOLUTE_AMPLITUDE );
+const DEFAULT_AMPLITUDE_RANGE = new Range( -FMWConstants.MAX_AMPLITUDE, FMWConstants.MAX_AMPLITUDE );
 
 class FourierSeries extends PhetioObject {
 
