@@ -20,9 +20,9 @@ const simOptions = {
 
   //TODO https://github.com/phetsims/fourier-making-waves/issues/2 complete credits
   credits: {
-    leadDesign: 'Amy Rouinfar',
+    leadDesign: 'Amy Rouinfar, Sam McKagan',
     softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
-    team: 'Wendy Adams, Mike Dubson, Danielle Harlow, Sam McKagan, Ariel Paul, Kathy Perkins, Carl Weiman',
+    team: 'Wendy Adams, Mike Dubson, Danielle Harlow, Ariel Paul, Kathy Perkins, Carl Weiman',
     qualityAssurance: '',
     graphicArts: '',
     soundDesign: '',
