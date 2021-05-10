@@ -28,6 +28,7 @@ class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
     // Fields of interest in harmonicsChart, to improve readability
     const xZoomLevelProperty = harmonicsChart.xZoomLevelProperty;
 
+    //TODO duplicated from DiscreteHarmonicsChartNode, should zoom buttons be an option for FMWChartNode?
     // Zoom buttons for the x-axis range, at bottom right.
     const xZoomButtonGroup = new PlusMinusZoomButtonGroup( xZoomLevelProperty, {
       orientation: 'horizontal',
