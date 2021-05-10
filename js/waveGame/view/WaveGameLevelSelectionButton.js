@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * TODO
+ * WaveGameLevelSelectionButton is a level-selection button for the 'Wave Game' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -39,7 +39,7 @@ class WaveGameLevelSelectionButton extends LevelSelectionButton {
       tandem: Tandem.REQUIRED
     }, options );
 
-    //TODO placeholder icon
+    //TODO https://github.com/phetsims/fourier-making-waves/issues/57 better icons?
     const iconString = ( level.levelNumber < 5 ) ? level.levelNumber : `${level.levelNumber}+`;
     const icon = new Text( iconString, {
       font: new PhetFont( 50 )

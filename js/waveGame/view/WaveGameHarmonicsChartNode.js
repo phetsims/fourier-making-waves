@@ -1,9 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO no x-axis zoom buttons
-//TODO no y-axis zoom buttons
-//TODO no AutoScaleCheckbox
-//TODO no InfiniteHarmonicsCheckbox
 /**
  * WaveGameHarmonicsChartNode is the view for the 'Harmonics' chart in the 'Wave Game' screen.
  *
