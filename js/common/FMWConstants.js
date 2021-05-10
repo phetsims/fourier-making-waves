@@ -76,7 +76,7 @@ const FMWConstants = {
 
 // Verify some of the above constants
 assert && AssertUtils.assertPositiveInteger( FMWConstants.MAX_HARMONICS );
-assert && assert( FMWConstants.MAX_AMPLITUDE > 0 );
+assert && AssertUtils.assertPositiveNumber( FMWConstants.MAX_AMPLITUDE );
 
 fourierMakingWaves.register( 'FMWConstants', FMWConstants );
 export default FMWConstants;
