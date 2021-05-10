@@ -12,8 +12,6 @@ Infinite Harmonics feature, see Preset.java
 
 See GameManager.java, newGame creates a challenge, AMPLITUDE_STEP (0.01) is how close the guess must be to the answer.
 
-Icons for level-selection buttons?
-
 Remove zoom buttons from Harmonics graph
 Remove zoom buttons from Sum graph
 Remove checkboxes from Sum graph
