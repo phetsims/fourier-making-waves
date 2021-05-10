@@ -2,8 +2,6 @@ TODO.txt for fourier-making-waves
 
 ## Common
 
-Replace amplitudeRange with maxAbsoluteAmplitude
-
 ## Discrete screen
 
 Reuse Vector2 instances for data sets in FourierSeries (new Vector2)
