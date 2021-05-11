@@ -106,6 +106,7 @@ class HarmonicsChart {
   }
 }
 
+//TODO move all of this somewhere else
 // @public
 // Number of points in the data set for the highest order (highest frequency) harmonic
 // The number of points for each harmonic plot is a function of order, because higher-frequency harmonics require
