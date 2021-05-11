@@ -25,7 +25,7 @@ const POINTS_PER_CHALLENGE = 1;
 // Chart properties that are fixed in the Wave Game, and shared by the Harmonics and Sum charts.
 const DOMAIN = Domain.SPACE;
 const SERIES_TYPE = SeriesType.SINE;
-const t = 0; // lowercase t (for time) to distinguish from uppercase T (for period)
+const t = 0; // lowercase t (time) to distinguish from uppercase T (period)
 
 // Fixed x-axis description, because Wave Game has no zoom buttons for the x axes.
 const X_AXIS_DESCRIPTION = new AxisDescription( {
