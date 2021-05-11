@@ -15,37 +15,37 @@ import AxisDescription from './AxisDescription.js';
 // {AxisDescription[]}
 const DiscreteXAxisDescriptions = [
   new AxisDescription( {
-    absoluteMax: 2,
+    max: 2,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 2
   } ),
   new AxisDescription( {
-    absoluteMax: 3 / 2,
+    max: 3 / 2,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 2
   } ),
   new AxisDescription( {
-    absoluteMax: 1,
+    max: 1,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 4
   } ),
   new AxisDescription( {
-    absoluteMax: 3 / 4,
+    max: 3 / 4,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 4
   } ),
   new AxisDescription( {
-    absoluteMax: 1 / 2,
+    max: 1 / 2,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 4
   } ),
   new AxisDescription( {
-    absoluteMax: 1 / 4,
+    max: 1 / 4,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 4
@@ -53,9 +53,9 @@ const DiscreteXAxisDescriptions = [
 ];
 
 assert && assert( AxisDescription.isSortedDescending( DiscreteXAxisDescriptions ),
-  'DiscreteXAxisDescriptions must be sorted by descending absoluteMax value' );
+  'DiscreteXAxisDescriptions must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
 
-assert && assert( DiscreteXAxisDescriptions[ DiscreteXAxisDescriptions.length - 1 ].absoluteMax >= 0.25,
+assert && assert( DiscreteXAxisDescriptions[ DiscreteXAxisDescriptions.length - 1 ].range.getLength() >= 0.5,
   'The implementation of y-axis auto-scaling requires that at least 1/2 of the wavelength is always visible. ' +
   'Zooming in on the x-axis violates that requirement.' );
 

@@ -28,9 +28,8 @@ class AxisDescription {
 
     config = merge( {
 
-      //TODO rename to max
-      // {number} the absolute maximum value of the range, actual range is [-absoluteMax,absoluteMax]
-      absoluteMax: required( config.absoluteMax ),
+      // {number} used to define a symmetrical range [-max,max] for the axis
+      max: required( config.max ),
 
       // {number} spacing between grid lines
       gridLineSpacing: required( config.gridLineSpacing ),
@@ -43,8 +42,7 @@ class AxisDescription {
     }, config );
 
     // @public (read-only)
-    this.absoluteMax = config.absoluteMax;
-    this.range = new Range( -config.absoluteMax, config.absoluteMax );
+    this.range = new Range( -config.max, config.max );
     this.gridLineSpacing = config.gridLineSpacing;
     this.tickMarkSpacing = config.tickMarkSpacing;
     this.tickLabelSpacing = config.tickLabelSpacing;
@@ -88,7 +86,7 @@ class AxisDescription {
 
     let zoomLevel = axisDescriptions.length - 1;
     for ( let i = 0; i < axisDescriptions.length - 1; i++ ) {
-      if ( range.max >= axisDescriptions[ i ].absoluteMax ) {
+      if ( range.max >= axisDescriptions[ i ].range.max ) {
         zoomLevel = i;
         break;
       }
@@ -98,7 +96,8 @@ class AxisDescription {
   }
 
   /**
-   * Determines whether an array of AxisDescription is sorted by descending absoluteMax value.
+   * Determines whether an array of AxisDescription is sorted by descending range length, from most 'zoomed out' to
+   * most 'zoomed in'.
    * @param {AxisDescription[]} axisDescriptions
    * @returns {boolean}
    * @public
@@ -106,7 +105,7 @@ class AxisDescription {
   static isSortedDescending( axisDescriptions ) {
     return _.every( axisDescriptions,
       ( axisDescription, index, axisDescriptions ) =>
-        ( index === 0 || axisDescriptions[ index - 1 ].absoluteMax > axisDescription.absoluteMax )
+        ( index === 0 || axisDescriptions[ index - 1 ].range.getLength() > axisDescription.range.getLength() )
     );
   }
 }
@@ -123,56 +122,56 @@ assert && assert( FMWConstants.MAX_AMPLITUDE === 1.5,
 // @public {AxisDescription[]} descriptions for the y axis, one for each zoom level. Values are amplitude (unitless).
 AxisDescription.Y_AXIS_DESCRIPTIONS = [
   new AxisDescription( {
-    absoluteMax: 15,
+    max: 15,
     gridLineSpacing: 5,
     tickMarkSpacing: 5,
     tickLabelSpacing: 5
   } ),
   new AxisDescription( {
-    absoluteMax: 10,
+    max: 10,
     gridLineSpacing: 5,
     tickMarkSpacing: 5,
     tickLabelSpacing: 5
   } ),
   new AxisDescription( {
-    absoluteMax: 8,
+    max: 8,
     gridLineSpacing: 1,
     tickMarkSpacing: 5,
     tickLabelSpacing: 5
   } ),
   new AxisDescription( {
-    absoluteMax: 5,
+    max: 5,
     gridLineSpacing: 1,
     tickMarkSpacing: 5,
     tickLabelSpacing: 5
   } ),
   new AxisDescription( {
-    absoluteMax: 4,
+    max: 4,
     gridLineSpacing: 1,
     tickMarkSpacing: 2,
     tickLabelSpacing: 2
   } ),
   new AxisDescription( {
-    absoluteMax: 3,
+    max: 3,
     gridLineSpacing: 1,
     tickMarkSpacing: 1,
     tickLabelSpacing: 1
   } ),
   new AxisDescription( {
-    absoluteMax: 2,
+    max: 2,
     gridLineSpacing: 1,
     tickMarkSpacing: 1,
     tickLabelSpacing: 1
   } ),
   new AxisDescription( {
-    absoluteMax: FMWConstants.MAX_AMPLITUDE,
+    max: FMWConstants.MAX_AMPLITUDE,
     gridLineSpacing: 0.5,
     tickMarkSpacing: 0.5,
     tickLabelSpacing: 0.5
   } )
 ];
 assert && assert( AxisDescription.isSortedDescending( AxisDescription.Y_AXIS_DESCRIPTIONS ),
-  'Y_AXIS_DESCRIPTIONS must be sorted by descending absoluteMax value' );
+  'Y_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
 
 // @public default zoom level for the y axis
 AxisDescription.DEFAULT_Y_ZOOM_LEVEL = AxisDescription.Y_AXIS_DESCRIPTIONS.length - 1;
@@ -181,7 +180,7 @@ AxisDescription.DEFAULT_Y_ZOOM_LEVEL = AxisDescription.Y_AXIS_DESCRIPTIONS.lengt
 AxisDescription.DEFAULT_Y_AXIS_DESCRIPTION = AxisDescription.Y_AXIS_DESCRIPTIONS[ AxisDescription.DEFAULT_Y_ZOOM_LEVEL ];
 
 // Guard again accidentally changing the default when Y_AXIS_DESCRIPTIONS is modified.
-assert && assert( AxisDescription.DEFAULT_Y_AXIS_DESCRIPTION.absoluteMax === FMWConstants.MAX_AMPLITUDE,
+assert && assert( AxisDescription.DEFAULT_Y_AXIS_DESCRIPTION.range.max === FMWConstants.MAX_AMPLITUDE,
   'DEFAULT_Y_ZOOM_LEVEL is probably incorrect - did you add an AxisDescription?' );
 
 fourierMakingWaves.register( 'AxisDescription', AxisDescription );

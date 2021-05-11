@@ -90,7 +90,7 @@ class DiscreteModel {
     const DEFAULT_X_ZOOM_LEVEL = DiscreteXAxisDescriptions.length - 2;
 
     // Guard again accidentally changing the default if DiscreteXAxisDescriptions is modified.
-    assert && assert( DiscreteXAxisDescriptions[ DEFAULT_X_ZOOM_LEVEL ].absoluteMax === 1 / 2,
+    assert && assert( DiscreteXAxisDescriptions[ DEFAULT_X_ZOOM_LEVEL ].range.max === 1 / 2,
       'DEFAULT_X_ZOOM_LEVEL is probably incorrect - did you modify DiscreteXAxisDescriptions?' );
 
     // @public zoom level for the x axis, the index into DiscreteXAxisDescriptions

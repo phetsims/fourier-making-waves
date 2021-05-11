@@ -29,12 +29,12 @@ const t = 0; // lowercase t (time) to distinguish from uppercase T (period)
 
 // Fixed x-axis description, because Wave Game has no zoom buttons for the x axes.
 const X_AXIS_DESCRIPTION = new AxisDescription( {
-  absoluteMax: 1 / 2,
+  max: 1 / 2,
   gridLineSpacing: 1 / 8,
   tickMarkSpacing: 1 / 4,
   tickLabelSpacing: 1 / 4
 } );
-assert && assert( X_AXIS_DESCRIPTION.absoluteMax >= 0.25,
+assert && assert( X_AXIS_DESCRIPTION.range.getLength() >= 0.5,
   'The implementation of y-axis auto-scaling requires that at least 1/2 of the wavelength is always visible. ' +
   'X_AXIS_DESCRIPTION violates that requirement.' );
 
