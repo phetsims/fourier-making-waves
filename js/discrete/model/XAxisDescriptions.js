@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * XAxisDescriptions is the set of descriptions for the Harmonics and Sum x-axes in the 'Discrete' screen.
+ * XAxisDescriptions is the set of descriptions for the x-axes of the Harmonics and Sum charts in the 'Discrete' screen.
  * There is one AxisDescription for each zoom level.
  * Values in the AxisDescriptions are coefficients (multipliers) for L or T, depending on which domain is plotted.
  *
