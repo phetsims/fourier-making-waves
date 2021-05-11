@@ -21,6 +21,8 @@ import WaveGameSumChart from './WaveGameSumChart.js';
 
 // constants
 const POINTS_PER_CHALLENGE = 1;
+
+// Chart properties that are fixed in the Wave Game, and shared by the Harmonics and Sum charts.
 const DOMAIN = Domain.SPACE;
 const SERIES_TYPE = SeriesType.SINE;
 const t = 0; // lowercase t (for time) to distinguish from uppercase T (for period)
