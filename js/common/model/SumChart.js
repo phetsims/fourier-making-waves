@@ -29,18 +29,15 @@ class SumChart {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
-   * @param {NumberProperty} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xZoomLevelProperty,
-               xAxisDescriptionProperty, options ) {
+  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
-    assert && assert( xZoomLevelProperty instanceof NumberProperty );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
 
     options = merge( {
@@ -51,7 +48,6 @@ class SumChart {
     // @public
     this.fourierSeries = fourierSeries;
     this.domainProperty = domainProperty;
-    this.xZoomLevelProperty = xZoomLevelProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
 
     // @public whether the Sum chart's y-axis automatically scales to fit its data set
@@ -103,7 +99,7 @@ class SumChart {
     // The initial y-axis zoom level depends on whether auto scale is initially enabled.
     const initialYZoomLevel = this.autoScaleProperty.value ?
                               AxisDescription.getZoomLevelForRange( this.yAxisAutoScaleRangeProperty.value, AxisDescription.Y_AXIS_DESCRIPTIONS ) :
-                              AxisDescription.Y_DEFAULT_ZOOM_LEVEL;
+                              AxisDescription.DEFAULT_Y_ZOOM_LEVEL;
 
     // @public zoom level for the y axis, index into AxisDescription.Y_AXIS_DESCRIPTIONS
     this.yZoomLevelProperty = new NumberProperty( initialYZoomLevel, {

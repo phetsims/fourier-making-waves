@@ -6,10 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -29,14 +26,16 @@ class HarmonicsChart {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
+   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, options ) {
+  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
+    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
 
     options = merge( {
       tandem: Tandem.REQUIRED
@@ -45,19 +44,7 @@ class HarmonicsChart {
     // @public
     this.fourierSeries = fourierSeries;
     this.domainProperty = domainProperty;
-
-    // @public zoom level for the x axis, index into AxisDescription.X_AXIS_DESCRIPTIONS
-    // This is shared by the Harmonics and Sum charts.
-    this.xZoomLevelProperty = new NumberProperty( AxisDescription.X_DEFAULT_ZOOM_LEVEL, {
-      numberType: 'Integer',
-      range: new Range( 0, AxisDescription.X_AXIS_DESCRIPTIONS.length - 1 )
-    } );
-
-    // @public {DerivedProperty.<AxisDescription>} describes the properties of the x axis. dispose is not needed
-    this.xAxisDescriptionProperty = new DerivedProperty(
-      [ this.xZoomLevelProperty ],
-      xZoomLevel => AxisDescription.X_AXIS_DESCRIPTIONS[ xZoomLevel ]
-    );
+    this.xAxisDescriptionProperty = xAxisDescriptionProperty;
 
     // @public the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
     this.emphasizedHarmonics = new EmphasizedHarmonics( {
@@ -106,7 +93,6 @@ class HarmonicsChart {
    * @public
    */
   reset() {
-    this.xZoomLevelProperty.reset();
     this.emphasizedHarmonics.clear();
     this.harmonicDataSetProperties.forEach( property => property.reset() );
   }

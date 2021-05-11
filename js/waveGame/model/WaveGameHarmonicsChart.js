@@ -8,6 +8,7 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Domain from '../../common/model/Domain.js';
 import HarmonicsChart from '../../common/model/HarmonicsChart.js';
 import SeriesType from '../../common/model/SeriesType.js';
@@ -19,13 +20,14 @@ class WaveGameHarmonicsChart extends HarmonicsChart {
    * @param {FourierSeries} guessFourierSeries
    * @param {Object} [options]
    */
-  constructor( guessFourierSeries, options ) {
+  constructor( guessFourierSeries, domain, seriesType, t, xAxisDescription, options ) {
 
     super(
       guessFourierSeries,
-      new EnumerationProperty( Domain, Domain.SPACE ), //TODO eliminate?
-      new EnumerationProperty( SeriesType, SeriesType.SINE ), //TODO eliminate?
-      new NumberProperty( 0 ), //TODO eliminate?
+      new EnumerationProperty( Domain, domain ),
+      new EnumerationProperty( SeriesType, seriesType ),
+      new NumberProperty( t ),
+      new Property( xAxisDescription ),
       options
     );
   }

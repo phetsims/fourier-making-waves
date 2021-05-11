@@ -87,7 +87,7 @@ class FMWChartNode extends Node {
     }, options );
 
     const xAxisDescription = xAxisDescriptionProperty.value;
-    const yAxisDescription = AxisDescription.Y_DEFAULT_AXIS_DESCRIPTION;
+    const yAxisDescription = AxisDescription.DEFAULT_Y_AXIS_DESCRIPTION;
 
     // the transform between model and view coordinate frames
     const chartTransform = new ChartTransform( {

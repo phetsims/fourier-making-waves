@@ -9,7 +9,10 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
+import Domain from '../../common/model/Domain.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
+import SeriesType from '../../common/model/SeriesType.js';
+import AxisDescription from '../../discrete/model/AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
@@ -18,6 +21,15 @@ import WaveGameSumChart from './WaveGameSumChart.js';
 
 // constants
 const POINTS_PER_CHALLENGE = 1;
+const DOMAIN = Domain.SPACE;
+const SERIES_TYPE = SeriesType.SINE;
+const t = 0; // lowercase t (for time) to distinguish from uppercase T (for period)
+const X_AXIS_DESCRIPTION = new AxisDescription( {
+  absoluteMax: 1 / 2,
+  gridLineSpacing: 1 / 8,
+  tickMarkSpacing: 1 / 4,
+  tickLabelSpacing: 1 / 4
+} );
 
 class WaveGameLevel {
 
@@ -75,11 +87,12 @@ class WaveGameLevel {
     this.adapterAnswerFourierSeries = new FourierSeries();
 
     // @public
-    this.harmonicsChart = new WaveGameHarmonicsChart( this.adapterGuessFourierSeries );
+    this.harmonicsChart = new WaveGameHarmonicsChart( this.adapterGuessFourierSeries, DOMAIN, SERIES_TYPE, t,
+      X_AXIS_DESCRIPTION );
 
     // @public
     this.sumChart = new WaveGameSumChart( this.adapterAnswerFourierSeries, this.adapterGuessFourierSeries,
-      this.harmonicsChart.xZoomLevelProperty, this.harmonicsChart.xAxisDescriptionProperty );
+      DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION );
 
     const guessAmplitudesListener = amplitudes => this.adapterGuessFourierSeries.setAmplitudes( amplitudes );
 

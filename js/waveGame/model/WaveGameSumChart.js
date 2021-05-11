@@ -17,21 +17,15 @@ import SeriesType from '../../common/model/SeriesType.js';
 import SumChart from '../../common/model/SumChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-// constants
-const DOMAIN = Domain.SPACE;
-const SERIES_TYPE = SeriesType.SINE;
-const t = 0; // lowercase t (for time) to distinguish from uppercase T (for period)
-
 class WaveGameSumChart extends SumChart {
 
   /**
    * @param {FourierSeries} answerFourierSeries
    * @param {FourierSeries} guessFourierSeries
-   * @param {NumberProperty} xZoomLevelProperty
-   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
+   * @param {AxisDescription} xAxisDescription
    * @param {Object} [options]
    */
-  constructor( answerFourierSeries, guessFourierSeries, xZoomLevelProperty, xAxisDescriptionProperty, options ) {
+  constructor( answerFourierSeries, guessFourierSeries, domain, seriesType, t, xAxisDescription, options ) {
 
     options = merge( {
       autoScale: true //TODO This causes the chart to auto scale to answerFourierSeries. Too clever?
@@ -39,16 +33,15 @@ class WaveGameSumChart extends SumChart {
 
     super(
       answerFourierSeries,
-      new EnumerationProperty( Domain, DOMAIN ), //TODO eliminate?
-      new EnumerationProperty( SeriesType, SERIES_TYPE ), //TODO eliminate?
-      new NumberProperty( t ), //TODO eliminate?
-      xZoomLevelProperty,
-      xAxisDescriptionProperty,
+      new EnumerationProperty( Domain, domain ),
+      new EnumerationProperty( SeriesType, seriesType ),
+      new NumberProperty( t ),
+      new Property( xAxisDescription ),
       options
     );
 
     const createGuessDataSet = () => {
-      return guessFourierSeries.createSumDataSet( xAxisDescriptionProperty.value, DOMAIN, SERIES_TYPE, t );
+      return guessFourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t );
     };
 
     // @public
@@ -59,7 +52,7 @@ class WaveGameSumChart extends SumChart {
 
     guessFourierSeries.amplitudesProperty.lazyLink( () => {
       this.guessDataSetProperty.value =
-        guessFourierSeries.createSumDataSet( xAxisDescriptionProperty.value, DOMAIN, SERIES_TYPE, t );
+        guessFourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t );
     } );
   }
 }

@@ -157,13 +157,13 @@ assert && assert( isSortedDescending( AxisDescription.X_AXIS_DESCRIPTIONS ),
   'X_AXIS_DESCRIPTIONS must be sorted by descending absoluteMax value' );
 
 // @public default zoom level for the x axis
-AxisDescription.X_DEFAULT_ZOOM_LEVEL = AxisDescription.X_AXIS_DESCRIPTIONS.length - 2;
+AxisDescription.DEFAULT_X_ZOOM_LEVEL = AxisDescription.X_AXIS_DESCRIPTIONS.length - 2;
 
 // @public default description for the x axis
-AxisDescription.X_DEFAULT_AXIS_DESCRIPTION = AxisDescription.X_AXIS_DESCRIPTIONS[ AxisDescription.X_DEFAULT_ZOOM_LEVEL ];
+AxisDescription.DEFAULT_X_AXIS_DESCRIPTION = AxisDescription.X_AXIS_DESCRIPTIONS[ AxisDescription.DEFAULT_X_ZOOM_LEVEL ];
 
 // Guard again accidentally changing the default when X_AXIS_DESCRIPTIONS is modified.
-assert && assert( AxisDescription.X_DEFAULT_AXIS_DESCRIPTION.absoluteMax === 1 / 2,
+assert && assert( AxisDescription.DEFAULT_X_AXIS_DESCRIPTION.absoluteMax === 1 / 2,
   'X_DEFAULT_ZOOM_LEVEL is probably incorrect - did you add an AxisDescription?' );
 
 // @public zoomed out as far as possible
@@ -233,14 +233,14 @@ assert && assert( isSortedDescending( AxisDescription.Y_AXIS_DESCRIPTIONS ),
   'Y_AXIS_DESCRIPTIONS must be sorted by descending absoluteMax value' );
 
 // @public default zoom level for the y axis
-AxisDescription.Y_DEFAULT_ZOOM_LEVEL = AxisDescription.Y_AXIS_DESCRIPTIONS.length - 1;
+AxisDescription.DEFAULT_Y_ZOOM_LEVEL = AxisDescription.Y_AXIS_DESCRIPTIONS.length - 1;
 
 // @public default description for the y axis
-AxisDescription.Y_DEFAULT_AXIS_DESCRIPTION = AxisDescription.Y_AXIS_DESCRIPTIONS[ AxisDescription.Y_DEFAULT_ZOOM_LEVEL ];
+AxisDescription.DEFAULT_Y_AXIS_DESCRIPTION = AxisDescription.Y_AXIS_DESCRIPTIONS[ AxisDescription.DEFAULT_Y_ZOOM_LEVEL ];
 
 // Guard again accidentally changing the default when Y_AXIS_DESCRIPTIONS is modified.
-assert && assert( AxisDescription.Y_DEFAULT_AXIS_DESCRIPTION.absoluteMax === FMWConstants.MAX_AMPLITUDE,
-  'Y_DEFAULT_ZOOM_LEVEL is probably incorrect - did you add an AxisDescription?' );
+assert && assert( AxisDescription.DEFAULT_Y_AXIS_DESCRIPTION.absoluteMax === FMWConstants.MAX_AMPLITUDE,
+  'DEFAULT_Y_ZOOM_LEVEL is probably incorrect - did you add an AxisDescription?' );
 
 fourierMakingWaves.register( 'AxisDescription', AxisDescription );
 export default AxisDescription;

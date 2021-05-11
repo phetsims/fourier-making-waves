@@ -23,8 +23,10 @@ class DiscreteSumChart extends SumChart {
    */
   constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xZoomLevelProperty,
                xAxisDescriptionProperty, options ) {
-    super( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xZoomLevelProperty,
-      xAxisDescriptionProperty, options );
+    super( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, options );
+
+    // @public zoom level for the x axis
+    this.xZoomLevelProperty = xZoomLevelProperty;
 
     // @public whether the Sum chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {

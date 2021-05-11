@@ -21,6 +21,7 @@ import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import AxisDescription from './AxisDescription.js';
 import DiscreteFourierSeries from './DiscreteFourierSeries.js';
 import DiscreteHarmonicsChart from './DiscreteHarmonicsChart.js';
 import DiscreteSumChart from './DiscreteSumChart.js';
@@ -85,6 +86,21 @@ class DiscreteModel {
       equationForm => ( equationForm === EquationForm.HIDDEN ) ? TickLabelFormat.NUMERIC : TickLabelFormat.SYMBOLIC
     );
 
+    // @public zoom level for the x axis, index into AxisDescription.X_AXIS_DESCRIPTIONS
+    // This is shared by the Harmonics and Sum charts.
+    this.xZoomLevelProperty = new NumberProperty( AxisDescription.DEFAULT_X_ZOOM_LEVEL, {
+      numberType: 'Integer',
+      range: new Range( 0, AxisDescription.X_AXIS_DESCRIPTIONS.length - 1 )
+    } );
+
+    // @public {DerivedProperty.<AxisDescription>} describes the properties of the x axis.
+    // This is shared by the Harmonics and Sum charts.
+    // dispose is not needed.
+    this.xAxisDescriptionProperty = new DerivedProperty(
+      [ this.xZoomLevelProperty ],
+      xZoomLevel => AxisDescription.X_AXIS_DESCRIPTIONS[ xZoomLevel ]
+    );
+
     const soundTandem = options.tandem.createTandem( 'sound' );
 
     // @public whether sound is enabled for the Fourier series
@@ -117,13 +133,13 @@ class DiscreteModel {
 
     // @public
     this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, this.domainProperty,
-      this.seriesTypeProperty, this.tProperty, {
+      this.seriesTypeProperty, this.tProperty, this.xZoomLevelProperty, this.xAxisDescriptionProperty, {
         tandem: options.tandem.createTandem( 'harmonicsChart' )
       } );
 
     // @public
     this.sumChart = new DiscreteSumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
-      this.tProperty, this.harmonicsChart.xZoomLevelProperty, this.harmonicsChart.xAxisDescriptionProperty, {
+      this.tProperty, this.xZoomLevelProperty, this.xAxisDescriptionProperty, {
         tandem: options.tandem.createTandem( 'sumChart' )
       } );
 
@@ -166,6 +182,7 @@ class DiscreteModel {
     this.seriesTypeProperty.reset();
     this.domainProperty.reset();
     this.equationFormProperty.reset();
+    this.xZoomLevelProperty.reset();
     this.fourierSeriesSoundEnabledProperty.reset();
     this.fourierSeriesSoundOutputLevelProperty.reset();
 
