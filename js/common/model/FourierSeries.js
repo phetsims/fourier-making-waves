@@ -16,13 +16,12 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import AxisDescription from '../../discrete/model/AxisDescription.js';
-import Domain from './Domain.js';
-import HarmonicsChart from './HarmonicsChart.js';
-import SeriesType from './SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';
+import Domain from './Domain.js';
 import Harmonic from './Harmonic.js';
+import SeriesType from './SeriesType.js';
 
 // constants
 const DEFAULT_AMPLITUDES = Array( FMWConstants.MAX_HARMONICS ).fill( 0 );
@@ -188,7 +187,7 @@ class FourierSeries extends PhetioObject {
     assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
     assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
 
-    const numberOfPoints = HarmonicsChart.MAX_POINTS_PER_DATA_SET;
+    const numberOfPoints = FMWConstants.MAX_POINTS_PER_DATA_SET;
 
     // {Vector2[][]} compute a data set for each non-zero harmonic
     const harmonicDataSets = [];

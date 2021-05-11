@@ -28,6 +28,7 @@ class AxisDescription {
 
     config = merge( {
 
+      //TODO rename to max
       // {number} the absolute maximum value of the range, actual range is [-absoluteMax,absoluteMax]
       absoluteMax: required( config.absoluteMax ),
 
@@ -95,79 +96,20 @@ class AxisDescription {
     assert && assert( zoomLevel >= 0 && zoomLevel < axisDescriptions.length, `invalid zoomLevel: ${zoomLevel}` );
     return zoomLevel;
   }
+
+  /**
+   * Determines whether an array of AxisDescription is sorted by descending absoluteMax value.
+   * @param {AxisDescription[]} axisDescriptions
+   * @returns {boolean}
+   * @public
+   */
+  static isSortedDescending( axisDescriptions ) {
+    return _.every( axisDescriptions,
+      ( axisDescription, index, axisDescriptions ) =>
+        ( index === 0 || axisDescriptions[ index - 1 ].absoluteMax > axisDescription.absoluteMax )
+    );
+  }
 }
-
-/**
- * Determines whether an array of AxisDescription is sorted by descending absoluteMax value.
- * @param {AxisDescription[]} axisDescriptions
- * @returns {boolean}
- */
-function isSortedDescending( axisDescriptions ) {
-  return _.every( axisDescriptions,
-    ( axisDescription, index, axisDescriptions ) =>
-      ( index === 0 || axisDescriptions[ index - 1 ].absoluteMax > axisDescription.absoluteMax )
-  );
-}
-
-//======================================================================================================================
-// x axis
-//======================================================================================================================
-
-// @public {AxisDescription[]} descriptions for the x axis, one for each zoom level
-// Values are coefficients (multipliers) for L or T, depending on which domain is plotted.
-AxisDescription.X_AXIS_DESCRIPTIONS = [
-  new AxisDescription( {
-    absoluteMax: 2,
-    gridLineSpacing: 1 / 8,
-    tickMarkSpacing: 1 / 4,
-    tickLabelSpacing: 1 / 2
-  } ),
-  new AxisDescription( {
-    absoluteMax: 3 / 2,
-    gridLineSpacing: 1 / 8,
-    tickMarkSpacing: 1 / 4,
-    tickLabelSpacing: 1 / 2
-  } ),
-  new AxisDescription( {
-    absoluteMax: 1,
-    gridLineSpacing: 1 / 8,
-    tickMarkSpacing: 1 / 4,
-    tickLabelSpacing: 1 / 4
-  } ),
-  new AxisDescription( {
-    absoluteMax: 3 / 4,
-    gridLineSpacing: 1 / 8,
-    tickMarkSpacing: 1 / 4,
-    tickLabelSpacing: 1 / 4
-  } ),
-  new AxisDescription( {
-    absoluteMax: 1 / 2,
-    gridLineSpacing: 1 / 8,
-    tickMarkSpacing: 1 / 4,
-    tickLabelSpacing: 1 / 4
-  } ),
-  new AxisDescription( {
-    absoluteMax: 1 / 4,
-    gridLineSpacing: 1 / 8,
-    tickMarkSpacing: 1 / 4,
-    tickLabelSpacing: 1 / 4
-  } )
-];
-assert && assert( isSortedDescending( AxisDescription.X_AXIS_DESCRIPTIONS ),
-  'X_AXIS_DESCRIPTIONS must be sorted by descending absoluteMax value' );
-
-// @public default zoom level for the x axis
-AxisDescription.DEFAULT_X_ZOOM_LEVEL = AxisDescription.X_AXIS_DESCRIPTIONS.length - 2;
-
-// @public default description for the x axis
-AxisDescription.DEFAULT_X_AXIS_DESCRIPTION = AxisDescription.X_AXIS_DESCRIPTIONS[ AxisDescription.DEFAULT_X_ZOOM_LEVEL ];
-
-// Guard again accidentally changing the default when X_AXIS_DESCRIPTIONS is modified.
-assert && assert( AxisDescription.DEFAULT_X_AXIS_DESCRIPTION.absoluteMax === 1 / 2,
-  'X_DEFAULT_ZOOM_LEVEL is probably incorrect - did you add an AxisDescription?' );
-
-// @public zoomed out as far as possible
-AxisDescription.X_FULLY_ZOOMED_OUT = AxisDescription.X_AXIS_DESCRIPTIONS[ AxisDescription.X_AXIS_DESCRIPTIONS.length - 1 ];
 
 //======================================================================================================================
 // y axis
@@ -229,7 +171,7 @@ AxisDescription.Y_AXIS_DESCRIPTIONS = [
     tickLabelSpacing: 0.5
   } )
 ];
-assert && assert( isSortedDescending( AxisDescription.Y_AXIS_DESCRIPTIONS ),
+assert && assert( AxisDescription.isSortedDescending( AxisDescription.Y_AXIS_DESCRIPTIONS ),
   'Y_AXIS_DESCRIPTIONS must be sorted by descending absoluteMax value' );
 
 // @public default zoom level for the y axis

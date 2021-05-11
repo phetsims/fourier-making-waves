@@ -59,8 +59,8 @@ class HarmonicsChart {
     const createDataSet = harmonic => {
 
       // Higher-frequency (higher-order) harmonics require more points to draw a smooth plot.
-      // See documentation for MAX_POINTS_PER_DATA_SET.
-      const numberOfPoints = Math.ceil( HarmonicsChart.MAX_POINTS_PER_DATA_SET *
+      // See documentation for FMWConstants.MAX_POINTS_PER_DATA_SET.
+      const numberOfPoints = Math.ceil( FMWConstants.MAX_POINTS_PER_DATA_SET *
                                         harmonic.order / fourierSeries.harmonics.length );
 
       return fourierSeries.createHarmonicDataSet( harmonic, numberOfPoints, this.xAxisDescriptionProperty.value,
@@ -105,22 +105,6 @@ class HarmonicsChart {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
 }
-
-//TODO move all of this somewhere else
-// @public
-// Number of points in the data set for the highest order (highest frequency) harmonic
-// The number of points for each harmonic plot is a function of order, because higher-frequency harmonics require
-// more points to draw a smooth plot. This value was chosen empirically, such that the highest-order harmonic looks
-// smooth when the Harmonics chart is fully zoomed out.
-HarmonicsChart.MAX_POINTS_PER_DATA_SET = 2000;
-assert && assert( FMWConstants.MAX_HARMONICS === 11,
-  `MAX_POINTS_PER_DATA_SET was chosen based on MAX_HARMONICS=${FMWConstants.MAX_HARMONICS}. Since you have ` +
-  'changed that value, you will need to either adjust MAX_POINTS_PER_DATA_SET, or modify this assertion.'
-);
-assert && assert( AxisDescription.X_AXIS_DESCRIPTIONS[ 0 ].absoluteMax === 2,
-  'MAX_POINTS_PER_DATA_SET was chosen based on a specific zoom level for the x axis. Since you have ' +
-  'changed that value, you will need to either adjust MAX_POINTS_PER_DATA_SET, or modify this assertion.'
-);
 
 fourierMakingWaves.register( 'HarmonicsChart', HarmonicsChart );
 export default HarmonicsChart;

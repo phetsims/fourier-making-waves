@@ -76,8 +76,6 @@ class SumChart {
       [ this.sumDataSetProperty ],
       sumDataSet => _.maxBy( sumDataSet, point => point.y ).y
     );
-    assert && assert( 2 * AxisDescription.X_FULLY_ZOOMED_OUT.absoluteMax >= 0.5,
-      'max amplitude is in data set only if at least 1/2 of the wavelength is visible when fully zoomed out' );
 
     //TODO derive this value only while auto scale is enabled?
     // @public (read-only) {DerivedProperty.<Range>} auto-scale range of the y axis, fitted to the sum's max amplitude

@@ -21,13 +21,13 @@ import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import AxisDescription from './AxisDescription.js';
 import DiscreteFourierSeries from './DiscreteFourierSeries.js';
 import DiscreteHarmonicsChart from './DiscreteHarmonicsChart.js';
 import DiscreteSumChart from './DiscreteSumChart.js';
 import EquationForm from './EquationForm.js';
 import MeasurementTool from './MeasurementTool.js';
 import Waveform from './Waveform.js';
+import XAxisDescriptions from './XAxisDescriptions.js';
 
 // This factor slows down time for the 'space & time' domain, determined empirically.
 const TIME_SCALE = 0.001;
@@ -86,11 +86,18 @@ class DiscreteModel {
       equationForm => ( equationForm === EquationForm.HIDDEN ) ? TickLabelFormat.NUMERIC : TickLabelFormat.SYMBOLIC
     );
 
-    // @public zoom level for the x axis, index into AxisDescription.X_AXIS_DESCRIPTIONS
+    // default zoom level for the x axis
+    const DEFAULT_X_ZOOM_LEVEL = XAxisDescriptions.length - 2;
+
+    // Guard again accidentally changing the default if XAxisDescriptions is modified.
+    assert && assert( XAxisDescriptions[ DEFAULT_X_ZOOM_LEVEL ].absoluteMax === 1 / 2,
+      'DEFAULT_X_ZOOM_LEVEL is probably incorrect - did you modify XAxisDescriptions?' );
+
+    // @public zoom level for the x axis, index into XAxisDescriptions
     // This is shared by the Harmonics and Sum charts.
-    this.xZoomLevelProperty = new NumberProperty( AxisDescription.DEFAULT_X_ZOOM_LEVEL, {
+    this.xZoomLevelProperty = new NumberProperty( DEFAULT_X_ZOOM_LEVEL, {
       numberType: 'Integer',
-      range: new Range( 0, AxisDescription.X_AXIS_DESCRIPTIONS.length - 1 )
+      range: new Range( 0, XAxisDescriptions.length - 1 )
     } );
 
     // @public {DerivedProperty.<AxisDescription>} describes the properties of the x axis.
@@ -98,7 +105,7 @@ class DiscreteModel {
     // dispose is not needed.
     this.xAxisDescriptionProperty = new DerivedProperty(
       [ this.xZoomLevelProperty ],
-      xZoomLevel => AxisDescription.X_AXIS_DESCRIPTIONS[ xZoomLevel ]
+      xZoomLevel => XAxisDescriptions[ xZoomLevel ]
     );
 
     const soundTandem = options.tandem.createTandem( 'sound' );

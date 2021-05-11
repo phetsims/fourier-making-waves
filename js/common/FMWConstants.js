@@ -24,6 +24,13 @@ const FMWConstants = {
   // see https://github.com/phetsims/fourier-making-waves/issues/22
   MAX_AMPLITUDE: 1.5,
 
+  //TODO add some verification for this value, since it depends on MAX_HARMONICS and XZoomDescriptions?
+  // Number of points in the data set for the highest order (highest frequency) harmonic
+  // The number of points for each harmonic plot is a function of order, because higher-frequency harmonics require
+  // more points to draw a smooth plot. This value was chosen empirically, such that the highest-order harmonic looks
+  // smooth when the Harmonics chart is fully zoomed out.
+  MAX_POINTS_PER_DATA_SET: 2000,
+
   // View ============================================================================================================
 
   SCREEN_VIEW_X_MARGIN: 15,
