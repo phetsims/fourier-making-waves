@@ -2,16 +2,23 @@ TODO.txt for fourier-making-waves
 
 ## Common
 
+Factor out YAxisDescriptions
+Move AxisDescription to common/model/
+Generalize SumChart and SumChartNode to handle multiple FourierSeries
+xZoomButtonGroup is duplicated - move to base class?
+
 ## Discrete screen
 
 Reuse Vector2 instances for data sets in FourierSeries (new Vector2)
-
 Infinite Harmonics feature, see Preset.java
 
 ## Wave Game screen
 
+Don't evaluate the guess until all sliders have been released
+Implement WaveGameChallenge.isSimilar
+Eliminate WaveGameLevel adapterGuessFourierSeries and adapterAnswerFourierSeries by making charts mutable?
 See GameManager.java, newGame creates a challenge, AMPLITUDE_STEP (0.01) is how close the guess must be to the answer.
 
-Remove zoom buttons from Harmonics graph
-Remove zoom buttons from Sum graph
-Remove checkboxes from Sum graph
+## PhET-iO
+
+Do a basic instrumentation pass
