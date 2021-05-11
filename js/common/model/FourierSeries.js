@@ -126,46 +126,6 @@ class FourierSeries extends PhetioObject {
     }
   }
 
-  //TODO this feels like it belongs in HarmonicsChart
-  /**
-   * Creates the data set for one harmonic.
-   * @param {Harmonic} harmonic
-   * @param {number} numberOfPoints
-   * @param {AxisDescription} xAxisDescription
-   * @param {Domain} domain
-   * @param {SeriesType} seriesType
-   * @param {number} t
-   * @returns {Vector2[]}
-   * @public
-   */
-  createHarmonicDataSet( harmonic, numberOfPoints, xAxisDescription, domain, seriesType, t ) {
-
-    assert && assert( harmonic instanceof Harmonic, 'harmonic' );
-    assert && assert( this.harmonics.includes( harmonic ), 'harmonic is not part of this series' );
-    assert && assert( typeof numberOfPoints === 'number' && numberOfPoints > 0, 'invalid numberOfPoints' );
-    assert && assert( xAxisDescription instanceof AxisDescription, 'invalid xAxisDescription' );
-    assert && assert( Domain.includes( domain ), 'invalid domain' );
-    assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
-    assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
-
-    const amplitudeFunction = AMPLITUDE_FUNCTIONS.getFunction( domain, seriesType );
-    const order = harmonic.order;
-    const amplitude = harmonic.amplitudeProperty.value;
-
-    const xRange = AxisDescription.createXRange( xAxisDescription, domain, this.L, this.T );
-    const dx = xRange.getLength() / ( numberOfPoints - 1 );
-
-    const dataSet = [];
-    for ( let i = 0; i < numberOfPoints; i++ ) {
-      const x = xRange.min + ( i * dx );
-      const y = amplitudeFunction( x, t, this.L, this.T, order, amplitude );
-      dataSet.push( new Vector2( x, y ) );
-    }
-    assert && assert( dataSet.length === numberOfPoints, 'incorrect number of points in dataSet' );
-
-    return dataSet;
-  }
-
   //TODO this feels like it belongs in SumChart
   //TODO performance: reuse harmonic data sets to compute the sum
   /**
@@ -193,7 +153,8 @@ class FourierSeries extends PhetioObject {
     const harmonicDataSets = [];
     this.harmonics.forEach( harmonic => {
       if ( harmonic.amplitudeProperty.value !== 0 ) {
-        harmonicDataSets.push( this.createHarmonicDataSet( harmonic, numberOfPoints, xAxisDescription, domain, seriesType, t ) );
+        const dataSet = harmonic.createDataSet( numberOfPoints, this.L, this.T, xAxisDescription, domain, seriesType, t );
+        harmonicDataSets.push( dataSet );
       }
     } );
     assert && assert( _.every( harmonicDataSets, dataSet => dataSet.length === numberOfPoints ),
@@ -227,87 +188,6 @@ class FourierSeries extends PhetioObject {
     return sumDataSet;
   }
 }
-
-/**
- * The equation that is used to compute amplitude depends on what domain (space, time, space & time) and
- * series type (sin/cos) is being used. This object provides an optimized way to retrieve a function
- * that implements the appropriate equation.
- */
-const AMPLITUDE_FUNCTIONS = {
-
-  /**
-   * Gets the function that computes amplitude at an x value.
-   * @param {Domain} domain
-   * @param {SeriesType} seriesType
-   * @returns {function(x:number, t:number, L:number, T:number, order:number, amplitude:number):number}
-   * @public
-   */
-  getFunction( domain, seriesType ) {
-
-    assert && assert( Domain.includes( domain ), 'invalid domain' );
-    assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
-
-    let f;
-    if ( domain === Domain.SPACE ) {
-      f = ( seriesType === SeriesType.SINE ) ?
-          AMPLITUDE_FUNCTIONS.getAmplitudeSpaceSine :
-          AMPLITUDE_FUNCTIONS.getAmplitudeSpaceCosine;
-    }
-    else if ( domain === Domain.TIME ) {
-      f = ( seriesType === SeriesType.SINE ) ?
-          AMPLITUDE_FUNCTIONS.getAmplitudeTimeSine :
-          AMPLITUDE_FUNCTIONS.getAmplitudeTimeCosine;
-    }
-    else { // Domain.SPACE_AND_TIME
-      f = ( seriesType === SeriesType.SINE ) ?
-          AMPLITUDE_FUNCTIONS.getAmplitudeSpaceAndTimeSine :
-          AMPLITUDE_FUNCTIONS.getAmplitudeSpaceAndTimeCosine;
-    }
-    return f;
-  },
-
-  /**
-   * These 6 functions all have the same signature, and use the equation that corresponds to EquationForm.MODE.
-   * @param {number} x - x-axis coordinate, whose semantics depend on the domain of the function
-   * @param {number} t - the current time, in milliseconds
-   * @param {number} L - the harmonic's wavelength, in meters
-   * @param {number} T - the harmonic's period, in milliseconds
-   * @param {number} n - the harmonic's order
-   * @param {number} A - the harmonic's amplitude, unitless
-   * @returns {number} y value (amplitude) at x
-   * @private
-   */
-
-  // Domain.SPACE, SeriesType.SINE
-  getAmplitudeSpaceSine( x, t, L, T, n, A ) {
-    return A * Math.sin( 2 * Math.PI * n * x / L );
-  },
-
-  // Domain.SPACE, SeriesType.COSINE
-  getAmplitudeSpaceCosine( x, t, L, T, n, A ) {
-    return A * Math.cos( 2 * Math.PI * n * x / L );
-  },
-
-  // Domain.TIME, SeriesType.SINE
-  getAmplitudeTimeSine( x, t, L, T, n, A ) {
-    return A * Math.sin( 2 * Math.PI * n * x / T );
-  },
-
-  // Domain.TIME, SeriesType.COSINE
-  getAmplitudeTimeCosine( x, t, L, T, n, A ) {
-    return A * Math.cos( 2 * Math.PI * n * x / T );
-  },
-
-  // Domain.SPACE_AND_TIME, SeriesType.SINE
-  getAmplitudeSpaceAndTimeSine( x, t, L, T, n, A ) {
-    return A * Math.sin( 2 * Math.PI * n * ( x / L - t / T ) );
-  },
-
-  // Domain.SPACE_AND_TIME, SeriesType.COSINE
-  getAmplitudeSpaceAndTimeCosine( x, t, L, T, n, A ) {
-    return A * Math.cos( 2 * Math.PI * n * ( x / L - t / T ) );
-  }
-};
 
 fourierMakingWaves.register( 'FourierSeries', FourierSeries );
 export default FourierSeries;

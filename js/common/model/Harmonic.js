@@ -8,13 +8,18 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import AxisDescription from '../../discrete/model/AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import Domain from './Domain.js';
+import getAmplitudeFunction from './getAmplitudeFunction.js';
+import SeriesType from './SeriesType.js';
 
 class Harmonic extends PhetioObject {
 
@@ -84,6 +89,46 @@ class Harmonic extends PhetioObject {
    */
   reset() {
     this.amplitudeProperty.reset();
+  }
+
+  /**
+   * Creates a data set for this harmonic.
+   * @param {number} numberOfPoints
+   * @param {number} L
+   * @param {number} T
+   * @param {AxisDescription} xAxisDescription
+   * @param {Domain} domain
+   * @param {SeriesType} seriesType
+   * @param {number} t
+   * @returns {Vector2[]}
+   * @public
+   */
+  createDataSet( numberOfPoints, L, T, xAxisDescription, domain, seriesType, t ) {
+
+    assert && AssertUtils.assertPositiveInteger( numberOfPoints );
+    assert && AssertUtils.assertPositiveNumber( L );
+    assert && AssertUtils.assertPositiveNumber( T );
+    assert && assert( xAxisDescription instanceof AxisDescription, 'invalid xAxisDescription' );
+    assert && assert( Domain.includes( domain ), 'invalid domain' );
+    assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
+    assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
+
+    const amplitudeFunction = getAmplitudeFunction( domain, seriesType );
+    const order = this.order;
+    const amplitude = this.amplitudeProperty.value;
+
+    const xRange = AxisDescription.createXRange( xAxisDescription, domain, L, T );
+    const dx = xRange.getLength() / ( numberOfPoints - 1 );
+
+    const dataSet = [];
+    for ( let i = 0; i < numberOfPoints; i++ ) {
+      const x = xRange.min + ( i * dx );
+      const y = amplitudeFunction( x, t, L, T, order, amplitude );
+      dataSet.push( new Vector2( x, y ) );
+    }
+    assert && assert( dataSet.length === numberOfPoints, 'incorrect number of points in dataSet' );
+
+    return dataSet;
   }
 }
 

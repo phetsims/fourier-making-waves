@@ -63,8 +63,8 @@ class HarmonicsChart {
       const numberOfPoints = Math.ceil( FMWConstants.MAX_POINTS_PER_DATA_SET *
                                         harmonic.order / fourierSeries.harmonics.length );
 
-      return fourierSeries.createHarmonicDataSet( harmonic, numberOfPoints, this.xAxisDescriptionProperty.value,
-        domainProperty.value, seriesTypeProperty.value, tProperty.value );
+      return harmonic.createDataSet( numberOfPoints, fourierSeries.L, fourierSeries.T,
+        this.xAxisDescriptionProperty.value, domainProperty.value, seriesTypeProperty.value, tProperty.value );
     };
 
     // @public {Property.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order
