@@ -2,8 +2,9 @@
 
 /**
  * DiscreteXAxisDescriptions is the set of descriptions for the x-axes of the Harmonics and Sum charts in the
- * 'Discrete' screen. There is one AxisDescription for each zoom level.
- * Values in the AxisDescriptions are coefficients (multipliers) for L or T, depending on which domain is plotted.
+ * 'Discrete' screen. There is one AxisDescription for each zoom level, and the array is ordered from most 'zoomed out'
+ * to most 'zoomed in'. Values in the AxisDescriptions are coefficients (multipliers) for L or T, depending on which
+ * domain is plotted.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
