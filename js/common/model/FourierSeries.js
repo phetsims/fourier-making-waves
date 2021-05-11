@@ -126,7 +126,6 @@ class FourierSeries extends PhetioObject {
     }
   }
 
-  //TODO performance: reuse harmonic data sets to compute the sum
   /**
    * Creates the data set for the sum of the harmonics in the Fourier Series.
    * This does not reuse HarmonicsChart harmonicDataSetProperties, because (1) that creates all kinds of problems with
