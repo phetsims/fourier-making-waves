@@ -28,7 +28,7 @@ class AxisDescription {
 
     config = merge( {
 
-      // {number} used to define a symmetrical range [-max,max] for the axis
+      // {number} used to define a symmetric range [-max,max] for the axis
       max: required( config.max ),
 
       // {number} spacing between grid lines
