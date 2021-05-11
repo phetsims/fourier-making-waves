@@ -51,6 +51,7 @@ const DiscreteXAxisDescriptions = [
     tickLabelSpacing: 1 / 4
   } )
 ];
+
 assert && assert( AxisDescription.isSortedDescending( DiscreteXAxisDescriptions ),
   'DiscreteXAxisDescriptions must be sorted by descending absoluteMax value' );
 
