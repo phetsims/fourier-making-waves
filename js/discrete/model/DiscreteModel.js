@@ -27,7 +27,7 @@ import DiscreteSumChart from './DiscreteSumChart.js';
 import EquationForm from './EquationForm.js';
 import MeasurementTool from './MeasurementTool.js';
 import Waveform from './Waveform.js';
-import XAxisDescriptions from './XAxisDescriptions.js';
+import DiscreteXAxisDescriptions from './DiscreteXAxisDescriptions.js';
 
 // This factor slows down time for the 'space & time' domain, determined empirically.
 const TIME_SCALE = 0.001;
@@ -87,17 +87,17 @@ class DiscreteModel {
     );
 
     // default zoom level for the x axis
-    const DEFAULT_X_ZOOM_LEVEL = XAxisDescriptions.length - 2;
+    const DEFAULT_X_ZOOM_LEVEL = DiscreteXAxisDescriptions.length - 2;
 
-    // Guard again accidentally changing the default if XAxisDescriptions is modified.
-    assert && assert( XAxisDescriptions[ DEFAULT_X_ZOOM_LEVEL ].absoluteMax === 1 / 2,
-      'DEFAULT_X_ZOOM_LEVEL is probably incorrect - did you modify XAxisDescriptions?' );
+    // Guard again accidentally changing the default if DiscreteXAxisDescriptions is modified.
+    assert && assert( DiscreteXAxisDescriptions[ DEFAULT_X_ZOOM_LEVEL ].absoluteMax === 1 / 2,
+      'DEFAULT_X_ZOOM_LEVEL is probably incorrect - did you modify DiscreteXAxisDescriptions?' );
 
-    // @public zoom level for the x axis, index into XAxisDescriptions
+    // @public zoom level for the x axis, the index into DiscreteXAxisDescriptions
     // This is shared by the Harmonics and Sum charts.
     this.xZoomLevelProperty = new NumberProperty( DEFAULT_X_ZOOM_LEVEL, {
       numberType: 'Integer',
-      range: new Range( 0, XAxisDescriptions.length - 1 )
+      range: new Range( 0, DiscreteXAxisDescriptions.length - 1 )
     } );
 
     // @public {DerivedProperty.<AxisDescription>} describes the properties of the x axis.
@@ -105,7 +105,7 @@ class DiscreteModel {
     // dispose is not needed.
     this.xAxisDescriptionProperty = new DerivedProperty(
       [ this.xZoomLevelProperty ],
-      xZoomLevel => XAxisDescriptions[ xZoomLevel ]
+      xZoomLevel => DiscreteXAxisDescriptions[ xZoomLevel ]
     );
 
     const soundTandem = options.tandem.createTandem( 'sound' );
