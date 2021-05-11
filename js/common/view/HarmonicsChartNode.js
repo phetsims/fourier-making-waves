@@ -12,10 +12,10 @@ import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import HarmonicPlot from '../../discrete/view/HarmonicPlot.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import HarmonicsChart from '../model/HarmonicsChart.js';
 import FMWChartNode from './FMWChartNode.js';
-import HarmonicPlot from '../../discrete/view/HarmonicPlot.js';
 
 // constants
 const NORMAL_LINE_WIDTH = 1;

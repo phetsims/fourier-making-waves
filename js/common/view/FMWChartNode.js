@@ -12,19 +12,14 @@ import AxisNode from '../../../../bamboo/js/AxisNode.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
-import LabelSet from '../../../../bamboo/js/LabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Range from '../../../../dot/js/Range.js';
-import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Fraction from '../../../../phetcommon/js/model/Fraction.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import AxisDescription from '../../discrete/model/AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -33,7 +28,8 @@ import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
-import TickLabelFormat from '../model/TickLabelFormat.js';
+import XTickLabelSet from './XTickLabelSet.js';
+import YTickLabelSet from './YTickLabelSet.js';
 
 // constants
 const AXIS_OPTIONS = {
@@ -51,12 +47,6 @@ const TICK_MARK_OPTIONS = {
   edge: 'min',
   extent: 6
 };
-
-const TICK_LABEL_OPTIONS = {
-  edge: 'min'
-};
-
-const TICK_LABEL_DECIMAL_PLACES = 2;
 
 class FMWChartNode extends Node {
 
@@ -81,6 +71,9 @@ class FMWChartNode extends Node {
       // {number} dimensions of the chart rectangle, in view coordinates
       viewWidth: 100,
       viewHeight: 100,
+
+      xTickDecimalPlaces: 2,
+      yTickDecimalPlaces: 1,
 
       // phet-io
       tandem: Tandem.REQUIRED
@@ -113,9 +106,8 @@ class FMWChartNode extends Node {
     const xAxis = new AxisNode( chartTransform, Orientation.HORIZONTAL, AXIS_OPTIONS );
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.gridLineSpacing, GRID_LINE_OPTIONS );
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
-    const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.tickLabelSpacing, merge( {
-      createLabel: value => createTickLabel( value, domainProperty.value, xAxisTickLabelFormatProperty.value, L, T )
-    }, TICK_LABEL_OPTIONS ) );
+    const xTickLabels = new XTickLabelSet( chartTransform, xAxisDescription.tickLabelSpacing, domainProperty,
+      xAxisTickLabelFormatProperty, L, T );
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
       maxWidth: 30, // determined empirically
@@ -145,17 +137,12 @@ class FMWChartNode extends Node {
         xTickLabels.invalidateLabelSet();
       } );
 
-    // unlink is not needed
-    xAxisTickLabelFormatProperty.link( () => xTickLabels.invalidateLabelSet() );
-
     // y axis ---------------------------------------------------------
 
     const yAxis = new AxisNode( chartTransform, Orientation.VERTICAL, AXIS_OPTIONS );
     const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, yAxisDescription.gridLineSpacing, GRID_LINE_OPTIONS );
     const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, yAxisDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
-    const yTickLabels = new LabelSet( chartTransform, Orientation.VERTICAL, yAxisDescription.tickLabelSpacing, merge( {
-      createLabel: createNumericTickLabel
-    }, TICK_LABEL_OPTIONS ) );
+    const yTickLabels = new YTickLabelSet( chartTransform, yAxisDescription.tickLabelSpacing );
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
@@ -206,83 +193,6 @@ class FMWChartNode extends Node {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
-}
-
-/**
- * Creates a tick label of the correct form (numeric or symbolic) depending on EquationForm.
- * @param {number} value
- * @param {Domain} domain
- * @param {TickLabelFormat} tickLabelFormat
- * @param {number} L - the wavelength of the fundamental harmonic, in meters
- * @param {number} T - the period of the fundamental harmonic, in milliseconds
- * @returns {Node}
- */
-function createTickLabel( value, domain, tickLabelFormat, L, T ) {
-  if ( tickLabelFormat === TickLabelFormat.NUMERIC ) {
-    return createNumericTickLabel( value );
-  }
-  else {
-    return createSymbolicTickLabel( value, domain, L, T );
-  }
-}
-
-/**
- * Creates a numeric tick label for the chart.
- * @param {number} value
- * @returns {Node}
- */
-function createNumericTickLabel( value ) {
-
-  // Truncate trailing zeros
-  return new Text( Utils.toFixedNumber( value, TICK_LABEL_DECIMAL_PLACES ), {
-    font: FMWConstants.TICK_LABEL_FONT
-  } );
-}
-
-/**
- * Creates a symbolic tick label for the chart.
- * @param {number} value
- * @param {Domain} domain
- * @param {number} L - the wavelength of the fundamental harmonic, in meters
- * @param {number} T - the period of the fundamental harmonic, in milliseconds
- * @returns {Node}
- */
-function createSymbolicTickLabel( value, domain, L, T ) {
-
-  const constantSymbol = ( domain === Domain.TIME ) ? FMWSymbols.T : FMWSymbols.L;
-  let text;
-  if ( value === 0 ) {
-    text = '0';
-  }
-  else {
-
-    // Convert the coefficient to a fraction
-    const constantValue = ( domain === Domain.TIME ) ? T : L;
-    const coefficient = value / constantValue;
-    const fraction = Fraction.fromDecimal( coefficient );
-
-    // Pieces of the fraction that we need to create the RichText markup, with trailing zeros truncated
-    const sign = Math.sign( value );
-    const numerator = Math.abs( Utils.toFixedNumber( fraction.numerator, TICK_LABEL_DECIMAL_PLACES ) );
-    const denominator = Math.abs( Utils.toFixedNumber( fraction.denominator, TICK_LABEL_DECIMAL_PLACES ) );
-
-    text = '';
-    if ( sign === -1 ) {
-      text += MathSymbols.UNARY_MINUS;
-    }
-    if ( numerator !== 1 ) {
-      text += numerator;
-    }
-    text += constantSymbol;
-    if ( denominator !== 1 ) {
-      text += `/${denominator}`;
-    }
-  }
-
-  return new RichText( text, {
-    font: FMWConstants.TICK_LABEL_FONT,
-    maxWidth: 35 // determined empirically
-  } );
 }
 
 fourierMakingWaves.register( 'FMWChartNode', FMWChartNode );
