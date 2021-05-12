@@ -12,7 +12,7 @@ import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Domain from '../../common/model/Domain.js';
+import Domain from './Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class AxisDescription {

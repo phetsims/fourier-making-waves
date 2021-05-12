@@ -15,7 +15,7 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import AxisDescription from '../../discrete/model/AxisDescription.js';
+import AxisDescription from './AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from './Domain.js';
 import getAmplitudeFunction from './getAmplitudeFunction.js';

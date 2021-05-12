@@ -13,7 +13,7 @@
 
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import AxisDescription from './AxisDescription.js';
+import AxisDescription from '../../common/model/AxisDescription.js';
 
 // {AxisDescription[]}
 const DiscreteYAxisDescriptions = [

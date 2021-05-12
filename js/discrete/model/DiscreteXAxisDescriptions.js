@@ -13,7 +13,7 @@
  */
 
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import AxisDescription from './AxisDescription.js';
+import AxisDescription from '../../common/model/AxisDescription.js';
 
 // {AxisDescription[]}
 const DiscreteXAxisDescriptions = [

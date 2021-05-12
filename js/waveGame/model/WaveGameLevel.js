@@ -12,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Domain from '../../common/model/Domain.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import AxisDescription from '../../discrete/model/AxisDescription.js';
+import AxisDescription from '../../common/model/AxisDescription.js';
 import DiscreteYAxisDescriptions from '../../discrete/model/DiscreteYAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';

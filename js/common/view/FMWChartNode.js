@@ -21,7 +21,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import AxisDescription from '../../discrete/model/AxisDescription.js';
+import AxisDescription from '../model/AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FMWColorProfile from '../FMWColorProfile.js';
