@@ -12,7 +12,6 @@ import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Domain from './Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class AxisDescription {
@@ -45,31 +44,10 @@ class AxisDescription {
   }
 
   /**
-   * Creates the range for the x-axis. For the x axis, AxisDescription contains coefficients to be applied to L or T,
-   * depending on which domain is being plotted.
-   * @param {AxisDescription} axisDescription
-   * @param {Domain} domain
-   * @param {number} L - wavelength of the fundamental harmonic, in m
-   * @param {number} T - period of the fundamental harmonic, in
-   * @returns {Range}
-   * @public
-   */
-  static createXRange( axisDescription, domain, L, T ) {
-
-    assert && assert( axisDescription instanceof AxisDescription, 'invalid axisDescription' );
-    assert && assert( Domain.includes( domain ), 'invalid domain' );
-    assert && assert( typeof L === 'number' && L > 0, 'invalid L' );
-    assert && assert( typeof T === 'number' && T > 0, 'invalid T' );
-
-    const value = ( domain === Domain.TIME ) ? T : L;
-    const xMin = value * axisDescription.range.min;
-    const xMax = value * axisDescription.range.max;
-    return new Range( xMin, xMax );
-  }
-
-  /**
-   * Gets the zoom level (index into axisDescriptions) that corresponds to an axis range.  This is used to keep the
-   * y-axis zoom level in-sync with auto scaling, but is general enough to be used with either axis.
+   * Gets the zoom level (index into axisDescriptions) that is appropriate for a specified axis range.
+   * This is the first entry in axisDescriptions such that range.max >= axisDescription.range.max.
+   * This is used to keep the y-axis zoom level in-sync with auto scaling, but is general enough to be used with
+   * either axis.
    * @param {Range} range
    * @param {AxisDescription[]} axisDescriptions
    * @returns {number} - the zoom level, an index into axisDescriptions

@@ -88,7 +88,7 @@ class FMWChartNode extends Node {
     const chartTransform = new ChartTransform( {
       viewWidth: options.viewWidth,
       viewHeight: options.viewHeight,
-      modelXRange: AxisDescription.createXRange( xAxisDescription, domainProperty.value, L, T ),
+      modelXRange: xAxisDescription.createAxisRange( domainProperty.value, L, T ),
       modelYRange: yAxisDescription.range
     } );
 

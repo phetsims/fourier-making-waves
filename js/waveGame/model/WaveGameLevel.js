@@ -12,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Domain from '../../common/model/Domain.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import AxisDescription from '../../common/model/AxisDescription.js';
+import XAxisDescription from '../../common/model/XAxisDescription.js';
 import DiscreteYAxisDescriptions from '../../discrete/model/DiscreteYAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
@@ -29,7 +29,7 @@ const SERIES_TYPE = SeriesType.SINE;
 const t = 0; // lowercase t (time) to distinguish from uppercase T (period)
 
 // Fixed x-axis description, because Wave Game has no zoom buttons for the x axes.
-const X_AXIS_DESCRIPTION = new AxisDescription( {
+const X_AXIS_DESCRIPTION = new XAxisDescription( {
   max: 1 / 2,
   gridLineSpacing: 1 / 8,
   tickMarkSpacing: 1 / 4,

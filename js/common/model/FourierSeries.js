@@ -15,13 +15,13 @@ import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import AxisDescription from './AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';
 import Domain from './Domain.js';
 import Harmonic from './Harmonic.js';
 import SeriesType from './SeriesType.js';
+import XAxisDescription from './XAxisDescription.js';
 
 // constants
 const DEFAULT_AMPLITUDES = Array( FMWConstants.MAX_HARMONICS ).fill( 0 );
@@ -131,7 +131,7 @@ class FourierSeries extends PhetioObject {
    * This does not reuse HarmonicsChart harmonicDataSetProperties, because (1) that creates all kinds of problems with
    * ordering and intermediate states, and (2) harmonic plots use different numbers of points based on harmonic
    * frequency, because more points are required to draw higher-frequency harmonics.
-   * @param {AxisDescription} xAxisDescription
+   * @param {XAxisDescription} xAxisDescription
    * @param {Domain} domain
    * @param {SeriesType} seriesType
    * @param {number} t
@@ -140,7 +140,7 @@ class FourierSeries extends PhetioObject {
    */
   createSumDataSet( xAxisDescription, domain, seriesType, t ) {
 
-    assert && assert( xAxisDescription instanceof AxisDescription, 'invalid xAxisDescription' );
+    assert && assert( xAxisDescription instanceof XAxisDescription, 'invalid xAxisDescription' );
     assert && assert( Domain.includes( domain ), 'invalid domain' );
     assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
     assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
@@ -164,7 +164,7 @@ class FourierSeries extends PhetioObject {
         'expected all harmonics to have zero amplitude' );
 
       // All harmonics had zero amplitude, so the sum is zero.
-      const xRange = AxisDescription.createXRange( xAxisDescription, domain, this.L, this.T );
+      const xRange = xAxisDescription.createAxisRange( domain, this.L, this.T );
       sumDataSet.push( new Vector2( xRange.min, 0 ) );
       sumDataSet.push( new Vector2( xRange.max, 0 ) );
     }

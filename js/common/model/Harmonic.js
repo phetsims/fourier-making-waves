@@ -15,11 +15,11 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import AxisDescription from './AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from './Domain.js';
 import getAmplitudeFunction from './getAmplitudeFunction.js';
 import SeriesType from './SeriesType.js';
+import XAxisDescription from './XAxisDescription.js';
 
 class Harmonic extends PhetioObject {
 
@@ -96,7 +96,7 @@ class Harmonic extends PhetioObject {
    * @param {number} numberOfPoints
    * @param {number} L
    * @param {number} T
-   * @param {AxisDescription} xAxisDescription
+   * @param {XAxisDescription} xAxisDescription
    * @param {Domain} domain
    * @param {SeriesType} seriesType
    * @param {number} t
@@ -108,7 +108,7 @@ class Harmonic extends PhetioObject {
     assert && AssertUtils.assertPositiveInteger( numberOfPoints );
     assert && AssertUtils.assertPositiveNumber( L );
     assert && AssertUtils.assertPositiveNumber( T );
-    assert && assert( xAxisDescription instanceof AxisDescription, 'invalid xAxisDescription' );
+    assert && assert( xAxisDescription instanceof XAxisDescription, 'invalid xAxisDescription' );
     assert && assert( Domain.includes( domain ), 'invalid domain' );
     assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
     assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
@@ -117,7 +117,7 @@ class Harmonic extends PhetioObject {
     const order = this.order;
     const amplitude = this.amplitudeProperty.value;
 
-    const xRange = AxisDescription.createXRange( xAxisDescription, domain, L, T );
+    const xRange = xAxisDescription.createAxisRange( domain, L, T );
     const dx = xRange.getLength() / ( numberOfPoints - 1 );
 
     const dataSet = [];

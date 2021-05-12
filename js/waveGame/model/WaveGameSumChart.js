@@ -25,7 +25,7 @@ class WaveGameSumChart extends SumChart {
    * @param {Domain} domain
    * @param {SeriesType} seriesType
    * @param {number} t
-   * @param {AxisDescription} xAxisDescription
+   * @param {XAxisDescription} xAxisDescription
    * @param {AxisDescription[]} yAxisDescriptions
    * @param {Object} [options]
    */
