@@ -51,8 +51,7 @@ class HarmonicsChartNode extends FMWChartNode {
     const emphasizedHarmonics = harmonicsChart.emphasizedHarmonics;
     const xAxisDescriptionProperty = harmonicsChart.xAxisDescriptionProperty;
 
-    super( fourierSeries.L, fourierSeries.T, domainProperty, xAxisDescriptionProperty,
-      xAxisTickLabelFormatProperty, options );
+    super( fourierSeries.L, fourierSeries.T, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, options );
 
     // {HarmonicPlot[]} a plot for each harmonic in the Fourier series, in harmonic order, rendered using Canvas
     const plots = [];

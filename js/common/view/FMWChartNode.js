@@ -54,17 +54,17 @@ class FMWChartNode extends Node {
    * @param {number} L - the wavelength of the fundamental harmonic, in meters
    * @param {number} T - the period of the fundamental harmonic, in milliseconds
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
+   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( L, T, domainProperty, xAxisDescriptionProperty, xAxisTickLabelFormatProperty, options ) {
+  constructor( L, T, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, options ) {
 
     assert && AssertUtils.assertPositiveNumber( L );
     assert && AssertUtils.assertPositiveNumber( T );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
     assert && assert( xAxisTickLabelFormatProperty instanceof Property, 'invalid xAxisTickLabelFormatProperty' );
+    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
 
     options = merge( {
 
