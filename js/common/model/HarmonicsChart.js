@@ -46,6 +46,14 @@ class HarmonicsChart {
     this.domainProperty = domainProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
 
+    // @public y-axis scale is fixed for the Harmonics chart, there are no zoom controls
+    this.yAxisDescription = new AxisDescription( {
+      max: FMWConstants.MAX_AMPLITUDE,
+      gridLineSpacing: 0.5,
+      tickMarkSpacing: 0.5,
+      tickLabelSpacing: 0.5
+    } );
+
     // @public the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
     this.emphasizedHarmonics = new EmphasizedHarmonics( {
       tandem: options.tandem.createTandem( 'emphasizedHarmonics' )

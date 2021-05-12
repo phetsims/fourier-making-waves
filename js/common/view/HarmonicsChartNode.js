@@ -12,10 +12,8 @@ import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import AxisDescription from '../../discrete/model/AxisDescription.js';
 import HarmonicPlot from '../../discrete/view/HarmonicPlot.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import FMWConstants from '../FMWConstants.js';
 import HarmonicsChart from '../model/HarmonicsChart.js';
 import FMWChartNode from './FMWChartNode.js';
 
@@ -24,14 +22,6 @@ const NORMAL_LINE_WIDTH = 1;
 const EMPHASIZED_LINE_WIDTH = 2;
 const DE_EMPHASIZED_LINE_WIDTH = 0.5;
 const DE_EMPHASIZED_STROKE = Color.grayColor( 150 );
-
-// y-axis scale is fixed for the Harmonics chart, there are no zoom controls
-const Y_AXIS_DESCRIPTION = new AxisDescription( {
-  max: FMWConstants.MAX_AMPLITUDE,
-  gridLineSpacing: 0.5,
-  tickMarkSpacing: 0.5,
-  tickLabelSpacing: 0.5
-} );
 
 class HarmonicsChartNode extends FMWChartNode {
 
@@ -60,9 +50,10 @@ class HarmonicsChartNode extends FMWChartNode {
       'a data set is required for each harmonic' );
     const emphasizedHarmonics = harmonicsChart.emphasizedHarmonics;
     const xAxisDescriptionProperty = harmonicsChart.xAxisDescriptionProperty;
+    const yAxisDescription = harmonicsChart.yAxisDescription;
 
     super( fourierSeries.L, fourierSeries.T, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
-      new Property( Y_AXIS_DESCRIPTION ), options );
+      new Property( yAxisDescription ), options );
 
     // {HarmonicPlot[]} a plot for each harmonic in the Fourier series, in harmonic order, rendered using Canvas
     const plots = [];
