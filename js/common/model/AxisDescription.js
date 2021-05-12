@@ -18,7 +18,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class AxisDescription {
 
   /**
-   * @param config - see doc of fields below, all values are in model coordinates
+   * @param config - see doc of fields below, all values are in model coordinates, with units specific to the axis
    */
   constructor( config ) {
 
