@@ -2,7 +2,10 @@
 
 /**
  * DiscreteYAxisDescriptions is the set of descriptions for the y-axes of the Sum charts in the 'Discrete' and
- * 'Wave Game' screens. There is one AxisDescription for each zoom level, and the array is ordered from most 'zoomed out'
+ * 'Wave Game' screens.  These are relevant in the 'Wave Game' screen because the same y-axis scales are desired
+ * when auto-scaling the Sum chart for the current challenge.
+ *
+ * There is one AxisDescription for each zoom level, and the array is ordered from most 'zoomed out'
  * to most 'zoomed in'. Values in the AxisDescriptions are amplitudes (unitless).
  *
  * @author Chris Malley (PixelZoom, Inc.)
