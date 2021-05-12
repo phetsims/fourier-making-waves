@@ -2,12 +2,12 @@
 
 /**
  * DiscreteXAxisDescriptions is the set of descriptions for the x-axes of the Harmonics and Sum charts in the
- * 'Discrete' screen.  These are not relevant in the 'Wave Screen' because the x-axes have a fixed scale, and are
+ * 'Discrete' screen. These are not relevant in the 'Wave Screen' because the x-axes have a fixed scale, and are
  * not zoom-able.
  *
- * There is one AxisDescription for each zoom level, and the array is ordered from most 'zoomed out'
- * to most 'zoomed in'. Values in the AxisDescriptions are coefficients (multipliers) for L or T, depending on which
- * domain (space, time, space & time) is plotted.
+ * There is one AxisDescription for each zoom level, and the array is ordered from most 'zoomed out' to
+ * most 'zoomed in'. Values in the AxisDescriptions are coefficients (multipliers) for L or T, depending
+ * on which domain (space, time, space & time) is plotted.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
