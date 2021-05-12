@@ -21,14 +21,14 @@ import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import AxisDescription from './AxisDescription.js';
 import DiscreteFourierSeries from './DiscreteFourierSeries.js';
 import DiscreteHarmonicsChart from './DiscreteHarmonicsChart.js';
 import DiscreteSumChart from './DiscreteSumChart.js';
+import DiscreteXAxisDescriptions from './DiscreteXAxisDescriptions.js';
+import DiscreteYAxisDescriptions from './DiscreteYAxisDescriptions.js';
 import EquationForm from './EquationForm.js';
 import MeasurementTool from './MeasurementTool.js';
 import Waveform from './Waveform.js';
-import DiscreteXAxisDescriptions from './DiscreteXAxisDescriptions.js';
 
 // This factor slows down time for the 'space & time' domain, determined empirically.
 const TIME_SCALE = 0.001;
@@ -147,8 +147,8 @@ class DiscreteModel {
 
     // @public
     this.sumChart = new DiscreteSumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
-      this.tProperty, this.xZoomLevelProperty, this.xAxisDescriptionProperty, AxisDescription.Y_AXIS_DESCRIPTIONS, {
-        yZoomLevel: AxisDescription.DEFAULT_Y_ZOOM_LEVEL,
+      this.tProperty, this.xZoomLevelProperty, this.xAxisDescriptionProperty, DiscreteYAxisDescriptions, {
+        yZoomLevel: DiscreteYAxisDescriptions.length - 1,
         tandem: options.tandem.createTandem( 'sumChart' )
       } );
 

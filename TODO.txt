@@ -2,7 +2,6 @@ TODO.txt for fourier-making-waves
 
 ## Common
 
-Factor out YAxisDescriptions
 Move AxisDescription to common/model/
 Generalize SumChart and SumChartNode to handle multiple FourierSeries
 xZoomButtonGroup is duplicated - move to base class?

@@ -13,6 +13,7 @@ import Domain from '../../common/model/Domain.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import AxisDescription from '../../discrete/model/AxisDescription.js';
+import DiscreteYAxisDescriptions from '../../discrete/model/DiscreteYAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
@@ -99,7 +100,7 @@ class WaveGameLevel {
 
     // @public
     this.sumChart = new WaveGameSumChart( this.adapterAnswerFourierSeries, this.adapterGuessFourierSeries,
-      DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, AxisDescription.Y_AXIS_DESCRIPTIONS );
+      DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, DiscreteYAxisDescriptions );
 
     const guessAmplitudesListener = amplitudes => this.adapterGuessFourierSeries.setAmplitudes( amplitudes );
 

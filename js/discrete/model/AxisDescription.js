@@ -1,12 +1,9 @@
 // Copyright 2020, University of Colorado Boulder
 
-//TODO move y-axis descriptions to a separate file
 /**
  * AxisDescription is a data structure used to describe the range, grid lines, and ticks for an axis at a specific
- * zoom level. A zoom level is an index into a {AxisDescription[]}.
- *
- * NOTE that for the x axis, the values in AxisDescription are coefficients (multipliers) for L or T, depending on
- * which domain is plotted.
+ * zoom level. A zoom level is an index into a {AxisDescription[]}. Units for the fields in an AxisDescription are
+ * specific to the axis.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,9 +12,8 @@ import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import FMWConstants from '../../common/FMWConstants.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../../common/model/Domain.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class AxisDescription {
 
@@ -109,79 +105,6 @@ class AxisDescription {
     );
   }
 }
-
-//======================================================================================================================
-// y axis
-//======================================================================================================================
-
-// Alert that you've done something that may require revising Y_AXIS_DESCRIPTIONS.
-assert && assert( FMWConstants.MAX_AMPLITUDE === 1.5,
-  'Y_AXIS_DESCRIPTIONS have been tuned for the specific amplitude range [-1.5,1.5]. ' +
-  'It looks like you have changed FMWConstants.MAX_AMPLITUDE, and may need to revise.' );
-
-// @public {AxisDescription[]} descriptions for the y axis, one for each zoom level. Values are amplitude (unitless).
-AxisDescription.Y_AXIS_DESCRIPTIONS = [
-  new AxisDescription( {
-    max: 15,
-    gridLineSpacing: 5,
-    tickMarkSpacing: 5,
-    tickLabelSpacing: 5
-  } ),
-  new AxisDescription( {
-    max: 10,
-    gridLineSpacing: 5,
-    tickMarkSpacing: 5,
-    tickLabelSpacing: 5
-  } ),
-  new AxisDescription( {
-    max: 8,
-    gridLineSpacing: 1,
-    tickMarkSpacing: 5,
-    tickLabelSpacing: 5
-  } ),
-  new AxisDescription( {
-    max: 5,
-    gridLineSpacing: 1,
-    tickMarkSpacing: 5,
-    tickLabelSpacing: 5
-  } ),
-  new AxisDescription( {
-    max: 4,
-    gridLineSpacing: 1,
-    tickMarkSpacing: 2,
-    tickLabelSpacing: 2
-  } ),
-  new AxisDescription( {
-    max: 3,
-    gridLineSpacing: 1,
-    tickMarkSpacing: 1,
-    tickLabelSpacing: 1
-  } ),
-  new AxisDescription( {
-    max: 2,
-    gridLineSpacing: 1,
-    tickMarkSpacing: 1,
-    tickLabelSpacing: 1
-  } ),
-  new AxisDescription( {
-    max: FMWConstants.MAX_AMPLITUDE,
-    gridLineSpacing: 0.5,
-    tickMarkSpacing: 0.5,
-    tickLabelSpacing: 0.5
-  } )
-];
-assert && assert( AxisDescription.isSortedDescending( AxisDescription.Y_AXIS_DESCRIPTIONS ),
-  'Y_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
-
-// @public default zoom level for the y axis
-AxisDescription.DEFAULT_Y_ZOOM_LEVEL = AxisDescription.Y_AXIS_DESCRIPTIONS.length - 1;
-
-// @public default description for the y axis
-AxisDescription.DEFAULT_Y_AXIS_DESCRIPTION = AxisDescription.Y_AXIS_DESCRIPTIONS[ AxisDescription.DEFAULT_Y_ZOOM_LEVEL ];
-
-// Guard again accidentally changing the default when Y_AXIS_DESCRIPTIONS is modified.
-assert && assert( AxisDescription.DEFAULT_Y_AXIS_DESCRIPTION.range.max === FMWConstants.MAX_AMPLITUDE,
-  'DEFAULT_Y_ZOOM_LEVEL is probably incorrect - did you add an AxisDescription?' );
 
 fourierMakingWaves.register( 'AxisDescription', AxisDescription );
 export default AxisDescription;
