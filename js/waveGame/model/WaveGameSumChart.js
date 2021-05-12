@@ -33,7 +33,7 @@ class WaveGameSumChart extends SumChart {
                xAxisDescription, yAxisDescriptions, options ) {
 
     options = merge( {
-      autoScale: true //TODO This causes the chart to auto scale to answerFourierSeries. Too clever?
+      yAutoScale: true //TODO This causes the chart to auto scale to answerFourierSeries. Too clever?
     }, options );
 
     super(

@@ -16,8 +16,8 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import AxisDescription from './AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
 import FourierSeries from './FourierSeries.js';
 import SeriesType from './SeriesType.js';
@@ -43,7 +43,7 @@ class SumChart {
     assert && AssertUtils.assertArrayOf( yAxisDescriptions, AxisDescription );
 
     options = merge( {
-      autoScale: false,
+      yAutoScale: false,
       yZoomLevel: 1,
       tandem: Tandem.REQUIRED
     }, options );
@@ -54,8 +54,8 @@ class SumChart {
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
 
     // @public whether the Sum chart's y-axis automatically scales to fit its data set
-    this.autoScaleProperty = new BooleanProperty( options.autoScale, {
-      tandem: options.tandem.createTandem( 'autoScaleProperty' )
+    this.yAutoScaleProperty = new BooleanProperty( options.yAutoScale, {
+      tandem: options.tandem.createTandem( 'yAutoScaleProperty' )
     } );
 
     /**
@@ -98,7 +98,7 @@ class SumChart {
       } );
 
     // The initial y-axis zoom level depends on whether auto scale is initially enabled.
-    const initialYZoomLevel = this.autoScaleProperty.value ?
+    const initialYZoomLevel = this.yAutoScaleProperty.value ?
                               AxisDescription.getZoomLevelForRange( this.yAxisAutoScaleRangeProperty.value, yAxisDescriptions ) :
                               options.yZoomLevel;
 
@@ -120,11 +120,11 @@ class SumChart {
     // When auto scale is enabled, link this listener to yAxisAutoScaleRangeProperty, and adjust the y-axis zoom
     // range so that's it's appropriate for the auto-scale range.
     const updateZoomLevel = yAxisAutoScaleRange => {
-      assert && assert( this.autoScaleProperty.value, 'should not be called when auto scale is disabled' );
+      assert && assert( this.yAutoScaleProperty.value, 'should not be called when yAutoScale is disabled' );
       this.yZoomLevelProperty.value = AxisDescription.getZoomLevelForRange( yAxisAutoScaleRange, yAxisDescriptions );
     };
-    this.autoScaleProperty.link( autoScale => {
-      if ( autoScale ) {
+    this.yAutoScaleProperty.link( yAutoScale => {
+      if ( yAutoScale ) {
         this.yAxisAutoScaleRangeProperty.link( updateZoomLevel );
       }
       else {
@@ -145,7 +145,7 @@ class SumChart {
    * @public
    */
   reset() {
-    this.autoScaleProperty.reset();
+    this.yAutoScaleProperty.reset();
     this.sumDataSetProperty.reset();
     this.yZoomLevelProperty.reset();
   }

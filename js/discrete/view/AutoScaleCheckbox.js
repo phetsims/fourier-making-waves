@@ -17,10 +17,10 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 class AutoScaleCheckbox extends Checkbox {
 
   /**
-   * @param {Property.<boolean>} autoScaleProperty
+   * @param {Property.<boolean>} yAutoScaleProperty
    * @param {Object} [options]
    */
-  constructor( autoScaleProperty, options ) {
+  constructor( yAutoScaleProperty, options ) {
 
     options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, options );
 
@@ -29,7 +29,7 @@ class AutoScaleCheckbox extends Checkbox {
       maxWidth: 200 // determined empirically
     } );
 
-    super( labelNode, autoScaleProperty, options );
+    super( labelNode, yAutoScaleProperty, options );
 
     // pointer areas
     this.touchArea = this.localBounds.dilatedXY( 6, 6 );

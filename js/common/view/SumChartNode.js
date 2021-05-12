@@ -47,7 +47,7 @@ class SumChartNode extends FMWChartNode {
     const domainProperty = sumChart.domainProperty;
     const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;
     const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
-    const autoScaleProperty = sumChart.autoScaleProperty;
+    const yAutoScaleProperty = sumChart.yAutoScaleProperty;
     const yAxisAutoScaleRangeProperty = sumChart.yAxisAutoScaleRangeProperty;
     const sumDataSetProperty = sumChart.sumDataSetProperty;
 
@@ -84,12 +84,12 @@ class SumChartNode extends FMWChartNode {
       sumPlot.visible = _.some( amplitudes, amplitude => amplitude !== 0 );
     } );
 
-    //TODO move this to FMWChartNode, add conditional for whether options.autoScaleProperty is defined
+    //TODO move this to FMWChartNode, add conditional for whether options.yAutoScaleProperty is defined
     // Update the y-axis. unlink is not needed.
     yAxisDescriptionProperty.link( yAxisDescription => {
 
       // Range is determined by zoom level only if auto scale is disabled.
-      if ( !autoScaleProperty.value ) {
+      if ( !yAutoScaleProperty.value ) {
         this.chartTransform.setModelYRange( yAxisDescription.range );
       }
 
@@ -100,12 +100,12 @@ class SumChartNode extends FMWChartNode {
       this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
     } );
 
-    //TODO move this to FMWChartNode, add conditional for whether options.autoScaleProperty is defined
+    //TODO move this to FMWChartNode, add conditional for whether options.yAutoScaleProperty is defined
     // Update the auto-scale range for the y-axis.
     Property.multilink(
-      [ autoScaleProperty, yAxisAutoScaleRangeProperty ],
-      ( autoScale, yAxisAutoScaleRange ) => {
-        if ( autoScale ) {
+      [ yAutoScaleProperty, yAxisAutoScaleRangeProperty ],
+      ( yAutoScale, yAxisAutoScaleRange ) => {
+        if ( yAutoScale ) {
           this.chartTransform.setModelYRange( yAxisAutoScaleRange );
         }
         else {

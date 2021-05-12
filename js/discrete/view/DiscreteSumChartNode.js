@@ -34,7 +34,7 @@ class DiscreteSumChartNode extends SumChartNode {
     // Fields of interest in sumChart, to improve readability
     const xZoomLevelProperty = sumChart.xZoomLevelProperty;
     const yZoomLevelProperty = sumChart.yZoomLevelProperty;
-    const autoScaleProperty = sumChart.autoScaleProperty;
+    const yAutoScaleProperty = sumChart.yAutoScaleProperty;
     const infiniteHarmonicsVisibleProperty = sumChart.infiniteHarmonicsVisibleProperty;
 
     // Zoom buttons for the x-axis range, at bottom right.
@@ -62,12 +62,12 @@ class DiscreteSumChartNode extends SumChartNode {
     this.addChild( yZoomButtonGroup );
 
     // Disable the y-axis zoom buttons when auto scale is enabled. unlink is not needed.
-    autoScaleProperty.link( autoScale => {
-      yZoomButtonGroup.enabled = !autoScale;
+    yAutoScaleProperty.link( yAutoScale => {
+      yZoomButtonGroup.enabled = !yAutoScale;
     } );
 
     // Automatically scales the y axis to show the entire plot
-    const autoScaleCheckbox = new AutoScaleCheckbox( autoScaleProperty, {
+    const autoScaleCheckbox = new AutoScaleCheckbox( yAutoScaleProperty, {
       tandem: options.tandem.createTandem( 'autoScaleCheckbox' )
     } );
 
