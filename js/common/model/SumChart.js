@@ -30,18 +30,21 @@ class SumChart {
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
+   * @param {AxisDescription[]} yAxisDescriptions
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, options ) {
+  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, yAxisDescriptions, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
+    assert && AssertUtils.assertArrayOf( yAxisDescriptions, AxisDescription );
 
     options = merge( {
       autoScale: false,
+      yZoomLevel: 1,
       tandem: Tandem.REQUIRED
     }, options );
 
@@ -96,26 +99,29 @@ class SumChart {
 
     // The initial y-axis zoom level depends on whether auto scale is initially enabled.
     const initialYZoomLevel = this.autoScaleProperty.value ?
-                              AxisDescription.getZoomLevelForRange( this.yAxisAutoScaleRangeProperty.value, AxisDescription.Y_AXIS_DESCRIPTIONS ) :
-                              AxisDescription.DEFAULT_Y_ZOOM_LEVEL;
+                              AxisDescription.getZoomLevelForRange( this.yAxisAutoScaleRangeProperty.value, yAxisDescriptions ) :
+                              options.yZoomLevel;
 
-    // @public zoom level for the y axis, index into AxisDescription.Y_AXIS_DESCRIPTIONS
+    // @public zoom level for the y axis, index into yAxisDescriptions
     this.yZoomLevelProperty = new NumberProperty( initialYZoomLevel, {
       numberType: 'Integer',
-      range: new Range( 0, AxisDescription.Y_AXIS_DESCRIPTIONS.length - 1 )
+      range: new Range( 0, yAxisDescriptions.length - 1 )
     } );
 
     // @public {DerivedProperty.<AxisDescription>} describes the properties of the y axis. dispose is not needed
     this.yAxisDescriptionProperty = new DerivedProperty(
       [ this.yZoomLevelProperty ],
-      yZoomLevel => AxisDescription.Y_AXIS_DESCRIPTIONS[ yZoomLevel ]
+      yZoomLevel => {
+        assert && assert( yZoomLevel >= 0 && yZoomLevel < yAxisDescriptions.length );
+        return yAxisDescriptions[ yZoomLevel ];
+      }
     );
 
     // When auto scale is enabled, link this listener to yAxisAutoScaleRangeProperty, and adjust the y-axis zoom
     // range so that's it's appropriate for the auto-scale range.
     const updateZoomLevel = yAxisAutoScaleRange => {
       assert && assert( this.autoScaleProperty.value, 'should not be called when auto scale is disabled' );
-      this.yZoomLevelProperty.value = AxisDescription.getZoomLevelForRange( yAxisAutoScaleRange, AxisDescription.Y_AXIS_DESCRIPTIONS );
+      this.yZoomLevelProperty.value = AxisDescription.getZoomLevelForRange( yAxisAutoScaleRange, yAxisDescriptions );
     };
     this.autoScaleProperty.link( autoScale => {
       if ( autoScale ) {

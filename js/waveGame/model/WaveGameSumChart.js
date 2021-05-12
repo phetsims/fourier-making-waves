@@ -22,10 +22,15 @@ class WaveGameSumChart extends SumChart {
   /**
    * @param {FourierSeries} answerFourierSeries
    * @param {FourierSeries} guessFourierSeries
+   * @param {Domain} domain
+   * @param {SeriesType} seriesType
+   * @param {number} t
    * @param {AxisDescription} xAxisDescription
+   * @param {AxisDescription[]} yAxisDescriptions
    * @param {Object} [options]
    */
-  constructor( answerFourierSeries, guessFourierSeries, domain, seriesType, t, xAxisDescription, options ) {
+  constructor( answerFourierSeries, guessFourierSeries, domain, seriesType, t,
+               xAxisDescription, yAxisDescriptions, options ) {
 
     options = merge( {
       autoScale: true //TODO This causes the chart to auto scale to answerFourierSeries. Too clever?
@@ -37,6 +42,7 @@ class WaveGameSumChart extends SumChart {
       new EnumerationProperty( SeriesType, seriesType ),
       new NumberProperty( t ),
       new Property( xAxisDescription ),
+      yAxisDescriptions,
       options
     );
 

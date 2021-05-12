@@ -99,7 +99,7 @@ class WaveGameLevel {
 
     // @public
     this.sumChart = new WaveGameSumChart( this.adapterAnswerFourierSeries, this.adapterGuessFourierSeries,
-      DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION );
+      DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, AxisDescription.Y_AXIS_DESCRIPTIONS );
 
     const guessAmplitudesListener = amplitudes => this.adapterGuessFourierSeries.setAmplitudes( amplitudes );
 

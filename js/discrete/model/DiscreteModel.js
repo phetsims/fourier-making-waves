@@ -21,6 +21,7 @@ import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import AxisDescription from './AxisDescription.js';
 import DiscreteFourierSeries from './DiscreteFourierSeries.js';
 import DiscreteHarmonicsChart from './DiscreteHarmonicsChart.js';
 import DiscreteSumChart from './DiscreteSumChart.js';
@@ -146,7 +147,8 @@ class DiscreteModel {
 
     // @public
     this.sumChart = new DiscreteSumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
-      this.tProperty, this.xZoomLevelProperty, this.xAxisDescriptionProperty, {
+      this.tProperty, this.xZoomLevelProperty, this.xAxisDescriptionProperty, AxisDescription.Y_AXIS_DESCRIPTIONS, {
+        yZoomLevel: AxisDescription.DEFAULT_Y_ZOOM_LEVEL,
         tandem: options.tandem.createTandem( 'sumChart' )
       } );
 

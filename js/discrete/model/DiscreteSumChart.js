@@ -19,11 +19,14 @@ class DiscreteSumChart extends SumChart {
    * @param {Property.<number>} tProperty
    * @param {NumberProperty} xZoomLevelProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
+   * @param {AxisDescription[]} yAxisDescriptions
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xZoomLevelProperty,
-               xAxisDescriptionProperty, options ) {
-    super( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, options );
+  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
+               xZoomLevelProperty, xAxisDescriptionProperty, yAxisDescriptions, options ) {
+
+    super( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
+      xAxisDescriptionProperty, yAxisDescriptions, options );
 
     // @public zoom level for the x axis
     this.xZoomLevelProperty = xZoomLevelProperty;
