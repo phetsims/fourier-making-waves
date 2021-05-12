@@ -56,15 +56,17 @@ class FMWChartNode extends Node {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
+   * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( L, T, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, options ) {
+  constructor( L, T, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options ) {
 
     assert && AssertUtils.assertPositiveNumber( L );
     assert && AssertUtils.assertPositiveNumber( T );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( xAxisTickLabelFormatProperty instanceof Property, 'invalid xAxisTickLabelFormatProperty' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
+    assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
 
     options = merge( {
 
@@ -80,7 +82,7 @@ class FMWChartNode extends Node {
     }, options );
 
     const xAxisDescription = xAxisDescriptionProperty.value;
-    const yAxisDescription = AxisDescription.DEFAULT_Y_AXIS_DESCRIPTION;
+    const yAxisDescription = yAxisDescriptionProperty.value;
 
     // the transform between model and view coordinate frames
     const chartTransform = new ChartTransform( {

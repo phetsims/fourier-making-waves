@@ -51,7 +51,8 @@ class SumChartNode extends FMWChartNode {
     const yAxisAutoScaleRangeProperty = sumChart.yAxisAutoScaleRangeProperty;
     const sumDataSetProperty = sumChart.sumDataSetProperty;
 
-    super( fourierSeries.L, fourierSeries.T, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, options );
+    super( fourierSeries.L, fourierSeries.T, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
+      yAxisDescriptionProperty, options );
 
     // Plot that shows the sum
     const sumPlot = new CanvasLinePlot( this.chartTransform, sumDataSetProperty.value, {
@@ -83,6 +84,7 @@ class SumChartNode extends FMWChartNode {
       sumPlot.visible = _.some( amplitudes, amplitude => amplitude !== 0 );
     } );
 
+    //TODO move this to FMWChartNode, add conditional for whether options.autoScaleProperty is defined
     // Update the y-axis. unlink is not needed.
     yAxisDescriptionProperty.link( yAxisDescription => {
 
@@ -98,6 +100,7 @@ class SumChartNode extends FMWChartNode {
       this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
     } );
 
+    //TODO move this to FMWChartNode, add conditional for whether options.autoScaleProperty is defined
     // Update the auto-scale range for the y-axis.
     Property.multilink(
       [ autoScaleProperty, yAxisAutoScaleRangeProperty ],
