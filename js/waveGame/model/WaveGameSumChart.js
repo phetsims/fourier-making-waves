@@ -46,6 +46,9 @@ class WaveGameSumChart extends SumChart {
       options
     );
 
+    // @public
+    this.guessFourierSeries = guessFourierSeries;
+
     const createGuessDataSet = () => guessFourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t );
 
     // @public
