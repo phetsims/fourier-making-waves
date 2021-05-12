@@ -2,6 +2,7 @@ TODO.txt for fourier-making-waves
 
 ## Common
 
+Create FMWChart that corresponds to what FMWChartNode handles
 Generalize SumChart and SumChartNode to handle multiple FourierSeries
 xZoomButtonGroup is duplicated - move to base class?
 Move handling of yAxisDescriptionProperty and autoScaleProperty from SumChartNode to FMWChartNode
