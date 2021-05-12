@@ -77,22 +77,22 @@ class HarmonicsChart {
 
     // @public {Property.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order
     // A data set is updated when any of its dependencies changes.
-    this.harmonicDataSetProperties = [];
+    this.dataSetProperties = [];
     for ( let i = 0; i < fourierSeries.harmonics.length; i++ ) {
 
       const harmonic = fourierSeries.harmonics[ i ];
 
       // @public {Property.<Vector2[]>} the data set for this harmonic
-      const harmonicDataSetProperty = new Property( createDataSet( harmonic ), {
+      const dataSetProperty = new Property( createDataSet( harmonic ), {
         isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
         //TODO tandem
       } );
-      this.harmonicDataSetProperties.push( harmonicDataSetProperty );
+      this.dataSetProperties.push( dataSetProperty );
 
       // Update the harmonic's data set when dependencies change. unmultilink is not needed.
       Property.lazyMultilink( [ harmonic.amplitudeProperty, this.xAxisDescriptionProperty, domainProperty,
           seriesTypeProperty, tProperty ],
-        () => { harmonicDataSetProperty.value = createDataSet( harmonic ); }
+        () => { dataSetProperty.value = createDataSet( harmonic ); }
       );
     }
   }
@@ -102,7 +102,7 @@ class HarmonicsChart {
    */
   reset() {
     this.emphasizedHarmonics.clear();
-    this.harmonicDataSetProperties.forEach( property => property.reset() );
+    this.dataSetProperties.forEach( dataSetProperty => dataSetProperty.reset() );
   }
 
   /**

@@ -18,21 +18,21 @@ class HarmonicPlot extends CanvasLinePlot {
   /**
    * @param {ChartTransform} chartTransform
    * @param {Harmonic} harmonic
-   * @param {Property.<Vector2[]>} harmonicDataSetProperty
+   * @param {Property.<Vector2[]>} dataSetProperty
    * @param {Object} [options]
    */
-  constructor( chartTransform, harmonic, harmonicDataSetProperty, options ) {
+  constructor( chartTransform, harmonic, dataSetProperty, options ) {
 
     assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
     assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
-    assert && AssertUtils.assertPropertyOf( harmonicDataSetProperty, Array );
+    assert && AssertUtils.assertPropertyOf( dataSetProperty, Array );
 
     options = options || {};
 
     assert && assert( !options.stroke, 'HarmonicPlot sets stroke' );
     options.stroke = harmonic.colorProperty.value;
 
-    super( chartTransform, harmonicDataSetProperty.value, options );
+    super( chartTransform, dataSetProperty.value, options );
 
     // @public (read-only)
     this.harmonic = harmonic;
@@ -41,8 +41,8 @@ class HarmonicPlot extends CanvasLinePlot {
     this.changedEmitter = new Emitter();
 
     // Keep synchronized with the data set. unlink is not needed.
-    harmonicDataSetProperty.lazyLink( harmonicDataSet => {
-      this.setDataSet( harmonicDataSet );
+    dataSetProperty.lazyLink( dataSet => {
+      this.setDataSet( dataSet );
       this.changedEmitter.emit();
     } );
 

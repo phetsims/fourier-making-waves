@@ -68,7 +68,7 @@ class SumChart {
     };
 
     // @public {Property.<Vector2[]>} the data set for the sum
-    this.sumDataSetProperty = new Property( createDataSet(), {
+    this.dataSetProperty = new Property( createDataSet(), {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
       //TODO tandem
     } );
@@ -76,8 +76,8 @@ class SumChart {
     //TODO performance: determine this while creating the sum data set
     // @public {DerivedProperty.<number>} the maximum amplitude of the sum
     this.maxAmplitudeProperty = new DerivedProperty(
-      [ this.sumDataSetProperty ],
-      sumDataSet => _.maxBy( sumDataSet, point => point.y ).y
+      [ this.dataSetProperty ],
+      dataSet => _.maxBy( dataSet, point => point.y ).y
     );
 
     //TODO derive this value only while auto scale is enabled?
@@ -137,7 +137,7 @@ class SumChart {
     // Update the sum when dependencies change. unmultilink is not needed.
     Property.lazyMultilink( [ fourierSeries.amplitudesProperty, xAxisDescriptionProperty, domainProperty,
         seriesTypeProperty, tProperty ],
-      () => { this.sumDataSetProperty.value = createDataSet(); }
+      () => { this.dataSetProperty.value = createDataSet(); }
     );
   }
 
@@ -146,7 +146,7 @@ class SumChart {
    */
   reset() {
     this.yAutoScaleProperty.reset();
-    this.sumDataSetProperty.reset();
+    this.dataSetProperty.reset();
     this.yZoomLevelProperty.reset();
   }
 

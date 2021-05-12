@@ -1,6 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO This is a bit unclear. It's using SumChart.sumDataSetProperty for the answer, and adding guessDataSetProperty.
+//TODO This is a bit unclear. It's using SumChart.dataSetProperty for the answer, and adding guessDataSetProperty.
 /**
  * WaveGameSumChart is the model for the 'Sum' chart in the 'Wave Game' screen.
  *
@@ -46,9 +46,7 @@ class WaveGameSumChart extends SumChart {
       options
     );
 
-    const createGuessDataSet = () => {
-      return guessFourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t );
-    };
+    const createGuessDataSet = () => guessFourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t );
 
     // @public
     this.guessDataSetProperty = new Property( createGuessDataSet(), {
@@ -57,8 +55,7 @@ class WaveGameSumChart extends SumChart {
     } );
 
     guessFourierSeries.amplitudesProperty.lazyLink( () => {
-      this.guessDataSetProperty.value =
-        guessFourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t );
+      this.guessDataSetProperty.value = guessFourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t );
     } );
   }
 }

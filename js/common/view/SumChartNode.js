@@ -49,13 +49,13 @@ class SumChartNode extends FMWChartNode {
     const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
     const yAutoScaleProperty = sumChart.yAutoScaleProperty;
     const yAxisAutoScaleRangeProperty = sumChart.yAxisAutoScaleRangeProperty;
-    const sumDataSetProperty = sumChart.sumDataSetProperty;
+    const dataSetProperty = sumChart.dataSetProperty;
 
     super( fourierSeries.L, fourierSeries.T, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
       yAxisDescriptionProperty, options );
 
     // Plot that shows the sum
-    const sumPlot = new CanvasLinePlot( this.chartTransform, sumDataSetProperty.value, {
+    const sumPlot = new CanvasLinePlot( this.chartTransform, dataSetProperty.value, {
       stroke: options.sumPlotStrokeProperty.value,
       lineWidth: options.sumPlotLineWidth
     } );
@@ -74,7 +74,7 @@ class SumChartNode extends FMWChartNode {
     } );
 
     // unlink is not needed.
-    sumDataSetProperty.link( dataSet => {
+    dataSetProperty.link( dataSet => {
       sumPlot.setDataSet( dataSet );
       chartCanvasNode.update();
     } );

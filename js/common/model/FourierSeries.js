@@ -128,7 +128,7 @@ class FourierSeries extends PhetioObject {
 
   /**
    * Creates the data set for the sum of the harmonics in the Fourier Series.
-   * This does not reuse HarmonicsChart harmonicDataSetProperties, because (1) that creates all kinds of problems with
+   * This does not reuse HarmonicsChart dataSetProperties, because (1) that creates all kinds of problems with
    * ordering and intermediate states, and (2) harmonic plots use different numbers of points based on harmonic
    * frequency, because more points are required to draw higher-frequency harmonics.
    * @param {XAxisDescription} xAxisDescription

@@ -45,8 +45,8 @@ class HarmonicsChartNode extends FMWChartNode {
     const fourierSeries = harmonicsChart.fourierSeries;
     const harmonics = fourierSeries.harmonics;
     const domainProperty = harmonicsChart.domainProperty;
-    const harmonicDataSetProperties = harmonicsChart.harmonicDataSetProperties;
-    assert && assert( harmonics.length === harmonicDataSetProperties.length,
+    const dataSetProperties = harmonicsChart.dataSetProperties;
+    assert && assert( harmonics.length === dataSetProperties.length,
       'a data set is required for each harmonic' );
     const emphasizedHarmonics = harmonicsChart.emphasizedHarmonics;
     const xAxisDescriptionProperty = harmonicsChart.xAxisDescriptionProperty;
@@ -58,7 +58,7 @@ class HarmonicsChartNode extends FMWChartNode {
     // {HarmonicPlot[]} a plot for each harmonic in the Fourier series, in harmonic order, rendered using Canvas
     const plots = [];
     for ( let i = 0; i < harmonics.length; i++ ) {
-      plots.push( new HarmonicPlot( this.chartTransform, harmonics[ i ], harmonicDataSetProperties[ i ] ) );
+      plots.push( new HarmonicPlot( this.chartTransform, harmonics[ i ], dataSetProperties[ i ] ) );
     }
 
     // Render the plots using Canvas, clipped to chartRectangle.
