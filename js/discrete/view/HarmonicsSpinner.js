@@ -23,7 +23,7 @@ class HarmonicsSpinner extends NumberSpinner {
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
 
     options = merge( {
-      arrowPosition: 'bothRight',
+      arrowsPosition: 'bothRight',
       numberDisplayOptions: {
         align: 'center',
         xMargin: 8,

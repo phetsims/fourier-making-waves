@@ -27,7 +27,7 @@ class AmplitudeControlsSpinner extends Node {
 
     options = merge( {
       spinnerOptions: {
-        arrowPosition: 'bothRight',
+        arrowsPosition: 'bothRight',
         numberDisplayOptions: {
           align: 'center',
           xMargin: 8,
