@@ -133,23 +133,6 @@ class WaveGameLevelNode extends Node {
       tandem: sumTandem.createTandem( 'harmonicsTitleNode' )
     } );
 
-    // Next and Refresh buttons do the same thing.
-    const next = () => {
-      this.interruptSubtreeInput();
-      nextButton.visible = false;
-      faceNode.visible = false;
-      level.nextChallenge();
-      refreshButton.enabled = true;
-      solveButton.enabled = true;
-    };
-
-    // Pressing the refresh button creates the next random challenge. Use it to skip the current challenge.
-    const refreshButton = new RefreshButton( {
-      listener: next,
-      scale: 0.75,
-      tandem: options.tandem.createTandem( 'refreshButton' )
-    } );
-
     //TODO this needs to be properly initialized and adjusted when level.challengeProperty changes
     const numberOfAmplitudeControlsProperty = new NumberProperty( 1, {
       range: new Range( 1, FMWConstants.MAX_HARMONICS )
@@ -162,14 +145,25 @@ class WaveGameLevelNode extends Node {
       tandem: options.tandem.createTandem( 'amplitudeControlsSpinner' )
     } );
 
-    // Smiley face, shown when a challenge has been successfully completed. Fades out to reveal the Next button.
-    const faceNode = new FaceNode( 200 /* headDiameter */, {
-      visible: false,
-      tandem: options.tandem.createTandem( 'faceNode' ),
-      phetioReadOnly: true
+    // Next and Refresh buttons do the same thing.
+    const next = () => {
+      this.interruptSubtreeInput();
+      nextButton.visible = false;
+      faceNode.visible = false;
+      level.nextChallenge();
+      refreshButton.enabled = true;
+      solveButton.enabled = true;
+    };
+
+    // Refresh button advances to the next challenge. It's available while working on the current challenge,
+    // and can be used to skip the current challenge.
+    const refreshButton = new RefreshButton( {
+      listener: next,
+      scale: 0.75,
+      tandem: options.tandem.createTandem( 'refreshButton' )
     } );
 
-    // Next button is shown after a challenge has been successfully completed, and it creates the next random challenge.
+    // Next button advances to the next challenge. It's available after successfully solving the current challenge.
     const nextButton = new RectangularPushButton( {
       listener: next,
       content: new Text( fourierMakingWavesStrings.next, {
@@ -178,7 +172,6 @@ class WaveGameLevelNode extends Node {
       } ),
       baseColor: FMWColorProfile.nextButtonFillProperty,
       visible: false,
-      center: faceNode.center,
       tandem: options.tandem.createTandem( 'nextButton' ),
       phetioReadOnly: true
     } );
@@ -195,6 +188,13 @@ class WaveGameLevelNode extends Node {
         this.interruptSubtreeInput();
         level.solve();
       }
+    } );
+
+    // Smiley face, shown when a challenge has been successfully completed. Fades out to reveal the Next button.
+    const faceNode = new FaceNode( 200 /* headDiameter */, {
+      visible: false,
+      tandem: options.tandem.createTandem( 'faceNode' ),
+      phetioReadOnly: true
     } );
 
     // @private {WaveGameRewardNode|null} reward shown while rewardDialog is open
