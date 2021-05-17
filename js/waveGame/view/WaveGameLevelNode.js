@@ -90,79 +90,6 @@ class WaveGameLevelNode extends Node {
       tandem: options.tandem.createTandem( 'statusBar' )
     } );
 
-    // Pressing the refresh button creates the next random challenge.
-    const refreshButton = new RefreshButton( {
-      scale: 0.75,
-      tandem: options.tandem.createTandem( 'refreshButton' )
-    } );
-
-    //TODO this needs to be properly initialized and adjusted when level.challengeProperty changes
-    const numberOfAmplitudeControlsProperty = new NumberProperty( 1, {
-      range: new Range( 1, FMWConstants.MAX_HARMONICS )
-    } );
-
-    const amplitudeControlsSpinner = new AmplitudeControlsSpinner( numberOfAmplitudeControlsProperty, {
-      textOptions: {
-        font: DEFAULT_FONT
-      },
-      tandem: options.tandem.createTandem( 'amplitudeControlsSpinner' )
-    } );
-
-    // Smiley face, shown when a challenge has been successfully completed. Fades out to reveal the Next button.
-    const faceNode = new FaceNode( 200 /* headDiameter */, {
-      visible: false,
-      tandem: options.tandem.createTandem( 'faceNode' ),
-      phetioReadOnly: true
-    } );
-
-    // Next button is shown after a challenge has been successfully completed.
-    const nextButton = new RectangularPushButton( {
-      content: new Text( fourierMakingWavesStrings.next, {
-        font: DEFAULT_FONT,
-        maxWidth: 200 // determined empirically
-      } ),
-      baseColor: FMWColorProfile.nextButtonFillProperty,
-      visible: false,
-      center: faceNode.center,
-      tandem: options.tandem.createTandem( 'nextButton' ),
-      phetioReadOnly: true
-    } );
-
-    const faceAndNextButtonParent = new Node( {
-      children: [ faceNode, nextButton ]
-    } );
-
-    // Solve button immediately solves the challenge.  It's for development and QA, and is added to the
-    // scenegraph only when the ?showAnswers query parameter is present.
-    const solveButton = new RectangularPushButton( {
-      content: new Text( 'Solve', {
-        font: DEFAULT_FONT,
-        fill: 'white'
-      } ),
-      baseColor: 'red',
-      listener: () => {
-        this.interruptSubtreeInput();
-        level.solve();
-      }
-    } );
-
-    // Next and Refresh buttons do the same thing.
-    const next = () => {
-      this.interruptSubtreeInput();
-      nextButton.visible = false;
-      faceNode.visible = false;
-      level.nextChallenge();
-      refreshButton.enabled = true;
-      solveButton.enabled = true;
-    };
-    nextButton.addListener( next );
-    refreshButton.addListener( next );
-
-    // @private {WaveGameRewardNode|null} reward shown while rewardDialog is open
-    const rewardNode = new WaveGameRewardNode( level.levelNumber, {
-      visible: false
-    } );
-
     // Parent tandem for all components related to the Amplitudes chart
     const amplitudesTandem = options.tandem.createTandem( 'amplitudes' );
 
@@ -206,6 +133,75 @@ class WaveGameLevelNode extends Node {
       tandem: sumTandem.createTandem( 'harmonicsTitleNode' )
     } );
 
+    // Next and Refresh buttons do the same thing.
+    const next = () => {
+      this.interruptSubtreeInput();
+      nextButton.visible = false;
+      faceNode.visible = false;
+      level.nextChallenge();
+      refreshButton.enabled = true;
+      solveButton.enabled = true;
+    };
+
+    // Pressing the refresh button creates the next random challenge.
+    const refreshButton = new RefreshButton( {
+      listener: next,
+      scale: 0.75,
+      tandem: options.tandem.createTandem( 'refreshButton' )
+    } );
+
+    //TODO this needs to be properly initialized and adjusted when level.challengeProperty changes
+    const numberOfAmplitudeControlsProperty = new NumberProperty( 1, {
+      range: new Range( 1, FMWConstants.MAX_HARMONICS )
+    } );
+
+    const amplitudeControlsSpinner = new AmplitudeControlsSpinner( numberOfAmplitudeControlsProperty, {
+      textOptions: {
+        font: DEFAULT_FONT
+      },
+      tandem: options.tandem.createTandem( 'amplitudeControlsSpinner' )
+    } );
+
+    // Smiley face, shown when a challenge has been successfully completed. Fades out to reveal the Next button.
+    const faceNode = new FaceNode( 200 /* headDiameter */, {
+      visible: false,
+      tandem: options.tandem.createTandem( 'faceNode' ),
+      phetioReadOnly: true
+    } );
+
+    // Next button is shown after a challenge has been successfully completed.
+    const nextButton = new RectangularPushButton( {
+      listener: next,
+      content: new Text( fourierMakingWavesStrings.next, {
+        font: DEFAULT_FONT,
+        maxWidth: 200 // determined empirically
+      } ),
+      baseColor: FMWColorProfile.nextButtonFillProperty,
+      visible: false,
+      center: faceNode.center,
+      tandem: options.tandem.createTandem( 'nextButton' ),
+      phetioReadOnly: true
+    } );
+
+    // Solve button immediately solves the challenge.  It's for development and QA, and is added to the
+    // scenegraph only when the ?showAnswers query parameter is present.
+    const solveButton = new RectangularPushButton( {
+      content: new Text( 'Solve', {
+        font: DEFAULT_FONT,
+        fill: 'white'
+      } ),
+      baseColor: 'red',
+      listener: () => {
+        this.interruptSubtreeInput();
+        level.solve();
+      }
+    } );
+
+    // @private {WaveGameRewardNode|null} reward shown while rewardDialog is open
+    const rewardNode = new WaveGameRewardNode( level.levelNumber, {
+      visible: false
+    } );
+
     // Layout
     {
       amplitudesChartNode.x = X_CHART_RECTANGLES;
@@ -231,8 +227,9 @@ class WaveGameLevelNode extends Node {
       refreshButton.centerY = statusBar.bottom + ( amplitudeControlsSpinner.top - statusBar.bottom ) / 2;
 
       // centered on the Harmonics chart
-      faceAndNextButtonParent.centerX = controlsCenterX;
-      faceAndNextButtonParent.centerY = harmonicsChartNode.localToGlobalPoint( harmonicsChartNode.chartRectangle.center ).y;
+      faceNode.centerX = controlsCenterX;
+      faceNode.centerY = harmonicsChartNode.localToGlobalPoint( harmonicsChartNode.chartRectangle.center ).y;
+      nextButton.center = faceNode.center;
 
       // centered on the Sum chart
       solveButton.centerX = controlsCenterX;
@@ -242,14 +239,15 @@ class WaveGameLevelNode extends Node {
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
     options.children = [
       statusBar,
-      refreshButton,
-      amplitudeControlsSpinner,
-      faceAndNextButtonParent,
       amplitudesChartNode,
       harmonicsTitleNode,
       harmonicsChartNode,
       sumTitleNode,
       sumChartNode,
+      refreshButton,
+      amplitudeControlsSpinner,
+      faceNode,
+      nextButton,
       rewardNode
     ];
     if ( phet.chipper.queryParameters.showAnswers ) {
