@@ -27,13 +27,14 @@ class OrderSpinner extends NumberSpinner {
 
     options = merge( {
       arrowsPosition: 'leftRight',
-      arrowsScale: 0.85,
       touchAreaXDilation: 10,
       touchAreaYDilation: 10,
       numberDisplayOptions: {
         useRichText: true,
         numberFormatter: order => `${symbol}<sub>${order}</sub>`,
         cornerRadius: 3,
+        xMargin: 8,
+        yMargin: 2,
         textOptions: {
           font: FMWConstants.CONTROL_FONT,
           maxWidth: 50 // determined empirically
