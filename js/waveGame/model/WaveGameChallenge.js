@@ -71,7 +71,7 @@ class WaveGameChallenge {
     assert && assert( challenge instanceof WaveGameChallenge, 'invalid challenge' );
 
     // Similar challenges have identical amplitude values.
-    return this.answerFourierSeries.hasSameAmplitudes( challenge.answerFourierSeries );
+    return _.isEqual( this.getAnswerAmplitudes(), challenge.getAnswerAmplitudes() );
   }
 
   /**

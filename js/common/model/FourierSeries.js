@@ -127,27 +127,6 @@ class FourierSeries extends PhetioObject {
   }
 
   /**
-   * Does this Fourier series have the same amplitude values as another Fourier series?
-   * @param {FourierSeries} fourierSeries
-   * @returns {boolean}
-   * @public
-   */
-  hasSameAmplitudes( fourierSeries ) {
-    assert && assert( fourierSeries instanceof FourierSeries );
-
-    const thisAmplitudes = this.amplitudesProperty.value;
-    const thatAmplitudes = fourierSeries.amplitudesProperty.value;
-    assert && assert( thisAmplitudes.length === thatAmplitudes.length,
-      'expected fourierSeries to have the same number of amplitudes' );
-
-    let hasSameAmplitudes = true;
-    for ( let i = 0; i < thisAmplitudes.length && hasSameAmplitudes; i++ ) {
-      hasSameAmplitudes = ( thisAmplitudes[ i ] !== thatAmplitudes[ i ] );
-    }
-    return hasSameAmplitudes;
-  }
-
-  /**
    * Creates the data set for the sum of the harmonics in the Fourier Series.
    * This does not reuse HarmonicsChart dataSetProperties, because (1) that creates all kinds of problems with
    * ordering and intermediate states, and (2) harmonic plots use different numbers of points based on harmonic
