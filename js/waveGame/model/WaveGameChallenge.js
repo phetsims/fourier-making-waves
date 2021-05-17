@@ -60,15 +60,18 @@ class WaveGameChallenge {
   }
 
   /**
-   * Determines whether this challenge is 'similar' to some other challenge. This is used to prevent the user from
-   * encountering consecutive similar challenges.
+   * Determines whether 2 challenges are similar. This is used to prevent consecutive challenges from being
+   * similar during game play. The definition of 'similar' was moving target during development, so consult
+   * the implementation of this method for the ground truth.
    * @param {WaveGameChallenge} challenge
    * @returns {boolean}
    * @public
    */
   isSimilar( challenge ) {
     assert && assert( challenge instanceof WaveGameChallenge, 'invalid challenge' );
-    return false; //TODO
+
+    // Similar challenges have identical amplitude values.
+    return this.answerFourierSeries.hasSameAmplitudes( challenge.answerFourierSeries );
   }
 
   /**

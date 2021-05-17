@@ -15,7 +15,6 @@ Infinite Harmonics feature, see Preset.java
 ## Wave Game screen
 
 Don't evaluate the guess until all sliders have been released
-Implement WaveGameChallenge.isSimilar
 Eliminate WaveGameLevel adapterGuessFourierSeries and adapterAnswerFourierSeries by making charts mutable?
 Implement #sliders spinner
 
