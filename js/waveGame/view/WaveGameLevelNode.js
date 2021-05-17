@@ -143,7 +143,7 @@ class WaveGameLevelNode extends Node {
       solveButton.enabled = true;
     };
 
-    // Pressing the refresh button creates the next random challenge.
+    // Pressing the refresh button creates the next random challenge. Use it to skip the current challenge.
     const refreshButton = new RefreshButton( {
       listener: next,
       scale: 0.75,
@@ -169,7 +169,7 @@ class WaveGameLevelNode extends Node {
       phetioReadOnly: true
     } );
 
-    // Next button is shown after a challenge has been successfully completed.
+    // Next button is shown after a challenge has been successfully completed, and it creates the next random challenge.
     const nextButton = new RectangularPushButton( {
       listener: next,
       content: new Text( fourierMakingWavesStrings.next, {
