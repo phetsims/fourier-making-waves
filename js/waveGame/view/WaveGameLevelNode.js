@@ -130,11 +130,15 @@ class WaveGameLevelNode extends Node {
       phetioReadOnly: true
     } );
 
+    const faceAndNextButtonParent = new Node( {
+      children: [ faceNode, nextButton ]
+    } );
+    nextButton.center = faceNode.center;
+
     const controlPanelChildren = [
       refreshButton,
       amplitudeControlsSpinner,
-      faceNode,
-      nextButton
+      faceAndNextButtonParent
     ];
 
     // Solve button immediately solves the challenge.  It's for development and QA, and is added to the
@@ -238,7 +242,7 @@ class WaveGameLevelNode extends Node {
     sumTitleNode.top = harmonicsChartNode.bottom + 10;
     sumChartNode.x = amplitudesChartNode.x;
     sumChartNode.y = sumTitleNode.bottom + 10;
-    controlPanel.right = layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
+    controlPanel.centerX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
     controlPanel.top = statusBar.bottom + 20;
 
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
