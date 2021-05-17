@@ -19,9 +19,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import VBox from '../../../../scenery/js/nodes/VBox.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
-import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Animation from '../../../../twixt/js/Animation.js';
 import Easing from '../../../../twixt/js/Easing.js';
@@ -126,6 +124,7 @@ class WaveGameLevelNode extends Node {
       } ),
       baseColor: FMWColorProfile.nextButtonFillProperty,
       visible: false,
+      center: faceNode.center,
       tandem: options.tandem.createTandem( 'nextButton' ),
       phetioReadOnly: true
     } );
@@ -133,13 +132,6 @@ class WaveGameLevelNode extends Node {
     const faceAndNextButtonParent = new Node( {
       children: [ faceNode, nextButton ]
     } );
-    nextButton.center = faceNode.center;
-
-    const controlPanelChildren = [
-      refreshButton,
-      amplitudeControlsSpinner,
-      faceAndNextButtonParent
-    ];
 
     // Solve button immediately solves the challenge.  It's for development and QA, and is added to the
     // scenegraph only when the ?showAnswers query parameter is present.
@@ -153,22 +145,6 @@ class WaveGameLevelNode extends Node {
         this.interruptSubtreeInput();
         level.solve();
       }
-    } );
-    if ( phet.chipper.queryParameters.showAnswers ) {
-      controlPanelChildren.push( solveButton );
-    }
-
-    const controlPanel = new Panel( new VBox( {
-      excludeInvisibleChildrenFromBounds: false,
-      align: 'center',
-      spacing: 20,
-      children: controlPanelChildren
-    } ), {
-      fill: null,
-      stroke: null,
-      xMargin: 0,
-      yMargin: 0,
-      cornerRadius: 0
     } );
 
     // Next and Refresh buttons do the same thing.
@@ -232,23 +208,44 @@ class WaveGameLevelNode extends Node {
     } );
 
     // Layout
-    amplitudesChartNode.x = X_CHART_RECTANGLES;
-    amplitudesChartNode.top = statusBar.bottom + 5;
-    harmonicsTitleNode.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-    harmonicsTitleNode.top = amplitudesChartNode.bottom + 10;
-    harmonicsChartNode.x = amplitudesChartNode.x;
-    harmonicsChartNode.y = harmonicsTitleNode.bottom + 10;
-    sumTitleNode.left = harmonicsTitleNode.left;
-    sumTitleNode.top = harmonicsChartNode.bottom + 10;
-    sumChartNode.x = amplitudesChartNode.x;
-    sumChartNode.y = sumTitleNode.bottom + 10;
-    controlPanel.centerX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
-    controlPanel.top = statusBar.bottom + 20;
+    {
+      amplitudesChartNode.x = X_CHART_RECTANGLES;
+      amplitudesChartNode.top = statusBar.bottom + 5;
+      harmonicsTitleNode.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+      harmonicsTitleNode.top = amplitudesChartNode.bottom + 10;
+      harmonicsChartNode.x = amplitudesChartNode.x;
+      harmonicsChartNode.y = harmonicsTitleNode.bottom + 10;
+      sumTitleNode.left = harmonicsTitleNode.left;
+      sumTitleNode.top = harmonicsChartNode.bottom + 10;
+      sumChartNode.x = amplitudesChartNode.x;
+      sumChartNode.y = sumTitleNode.bottom + 10;
+
+      // center of the space to the right of the charts
+      const controlsCenterX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
+
+      // centered on the Amplitudes chart
+      amplitudeControlsSpinner.centerX = controlsCenterX;
+      amplitudeControlsSpinner.centerY = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.center ).y;
+
+      // centered in the space above the Amplitude Controls spinner
+      refreshButton.centerX = controlsCenterX;
+      refreshButton.centerY = statusBar.bottom + ( amplitudeControlsSpinner.top - statusBar.bottom ) / 2;
+
+      // centered on the Harmonics chart
+      faceAndNextButtonParent.centerX = controlsCenterX;
+      faceAndNextButtonParent.centerY = harmonicsChartNode.localToGlobalPoint( harmonicsChartNode.chartRectangle.center ).y;
+
+      // centered on the Sum chart
+      solveButton.centerX = controlsCenterX;
+      solveButton.centerY = sumChartNode.localToGlobalPoint( sumChartNode.chartRectangle.center ).y;
+    }
 
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
     options.children = [
       statusBar,
-      controlPanel,
+      refreshButton,
+      amplitudeControlsSpinner,
+      faceAndNextButtonParent,
       amplitudesChartNode,
       harmonicsTitleNode,
       harmonicsChartNode,
@@ -256,6 +253,9 @@ class WaveGameLevelNode extends Node {
       sumChartNode,
       rewardNode
     ];
+    if ( phet.chipper.queryParameters.showAnswers ) {
+      options.children.push( solveButton );
+    }
 
     // When the ?showAnswers query parameter is present, show the answer to the current challenge.
     if ( phet.chipper.queryParameters.showAnswers ) {

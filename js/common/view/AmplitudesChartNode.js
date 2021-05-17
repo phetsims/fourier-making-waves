@@ -142,6 +142,7 @@ class AmplitudesChartNode extends Node {
 
     // @public
     this.chartTransform = chartTransform;
+    this.chartRectangle = chartRectangle;
   }
 
   /**
