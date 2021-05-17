@@ -18,6 +18,7 @@ Don't evaluate the guess until all sliders have been released
 Implement WaveGameChallenge.isSimilar
 Eliminate WaveGameLevel adapterGuessFourierSeries and adapterAnswerFourierSeries by making charts mutable?
 See GameManager.java, newGame creates a challenge, AMPLITUDE_STEP (0.01) is how close the guess must be to the answer.
+Implement #sliders control
 
 ## PhET-iO
 
