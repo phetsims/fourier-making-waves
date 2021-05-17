@@ -84,7 +84,7 @@ class WaveGameLevel {
       //TODO tandem, phetioType
     } );
 
-    //TODO eliminate the need for adapterGuessFourierSeries by making charts mutable
+    //TODO eliminate the need for adapterGuessFourierSeries and adapterAnswerFourierSeries by making charts mutable
 
     // @public This is a static instance of FourierSeries that is passed to the charts.
     // We update the charts by keeping this series in sync with the current challenge's guessFourierSeries.
