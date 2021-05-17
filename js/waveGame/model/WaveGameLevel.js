@@ -9,6 +9,7 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import SeriesType from '../../common/model/SeriesType.js';
@@ -21,7 +22,6 @@ import WaveGameHarmonicsChart from './WaveGameHarmonicsChart.js';
 import WaveGameSumChart from './WaveGameSumChart.js';
 
 // constants
-const POINTS_PER_CHALLENGE = 1;
 
 // Chart properties that are fixed in the Wave Game, and shared by the Harmonics and Sum charts.
 const DOMAIN = Domain.SPACE;
@@ -72,7 +72,7 @@ class WaveGameLevel {
       getNumberOfNonZeroHarmonics: options.getNumberOfNonZeroHarmonics,
       isCorrectCallback: () => {
         phet.log && phet.log( 'Correct answer!' );
-        this.scoreProperty.value += POINTS_PER_CHALLENGE;
+        this.scoreProperty.value += FMWConstants.POINTS_PER_CHALLENGE;
       },
       tandem: options.tandem.createTandem( 'challengeGenerator' )
     } );

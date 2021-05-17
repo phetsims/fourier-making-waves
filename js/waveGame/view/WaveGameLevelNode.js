@@ -41,7 +41,6 @@ import WaveGameRewardNode from './WaveGameRewardNode.js';
 import WaveGameSumChartNode from './WaveGameSumChartNode.js';
 
 // constants
-const REWARD_SCORE = 10; // reaching this score results in a reward
 const DEFAULT_FONT = new PhetFont( 16 );
 const CHART_RECTANGLE_SIZE = new Dimension2( 645, 123 ); //TODO copied from DiscreteScreenView
 const X_CHART_RECTANGLES = 65; //TODO copied from DiscreteScreenView
@@ -274,7 +273,7 @@ class WaveGameLevelNode extends Node {
     } );
 
     // {RewardDialog} dialog that is displayed when score reaches the reward value
-    const rewardDialog = new RewardDialog( REWARD_SCORE, {
+    const rewardDialog = new RewardDialog( FMWConstants.REWARD_SCORE, {
 
       // 'Keep Going' hides the dialog
       keepGoingButtonListener: () => rewardDialog.hide(),
@@ -311,7 +310,7 @@ class WaveGameLevelNode extends Node {
       refreshButton.enabled = false;
       solveButton.enabled = false;
 
-      if ( score === REWARD_SCORE || FMWQueryParameters.showReward ) {
+      if ( score === FMWConstants.REWARD_SCORE || FMWQueryParameters.showReward ) {
 
         // The score has reached the magic number where a reward is display.
         gameAudioPlayer.gameOverPerfectScore();

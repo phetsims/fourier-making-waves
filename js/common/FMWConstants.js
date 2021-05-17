@@ -31,6 +31,12 @@ const FMWConstants = {
   // smooth when the Harmonics chart is fully zoomed out.
   MAX_POINTS_PER_DATA_SET: 2000,
 
+  // Number of points awarded for each correct answer in the Wave Game
+  POINTS_PER_CHALLENGE: 1,
+
+  // Reaching this score results in a reward in the Wave Game
+  REWARD_SCORE: 10,
+
   // View ============================================================================================================
 
   SCREEN_VIEW_X_MARGIN: 15,
