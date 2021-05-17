@@ -17,7 +17,6 @@ Infinite Harmonics feature, see Preset.java
 Don't evaluate the guess until all sliders have been released
 Implement WaveGameChallenge.isSimilar
 Eliminate WaveGameLevel adapterGuessFourierSeries and adapterAnswerFourierSeries by making charts mutable?
-Don't show guess sum when amplitude is zero
 See GameManager.java, newGame creates a challenge, AMPLITUDE_STEP (0.01) is how close the guess must be to the answer.
 
 ## PhET-iO
