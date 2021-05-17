@@ -33,7 +33,6 @@ class WaveGameLevelSelectionButton extends LevelSelectionButton {
       scoreDisplayConstructor: ScoreDisplayNumberAndStar,
       baseColor: FMWColorProfile.levelSelectionButtonFillProperty,
       listener: () => {
-        this.interruptSubtreeInput();
         levelProperty.value = level;
       },
       tandem: Tandem.REQUIRED

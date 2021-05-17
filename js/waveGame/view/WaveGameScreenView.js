@@ -72,6 +72,7 @@ class WaveGameScreenView extends ScreenView {
 
     // Transition between the level-selection UI and the selected scene.
     model.levelProperty.lazyLink( level => {
+      this.interruptSubtreeInput();
       if ( level ) {
         this.transitionNode.slideLeftTo( levelsParent, TRANSITION_OPTIONS );
       }

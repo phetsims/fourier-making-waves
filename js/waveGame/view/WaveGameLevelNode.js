@@ -299,13 +299,18 @@ class WaveGameLevelNode extends Node {
     // @private {Animation|null} animation of faceNode
     this.faceAnimation = null;
 
-    // unlink not needed.
+    // A change of score means that the challenge was solved. This listener provides user feedback.
+    // unlink is not needed.
     level.scoreProperty.lazyLink( ( score, oldScore ) => {
 
       // do nothing when the score is reset
       if ( score < oldScore ) {
         return;
       }
+
+      // Interrupt any in-progress interactions, since the challenge has been solved.
+      // The user is free to resume experimenting with the current challenge after this point.
+      this.interruptSubtreeInput();
 
       refreshButton.enabled = false;
       solveButton.enabled = false;
