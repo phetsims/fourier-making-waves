@@ -20,8 +20,7 @@ const FMWConstants = {
 
   MAX_HARMONICS: 11,
 
-  // amplitude range is [-MAX_AMPLITUDE, MAX_AMPLITUDE]
-  // see https://github.com/phetsims/fourier-making-waves/issues/22
+  // Amplitude range is [-MAX_AMPLITUDE, MAX_AMPLITUDE], see https://github.com/phetsims/fourier-making-waves/issues/22
   MAX_AMPLITUDE: 1.5,
 
   //TODO add some verification for this value, since it depends on MAX_HARMONICS and XZoomDescriptions?
