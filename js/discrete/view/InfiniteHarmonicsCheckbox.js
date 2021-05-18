@@ -33,6 +33,9 @@ class InfiniteHarmonicsCheckbox extends Checkbox {
     // pointer areas
     this.touchArea = this.localBounds.dilatedXY( 6, 6 );
     this.mouseArea = this.localBounds.dilatedXY( 1, 1 );
+
+    // Interrupt interaction when enabled changes.
+    this.enabledProperty.link( () => this.interruptSubtreeInput() );
   }
 }
 
