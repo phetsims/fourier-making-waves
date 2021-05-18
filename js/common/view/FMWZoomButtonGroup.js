@@ -9,8 +9,10 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import AxisDescription from '../model/AxisDescription.js';
 
 class FMWZoomButtonGroup extends PlusMinusZoomButtonGroup {
 
@@ -19,6 +21,7 @@ class FMWZoomButtonGroup extends PlusMinusZoomButtonGroup {
    * @param {Object} [options]
    */
   constructor( axisDescriptionProperty, options ) {
+    assert && AssertUtils.assertPropertyOf( axisDescriptionProperty, AxisDescription );
 
     const axisDescriptions = axisDescriptionProperty.validValues;
     assert && assert( axisDescriptions, 'axisDescriptionProperty should have been defined with validValues option' );
