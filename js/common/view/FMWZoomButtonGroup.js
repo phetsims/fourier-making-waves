@@ -27,8 +27,7 @@ class FMWZoomButtonGroup extends PlusMinusZoomButtonGroup {
     assert && assert( axisDescriptions, 'axisDescriptionProperty should have been defined with validValues option' );
 
     // PlusMinusZoomButtonGroup needs a NumberProperty, create it here. Its value is an index into axisDescriptions.
-    const initialZoomLevel = axisDescriptions.indexOf( axisDescriptionProperty.value );
-    const zoomLevelProperty = new NumberProperty( initialZoomLevel, {
+    const zoomLevelProperty = new NumberProperty( axisDescriptions.indexOf( axisDescriptionProperty.value ), {
       range: new Range( 0, axisDescriptions.length - 1 ),
       isValidValue: value => value >= 0 && value < axisDescriptions.length
     } );
@@ -37,7 +36,7 @@ class FMWZoomButtonGroup extends PlusMinusZoomButtonGroup {
     axisDescriptionProperty.lazyLink( axisDescription => {
       zoomLevelProperty.value = axisDescriptions.indexOf( axisDescription );
     } );
-    zoomLevelProperty.link( zoomLevel => {
+    zoomLevelProperty.lazyLink( zoomLevel => {
       axisDescriptionProperty.value = axisDescriptions[ zoomLevel ];
     } );
 
