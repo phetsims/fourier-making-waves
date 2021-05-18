@@ -2,8 +2,6 @@ TODO.txt for fourier-making-waves
 
 ## Common
 
-Move handling of yAxisDescriptionProperty and autoScaleProperty from SumChartNode to WaveformChartNode
-
 ## Discrete screen
 
 Reuse Vector2 instances for data sets in FourierSeries (new Vector2) to prevent pause due to GC
