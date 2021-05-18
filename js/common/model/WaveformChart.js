@@ -68,7 +68,7 @@ class WaveformChart {
     this.hasYZoom = options.hasYZoom;
     this.yAutoScaleProperty = options.yAutoScaleProperty;
 
-    // @public {null|DerivedProperty.<Range>} auto-scale range of the y axis, fitted to the sum's peak amplitude
+    // @public {null|DerivedProperty.<Range>} auto-scale range of the y axis, fitted to the peak amplitude
     this.yAxisAutoScaleRangeProperty = null;
     if ( this.yAutoScaleProperty && options.peakAmplitudeProperty ) {
 
