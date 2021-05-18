@@ -26,16 +26,16 @@ class DiscreteSumChart extends SumChart {
   constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
                xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options ) {
 
+    assert && assert( !options.yAutoScaleProperty );
     options = merge( {
+
+      // y auto-scale is initially off
+      yAutoScaleProperty: new BooleanProperty( false ),
 
       // Sum chart has zoom buttons for both axes.
       hasXZoom: true,
       hasYZoom: true
     }, options );
-
-    const yAutoScaleProperty = new BooleanProperty( false );
-    assert && assert( !options.yAutoScaleProperty );
-    options.yAutoScaleProperty = yAutoScaleProperty;
 
     super( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
@@ -53,7 +53,7 @@ class DiscreteSumChart extends SumChart {
 
     // @private
     this.resetDiscreteSumChart = () => {
-      yAutoScaleProperty.reset();
+      options.yAutoScaleProperty.reset();
       this.chartVisibleProperty.reset();
       this.infiniteHarmonicsVisibleProperty.reset();
     };

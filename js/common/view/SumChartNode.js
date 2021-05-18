@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -37,6 +38,8 @@ class SumChartNode extends WaveformChartNode {
     // Fields of interest in sumChart, to improve readability
     const fourierSeries = sumChart.fourierSeries;
     const dataSetProperty = sumChart.dataSetProperty;
+    const yAutoScaleProperty = sumChart.yAutoScaleProperty;
+    const yAxisAutoScaleRangeProperty = sumChart.yAxisAutoScaleRangeProperty;
 
     super( sumChart, options );
 
@@ -69,6 +72,19 @@ class SumChartNode extends WaveformChartNode {
     fourierSeries.amplitudesProperty.link( amplitudes => {
       sumPlot.visible = _.some( amplitudes, amplitude => amplitude !== 0 );
     } );
+
+    // Update the auto-scale range for the y-axis.
+    Property.multilink(
+      [ yAutoScaleProperty, yAxisAutoScaleRangeProperty ],
+      ( yAutoScale, yAxisAutoScaleRange ) => {
+        if ( yAutoScale ) {
+          this.chartTransform.setModelYRange( yAxisAutoScaleRange );
+        }
+        else {
+          // Do not setModelYRange when auto scale becomes false. We want the range to remain unchanged
+          // until the user explicitly changes it via the y-axis zoom buttons.
+        }
+      } );
 
     // @protected
     this.chartCanvasNode = chartCanvasNode;

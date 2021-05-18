@@ -197,21 +197,6 @@ class WaveformChartNode extends Node {
       yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
     } );
 
-    // Update the auto-scale range for the y-axis.
-    if ( yAutoScaleProperty && yAxisAutoScaleRangeProperty ) {
-      Property.multilink(
-        [ yAutoScaleProperty, yAxisAutoScaleRangeProperty ],
-        ( yAutoScale, yAxisAutoScaleRange ) => {
-          if ( yAutoScale ) {
-            chartTransform.setModelYRange( yAxisAutoScaleRange );
-          }
-          else {
-            // Do not setModelYRange when auto scale becomes false. We want the range to remain unchanged
-            // until the user explicitly changes it via the y-axis zoom buttons.
-          }
-        } );
-    }
-
     // ---------------------------------------------------------------
 
     // Parent for Nodes that must be clipped to the bounds of chartRectangle

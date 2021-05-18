@@ -9,11 +9,13 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import AxisDescription from './AxisDescription.js';
 import SeriesType from './SeriesType.js';
 import WaveformChart from './WaveformChart.js';
 
@@ -30,7 +32,8 @@ class SumChart extends WaveformChart {
    * @param {Object} [options]
    */
   constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
-               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options ) {
+               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
+               options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
@@ -38,9 +41,12 @@ class SumChart extends WaveformChart {
       'yAxisDescriptionProperty should have been instantiated with validValues option' );
 
     options = merge( {
-      yAutoScaleMin: fourierSeries.amplitudeRange.max,
+      yAutoScaleProperty: null, // {null|Property.<boolean>}
       tandem: Tandem.REQUIRED
     }, options );
+
+    super( fourierSeries.L, fourierSeries.T, domainProperty,
+      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
 
     /**
      * Creates the sum data set using current arg values.
@@ -57,26 +63,50 @@ class SumChart extends WaveformChart {
       //TODO tandem
     } );
 
-    if ( options.yAutoScaleProperty ) {
-
-      // {DerivedProperty.<number>} the peak amplitude of the sum waveform
-      const peakAmplitudeProperty = new DerivedProperty(
-        [ dataSetProperty ],
-        dataSet => _.maxBy( dataSet, point => point.y ).y
-      );
-
-      assert && assert( !options.peakAmplitudeProperty );
-      options.peakAmplitudeProperty = peakAmplitudeProperty;
-    }
-
-    super( fourierSeries.L, fourierSeries.T, domainProperty,
-      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
-
     // Update the sum when dependencies change. unmultilink is not needed.
     Property.lazyMultilink(
       [ fourierSeries.amplitudesProperty, xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
       () => { dataSetProperty.value = createDataSet(); }
     );
+
+    // {DerivedProperty.<number>} the peak amplitude of the sum waveform
+    const peakAmplitudeProperty = new DerivedProperty(
+      [ dataSetProperty ],
+      dataSet => _.maxBy( dataSet, point => point.y ).y
+    );
+
+    // @public {null|DerivedProperty.<Range>} auto-scale range of the y axis, fitted to the peak amplitude
+    this.yAxisAutoScaleRangeProperty = new DerivedProperty(
+      [ peakAmplitudeProperty ],
+      peakAmplitude => {
+
+        // no smaller than the max amplitude of one harmonic, with a bit of padding added at top and bottom
+        const maxY = Math.max( fourierSeries.amplitudeRange.max, peakAmplitude * 1.05 );
+        return new Range( -maxY, maxY );
+      } );
+
+    const yAutoScaleProperty = options.yAutoScaleProperty;
+    if ( yAutoScaleProperty ) {
+
+      // When auto scale is enabled, link this listener to yAxisAutoScaleRangeProperty, and adjust the y-axis so
+      // that's it's appropriate for the auto-scale range.
+      const updateYAxisDescription = yAxisAutoScaleRange => {
+        assert && assert( yAutoScaleProperty.value, 'should not be called when yAutoScale is disabled' );
+        const yAxisDescriptions = yAxisDescriptionProperty.validValues;
+        yAxisDescriptionProperty.value = AxisDescription.getAxisDescriptionForRange( yAxisAutoScaleRange, yAxisDescriptions );
+      };
+
+      yAutoScaleProperty.link( yAutoScale => {
+        if ( yAutoScale ) {
+          this.yAxisAutoScaleRangeProperty.link( updateYAxisDescription );
+        }
+        else {
+          if ( this.yAxisAutoScaleRangeProperty.hasListener( updateYAxisDescription ) ) {
+            this.yAxisAutoScaleRangeProperty.unlink( updateYAxisDescription );
+          }
+        }
+      } );
+    }
 
     // @public
     this.fourierSeries = fourierSeries;
@@ -84,6 +114,7 @@ class SumChart extends WaveformChart {
 
     // @private
     this.resetSumChart = () => {
+      yAutoScaleProperty.reset();
       this.dataSetProperty.reset();
     };
   }

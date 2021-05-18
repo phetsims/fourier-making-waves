@@ -7,12 +7,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import FMWConstants from '../FMWConstants.js';
 import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
 import TickLabelFormat from './TickLabelFormat.js';
@@ -46,14 +43,8 @@ class WaveformChart {
     options = merge( {
       hasXZoom: false, // Does this chart have zoom buttons for the x axis?
       hasYZoom: false,  // Does this chart have zoom buttons for the y axis?
-      yAutoScaleProperty: null, // {null|Property.<boolean>}
-      peakAmplitudeProperty: null, // {null|Property.<number>}
-      yAutoScaleMin: FMWConstants.MAX_AMPLITUDE
+      yAutoScaleProperty: null // {null|Property.<boolean>}
     }, options );
-
-    assert && assert( ( !options.yAutoScaleProperty && !options.peakAmplitudeProperty ) ||
-                      ( options.yAutoScaleProperty && options.peakAmplitudeProperty ),
-      'yAutoScaleProperty and peakAmplitudeProperty are both or neither' );
 
     // @public (read-only) params
     this.L = L;
@@ -67,38 +58,6 @@ class WaveformChart {
     this.hasXZoom = options.hasXZoom;
     this.hasYZoom = options.hasYZoom;
     this.yAutoScaleProperty = options.yAutoScaleProperty;
-
-    // @public {null|DerivedProperty.<Range>} auto-scale range of the y axis, fitted to the peak amplitude
-    this.yAxisAutoScaleRangeProperty = null;
-    if ( this.yAutoScaleProperty && options.peakAmplitudeProperty ) {
-
-      this.yAxisAutoScaleRangeProperty = new DerivedProperty(
-        [ options.peakAmplitudeProperty ],
-        peakAmplitude => {
-
-          // no smaller than yAutoScaleMin, with a bit of padding added at top and bottom
-          const maxY = Math.max( options.yAutoScaleMin, peakAmplitude * 1.05 );
-          return new Range( -maxY, maxY );
-        } );
-
-      // When auto scale is enabled, link this listener to yAxisAutoScaleRangeProperty, and adjust the y-axis so
-      // that's it's appropriate for the auto-scale range.
-      const updateYAxisDescription = yAxisAutoScaleRange => {
-        assert && assert( this.yAutoScaleProperty.value, 'should not be called when yAutoScale is disabled' );
-        const yAxisDescriptions = yAxisDescriptionProperty.validValues;
-        yAxisDescriptionProperty.value = AxisDescription.getAxisDescriptionForRange( yAxisAutoScaleRange, yAxisDescriptions );
-      };
-      this.yAutoScaleProperty.link( yAutoScale => {
-        if ( yAutoScale ) {
-          this.yAxisAutoScaleRangeProperty.link( updateYAxisDescription );
-        }
-        else {
-          if ( this.yAxisAutoScaleRangeProperty.hasListener( updateYAxisDescription ) ) {
-            this.yAxisAutoScaleRangeProperty.unlink( updateYAxisDescription );
-          }
-        }
-      } );
-    }
   }
 }
 
