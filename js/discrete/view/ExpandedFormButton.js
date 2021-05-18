@@ -31,6 +31,9 @@ class ExpandedFormButton extends RoundPushButton {
     } );
 
     super( options );
+
+    // Interrupt interaction when visibility changes.
+    this.visibleProperty.link( () => this.interruptSubtreeInput() );
   }
 }
 
