@@ -132,7 +132,6 @@ class AmplitudeSlider extends AudibleSlider {
       }
     } );
 
-    //TODO is this necessary, or does scenery interrupt when a Node becomes invisible?
     // When a slider becomes visible, interrupt any interaction that may be in progress.
     this.visibleProperty.link( visible => visible && this.interruptSubtreeInput() );
   }

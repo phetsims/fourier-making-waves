@@ -132,7 +132,6 @@ class MeasurementToolNode extends Node {
       updateNodes();
     } );
 
-    //TODO is this necessary, or does scenery interrupt when a Node becomes invisible?
     // Interrupt interaction when visibility changes.
     options.visibleProperty.link( () => this.interruptSubtreeInput() );
 
