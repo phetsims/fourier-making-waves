@@ -144,9 +144,10 @@ class WaveGameLevel {
     // When an amplitude is changed via the chart, update the corresponding amplitude in the challenge's guess.
     // unlink is not needed.
     for ( let i = 0; i < adapterGuessFourierSeries.harmonics.length; i++ ) {
-      const order = i + 1;
-      adapterGuessFourierSeries.harmonics[ i ].amplitudeProperty.link( amplitude => {
-        this.challengeProperty.value.guessFourierSeries.harmonics[ order - 1 ].amplitudeProperty.value = amplitude;
+      const adapterAmplitudeProperty = adapterGuessFourierSeries.harmonics[ i ].amplitudeProperty;
+      const challengeAmplitudeProperty = this.challengeProperty.value.guessFourierSeries.harmonics[ i ].amplitudeProperty;
+      adapterAmplitudeProperty.link( amplitude => {
+        challengeAmplitudeProperty.value = amplitude;
       } );
     }
 
