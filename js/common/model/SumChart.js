@@ -111,8 +111,9 @@ class SumChart {
       yZoomLevel => {
         assert && assert( yZoomLevel >= 0 && yZoomLevel < yAxisDescriptions.length );
         return yAxisDescriptions[ yZoomLevel ];
-      }
-    );
+      }, {
+        validValues: yAxisDescriptions
+      } );
 
     // When auto scale is enabled, link this listener to yAxisAutoScaleRangeProperty, and adjust the y-axis zoom
     // range so that's it's appropriate for the auto-scale range.

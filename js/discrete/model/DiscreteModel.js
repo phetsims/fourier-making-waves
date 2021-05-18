@@ -106,8 +106,9 @@ class DiscreteModel {
     // dispose is not needed.
     this.xAxisDescriptionProperty = new DerivedProperty(
       [ this.xZoomLevelProperty ],
-      xZoomLevel => DiscreteXAxisDescriptions[ xZoomLevel ]
-    );
+      xZoomLevel => DiscreteXAxisDescriptions[ xZoomLevel ], {
+        validValues: DiscreteXAxisDescriptions
+      } );
 
     const soundTandem = options.tandem.createTandem( 'sound' );
 
