@@ -18,6 +18,10 @@ class WaveGameHarmonicsChart extends HarmonicsChart {
 
   /**
    * @param {FourierSeries} guessFourierSeries
+   * @param {Domain} domain
+   * @param {SeriesType} seriesType
+   * @param {number} t
+   * @param {XAxisDescription} xAxisDescription
    * @param {Object} [options]
    */
   constructor( guessFourierSeries, domain, seriesType, t, xAxisDescription, options ) {
