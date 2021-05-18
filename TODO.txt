@@ -14,6 +14,7 @@ Infinite Harmonics feature, see Preset.java
 
 ## Wave Game screen
 
+Show Answer button
 Hide zero-amplitude sliders
 Set range of #sliders spinner
 Randomly reveal zero-amplitude sliders when spinner changes
