@@ -18,7 +18,7 @@ class DiscreteSumChart extends SumChart {
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
    * @param {NumberProperty} xZoomLevelProperty
-   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
+   * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
    * @param {AxisDescription[]} yAxisDescriptions
    * @param {Object} [options]
    */

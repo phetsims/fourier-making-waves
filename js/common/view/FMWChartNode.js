@@ -21,13 +21,14 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import AxisDescription from '../model/AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
+import AxisDescription from '../model/AxisDescription.js';
 import Domain from '../model/Domain.js';
+import XAxisDescription from '../model/XAxisDescription.js';
 import XTickLabelSet from './XTickLabelSet.js';
 import YTickLabelSet from './YTickLabelSet.js';
 
@@ -55,7 +56,7 @@ class FMWChartNode extends Node {
    * @param {number} T - the period of the fundamental harmonic, in milliseconds
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
-   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
+   * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
@@ -65,7 +66,7 @@ class FMWChartNode extends Node {
     assert && AssertUtils.assertPositiveNumber( T );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( xAxisTickLabelFormatProperty instanceof Property );
-    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
+    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, XAxisDescription );
     assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
 
     options = merge( {

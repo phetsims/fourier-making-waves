@@ -21,6 +21,7 @@ import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
 import FourierSeries from './FourierSeries.js';
 import SeriesType from './SeriesType.js';
+import XAxisDescription from './XAxisDescription.js';
 
 class SumChart {
 
@@ -29,7 +30,7 @@ class SumChart {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
-   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
+   * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
    * @param {AxisDescription[]} yAxisDescriptions
    * @param {Object} [options]
    */
@@ -39,7 +40,7 @@ class SumChart {
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
-    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
+    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, XAxisDescription );
     assert && AssertUtils.assertArrayOf( yAxisDescriptions, AxisDescription );
 
     options = merge( {
