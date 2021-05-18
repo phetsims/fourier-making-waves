@@ -9,7 +9,7 @@ Move handling of yAxisDescriptionProperty and autoScaleProperty from SumChartNod
 
 ## Discrete screen
 
-Reuse Vector2 instances for data sets in FourierSeries (new Vector2)
+Reuse Vector2 instances for data sets in FourierSeries (new Vector2) to prevent pause due to GC
 Infinite Harmonics feature, see Preset.java
 
 ## Wave Game screen
