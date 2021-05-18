@@ -12,8 +12,8 @@
  */
 
 import FMWConstants from '../../common/FMWConstants.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // {AxisDescription[]}
 const DiscreteYAxisDescriptions = [
@@ -66,6 +66,9 @@ const DiscreteYAxisDescriptions = [
     tickLabelSpacing: 0.5
   } )
 ];
+
+assert && assert( AxisDescription.isSortedDescending( DiscreteYAxisDescriptions ),
+  'DiscreteYAxisDescriptions must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
 
 fourierMakingWaves.register( 'DiscreteYAxisDescriptions', DiscreteYAxisDescriptions );
 export default DiscreteYAxisDescriptions;

@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import HarmonicsChart from '../../common/model/HarmonicsChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import DiscreteYAxisDescriptions from './DiscreteYAxisDescriptions.js';
 
 class DiscreteHarmonicsChart extends HarmonicsChart {
 
@@ -21,16 +20,15 @@ class DiscreteHarmonicsChart extends HarmonicsChart {
    * @param {Property.<number>} tProperty
    * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
+   * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
-               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, options ) {
-
-    // y-axis scale is fixed for the Harmonics chart, there are no zoom controls
-    const yAxisDescription = DiscreteYAxisDescriptions[ DiscreteYAxisDescriptions.length - 1 ];
+               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
+               options ) {
 
     super( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
-      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescription, options );
+      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
 
     // @public whether the Harmonics chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {

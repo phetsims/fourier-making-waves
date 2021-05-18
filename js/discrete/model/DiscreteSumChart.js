@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import SumChart from '../../common/model/SumChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import DiscreteYAxisDescriptions from './DiscreteYAxisDescriptions.js';
 
 class DiscreteSumChart extends SumChart {
 
@@ -20,13 +19,15 @@ class DiscreteSumChart extends SumChart {
    * @param {Property.<number>} tProperty
    * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
+   * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
-               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, options ) {
+               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options ) {
 
     super( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
-      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, DiscreteYAxisDescriptions, options );
+      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
+      options );
 
     // @public whether the Sum chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {

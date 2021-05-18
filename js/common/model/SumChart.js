@@ -29,18 +29,19 @@ class SumChart extends WaveformChart {
    * @param {Property.<number>} tProperty
    * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
-   * @param {AxisDescription[]} yAxisDescriptions
+   * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
-               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptions, options ) {
+               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
+    assert && assert( yAxisDescriptionProperty.validValues,
+      'yAxisDescriptionProperty should have been instantiated with validValues option' );
 
     options = merge( {
       yAutoScale: false,
-      yAxisDescriptionIndex: 0,
       tandem: Tandem.REQUIRED
     }, options );
 
@@ -84,20 +85,11 @@ class SumChart extends WaveformChart {
         //TODO tandem
       } );
 
-    // The initial y-axis description depends on whether auto scale is initially enabled.
-    const initialYAxisDescription = yAutoScaleProperty.value ?
-                                    AxisDescription.getAxisDescriptionForRange( yAxisAutoScaleRangeProperty.value, yAxisDescriptions ) :
-                                    yAxisDescriptions[ options.yAxisDescriptionIndex ];
-
-    // {Property.<AxisDescription>} describes the properties of the y axis. dispose is not needed
-    const yAxisDescriptionProperty = new Property( initialYAxisDescription, {
-      validValues: yAxisDescriptions
-    } );
-
     // When auto scale is enabled, link this listener to yAxisAutoScaleRangeProperty, and adjust the y-axis so
     // that's it's appropriate for the auto-scale range.
     const updateYAxisDescription = yAxisAutoScaleRange => {
       assert && assert( yAutoScaleProperty.value, 'should not be called when yAutoScale is disabled' );
+      const yAxisDescriptions = yAxisDescriptionProperty.validValues;
       yAxisDescriptionProperty.value = AxisDescription.getAxisDescriptionForRange( yAxisAutoScaleRange, yAxisDescriptions );
     };
     yAutoScaleProperty.link( yAutoScale => {

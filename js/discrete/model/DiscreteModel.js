@@ -16,6 +16,7 @@ import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import AmplitudesChart from '../../common/model/AmplitudesChart.js';
 import Domain from '../../common/model/Domain.js';
@@ -37,6 +38,16 @@ const TIME_SCALE = 0.001;
 
 // How much to step the simulation when the Step button is pressed, in milliseconds, determined empirically.
 const STEP_DT = 50;
+
+// {AxisDescription} default description for the x axis
+const DEFAULT_X_AXIS_DESCRIPTION = DiscreteXAxisDescriptions[ DiscreteXAxisDescriptions.length - 2 ];
+assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.getLength() === 1,
+  'Expected DEFAULT_X_AXIS_DESCRIPTION range to be 1 wavelength. Did you change DiscreteXAxisDescriptions?' );
+
+// {AxisDescription} default description for the y axis
+const DEFAULT_Y_AXIS_DESCRIPTION = DiscreteYAxisDescriptions[ DiscreteYAxisDescriptions.length - 1 ];
+assert && assert( DEFAULT_Y_AXIS_DESCRIPTION.range.max === FMWConstants.MAX_AMPLITUDE,
+  'Expected DEFAULT_Y_AXIS_DESCRIPTION range to match maximum amplitude. Did you change DiscreteYAxisDescriptions?' );
 
 class DiscreteModel {
 
@@ -89,15 +100,11 @@ class DiscreteModel {
       equationForm => ( equationForm === EquationForm.HIDDEN ) ? TickLabelFormat.NUMERIC : TickLabelFormat.SYMBOLIC
     );
 
-    // default axis description for the x axis
-    const DEFAULT_X_AXIS_DESCRIPTION = DiscreteXAxisDescriptions[ DiscreteXAxisDescriptions.length - 2 ];
-
     // Guard again accidentally changing the default if DiscreteXAxisDescriptions is modified.
     assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.max === 1 / 2,
       'DEFAULT_X_ZOOM_LEVEL is probably incorrect - did you modify DiscreteXAxisDescriptions?' );
 
-    // {Property.<XAxisDescription>} describes the properties of the x axis.
-    // This is shared by the Harmonics and Sum charts.
+    // {Property.<XAxisDescription>} the x-axis description is shared by the Harmonics and Sum charts.
     // dispose is not needed.
     const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
       validValues: DiscreteXAxisDescriptions
@@ -143,17 +150,28 @@ class DiscreteModel {
     // @public
     this.amplitudesChart = new AmplitudesChart( this.fourierSeries, emphasizedHarmonics );
 
+    // {Property.<AxisDescription>} y-axis description is specific to the Harmonics chart, not shared with the Sum chart.
+    // The Harmonics chart has no zoom buttons, so it only has one y-axis description.
+    const harmonicsYAxisDescriptionProperty = new Property( DEFAULT_Y_AXIS_DESCRIPTION, {
+      validValues: [ DEFAULT_Y_AXIS_DESCRIPTION ]
+    } );
+
     // @public
     this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, emphasizedHarmonics,
       this.domainProperty, this.seriesTypeProperty, this.tProperty,
-      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, {
+      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, harmonicsYAxisDescriptionProperty, {
         tandem: options.tandem.createTandem( 'harmonicsChart' )
       } );
 
+    // {Property.<AxisDescription>} y-axis description is specific to the Sum chart, not shared with the Harmonics
+    // chart. Sum chart has zoom buttons, with an AxisDescription for each zoom level.
+    const sumYAxisDescriptionProperty = new Property( DEFAULT_Y_AXIS_DESCRIPTION, {
+      validValues: DiscreteYAxisDescriptions
+    } );
+
     // @public
     this.sumChart = new DiscreteSumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
-      this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, {
-        yAxisDescriptionIndex: DiscreteYAxisDescriptions.length - 1,
+      this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, sumYAxisDescriptionProperty, {
         tandem: options.tandem.createTandem( 'sumChart' )
       } );
 

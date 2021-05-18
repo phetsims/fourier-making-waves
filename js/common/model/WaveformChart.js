@@ -32,7 +32,11 @@ class WaveformChart {
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( xAxisTickLabelFormatProperty, TickLabelFormat );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, XAxisDescription );
+    assert && assert( xAxisDescriptionProperty.validValues,
+      'xAxisDescriptionProperty should have been instantiated with validValues option' );
     assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
+    assert && assert( yAxisDescriptionProperty.validValues,
+      'yAxisDescriptionProperty should have been instantiated with validValues option' );
 
     // @public (read-only)
     this.fourierSeries = fourierSeries;

@@ -13,7 +13,6 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
-import AxisDescription from './AxisDescription.js';
 import SeriesType from './SeriesType.js';
 import WaveformChart from './WaveformChart.js';
 
@@ -27,24 +26,20 @@ class HarmonicsChart extends WaveformChart {
    * @param {Property.<number>} tProperty
    * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
-   * @param {AxisDescription} yAxisDescription
+   * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
-               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescription, options ) {
+               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
+               options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
-    assert && assert( yAxisDescription instanceof AxisDescription );
 
     options = merge( {
+      yAxisDescriptionIndex: 0,
       tandem: Tandem.REQUIRED
     }, options );
-
-    // Harmonics chart shows individual harmonics, so does not need zoom buttons, and has only one y-axis description.
-    const yAxisDescriptionProperty = new Property( yAxisDescription, {
-      validValues: [ yAxisDescription ]
-    } );
 
     /**
      * Creates the data set for a harmonic using current arg values.

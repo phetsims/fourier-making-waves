@@ -60,7 +60,7 @@ const DiscreteXAxisDescriptions = [
 assert && assert( AxisDescription.isSortedDescending( DiscreteXAxisDescriptions ),
   'DiscreteXAxisDescriptions must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
 
-assert && assert( DiscreteXAxisDescriptions[ DiscreteXAxisDescriptions.length - 1 ].range.getLength() >= 0.5,
+assert && assert( _.every( DiscreteXAxisDescriptions, axisDescription => axisDescription.range.getLength() >= 0.5 ),
   'The implementation of y-axis auto-scaling requires that at least 1/2 of the wavelength is always visible. ' +
   'Zooming in on the x-axis violates that requirement.' );
 

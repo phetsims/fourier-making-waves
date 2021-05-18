@@ -12,10 +12,13 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import SumChart from '../../common/model/SumChart.js';
 import TickLabelFormat from '../../common/model/TickLabelFormat.js';
+import XAxisDescription from '../../common/model/XAxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class WaveGameSumChart extends SumChart {
@@ -33,18 +36,27 @@ class WaveGameSumChart extends SumChart {
   constructor( answerFourierSeries, guessFourierSeries, domain, seriesType, t,
                xAxisDescription, yAxisDescriptions, options ) {
 
+    assert && assert( xAxisDescription instanceof XAxisDescription );
+    assert && AssertUtils.assertArrayOf( yAxisDescriptions, AxisDescription );
+
     options = merge( {
       yAutoScale: true //TODO This causes the chart to auto scale to answerFourierSeries. Too clever?
     }, options );
 
     super(
       answerFourierSeries,
+
+      // These aspects are static in the Wave Game screen, but dynamic in the superclass.
       new EnumerationProperty( Domain, domain ),
       new EnumerationProperty( SeriesType, seriesType ),
       new NumberProperty( t ),
       new Property( TickLabelFormat.NUMERIC ),
-      new Property( xAxisDescription ),
-      yAxisDescriptions,
+
+      // Sum chart has a static x-axis scale, with no zoom buttons.
+      new Property( xAxisDescription, { validValues: [ xAxisDescription ] } ),
+
+      // Sum chart has no y-axis zoom buttons, but the y-axis scales to fit the challenge.
+      new Property( yAxisDescriptions[ 0 ], { validValues: yAxisDescriptions } ),
       options
     );
 
