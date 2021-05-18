@@ -96,10 +96,10 @@ class DiscreteModel {
     assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.max === 1 / 2,
       'DEFAULT_X_ZOOM_LEVEL is probably incorrect - did you modify DiscreteXAxisDescriptions?' );
 
-    // @public {Property.<XAxisDescription>} describes the properties of the x axis.
+    // {Property.<XAxisDescription>} describes the properties of the x axis.
     // This is shared by the Harmonics and Sum charts.
     // dispose is not needed.
-    this.xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
+    const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
       validValues: DiscreteXAxisDescriptions
     } );
 
@@ -121,8 +121,8 @@ class DiscreteModel {
       tandem: options.tandem.createTandem( 'fourierSeries' )
     } );
 
-    // @public the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
-    this.emphasizedHarmonics = new EmphasizedHarmonics( {
+    // the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
+    const emphasizedHarmonics = new EmphasizedHarmonics( {
       tandem: options.tandem.createTandem( 'emphasizedHarmonics' )
     } );
 
@@ -139,17 +139,17 @@ class DiscreteModel {
     } );
 
     // @public
-    this.amplitudesChart = new AmplitudesChart( this.fourierSeries, this.emphasizedHarmonics );
+    this.amplitudesChart = new AmplitudesChart( this.fourierSeries, emphasizedHarmonics );
 
     // @public
-    this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, this.emphasizedHarmonics,
-      this.domainProperty, this.seriesTypeProperty, this.tProperty, this.xAxisDescriptionProperty, {
+    this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, emphasizedHarmonics,
+      this.domainProperty, this.seriesTypeProperty, this.tProperty, xAxisDescriptionProperty, {
         tandem: options.tandem.createTandem( 'harmonicsChart' )
       } );
 
     // @public
     this.sumChart = new DiscreteSumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
-      this.tProperty, this.xAxisDescriptionProperty, DiscreteYAxisDescriptions, {
+      this.tProperty, xAxisDescriptionProperty, DiscreteYAxisDescriptions, {
         yAxisDescriptionIndex: DiscreteYAxisDescriptions.length - 1,
         tandem: options.tandem.createTandem( 'sumChart' )
       } );
@@ -178,6 +178,32 @@ class DiscreteModel {
         this.equationFormProperty.value = EquationForm.HIDDEN;
       }
     } );
+
+    // @private
+    this.resetDiscreteModel = () => {
+
+      // Reset Properties
+      this.isPlayingProperty.reset();
+      this.tProperty.reset();
+      this.waveformProperty.reset();
+      this.seriesTypeProperty.reset();
+      this.domainProperty.reset();
+      this.equationFormProperty.reset();
+      xAxisDescriptionProperty.reset();
+      this.fourierSeriesSoundEnabledProperty.reset();
+      this.fourierSeriesSoundOutputLevelProperty.reset();
+
+      // Reset subcomponents
+      this.fourierSeries.reset();
+      emphasizedHarmonics.reset();
+      this.wavelengthTool.reset();
+      this.periodTool.reset();
+      this.harmonicsChart.reset();
+      this.sumChart.reset();
+
+      // Update the amplitudes of the Fourier series to match Property settings.
+      this.updateAmplitudes();
+    };
   }
 
   /**
@@ -185,28 +211,7 @@ class DiscreteModel {
    * @public
    */
   reset() {
-
-    // Reset Properties
-    this.isPlayingProperty.reset();
-    this.tProperty.reset();
-    this.waveformProperty.reset();
-    this.seriesTypeProperty.reset();
-    this.domainProperty.reset();
-    this.equationFormProperty.reset();
-    this.xAxisDescriptionProperty.reset();
-    this.fourierSeriesSoundEnabledProperty.reset();
-    this.fourierSeriesSoundOutputLevelProperty.reset();
-
-    // Reset subcomponents
-    this.fourierSeries.reset();
-    this.emphasizedHarmonics.reset();
-    this.wavelengthTool.reset();
-    this.periodTool.reset();
-    this.harmonicsChart.reset();
-    this.sumChart.reset();
-
-    // Update the amplitudes of the Fourier series to match Property settings.
-    this.updateAmplitudes();
+    this.resetDiscreteModel();
   }
 
   /**

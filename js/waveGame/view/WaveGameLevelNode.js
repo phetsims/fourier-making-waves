@@ -94,7 +94,7 @@ class WaveGameLevelNode extends Node {
     const amplitudesTandem = options.tandem.createTandem( 'amplitudes' );
 
     // Keypad Dialog, for changing amplitude value
-    const amplitudeKeypadDialog = new AmplitudeKeypadDialog( level.adapterGuessFourierSeries.amplitudeRange, layoutBounds, {
+    const amplitudeKeypadDialog = new AmplitudeKeypadDialog( level.amplitudeRange, layoutBounds, {
       tandem: amplitudesTandem.createTandem( 'amplitudeKeypadDialog' )
     } );
 

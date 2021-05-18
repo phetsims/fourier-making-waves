@@ -88,31 +88,34 @@ class WaveGameLevel {
 
     //TODO eliminate the need for adapterGuessFourierSeries and adapterAnswerFourierSeries by making charts mutable
 
-    // @public This is a static instance of FourierSeries that is passed to the charts.
+    // This is a static instance of FourierSeries that is passed to the charts.
     // We update the charts by keeping this series in sync with the current challenge's guessFourierSeries.
-    this.adapterGuessFourierSeries = new FourierSeries();
+    const adapterGuessFourierSeries = new FourierSeries();
 
-    // @public  This is a static instance of FourierSeries that is passed to the Sum chart.
+    // This is a static instance of FourierSeries that is passed to the Sum chart.
     // We update the Sum chart by keeping this series in sync with the current challenge's answerFourierSeries.
-    this.adapterAnswerFourierSeries = new FourierSeries();
+    const adapterAnswerFourierSeries = new FourierSeries();
 
-    // @public the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
-    this.emphasizedHarmonics = new EmphasizedHarmonics( {
+    // @public
+    this.amplitudeRange = adapterGuessFourierSeries.amplitudeRange;
+
+    // the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
+    const emphasizedHarmonics = new EmphasizedHarmonics( {
       tandem: options.tandem.createTandem( 'emphasizedHarmonics' )
     } );
 
     // @public
-    this.amplitudesChart = new AmplitudesChart( this.adapterGuessFourierSeries, this.emphasizedHarmonics );
+    this.amplitudesChart = new AmplitudesChart( adapterGuessFourierSeries, emphasizedHarmonics );
 
     // @public
-    this.harmonicsChart = new WaveGameHarmonicsChart( this.adapterGuessFourierSeries, this.emphasizedHarmonics,
+    this.harmonicsChart = new WaveGameHarmonicsChart( adapterGuessFourierSeries, emphasizedHarmonics,
       DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION );
 
     // @public
-    this.sumChart = new WaveGameSumChart( this.adapterAnswerFourierSeries, this.adapterGuessFourierSeries,
+    this.sumChart = new WaveGameSumChart( adapterAnswerFourierSeries, adapterGuessFourierSeries,
       DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, DiscreteYAxisDescriptions );
 
-    const guessAmplitudesListener = amplitudes => this.adapterGuessFourierSeries.setAmplitudes( amplitudes );
+    const guessAmplitudesListener = amplitudes => adapterGuessFourierSeries.setAmplitudes( amplitudes );
 
     // When the challenge changes...
     this.challengeProperty.link( ( challenge, previousChallenge ) => {
@@ -120,7 +123,7 @@ class WaveGameLevel {
       // Log the challenge to the console.
       phet.log && phet.log( `level=${levelNumber} challenge=${challenge.toString()}` );
 
-      this.emphasizedHarmonics.reset();
+      emphasizedHarmonics.reset();
 
       // Add a listener to keep adapterGuessFourierSeries synchronized with the challenge's guessFourierSeries.
       if ( previousChallenge ) {
@@ -129,32 +132,38 @@ class WaveGameLevel {
       challenge.guessFourierSeries.amplitudesProperty.link( guessAmplitudesListener );
 
       // Set the amplitudes for the new answer
-      for ( let i = 0; i < this.adapterAnswerFourierSeries.harmonics.length; i++ ) {
-        this.adapterAnswerFourierSeries.harmonics[ i ].amplitudeProperty.value =
+      for ( let i = 0; i < adapterAnswerFourierSeries.harmonics.length; i++ ) {
+        adapterAnswerFourierSeries.harmonics[ i ].amplitudeProperty.value =
           challenge.answerFourierSeries.harmonics[ i ].amplitudeProperty.value;
       }
     } );
 
     // When an amplitude is changed via the chart, update the corresponding amplitude in the challenge's guess.
     // unlink is not needed.
-    for ( let i = 0; i < this.adapterGuessFourierSeries.harmonics.length; i++ ) {
+    for ( let i = 0; i < adapterGuessFourierSeries.harmonics.length; i++ ) {
       const order = i + 1;
-      this.adapterGuessFourierSeries.harmonics[ i ].amplitudeProperty.link( amplitude => {
+      adapterGuessFourierSeries.harmonics[ i ].amplitudeProperty.link( amplitude => {
         this.challengeProperty.value.guessFourierSeries.harmonics[ order - 1 ].amplitudeProperty.value = amplitude;
       } );
     }
+
+    // @private
+    this.resetWaveGameLevel = () => {
+      this.scoreProperty.reset();
+      emphasizedHarmonics.reset();
+
+      //TODO will this be a problem for PhET-iO state restore?
+      // Instead of this.challengeProperty.reset(), call this.nextChallenge(), so that we're not always
+      // resetting to same challenge
+      this.nextChallenge();
+    };
   }
 
   /**
    * @public
    */
   reset() {
-    this.scoreProperty.reset();
-    this.emphasizedHarmonics.reset();
-
-    // Instead of this.challengeProperty.reset(), call this.nextChallenge(), so that we're not always
-    // resetting to same challenge
-    this.nextChallenge();
+    this.resetWaveGameLevel();
   }
 
   /**
