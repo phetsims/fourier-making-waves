@@ -23,7 +23,7 @@ class FMWZoomButtonGroup extends PlusMinusZoomButtonGroup {
     const axisDescriptions = axisDescriptionProperty.validValues;
     assert && assert( axisDescriptions, 'axisDescriptionProperty should have been defined with validValues option' );
 
-    // PlusMinusZoomButtonGroup needs a NumberProperty, create it here. It value is an index into axisDescriptions.
+    // PlusMinusZoomButtonGroup needs a NumberProperty, create it here. Its value is an index into axisDescriptions.
     const initialZoomLevel = axisDescriptions.indexOf( axisDescriptionProperty.value );
     const zoomLevelProperty = new NumberProperty( initialZoomLevel, {
       range: new Range( 0, axisDescriptions.length - 1 ),
