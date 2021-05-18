@@ -101,7 +101,7 @@ class DiscreteModel {
       range: new Range( 0, DiscreteXAxisDescriptions.length - 1 )
     } );
 
-    // @public {DerivedProperty.<AxisDescription>} describes the properties of the x axis.
+    // @public {DerivedProperty.<XAxisDescription>} describes the properties of the x axis.
     // This is shared by the Harmonics and Sum charts.
     // dispose is not needed.
     this.xAxisDescriptionProperty = new DerivedProperty(
