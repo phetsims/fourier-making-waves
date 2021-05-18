@@ -2,7 +2,7 @@
 
 //TODO better name for this class
 /**
- * FMWChartNode is the view base class for charts in the 'Discrete' and 'Wave Game' screens.
+ * FMWChartNode is the base class for charts the plot one or more waveforms.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
