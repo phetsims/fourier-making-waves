@@ -65,6 +65,7 @@ class DiscreteSumChartNode extends SumChartNode {
     yAutoScaleProperty.link( yAutoScale => {
       yZoomButtonGroup.enabled = !yAutoScale;
     } );
+    yZoomButtonGroup.enabledProperty.link( () => yZoomButtonGroup.interruptSubtreeInput() );
 
     // Automatically scales the y axis to show the entire plot
     const autoScaleCheckbox = new AutoScaleCheckbox( yAutoScaleProperty, {
@@ -81,10 +82,9 @@ class DiscreteSumChartNode extends SumChartNode {
 
     // Disable infiniteHarmonicsCheckbox for custom and wave-packet waveforms. unlink is not needed.
     waveformProperty.link( waveform => {
-
-      //TODO move right-hand side expression into Waveform?
       infiniteHarmonicsCheckbox.enabled = ( waveform !== Waveform.CUSTOM && waveform !== Waveform.WAVE_PACKET );
     } );
+    infiniteHarmonicsCheckbox.enabledProperty.link( () => infiniteHarmonicsCheckbox.interruptSubtreeInput() );
 
     // Group the checkboxes at the lower-left of the chart's rectangle.
     const checkboxesParent = new HBox( {
