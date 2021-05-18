@@ -19,9 +19,9 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import SumChart from '../model/SumChart.js';
 import TickLabelFormat from '../model/TickLabelFormat.js';
-import FMWChartNode from './FMWChartNode.js';
+import XYChartNode from './XYChartNode.js';
 
-class SumChartNode extends FMWChartNode {
+class SumChartNode extends XYChartNode {
 
   /**
    * @param {SumChart} sumChart
@@ -85,7 +85,7 @@ class SumChartNode extends FMWChartNode {
       sumPlot.visible = _.some( amplitudes, amplitude => amplitude !== 0 );
     } );
 
-    //TODO move this to FMWChartNode, add conditional for whether options.yAutoScaleProperty is defined
+    //TODO move this to XYChartNode, add conditional for whether options.yAutoScaleProperty is defined
     // Update the y-axis. unlink is not needed.
     yAxisDescriptionProperty.link( yAxisDescription => {
 
@@ -101,7 +101,7 @@ class SumChartNode extends FMWChartNode {
       this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
     } );
 
-    //TODO move this to FMWChartNode, add conditional for whether options.yAutoScaleProperty is defined
+    //TODO move this to XYChartNode, add conditional for whether options.yAutoScaleProperty is defined
     // Update the auto-scale range for the y-axis.
     Property.multilink(
       [ yAutoScaleProperty, yAxisAutoScaleRangeProperty ],
