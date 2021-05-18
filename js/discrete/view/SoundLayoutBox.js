@@ -32,7 +32,7 @@ class SoundLayoutBox extends HBox {
   constructor( soundEnabledProperty, outputLevelProperty, options ) {
 
     assert && AssertUtils.assertPropertyOf( soundEnabledProperty, 'boolean' );
-    assert && assert( outputLevelProperty instanceof NumberProperty, 'invalid outputLevelProperty' );
+    assert && assert( outputLevelProperty instanceof NumberProperty );
     assert && assert( outputLevelProperty.range, 'outputLevelProperty.range required' );
 
     options = merge( {

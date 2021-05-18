@@ -29,7 +29,7 @@ class EquationComboBox extends FMWComboBox {
 
     assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( popupParent instanceof Node, 'invalid popupParent' );
+    assert && assert( popupParent instanceof Node );
 
     options = merge( {
       textOptions: {
@@ -84,7 +84,7 @@ class EquationComboBox extends FMWComboBox {
 
     // Show only the choices that are appropriate for the selected domain. unlink is not needed.
     domainProperty.link( domain => {
-      assert && assert( Domain.includes( domain ), `invalid domain: ${domain}` );
+      assert && assert( Domain.includes( domain ) );
 
       // No need to adjust EquationForm.HIDDEN or EquationForm.MODE. They are appropriate for all Domain values.
 

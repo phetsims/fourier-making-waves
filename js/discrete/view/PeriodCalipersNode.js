@@ -25,8 +25,8 @@ class PeriodCalipersNode extends CalipersNode {
    */
   constructor( model, chartTransform, visibleBoundsProperty, options ) {
 
-    assert && assert( model instanceof DiscreteModel, 'invalid model' );
-    assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
+    assert && assert( model instanceof DiscreteModel );
+    assert && assert( chartTransform instanceof ChartTransform );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
 
     options = merge( {

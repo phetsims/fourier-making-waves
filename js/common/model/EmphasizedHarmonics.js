@@ -45,8 +45,8 @@ class EmphasizedHarmonics {
    * @public
    */
   push( node, harmonic ) {
-    assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
-    assert && assert( node instanceof Node, 'invalid node' );
+    assert && assert( harmonic instanceof Harmonic );
+    assert && assert( node instanceof Node );
     assert && assert( !this.includesNode( node ), 'node is already in the set' );
     this.observableArray.push( { node: node, harmonic: harmonic } );
   }
@@ -57,7 +57,7 @@ class EmphasizedHarmonics {
    * @public
    */
   remove( node ) {
-    assert && assert( node instanceof Node, 'invalid node' );
+    assert && assert( node instanceof Node );
     const element = _.find( this.observableArray, element => element.node === node );
     assert && assert( element, 'no element in set' );
     element && this.observableArray.remove( element );
@@ -70,7 +70,7 @@ class EmphasizedHarmonics {
    * @public
    */
   includesNode( node ) {
-    assert && assert( node instanceof Node, 'invalid node' );
+    assert && assert( node instanceof Node );
     return _.some( this.observableArray, element => element.node === node );
   }
 
@@ -81,7 +81,7 @@ class EmphasizedHarmonics {
    * @public
    */
   includesHarmonic( harmonic ) {
-    assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
+    assert && assert( harmonic instanceof Harmonic );
     return _.some( this.observableArray, element => element.harmonic === harmonic );
   }
 
@@ -111,8 +111,8 @@ class EmphasizedHarmonics {
    * @public
    */
   addChangedListener( listener ) {
-    assert && assert( typeof listener === 'function', 'invalid listener' );
-    assert && assert( !this.observableArray.lengthProperty.hasListener( listener ), 'already has this listener' );
+    assert && assert( typeof listener === 'function' );
+    assert && assert( !this.observableArray.lengthProperty.hasListener( listener ) );
     this.observableArray.lengthProperty.lazyLink( () => listener() );
   }
 }

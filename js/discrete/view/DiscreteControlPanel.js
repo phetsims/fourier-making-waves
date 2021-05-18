@@ -33,8 +33,8 @@ class DiscreteControlPanel extends Panel {
    */
   constructor( model, popupParent, options ) {
 
-    assert && assert( model instanceof DiscreteModel, 'invalid model' );
-    assert && assert( popupParent instanceof Node, 'invalid popupParent' );
+    assert && assert( model instanceof DiscreteModel );
+    assert && assert( popupParent instanceof Node );
 
     options = merge( {}, FMWConstants.PANEL_OPTIONS, {
       xMargin: 15,

@@ -46,13 +46,13 @@ class MeasurementToolNode extends Node {
   constructor( tool, harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, domainProperty, relevantDomains,
                updateNodes, options ) {
 
-    assert && assert( tool instanceof MeasurementTool, 'invalid tool' );
+    assert && assert( tool instanceof MeasurementTool );
     assert && AssertUtils.assertPropertyOf( harmonicProperty, Harmonic );
-    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
+    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( Array.isArray( relevantDomains ), 'invalid relevantDomains' );
-    assert && assert( typeof updateNodes === 'function', 'invalid updateNodes' );
+    assert && assert( Array.isArray( relevantDomains ) );
+    assert && assert( typeof updateNodes === 'function' );
 
     options = merge( {
 

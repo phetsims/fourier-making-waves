@@ -23,7 +23,7 @@ class AmplitudeControlsSpinner extends Node {
    * @param {Object} [options]
    */
   constructor( numberOfAmplitudeControlsProperty, options ) {
-    assert && assert( numberOfAmplitudeControlsProperty instanceof NumberProperty, 'invalid numberOfAmplitudeControlsProperty' );
+    assert && assert( numberOfAmplitudeControlsProperty instanceof NumberProperty );
 
     options = merge( {
       spinnerOptions: {

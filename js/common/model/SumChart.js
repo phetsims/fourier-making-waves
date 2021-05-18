@@ -35,7 +35,7 @@ class SumChart {
    */
   constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, yAxisDescriptions, options ) {
 
-    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourSeries' );
+    assert && assert( fourierSeries instanceof FourierSeries );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );

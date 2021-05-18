@@ -21,7 +21,7 @@ class ContinuousScreenView extends ScreenView {
    * @param {Object} [options]
    */
   constructor( model, options ) {
-    assert && assert( model instanceof ContinuousModel, 'invalid model' );
+    assert && assert( model instanceof ContinuousModel );
 
     options = merge( {
       tandem: Tandem.REQUIRED

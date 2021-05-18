@@ -48,9 +48,9 @@ class Harmonic extends PhetioObject {
     assert && AssertUtils.assertPositiveInteger( config.order );
     assert && AssertUtils.assertPositiveNumber( config.frequency );
     assert && AssertUtils.assertPositiveNumber( config.wavelength );
-    assert && assert( config.amplitudeRange instanceof Range, 'invalid amplitudeRange' );
+    assert && assert( config.amplitudeRange instanceof Range );
     assert && AssertUtils.assertPropertyOf( config.colorProperty, Color );
-    assert && assert( typeof config.amplitude === 'number', 'invalid amplitude' );
+    assert && assert( typeof config.amplitude === 'number' );
 
     super( config );
 
@@ -108,10 +108,10 @@ class Harmonic extends PhetioObject {
     assert && AssertUtils.assertPositiveInteger( numberOfPoints );
     assert && AssertUtils.assertPositiveNumber( L );
     assert && AssertUtils.assertPositiveNumber( T );
-    assert && assert( xAxisDescription instanceof XAxisDescription, 'invalid xAxisDescription' );
-    assert && assert( Domain.includes( domain ), 'invalid domain' );
-    assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
-    assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
+    assert && assert( xAxisDescription instanceof XAxisDescription );
+    assert && assert( Domain.includes( domain ) );
+    assert && assert( SeriesType.includes( seriesType ) );
+    assert && assert( typeof t === 'number' && t >= 0 );
 
     const amplitudeFunction = getAmplitudeFunction( domain, seriesType );
     const order = this.order;

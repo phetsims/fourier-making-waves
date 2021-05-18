@@ -24,7 +24,7 @@ class WaveformComboBox extends FMWComboBox {
   constructor( waveformProperty, popupParent, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
-    assert && assert( popupParent instanceof Node, 'invalid popupParent' );
+    assert && assert( popupParent instanceof Node );
 
     options = merge( {
       textOptions: {

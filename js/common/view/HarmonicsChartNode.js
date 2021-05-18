@@ -32,8 +32,8 @@ class HarmonicsChartNode extends FMWChartNode {
    */
   constructor( harmonicsChart, xAxisTickLabelFormatProperty, options ) {
 
-    assert && assert( harmonicsChart instanceof HarmonicsChart, 'invalid harmonicsChart' );
-    assert && assert( xAxisTickLabelFormatProperty instanceof Property, 'invalid xAxisTickLabelFormatProperty' );
+    assert && assert( harmonicsChart instanceof HarmonicsChart );
+    assert && assert( xAxisTickLabelFormatProperty instanceof Property );
 
     options = merge( {
 

@@ -30,7 +30,7 @@ class WaveGameChallenge {
     assert && AssertUtils.assertPositiveInteger( numberOfNonZeroHarmonics );
     assert && assert( numberOfHarmonics >= numberOfNonZeroHarmonics, 'requested too many numberOfNonZeroHarmonics' );
     assert && AssertUtils.assertPositiveNumber( maxAbsoluteAmplitude );
-    assert && assert( typeof isCorrectCallback === 'function', 'invalid isCorrectCallback' );
+    assert && assert( typeof isCorrectCallback === 'function' );
 
     // @public (read-only) the Fourier series that corresponds to the answer to the challenge
     this.answerFourierSeries = new FourierSeries( {

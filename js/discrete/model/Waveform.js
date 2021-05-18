@@ -21,12 +21,12 @@ class WaveformValue {
    */
   constructor( getAmplitudes ) {
 
-    assert && assert( typeof getAmplitudes === 'function', 'invalid getAmplitudes' );
+    assert && assert( typeof getAmplitudes === 'function' );
 
     // @public (read-only) wrap getAmplitudes with common validation for args and return value
     this.getAmplitudes = ( numberOfHarmonics, seriesType ) => {
-      assert && assert( typeof numberOfHarmonics === 'number' && numberOfHarmonics > 0, 'invalid numberOfHarmonics' );
-      assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
+      assert && assert( typeof numberOfHarmonics === 'number' && numberOfHarmonics > 0 );
+      assert && assert( SeriesType.includes( seriesType ) );
 
       const amplitudes = getAmplitudes( numberOfHarmonics, seriesType );
       assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );

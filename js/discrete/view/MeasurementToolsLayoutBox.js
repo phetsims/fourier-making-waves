@@ -33,8 +33,8 @@ class MeasurementToolsLayoutBox extends VBox {
    */
   constructor( wavelengthTool, periodTool, domainProperty, options ) {
 
-    assert && assert( wavelengthTool instanceof MeasurementTool, 'invalid wavelengthTool' );
-    assert && assert( periodTool instanceof MeasurementTool, 'invalid periodTool' );
+    assert && assert( wavelengthTool instanceof MeasurementTool );
+    assert && assert( periodTool instanceof MeasurementTool );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     options = merge( {

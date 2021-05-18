@@ -40,7 +40,7 @@ class PeriodClockNode extends MeasurementToolNode {
    */
   constructor( model, visibleBoundsProperty, options ) {
 
-    assert && assert( model instanceof DiscreteModel, 'invalid model' );
+    assert && assert( model instanceof DiscreteModel );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
 
     options = merge( {
@@ -190,9 +190,9 @@ class ClockFaceNode extends Node {
  */
 function createElapsedTimeShape( harmonic, t, radius ) {
 
-  assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
-  assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
-  assert && assert( typeof radius === 'number' && radius > 0, 'invalid radius' );
+  assert && assert( harmonic instanceof Harmonic );
+  assert && assert( typeof t === 'number' && t >= 0 );
+  assert && assert( typeof radius === 'number' && radius > 0 );
 
   const percentTime = ( t % harmonic.period ) / harmonic.period;
   const startAngle = -Math.PI / 2; // 12:00

@@ -34,8 +34,8 @@ class FourierSeriesLayoutBox extends VBox {
   constructor( waveformProperty, numberOfHarmonicsProperty, popupParent, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
-    assert && assert( numberOfHarmonicsProperty instanceof NumberProperty, 'invalid numberOfHarmonicsProperty' );
-    assert && assert( popupParent instanceof Node, 'invalid popupParent' );
+    assert && assert( numberOfHarmonicsProperty instanceof NumberProperty );
+    assert && assert( popupParent instanceof Node );
 
     options = merge( {
       tandem: Tandem.REQUIRED

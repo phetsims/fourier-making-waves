@@ -29,9 +29,9 @@ class FourierSoundGenerator extends SoundGenerator {
    */
   constructor( fourierSeries, enabledProperty, outputLevelProperty ) {
 
-    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
+    assert && assert( fourierSeries instanceof FourierSeries );
     assert && AssertUtils.assertPropertyOf( enabledProperty, 'boolean' );
-    assert && assert( outputLevelProperty instanceof NumberProperty, 'invalid outputLevelProperty' );
+    assert && assert( outputLevelProperty instanceof NumberProperty );
     assert && assert( outputLevelProperty.range, 'outputLevelProperty.range required' );
 
     super( {

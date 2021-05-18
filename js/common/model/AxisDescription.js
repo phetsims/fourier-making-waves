@@ -54,7 +54,7 @@ class AxisDescription {
    * @public
    */
   static getZoomLevelForRange( range, axisDescriptions ) {
-    assert && assert( range instanceof Range, 'invalid range' );
+    assert && assert( range instanceof Range );
     assert && assert( Math.abs( range.min ) === range.max, 'expected range to be symmetrical' );
     assert && AssertUtils.assertArrayOf( axisDescriptions, AxisDescription );
 

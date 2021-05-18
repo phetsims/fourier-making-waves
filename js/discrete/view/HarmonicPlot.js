@@ -23,8 +23,8 @@ class HarmonicPlot extends CanvasLinePlot {
    */
   constructor( chartTransform, harmonic, dataSetProperty, options ) {
 
-    assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
-    assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
+    assert && assert( chartTransform instanceof ChartTransform );
+    assert && assert( harmonic instanceof Harmonic );
     assert && AssertUtils.assertPropertyOf( dataSetProperty, Array );
 
     options = options || {};

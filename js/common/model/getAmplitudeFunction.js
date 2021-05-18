@@ -20,8 +20,8 @@ import SeriesType from './SeriesType.js';
  */
 function getAmplitudeFunction( domain, seriesType ) {
 
-  assert && assert( Domain.includes( domain ), 'invalid domain' );
-  assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
+  assert && assert( Domain.includes( domain ) );
+  assert && assert( SeriesType.includes( seriesType ) );
 
   let f;
   if ( domain === Domain.SPACE ) {

@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -34,9 +33,8 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
    * @public
    */
   setAmplitudeVisible( order, visible ) {
-    assert && AssertUtils.assertPositiveInteger( order );
-    assert && assert( order <= this.sliders.length, `invalid order: ${order}` );
-    assert && assert( typeof visible === 'boolean', 'invalid visible' );
+    assert && assert( typeof order === 'number' && order > 0 && order <= this.sliders.length, `invalid order: ${order}` );
+    assert && assert( typeof visible === 'boolean' );
 
     const index = order - 1;
 

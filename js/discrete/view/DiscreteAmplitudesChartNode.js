@@ -20,7 +20,7 @@ class DiscreteAmplitudesChartNode extends AmplitudesChartNode {
    * @param {Object} [options]
    */
   constructor( fourierSeries, emphasizedHarmonics, amplitudeKeypadDialog, options ) {
-    assert && assert( fourierSeries instanceof DiscreteFourierSeries, 'invalid fourierSeries' );
+    assert && assert( fourierSeries instanceof DiscreteFourierSeries );
 
     super( fourierSeries, emphasizedHarmonics, amplitudeKeypadDialog, options );
 

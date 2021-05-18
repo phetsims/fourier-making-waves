@@ -22,8 +22,8 @@ class OrderSpinner extends NumberSpinner {
    */
   constructor( symbol, orderProperty, options ) {
 
-    assert && assert( typeof symbol === 'string', 'invalid symbol' );
-    assert && assert( orderProperty instanceof NumberProperty, 'invalid orderProperty' );
+    assert && assert( typeof symbol === 'string' );
+    assert && assert( orderProperty instanceof NumberProperty );
 
     options = merge( {
       arrowsPosition: 'leftRight',

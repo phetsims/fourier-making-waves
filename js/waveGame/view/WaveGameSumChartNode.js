@@ -24,7 +24,7 @@ class WaveGameSumChartNode extends SumChartNode {
    * @param {Object} [options]
    */
   constructor( sumChart, options ) {
-    assert && assert( sumChart instanceof WaveGameSumChart, 'invalid sumChart' );
+    assert && assert( sumChart instanceof WaveGameSumChart );
 
     options = merge( {
       sumPlotStrokeProperty: FMWColorProfile.answerSumStrokeProperty,

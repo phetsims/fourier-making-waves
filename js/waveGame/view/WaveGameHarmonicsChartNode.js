@@ -19,7 +19,7 @@ class WaveGameHarmonicsChartNode extends HarmonicsChartNode {
    * @param {Object} [options]
    */
   constructor( harmonicsChart, options ) {
-    assert && assert( harmonicsChart instanceof WaveGameHarmonicsChart, 'invalid harmonicsChart' );
+    assert && assert( harmonicsChart instanceof WaveGameHarmonicsChart );
 
     super( harmonicsChart, new Property( TickLabelFormat.NUMERIC ), options );
   }

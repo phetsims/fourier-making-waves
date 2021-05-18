@@ -31,7 +31,7 @@ class AnswersNode extends Node {
    * @param {Object} [options]
    */
   constructor( chartTransform, challengeProperty, options ) {
-    assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
+    assert && assert( chartTransform instanceof ChartTransform );
     assert && AssertUtils.assertPropertyOf( challengeProperty, WaveGameChallenge );
 
     options = merge( {}, options );

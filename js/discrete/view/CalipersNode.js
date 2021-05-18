@@ -49,14 +49,14 @@ class CalipersNode extends MeasurementToolNode {
   constructor( tool, harmonics, emphasizedHarmonics, chartTransform, visibleBoundsProperty,
                domainProperty, relevantDomains, getModelValue, options ) {
 
-    assert && assert( tool instanceof MeasurementTool, 'invalid tool' );
-    assert && assert( Array.isArray( harmonics ), 'invalid harmonics' );
-    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
-    assert && assert( chartTransform instanceof ChartTransform, 'invalid chartTransform' );
+    assert && assert( tool instanceof MeasurementTool );
+    assert && assert( Array.isArray( harmonics ) );
+    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
+    assert && assert( chartTransform instanceof ChartTransform );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( Array.isArray( relevantDomains ), 'invalid relevantDomains' );
-    assert && assert( typeof getModelValue === 'function', 'invalid getModelValue' );
+    assert && assert( Array.isArray( relevantDomains ) );
+    assert && assert( typeof getModelValue === 'function' );
 
     options = options || {};
 

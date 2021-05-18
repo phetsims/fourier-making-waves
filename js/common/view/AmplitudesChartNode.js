@@ -48,9 +48,9 @@ class AmplitudesChartNode extends Node {
    */
   constructor( fourierSeries, emphasizedHarmonics, amplitudeKeypadDialog, options ) {
 
-    assert && assert( fourierSeries instanceof FourierSeries, 'invalid fourierSeries' );
-    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
-    assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog, 'invalid amplitudeKeypadDialog' );
+    assert && assert( fourierSeries instanceof FourierSeries );
+    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
+    assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog );
 
     options = merge( {
 

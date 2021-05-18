@@ -26,7 +26,7 @@ class DomainComboBox extends FMWComboBox {
   constructor( domainProperty, popupParent, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( popupParent instanceof Node, 'invalid popupParent' );
+    assert && assert( popupParent instanceof Node );
 
     options = merge( {
       textOptions: {

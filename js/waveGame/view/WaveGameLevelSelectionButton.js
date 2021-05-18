@@ -26,8 +26,8 @@ class WaveGameLevelSelectionButton extends LevelSelectionButton {
    */
   constructor( level, levelProperty, options ) {
 
-    assert && assert( level instanceof WaveGameLevel, 'invalid level' );
-    assert && assert( levelProperty instanceof Property, 'invalid levelProperty' );
+    assert && assert( level instanceof WaveGameLevel );
+    assert && assert( levelProperty instanceof Property );
 
     options = merge( {
       scoreDisplayConstructor: ScoreDisplayNumberAndStar,

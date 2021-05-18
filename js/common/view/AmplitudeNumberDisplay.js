@@ -33,9 +33,9 @@ class AmplitudeNumberDisplay extends VBox {
    */
   constructor( harmonic, emphasizedHarmonics, amplitudeKeypadDialog, options ) {
 
-    assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
-    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
-    assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog, 'invalid amplitudeKeypadDialog' );
+    assert && assert( harmonic instanceof Harmonic );
+    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
+    assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog );
 
     options = merge( {
 

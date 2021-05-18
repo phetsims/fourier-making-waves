@@ -49,7 +49,7 @@ class WaveGameLevel {
   constructor( levelNumber, description, options ) {
 
     assert && assert( typeof levelNumber === 'number' && levelNumber > 0, `invalid level, numbering starts with 1: ${levelNumber}` );
-    assert && assert( typeof description === 'string', 'invalid description' );
+    assert && assert( typeof description === 'string' );
 
     options = merge( {
       getNumberOfNonZeroHarmonics: () => 1

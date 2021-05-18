@@ -33,9 +33,9 @@ class XAxisDescription extends AxisDescription {
    */
   createAxisRange( domain, L, T ) {
 
-    assert && assert( Domain.includes( domain ), 'invalid domain' );
-    assert && assert( typeof L === 'number' && L > 0, 'invalid L' );
-    assert && assert( typeof T === 'number' && T > 0, 'invalid T' );
+    assert && assert( Domain.includes( domain ) );
+    assert && assert( typeof L === 'number' && L > 0 );
+    assert && assert( typeof T === 'number' && T > 0 );
 
     const value = ( domain === Domain.TIME ) ? T : L;
     const xMin = value * this.range.min;

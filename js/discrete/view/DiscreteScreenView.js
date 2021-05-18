@@ -50,7 +50,7 @@ class DiscreteScreenView extends ScreenView {
    * @param {Object} [options]
    */
   constructor( model, options ) {
-    assert && assert( model instanceof DiscreteModel, 'invalid model' );
+    assert && assert( model instanceof DiscreteModel );
 
     options = merge( {
       tandem: Tandem.REQUIRED

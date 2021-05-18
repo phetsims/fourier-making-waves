@@ -64,7 +64,7 @@ class FMWChartNode extends Node {
     assert && AssertUtils.assertPositiveNumber( L );
     assert && AssertUtils.assertPositiveNumber( T );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( xAxisTickLabelFormatProperty instanceof Property, 'invalid xAxisTickLabelFormatProperty' );
+    assert && assert( xAxisTickLabelFormatProperty instanceof Property );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
     assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
 

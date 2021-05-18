@@ -30,8 +30,8 @@ class SumChartNode extends FMWChartNode {
    */
   constructor( sumChart, xAxisTickLabelFormatProperty, waveformProperty, options ) {
 
-    assert && assert( sumChart instanceof SumChart, 'invalid sumChart' );
-    assert && assert( xAxisTickLabelFormatProperty instanceof Property, 'invalid xAxisTickLabelFormatProperty' );
+    assert && assert( sumChart instanceof SumChart );
+    assert && assert( xAxisTickLabelFormatProperty instanceof Property );
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
     options = merge( {

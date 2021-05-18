@@ -57,11 +57,11 @@ class WaveGameLevelNode extends Node {
    */
   constructor( level, levelProperty, layoutBounds, visibleBoundsProperty, gameAudioPlayer, options ) {
 
-    assert && assert( level instanceof WaveGameLevel, 'invalid level' );
-    assert && assert( levelProperty instanceof Property, 'invalid levelProperty' );
-    assert && assert( layoutBounds instanceof Bounds2, 'invalid layoutBounds' );
+    assert && assert( level instanceof WaveGameLevel );
+    assert && assert( levelProperty instanceof Property );
+    assert && assert( layoutBounds instanceof Bounds2 );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
-    assert && assert( gameAudioPlayer instanceof GameAudioPlayer, 'invalid gameAudioPlayer' );
+    assert && assert( gameAudioPlayer instanceof GameAudioPlayer );
 
     options = merge( {
       tandem: Tandem.REQUIRED

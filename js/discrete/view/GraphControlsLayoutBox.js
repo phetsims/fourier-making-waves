@@ -39,7 +39,7 @@ class GraphControlsLayoutBox extends VBox {
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
-    assert && assert( popupParent instanceof Node, 'invalid popupParent' );
+    assert && assert( popupParent instanceof Node );
 
     options = merge( {
       tandem: Tandem.REQUIRED

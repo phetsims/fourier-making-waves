@@ -28,8 +28,8 @@ class FMWComboBox extends ComboBox {
   constructor( choices, property, listboxParent, options ) {
 
     assert && AssertUtils.assertArray( choices );
-    assert && assert( property instanceof Property, 'invalid property' );
-    assert && assert( listboxParent instanceof Node, 'invalid listboxParent' );
+    assert && assert( property instanceof Property );
+    assert && assert( listboxParent instanceof Node );
 
     options = merge( {
       textOptions: {

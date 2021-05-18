@@ -33,7 +33,7 @@ class WaveGameScreenView extends ScreenView {
    * @param {Object} [options]
    */
   constructor( model, options ) {
-    assert && assert( model instanceof WaveGameModel, 'invalid model' );
+    assert && assert( model instanceof WaveGameModel );
 
     options = merge( {
       tandem: Tandem.REQUIRED

@@ -40,7 +40,7 @@ class ExpandedFormDialog extends Dialog {
    */
   constructor( fourierSeries, domainProperty, seriesTypeProperty, equationFormProperty, options ) {
 
-    assert && assert( fourierSeries instanceof DiscreteFourierSeries, 'invalid fourierSeries' );
+    assert && assert( fourierSeries instanceof DiscreteFourierSeries );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );

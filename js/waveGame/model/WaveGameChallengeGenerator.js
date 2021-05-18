@@ -47,8 +47,7 @@ class WaveGameChallengeGenerator {
    * @public
    */
   nextChallenge( previousChallenge ) {
-    assert && assert( previousChallenge instanceof WaveGameChallenge || previousChallenge === null,
-      'invalid previousChallenge' );
+    assert && assert( previousChallenge instanceof WaveGameChallenge || previousChallenge === null );
 
     // {WaveGameChallenge} Generate a challenge.
     let challenge = this.createWaveGameChallenge();

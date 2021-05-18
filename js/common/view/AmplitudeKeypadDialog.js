@@ -44,8 +44,8 @@ class AmplitudeKeypadDialog extends Dialog {
    */
   constructor( amplitudeRange, layoutBounds, options ) {
 
-    assert && assert( amplitudeRange instanceof Range, 'invalid amplitudeRange' );
-    assert && assert( layoutBounds instanceof Bounds2, 'invalid layoutBounds' );
+    assert && assert( amplitudeRange instanceof Range );
+    assert && assert( layoutBounds instanceof Bounds2 );
 
     options = merge( {
 
@@ -174,8 +174,8 @@ class AmplitudeKeypadDialog extends Dialog {
    */
   show( order, enterCallback, closeCallback ) {
     assert && AssertUtils.assertPositiveInteger( order );
-    assert && assert( typeof enterCallback === 'function', 'invalid enterCallback' );
-    assert && assert( typeof closeCallback === 'function', 'invalid closeCallback' );
+    assert && assert( typeof enterCallback === 'function' );
+    assert && assert( typeof closeCallback === 'function' );
 
     this.titleNode.text = `${FMWSymbols.A}<sub>${order}</sub>`;
     this.order = order;

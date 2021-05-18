@@ -43,7 +43,7 @@ class FourierSeries extends PhetioObject {
     }, options );
 
     assert && AssertUtils.assertPositiveInteger( options.numberOfHarmonics );
-    assert && assert( options.amplitudeRange instanceof Range, 'invalid amplitudeRange' );
+    assert && assert( options.amplitudeRange instanceof Range );
     assert && AssertUtils.assertArrayOf( options.amplitudes, 'number' );
     assert && assert( _.every( options.amplitudes, amplitude => options.amplitudeRange.contains( amplitude ) ),
       'one or more amplitudes are out of range' );
@@ -140,10 +140,10 @@ class FourierSeries extends PhetioObject {
    */
   createSumDataSet( xAxisDescription, domain, seriesType, t ) {
 
-    assert && assert( xAxisDescription instanceof XAxisDescription, 'invalid xAxisDescription' );
-    assert && assert( Domain.includes( domain ), 'invalid domain' );
-    assert && assert( SeriesType.includes( seriesType ), 'invalid seriesType' );
-    assert && assert( typeof t === 'number' && t >= 0, 'invalid t' );
+    assert && assert( xAxisDescription instanceof XAxisDescription );
+    assert && assert( Domain.includes( domain ) );
+    assert && assert( SeriesType.includes( seriesType ) );
+    assert && assert( typeof t === 'number' && t >= 0, `invalid t: ${t}` );
 
     const numberOfPoints = FMWConstants.MAX_POINTS_PER_DATA_SET;
 

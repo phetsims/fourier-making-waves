@@ -47,8 +47,8 @@ class AmplitudeSlider extends AudibleSlider {
    */
   constructor( harmonic, emphasizedHarmonics, options ) {
 
-    assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
-    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics, 'invalid emphasizedHarmonics' );
+    assert && assert( harmonic instanceof Harmonic );
+    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
 
     options = merge( {
 
@@ -158,8 +158,8 @@ class GrippyThumb extends Node {
    */
   constructor( thumbSize, harmonic, options ) {
 
-    assert && assert( thumbSize instanceof Dimension2, 'invalid thumbSize' );
-    assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
+    assert && assert( thumbSize instanceof Dimension2 );
+    assert && assert( harmonic instanceof Harmonic );
 
     options = merge( {
       tandem: Tandem.REQUIRED
@@ -178,7 +178,7 @@ class GrippyThumb extends Node {
     const xMargin = 2.5;
     const ySpacing = rectangle.height / ( numberOfDots + 1 );
     const dotRadius = ( rectangle.width - 2 * xMargin ) / 2;
-    assert && assert( dotRadius > 0, 'invalid dotRadius' );
+    assert && assert( dotRadius > 0, `invalid dotRadius: ${dotRadius}` );
     const dotsShape = new Shape();
     for ( let i = 0; i < numberOfDots; i++ ) {
       const y = i * ySpacing;
@@ -221,8 +221,8 @@ class BarTrack extends SliderTrack {
    */
   constructor( harmonic, amplitudeRange, options ) {
 
-    assert && assert( harmonic instanceof Harmonic, 'invalid harmonic' );
-    assert && assert( amplitudeRange instanceof Range, 'invalid amplitudeRange' );
+    assert && assert( harmonic instanceof Harmonic );
+    assert && assert( amplitudeRange instanceof Range );
     assert && assert( amplitudeRange.getCenter() === 0, 'implementation assumes that range is symmetric' );
 
     options = merge( {
