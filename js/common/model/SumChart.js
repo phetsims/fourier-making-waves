@@ -43,8 +43,11 @@ class SumChart extends WaveformChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( fourierSeries, domainProperty,
+    super( fourierSeries.L, fourierSeries.T, domainProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
+
+    // @public
+    this.fourierSeries = fourierSeries;
 
     /**
      * Creates the sum data set using current arg values.

@@ -59,8 +59,8 @@ class WaveformChartNode extends Node {
     assert && assert( waveformChart instanceof WaveformChart );
 
     // Fields of interest in waveformChart, to improve readability
-    const L = waveformChart.fourierSeries.L;
-    const T = waveformChart.fourierSeries.T;
+    const L = waveformChart.L;
+    const T = waveformChart.T;
     const domainProperty = waveformChart.domainProperty;
     const xAxisTickLabelFormatProperty = waveformChart.xAxisTickLabelFormatProperty;
     const xAxisDescriptionProperty = waveformChart.xAxisDescriptionProperty;
