@@ -74,8 +74,8 @@ class SumChart {
     } );
 
     //TODO performance: determine this while creating the sum data set
-    // @public {DerivedProperty.<number>} the maximum amplitude of the sum
-    this.maxAmplitudeProperty = new DerivedProperty(
+    // {DerivedProperty.<number>} the peak amplitude of the sum waveform
+    const peakAmplitudeProperty = new DerivedProperty(
       [ this.dataSetProperty ],
       dataSet => _.maxBy( dataSet, point => point.y ).y
     );
@@ -83,15 +83,11 @@ class SumChart {
     //TODO derive this value only while auto scale is enabled?
     // @public (read-only) {DerivedProperty.<Range>} auto-scale range of the y axis, fitted to the sum's max amplitude
     this.yAxisAutoScaleRangeProperty = new DerivedProperty(
-      [ this.maxAmplitudeProperty ],
-      maxAmplitude => {
+      [ peakAmplitudeProperty ],
+      peakAmplitude => {
 
-        // no smaller than range of amplitude
-        let maxY = Math.max( maxAmplitude, fourierSeries.amplitudeRange.max );
-
-        // a bit larger to provide some padding at top and bottom
-        maxY *= 1.05;
-
+        // no smaller than range of amplitude, with a bit of padding added at top and bottom
+        const maxY = Math.max( peakAmplitude * 1.05, fourierSeries.amplitudeRange.max );
         return new Range( -maxY, maxY );
       }, {
         //TODO tandem
