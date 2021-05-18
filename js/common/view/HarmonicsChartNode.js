@@ -41,13 +41,13 @@ class HarmonicsChartNode extends WaveformChartNode {
     // Fields of interest in harmonicsChart, to improve readability
     const harmonics = harmonicsChart.fourierSeries.harmonics;
     const dataSetProperties = harmonicsChart.dataSetProperties;
-    assert && assert( harmonics.length === dataSetProperties.length, 'a data set is required for each harmonic' );
     const emphasizedHarmonics = harmonicsChart.emphasizedHarmonics;
 
     super( harmonicsChart, options );
 
     // {HarmonicPlot[]} a plot for each harmonic in the Fourier series, in harmonic order, rendered using Canvas
     const plots = [];
+    assert && assert( harmonics.length === dataSetProperties.length, 'a data set is required for each harmonic' );
     for ( let i = 0; i < harmonics.length; i++ ) {
       plots.push( new HarmonicPlot( this.chartTransform, harmonics[ i ], dataSetProperties[ i ] ) );
     }
