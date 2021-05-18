@@ -65,6 +65,20 @@ class DiscreteModel {
       tandem: options.tandem.createTandem( 'isPlayingProperty' )
     } );
 
+    // Group elements related to sound under this tandem.
+    const soundTandem = options.tandem.createTandem( 'sound' );
+
+    // @public whether sound is enabled for the Fourier series
+    this.fourierSeriesSoundEnabledProperty = new BooleanProperty( false, {
+      tandem: soundTandem.createTandem( 'fourierSeriesSoundEnabledProperty' )
+    } );
+
+    // @public volume of the sound for the Fourier series
+    this.fourierSeriesSoundOutputLevelProperty = new NumberProperty( 0.25, {
+      range: new Range( 0, 1 ),
+      tandem: soundTandem.createTandem( 'fourierSeriesSoundOutputLevelProperty' )
+    } );
+
     // @public time (t), updated only when domainProperty is Domain.SPACE_AND_TIME
     // While the units are in milliseconds, the value is scaled so that it's practical to show high-frequency
     // phenomena in the sim, specifically in the 'space & time' domain.
@@ -94,36 +108,6 @@ class DiscreteModel {
       tandem: options.tandem.createTandem( 'equationFormProperty' )
     } );
 
-    // Determines the format of the x-axis tick labels, shared by the Harmonics and Sum charts.
-    const xAxisTickLabelFormatProperty = new DerivedProperty(
-      [ this.equationFormProperty ],
-      equationForm => ( equationForm === EquationForm.HIDDEN ) ? TickLabelFormat.NUMERIC : TickLabelFormat.SYMBOLIC
-    );
-
-    // Guard again accidentally changing the default if DiscreteXAxisDescriptions is modified.
-    assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.max === 1 / 2,
-      'DEFAULT_X_ZOOM_LEVEL is probably incorrect - did you modify DiscreteXAxisDescriptions?' );
-
-    // {Property.<XAxisDescription>} the x-axis description is shared by the Harmonics and Sum charts.
-    // dispose is not needed.
-    const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
-      validValues: DiscreteXAxisDescriptions
-    } );
-
-    // Group elements related to sound under this tandem.
-    const soundTandem = options.tandem.createTandem( 'sound' );
-
-    // @public whether sound is enabled for the Fourier series
-    this.fourierSeriesSoundEnabledProperty = new BooleanProperty( false, {
-      tandem: soundTandem.createTandem( 'fourierSeriesSoundEnabledProperty' )
-    } );
-
-    // @public volume of the sound for the Fourier series
-    this.fourierSeriesSoundOutputLevelProperty = new NumberProperty( 0.25, {
-      range: new Range( 0, 1 ),
-      tandem: soundTandem.createTandem( 'fourierSeriesSoundOutputLevelProperty' )
-    } );
-
     // @public
     this.fourierSeries = new DiscreteFourierSeries( {
       tandem: options.tandem.createTandem( 'fourierSeries' )
@@ -145,6 +129,22 @@ class DiscreteModel {
     // @public the period measurement tool
     this.periodTool = new MeasurementTool( FMWSymbols.T, this.fourierSeries.numberOfHarmonicsProperty, {
       tandem: measurementToolsTandem.createTandem( 'periodTool' )
+    } );
+
+    // Determines the format of the x-axis tick labels, shared by the Harmonics and Sum charts.
+    const xAxisTickLabelFormatProperty = new DerivedProperty(
+      [ this.equationFormProperty ],
+      equationForm => ( equationForm === EquationForm.HIDDEN ) ? TickLabelFormat.NUMERIC : TickLabelFormat.SYMBOLIC
+    );
+
+    // Guard again accidentally changing the default if DiscreteXAxisDescriptions is modified.
+    assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.max === 1 / 2,
+      'DEFAULT_X_ZOOM_LEVEL is probably incorrect - did you modify DiscreteXAxisDescriptions?' );
+
+    // {Property.<XAxisDescription>} the x-axis description is shared by the Harmonics and Sum charts.
+    // dispose is not needed.
+    const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
+      validValues: DiscreteXAxisDescriptions
     } );
 
     // @public
