@@ -136,6 +136,12 @@ class MeasurementToolsLayoutBox extends VBox {
       periodCheckbox.enabledProperty.value = hasTime;
       periodSpinner.enabledProperty.value = hasTime;
     } );
+
+    // Interrupt input for controls that can be disabled.
+    wavelengthCheckbox.enabledProperty.link( () => wavelengthCheckbox.interruptSubtreeInput() );
+    wavelengthSpinner.enabledProperty.link( () => wavelengthSpinner.interruptSubtreeInput() );
+    periodCheckbox.enabledProperty.link( () => periodCheckbox.interruptSubtreeInput() );
+    periodSpinner.enabledProperty.link( () => periodSpinner.interruptSubtreeInput() );
   }
 
   /**
