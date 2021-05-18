@@ -74,7 +74,7 @@ class WaveGameSumChart extends SumChart {
     } );
 
     guessFourierSeries.amplitudesProperty.lazyLink( () => {
-      this.guessDataSetProperty.value = guessFourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t );
+      this.guessDataSetProperty.value = createGuessDataSet();
     } );
   }
 }
