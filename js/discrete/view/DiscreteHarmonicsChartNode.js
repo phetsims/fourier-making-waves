@@ -40,6 +40,9 @@ class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
       tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
     } );
     this.addChild( xZoomButtonGroup );
+
+    // Interrupt interaction when visibility changes.
+    this.visibleProperty.link( () => this.interruptSubtreeInput() );
   }
 }
 

@@ -94,6 +94,9 @@ class DiscreteSumChartNode extends SumChartNode {
       top: this.xTickLabels.bottom + 5
     } );
     this.addChild( checkboxesParent );
+
+    // Interrupt interaction when visibility changes.
+    this.visibleProperty.link( () => this.interruptSubtreeInput() );
   }
 }
 

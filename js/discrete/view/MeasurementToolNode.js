@@ -133,7 +133,7 @@ class MeasurementToolNode extends Node {
     } );
 
     // Interrupt interaction when visibility changes.
-    options.visibleProperty.link( () => this.interruptSubtreeInput() );
+    this.visibleProperty.link( () => this.interruptSubtreeInput() );
 
     // If the tool's origin is outside the drag bounds, move it inside. unlink is not needed.
     dragBoundsProperty.link( dragBounds => {
