@@ -1,8 +1,9 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * FMWZoomButtonGroup is a zoom button group for this sim. This sim describes zoom levels as {AxisDescription[]},
- * while the superclass PlusMinusZoomButtonGroup needs a NumberProperty.
+ * FMWZoomButtonGroup is a zoom button group for this sim, and serves as an adapter to PlusMinusZoomButtonGroup.
+ * This sim describes zoom levels as {AxisDescription[]}, while the API for superclass PlusMinusZoomButtonGroup
+ * requires {NumberProperty} zoomLevelProperty.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
