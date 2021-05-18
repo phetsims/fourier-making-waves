@@ -7,9 +7,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWZoomButtonGroup from '../../common/view/FMWZoomButtonGroup.js';
 import SumChartNode from '../../common/view/SumChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteSumChart from '../model/DiscreteSumChart.js';
@@ -32,13 +32,13 @@ class DiscreteSumChartNode extends SumChartNode {
     super( sumChart, xAxisTickLabelFormatProperty, waveformProperty, options );
 
     // Fields of interest in sumChart, to improve readability
-    const xZoomLevelProperty = sumChart.xZoomLevelProperty;
-    const yZoomLevelProperty = sumChart.yZoomLevelProperty;
+    const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;
+    const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
     const yAutoScaleProperty = sumChart.yAutoScaleProperty;
     const infiniteHarmonicsVisibleProperty = sumChart.infiniteHarmonicsVisibleProperty;
 
     // Zoom buttons for the x-axis range, at bottom right.
-    const xZoomButtonGroup = new PlusMinusZoomButtonGroup( xZoomLevelProperty, {
+    const xZoomButtonGroup = new FMWZoomButtonGroup( xAxisDescriptionProperty, {
       orientation: 'horizontal',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
       touchAreaXDilation: 5,
@@ -50,7 +50,7 @@ class DiscreteSumChartNode extends SumChartNode {
     this.addChild( xZoomButtonGroup );
 
     // Zoom buttons for the y-axis range, at bottom left.
-    const yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {
+    const yZoomButtonGroup = new FMWZoomButtonGroup( yAxisDescriptionProperty, {
       orientation: 'vertical',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
       touchAreaXDilation: 10,

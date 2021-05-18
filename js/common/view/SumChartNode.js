@@ -89,13 +89,13 @@ class SumChartNode extends FMWChartNode {
     // Update the y-axis. unlink is not needed.
     yAxisDescriptionProperty.link( yAxisDescription => {
 
-      // Range is determined by zoom level only if auto scale is disabled.
+      // Range is determined by yAxisDescription only if auto scale is disabled.
       if ( !yAutoScaleProperty.value ) {
         this.chartTransform.setModelYRange( yAxisDescription.range );
       }
 
-      // Grid lines and tick marks are determined by zoom level regardless of whether auto scale is enabled.
-      // This is because the model keep the zoom level in sync with yAxisAutoScaleRange.
+      // Grid lines and tick marks are determined by AxisDescriptions regardless of whether auto scale is enabled.
+      // This is because the model keeps AxisDescriptions in sync with yAxisAutoScaleRange.
       this.yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
       this.yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
       this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );

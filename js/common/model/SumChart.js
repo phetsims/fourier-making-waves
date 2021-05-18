@@ -9,7 +9,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -45,7 +44,7 @@ class SumChart {
 
     options = merge( {
       yAutoScale: false,
-      yZoomLevel: 1,
+      yAxisDescriptionIndex: 0,
       tandem: Tandem.REQUIRED
     }, options );
 
@@ -94,40 +93,29 @@ class SumChart {
         //TODO tandem
       } );
 
-    // The initial y-axis zoom level depends on whether auto scale is initially enabled.
-    const initialYZoomLevel = this.yAutoScaleProperty.value ?
-                              AxisDescription.getZoomLevelForRange( this.yAxisAutoScaleRangeProperty.value, yAxisDescriptions ) :
-                              options.yZoomLevel;
+    // The initial y-axis description depends on whether auto scale is initially enabled.
+    const initialYAxisDescription = this.yAutoScaleProperty.value ?
+                                    AxisDescription.getAxisDescriptionForRange( this.yAxisAutoScaleRangeProperty.value, yAxisDescriptions ) :
+                                    yAxisDescriptions[ options.yAxisDescriptionIndex ];
 
-    // @public zoom level for the y axis, index into yAxisDescriptions
-    this.yZoomLevelProperty = new NumberProperty( initialYZoomLevel, {
-      numberType: 'Integer',
-      range: new Range( 0, yAxisDescriptions.length - 1 )
+    // @public {Property.<AxisDescription>} describes the properties of the y axis. dispose is not needed
+    this.yAxisDescriptionProperty = new Property( initialYAxisDescription, {
+      validValues: yAxisDescriptions
     } );
 
-    // @public {DerivedProperty.<AxisDescription>} describes the properties of the y axis. dispose is not needed
-    this.yAxisDescriptionProperty = new DerivedProperty(
-      [ this.yZoomLevelProperty ],
-      yZoomLevel => {
-        assert && assert( yZoomLevel >= 0 && yZoomLevel < yAxisDescriptions.length );
-        return yAxisDescriptions[ yZoomLevel ];
-      }, {
-        validValues: yAxisDescriptions
-      } );
-
-    // When auto scale is enabled, link this listener to yAxisAutoScaleRangeProperty, and adjust the y-axis zoom
-    // range so that's it's appropriate for the auto-scale range.
-    const updateZoomLevel = yAxisAutoScaleRange => {
+    // When auto scale is enabled, link this listener to yAxisAutoScaleRangeProperty, and adjust the y-axis range so
+    // that's it's appropriate for the auto-scale range.
+    const updateYAxisDescription = yAxisAutoScaleRange => {
       assert && assert( this.yAutoScaleProperty.value, 'should not be called when yAutoScale is disabled' );
-      this.yZoomLevelProperty.value = AxisDescription.getZoomLevelForRange( yAxisAutoScaleRange, yAxisDescriptions );
+      this.yAxisDescriptionProperty.value = AxisDescription.getAxisDescriptionForRange( yAxisAutoScaleRange, yAxisDescriptions );
     };
     this.yAutoScaleProperty.link( yAutoScale => {
       if ( yAutoScale ) {
-        this.yAxisAutoScaleRangeProperty.link( updateZoomLevel );
+        this.yAxisAutoScaleRangeProperty.link( updateYAxisDescription );
       }
       else {
-        if ( this.yAxisAutoScaleRangeProperty.hasListener( updateZoomLevel ) ) {
-          this.yAxisAutoScaleRangeProperty.unlink( updateZoomLevel );
+        if ( this.yAxisAutoScaleRangeProperty.hasListener( updateYAxisDescription ) ) {
+          this.yAxisAutoScaleRangeProperty.unlink( updateYAxisDescription );
         }
       }
     } );
@@ -145,7 +133,7 @@ class SumChart {
   reset() {
     this.yAutoScaleProperty.reset();
     this.dataSetProperty.reset();
-    this.yZoomLevelProperty.reset();
+    this.yAxisDescriptionProperty.reset();
   }
 
   /**

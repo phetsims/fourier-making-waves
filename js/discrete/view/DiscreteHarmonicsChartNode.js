@@ -6,8 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWZoomButtonGroup from '../../common/view/FMWZoomButtonGroup.js';
 import HarmonicsChartNode from '../../common/view/HarmonicsChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteHarmonicsChart from '../model/DiscreteHarmonicsChart.js';
@@ -26,11 +26,11 @@ class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
     super( harmonicsChart, xAxisTickLabelFormatProperty, options );
 
     // Fields of interest in harmonicsChart, to improve readability
-    const xZoomLevelProperty = harmonicsChart.xZoomLevelProperty;
+    const xAxisDescriptionProperty = harmonicsChart.xAxisDescriptionProperty;
 
     //TODO duplicated from DiscreteHarmonicsChartNode, should zoom buttons be an option for FMWChartNode?
     // Zoom buttons for the x-axis range, at bottom right.
-    const xZoomButtonGroup = new PlusMinusZoomButtonGroup( xZoomLevelProperty, {
+    const xZoomButtonGroup = new FMWZoomButtonGroup( xAxisDescriptionProperty, {
       orientation: 'horizontal',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
       touchAreaXDilation: 5,

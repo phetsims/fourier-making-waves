@@ -44,29 +44,23 @@ class AxisDescription {
   }
 
   /**
-   * Gets the zoom level (index into axisDescriptions) that is appropriate for a specified axis range.
+   * Gets AxisDescription that is appropriate for a specified axis range.
    * This is the first entry in axisDescriptions such that range.max >= axisDescription.range.max.
-   * This is used to keep the y-axis zoom level in-sync with auto scaling, but is general enough to be used with
+   * This is used to keep the y-axis description in-sync with auto scaling, but is general enough to be used with
    * either axis.
    * @param {Range} range
    * @param {AxisDescription[]} axisDescriptions
-   * @returns {number} - the zoom level, an index into axisDescriptions
+   * @returns {AxisDescription}
    * @public
    */
-  static getZoomLevelForRange( range, axisDescriptions ) {
+  static getAxisDescriptionForRange( range, axisDescriptions ) {
     assert && assert( range instanceof Range );
     assert && assert( Math.abs( range.min ) === range.max, 'expected range to be symmetrical' );
     assert && AssertUtils.assertArrayOf( axisDescriptions, AxisDescription );
 
-    let zoomLevel = axisDescriptions.length - 1;
-    for ( let i = 0; i < axisDescriptions.length - 1; i++ ) {
-      if ( range.max >= axisDescriptions[ i ].range.max ) {
-        zoomLevel = i;
-        break;
-      }
-    }
-    assert && assert( zoomLevel >= 0 && zoomLevel < axisDescriptions.length, `invalid zoomLevel: ${zoomLevel}` );
-    return zoomLevel;
+    const axisDescription = _.find( axisDescriptions, axisDescription => range.max >= axisDescription.range.max );
+    assert && assert( axisDescription );
+    return axisDescription;
   }
 
   /**
