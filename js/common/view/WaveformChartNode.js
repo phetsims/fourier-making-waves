@@ -176,7 +176,20 @@ class WaveformChartNode extends Node {
       } );
     }
 
-    //TODO observe yAxisDescriptionProperty
+    // Update the y-axis. unlink is not needed.
+    yAxisDescriptionProperty.link( yAxisDescription => {
+
+      // Range is determined by yAxisDescription only if auto scale is disabled.
+      if ( !waveformChart.yAutoScaleProperty || !waveformChart.yAutoScaleProperty.value ) {
+        chartTransform.setModelYRange( yAxisDescription.range );
+      }
+
+      // Grid lines and tick marks are determined by AxisDescriptions regardless of whether auto scale is enabled.
+      // This is because the model keeps AxisDescriptions in sync with yAxisAutoScaleRange.
+      yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
+      yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
+      yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
+    } );
 
     // ---------------------------------------------------------------
 
@@ -204,7 +217,6 @@ class WaveformChartNode extends Node {
     this.chartTransform = chartTransform;
 
     // @protected
-    this.yAxisLabel = yAxisLabel;
     this.xTickLabels = xTickLabels;
     this.yGridLines = yGridLines;
     this.yTickMarks = yTickMarks;

@@ -41,6 +41,8 @@ class HarmonicsChart extends WaveformChart {
       tandem: Tandem.REQUIRED
     }, options );
 
+    super( fourierSeries, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
+
     /**
      * Creates the data set for a harmonic using current arg values.
      * @param {Harmonic} harmonic
@@ -77,8 +79,6 @@ class HarmonicsChart extends WaveformChart {
         () => { dataSetProperty.value = createDataSet( harmonic ); }
       );
     }
-
-    super( fourierSeries, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
 
     // @public
     this.emphasizedHarmonics = emphasizedHarmonics;

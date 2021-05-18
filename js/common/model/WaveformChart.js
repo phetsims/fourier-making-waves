@@ -41,7 +41,8 @@ class WaveformChart {
 
     options = merge( {
       hasXZoom: false, // Does this chart have zoom buttons for the x axis?
-      hasYZoom: false  // Does this chart have zoom buttons for the y axis?
+      hasYZoom: false,  // Does this chart have zoom buttons for the y axis?
+      yAutoScaleProperty: null // {null|Property.<boolean>}
     }, options );
 
     // @public (read-only)
@@ -52,6 +53,7 @@ class WaveformChart {
     this.yAxisDescriptionProperty = yAxisDescriptionProperty;
     this.hasXZoom = options.hasXZoom;
     this.hasYZoom = options.hasYZoom;
+    this.yAutoScaleProperty = options.yAutoScaleProperty;
   }
 }
 

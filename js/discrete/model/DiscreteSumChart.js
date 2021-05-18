@@ -33,6 +33,10 @@ class DiscreteSumChart extends SumChart {
       hasYZoom: true
     }, options );
 
+    const yAutoScaleProperty = new BooleanProperty( false );
+    assert && assert( !options.yAutoScaleProperty );
+    options.yAutoScaleProperty = yAutoScaleProperty;
+
     super( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
       options );
@@ -46,6 +50,13 @@ class DiscreteSumChart extends SumChart {
     this.infiniteHarmonicsVisibleProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'infiniteHarmonicsVisibleProperty' )
     } );
+
+    // @private
+    this.resetDiscreteSumChart = () => {
+      yAutoScaleProperty.reset();
+      this.chartVisibleProperty.reset();
+      this.infiniteHarmonicsVisibleProperty.reset();
+    };
   }
 
   /**
@@ -54,8 +65,7 @@ class DiscreteSumChart extends SumChart {
    */
   reset() {
     super.reset();
-    this.chartVisibleProperty.reset();
-    this.infiniteHarmonicsVisibleProperty.reset();
+    this.resetDiscreteSumChart();
   }
 }
 
