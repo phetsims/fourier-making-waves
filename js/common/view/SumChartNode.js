@@ -37,7 +37,6 @@ class SumChartNode extends WaveformChartNode {
 
     // Fields of interest in sumChart, to improve readability
     const fourierSeries = sumChart.fourierSeries;
-    const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
     const yAutoScaleProperty = sumChart.yAutoScaleProperty;
     const yAxisAutoScaleRangeProperty = sumChart.yAxisAutoScaleRangeProperty;
     const dataSetProperty = sumChart.dataSetProperty;
@@ -72,22 +71,6 @@ class SumChartNode extends WaveformChartNode {
     // Hide the plot when the sum is zero (all amplitudes are zero)
     fourierSeries.amplitudesProperty.link( amplitudes => {
       sumPlot.visible = _.some( amplitudes, amplitude => amplitude !== 0 );
-    } );
-
-    //TODO move this to WaveformChartNode, add conditional for whether options.yAutoScaleProperty is defined
-    // Update the y-axis. unlink is not needed.
-    yAxisDescriptionProperty.link( yAxisDescription => {
-
-      // Range is determined by yAxisDescription only if auto scale is disabled.
-      if ( !yAutoScaleProperty.value ) {
-        this.chartTransform.setModelYRange( yAxisDescription.range );
-      }
-
-      // Grid lines and tick marks are determined by AxisDescriptions regardless of whether auto scale is enabled.
-      // This is because the model keeps AxisDescriptions in sync with yAxisAutoScaleRange.
-      this.yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
-      this.yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
-      this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
     } );
 
     //TODO move this to WaveformChartNode, add conditional for whether options.yAutoScaleProperty is defined
