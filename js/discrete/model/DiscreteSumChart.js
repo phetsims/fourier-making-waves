@@ -7,6 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import merge from '../../../../phet-core/js/merge.js';
 import SumChart from '../../common/model/SumChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -24,6 +25,13 @@ class DiscreteSumChart extends SumChart {
    */
   constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
                xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options ) {
+
+    options = merge( {
+
+      // Sum chart has zoom buttons for both axes.
+      hasXZoom: true,
+      hasYZoom: true
+    }, options );
 
     super( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,

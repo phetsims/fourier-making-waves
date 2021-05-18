@@ -27,6 +27,7 @@ import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
 import WaveformChart from '../model/WaveformChart.js';
+import FMWZoomButtonGroup from './FMWZoomButtonGroup.js';
 import XTickLabelSet from './XTickLabelSet.js';
 import YTickLabelSet from './YTickLabelSet.js';
 
@@ -109,6 +110,20 @@ class WaveformChartNode extends Node {
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
+    // {Node|undefined} Optional zoom buttons for the x-axis range, at bottom right.
+    let xZoomButtonGroup;
+    if ( waveformChart.hasXZoom ) {
+      xZoomButtonGroup = new FMWZoomButtonGroup( waveformChart.xAxisDescriptionProperty, {
+        orientation: 'horizontal',
+        scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
+        touchAreaXDilation: 5,
+        touchAreaYDilation: 10,
+        left: chartRectangle.right + 6,
+        bottom: chartRectangle.bottom,
+        tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
+      } );
+    }
+
     // Set the x-axis label based on domain.
     const spaceLabel = StringUtils.fillIn( fourierMakingWavesStrings.xMeters, { x: FMWSymbols.x } );
     const timeLabel = StringUtils.fillIn( fourierMakingWavesStrings.tMilliseconds, { t: FMWSymbols.t } );
@@ -147,6 +162,20 @@ class WaveformChartNode extends Node {
       tandem: options.tandem.createTandem( 'yAxisLabel' )
     } );
 
+    // {Node|undefined} Optional zoom buttons for the y-axis range, at bottom left.
+    let yZoomButtonGroup;
+    if ( waveformChart.hasYZoom ) {
+      yZoomButtonGroup = new FMWZoomButtonGroup( yAxisDescriptionProperty, {
+        orientation: 'vertical',
+        scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
+        touchAreaXDilation: 10,
+        touchAreaYDilation: 5,
+        right: chartRectangle.left - 31, // determined empirically
+        top: chartRectangle.bottom,
+        tandem: options.tandem.createTandem( 'yZoomButtonGroup' )
+      } );
+    }
+
     //TODO observe yAxisDescriptionProperty
 
     // ---------------------------------------------------------------
@@ -165,21 +194,22 @@ class WaveformChartNode extends Node {
       yAxisLabel, yGridLines, yTickLabels,
       clippedParent
     ];
+    xZoomButtonGroup && options.children.push( xZoomButtonGroup );
+    yZoomButtonGroup && options.children.push( yZoomButtonGroup );
 
     super( options );
 
-    // @public for use by subclasses and clients
+    // @public
     this.chartRectangle = chartRectangle;
     this.chartTransform = chartTransform;
 
-    // @protected for layout of decorations added by subclasses
+    // @protected
     this.yAxisLabel = yAxisLabel;
-
-    // @protected for setting range and spacing by subclasses
     this.xTickLabels = xTickLabels;
     this.yGridLines = yGridLines;
     this.yTickMarks = yTickMarks;
     this.yTickLabels = yTickLabels;
+    this.yZoomButtonGroup = yZoomButtonGroup;
   }
 
   /**

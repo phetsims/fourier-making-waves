@@ -9,8 +9,6 @@
 
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
-import FMWConstants from '../../common/FMWConstants.js';
-import FMWZoomButtonGroup from '../../common/view/FMWZoomButtonGroup.js';
 import SumChartNode from '../../common/view/SumChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteSumChart from '../model/DiscreteSumChart.js';
@@ -33,40 +31,16 @@ class DiscreteSumChartNode extends SumChartNode {
     super( sumChart, options );
 
     // Fields of interest in sumChart, to improve readability
-    const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;
-    const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
     const yAutoScaleProperty = sumChart.yAutoScaleProperty;
     const infiniteHarmonicsVisibleProperty = sumChart.infiniteHarmonicsVisibleProperty;
 
-    // Zoom buttons for the x-axis range, at bottom right.
-    const xZoomButtonGroup = new FMWZoomButtonGroup( xAxisDescriptionProperty, {
-      orientation: 'horizontal',
-      scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
-      touchAreaXDilation: 5,
-      touchAreaYDilation: 10,
-      left: this.chartRectangle.right + 6,
-      bottom: this.chartRectangle.bottom,
-      tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
-    } );
-    this.addChild( xZoomButtonGroup );
-
-    // Zoom buttons for the y-axis range, at bottom left.
-    const yZoomButtonGroup = new FMWZoomButtonGroup( yAxisDescriptionProperty, {
-      orientation: 'vertical',
-      scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
-      touchAreaXDilation: 10,
-      touchAreaYDilation: 5,
-      right: this.chartRectangle.left - 31, // determined empirically
-      top: this.chartRectangle.bottom,
-      tandem: options.tandem.createTandem( 'yZoomButtonGroup' )
-    } );
-    this.addChild( yZoomButtonGroup );
-
     // Disable the y-axis zoom buttons when auto scale is enabled. unlink is not needed.
-    yAutoScaleProperty.link( yAutoScale => {
-      yZoomButtonGroup.enabled = !yAutoScale;
-    } );
-    yZoomButtonGroup.enabledProperty.link( () => yZoomButtonGroup.interruptSubtreeInput() );
+    if ( this.yZoomButtonGroup ) {
+      yAutoScaleProperty.link( yAutoScale => {
+        this.yZoomButtonGroup.enabled = !yAutoScale;
+      } );
+      this.yZoomButtonGroup.enabledProperty.link( () => this.yZoomButtonGroup.interruptSubtreeInput() );
+    }
 
     // Automatically scales the y axis to show the entire plot
     const autoScaleCheckbox = new AutoScaleCheckbox( yAutoScaleProperty, {

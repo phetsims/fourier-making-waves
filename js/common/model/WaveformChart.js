@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
@@ -38,12 +39,19 @@ class WaveformChart {
     assert && assert( yAxisDescriptionProperty.validValues,
       'yAxisDescriptionProperty should have been instantiated with validValues option' );
 
+    options = merge( {
+      hasXZoom: false, // Does this chart have zoom buttons for the x axis?
+      hasYZoom: false  // Does this chart have zoom buttons for the y axis?
+    }, options );
+
     // @public (read-only)
     this.fourierSeries = fourierSeries;
     this.domainProperty = domainProperty;
     this.xAxisTickLabelFormatProperty = xAxisTickLabelFormatProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
     this.yAxisDescriptionProperty = yAxisDescriptionProperty;
+    this.hasXZoom = options.hasXZoom;
+    this.hasYZoom = options.hasYZoom;
   }
 }
 
