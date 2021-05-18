@@ -20,7 +20,7 @@ class WaveformChart {
   /**
    * @param {FourierSeries} fourierSeries - Fourier series associated with the chart
    * @param {EnumerationProperty.<Domain>} domainProperty - domain of the x axis
-   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty - determines the format of the x-axis tick labels
+   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty - format of the x-axis tick labels
    * @param {Property.<XAxisDescription>} xAxisDescriptionProperty - describes the x axis
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty - describes the y axis
    * @param {Object} [options]
