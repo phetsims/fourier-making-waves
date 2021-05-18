@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * XYChartNode is the base class for charts that plot one or more 2D waveforms.
+ * WaveformChartNode is the base class for charts that plot one or more 2D waveforms.
  * The x axis is either space or time, while the y axis is always amplitude.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -50,7 +50,7 @@ const TICK_MARK_OPTIONS = {
   extent: 6
 };
 
-class XYChartNode extends Node {
+class WaveformChartNode extends Node {
 
   /**
    * @param {number} L - the wavelength of the fundamental harmonic, in meters
@@ -199,5 +199,5 @@ class XYChartNode extends Node {
   }
 }
 
-fourierMakingWaves.register( 'XYChartNode', XYChartNode );
-export default XYChartNode;
+fourierMakingWaves.register( 'WaveformChartNode', WaveformChartNode );
+export default WaveformChartNode;

@@ -2,10 +2,10 @@ TODO.txt for fourier-making-waves
 
 ## Common
 
-Create FMWChart that corresponds to what XYChartNode handles
+Create FMWChart that corresponds to what WaveformChartNode handles
 Generalize SumChart and SumChartNode to handle multiple FourierSeries
 xZoomButtonGroup is duplicated - move to base class?
-Move handling of yAxisDescriptionProperty and autoScaleProperty from SumChartNode to XYChartNode
+Move handling of yAxisDescriptionProperty and autoScaleProperty from SumChartNode to WaveformChartNode
 
 ## Discrete screen
 

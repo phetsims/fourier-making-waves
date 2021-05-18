@@ -28,7 +28,7 @@ class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
     // Fields of interest in harmonicsChart, to improve readability
     const xAxisDescriptionProperty = harmonicsChart.xAxisDescriptionProperty;
 
-    //TODO duplicated from DiscreteHarmonicsChartNode, should zoom buttons be an option for XYChartNode?
+    //TODO duplicated from DiscreteHarmonicsChartNode, should zoom buttons be an option for WaveformChartNode?
     // Zoom buttons for the x-axis range, at bottom right.
     const xZoomButtonGroup = new FMWZoomButtonGroup( xAxisDescriptionProperty, {
       orientation: 'horizontal',
