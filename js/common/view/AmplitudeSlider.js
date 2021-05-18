@@ -132,8 +132,8 @@ class AmplitudeSlider extends AudibleSlider {
       }
     } );
 
-    // When a slider becomes visible, interrupt any interaction that may be in progress.
-    this.visibleProperty.link( visible => visible && this.interruptSubtreeInput() );
+    // Interrupt interaction when visibility changes.
+    this.visibleProperty.link( () => this.interruptSubtreeInput() );
   }
 
   /**
