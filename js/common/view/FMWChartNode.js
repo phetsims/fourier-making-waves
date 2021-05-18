@@ -28,6 +28,7 @@ import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import AxisDescription from '../model/AxisDescription.js';
 import Domain from '../model/Domain.js';
+import TickLabelFormat from '../model/TickLabelFormat.js';
 import XAxisDescription from '../model/XAxisDescription.js';
 import XTickLabelSet from './XTickLabelSet.js';
 import YTickLabelSet from './YTickLabelSet.js';
@@ -65,7 +66,7 @@ class FMWChartNode extends Node {
     assert && AssertUtils.assertPositiveNumber( L );
     assert && AssertUtils.assertPositiveNumber( T );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( xAxisTickLabelFormatProperty instanceof Property );
+    assert && AssertUtils.assertPropertyOf( xAxisTickLabelFormatProperty, TickLabelFormat );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, XAxisDescription );
     assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
 

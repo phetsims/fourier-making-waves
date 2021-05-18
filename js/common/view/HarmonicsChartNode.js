@@ -10,11 +10,13 @@ import Property from '../../../../axon/js/Property.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import HarmonicPlot from '../../discrete/view/HarmonicPlot.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import HarmonicsChart from '../model/HarmonicsChart.js';
+import TickLabelFormat from '../model/TickLabelFormat.js';
 import FMWChartNode from './FMWChartNode.js';
 
 // constants
@@ -33,7 +35,7 @@ class HarmonicsChartNode extends FMWChartNode {
   constructor( harmonicsChart, xAxisTickLabelFormatProperty, options ) {
 
     assert && assert( harmonicsChart instanceof HarmonicsChart );
-    assert && assert( xAxisTickLabelFormatProperty instanceof Property );
+    assert && AssertUtils.assertPropertyOf( xAxisTickLabelFormatProperty, TickLabelFormat );
 
     options = merge( {
 

@@ -18,6 +18,7 @@ import Waveform from '../../discrete/model/Waveform.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import SumChart from '../model/SumChart.js';
+import TickLabelFormat from '../model/TickLabelFormat.js';
 import FMWChartNode from './FMWChartNode.js';
 
 class SumChartNode extends FMWChartNode {
@@ -31,7 +32,7 @@ class SumChartNode extends FMWChartNode {
   constructor( sumChart, xAxisTickLabelFormatProperty, waveformProperty, options ) {
 
     assert && assert( sumChart instanceof SumChart );
-    assert && assert( xAxisTickLabelFormatProperty instanceof Property );
+    assert && AssertUtils.assertPropertyOf( xAxisTickLabelFormatProperty, TickLabelFormat );
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
     options = merge( {
