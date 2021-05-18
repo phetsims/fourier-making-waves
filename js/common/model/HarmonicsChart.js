@@ -14,13 +14,10 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import AxisDescription from './AxisDescription.js';
-import Domain from './Domain.js';
-import EmphasizedHarmonics from './EmphasizedHarmonics.js';
-import FourierSeries from './FourierSeries.js';
 import SeriesType from './SeriesType.js';
-import XAxisDescription from './XAxisDescription.js';
+import WaveformChart from './WaveformChart.js';
 
-class HarmonicsChart {
+class HarmonicsChart extends WaveformChart {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -28,34 +25,25 @@ class HarmonicsChart {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
+   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
+   * @param {AxisDescription} yAxisDescription
    * @param {Object} [options]
    */
-  constructor( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, options ) {
+  constructor( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
+               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescription, options ) {
 
-    assert && assert( fourierSeries instanceof FourierSeries );
-    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
-    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, XAxisDescription );
+    assert && assert( yAxisDescription instanceof AxisDescription );
 
     options = merge( {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // @public
-    this.fourierSeries = fourierSeries;
-    this.emphasizedHarmonics = emphasizedHarmonics;
-    this.domainProperty = domainProperty;
-    this.xAxisDescriptionProperty = xAxisDescriptionProperty;
-
-    // @public y-axis scale is fixed for the Harmonics chart, there are no zoom controls
-    this.yAxisDescription = new AxisDescription( {
-      max: FMWConstants.MAX_AMPLITUDE,
-      gridLineSpacing: 0.5,
-      tickMarkSpacing: 0.5,
-      tickLabelSpacing: 0.5
+    // Harmonics chart shows individual harmonics, so does not need zoom buttons, and has only one y-axis description.
+    const yAxisDescriptionProperty = new Property( yAxisDescription, {
+      validValues: [ yAxisDescription ]
     } );
 
     /**
@@ -71,12 +59,12 @@ class HarmonicsChart {
                                         harmonic.order / fourierSeries.harmonics.length );
 
       return harmonic.createDataSet( numberOfPoints, fourierSeries.L, fourierSeries.T,
-        this.xAxisDescriptionProperty.value, domainProperty.value, seriesTypeProperty.value, tProperty.value );
+        xAxisDescriptionProperty.value, domainProperty.value, seriesTypeProperty.value, tProperty.value );
     };
 
-    // @public {Property.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order
+    // {Property.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order
     // A data set is updated when any of its dependencies changes.
-    this.dataSetProperties = [];
+    const dataSetProperties = [];
     for ( let i = 0; i < fourierSeries.harmonics.length; i++ ) {
 
       const harmonic = fourierSeries.harmonics[ i ];
@@ -86,14 +74,20 @@ class HarmonicsChart {
         isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
         //TODO tandem
       } );
-      this.dataSetProperties.push( dataSetProperty );
+      dataSetProperties.push( dataSetProperty );
 
       // Update the harmonic's data set when dependencies change. unmultilink is not needed.
-      Property.lazyMultilink( [ harmonic.amplitudeProperty, this.xAxisDescriptionProperty, domainProperty,
+      Property.lazyMultilink( [ harmonic.amplitudeProperty, xAxisDescriptionProperty, domainProperty,
           seriesTypeProperty, tProperty ],
         () => { dataSetProperty.value = createDataSet( harmonic ); }
       );
     }
+
+    super( fourierSeries, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
+
+    // @public
+    this.emphasizedHarmonics = emphasizedHarmonics;
+    this.dataSetProperties = dataSetProperties;
   }
 
   /**

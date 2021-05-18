@@ -16,7 +16,6 @@ import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -26,10 +25,8 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
-import AxisDescription from '../model/AxisDescription.js';
 import Domain from '../model/Domain.js';
-import TickLabelFormat from '../model/TickLabelFormat.js';
-import XAxisDescription from '../model/XAxisDescription.js';
+import WaveformChart from '../model/WaveformChart.js';
 import XTickLabelSet from './XTickLabelSet.js';
 import YTickLabelSet from './YTickLabelSet.js';
 
@@ -53,22 +50,19 @@ const TICK_MARK_OPTIONS = {
 class WaveformChartNode extends Node {
 
   /**
-   * @param {number} L - the wavelength of the fundamental harmonic, in meters
-   * @param {number} T - the period of the fundamental harmonic, in milliseconds
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
-   * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
-   * @param {Property.<AxisDescription>} yAxisDescriptionProperty
+   * @param {WaveformChart} waveformChart
    * @param {Object} [options]
    */
-  constructor( L, T, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options ) {
+  constructor( waveformChart, options ) {
 
-    assert && AssertUtils.assertPositiveNumber( L );
-    assert && AssertUtils.assertPositiveNumber( T );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( xAxisTickLabelFormatProperty, TickLabelFormat );
-    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, XAxisDescription );
-    assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
+    assert && assert( waveformChart instanceof WaveformChart );
+
+    const L = waveformChart.fourierSeries.L;
+    const T = waveformChart.fourierSeries.T;
+    const domainProperty = waveformChart.domainProperty;
+    const xAxisTickLabelFormatProperty = waveformChart.xAxisTickLabelFormatProperty;
+    const xAxisDescriptionProperty = waveformChart.xAxisDescriptionProperty;
+    const yAxisDescriptionProperty = waveformChart.yAxisDescriptionProperty;
 
     options = merge( {
 
@@ -83,15 +77,12 @@ class WaveformChartNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const xAxisDescription = xAxisDescriptionProperty.value;
-    const yAxisDescription = yAxisDescriptionProperty.value;
-
     // the transform between model and view coordinate frames
     const chartTransform = new ChartTransform( {
       viewWidth: options.viewWidth,
       viewHeight: options.viewHeight,
-      modelXRange: xAxisDescription.createAxisRange( domainProperty.value, L, T ),
-      modelYRange: yAxisDescription.range
+      modelXRange: xAxisDescriptionProperty.value.createAxisRange( domainProperty.value, L, T ),
+      modelYRange: yAxisDescriptionProperty.value.range
     } );
 
     // The chart's background rectangle
@@ -108,9 +99,9 @@ class WaveformChartNode extends Node {
     // x axis (space or time) ---------------------------------------------------------
 
     const xAxis = new AxisNode( chartTransform, Orientation.HORIZONTAL, AXIS_OPTIONS );
-    const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.gridLineSpacing, GRID_LINE_OPTIONS );
-    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
-    const xTickLabels = new XTickLabelSet( chartTransform, xAxisDescription.tickLabelSpacing, domainProperty,
+    const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, xAxisDescriptionProperty.value.gridLineSpacing, GRID_LINE_OPTIONS );
+    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, xAxisDescriptionProperty.value.tickMarkSpacing, TICK_MARK_OPTIONS );
+    const xTickLabels = new XTickLabelSet( chartTransform, xAxisDescriptionProperty.value.tickLabelSpacing, domainProperty,
       xAxisTickLabelFormatProperty, L, T );
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
@@ -144,9 +135,9 @@ class WaveformChartNode extends Node {
     // y axis (amplitude ) ---------------------------------------------------------
 
     const yAxis = new AxisNode( chartTransform, Orientation.VERTICAL, AXIS_OPTIONS );
-    const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, yAxisDescription.gridLineSpacing, GRID_LINE_OPTIONS );
-    const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, yAxisDescription.tickMarkSpacing, TICK_MARK_OPTIONS );
-    const yTickLabels = new YTickLabelSet( chartTransform, yAxisDescription.tickLabelSpacing );
+    const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, yAxisDescriptionProperty.value.gridLineSpacing, GRID_LINE_OPTIONS );
+    const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, yAxisDescriptionProperty.value.tickMarkSpacing, TICK_MARK_OPTIONS );
+    const yTickLabels = new YTickLabelSet( chartTransform, yAxisDescriptionProperty.value.tickLabelSpacing );
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
@@ -155,6 +146,8 @@ class WaveformChartNode extends Node {
       maxWidth: 0.85 * chartRectangle.height,
       tandem: options.tandem.createTandem( 'yAxisLabel' )
     } );
+
+    //TODO observe yAxisDescriptionProperty
 
     // ---------------------------------------------------------------
 

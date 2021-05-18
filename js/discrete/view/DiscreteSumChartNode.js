@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWZoomButtonGroup from '../../common/view/FMWZoomButtonGroup.js';
@@ -21,15 +22,15 @@ class DiscreteSumChartNode extends SumChartNode {
 
   /**
    * @param {DiscreteSumChart} sumChart
-   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {Object} [options]
    */
-  constructor( sumChart, xAxisTickLabelFormatProperty, waveformProperty, options ) {
+  constructor( sumChart, waveformProperty, options ) {
 
     assert && assert( sumChart instanceof DiscreteSumChart );
+    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
-    super( sumChart, xAxisTickLabelFormatProperty, waveformProperty, options );
+    super( sumChart, options );
 
     // Fields of interest in sumChart, to improve readability
     const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;

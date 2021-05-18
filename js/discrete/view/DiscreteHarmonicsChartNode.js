@@ -16,14 +16,13 @@ class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
 
   /**
    * @param {DiscreteHarmonicsChart} harmonicsChart
-   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Object} [options]
    */
-  constructor( harmonicsChart, xAxisTickLabelFormatProperty, options ) {
+  constructor( harmonicsChart, options ) {
 
     assert && assert( harmonicsChart instanceof DiscreteHarmonicsChart );
 
-    super( harmonicsChart, xAxisTickLabelFormatProperty, options );
+    super( harmonicsChart, options );
 
     // Fields of interest in harmonicsChart, to improve readability
     const xAxisDescriptionProperty = harmonicsChart.xAxisDescriptionProperty;

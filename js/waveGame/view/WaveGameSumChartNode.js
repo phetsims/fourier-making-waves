@@ -6,14 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import merge from '../../../../phet-core/js/merge.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
-import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import SumChartNode from '../../common/view/SumChartNode.js';
-import Waveform from '../../discrete/model/Waveform.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameSumChart from '../model/WaveGameSumChart.js';
 
@@ -31,7 +27,7 @@ class WaveGameSumChartNode extends SumChartNode {
       sumPlotLineWidth: 4
     }, options );
 
-    super( sumChart, new Property( TickLabelFormat.NUMERIC ), new EnumerationProperty( Waveform, Waveform.CUSTOM ), options );
+    super( sumChart, options );
 
     // Plot that shows the sum for the answer
     const guessPlot = new CanvasLinePlot( this.chartTransform, [], {

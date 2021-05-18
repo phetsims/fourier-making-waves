@@ -6,8 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
-import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import HarmonicsChartNode from '../../common/view/HarmonicsChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameHarmonicsChart from '../model/WaveGameHarmonicsChart.js';
@@ -21,7 +19,7 @@ class WaveGameHarmonicsChartNode extends HarmonicsChartNode {
   constructor( harmonicsChart, options ) {
     assert && assert( harmonicsChart instanceof WaveGameHarmonicsChart );
 
-    super( harmonicsChart, new Property( TickLabelFormat.NUMERIC ), options );
+    super( harmonicsChart, options );
   }
 }
 

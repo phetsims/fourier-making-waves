@@ -12,28 +12,21 @@ import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Waveform from '../../discrete/model/Waveform.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import SumChart from '../model/SumChart.js';
-import TickLabelFormat from '../model/TickLabelFormat.js';
 import WaveformChartNode from './WaveformChartNode.js';
 
 class SumChartNode extends WaveformChartNode {
 
   /**
    * @param {SumChart} sumChart
-   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
-   * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {Object} [options]
    */
-  constructor( sumChart, xAxisTickLabelFormatProperty, waveformProperty, options ) {
+  constructor( sumChart, options ) {
 
     assert && assert( sumChart instanceof SumChart );
-    assert && AssertUtils.assertPropertyOf( xAxisTickLabelFormatProperty, TickLabelFormat );
-    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
     options = merge( {
       sumPlotStrokeProperty: FMWColorProfile.sumStrokeProperty,
@@ -45,15 +38,12 @@ class SumChartNode extends WaveformChartNode {
 
     // Fields of interest in sumChart, to improve readability
     const fourierSeries = sumChart.fourierSeries;
-    const domainProperty = sumChart.domainProperty;
-    const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;
     const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
     const yAutoScaleProperty = sumChart.yAutoScaleProperty;
     const yAxisAutoScaleRangeProperty = sumChart.yAxisAutoScaleRangeProperty;
     const dataSetProperty = sumChart.dataSetProperty;
 
-    super( fourierSeries.L, fourierSeries.T, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
-      yAxisDescriptionProperty, options );
+    super( sumChart, options );
 
     // Plot that shows the sum
     const sumPlot = new CanvasLinePlot( this.chartTransform, dataSetProperty.value, {

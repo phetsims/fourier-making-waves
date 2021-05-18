@@ -15,6 +15,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import SumChart from '../../common/model/SumChart.js';
+import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class WaveGameSumChart extends SumChart {
@@ -41,6 +42,7 @@ class WaveGameSumChart extends SumChart {
       new EnumerationProperty( Domain, domain ),
       new EnumerationProperty( SeriesType, seriesType ),
       new NumberProperty( t ),
+      new Property( TickLabelFormat.NUMERIC ),
       new Property( xAxisDescription ),
       yAxisDescriptions,
       options

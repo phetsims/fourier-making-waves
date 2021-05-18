@@ -17,30 +17,26 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
-import Domain from './Domain.js';
-import FourierSeries from './FourierSeries.js';
 import SeriesType from './SeriesType.js';
-import XAxisDescription from './XAxisDescription.js';
+import WaveformChart from './WaveformChart.js';
 
-class SumChart {
+class SumChart extends WaveformChart {
 
   /**
    * @param {FourierSeries} fourierSeries
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
+   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
    * @param {AxisDescription[]} yAxisDescriptions
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, yAxisDescriptions, options ) {
+  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
+               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptions, options ) {
 
-    assert && assert( fourierSeries instanceof FourierSeries );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
-    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, XAxisDescription );
-    assert && AssertUtils.assertArrayOf( yAxisDescriptions, AxisDescription );
 
     options = merge( {
       yAutoScale: false,
@@ -48,13 +44,8 @@ class SumChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // @public
-    this.fourierSeries = fourierSeries;
-    this.domainProperty = domainProperty;
-    this.xAxisDescriptionProperty = xAxisDescriptionProperty;
-
-    // @public whether the Sum chart's y-axis automatically scales to fit its data set
-    this.yAutoScaleProperty = new BooleanProperty( options.yAutoScale, {
+    // whether the Sum chart's y-axis automatically scales to fit its data set
+    const yAutoScaleProperty = new BooleanProperty( options.yAutoScale, {
       tandem: options.tandem.createTandem( 'yAutoScaleProperty' )
     } );
 
@@ -63,12 +54,12 @@ class SumChart {
      * @returns {Vector2[]}
      */
     const createDataSet = () => {
-      return fourierSeries.createSumDataSet( this.xAxisDescriptionProperty.value,
+      return fourierSeries.createSumDataSet( xAxisDescriptionProperty.value,
         domainProperty.value, seriesTypeProperty.value, tProperty.value );
     };
 
-    // @public {Property.<Vector2[]>} the data set for the sum
-    this.dataSetProperty = new Property( createDataSet(), {
+    // {Property.<Vector2[]>} the data set for the sum
+    const dataSetProperty = new Property( createDataSet(), {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
       //TODO tandem
     } );
@@ -76,13 +67,13 @@ class SumChart {
     //TODO performance: determine this while creating the sum data set
     // {DerivedProperty.<number>} the peak amplitude of the sum waveform
     const peakAmplitudeProperty = new DerivedProperty(
-      [ this.dataSetProperty ],
+      [ dataSetProperty ],
       dataSet => _.maxBy( dataSet, point => point.y ).y
     );
 
     //TODO derive this value only while auto scale is enabled?
-    // @public (read-only) {DerivedProperty.<Range>} auto-scale range of the y axis, fitted to the sum's max amplitude
-    this.yAxisAutoScaleRangeProperty = new DerivedProperty(
+    // {DerivedProperty.<Range>} auto-scale range of the y axis, fitted to the sum's max amplitude
+    const yAxisAutoScaleRangeProperty = new DerivedProperty(
       [ peakAmplitudeProperty ],
       peakAmplitude => {
 
@@ -94,37 +85,46 @@ class SumChart {
       } );
 
     // The initial y-axis description depends on whether auto scale is initially enabled.
-    const initialYAxisDescription = this.yAutoScaleProperty.value ?
-                                    AxisDescription.getAxisDescriptionForRange( this.yAxisAutoScaleRangeProperty.value, yAxisDescriptions ) :
+    const initialYAxisDescription = yAutoScaleProperty.value ?
+                                    AxisDescription.getAxisDescriptionForRange( yAxisAutoScaleRangeProperty.value, yAxisDescriptions ) :
                                     yAxisDescriptions[ options.yAxisDescriptionIndex ];
 
-    // @public {Property.<AxisDescription>} describes the properties of the y axis. dispose is not needed
-    this.yAxisDescriptionProperty = new Property( initialYAxisDescription, {
+    // {Property.<AxisDescription>} describes the properties of the y axis. dispose is not needed
+    const yAxisDescriptionProperty = new Property( initialYAxisDescription, {
       validValues: yAxisDescriptions
     } );
 
-    // When auto scale is enabled, link this listener to yAxisAutoScaleRangeProperty, and adjust the y-axis range so
+    // When auto scale is enabled, link this listener to yAxisAutoScaleRangeProperty, and adjust the y-axis so
     // that's it's appropriate for the auto-scale range.
     const updateYAxisDescription = yAxisAutoScaleRange => {
-      assert && assert( this.yAutoScaleProperty.value, 'should not be called when yAutoScale is disabled' );
-      this.yAxisDescriptionProperty.value = AxisDescription.getAxisDescriptionForRange( yAxisAutoScaleRange, yAxisDescriptions );
+      assert && assert( yAutoScaleProperty.value, 'should not be called when yAutoScale is disabled' );
+      yAxisDescriptionProperty.value = AxisDescription.getAxisDescriptionForRange( yAxisAutoScaleRange, yAxisDescriptions );
     };
-    this.yAutoScaleProperty.link( yAutoScale => {
+    yAutoScaleProperty.link( yAutoScale => {
       if ( yAutoScale ) {
-        this.yAxisAutoScaleRangeProperty.link( updateYAxisDescription );
+        yAxisAutoScaleRangeProperty.link( updateYAxisDescription );
       }
       else {
-        if ( this.yAxisAutoScaleRangeProperty.hasListener( updateYAxisDescription ) ) {
-          this.yAxisAutoScaleRangeProperty.unlink( updateYAxisDescription );
+        if ( yAxisAutoScaleRangeProperty.hasListener( updateYAxisDescription ) ) {
+          yAxisAutoScaleRangeProperty.unlink( updateYAxisDescription );
         }
       }
     } );
 
     // Update the sum when dependencies change. unmultilink is not needed.
-    Property.lazyMultilink( [ fourierSeries.amplitudesProperty, xAxisDescriptionProperty, domainProperty,
-        seriesTypeProperty, tProperty ],
-      () => { this.dataSetProperty.value = createDataSet(); }
+    Property.lazyMultilink(
+      [ fourierSeries.amplitudesProperty, xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
+      () => { dataSetProperty.value = createDataSet(); }
     );
+
+    super( fourierSeries, domainProperty,
+      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
+
+    // @public
+    this.yAutoScaleProperty = yAutoScaleProperty;
+    this.dataSetProperty = dataSetProperty;
+    this.yAxisAutoScaleRangeProperty = yAxisAutoScaleRangeProperty;
+    this.yAxisDescriptionProperty = yAxisDescriptionProperty;
   }
 
   /**

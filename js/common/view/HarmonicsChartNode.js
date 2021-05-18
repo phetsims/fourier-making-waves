@@ -6,17 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import HarmonicPlot from '../../discrete/view/HarmonicPlot.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import HarmonicsChart from '../model/HarmonicsChart.js';
-import TickLabelFormat from '../model/TickLabelFormat.js';
 import WaveformChartNode from './WaveformChartNode.js';
 
 // constants
@@ -29,13 +26,11 @@ class HarmonicsChartNode extends WaveformChartNode {
 
   /**
    * @param {HarmonicsChart} harmonicsChart
-   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Object} [options]
    */
-  constructor( harmonicsChart, xAxisTickLabelFormatProperty, options ) {
+  constructor( harmonicsChart, options ) {
 
     assert && assert( harmonicsChart instanceof HarmonicsChart );
-    assert && AssertUtils.assertPropertyOf( xAxisTickLabelFormatProperty, TickLabelFormat );
 
     options = merge( {
 
@@ -46,16 +41,11 @@ class HarmonicsChartNode extends WaveformChartNode {
     // Fields of interest in harmonicsChart, to improve readability
     const fourierSeries = harmonicsChart.fourierSeries;
     const harmonics = fourierSeries.harmonics;
-    const domainProperty = harmonicsChart.domainProperty;
     const dataSetProperties = harmonicsChart.dataSetProperties;
-    assert && assert( harmonics.length === dataSetProperties.length,
-      'a data set is required for each harmonic' );
+    assert && assert( harmonics.length === dataSetProperties.length, 'a data set is required for each harmonic' );
     const emphasizedHarmonics = harmonicsChart.emphasizedHarmonics;
-    const xAxisDescriptionProperty = harmonicsChart.xAxisDescriptionProperty;
-    const yAxisDescription = harmonicsChart.yAxisDescription;
 
-    super( fourierSeries.L, fourierSeries.T, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
-      new Property( yAxisDescription ), options );
+    super( harmonicsChart, options );
 
     // {HarmonicPlot[]} a plot for each harmonic in the Fourier series, in harmonic order, rendered using Canvas
     const plots = [];

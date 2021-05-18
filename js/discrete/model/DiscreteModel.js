@@ -83,8 +83,8 @@ class DiscreteModel {
       tandem: options.tandem.createTandem( 'equationFormProperty' )
     } );
 
-    // @public
-    this.xAxisTickLabelFormatProperty = new DerivedProperty(
+    // Determines the format of the x-axis tick labels, shared by the Harmonics and Sum charts.
+    const xAxisTickLabelFormatProperty = new DerivedProperty(
       [ this.equationFormProperty ],
       equationForm => ( equationForm === EquationForm.HIDDEN ) ? TickLabelFormat.NUMERIC : TickLabelFormat.SYMBOLIC
     );
@@ -103,6 +103,7 @@ class DiscreteModel {
       validValues: DiscreteXAxisDescriptions
     } );
 
+    // Group elements related to sound under this tandem.
     const soundTandem = options.tandem.createTandem( 'sound' );
 
     // @public whether sound is enabled for the Fourier series
@@ -126,6 +127,7 @@ class DiscreteModel {
       tandem: options.tandem.createTandem( 'emphasizedHarmonics' )
     } );
 
+    // Group elements related to measurement tools under this tandem.
     const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
 
     // @public the wavelength measurement tool
@@ -143,13 +145,14 @@ class DiscreteModel {
 
     // @public
     this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, emphasizedHarmonics,
-      this.domainProperty, this.seriesTypeProperty, this.tProperty, xAxisDescriptionProperty, {
+      this.domainProperty, this.seriesTypeProperty, this.tProperty,
+      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, {
         tandem: options.tandem.createTandem( 'harmonicsChart' )
       } );
 
     // @public
     this.sumChart = new DiscreteSumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
-      this.tProperty, xAxisDescriptionProperty, DiscreteYAxisDescriptions, {
+      this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, {
         yAxisDescriptionIndex: DiscreteYAxisDescriptions.length - 1,
         tandem: options.tandem.createTandem( 'sumChart' )
       } );
