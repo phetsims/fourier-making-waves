@@ -3,6 +3,7 @@
 //TODO better name for this class
 /**
  * FMWChartNode is the base class for charts that plot one or more waveforms.
+ * The x axis is either space or time, while the y axis is always amplitude.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -105,7 +106,7 @@ class FMWChartNode extends Node {
       tandem: options.tandem.createTandem( 'chartRectangle' )
     } );
 
-    // x axis ---------------------------------------------------------
+    // x axis (space or time) ---------------------------------------------------------
 
     const xAxis = new AxisNode( chartTransform, Orientation.HORIZONTAL, AXIS_OPTIONS );
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, xAxisDescription.gridLineSpacing, GRID_LINE_OPTIONS );
@@ -141,7 +142,7 @@ class FMWChartNode extends Node {
         xTickLabels.invalidateLabelSet();
       } );
 
-    // y axis ---------------------------------------------------------
+    // y axis (amplitude ) ---------------------------------------------------------
 
     const yAxis = new AxisNode( chartTransform, Orientation.VERTICAL, AXIS_OPTIONS );
     const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, yAxisDescription.gridLineSpacing, GRID_LINE_OPTIONS );
