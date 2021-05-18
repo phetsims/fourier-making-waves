@@ -76,7 +76,6 @@ class HarmonicsChart extends WaveformChart {
       // @public {Property.<Vector2[]>} the data set for this harmonic
       const dataSetProperty = new Property( createDataSet( harmonic ), {
         isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
-        //TODO tandem
       } );
       this.dataSetProperties.push( dataSetProperty );
 

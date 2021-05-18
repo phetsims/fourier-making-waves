@@ -60,7 +60,6 @@ class SumChart extends WaveformChart {
     // {Property.<Vector2[]>} the data set for the sum
     const dataSetProperty = new Property( createDataSet(), {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
-      //TODO tandem
     } );
 
     // Update the sum when dependencies change. unmultilink is not needed.

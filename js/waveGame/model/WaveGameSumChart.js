@@ -73,7 +73,6 @@ class WaveGameSumChart extends SumChart {
     // @public
     this.guessDataSetProperty = new Property( createGuessDataSet(), {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
-      //TODO tandem
     } );
 
     guessFourierSeries.amplitudesProperty.lazyLink( () => {

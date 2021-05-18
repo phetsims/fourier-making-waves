@@ -68,7 +68,6 @@ class WaveGameModel {
     // @public {Property.<null|WaveGameLevel>} the selected game level, null returns to the level-selection UI
     this.levelProperty = new Property( null, {
       validValues: [ null, ...this.levels ]
-      //TODO tandem, phetioType
     } );
   }
 

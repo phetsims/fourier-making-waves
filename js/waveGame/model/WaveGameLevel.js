@@ -83,7 +83,6 @@ class WaveGameLevel {
     // @public (read-only) {Property.<WaveGameChallenge>} the current challenge
     this.challengeProperty = new Property( this.challengeGenerator.nextChallenge( null ), {
       isValidValue: value => ( value instanceof WaveGameChallenge )
-      //TODO tandem, phetioType
     } );
 
     //TODO eliminate the need for adapterGuessFourierSeries and adapterAnswerFourierSeries by making charts mutable
