@@ -1,7 +1,9 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WaveGameSumChartNode is the view for the 'Sum' chart in the 'Wave Game' screen.
+ * WaveGameSumChartNode is the view for the 'Sum' chart in the 'Wave Game' screen. Rendering of the sum for the
+ * challenge answer is delegated to SumChartNode, which is capable of rendering the sum for one Fourier series.
+ * This class is responsible for rendering the sum for the challenge guess, the amplitudes entered by the user.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

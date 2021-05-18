@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO change this to display the sums for more than 1 FourierSeries?
 /**
  * SumChartNode is the view base class for the 'Sum' chart.
  *

@@ -1,8 +1,9 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO This is a bit unclear. It's using SumChart.dataSetProperty for the answer, and adding guessDataSetProperty.
 /**
- * WaveGameSumChart is the model for the 'Sum' chart in the 'Wave Game' screen.
+ * WaveGameSumChart is the model for the 'Sum' chart in the 'Wave Game' screen. Computing the sum for the
+ * challenge answer is delegated to SumChartNode, which is capable of summing one Fourier series.
+ * This class is responsible for summing the challenge guess, the amplitudes entered by the user.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -41,11 +42,13 @@ class WaveGameSumChart extends SumChart {
     assert && AssertUtils.assertArrayOf( yAxisDescriptions, AxisDescription );
 
     options = merge( {
-      //TODO This causes the chart to auto scale to answerFourierSeries. Too clever?
+
+      // This causes the chart to auto scale to answerFourierSeries. This should remain static - do not instrument!
       yAutoScaleProperty: new BooleanProperty( true )
     }, options );
 
     super(
+      // Superclass will render the sum for the challenge answer.
       answerFourierSeries,
 
       // These aspects are static in the Wave Game screen, but dynamic in the superclass.
