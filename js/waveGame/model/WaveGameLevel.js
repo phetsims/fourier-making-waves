@@ -10,7 +10,9 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import AmplitudesChart from '../../common/model/AmplitudesChart.js';
 import Domain from '../../common/model/Domain.js';
+import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import XAxisDescription from '../../common/model/XAxisDescription.js';
@@ -94,9 +96,17 @@ class WaveGameLevel {
     // We update the Sum chart by keeping this series in sync with the current challenge's answerFourierSeries.
     this.adapterAnswerFourierSeries = new FourierSeries();
 
+    // @public the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
+    this.emphasizedHarmonics = new EmphasizedHarmonics( {
+      tandem: options.tandem.createTandem( 'emphasizedHarmonics' )
+    } );
+
     // @public
-    this.harmonicsChart = new WaveGameHarmonicsChart( this.adapterGuessFourierSeries, DOMAIN, SERIES_TYPE, t,
-      X_AXIS_DESCRIPTION );
+    this.amplitudesChart = new AmplitudesChart( this.adapterGuessFourierSeries, this.emphasizedHarmonics );
+
+    // @public
+    this.harmonicsChart = new WaveGameHarmonicsChart( this.adapterGuessFourierSeries, this.emphasizedHarmonics,
+      DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION );
 
     // @public
     this.sumChart = new WaveGameSumChart( this.adapterAnswerFourierSeries, this.adapterGuessFourierSeries,
@@ -109,6 +119,8 @@ class WaveGameLevel {
 
       // Log the challenge to the console.
       phet.log && phet.log( `level=${levelNumber} challenge=${challenge.toString()}` );
+
+      this.emphasizedHarmonics.reset();
 
       // Add a listener to keep adapterGuessFourierSeries synchronized with the challenge's guessFourierSeries.
       if ( previousChallenge ) {
@@ -138,6 +150,7 @@ class WaveGameLevel {
    */
   reset() {
     this.scoreProperty.reset();
+    this.emphasizedHarmonics.reset();
 
     // Instead of this.challengeProperty.reset(), call this.nextChallenge(), so that we're not always
     // resetting to same challenge

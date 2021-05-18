@@ -9,24 +9,21 @@
 
 import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import DiscreteFourierSeries from '../model/DiscreteFourierSeries.js';
 
 class DiscreteAmplitudesChartNode extends AmplitudesChartNode {
 
   /**
-   * @param {DiscreteFourierSeries} fourierSeries
-   * @param {EmphasizedHarmonics} emphasizedHarmonics
+   * @param {AmplitudesChart} amplitudesChart
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
    * @param {Object} [options]
    */
-  constructor( fourierSeries, emphasizedHarmonics, amplitudeKeypadDialog, options ) {
-    assert && assert( fourierSeries instanceof DiscreteFourierSeries );
+  constructor( amplitudesChart, amplitudeKeypadDialog, options ) {
 
-    super( fourierSeries, emphasizedHarmonics, amplitudeKeypadDialog, options );
+    super( amplitudesChart, amplitudeKeypadDialog, options );
 
     // Hide sliders and number displays that are not part of the series.
     // Note that it's the model's responsibility to set the amplitude for hidden harmonics to zero.
-    fourierSeries.numberOfHarmonicsProperty.link( numberOfHarmonics => {
+    amplitudesChart.fourierSeries.numberOfHarmonicsProperty.link( numberOfHarmonics => {
       assert && assert( numberOfHarmonics > 0 && numberOfHarmonics <= this.sliders.length,
         `unsupported numberOfHarmonics: ${numberOfHarmonics}` );
 

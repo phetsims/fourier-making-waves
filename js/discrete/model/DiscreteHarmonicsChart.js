@@ -14,15 +14,16 @@ class DiscreteHarmonicsChart extends HarmonicsChart {
 
   /**
    * @param {FourierSeries} fourierSeries
+   * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
    * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, options ) {
+  constructor( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, options ) {
 
-    super( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, options );
+    super( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, options );
 
     // @public whether the Harmonics chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {

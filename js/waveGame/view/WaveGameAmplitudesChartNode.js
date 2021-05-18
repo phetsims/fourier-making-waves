@@ -13,14 +13,13 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
 
   /**
-   * @param {FourierSeries} fourierSeries
-   * @param {EmphasizedHarmonics} emphasizedHarmonics
+   * @param {AmplitudesChart} amplitudesChart
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
    * @param {Object} [options]
    */
-  constructor( fourierSeries, emphasizedHarmonics, amplitudeKeypadDialog, options ) {
+  constructor( amplitudesChart, amplitudeKeypadDialog, options ) {
 
-    super( fourierSeries, emphasizedHarmonics, amplitudeKeypadDialog, options );
+    super( amplitudesChart, amplitudeKeypadDialog, options );
 
     // @private
     this.amplitudeKeypadDialog = amplitudeKeypadDialog;

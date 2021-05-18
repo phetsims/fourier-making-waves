@@ -17,7 +17,9 @@ import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
+import AmplitudesChart from '../../common/model/AmplitudesChart.js';
 import Domain from '../../common/model/Domain.js';
+import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -119,6 +121,11 @@ class DiscreteModel {
       tandem: options.tandem.createTandem( 'fourierSeries' )
     } );
 
+    // @public the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
+    this.emphasizedHarmonics = new EmphasizedHarmonics( {
+      tandem: options.tandem.createTandem( 'emphasizedHarmonics' )
+    } );
+
     const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
 
     // @public the wavelength measurement tool
@@ -132,8 +139,11 @@ class DiscreteModel {
     } );
 
     // @public
-    this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, this.domainProperty,
-      this.seriesTypeProperty, this.tProperty, this.xAxisDescriptionProperty, {
+    this.amplitudesChart = new AmplitudesChart( this.fourierSeries, this.emphasizedHarmonics );
+
+    // @public
+    this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, this.emphasizedHarmonics,
+      this.domainProperty, this.seriesTypeProperty, this.tProperty, this.xAxisDescriptionProperty, {
         tandem: options.tandem.createTandem( 'harmonicsChart' )
       } );
 
@@ -189,6 +199,7 @@ class DiscreteModel {
 
     // Reset subcomponents
     this.fourierSeries.reset();
+    this.emphasizedHarmonics.reset();
     this.wavelengthTool.reset();
     this.periodTool.reset();
     this.harmonicsChart.reset();

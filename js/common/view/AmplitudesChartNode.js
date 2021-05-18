@@ -27,8 +27,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
-import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
-import FourierSeries from '../model/FourierSeries.js';
+import AmplitudesChart from '../model/AmplitudesChart.js';
 import AmplitudeKeypadDialog from './AmplitudeKeypadDialog.js';
 import AmplitudeNumberDisplay from './AmplitudeNumberDisplay.js';
 import AmplitudeSlider from './AmplitudeSlider.js';
@@ -41,15 +40,13 @@ const Y_TICK_LABEL_DECIMAL_PLACES = 1;
 class AmplitudesChartNode extends Node {
 
   /**
-   * @param {FourierSeries} fourierSeries
-   * @param {EmphasizedHarmonics} emphasizedHarmonics
+   * @param {AmplitudesChart} amplitudesChart
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
    * @param {Object} [options]
    */
-  constructor( fourierSeries, emphasizedHarmonics, amplitudeKeypadDialog, options ) {
+  constructor( amplitudesChart, amplitudeKeypadDialog, options ) {
 
-    assert && assert( fourierSeries instanceof FourierSeries );
-    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
+    assert && assert( amplitudesChart instanceof AmplitudesChart );
     assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog );
 
     options = merge( {
@@ -60,6 +57,10 @@ class AmplitudesChartNode extends Node {
       // phet-io
       tandem: Tandem.REQUIRED
     }, options );
+
+    // Fields of interest in amplitudesChart, to improve readability
+    const fourierSeries = amplitudesChart.fourierSeries;
+    const emphasizedHarmonics = amplitudesChart.emphasizedHarmonics;
 
     // the transform from model to view coordinates
     const chartTransform = new ChartTransform( {

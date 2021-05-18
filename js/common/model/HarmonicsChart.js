@@ -24,15 +24,17 @@ class HarmonicsChart {
 
   /**
    * @param {FourierSeries} fourierSeries
+   * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
    * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, options ) {
+  constructor( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries );
+    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
@@ -44,6 +46,7 @@ class HarmonicsChart {
 
     // @public
     this.fourierSeries = fourierSeries;
+    this.emphasizedHarmonics = emphasizedHarmonics;
     this.domainProperty = domainProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
 
@@ -53,11 +56,6 @@ class HarmonicsChart {
       gridLineSpacing: 0.5,
       tickMarkSpacing: 0.5,
       tickLabelSpacing: 0.5
-    } );
-
-    // @public the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
-    this.emphasizedHarmonics = new EmphasizedHarmonics( {
-      tandem: options.tandem.createTandem( 'emphasizedHarmonics' )
     } );
 
     /**
@@ -102,7 +100,6 @@ class HarmonicsChart {
    * @public
    */
   reset() {
-    this.emphasizedHarmonics.clear();
     this.dataSetProperties.forEach( dataSetProperty => dataSetProperty.reset() );
   }
 

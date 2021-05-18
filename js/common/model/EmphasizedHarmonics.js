@@ -86,10 +86,10 @@ class EmphasizedHarmonics {
   }
 
   /**
-   * Clears the set.
+   * Resets (clears) the set.
    * @public
    */
-  clear() {
+  reset() {
     this.observableArray.clear();
   }
 
