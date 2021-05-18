@@ -65,6 +65,11 @@ class WaveformChartNode extends Node {
     const xAxisTickLabelFormatProperty = waveformChart.xAxisTickLabelFormatProperty;
     const xAxisDescriptionProperty = waveformChart.xAxisDescriptionProperty;
     const yAxisDescriptionProperty = waveformChart.yAxisDescriptionProperty;
+    const yAutoScaleProperty = waveformChart.yAutoScaleProperty;
+    const yAxisAutoScaleRangeProperty = waveformChart.yAxisAutoScaleRangeProperty;
+    assert && assert( ( !yAutoScaleProperty && !yAxisAutoScaleRangeProperty ) ||
+                      ( yAutoScaleProperty && yAxisAutoScaleRangeProperty ),
+      'yAutoScaleProperty and yAxisAutoScaleRangeProperty are both or neither' );
 
     options = merge( {
 
@@ -181,7 +186,7 @@ class WaveformChartNode extends Node {
     yAxisDescriptionProperty.link( yAxisDescription => {
 
       // Range is determined by yAxisDescription only if auto scale is disabled.
-      if ( !waveformChart.yAutoScaleProperty || !waveformChart.yAutoScaleProperty.value ) {
+      if ( !yAutoScaleProperty || !yAutoScaleProperty.value ) {
         chartTransform.setModelYRange( yAxisDescription.range );
       }
 
@@ -191,6 +196,21 @@ class WaveformChartNode extends Node {
       yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
       yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
     } );
+
+    // Update the auto-scale range for the y-axis.
+    if ( yAutoScaleProperty && yAxisAutoScaleRangeProperty ) {
+      Property.multilink(
+        [ yAutoScaleProperty, yAxisAutoScaleRangeProperty ],
+        ( yAutoScale, yAxisAutoScaleRange ) => {
+          if ( yAutoScale ) {
+            chartTransform.setModelYRange( yAxisAutoScaleRange );
+          }
+          else {
+            // Do not setModelYRange when auto scale becomes false. We want the range to remain unchanged
+            // until the user explicitly changes it via the y-axis zoom buttons.
+          }
+        } );
+    }
 
     // ---------------------------------------------------------------
 
