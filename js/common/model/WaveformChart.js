@@ -18,11 +18,11 @@ import XAxisDescription from './XAxisDescription.js';
 class WaveformChart {
 
   /**
-   * @param {FourierSeries} fourierSeries
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
-   * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
-   * @param {Property.<AxisDescription>} yAxisDescriptionProperty
+   * @param {FourierSeries} fourierSeries - Fourier series associated with the chart
+   * @param {EnumerationProperty.<Domain>} domainProperty - domain of the x axis
+   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty - determines the format of the x-axis tick labels
+   * @param {Property.<XAxisDescription>} xAxisDescriptionProperty - describes the x axis
+   * @param {Property.<AxisDescription>} yAxisDescriptionProperty - describes the y axis
    * @param {Object} [options]
    */
   constructor( fourierSeries, domainProperty,
