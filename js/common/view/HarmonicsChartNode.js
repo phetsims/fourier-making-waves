@@ -39,8 +39,7 @@ class HarmonicsChartNode extends WaveformChartNode {
     }, options );
 
     // Fields of interest in harmonicsChart, to improve readability
-    const fourierSeries = harmonicsChart.fourierSeries;
-    const harmonics = fourierSeries.harmonics;
+    const harmonics = harmonicsChart.fourierSeries.harmonics;
     const dataSetProperties = harmonicsChart.dataSetProperties;
     assert && assert( harmonics.length === dataSetProperties.length, 'a data set is required for each harmonic' );
     const emphasizedHarmonics = harmonicsChart.emphasizedHarmonics;
