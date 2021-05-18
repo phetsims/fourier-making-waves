@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -47,14 +48,16 @@ class XTickLabelSet extends LabelSet {
       edge: 'min'
     }, options );
 
+    // This is called whenever invalidateLabelSet is called, and calling invalidateLabelSet is our responsibility.
+    // Note that we need to use xAxisTickLabelFormatProperty and domainProperty here so that we have the current values.
     assert && assert( !options.createLabel, 'XTickLabelSet sets createLabel' );
     options.createLabel = value =>
       createTickLabel( value, options.decimalPlaces, xAxisTickLabelFormatProperty.value, domainProperty.value, L, T );
 
     super( chartTransform, Orientation.HORIZONTAL, spacing, options );
 
-    // unlink is not needed
-    xAxisTickLabelFormatProperty.link( () => this.invalidateLabelSet() );
+    // dispose is not needed
+    Property.multilink( [ xAxisTickLabelFormatProperty, domainProperty ], () => this.invalidateLabelSet() );
   }
 }
 
