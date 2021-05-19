@@ -65,7 +65,14 @@ class SumChart extends WaveformChart {
     // Update the sum when dependencies change. unmultilink is not needed.
     Property.lazyMultilink(
       [ fourierSeries.amplitudesProperty, xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
-      () => { dataSetProperty.value = createSumDataSet(); }
+      () => {
+
+        // Free the current points to the Vector2 pool.
+        _.forEach( dataSetProperty.value, point => point.freeToPool() );
+
+        // Compute the data set, with points from the Vector2 pool.
+        dataSetProperty.value = createSumDataSet();
+      }
     );
 
     // {DerivedProperty.<number>} the peak amplitude of the sum waveform

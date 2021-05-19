@@ -126,7 +126,7 @@ class Harmonic extends PhetioObject {
     let y;
     for ( let i = 0; i < numberOfPoints; i++ ) {
       y = amplitudeFunction( x, t, L, T, order, amplitude );
-      dataSet.push( new Vector2( x, y ) );
+      dataSet.push( Vector2.createFromPool( x, y ) );
       x += dx;
     }
     assert && assert( dataSet.length === numberOfPoints, 'incorrect number of points in dataSet' );

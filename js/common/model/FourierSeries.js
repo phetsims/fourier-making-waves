@@ -169,7 +169,7 @@ class FourierSeries extends PhetioObject {
           y += amplitudeFunction( x, t, this.L, this.T, this.harmonics[ j ].order, amplitude );
         }
       }
-      sumDataSet.push( new Vector2( x, y ) );
+      sumDataSet.push( Vector2.createFromPool( x, y ) );
       x += dx;
     }
 
