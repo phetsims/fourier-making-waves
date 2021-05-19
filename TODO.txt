@@ -14,6 +14,7 @@ Randomly reveal zero-amplitude sliders when spinner changes
 Set range of #sliders spinner
 
 Show Answer button
+Combine refresh and next buttons, they do the same thing
 
 # Continuous
 
