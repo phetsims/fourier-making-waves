@@ -63,7 +63,7 @@ class SumChartNode extends WaveformChartNode {
     } );
 
     // unlink is not needed.
-    dataSetProperty.link( dataSet => {
+    dataSetProperty.lazyLink( dataSet => {
       sumPlot.setDataSet( dataSet );
       chartCanvasNode.update();
     } );
