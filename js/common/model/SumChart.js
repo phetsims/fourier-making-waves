@@ -52,20 +52,20 @@ class SumChart extends WaveformChart {
      * Creates the sum data set using current arg values.
      * @returns {Vector2[]}
      */
-    const createDataSet = () => {
+    const createSumDataSet = () => {
       return fourierSeries.createSumDataSet( xAxisDescriptionProperty.value,
         domainProperty.value, seriesTypeProperty.value, tProperty.value );
     };
 
     // {Property.<Vector2[]>} the data set for the sum
-    const dataSetProperty = new Property( createDataSet(), {
+    const dataSetProperty = new Property( createSumDataSet(), {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
     } );
 
     // Update the sum when dependencies change. unmultilink is not needed.
     Property.lazyMultilink(
       [ fourierSeries.amplitudesProperty, xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
-      () => { dataSetProperty.value = createDataSet(); }
+      () => { dataSetProperty.value = createSumDataSet(); }
     );
 
     // {DerivedProperty.<number>} the peak amplitude of the sum waveform
