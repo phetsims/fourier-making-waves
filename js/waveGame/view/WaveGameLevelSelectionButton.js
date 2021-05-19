@@ -41,7 +41,7 @@ class WaveGameLevelSelectionButton extends LevelSelectionButton {
     //TODO https://github.com/phetsims/fourier-making-waves/issues/57 better icons?
     const iconString = ( level.levelNumber < 5 ) ? level.levelNumber : `${level.levelNumber}+`;
     const icon = new Text( iconString, {
-      font: new PhetFont( 50 )
+      font: new PhetFont( 20 )
     } );
 
     super( icon, level.scoreProperty, options );

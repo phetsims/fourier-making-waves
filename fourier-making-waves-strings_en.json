@@ -179,6 +179,12 @@
   "symbolsDialog.x": {
     "value": "{{x}} = position in space, in meters"
   },
+  "levels": {
+    "value": "Levels"
+  },
+  "chooseYourLevel": {
+    "value": "Choose Your Level"
+  },
   "oneNonZeroHarmonic": {
     "value": "<b>Level {{levelNumber}}</b>: Try to match the pink function using <b>1</b> harmonic."
   },

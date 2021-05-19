@@ -7,13 +7,19 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
+import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import WaveGameInfoDialog from './WaveGameInfoDialog.js';
 import WaveGameLevelSelectionButton from './WaveGameLevelSelectionButton.js';
 
 class WaveGameLevelSelectionNode extends Node {
@@ -30,6 +36,31 @@ class WaveGameLevelSelectionNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
+    const chooseYourLevelNode = new Text( fourierMakingWavesStrings.chooseYourLevel, {
+      font: new PhetFont( 50 )
+    } );
+
+    // {WaveGameInfoDialog} Info dialog is created on demand, then reused.
+    let infoDialog = null;
+
+    const infoButton = new InfoButton( {
+      iconFill: 'rgb( 41, 106, 163 )',
+      maxHeight: 0.75 * chooseYourLevelNode.height,
+      listener: () => {
+        infoDialog = infoDialog || new WaveGameInfoDialog( model.levels );
+        infoDialog.show();
+      }
+    } );
+
+    // Add an invisible strut to the left of chooseYourLevelNode, to balance the Info button at the right.
+    // This results in 'Choose Your Level' looking horizontally centered.
+    const invisibleStrut = new HStrut( infoButton.width );
+
+    const titleBox = new HBox( {
+      children: [ invisibleStrut, chooseYourLevelNode, infoButton ],
+      spacing: 40
+    } );
+
     // {WaveGameLevelSelectionButton[]} a level-selection button for each level
     const levelSelectionButtons = _.map( model.levels,
       level => new WaveGameLevelSelectionButton( level, model.levelProperty, {
@@ -37,9 +68,9 @@ class WaveGameLevelSelectionNode extends Node {
       } )
     );
 
-    // Layout the level-selection buttons in a grid.
+    // Lay out the level-selection buttons in a grid.
     const BUTTONS_PER_ROW = 3;
-    const vBoxChildren = [];
+    const rows = [];
     let i = 0;
     while ( i < levelSelectionButtons.length ) {
 
@@ -49,20 +80,25 @@ class WaveGameLevelSelectionNode extends Node {
         hBoxChildren.push( levelSelectionButtons[ i ] );
         i++;
       }
-      vBoxChildren.push( new HBox( {
+      rows.push( new HBox( {
         children: hBoxChildren,
         spacing: 40
       } ) );
     }
-    const levelSelectionButtonsBox = new VBox( {
-      children: vBoxChildren,
+    const buttonsBox = new VBox( {
+      children: rows,
       align: 'center',
       spacing: 30
     } );
 
-    // Center the buttons on the screen. Observe bounds in case PhET-iO hides a button.
-    levelSelectionButtonsBox.boundsProperty.link( () => {
-      levelSelectionButtonsBox.center = layoutBounds.center;
+    const titleAndButtonsBox = new VBox( {
+      children: [ titleBox, buttonsBox ],
+      spacing: 50
+    } );
+
+    // Center the title & buttons on the screen. Observe bounds in case PhET-iO hides a button.
+    titleAndButtonsBox.boundsProperty.link( () => {
+      titleAndButtonsBox.center = layoutBounds.center;
     } );
 
     // Reset All button, at lower right
@@ -77,7 +113,7 @@ class WaveGameLevelSelectionNode extends Node {
     } );
 
     assert && assert( !options.children, 'LevelSelectionNode sets children' );
-    options.children = [ levelSelectionButtonsBox, resetAllButton ];
+    options.children = [ titleAndButtonsBox, resetAllButton ];
 
     super( options );
   }
