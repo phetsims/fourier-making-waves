@@ -8,11 +8,14 @@ Infinite Harmonics feature, see Preset.java
 
 ## Wave Game screen
 
-Show Answer button
-Hide zero-amplitude sliders
-Set range of #sliders spinner
-Randomly reveal zero-amplitude sliders when spinner changes
 Don't evaluate the guess until all sliders have been released
+Hide zero-amplitude sliders
+Randomly reveal zero-amplitude sliders when spinner changes
+Set range of #sliders spinner
+
+Show Answer button
+
+# Continuous
 
 ## PhET-iO
 
