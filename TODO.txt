@@ -10,7 +10,6 @@ Infinite Harmonics feature, see Preset.java
 
 Don't evaluate the guess until all sliders have been released - OR IS IT BETTER LIKE IT IS ?
 Randomly reveal zero-amplitude sliders when spinner changes
-Set range of #sliders spinner
 
 Show Answer button
 Combine refresh and next buttons, they do the same thing

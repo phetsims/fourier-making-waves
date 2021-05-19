@@ -94,6 +94,15 @@ class WaveGameChallenge {
   }
 
   /**
+   * Gets the number of harmonics that have non-zero amplitudes in the answer.
+   * @returns {number}
+   * @public
+   */
+  getNumberOfNonZeroAmplitudes() {
+    return _.filter( this.answerFourierSeries.amplitudesProperty.value, amplitude => amplitude !== 0 ).length;
+  }
+
+  /**
    * Solves the challenge by copying the amplitudes for the answer to the guess.
    * This is used for development and QA, when ?showAnswers is present.
    * @public

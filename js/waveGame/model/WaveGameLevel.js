@@ -8,6 +8,7 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
@@ -88,7 +89,17 @@ class WaveGameLevel {
       isValidValue: value => ( value instanceof WaveGameChallenge )
     } );
 
-    //TODO eliminate the need for adapterGuessFourierSeries and adapterAnswerFourierSeries by making charts mutable
+    // @public
+    this.numberOfAmplitudeControlsProperty = new NumberProperty( FMWConstants.MAX_HARMONICS, {
+      range: new Range( 1, FMWConstants.MAX_HARMONICS )
+    } );
+
+    // Adjust the range of numberOfAmplitudeControlsProperty to match the challenge.
+    this.challengeProperty.link( challenge => {
+      const min = challenge.getNumberOfNonZeroAmplitudes();
+      const max = this.numberOfAmplitudeControlsProperty.rangeProperty.value.max;
+      this.numberOfAmplitudeControlsProperty.setValueAndRange( min, new Range( min, max ) );
+    } );
 
     // This is a static instance of FourierSeries that is passed to the charts.
     // We update the charts by keeping this series in sync with the current challenge's guessFourierSeries.
