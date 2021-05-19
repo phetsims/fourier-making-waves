@@ -113,18 +113,19 @@ class Harmonic extends PhetioObject {
     assert && assert( SeriesType.includes( seriesType ) );
     assert && assert( typeof t === 'number' && t >= 0 );
 
-    const amplitudeFunction = getAmplitudeFunction( domain, seriesType );
+    const dataSet = [];
     const order = this.order;
     const amplitude = this.amplitudeProperty.value;
-
+    const amplitudeFunction = getAmplitudeFunction( domain, seriesType );
     const xRange = xAxisDescription.createAxisRange( domain, L, T );
     const dx = xRange.getLength() / ( numberOfPoints - 1 );
 
-    const dataSet = [];
+    let x = xRange.min;
+    let y;
     for ( let i = 0; i < numberOfPoints; i++ ) {
-      const x = xRange.min + ( i * dx );
-      const y = amplitudeFunction( x, t, L, T, order, amplitude );
+      y = amplitudeFunction( x, t, L, T, order, amplitude );
       dataSet.push( new Vector2( x, y ) );
+      x += dx;
     }
     assert && assert( dataSet.length === numberOfPoints, 'incorrect number of points in dataSet' );
 
