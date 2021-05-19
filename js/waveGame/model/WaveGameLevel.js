@@ -57,7 +57,8 @@ class WaveGameLevel {
     assert && assert( typeof infoDialogDescription === 'string' );
 
     options = merge( {
-      getNumberOfNonZeroHarmonics: () => 1
+      getNumberOfNonZeroHarmonics: () => 1,
+      numberOfZeroAmplitudeControls: 0
     }, options );
 
     // @public (read-only)
@@ -94,11 +95,12 @@ class WaveGameLevel {
       range: new Range( 1, FMWConstants.MAX_HARMONICS )
     } );
 
-    // Adjust the range of numberOfAmplitudeControlsProperty to match the challenge.
+    // Adjust the value and range of numberOfAmplitudeControlsProperty to match the challenge.
     this.challengeProperty.link( challenge => {
       const min = challenge.getNumberOfNonZeroAmplitudes();
       const max = this.numberOfAmplitudeControlsProperty.rangeProperty.value.max;
-      this.numberOfAmplitudeControlsProperty.setValueAndRange( min, new Range( min, max ) );
+      const value = min + options.numberOfZeroAmplitudeControls;
+      this.numberOfAmplitudeControlsProperty.setValueAndRange( value, new Range( min, max ) );
     } );
 
     // This is a static instance of FourierSeries that is passed to the charts.
