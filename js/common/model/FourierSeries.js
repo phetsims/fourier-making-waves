@@ -132,8 +132,9 @@ class FourierSeries extends PhetioObject {
    *
    * This does not use Harmonic.createDataSet or the datasets that it creates, because:
    * (1) Calling Harmonic.createDataSet would create many more Vector2 instances.
-   * (2) Harmonic.createDataSet creates different numbers of points depending on the harmonic's frequency, as
-   *     more points are required to plot higher-frequency harmonics.
+   * (2) Harmonic.createDataSet does not provide all of the points needed to compute the sum. The number of points
+   *     in the data set created by Harmonic.createDataSet is a function of the harmonic's frequency, as more points
+   *     are required to plot higher-frequency harmonics.
    *
    * @param {XAxisDescription} xAxisDescription
    * @param {Domain} domain
