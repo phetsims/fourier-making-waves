@@ -45,13 +45,15 @@ class WaveGameLevel {
 
   /**
    * @param {number} levelNumber - game level, numbered from 1 in the model and view
-   * @param {string} description - displayed in the status bar
+   * @param {string} statusBarMessage - message displayed in the status bar
+   * @param {string} infoDialogDescription - description displayed in the info dialog
    * @param {Object} [options]
    */
-  constructor( levelNumber, description, options ) {
+  constructor( levelNumber, statusBarMessage, infoDialogDescription, options ) {
 
     assert && assert( typeof levelNumber === 'number' && levelNumber > 0, `invalid level, numbering starts with 1: ${levelNumber}` );
-    assert && assert( typeof description === 'string' );
+    assert && assert( typeof statusBarMessage === 'string' );
+    assert && assert( typeof infoDialogDescription === 'string' );
 
     options = merge( {
       getNumberOfNonZeroHarmonics: () => 1
@@ -59,7 +61,8 @@ class WaveGameLevel {
 
     // @public (read-only)
     this.levelNumber = levelNumber;
-    this.description = description;
+    this.statusBarMessage = statusBarMessage;
+    this.infoDialogDescription = infoDialogDescription;
 
     // @public
     this.scoreProperty = new NumberProperty( 0, {

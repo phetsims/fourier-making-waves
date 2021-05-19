@@ -185,14 +185,23 @@
   "chooseYourLevel": {
     "value": "Choose Your Level"
   },
-  "oneNonZeroHarmonic": {
-    "value": "<b>Level {{levelNumber}}</b>: Try to match the pink function using <b>1</b> harmonic."
+  "statusOneHarmonic": {
+    "value": "<b>Level 1</b>: Match the pink waveform using <b>1</b> harmonic."
   },
-  "numberNonZeroHarmonics": {
-    "value": "<b>Level {{levelNumber}}</b>: Try to match the pink function using <b>{{numberOfHarmonics}}</b> harmonics."
+  "statusNumberHarmonics": {
+    "value": "<b>Level {{levelNumber}}</b>: Match the pink waveform using <b>{{numberOfHarmonics}}</b> harmonics."
   },
-  "numberOrMoreNonZeroHarmonics": {
-    "value": "<b>Level {{levelNumber}}</b>: Try to match the pink function using <b>{{numberOfHarmonics}} or more</b> harmonics."
+  "statusNumberOrMoreHarmonics": {
+    "value": "<b>Level {{levelNumber}}</b>: Match the pink waveform using <u><b>{{numberOfHarmonics}} or more</b></u> harmonics."
+  },
+  "infoOneHarmonic": {
+    "value": "<b>Level 1</b>: 1 non-zero harmonic"
+  },
+  "infoNumberHarmonics": {
+    "value": "<b>Level {{levelNumber}}</b>: {{numberOfHarmonics}} non-zero harmonics"
+  },
+  "infoNumberOrMoreHarmonics": {
+    "value": "<b>Level {{levelNumber}}</b>: {{numberOfHarmonics}} <u>or more</u> non-zero harmonics"
   },
   "next": {
     "value": "Next"

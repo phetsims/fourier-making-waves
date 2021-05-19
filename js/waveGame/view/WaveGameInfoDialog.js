@@ -31,7 +31,7 @@ class WaveGameInfoDialog extends Dialog {
 
     const children = [];
     levels.forEach( level =>
-      children.push( new RichText( level.description, {
+      children.push( new RichText( level.infoDialogDescription, {
         font: new PhetFont( 24 )
       } ) )
     );

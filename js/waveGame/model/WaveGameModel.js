@@ -36,30 +36,38 @@ class WaveGameModel {
     for ( let i = 1; i <= NUMBER_OF_LEVELS; i++ ) {
 
       let getNumberOfNonZeroHarmonics; // {function():number
-      let description; // {string}
+      let statusBarMessage; // {string}
+      let infoDialogDescription; // {string}
 
       if ( i === 1 ) {
         getNumberOfNonZeroHarmonics = () => i;
-        description = StringUtils.fillIn( fourierMakingWavesStrings.oneNonZeroHarmonic, {
-          levelNumber: i
-        } );
+        statusBarMessage = fourierMakingWavesStrings.statusOneHarmonic;
+        infoDialogDescription = fourierMakingWavesStrings.infoOneHarmonic;
       }
       else if ( i === NUMBER_OF_LEVELS ) {
         getNumberOfNonZeroHarmonics = () => dotRandom.nextIntBetween( NUMBER_OF_LEVELS, FMWConstants.MAX_HARMONICS );
-        description = StringUtils.fillIn( fourierMakingWavesStrings.numberOrMoreNonZeroHarmonics, {
+        statusBarMessage = StringUtils.fillIn( fourierMakingWavesStrings.statusNumberOrMoreHarmonics, {
+          levelNumber: i,
+          numberOfHarmonics: i
+        } );
+        infoDialogDescription = StringUtils.fillIn( fourierMakingWavesStrings.infoNumberOrMoreHarmonics, {
           levelNumber: i,
           numberOfHarmonics: i
         } );
       }
       else {
         getNumberOfNonZeroHarmonics = () => i;
-        description = StringUtils.fillIn( fourierMakingWavesStrings.numberNonZeroHarmonics, {
+        statusBarMessage = StringUtils.fillIn( fourierMakingWavesStrings.statusNumberHarmonics, {
+          levelNumber: i,
+          numberOfHarmonics: i
+        } );
+        infoDialogDescription = StringUtils.fillIn( fourierMakingWavesStrings.infoNumberHarmonics, {
           levelNumber: i,
           numberOfHarmonics: i
         } );
       }
 
-      this.levels.push( new WaveGameLevel( i, description, {
+      this.levels.push( new WaveGameLevel( i, statusBarMessage, infoDialogDescription, {
         getNumberOfNonZeroHarmonics: getNumberOfNonZeroHarmonics,
         tandem: options.tandem.createTandem( `level${i}` )
       } ) );
