@@ -65,6 +65,7 @@ class WaveGameLevel {
     this.levelNumber = levelNumber;
     this.statusBarMessage = statusBarMessage;
     this.infoDialogDescription = infoDialogDescription;
+    this.numberOfZeroAmplitudeControls = options.numberOfZeroAmplitudeControls;
 
     // @public
     this.scoreProperty = new NumberProperty( 0, {
