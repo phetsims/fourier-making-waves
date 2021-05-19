@@ -10,7 +10,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import AmplitudesChart from '../../common/model/AmplitudesChart.js';
 import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
@@ -18,6 +17,7 @@ import SeriesType from '../../common/model/SeriesType.js';
 import XAxisDescription from '../../common/model/XAxisDescription.js';
 import DiscreteYAxisDescriptions from '../../discrete/model/DiscreteYAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import WaveGameAmplitudesChart from './WaveGameAmplitudesChart.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
 import WaveGameHarmonicsChart from './WaveGameHarmonicsChart.js';
@@ -107,7 +107,7 @@ class WaveGameLevel {
     } );
 
     // @public
-    this.amplitudesChart = new AmplitudesChart( adapterGuessFourierSeries, emphasizedHarmonics );
+    this.amplitudesChart = new WaveGameAmplitudesChart( adapterGuessFourierSeries, emphasizedHarmonics, this.challengeProperty );
 
     // y-axis scale is fixed for the Harmonics chart. There are no zoom controls
     const harmonicsYAxisDescription = DiscreteYAxisDescriptions[ DiscreteYAxisDescriptions.length - 1 ];

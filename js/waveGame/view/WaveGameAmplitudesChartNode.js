@@ -9,20 +9,30 @@
 
 import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import WaveGameAmplitudesChart from '../model/WaveGameAmplitudesChart.js';
 
 class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
 
   /**
-   * @param {AmplitudesChart} amplitudesChart
+   * @param {WaveGameAmplitudesChart} amplitudesChart
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
    * @param {Object} [options]
    */
   constructor( amplitudesChart, amplitudeKeypadDialog, options ) {
+    assert && assert( amplitudesChart instanceof WaveGameAmplitudesChart );
 
     super( amplitudesChart, amplitudeKeypadDialog, options );
 
     // @private
     this.amplitudeKeypadDialog = amplitudeKeypadDialog;
+
+    // When the challenge changes, make sliders visible for the non-zero harmonics only.
+    amplitudesChart.challengeProperty.link( challenge => {
+      const answerHarmonics = challenge.answerFourierSeries.harmonics;
+      answerHarmonics.forEach( harmonic => {
+        this.setAmplitudeVisible( harmonic.order, harmonic.amplitudeProperty.value !== 0 );
+      } );
+    } );
   }
 
   /**

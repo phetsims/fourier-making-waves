@@ -98,11 +98,12 @@ class WaveGameLevelNode extends Node {
       tandem: amplitudesTandem.createTandem( 'amplitudeKeypadDialog' )
     } );
 
-    const amplitudesChartNode = new WaveGameAmplitudesChartNode( level.amplitudesChart, amplitudeKeypadDialog, {
-      viewWidth: CHART_RECTANGLE_SIZE.width,
-      viewHeight: CHART_RECTANGLE_SIZE.height,
-      tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
-    } );
+    const amplitudesChartNode = new WaveGameAmplitudesChartNode(
+      level.amplitudesChart, amplitudeKeypadDialog, {
+        viewWidth: CHART_RECTANGLE_SIZE.width,
+        viewHeight: CHART_RECTANGLE_SIZE.height,
+        tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
+      } );
 
     // Parent tandem for all components related to the Harmonics chart
     const harmonicsTandem = options.tandem.createTandem( 'harmonics' );

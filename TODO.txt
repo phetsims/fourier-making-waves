@@ -9,7 +9,6 @@ Infinite Harmonics feature, see Preset.java
 ## Wave Game screen
 
 Don't evaluate the guess until all sliders have been released
-Hide zero-amplitude sliders
 Randomly reveal zero-amplitude sliders when spinner changes
 Set range of #sliders spinner
 
