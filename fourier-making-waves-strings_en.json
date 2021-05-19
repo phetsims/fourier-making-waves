@@ -192,7 +192,7 @@
     "value": "<b>Level {{levelNumber}}</b>: Try to match the pink function using <b>{{numberOfHarmonics}}</b> harmonics."
   },
   "numberOrMoreNonZeroHarmonics": {
-    "value": "<b>Level {{levelNumber}}+</b>: Try to match the pink function using <b>{{numberOfHarmonics}} or more</b> harmonics."
+    "value": "<b>Level {{levelNumber}}</b>: Try to match the pink function using <b>{{numberOfHarmonics}} or more</b> harmonics."
   },
   "next": {
     "value": "Next"
