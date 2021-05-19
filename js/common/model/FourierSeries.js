@@ -19,6 +19,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import FMWConstants from '../FMWConstants.js';
 import Domain from './Domain.js';
+import getAmplitudeFunction from './getAmplitudeFunction.js';
 import Harmonic from './Harmonic.js';
 import SeriesType from './SeriesType.js';
 import XAxisDescription from './XAxisDescription.js';
@@ -145,41 +146,31 @@ class FourierSeries extends PhetioObject {
     assert && assert( SeriesType.includes( seriesType ) );
     assert && assert( typeof t === 'number' && t >= 0, `invalid t: ${t}` );
 
-    const numberOfPoints = FMWConstants.MAX_POINTS_PER_DATA_SET;
+    const sumDataSet = []; // {Vector2[]}
+    const nonZeroHarmonics = _.filter( this.harmonics, harmonic => harmonic.amplitudeProperty.value !== 0 ); // {Harmonic[]}
+    const xRange = xAxisDescription.createAxisRange( domain, this.L, this.T );
 
-    // {Vector2[][]} compute a data set for each non-zero harmonic
-    const harmonicDataSets = [];
-    this.harmonics.forEach( harmonic => {
-      if ( harmonic.amplitudeProperty.value !== 0 ) {
-        const dataSet = harmonic.createDataSet( numberOfPoints, this.L, this.T, xAxisDescription, domain, seriesType, t );
-        harmonicDataSets.push( dataSet );
-      }
-    } );
-    assert && assert( _.every( harmonicDataSets, dataSet => dataSet.length === numberOfPoints ),
-      `all data sets should contain ${numberOfPoints} points` );
+    if ( nonZeroHarmonics.length === 0 ) {
 
-    const sumDataSet = [];
-    if ( harmonicDataSets.length === 0 ) {
-      assert && assert( _.every( this.harmonics, harmonic => ( harmonic.amplitudeProperty.value === 0 ) ),
-        'expected all harmonics to have zero amplitude' );
-
-      // All harmonics had zero amplitude, so the sum is zero.
-      const xRange = xAxisDescription.createAxisRange( domain, this.L, this.T );
+      // All harmonics have zero amplitude, so the sum is zero.
       sumDataSet.push( new Vector2( xRange.min, 0 ) );
       sumDataSet.push( new Vector2( xRange.max, 0 ) );
     }
     else {
 
-      // Sum the data sets
-      for ( let i = 0; i < numberOfPoints; i++ ) {
-        const x = harmonicDataSets[ 0 ][ i ].x;
-        let ySum = 0;
-        for ( let j = 0; j < harmonicDataSets.length; j++ ) {
-          const point = harmonicDataSets[ j ][ i ];
-          assert && assert( point.x === x, 'the corresponding points in all data sets should have the same x coordinate' );
-          ySum += point.y;
+      // Sum the harmonics that have non-zero amplitude.
+      const numberOfHarmonics = nonZeroHarmonics.length;
+      const dx = xRange.getLength() / FMWConstants.MAX_POINTS_PER_DATA_SET;
+      const amplitudeFunction = getAmplitudeFunction( domain, seriesType );
+      let x = xRange.min;
+      let y;
+      while ( x <= xRange.max ) {
+        y = 0;
+        for ( let j = 0; j < numberOfHarmonics; j++ ) {
+          y += amplitudeFunction( x, t, this.L, this.T, nonZeroHarmonics[ j ].order, nonZeroHarmonics[ j ].amplitudeProperty.value );
         }
-        sumDataSet.push( new Vector2( x, ySum ) );
+        sumDataSet.push( new Vector2( x, y ) );
+        x += dx;
       }
     }
 
