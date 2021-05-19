@@ -4,7 +4,6 @@ TODO.txt for fourier-making-waves
 
 ## Discrete screen
 
-Reuse Vector2 instances for data sets in FourierSeries (new Vector2) to prevent pause due to GC
 Infinite Harmonics feature, see Preset.java
 
 ## Wave Game screen
