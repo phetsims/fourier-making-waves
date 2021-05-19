@@ -13,7 +13,6 @@ Hide zero-amplitude sliders
 Set range of #sliders spinner
 Randomly reveal zero-amplitude sliders when spinner changes
 Don't evaluate the guess until all sliders have been released
-Eliminate WaveGameLevel adapterGuessFourierSeries and adapterAnswerFourierSeries by making charts mutable?
 
 ## PhET-iO
 
