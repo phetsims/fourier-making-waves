@@ -8,8 +8,9 @@ Infinite Harmonics feature, see Preset.java
 
 ## Wave Game screen
 
-Don't evaluate the guess until all sliders have been released - OR IS IT BETTER LIKE IT IS ?
 Randomly reveal zero-amplitude sliders when spinner changes
+DESIGN: Don't evaluate the guess until all sliders have been released - OR IS IT BETTER LIKE IT IS ?
+DESIGN: Should we remove the Amplitude Controls spinner from Level 5? This level already seems difficult enough.
 
 Show Answer button
 Combine refresh and next buttons, they do the same thing
