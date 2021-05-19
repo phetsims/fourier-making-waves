@@ -129,9 +129,12 @@ class FourierSeries extends PhetioObject {
 
   /**
    * Creates the data set for the sum of the harmonics in the Fourier Series.
-   * This does not reuse HarmonicsChart dataSetProperties, because (1) that creates all kinds of problems with
-   * ordering and intermediate states, and (2) harmonic plots use different numbers of points based on harmonic
-   * frequency, because more points are required to draw higher-frequency harmonics.
+   *
+   * This does not use Harmonic.createDataSet or the datasets that it creates, because:
+   * (1) Calling Harmonic.createDataSet would create many more Vector2 instances.
+   * (2) Harmonic.createDataSet creates different numbers of points depending on the harmonic's frequency, as
+   *     more points are required to plot higher-frequency harmonics.
+   *
    * @param {XAxisDescription} xAxisDescription
    * @param {Domain} domain
    * @param {SeriesType} seriesType
@@ -147,31 +150,26 @@ class FourierSeries extends PhetioObject {
     assert && assert( typeof t === 'number' && t >= 0, `invalid t: ${t}` );
 
     const sumDataSet = []; // {Vector2[]}
-    const nonZeroHarmonics = _.filter( this.harmonics, harmonic => harmonic.amplitudeProperty.value !== 0 ); // {Harmonic[]}
+
     const xRange = xAxisDescription.createAxisRange( domain, this.L, this.T );
+    const numberOfHarmonics = this.harmonics.length;
+    const dx = xRange.getLength() / FMWConstants.MAX_POINTS_PER_DATA_SET;
+    const amplitudeFunction = getAmplitudeFunction( domain, seriesType );
 
-    if ( nonZeroHarmonics.length === 0 ) {
+    let x = xRange.min;
+    let y;
+    let amplitude;
 
-      // All harmonics have zero amplitude, so the sum is zero.
-      sumDataSet.push( new Vector2( xRange.min, 0 ) );
-      sumDataSet.push( new Vector2( xRange.max, 0 ) );
-    }
-    else {
-
-      // Sum the harmonics that have non-zero amplitude.
-      const numberOfHarmonics = nonZeroHarmonics.length;
-      const dx = xRange.getLength() / FMWConstants.MAX_POINTS_PER_DATA_SET;
-      const amplitudeFunction = getAmplitudeFunction( domain, seriesType );
-      let x = xRange.min;
-      let y;
-      while ( x <= xRange.max ) {
-        y = 0;
-        for ( let j = 0; j < numberOfHarmonics; j++ ) {
-          y += amplitudeFunction( x, t, this.L, this.T, nonZeroHarmonics[ j ].order, nonZeroHarmonics[ j ].amplitudeProperty.value );
+    while ( x <= xRange.max ) {
+      y = 0;
+      for ( let j = 0; j < numberOfHarmonics; j++ ) {
+        amplitude = this.harmonics[ j ].amplitudeProperty.value;
+        if ( amplitude !== 0 ) {
+          y += amplitudeFunction( x, t, this.L, this.T, this.harmonics[ j ].order, amplitude );
         }
-        sumDataSet.push( new Vector2( x, y ) );
-        x += dx;
       }
+      sumDataSet.push( new Vector2( x, y ) );
+      x += dx;
     }
 
     return sumDataSet;
