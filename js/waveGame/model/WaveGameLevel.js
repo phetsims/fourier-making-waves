@@ -208,14 +208,6 @@ class WaveGameLevel {
   solve() {
     this.challengeProperty.value.solve();
   }
-
-  /**
-   * Tests this game level.
-   * @public
-   */
-  test() {
-    this.challengeGenerator.test();
-  }
 }
 
 fourierMakingWaves.register( 'WaveGameLevel', WaveGameLevel );
