@@ -44,7 +44,7 @@ class AnswersNode extends Node {
     // When the challenge changes, display all non-zero amplitudes for the answer, horizontally aligned with
     // the sliders on the Amplitudes chart. unlink is not needed.
     challengeProperty.link( challenge => {
-      const amplitudes = challenge.getAnswerAmplitudes();
+      const amplitudes = challenge.answerFourierSeries.amplitudesProperty.value;
       for ( let i = 0; i < amplitudes.length; i++ ) {
         const amplitudeNode = amplitudeNodes[ i ];
         const amplitude = amplitudes[ i ];

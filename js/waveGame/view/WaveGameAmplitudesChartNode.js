@@ -51,8 +51,8 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
 
     // When the challenge changes, adjust visibility of amplitude controls.
     challengeProperty.link( challenge => {
-      const nonZeroHarmonics = challenge.getNonZeroHarmonics();
-      const zeroHarmonics = challenge.getZeroHarmonics();
+      const nonZeroHarmonics = challenge.answerFourierSeries.getNonZeroHarmonics();
+      const zeroHarmonics = challenge.answerFourierSeries.getZeroHarmonics();
       harmonics = [ ...nonZeroHarmonics, ...dotRandom.shuffle( zeroHarmonics ) ];
       updateAmplitudeControlsVisibility( numberOfAmplitudeControlsProperty.value );
     } );

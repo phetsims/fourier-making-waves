@@ -70,8 +70,8 @@ class WaveGameChallenge {
   isSimilar( challenge ) {
     assert && assert( challenge instanceof WaveGameChallenge, 'invalid challenge' );
 
-    // Similar challenges have identical amplitude values.
-    return _.isEqual( this.getAnswerAmplitudes(), challenge.getAnswerAmplitudes() );
+    // Similar challenges have answers with identical amplitude values.
+    return _.isEqual( this.answerFourierSeries.amplitudesProperty.value, challenge.answerFourierSeries.amplitudesProperty.value );
   }
 
   /**
@@ -82,42 +82,6 @@ class WaveGameChallenge {
   toString() {
     return `{\nanswer:[${this.answerFourierSeries.amplitudesProperty.value}],\n` +
            `guess:[${this.guessFourierSeries.amplitudesProperty.value}]\n}`;
-  }
-
-  /**
-   * Gets the amplitudes for the answer, in harmonic order.
-   * @returns {number[]}
-   * @public
-   */
-  getAnswerAmplitudes() {
-    return this.answerFourierSeries.amplitudesProperty.value;
-  }
-
-  /**
-   * Gets the number of harmonics that have non-zero amplitudes in the answer.
-   * @returns {number}
-   * @public
-   */
-  getNumberOfNonZeroAmplitudes() {
-    return _.filter( this.getAnswerAmplitudes(), amplitude => amplitude !== 0 ).length;
-  }
-
-  /**
-   * Gets the harmonics in the answer that have non-zero amplitude.
-   * @returns {Harmonic[]}
-   * @public
-   */
-  getNonZeroHarmonics() {
-    return _.filter( this.answerFourierSeries.harmonics, harmonic => harmonic.amplitudeProperty.value !== 0 );
-  }
-
-  /**
-   * Gets the harmonics in the answer that have zero amplitude.
-   * @returns {Harmonic[]}
-   * @public
-   */
-  getZeroHarmonics() {
-    return _.filter( this.answerFourierSeries.harmonics, harmonic => harmonic.amplitudeProperty.value === 0 );
   }
 
   /**

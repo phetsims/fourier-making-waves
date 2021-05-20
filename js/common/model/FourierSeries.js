@@ -175,6 +175,41 @@ class FourierSeries extends PhetioObject {
 
     return sumDataSet;
   }
+
+  /**
+   * Gets the harmonics that have zero amplitude.
+   * @returns {Harmonic[]}
+   * @public
+   */
+  getZeroHarmonics() {
+    return _.filter( this.harmonics, harmonic => harmonic.amplitudeProperty.value === 0 );
+  }
+
+  /**
+   * Gets the harmonics that have non-zero amplitude.
+   * @returns {Harmonic[]}
+   * @public
+   */
+  getNonZeroHarmonics() {
+    return _.filter( this.harmonics, harmonic => harmonic.amplitudeProperty.value !== 0 );
+  }
+
+  /**
+   * Gets the number of harmonics in the answer that have non-zero amplitude.
+   * @returns {number}
+   * @public
+   */
+  getNumberOfNonZeroHarmonics() {
+
+    // Rather than return this.getNonZeroHarmonics().length, this implementation is optimized so that nothing is allocated.
+    let count = 0;
+    this.harmonics.forEach( harmonic => {
+      if ( harmonic.amplitudeProperty.value !== 0 ) {
+        count++;
+      }
+    } );
+    return count;
+  }
 }
 
 fourierMakingWaves.register( 'FourierSeries', FourierSeries );
