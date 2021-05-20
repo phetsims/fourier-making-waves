@@ -8,9 +8,10 @@ Infinite Harmonics feature, see Preset.java
 
 ## Wave Game screen
 
+BUG: After pressing Show Answer button, subsequent challenges are not evaluated for points
+
 DESIGN: Don't evaluate the guess until all sliders have been released - OR IS IT BETTER LIKE IT IS ?
 DESIGN: How does Amplitude Controls spinner get initialized? What about Level 5?
-DESIGN: Should Wave Game have a reset button that sets all amplitudes to zero?
 
 Show Answer button
 Combine refresh and next buttons, they do the same thing
