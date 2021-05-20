@@ -42,6 +42,7 @@ import WaveGameSumChartNode from './WaveGameSumChartNode.js';
 const DEFAULT_FONT = new PhetFont( 16 );
 const CHART_RECTANGLE_SIZE = DiscreteScreenView.CHART_RECTANGLE_SIZE;
 const X_CHART_RECTANGLES = DiscreteScreenView.X_CHART_RECTANGLES;
+const BUTTON_TEXT_MAX_WIDTH = 150; // maxWidth for button text, determined empirically
 
 class WaveGameLevelNode extends Node {
 
@@ -145,7 +146,8 @@ class WaveGameLevelNode extends Node {
 
     const showAnswerButton = new RectangularPushButton( {
       content: new Text( fourierMakingWavesStrings.showAnswer, {
-        font: DEFAULT_FONT
+        font: DEFAULT_FONT,
+        maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
       baseColor: FMWColorProfile.showAnswerButtonFillProperty,
       listener: () => level.challengeProperty.value.showAnswer()
@@ -163,7 +165,7 @@ class WaveGameLevelNode extends Node {
       listener: next,
       content: new Text( fourierMakingWavesStrings.next, {
         font: DEFAULT_FONT,
-        maxWidth: 200 // determined empirically
+        maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
       baseColor: FMWColorProfile.nextButtonFillProperty,
       tandem: options.tandem.createTandem( 'nextButton' ),

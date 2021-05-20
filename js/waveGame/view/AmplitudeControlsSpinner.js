@@ -43,7 +43,7 @@ class AmplitudeControlsSpinner extends Node {
         mouseAreaYDilation: 5
       },
       textOptions: {
-        maxWidth: 200
+        maxWidth: 150
       }
     }, options );
 

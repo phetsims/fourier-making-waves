@@ -37,7 +37,8 @@ class WaveGameLevelSelectionNode extends Node {
     }, options );
 
     const chooseYourLevelNode = new Text( fourierMakingWavesStrings.chooseYourLevel, {
-      font: new PhetFont( 50 )
+      font: new PhetFont( 50 ),
+      maxWidth: 0.65 * layoutBounds.width
     } );
 
     // {WaveGameInfoDialog} Info dialog is created on demand, then reused.
@@ -45,7 +46,7 @@ class WaveGameLevelSelectionNode extends Node {
 
     const infoButton = new InfoButton( {
       iconFill: 'rgb( 41, 106, 163 )',
-      maxHeight: 0.75 * chooseYourLevelNode.height,
+      maxHeight: 40, // determined empirically
       listener: () => {
         infoDialog = infoDialog || new WaveGameInfoDialog( model.levels );
         infoDialog.show();
