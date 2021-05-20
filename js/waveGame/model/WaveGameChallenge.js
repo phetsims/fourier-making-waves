@@ -99,7 +99,25 @@ class WaveGameChallenge {
    * @public
    */
   getNumberOfNonZeroAmplitudes() {
-    return _.filter( this.answerFourierSeries.amplitudesProperty.value, amplitude => amplitude !== 0 ).length;
+    return _.filter( this.getAnswerAmplitudes(), amplitude => amplitude !== 0 ).length;
+  }
+
+  /**
+   * Gets the harmonics in the answer that have non-zero amplitude.
+   * @returns {Harmonic[]}
+   * @public
+   */
+  getNonZeroHarmonics() {
+    return _.filter( this.answerFourierSeries.harmonics, harmonic => harmonic.amplitudeProperty.value !== 0 );
+  }
+
+  /**
+   * Gets the harmonics in the answer that have zero amplitude.
+   * @returns {Harmonic[]}
+   * @public
+   */
+  getZeroHarmonics() {
+    return _.filter( this.answerFourierSeries.harmonics, harmonic => harmonic.amplitudeProperty.value === 0 );
   }
 
   /**

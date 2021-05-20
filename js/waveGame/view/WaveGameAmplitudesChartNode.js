@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameAmplitudesChart from '../model/WaveGameAmplitudesChart.js';
@@ -23,16 +24,40 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
 
     super( amplitudesChart, amplitudeKeypadDialog, options );
 
+    // Fields of interest in amplitudesChart
+    const challengeProperty = amplitudesChart.challengeProperty;
+    const numberOfAmplitudeControlsProperty = amplitudesChart.numberOfAmplitudeControlsProperty;
+
     // @private
     this.amplitudeKeypadDialog = amplitudeKeypadDialog;
 
-    // When the challenge changes, make sliders visible for the non-zero harmonics only.
-    amplitudesChart.challengeProperty.link( challenge => {
-      const answerHarmonics = challenge.answerFourierSeries.harmonics;
-      answerHarmonics.forEach( harmonic => {
-        this.setAmplitudeVisible( harmonic.order, harmonic.amplitudeProperty.value !== 0 );
-      } );
+    //TODO better name for this
+    // {Harmonic[]} harmonics with non-zero amplitude are first, followed by randomly-ordered harmonics with
+    // zero amplitude. This makes amplitude controls appear and disappear in the same order as
+    // numberOfAmplitudeControlsProperty changes.
+    let harmonics;
+
+    // Update the visibility of amplitude controls.
+    const updateAmplitudeControlsVisibility = numberOfAmplitudeControls => {
+      for ( let i = 0; i < harmonics.length; i++ ) {
+        const harmonic = harmonics[ i ];
+        const visible = ( i < numberOfAmplitudeControls );
+        assert && assert( !( harmonic.amplitudeProperty.value !== 0 && !visible ),
+          'programming error, tried to the control for a non-zero harmonic invisible' );
+        this.setAmplitudeVisible( harmonic.order, visible );
+      }
+    };
+
+    // When the challenge changes, adjust visibility of amplitude controls.
+    challengeProperty.link( challenge => {
+      const nonZeroHarmonics = challenge.getNonZeroHarmonics();
+      const zeroHarmonics = challenge.getZeroHarmonics();
+      harmonics = [ ...nonZeroHarmonics, ...dotRandom.shuffle( zeroHarmonics ) ];
+      updateAmplitudeControlsVisibility( numberOfAmplitudeControlsProperty.value );
     } );
+
+    // Adjust number of amplitude controls that are visible.
+    numberOfAmplitudeControlsProperty.lazyLink( updateAmplitudeControlsVisibility );
   }
 
   /**

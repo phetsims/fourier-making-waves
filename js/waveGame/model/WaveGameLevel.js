@@ -121,7 +121,8 @@ class WaveGameLevel {
     } );
 
     // @public
-    this.amplitudesChart = new WaveGameAmplitudesChart( adapterGuessFourierSeries, emphasizedHarmonics, this.challengeProperty );
+    this.amplitudesChart = new WaveGameAmplitudesChart( adapterGuessFourierSeries, emphasizedHarmonics,
+      this.challengeProperty, this.numberOfAmplitudeControlsProperty );
 
     // y-axis scale is fixed for the Harmonics chart. There are no zoom controls
     const harmonicsYAxisDescription = DiscreteYAxisDescriptions[ DiscreteYAxisDescriptions.length - 1 ];
