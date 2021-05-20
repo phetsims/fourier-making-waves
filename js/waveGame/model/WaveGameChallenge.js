@@ -40,8 +40,10 @@ class WaveGameChallenge {
     // @public (read-only) the Fourier series that corresponds to the user's guess
     this.guessFourierSeries = new FourierSeries();
 
-    //TODO do not evaluate the guess until the user has released all sliders
+    // @private Evaluates the user's guess.
     this.guessAmplitudesListener = guessAmplitudes => {
+
+      //TODO do not evaluate the guess until the user has released all sliders
 
       // Evaluate the guess to see if it's close enough to the answer.
       let isCorrect = true;
