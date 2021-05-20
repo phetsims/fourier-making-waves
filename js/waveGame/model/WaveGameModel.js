@@ -18,7 +18,6 @@ import WaveGameLevel from './WaveGameLevel.js';
 
 // constants
 const NUMBER_OF_LEVELS = 5;
-assert && assert( NUMBER_OF_LEVELS < FMWConstants.MAX_HARMONICS, `too many levels: ${NUMBER_OF_LEVELS}` );
 
 class WaveGameModel {
 
@@ -32,61 +31,84 @@ class WaveGameModel {
     }, options );
 
     // @public {WaveGameLevel[]}
-    this.levels = [];
-    for ( let i = 1; i <= NUMBER_OF_LEVELS; i++ ) {
+    // There's a significant amount of duplication here. But the specification for levels changed SO many times,
+    // that this brute force initialization ended up being easier to change and maintain.
+    this.levels = [
 
-      // Configuration that is common to all levels.
-      let levelConfig = {
-        levelNumber: i,
-        tandem: options.tandem.createTandem( `level${i}` )
-      };
+      // Level 1
+      new WaveGameLevel( {
+        levelNumber: 1,
+        getNumberOfNonZeroHarmonics: () => 1,
+        numberOfAmplitudeControls: 2,
+        statusBarMessage: fourierMakingWavesStrings.statusOneHarmonic,
+        infoDialogDescription: fourierMakingWavesStrings.infoOneHarmonic,
+        tandem: options.tandem.createTandem( 'level1' )
+      } ),
 
-      if ( i === 1 ) {
+      // Level 2
+      new WaveGameLevel( {
+        levelNumber: 2,
+        getNumberOfNonZeroHarmonics: () => 2,
+        numberOfAmplitudeControls: 3,
+        statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.statusNumberHarmonics, {
+          levelNumber: 2,
+          numberOfHarmonics: 2
+        } ),
+        infoDialogDescription: StringUtils.fillIn( fourierMakingWavesStrings.infoNumberHarmonics, {
+          levelNumber: 2,
+          numberOfHarmonics: 2
+        } ),
+        tandem: options.tandem.createTandem( 'level2' )
+      } ),
 
-        // Level 1
-        levelConfig = merge( {
-          getNumberOfNonZeroHarmonics: () => i,
-          numberOfAmplitudeControls: i + 1,
-          statusBarMessage: fourierMakingWavesStrings.statusOneHarmonic,
-          infoDialogDescription: fourierMakingWavesStrings.infoOneHarmonic
-        }, levelConfig );
-      }
-      else if ( i > 1 && i < NUMBER_OF_LEVELS ) {
+      // Level 3
+      new WaveGameLevel( {
+        levelNumber: 3,
+        getNumberOfNonZeroHarmonics: () => 3,
+        numberOfAmplitudeControls: 5,
+        statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.statusNumberHarmonics, {
+          levelNumber: 3,
+          numberOfHarmonics: 3
+        } ),
+        infoDialogDescription: StringUtils.fillIn( fourierMakingWavesStrings.infoNumberHarmonics, {
+          levelNumber: 3,
+          numberOfHarmonics: 3
+        } ),
+        tandem: options.tandem.createTandem( 'level3' )
+      } ),
 
-        // Levels 2, 3, 4
-        levelConfig = merge( {
-          getNumberOfNonZeroHarmonics: () => i,
-          numberOfAmplitudeControls: i + 2,
-          statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.statusNumberHarmonics, {
-            levelNumber: i,
-            numberOfHarmonics: i
-          } ),
-          infoDialogDescription: StringUtils.fillIn( fourierMakingWavesStrings.infoNumberHarmonics, {
-            levelNumber: i,
-            numberOfHarmonics: i
-          } )
-        }, levelConfig );
-      }
-      else {
+      // Level 4
+      new WaveGameLevel( {
+        levelNumber: 4,
+        getNumberOfNonZeroHarmonics: () => 4,
+        numberOfAmplitudeControls: 6,
+        statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.statusNumberHarmonics, {
+          levelNumber: 4,
+          numberOfHarmonics: 4
+        } ),
+        infoDialogDescription: StringUtils.fillIn( fourierMakingWavesStrings.infoNumberHarmonics, {
+          levelNumber: 4,
+          numberOfHarmonics: 4
+        } ),
+        tandem: options.tandem.createTandem( 'level4' )
+      } ),
 
-        // Level 5
-        assert && assert( i === NUMBER_OF_LEVELS );
-        levelConfig = merge( {
-          getNumberOfNonZeroHarmonics: () => dotRandom.nextIntBetween( NUMBER_OF_LEVELS, FMWConstants.MAX_HARMONICS ),
-          numberOfAmplitudeControls: FMWConstants.MAX_HARMONICS,
-          statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.statusNumberOrMoreHarmonics, {
-            levelNumber: i,
-            numberOfHarmonics: i
-          } ),
-          infoDialogDescription: StringUtils.fillIn( fourierMakingWavesStrings.infoNumberOrMoreHarmonics, {
-            levelNumber: i,
-            numberOfHarmonics: i
-          } )
-        }, levelConfig );
-      }
-
-      this.levels.push( new WaveGameLevel( levelConfig ) );
-    }
+      // Level 5
+      new WaveGameLevel( {
+        levelNumber: 5,
+        getNumberOfNonZeroHarmonics: () => dotRandom.nextIntBetween( NUMBER_OF_LEVELS, FMWConstants.MAX_HARMONICS ),
+        numberOfAmplitudeControls: FMWConstants.MAX_HARMONICS,
+        statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.statusNumberOrMoreHarmonics, {
+          levelNumber: 5,
+          numberOfHarmonics: 5
+        } ),
+        infoDialogDescription: StringUtils.fillIn( fourierMakingWavesStrings.infoNumberOrMoreHarmonics, {
+          levelNumber: 5,
+          numberOfHarmonics: 5
+        } ),
+        tandem: options.tandem.createTandem( 'level5' )
+      } )
+    ];
 
     // @public {Property.<null|WaveGameLevel>} the selected game level, null returns to the level-selection UI
     this.levelProperty = new Property( null, {

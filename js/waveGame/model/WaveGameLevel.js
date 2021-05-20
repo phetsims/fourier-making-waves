@@ -63,6 +63,7 @@ class WaveGameLevel {
     assert && AssertUtils.assertPositiveInteger( config.levelNumber );
     assert && assert( typeof config.getNumberOfNonZeroHarmonics === 'function' );
     assert && AssertUtils.assertNonNegativeInteger( config.numberOfAmplitudeControls );
+    assert && assert( config.numberOfAmplitudeControls >= config.levelNumber && config.numberOfAmplitudeControls <= FMWConstants.MAX_HARMONICS );
     assert && assert( typeof config.statusBarMessage === 'string' );
     assert && assert( typeof config.infoDialogDescription === 'string' );
 
