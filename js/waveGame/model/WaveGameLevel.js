@@ -199,15 +199,6 @@ class WaveGameLevel {
   nextChallenge() {
     this.challengeProperty.value = this.challengeGenerator.nextChallenge( this.challengeProperty.value );
   }
-
-  /**
-   * Solves the current challenge.
-   * This is used for development and QA, when ?showAnswers is present.
-   * @public
-   */
-  solve() {
-    this.challengeProperty.value.solve();
-  }
 }
 
 fourierMakingWaves.register( 'WaveGameLevel', WaveGameLevel );

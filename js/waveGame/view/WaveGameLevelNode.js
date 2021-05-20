@@ -149,7 +149,7 @@ class WaveGameLevelNode extends Node {
       } ),
       baseColor: FMWColorProfile.showAnswerButtonFillProperty,
       listener: () => {
-        level.solve(); //TODO this needs to show answer without awarding points
+        level.challengeProperty.value.solve(); //TODO this needs to show answer without awarding points
       }
     } );
 
@@ -158,7 +158,6 @@ class WaveGameLevelNode extends Node {
       this.interruptSubtreeInput();
       faceNode.visible = false;
       level.nextChallenge();
-      solveButton.enabled = true;
     };
 
     // Next button advances to the next challenge. It's available after successfully solving the current challenge.
@@ -171,20 +170,6 @@ class WaveGameLevelNode extends Node {
       baseColor: FMWColorProfile.nextButtonFillProperty,
       tandem: options.tandem.createTandem( 'nextButton' ),
       phetioReadOnly: true
-    } );
-
-    // Solve button immediately solves the challenge.  It's for development and QA, and is added to the
-    // scenegraph only when the ?showAnswers query parameter is present.
-    const solveButton = new RectangularPushButton( {
-      content: new Text( 'Solve', {
-        font: DEFAULT_FONT,
-        fill: 'white'
-      } ),
-      baseColor: 'red',
-      listener: () => {
-        this.interruptSubtreeInput();
-        level.solve();
-      }
     } );
 
     // Smiley face, shown when a challenge has been successfully completed. Fades out to reveal the Next button.
@@ -220,10 +205,6 @@ class WaveGameLevelNode extends Node {
       // center of the space to the right of the charts
       const controlsCenterX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
 
-      // centered at top
-      solveButton.centerX = controlsCenterX;
-      solveButton.top = statusBar.bottom + 10;
-
       // centered on the Amplitudes chart
       amplitudeControlsSpinner.centerX = controlsCenterX;
       amplitudeControlsSpinner.centerY = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.center ).y;
@@ -255,9 +236,6 @@ class WaveGameLevelNode extends Node {
       faceNode,
       rewardNode
     ];
-    if ( phet.chipper.queryParameters.showAnswers ) {
-      options.children.push( solveButton );
-    }
 
     // When the ?showAnswers query parameter is present, show the answer to the current challenge.
     if ( phet.chipper.queryParameters.showAnswers ) {
@@ -314,8 +292,6 @@ class WaveGameLevelNode extends Node {
       // Interrupt any in-progress interactions, since the challenge has been solved.
       // The user is free to resume experimenting with the current challenge after this point.
       this.interruptSubtreeInput();
-
-      solveButton.enabled = false;
 
       if ( score === FMWConstants.REWARD_SCORE || FMWQueryParameters.showReward ) {
 
