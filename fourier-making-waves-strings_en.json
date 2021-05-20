@@ -206,6 +206,9 @@
   "next": {
     "value": "Next"
   },
+  "showAnswer": {
+    "value": "Show Answer"
+  },
   "amplitudeControls": {
     "value": "Amplitude Controls:"
   }

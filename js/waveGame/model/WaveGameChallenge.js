@@ -90,7 +90,7 @@ class WaveGameChallenge {
    * @public
    */
   solve() {
-    const answerAmplitudes = this.getAnswerAmplitudes();
+    const answerAmplitudes = this.answerFourierSeries.amplitudesProperty.value;
     for ( let i = 0; i < answerAmplitudes.length; i++ ) {
       this.guessFourierSeries.harmonics[ i ].amplitudeProperty.value = answerAmplitudes[ i ];
     }
