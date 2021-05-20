@@ -46,7 +46,7 @@ class WaveGameModel {
         // Level 1
         levelConfig = merge( {
           getNumberOfNonZeroHarmonics: () => i,
-          numberOfZeroAmplitudeControls: 1,
+          numberOfAmplitudeControls: i + 1,
           statusBarMessage: fourierMakingWavesStrings.statusOneHarmonic,
           infoDialogDescription: fourierMakingWavesStrings.infoOneHarmonic
         }, levelConfig );
@@ -56,7 +56,7 @@ class WaveGameModel {
         // Levels 2, 3, 4
         levelConfig = merge( {
           getNumberOfNonZeroHarmonics: () => i,
-          numberOfZeroAmplitudeControls: 2,
+          numberOfAmplitudeControls: i + 2,
           statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.statusNumberHarmonics, {
             levelNumber: i,
             numberOfHarmonics: i
@@ -73,7 +73,7 @@ class WaveGameModel {
         assert && assert( i === NUMBER_OF_LEVELS );
         levelConfig = merge( {
           getNumberOfNonZeroHarmonics: () => dotRandom.nextIntBetween( NUMBER_OF_LEVELS, FMWConstants.MAX_HARMONICS ),
-          numberOfZeroAmplitudeControls: 0,
+          numberOfAmplitudeControls: FMWConstants.MAX_HARMONICS,
           statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.statusNumberOrMoreHarmonics, {
             levelNumber: i,
             numberOfHarmonics: i

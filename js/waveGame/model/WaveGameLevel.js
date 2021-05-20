@@ -54,7 +54,7 @@ class WaveGameLevel {
     config = merge( {
       levelNumber: required( config.levelNumber ),
       getNumberOfNonZeroHarmonics: required( config.getNumberOfNonZeroHarmonics ),
-      numberOfZeroAmplitudeControls: required( config.numberOfZeroAmplitudeControls ),
+      numberOfAmplitudeControls: required( config.numberOfAmplitudeControls ),
       statusBarMessage: required( config.statusBarMessage ),
       infoDialogDescription: required( config.infoDialogDescription )
     }, config );
@@ -62,7 +62,7 @@ class WaveGameLevel {
     // Level numbering starts from 1.
     assert && AssertUtils.assertPositiveInteger( config.levelNumber );
     assert && assert( typeof config.getNumberOfNonZeroHarmonics === 'function' );
-    assert && AssertUtils.assertNonNegativeInteger( config.numberOfZeroAmplitudeControls );
+    assert && AssertUtils.assertNonNegativeInteger( config.numberOfAmplitudeControls );
     assert && assert( typeof config.statusBarMessage === 'string' );
     assert && assert( typeof config.infoDialogDescription === 'string' );
 
@@ -70,7 +70,6 @@ class WaveGameLevel {
     this.levelNumber = config.levelNumber;
     this.statusBarMessage = config.statusBarMessage;
     this.infoDialogDescription = config.infoDialogDescription;
-    this.numberOfZeroAmplitudeControls = config.numberOfZeroAmplitudeControls;
 
     // @public
     this.scoreProperty = new NumberProperty( 0, {
@@ -105,7 +104,7 @@ class WaveGameLevel {
     this.challengeProperty.link( challenge => {
       const min = challenge.answerFourierSeries.getNumberOfNonZeroHarmonics();
       const max = this.numberOfAmplitudeControlsProperty.rangeProperty.value.max;
-      const value = min + config.numberOfZeroAmplitudeControls;
+      const value = config.numberOfAmplitudeControls;
       this.numberOfAmplitudeControlsProperty.setValueAndRange( value, new Range( min, max ) );
     } );
 
