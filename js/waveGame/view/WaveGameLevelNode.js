@@ -280,7 +280,7 @@ class WaveGameLevelNode extends Node {
     // @private {Animation|null} animation of faceNode
     this.faceAnimation = null;
 
-    // A change of score means that the challenge was solved. This listener provides user feedback.
+    // A change of score means that the challenge was solved by the user. This listener provides user feedback.
     // unlink is not needed.
     level.scoreProperty.lazyLink( ( score, oldScore ) => {
 
