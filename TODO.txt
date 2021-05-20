@@ -8,9 +8,10 @@ Infinite Harmonics feature, see Preset.java
 
 ## Wave Game screen
 
+BUG: failure in Level 5, see #62
 BUG: RestButton sometimes doesn't work
 BUG: After pressing Show Answer button, subsequent challenges are not evaluated for points
-Disable "Show Answer" button until you've grabbed and move a slider N times.
+Disable "Show Answer" button until you've grabbed and move a slider N times, see #60
 Don't evaluate the guess until all sliders have been released - OR IS IT BETTER LIKE IT IS ?
 Make smiley face appear whenever waveform is matched
 
