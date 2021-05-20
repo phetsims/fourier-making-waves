@@ -8,14 +8,10 @@ Infinite Harmonics feature, see Preset.java
 
 ## Wave Game screen
 
+BUG: RestButton sometimes doesn't work
 BUG: After pressing Show Answer button, subsequent challenges are not evaluated for points
-
-DESIGN: Don't evaluate the guess until all sliders have been released - OR IS IT BETTER LIKE IT IS ?
-DESIGN: How does Amplitude Controls spinner get initialized? What about Level 5?
-DESIGN: When points are not being awarded, do we need an indicator (checkmark, etc.) that the waveform is matched?
-
-Show Answer button
-Combine refresh and next buttons, they do the same thing
+Don't evaluate the guess until all sliders have been released - OR IS IT BETTER LIKE IT IS ?
+Make smiley face appear whenever waveform is matched
 
 # Continuous
 
