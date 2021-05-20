@@ -153,22 +153,19 @@ class WaveGameLevelNode extends Node {
       listener: () => level.challengeProperty.value.showAnswer()
     } );
 
-    // Next and Refresh buttons do the same thing.
-    const next = () => {
-      this.interruptSubtreeInput();
-      faceNode.visible = false;
-      level.nextChallenge();
-    };
-
-    // Next button advances to the next challenge. It's available after successfully solving the current challenge.
-    const nextButton = new RectangularPushButton( {
-      listener: next,
-      content: new Text( fourierMakingWavesStrings.next, {
+    // New Game button loads a new challenge.
+    const newGame = new RectangularPushButton( {
+      listener: () => {
+        this.interruptSubtreeInput();
+        faceNode.visible = false;
+        level.newGame();
+      },
+      content: new Text( fourierMakingWavesStrings.newGame, {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
-      baseColor: FMWColorProfile.nextButtonFillProperty,
-      tandem: options.tandem.createTandem( 'nextButton' ),
+      baseColor: FMWColorProfile.newGameButtonFillProperty,
+      tandem: options.tandem.createTandem( 'newGame' ),
       phetioReadOnly: true
     } );
 
@@ -213,8 +210,8 @@ class WaveGameLevelNode extends Node {
       const harmonicsChartCenterY = harmonicsChartNode.localToGlobalPoint( harmonicsChartNode.chartRectangle.center ).y;
       showAnswerButton.centerX = controlsCenterX;
       showAnswerButton.bottom = harmonicsChartCenterY - 10;
-      nextButton.centerX = controlsCenterX;
-      nextButton.top = harmonicsChartCenterY + 10;
+      newGame.centerX = controlsCenterX;
+      newGame.top = harmonicsChartCenterY + 10;
 
       // centered on the Sum chart
       faceNode.centerX = controlsCenterX;
@@ -232,7 +229,7 @@ class WaveGameLevelNode extends Node {
       resetButton,
       amplitudeControlsSpinner,
       showAnswerButton,
-      nextButton,
+      newGame,
       faceNode,
       rewardNode
     ];
@@ -324,7 +321,7 @@ class WaveGameLevelNode extends Node {
         // removeListener not needed
         this.faceAnimation.finishEmitter.addListener( () => {
           faceNode.visible = false;
-          nextButton.visible = true;
+          newGame.visible = true;
           this.faceAnimation = null;
         } );
 

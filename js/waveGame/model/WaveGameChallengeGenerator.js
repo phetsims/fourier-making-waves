@@ -41,12 +41,12 @@ class WaveGameChallengeGenerator {
   }
 
   /**
-   * Creates the next challenge.
+   * Creates a new challenge.
    * @param {WaveGameChallenge|null} previousChallenge
    * @returns {WaveGameChallenge}
    * @public
    */
-  nextChallenge( previousChallenge ) {
+  createChallenge( previousChallenge ) {
     assert && assert( previousChallenge instanceof WaveGameChallenge || previousChallenge === null );
 
     // {WaveGameChallenge} Generate a challenge.

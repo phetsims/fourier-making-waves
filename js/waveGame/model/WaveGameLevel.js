@@ -92,7 +92,7 @@ class WaveGameLevel {
 
     //TODO this should probably be null initially, we don't want to always reset to the same challenge
     // @public (read-only) {Property.<WaveGameChallenge>} the current challenge
-    this.challengeProperty = new Property( this.challengeGenerator.nextChallenge( null ), {
+    this.challengeProperty = new Property( this.challengeGenerator.createChallenge( null ), {
       isValidValue: value => ( value instanceof WaveGameChallenge )
     } );
 
@@ -179,9 +179,9 @@ class WaveGameLevel {
       emphasizedHarmonics.reset();
 
       //TODO will this be a problem for PhET-iO state restore?
-      // Instead of this.challengeProperty.reset(), call this.nextChallenge(), so that we're not always
-      // resetting to same challenge
-      this.nextChallenge();
+      // Instead of this.challengeProperty.reset(), call this.newGame(), so that we're not always
+      // resetting to same challenge.
+      this.newGame();
     };
   }
 
@@ -196,8 +196,8 @@ class WaveGameLevel {
    * Creates the next challenge.
    * @public
    */
-  nextChallenge() {
-    this.challengeProperty.value = this.challengeGenerator.nextChallenge( this.challengeProperty.value );
+  newGame() {
+    this.challengeProperty.value = this.challengeGenerator.createChallenge( this.challengeProperty.value );
   }
 }
 

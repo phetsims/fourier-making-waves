@@ -99,7 +99,7 @@ const FMWColorProfile = new ColorProfile( [ 'default' ], {
     default: new Color( 243, 177, 175 )
   },
 
-  nextButtonFill: {
+  newGameButtonFill: {
     default: PhetColorScheme.BUTTON_YELLOW
   },
 

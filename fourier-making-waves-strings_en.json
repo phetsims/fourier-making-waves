@@ -203,8 +203,8 @@
   "infoNumberOrMoreHarmonics": {
     "value": "<b>Level {{levelNumber}}</b>: {{numberOfHarmonics}} <u>or more</u> harmonics"
   },
-  "next": {
-    "value": "Next"
+  "newGame": {
+    "value": "New Game"
   },
   "showAnswer": {
     "value": "Show Answer"
