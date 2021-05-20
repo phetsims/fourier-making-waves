@@ -12,6 +12,7 @@ import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
@@ -20,6 +21,7 @@ import SeriesType from '../../common/model/SeriesType.js';
 import XAxisDescription from '../../common/model/XAxisDescription.js';
 import DiscreteYAxisDescriptions from '../../discrete/model/DiscreteYAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WaveGameAmplitudesChart from './WaveGameAmplitudesChart.js';
 import WaveGameChallenge from './WaveGameChallenge.js';
 import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
@@ -47,28 +49,42 @@ assert && assert( X_AXIS_DESCRIPTION.range.getLength() >= 0.5,
 class WaveGameLevel {
 
   /**
+   * @param {number} levelNumber
    * @param {Object} config
    */
-  constructor( config ) {
+  constructor( levelNumber, config ) {
+
+    assert && AssertUtils.assertPositiveInteger( levelNumber ); // Level numbering starts from 1.
 
     config = merge( {
-      levelNumber: required( config.levelNumber ),
-      getNumberOfNonZeroHarmonics: required( config.getNumberOfNonZeroHarmonics ),
+
+      // {number} default number of amplitude controls to show for a challenge
       numberOfAmplitudeControls: required( config.numberOfAmplitudeControls ),
-      statusBarMessage: required( config.statusBarMessage ),
-      infoDialogDescription: required( config.infoDialogDescription )
+
+      // {function():number} the number of non-zero harmonics is each challenge
+      getNumberOfNonZeroHarmonics: () => levelNumber,
+
+      // {string} message shown in the status bar that appears at the top of the Wave Game screen
+      statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.statusNumberHarmonics, {
+        levelNumber: levelNumber,
+        numberOfHarmonics: levelNumber
+      } ),
+      
+      // {string} shown in the info dialog that describes the game levels
+      infoDialogDescription: StringUtils.fillIn( fourierMakingWavesStrings.infoNumberHarmonics, {
+        levelNumber: levelNumber,
+        numberOfHarmonics: levelNumber
+      } )
     }, config );
 
-    // Level numbering starts from 1.
-    assert && AssertUtils.assertPositiveInteger( config.levelNumber );
     assert && assert( typeof config.getNumberOfNonZeroHarmonics === 'function' );
     assert && AssertUtils.assertNonNegativeInteger( config.numberOfAmplitudeControls );
-    assert && assert( config.numberOfAmplitudeControls >= config.levelNumber && config.numberOfAmplitudeControls <= FMWConstants.MAX_HARMONICS );
+    assert && assert( config.numberOfAmplitudeControls >= levelNumber && config.numberOfAmplitudeControls <= FMWConstants.MAX_HARMONICS );
     assert && assert( typeof config.statusBarMessage === 'string' );
     assert && assert( typeof config.infoDialogDescription === 'string' );
 
     // @public (read-only)
-    this.levelNumber = config.levelNumber;
+    this.levelNumber = levelNumber;
     this.statusBarMessage = config.statusBarMessage;
     this.infoDialogDescription = config.infoDialogDescription;
 
