@@ -96,7 +96,7 @@ class WaveGameLevel {
     } );
 
     // @public
-    this.numberOfAmplitudeControlsProperty = new NumberProperty( FMWConstants.MAX_HARMONICS, {
+    this.numberOfAmplitudeControlsProperty = new NumberProperty( 1, {
       range: new Range( 1, FMWConstants.MAX_HARMONICS )
     } );
 
@@ -104,7 +104,7 @@ class WaveGameLevel {
     this.challengeProperty.link( challenge => {
       const min = challenge.answerFourierSeries.getNumberOfNonZeroHarmonics();
       const max = this.numberOfAmplitudeControlsProperty.rangeProperty.value.max;
-      const value = config.numberOfAmplitudeControls;
+      const value = Math.max( config.numberOfAmplitudeControls, this.numberOfAmplitudeControlsProperty.value );
       this.numberOfAmplitudeControlsProperty.setValueAndRange( value, new Range( min, max ) );
     } );
 
