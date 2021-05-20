@@ -23,14 +23,14 @@ class HarmonicsSpinner extends NumberSpinner {
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty );
 
     options = merge( {
-      arrowsPosition: 'bothRight',
+      arrowsPosition: 'leftRight',
       numberDisplayOptions: {
         align: 'center',
         xMargin: 8,
-        yMargin: 5,
+        yMargin: 2,
         cornerRadius: 3,
         textOptions: {
-          font: new PhetFont( 16 )
+          font: new PhetFont( 14 )
         }
       },
       touchAreaXDilation: 25,
