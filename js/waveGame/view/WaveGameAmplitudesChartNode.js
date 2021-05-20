@@ -43,7 +43,8 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
         const harmonic = harmonics[ i ];
         const visible = ( i < numberOfAmplitudeControls );
         assert && assert( !( harmonic.amplitudeProperty.value !== 0 && !visible ),
-          'programming error, tried to make the control for a non-zero harmonic invisible' );
+          'programming error, tried to make the control for a non-zero harmonic invisible, ' +
+          `numberOfAmplitudeControls=${numberOfAmplitudeControls} i=${i} harmonic=${harmonic.order} amplitude=${harmonic.amplitudeProperty.value}` );
         this.setAmplitudeVisible( harmonic.order, visible );
       }
     };
