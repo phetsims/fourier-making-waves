@@ -8,7 +8,6 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import RefreshButton from '../../../../scenery-phet/js/buttons/RefreshButton.js';
@@ -28,6 +27,7 @@ import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
+import DiscreteScreenView from '../../discrete/view/DiscreteScreenView.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
@@ -40,8 +40,8 @@ import WaveGameSumChartNode from './WaveGameSumChartNode.js';
 
 // constants
 const DEFAULT_FONT = new PhetFont( 16 );
-const CHART_RECTANGLE_SIZE = new Dimension2( 645, 123 ); //TODO copied from DiscreteScreenView
-const X_CHART_RECTANGLES = 65; //TODO copied from DiscreteScreenView
+const CHART_RECTANGLE_SIZE = DiscreteScreenView.CHART_RECTANGLE_SIZE;
+const X_CHART_RECTANGLES = DiscreteScreenView.X_CHART_RECTANGLES;
 
 class WaveGameLevelNode extends Node {
 
