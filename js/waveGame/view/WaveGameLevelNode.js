@@ -148,9 +148,7 @@ class WaveGameLevelNode extends Node {
         font: DEFAULT_FONT
       } ),
       baseColor: FMWColorProfile.showAnswerButtonFillProperty,
-      listener: () => {
-        level.challengeProperty.value.solve(); //TODO this needs to show answer without awarding points
-      }
+      listener: () => level.challengeProperty.value.showAnswer()
     } );
 
     // Next and Refresh buttons do the same thing.
