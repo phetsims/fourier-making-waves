@@ -111,7 +111,7 @@ class Harmonic extends PhetioObject {
     assert && assert( xAxisDescription instanceof XAxisDescription );
     assert && assert( Domain.includes( domain ) );
     assert && assert( SeriesType.includes( seriesType ) );
-    assert && assert( typeof t === 'number' && t >= 0 );
+    assert && AssertUtils.assertNonNegativeNumber( t );
 
     const dataSet = [];
     const order = this.order;

@@ -191,7 +191,7 @@ class ClockFaceNode extends Node {
 function createElapsedTimeShape( harmonic, t, radius ) {
 
   assert && assert( harmonic instanceof Harmonic );
-  assert && assert( typeof t === 'number' && t >= 0 );
+  assert && AssertUtils.assertNonNegativeNumber( t );
   assert && assert( typeof radius === 'number' && radius > 0 );
 
   const percentTime = ( t % harmonic.period ) / harmonic.period;

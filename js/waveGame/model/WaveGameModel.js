@@ -31,7 +31,6 @@ class WaveGameModel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    //TODO replace this for loop with explicit instantiation of each WaveGameLevel, it will be clearer
     // @public {WaveGameLevel[]}
     this.levels = [];
     for ( let i = 1; i <= NUMBER_OF_LEVELS; i++ ) {

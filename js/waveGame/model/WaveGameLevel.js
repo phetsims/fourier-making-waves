@@ -11,6 +11,7 @@ import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
@@ -52,11 +53,18 @@ class WaveGameLevel {
 
     config = merge( {
       levelNumber: required( config.levelNumber ),
-      statusBarMessage: required( config.statusBarMessage ),
-      infoDialogDescription: required( config.infoDialogDescription ),
       getNumberOfNonZeroHarmonics: required( config.getNumberOfNonZeroHarmonics ),
-      numberOfZeroAmplitudeControls: required( config.numberOfZeroAmplitudeControls )
+      numberOfZeroAmplitudeControls: required( config.numberOfZeroAmplitudeControls ),
+      statusBarMessage: required( config.statusBarMessage ),
+      infoDialogDescription: required( config.infoDialogDescription )
     }, config );
+
+    // Level numbering starts from 1.
+    assert && AssertUtils.assertPositiveInteger( config.levelNumber );
+    assert && assert( typeof config.getNumberOfNonZeroHarmonics === 'function' );
+    assert && AssertUtils.assertNonNegativeInteger( config.numberOfZeroAmplitudeControls );
+    assert && assert( typeof config.statusBarMessage === 'string' );
+    assert && assert( typeof config.infoDialogDescription === 'string' );
 
     // @public (read-only)
     this.levelNumber = config.levelNumber;
