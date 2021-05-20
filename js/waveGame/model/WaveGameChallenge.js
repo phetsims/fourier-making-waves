@@ -41,9 +41,8 @@ class WaveGameChallenge {
     this.guessFourierSeries = new FourierSeries();
 
     // @private Evaluates the user's guess.
-    this.guessAmplitudesListener = guessAmplitudes => {
-
-      //TODO do not evaluate the guess until the user has released all sliders
+    this.evaluateGuess = guessAmplitudes => {
+      //TODO do not evaluate the guess until the user has released all amplitude sliders
 
       // Evaluate the guess to see if it's close enough to the answer.
       let isCorrect = true;
@@ -54,11 +53,12 @@ class WaveGameChallenge {
 
       // If the guess is correct, unlink this listener and call the callback.
       if ( isCorrect ) {
-        this.guessFourierSeries.amplitudesProperty.unlink( this.guessAmplitudesListener );
+        this.guessFourierSeries.amplitudesProperty.unlink( this.evaluateGuess );
         isCorrectCallback();
       }
     };
-    this.guessFourierSeries.amplitudesProperty.lazyLink( this.guessAmplitudesListener ); // unlink is not needed.
+    
+    this.guessFourierSeries.amplitudesProperty.lazyLink( this.evaluateGuess ); // unlink is not needed.
   }
 
   /**
@@ -93,8 +93,8 @@ class WaveGameChallenge {
   showAnswer() {
 
     // Unlink the listener that evaluates the user's guess and potentially awards points.
-    if ( this.guessFourierSeries.amplitudesProperty.hasListener( this.guessAmplitudesListener ) ) {
-      this.guessFourierSeries.amplitudesProperty.unlink( this.guessAmplitudesListener );
+    if ( this.guessFourierSeries.amplitudesProperty.hasListener( this.evaluateGuess ) ) {
+      this.guessFourierSeries.amplitudesProperty.unlink( this.evaluateGuess );
     }
     
     // Copy the amplitudes for the answer to the guess.
