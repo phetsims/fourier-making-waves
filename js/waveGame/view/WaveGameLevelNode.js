@@ -10,7 +10,7 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import ResetButton from '../../../../scenery-phet/js/buttons/ResetButton.js';
+import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -132,8 +132,8 @@ class WaveGameLevelNode extends Node {
       tandem: sumTandem.createTandem( 'harmonicsTitleNode' )
     } );
 
-    const resetButton = new ResetButton( {
-      scale: 0.65,
+    const eraserButton = new EraserButton( {
+      scale: 1,
       listener: () => level.challengeProperty.value.guessFourierSeries.reset()
     } );
 
@@ -196,8 +196,8 @@ class WaveGameLevelNode extends Node {
 
       // To the right of the amplitude NumberDisplays
       const amplitudesChartRightTop = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.rightTop );
-      resetButton.left = amplitudesChartRightTop.x + 5;
-      resetButton.bottom = amplitudesChartRightTop.y - 5;
+      eraserButton.left = amplitudesChartRightTop.x + 5;
+      eraserButton.bottom = amplitudesChartRightTop.y - 5;
 
       // center of the space to the right of the charts
       const controlsCenterX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
@@ -226,7 +226,7 @@ class WaveGameLevelNode extends Node {
       harmonicsChartNode,
       sumTitleNode,
       sumChartNode,
-      resetButton,
+      eraserButton,
       amplitudeControlsSpinner,
       showAnswerButton,
       newGame,
