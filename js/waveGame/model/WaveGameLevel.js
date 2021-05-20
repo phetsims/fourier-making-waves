@@ -10,6 +10,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
+import required from '../../../../phet-core/js/required.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
@@ -45,44 +46,40 @@ assert && assert( X_AXIS_DESCRIPTION.range.getLength() >= 0.5,
 class WaveGameLevel {
 
   /**
-   * @param {number} levelNumber - game level, numbered from 1 in the model and view
-   * @param {string} statusBarMessage - message displayed in the status bar
-   * @param {string} infoDialogDescription - description displayed in the info dialog
-   * @param {Object} [options]
+   * @param {Object} config
    */
-  constructor( levelNumber, statusBarMessage, infoDialogDescription, options ) {
+  constructor( config ) {
 
-    assert && assert( typeof levelNumber === 'number' && levelNumber > 0, `invalid level, numbering starts with 1: ${levelNumber}` );
-    assert && assert( typeof statusBarMessage === 'string' );
-    assert && assert( typeof infoDialogDescription === 'string' );
-
-    options = merge( {
-      getNumberOfNonZeroHarmonics: () => 1,
-      numberOfZeroAmplitudeControls: 0
-    }, options );
+    config = merge( {
+      levelNumber: required( config.levelNumber ),
+      statusBarMessage: required( config.statusBarMessage ),
+      infoDialogDescription: required( config.infoDialogDescription ),
+      getNumberOfNonZeroHarmonics: required( config.getNumberOfNonZeroHarmonics ),
+      numberOfZeroAmplitudeControls: required( config.numberOfZeroAmplitudeControls )
+    }, config );
 
     // @public (read-only)
-    this.levelNumber = levelNumber;
-    this.statusBarMessage = statusBarMessage;
-    this.infoDialogDescription = infoDialogDescription;
-    this.numberOfZeroAmplitudeControls = options.numberOfZeroAmplitudeControls;
+    this.levelNumber = config.levelNumber;
+    this.statusBarMessage = config.statusBarMessage;
+    this.infoDialogDescription = config.infoDialogDescription;
+    this.numberOfZeroAmplitudeControls = config.numberOfZeroAmplitudeControls;
 
     // @public
     this.scoreProperty = new NumberProperty( 0, {
       numberType: 'Integer',
       isValidValue: value => ( value >= 0 ),
       phetioReadOnly: true,
-      tandem: options.tandem.createTandem( 'scoreProperty' )
+      tandem: config.tandem.createTandem( 'scoreProperty' )
     } );
 
     // @private
     this.challengeGenerator = new WaveGameChallengeGenerator( {
-      getNumberOfNonZeroHarmonics: options.getNumberOfNonZeroHarmonics,
+      getNumberOfNonZeroHarmonics: config.getNumberOfNonZeroHarmonics,
       isCorrectCallback: () => {
         phet.log && phet.log( 'Correct answer!' );
         this.scoreProperty.value += FMWConstants.POINTS_PER_CHALLENGE;
       },
-      tandem: options.tandem.createTandem( 'challengeGenerator' )
+      tandem: config.tandem.createTandem( 'challengeGenerator' )
     } );
 
     //TODO this should probably be null initially, we don't want to always reset to the same challenge
@@ -100,7 +97,7 @@ class WaveGameLevel {
     this.challengeProperty.link( challenge => {
       const min = challenge.answerFourierSeries.getNumberOfNonZeroHarmonics();
       const max = this.numberOfAmplitudeControlsProperty.rangeProperty.value.max;
-      const value = min + options.numberOfZeroAmplitudeControls;
+      const value = min + config.numberOfZeroAmplitudeControls;
       this.numberOfAmplitudeControlsProperty.setValueAndRange( value, new Range( min, max ) );
     } );
 
@@ -117,7 +114,7 @@ class WaveGameLevel {
 
     // the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
     const emphasizedHarmonics = new EmphasizedHarmonics( {
-      tandem: options.tandem.createTandem( 'emphasizedHarmonics' )
+      tandem: config.tandem.createTandem( 'emphasizedHarmonics' )
     } );
 
     // @public
@@ -141,7 +138,7 @@ class WaveGameLevel {
     this.challengeProperty.link( ( challenge, previousChallenge ) => {
 
       // Log the challenge to the console.
-      phet.log && phet.log( `level=${levelNumber} challenge=${challenge.toString()}` );
+      phet.log && phet.log( `level=${this.levelNumber} challenge=${challenge.toString()}` );
 
       emphasizedHarmonics.reset();
 
