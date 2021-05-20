@@ -119,9 +119,13 @@ class WaveGameLevel {
 
     // Adjust the value and range of numberOfAmplitudeControlsProperty to match the challenge.
     this.challengeProperty.link( challenge => {
+
       const min = challenge.answerFourierSeries.getNumberOfNonZeroHarmonics();
       const max = this.numberOfAmplitudeControlsProperty.rangeProperty.value.max;
-      const value = Math.max( config.numberOfAmplitudeControls, this.numberOfAmplitudeControlsProperty.value );
+
+      // If the current value is greater than the default value for the level, keep the current value.
+      // See https://github.com/phetsims/fourier-making-waves/issues/63#issuecomment-845466971
+      const value = Math.max( this.numberOfAmplitudeControlsProperty.value, config.numberOfAmplitudeControls );
       this.numberOfAmplitudeControlsProperty.setValueAndRange( value, new Range( min, max ) );
     } );
 
