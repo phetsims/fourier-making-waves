@@ -9,8 +9,6 @@ Infinite Harmonics feature, see Preset.java
 ## Wave Game screen
 
 BUG #62: failure in Level 5
-BUG #64: EraserButton sometimes doesn't work
-BUG #65: After pressing Show Answer button, subsequent challenges are not evaluated for points
 
 Mutate a single challenge instance per level, for PhET-iO
 #60 Disable "Show Answer" button until you've grabbed and move a slider N times
