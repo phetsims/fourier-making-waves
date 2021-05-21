@@ -133,8 +133,7 @@ class WaveGameLevelNode extends Node {
     } );
 
     const eraserButton = new EraserButton( {
-      scale: 1,
-      listener: () => level.challengeProperty.value.guessFourierSeries.reset()
+      listener: () => level.challengeProperty.value.guessFourierSeries.setAllAmplitudes( 0 )
     } );
 
     const amplitudeControlsSpinner = new AmplitudeControlsSpinner( level.numberOfAmplitudeControlsProperty, {

@@ -128,6 +128,17 @@ class FourierSeries extends PhetioObject {
   }
 
   /**
+   * Sets all amplitudes to the specified value.
+   * @param {number} amplitude
+   * @public
+   */
+  setAllAmplitudes( amplitude ) {
+    for ( let i = 0; i < this.harmonics.length; i++ ) {
+      this.harmonics[ i ].amplitudeProperty.value = amplitude;
+    }
+  }
+
+  /**
    * Creates the data set for the sum of the harmonics in the Fourier Series.
    *
    * This does not use Harmonic.createDataSet or the datasets that it creates, because:

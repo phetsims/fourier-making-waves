@@ -10,6 +10,7 @@ import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
+import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import OopsDialog from '../../../../scenery-phet/js/OopsDialog.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
@@ -168,6 +169,13 @@ class DiscreteScreenView extends ScreenView {
         expandedFormButton.visible = visible;
       } );
 
+    const eraserButton = new EraserButton( {
+      listener: () => {
+        model.waveformProperty.value = Waveform.CUSTOM;
+        model.fourierSeries.setAllAmplitudes( 0 );
+      }
+    } );
+
     const controlPanel = new DiscreteControlPanel( model, popupParent, {
       tandem: options.tandem.createTandem( 'controlPanel' )
     } );
@@ -220,25 +228,40 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     // Layout, spacing set empirically
-    amplitudesChartNode.x = X_CHART_RECTANGLES;
-    amplitudesChartNode.y = 54;
-    harmonicsExpandCollapseButton.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-    harmonicsExpandCollapseButton.top = amplitudesChartNode.bottom + 15;
-    harmonicsChartNode.x = X_CHART_RECTANGLES;
-    harmonicsChartNode.y = harmonicsExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
-    sumExpandCollapseButton.left = harmonicsExpandCollapseButton.left;
-    sumExpandCollapseButton.top = harmonicsChartNode.bottom + 30;
-    sumChartNode.x = X_CHART_RECTANGLES;
-    sumChartNode.y = sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
-    controlPanel.right = this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
-    controlPanel.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
-    timeControlNode.left = controlPanel.left + 30;
-    timeControlNode.bottom = this.layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN;
-    resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
-    resetAllButton.bottom = this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+    {
+      amplitudesChartNode.x = X_CHART_RECTANGLES;
+      amplitudesChartNode.y = 54;
+
+      // To the right of the amplitude NumberDisplays
+      const amplitudesChartRightTop = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.rightTop );
+      eraserButton.left = amplitudesChartRightTop.x + 10;
+      eraserButton.bottom = amplitudesChartRightTop.y - 5;
+
+      harmonicsExpandCollapseButton.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+      harmonicsExpandCollapseButton.top = amplitudesChartNode.bottom + 15;
+      harmonicsChartNode.x = X_CHART_RECTANGLES;
+      harmonicsChartNode.y = harmonicsExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
+
+      sumExpandCollapseButton.left = harmonicsExpandCollapseButton.left;
+      sumExpandCollapseButton.top = harmonicsChartNode.bottom + 30;
+      sumChartNode.x = X_CHART_RECTANGLES;
+      sumChartNode.y = sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
+
+      controlPanel.right = this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
+      controlPanel.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
+
+      // below control panel
+      timeControlNode.left = controlPanel.left + 30;
+      timeControlNode.bottom = this.layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+
+      // bottom right
+      resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
+      resetAllButton.bottom = this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+    }
 
     // Rendering order
     this.addChild( amplitudesChartNode );
+    this.addChild( eraserButton );
     this.addChild( harmonicsExpandCollapseButton );
     this.addChild( harmonicsChartNode );
     this.addChild( harmonicsEquationWrapperNode );
