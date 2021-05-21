@@ -160,7 +160,9 @@ class WaveGameLevel {
     this.sumChart = new WaveGameSumChart( adapterAnswerFourierSeries, adapterGuessFourierSeries,
       DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, DiscreteYAxisDescriptions );
 
-    const guessAmplitudesListener = amplitudes => adapterGuessFourierSeries.setAmplitudes( amplitudes );
+    const guessAmplitudesListener = amplitudes => {
+      adapterGuessFourierSeries.setAmplitudes( amplitudes );
+    };
 
     // When the challenge changes...
     this.challengeProperty.link( ( challenge, previousChallenge ) => {
@@ -186,10 +188,8 @@ class WaveGameLevel {
     // When an amplitude is changed via the chart, update the corresponding amplitude in the challenge's guess.
     // unlink is not needed.
     for ( let i = 0; i < adapterGuessFourierSeries.harmonics.length; i++ ) {
-      const adapterAmplitudeProperty = adapterGuessFourierSeries.harmonics[ i ].amplitudeProperty;
-      const challengeAmplitudeProperty = this.challengeProperty.value.guessFourierSeries.harmonics[ i ].amplitudeProperty;
-      adapterAmplitudeProperty.link( amplitude => {
-        challengeAmplitudeProperty.value = amplitude;
+      adapterGuessFourierSeries.harmonics[ i ].amplitudeProperty.link( amplitude => {
+        this.challengeProperty.value.guessFourierSeries.harmonics[ i ].amplitudeProperty.value = amplitude;
       } );
     }
 
