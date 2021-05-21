@@ -196,7 +196,7 @@ class WaveGameLevelNode extends Node {
 
       // To the right of the amplitude NumberDisplays
       const amplitudesChartRightTop = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.rightTop );
-      eraserButton.left = amplitudesChartRightTop.x + 5;
+      eraserButton.left = amplitudesChartRightTop.x + 10;
       eraserButton.bottom = amplitudesChartRightTop.y - 5;
 
       // center of the space to the right of the charts
