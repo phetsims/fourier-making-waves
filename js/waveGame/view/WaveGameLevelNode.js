@@ -133,6 +133,7 @@ class WaveGameLevelNode extends Node {
     } );
 
     const eraserButton = new EraserButton( {
+      scale: 0.85,
       listener: () => level.challengeProperty.value.guessFourierSeries.setAllAmplitudes( 0 )
     } );
 
@@ -196,7 +197,7 @@ class WaveGameLevelNode extends Node {
       // To the right of the amplitude NumberDisplays
       const amplitudesChartRightTop = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.rightTop );
       eraserButton.left = amplitudesChartRightTop.x + 10;
-      eraserButton.bottom = amplitudesChartRightTop.y - 5;
+      eraserButton.bottom = amplitudesChartRightTop.y - 10;
 
       // center of the space to the right of the charts
       const controlsCenterX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;

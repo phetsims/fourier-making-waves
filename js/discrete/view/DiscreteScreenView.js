@@ -170,6 +170,7 @@ class DiscreteScreenView extends ScreenView {
       } );
 
     const eraserButton = new EraserButton( {
+      scale: 0.85,
       listener: () => {
         model.waveformProperty.value = Waveform.CUSTOM;
         model.fourierSeries.setAllAmplitudes( 0 );
@@ -235,7 +236,7 @@ class DiscreteScreenView extends ScreenView {
       // To the right of the amplitude NumberDisplays
       const amplitudesChartRightTop = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.rightTop );
       eraserButton.left = amplitudesChartRightTop.x + 10;
-      eraserButton.bottom = amplitudesChartRightTop.y - 5;
+      eraserButton.bottom = amplitudesChartRightTop.y - 10;
 
       harmonicsExpandCollapseButton.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
       harmonicsExpandCollapseButton.top = amplitudesChartNode.bottom + 15;
