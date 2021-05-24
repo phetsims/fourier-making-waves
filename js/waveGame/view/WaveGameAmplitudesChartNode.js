@@ -66,6 +66,8 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
     // Adjust number of amplitude controls that are visible.
     numberOfAmplitudeControlsProperty.lazyLink( updateAmplitudeControlsVisibility );
 
+    // Keep track of the number of times the user has started an interaction with the Amplitudes chart.
+    // This is used to enabled the Show Answers button after the user has made an attempt to solve.
     this.addInputListener( new PressListener( {
       attach: false,
       press: () => amplitudesChart.numberOfPressesProperty.value++
