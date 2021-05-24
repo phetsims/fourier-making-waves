@@ -6,13 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
@@ -22,9 +23,8 @@ import XAxisDescription from '../../common/model/XAxisDescription.js';
 import DiscreteYAxisDescriptions from '../../discrete/model/DiscreteYAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import AmplitudesGenerator from './AmplitudesGenerator.js';
 import WaveGameAmplitudesChart from './WaveGameAmplitudesChart.js';
-import WaveGameChallenge from './WaveGameChallenge.js';
-import WaveGameChallengeGenerator from './WaveGameChallengeGenerator.js';
 import WaveGameHarmonicsChart from './WaveGameHarmonicsChart.js';
 import WaveGameSumChart from './WaveGameSumChart.js';
 
@@ -34,6 +34,7 @@ import WaveGameSumChart from './WaveGameSumChart.js';
 const DOMAIN = Domain.SPACE;
 const SERIES_TYPE = SeriesType.SINE;
 const t = 0; // lowercase t (time) to distinguish from uppercase T (period)
+const AMPLITUDE_THRESHOLD = 0.01; // a guess amplitude must be at least this close to an answer amplitude
 
 // Fixed x-axis description, because Wave Game has no zoom buttons for the x axes.
 const X_AXIS_DESCRIPTION = new XAxisDescription( {
@@ -74,7 +75,9 @@ class WaveGameLevel {
       infoDialogDescription: StringUtils.fillIn( fourierMakingWavesStrings.infoNumberHarmonics, {
         levelNumber: levelNumber,
         numberOfHarmonics: levelNumber
-      } )
+      } ),
+
+      tandem: Tandem.REQUIRED
     }, config );
 
     assert && assert( typeof config.getNumberOfNonZeroHarmonics === 'function' );
@@ -97,85 +100,78 @@ class WaveGameLevel {
     } );
 
     // @private
-    this.challengeGenerator = new WaveGameChallengeGenerator( {
-      getNumberOfNonZeroHarmonics: config.getNumberOfNonZeroHarmonics,
-      isCorrectCallback: () => {
-        phet.log && phet.log( 'Correct answer!' );
-        this.scoreProperty.value += FMWConstants.POINTS_PER_CHALLENGE;
-      },
-      tandem: config.tandem.createTandem( 'challengeGenerator' )
+    this.amplitudesGenerator = new AmplitudesGenerator( {
+      getNumberOfNonZeroHarmonics: config.getNumberOfNonZeroHarmonics
     } );
 
-    //TODO this should probably be null initially, we don't want to always reset to the same challenge
-    // @public (read-only) {Property.<WaveGameChallenge>} the current challenge
-    this.challengeProperty = new Property( this.challengeGenerator.createChallenge( null ), {
-      isValidValue: value => ( value instanceof WaveGameChallenge )
+    // @private the Fourier series that corresponds to the answer to the challenge
+    this.answerSeries = new FourierSeries( {
+      amplitudes: this.amplitudesGenerator.createAmplitudes(),
+      tandem: config.tandem.createTandem( 'answerSeries' )
+    } );
+
+    // @private the Fourier series that corresponds to the user's guess
+    this.guessSeries = new FourierSeries( {
+      tandem: config.tandem.createTandem( 'guessSeries' )
     } );
 
     // @public
     this.numberOfAmplitudeControlsProperty = new NumberProperty( 1, {
-      range: new Range( 1, FMWConstants.MAX_HARMONICS )
+      range: new Range( 1, this.guessSeries.harmonics.length )
     } );
 
-    // This is a static instance of FourierSeries that is passed to the charts.
-    // We update the charts by keeping this series in sync with the current challenge's guessFourierSeries.
-    const adapterGuessFourierSeries = new FourierSeries();
-
-    // This is a static instance of FourierSeries that is passed to the Sum chart.
-    // We update the Sum chart by keeping this series in sync with the current challenge's answerFourierSeries.
-    const adapterAnswerFourierSeries = new FourierSeries();
-
-    // @public
-    this.amplitudeRange = adapterGuessFourierSeries.amplitudeRange;
-
-    // the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
+    // The harmonics to be emphasized in the Harmonics chart, as the result of UI interactions.
+    // These are harmonics in guessSeries.
     const emphasizedHarmonics = new EmphasizedHarmonics( {
       tandem: config.tandem.createTandem( 'emphasizedHarmonics' )
     } );
 
     // @public
-    this.amplitudesChart = new WaveGameAmplitudesChart( adapterGuessFourierSeries, emphasizedHarmonics,
-      this.challengeProperty, this.numberOfAmplitudeControlsProperty );
+    this.amplitudesChart = new WaveGameAmplitudesChart( this.answerSeries, this.guessSeries, emphasizedHarmonics,
+      this.numberOfAmplitudeControlsProperty );
 
     // y-axis scale is fixed for the Harmonics chart. There are no zoom controls
     const harmonicsYAxisDescription = DiscreteYAxisDescriptions[ DiscreteYAxisDescriptions.length - 1 ];
 
     // @public
-    this.harmonicsChart = new WaveGameHarmonicsChart( adapterGuessFourierSeries, emphasizedHarmonics,
+    this.harmonicsChart = new WaveGameHarmonicsChart( this.guessSeries, emphasizedHarmonics,
       DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, harmonicsYAxisDescription );
 
     // @public
-    this.sumChart = new WaveGameSumChart( adapterAnswerFourierSeries, adapterGuessFourierSeries,
+    this.sumChart = new WaveGameSumChart( this.answerSeries, this.guessSeries,
       DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, DiscreteYAxisDescriptions );
 
-    const guessAmplitudesListener = amplitudes => {
-      adapterGuessFourierSeries.setAmplitudes( amplitudes );
-    };
+    // @public Has the current challenge been solved?
+    this.isSolvedProperty = new BooleanProperty( false );
 
-    // When the challenge changes...
-    this.challengeProperty.link( ( challenge, previousChallenge ) => {
+    // When the challenge is solved, award points.
+    this.isSolvedProperty.lazyLink( isSolved => {
+      if ( isSolved ) {
+        this.scoreProperty.value += FMWConstants.POINTS_PER_CHALLENGE;
+      }
+    } );
 
-      // Log the challenge to the console.
-      phet.log && phet.log( `level=${this.levelNumber} challenge=${challenge.toString()}` );
+    // When the guess changes...
+    this.guessSeries.amplitudesProperty.link( () => {
+      //TODO only evaluate if no sliders are being dragged
+      if ( !this.isSolvedProperty.value ) {
+        this.evaluateGuess();
+      }
+    } );
 
+    // When the answer changes...
+    this.answerSeries.amplitudesProperty.link( answerAmplitudes => {
+
+      // Log the answer to the console.
+      phet.log && phet.log( `level=${this.levelNumber} answer=[${answerAmplitudes}]` );
+
+      this.isSolvedProperty.reset();
       emphasizedHarmonics.reset();
 
-      // Add a listener to keep adapterGuessFourierSeries synchronized with the challenge's guessFourierSeries.
-      if ( previousChallenge ) {
-        previousChallenge.guessFourierSeries.amplitudesProperty.unlink( guessAmplitudesListener );
-      }
-      challenge.guessFourierSeries.amplitudesProperty.link( guessAmplitudesListener );
-
-      // Set the amplitudes for the new answer
-      for ( let i = 0; i < adapterAnswerFourierSeries.harmonics.length; i++ ) {
-        adapterAnswerFourierSeries.harmonics[ i ].amplitudeProperty.value =
-          challenge.answerFourierSeries.harmonics[ i ].amplitudeProperty.value;
-      }
-
-      // Adjust the value and range of numberOfAmplitudeControlsProperty to match the challenge.
+      // Adjust the value and range of numberOfAmplitudeControlsProperty to match the answer.
       // If the current value is greater than the default value for the level, keep the current value.
       // See https://github.com/phetsims/fourier-making-waves/issues/63#issuecomment-845466971
-      const min = challenge.answerFourierSeries.getNumberOfNonZeroHarmonics();
+      const min = this.answerSeries.getNumberOfNonZeroHarmonics();
       const max = this.numberOfAmplitudeControlsProperty.rangeProperty.value.max;
       const value = Math.max( this.numberOfAmplitudeControlsProperty.value, config.numberOfAmplitudeControls );
       this.numberOfAmplitudeControlsProperty.setValueAndRange( value, new Range( min, max ) );
@@ -185,23 +181,12 @@ class WaveGameLevel {
       this.amplitudesChart.numberOfPressesProperty.value = 0;
     } );
 
-    // When an amplitude is changed via the chart, update the corresponding amplitude in the challenge's guess.
-    // unlink is not needed.
-    for ( let i = 0; i < adapterGuessFourierSeries.harmonics.length; i++ ) {
-      adapterGuessFourierSeries.harmonics[ i ].amplitudeProperty.link( amplitude => {
-        this.challengeProperty.value.guessFourierSeries.harmonics[ i ].amplitudeProperty.value = amplitude;
-      } );
-    }
-
     // @private
     this.resetWaveGameLevel = () => {
       this.scoreProperty.reset();
+      this.isSolvedProperty.reset();
       emphasizedHarmonics.reset();
-
-      //TODO will this be a problem for PhET-iO state restore?
-      // Instead of this.challengeProperty.reset(), call this.newChallenge(), so that we're not always
-      // resetting to same challenge.
-      this.newChallenge();
+      this.newWaveform(); //TODO Is it OK that we're not resetting to the original answer?
     };
   }
 
@@ -213,11 +198,50 @@ class WaveGameLevel {
   }
 
   /**
-   * Creates and sets a new challenge.
+   * Evaluates the guess to see if it's close enough to the answer.
    * @public
    */
-  newChallenge() {
-    this.challengeProperty.value = this.challengeGenerator.createChallenge( this.challengeProperty.value );
+  evaluateGuess() {
+    assert && assert( !this.isSolvedProperty.value );
+
+    const answerAmplitudes = this.answerSeries.amplitudesProperty.value;
+    const guessAmplitudes = this.guessSeries.amplitudesProperty.value;
+
+    let isSolved = true;
+    for ( let i = 0; i < guessAmplitudes.length && isSolved; i++ ) {
+      isSolved = Math.abs( guessAmplitudes[ i ] - answerAmplitudes[ i ] ) <= AMPLITUDE_THRESHOLD;
+    }
+
+    this.isSolvedProperty.value = isSolved;
+  }
+
+  /**
+   * Creates a new challenge, by settings all guess amplitudes to zero, and creating a new set of answer amplitudes.
+   * Called when the 'New Waveform' button is pressed.
+   * @public
+   */
+  newWaveform() {
+    this.guessSeries.setAllAmplitudes( 0 );
+    const previousAmplitudes = this.answerSeries.amplitudesProperty.value;
+    this.answerSeries.setAmplitudes( this.amplitudesGenerator.createAmplitudes( previousAmplitudes ) );
+  }
+
+  /**
+   * Shows the answer for the challenge.
+   * Called when the 'Show Answer' button is pressed.
+   * @public
+   */
+  showAnswer() {
+    this.guessSeries.setAmplitudes( this.answerSeries.amplitudesProperty.value );
+  }
+
+  /**
+   * Sets all amplitudes to zero for the guess.
+   * Called when the eraser button is pressed.
+   * @public
+   */
+  eraseAmplitudes() {
+    this.guessSeries.setAllAmplitudes( 0 );
   }
 }
 

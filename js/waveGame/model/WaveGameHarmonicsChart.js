@@ -20,7 +20,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class WaveGameHarmonicsChart extends HarmonicsChart {
 
   /**
-   * @param {FourierSeries} guessFourierSeries
+   * @param {FourierSeries} guessSeries
    * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {Domain} domain
    * @param {SeriesType} seriesType
@@ -29,13 +29,13 @@ class WaveGameHarmonicsChart extends HarmonicsChart {
    * @param {AxisDescription} yAxisDescription
    * @param {Object} [options]
    */
-  constructor( guessFourierSeries, emphasizedHarmonics, domain, seriesType, t, xAxisDescription, yAxisDescription, options ) {
+  constructor( guessSeries, emphasizedHarmonics, domain, seriesType, t, xAxisDescription, yAxisDescription, options ) {
 
     assert && assert( xAxisDescription instanceof XAxisDescription );
     assert && assert( yAxisDescription instanceof AxisDescription );
 
     super(
-      guessFourierSeries,
+      guessSeries,
       emphasizedHarmonics,
 
       // These aspects are static in the Wave Game screen, but dynamic in the superclass.

@@ -7,29 +7,26 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import AmplitudesChart from '../../common/model/AmplitudesChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WaveGameChallenge from './WaveGameChallenge.js';
 
 class WaveGameAmplitudesChart extends AmplitudesChart {
 
   /**
-   * @param {FourierSeries} fourierSeries
+   * @param {FourierSeries} answerSeries
+   * @param {FourierSeries} guessSeries
    * @param {EmphasizedHarmonics} emphasizedHarmonics
-   * @param {Property.<WaveGameChallenge>} challengeProperty
    * @param {NumberProperty} numberOfAmplitudeControlsProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, emphasizedHarmonics, challengeProperty, numberOfAmplitudeControlsProperty, options ) {
+  constructor( answerSeries, guessSeries, emphasizedHarmonics, numberOfAmplitudeControlsProperty, options ) {
 
-    assert && AssertUtils.assertPropertyOf( challengeProperty, WaveGameChallenge );
     assert && assert( numberOfAmplitudeControlsProperty instanceof NumberProperty );
 
-    super( fourierSeries, emphasizedHarmonics, options );
+    super( guessSeries, emphasizedHarmonics, options );
 
     // @public
-    this.challengeProperty = challengeProperty;
+    this.answerSeries = answerSeries;
     this.numberOfAmplitudeControlsProperty = numberOfAmplitudeControlsProperty;
 
     // @public the number of times that the user has pressed on an interactive part of this chart

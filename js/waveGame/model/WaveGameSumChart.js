@@ -26,8 +26,8 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class WaveGameSumChart extends SumChart {
 
   /**
-   * @param {FourierSeries} answerFourierSeries
-   * @param {FourierSeries} guessFourierSeries
+   * @param {FourierSeries} answerSeries
+   * @param {FourierSeries} guessSeries
    * @param {Domain} domain
    * @param {SeriesType} seriesType
    * @param {number} t
@@ -35,7 +35,7 @@ class WaveGameSumChart extends SumChart {
    * @param {AxisDescription[]} yAxisDescriptions
    * @param {Object} [options]
    */
-  constructor( answerFourierSeries, guessFourierSeries, domain, seriesType, t,
+  constructor( answerSeries, guessSeries, domain, seriesType, t,
                xAxisDescription, yAxisDescriptions, options ) {
 
     assert && assert( xAxisDescription instanceof XAxisDescription );
@@ -43,13 +43,13 @@ class WaveGameSumChart extends SumChart {
 
     options = merge( {
 
-      // This causes the chart to auto scale to answerFourierSeries. This should remain static - do not instrument!
+      // This causes the chart to auto scale to answerSeries. This should remain static - do not instrument!
       yAutoScaleProperty: new BooleanProperty( true )
     }, options );
 
     super(
       // Superclass will render the sum for the challenge answer.
-      answerFourierSeries,
+      answerSeries,
 
       // These aspects are static in the Wave Game screen, but dynamic in the superclass.
       new EnumerationProperty( Domain, domain ),
@@ -66,16 +66,16 @@ class WaveGameSumChart extends SumChart {
     );
 
     // @public
-    this.guessFourierSeries = guessFourierSeries;
+    this.guessSeries = guessSeries;
 
-    const createGuessDataSet = () => guessFourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t );
+    const createGuessDataSet = () => guessSeries.createSumDataSet( xAxisDescription, domain, seriesType, t );
 
     // @public
     this.guessDataSetProperty = new Property( createGuessDataSet(), {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
     } );
 
-    guessFourierSeries.amplitudesProperty.lazyLink( () => {
+    guessSeries.amplitudesProperty.lazyLink( () => {
       this.guessDataSetProperty.value = createGuessDataSet();
     } );
   }

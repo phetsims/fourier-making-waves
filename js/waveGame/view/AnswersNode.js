@@ -1,21 +1,20 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * AnswersNode is used to show the answers in the game when the ?showAnswers query parameter is present.
+ * AnswersNode is used to show the answers in the Wave Game when the ?showAnswers query parameter is present.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WaveGameChallenge from '../model/WaveGameChallenge.js';
 
 // constants
 const TEXT_OPTIONS = {
@@ -27,12 +26,12 @@ class AnswersNode extends Node {
 
   /**
    * @param {ChartTransform} chartTransform - transform for the Amplitudes chart
-   * @param {Property.<WaveGameChallenge>} challengeProperty
+   * @param {Property.<number[]>} amplitudesProperty - Fourier series amplitudes for the answer
    * @param {Object} [options]
    */
-  constructor( chartTransform, challengeProperty, options ) {
+  constructor( chartTransform, amplitudesProperty, options ) {
     assert && assert( chartTransform instanceof ChartTransform );
-    assert && AssertUtils.assertPropertyOf( challengeProperty, WaveGameChallenge );
+    assert && assert( amplitudesProperty instanceof Property );
 
     options = merge( {}, options );
 
@@ -43,8 +42,7 @@ class AnswersNode extends Node {
 
     // When the challenge changes, display all non-zero amplitudes for the answer, horizontally aligned with
     // the sliders on the Amplitudes chart. unlink is not needed.
-    challengeProperty.link( challenge => {
-      const amplitudes = challenge.answerFourierSeries.amplitudesProperty.value;
+    amplitudesProperty.link( amplitudes => {
       for ( let i = 0; i < amplitudes.length; i++ ) {
         const amplitudeNode = amplitudeNodes[ i ];
         const amplitude = amplitudes[ i ];

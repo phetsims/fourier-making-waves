@@ -52,7 +52,7 @@ class WaveGameSumChartNode extends SumChartNode {
     } );
 
     // Hide the guess plot when the sum is zero (all amplitudes are zero)
-    sumChart.guessFourierSeries.amplitudesProperty.link( amplitudes => {
+    sumChart.guessSeries.amplitudesProperty.link( amplitudes => {
       guessPlot.visible = _.some( amplitudes, amplitude => amplitude !== 0 );
     } );
   }

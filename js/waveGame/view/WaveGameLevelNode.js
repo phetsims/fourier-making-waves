@@ -96,7 +96,7 @@ class WaveGameLevelNode extends Node {
     const amplitudesTandem = options.tandem.createTandem( 'amplitudes' );
 
     // Keypad Dialog, for changing amplitude value
-    const amplitudeKeypadDialog = new AmplitudeKeypadDialog( level.amplitudeRange, layoutBounds, {
+    const amplitudeKeypadDialog = new AmplitudeKeypadDialog( level.guessSeries.amplitudeRange, layoutBounds, {
       tandem: amplitudesTandem.createTandem( 'amplitudeKeypadDialog' )
     } );
 
@@ -137,7 +137,7 @@ class WaveGameLevelNode extends Node {
 
     const eraserButton = new EraserButton( {
       scale: 0.85,
-      listener: () => level.challengeProperty.value.guessFourierSeries.setAllAmplitudes( 0 )
+      listener: () => level.eraseAmplitudes()
     } );
 
     const amplitudeControlsSpinner = new AmplitudeControlsSpinner( level.numberOfAmplitudeControlsProperty, {
@@ -153,7 +153,7 @@ class WaveGameLevelNode extends Node {
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
       baseColor: FMWColorProfile.showAnswerButtonFillProperty,
-      listener: () => level.challengeProperty.value.showAnswer()
+      listener: () => level.showAnswer()
     } );
 
     // New Game button loads a new challenge.
@@ -161,7 +161,7 @@ class WaveGameLevelNode extends Node {
       listener: () => {
         this.interruptSubtreeInput();
         faceNode.visible = false;
-        level.newChallenge();
+        level.newWaveform();
       },
       content: new Text( fourierMakingWavesStrings.newWaveform, {
         font: DEFAULT_FONT,
@@ -239,7 +239,7 @@ class WaveGameLevelNode extends Node {
 
     // When the ?showAnswers query parameter is present, show the answer to the current challenge.
     if ( phet.chipper.queryParameters.showAnswers ) {
-      const answersNode = new AnswersNode( amplitudesChartNode.chartTransform, level.challengeProperty, {
+      const answersNode = new AnswersNode( amplitudesChartNode.chartTransform, level.answerSeries.amplitudesProperty, {
         x: amplitudesChartNode.x,
         top: amplitudesChartNode.bottom
       } );
@@ -253,10 +253,12 @@ class WaveGameLevelNode extends Node {
       this.visible = ( levelValue === level );
     } );
 
-    //TODO showAnswerButton should also be enabled once the challenge has been solved
-    level.amplitudesChart.numberOfPressesProperty.link( numberOfPresses => {
-      showAnswerButton.enabled = ( numberOfPresses >= MIN_NUMBER_OF_AMPLITUDE_PRESSES );
-    } );
+    // Show Answers button is enabled after the challenge has been solved, or the user has made an attempt to solve.
+    Property.multilink(
+      [ level.isSolvedProperty, level.amplitudesChart.numberOfPressesProperty ],
+      ( isSolved, numberOfPresses ) => {
+        showAnswerButton.enabled = isSolved || ( numberOfPresses >= MIN_NUMBER_OF_AMPLITUDE_PRESSES );
+      } );
 
     // {RewardDialog} dialog that is displayed when score reaches the reward value
     const rewardDialog = new RewardDialog( FMWConstants.REWARD_SCORE, {
@@ -285,20 +287,17 @@ class WaveGameLevelNode extends Node {
     // @private {Animation|null} animation of faceNode
     this.faceAnimation = null;
 
-    // A change of score means that the challenge was solved by the user. This listener provides user feedback.
+    // Called when the challenge has been solved.
     // unlink is not needed.
-    level.scoreProperty.lazyLink( ( score, oldScore ) => {
+    level.isSolvedProperty.link( isSolved => {
 
-      // do nothing when the score is reset
-      if ( score < oldScore ) {
-        return;
-      }
+      if ( !isSolved ) { return; }
 
       // Interrupt any in-progress interactions, since the challenge has been solved.
       // The user is free to resume experimenting with the current challenge after this point.
       this.interruptSubtreeInput();
 
-      if ( score === FMWConstants.REWARD_SCORE || FMWQueryParameters.showReward ) {
+      if ( level.scoreProperty.value === FMWConstants.REWARD_SCORE || FMWQueryParameters.showReward ) {
 
         // The score has reached the magic number where a reward is display.
         gameAudioPlayer.gameOverPerfectScore();

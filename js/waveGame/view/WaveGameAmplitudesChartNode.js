@@ -26,7 +26,7 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
     super( amplitudesChart, amplitudeKeypadDialog, options );
 
     // Fields of interest in amplitudesChart
-    const challengeProperty = amplitudesChart.challengeProperty;
+    const answerSeries = amplitudesChart.answerSeries;
     const numberOfAmplitudeControlsProperty = amplitudesChart.numberOfAmplitudeControlsProperty;
 
     // @private
@@ -51,9 +51,9 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
     };
 
     // When the challenge changes, adjust visibility of amplitude controls.
-    challengeProperty.link( challenge => {
-      const nonZeroHarmonics = challenge.answerFourierSeries.getNonZeroHarmonics();
-      const zeroHarmonics = challenge.answerFourierSeries.getZeroHarmonics();
+    answerSeries.amplitudesProperty.link( answerAmplitudes => {
+      const nonZeroHarmonics = answerSeries.getNonZeroHarmonics();
+      const zeroHarmonics = answerSeries.getZeroHarmonics();
       harmonics = [ ...nonZeroHarmonics, ...dotRandom.shuffle( zeroHarmonics ) ];
       updateAmplitudeControlsVisibility( numberOfAmplitudeControlsProperty.value );
     } );

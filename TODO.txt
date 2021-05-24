@@ -10,7 +10,6 @@ Infinite Harmonics feature, see Preset.java
 
 BUG #62: failure in Level 5
 
-Mutate a single challenge instance per level, for PhET-iO
 #60 Disable "Show Answer" button until you've grabbed and move a slider N times
 Don't evaluate the guess until all sliders have been released - OR IS IT BETTER LIKE IT IS ?
 Make smiley face appear whenever waveform is matched
