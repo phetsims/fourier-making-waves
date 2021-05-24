@@ -8,6 +8,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
@@ -115,6 +116,9 @@ class WaveGameLevel {
       tandem: config.tandem.createTandem( 'guessSeries' )
     } );
 
+    // @public whether it's OK to evaluate the user's guess
+    this.okToEvaluateProperty = new BooleanProperty( true );
+
     // @public
     this.numberOfAmplitudeControlsProperty = new NumberProperty( 1, {
       range: new Range( 1, this.guessSeries.harmonics.length )
@@ -152,13 +156,14 @@ class WaveGameLevel {
     } );
 
     //TODO this is called 11 times when pressing EraserButton or newWaveformButton
-    // When the guess changes...
-    this.guessSeries.amplitudesProperty.link( () => {
-      //TODO only evaluate if no sliders are being dragged
-      if ( !this.isSolvedProperty.value ) {
-        this.evaluateGuess();
-      }
-    } );
+    // Evaluate the user's guess.
+    Property.multilink(
+      [ this.okToEvaluateProperty, this.guessSeries.amplitudesProperty ],
+      ( okToEvaluate, guessAmplitudes ) => {
+        if ( okToEvaluate && !this.isSolvedProperty.value ) {
+          this.evaluateGuess();
+        }
+      } );
 
     //TODO this is called 11 times when pressing newWaveformButton
     // When the answer changes...
@@ -167,6 +172,7 @@ class WaveGameLevel {
       // Log the answer to the console.
       phet.log && phet.log( `level=${this.levelNumber} answer=[${answerAmplitudes}]` );
 
+      this.okToEvaluateProperty.reset();
       this.isSolvedProperty.reset();
       emphasizedHarmonics.reset();
 
@@ -186,6 +192,7 @@ class WaveGameLevel {
     // @private
     this.resetWaveGameLevel = () => {
       this.scoreProperty.reset();
+      this.okToEvaluateProperty.reset();
       this.isSolvedProperty.reset();
       emphasizedHarmonics.reset();
       this.newWaveform(); //TODO Is it OK that we're not resetting to the original answer?
@@ -201,7 +208,7 @@ class WaveGameLevel {
 
   /**
    * Evaluates the guess to see if it's close enough to the answer.
-   * @public
+   * @private
    */
   evaluateGuess() {
     assert && assert( !this.isSolvedProperty.value );
@@ -226,6 +233,7 @@ class WaveGameLevel {
     this.guessSeries.setAllAmplitudes( 0 );
     const previousAmplitudes = this.answerSeries.amplitudesProperty.value;
     this.answerSeries.setAmplitudes( this.amplitudesGenerator.createAmplitudes( previousAmplitudes ) );
+    this.okToEvaluateProperty.value = true;
   }
 
   /**
@@ -234,6 +242,7 @@ class WaveGameLevel {
    * @public
    */
   showAnswer() {
+    this.okToEvaluateProperty.value = false;
     this.guessSeries.setAmplitudes( this.answerSeries.amplitudesProperty.value );
   }
 

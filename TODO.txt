@@ -9,9 +9,7 @@ Infinite Harmonics feature, see Preset.java
 ## Wave Game screen
 
 BUG #62: observer ordering problem in Level 5
-BUG: Show Answer is awarding points
 Observing amplitudesProperty is inefficient, lots of intermediate states
-Don't evaluate the guess until all sliders have been released
 Make smiley face appear whenever waveform is matched
 Show a +1 when points are awarded
 

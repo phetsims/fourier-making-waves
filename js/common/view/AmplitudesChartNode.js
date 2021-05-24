@@ -91,6 +91,9 @@ class AmplitudesChartNode extends Node {
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` )
       } )
     );
+    const slidersParent = new Node( {
+      children: sliders
+    } );
 
     // Create a number display for each harmonic's amplitude
     const numberDisplays = _.map( fourierSeries.harmonics, harmonic =>
@@ -101,6 +104,9 @@ class AmplitudesChartNode extends Node {
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}NumberDisplay` )
       } )
     );
+    const numberDisplaysParent = new Node( {
+      children: numberDisplays
+    } );
 
     // y axis ---------------------------------------------------------
 
@@ -140,14 +146,15 @@ class AmplitudesChartNode extends Node {
     assert && assert( !options.children, 'AmplitudesChartNode sets children' );
     options.children = [
       chartPiecesNode,
-      ...sliders,
-      ...numberDisplays
+      slidersParent,
+      numberDisplaysParent
     ];
 
     super( options );
 
     // @protected
     this.sliders = sliders;
+    this.slidersParent = slidersParent;
     this.numberDisplays = numberDisplays;
 
     // @public

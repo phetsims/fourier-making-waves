@@ -7,7 +7,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -18,10 +20,12 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
   /**
    * @param {WaveGameAmplitudesChart} amplitudesChart
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
+   * @param {Property.<boolean>} okToEvaluateProperty
    * @param {Object} [options]
    */
-  constructor( amplitudesChart, amplitudeKeypadDialog, options ) {
+  constructor( amplitudesChart, amplitudeKeypadDialog, okToEvaluateProperty, options ) {
     assert && assert( amplitudesChart instanceof WaveGameAmplitudesChart );
+    assert && AssertUtils.assertPropertyOf( okToEvaluateProperty, 'boolean' );
 
     super( amplitudesChart, amplitudeKeypadDialog, options );
 
@@ -66,6 +70,19 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
       attach: false,
       press: () => amplitudesChart.numberOfPressesProperty.value++
     } ) );
+
+    // While the user is interacting with the Amplitudes chart, it is not OK to evaluate their guess.
+    const numberOfSlidersDraggingProperty = new NumberProperty( 0, {
+      numberType: 'Integer'
+    } );
+    this.slidersParent.addInputListener( new PressListener( {
+      attach: false,
+      press: () => numberOfSlidersDraggingProperty.value++,
+      release: () => numberOfSlidersDraggingProperty.value--
+    } ) );
+    numberOfSlidersDraggingProperty.link( numberOfSlidersDraggingProperty => {
+      okToEvaluateProperty.value = ( numberOfSlidersDraggingProperty === 0 );
+    } );
   }
 
   /**

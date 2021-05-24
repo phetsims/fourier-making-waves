@@ -101,7 +101,7 @@ class WaveGameLevelNode extends Node {
     } );
 
     const amplitudesChartNode = new WaveGameAmplitudesChartNode(
-      level.amplitudesChart, amplitudeKeypadDialog, {
+      level.amplitudesChart, amplitudeKeypadDialog, level.okToEvaluateProperty, {
         viewWidth: CHART_RECTANGLE_SIZE.width,
         viewHeight: CHART_RECTANGLE_SIZE.height,
         tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
