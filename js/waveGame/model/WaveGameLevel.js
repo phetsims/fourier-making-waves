@@ -151,7 +151,7 @@ class WaveGameLevel {
       }
     } );
 
-    //TODO this is called 11 times when pressing EraserButton or NewWaveformButton
+    //TODO this is called 11 times when pressing EraserButton or newWaveformButton
     // When the guess changes...
     this.guessSeries.amplitudesProperty.link( () => {
       //TODO only evaluate if no sliders are being dragged
@@ -160,7 +160,7 @@ class WaveGameLevel {
       }
     } );
 
-    //TODO this is called 11 times when pressing NewWaveformButton
+    //TODO this is called 11 times when pressing newWaveformButton
     // When the answer changes...
     this.answerSeries.amplitudesProperty.link( answerAmplitudes => {
 
