@@ -253,6 +253,7 @@ class WaveGameLevelNode extends Node {
       this.visible = ( levelValue === level );
     } );
 
+    //TODO showAnswerButton should also be enabled once the challenge has been solved
     level.amplitudesChart.numberOfPressesProperty.link( numberOfPresses => {
       showAnswerButton.enabled = ( numberOfPresses >= MIN_NUMBER_OF_AMPLITUDE_PRESSES );
     } );
