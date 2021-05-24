@@ -126,11 +126,20 @@ class AmplitudesChartNode extends Node {
 
     // ---------------------------------------------------------------
 
+    // Group all of the non-interactive pieces, so that we can easily keep track of how many times
+    // the user presses on the interactive pieces.
+    const chartPiecesNode = new Node( {
+      pickable: false,
+      children: [
+        chartRectangle,
+        xAxisLabel,
+        yAxisLabel, yGridLineSet, yLabelSet
+      ]
+    } );
+
     assert && assert( !options.children, 'AmplitudesChartNode sets children' );
     options.children = [
-      chartRectangle,
-      xAxisLabel,
-      yAxisLabel, yGridLineSet, yLabelSet,
+      chartPiecesNode,
       ...sliders,
       ...numberDisplays
     ];

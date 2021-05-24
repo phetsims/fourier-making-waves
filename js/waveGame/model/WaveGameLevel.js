@@ -69,7 +69,7 @@ class WaveGameLevel {
         levelNumber: levelNumber,
         numberOfHarmonics: levelNumber
       } ),
-      
+
       // {string} shown in the info dialog that describes the game levels
       infoDialogDescription: StringUtils.fillIn( fourierMakingWavesStrings.infoNumberHarmonics, {
         levelNumber: levelNumber,
@@ -115,18 +115,6 @@ class WaveGameLevel {
     // @public
     this.numberOfAmplitudeControlsProperty = new NumberProperty( 1, {
       range: new Range( 1, FMWConstants.MAX_HARMONICS )
-    } );
-
-    // Adjust the value and range of numberOfAmplitudeControlsProperty to match the challenge.
-    this.challengeProperty.link( challenge => {
-
-      const min = challenge.answerFourierSeries.getNumberOfNonZeroHarmonics();
-      const max = this.numberOfAmplitudeControlsProperty.rangeProperty.value.max;
-
-      // If the current value is greater than the default value for the level, keep the current value.
-      // See https://github.com/phetsims/fourier-making-waves/issues/63#issuecomment-845466971
-      const value = Math.max( this.numberOfAmplitudeControlsProperty.value, config.numberOfAmplitudeControls );
-      this.numberOfAmplitudeControlsProperty.setValueAndRange( value, new Range( min, max ) );
     } );
 
     // This is a static instance of FourierSeries that is passed to the charts.
@@ -183,6 +171,18 @@ class WaveGameLevel {
         adapterAnswerFourierSeries.harmonics[ i ].amplitudeProperty.value =
           challenge.answerFourierSeries.harmonics[ i ].amplitudeProperty.value;
       }
+
+      // Adjust the value and range of numberOfAmplitudeControlsProperty to match the challenge.
+      // If the current value is greater than the default value for the level, keep the current value.
+      // See https://github.com/phetsims/fourier-making-waves/issues/63#issuecomment-845466971
+      const min = challenge.answerFourierSeries.getNumberOfNonZeroHarmonics();
+      const max = this.numberOfAmplitudeControlsProperty.rangeProperty.value.max;
+      const value = Math.max( this.numberOfAmplitudeControlsProperty.value, config.numberOfAmplitudeControls );
+      this.numberOfAmplitudeControlsProperty.setValueAndRange( value, new Range( min, max ) );
+
+      // Start over with counting the number of times that the user has pressed on an interactive part
+      // of the Amplitudes chart.  This determines when the 'Show Answer' button becomes enabled.
+      this.amplitudesChart.numberOfPressesProperty.value = 0;
     } );
 
     // When an amplitude is changed via the chart, update the corresponding amplitude in the challenge's guess.

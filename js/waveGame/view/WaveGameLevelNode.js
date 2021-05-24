@@ -44,6 +44,9 @@ const CHART_RECTANGLE_SIZE = DiscreteScreenView.CHART_RECTANGLE_SIZE;
 const X_CHART_RECTANGLES = DiscreteScreenView.X_CHART_RECTANGLES;
 const BUTTON_TEXT_MAX_WIDTH = 150; // maxWidth for button text, determined empirically
 
+// Show Answer button is enabled when the user has interacted with the Amplitudes chart this many times.
+const MIN_NUMBER_OF_AMPLITUDE_PRESSES = 3;
+
 class WaveGameLevelNode extends Node {
 
   /**
@@ -248,6 +251,10 @@ class WaveGameLevelNode extends Node {
     // This Node is visible when its level is selected.
     levelProperty.link( levelValue => {
       this.visible = ( levelValue === level );
+    } );
+
+    level.amplitudesChart.numberOfPressesProperty.link( numberOfPresses => {
+      showAnswerButton.enabled = ( numberOfPresses >= MIN_NUMBER_OF_AMPLITUDE_PRESSES );
     } );
 
     // {RewardDialog} dialog that is displayed when score reaches the reward value

@@ -8,6 +8,7 @@
  */
 
 import dotRandom from '../../../../dot/js/dotRandom.js';
+import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameAmplitudesChart from '../model/WaveGameAmplitudesChart.js';
@@ -59,6 +60,11 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
 
     // Adjust number of amplitude controls that are visible.
     numberOfAmplitudeControlsProperty.lazyLink( updateAmplitudeControlsVisibility );
+
+    this.addInputListener( new PressListener( {
+      attach: false,
+      press: () => amplitudesChart.numberOfPressesProperty.value++
+    } ) );
   }
 
   /**
