@@ -10,7 +10,7 @@ Infinite Harmonics feature, see Preset.java
 
 BUG #62: failure in Level 5
 Observing amplitudesProperty is inefficient, lots of intermediate states
-Don't evaluate the guess until all sliders have been released - OR IS IT BETTER LIKE IT IS ?
+Don't evaluate the guess until all sliders have been released
 Make smiley face appear whenever waveform is matched
 
 # Continuous
