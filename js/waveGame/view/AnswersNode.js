@@ -40,6 +40,7 @@ class AnswersNode extends Node {
       amplitudeNodes.push( new Text( '', TEXT_OPTIONS ) );
     }
 
+    //TODO this is called 11 times when pressing NewWaveformButton
     // When the challenge changes, display all non-zero amplitudes for the answer, horizontally aligned with
     // the sliders on the Amplitudes chart. unlink is not needed.
     amplitudesProperty.link( amplitudes => {

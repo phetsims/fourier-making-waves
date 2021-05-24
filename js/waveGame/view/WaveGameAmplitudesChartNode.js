@@ -50,6 +50,7 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
       }
     };
 
+    //TODO this is called 11 times when pressing NewWaveformButton
     // When the challenge changes, adjust visibility of amplitude controls.
     answerSeries.amplitudesProperty.link( answerAmplitudes => {
       const nonZeroHarmonics = answerSeries.getNonZeroHarmonics();
