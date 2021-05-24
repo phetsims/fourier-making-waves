@@ -157,18 +157,18 @@ class WaveGameLevelNode extends Node {
     } );
 
     // New Game button loads a new challenge.
-    const newGame = new RectangularPushButton( {
+    const newWaveformButton = new RectangularPushButton( {
       listener: () => {
         this.interruptSubtreeInput();
         faceNode.visible = false;
-        level.newGame();
+        level.newChallenge();
       },
-      content: new Text( fourierMakingWavesStrings.newGame, {
+      content: new Text( fourierMakingWavesStrings.newWaveform, {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
-      baseColor: FMWColorProfile.newGameButtonFillProperty,
-      tandem: options.tandem.createTandem( 'newGame' ),
+      baseColor: FMWColorProfile.newWaveformButtonFillProperty,
+      tandem: options.tandem.createTandem( 'newWaveformButton' ),
       phetioReadOnly: true
     } );
 
@@ -213,8 +213,8 @@ class WaveGameLevelNode extends Node {
       const harmonicsChartCenterY = harmonicsChartNode.localToGlobalPoint( harmonicsChartNode.chartRectangle.center ).y;
       showAnswerButton.centerX = controlsCenterX;
       showAnswerButton.bottom = harmonicsChartCenterY - 10;
-      newGame.centerX = controlsCenterX;
-      newGame.top = harmonicsChartCenterY + 10;
+      newWaveformButton.centerX = controlsCenterX;
+      newWaveformButton.top = harmonicsChartCenterY + 10;
 
       // centered on the Sum chart
       faceNode.centerX = controlsCenterX;
@@ -232,7 +232,7 @@ class WaveGameLevelNode extends Node {
       eraserButton,
       amplitudeControlsSpinner,
       showAnswerButton,
-      newGame,
+      newWaveformButton,
       faceNode,
       rewardNode
     ];
@@ -328,7 +328,7 @@ class WaveGameLevelNode extends Node {
         // removeListener not needed
         this.faceAnimation.finishEmitter.addListener( () => {
           faceNode.visible = false;
-          newGame.visible = true;
+          newWaveformButton.visible = true;
           this.faceAnimation = null;
         } );
 

@@ -199,9 +199,9 @@ class WaveGameLevel {
       emphasizedHarmonics.reset();
 
       //TODO will this be a problem for PhET-iO state restore?
-      // Instead of this.challengeProperty.reset(), call this.newGame(), so that we're not always
+      // Instead of this.challengeProperty.reset(), call this.newChallenge(), so that we're not always
       // resetting to same challenge.
-      this.newGame();
+      this.newChallenge();
     };
   }
 
@@ -213,10 +213,10 @@ class WaveGameLevel {
   }
 
   /**
-   * Creates the next challenge.
+   * Creates and sets a new challenge.
    * @public
    */
-  newGame() {
+  newChallenge() {
     this.challengeProperty.value = this.challengeGenerator.createChallenge( this.challengeProperty.value );
   }
 }
