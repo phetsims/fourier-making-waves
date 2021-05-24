@@ -156,7 +156,7 @@ class WaveGameLevelNode extends Node {
       listener: () => level.showAnswer()
     } );
 
-    // New Game button loads a new challenge.
+    // New Waveform button loads a new challenge.
     const newWaveformButton = new RectangularPushButton( {
       listener: () => {
         this.interruptSubtreeInput();
