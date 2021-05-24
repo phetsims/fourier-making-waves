@@ -12,6 +12,7 @@ BUG #62: failure in Level 5
 Observing amplitudesProperty is inefficient, lots of intermediate states
 Don't evaluate the guess until all sliders have been released
 Make smiley face appear whenever waveform is matched
+Show a +1 when points are awarded
 
 # Continuous
 
