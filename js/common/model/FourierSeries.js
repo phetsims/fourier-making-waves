@@ -107,14 +107,20 @@ class FourierSeries extends PhetioObject {
   }
 
   /**
+   * Resets the Fourier series. Since this causes amplitudesProperty to go through intermediate states,
+   * notification of amplitudesProperty listeners is deferred until all harmonics have been updated.
    * @public
    */
   reset() {
+    this.amplitudesProperty.setDeferred( true );
     this.harmonics.forEach( harmonic => harmonic.reset() );
+    const notifyListeners = this.amplitudesProperty.setDeferred( false );
+    notifyListeners && notifyListeners();
   }
 
   /**
-   * Sets the amplitudes for all harmonics.
+   * Sets the amplitudes for harmonics. Since this causes amplitudesProperty to go through intermediate states,
+   * notification of amplitudesProperty listeners is deferred until all harmonics have been updated.
    * @param {number[]} amplitudes
    * @public
    */
@@ -122,20 +128,27 @@ class FourierSeries extends PhetioObject {
     assert && AssertUtils.assertArrayOf( amplitudes, 'number' );
     assert && assert( amplitudes.length === this.harmonics.length, 'requires an amplitude for each harmonic' );
 
+    this.amplitudesProperty.setDeferred( true );
     for ( let i = 0; i < amplitudes.length; i++ ) {
       this.harmonics[ i ].amplitudeProperty.value = amplitudes[ i ];
     }
+    const notifyListeners = this.amplitudesProperty.setDeferred( false );
+    notifyListeners && notifyListeners();
   }
 
   /**
-   * Sets all amplitudes to the specified value.
+   * Sets all amplitudes to the specified value. Since this causes amplitudesProperty to go through intermediate states,
+   * notification of amplitudesProperty listeners is deferred until all harmonics have been updated.
    * @param {number} amplitude
    * @public
    */
   setAllAmplitudes( amplitude ) {
+    this.amplitudesProperty.setDeferred( true );
     for ( let i = 0; i < this.harmonics.length; i++ ) {
       this.harmonics[ i ].amplitudeProperty.value = amplitude;
     }
+    const notifyListeners = this.amplitudesProperty.setDeferred( false );
+    notifyListeners && notifyListeners();
   }
 
   /**

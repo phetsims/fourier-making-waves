@@ -283,10 +283,7 @@ class DiscreteModel {
     else if ( waveform !== Waveform.CUSTOM ) {
       const numberOfHarmonics = this.fourierSeries.numberOfHarmonicsProperty.value;
       const amplitudes = waveform.getAmplitudes( numberOfHarmonics, seriesType );
-      assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
-      for ( let i = 0; i < numberOfHarmonics; i++ ) {
-        this.fourierSeries.harmonics[ i ].amplitudeProperty.value = amplitudes[ i ];
-      }
+      this.fourierSeries.setAmplitudes( amplitudes );
     }
   }
 }

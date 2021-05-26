@@ -32,11 +32,16 @@ class DiscreteFourierSeries extends FourierSeries {
       tandem: options.tandem.createTandem( 'numberOfHarmonicsProperty' )
     } );
 
-    // Zero out amplitudes that are not relevant. unlink is not necessary.
+    // Zero out amplitudes that are not relevant. Since this causes amplitudesProperty to go through intermediate
+    // states, notification of amplitudesProperty listeners is deferred until all harmonics have been updated.
+    // unlink is not necessary.
     this.numberOfHarmonicsProperty.link( numberOfHarmonics => {
+      this.amplitudesProperty.setDeferred( true );
       for ( let i = numberOfHarmonics; i < this.numberOfHarmonicsProperty.range.max; i++ ) {
         this.harmonics[ i ].amplitudeProperty.value = 0;
       }
+      const notifyListeners = this.amplitudesProperty.setDeferred( false );
+      notifyListeners && notifyListeners();
     } );
   }
 
