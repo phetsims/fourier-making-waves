@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -135,7 +136,10 @@ class WaveGameLevelNode extends Node {
 
     const eraserButton = new EraserButton( {
       scale: 0.85,
-      listener: () => level.eraseAmplitudes()
+      listener: () => {
+        this.interruptSubtreeInput();
+        level.eraseAmplitudes();
+      }
     } );
 
     const amplitudeControlsSpinner = new AmplitudeControlsSpinner( level.numberOfAmplitudeControlsProperty, {
@@ -145,9 +149,12 @@ class WaveGameLevelNode extends Node {
       tandem: options.tandem.createTandem( 'amplitudeControlsSpinner' )
     } );
 
+    // Whether the current challenge has been solved.
+    const isSolvedProperty = new BooleanProperty( false );
+
     // Enable the Show Answers button when the challenge has been solved, or the user has made an attempt to solve.
     const showAnswersEnabledProperty = new DerivedProperty(
-      [ level.isSolvedProperty, amplitudesChartNode.numberOfPressesProperty ],
+      [ isSolvedProperty, amplitudesChartNode.numberOfPressesProperty ],
       ( isSolved, numberOfPresses ) => ( isSolved || numberOfPresses >= MIN_NUMBER_OF_AMPLITUDE_PRESSES )
     );
 
@@ -157,12 +164,17 @@ class WaveGameLevelNode extends Node {
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
       baseColor: FMWColorProfile.showAnswerButtonFillProperty,
-      listener: () => level.showAnswer(),
+      listener: () => {
+        this.interruptSubtreeInput();
+        level.showAnswer();
+        isSolvedProperty.value = true;
+      },
       enabledProperty: showAnswersEnabledProperty
     } );
 
     const newWaveform = () => {
       this.interruptSubtreeInput();
+      isSolvedProperty.value = false;
       amplitudesChartNode.numberOfPressesProperty.value = 0;
       faceNode.visible = false;
       level.newWaveform();
@@ -254,21 +266,6 @@ class WaveGameLevelNode extends Node {
       options.children.push( answersNode );
     }
 
-    super( options );
-
-    // This Node is visible when its level is selected.
-    levelProperty.link( levelValue => {
-      this.visible = ( levelValue === level );
-    } );
-
-    // Evaluate the user's guess when they release all sliders.
-    amplitudesChartNode.numberOfSlidersDraggingProperty.lazyLink( numberOfSlidersDragging => {
-      if ( !level.isSolvedProperty.value && numberOfSlidersDragging === 0 ) {
-        this.interruptSubtreeInput();
-        level.evaluateGuess();
-      }
-    } );
-
     // {RewardDialog} dialog that is displayed when score reaches the reward value
     const rewardDialog = new RewardDialog( FMWConstants.REWARD_SCORE, {
 
@@ -294,14 +291,34 @@ class WaveGameLevelNode extends Node {
       }
     } );
 
+    super( options );
+
+    // This Node is visible when its level is selected.
+    levelProperty.link( levelValue => {
+      this.visible = ( levelValue === level );
+    } );
+
+    // Evaluate the guess when all sliders have been released.
+    // If the challenge has not been previously solved, award points.
+    Property.multilink( [ level.isMatchedProperty, amplitudesChartNode.numberOfSlidersDraggingProperty ],
+      ( isMatched, numberOfSlidersDragging ) => {
+        if ( isMatched && numberOfSlidersDragging === 0 ) {
+          if ( !isSolvedProperty.value ) {
+            isSolvedProperty.value = true;
+            level.scoreProperty.value += FMWConstants.POINTS_PER_CHALLENGE;
+          }
+        }
+      } );
+
     // @private {Animation|null} animation of faceNode
     this.faceAnimation = null;
 
-    // Called when the challenge has been solved.
+    // When points are awarded, provide feedback.
     // unlink is not needed.
-    level.isSolvedProperty.link( isSolved => {
+    level.scoreProperty.link( ( score, previousScore ) => {
 
-      if ( !isSolved ) { return; }
+      // Do nothing when the score is reset.
+      if ( score === 0 ) { return; }
 
       // Interrupt any in-progress interactions, since the challenge has been solved.
       // The user is free to resume experimenting with the current challenge after this point.

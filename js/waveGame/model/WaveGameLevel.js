@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -102,9 +102,6 @@ class WaveGameLevel {
       tandem: config.tandem.createTandem( 'scoreProperty' )
     } );
 
-    // @public (read-only) Has the current challenge been solved?
-    this.isSolvedProperty = new BooleanProperty( false );
-
     // @private
     this.amplitudesGenerator = new AmplitudesGenerator( {
       getNumberOfNonZeroHarmonics: config.getNumberOfNonZeroHarmonics
@@ -120,6 +117,17 @@ class WaveGameLevel {
     this.guessSeries = new FourierSeries( {
       tandem: config.tandem.createTandem( 'guessSeries' )
     } );
+
+    // @public (read-only) Does the guess currently match the answer?
+    this.isMatchedProperty = new DerivedProperty(
+      [ this.guessSeries.amplitudesProperty, this.answerSeries.amplitudesProperty ],
+      ( guessAmplitudes, answerAmplitudes ) => {
+        let isMatched = true;
+        for ( let i = 0; i < guessAmplitudes.length && isMatched; i++ ) {
+          isMatched = Math.abs( guessAmplitudes[ i ] - answerAmplitudes[ i ] ) <= AMPLITUDE_THRESHOLD;
+        }
+        return isMatched;
+      } );
 
     // @public
     this.numberOfAmplitudeControlsProperty = new NumberProperty( config.defaultNumberOfAmplitudeControls, {
@@ -153,35 +161,8 @@ class WaveGameLevel {
    */
   reset() {
     this.scoreProperty.reset();
-    this.isSolvedProperty.reset();
     this.emphasizedHarmonics.reset();
     this.newWaveform(); //TODO Is it OK that we're not resetting to the original answer?
-  }
-
-  /**
-   * Evaluates the guess to see if it's close enough to the answer. The guess is only evaluated when the user has
-   * stopped dragging amplitude sliders, so it's the responsibility of the view to call this method.
-   * @public
-   */
-  evaluateGuess() {
-    assert && assert( !this.isSolvedProperty.value );
-    if ( !this.isSolvedProperty.value ) {
-
-      const answerAmplitudes = this.answerSeries.amplitudesProperty.value;
-      const guessAmplitudes = this.guessSeries.amplitudesProperty.value;
-
-      let isSolved = true;
-      for ( let i = 0; i < guessAmplitudes.length && isSolved; i++ ) {
-        isSolved = Math.abs( guessAmplitudes[ i ] - answerAmplitudes[ i ] ) <= AMPLITUDE_THRESHOLD;
-      }
-
-      this.isSolvedProperty.value = isSolved;
-
-      // If the challenge was solved, award points.
-      if ( isSolved ) {
-        this.scoreProperty.value += FMWConstants.POINTS_PER_CHALLENGE;
-      }
-    }
   }
 
   /**
@@ -200,8 +181,7 @@ class WaveGameLevel {
     this.answerSeries.setAmplitudes( newAmplitudes );
     phet.log && phet.log( `newWaveform: level=${this.levelNumber} answer=[${newAmplitudes}]` );
 
-    // Reset Properties that should be reset at the start of each new challenge.
-    this.isSolvedProperty.value = false;
+    // Clear out any emphasized harmonics that might be hanging around.
     this.emphasizedHarmonics.reset();
 
     // Adjust the value and range of numberOfAmplitudeControlsProperty to match the answer.
