@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -98,12 +99,11 @@ class WaveGameLevelNode extends Node {
       tandem: amplitudesTandem.createTandem( 'amplitudeKeypadDialog' )
     } );
 
-    const amplitudesChartNode = new WaveGameAmplitudesChartNode(
-      level.amplitudesChart, amplitudeKeypadDialog, level.okToEvaluateProperty, {
-        viewWidth: CHART_RECTANGLE_SIZE.width,
-        viewHeight: CHART_RECTANGLE_SIZE.height,
-        tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
-      } );
+    const amplitudesChartNode = new WaveGameAmplitudesChartNode( level.amplitudesChart, amplitudeKeypadDialog, {
+      viewWidth: CHART_RECTANGLE_SIZE.width,
+      viewHeight: CHART_RECTANGLE_SIZE.height,
+      tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
+    } );
 
     // Parent tandem for all components related to the Harmonics chart
     const harmonicsTandem = options.tandem.createTandem( 'harmonics' );
@@ -145,22 +145,32 @@ class WaveGameLevelNode extends Node {
       tandem: options.tandem.createTandem( 'amplitudeControlsSpinner' )
     } );
 
+    // Enable the Show Answers button when the challenge has been solved, or the user has made an attempt to solve.
+    const showAnswersEnabledProperty = new DerivedProperty(
+      [ level.isSolvedProperty, amplitudesChartNode.numberOfPressesProperty ],
+      ( isSolved, numberOfPresses ) => ( isSolved || numberOfPresses >= MIN_NUMBER_OF_AMPLITUDE_PRESSES )
+    );
+
     const showAnswerButton = new RectangularPushButton( {
       content: new Text( fourierMakingWavesStrings.showAnswer, {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
       baseColor: FMWColorProfile.showAnswerButtonFillProperty,
-      listener: () => level.showAnswer()
+      listener: () => level.showAnswer(),
+      enabledProperty: showAnswersEnabledProperty
     } );
+
+    const newWaveform = () => {
+      this.interruptSubtreeInput();
+      amplitudesChartNode.numberOfPressesProperty.value = 0;
+      faceNode.visible = false;
+      level.newWaveform();
+    };
 
     // New Waveform button loads a new challenge.
     const newWaveformButton = new RectangularPushButton( {
-      listener: () => {
-        this.interruptSubtreeInput();
-        faceNode.visible = false;
-        level.newWaveform();
-      },
+      listener: newWaveform,
       content: new Text( fourierMakingWavesStrings.newWaveform, {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
@@ -251,12 +261,13 @@ class WaveGameLevelNode extends Node {
       this.visible = ( levelValue === level );
     } );
 
-    // Show Answers button is enabled after the challenge has been solved, or the user has made an attempt to solve.
-    Property.multilink(
-      [ level.isSolvedProperty, level.amplitudesChart.numberOfPressesProperty ],
-      ( isSolved, numberOfPresses ) => {
-        showAnswerButton.enabled = isSolved || ( numberOfPresses >= MIN_NUMBER_OF_AMPLITUDE_PRESSES );
-      } );
+    // Evaluate the user's guess when they release all sliders.
+    amplitudesChartNode.numberOfSlidersDraggingProperty.lazyLink( numberOfSlidersDragging => {
+      if ( !level.isSolvedProperty.value && numberOfSlidersDragging === 0 ) {
+        this.interruptSubtreeInput();
+        level.evaluateGuess();
+      }
+    } );
 
     // {RewardDialog} dialog that is displayed when score reaches the reward value
     const rewardDialog = new RewardDialog( FMWConstants.REWARD_SCORE, {
@@ -264,11 +275,12 @@ class WaveGameLevelNode extends Node {
       // 'Keep Going' hides the dialog
       keepGoingButtonListener: () => rewardDialog.hide(),
 
-      // 'New Level' has the same effect as the back button in the status bar
+      // 'New Level' has the same effect as the back button in the status bar, except that it also pre-loads a new
+      // challenge for this level.
       newLevelButtonListener: () => {
         rewardDialog.hide();
         backButtonListener();
-        // Does backButtonListener call level.nextChallenge, or should we call it here?
+        this.newWaveform();
       },
 
       // When the dialog is shown, show the reward.
@@ -326,7 +338,6 @@ class WaveGameLevelNode extends Node {
         // removeListener not needed
         this.faceAnimation.finishEmitter.addListener( () => {
           faceNode.visible = false;
-          newWaveformButton.visible = true;
           this.faceAnimation = null;
         } );
 

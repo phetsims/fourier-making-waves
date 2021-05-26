@@ -8,7 +8,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
@@ -61,7 +60,7 @@ class WaveGameLevel {
     config = merge( {
 
       // {number} default number of amplitude controls to show for a challenge
-      numberOfAmplitudeControls: required( config.numberOfAmplitudeControls ),
+      defaultNumberOfAmplitudeControls: required( config.defaultNumberOfAmplitudeControls ),
 
       // {function():number} the number of non-zero harmonics is each challenge
       getNumberOfNonZeroHarmonics: () => levelNumber,
@@ -82,8 +81,8 @@ class WaveGameLevel {
     }, config );
 
     assert && assert( typeof config.getNumberOfNonZeroHarmonics === 'function' );
-    assert && AssertUtils.assertNonNegativeInteger( config.numberOfAmplitudeControls );
-    assert && assert( config.numberOfAmplitudeControls >= levelNumber && config.numberOfAmplitudeControls <= FMWConstants.MAX_HARMONICS );
+    assert && AssertUtils.assertNonNegativeInteger( config.defaultNumberOfAmplitudeControls );
+    assert && assert( config.defaultNumberOfAmplitudeControls >= levelNumber && config.defaultNumberOfAmplitudeControls <= FMWConstants.MAX_HARMONICS );
     assert && assert( typeof config.statusBarMessage === 'string' );
     assert && assert( typeof config.infoDialogDescription === 'string' );
 
@@ -93,7 +92,7 @@ class WaveGameLevel {
     this.infoDialogDescription = config.infoDialogDescription;
 
     // @private
-    this.numberOfAmplitudeControls = config.numberOfAmplitudeControls;
+    this.defaultNumberOfAmplitudeControls = config.defaultNumberOfAmplitudeControls;
 
     // @public
     this.scoreProperty = new NumberProperty( 0, {
@@ -102,6 +101,9 @@ class WaveGameLevel {
       phetioReadOnly: true,
       tandem: config.tandem.createTandem( 'scoreProperty' )
     } );
+
+    // @public (read-only) Has the current challenge been solved?
+    this.isSolvedProperty = new BooleanProperty( false );
 
     // @private
     this.amplitudesGenerator = new AmplitudesGenerator( {
@@ -119,12 +121,9 @@ class WaveGameLevel {
       tandem: config.tandem.createTandem( 'guessSeries' )
     } );
 
-    // @public whether it's OK to evaluate the user's guess
-    this.okToEvaluateProperty = new BooleanProperty( true );
-
     // @public
-    this.numberOfAmplitudeControlsProperty = new NumberProperty( config.numberOfAmplitudeControls, {
-      range: new Range( config.numberOfAmplitudeControls, this.guessSeries.harmonics.length )
+    this.numberOfAmplitudeControlsProperty = new NumberProperty( config.defaultNumberOfAmplitudeControls, {
+      range: new Range( config.defaultNumberOfAmplitudeControls, this.guessSeries.harmonics.length )
     } );
 
     // @private The harmonics to be emphasized in the Harmonics chart, as the result of UI interactions.
@@ -147,59 +146,42 @@ class WaveGameLevel {
     // @public
     this.sumChart = new WaveGameSumChart( this.answerSeries, this.guessSeries,
       DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, DiscreteYAxisDescriptions );
-
-    // @public Has the current challenge been solved?
-    this.isSolvedProperty = new BooleanProperty( false );
-
-    // When the challenge is solved, award points.
-    this.isSolvedProperty.lazyLink( isSolved => {
-      if ( isSolved ) {
-        this.scoreProperty.value += FMWConstants.POINTS_PER_CHALLENGE;
-      }
-    } );
-
-    // Evaluate the user's guess.
-    Property.multilink(
-      [ this.okToEvaluateProperty, this.guessSeries.amplitudesProperty ],
-      ( okToEvaluate, guessAmplitudes ) => {
-        if ( okToEvaluate && !this.isSolvedProperty.value ) {
-          this.evaluateGuess();
-        }
-      } );
-
-    // @private
-    this.resetWaveGameLevel = () => {
-      this.scoreProperty.reset();
-      this.okToEvaluateProperty.reset();
-      this.isSolvedProperty.reset();
-      this.emphasizedHarmonics.reset();
-      this.newWaveform(); //TODO Is it OK that we're not resetting to the original answer?
-    };
   }
 
   /**
    * @public
    */
   reset() {
-    this.resetWaveGameLevel();
+    this.scoreProperty.reset();
+    this.isSolvedProperty.reset();
+    this.emphasizedHarmonics.reset();
+    this.newWaveform(); //TODO Is it OK that we're not resetting to the original answer?
   }
 
   /**
-   * Evaluates the guess to see if it's close enough to the answer.
-   * @private
+   * Evaluates the guess to see if it's close enough to the answer. The guess is only evaluated when the user has
+   * stopped dragging amplitude sliders, so it's the responsibility of the view to call this method.
+   * @public
    */
   evaluateGuess() {
     assert && assert( !this.isSolvedProperty.value );
+    if ( !this.isSolvedProperty.value ) {
 
-    const answerAmplitudes = this.answerSeries.amplitudesProperty.value;
-    const guessAmplitudes = this.guessSeries.amplitudesProperty.value;
+      const answerAmplitudes = this.answerSeries.amplitudesProperty.value;
+      const guessAmplitudes = this.guessSeries.amplitudesProperty.value;
 
-    let isSolved = true;
-    for ( let i = 0; i < guessAmplitudes.length && isSolved; i++ ) {
-      isSolved = Math.abs( guessAmplitudes[ i ] - answerAmplitudes[ i ] ) <= AMPLITUDE_THRESHOLD;
+      let isSolved = true;
+      for ( let i = 0; i < guessAmplitudes.length && isSolved; i++ ) {
+        isSolved = Math.abs( guessAmplitudes[ i ] - answerAmplitudes[ i ] ) <= AMPLITUDE_THRESHOLD;
+      }
+
+      this.isSolvedProperty.value = isSolved;
+
+      // If the challenge was solved, award points.
+      if ( isSolved ) {
+        this.scoreProperty.value += FMWConstants.POINTS_PER_CHALLENGE;
+      }
     }
-
-    this.isSolvedProperty.value = isSolved;
   }
 
   /**
@@ -220,7 +202,6 @@ class WaveGameLevel {
 
     // Reset Properties that should be reset at the start of each new challenge.
     this.isSolvedProperty.value = false;
-    this.okToEvaluateProperty.value = true;
     this.emphasizedHarmonics.reset();
 
     // Adjust the value and range of numberOfAmplitudeControlsProperty to match the answer.
@@ -228,12 +209,8 @@ class WaveGameLevel {
     // See https://github.com/phetsims/fourier-making-waves/issues/63#issuecomment-845466971
     const min = this.answerSeries.getNumberOfNonZeroHarmonics();
     const max = this.numberOfAmplitudeControlsProperty.rangeProperty.value.max;
-    const value = Math.max( this.numberOfAmplitudeControlsProperty.value, this.numberOfAmplitudeControls );
+    const value = Math.max( this.numberOfAmplitudeControlsProperty.value, this.defaultNumberOfAmplitudeControls );
     this.numberOfAmplitudeControlsProperty.setValueAndRange( value, new Range( min, max ) );
-
-    // Start over with counting the number of times that the user has pressed on an interactive part
-    // of the Amplitudes chart.  This determines when the 'Show Answer' button becomes enabled.
-    this.amplitudesChart.numberOfPressesProperty.value = 0;
   }
 
   /**
@@ -242,7 +219,6 @@ class WaveGameLevel {
    * @public
    */
   showAnswer() {
-    this.okToEvaluateProperty.value = false;
     this.guessSeries.setAmplitudes( this.answerSeries.amplitudesProperty.value );
   }
 

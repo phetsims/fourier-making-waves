@@ -9,7 +9,6 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -20,12 +19,10 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
   /**
    * @param {WaveGameAmplitudesChart} amplitudesChart
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
-   * @param {Property.<boolean>} okToEvaluateProperty
    * @param {Object} [options]
    */
-  constructor( amplitudesChart, amplitudeKeypadDialog, okToEvaluateProperty, options ) {
+  constructor( amplitudesChart, amplitudeKeypadDialog, options ) {
     assert && assert( amplitudesChart instanceof WaveGameAmplitudesChart );
-    assert && AssertUtils.assertPropertyOf( okToEvaluateProperty, 'boolean' );
 
     super( amplitudesChart, amplitudeKeypadDialog, options );
 
@@ -66,25 +63,26 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
     // Adjust number of amplitude controls that are visible.
     numberOfAmplitudeControlsProperty.lazyLink( updateAmplitudeControlsVisibility );
 
-    // Keep track of the number of times the user has started an interaction with the Amplitudes chart.
+    // @public Keep track of the number of times the user has started an interaction with the Amplitudes chart.
     // This is used to enabled the Show Answers button after the user has made an attempt to solve.
+    this.numberOfPressesProperty = new NumberProperty( 0, {
+      numberType: 'Integer'
+    } );
     this.addInputListener( new PressListener( {
       attach: false,
-      press: () => amplitudesChart.numberOfPressesProperty.value++
+      press: () => this.numberOfPressesProperty.value++
     } ) );
 
-    // While the user is interacting with the Amplitudes chart, it is not OK to evaluate their guess.
-    const numberOfSlidersDraggingProperty = new NumberProperty( 0, {
+    // @public Keep track of the number of sliders that the user is dragging on the Amplitudes chart.
+    // The user's guess is not evaluated until all sliders have been released.
+    this.numberOfSlidersDraggingProperty = new NumberProperty( 0, {
       numberType: 'Integer'
     } );
     this.slidersParent.addInputListener( new PressListener( {
       attach: false,
-      press: () => numberOfSlidersDraggingProperty.value++,
-      release: () => numberOfSlidersDraggingProperty.value--
+      press: () => this.numberOfSlidersDraggingProperty.value++,
+      release: () => this.numberOfSlidersDraggingProperty.value--
     } ) );
-    numberOfSlidersDraggingProperty.link( numberOfSlidersDraggingProperty => {
-      okToEvaluateProperty.value = ( numberOfSlidersDraggingProperty === 0 );
-    } );
   }
 
   /**

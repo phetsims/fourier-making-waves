@@ -28,13 +28,6 @@ class WaveGameAmplitudesChart extends AmplitudesChart {
     // @public
     this.answerSeries = answerSeries;
     this.numberOfAmplitudeControlsProperty = numberOfAmplitudeControlsProperty;
-
-    //TODO move this to WaveGameAmplitudesChartNode
-    // @public the number of times that the user has pressed on an interactive part of this chart
-    // This is used to enable the 'Show Answer' button only after the user has made an attempt at solving a challenge.
-    this.numberOfPressesProperty = new NumberProperty( 0, {
-      numberType: 'Integer'
-    } );
   }
 }
 
