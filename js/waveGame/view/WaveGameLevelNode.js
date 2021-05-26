@@ -281,9 +281,6 @@ class WaveGameLevelNode extends Node {
       // centered on the Sum chart
       faceNode.centerX = controlsCenterX;
       faceNode.centerY = sumChartNode.localToGlobalPoint( sumChartNode.chartRectangle.center ).y;
-
-      // centered on the screen
-      pointsAwardedNode.center = layoutBounds.center;
     }
 
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
@@ -350,9 +347,10 @@ class WaveGameLevelNode extends Node {
         // ding!
         gameAudioPlayer.correctAnswer();
 
-        // Show points awarded.
+        // Show points awarded, centered on charts.
         pointsAwardedNode.setPoints( score - previousScore );
-        pointsAwardedNode.center = layoutBounds.center;
+        pointsAwardedNode.centerX = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.center ).x;
+        pointsAwardedNode.centerY = layoutBounds.centerY;
         pointsAwardedNode.visible = true;
 
         // Animate opacity of pointsAwardedNode, fade it out.
