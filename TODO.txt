@@ -8,8 +8,8 @@ Infinite Harmonics feature, see Preset.java
 
 ## Wave Game screen
 
+Observing amplitudesProperty is inefficient, lots of intermediate states, causes bugs like #67
 BUG #62: observer ordering problem in Level 5
-Observing amplitudesProperty is inefficient, lots of intermediate states
 Make smiley face appear whenever waveform is matched
 Show a +1 when points are awarded
 
