@@ -72,6 +72,9 @@ class WaveGameLevelNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
+    // Whether the current challenge has been solved.
+    const isSolvedProperty = new BooleanProperty( false );
+
     // Level description, displayed in the status bar
     const levelDescriptionText = new RichText( level.statusBarMessage, {
       font: DEFAULT_FONT,
@@ -135,6 +138,19 @@ class WaveGameLevelNode extends Node {
       tandem: sumTandem.createTandem( 'harmonicsTitleNode' )
     } );
 
+    const faceVisibleProperty = new DerivedProperty(
+      [ isSolvedProperty, level.isMatchedProperty, amplitudesChartNode.numberOfSlidersDraggingProperty ],
+      ( isSolved, isMatched, numberOfSlidersDragging ) =>
+        isSolved && isMatched && ( numberOfSlidersDragging === 0 )
+    );
+
+    // Smiley face, shown when a challenge has been successfully completed. Fades out to reveal the Next button.
+    const faceNode = new FaceNode( 125 /* headDiameter */, {
+      visibleProperty: faceVisibleProperty,
+      tandem: options.tandem.createTandem( 'faceNode' ),
+      phetioReadOnly: true
+    } );
+
     const pointsAwardedNode = new PointsAwardedNode( {
       visible: false
     } );
@@ -154,13 +170,11 @@ class WaveGameLevelNode extends Node {
       tandem: options.tandem.createTandem( 'amplitudeControlsSpinner' )
     } );
 
-    // Whether the current challenge has been solved.
-    const isSolvedProperty = new BooleanProperty( false );
-
     // Enable the Show Answers button when the challenge has been solved, or the user has made an attempt to solve.
     const showAnswersEnabledProperty = new DerivedProperty(
-      [ isSolvedProperty, amplitudesChartNode.numberOfPressesProperty ],
-      ( isSolved, numberOfPresses ) => ( isSolved || numberOfPresses >= MIN_NUMBER_OF_AMPLITUDE_PRESSES )
+      [ level.isMatchedProperty, isSolvedProperty, amplitudesChartNode.numberOfPressesProperty ],
+      ( isMatched, isSolved, numberOfPresses ) =>
+        !isMatched && ( isSolved || numberOfPresses >= MIN_NUMBER_OF_AMPLITUDE_PRESSES )
     );
 
     const showAnswerButton = new RectangularPushButton( {
@@ -194,19 +208,6 @@ class WaveGameLevelNode extends Node {
       } ),
       baseColor: FMWColorProfile.newWaveformButtonFillProperty,
       tandem: options.tandem.createTandem( 'newWaveformButton' ),
-      phetioReadOnly: true
-    } );
-
-    const faceVisibleProperty = new DerivedProperty(
-      [ isSolvedProperty, level.isMatchedProperty, amplitudesChartNode.numberOfSlidersDraggingProperty ],
-      ( isSolved, isMatched, numberOfSlidersDragging ) =>
-        isSolved && isMatched && ( numberOfSlidersDragging === 0 )
-    );
-
-    // Smiley face, shown when a challenge has been successfully completed. Fades out to reveal the Next button.
-    const faceNode = new FaceNode( 125 /* headDiameter */, {
-      visibleProperty: faceVisibleProperty,
-      tandem: options.tandem.createTandem( 'faceNode' ),
       phetioReadOnly: true
     } );
 
