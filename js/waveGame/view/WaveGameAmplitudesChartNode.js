@@ -33,10 +33,10 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
     // @private
     this.amplitudeKeypadDialog = amplitudeKeypadDialog;
 
-    //TODO better name for this
     // {Harmonic[]} harmonics with non-zero amplitude are first, followed by randomly-ordered harmonics with
     // zero amplitude. This makes amplitude controls appear and disappear in the same order as
-    // numberOfAmplitudeControlsProperty changes.
+    // numberOfAmplitudeControlsProperty changes.  If numberOfAmplitudeControlsProperty.value is N, then
+    // the first N harmonics in this array will have their amplitude control made visible.
     let harmonics;
 
     // Update the visibility of amplitude controls.
