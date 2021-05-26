@@ -95,7 +95,7 @@ class WaveGameLevel {
     // @private
     this.defaultNumberOfAmplitudeControls = config.defaultNumberOfAmplitudeControls;
 
-    // @public
+    // @public The score is the total number of points that have been awarded for this level.
     this.scoreProperty = new NumberProperty( 0, {
       numberType: 'Integer',
       isValidValue: value => ( value >= 0 ),
@@ -103,17 +103,16 @@ class WaveGameLevel {
       tandem: config.tandem.createTandem( 'scoreProperty' )
     } );
 
-    // @public Whether the current challenge has been solved.
-    // A challenge is marked as solved when the user has correctly guessed the answer, or when they have
-    // pressed the 'Show Answer' button.
+    // @public Whether the current challenge has been solved. A challenge is considered solved when the user has
+    // correctly guessed the answer, or when the user has pressed the 'Show Answer' button.
     this.isSolvedProperty = new BooleanProperty( false );
 
-    // @private
+    // @private Generates amplitudes for answerSeries
     this.amplitudesGenerator = new AmplitudesGenerator( {
       getNumberOfNonZeroHarmonics: config.getNumberOfNonZeroHarmonics
     } );
 
-    // @private the Fourier series that corresponds to the answer to the challenge
+    // @private answer for the challenge, the waveform that the user is attempting to match
     this.answerSeries = new FourierSeries( {
       amplitudes: this.amplitudesGenerator.createAmplitudes(),
       tandem: config.tandem.createTandem( 'answerSeries' )
@@ -124,7 +123,7 @@ class WaveGameLevel {
       tandem: config.tandem.createTandem( 'guessSeries' )
     } );
 
-    // @public (read-only) Does the guess currently match the answer?
+    // @public (read-only) Does the guess currently match the answer, within some threshold?
     this.isMatchedProperty = new DerivedProperty(
       [ this.guessSeries.amplitudesProperty, this.answerSeries.amplitudesProperty ],
       ( guessAmplitudes, answerAmplitudes ) => {
@@ -135,7 +134,7 @@ class WaveGameLevel {
         return isMatched;
       } );
 
-    // @public
+    // @public the number of amplitude controls (sliders) to show in the Amplitudes chart
     this.numberOfAmplitudeControlsProperty = new NumberProperty( config.defaultNumberOfAmplitudeControls, {
       range: new Range( config.defaultNumberOfAmplitudeControls, this.guessSeries.harmonics.length )
     } );
@@ -168,13 +167,14 @@ class WaveGameLevel {
   reset() {
     this.scoreProperty.reset();
     this.isSolvedProperty.reset();
+    // Not necessary to reset this.numberOfAmplitudeControlsProperty
     this.emphasizedHarmonics.reset();
     this.newWaveform(); //TODO Is it OK that we're not resetting to the original answer?
   }
 
   /**
    * Creates a new challenge, by settings all guess amplitudes to zero, and creating a new set of answer amplitudes.
-   * Called when the 'New Waveform' button is pressed.
+   * This method is called when the 'New Waveform' button is pressed.
    * @public
    */
   newWaveform() {
@@ -203,7 +203,7 @@ class WaveGameLevel {
 
   /**
    * Shows the answer for the challenge.
-   * Called when the 'Show Answer' button is pressed.
+   * This method is called when the 'Show Answer' button is pressed.
    * @public
    */
   showAnswer() {
@@ -213,7 +213,7 @@ class WaveGameLevel {
 
   /**
    * Sets all amplitudes to zero for the guess.
-   * Called when the eraser button is pressed.
+   * This method is called when the eraser button is pressed.
    * @public
    */
   eraseAmplitudes() {
