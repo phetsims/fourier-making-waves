@@ -158,7 +158,6 @@ class WaveGameLevel {
       }
     } );
 
-    //TODO this is called 11 times when pressing EraserButton or newWaveformButton
     // Evaluate the user's guess.
     Property.multilink(
       [ this.okToEvaluateProperty, this.guessSeries.amplitudesProperty ],
