@@ -10,6 +10,7 @@ import AssertUtils from '../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWColorProfile from './FMWColorProfile.js';
+import FMWQueryParameters from './FMWQueryParameters.js';
 
 // constants - view
 const PANEL_CORNER_RADIUS = 5;
@@ -34,7 +35,7 @@ const FMWConstants = {
   POINTS_PER_CHALLENGE: 1,
 
   // Reaching this score results in a reward in the Wave Game
-  REWARD_SCORE: 10,
+  REWARD_SCORE: FMWQueryParameters.rewardScore,
 
   // View ============================================================================================================
 

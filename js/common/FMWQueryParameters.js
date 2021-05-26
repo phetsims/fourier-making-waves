@@ -12,6 +12,14 @@ import fourierMakingWaves from '../fourierMakingWaves.js';
 
 const SCHEMA = {
 
+  // The score (number of points) required to see the reward in the Wave Game screen
+  rewardScore: {
+    type: 'number',
+    public: true,
+    defaultValue: 10,
+    isValidValue: value => ( value > 0 ) && Number.isInteger( value )
+  },
+
   // Shows the reward after any correct answer, for testing the Wave Game reward.
   // For internal use only, not public facing.
   showReward: { type: 'flag' }
