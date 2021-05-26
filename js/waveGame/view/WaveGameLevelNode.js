@@ -124,12 +124,6 @@ class WaveGameLevelNode extends Node {
       tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
     } );
 
-    const sumChartNode = new WaveGameSumChartNode( level.sumChart, {
-      viewWidth: CHART_RECTANGLE_SIZE.width,
-      viewHeight: CHART_RECTANGLE_SIZE.height,
-      tandem: harmonicsTandem.createTandem( 'sumChartNode' )
-    } );
-
     // Parent tandem for all components related to the Sum chart
     const sumTandem = options.tandem.createTandem( 'sum' );
 
@@ -138,14 +132,18 @@ class WaveGameLevelNode extends Node {
       tandem: sumTandem.createTandem( 'harmonicsTitleNode' )
     } );
 
+    const sumChartNode = new WaveGameSumChartNode( level.sumChart, {
+      viewWidth: CHART_RECTANGLE_SIZE.width,
+      viewHeight: CHART_RECTANGLE_SIZE.height,
+      tandem: sumTandem.createTandem( 'sumChartNode' )
+    } );
+
     // Smiley face is visible when the waveform is matched.
     const faceVisibleProperty = new DerivedProperty(
       [ level.isSolvedProperty, level.isMatchedProperty, amplitudesChartNode.numberOfSlidersDraggingProperty ],
       ( isSolved, isMatched, numberOfSlidersDragging ) =>
         isSolved && isMatched && ( numberOfSlidersDragging === 0 )
     );
-
-    // Smiley face, shown when a challenge has been successfully completed. Fades out to reveal the Next button.
     const faceNode = new FaceNode( 125 /* headDiameter */, {
       visibleProperty: faceVisibleProperty,
       tandem: options.tandem.createTandem( 'faceNode' ),
@@ -157,7 +155,7 @@ class WaveGameLevelNode extends Node {
       visible: false
     } );
 
-    // Sets all of the amplitudes in the guess to zero.
+    // Eraser button sets all of the amplitudes in the guess to zero.
     const eraserButton = new EraserButton( {
       scale: 0.85,
       listener: () => {
@@ -174,14 +172,14 @@ class WaveGameLevelNode extends Node {
       tandem: options.tandem.createTandem( 'amplitudeControlsSpinner' )
     } );
 
-    // Enable the Show Answers button when the challenge has been solved, or the user has made an attempt to solve.
+    // Enable the Show Answers button when the challenge has been solved, or the user has made an attempt to solve it.
     const showAnswersEnabledProperty = new DerivedProperty(
       [ level.isMatchedProperty, level.isSolvedProperty, amplitudesChartNode.numberOfPressesProperty ],
       ( isMatched, isSolved, numberOfPresses ) =>
         !isMatched && ( isSolved || numberOfPresses >= MIN_NUMBER_OF_AMPLITUDE_PRESSES )
     );
 
-    // Shows the answer to the challenge. Points will not be awarded after pressing this button.
+    // Show Answer button shows the answer to the challenge. Points will not be awarded after pressing this button.
     const showAnswerButton = new RectangularPushButton( {
       content: new Text( fourierMakingWavesStrings.showAnswer, {
         font: DEFAULT_FONT,
@@ -195,7 +193,7 @@ class WaveGameLevelNode extends Node {
       enabledProperty: showAnswersEnabledProperty
     } );
 
-    // Creates a new challenge. That is, new amplitudes for answerSeries, and a new waveform to be matched.
+    // Creates a new challenge, a new waveform to match.
     const newWaveform = () => {
       this.interruptSubtreeInput();
       amplitudesChartNode.numberOfPressesProperty.value = 0;
@@ -218,6 +216,30 @@ class WaveGameLevelNode extends Node {
     // The reward shown while rewardDialog is open.
     const rewardNode = new WaveGameRewardNode( level.levelNumber, {
       visible: false
+    } );
+
+    // {RewardDialog} dialog that is displayed when the score reaches the reward value.
+    const rewardDialog = new RewardDialog( FMWConstants.REWARD_SCORE, {
+
+      // 'Keep Going' hides the dialog
+      keepGoingButtonListener: () => rewardDialog.hide(),
+
+      // 'New Level' takes us back to the level-selection interface, and pre-loads a new challenge for this level.
+      newLevelButtonListener: () => {
+        rewardDialog.hide();
+        levelProperty.value = null; // back to the level-selection UI
+        newWaveform();
+      },
+
+      // When the dialog is shown, show the reward.
+      showCallback: () => {
+        rewardNode.visible = true;
+      },
+
+      // When the dialog is hidden, hide the reward.
+      hideCallback: () => {
+        rewardNode.visible = false;
+      }
     } );
 
     // Layout
@@ -281,30 +303,6 @@ class WaveGameLevelNode extends Node {
       pointsAwardedNode,
       rewardNode
     ];
-
-    // {RewardDialog} dialog that is displayed when score reaches the reward value
-    const rewardDialog = new RewardDialog( FMWConstants.REWARD_SCORE, {
-
-      // 'Keep Going' hides the dialog
-      keepGoingButtonListener: () => rewardDialog.hide(),
-
-      // 'New Level' takes us back to the level-selection interface, and pre-loads a new challenge for this level.
-      newLevelButtonListener: () => {
-        rewardDialog.hide();
-        levelProperty.value = null; // back to the level-selection UI
-        newWaveform();
-      },
-
-      // When the dialog is shown, show the reward.
-      showCallback: () => {
-        rewardNode.visible = true;
-      },
-
-      // When the dialog is hidden, hide the reward.
-      hideCallback: () => {
-        rewardNode.visible = false;
-      }
-    } );
 
     super( options );
 
