@@ -2,6 +2,8 @@ TODO.txt for fourier-making-waves
 
 ## Common
 
+Sprite on keyboard navigation
+
 ## Discrete screen
 
 Infinite Harmonics feature, see Preset.java
