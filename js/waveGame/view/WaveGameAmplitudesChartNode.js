@@ -48,7 +48,9 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
       }
     };
 
-    // When the challenge changes, adjust visibility of amplitude controls.
+    // When the challenge changes, adjust visibility of amplitude controls. A challenge changes by calling
+    // FourierSeries.setAmplitudes, and setAmplitudes defers notification of listeners until all harmonic
+    // amplitudes are changed. So we can rely on this listener being called once when a challenge changes.
     answerSeries.amplitudesProperty.link( answerAmplitudes => {
       const nonZeroHarmonics = answerSeries.getNonZeroHarmonics();
       const zeroHarmonics = answerSeries.getZeroHarmonics();
