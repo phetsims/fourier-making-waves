@@ -92,6 +92,9 @@ class WaveGameLevel {
     this.statusBarMessage = config.statusBarMessage;
     this.infoDialogDescription = config.infoDialogDescription;
 
+    // @private
+    this.numberOfAmplitudeControls = config.numberOfAmplitudeControls;
+
     // @public
     this.scoreProperty = new NumberProperty( 0, {
       numberType: 'Integer',
@@ -120,25 +123,25 @@ class WaveGameLevel {
     this.okToEvaluateProperty = new BooleanProperty( true );
 
     // @public
-    this.numberOfAmplitudeControlsProperty = new NumberProperty( 1, {
-      range: new Range( 1, this.guessSeries.harmonics.length )
+    this.numberOfAmplitudeControlsProperty = new NumberProperty( config.numberOfAmplitudeControls, {
+      range: new Range( config.numberOfAmplitudeControls, this.guessSeries.harmonics.length )
     } );
 
-    // The harmonics to be emphasized in the Harmonics chart, as the result of UI interactions.
+    // @private The harmonics to be emphasized in the Harmonics chart, as the result of UI interactions.
     // These are harmonics in guessSeries.
-    const emphasizedHarmonics = new EmphasizedHarmonics( {
+    this.emphasizedHarmonics = new EmphasizedHarmonics( {
       tandem: config.tandem.createTandem( 'emphasizedHarmonics' )
     } );
 
     // @public
-    this.amplitudesChart = new WaveGameAmplitudesChart( this.answerSeries, this.guessSeries, emphasizedHarmonics,
+    this.amplitudesChart = new WaveGameAmplitudesChart( this.answerSeries, this.guessSeries, this.emphasizedHarmonics,
       this.numberOfAmplitudeControlsProperty );
 
     // y-axis scale is fixed for the Harmonics chart. There are no zoom controls
     const harmonicsYAxisDescription = DiscreteYAxisDescriptions[ DiscreteYAxisDescriptions.length - 1 ];
 
     // @public
-    this.harmonicsChart = new WaveGameHarmonicsChart( this.guessSeries, emphasizedHarmonics,
+    this.harmonicsChart = new WaveGameHarmonicsChart( this.guessSeries, this.emphasizedHarmonics,
       DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, harmonicsYAxisDescription );
 
     // @public
@@ -165,36 +168,12 @@ class WaveGameLevel {
         }
       } );
 
-    //TODO this is called 11 times when pressing newWaveformButton
-    // When the answer changes...
-    this.answerSeries.amplitudesProperty.link( answerAmplitudes => {
-
-      // Log the answer to the console.
-      phet.log && phet.log( `level=${this.levelNumber} answer=[${answerAmplitudes}]` );
-
-      this.okToEvaluateProperty.reset();
-      this.isSolvedProperty.reset();
-      emphasizedHarmonics.reset();
-
-      // Adjust the value and range of numberOfAmplitudeControlsProperty to match the answer.
-      // If the current value is greater than the default value for the level, keep the current value.
-      // See https://github.com/phetsims/fourier-making-waves/issues/63#issuecomment-845466971
-      const min = this.answerSeries.getNumberOfNonZeroHarmonics();
-      const max = this.numberOfAmplitudeControlsProperty.rangeProperty.value.max;
-      const value = Math.max( this.numberOfAmplitudeControlsProperty.value, config.numberOfAmplitudeControls );
-      this.numberOfAmplitudeControlsProperty.setValueAndRange( value, new Range( min, max ) );
-
-      // Start over with counting the number of times that the user has pressed on an interactive part
-      // of the Amplitudes chart.  This determines when the 'Show Answer' button becomes enabled.
-      this.amplitudesChart.numberOfPressesProperty.value = 0;
-    } );
-
     // @private
     this.resetWaveGameLevel = () => {
       this.scoreProperty.reset();
       this.okToEvaluateProperty.reset();
       this.isSolvedProperty.reset();
-      emphasizedHarmonics.reset();
+      this.emphasizedHarmonics.reset();
       this.newWaveform(); //TODO Is it OK that we're not resetting to the original answer?
     };
   }
@@ -230,10 +209,32 @@ class WaveGameLevel {
    * @public
    */
   newWaveform() {
+
+    // Set the guess amplitudes to zero.
     this.guessSeries.setAllAmplitudes( 0 );
+
+    // Create a new waveform (the answer) to be matched.
     const previousAmplitudes = this.answerSeries.amplitudesProperty.value;
-    this.answerSeries.setAmplitudes( this.amplitudesGenerator.createAmplitudes( previousAmplitudes ) );
+    const newAmplitudes = this.amplitudesGenerator.createAmplitudes( previousAmplitudes );
+    this.answerSeries.setAmplitudes( newAmplitudes );
+    phet.log && phet.log( `newWaveform: level=${this.levelNumber} answer=[${newAmplitudes}]` );
+
+    // Reset Properties that should be reset at the start of each new challenge.
+    this.isSolvedProperty.value = false;
     this.okToEvaluateProperty.value = true;
+    this.emphasizedHarmonics.reset();
+
+    // Adjust the value and range of numberOfAmplitudeControlsProperty to match the answer.
+    // If the current value is greater than the default value for the level, keep the current value.
+    // See https://github.com/phetsims/fourier-making-waves/issues/63#issuecomment-845466971
+    const min = this.answerSeries.getNumberOfNonZeroHarmonics();
+    const max = this.numberOfAmplitudeControlsProperty.rangeProperty.value.max;
+    const value = Math.max( this.numberOfAmplitudeControlsProperty.value, this.numberOfAmplitudeControls );
+    this.numberOfAmplitudeControlsProperty.setValueAndRange( value, new Range( min, max ) );
+
+    // Start over with counting the number of times that the user has pressed on an interactive part
+    // of the Amplitudes chart.  This determines when the 'Show Answer' button becomes enabled.
+    this.amplitudesChart.numberOfPressesProperty.value = 0;
   }
 
   /**
