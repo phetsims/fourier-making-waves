@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import AssertUtils from '../../../phetcommon/js/AssertUtils.js';
 import ColorProfile from '../../../scenery-phet/js/ColorProfile.js';
 import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 import Color from '../../../scenery/js/util/Color.js';
@@ -126,6 +127,7 @@ const FMWColorProfile = new ColorProfile( [ 'default' ], {
  * @returns {Property.<Color>}
  */
 FMWColorProfile.getHarmonicColorProperty = order => {
+  assert && AssertUtils.assertPositiveInteger( order );
   const propertyName = `harmonic${order}ColorProperty`;
   assert && assert( FMWColorProfile.hasOwnProperty( propertyName ), `invalid order: ${order}` );
   return FMWColorProfile[ propertyName ];
