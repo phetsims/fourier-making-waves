@@ -79,8 +79,6 @@ class WaveGameLevelNode extends Node {
     const backButtonListener = () => {
       this.interruptSubtreeInput();
       levelProperty.value = null; // back to the level-selection UI
-      //TODO clean up faceAnimation, rewardDialog, rewardNode?
-      //TODO can we return to the challenge that we were working on, or should we call level.nextChallenge?
     };
 
     // Bar across the top of the screen
