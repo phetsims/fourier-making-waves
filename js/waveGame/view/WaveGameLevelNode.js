@@ -35,6 +35,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
 import AmplitudeControlsSpinner from './AmplitudeControlsSpinner.js';
 import AnswersNode from './AnswersNode.js';
+import PointsAwardedNode from './PointsAwardedNode.js';
 import WaveGameAmplitudesChartNode from './WaveGameAmplitudesChartNode.js';
 import WaveGameHarmonicsChartNode from './WaveGameHarmonicsChartNode.js';
 import WaveGameRewardNode from './WaveGameRewardNode.js';
@@ -134,6 +135,10 @@ class WaveGameLevelNode extends Node {
       tandem: sumTandem.createTandem( 'harmonicsTitleNode' )
     } );
 
+    const pointsAwardedNode = new PointsAwardedNode( {
+      visible: false
+    } );
+
     const eraserButton = new EraserButton( {
       scale: 0.85,
       listener: () => {
@@ -166,8 +171,8 @@ class WaveGameLevelNode extends Node {
       baseColor: FMWColorProfile.showAnswerButtonFillProperty,
       listener: () => {
         this.interruptSubtreeInput();
-        level.showAnswer();
         isSolvedProperty.value = true;
+        level.showAnswer();
       },
       enabledProperty: showAnswersEnabledProperty
     } );
@@ -176,7 +181,7 @@ class WaveGameLevelNode extends Node {
       this.interruptSubtreeInput();
       isSolvedProperty.value = false;
       amplitudesChartNode.numberOfPressesProperty.value = 0;
-      faceNode.visible = false;
+      pointsAwardedNode.visible = false;
       level.newWaveform();
     };
 
@@ -192,9 +197,15 @@ class WaveGameLevelNode extends Node {
       phetioReadOnly: true
     } );
 
+    const faceVisibleProperty = new DerivedProperty(
+      [ isSolvedProperty, level.isMatchedProperty, amplitudesChartNode.numberOfSlidersDraggingProperty ],
+      ( isSolved, isMatched, numberOfSlidersDragging ) =>
+        isSolved && isMatched && ( numberOfSlidersDragging === 0 )
+    );
+
     // Smiley face, shown when a challenge has been successfully completed. Fades out to reveal the Next button.
-    const faceNode = new FaceNode( 200 /* headDiameter */, {
-      visible: false,
+    const faceNode = new FaceNode( 125 /* headDiameter */, {
+      visibleProperty: faceVisibleProperty,
       tandem: options.tandem.createTandem( 'faceNode' ),
       phetioReadOnly: true
     } );
@@ -239,6 +250,9 @@ class WaveGameLevelNode extends Node {
       // centered on the Sum chart
       faceNode.centerX = controlsCenterX;
       faceNode.centerY = sumChartNode.localToGlobalPoint( sumChartNode.chartRectangle.center ).y;
+
+      // centered on the screen
+      pointsAwardedNode.center = layoutBounds.center;
     }
 
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
@@ -254,6 +268,7 @@ class WaveGameLevelNode extends Node {
       showAnswerButton,
       newWaveformButton,
       faceNode,
+      pointsAwardedNode,
       rewardNode
     ];
 
@@ -310,8 +325,8 @@ class WaveGameLevelNode extends Node {
         }
       } );
 
-    // @private {Animation|null} animation of faceNode
-    this.faceAnimation = null;
+    // @private {Animation|null} animation of pointAwardedNode
+    this.pointsAwardedAnimation = null;
 
     // When points are awarded, provide feedback.
     // unlink is not needed.
@@ -332,33 +347,36 @@ class WaveGameLevelNode extends Node {
       }
       else {
 
-        // The score doesn't warrant a reward, so just show a smiley face, etc.
+        // The score doesn't warrant a reward, so just show the points that were rewarded.
 
         // ding!
         gameAudioPlayer.correctAnswer();
 
-        // Show smiley face, fade it out, then show the Next button.
-        faceNode.opacityProperty.value = 1;
-        faceNode.visible = true;
+        // Show points awarded.
+        pointsAwardedNode.setPoints( score - previousScore );
+        pointsAwardedNode.center = layoutBounds.center;
+        pointsAwardedNode.visible = true;
 
-        this.faceAnimation = new Animation( {
+        // Animate opacity of pointsAwardedNode, fade it out.
+        pointsAwardedNode.opacityProperty.value = 1;
+        this.pointsAwardedAnimation = new Animation( {
           stepEmitter: null, // via step function
           delay: 1,
           duration: 0.8,
           targets: [ {
-            property: faceNode.opacityProperty,
+            property: pointsAwardedNode.opacityProperty,
             easing: Easing.LINEAR,
             to: 0
           } ]
         } );
 
         // removeListener not needed
-        this.faceAnimation.finishEmitter.addListener( () => {
-          faceNode.visible = false;
-          this.faceAnimation = null;
+        this.pointsAwardedAnimation.finishEmitter.addListener( () => {
+          pointsAwardedNode.visible = false;
+          this.pointsAwardedAnimation = null;
         } );
 
-        this.faceAnimation.start();
+        this.pointsAwardedAnimation.start();
       }
     } );
 
@@ -371,7 +389,7 @@ class WaveGameLevelNode extends Node {
    * @public
    */
   step( dt ) {
-    this.faceAnimation && this.faceAnimation.step( dt );
+    this.pointsAwardedAnimation && this.pointsAwardedAnimation.step( dt );
     this.rewardNode.visible && this.rewardNode.step( dt );
   }
 }
