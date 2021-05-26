@@ -78,17 +78,15 @@ class WaveGameLevelNode extends Node {
       tandem: options.tandem.createTandem( 'levelDescriptionText' )
     } );
 
-    const backButtonListener = () => {
-      this.interruptSubtreeInput();
-      levelProperty.value = null; // back to the level-selection UI
-    };
-
     // Bar across the top of the screen
     const statusBar = new InfiniteStatusBar( layoutBounds, visibleBoundsProperty, levelDescriptionText, level.scoreProperty, {
       floatToTop: false,
       spacing: 20,
       barFill: FMWColorProfile.scoreBoardFillProperty,
-      backButtonListener: backButtonListener,
+      backButtonListener: () => {
+        this.interruptSubtreeInput();
+        levelProperty.value = null; // back to the level-selection UI
+      },
       tandem: options.tandem.createTandem( 'statusBar' )
     } );
 
@@ -104,6 +102,12 @@ class WaveGameLevelNode extends Node {
       viewWidth: CHART_RECTANGLE_SIZE.width,
       viewHeight: CHART_RECTANGLE_SIZE.height,
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
+    } );
+
+    // When the ?showAnswers query parameter is present, show the answer to the current challenge.
+    // This Node has very low overhead. So it is added to the scenegraph in all cases so that it gets tested.
+    const answersNode = new AnswersNode( amplitudesChartNode.chartTransform, level.answerSeries, {
+      visible: phet.chipper.queryParameters.showAnswers
     } );
 
     // Parent tandem for all components related to the Harmonics chart
@@ -134,6 +138,7 @@ class WaveGameLevelNode extends Node {
       tandem: sumTandem.createTandem( 'harmonicsTitleNode' )
     } );
 
+    // Smiley face is visible when the waveform is matched.
     const faceVisibleProperty = new DerivedProperty(
       [ level.isSolvedProperty, level.isMatchedProperty, amplitudesChartNode.numberOfSlidersDraggingProperty ],
       ( isSolved, isMatched, numberOfSlidersDragging ) =>
@@ -147,10 +152,12 @@ class WaveGameLevelNode extends Node {
       phetioReadOnly: true
     } );
 
+    // Shown when points are added to the user's score, then fades out.
     const pointsAwardedNode = new PointsAwardedNode( {
       visible: false
     } );
 
+    // Sets all of the amplitudes in the guess to zero.
     const eraserButton = new EraserButton( {
       scale: 0.85,
       listener: () => {
@@ -159,6 +166,7 @@ class WaveGameLevelNode extends Node {
       }
     } );
 
+    // Controls the number of amplitude controls (sliders) visible in the Amplitudes chart.
     const amplitudeControlsSpinner = new AmplitudeControlsSpinner( level.numberOfAmplitudeControlsProperty, {
       textOptions: {
         font: DEFAULT_FONT
@@ -173,6 +181,7 @@ class WaveGameLevelNode extends Node {
         !isMatched && ( isSolved || numberOfPresses >= MIN_NUMBER_OF_AMPLITUDE_PRESSES )
     );
 
+    // Shows the answer to the challenge. Points will not be awarded after pressing this button.
     const showAnswerButton = new RectangularPushButton( {
       content: new Text( fourierMakingWavesStrings.showAnswer, {
         font: DEFAULT_FONT,
@@ -186,6 +195,7 @@ class WaveGameLevelNode extends Node {
       enabledProperty: showAnswersEnabledProperty
     } );
 
+    // Creates a new challenge. That is, new amplitudes for answerSeries, and a new waveform to be matched.
     const newWaveform = () => {
       this.interruptSubtreeInput();
       amplitudesChartNode.numberOfPressesProperty.value = 0;
@@ -205,7 +215,7 @@ class WaveGameLevelNode extends Node {
       phetioReadOnly: true
     } );
 
-    // @private {WaveGameRewardNode|null} reward shown while rewardDialog is open
+    // The reward shown while rewardDialog is open.
     const rewardNode = new WaveGameRewardNode( level.levelNumber, {
       visible: false
     } );
@@ -222,6 +232,10 @@ class WaveGameLevelNode extends Node {
       sumTitleNode.top = harmonicsChartNode.bottom + 10;
       sumChartNode.x = amplitudesChartNode.x;
       sumChartNode.y = sumTitleNode.bottom + 10;
+
+      // Below the Amplitudes chart
+      answersNode.x = amplitudesChartNode.x;
+      answersNode.top = amplitudesChartNode.bottom;
 
       // To the right of the amplitude NumberDisplays
       const amplitudesChartRightTop = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.rightTop );
@@ -254,6 +268,7 @@ class WaveGameLevelNode extends Node {
     options.children = [
       statusBar,
       amplitudesChartNode,
+      answersNode,
       harmonicsTitleNode,
       harmonicsChartNode,
       sumTitleNode,
@@ -267,26 +282,16 @@ class WaveGameLevelNode extends Node {
       rewardNode
     ];
 
-    // When the ?showAnswers query parameter is present, show the answer to the current challenge.
-    if ( phet.chipper.queryParameters.showAnswers ) {
-      const answersNode = new AnswersNode( amplitudesChartNode.chartTransform, level.answerSeries, {
-        x: amplitudesChartNode.x,
-        top: amplitudesChartNode.bottom
-      } );
-      options.children.push( answersNode );
-    }
-
     // {RewardDialog} dialog that is displayed when score reaches the reward value
     const rewardDialog = new RewardDialog( FMWConstants.REWARD_SCORE, {
 
       // 'Keep Going' hides the dialog
       keepGoingButtonListener: () => rewardDialog.hide(),
 
-      // 'New Level' has the same effect as the back button in the status bar, except that it also pre-loads a new
-      // challenge for this level.
+      // 'New Level' takes us back to the level-selection interface, and pre-loads a new challenge for this level.
       newLevelButtonListener: () => {
         rewardDialog.hide();
-        backButtonListener();
+        levelProperty.value = null; // back to the level-selection UI
         newWaveform();
       },
 
