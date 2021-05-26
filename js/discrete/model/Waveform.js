@@ -27,13 +27,26 @@ class WaveformValue {
 
     config = merge( {
 
-      // {function(numberOfHarmonics:number, seriesType:SeriesType)}
-      // Gets the amplitudes for the harmonics in the Fourier series that approximates the waveform.
+      /**
+       * Gets the amplitudes for the harmonics in the Fourier series that approximates the waveform.
+       * @param {number} numberOfHarmonics - number of non-zero harmonics is the series
+       * @param {SeriesType} SeriesType - sin or cos
+       * @returns {number[]}
+       */
       getAmplitudes: required( config.getAmplitudes ),
 
-      // {function(xRange:Range, peakAmplitude:number, domain:Domain, seriesType:SeriesType, t:number, L:number, T:number)}
-      // Gets the data set that can be used to plot the actual waveform, as if the waveform were approximated using
-      // a Fourier series with an infinite number of harmonics.
+      /**
+       * Gets the data set that can be used to plot the actual waveform, as if the waveform were approximated using
+       * a Fourier series with an infinite number of harmonics.
+       * @param {Range} xRange - range of the x axis, in units determined by domain
+       * @param {number} peakAmplitude - peak amplitude of the waveform
+       * @param {Domain} domain - domain of the x axis
+       * @param {SeriesType} seriesType - sin or cos
+       * @param {number} t - time, in milliseconds
+       * @param {number} L - wavelength of the fundamental harmonic, in meters
+       * @param {number} T - period of the fundamental harmonic, in milliseconds
+       * @returns {Vector2[]}
+       */
       getInfiniteHarmonicsDataSet: required( config.getInfiniteHarmonicsDataSet )
     }, config );
 
