@@ -95,9 +95,9 @@ const SINUSOID = new WaveformValue( {
   }
 } );
 
-// See https://mathworld.wolfram.com/FourierSeriesTriangleWave.html
 const TRIANGLE = new WaveformValue( {
 
+  // See https://mathworld.wolfram.com/FourierSeriesTriangleWave.html
   getAmplitudes: ( numberOfHarmonics, seriesType ) => {
     const amplitudes = [];
     for ( let n = 1; n <= numberOfHarmonics; n++ ) {
@@ -120,9 +120,9 @@ const TRIANGLE = new WaveformValue( {
   }
 } );
 
-// See https://mathworld.wolfram.com/FourierSeriesSquareWave.html
 const SQUARE = new WaveformValue( {
 
+  // See https://mathworld.wolfram.com/FourierSeriesSquareWave.html
   getAmplitudes: ( numberOfHarmonics, seriesType ) => {
     const amplitudes = [];
     for ( let n = 1; n <= numberOfHarmonics; n++ ) {
@@ -145,9 +145,9 @@ const SQUARE = new WaveformValue( {
   }
 } );
 
-// See https://mathworld.wolfram.com/FourierSeriesSawtoothWave.html
 const SAWTOOTH = new WaveformValue( {
 
+  // See https://mathworld.wolfram.com/FourierSeriesSawtoothWave.html
   getAmplitudes: ( numberOfHarmonics, seriesType ) => {
 
     assert && assert( seriesType !== SeriesType.COSINE, 'cannot make a sawtooth wave out of cosines' );
@@ -168,9 +168,9 @@ const SAWTOOTH = new WaveformValue( {
 } );
 
 
-//TODO https://github.com/phetsims/fourier-making-waves/issues/18 provide a reference for how amplitudes are computed
 const WAVE_PACKET = new WaveformValue( {
 
+  //TODO https://github.com/phetsims/fourier-making-waves/issues/18 provide a reference for how amplitudes are computed
   getAmplitudes: ( numberOfHarmonics, seriesType ) => {
 
     //TODO https://github.com/phetsims/fourier-making-waves/issues/18 see p 26 of 'Fourier Design Outline'
