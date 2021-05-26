@@ -239,7 +239,7 @@ class WaveGameLevelNode extends Node {
 
     // When the ?showAnswers query parameter is present, show the answer to the current challenge.
     if ( phet.chipper.queryParameters.showAnswers ) {
-      const answersNode = new AnswersNode( amplitudesChartNode.chartTransform, level.answerSeries.amplitudesProperty, {
+      const answersNode = new AnswersNode( amplitudesChartNode.chartTransform, level.answerSeries.harmonics, {
         x: amplitudesChartNode.x,
         top: amplitudesChartNode.bottom
       } );

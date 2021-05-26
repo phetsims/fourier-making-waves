@@ -6,14 +6,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // constants
@@ -26,38 +27,35 @@ class AnswersNode extends Node {
 
   /**
    * @param {ChartTransform} chartTransform - transform for the Amplitudes chart
-   * @param {Property.<number[]>} amplitudesProperty - Fourier series amplitudes for the answer
+   * @param {Harmonic[]} harmonics - harmonics for the challenge answer
    * @param {Object} [options]
    */
-  constructor( chartTransform, amplitudesProperty, options ) {
+  constructor( chartTransform, harmonics, options ) {
     assert && assert( chartTransform instanceof ChartTransform );
-    assert && assert( amplitudesProperty instanceof Property );
+    assert && AssertUtils.assertArrayOf( harmonics, Harmonic );
 
     options = merge( {}, options );
 
-    const amplitudeNodes = []; // {Text[]}
-    for ( let i = 0; i < FMWConstants.MAX_HARMONICS; i++ ) {
-      amplitudeNodes.push( new Text( '', TEXT_OPTIONS ) );
+    const textNodes = []; // {Text[]}
+    for ( let i = 0; i < harmonics.length; i++ ) {
+      const harmonic = harmonics[ i ];
+
+      const textNode = new Text( '', TEXT_OPTIONS );
+      textNodes.push( textNode );
+
+      const centerX = chartTransform.modelToViewX( i + 1 );
+
+      // Keep the display in sync with the harmonic's amplitude value. Hide zero values.
+      // unlink is not needed
+      harmonic.amplitudeProperty.link( amplitude => {
+        textNode.visible = ( amplitude !== 0 );
+        textNode.text = Utils.toFixed( amplitude, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
+        textNode.centerX = centerX;
+      } );
     }
 
-    //TODO this is called 11 times when pressing newWaveformButton
-    // When the challenge changes, display all non-zero amplitudes for the answer, horizontally aligned with
-    // the sliders on the Amplitudes chart. unlink is not needed.
-    amplitudesProperty.link( amplitudes => {
-      for ( let i = 0; i < amplitudes.length; i++ ) {
-        const amplitudeNode = amplitudeNodes[ i ];
-        const amplitude = amplitudes[ i ];
-        let amplitudeString = '';
-        if ( amplitude !== 0 ) {
-          amplitudeString = Utils.toFixed( amplitudes[ i ], FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
-        }
-        amplitudeNode.text = amplitudeString;
-        amplitudeNode.centerX = chartTransform.modelToViewX( i + 1 );
-      }
-    } );
-
     assert && assert( !options.children, 'AnswersNode sets children' );
-    options.children = amplitudeNodes;
+    options.children = textNodes;
 
     super( options );
   }
