@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * TODO
+ * PointsAwardedNode shows the number of points awarded when the user solves a challenge.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
