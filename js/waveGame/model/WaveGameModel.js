@@ -28,7 +28,7 @@ class WaveGameModel {
     }, options );
 
     // @public {WaveGameLevel[]}
-    // There's a significant amount of duplication here. But the specification for levels changed SO many times,
+    // There's some duplication here in the constructor calls. But the specification for levels changed SO many times,
     // that this brute force initialization ended up being easier to change and maintain.
     this.levels = [
 
