@@ -44,7 +44,7 @@ class AmplitudesGenerator {
   /**
    * Creates a set of amplitudes. Attempts to prevent consecutive sets of amplitudes from being similar.
    * @param {number[]} [previousAmplitudes]
-   * @returns {FourierSeries}
+   * @returns {number[]}
    * @public
    */
   createAmplitudes( previousAmplitudes ) {
