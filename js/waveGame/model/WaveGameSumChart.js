@@ -65,7 +65,7 @@ class WaveGameSumChart extends SumChart {
       options
     );
 
-    // @public
+    // @public (read-only)
     this.guessSeries = guessSeries;
 
     const createGuessDataSet = () => guessSeries.createSumDataSet( xAxisDescription, domain, seriesType, t );
@@ -75,6 +75,7 @@ class WaveGameSumChart extends SumChart {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
     } );
 
+    // When the guess amplitudes change, update the corresponding data set for the sum.
     guessSeries.amplitudesProperty.lazyLink( () => {
       this.guessDataSetProperty.value = createGuessDataSet();
     } );
