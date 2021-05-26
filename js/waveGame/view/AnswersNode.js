@@ -28,7 +28,7 @@ const NUMBER_DISPLAY_OPTIONS = {
     fill: 'red'
   },
 
-  // No not display zero amplitude values.
+  // Do not display zero amplitude values.
   numberFormatter: amplitude =>
     ( amplitude === 0 ) ? '' : Utils.toFixed( amplitude, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES )
 };
