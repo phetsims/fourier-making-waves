@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
@@ -102,6 +103,11 @@ class WaveGameLevel {
       tandem: config.tandem.createTandem( 'scoreProperty' )
     } );
 
+    // @public Whether the current challenge has been solved.
+    // A challenge is marked as solved when the user has correctly guessed the answer, or when they have
+    // pressed the 'Show Answer' button.
+    this.isSolvedProperty = new BooleanProperty( false );
+
     // @private
     this.amplitudesGenerator = new AmplitudesGenerator( {
       getNumberOfNonZeroHarmonics: config.getNumberOfNonZeroHarmonics
@@ -161,6 +167,7 @@ class WaveGameLevel {
    */
   reset() {
     this.scoreProperty.reset();
+    this.isSolvedProperty.reset();
     this.emphasizedHarmonics.reset();
     this.newWaveform(); //TODO Is it OK that we're not resetting to the original answer?
   }
@@ -175,13 +182,14 @@ class WaveGameLevel {
     // Set the guess amplitudes to zero.
     this.guessSeries.setAllAmplitudes( 0 );
 
-    // Create a new waveform (the answer) to be matched.
+    // Create a new answer.
     const previousAmplitudes = this.answerSeries.amplitudesProperty.value;
     const newAmplitudes = this.amplitudesGenerator.createAmplitudes( previousAmplitudes );
     this.answerSeries.setAmplitudes( newAmplitudes );
     phet.log && phet.log( `newWaveform: level=${this.levelNumber} answer=[${newAmplitudes}]` );
 
-    // Clear out any emphasized harmonics that might be hanging around.
+    // Things that need to be reset when we start a new challenge.
+    this.isSolvedProperty.reset();
     this.emphasizedHarmonics.reset();
 
     // Adjust the value and range of numberOfAmplitudeControlsProperty to match the answer.
@@ -199,6 +207,7 @@ class WaveGameLevel {
    * @public
    */
   showAnswer() {
+    this.isSolvedProperty.value = true;
     this.guessSeries.setAmplitudes( this.answerSeries.amplitudesProperty.value );
   }
 

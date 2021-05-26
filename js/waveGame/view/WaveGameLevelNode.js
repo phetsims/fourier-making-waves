@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -72,9 +71,6 @@ class WaveGameLevelNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // Whether the current challenge has been solved.
-    const isSolvedProperty = new BooleanProperty( false );
-
     // Level description, displayed in the status bar
     const levelDescriptionText = new RichText( level.statusBarMessage, {
       font: DEFAULT_FONT,
@@ -139,7 +135,7 @@ class WaveGameLevelNode extends Node {
     } );
 
     const faceVisibleProperty = new DerivedProperty(
-      [ isSolvedProperty, level.isMatchedProperty, amplitudesChartNode.numberOfSlidersDraggingProperty ],
+      [ level.isSolvedProperty, level.isMatchedProperty, amplitudesChartNode.numberOfSlidersDraggingProperty ],
       ( isSolved, isMatched, numberOfSlidersDragging ) =>
         isSolved && isMatched && ( numberOfSlidersDragging === 0 )
     );
@@ -172,7 +168,7 @@ class WaveGameLevelNode extends Node {
 
     // Enable the Show Answers button when the challenge has been solved, or the user has made an attempt to solve.
     const showAnswersEnabledProperty = new DerivedProperty(
-      [ level.isMatchedProperty, isSolvedProperty, amplitudesChartNode.numberOfPressesProperty ],
+      [ level.isMatchedProperty, level.isSolvedProperty, amplitudesChartNode.numberOfPressesProperty ],
       ( isMatched, isSolved, numberOfPresses ) =>
         !isMatched && ( isSolved || numberOfPresses >= MIN_NUMBER_OF_AMPLITUDE_PRESSES )
     );
@@ -185,7 +181,6 @@ class WaveGameLevelNode extends Node {
       baseColor: FMWColorProfile.showAnswerButtonFillProperty,
       listener: () => {
         this.interruptSubtreeInput();
-        isSolvedProperty.value = true;
         level.showAnswer();
       },
       enabledProperty: showAnswersEnabledProperty
@@ -193,7 +188,6 @@ class WaveGameLevelNode extends Node {
 
     const newWaveform = () => {
       this.interruptSubtreeInput();
-      isSolvedProperty.value = false;
       amplitudesChartNode.numberOfPressesProperty.value = 0;
       pointsAwardedNode.visible = false;
       level.newWaveform();
@@ -319,8 +313,8 @@ class WaveGameLevelNode extends Node {
     Property.multilink( [ level.isMatchedProperty, amplitudesChartNode.numberOfSlidersDraggingProperty ],
       ( isMatched, numberOfSlidersDragging ) => {
         if ( isMatched && numberOfSlidersDragging === 0 ) {
-          if ( !isSolvedProperty.value ) {
-            isSolvedProperty.value = true;
+          if ( !level.isSolvedProperty.value ) {
+            level.isSolvedProperty.value = true;
             level.scoreProperty.value += FMWConstants.POINTS_PER_CHALLENGE;
           }
         }
