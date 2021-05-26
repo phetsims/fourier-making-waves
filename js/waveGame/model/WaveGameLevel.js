@@ -169,7 +169,7 @@ class WaveGameLevel {
     this.isSolvedProperty.reset();
     // Not necessary to reset this.numberOfAmplitudeControlsProperty
     this.emphasizedHarmonics.reset();
-    this.newWaveform(); //TODO Is it OK that we're not resetting to the original answer?
+    this.newWaveform(); //TODO PhET-iO Is it OK that we're not resetting to the original answer?
   }
 
   /**
