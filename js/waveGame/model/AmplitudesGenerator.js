@@ -42,7 +42,8 @@ class AmplitudesGenerator {
   }
 
   /**
-   * Creates a set of amplitudes. Attempts to prevent consecutive sets of amplitudes from being similar.
+   * Creates a set of amplitudes for the harmonics in a Fourier series.
+   * Attempts to prevent consecutive sets of amplitudes from being similar.
    * @param {number[]} [previousAmplitudes]
    * @returns {number[]}
    * @public
