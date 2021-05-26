@@ -31,7 +31,7 @@ class WaveformValue {
       // Gets the amplitudes for the harmonics in the Fourier series that approximates the waveform.
       getAmplitudes: required( config.getAmplitudes ),
 
-      // {function(xRange:Range, peakAmplitude:number, domain:Domain, seriesType:SeriesType, L:number, T:number)}
+      // {function(xRange:Range, peakAmplitude:number, domain:Domain, seriesType:SeriesType, t:number, L:number, T:number)}
       // Gets the data set that can be used to plot the actual waveform, as if the waveform were approximated using
       // a Fourier series with an infinite number of harmonics.
       getInfiniteHarmonicsDataSet: required( config.getInfiniteHarmonicsDataSet )
@@ -51,11 +51,12 @@ class WaveformValue {
     };
 
     // @public (read-only) wrap config.getInfiniteHarmonicsDataSet with common validation for args and return value
-    this.getInfiniteHarmonicsDataSet = ( xRange, peakAmplitude, domain, seriesType, L, T ) => {
+    this.getInfiniteHarmonicsDataSet = ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
       assert && assert( xRange instanceof Range );
       assert && AssertUtils.assertPositiveNumber( peakAmplitude );
       assert && assert( Domain.includes( domain ) );
       assert && assert( SeriesType.includes( seriesType ) );
+      assert && AssertUtils.assertNonNegativeNumber( t );
       assert && AssertUtils.assertPositiveNumber( L );
       assert && AssertUtils.assertPositiveNumber( T );
 
@@ -76,7 +77,7 @@ const SINUSOID = new WaveformValue( {
     return amplitudes;
   },
 
-  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, L, T ) => {
+  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
     //TODO
   }
 } );
@@ -101,7 +102,7 @@ const TRIANGLE = new WaveformValue( {
     return amplitudes;
   },
 
-  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, L, T ) => {
+  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
     //TODO
   }
 } );
@@ -126,7 +127,7 @@ const SQUARE = new WaveformValue( {
     return amplitudes;
   },
 
-  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, L, T ) => {
+  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
     //TODO
   }
 } );
@@ -147,8 +148,9 @@ const SAWTOOTH = new WaveformValue( {
     return amplitudes;
   },
 
-  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, L, T ) => {
+  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
     //TODO
+    //TODO there is no cosine form of Waveform.SAW_TOOTH
   }
 } );
 
@@ -192,7 +194,7 @@ const WAVE_PACKET = new WaveformValue( {
     ][ numberOfHarmonics - 1 ];
   },
 
-  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, L, T ) => {
+  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
     throw new Error( 'getInfiniteHarmonicsDataSet is not supported by Waveform.WAVE_PACKET' );
   }
 } );
@@ -203,7 +205,7 @@ const CUSTOM = new WaveformValue( {
     throw new Error( 'getAmplitudes is not supported by Waveform.CUSTOM' );
   },
 
-  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, L, T ) => {
+  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
     throw new Error( 'getInfiniteHarmonicsDataSet is not supported by Waveform.CUSTOM' );
   }
 } );
