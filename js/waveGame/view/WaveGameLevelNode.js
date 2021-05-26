@@ -293,7 +293,7 @@ class WaveGameLevelNode extends Node {
       newLevelButtonListener: () => {
         rewardDialog.hide();
         backButtonListener();
-        this.newWaveform();
+        newWaveform();
       },
 
       // When the dialog is shown, show the reward.
