@@ -16,7 +16,6 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 // constants
 const NUMBER_OF_NODES = 100;
 
-//TODO https://github.com/phetsims/fourier-making-waves/issues/50 different Nodes for each level?
 const NODES = [
   new FaceNode( 40, { headStroke: 'black' } ),
   new StarNode()
@@ -30,9 +29,7 @@ class WaveGameRewardNode extends RewardNode {
    */
   constructor( level, options ) {
 
-    options = merge( {
-      //TODO
-    }, options );
+    options = merge( {}, options );
 
     assert && assert( !options.children, 'WaveGameRewardNode sets nodes' );
     options.nodes = RewardNode.createRandomNodes( NODES, NUMBER_OF_NODES );
