@@ -2,13 +2,14 @@
 
 /**
  * WaveGameHarmonicsChartNode is the view for the 'Harmonics' chart in the 'Wave Game' screen.
+ * This adds no new functionality, but is provided for symmetry, so that there is a screen-specific subclass
+ * for each chart.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import HarmonicsChartNode from '../../common/view/HarmonicsChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WaveGameHarmonicsChart from '../model/WaveGameHarmonicsChart.js';
 
 class WaveGameHarmonicsChartNode extends HarmonicsChartNode {
 
@@ -17,8 +18,6 @@ class WaveGameHarmonicsChartNode extends HarmonicsChartNode {
    * @param {Object} [options]
    */
   constructor( harmonicsChart, options ) {
-    assert && assert( harmonicsChart instanceof WaveGameHarmonicsChart );
-
     super( harmonicsChart, options );
   }
 }
