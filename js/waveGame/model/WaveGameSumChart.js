@@ -43,6 +43,7 @@ class WaveGameSumChart extends SumChart {
 
     options = merge( {
 
+      // SumChart options
       // This causes the chart to auto scale to answerSeries. This should remain static - do not instrument!
       yAutoScaleProperty: new BooleanProperty( true )
     }, options );

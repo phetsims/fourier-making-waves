@@ -11,7 +11,6 @@ import dotRandom from '../../../../dot/js/dotRandom.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -25,14 +24,12 @@ class AmplitudesGenerator {
 
     options = merge( {
 
+      // AmplitudesGenerator options
       numberOfHarmonics: FMWConstants.MAX_HARMONICS,
       maxAmplitude: FMWConstants.MAX_AMPLITUDE,
 
       // {function():number} gets the number of non-zero harmonics in the waveform
-      getNumberOfNonZeroHarmonics: () => 1,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
+      getNumberOfNonZeroHarmonics: () => 1
     }, options );
 
     // @private

@@ -25,6 +25,8 @@ class WaveGameSumChartNode extends SumChartNode {
     assert && assert( sumChart instanceof WaveGameSumChart );
 
     options = merge( {
+
+      // SumChartNode options
       sumPlotStrokeProperty: FMWColorProfile.answerSumStrokeProperty,
       sumPlotLineWidth: 4
     }, options );

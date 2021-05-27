@@ -10,7 +10,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class HarmonicsSpinner extends NumberSpinner {
@@ -39,10 +38,7 @@ class HarmonicsSpinner extends NumberSpinner {
       touchAreaXDilation: 25,
       touchAreaYDilation: 12,
       mouseAreaXDilation: 5,
-      mouseAreaYDilation: 5,
-
-      // phet-io
-      tandem: Tandem.REQUIRED
+      mouseAreaYDilation: 5
     }, options );
 
     super( numberOfHarmonicsProperty, numberOfHarmonicsProperty.rangeProperty, options );

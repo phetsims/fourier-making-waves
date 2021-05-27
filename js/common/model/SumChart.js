@@ -12,7 +12,6 @@ import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 import SeriesType from './SeriesType.js';
@@ -42,10 +41,7 @@ class SumChart extends WaveformChart {
     options = merge( {
 
       // SumChart options
-      yAutoScaleProperty: null, // {null|Property.<boolean>}
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
+      yAutoScaleProperty: null // {null|Property.<boolean>}
     }, options );
 
     super( fourierSeries.L, fourierSeries.T, domainProperty,

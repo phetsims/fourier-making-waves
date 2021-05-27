@@ -10,7 +10,6 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -42,10 +41,7 @@ class OrderSpinner extends NumberSpinner {
           font: FMWConstants.CONTROL_FONT,
           maxWidth: 50 // determined empirically
         }
-      },
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
+      }
     }, options );
 
     super( orderProperty, orderProperty.rangeProperty, options );

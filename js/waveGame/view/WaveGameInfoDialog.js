@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -21,10 +22,20 @@ class WaveGameInfoDialog extends Dialog {
 
   /**
    * @param {WaveGameLevel[]} levels
+   * @param {Object} [options]
    */
-  constructor( levels ) {
+  constructor( levels, options ) {
 
-    const titleNode = new Text( fourierMakingWavesStrings.levels, {
+    options = merge( {
+
+      // Dialog options
+      ySpacing: 20,
+      bottomMargin: 20
+
+    }, options );
+
+    assert && assert( !options.title, 'WaveGameInfoDialog sets title' );
+    options.title = new Text( fourierMakingWavesStrings.levels, {
       font: new PhetFont( 32 ),
       maxWidth: 0.75 * MAX_CONTENT_WIDTH
     } );
@@ -43,11 +54,7 @@ class WaveGameInfoDialog extends Dialog {
       maxWidth: MAX_CONTENT_WIDTH // scale all of the descriptions uniformly
     } );
 
-    super( content, {
-      title: titleNode,
-      ySpacing: 20,
-      bottomMargin: 20
-    } );
+    super( content, options );
   }
 }
 

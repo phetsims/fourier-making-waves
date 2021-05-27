@@ -28,12 +28,13 @@ class InfiniteHarmonicsCheckbox extends Checkbox {
       tandem: Tandem.REQUIRED
     }, FMWConstants.CHECKBOX_OPTIONS, options );
 
-    const labelNode = new Text( fourierMakingWavesStrings.infiniteHarmonics, {
+    const infiniteHarmonicsText = new Text( fourierMakingWavesStrings.infiniteHarmonics, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 200 // determined empirically
+      maxWidth: 200, // determined empirically,
+      tandem: options.tandem.createTandem( 'infiniteHarmonicsText' )
     } );
 
-    super( labelNode, infiniteHarmonicsVisibleProperty, options );
+    super( infiniteHarmonicsText, infiniteHarmonicsVisibleProperty, options );
 
     // pointer areas
     this.touchArea = this.localBounds.dilatedXY( 6, 6 );

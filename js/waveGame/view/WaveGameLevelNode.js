@@ -68,6 +68,8 @@ class WaveGameLevelNode extends Node {
     assert && assert( gameAudioPlayer instanceof GameAudioPlayer );
 
     options = merge( {
+
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

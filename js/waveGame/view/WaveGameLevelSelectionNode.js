@@ -32,7 +32,11 @@ class WaveGameLevelSelectionNode extends Node {
   constructor( model, layoutBounds, options ) {
 
     options = merge( {
+
+      // WaveGameLevelSelectionNode options
       resetCallback: null, // {function|null}
+
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

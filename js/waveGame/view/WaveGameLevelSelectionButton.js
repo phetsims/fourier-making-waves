@@ -10,7 +10,6 @@ import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import LevelSelectionButton from '../../../../vegas/js/LevelSelectionButton.js';
 import ScoreDisplayNumberAndStar from '../../../../vegas/js/ScoreDisplayNumberAndStar.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
@@ -30,12 +29,13 @@ class WaveGameLevelSelectionButton extends LevelSelectionButton {
     assert && assert( levelProperty instanceof Property );
 
     options = merge( {
+
+      // LevelSelectionButton options
       scoreDisplayConstructor: ScoreDisplayNumberAndStar,
       baseColor: FMWColorProfile.levelSelectionButtonFillProperty,
       listener: () => {
         levelProperty.value = level;
-      },
-      tandem: Tandem.REQUIRED
+      }
     }, options );
 
     //TODO https://github.com/phetsims/fourier-making-waves/issues/57 better icons?

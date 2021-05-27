@@ -24,6 +24,8 @@ class ContinuousScreenView extends ScreenView {
     assert && assert( model instanceof ContinuousModel );
 
     options = merge( {
+
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

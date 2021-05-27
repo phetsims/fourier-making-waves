@@ -36,6 +36,8 @@ class WaveGameScreenView extends ScreenView {
     assert && assert( model instanceof WaveGameModel );
 
     options = merge( {
+
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

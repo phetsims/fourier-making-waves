@@ -11,7 +11,6 @@ import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColorProfile from '../FMWColorProfile.js';
 import SumChart from '../model/SumChart.js';
@@ -31,10 +30,7 @@ class SumChartNode extends WaveformChartNode {
 
       // SumChartNode options
       sumPlotStrokeProperty: FMWColorProfile.sumStrokeProperty,
-      sumPlotLineWidth: 1,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
+      sumPlotLineWidth: 1
     }, options );
 
     // Fields of interest in sumChart, to improve readability

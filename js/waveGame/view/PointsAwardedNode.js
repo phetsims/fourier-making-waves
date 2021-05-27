@@ -22,7 +22,11 @@ class PointsAwardedNode extends HBox {
   constructor( options ) {
 
     options = merge( {
+
+      // PointsAwardedNode options
       points: 1,
+
+      // HBox options
       spacing: 25
     }, options );
     assert && AssertUtils.assertPositiveInteger( options.points );

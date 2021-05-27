@@ -10,10 +10,9 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import Domain from '../../common/model/Domain.js';
 import CalipersNode from './CalipersNode.js';
 
 class WavelengthCalipersNode extends CalipersNode {
@@ -33,10 +32,7 @@ class WavelengthCalipersNode extends CalipersNode {
     options = merge( {
 
       // CalipersNode options
-      debugName: 'wavelengthCalipers',
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
+      debugName: 'wavelengthCalipers'
     }, options );
 
     // Model properties that we'll be using - these were formerly constructor params.

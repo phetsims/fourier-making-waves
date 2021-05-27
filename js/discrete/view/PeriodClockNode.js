@@ -19,13 +19,12 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
+import Domain from '../../common/model/Domain.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import Domain from '../../common/model/Domain.js';
 import MeasurementToolNode from './MeasurementToolNode.js';
 
 // Margins for the translucent background behind the label
@@ -47,10 +46,7 @@ class PeriodClockNode extends MeasurementToolNode {
     options = merge( {
 
       // MeasurementToolNode options
-      debugName: 'periodClock',
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
+      debugName: 'periodClock'
     }, options );
 
     // Model properties that we'll be using - these were formerly constructor params.

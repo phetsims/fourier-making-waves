@@ -23,9 +23,13 @@ class WaveGameScreen extends Screen {
   constructor( options ) {
 
     options = merge( {
-      //TODO add homeScreenIcon using ScreenIcon, see https://github.com/phetsims/fourier-making-waves/issues/44
+
+      // Screen options
       name: fourierMakingWavesStrings.screen.waveGame,
       backgroundColorProperty: FMWColorProfile.screenBackgroundColorProperty,
+      //TODO add homeScreenIcon using ScreenIcon, see https://github.com/phetsims/fourier-making-waves/issues/44
+
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

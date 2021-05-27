@@ -10,7 +10,6 @@ import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import SeriesType from './SeriesType.js';
@@ -39,10 +38,7 @@ class HarmonicsChart extends WaveformChart {
     options = merge( {
 
       // HarmonicsChart options
-      yAxisDescriptionIndex: 0,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
+      yAxisDescriptionIndex: 0
     }, options );
 
     assert && assert( !options.yAutoScaleProperty, 'y auto-scale is not currently supported' );
