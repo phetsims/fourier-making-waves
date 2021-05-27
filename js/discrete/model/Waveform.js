@@ -12,9 +12,14 @@ import merge from '../../../../phet-core/js/merge.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import DiscreteXAxisDescriptions from './DiscreteXAxisDescriptions.js';
 
 // constants
 const PI = Math.PI; // to improve readability
+
+// The data sets herein are hardcoded, ported from Preset.java.
+assert && assert( DiscreteXAxisDescriptions[ 0 ].range.max === 2,
+  'hardcoded data sets herein assume that the maximum x-axis multiplier is 2' );
 
 class WaveformValue {
 
