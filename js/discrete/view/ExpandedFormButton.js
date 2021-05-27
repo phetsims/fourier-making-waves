@@ -20,6 +20,8 @@ class ExpandedFormButton extends RoundPushButton {
   constructor( options ) {
 
     options = merge( {
+
+      // RoundPushButton options
       baseColor: Color.grayColor( 238 ),
       xMargin: 10,
       yMargin: 10

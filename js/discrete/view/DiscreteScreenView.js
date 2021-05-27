@@ -54,6 +54,8 @@ class DiscreteScreenView extends ScreenView {
     assert && assert( model instanceof DiscreteModel );
 
     options = merge( {
+
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

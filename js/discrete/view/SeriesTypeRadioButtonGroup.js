@@ -10,6 +10,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -24,11 +25,16 @@ class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
   constructor( seriesTypeProperty, options ) {
 
     options = merge( {
+
+      // HorizontalAquaRadioButtonGroup options
       spacing: 12,
       touchAreaYDilation: 6,
       radioButtonOptions: {
         xSpacing: 6
-      }
+      },
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
     }, options );
 
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );

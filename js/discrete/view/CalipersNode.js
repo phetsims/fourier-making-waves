@@ -11,6 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
+import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -18,9 +19,9 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import Domain from '../../common/model/Domain.js';
 import MeasurementTool from '../model/MeasurementTool.js';
 import MeasurementToolNode from './MeasurementToolNode.js';
 
@@ -58,7 +59,7 @@ class CalipersNode extends MeasurementToolNode {
     assert && assert( Array.isArray( relevantDomains ) );
     assert && assert( typeof getModelValue === 'function' );
 
-    options = options || {};
+    options = merge( {}, options );
 
     // The harmonic associated with this tool. dispose is not needed.
     const harmonicProperty = new DerivedProperty( [ tool.orderProperty ], order => harmonics[ order - 1 ] );

@@ -27,6 +27,8 @@ class DiscreteSymbolsDialog extends Dialog {
   constructor( options ) {
 
     options = merge( {
+
+      // Dialog options
       xSpacing: 30,
       cornerRadius: FMWConstants.PANEL_CORNER_RADIUS
     }, options );

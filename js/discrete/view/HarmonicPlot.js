@@ -9,6 +9,7 @@
 import Emitter from '../../../../axon/js/Emitter.js';
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -27,7 +28,7 @@ class HarmonicPlot extends CanvasLinePlot {
     assert && assert( harmonic instanceof Harmonic );
     assert && AssertUtils.assertPropertyOf( dataSetProperty, Array );
 
-    options = options || {};
+    options = merge( {}, options );
 
     assert && assert( !options.stroke, 'HarmonicPlot sets stroke' );
     options.stroke = harmonic.colorProperty.value;

@@ -26,6 +26,8 @@ class MeasurementTool {
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty );
 
     options = merge( {
+
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

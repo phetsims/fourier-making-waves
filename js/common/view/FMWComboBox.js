@@ -14,6 +14,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -40,7 +41,10 @@ class FMWComboBox extends ComboBox {
 
       // ComboBox options
       xMargin: 12,
-      yMargin: 5
+      yMargin: 5,
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
     }, options );
 
     const items = []; // {ComboBoxItem[]}

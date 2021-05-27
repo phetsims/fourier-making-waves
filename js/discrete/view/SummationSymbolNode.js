@@ -29,6 +29,8 @@ class SummationSymbolNode extends Node {
   constructor( indexSymbol, indexMin, indexMaxProperty, options ) {
 
     options = merge( {
+
+      // SummationSymbolNode options
       fontSize: 30,
       indexFontSize: 10,
       spacing: -4 // yes, this is a weird default, determined empirically

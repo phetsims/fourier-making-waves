@@ -29,11 +29,9 @@ class DiscreteSumChart extends SumChart {
     assert && assert( !options.yAutoScaleProperty );
     options = merge( {
 
-      // y auto-scale is initially off
-      yAutoScaleProperty: new BooleanProperty( false ),
-
-      // Sum chart has zoom buttons for both axes.
-      hasXZoom: true,
+      // SumChart options
+      yAutoScaleProperty: new BooleanProperty( false ), // y auto-scale is initially off
+      hasXZoom: true, // Sum chart has zoom buttons for both axes.
       hasYZoom: true
     }, options );
 

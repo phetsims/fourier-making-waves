@@ -43,6 +43,8 @@ class SumEquationNode extends Node {
     assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
 
     options = merge( {
+
+      // SumEquationNode options
       font: FMWConstants.EQUATION_FONT
     }, options );
 

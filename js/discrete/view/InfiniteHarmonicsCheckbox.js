@@ -9,6 +9,7 @@
 import merge from '../../../../phet-core/js/merge.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -21,7 +22,11 @@ class InfiniteHarmonicsCheckbox extends Checkbox {
    */
   constructor( infiniteHarmonicsVisibleProperty, options ) {
 
-    options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, options );
+    options = merge( {
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
+    }, FMWConstants.CHECKBOX_OPTIONS, options );
 
     const labelNode = new Text( fourierMakingWavesStrings.infiniteHarmonics, {
       font: FMWConstants.CONTROL_FONT,

@@ -35,6 +35,8 @@ class FourierSoundGenerator extends SoundGenerator {
     assert && assert( outputLevelProperty.range, 'outputLevelProperty.range required' );
 
     super( {
+
+      // OscillatorSoundGenerator options
       initialOutputLevel: outputLevelProperty.value
     } );
 

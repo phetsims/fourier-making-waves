@@ -19,6 +19,7 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Color from '../../../../scenery/js/util/Color.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Harmonic from '../../common/model/Harmonic.js';
@@ -44,7 +45,12 @@ class PeriodClockNode extends MeasurementToolNode {
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
 
     options = merge( {
-      debugName: 'periodClock'
+
+      // MeasurementToolNode options
+      debugName: 'periodClock',
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
     }, options );
 
     // Model properties that we'll be using - these were formerly constructor params.

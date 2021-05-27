@@ -33,13 +33,13 @@ class HarmonicsEquationNode extends Node {
     assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
 
     options = merge( {
-      font: FMWConstants.EQUATION_FONT
+      textOptions: {
+        font: FMWConstants.EQUATION_FONT
+      }
     }, options );
 
     // text is set in multilink below
-    const richText = new RichText( '', {
-      font: options.font
-    } );
+    const richText = new RichText( '', options.textOptions );
 
     assert && assert( !options.children, 'HarmonicsEquationNode sets children' );
     options.children = [ richText ];

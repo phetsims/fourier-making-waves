@@ -42,6 +42,8 @@ class GraphControlsLayoutBox extends VBox {
     assert && assert( popupParent instanceof Node );
 
     options = merge( {
+
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, FMWConstants.VBOX_OPTIONS, options );
 

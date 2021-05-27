@@ -38,6 +38,8 @@ class MeasurementToolsLayoutBox extends VBox {
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     options = merge( {
+
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, FMWConstants.VBOX_OPTIONS, options );
 

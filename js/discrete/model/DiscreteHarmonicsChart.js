@@ -29,6 +29,8 @@ class DiscreteHarmonicsChart extends HarmonicsChart {
                options ) {
 
     options = merge( {
+
+      // HarmonicsChart options
       hasXZoom: true // Harmonics chart has zoom buttons for the x axis.
     }, options );
 

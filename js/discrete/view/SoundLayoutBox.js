@@ -36,6 +36,8 @@ class SoundLayoutBox extends HBox {
     assert && assert( outputLevelProperty.range, 'outputLevelProperty.range required' );
 
     options = merge( {
+
+      // HBox options
       spacing: 20,
 
       // phet-io options

@@ -29,6 +29,8 @@ class DomainComboBox extends FMWComboBox {
     assert && assert( popupParent instanceof Node );
 
     options = merge( {
+
+      // FMWComboBox options
       textOptions: {
         maxWidth: 100 // determined empirically
       }

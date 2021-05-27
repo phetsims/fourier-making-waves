@@ -46,6 +46,8 @@ class ExpandedFormDialog extends Dialog {
     assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
 
     options = merge( {
+
+      // Dialog options
       xSpacing: 30
     }, options );
 

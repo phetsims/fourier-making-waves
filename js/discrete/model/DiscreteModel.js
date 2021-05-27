@@ -57,6 +57,8 @@ class DiscreteModel {
   constructor( options ) {
 
     options = merge( {
+
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 
