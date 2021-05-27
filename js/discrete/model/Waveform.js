@@ -3,6 +3,7 @@
 /**
  * Waveforms is a rich enumeration for the preset waveforms that appear in the 'Discrete' screen.
  * These preset waveforms are all based on a peak amplitude of 1.
+ * Since the 'Infinite Harmonics' data sets are small, the data sets always cover the maximum x range.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

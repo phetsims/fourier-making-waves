@@ -66,8 +66,8 @@ class DiscreteSumChart extends SumChart {
     // @public {DerivedProperty.<Vector2>} Data set that corresponds to a waveform preset, as if it were approximated
     // using a Fourier series with an infinite number of harmonics.
     this.infiniteHarmonicsDataSetProperty = new DerivedProperty(
-      [ waveformProperty, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty ],
-      ( waveform, domain, seriesType, t, xAxisDescription ) => {
+      [ waveformProperty, domainProperty, seriesTypeProperty, tProperty ],
+      ( waveform, domain, seriesType, t ) => {
         if ( waveform.supportsInfiniteHarmonics ) {
           return waveform.getInfiniteHarmonicsDataSet( domain, seriesType, t, L, T );
         }
