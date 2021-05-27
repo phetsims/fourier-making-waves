@@ -2,6 +2,7 @@
 
 /**
  * Waveforms is a rich enumeration for the preset waveforms that appear in the 'Discrete' screen.
+ * These preset waveforms are all based on a peak amplitude of 1.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -43,8 +44,6 @@ class WaveformValue {
        * {null|function}
        * Gets the data set that can be used to plot the actual waveform, as if the waveform were approximated using
        * a Fourier series with an infinite number of harmonics.
-       * @param {Range} xRange - range of the x axis, in units determined by domain
-       * @param {number} peakAmplitude - peak amplitude of the waveform
        * @param {Domain} domain - domain of the x axis
        * @param {SeriesType} seriesType - sin or cos
        * @param {number} t - time, in milliseconds
@@ -74,7 +73,7 @@ const SINUSOID = new WaveformValue( {
     return amplitudes;
   },
 
-  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
+  getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
 
     //TODO use the data set for the fundamental harmonic
     return [];
@@ -101,7 +100,7 @@ const TRIANGLE = new WaveformValue( {
     return amplitudes;
   },
 
-  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
+  getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
 
     //TODO handle Domain.SPACE_AND_TIME
     const x = ( domain === Domain.TIME ) ? T : L;
@@ -160,7 +159,7 @@ const SQUARE = new WaveformValue( {
     return amplitudes;
   },
 
-  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
+  getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
 
     //TODO handle Domain.SPACE_AND_TIME
     const x = ( domain === Domain.TIME ) ? T : L;
@@ -233,7 +232,7 @@ const SAWTOOTH = new WaveformValue( {
     return amplitudes;
   },
 
-  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
+  getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
 
     // There is no cosine form of Waveform.SAW_TOOTH.
     if ( seriesType === SeriesType.COSINE ) {

@@ -69,9 +69,7 @@ class DiscreteSumChart extends SumChart {
       [ waveformProperty, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty ],
       ( waveform, domain, seriesType, t, xAxisDescription ) => {
         if ( waveform.supportsInfiniteHarmonics ) {
-          const xRange = xAxisDescription.createAxisRange( domain, L, T );
-          const peakAmplitude = 1; //TODO
-          return waveform.getInfiniteHarmonicsDataSet( xRange, peakAmplitude, domain, seriesType, t, L, T );
+          return waveform.getInfiniteHarmonicsDataSet( domain, seriesType, t, L, T );
         }
         else {
           return [];
