@@ -2,7 +2,7 @@ TODO.txt for fourier-making-waves
 
 ## Common
 
-Sprite on keyboard navigation
+Sprint on keyboard navigation
 
 ## Discrete screen
 
