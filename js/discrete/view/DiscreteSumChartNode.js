@@ -50,14 +50,14 @@ class DiscreteSumChartNode extends SumChartNode {
     // Shows the wave that the Fourier series is attempting to approximate
     const infiniteHarmonicsCheckbox = new InfiniteHarmonicsCheckbox( infiniteHarmonicsVisibleProperty, {
       listener: () => {
-        //TODO
+        //TODO make InfiniteHarmonicsPlot visible
       },
       tandem: options.tandem.createTandem( 'infiniteHarmonicsCheckbox' )
     } );
 
     // Disable infiniteHarmonicsCheckbox for custom and wave-packet waveforms. unlink is not needed.
     waveformProperty.link( waveform => {
-      infiniteHarmonicsCheckbox.enabled = ( waveform !== Waveform.CUSTOM && waveform !== Waveform.WAVE_PACKET );
+      infiniteHarmonicsCheckbox.enabled = waveform.supportsInfiniteHarmonics();
     } );
     infiniteHarmonicsCheckbox.enabledProperty.link( () => infiniteHarmonicsCheckbox.interruptSubtreeInput() );
 

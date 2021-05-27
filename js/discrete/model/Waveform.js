@@ -6,14 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Range from '../../../../dot/js/Range.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Domain from '../../common/model/Domain.js';
+import merge from '../../../../phet-core/js/merge.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import merge from '../../../../phet-core/js/merge.js';
-import required from '../../../../phet-core/js/required.js';
 
 // constants
 const PI = Math.PI; // to improve readability
@@ -21,21 +17,23 @@ const PI = Math.PI; // to improve readability
 class WaveformValue {
 
   /**
-   * @param {Object} config
+   * @param {Object} [options]
    */
-  constructor( config ) {
+  constructor( options ) {
 
-    config = merge( {
+    options = merge( {
 
       /**
+       * {null|function}
        * Gets the amplitudes for the harmonics in the Fourier series that approximates the waveform.
        * @param {number} numberOfHarmonics - number of non-zero harmonics is the series
        * @param {SeriesType} SeriesType - sin or cos
        * @returns {number[]}
        */
-      getAmplitudes: required( config.getAmplitudes ),
+      getAmplitudes: null,
 
       /**
+       * {null|function}
        * Gets the data set that can be used to plot the actual waveform, as if the waveform were approximated using
        * a Fourier series with an infinite number of harmonics.
        * @param {Range} xRange - range of the x axis, in units determined by domain
@@ -47,34 +45,21 @@ class WaveformValue {
        * @param {number} T - period of the fundamental harmonic, in milliseconds
        * @returns {Vector2[]}
        */
-      getInfiniteHarmonicsDataSet: required( config.getInfiniteHarmonicsDataSet )
-    }, config );
+      getInfiniteHarmonicsDataSet: null
+    }, options );
 
-    assert && assert( typeof config.getAmplitudes === 'function' );
-    assert && assert( typeof config.getInfiniteHarmonicsDataSet === 'function' );
+    // @public (read-only)
+    this.getAmplitudes = options.getAmplitudes;
+    this.getInfiniteHarmonicsDataSet = options.getInfiniteHarmonicsDataSet;
+  }
 
-    // @public (read-only) wrap config.getAmplitudes with common validation for args and return value
-    this.getAmplitudes = ( numberOfHarmonics, seriesType ) => {
-      assert && AssertUtils.assertPositiveInteger( numberOfHarmonics );
-      assert && assert( SeriesType.includes( seriesType ) );
-
-      const amplitudes = config.getAmplitudes( numberOfHarmonics, seriesType );
-      assert && assert( amplitudes.length === numberOfHarmonics, 'unexpected number of amplitudes' );
-      return amplitudes;
-    };
-
-    // @public (read-only) wrap config.getInfiniteHarmonicsDataSet with common validation for args and return value
-    this.getInfiniteHarmonicsDataSet = ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
-      assert && assert( xRange instanceof Range );
-      assert && AssertUtils.assertPositiveNumber( peakAmplitude );
-      assert && assert( Domain.includes( domain ) );
-      assert && assert( SeriesType.includes( seriesType ) );
-      assert && AssertUtils.assertNonNegativeNumber( t );
-      assert && AssertUtils.assertPositiveNumber( L );
-      assert && AssertUtils.assertPositiveNumber( T );
-
-      return config.getInfiniteHarmonicsDataSet( xRange, peakAmplitude, domain, seriesType, L, T );
-    };
+  /**
+   * Does this waveform support the Infinite Harmonics feature?
+   * @returns {boolean}
+   * @public
+   */
+  supportsInfiniteHarmonics() {
+    return !!this.getInfiniteHarmonicsDataSet;
   }
 }
 
@@ -91,7 +76,7 @@ const SINUSOID = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
-    //TODO
+    return []; //TODO
   }
 } );
 
@@ -141,7 +126,7 @@ const SQUARE = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
-    //TODO
+    return []; //TODO
   }
 } );
 
@@ -162,8 +147,8 @@ const SAWTOOTH = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
-    //TODO
     //TODO there is no cosine form of Waveform.SAW_TOOTH
+    return []; //TODO
   }
 } );
 
@@ -205,23 +190,10 @@ const WAVE_PACKET = new WaveformValue( {
       [ 0.079560, 0.216255, 0.457833, 0.754840, 0.969233, 0.969233, 0.754840, 0.457833, 0.216255, 0.079560 ],
       [ 0.075574, 0.191495, 0.394652, 0.661515, 0.901851, 1.000000, 0.901851, 0.661515, 0.394652, 0.191495, 0.075574 ]
     ][ numberOfHarmonics - 1 ];
-  },
-
-  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
-    throw new Error( 'getInfiniteHarmonicsDataSet is not supported by Waveform.WAVE_PACKET' );
   }
 } );
 
-const CUSTOM = new WaveformValue( {
-
-  getAmplitudes: ( numberOfHarmonics, seriesType ) => {
-    throw new Error( 'getAmplitudes is not supported by Waveform.CUSTOM' );
-  },
-
-  getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
-    throw new Error( 'getInfiniteHarmonicsDataSet is not supported by Waveform.CUSTOM' );
-  }
-} );
+const CUSTOM = new WaveformValue();
 
 const Waveform = Enumeration.byMap( {
   SINUSOID: SINUSOID,
