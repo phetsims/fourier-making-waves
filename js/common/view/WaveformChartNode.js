@@ -228,6 +228,13 @@ class WaveformChartNode extends Node {
     this.yTickMarks = yTickMarks;
     this.yTickLabels = yTickLabels;
     this.yZoomButtonGroup = yZoomButtonGroup;
+
+    // pdom - traversal order
+    // See https://github.com/phetsims/fourier-making-waves/issues/53
+    const pdomOrder = [];
+    xZoomButtonGroup && pdomOrder.push( xZoomButtonGroup );
+    yZoomButtonGroup && pdomOrder.push( yZoomButtonGroup );
+    this.pdomOrder = pdomOrder;
   }
 
   /**

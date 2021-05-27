@@ -103,6 +103,13 @@ class DiscreteControlPanel extends Panel {
     } );
 
     super( content, options );
+
+    // pdom - traversal order
+    // See https://github.com/phetsims/fourier-making-waves/issues/53
+    this.pdomOrder = [
+      symbolsButton,
+      vBox
+    ];
   }
 
   /**

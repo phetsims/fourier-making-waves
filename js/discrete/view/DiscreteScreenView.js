@@ -372,6 +372,23 @@ class DiscreteScreenView extends ScreenView {
       const outputLevel = enabled ? 0.1 * userInterfaceDefaultOutputLevel : userInterfaceDefaultOutputLevel;
       soundManager.setOutputLevelForCategory( 'user-interface', outputLevel );
     } );
+
+    // pdom -traversal order
+    // See https://github.com/phetsims/fourier-making-waves/issues/53
+    screenViewRootNode.pdomOrder = [
+      amplitudesChartNode,
+      eraserButton,
+      controlPanel,
+      wavelengthCalipersNode,
+      periodCalipersNode,
+      periodClockNode,
+      harmonicsExpandCollapseButton,
+      harmonicsChartNode,
+      sumExpandCollapseButton,
+      sumChartNode,
+      timeControlNode,
+      resetAllButton
+    ];
   }
 
   /**
