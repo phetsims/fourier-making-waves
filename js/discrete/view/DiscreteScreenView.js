@@ -268,23 +268,33 @@ class DiscreteScreenView extends ScreenView {
       resetAllButton.bottom = this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
     }
 
-    // Rendering order
-    this.addChild( amplitudesChartNode );
-    this.addChild( eraserButton );
-    this.addChild( harmonicsExpandCollapseButton );
-    this.addChild( harmonicsChartNode );
-    this.addChild( harmonicsEquationWrapperNode );
-    this.addChild( sumExpandCollapseButton );
-    this.addChild( sumChartNode );
-    this.addChild( sumEquationWrapperNode );
-    this.addChild( expandedFormButton );
-    this.addChild( controlPanel );
-    this.addChild( timeControlNode );
-    this.addChild( resetAllButton );
-    this.addChild( wavelengthCalipersNode ); // Measurement Tools on top of everything else
-    this.addChild( periodCalipersNode );
-    this.addChild( periodClockNode );
-    this.addChild( popupParent ); // parent for popups on top
+    // Add everything to one root Node, then add that root Node to the scene graph.
+    // This should improve startup performance, compared to calling this.addChild for each Node.
+    const screenViewRootNode = new Node( {
+      children: [
+        amplitudesChartNode,
+        eraserButton,
+        harmonicsExpandCollapseButton,
+        harmonicsChartNode,
+        harmonicsEquationWrapperNode,
+        sumExpandCollapseButton,
+        sumChartNode,
+        sumEquationWrapperNode,
+        expandedFormButton,
+        controlPanel,
+        timeControlNode,
+        resetAllButton,
+
+        // Measurement Tools on top
+        wavelengthCalipersNode,
+        periodCalipersNode,
+        periodClockNode,
+
+        // parent for popups on top
+        popupParent
+      ]
+    } );
+    this.addChild( screenViewRootNode );
 
     // Get the bounds of the chart rectangles in this coordinate frame, used for layout.
     const harmonicsChartRectangleLocalBounds = this.globalToLocalBounds( harmonicsChartNode.chartRectangle.parentToGlobalBounds( harmonicsChartNode.chartRectangle.bounds ) );
