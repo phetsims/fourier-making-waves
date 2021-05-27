@@ -386,6 +386,17 @@ class WaveGameLevelNode extends Node {
 
     // @private
     this.rewardNode = rewardNode;
+
+    // pdom - traversal order
+    // See https://github.com/phetsims/fourier-making-waves/issues/53
+    this.pDomOrder = [
+      statusBar,
+      amplitudesChartNode,
+      eraserButton,
+      amplitudeControlsSpinner,
+      showAnswerButton,
+      newWaveformButton
+    ];
   }
 
   /**
