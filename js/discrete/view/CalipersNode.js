@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2020-2021, University of Colorado Boulder
 
 /**
  * CalipersNode is the base class for tools used to measure a horizontal dimension of a harmonic.

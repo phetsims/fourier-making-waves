@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2020-2021, University of Colorado Boulder
 
 //TODO this is a bit like NumberDisplay, but not currently general enough for common code
 /**

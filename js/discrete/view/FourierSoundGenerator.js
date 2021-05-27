@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2020-2021, University of Colorado Boulder
 
 //TODO https://github.com/phetsims/fourier-making-waves/issues/45 do we need a limiter to prevent overdrive/clipping?
 //TODO https://github.com/phetsims/fourier-making-waves/issues/45 should output level be converted to log scale?

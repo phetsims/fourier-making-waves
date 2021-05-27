@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2020-2021, University of Colorado Boulder
 
 /**
  * DiscreteSymbolsDialog is a dialog that shows a key to the symbols used in the 'Discrete' screen.

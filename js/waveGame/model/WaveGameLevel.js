@@ -1,4 +1,4 @@
-// Copyright 2018-2020, University of Colorado Boulder
+// Copyright 2021, University of Colorado Boulder
 
 /**
  * WaveGameLevel is the model for a game level.

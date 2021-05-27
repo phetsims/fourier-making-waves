@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2020-2021, University of Colorado Boulder
 
 /**
  * EquationMarkup is a set of utility functions for creating markup used to render equations that describe a

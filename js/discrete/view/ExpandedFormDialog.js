@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2020-2021, University of Colorado Boulder
 
 /**
  * ExpandedFormDialog is a modal dialog that displays the expanded sum of a Fourier series.

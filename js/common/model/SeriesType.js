@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2020-2021, University of Colorado Boulder
 
 /**
  * SeriesType indicates the type of Fourier series, whether the waveform is being approximated using sines or cosines.

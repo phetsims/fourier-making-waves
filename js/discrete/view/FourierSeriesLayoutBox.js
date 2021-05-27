@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2020-2021, University of Colorado Boulder
 
 /**
  * FourierSeriesLayoutBox is the 'Fourier Series' section of the control panel in the 'Discrete' screen.

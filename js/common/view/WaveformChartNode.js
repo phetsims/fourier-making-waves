@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2020-2021, University of Colorado Boulder
 
 /**
  * WaveformChartNode is the base class for charts that plot one or more 2D waveforms related to a Fourier series.

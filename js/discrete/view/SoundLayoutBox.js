@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2020-2021, University of Colorado Boulder
 
 /**
  * SoundLayoutBox contains controls for enabling sound and adjusting output level. It's used to control the sound

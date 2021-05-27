@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2020-2021, University of Colorado Boulder
 
 /**
  * DiscreteScreenView is the view for the 'Discrete' screen.

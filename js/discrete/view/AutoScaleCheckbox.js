@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2020-2021, University of Colorado Boulder
 
 /**
  * AutoScaleCheckbox is the checkbox labeled 'Auto Scale'. Checking it causes the Sum chart's y axis to automatically

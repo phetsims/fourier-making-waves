@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2020-2021, University of Colorado Boulder
 
 /**
  * AmplitudesChartNode is the base class for displaying and controlling the amplitudes for harmonics in a Fourier series.

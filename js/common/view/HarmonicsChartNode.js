@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2020-2021, University of Colorado Boulder
 
 /**
  * HarmonicsChartNode is the view base class for the 'Harmonics' chart.

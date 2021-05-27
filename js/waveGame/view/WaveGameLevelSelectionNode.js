@@ -1,4 +1,4 @@
-// Copyright 2018-2020, University of Colorado Boulder
+// Copyright 2021, University of Colorado Boulder
 
 /**
  * LevelSelectionNode is the user interface for level selection and other game settings in the 'Wave Game' screen.
