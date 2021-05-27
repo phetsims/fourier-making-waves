@@ -80,6 +80,7 @@ class DiscreteScreenView extends ScreenView {
       tandem: amplitudesTandem.createTandem( 'amplitudeKeypadDialog' )
     } );
 
+    // Amplitudes chart
     const amplitudesChartNode = new DiscreteAmplitudesChartNode( model.amplitudesChart, amplitudeKeypadDialog, {
 
       // Changing any amplitude switches the waveform to 'custom'.
@@ -94,12 +95,14 @@ class DiscreteScreenView extends ScreenView {
     // Parent tandem for all components related to the Harmonics chart
     const harmonicsTandem = options.tandem.createTandem( 'harmonics' );
 
+    // Button to show/hide the Harmonics chart
     const harmonicsExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.harmonicsChart, model.harmonicsChart.chartVisibleProperty, {
         textOptions: { maxWidth: 150 }, // determined empirically
         tandem: harmonicsTandem.createTandem( 'harmonicsExpandCollapseButton' )
       } );
 
+    // Harmonics chart
     const harmonicsChartNode = new DiscreteHarmonicsChartNode( model.harmonicsChart, {
       transformOptions: {
         viewWidth: CHART_RECTANGLE_SIZE.width,
@@ -130,12 +133,14 @@ class DiscreteScreenView extends ScreenView {
     // Parent tandem for all components related to the Sum chart
     const sumTandem = options.tandem.createTandem( 'sum' );
 
+    // Button to show/hide the Sum chart
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.sum, model.sumChart.chartVisibleProperty, {
         textOptions: { maxWidth: 150 }, // determined empirically
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
       } );
 
+    // Sum chart
     const sumChartNode = new DiscreteSumChartNode( model.sumChart, model.waveformProperty, {
       transformOptions: {
         viewWidth: CHART_RECTANGLE_SIZE.width,
@@ -180,6 +185,7 @@ class DiscreteScreenView extends ScreenView {
         expandedFormButton.visible = visible;
       } );
 
+    // Push button to reset all amplitudes to zero
     const eraserButton = new EraserButton( {
       scale: 0.85,
       listener: () => {
@@ -188,10 +194,12 @@ class DiscreteScreenView extends ScreenView {
       }
     } );
 
+    // Control panel
     const controlPanel = new DiscreteControlPanel( model, popupParent, {
       tandem: options.tandem.createTandem( 'controlPanel' )
     } );
 
+    // Time controls
     const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
       playPauseStepButtonOptions: {
         stepForwardButtonOptions: {
