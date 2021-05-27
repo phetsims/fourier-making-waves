@@ -79,7 +79,7 @@ class WaveformChartNode extends Node {
         viewHeight: 100
       },
 
-      // phet-io
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

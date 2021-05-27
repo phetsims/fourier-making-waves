@@ -33,7 +33,7 @@ class SumChartNode extends WaveformChartNode {
       sumPlotStrokeProperty: FMWColorProfile.sumStrokeProperty,
       sumPlotLineWidth: 1,
 
-      // phet-io
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

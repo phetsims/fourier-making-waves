@@ -61,7 +61,7 @@ class AmplitudeKeypadDialog extends Dialog {
         dialog.centerY = layoutBounds.centerY + 50;
       },
 
-      // phet-io
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

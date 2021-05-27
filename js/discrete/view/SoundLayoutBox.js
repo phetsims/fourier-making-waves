@@ -38,7 +38,7 @@ class SoundLayoutBox extends HBox {
     options = merge( {
       spacing: 20,
 
-      // phet-io
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

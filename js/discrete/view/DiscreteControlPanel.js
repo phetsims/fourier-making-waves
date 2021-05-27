@@ -37,10 +37,12 @@ class DiscreteControlPanel extends Panel {
     assert && assert( popupParent instanceof Node );
 
     options = merge( {}, FMWConstants.PANEL_OPTIONS, {
+
+      // Panel options
       xMargin: 15,
       yMargin: 15,
 
-      // phet-io
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

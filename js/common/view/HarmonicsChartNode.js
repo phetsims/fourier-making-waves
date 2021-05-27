@@ -34,7 +34,7 @@ class HarmonicsChartNode extends WaveformChartNode {
 
     options = merge( {
 
-      // phet-io
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

@@ -36,11 +36,13 @@ class FourierSeries extends PhetioObject {
   constructor( options ) {
 
     options = merge( {
+
+      // FourierSeries options
       numberOfHarmonics: FMWConstants.MAX_HARMONICS,
       amplitudeRange: DEFAULT_AMPLITUDE_RANGE, // {Range} the range of all harmonic amplitudes
       amplitudes: DEFAULT_AMPLITUDES, // {number[]} initial amplitudes for the harmonics
 
-      // phet-io
+      // phet-io options
       tandem: Tandem.OPTIONAL,
       phetioState: false
     }, options );

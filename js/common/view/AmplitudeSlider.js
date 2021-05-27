@@ -70,7 +70,7 @@ class AmplitudeSlider extends AudibleSlider {
       shiftKeyboardStep: 1 / Math.pow( 10, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES ), // finer grain
       pageKeyboardStep: 2 * FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL, // coarser grain
 
-      // phet-io
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

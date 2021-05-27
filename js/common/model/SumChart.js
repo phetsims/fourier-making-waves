@@ -44,7 +44,7 @@ class SumChart extends WaveformChart {
       // SumChart options
       yAutoScaleProperty: null, // {null|Property.<boolean>}
 
-      // phet-io
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

@@ -31,7 +31,7 @@ class AmplitudesGenerator {
       // {function():number} gets the number of non-zero harmonics in the waveform
       getNumberOfNonZeroHarmonics: () => 1,
 
-      // phet-io
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

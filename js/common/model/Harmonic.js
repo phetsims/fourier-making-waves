@@ -40,7 +40,7 @@ class Harmonic extends PhetioObject {
       // Harmonic, optional
       amplitude: 0,
 
-      // phet-io
+      // phet-io options
       tandem: Tandem.REQUIRED,
       phetioState: false
     }, config );

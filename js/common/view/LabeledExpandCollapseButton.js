@@ -37,7 +37,7 @@ class LabeledExpandCollapseButton extends HBox {
         font: FMWConstants.TITLE_FONT
       },
 
-      // phet-io
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 

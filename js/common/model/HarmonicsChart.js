@@ -41,7 +41,7 @@ class HarmonicsChart extends WaveformChart {
       // HarmonicsChart options
       yAxisDescriptionIndex: 0,
 
-      // phet-io
+      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 
