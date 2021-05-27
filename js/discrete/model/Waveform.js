@@ -9,6 +9,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
+import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -69,7 +70,9 @@ const SINUSOID = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
-    return [ new Vector2( -1, 1 ), new Vector2( 1, 1 ) ]; //TODO same as the data set for the fundamental harmonic
+
+    //TODO use the data set for the fundamental harmonic
+    return [];
   }
 } );
 
@@ -94,7 +97,41 @@ const TRIANGLE = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
-    return [ new Vector2( -1, 1 ), new Vector2( 1, 1 ) ]; //TODO
+
+    //TODO handle Domain.SPACE_AND_TIME
+    const x = ( domain === Domain.TIME ) ? T : L;
+
+    if ( seriesType === SeriesType.SINE ) {
+
+      // sine
+      return [
+        new Vector2( -9 * x / 4, -1 ),
+        new Vector2( -7 * x / 4, 1 ),
+        new Vector2( -5 * x / 4, -1 ),
+        new Vector2( -3 * x / 4, 1 ),
+        new Vector2( -x / 4, -1 ),
+        new Vector2( x / 4, 1 ),
+        new Vector2( 3 * x / 4, -1 ),
+        new Vector2( 5 * x / 4, 1 ),
+        new Vector2( 7 * x / 4, -1 ),
+        new Vector2( 9 * x / 4, 1 )
+      ];
+    }
+    else {
+
+      // cosine
+      return [
+        new Vector2( -2 * x, 1 ),
+        new Vector2( -3 * x / 2, -1 ),
+        new Vector2( -x, 1 ),
+        new Vector2( -x / 2, -1 ),
+        new Vector2( 0, 1 ),
+        new Vector2( x / 2, -1 ),
+        new Vector2( x, 1 ),
+        new Vector2( 3 * x / 2, -1 ),
+        new Vector2( 2 * x, 1 )
+      ];
+    }
   }
 } );
 
@@ -119,7 +156,59 @@ const SQUARE = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
-    return [ new Vector2( -1, 1 ), new Vector2( 1, 1 ) ]; //TODO
+
+    //TODO handle Domain.SPACE_AND_TIME
+    const x = ( domain === Domain.TIME ) ? T : L;
+
+    if ( seriesType === SeriesType.SINE ) {
+
+      // sine
+      return [
+        new Vector2( -2 * x, -1 ),
+        new Vector2( -2 * x, 1 ),
+        new Vector2( -3 * x / 2, 1 ),
+        new Vector2( -3 * x / 2, -1 ),
+        new Vector2( -x, -1 ),
+        new Vector2( -x, 1 ),
+        new Vector2( -x / 2, 1 ),
+        new Vector2( -x / 2, -1 ),
+        new Vector2( 0, -1 ),
+        new Vector2( 0, 1 ),
+        new Vector2( x / 2, 1 ),
+        new Vector2( x / 2, -1 ),
+        new Vector2( x, -1 ),
+        new Vector2( x, 1 ),
+        new Vector2( 3 * x / 2, 1 ),
+        new Vector2( 3 * x / 2, -1 ),
+        new Vector2( 2 * x, -1 ),
+        new Vector2( 2 * x, 1 )
+      ];
+    }
+    else {
+
+      // cosine
+      return [
+        new Vector2( -9 * x / 4, -1 ),
+        new Vector2( -9 * x / 4, 1 ),
+        new Vector2( -7 * x / 4, 1 ),
+        new Vector2( -7 * x / 4, -1 ),
+        new Vector2( -5 * x / 4, -1 ),
+        new Vector2( -5 * x / 4, 1 ),
+        new Vector2( -3 * x / 4, 1 ),
+        new Vector2( -3 * x / 4, -1 ),
+        new Vector2( -x / 4, -1 ),
+        new Vector2( -x / 4, 1 ),
+        new Vector2( x / 4, 1 ),
+        new Vector2( x / 4, -1 ),
+        new Vector2( 3 * x / 4, -1 ),
+        new Vector2( 3 * x / 4, 1 ),
+        new Vector2( 5 * x / 4, 1 ),
+        new Vector2( 5 * x / 4, -1 ),
+        new Vector2( 7 * x / 4, -1 ),
+        new Vector2( 7 * x / 4, 1 ),
+        new Vector2( 9 * x / 4, 1 )
+      ];
+    }
   }
 } );
 
@@ -140,8 +229,29 @@ const SAWTOOTH = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
-    //TODO there is no cosine form of Waveform.SAW_TOOTH
-    return [ new Vector2( -1, 1 ), new Vector2( 1, 1 ) ]; //TODO
+
+    // There is no cosine form of Waveform.SAW_TOOTH.
+    if ( seriesType === SeriesType.COSINE ) {
+      return [];
+    }
+
+    //TODO handle Domain.SPACE_AND_TIME
+    const x = ( domain === Domain.TIME ) ? T : L;
+
+    // sine
+    return [
+      new Vector2( -5 * x / 2, 1 ),
+      new Vector2( -5 * x / 2, -1 ),
+      new Vector2( -3 * x / 2, 1 ),
+      new Vector2( -3 * x / 2, -1 ),
+      new Vector2( -x / 2, 1 ),
+      new Vector2( -x / 2, -1 ),
+      new Vector2( x / 2, 1 ),
+      new Vector2( x / 2, -1 ),
+      new Vector2( 3 * x / 2, 1 ),
+      new Vector2( 3 * x / 2, -1 ),
+      new Vector2( 5 * x / 2, 1 )
+    ];
   }
 } );
 

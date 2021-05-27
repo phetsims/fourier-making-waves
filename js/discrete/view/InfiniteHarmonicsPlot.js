@@ -26,7 +26,7 @@ class InfiniteHarmonicsPlot extends CanvasLinePlot {
     options = merge( {
 
       // CanvasLinePlot options
-      lineWidth: 3,
+      lineWidth: 4,
       stroke: FMWColorProfile.infiniteHarmonicsStrokeProperty.value // CanvasLinePlot does not support Property.<Color>
     }, options );
 
