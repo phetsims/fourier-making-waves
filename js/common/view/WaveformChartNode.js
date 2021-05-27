@@ -73,22 +73,24 @@ class WaveformChartNode extends Node {
 
     options = merge( {
 
-      //TODO nest these under chartTransformOptions
-      // {number} dimensions of the chart rectangle, in view coordinates
-      viewWidth: 100,
-      viewHeight: 100,
+      // ChartTransform options
+      transformOptions: {
+        viewWidth: 100,
+        viewHeight: 100
+      },
 
       // phet-io
       tandem: Tandem.REQUIRED
     }, options );
 
+    assert && assert( !options.transformOptions.modelXRange, 'WaveformChartNode sets modelXRange' );
+    assert && assert( !options.transformOptions.modelYRange, 'WaveformChartNode sets modelYRange' );
+
     // the transform between model and view coordinate frames
-    const chartTransform = new ChartTransform( {
-      viewWidth: options.viewWidth,
-      viewHeight: options.viewHeight,
+    const chartTransform = new ChartTransform( merge( {
       modelXRange: xAxisDescriptionProperty.value.createAxisRange( domainProperty.value, L, T ),
       modelYRange: yAxisDescriptionProperty.value.range
-    } );
+    }, options.transformOptions ) );
 
     // The chart's background rectangle
     const chartRectangle = new ChartRectangle( chartTransform, {

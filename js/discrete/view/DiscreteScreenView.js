@@ -79,8 +79,10 @@ class DiscreteScreenView extends ScreenView {
 
       // Changing any amplitude switches the waveform to 'custom'.
       onEdit: () => { model.waveformProperty.value = Waveform.CUSTOM; },
-      viewWidth: CHART_RECTANGLE_SIZE.width,
-      viewHeight: CHART_RECTANGLE_SIZE.height,
+      transformOptions: {
+        viewWidth: CHART_RECTANGLE_SIZE.width,
+        viewHeight: CHART_RECTANGLE_SIZE.height
+      },
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
     } );
 
@@ -94,8 +96,10 @@ class DiscreteScreenView extends ScreenView {
       } );
 
     const harmonicsChartNode = new DiscreteHarmonicsChartNode( model.harmonicsChart, {
-      viewWidth: CHART_RECTANGLE_SIZE.width,
-      viewHeight: CHART_RECTANGLE_SIZE.height,
+      transformOptions: {
+        viewWidth: CHART_RECTANGLE_SIZE.width,
+        viewHeight: CHART_RECTANGLE_SIZE.height
+      },
       visibleProperty: model.harmonicsChart.chartVisibleProperty,
       tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
     } );
@@ -128,8 +132,10 @@ class DiscreteScreenView extends ScreenView {
       } );
 
     const sumChartNode = new DiscreteSumChartNode( model.sumChart, model.waveformProperty, {
-      viewWidth: CHART_RECTANGLE_SIZE.width,
-      viewHeight: CHART_RECTANGLE_SIZE.height,
+      transformOptions: {
+        viewWidth: CHART_RECTANGLE_SIZE.width,
+        viewHeight: CHART_RECTANGLE_SIZE.height
+      },
       visibleProperty: model.sumChart.chartVisibleProperty,
       tandem: sumTandem.createTandem( 'sumChartNode' )
     } );
