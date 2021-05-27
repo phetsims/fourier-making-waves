@@ -121,6 +121,10 @@ class WaveGameLevelSelectionNode extends Node {
     options.children = [ titleAndButtonsBox, resetAllButton ];
 
     super( options );
+
+    // pdom - traversal order
+    // See https://github.com/phetsims/fourier-making-waves/issues/53
+    this.pdomOrder = [ buttonsBox, infoButton, resetAllButton ];
   }
 }
 
