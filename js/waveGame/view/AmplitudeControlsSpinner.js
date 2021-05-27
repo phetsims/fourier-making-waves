@@ -9,14 +9,13 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import HBox from '../../../../scenery/js/nodes/HBox.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class AmplitudeControlsSpinner extends Node {
+class AmplitudeControlsSpinner extends VBox {
 
   /**
    * @param {NumberProperty} numberOfAmplitudeControlsProperty
@@ -26,6 +25,7 @@ class AmplitudeControlsSpinner extends Node {
     assert && assert( numberOfAmplitudeControlsProperty instanceof NumberProperty );
 
     options = merge( {
+      spacing: 10,
       spinnerOptions: {
         arrowsPosition: 'leftRight',
         numberDisplayOptions: {
@@ -52,13 +52,8 @@ class AmplitudeControlsSpinner extends Node {
     const spinner = new NumberSpinner( numberOfAmplitudeControlsProperty, numberOfAmplitudeControlsProperty.rangeProperty,
       options.spinnerOptions );
 
-    const hBox = new HBox( {
-      spacing: 8,
-      children: [ amplitudeControlsText, spinner ]
-    } );
-
     assert && assert( !options.children, 'AmplitudeControlsSpinner sets children' );
-    options.children = [ hBox ];
+    options.children = [ amplitudeControlsText, spinner ];
 
     super( options );
   }
