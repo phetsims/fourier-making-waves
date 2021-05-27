@@ -6,7 +6,7 @@ Sprite on keyboard navigation
 
 ## Discrete screen
 
-Infinite Harmonics feature, see Preset.java
+Support for Domain.SPACE_AND_TIME for Infinite Harmonics
 
 ## Wave Game screen
 
