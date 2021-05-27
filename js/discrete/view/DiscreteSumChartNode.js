@@ -65,7 +65,7 @@ class DiscreteSumChartNode extends SumChartNode {
 
     // Disable infiniteHarmonicsCheckbox for custom and wave-packet waveforms. unlink is not needed.
     waveformProperty.link( waveform => {
-      infiniteHarmonicsCheckbox.enabled = waveform.supportsInfiniteHarmonics;
+      infiniteHarmonicsCheckbox.enabled = ( waveform !== Waveform.CUSTOM && waveform !== Waveform.WAVE_PACKET );
     } );
     infiniteHarmonicsCheckbox.enabledProperty.link( () => infiniteHarmonicsCheckbox.interruptSubtreeInput() );
 

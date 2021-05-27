@@ -57,7 +57,7 @@ class SumChart extends WaveformChart {
     };
 
     // {Property.<Vector2[]>} the data set for the sum
-    const dataSetProperty = new Property( createSumDataSet(), {
+    const sumDataSetProperty = new Property( createSumDataSet(), {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
     } );
 
@@ -67,16 +67,16 @@ class SumChart extends WaveformChart {
       () => {
 
         // Free the current points to the Vector2 pool.
-        _.forEach( dataSetProperty.value, point => point.freeToPool() );
+        _.forEach( sumDataSetProperty.value, point => point.freeToPool() );
 
         // Compute the data set, with points from the Vector2 pool.
-        dataSetProperty.value = createSumDataSet();
+        sumDataSetProperty.value = createSumDataSet();
       }
     );
 
     // {DerivedProperty.<number>} the peak amplitude of the sum waveform
     const peakAmplitudeProperty = new DerivedProperty(
-      [ dataSetProperty ],
+      [ sumDataSetProperty ],
       dataSet => _.maxBy( dataSet, point => point.y ).y
     );
 
@@ -115,12 +115,12 @@ class SumChart extends WaveformChart {
 
     // @public
     this.fourierSeries = fourierSeries;
-    this.dataSetProperty = dataSetProperty;
+    this.sumDataSetProperty = sumDataSetProperty;
 
     // @private
     this.resetSumChart = () => {
       yAutoScaleProperty.reset();
-      this.dataSetProperty.reset();
+      this.sumDataSetProperty.reset();
     };
   }
 

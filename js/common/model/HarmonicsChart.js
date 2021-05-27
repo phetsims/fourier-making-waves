@@ -68,16 +68,16 @@ class HarmonicsChart extends WaveformChart {
 
     // @public {Property.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order
     // A data set is updated when any of its dependencies changes.
-    this.dataSetProperties = [];
+    this.harmonicDataSetProperties = [];
     for ( let i = 0; i < fourierSeries.harmonics.length; i++ ) {
 
       const harmonic = fourierSeries.harmonics[ i ];
 
-      // @public {Property.<Vector2[]>} the data set for this harmonic
+      // {Property.<Vector2[]>} the data set for this harmonic
       const dataSetProperty = new Property( createDataSet( harmonic ), {
         isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
       } );
-      this.dataSetProperties.push( dataSetProperty );
+      this.harmonicDataSetProperties.push( dataSetProperty );
 
       // Update the harmonic's data set when dependencies change. unmultilink is not needed.
       Property.lazyMultilink( [ harmonic.amplitudeProperty, xAxisDescriptionProperty, domainProperty,
@@ -97,7 +97,7 @@ class HarmonicsChart extends WaveformChart {
    * @public
    */
   reset() {
-    this.dataSetProperties.forEach( dataSetProperty => dataSetProperty.reset() );
+    this.harmonicDataSetProperties.forEach( dataSetProperty => dataSetProperty.reset() );
   }
 
   /**

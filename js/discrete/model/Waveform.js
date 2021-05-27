@@ -58,7 +58,6 @@ class WaveformValue {
     // @public (read-only)
     this.getAmplitudes = options.getAmplitudes;
     this.getInfiniteHarmonicsDataSet = options.getInfiniteHarmonicsDataSet;
-    this.supportsInfiniteHarmonics = !!this.getInfiniteHarmonicsDataSet;
   }
 }
 
@@ -72,13 +71,9 @@ const SINUSOID = new WaveformValue( {
       amplitudes.push( n === 1 ? 1 : 0 );
     }
     return amplitudes;
-  },
-
-  getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
-
-    //TODO use the data set for the fundamental harmonic
-    return [];
   }
+
+  // getInfiniteHarmonicsDataSet is not needed, because the first harmonic is an exact approximation.
 } );
 
 const TRIANGLE = new WaveformValue( {

@@ -35,14 +35,14 @@ class SumChartNode extends WaveformChartNode {
 
     // Fields of interest in sumChart, to improve readability
     const fourierSeries = sumChart.fourierSeries;
-    const dataSetProperty = sumChart.dataSetProperty;
+    const sumDataSetProperty = sumChart.sumDataSetProperty;
     const yAutoScaleProperty = sumChart.yAutoScaleProperty;
     const yAxisAutoScaleRangeProperty = sumChart.yAxisAutoScaleRangeProperty;
 
     super( sumChart, options );
 
     // Plot that shows the sum
-    const sumPlot = new CanvasLinePlot( this.chartTransform, dataSetProperty.value, {
+    const sumPlot = new CanvasLinePlot( this.chartTransform, sumDataSetProperty.value, {
       stroke: options.sumPlotStrokeProperty.value,
       lineWidth: options.sumPlotLineWidth
     } );
@@ -61,7 +61,7 @@ class SumChartNode extends WaveformChartNode {
     } );
 
     // unlink is not needed.
-    dataSetProperty.lazyLink( dataSet => {
+    sumDataSetProperty.lazyLink( dataSet => {
       sumPlot.setDataSet( dataSet );
       chartCanvasNode.update();
     } );
