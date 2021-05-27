@@ -32,6 +32,9 @@ class ContinuousScreenView extends ScreenView {
 
     super( options );
 
+    // To improve readability
+    const layoutBounds = this.layoutBounds;
+
     const resetAllButton = new ResetAllButton( {
       listener: () => {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
@@ -43,9 +46,9 @@ class ContinuousScreenView extends ScreenView {
 
     // Layout, constants determined empirically
     {
-      // bottom right
-      resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
-      resetAllButton.bottom = this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+      // Reset All button at bottom right
+      resetAllButton.right = layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
+      resetAllButton.bottom = layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
     }
 
     // Add everything to one root Node, then add that root Node to the scene graph.

@@ -61,6 +61,9 @@ class DiscreteScreenView extends ScreenView {
 
     super( options );
 
+    // To improve readability
+    const layoutBounds = this.layoutBounds;
+
     // Sound for the Fourier series
     const fourierSoundGenerator = new FourierSoundGenerator( model.fourierSeries,
       model.fourierSeriesSoundEnabledProperty, model.fourierSeriesSoundOutputLevelProperty );
@@ -73,7 +76,7 @@ class DiscreteScreenView extends ScreenView {
     const amplitudesTandem = options.tandem.createTandem( 'amplitudes' );
 
     // Keypad Dialog, for changing amplitude value
-    const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, this.layoutBounds, {
+    const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, layoutBounds, {
       tandem: amplitudesTandem.createTandem( 'amplitudeKeypadDialog' )
     } );
 
@@ -238,34 +241,38 @@ class DiscreteScreenView extends ScreenView {
 
     // Layout, constants determined empirically
     {
+      // Amplitudes chart at top left
       amplitudesChartNode.x = X_CHART_RECTANGLES;
       amplitudesChartNode.y = 54;
 
-      // To the right of the amplitude NumberDisplays
+      // Eraser button to the right of the amplitude NumberDisplays
       const amplitudesChartRightTop = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.rightTop );
       eraserButton.left = amplitudesChartRightTop.x + 10;
       eraserButton.bottom = amplitudesChartRightTop.y - 10;
 
-      harmonicsExpandCollapseButton.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+      // Harmonics chart below the Amplitudes chart
+      harmonicsExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
       harmonicsExpandCollapseButton.top = amplitudesChartNode.bottom + 15;
       harmonicsChartNode.x = X_CHART_RECTANGLES;
       harmonicsChartNode.y = harmonicsExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
 
+      // Sum chart below the Harmonics chart
       sumExpandCollapseButton.left = harmonicsExpandCollapseButton.left;
       sumExpandCollapseButton.top = harmonicsChartNode.bottom + 30;
       sumChartNode.x = X_CHART_RECTANGLES;
       sumChartNode.y = sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
 
-      controlPanel.right = this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
-      controlPanel.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
+      // Control panel to the right of the charts
+      controlPanel.right = layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
+      controlPanel.top = layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
 
-      // below control panel
+      // Time control below the control panel
       timeControlNode.left = controlPanel.left + 30;
-      timeControlNode.bottom = this.layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+      timeControlNode.bottom = layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN;
 
-      // bottom right
-      resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
-      resetAllButton.bottom = this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+      // Reset All button at bottom right
+      resetAllButton.right = layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
+      resetAllButton.bottom = layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
     }
 
     // Add everything to one root Node, then add that root Node to the scene graph.
