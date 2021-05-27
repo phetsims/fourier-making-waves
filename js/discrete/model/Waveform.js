@@ -100,19 +100,19 @@ const TRIANGLE = new WaveformValue( {
 
     //TODO handle Domain.SPACE_AND_TIME
     const x = ( domain === Domain.TIME ) ? T : L;
-    const phaseShift = ( seriesType === SeriesType.SINE ) ? 0 : ( -0.25 * x );
+    const shiftX = ( seriesType === SeriesType.SINE ) ? 0 : ( -0.25 * x );
 
     return [
-      new Vector2( -9 * x / 4 + phaseShift, -1 ),
-      new Vector2( -7 * x / 4 + phaseShift, 1 ),
-      new Vector2( -5 * x / 4 + phaseShift, -1 ),
-      new Vector2( -3 * x / 4 + phaseShift, 1 ),
-      new Vector2( -x / 4 + phaseShift, -1 ),
-      new Vector2( x / 4 + phaseShift, 1 ),
-      new Vector2( 3 * x / 4 + phaseShift, -1 ),
-      new Vector2( 5 * x / 4 + phaseShift, 1 ),
-      new Vector2( 7 * x / 4 + phaseShift, -1 ),
-      new Vector2( 9 * x / 4 + phaseShift, 1 )
+      new Vector2( -9 * x / 4 + shiftX, -1 ),
+      new Vector2( -7 * x / 4 + shiftX, 1 ),
+      new Vector2( -5 * x / 4 + shiftX, -1 ),
+      new Vector2( -3 * x / 4 + shiftX, 1 ),
+      new Vector2( -x / 4 + shiftX, -1 ),
+      new Vector2( x / 4 + shiftX, 1 ),
+      new Vector2( 3 * x / 4 + shiftX, -1 ),
+      new Vector2( 5 * x / 4 + shiftX, 1 ),
+      new Vector2( 7 * x / 4 + shiftX, -1 ),
+      new Vector2( 9 * x / 4 + shiftX, 1 )
     ];
   }
 } );
@@ -141,31 +141,31 @@ const SQUARE = new WaveformValue( {
 
     //TODO handle Domain.SPACE_AND_TIME
     const x = ( domain === Domain.TIME ) ? T : L;
-    const phaseShift = ( seriesType === SeriesType.SINE ) ? 0 : ( -0.25 * x );
+    const shiftX = ( seriesType === SeriesType.SINE ) ? 0 : ( -0.25 * x );
 
     return [
-      new Vector2( -5 * x / 2 + phaseShift, 1 ),
-      new Vector2( -5 * x / 2 + phaseShift, -1 ),
-      new Vector2( -2 * x + phaseShift, -1 ),
-      new Vector2( -2 * x + phaseShift, 1 ),
-      new Vector2( -3 * x / 2 + phaseShift, 1 ),
-      new Vector2( -3 * x / 2 + phaseShift, -1 ),
-      new Vector2( -x + phaseShift, -1 ),
-      new Vector2( -x + phaseShift, 1 ),
-      new Vector2( -x / 2 + phaseShift, 1 ),
-      new Vector2( -x / 2 + phaseShift, -1 ),
-      new Vector2( 0 + phaseShift, -1 ),
-      new Vector2( 0 + phaseShift, 1 ),
-      new Vector2( x / 2 + phaseShift, 1 ),
-      new Vector2( x / 2 + phaseShift, -1 ),
-      new Vector2( x + phaseShift, -1 ),
-      new Vector2( x + phaseShift, 1 ),
-      new Vector2( 3 * x / 2 + phaseShift, 1 ),
-      new Vector2( 3 * x / 2 + phaseShift, -1 ),
-      new Vector2( 2 * x + phaseShift, -1 ),
-      new Vector2( 2 * x + phaseShift, 1 ),
-      new Vector2( 5 * x / 2 + phaseShift, 1 ),
-      new Vector2( 5 * x / 2 + phaseShift, -1 )
+      new Vector2( -5 * x / 2 + shiftX, 1 ),
+      new Vector2( -5 * x / 2 + shiftX, -1 ),
+      new Vector2( -2 * x + shiftX, -1 ),
+      new Vector2( -2 * x + shiftX, 1 ),
+      new Vector2( -3 * x / 2 + shiftX, 1 ),
+      new Vector2( -3 * x / 2 + shiftX, -1 ),
+      new Vector2( -x + shiftX, -1 ),
+      new Vector2( -x + shiftX, 1 ),
+      new Vector2( -x / 2 + shiftX, 1 ),
+      new Vector2( -x / 2 + shiftX, -1 ),
+      new Vector2( 0 + shiftX, -1 ),
+      new Vector2( 0 + shiftX, 1 ),
+      new Vector2( x / 2 + shiftX, 1 ),
+      new Vector2( x / 2 + shiftX, -1 ),
+      new Vector2( x + shiftX, -1 ),
+      new Vector2( x + shiftX, 1 ),
+      new Vector2( 3 * x / 2 + shiftX, 1 ),
+      new Vector2( 3 * x / 2 + shiftX, -1 ),
+      new Vector2( 2 * x + shiftX, -1 ),
+      new Vector2( 2 * x + shiftX, 1 ),
+      new Vector2( 5 * x / 2 + shiftX, 1 ),
+      new Vector2( 5 * x / 2 + shiftX, -1 )
     ];
   }
 } );
