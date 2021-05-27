@@ -118,6 +118,10 @@ const FMWColorProfile = new ColorProfile( [ 'default' ], {
 
   guessSumStroke: {
     default: new Color( 0, 0, 0 )
+  },
+
+  infiniteHarmonicsStroke: {
+    default: Color.grayColor( 189 )
   }
 } );
 

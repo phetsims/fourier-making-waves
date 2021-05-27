@@ -15,6 +15,7 @@ import DiscreteSumChart from '../model/DiscreteSumChart.js';
 import Waveform from '../model/Waveform.js';
 import AutoScaleCheckbox from './AutoScaleCheckbox.js';
 import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
+import InfiniteHarmonicsPlot from './InfiniteHarmonicsPlot.js';
 
 class DiscreteSumChartNode extends SumChartNode {
 
@@ -34,6 +35,16 @@ class DiscreteSumChartNode extends SumChartNode {
     const yAutoScaleProperty = sumChart.yAutoScaleProperty;
     const infiniteHarmonicsVisibleProperty = sumChart.infiniteHarmonicsVisibleProperty;
 
+    // Plot for the 'Infinite Harmonics' feature
+    const infiniteHarmonicsPlot = new InfiniteHarmonicsPlot( this.chartTransform,
+      sumChart.infiniteHarmonicsDataSetProperty, infiniteHarmonicsVisibleProperty );
+
+    // When anything about the plot changes, update the associated ChartCanvasNode.
+    infiniteHarmonicsPlot.changedEmitter.addListener( () => this.chartCanvasNode.update() );
+
+    // Put the infiniteHarmonicsPlot behind plots that were added by the superclass.
+    this.chartCanvasNode.setPainters( [ infiniteHarmonicsPlot, ...this.chartCanvasNode.painters ] );
+
     // Disable the y-axis zoom buttons when auto scale is enabled. unlink is not needed.
     if ( this.yZoomButtonGroup ) {
       yAutoScaleProperty.link( yAutoScale => {
@@ -49,15 +60,12 @@ class DiscreteSumChartNode extends SumChartNode {
 
     // Shows the wave that the Fourier series is attempting to approximate
     const infiniteHarmonicsCheckbox = new InfiniteHarmonicsCheckbox( infiniteHarmonicsVisibleProperty, {
-      listener: () => {
-        //TODO make InfiniteHarmonicsPlot visible
-      },
       tandem: options.tandem.createTandem( 'infiniteHarmonicsCheckbox' )
     } );
 
     // Disable infiniteHarmonicsCheckbox for custom and wave-packet waveforms. unlink is not needed.
     waveformProperty.link( waveform => {
-      infiniteHarmonicsCheckbox.enabled = waveform.supportsInfiniteHarmonics();
+      infiniteHarmonicsCheckbox.enabled = waveform.supportsInfiniteHarmonics;
     } );
     infiniteHarmonicsCheckbox.enabledProperty.link( () => infiniteHarmonicsCheckbox.interruptSubtreeInput() );
 

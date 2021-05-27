@@ -31,7 +31,7 @@ class HarmonicPlot extends CanvasLinePlot {
     options = merge( {}, options );
 
     assert && assert( !options.stroke, 'HarmonicPlot sets stroke' );
-    options.stroke = harmonic.colorProperty.value;
+    options.stroke = harmonic.colorProperty.value; // CanvasLinePlot does not support Property.<Color>
 
     super( chartTransform, dataSetProperty.value, options );
 
@@ -47,8 +47,8 @@ class HarmonicPlot extends CanvasLinePlot {
       this.changedEmitter.emit();
     } );
 
-    // Keep the plot's stroke in sync with the harmonic's color. Harmonic colors can be changed via
-    // fourier-making-waves-colors.html, or (perhaps in the future) via PHET-iO.
+    // CanvasLinePlot does not support Property.<Color> for its stroke option.
+    // So it's the client's responsibility to keep the plot in sync with the ColorProfile.
     // unlink is not needed.
     harmonic.colorProperty.lazyLink( color => {
       this.setStroke( color );
@@ -58,6 +58,7 @@ class HarmonicPlot extends CanvasLinePlot {
     // Hide the plot when its amplitude is zero.
     harmonic.amplitudeProperty.link( amplitude => {
       this.visible = ( amplitude !== 0 );
+      this.changedEmitter.emit();
     } );
   }
 }

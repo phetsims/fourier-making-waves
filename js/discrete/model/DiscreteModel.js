@@ -173,7 +173,8 @@ class DiscreteModel {
 
     // @public
     this.sumChart = new DiscreteSumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
-      this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, sumYAxisDescriptionProperty, {
+      this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, sumYAxisDescriptionProperty,
+      this.waveformProperty, {
         tandem: options.tandem.createTandem( 'sumChart' )
       } );
 

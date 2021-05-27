@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
 import SeriesType from '../../common/model/SeriesType.js';
@@ -51,15 +52,7 @@ class WaveformValue {
     // @public (read-only)
     this.getAmplitudes = options.getAmplitudes;
     this.getInfiniteHarmonicsDataSet = options.getInfiniteHarmonicsDataSet;
-  }
-
-  /**
-   * Does this waveform support the Infinite Harmonics feature?
-   * @returns {boolean}
-   * @public
-   */
-  supportsInfiniteHarmonics() {
-    return !!this.getInfiniteHarmonicsDataSet;
+    this.supportsInfiniteHarmonics = !!this.getInfiniteHarmonicsDataSet;
   }
 }
 
@@ -76,7 +69,7 @@ const SINUSOID = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
-    return []; //TODO
+    return [ new Vector2( -1, 1 ), new Vector2( 1, 1 ) ]; //TODO same as the data set for the fundamental harmonic
   }
 } );
 
@@ -101,7 +94,7 @@ const TRIANGLE = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
-    //TODO
+    return [ new Vector2( -1, 1 ), new Vector2( 1, 1 ) ]; //TODO
   }
 } );
 
@@ -126,7 +119,7 @@ const SQUARE = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
-    return []; //TODO
+    return [ new Vector2( -1, 1 ), new Vector2( 1, 1 ) ]; //TODO
   }
 } );
 
@@ -148,7 +141,7 @@ const SAWTOOTH = new WaveformValue( {
 
   getInfiniteHarmonicsDataSet: ( xRange, peakAmplitude, domain, seriesType, t, L, T ) => {
     //TODO there is no cosine form of Waveform.SAW_TOOTH
-    return []; //TODO
+    return [ new Vector2( -1, 1 ), new Vector2( 1, 1 ) ]; //TODO
   }
 } );
 
