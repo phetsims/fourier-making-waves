@@ -65,7 +65,7 @@ class AmplitudeSlider extends AudibleSlider {
       // AudibleSlider options
       orientation: Orientation.VERTICAL,
 
-      // pdom
+      // pdom options
       keyboardStep: FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL,
       shiftKeyboardStep: 1 / Math.pow( 10, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES ), // finer grain
       pageKeyboardStep: 2 * FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL, // coarser grain
