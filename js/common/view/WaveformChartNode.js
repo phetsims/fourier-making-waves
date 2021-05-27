@@ -73,12 +73,10 @@ class WaveformChartNode extends Node {
 
     options = merge( {
 
+      //TODO nest these under chartTransformOptions
       // {number} dimensions of the chart rectangle, in view coordinates
       viewWidth: 100,
       viewHeight: 100,
-
-      xTickDecimalPlaces: 2,
-      yTickDecimalPlaces: 1,
 
       // phet-io
       tandem: Tandem.REQUIRED
