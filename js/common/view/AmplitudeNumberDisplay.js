@@ -39,6 +39,7 @@ class AmplitudeNumberDisplay extends VBox {
 
     options = merge( {
 
+      // AmplitudeNumberDisplay options
       // {function} called when there's a press anywhere on this Node
       press: _.noop,
 

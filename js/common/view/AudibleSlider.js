@@ -34,9 +34,13 @@ class AudibleSlider extends Slider {
   constructor( property, range, options ) {
 
     options = merge( {
-      snapInterval: 1,
+
+      // AudibleSlider options
       minMaxSound: DEFAULT_MIN_MAX_SOUND,
-      snapSound: DEFAULT_SNAP_SOUND
+      snapSound: DEFAULT_SNAP_SOUND,
+
+      // Slider options
+      snapInterval: 1
     }, options );
 
     assert && assert( options.snapInterval > 0, `invalid snapInterval: ${options.snapInterval}` );

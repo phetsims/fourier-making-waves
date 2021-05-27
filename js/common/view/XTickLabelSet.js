@@ -44,7 +44,11 @@ class XTickLabelSet extends LabelSet {
     assert && AssertUtils.assertPositiveNumber( T );
 
     options = merge( {
+
+      // XTickLabelSet options
       decimalPlaces: 2,
+
+      // LabelSet options
       edge: 'min'
     }, options );
 

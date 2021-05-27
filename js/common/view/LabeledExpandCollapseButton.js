@@ -26,16 +26,16 @@ class LabeledExpandCollapseButton extends HBox {
 
     options = merge( {
 
-      // options propagated to ExpandCollapseButton
+      // HBox options
+      spacing: 6,
+
+      // ExpandCollapseButton options
       expandCollapseButtonOptions: FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS,
 
-      // options propagated to Text
+      // Text options
       textOptions: {
         font: FMWConstants.TITLE_FONT
       },
-
-      // HBox options
-      spacing: 6,
 
       // phet-io
       tandem: Tandem.REQUIRED

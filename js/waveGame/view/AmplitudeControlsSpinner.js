@@ -25,7 +25,8 @@ class AmplitudeControlsSpinner extends VBox {
     assert && assert( numberOfAmplitudeControlsProperty instanceof NumberProperty );
 
     options = merge( {
-      spacing: 10,
+
+      // NumberSpinner options
       spinnerOptions: {
         arrowsPosition: 'leftRight',
         numberDisplayOptions: {
@@ -42,9 +43,14 @@ class AmplitudeControlsSpinner extends VBox {
         mouseAreaXDilation: 5,
         mouseAreaYDilation: 5
       },
+
+      // Text options
       textOptions: {
         maxWidth: 120
-      }
+      },
+
+      // VBox options
+      spacing: 10
     }, options );
 
     const amplitudeControlsText = new Text( fourierMakingWavesStrings.amplitudeControls, options.textOptions );

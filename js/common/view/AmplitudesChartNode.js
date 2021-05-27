@@ -51,6 +51,7 @@ class AmplitudesChartNode extends Node {
 
     options = merge( {
 
+      // AmplitudesChartNode options
       // {function} called when the user starts editing any amplitude value
       onEdit: _.noop,
 

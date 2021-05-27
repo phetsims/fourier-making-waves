@@ -32,6 +32,8 @@ class FMWComboBox extends ComboBox {
     assert && assert( listboxParent instanceof Node );
 
     options = merge( {
+
+      // RichText options
       textOptions: {
         font: FMWConstants.CONTROL_FONT
       },

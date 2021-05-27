@@ -29,7 +29,11 @@ class YTickLabelSet extends LabelSet {
     assert && AssertUtils.assertPositiveNumber( spacing );
 
     options = merge( {
+
+      // YTickLabelSet options
       decimalPlaces: 1,
+
+      // LabelSet options
       edge: 'min'
     }, options );
 

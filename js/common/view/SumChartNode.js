@@ -28,6 +28,8 @@ class SumChartNode extends WaveformChartNode {
     assert && assert( sumChart instanceof SumChart );
 
     options = merge( {
+
+      // SumChartNode options
       sumPlotStrokeProperty: FMWColorProfile.sumStrokeProperty,
       sumPlotLineWidth: 1,
 

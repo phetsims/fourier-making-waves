@@ -52,6 +52,7 @@ class AmplitudeSlider extends AudibleSlider {
 
     options = merge( {
 
+      // AmplitudeSlider options
       // {function} called when there's a press anywhere on this Node
       press: _.noop,
 

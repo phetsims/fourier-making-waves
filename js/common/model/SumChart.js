@@ -40,7 +40,11 @@ class SumChart extends WaveformChart {
       'yAxisDescriptionProperty should have been instantiated with validValues option' );
 
     options = merge( {
+
+      // SumChart options
       yAutoScaleProperty: null, // {null|Property.<boolean>}
+
+      // phet-io
       tandem: Tandem.REQUIRED
     }, options );
 

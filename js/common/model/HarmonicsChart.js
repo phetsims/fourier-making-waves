@@ -37,7 +37,11 @@ class HarmonicsChart extends WaveformChart {
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
 
     options = merge( {
+
+      // HarmonicsChart options
       yAxisDescriptionIndex: 0,
+
+      // phet-io
       tandem: Tandem.REQUIRED
     }, options );
 

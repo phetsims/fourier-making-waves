@@ -27,10 +27,14 @@ class StringDisplay extends Node {
   constructor( stringProperty, options ) {
 
     options = merge( {
+
+      // StringDisplay options
       width: 100,
       height: 50,
       xMargin: 0,
       yMargin: 0,
+
+      // Rectangle options
       rectangleOptions: {
         width: 100,
         height: 50,
@@ -38,6 +42,8 @@ class StringDisplay extends Node {
         fill: 'white',
         stroke: 'black'
       },
+
+      // Text options
       textOptions: {
         fill: 'black',
         font: DEFAULT_FONT
