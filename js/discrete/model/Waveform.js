@@ -144,6 +144,7 @@ const SQUARE = new WaveformValue( {
     const phaseShift = ( seriesType === SeriesType.SINE ) ? 0 : ( -0.25 * x );
 
     return [
+      new Vector2( -5 * x / 2 + phaseShift, 1 ),
       new Vector2( -5 * x / 2 + phaseShift, -1 ),
       new Vector2( -2 * x + phaseShift, -1 ),
       new Vector2( -2 * x + phaseShift, 1 ),
@@ -163,7 +164,8 @@ const SQUARE = new WaveformValue( {
       new Vector2( 3 * x / 2 + phaseShift, -1 ),
       new Vector2( 2 * x + phaseShift, -1 ),
       new Vector2( 2 * x + phaseShift, 1 ),
-      new Vector2( 5 * x / 2 + phaseShift, 1 )
+      new Vector2( 5 * x / 2 + phaseShift, 1 ),
+      new Vector2( 5 * x / 2 + phaseShift, -1 )
     ];
   }
 } );
