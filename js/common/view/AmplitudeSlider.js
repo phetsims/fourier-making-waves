@@ -66,9 +66,10 @@ class AmplitudeSlider extends AudibleSlider {
       orientation: Orientation.VERTICAL,
 
       // pdom options
-      keyboardStep: FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL,
-      shiftKeyboardStep: 1 / Math.pow( 10, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES ), // finer grain
-      pageKeyboardStep: 2 * FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL, // coarser grain
+      // slider steps, see https://github.com/phetsims/fourier-making-waves/issues/53
+      keyboardStep: 0.1,
+      shiftKeyboardStep: 0.01, // finer grain
+      pageKeyboardStep: 0.25, // coarser grain
 
       // phet-io options
       tandem: Tandem.REQUIRED
