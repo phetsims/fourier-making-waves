@@ -43,10 +43,13 @@ class WaveGameScreenView extends ScreenView {
 
     super( options );
 
+    // To improve readability
+    const layoutBounds = this.layoutBounds;
+
     const gameAudioPlayer = new GameAudioPlayer();
 
     // UI for level selection and other game settings
-    const levelSelectionNode = new WaveGameLevelSelectionNode( model, this.layoutBounds, {
+    const levelSelectionNode = new WaveGameLevelSelectionNode( model, layoutBounds, {
       resetCallback: () => {
         model.reset();
         this.reset();
@@ -56,7 +59,7 @@ class WaveGameScreenView extends ScreenView {
 
     // @private {SolveItSceneNode[]} a Node for each level of the game
     this.levelNodes = _.map( model.levels, level => new WaveGameLevelNode( level, model.levelProperty,
-      this.layoutBounds, this.visibleBoundsProperty, gameAudioPlayer, {
+      layoutBounds, this.visibleBoundsProperty, gameAudioPlayer, {
         tandem: options.tandem.createTandem( `level${level.levelNumber}Node` )
       } ) );
 
