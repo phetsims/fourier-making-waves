@@ -41,7 +41,7 @@ class ContinuousScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
 
-    // Layout, spacing set empirically
+    // Layout, constants determined empirically
     {
       // bottom right
       resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;

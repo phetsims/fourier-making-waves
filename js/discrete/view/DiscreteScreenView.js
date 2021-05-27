@@ -236,7 +236,7 @@ class DiscreteScreenView extends ScreenView {
       tandem: measurementToolsTandem.createTandem( 'periodClockNode' )
     } );
 
-    // Layout, spacing set empirically
+    // Layout, constants determined empirically
     {
       amplitudesChartNode.x = X_CHART_RECTANGLES;
       amplitudesChartNode.y = 54;
