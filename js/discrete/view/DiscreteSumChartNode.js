@@ -81,11 +81,9 @@ class DiscreteSumChartNode extends SumChartNode {
     // Interrupt interaction when visibility changes.
     this.visibleProperty.link( () => this.interruptSubtreeInput() );
 
-    // pdom - traversal order
+    // pdom - append to the superclass traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53
-    const pDomOrder = this.getPDOMOrder();
-    pDomOrder.push( autoScaleCheckbox, infiniteHarmonicsCheckbox );
-    this.pdomOrder = pDomOrder;
+    this.pdomOrder = this.getPDOMOrder().concat( [ autoScaleCheckbox, infiniteHarmonicsCheckbox ] );
   }
 }
 
