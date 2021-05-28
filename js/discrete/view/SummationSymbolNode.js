@@ -1,4 +1,4 @@
-// Copyright 2020, University of Colorado Boulder
+// Copyright 2020-2021, University of Colorado Boulder
 
 /**
  * SummationSymbolNode displays a typical summation symbol, showing the index symbol and range of the index.
