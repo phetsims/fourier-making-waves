@@ -1,5 +1,6 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
+//TODO use Vector2.createFromPool
 /**
  * Waveform is a rich enumeration for the preset waveforms that appear in the 'Discrete' screen.
  * These preset waveforms are all based on a peak amplitude of 1.
@@ -97,12 +98,10 @@ const TRIANGLE = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
-
-    //TODO handle Domain.SPACE_AND_TIME
-    const x = ( domain === Domain.TIME ) ? T : L;
-    const shiftX = ( seriesType === SeriesType.SINE ) ? 0 : ( -0.25 * x );
-
+    const x = getX( domain, L, T );
+    const shiftX = getShiftX( domain, seriesType, x, t, L, T );
     return [
+      new Vector2( -11 * x / 4 + shiftX, 1 ),
       new Vector2( -9 * x / 4 + shiftX, -1 ),
       new Vector2( -7 * x / 4 + shiftX, 1 ),
       new Vector2( -5 * x / 4 + shiftX, -1 ),
@@ -112,7 +111,8 @@ const TRIANGLE = new WaveformValue( {
       new Vector2( 3 * x / 4 + shiftX, -1 ),
       new Vector2( 5 * x / 4 + shiftX, 1 ),
       new Vector2( 7 * x / 4 + shiftX, -1 ),
-      new Vector2( 9 * x / 4 + shiftX, 1 )
+      new Vector2( 9 * x / 4 + shiftX, 1 ),
+      new Vector2( 11 * x / 4 + shiftX, -1 )
     ];
   }
 } );
@@ -138,12 +138,11 @@ const SQUARE = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
-
-    //TODO handle Domain.SPACE_AND_TIME
-    const x = ( domain === Domain.TIME ) ? T : L;
-    const shiftX = ( seriesType === SeriesType.SINE ) ? 0 : ( -0.25 * x );
-
+    const x = getX( domain, L, T );
+    const shiftX = getShiftX( domain, seriesType, x, t, L, T );
     return [
+      new Vector2( -3 * x + shiftX, -1 ),
+      new Vector2( -3 * x + shiftX, 1 ),
       new Vector2( -5 * x / 2 + shiftX, 1 ),
       new Vector2( -5 * x / 2 + shiftX, -1 ),
       new Vector2( -2 * x + shiftX, -1 ),
@@ -165,7 +164,9 @@ const SQUARE = new WaveformValue( {
       new Vector2( 2 * x + shiftX, -1 ),
       new Vector2( 2 * x + shiftX, 1 ),
       new Vector2( 5 * x / 2 + shiftX, 1 ),
-      new Vector2( 5 * x / 2 + shiftX, -1 )
+      new Vector2( 5 * x / 2 + shiftX, -1 ),
+      new Vector2( 3 * x + shiftX, -1 ),
+      new Vector2( 3 * x + shiftX, 1 )
     ];
   }
 } );
@@ -193,22 +194,25 @@ const SAWTOOTH = new WaveformValue( {
       return [];
     }
 
-    //TODO handle Domain.SPACE_AND_TIME
-    const x = ( domain === Domain.TIME ) ? T : L;
-
-    // sine
+    const x = getX( domain, L, T );
+    const shiftX = getShiftX( domain, seriesType, x, t, L, T );
     return [
-      new Vector2( -5 * x / 2, 1 ),
-      new Vector2( -5 * x / 2, -1 ),
-      new Vector2( -3 * x / 2, 1 ),
-      new Vector2( -3 * x / 2, -1 ),
-      new Vector2( -x / 2, 1 ),
-      new Vector2( -x / 2, -1 ),
-      new Vector2( x / 2, 1 ),
-      new Vector2( x / 2, -1 ),
-      new Vector2( 3 * x / 2, 1 ),
-      new Vector2( 3 * x / 2, -1 ),
-      new Vector2( 5 * x / 2, 1 )
+      new Vector2( -7 * x / 2 + shiftX, 1 ),
+      new Vector2( -7 * x / 2 + shiftX, -1 ),
+      new Vector2( -5 * x / 2 + shiftX, 1 ),
+      new Vector2( -5 * x / 2 + shiftX, -1 ),
+      new Vector2( -3 * x / 2 + shiftX, 1 ),
+      new Vector2( -3 * x / 2 + shiftX, -1 ),
+      new Vector2( -x / 2 + shiftX, 1 ),
+      new Vector2( -x / 2 + shiftX, -1 ),
+      new Vector2( x / 2 + shiftX, 1 ),
+      new Vector2( x / 2 + shiftX, -1 ),
+      new Vector2( 3 * x / 2 + shiftX, 1 ),
+      new Vector2( 3 * x / 2 + shiftX, -1 ),
+      new Vector2( 5 * x / 2 + shiftX, 1 ),
+      new Vector2( 5 * x / 2 + shiftX, -1 ),
+      new Vector2( 7 * x / 2 + shiftX, 1 ),
+      new Vector2( 7 * x / 2 + shiftX, -1 )
     ];
   }
 } );
@@ -255,6 +259,41 @@ const WAVE_PACKET = new WaveformValue( {
 } );
 
 const CUSTOM = new WaveformValue();
+
+/**
+ * Gets the quantity to use for the x axis, based on domain.
+ * @param {Domain} domain
+ * @param {number} L
+ * @param {number} T
+ * @returns {number}
+ */
+function getX( domain, L, T ) {
+  return ( domain === Domain.TIME ) ? T : L;
+}
+
+/**
+ * Gets the amount to shift the waveform along the x axis.
+ * @param {Domain} domain
+ * @param {SeriesType} seriesType
+ * @param {number} x
+ * @param {number} t
+ * @param {number} L
+ * @param {number} T
+ * @returns {number}
+ */
+function getShiftX( domain, seriesType, x, t, L, T ) {
+
+  // cosine shift the waveform left by 1/4 of the wavelength or period.
+  let shiftX = ( seriesType === SeriesType.SINE ) ? 0 : ( -0.25 * x );
+
+  // space & time shifts the waveform by a portion of the wavelength or period.
+  if ( domain === Domain.SPACE_AND_TIME ) {
+    const remainder = ( t / T - x / L ) % 1;
+    shiftX += ( remainder * x );
+  }
+
+  return shiftX;
+}
 
 const Waveform = Enumeration.byMap( {
   SINUSOID: SINUSOID,
