@@ -1,6 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 //TODO document *_BASE_POINTS, x coordinates are coefficients, why they need more points than range, etc.
+//TODO ... or create functions to produce *_BASE_POINTS
 /**
  * Waveform is a rich enumeration for the preset waveforms that appear in the 'Discrete' screen.
  * These preset waveforms are all based on a peak amplitude of 1.
