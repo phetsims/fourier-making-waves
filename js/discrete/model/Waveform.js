@@ -266,13 +266,14 @@ const CUSTOM = new WaveformValue( {
 } );
 
 /**
- * Maps an array of base points to a data set that is appropriate for the domain, etc.
+ * Take an array of base points that describe an 'infinite harmonics' waveform, map it to a data set that is
+ * appropriate for a specified domain, seriesType, etc.
  * @param {Vector2[]} basePoints
  * @param {Domain} domain
- * @param {SeriesType} seriesType
- * @param {number} t
- * @param {number} L
- * @param {number} T
+ * @param {SeriesType} seriesType - sine or cosine
+ * @param {number} t - the current time
+ * @param {number} L - wavelength of the fundamental harmonic, in meters
+ * @param {number} T - period of the fundamental harmonic, in milliseconds
  * @returns {Vector2[]}
  */
 function mapBasePointsToDataSet( basePoints, domain, seriesType, t, L, T ) {
