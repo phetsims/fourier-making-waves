@@ -284,7 +284,7 @@ function mapBasePointsToDataSet( basePoints, domain, seriesType, t, L, T ) {
   // cosine shift the waveform left by 1/4 of the wavelength or period.
   let shiftX = ( seriesType === SeriesType.SINE ) ? 0 : ( -0.25 * x );
 
-  // space & time shifts the waveform by a portion of the wavelength or period.
+  // space & time shifts the waveform by a portion of the wavelength
   if ( domain === Domain.SPACE_AND_TIME ) {
     const remainder = ( t / T - x / L ) % 1;
     shiftX += ( remainder * x );
