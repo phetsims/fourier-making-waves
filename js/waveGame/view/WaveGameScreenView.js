@@ -68,7 +68,7 @@ class WaveGameScreenView extends ScreenView {
       children: this.levelNodes
     } );
 
-    // Handles the animated 'slide' transition between level-selection and challenges (scenesParent)
+    // Handles the animated 'slide' transition between level-selection and levels
     this.transitionNode = new TransitionNode( this.visibleBoundsProperty, {
       content: ( model.levelProperty.value === null ) ? levelSelectionNode : levelsParent,
       cachedNodes: [ levelSelectionNode, levelsParent ]
