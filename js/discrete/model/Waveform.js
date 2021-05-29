@@ -1,7 +1,5 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
-//TODO document *_BASE_POINTS, x coordinates are coefficients, why they need more points than range, etc.
-//TODO ... or create functions to produce *_BASE_POINTS
 /**
  * Waveform is a rich enumeration for the preset waveforms that appear in the 'Discrete' screen.
  * These preset waveforms are all based on a peak amplitude of 1.
@@ -24,6 +22,77 @@ const PI = Math.PI; // to improve readability
 // {Vector2[]} arrays herein are hardcoded, ported from Preset.java.
 assert && assert( DiscreteXAxisDescriptions[ 0 ].range.max === 2,
   'hardcoded points herein assume that the maximum x-axis multiplier is 2' );
+
+//TODO document *_BASE_POINTS, x coordinates are coefficients, why they need more points than range, etc.
+//TODO ... or create functions to produce *_BASE_POINTS
+const BASE_POINTS = {
+
+  // Ported from Preset.java SINE_TRIANGLE_POINTS
+  TRIANGLE: [
+    new Vector2( -11 / 4, 1 ),
+    new Vector2( -9 / 4, -1 ),
+    new Vector2( -7 / 4, 1 ),
+    new Vector2( -5 / 4, -1 ),
+    new Vector2( -3 / 4, 1 ),
+    new Vector2( -1 / 4, -1 ),
+    new Vector2( 1 / 4, 1 ),
+    new Vector2( 3 / 4, -1 ),
+    new Vector2( 5 / 4, 1 ),
+    new Vector2( 7 / 4, -1 ),
+    new Vector2( 9 / 4, 1 ),
+    new Vector2( 11 / 4, -1 )
+  ],
+
+  // Ported from Preset.java SINE_SQUARE_POINTS
+  SQUARE: [
+    new Vector2( -3, -1 ),
+    new Vector2( -3, 1 ),
+    new Vector2( -5 / 2, 1 ),
+    new Vector2( -5 / 2, -1 ),
+    new Vector2( -2, -1 ),
+    new Vector2( -2, 1 ),
+    new Vector2( -3 / 2, 1 ),
+    new Vector2( -3 / 2, -1 ),
+    new Vector2( -1, -1 ),
+    new Vector2( -1, 1 ),
+    new Vector2( -1 / 2, 1 ),
+    new Vector2( -1 / 2, -1 ),
+    new Vector2( 0, -1 ),
+    new Vector2( 0, 1 ),
+    new Vector2( 1 / 2, 1 ),
+    new Vector2( 1 / 2, -1 ),
+    new Vector2( 1, -1 ),
+    new Vector2( 1, 1 ),
+    new Vector2( 3 / 2, 1 ),
+    new Vector2( 3 / 2, -1 ),
+    new Vector2( 2, -1 ),
+    new Vector2( 2, 1 ),
+    new Vector2( 5 / 2, 1 ),
+    new Vector2( 5 / 2, -1 ),
+    new Vector2( 3, -1 ),
+    new Vector2( 3, 1 )
+  ],
+
+  // Ported from Preset.java SINE_SAWTOOTH_POINTS
+  SAWTOOTH: [
+    new Vector2( -7 / 2, 1 ),
+    new Vector2( -7 / 2, -1 ),
+    new Vector2( -5 / 2, 1 ),
+    new Vector2( -5 / 2, -1 ),
+    new Vector2( -3 / 2, 1 ),
+    new Vector2( -3 / 2, -1 ),
+    new Vector2( -1 / 2, 1 ),
+    new Vector2( -1 / 2, -1 ),
+    new Vector2( 1 / 2, 1 ),
+    new Vector2( 1 / 2, -1 ),
+    new Vector2( 3 / 2, 1 ),
+    new Vector2( 3 / 2, -1 ),
+    new Vector2( 5 / 2, 1 ),
+    new Vector2( 5 / 2, -1 ),
+    new Vector2( 7 / 2, 1 ),
+    new Vector2( 7 / 2, -1 )
+  ]
+};
 
 class WaveformValue {
 
@@ -75,23 +144,8 @@ const SINUSOID = new WaveformValue( {
     return amplitudes;
   }
 
-  // mapBasePointsToDataSet is not needed. The sum is an exact approximation, and we'll reuse its data set.
+  // getInfiniteHarmonicsDataSet is not needed. The sum is an exact approximation, and we'll reuse its data set.
 } );
-
-const TRIANGLE_BASE_POINTS = [
-  new Vector2( -11 / 4, 1 ),
-  new Vector2( -9 / 4, -1 ),
-  new Vector2( -7 / 4, 1 ),
-  new Vector2( -5 / 4, -1 ),
-  new Vector2( -3 / 4, 1 ),
-  new Vector2( -1 / 4, -1 ),
-  new Vector2( 1 / 4, 1 ),
-  new Vector2( 3 / 4, -1 ),
-  new Vector2( 5 / 4, 1 ),
-  new Vector2( 7 / 4, -1 ),
-  new Vector2( 9 / 4, 1 ),
-  new Vector2( 11 / 4, -1 )
-];
 
 const TRIANGLE = new WaveformValue( {
 
@@ -114,38 +168,9 @@ const TRIANGLE = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
-    return mapBasePointsToDataSet( TRIANGLE_BASE_POINTS, domain, seriesType, t, L, T );
+    return mapBasePointsToDataSet( BASE_POINTS.TRIANGLE, domain, seriesType, t, L, T );
   }
 } );
-
-const SQUARE_BASE_POINTS = [
-  new Vector2( -3, -1 ),
-  new Vector2( -3, 1 ),
-  new Vector2( -5 / 2, 1 ),
-  new Vector2( -5 / 2, -1 ),
-  new Vector2( -2, -1 ),
-  new Vector2( -2, 1 ),
-  new Vector2( -3 / 2, 1 ),
-  new Vector2( -3 / 2, -1 ),
-  new Vector2( -1, -1 ),
-  new Vector2( -1, 1 ),
-  new Vector2( -1 / 2, 1 ),
-  new Vector2( -1 / 2, -1 ),
-  new Vector2( 0, -1 ),
-  new Vector2( 0, 1 ),
-  new Vector2( 1 / 2, 1 ),
-  new Vector2( 1 / 2, -1 ),
-  new Vector2( 1, -1 ),
-  new Vector2( 1, 1 ),
-  new Vector2( 3 / 2, 1 ),
-  new Vector2( 3 / 2, -1 ),
-  new Vector2( 2, -1 ),
-  new Vector2( 2, 1 ),
-  new Vector2( 5 / 2, 1 ),
-  new Vector2( 5 / 2, -1 ),
-  new Vector2( 3, -1 ),
-  new Vector2( 3, 1 )
-];
 
 const SQUARE = new WaveformValue( {
 
@@ -168,28 +193,9 @@ const SQUARE = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
-    return mapBasePointsToDataSet( SQUARE_BASE_POINTS, domain, seriesType, t, L, T );
+    return mapBasePointsToDataSet( BASE_POINTS.SQUARE, domain, seriesType, t, L, T );
   }
 } );
-
-const SAWTOOTH_BASE_POINTS = [
-  new Vector2( -7 / 2, 1 ),
-  new Vector2( -7 / 2, -1 ),
-  new Vector2( -5 / 2, 1 ),
-  new Vector2( -5 / 2, -1 ),
-  new Vector2( -3 / 2, 1 ),
-  new Vector2( -3 / 2, -1 ),
-  new Vector2( -1 / 2, 1 ),
-  new Vector2( -1 / 2, -1 ),
-  new Vector2( 1 / 2, 1 ),
-  new Vector2( 1 / 2, -1 ),
-  new Vector2( 3 / 2, 1 ),
-  new Vector2( 3 / 2, -1 ),
-  new Vector2( 5 / 2, 1 ),
-  new Vector2( 5 / 2, -1 ),
-  new Vector2( 7 / 2, 1 ),
-  new Vector2( 7 / 2, -1 )
-];
 
 const SAWTOOTH = new WaveformValue( {
 
@@ -208,7 +214,7 @@ const SAWTOOTH = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
-    return mapBasePointsToDataSet( SAWTOOTH_BASE_POINTS, domain, seriesType, t, L, T );
+    return mapBasePointsToDataSet( BASE_POINTS.SAWTOOTH, domain, seriesType, t, L, T );
   }
 } );
 
@@ -250,9 +256,14 @@ const WAVE_PACKET = new WaveformValue( {
       [ 0.075574, 0.191495, 0.394652, 0.661515, 0.901851, 1.000000, 0.901851, 0.661515, 0.394652, 0.191495, 0.075574 ]
     ][ numberOfHarmonics - 1 ];
   }
+
+  // getInfiniteHarmonicsDataSet is not supported
 } );
 
-const CUSTOM = new WaveformValue();
+const CUSTOM = new WaveformValue( {
+  // getAmplitudes is not supported
+  // getInfiniteHarmonicsDataSet is not supported
+} );
 
 /**
  * Maps an array of base points to a data set that is appropriate for the domain, etc.
