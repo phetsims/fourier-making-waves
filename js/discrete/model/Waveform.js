@@ -23,9 +23,9 @@ const PI = Math.PI; // to improve readability
 assert && assert( DiscreteXAxisDescriptions[ 0 ].range.max === 2,
   'hardcoded points herein assume that the maximum x-axis multiplier is 2' );
 
-//TODO document *_BASE_POINTS, x coordinates are coefficients, why they need more points than range, etc.
-//TODO ... or create functions to produce *_BASE_POINTS
-const BASE_POINTS = {
+//TODO Document INFINITE_HARMONICS_BASE_POINTS, x coordinates are coefficients, why we need more points than x range
+// to accommodate shiftX, etc.  ... or create functions to produce INFINITE_HARMONICS_BASE_POINTS
+const INFINITE_HARMONICS_BASE_POINTS = {
 
   // Ported from Preset.java SINE_TRIANGLE_POINTS
   TRIANGLE: [
@@ -168,7 +168,7 @@ const TRIANGLE = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
-    return mapBasePointsToDataSet( BASE_POINTS.TRIANGLE, domain, seriesType, t, L, T );
+    return mapBasePointsToDataSet( INFINITE_HARMONICS_BASE_POINTS.TRIANGLE, domain, seriesType, t, L, T );
   }
 } );
 
@@ -193,7 +193,7 @@ const SQUARE = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
-    return mapBasePointsToDataSet( BASE_POINTS.SQUARE, domain, seriesType, t, L, T );
+    return mapBasePointsToDataSet( INFINITE_HARMONICS_BASE_POINTS.SQUARE, domain, seriesType, t, L, T );
   }
 } );
 
@@ -214,7 +214,7 @@ const SAWTOOTH = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
-    return mapBasePointsToDataSet( BASE_POINTS.SAWTOOTH, domain, seriesType, t, L, T );
+    return mapBasePointsToDataSet( INFINITE_HARMONICS_BASE_POINTS.SAWTOOTH, domain, seriesType, t, L, T );
   }
 } );
 
