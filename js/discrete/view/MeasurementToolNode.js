@@ -156,6 +156,9 @@ class MeasurementToolNode extends Node {
       shiftDragVelocity: 20 // finer-grained
     } );
     this.addInputListener( keyboardDragListener );
+
+    // @public
+    this.positionProperty = positionProperty;
   }
 
   /**

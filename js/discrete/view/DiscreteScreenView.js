@@ -8,6 +8,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
@@ -343,14 +344,14 @@ class DiscreteScreenView extends ScreenView {
     function resetMeasurementToolPositions() {
 
       // Caliper-like tools are positioned at (minX,0) on the Harmonics chart.
-      wavelengthCalipersNode.x = harmonicsChartRectangleLocalBounds.left;
-      wavelengthCalipersNode.bottom = harmonicsChartRectangleLocalBounds.centerY;
-      periodCalipersNode.x = harmonicsChartRectangleLocalBounds.left;
-      periodCalipersNode.bottom = harmonicsChartRectangleLocalBounds.centerY;
+      wavelengthCalipersNode.positionProperty.value = harmonicsChartRectangleLocalBounds.leftCenter;
+      periodCalipersNode.positionProperty.value = harmonicsChartRectangleLocalBounds.leftCenter;
 
       // Clock-like tool is in the space between the Harmonics and Sum chart, right justified.
-      periodClockNode.right = harmonicsChartRectangleLocalBounds.right;
-      periodClockNode.centerY = harmonicsChartRectangleLocalBounds.maxY + ( sumChartRectangleLocalBounds.minY - harmonicsChartRectangleLocalBounds.maxY ) / 2;
+      periodClockNode.positionProperty.value = new Vector2(
+        harmonicsChartRectangleLocalBounds.right,
+        harmonicsChartRectangleLocalBounds.maxY + ( sumChartRectangleLocalBounds.minY - harmonicsChartRectangleLocalBounds.maxY ) / 2
+      );
     }
 
     // Call this after layout has been done, since tool positions are relative to other Nodes.
