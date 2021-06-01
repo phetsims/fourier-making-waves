@@ -22,12 +22,7 @@ const SCHEMA = {
 
   // Shows the reward after any correct answer, for testing the Wave Game reward.
   // For internal use only, not public facing.
-  showReward: { type: 'flag' },
-
-  //TODO delete this
-  // Shortcut for enabling alternative input. This sets supportsInteractiveDescription=true.
-  // For internal use only, not public facing.
-  ai: { type: 'flag' }
+  showReward: { type: 'flag' }
 };
 
 const FMWQueryParameters = QueryStringMachine.getAll( SCHEMA );
