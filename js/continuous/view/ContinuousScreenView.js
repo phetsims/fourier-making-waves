@@ -41,16 +41,19 @@ class ContinuousScreenView extends ScreenView {
     // Parent for all popups
     const popupParent = new Node();
 
+    // TODO placeholder
     const amplitudesChartNode = new Rectangle( 0, 0, DiscreteScreenView.CHART_RECTANGLE_SIZE.width, DiscreteScreenView.CHART_RECTANGLE_SIZE.height, {
       stroke: 'black',
       fill: 'white'
     } );
 
+    // TODO placeholder
     const componentsChartNode = new Rectangle( 0, 0, DiscreteScreenView.CHART_RECTANGLE_SIZE.width, DiscreteScreenView.CHART_RECTANGLE_SIZE.height, {
       stroke: 'black',
       fill: 'white'
     } );
 
+    // TODO placeholder
     const sumChartNode = new Rectangle( 0, 0, DiscreteScreenView.CHART_RECTANGLE_SIZE.width, DiscreteScreenView.CHART_RECTANGLE_SIZE.height, {
       stroke: 'black',
       fill: 'white'
