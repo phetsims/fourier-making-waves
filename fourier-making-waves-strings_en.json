@@ -221,7 +221,7 @@
   "wavePacketWidthText": {
     "value": "Wave Packet Width"
   },
-  "graphControls": {
-    "value": "Graph Controls"
+  "componentsChart": {
+    "value": "Components"
   }
 }
