@@ -15,6 +15,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Domain from '../../common/model/Domain.js';
+import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import ContinuousChartsModel from './ContinuousChartsModel.js';
 
@@ -73,6 +74,11 @@ class ContinuousModel {
     this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE, {
       validValues: [ Domain.SPACE, Domain.TIME ],
       tandem: options.tandem.createTandem( 'domainProperty' )
+    } );
+
+    // @public
+    this.seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE, {
+      tandem: options.tandem.createTandem( 'seriesTypeProperty' )
     } );
 
     // @public

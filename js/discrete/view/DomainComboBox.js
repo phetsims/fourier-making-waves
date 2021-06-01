@@ -16,6 +16,28 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../../common/model/Domain.js';
 import FMWComboBox from '../../common/view/FMWComboBox.js';
 
+const CHOICES = [
+  {
+    value: Domain.SPACE,
+    string: StringUtils.fillIn( fourierMakingWavesStrings.spaceSymbol, {
+      symbol: FMWSymbols.x
+    } )
+  },
+  {
+    value: Domain.TIME,
+    string: StringUtils.fillIn( fourierMakingWavesStrings.timeSymbols, {
+      symbol: FMWSymbols.t
+    } )
+  },
+  {
+    value: Domain.SPACE_AND_TIME,
+    string: StringUtils.fillIn( fourierMakingWavesStrings.spaceAndTimeSymbols, {
+      spaceSymbol: FMWSymbols.x,
+      timeSymbol: FMWSymbols.t
+    } )
+  }
+];
+
 class DomainComboBox extends FMWComboBox {
 
   /**
@@ -26,6 +48,7 @@ class DomainComboBox extends FMWComboBox {
   constructor( domainProperty, popupParent, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( domainProperty.validValues );
     assert && assert( popupParent instanceof Node );
 
     options = merge( {
@@ -37,27 +60,9 @@ class DomainComboBox extends FMWComboBox {
     }, options );
 
     // {{string:string, value:Domain}[]}
-    const choices = [
-      {
-        value: Domain.SPACE,
-        string: StringUtils.fillIn( fourierMakingWavesStrings.spaceSymbol, {
-          symbol: FMWSymbols.x
-        } )
-      },
-      {
-        value: Domain.TIME,
-        string: StringUtils.fillIn( fourierMakingWavesStrings.timeSymbols, {
-          symbol: FMWSymbols.t
-        } )
-      },
-      {
-        value: Domain.SPACE_AND_TIME,
-        string: StringUtils.fillIn( fourierMakingWavesStrings.spaceAndTimeSymbols, {
-          spaceSymbol: FMWSymbols.x,
-          timeSymbol: FMWSymbols.t
-        } )
-      }
-    ];
+    const choices = _.map( domainProperty.validValues,
+      value => _.find( CHOICES, choice => choice.value === value )
+    );
 
     super( choices, domainProperty, popupParent, options );
   }

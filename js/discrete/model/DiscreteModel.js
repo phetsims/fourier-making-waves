@@ -102,6 +102,7 @@ class DiscreteModel {
 
     // @public
     this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE, {
+      validValues: Domain.VALUES, // all Domain values are supported
       tandem: options.tandem.createTandem( 'domainProperty' )
     } );
 

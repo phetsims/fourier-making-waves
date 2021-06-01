@@ -19,6 +19,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import ContinuousModel from '../model/ContinuousModel.js';
+import ContinuousGraphControlsLayoutBox from './ContinuousGraphControlsLayoutBox.js';
 
 class ContinuousControlPanel extends Panel {
 
@@ -50,12 +51,14 @@ class ContinuousControlPanel extends Panel {
     const spacingBetweenFourierComponentsText = new Text( fourierMakingWavesStrings.spacingBetweenFourierComponents, titleOptions );
     const wavePacketCenterText = new Text( fourierMakingWavesStrings.wavePacketCenter, titleOptions );
     const wavePacketWidthText = new Text( fourierMakingWavesStrings.wavePacketWidthText, titleOptions );
-    const graphControlsText = new Text( fourierMakingWavesStrings.graphControls, titleOptions );
+
     const sectionNodes = [
       spacingBetweenFourierComponentsText,
       wavePacketCenterText,
       wavePacketWidthText,
-      graphControlsText
+      new ContinuousGraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty, popupParent, {
+        tandem: options.tandem.createTandem( 'graphControlsLayoutBox' )
+      } )
     ];
 
     // Put a separator between each logical section.
