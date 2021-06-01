@@ -21,6 +21,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -64,6 +65,10 @@ class MeasurementToolNode extends Node {
 
       // Node options
       cursor: 'pointer',
+
+      // pdom
+      tagName: 'div',
+      focusable: true,
 
       // phet-io options
       tandem: Tandem.REQUIRED
@@ -142,6 +147,15 @@ class MeasurementToolNode extends Node {
         positionProperty.value = dragBounds.closestPointTo( positionProperty.value );
       }
     } );
+
+    // pdom - dragging using the keyboard
+    const keyboardDragListener = new KeyboardDragListener( {
+      positionProperty: positionProperty,
+      dragBounds: dragBoundsProperty.value,
+      dragVelocity: 100, // velocity - change in position per second
+      shiftDragVelocity: 20 // finer-grained
+    } );
+    this.addInputListener( keyboardDragListener );
   }
 
   /**
