@@ -22,12 +22,22 @@ const SCHEMA = {
 
   // Shows the reward after any correct answer, for testing the Wave Game reward.
   // For internal use only, not public facing.
-  showReward: { type: 'flag' }
+  showReward: { type: 'flag' },
+
+  //TODO delete this
+  // Shortcut for enabling alternative input. This sets supportsInteractiveDescription=true.
+  // For internal use only, not public facing.
+  ai: { type: 'flag' }
 };
 
 const FMWQueryParameters = QueryStringMachine.getAll( SCHEMA );
 
 fourierMakingWaves.register( 'FMWQueryParameters', FMWQueryParameters );
+
+// Apply shortcut
+if ( FMWQueryParameters.ai ) {
+  phet.chipper.queryParameters.supportsInteractiveDescription = true;
+}
 
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );
