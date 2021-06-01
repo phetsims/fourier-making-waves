@@ -28,7 +28,8 @@ const simOptions = {
     graphicArts: '',
     soundDesign: '',
     thanks: ''
-  }
+  },
+  hasKeyboardHelpContent: true
 };
 
 simLauncher.launch( () => {
