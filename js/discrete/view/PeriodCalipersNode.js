@@ -35,7 +35,7 @@ class PeriodCalipersNode extends CalipersNode {
       debugName: 'periodCalipers'
     }, options );
 
-    // Model properties that we'll be using - these were formerly constructor params.
+    // Model properties that we'll be using.
     const tool = model.periodTool;
     const harmonics = model.fourierSeries.harmonics;
     const emphasizedHarmonics = model.harmonicsChart.emphasizedHarmonics;

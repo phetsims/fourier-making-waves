@@ -35,7 +35,7 @@ class WavelengthCalipersNode extends CalipersNode {
       debugName: 'wavelengthCalipers'
     }, options );
 
-    // Model properties that we'll be using - these were formerly constructor params.
+    // Model properties that we'll be using.
     const tool = model.wavelengthTool;
     const harmonics = model.fourierSeries.harmonics;
     const emphasizedHarmonics = model.harmonicsChart.emphasizedHarmonics;

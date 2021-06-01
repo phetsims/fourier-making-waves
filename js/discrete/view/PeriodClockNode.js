@@ -49,7 +49,7 @@ class PeriodClockNode extends MeasurementToolNode {
       debugName: 'periodClock'
     }, options );
 
-    // Model properties that we'll be using - these were formerly constructor params.
+    // Model properties that we'll be using.
     const tool = model.periodTool;
     const harmonics = model.fourierSeries.harmonics;
     const emphasizedHarmonics = model.harmonicsChart.emphasizedHarmonics;
