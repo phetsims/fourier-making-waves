@@ -211,5 +211,17 @@
   },
   "amplitudeControls": {
     "value": "Amplitude Controls:"
+  },
+  "spacingBetweenFourierComponents": {
+    "value": "Spacing Between Fourier Components"
+  },
+  "wavePacketCenter": {
+    "value": "Wave Packet Center"
+  },
+  "wavePacketWidthText": {
+    "value": "Wave Packet Width"
+  },
+  "graphControls": {
+    "value": "Graph Controls"
   }
 }

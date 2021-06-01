@@ -20,7 +20,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import DiscreteSymbolsDialog from './DiscreteSymbolsDialog.js';
 import FourierSeriesLayoutBox from './FourierSeriesLayoutBox.js';
-import GraphControlsLayoutBox from './GraphControlsLayoutBox.js';
+import DiscreteGraphControlsLayoutBox from './DiscreteGraphControlsLayoutBox.js';
 import MeasurementToolsLayoutBox from './MeasurementToolsLayoutBox.js';
 import SoundLayoutBox from './SoundLayoutBox.js';
 
@@ -54,7 +54,7 @@ class DiscreteControlPanel extends Panel {
     // {Node[]} logical sections of the control panel
     const sectionNodes = [
       fourierSeriesLayoutBox,
-      new GraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, popupParent, {
+      new DiscreteGraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, popupParent, {
         tandem: options.tandem.createTandem( 'graphControlsLayoutBox' )
       } ),
       new MeasurementToolsLayoutBox( model.wavelengthTool, model.periodTool, model.domainProperty, {

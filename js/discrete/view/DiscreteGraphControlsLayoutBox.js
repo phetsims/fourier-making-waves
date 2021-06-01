@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * GraphControlsLayoutBox is the 'Graph Controls' section of the control panel in the 'Discrete' screen.
+ * DiscreteGraphControlsLayoutBox is the 'Graph Controls' section of the control panel in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -25,7 +25,7 @@ import DomainComboBox from './DomainComboBox.js';
 import EquationComboBox from './EquationComboBox.js';
 import SeriesTypeRadioButtonGroup from './SeriesTypeRadioButtonGroup.js';
 
-class GraphControlsLayoutBox extends VBox {
+class DiscreteGraphControlsLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -128,5 +128,5 @@ class GraphControlsLayoutBox extends VBox {
   }
 }
 
-fourierMakingWaves.register( 'GraphControlsLayoutBox', GraphControlsLayoutBox );
-export default GraphControlsLayoutBox;
+fourierMakingWaves.register( 'DiscreteGraphControlsLayoutBox', DiscreteGraphControlsLayoutBox );
+export default DiscreteGraphControlsLayoutBox;
