@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * TODO
+ * ContinuousControlPanel is the control panel in the 'Continuous' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
