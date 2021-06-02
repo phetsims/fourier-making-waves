@@ -61,7 +61,7 @@ class ContinuousAmplitudesChartNode extends Node {
 
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
-      maxWidth: 50, // determined empirically
+      maxWidth: 60, // determined empirically
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
