@@ -90,6 +90,7 @@ class ContinuousModel {
     } );
 
     // @public wave packet width, in radians/meter
+    // dispose is not needed.
     this.wavePacketWidthProperty = new DerivedProperty( [ this.kWidthProperty ], kWidth => 2 * kWidth );
 
     // @public
