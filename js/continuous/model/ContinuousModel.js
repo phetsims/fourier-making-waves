@@ -18,6 +18,7 @@ import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import ComponentsChart from './ComponentsChart.js';
+import ContinuousAmplitudesChart from './ContinuousAmplitudesChart.js';
 import ContinuousSumChart from './ContinuousSumChart.js';
 
 const SPACING_BETWEEN_COMPONENTS_VALUES = [ 0, Math.PI / 4, Math.PI / 2, Math.PI, 2 * Math.PI ];
@@ -98,6 +99,11 @@ class ContinuousModel {
     } );
 
     // @public
+    this.amplitudesChart = new ContinuousAmplitudesChart( {
+      tandem: options.tandem.createTandem( 'amplitudesChart' )
+    } );
+
+    // @public
     this.componentsChart = new ComponentsChart( {
       tandem: options.tandem.createTandem( 'componentsChart' )
     } );
@@ -124,6 +130,7 @@ class ContinuousModel {
     this.widthIndicatorsVisibleProperty.reset();
 
     // sub-models
+    this.amplitudesChart.reset();
     this.componentsChart.reset();
     this.sumChart.reset();
   }
