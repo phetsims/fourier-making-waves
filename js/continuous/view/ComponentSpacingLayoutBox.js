@@ -14,6 +14,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import ComponentSpacingSlider from './ComponentSpacingSlider.js';
 
 class ComponentSpacingLayoutBox extends VBox {
 
@@ -40,12 +41,16 @@ class ComponentSpacingLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'componentSpacingText' )
     } );
 
-    //TODO spacing slider
+    const componentSpacingSlider = new ComponentSpacingSlider( spacingBetweenComponentsIndexProperty, {
+      tandem: options.tandem.createTandem( 'componentSpacingSlider' )
+    } );
+
     //TODO 'Continuous Waveform' checkbox
 
     assert && assert( !options.children, 'ComponentSpacingLayoutBox sets children' );
     options.children = [
-      componentSpacingText
+      componentSpacingText,
+      componentSpacingSlider
     ];
 
     super( options );
