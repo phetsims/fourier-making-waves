@@ -42,7 +42,7 @@ class ContinuousModel {
     // @public index into SPACING_BETWEEN_COMPONENTS_VALUES, so that we have a linear value to control via Slider
     this.spacingBetweenComponentsIndexProperty = new NumberProperty( 3, {
       numberType: 'Integer',
-      range: new Range( 0, SPACING_BETWEEN_COMPONENTS_VALUES.length ),
+      range: new Range( 0, SPACING_BETWEEN_COMPONENTS_VALUES.length - 1 ),
       tandem: options.tandem.createTandem( 'spacingBetweenComponentsIndexProperty' )
     } );
 
