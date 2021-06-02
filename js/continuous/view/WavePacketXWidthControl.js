@@ -36,7 +36,7 @@ class WavePacketXWidthControl extends VBox {
 
     options = merge( {
 
-      interval: 0.001,
+      decimals: 3,
 
       // VBox options
       spacing: 5,
@@ -68,7 +68,7 @@ class WavePacketXWidthControl extends VBox {
         valueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
           symbol: FMWSymbols.sigma,
           subscript: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t,
-          value: Utils.roundToInterval( xWidth, options.interval ),
+          value: Utils.toFixedNumber( xWidth, options.decimals ),
           units: ( domain === Domain.SPACE ) ?
                  fourierMakingWavesStrings.radiansPerMeter :
                  fourierMakingWavesStrings.radiansPerMillisecond

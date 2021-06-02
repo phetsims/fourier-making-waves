@@ -68,7 +68,7 @@ class WavePacketKWidthControl extends VBox {
         valueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
           symbol: FMWSymbols.sigma,
           subscript: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
-          value: Utils.toFixed( kWidth, options.decimals ),
+          value: Utils.toFixedNumber( kWidth, options.decimals ),
           units: ( domain === Domain.SPACE ) ?
                  fourierMakingWavesStrings.radiansPerMeter :
                  fourierMakingWavesStrings.radiansPerMillisecond

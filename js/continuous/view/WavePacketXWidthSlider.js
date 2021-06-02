@@ -6,13 +6,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Slider from '../../../../sun/js/Slider.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class WavePacketXWidthSlider extends Slider {
@@ -26,14 +25,10 @@ class WavePacketXWidthSlider extends Slider {
     assert && AssertUtils.assertPropertyOf( xWidthProperty, 'number' );
     assert && assert( xWidthProperty.range );
 
-    options = merge( {
+    options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
 
-      tickDecimals: 3,
-
-      // Slider options
-      trackSize: new Dimension2( 175, 3 ),
-      thumbSize: new Dimension2( 12, 20 ),
-      majorTickLength: 10
+      // WavePacketXWidthSlider options
+      tickDecimals: 3
 
       // pdom options
       //TODO alt input steps
@@ -54,7 +49,7 @@ class WavePacketXWidthSlider extends Slider {
         tickValue -= TICK_INTERVAL;
       }
 
-      const textOptions = { font: new PhetFont( 12 ) };
+      const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
       tickValues.forEach( tickValue =>
         this.addMajorTick( tickValue, new Text( Utils.toFixedNumber( tickValue, options.tickDecimals ), textOptions ) )
       );

@@ -71,7 +71,7 @@ class ComponentSpacingControl extends VBox {
         valueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
           symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
           subscript: 1,
-          value: Utils.toFixed( componentSpacing, options.decimals ),
+          value: Utils.toFixedNumber( componentSpacing, options.decimals ),
           units: ( domain === Domain.SPACE ) ?
                  fourierMakingWavesStrings.radiansPerMeter :
                  fourierMakingWavesStrings.radiansPerMillisecond

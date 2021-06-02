@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Dimension2 from '../../../dot/js/Dimension2.js';
 import AssertUtils from '../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
@@ -66,6 +67,13 @@ const FMWConstants = {
   VBOX_OPTIONS: {
     align: 'left',
     spacing: 18
+  },
+
+  // options for sliders in the Continuous screen
+  CONTINUOUS_SLIDER_OPTIONS: {
+    trackSize: new Dimension2( 175, 3 ),
+    thumbSize: new Dimension2( 12, 20 ),
+    majorTickLength: 10
   },
 
   // Fonts
