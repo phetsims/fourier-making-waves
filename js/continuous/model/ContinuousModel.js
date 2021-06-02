@@ -68,25 +68,29 @@ class ContinuousModel {
       tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
     } );
 
-    // @public center of the Gaussian wave packet, in radians/meter.
+    // @public center of the wave packet, in radians/meter
     this.wavePacketCenterProperty = new NumberProperty( 12 * Math.PI, {
       range: new Range( 9 * Math.PI, 15 * Math.PI ),
       tandem: options.tandem.createTandem( 'wavePacketCenterProperty' )
     } );
 
-    // @public Gaussian wave packet width in k space, in radians/meter.
-    // Note that kWidth = 1 / xWidth
+    //TODO why does Java version refer to this as deltaK?
+    // @public wave packet width in k space, in radians/meter.
     this.kWidthProperty = new NumberProperty( 3 * Math.PI, {
       range: new Range( 1, 4 * Math.PI ),
       tandem: options.tandem.createTandem( 'kWidthProperty' )
     } );
 
-    // @public Gaussian wave packet width in x space, in meters.
-    // Note that xWidth = 1 / kWidth
+    //TODO why does Java version refer to this as deltaX?
+    // @public wave packet width in x space, in meters.
+    // Note that kWidth * xWidth = 1, so xWidth = 1 / kWidth
     this.xWidthProperty = new NumberProperty( 1 / this.kWidthProperty.value, {
       range: new Range( 1 / this.kWidthProperty.range.max, 1 / this.kWidthProperty.range.min ),
       tandem: options.tandem.createTandem( 'xWidthProperty' )
     } );
+
+    // @public wave packet width, in radians/meter
+    this.wavePacketWidthProperty = new DerivedProperty( [ this.kWidthProperty ], kWidth => 2 * kWidth );
 
     // @public
     this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE, {
