@@ -20,7 +20,6 @@ import DomainComboBox from '../../common/view/DomainComboBox.js';
 import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import EnvelopeCheckbox from './EnvelopeCheckbox.js';
 import WidthIndicatorsCheckbox from './WidthIndicatorsCheckbox.js';
 
 class ContinuousGraphControlsLayoutBox extends VBox {
@@ -28,17 +27,14 @@ class ContinuousGraphControlsLayoutBox extends VBox {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {Property.<boolean>} envelopeVisibleProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
-  constructor( domainProperty, seriesTypeProperty, envelopeVisibleProperty, widthIndicatorsVisibleProperty,
-               popupParent, options ) {
+  constructor( domainProperty, seriesTypeProperty, widthIndicatorsVisibleProperty, popupParent, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
-    assert && AssertUtils.assertPropertyOf( envelopeVisibleProperty, 'boolean' );
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
     assert && assert( popupParent instanceof Node );
 
@@ -85,10 +81,6 @@ class ContinuousGraphControlsLayoutBox extends VBox {
       children: [ seriesText, seriesTypeRadioButtonGroup ]
     } );
 
-    const envelopeCheckbox = new EnvelopeCheckbox( domainProperty, envelopeVisibleProperty, {
-      tandem: options.tandem.createTandem( 'envelopeCheckbox' )
-    } );
-
     const widthIndicatorsCheckbox = new WidthIndicatorsCheckbox( widthIndicatorsVisibleProperty, {
       tandem: options.tandem.createTandem( 'widthIndicatorsCheckbox' )
     } );
@@ -98,7 +90,6 @@ class ContinuousGraphControlsLayoutBox extends VBox {
       graphControlsText,
       functionOfBox,
       seriesBox,
-      envelopeCheckbox,
       widthIndicatorsCheckbox
     ];
 

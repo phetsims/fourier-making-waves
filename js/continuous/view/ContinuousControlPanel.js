@@ -67,7 +67,7 @@ class ContinuousControlPanel extends Panel {
 
       // Graph Controls
       new ContinuousGraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty,
-        model.envelopeVisibleProperty, model.widthIndicatorsVisibleProperty, popupParent, {
+        model.widthIndicatorsVisibleProperty, popupParent, {
           spacing: VERTICAL_SPACING,
           tandem: options.tandem.createTandem( 'graphControlsLayoutBox' )
         } )

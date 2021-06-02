@@ -81,7 +81,7 @@ class ContinuousScreenView extends ScreenView {
       } );
 
     // Sum chart
-    const sumChartNode = new ContinuousSumChartNode( {
+    const sumChartNode = new ContinuousSumChartNode( model.envelopeVisibleProperty, {
       visibleProperty: model.sumChart.chartVisibleProperty,
       tandem: sumTandem.createTandem( 'sumChartNode' )
     } );

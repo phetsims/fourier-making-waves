@@ -230,8 +230,8 @@
   "componentsChart": {
     "value": "Components"
   },
-  "spaceEnvelope": {
-    "value": "{{symbol}}-Space Envelope"
+  "envelope": {
+    "value": "Envelope"
   },
   "widthIndicators": {
     "value": "Width Indicators"
