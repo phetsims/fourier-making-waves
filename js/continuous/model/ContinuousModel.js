@@ -44,11 +44,6 @@ class ContinuousModel {
       tandem: options.tandem.createTandem( 'spacingBetweenComponentsIndexProperty' )
     } );
 
-    // @public
-    this.continuousWaveformVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
-    } );
-
     // @public {DerivedProperty.<number>} spacing between Fourier components, in radians/meter. dispose is not needed
     this.spacingBetweenComponentsProperty = new DerivedProperty(
       [ this.spacingBetweenComponentsIndexProperty ],
@@ -56,6 +51,11 @@ class ContinuousModel {
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
         tandem: options.tandem.createTandem( 'spacingBetweenComponentsProperty' )
       } );
+
+    // @public
+    this.continuousWaveformVisibleProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
+    } );
 
     // @public center of the Gaussian wave packet, in radians/meter
     this.wavePacketCenterProperty = new NumberProperty( 12 * Math.PI, {

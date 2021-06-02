@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * ComponentSpacingLayoutBox is the 'Component Spacing' section of the control panel in the 'Continuous' screen.
+ * WavePacketWidthLayoutBox is the 'Wave Packet Width' section of the control panel in the 'Continuous' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,17 +15,17 @@ import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class ComponentSpacingLayoutBox extends VBox {
+class WavePacketWidthLayoutBox extends VBox {
 
   /**
-   * @param {Property.<number>} spacingBetweenComponentsIndexProperty
-   * @param {Property.<boolean>} continuousWaveformVisibleProperty
+   * @param {Property.<number>} kWidthProperty
+   * @param {Property.<number>} xWidthProperty
    * @param {Object} [options]
    */
-  constructor( spacingBetweenComponentsIndexProperty, continuousWaveformVisibleProperty, options ) {
+  constructor( kWidthProperty, xWidthProperty, options ) {
 
-    assert && AssertUtils.assertPropertyOf( spacingBetweenComponentsIndexProperty, 'number' );
-    assert && AssertUtils.assertPropertyOf( continuousWaveformVisibleProperty, 'boolean' );
+    assert && AssertUtils.assertPropertyOf( kWidthProperty, 'number' );
+    assert && AssertUtils.assertPropertyOf( xWidthProperty, 'number' );
 
     options = merge( {
 
@@ -34,18 +34,18 @@ class ComponentSpacingLayoutBox extends VBox {
     }, FMWConstants.VBOX_OPTIONS, options );
 
     // Component Spacing
-    const componentSpacingText = new Text( fourierMakingWavesStrings.componentSpacing, {
+    const wavePacketWidthText = new Text( fourierMakingWavesStrings.wavePacketWidth, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 200, // determined empirically
-      tandem: options.tandem.createTandem( 'componentSpacingText' )
+      tandem: options.tandem.createTandem( 'wavePacketWidthText' )
     } );
 
-    //TODO spacing slider
-    //TODO 'Continuous Waveform' checkbox
+    //TODO k width slider
+    //TODO x width slider
 
-    assert && assert( !options.children, 'ComponentSpacingLayoutBox sets children' );
+    assert && assert( !options.children, 'WavePacketWidthLayoutBox sets children' );
     options.children = [
-      componentSpacingText
+      wavePacketWidthText
     ];
 
     super( options );
@@ -61,5 +61,5 @@ class ComponentSpacingLayoutBox extends VBox {
   }
 }
 
-fourierMakingWaves.register( 'ComponentSpacingLayoutBox', ComponentSpacingLayoutBox );
-export default ComponentSpacingLayoutBox;
+fourierMakingWaves.register( 'WavePacketWidthLayoutBox', WavePacketWidthLayoutBox );
+export default WavePacketWidthLayoutBox;

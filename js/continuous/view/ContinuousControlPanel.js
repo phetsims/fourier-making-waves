@@ -9,7 +9,6 @@
 import merge from '../../../../phet-core/js/merge.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import HSeparator from '../../../../sun/js/HSeparator.js';
 import Panel from '../../../../sun/js/Panel.js';
@@ -17,10 +16,11 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import ContinuousModel from '../model/ContinuousModel.js';
-import ContinuousGraphControlsLayoutBox from './ContinuousGraphControlsLayoutBox.js';
 import ComponentSpacingLayoutBox from './ComponentSpacingLayoutBox.js';
+import ContinuousGraphControlsLayoutBox from './ContinuousGraphControlsLayoutBox.js';
+import WavePacketCenterLayoutBox from './WavePacketCenterLayoutBox.js';
+import WavePacketWidthLayoutBox from './WavePacketWidthLayoutBox.js';
 
 class ContinuousControlPanel extends Panel {
 
@@ -44,18 +44,10 @@ class ContinuousControlPanel extends Panel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const titleOptions = {
-      font: FMWConstants.TITLE_FONT,
-      maxWidth: 250 // determined empirically
-    };
-
-    const wavePacketCenterText = new Text( fourierMakingWavesStrings.wavePacketCenter, titleOptions );
-    const wavePacketWidthText = new Text( fourierMakingWavesStrings.wavePacketWidthText, titleOptions );
-
     const sectionNodes = [
       new ComponentSpacingLayoutBox( model.spacingBetweenComponentsIndexProperty, model.continuousWaveformVisibleProperty ),
-      wavePacketCenterText,
-      wavePacketWidthText,
+      new WavePacketCenterLayoutBox( model.wavePacketCenterProperty ),
+      new WavePacketWidthLayoutBox( model.kWidthProperty, model.xWidthProperty ),
       new ContinuousGraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty, popupParent, {
         tandem: options.tandem.createTandem( 'graphControlsLayoutBox' )
       } )

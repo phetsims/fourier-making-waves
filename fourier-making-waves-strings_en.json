@@ -218,7 +218,7 @@
   "wavePacketCenter": {
     "value": "Wave Packet Center"
   },
-  "wavePacketWidthText": {
+  "wavePacketWidth": {
     "value": "Wave Packet Width"
   },
   "componentsChart": {
