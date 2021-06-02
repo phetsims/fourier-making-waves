@@ -180,7 +180,7 @@
     "value": "{{x}} = position in space, in meters"
   },
   "symbolsDialog.sigma": {
-    "value": "{{sigma}} = Gaussian wave packet width, in radians/meter"
+    "value": "{{sigma}} = Gaussian wave packet width"
   },
   "symbolsDialog.omega": {
     "value": "{{omega}} = angular frequency, in radians"

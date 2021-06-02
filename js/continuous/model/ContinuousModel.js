@@ -47,7 +47,7 @@ class ContinuousModel {
       tandem: options.tandem.createTandem( 'componentSpacingIndexProperty' )
     } );
 
-    // @public {DerivedProperty.<number>} spacing between Fourier components, in radians/meter or radians/ms,
+    // @public {DerivedProperty.<number>} spacing between Fourier components, in radians/meter or radians/millisecond,
     // depending on domainProperty. dispose is not needed
     this.componentSpacingProperty = new DerivedProperty(
       [ this.componentSpacingIndexProperty ],
@@ -62,21 +62,26 @@ class ContinuousModel {
       tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
     } );
 
-    // @public center of the Gaussian wave packet, in radians/meter
+    // @public center of the Gaussian wave packet, in radians/meter or radians/millisecond, depending on domainProperty
     this.wavePacketCenterProperty = new NumberProperty( 12 * Math.PI, {
       range: new Range( 9 * Math.PI, 15 * Math.PI ),
       tandem: options.tandem.createTandem( 'wavePacketCenterProperty' )
     } );
 
+    //TODO choose a better name, this name is specific to Domain.SPACE
+    //TODO where does this initial value come from?
     // @public Gaussian wave packet width in k space, in radians/meter
-    this.kWidthProperty = new NumberProperty( 9.43, { //TODO where does this initial value come from?
+    this.kWidthProperty = new NumberProperty( 9.43, {
       range: new Range( 1, 4 * Math.PI ),
       tandem: options.tandem.createTandem( 'kWidthProperty' )
     } );
 
+    //TODO choose a better name, this name is specific to Domain.SPACE
+    //TODO where does this initial value come from?
+    //TODO where does this range come from?
     // @public Gaussian wave packet width in x space, in meters
-    this.xWidthProperty = new NumberProperty( 0.107, { //TODO where does this initial value come from?
-      range: new Range( 0.08, 1 ), //TODO range?
+    this.xWidthProperty = new NumberProperty( 0.107, {
+      range: new Range( 0.08, 1 ),
       tandem: options.tandem.createTandem( 'xWidthProperty' )
     } );
 
