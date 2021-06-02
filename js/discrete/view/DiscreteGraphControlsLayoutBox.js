@@ -107,7 +107,7 @@ class DiscreteGraphControlsLayoutBox extends VBox {
       children: [ new AlignBox( equationText, labelsAlignBoxOptions ), equationComboBox ]
     } );
 
-    assert && assert( !options.children, 'GraphControls sets children' );
+    assert && assert( !options.children, 'DiscreteGraphControlsLayoutBox sets children' );
     options.children = [
       graphControlsText,
       functionOfBox,

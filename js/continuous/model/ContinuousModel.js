@@ -44,6 +44,11 @@ class ContinuousModel {
       tandem: options.tandem.createTandem( 'spacingBetweenComponentsIndexProperty' )
     } );
 
+    // @public
+    this.continuousWaveformVisibleProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
+    } );
+
     // @public {DerivedProperty.<number>} spacing between Fourier components, in radians/meter. dispose is not needed
     this.spacingBetweenComponentsProperty = new DerivedProperty(
       [ this.spacingBetweenComponentsIndexProperty ],
@@ -102,6 +107,7 @@ class ContinuousModel {
    */
   reset() {
     this.spacingBetweenComponentsIndexProperty.reset();
+    this.continuousWaveformVisibleProperty.reset();
     this.wavePacketCenterProperty.reset();
     this.kWidthProperty.reset();
     this.xWidthProperty.reset();

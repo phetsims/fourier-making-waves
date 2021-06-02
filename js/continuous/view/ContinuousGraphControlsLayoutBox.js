@@ -91,7 +91,7 @@ class ContinuousGraphControlsLayoutBox extends VBox {
     //TODO x-space / t-space envelope checkbox
     //TODO width indicators checkbox
 
-    assert && assert( !options.children, 'GraphControls sets children' );
+    assert && assert( !options.children, 'ContinuousGraphControlsLayoutBox sets children' );
     options.children = [
       graphControlsText,
       functionOfBox,

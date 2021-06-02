@@ -212,8 +212,8 @@
   "amplitudeControls": {
     "value": "Amplitude Controls:"
   },
-  "spacingBetweenFourierComponents": {
-    "value": "Spacing Between Fourier Components"
+  "componentSpacing": {
+    "value": "Component Spacing"
   },
   "wavePacketCenter": {
     "value": "Wave Packet Center"

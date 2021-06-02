@@ -20,6 +20,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import ContinuousModel from '../model/ContinuousModel.js';
 import ContinuousGraphControlsLayoutBox from './ContinuousGraphControlsLayoutBox.js';
+import ComponentSpacingLayoutBox from './ComponentSpacingLayoutBox.js';
 
 class ContinuousControlPanel extends Panel {
 
@@ -48,12 +49,11 @@ class ContinuousControlPanel extends Panel {
       maxWidth: 250 // determined empirically
     };
 
-    const spacingBetweenFourierComponentsText = new Text( fourierMakingWavesStrings.spacingBetweenFourierComponents, titleOptions );
     const wavePacketCenterText = new Text( fourierMakingWavesStrings.wavePacketCenter, titleOptions );
     const wavePacketWidthText = new Text( fourierMakingWavesStrings.wavePacketWidthText, titleOptions );
 
     const sectionNodes = [
-      spacingBetweenFourierComponentsText,
+      new ComponentSpacingLayoutBox( model.spacingBetweenComponentsIndexProperty, model.continuousWaveformVisibleProperty ),
       wavePacketCenterText,
       wavePacketWidthText,
       new ContinuousGraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty, popupParent, {
