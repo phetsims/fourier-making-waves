@@ -50,7 +50,7 @@ class ContinuousControlPanel extends Panel {
       new WavePacketCenterLayoutBox( model.wavePacketCenterProperty ),
       new WavePacketWidthLayoutBox( model.kWidthProperty, model.xWidthProperty ),
       new ContinuousGraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty,
-        model.envelopeVisibleProperty, popupParent, {
+        model.envelopeVisibleProperty, model.widthIndicatorsVisibleProperty, popupParent, {
           tandem: options.tandem.createTandem( 'graphControlsLayoutBox' )
         } )
     ];

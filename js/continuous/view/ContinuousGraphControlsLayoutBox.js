@@ -23,6 +23,7 @@ import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonG
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import EnvelopeCheckbox from './EnvelopeCheckbox.js';
+import WidthIndicatorsCheckbox from './WidthIndicatorsCheckbox.js';
 
 class ContinuousGraphControlsLayoutBox extends VBox {
 
@@ -30,14 +31,17 @@ class ContinuousGraphControlsLayoutBox extends VBox {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<boolean>} envelopeVisibleProperty
+   * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
-  constructor( domainProperty, seriesTypeProperty, envelopeVisibleProperty, popupParent, options ) {
+  constructor( domainProperty, seriesTypeProperty, envelopeVisibleProperty, widthIndicatorsVisibleProperty,
+               popupParent, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( envelopeVisibleProperty, 'boolean' );
+    assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
     assert && assert( popupParent instanceof Node );
 
     options = merge( {
@@ -95,14 +99,17 @@ class ContinuousGraphControlsLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'envelopeCheckbox' )
     } );
 
-    //TODO width indicators checkbox
+    const widthIndicatorsCheckbox = new WidthIndicatorsCheckbox( widthIndicatorsVisibleProperty, {
+      tandem: options.tandem.createTandem( 'widthIndicatorsCheckbox' )
+    } );
 
     assert && assert( !options.children, 'ContinuousGraphControlsLayoutBox sets children' );
     options.children = [
       graphControlsText,
       functionOfBox,
       seriesBox,
-      envelopeCheckbox
+      envelopeCheckbox,
+      widthIndicatorsCheckbox
     ];
 
     super( options );

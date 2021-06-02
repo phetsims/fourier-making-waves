@@ -235,5 +235,8 @@
   },
   "tSpaceEnvelope": {
     "value": "t-Space Envelope"
+  },
+  "widthIndicators": {
+    "value": "Width Indicators"
   }
 }
