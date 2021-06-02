@@ -21,6 +21,7 @@ import ComponentsChart from './ComponentsChart.js';
 import ContinuousAmplitudesChart from './ContinuousAmplitudesChart.js';
 import ContinuousSumChart from './ContinuousSumChart.js';
 
+// valid values for componentSpacingProperty
 const COMPONENT_SPACING_VALUES = [ 0, Math.PI / 4, Math.PI / 2, Math.PI, 2 * Math.PI ];
 
 class ContinuousModel {
