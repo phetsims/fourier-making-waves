@@ -8,10 +8,12 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import ToggleNode from '../../../../sun/js/ToggleNode.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -34,8 +36,18 @@ class EnvelopeCheckbox extends Checkbox {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 200
     };
-    const xSpaceEnvelopeText = new Text( fourierMakingWavesStrings.xSpaceEnvelope, textOptions );
-    const tSpaceEnvelopeText = new Text( fourierMakingWavesStrings.tSpaceEnvelope, textOptions );
+    const xSpaceEnvelopeText = new RichText(
+      StringUtils.fillIn( fourierMakingWavesStrings.spaceEnvelope, {
+        symbol: FMWSymbols.x
+      } ),
+      textOptions
+    );
+    const tSpaceEnvelopeText = new RichText(
+      StringUtils.fillIn( fourierMakingWavesStrings.spaceEnvelope, {
+        symbol: FMWSymbols.t
+      } ),
+      textOptions
+    );
 
     const content = new ToggleNode( domainProperty, [
       { value: Domain.SPACE, node: xSpaceEnvelopeText },
