@@ -18,6 +18,7 @@ Sliders are not long enough to get to all values.
 Do we need keypad to enter values associated with sliders?
 Do we really need 2 sliders for Wave Packet Width, or could we replace the bottom slider?
 k1=, k0=, etc. seems incorrect
+The 2 sliders for Wave Packet Width aren't the width. Width = 2 * kWidth.
 
 ## PhET-iO
 
