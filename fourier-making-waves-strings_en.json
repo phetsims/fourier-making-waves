@@ -183,7 +183,7 @@
     "value": "{{sigma}} = Gaussian wave packet width"
   },
   "symbolsDialog.omega": {
-    "value": "{{omega}} = angular frequency, in radians"
+    "value": "{{omega}} = angular frequency, in radians/millisecond"
   },
   "levels": {
     "value": "Levels"
