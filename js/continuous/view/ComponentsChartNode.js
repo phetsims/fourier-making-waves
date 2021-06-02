@@ -7,26 +7,31 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import DiscreteScreenView from '../../discrete/view/DiscreteScreenView.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 //TODO placeholder
-class ComponentsChartNode extends Rectangle {
+class ComponentsChartNode extends Node {
 
   /**
    * @param {Object} [options]
    */
   constructor( options ) {
 
-    options = merge( {
+    options = merge( {}, options );
 
-      //TODO delete these?
+    //TODO placeholder
+    const rectangle = new Rectangle( 0, 0, DiscreteScreenView.CHART_RECTANGLE_SIZE.width, DiscreteScreenView.CHART_RECTANGLE_SIZE.height, {
       stroke: 'black',
       fill: 'white'
-    }, options );
+    } );
 
-    super( 0, 0, DiscreteScreenView.CHART_RECTANGLE_SIZE.width, DiscreteScreenView.CHART_RECTANGLE_SIZE.height, options );
+    assert && assert( !options.children );
+    options.children = [ rectangle ];
+
+    super( options );
   }
 }
 

@@ -48,7 +48,7 @@ class ContinuousControlPanel extends Panel {
 
       // Component Spacing
       new ComponentSpacingLayoutBox( model.domainProperty, model.componentSpacingProperty,
-        model.componentSpacingIndexProperty, model.continuousWaveformVisibleProperty, {
+        model.componentSpacingIndexProperty, {
           spacing: VERTICAL_SPACING,
           tandem: options.tandem.createTandem( 'componentSpacingLayoutBox' )
         } ),

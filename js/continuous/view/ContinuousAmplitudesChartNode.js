@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ContinuousSumChartNode is the 'Sum' chart on the 'Continuous' screen.
+ * ContinuousAmplitudesChartNode is the 'Amplitudes' chart on the 'Continuous' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,18 +13,18 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import DiscreteScreenView from '../../discrete/view/DiscreteScreenView.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import EnvelopeCheckbox from './EnvelopeCheckbox.js';
+import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
 
 //TODO placeholder
-class ContinuousSumChartNode extends Node {
+class ContinuousAmplitudesChartNode extends Node {
 
   /**
-   * @param {Property.<boolean>} envelopeVisibleProperty
+   * @param {Property.<boolean>} continuousWaveformVisibleProperty
    * @param {Object} [options]
    */
-  constructor( envelopeVisibleProperty, options ) {
+  constructor( continuousWaveformVisibleProperty, options ) {
 
-    assert && AssertUtils.assertPropertyOf( envelopeVisibleProperty, 'boolean' );
+    assert && AssertUtils.assertPropertyOf( continuousWaveformVisibleProperty, 'boolean' );
 
     options = merge( {
 
@@ -38,18 +38,18 @@ class ContinuousSumChartNode extends Node {
       fill: 'white'
     } );
 
-    const envelopeCheckbox = new EnvelopeCheckbox( envelopeVisibleProperty, {
+    const continuousWaveformCheckbox = new ContinuousWaveformCheckbox( continuousWaveformVisibleProperty, {
       right: rectangle.right - 5,
       top: rectangle.bottom + 5,
-      tandem: options.tandem.createTandem( 'envelopeCheckbox' )
+      tandem: options.tandem.createTandem( 'continuousWaveformCheckbox' )
     } );
 
     assert && assert( !options.children );
-    options.children = [ rectangle, envelopeCheckbox ];
+    options.children = [ rectangle, continuousWaveformCheckbox ];
 
     super( options );
   }
 }
 
-fourierMakingWaves.register( 'ContinuousSumChartNode', ContinuousSumChartNode );
-export default ContinuousSumChartNode;
+fourierMakingWaves.register( 'ContinuousAmplitudesChartNode', ContinuousAmplitudesChartNode );
+export default ContinuousAmplitudesChartNode;

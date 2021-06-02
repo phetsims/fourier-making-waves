@@ -11,7 +11,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
@@ -25,15 +24,13 @@ class ComponentSpacingLayoutBox extends VBox {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {DerivedProperty} componentSpacingProperty
    * @param {Property.<number>} componentSpacingIndexProperty
-   * @param {Property.<boolean>} continuousWaveformVisibleProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, componentSpacingProperty, componentSpacingIndexProperty, continuousWaveformVisibleProperty, options ) {
+  constructor( domainProperty, componentSpacingProperty, componentSpacingIndexProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( componentSpacingProperty instanceof DerivedProperty );
     assert && AssertUtils.assertPropertyOf( componentSpacingIndexProperty, 'number' );
-    assert && AssertUtils.assertPropertyOf( continuousWaveformVisibleProperty, 'boolean' );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 
@@ -57,21 +54,10 @@ class ComponentSpacingLayoutBox extends VBox {
         tandem: options.tandem.createTandem( 'componentSpacingControl' )
       } );
 
-    const continuousWaveformCheckbox = new Checkbox(
-      new Text( fourierMakingWavesStrings.continuousWaveform, {
-        font: FMWConstants.CONTROL_FONT
-      } ),
-      continuousWaveformVisibleProperty,
-      merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
-        tandem: options.tandem.createTandem( 'continuousWaveformCheckbox' )
-      } )
-    );
-
     assert && assert( !options.children, 'ComponentSpacingLayoutBox sets children' );
     options.children = [
       componentSpacingText,
-      componentSpacingControl,
-      continuousWaveformCheckbox
+      componentSpacingControl
     ];
 
     super( options );

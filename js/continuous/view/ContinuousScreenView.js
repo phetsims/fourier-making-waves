@@ -10,7 +10,6 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapseButton.js';
@@ -19,6 +18,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import ContinuousModel from '../model/ContinuousModel.js';
 import ComponentsChartNode from './ComponentsChartNode.js';
+import ContinuousAmplitudesChartNode from './ContinuousAmplitudesChartNode.js';
 import ContinuousControlPanel from './ContinuousControlPanel.js';
 import ContinuousSumChartNode from './ContinuousSumChartNode.js';
 
@@ -48,10 +48,9 @@ class ContinuousScreenView extends ScreenView {
     // Parent for all popups
     const popupParent = new Node();
 
-    // TODO placeholder
-    const amplitudesChartNode = new Rectangle( 0, 0, DiscreteScreenView.CHART_RECTANGLE_SIZE.width, DiscreteScreenView.CHART_RECTANGLE_SIZE.height, {
-      stroke: 'black',
-      fill: 'white'
+    // Amplitudes chart
+    const amplitudesChartNode = new ContinuousAmplitudesChartNode( model.continuousWaveformVisibleProperty, {
+      tandem: options.tandem.createTandem( 'amplitudesChartNode' )
     } );
 
     // Parent tandem for all components related to the Components chart
