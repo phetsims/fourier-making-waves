@@ -44,7 +44,7 @@ class ComponentSpacingLayoutBox extends VBox {
     // Component Spacing
     const componentSpacingText = new Text( fourierMakingWavesStrings.componentSpacing, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 200, // determined empirically
+      maxWidth: 180, // determined empirically
       tandem: options.tandem.createTandem( 'componentSpacingText' )
     } );
 
@@ -61,6 +61,9 @@ class ComponentSpacingLayoutBox extends VBox {
     ];
 
     super( options );
+
+    // @public for layout
+    this.componentSpacingText = componentSpacingText;
   }
 
   /**

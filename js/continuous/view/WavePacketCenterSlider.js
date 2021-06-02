@@ -29,7 +29,7 @@ class WavePacketCenterSlider extends Slider {
     options = merge( {
 
       // Slider options
-      trackSize: new Dimension2( 150, 3 ),
+      trackSize: new Dimension2( 175, 3 ),
       thumbSize: new Dimension2( 12, 20 ),
       majorTickLength: 10
 

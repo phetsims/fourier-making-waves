@@ -14,6 +14,7 @@ import HSeparator from '../../../../sun/js/HSeparator.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
+import FWMConstants from '../../common/FMWConstants.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import ContinuousModel from '../model/ContinuousModel.js';
@@ -44,14 +45,16 @@ class ContinuousControlPanel extends Panel {
       tandem: Tandem.REQUIRED
     }, options );
 
+    const componentSpacingLayoutBox = new ComponentSpacingLayoutBox( model.domainProperty,
+      model.componentSpacingProperty, model.componentSpacingIndexProperty, {
+        spacing: VERTICAL_SPACING,
+        tandem: options.tandem.createTandem( 'componentSpacingLayoutBox' )
+      } );
+
     const sectionNodes = [
 
       // Component Spacing
-      new ComponentSpacingLayoutBox( model.domainProperty, model.componentSpacingProperty,
-        model.componentSpacingIndexProperty, {
-          spacing: VERTICAL_SPACING,
-          tandem: options.tandem.createTandem( 'componentSpacingLayoutBox' )
-        } ),
+      componentSpacingLayoutBox,
 
       // Wave Packet Center
       new WavePacketCenterLayoutBox( model.domainProperty, model.wavePacketCenterProperty, {
@@ -87,6 +90,10 @@ class ContinuousControlPanel extends Panel {
       }
     }
 
+    const vBox = new VBox( merge( {}, FWMConstants.VBOX_OPTIONS, {
+      children: children
+    } ) );
+
     // Dialog that displays a key for math symbols
     const symbolsDialog = new ContinuousSymbolsDialog();
 
@@ -95,18 +102,25 @@ class ContinuousControlPanel extends Panel {
     const symbolsButton = new InfoButton( {
       listener: () => symbolsDialog.show(),
       iconFill: 'rgb( 50, 145, 184 )',
-      scale: 0.4
-    } );
-    children.push( new HSeparator( separatorWidth, separatorOptions ) );
-    children.push( symbolsButton );
+      scale: 0.4,
+      right: vBox.right,
+      centerY: componentSpacingLayoutBox.globalToParentBounds(
+        componentSpacingLayoutBox.componentSpacingText.parentToGlobalBounds( componentSpacingLayoutBox.componentSpacingText.bounds ) ).centerY
 
-    const content = new VBox( {
-      align: 'left',
-      spacing: VERTICAL_SPACING,
-      children: children
+    } );
+
+    const content = new Node( {
+      children: [ vBox, symbolsButton ]
     } );
 
     super( content, options );
+
+    // pdom - traversal order
+    // See https://github.com/phetsims/fourier-making-waves/issues/53
+    this.pdomOrder = [
+      symbolsButton,
+      vBox
+    ];
   }
 }
 

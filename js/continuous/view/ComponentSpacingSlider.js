@@ -32,7 +32,7 @@ class ComponentSpacingSlider extends Slider {
 
       // Slider options
       constrainValue: value => Utils.roundSymmetric( value ),
-      trackSize: new Dimension2( 150, 3 ),
+      trackSize: new Dimension2( 175, 3 ),
       thumbSize: new Dimension2( 12, 20 ),
       majorTickLength: 10,
 

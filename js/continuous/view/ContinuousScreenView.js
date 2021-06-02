@@ -114,8 +114,8 @@ class ContinuousScreenView extends ScreenView {
       sumChartNode.x = componentsChartNode.x;
       sumChartNode.y = sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
 
-      // Control panel to the right of the charts
-      controlPanel.right = layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
+      // Control panel centered in the space to the right of the charts
+      controlPanel.centerX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
       controlPanel.top = layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
 
       // Reset All button at bottom right
