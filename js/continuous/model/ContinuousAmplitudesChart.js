@@ -23,7 +23,7 @@ class ContinuousAmplitudesChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    //TODO
+    //TODO flesh out
   }
 
   /**

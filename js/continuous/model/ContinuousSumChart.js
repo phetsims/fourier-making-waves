@@ -20,6 +20,8 @@ class ContinuousSumChart {
     this.chartVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'chartVisibleProperty' )
     } );
+
+    //TODO flesh out
   }
 
   /**
