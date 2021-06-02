@@ -43,6 +43,7 @@ class ContinuousModel {
       tandem: Tandem.REQUIRED
     }, options );
 
+    //TODO rename this
     // @public the range over which components are significant, in radians/meter
     this.significantWidthRange = new Range( 0, 24 * Math.PI );
 

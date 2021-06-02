@@ -53,7 +53,7 @@ class ContinuousScreenView extends ScreenView {
     const amplitudesChartNode = new ContinuousAmplitudesChartNode( model.continuousWaveformVisibleProperty, {
       transformOptions: {
         modelXRange: model.significantWidthRange,
-        modelYRange: new Range( 0, model.maxAmplitude ),
+        modelYRange: new Range( 0, model.maxAmplitude ), //TODO
         viewWidth: DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
         viewHeight: DiscreteScreenView.CHART_RECTANGLE_SIZE.height
       },
@@ -74,7 +74,7 @@ class ContinuousScreenView extends ScreenView {
     const componentsChartNode = new ComponentsChartNode( {
       transformOptions: {
         modelXRange: new Range( -2, 2 ), //TODO
-        modelYRange: new Range( -model.maxAmplitude, model.maxAmplitude ),
+        modelYRange: new Range( -model.maxAmplitude, model.maxAmplitude ), //TODO
         viewWidth: DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
         viewHeight: DiscreteScreenView.CHART_RECTANGLE_SIZE.height
       },
