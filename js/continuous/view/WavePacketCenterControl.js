@@ -48,6 +48,7 @@ class WavePacketCenterControl extends VBox {
 
     const valueNode = new RichText( '', {
       font: FMWConstants.CONTROL_FONT,
+      maxWidth: 200,
       tandem: options.tandem.createTandem( 'valueNode' )
     } );
 
