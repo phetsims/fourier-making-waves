@@ -73,6 +73,7 @@ class ContinuousControlPanel extends Panel {
     // Dialog that displays a key for math symbols
     const symbolsDialog = new ContinuousSymbolsDialog();
 
+    //TODO where should this button be located?
     // Push button to open the dialog.
     const symbolsButton = new InfoButton( {
       listener: () => symbolsDialog.show(),
