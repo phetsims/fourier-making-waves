@@ -15,6 +15,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import WavePacketKWidthControl from './WavePacketKWidthControl.js';
 
 class WavePacketWidthLayoutBox extends VBox {
 
@@ -43,12 +44,16 @@ class WavePacketWidthLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'wavePacketWidthText' )
     } );
 
-    //TODO k width slider
+    const kWidthControl = new WavePacketKWidthControl( domainProperty, kWidthProperty, {
+      tandem: options.tandem.createTandem( 'kWidthControl' )
+    } );
+
     //TODO x width slider
 
     assert && assert( !options.children, 'WavePacketWidthLayoutBox sets children' );
     options.children = [
-      wavePacketWidthText
+      wavePacketWidthText,
+      kWidthControl
     ];
 
     super( options );
