@@ -3,6 +3,12 @@
 /**
  * ContinuousModel is the top-level model for the 'Continuous' screen.
  *
+ * Note that while the model uses field names that are specific to the space domain, those fields are used for both
+ * the space domain and time domain. We can make this simplification (which originated in the Java version) because
+ * we assume that the values of L (wavelength of the fundamental harmonic) and T (period of the fundamental harmonic)
+ * are the same. That is, L=1 meter and T=1 millisecond. Changing the domain therefore only changes the symbols and
+ * units that appear in the user interface. Where the space domain uses meters, the time domain uses milliseconds.
+ *
  * @author Chris Malley (PixelZoom, Inc.
  */
 
@@ -47,8 +53,8 @@ class ContinuousModel {
       tandem: options.tandem.createTandem( 'componentSpacingIndexProperty' )
     } );
 
-    // @public {DerivedProperty.<number>} spacing between Fourier components, in radians/meter or radians/millisecond,
-    // depending on domainProperty. dispose is not needed
+    // @public {DerivedProperty.<number>} spacing between Fourier components, in radians/meter.
+    // dispose is not needed
     this.componentSpacingProperty = new DerivedProperty(
       [ this.componentSpacingIndexProperty ],
       index => COMPONENT_SPACING_VALUES[ index ], {
@@ -62,26 +68,23 @@ class ContinuousModel {
       tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
     } );
 
-    // @public center of the Gaussian wave packet, in radians/meter or radians/millisecond, depending on domainProperty
+    // @public center of the Gaussian wave packet, in radians/meter.
     this.wavePacketCenterProperty = new NumberProperty( 12 * Math.PI, {
       range: new Range( 9 * Math.PI, 15 * Math.PI ),
       tandem: options.tandem.createTandem( 'wavePacketCenterProperty' )
     } );
 
-    //TODO choose a better name, this name is specific to Domain.SPACE
-    //TODO where does this initial value come from?
-    // @public Gaussian wave packet width in k space, in radians/meter
-    this.kWidthProperty = new NumberProperty( 9.43, {
+    // @public Gaussian wave packet width in k space, in radians/meter.
+    // Note that kWidth = 1 / xWidth
+    this.kWidthProperty = new NumberProperty( 3 * Math.PI, {
       range: new Range( 1, 4 * Math.PI ),
       tandem: options.tandem.createTandem( 'kWidthProperty' )
     } );
 
-    //TODO choose a better name, this name is specific to Domain.SPACE
-    //TODO where does this initial value come from?
-    //TODO where does this range come from?
-    // @public Gaussian wave packet width in x space, in meters
-    this.xWidthProperty = new NumberProperty( 0.107, {
-      range: new Range( 0.08, 1 ),
+    // @public Gaussian wave packet width in x space, in meters.
+    // Note that xWidth = 1 / kWidth
+    this.xWidthProperty = new NumberProperty( 1 / this.kWidthProperty.value, {
+      range: new Range( 1 / this.kWidthProperty.range.max, 1 / this.kWidthProperty.range.min ),
       tandem: options.tandem.createTandem( 'xWidthProperty' )
     } );
 
