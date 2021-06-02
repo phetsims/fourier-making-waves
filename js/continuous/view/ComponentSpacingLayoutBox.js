@@ -53,6 +53,7 @@ class ComponentSpacingLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'componentSpacingText' )
     } );
 
+    //TODO replace componentSpacingValueNode and componentSpacingSlider with NumberControl
     const componentSpacingValueNode = new RichText( '', {
       font: FMWConstants.CONTROL_FONT,
       tandem: options.tandem.createTandem( 'componentSpacingValueNode' )
