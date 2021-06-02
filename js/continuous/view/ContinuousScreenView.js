@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -19,7 +18,9 @@ import DiscreteScreenView from '../../discrete/view/DiscreteScreenView.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import ContinuousModel from '../model/ContinuousModel.js';
+import ComponentsChartNode from './ComponentsChartNode.js';
 import ContinuousControlPanel from './ContinuousControlPanel.js';
+import ContinuousSumChartNode from './ContinuousSumChartNode.js';
 
 // constants
 const CHART_TITLE_Y_SPACING = 15; // space between chart title and the chart
@@ -56,36 +57,33 @@ class ContinuousScreenView extends ScreenView {
     // Parent tandem for all components related to the Components chart
     const componentsTandem = options.tandem.createTandem( 'components' );
 
-    const componentsVisibleProperty = new BooleanProperty( true ); //TODO replace with model.componentsChart.chartVisibleProperty
-
     // Button to show/hide the Components chart
     const componentsExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.componentsChart, componentsVisibleProperty, {
+      fourierMakingWavesStrings.componentsChart, model.componentsChart.chartVisibleProperty, {
         textOptions: { maxWidth: 150 }, // determined empirically
         tandem: componentsTandem.createTandem( 'componentsExpandCollapseButton' )
       } );
 
-    // TODO placeholder
-    const componentsChartNode = new Rectangle( 0, 0, DiscreteScreenView.CHART_RECTANGLE_SIZE.width, DiscreteScreenView.CHART_RECTANGLE_SIZE.height, {
-      stroke: 'black',
-      fill: 'white'
+    // Components chart
+    const componentsChartNode = new ComponentsChartNode( {
+      visibleProperty: model.componentsChart.chartVisibleProperty,
+      tandem: componentsTandem.createTandem( 'componentsChartNode' )
     } );
 
     // Parent tandem for all components related to the Sum chart
     const sumTandem = options.tandem.createTandem( 'sum' );
 
-    const sumVisibleProperty = new BooleanProperty( true ); //TODO replace with model.sumChart.chartVisibleProperty
-
+    // Button to show/hide the Sum chart
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.sum, sumVisibleProperty, {
+      fourierMakingWavesStrings.sum, model.sumChart.chartVisibleProperty, {
         textOptions: { maxWidth: 150 }, // determined empirically
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
       } );
 
-    // TODO placeholder
-    const sumChartNode = new Rectangle( 0, 0, DiscreteScreenView.CHART_RECTANGLE_SIZE.width, DiscreteScreenView.CHART_RECTANGLE_SIZE.height, {
-      stroke: 'black',
-      fill: 'white'
+    // Sum chart
+    const sumChartNode = new ContinuousSumChartNode( {
+      visibleProperty: model.sumChart.chartVisibleProperty,
+      tandem: sumTandem.createTandem( 'sumChartNode' )
     } );
 
     const controlPanel = new ContinuousControlPanel( model, popupParent );

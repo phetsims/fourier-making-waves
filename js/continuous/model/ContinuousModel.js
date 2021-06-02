@@ -17,7 +17,8 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import ContinuousChartsModel from './ContinuousChartsModel.js';
+import ComponentsChart from './ComponentsChart.js';
+import ContinuousSumChart from './ContinuousSumChart.js';
 
 const SPACING_BETWEEN_COMPONENTS_VALUES = [ 0, Math.PI / 4, Math.PI / 2, Math.PI, 2 * Math.PI ];
 
@@ -97,8 +98,13 @@ class ContinuousModel {
     } );
 
     // @public
-    this.chartsModel = new ContinuousChartsModel( {
-      tandem: options.tandem.createTandem( 'chartsModel' )
+    this.componentsChart = new ComponentsChart( {
+      tandem: options.tandem.createTandem( 'componentsChart' )
+    } );
+
+    // @public
+    this.sumChart = new ContinuousSumChart( {
+      tandem: options.tandem.createTandem( 'sumChart' )
     } );
   }
 
@@ -106,6 +112,8 @@ class ContinuousModel {
    * @public
    */
   reset() {
+
+    // Properties
     this.spacingBetweenComponentsIndexProperty.reset();
     this.continuousWaveformVisibleProperty.reset();
     this.wavePacketCenterProperty.reset();
@@ -114,7 +122,10 @@ class ContinuousModel {
     this.domainProperty.reset();
     this.envelopeVisibleProperty.reset();
     this.widthIndicatorsVisibleProperty.reset();
-    this.chartsModel.reset();
+
+    // sub-models
+    this.componentsChart.reset();
+    this.sumChart.reset();
   }
 
   /**
