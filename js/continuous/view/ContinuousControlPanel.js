@@ -42,10 +42,18 @@ class ContinuousControlPanel extends Panel {
     }, options );
 
     const sectionNodes = [
+
+      // Component Spacing
       new ComponentSpacingLayoutBox( model.domainProperty, model.componentSpacingProperty,
         model.componentSpacingIndexProperty, model.continuousWaveformVisibleProperty ),
+
+      // Wave Packet Center
       new WavePacketCenterLayoutBox( model.wavePacketCenterProperty ),
+
+      // Wave Packet Width
       new WavePacketWidthLayoutBox( model.kWidthProperty, model.xWidthProperty ),
+
+      // Graph Controls
       new ContinuousGraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty,
         model.envelopeVisibleProperty, model.widthIndicatorsVisibleProperty, popupParent, {
           tandem: options.tandem.createTandem( 'graphControlsLayoutBox' )
