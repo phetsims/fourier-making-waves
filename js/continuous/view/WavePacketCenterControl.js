@@ -66,7 +66,7 @@ class WavePacketCenterControl extends VBox {
       [ domainProperty, wavePacketCenterProperty ],
       ( domain, wavePacketCenter ) => {
         valueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
-          symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.sigma,
+          symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
           subscript: 0,
           value: Utils.toFixedNumber( wavePacketCenter, options.decimals ),
           units: ( domain === Domain.SPACE ) ?
