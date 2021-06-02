@@ -46,6 +46,9 @@ class ContinuousModel {
     // @public the range over which components are significant, in radians/meter
     this.significantWidthRange = new Range( 0, 24 * Math.PI );
 
+    // @public
+    this.maxAmplitude = 0.21;
+
     // @public index into COMPONENT_SPACING_VALUES, so that we have a linear value to control via Slider
     this.componentSpacingIndexProperty = new NumberProperty( 3, {
       numberType: 'Integer',

@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
+import Range from '../../../../dot/js/Range.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -50,6 +51,12 @@ class ContinuousScreenView extends ScreenView {
 
     // Amplitudes chart
     const amplitudesChartNode = new ContinuousAmplitudesChartNode( model.continuousWaveformVisibleProperty, {
+      transformOptions: {
+        modelXRange: model.significantWidthRange,
+        modelYRange: new Range( 0, model.maxAmplitude ),
+        viewWidth: DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
+        viewHeight: DiscreteScreenView.CHART_RECTANGLE_SIZE.height
+      },
       tandem: options.tandem.createTandem( 'amplitudesChartNode' )
     } );
 
@@ -65,6 +72,12 @@ class ContinuousScreenView extends ScreenView {
 
     // Components chart
     const componentsChartNode = new ComponentsChartNode( {
+      transformOptions: {
+        modelXRange: new Range( -2, 2 ), //TODO
+        modelYRange: new Range( -model.maxAmplitude, model.maxAmplitude ),
+        viewWidth: DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
+        viewHeight: DiscreteScreenView.CHART_RECTANGLE_SIZE.height
+      },
       visibleProperty: model.componentsChart.chartVisibleProperty,
       tandem: componentsTandem.createTandem( 'componentsChartNode' )
     } );
@@ -81,6 +94,12 @@ class ContinuousScreenView extends ScreenView {
 
     // Sum chart
     const sumChartNode = new ContinuousSumChartNode( model.envelopeVisibleProperty, {
+      transformOptions: {
+        modelXRange: new Range( -2, 2 ), //TODO
+        modelYRange: new Range( -1.25, 1.25 ), //TODO
+        viewWidth: DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
+        viewHeight: DiscreteScreenView.CHART_RECTANGLE_SIZE.height
+      },
       visibleProperty: model.sumChart.chartVisibleProperty,
       tandem: sumTandem.createTandem( 'sumChartNode' )
     } );

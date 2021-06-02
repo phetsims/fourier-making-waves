@@ -402,6 +402,7 @@ class DiscreteScreenView extends ScreenView {
   }
 }
 
+//TODO move to FMWConstants, used in all screens
 // @public ... because these same values are needed in Wave Game screen.
 DiscreteScreenView.CHART_RECTANGLE_SIZE = CHART_RECTANGLE_SIZE;
 DiscreteScreenView.X_CHART_RECTANGLES = X_CHART_RECTANGLES;
