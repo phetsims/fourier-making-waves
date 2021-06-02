@@ -54,7 +54,7 @@ class ContinuousScreenView extends ScreenView {
       model.continuousWaveformVisibleProperty, {
         transformOptions: {
           modelXRange: model.significantWidthRange,
-          modelYRange: new Range( 0, model.maxAmplitude ), //TODO
+          modelYRange: new Range( 0, model.maxAmplitude ), //TODO this needs to autoscale!
           viewWidth: DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
           viewHeight: DiscreteScreenView.CHART_RECTANGLE_SIZE.height
         },
