@@ -2,15 +2,15 @@ TODO.txt for fourier-making-waves
 
 ## Common
 
-Sprint on keyboard navigation
-
 ## Discrete screen
-
-Support for Domain.SPACE_AND_TIME for Infinite Harmonics
 
 ## Wave Game screen
 
 # Continuous
+
+Duplication in ComponentSpacingControl, WavePacketCenterControl, WavePacketKWidthControl, WavePacketXWidthControl
+Duplication in ComponentSpacingSlider, WavePacketCenterSlider, WavePacketKWidthSlider, WavePacketXWidthSlider
+Brute-force tick marks in ComponentSpacingSlider, WavePacketCenterSlider, WavePacketKWidthSlider
 
 ## PhET-iO
 
