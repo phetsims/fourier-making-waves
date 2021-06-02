@@ -7,22 +7,17 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
-import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import ComponentSpacingSlider from './ComponentSpacingSlider.js';
+import ComponentSpacingControl from './ComponentSpacingControl.js';
 
 class ComponentSpacingLayoutBox extends VBox {
 
@@ -53,15 +48,11 @@ class ComponentSpacingLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'componentSpacingText' )
     } );
 
-    //TODO replace componentSpacingValueNode and componentSpacingSlider with NumberControl
-    const componentSpacingValueNode = new RichText( '', {
-      font: FMWConstants.CONTROL_FONT,
-      tandem: options.tandem.createTandem( 'componentSpacingValueNode' )
-    } );
-
-    const componentSpacingSlider = new ComponentSpacingSlider( componentSpacingIndexProperty, {
-      tandem: options.tandem.createTandem( 'componentSpacingSlider' )
-    } );
+    // Value display and slider
+    const componentSpacingControl = new ComponentSpacingControl( domainProperty, componentSpacingProperty,
+      componentSpacingIndexProperty, {
+        tandem: options.tandem.createTandem( 'componentSpacingControl' )
+      } );
 
     const continuousWaveformCheckbox = new Checkbox(
       new Text( fourierMakingWavesStrings.continuousWaveform, {
@@ -76,31 +67,11 @@ class ComponentSpacingLayoutBox extends VBox {
     assert && assert( !options.children, 'ComponentSpacingLayoutBox sets children' );
     options.children = [
       componentSpacingText,
-      componentSpacingValueNode,
-      componentSpacingSlider,
+      componentSpacingControl,
       continuousWaveformCheckbox
     ];
 
     super( options );
-
-    // Update the displayed value for component spacing.
-    Property.multilink(
-      [ domainProperty, componentSpacingProperty ],
-      ( domain, componentSpacing ) => {
-        const value = Utils.roundToInterval( componentSpacing, 0.01 );
-        if ( domain === Domain.SPACE ) {
-          componentSpacingValueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.k1EqualsValue, {
-            k: FMWSymbols.k,
-            value: value
-          } );
-        }
-        else {
-          componentSpacingValueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.omega1EqualsValue, {
-            omega: FMWSymbols.omega,
-            value: value
-          } );
-        }
-      } );
   }
 
   /**
