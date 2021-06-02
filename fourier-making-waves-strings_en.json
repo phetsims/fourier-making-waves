@@ -235,5 +235,14 @@
   },
   "widthIndicators": {
     "value": "Width Indicators"
+  },
+  "omega1EqualsValue": {
+    "value": "{{omega}}<sub>1</sub> = {{value}} rad/ms"
+  },
+  "k1EqualsValue": {
+    "value": "{{k}}<sub>1</sub> = {{value}} rad/m"
+  },
+  "continuousWaveform": {
+    "value": "Continuous Waveform"
   }
 }

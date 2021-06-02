@@ -46,7 +46,8 @@ class ContinuousControlPanel extends Panel {
     }, options );
 
     const sectionNodes = [
-      new ComponentSpacingLayoutBox( model.spacingBetweenComponentsIndexProperty, model.continuousWaveformVisibleProperty ),
+      new ComponentSpacingLayoutBox( model.domainProperty, model.componentSpacingProperty,
+        model.componentSpacingIndexProperty, model.continuousWaveformVisibleProperty ),
       new WavePacketCenterLayoutBox( model.wavePacketCenterProperty ),
       new WavePacketWidthLayoutBox( model.kWidthProperty, model.xWidthProperty ),
       new ContinuousGraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty,

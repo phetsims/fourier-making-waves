@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ComponentSpacingSlider is the slider for setting component spacing. It sets spacingBetweenComponentsIndexProperty,
+ * ComponentSpacingSlider is the slider for setting component spacing. It sets componentSpacingIndexProperty,
  * which is an index into a small set of valid spacing values.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -20,13 +20,13 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class ComponentSpacingSlider extends Slider {
 
   /**
-   * @param {Property.<number>} spacingBetweenComponentsIndexProperty
+   * @param {Property.<number>} componentSpacingIndexProperty
    * @param {Object} [options]
    */
-  constructor( spacingBetweenComponentsIndexProperty, options ) {
+  constructor( componentSpacingIndexProperty, options ) {
 
-    assert && AssertUtils.assertPropertyOf( spacingBetweenComponentsIndexProperty, 'number' );
-    assert && assert( spacingBetweenComponentsIndexProperty.range );
+    assert && AssertUtils.assertPropertyOf( componentSpacingIndexProperty, 'number' );
+    assert && assert( componentSpacingIndexProperty.range );
 
     options = merge( {
 
@@ -40,10 +40,10 @@ class ComponentSpacingSlider extends Slider {
       keyboardStep: 1
     }, options );
 
-    super( spacingBetweenComponentsIndexProperty, spacingBetweenComponentsIndexProperty.range, options );
+    super( componentSpacingIndexProperty, componentSpacingIndexProperty.range, options );
 
     //TODO handle this more robustly
-    assert && assert( spacingBetweenComponentsIndexProperty.range.getLength() === 4 );
+    assert && assert( componentSpacingIndexProperty.range.getLength() === 4 );
     const textOptions = {
       font: new PhetFont( 12 )
     };

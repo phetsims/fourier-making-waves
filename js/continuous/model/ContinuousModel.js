@@ -21,7 +21,7 @@ import ComponentsChart from './ComponentsChart.js';
 import ContinuousAmplitudesChart from './ContinuousAmplitudesChart.js';
 import ContinuousSumChart from './ContinuousSumChart.js';
 
-const SPACING_BETWEEN_COMPONENTS_VALUES = [ 0, Math.PI / 4, Math.PI / 2, Math.PI, 2 * Math.PI ];
+const COMPONENT_SPACING_VALUES = [ 0, Math.PI / 4, Math.PI / 2, Math.PI, 2 * Math.PI ];
 
 class ContinuousModel {
 
@@ -39,19 +39,21 @@ class ContinuousModel {
     // @public the range over which components are significant, in radians/meter
     this.significantWidthRange = new Range( 0, 24 * Math.PI );
 
-    // @public index into SPACING_BETWEEN_COMPONENTS_VALUES, so that we have a linear value to control via Slider
-    this.spacingBetweenComponentsIndexProperty = new NumberProperty( 3, {
+    // @public index into COMPONENT_SPACING_VALUES, so that we have a linear value to control via Slider
+    this.componentSpacingIndexProperty = new NumberProperty( 3, {
       numberType: 'Integer',
-      range: new Range( 0, SPACING_BETWEEN_COMPONENTS_VALUES.length - 1 ),
-      tandem: options.tandem.createTandem( 'spacingBetweenComponentsIndexProperty' )
+      range: new Range( 0, COMPONENT_SPACING_VALUES.length - 1 ),
+      tandem: options.tandem.createTandem( 'componentSpacingIndexProperty' )
     } );
 
-    // @public {DerivedProperty.<number>} spacing between Fourier components, in radians/meter. dispose is not needed
-    this.spacingBetweenComponentsProperty = new DerivedProperty(
-      [ this.spacingBetweenComponentsIndexProperty ],
-      index => SPACING_BETWEEN_COMPONENTS_VALUES[ index ], {
+    // @public {DerivedProperty.<number>} spacing between Fourier components, in radians/meter or radians/ms,
+    // depending on domainProperty. dispose is not needed
+    this.componentSpacingProperty = new DerivedProperty(
+      [ this.componentSpacingIndexProperty ],
+      index => COMPONENT_SPACING_VALUES[ index ], {
+        validValues: COMPONENT_SPACING_VALUES,
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
-        tandem: options.tandem.createTandem( 'spacingBetweenComponentsProperty' )
+        tandem: options.tandem.createTandem( 'componentSpacingProperty' )
       } );
 
     // @public
@@ -120,7 +122,7 @@ class ContinuousModel {
   reset() {
 
     // Properties
-    this.spacingBetweenComponentsIndexProperty.reset();
+    this.componentSpacingIndexProperty.reset();
     this.continuousWaveformVisibleProperty.reset();
     this.wavePacketCenterProperty.reset();
     this.kWidthProperty.reset();
