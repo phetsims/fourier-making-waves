@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO replace this with NumberControl, call recomputeText when domainProperty changes
 /**
  * ComponentSpacingControl displays the component spacing value, and allows it to be changed via a slider.
  * We are unable to use NumberControl here because the display format needs to change to match the domain
