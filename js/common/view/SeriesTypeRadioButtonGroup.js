@@ -10,9 +10,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
-import FMWConstants from '../../common/FMWConstants.js';
-import FMWSymbols from '../../common/FMWSymbols.js';
-import SeriesType from '../../common/model/SeriesType.js';
+import FMWConstants from '../FMWConstants.js';
+import FMWSymbols from '../FMWSymbols.js';
+import SeriesType from '../model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {

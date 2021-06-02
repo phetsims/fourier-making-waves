@@ -21,9 +21,9 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../../common/model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import DomainComboBox from './DomainComboBox.js';
+import DomainComboBox from '../../common/view/DomainComboBox.js';
 import EquationComboBox from './EquationComboBox.js';
-import SeriesTypeRadioButtonGroup from './SeriesTypeRadioButtonGroup.js';
+import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonGroup.js';
 
 class DiscreteGraphControlsLayoutBox extends VBox {
 

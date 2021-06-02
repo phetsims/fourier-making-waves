@@ -10,11 +10,11 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import FMWSymbols from '../../common/FMWSymbols.js';
+import FMWSymbols from '../FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import Domain from '../../common/model/Domain.js';
-import FMWComboBox from '../../common/view/FMWComboBox.js';
+import Domain from '../model/Domain.js';
+import FMWComboBox from './FMWComboBox.js';
 
 const CHOICES = [
   {

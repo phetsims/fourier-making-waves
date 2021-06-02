@@ -18,8 +18,8 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import DomainComboBox from '../../discrete/view/DomainComboBox.js';
-import SeriesTypeRadioButtonGroup from '../../discrete/view/SeriesTypeRadioButtonGroup.js';
+import DomainComboBox from '../../common/view/DomainComboBox.js';
+import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
