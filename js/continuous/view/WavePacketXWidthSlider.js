@@ -41,14 +41,24 @@ class WavePacketXWidthSlider extends Slider {
 
     super( xWidthProperty, xWidthProperty.range, options );
 
-    //TODO handle this more robustly, less brute-force
-    const tickValues = [ 0.08, 0.2, 0.4, 0.6, 0.8, 1 ];
-    const textOptions = {
-      font: new PhetFont( 12 )
-    };
-    tickValues.forEach( tickValue => {
-      this.addMajorTick( tickValue, new Text( Utils.toFixedNumber( tickValue, options.tickDecimals ), textOptions ) );
-    } );
+    // Major ticks at min and max, and at 0.2 intervals between min and max
+    {
+      const tickValues = [];
+      tickValues.push( xWidthProperty.range.min, xWidthProperty.range.max );
+
+      assert && assert( xWidthProperty.range.max === 1 );
+      const TICK_INTERVAL = 0.2;
+      let tickValue = xWidthProperty.range.max - TICK_INTERVAL;
+      while ( tickValue > xWidthProperty.range.min ) {
+        tickValues.push( tickValue );
+        tickValue -= TICK_INTERVAL;
+      }
+
+      const textOptions = { font: new PhetFont( 12 ) };
+      tickValues.forEach( tickValue =>
+        this.addMajorTick( tickValue, new Text( Utils.toFixedNumber( tickValue, options.tickDecimals ), textOptions ) )
+      );
+    }
   }
 }
 
