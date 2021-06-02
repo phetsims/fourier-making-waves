@@ -41,11 +41,11 @@ class DiscreteGraphControlsLayoutBox extends VBox {
     assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
     assert && assert( popupParent instanceof Node );
 
-    options = merge( {
+    options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, FMWConstants.VBOX_OPTIONS, options );
+    }, options );
 
     // To make all labels have the same effective width
     const labelsAlignBoxOptions = {

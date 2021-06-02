@@ -37,11 +37,11 @@ class MeasurementToolsLayoutBox extends VBox {
     assert && assert( periodTool instanceof MeasurementTool );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
-    options = merge( {
+    options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, FMWConstants.VBOX_OPTIONS, options );
+    }, options );
 
     // Measurement Tools
     const measurementToolsText = new Text( fourierMakingWavesStrings.measurementTools, {
