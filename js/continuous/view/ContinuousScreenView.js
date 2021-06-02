@@ -50,15 +50,16 @@ class ContinuousScreenView extends ScreenView {
     const popupParent = new Node();
 
     // Amplitudes chart
-    const amplitudesChartNode = new ContinuousAmplitudesChartNode( model.continuousWaveformVisibleProperty, {
-      transformOptions: {
-        modelXRange: model.significantWidthRange,
-        modelYRange: new Range( 0, model.maxAmplitude ), //TODO
-        viewWidth: DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
-        viewHeight: DiscreteScreenView.CHART_RECTANGLE_SIZE.height
-      },
-      tandem: options.tandem.createTandem( 'amplitudesChartNode' )
-    } );
+    const amplitudesChartNode = new ContinuousAmplitudesChartNode( model.domainProperty,
+      model.continuousWaveformVisibleProperty, {
+        transformOptions: {
+          modelXRange: model.significantWidthRange,
+          modelYRange: new Range( 0, model.maxAmplitude ), //TODO
+          viewWidth: DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
+          viewHeight: DiscreteScreenView.CHART_RECTANGLE_SIZE.height
+        },
+        tandem: options.tandem.createTandem( 'amplitudesChartNode' )
+      } );
 
     // Parent tandem for all components related to the Components chart
     const componentsTandem = options.tandem.createTandem( 'components' );

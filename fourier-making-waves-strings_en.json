@@ -247,5 +247,8 @@
   },
   "radiansPerMillisecond": {
     "value": "rad/ms"
+  },
+  "xAxisLabel": {
+    "value": "{{symbol}} ({{units}})"
   }
 }
