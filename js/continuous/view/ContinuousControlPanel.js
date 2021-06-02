@@ -82,14 +82,10 @@ class ContinuousControlPanel extends Panel {
     children.push( new HSeparator( separatorWidth, separatorOptions ) );
     children.push( symbolsButton );
 
-    const vBox = new VBox( {
+    const content = new VBox( {
       align: 'left',
       spacing: 10,
       children: children
-    } );
-
-    const content = new Node( {
-      children: [ vBox, symbolsButton ]
     } );
 
     super( content, options );
