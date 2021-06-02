@@ -12,18 +12,21 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
 class WavePacketWidthLayoutBox extends VBox {
 
   /**
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<number>} kWidthProperty
    * @param {Property.<number>} xWidthProperty
    * @param {Object} [options]
    */
-  constructor( kWidthProperty, xWidthProperty, options ) {
+  constructor( domainProperty, kWidthProperty, xWidthProperty, options ) {
 
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( kWidthProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( xWidthProperty, 'number' );
 

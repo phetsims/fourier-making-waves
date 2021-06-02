@@ -60,7 +60,7 @@ class ContinuousControlPanel extends Panel {
       } ),
 
       // Wave Packet Width
-      new WavePacketWidthLayoutBox( model.kWidthProperty, model.xWidthProperty, {
+      new WavePacketWidthLayoutBox( model.domainProperty, model.kWidthProperty, model.xWidthProperty, {
         spacing: VERTICAL_SPACING,
         tandem: options.tandem.createTandem( 'wavePacketWidthLayoutBox' )
       } ),
