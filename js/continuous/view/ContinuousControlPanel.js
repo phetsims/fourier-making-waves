@@ -49,9 +49,10 @@ class ContinuousControlPanel extends Panel {
       new ComponentSpacingLayoutBox( model.spacingBetweenComponentsIndexProperty, model.continuousWaveformVisibleProperty ),
       new WavePacketCenterLayoutBox( model.wavePacketCenterProperty ),
       new WavePacketWidthLayoutBox( model.kWidthProperty, model.xWidthProperty ),
-      new ContinuousGraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty, popupParent, {
-        tandem: options.tandem.createTandem( 'graphControlsLayoutBox' )
-      } )
+      new ContinuousGraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty,
+        model.envelopeVisibleProperty, popupParent, {
+          tandem: options.tandem.createTandem( 'graphControlsLayoutBox' )
+        } )
     ];
 
     // Put a separator between each logical section.

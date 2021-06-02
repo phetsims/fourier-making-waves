@@ -229,5 +229,11 @@
   },
   "componentsChart": {
     "value": "Components"
+  },
+  "xSpaceEnvelope": {
+    "value": "x-Space Envelope"
+  },
+  "tSpaceEnvelope": {
+    "value": "t-Space Envelope"
   }
 }

@@ -87,8 +87,8 @@ class ContinuousModel {
     } );
 
     // @public
-    this.xSpaceEnvelopeVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'xSpaceEnvelopeVisibleProperty' )
+    this.envelopeVisibleProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'envelopeVisibleProperty' )
     } );
 
     // @public
@@ -112,7 +112,7 @@ class ContinuousModel {
     this.kWidthProperty.reset();
     this.xWidthProperty.reset();
     this.domainProperty.reset();
-    this.xSpaceEnvelopeVisibleProperty.reset();
+    this.envelopeVisibleProperty.reset();
     this.widthIndicatorsVisibleProperty.reset();
     this.chartsModel.reset();
   }

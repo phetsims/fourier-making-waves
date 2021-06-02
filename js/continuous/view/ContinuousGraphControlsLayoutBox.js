@@ -22,19 +22,22 @@ import DomainComboBox from '../../common/view/DomainComboBox.js';
 import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import EnvelopeCheckbox from './EnvelopeCheckbox.js';
 
 class ContinuousGraphControlsLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {Property.<boolean>} envelopeVisibleProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
-  constructor( domainProperty, seriesTypeProperty, popupParent, options ) {
+  constructor( domainProperty, seriesTypeProperty, envelopeVisibleProperty, popupParent, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
+    assert && AssertUtils.assertPropertyOf( envelopeVisibleProperty, 'boolean' );
     assert && assert( popupParent instanceof Node );
 
     options = merge( {
@@ -88,14 +91,18 @@ class ContinuousGraphControlsLayoutBox extends VBox {
       children: [ new AlignBox( seriesText, labelsAlignBoxOptions ), seriesTypeRadioButtonGroup ]
     } );
 
-    //TODO x-space / t-space envelope checkbox
+    const envelopeCheckbox = new EnvelopeCheckbox( domainProperty, envelopeVisibleProperty, {
+      tandem: options.tandem.createTandem( 'envelopeCheckbox' )
+    } );
+
     //TODO width indicators checkbox
 
     assert && assert( !options.children, 'ContinuousGraphControlsLayoutBox sets children' );
     options.children = [
       graphControlsText,
       functionOfBox,
-      seriesBox
+      seriesBox,
+      envelopeCheckbox
     ];
 
     super( options );
