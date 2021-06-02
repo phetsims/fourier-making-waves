@@ -27,11 +27,11 @@ class WavePacketWidthLayoutBox extends VBox {
     assert && AssertUtils.assertPropertyOf( kWidthProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( xWidthProperty, 'number' );
 
-    options = merge( {
+    options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, FMWConstants.VBOX_OPTIONS, options );
+    }, options );
 
     // Component Spacing
     const wavePacketWidthText = new Text( fourierMakingWavesStrings.wavePacketWidth, {

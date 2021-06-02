@@ -35,11 +35,14 @@ class ComponentSpacingLayoutBox extends VBox {
     assert && AssertUtils.assertPropertyOf( componentSpacingIndexProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( continuousWaveformVisibleProperty, 'boolean' );
 
-    options = merge( {
+    options = merge( {}, FMWConstants.VBOX_OPTIONS, {
+
+      // VBox options
+      spacing: 8,
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, FMWConstants.VBOX_OPTIONS, options );
+    }, options );
 
     // Component Spacing
     const componentSpacingText = new Text( fourierMakingWavesStrings.componentSpacing, {

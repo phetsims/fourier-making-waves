@@ -1,13 +1,12 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO use NumberControl, call recomputeText when domainProperty changes
+//TODO use NumberControl
 /**
- * ComponentSpacingControl displays the component spacing value, and allows it to be changed via a slider.
+ * WavePacketCenterControl displays the wave packet center value, and allows it to be changed via a slider.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -21,25 +20,23 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import ComponentSpacingSlider from './ComponentSpacingSlider.js';
+import WavePacketCenterSlider from './WavePacketCenterSlider.js';
 
-class ComponentSpacingControl extends VBox {
+class WavePacketCenterControl extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {DerivedProperty} componentSpacingProperty
-   * @param {Property.<number>} componentSpacingIndexProperty
+   * @param {Property.<number>} wavePacketCenterProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, componentSpacingProperty, componentSpacingIndexProperty, options ) {
+  constructor( domainProperty, wavePacketCenterProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( componentSpacingProperty instanceof DerivedProperty );
-    assert && AssertUtils.assertPropertyOf( componentSpacingIndexProperty, 'number' );
+    assert && AssertUtils.assertPropertyOf( wavePacketCenterProperty, 'number' );
 
     options = merge( {
 
-      interval: 0.01,
+      interval: 0.1,
 
       // VBox options
       spacing: 5,
@@ -54,7 +51,7 @@ class ComponentSpacingControl extends VBox {
       tandem: options.tandem.createTandem( 'valueNode' )
     } );
 
-    const slider = new ComponentSpacingSlider( componentSpacingIndexProperty, {
+    const slider = new WavePacketCenterSlider( wavePacketCenterProperty, {
       tandem: options.tandem.createTandem( 'slider' )
     } );
 
@@ -65,12 +62,12 @@ class ComponentSpacingControl extends VBox {
 
     // Update the displayed value.
     Property.multilink(
-      [ domainProperty, componentSpacingProperty ],
-      ( domain, componentSpacing ) => {
+      [ domainProperty, wavePacketCenterProperty ],
+      ( domain, wavePacketCenter ) => {
         valueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
-          symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
+          symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.sigma,
           subscript: 0,
-          value: Utils.roundToInterval( componentSpacing, options.interval ),
+          value: Utils.roundToInterval( wavePacketCenter, options.interval ),
           units: ( domain === Domain.SPACE ) ?
                  fourierMakingWavesStrings.radiansPerMeter :
                  fourierMakingWavesStrings.radiansPerMillisecond
@@ -79,5 +76,5 @@ class ComponentSpacingControl extends VBox {
   }
 }
 
-fourierMakingWaves.register( 'ComponentSpacingControl', ComponentSpacingControl );
-export default ComponentSpacingControl;
+fourierMakingWaves.register( 'WavePacketCenterControl', WavePacketCenterControl );
+export default WavePacketCenterControl;

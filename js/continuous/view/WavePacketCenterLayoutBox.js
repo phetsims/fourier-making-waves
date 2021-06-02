@@ -12,24 +12,28 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import WavePacketCenterControl from './WavePacketCenterControl.js';
 
 class WavePacketCenterLayoutBox extends VBox {
 
   /**
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<number>} wavePacketCenterProperty
    * @param {Object} [options]
    */
-  constructor( wavePacketCenterProperty, options ) {
+  constructor( domainProperty, wavePacketCenterProperty, options ) {
 
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( wavePacketCenterProperty, 'number' );
 
-    options = merge( {
+    options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, FMWConstants.VBOX_OPTIONS, options );
+    }, options );
 
     // Component Spacing
     const wavePacketCenterText = new Text( fourierMakingWavesStrings.wavePacketCenter, {
@@ -38,11 +42,15 @@ class WavePacketCenterLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'wavePacketCenterText' )
     } );
 
-    //TODO center slider
+    // Value display and slider
+    const wavePacketCenterControl = new WavePacketCenterControl( domainProperty, wavePacketCenterProperty, {
+      tandem: options.tandem.createTandem( 'wavePacketCenterControl' )
+    } );
 
     assert && assert( !options.children, 'WavePacketCenterLayoutBox sets children' );
     options.children = [
-      wavePacketCenterText
+      wavePacketCenterText,
+      wavePacketCenterControl
     ];
 
     super( options );

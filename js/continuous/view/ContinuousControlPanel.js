@@ -23,6 +23,9 @@ import ContinuousSymbolsDialog from './ContinuousSymbolsDialog.js';
 import WavePacketCenterLayoutBox from './WavePacketCenterLayoutBox.js';
 import WavePacketWidthLayoutBox from './WavePacketWidthLayoutBox.js';
 
+// constants
+const VERTICAL_SPACING = 8;
+
 class ContinuousControlPanel extends Panel {
 
   /**
@@ -45,17 +48,27 @@ class ContinuousControlPanel extends Panel {
 
       // Component Spacing
       new ComponentSpacingLayoutBox( model.domainProperty, model.componentSpacingProperty,
-        model.componentSpacingIndexProperty, model.continuousWaveformVisibleProperty ),
+        model.componentSpacingIndexProperty, model.continuousWaveformVisibleProperty, {
+          spacing: VERTICAL_SPACING,
+          tandem: options.tandem.createTandem( 'componentSpacingLayoutBox' )
+        } ),
 
       // Wave Packet Center
-      new WavePacketCenterLayoutBox( model.wavePacketCenterProperty ),
+      new WavePacketCenterLayoutBox( model.domainProperty, model.wavePacketCenterProperty, {
+        spacing: VERTICAL_SPACING,
+        tandem: options.tandem.createTandem( 'wavePacketCenterLayoutBox' )
+      } ),
 
       // Wave Packet Width
-      new WavePacketWidthLayoutBox( model.kWidthProperty, model.xWidthProperty ),
+      new WavePacketWidthLayoutBox( model.kWidthProperty, model.xWidthProperty, {
+        spacing: VERTICAL_SPACING,
+        tandem: options.tandem.createTandem( 'wavePacketWidthLayoutBox' )
+      } ),
 
       // Graph Controls
       new ContinuousGraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty,
         model.envelopeVisibleProperty, model.widthIndicatorsVisibleProperty, popupParent, {
+          spacing: VERTICAL_SPACING,
           tandem: options.tandem.createTandem( 'graphControlsLayoutBox' )
         } )
     ];
@@ -89,7 +102,7 @@ class ContinuousControlPanel extends Panel {
 
     const content = new VBox( {
       align: 'left',
-      spacing: 10,
+      spacing: VERTICAL_SPACING,
       children: children
     } );
 

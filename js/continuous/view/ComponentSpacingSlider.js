@@ -42,7 +42,7 @@ class ComponentSpacingSlider extends Slider {
 
     super( componentSpacingIndexProperty, componentSpacingIndexProperty.range, options );
 
-    //TODO handle this more robustly
+    //TODO handle this more robustly, less brute-force
     assert && assert( componentSpacingIndexProperty.range.getLength() === 4 );
     const textOptions = {
       font: new PhetFont( 12 )
