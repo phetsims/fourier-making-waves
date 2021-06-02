@@ -73,8 +73,8 @@ class ComponentSpacingControl extends VBox {
           subscript: 1,
           value: Utils.toFixedNumber( componentSpacing, options.decimals ),
           units: ( domain === Domain.SPACE ) ?
-                 fourierMakingWavesStrings.radiansPerMeter :
-                 fourierMakingWavesStrings.radiansPerMillisecond
+                 fourierMakingWavesStrings.units.radiansPerMeter :
+                 fourierMakingWavesStrings.units.radiansPerMillisecond
         } );
       } );
   }

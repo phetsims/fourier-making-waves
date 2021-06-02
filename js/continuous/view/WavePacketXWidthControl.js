@@ -70,8 +70,8 @@ class WavePacketXWidthControl extends VBox {
           subscript: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t,
           value: Utils.toFixedNumber( xWidth, options.decimals ),
           units: ( domain === Domain.SPACE ) ?
-                 fourierMakingWavesStrings.radiansPerMeter :
-                 fourierMakingWavesStrings.radiansPerMillisecond
+                 fourierMakingWavesStrings.units.radiansPerMeter :
+                 fourierMakingWavesStrings.units.radiansPerMillisecond
         } );
       } );
   }

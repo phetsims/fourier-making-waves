@@ -83,7 +83,9 @@ class ContinuousAmplitudesChartNode extends Node {
     domainProperty.link( domain => {
       xAxisLabel.text = StringUtils.fillIn( fourierMakingWavesStrings.xAxisLabel, {
         symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
-        units: ( domain === Domain.SPACE ) ? fourierMakingWavesStrings.radiansPerMeter : fourierMakingWavesStrings.radiansPerMillisecond
+        units: ( domain === Domain.SPACE ) ?
+               fourierMakingWavesStrings.units.radiansPerMeter :
+               fourierMakingWavesStrings.units.radiansPerMillisecond
       } );
       xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
       xAxisLabel.bottom = chartRectangle.bottom;

@@ -98,12 +98,6 @@
   "sawtoothWithCosines": {
     "value": "You can't make a sawtooth wave out of cosines<br>because it is asymmetric. Switching to sines."
   },
-  "meters": {
-    "value": "m"
-  },
-  "milliseconds": {
-    "value": "ms"
-  },
   "expandedForm": {
     "value": "Expanded Form"
   },
@@ -242,10 +236,16 @@
   "symbolSubscriptEqualsValueUnits": {
     "value": "{{symbol}}<sub>{{subscript}}</sub> = {{value}} {{units}}"
   },
-  "radiansPerMeter": {
+  "units.meters": {
+    "value": "m"
+  },
+  "units.milliseconds": {
+    "value": "ms"
+  },
+  "units.radiansPerMeter": {
     "value": "rad/m"
   },
-  "radiansPerMillisecond": {
+  "units.radiansPerMillisecond": {
     "value": "rad/ms"
   },
   "xAxisLabel": {

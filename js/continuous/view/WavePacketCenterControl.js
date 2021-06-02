@@ -70,8 +70,8 @@ class WavePacketCenterControl extends VBox {
           subscript: 0,
           value: Utils.toFixedNumber( wavePacketCenter, options.decimals ),
           units: ( domain === Domain.SPACE ) ?
-                 fourierMakingWavesStrings.radiansPerMeter :
-                 fourierMakingWavesStrings.radiansPerMillisecond
+                 fourierMakingWavesStrings.units.radiansPerMeter :
+                 fourierMakingWavesStrings.units.radiansPerMillisecond
         } );
       } );
   }
