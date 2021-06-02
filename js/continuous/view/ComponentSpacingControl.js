@@ -70,7 +70,7 @@ class ComponentSpacingControl extends VBox {
       ( domain, componentSpacing ) => {
         valueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
           symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
-          subscript: 0,
+          subscript: 1,
           value: Utils.roundToInterval( componentSpacing, options.interval ),
           units: ( domain === Domain.SPACE ) ?
                  fourierMakingWavesStrings.radiansPerMeter :
