@@ -131,8 +131,14 @@ class WaveformChartNode extends Node {
     }
 
     // Set the x-axis label based on domain.
-    const spaceLabel = StringUtils.fillIn( fourierMakingWavesStrings.xMeters, { x: FMWSymbols.x } );
-    const timeLabel = StringUtils.fillIn( fourierMakingWavesStrings.tMilliseconds, { t: FMWSymbols.t } );
+    const spaceLabel = StringUtils.fillIn( fourierMakingWavesStrings.xAxisLabel, {
+      symbol: FMWSymbols.x,
+      units: fourierMakingWavesStrings.meters
+    } );
+    const timeLabel = StringUtils.fillIn( fourierMakingWavesStrings.xAxisLabel, {
+      symbol: FMWSymbols.t,
+      units: fourierMakingWavesStrings.milliseconds
+    } );
     domainProperty.link( domain => {
       xAxisLabel.text = ( domain === Domain.TIME ) ? timeLabel : spaceLabel;
       xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;

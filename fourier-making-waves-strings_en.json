@@ -98,11 +98,11 @@
   "sawtoothWithCosines": {
     "value": "You can't make a sawtooth wave out of cosines<br>because it is asymmetric. Switching to sines."
   },
-  "xMeters": {
-    "value": "{{x}} (m)"
+  "meters": {
+    "value": "m"
   },
-  "tMilliseconds": {
-    "value": "{{t}} (ms)"
+  "milliseconds": {
+    "value": "ms"
   },
   "expandedForm": {
     "value": "Expanded Form"
