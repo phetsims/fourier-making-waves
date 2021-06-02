@@ -11,8 +11,10 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
 import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapseButton.js';
 import DiscreteScreenView from '../../discrete/view/DiscreteScreenView.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -48,6 +50,11 @@ class ContinuousScreenView extends ScreenView {
 
     // Parent for all popups
     const popupParent = new Node();
+
+    // An equation
+    const amplitudeChartEquationNode = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
+      font: FMWConstants.EQUATION_FONT
+    } );
 
     // Amplitudes chart
     const amplitudesChartNode = new ContinuousAmplitudesChartNode( model.domainProperty,
@@ -122,6 +129,10 @@ class ContinuousScreenView extends ScreenView {
       amplitudesChartNode.x = DiscreteScreenView.X_CHART_RECTANGLES;
       amplitudesChartNode.y = 54;
 
+      // Equation centered above Amplitudes chart
+      amplitudeChartEquationNode.centerX = amplitudesChartNode.x + DiscreteScreenView.CHART_RECTANGLE_SIZE.width / 2;
+      amplitudeChartEquationNode.bottom = amplitudesChartNode.top - 3;
+
       // Components chart below the Amplitudes chart
       componentsExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
       componentsExpandCollapseButton.top = amplitudesChartNode.bottom + 15;
@@ -147,6 +158,7 @@ class ContinuousScreenView extends ScreenView {
     // This should improve startup performance, compared to calling this.addChild for each Node.
     const screenViewRootNode = new Node( {
       children: [
+        amplitudeChartEquationNode,
         amplitudesChartNode,
         componentsExpandCollapseButton,
         componentsChartNode,
