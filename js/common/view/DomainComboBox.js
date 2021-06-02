@@ -59,7 +59,7 @@ class DomainComboBox extends FMWComboBox {
       }
     }, options );
 
-    // {{string:string, value:Domain}[]}
+    // {{value:Domain, string:string}[]} use the choices that match the valid values for domainProperty
     const choices = _.map( domainProperty.validValues,
       value => _.find( CHOICES, choice => choice.value === value )
     );
