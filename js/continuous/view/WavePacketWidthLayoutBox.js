@@ -48,7 +48,7 @@ class WavePacketWidthLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'kWidthControl' )
     } );
 
-    //TODO x width slider
+    //TODO xWidthControl
 
     assert && assert( !options.children, 'WavePacketWidthLayoutBox sets children' );
     options.children = [
