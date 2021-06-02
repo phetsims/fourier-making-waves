@@ -53,8 +53,8 @@ const FMWConstants = {
 
   PANEL_OPTIONS: {
     cornerRadius: PANEL_CORNER_RADIUS,
-    xMargin: 8,
-    yMargin: 5,
+    xMargin: 15,
+    yMargin: 15,
     fill: FMWColorProfile.panelFillProperty,
     stroke: FMWColorProfile.panelStrokeProperty
   },

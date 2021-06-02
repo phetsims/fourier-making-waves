@@ -38,10 +38,6 @@ class DiscreteControlPanel extends Panel {
 
     options = merge( {}, FMWConstants.PANEL_OPTIONS, {
 
-      // Panel options
-      xMargin: 15,
-      yMargin: 15,
-
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
