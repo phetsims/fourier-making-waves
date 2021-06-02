@@ -88,10 +88,8 @@ class DiscreteControlPanel extends Panel {
 
     // Push button to open the dialog, vertically centered on the 'Fourier Series' title.
     const symbolsButton = new InfoButton( {
+      listener: () => symbolsDialog.show(),
       iconFill: 'rgb( 50, 145, 184 )',
-      listener: () => {
-        symbolsDialog.show();
-      },
       scale: 0.4,
       right: vBox.right,
       centerY: fourierSeriesLayoutBox.globalToParentBounds(

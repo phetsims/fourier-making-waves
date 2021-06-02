@@ -179,6 +179,12 @@
   "symbolsDialog.x": {
     "value": "{{x}} = position in space, in meters"
   },
+  "symbolsDialog.sigma": {
+    "value": "{{sigma}} = Gaussian wave packet width, in radians/meter"
+  },
+  "symbolsDialog.omega": {
+    "value": "{{omega}} = angular frequency, in radians"
+  },
   "levels": {
     "value": "Levels"
   },

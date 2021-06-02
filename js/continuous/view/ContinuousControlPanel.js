@@ -19,6 +19,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import ContinuousModel from '../model/ContinuousModel.js';
 import ComponentSpacingLayoutBox from './ComponentSpacingLayoutBox.js';
 import ContinuousGraphControlsLayoutBox from './ContinuousGraphControlsLayoutBox.js';
+import ContinuousSymbolsDialog from './ContinuousSymbolsDialog.js';
 import WavePacketCenterLayoutBox from './WavePacketCenterLayoutBox.js';
 import WavePacketWidthLayoutBox from './WavePacketWidthLayoutBox.js';
 
@@ -67,12 +68,13 @@ class ContinuousControlPanel extends Panel {
       }
     }
 
+    // Dialog that displays a key for math symbols
+    const symbolsDialog = new ContinuousSymbolsDialog();
+
     // Push button to open the dialog.
     const symbolsButton = new InfoButton( {
+      listener: () => symbolsDialog.show(),
       iconFill: 'rgb( 50, 145, 184 )',
-      listener: () => {
-        //TODO
-      },
       scale: 0.4
     } );
     children.push( new HSeparator( separatorWidth, separatorOptions ) );
