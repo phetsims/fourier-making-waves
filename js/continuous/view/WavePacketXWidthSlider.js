@@ -37,6 +37,7 @@ class WavePacketXWidthSlider extends Slider {
     super( xWidthProperty, xWidthProperty.range, options );
 
     // Major ticks at min and max, and at 0.2 intervals between min and max
+    assert && assert( xWidthProperty.range.max === 1 );
     {
       const tickValues = [];
       tickValues.push( xWidthProperty.range.min, xWidthProperty.range.max );
@@ -50,9 +51,15 @@ class WavePacketXWidthSlider extends Slider {
       }
 
       const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
-      tickValues.forEach( tickValue =>
-        this.addMajorTick( tickValue, new Text( Utils.toFixedNumber( tickValue, options.tickDecimals ), textOptions ) )
-      );
+      tickValues.forEach( tickValue => {
+        const value = Utils.toFixedNumber( tickValue, options.tickDecimals );
+        let string = value.toString();
+        if ( Math.abs( value ) < 1 ) {
+          // Remove the leading zero before numbers that have only a decimal component. E.g. '0.2' -> '.2'
+          string = `.${string.split( '.' )[ 1 ]}`;
+        }
+        this.addMajorTick( tickValue, new Text( string, textOptions ) );
+      } );
     }
   }
 }
