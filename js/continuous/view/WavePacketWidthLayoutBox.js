@@ -1,4 +1,4 @@
-// Copyright 2020-2021, University of Colorado Boulder
+// Copyright 2021, University of Colorado Boulder
 
 /**
  * WavePacketWidthLayoutBox is the 'Wave Packet Width' section of the control panel in the 'Continuous' screen.
