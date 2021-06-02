@@ -77,6 +77,7 @@ class ContinuousModel {
     //TODO why does Java version refer to this as deltaK?
     // @public wave packet width in k space, in radians/meter.
     this.kWidthProperty = new NumberProperty( 3 * Math.PI, {
+      reentrant: true, //TODO
       range: new Range( 1, 4 * Math.PI ),
       tandem: options.tandem.createTandem( 'kWidthProperty' )
     } );
@@ -85,8 +86,18 @@ class ContinuousModel {
     // @public wave packet width in x space, in meters.
     // Note that kWidth * xWidth = 1, so xWidth = 1 / kWidth
     this.xWidthProperty = new NumberProperty( 1 / this.kWidthProperty.value, {
+      reentrant: true, //TODO
       range: new Range( 1 / this.kWidthProperty.range.max, 1 / this.kWidthProperty.range.min ),
       tandem: options.tandem.createTandem( 'xWidthProperty' )
+    } );
+
+    //TODO need a better solution here.
+    // Keep kWidth and xWidth synchronized.
+    this.kWidthProperty.lazyLink( kWidth => {
+      this.xWidthProperty.value = 1 / kWidth;
+    } );
+    this.xWidthProperty.lazyLink( xWidth => {
+      this.kWidthProperty.value = 1 / xWidth;
     } );
 
     // @public wave packet width, in radians/meter
@@ -140,7 +151,6 @@ class ContinuousModel {
     this.continuousWaveformVisibleProperty.reset();
     this.wavePacketCenterProperty.reset();
     this.kWidthProperty.reset();
-    this.xWidthProperty.reset();
     this.domainProperty.reset();
     this.envelopeVisibleProperty.reset();
     this.widthIndicatorsVisibleProperty.reset();
