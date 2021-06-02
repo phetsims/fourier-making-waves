@@ -2,7 +2,7 @@
 
 //TODO use NumberControl
 /**
- * WavePacketKWidthControl displays the wave packet width in k space, and allows it to be changed via a slider.
+ * WavePacketXWidthControl displays the wave packet width in x space, and allows it to be changed via a slider.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,23 +20,23 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import WavePacketKWidthSlider from './WavePacketKWidthSlider.js';
+import WavePacketXWidthSlider from './WavePacketXWidthSlider.js';
 
-class WavePacketKWidthControl extends VBox {
+class WavePacketXWidthControl extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<number>} kWidthProperty
+   * @param {Property.<number>} xWidthProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, kWidthProperty, options ) {
+  constructor( domainProperty, xWidthProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( kWidthProperty, 'number' );
+    assert && AssertUtils.assertPropertyOf( xWidthProperty, 'number' );
 
     options = merge( {
 
-      decimals: 2,
+      interval: 0.001,
 
       // VBox options
       spacing: 5,
@@ -52,7 +52,7 @@ class WavePacketKWidthControl extends VBox {
       tandem: options.tandem.createTandem( 'valueNode' )
     } );
 
-    const slider = new WavePacketKWidthSlider( kWidthProperty, {
+    const slider = new WavePacketXWidthSlider( xWidthProperty, {
       tandem: options.tandem.createTandem( 'slider' )
     } );
 
@@ -63,12 +63,12 @@ class WavePacketKWidthControl extends VBox {
 
     // Update the displayed value.
     Property.multilink(
-      [ domainProperty, kWidthProperty ],
-      ( domain, kWidth ) => {
+      [ domainProperty, xWidthProperty ],
+      ( domain, xWidth ) => {
         valueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
           symbol: FMWSymbols.sigma,
-          subscript: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
-          value: Utils.toFixed( kWidth, options.decimals ),
+          subscript: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t,
+          value: Utils.roundToInterval( xWidth, options.interval ),
           units: ( domain === Domain.SPACE ) ?
                  fourierMakingWavesStrings.radiansPerMeter :
                  fourierMakingWavesStrings.radiansPerMillisecond
@@ -77,5 +77,5 @@ class WavePacketKWidthControl extends VBox {
   }
 }
 
-fourierMakingWaves.register( 'WavePacketKWidthControl', WavePacketKWidthControl );
-export default WavePacketKWidthControl;
+fourierMakingWaves.register( 'WavePacketXWidthControl', WavePacketXWidthControl );
+export default WavePacketXWidthControl;

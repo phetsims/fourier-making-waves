@@ -39,7 +39,7 @@ class ComponentSpacingControl extends VBox {
 
     options = merge( {
 
-      interval: 0.01,
+      decimals: 2,
 
       // VBox options
       spacing: 5,
@@ -71,7 +71,7 @@ class ComponentSpacingControl extends VBox {
         valueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
           symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
           subscript: 1,
-          value: Utils.roundToInterval( componentSpacing, options.interval ),
+          value: Utils.toFixed( componentSpacing, options.decimals ),
           units: ( domain === Domain.SPACE ) ?
                  fourierMakingWavesStrings.radiansPerMeter :
                  fourierMakingWavesStrings.radiansPerMillisecond

@@ -91,7 +91,8 @@ class ContinuousControlPanel extends Panel {
     }
 
     const vBox = new VBox( merge( {}, FWMConstants.VBOX_OPTIONS, {
-      children: children
+      children: children,
+      spacing: 10
     } ) );
 
     // Dialog that displays a key for math symbols
