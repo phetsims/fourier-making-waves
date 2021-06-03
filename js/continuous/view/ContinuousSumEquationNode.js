@@ -1,4 +1,4 @@
-// Copyright 2020-2021, University of Colorado Boulder
+// Copyright 2021, University of Colorado Boulder
 
 /**
  * ContinuousSumEquationNode is the equation that appears above the 'Sum' chart in the 'Continuous' screen.
