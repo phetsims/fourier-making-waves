@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * SumEquationNode is the equation that appears above the 'Sum' chart in the 'Discrete' screen.
+ * DiscreteSumEquationNode is the equation that appears above the 'Sum' chart in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -26,7 +26,7 @@ import SummationSymbolNode from './SummationSymbolNode.js';
 const EQUAL_TO = MathSymbols.EQUAL_TO;
 const n = FMWSymbols.n;
 
-class SumEquationNode extends Node {
+class DiscreteSumEquationNode extends Node {
 
   /**
    * @param {NumberProperty} numberOfHarmonicsProperty
@@ -44,7 +44,7 @@ class SumEquationNode extends Node {
 
     options = merge( {
 
-      // SumEquationNode options
+      // DiscreteSumEquationNode options
       font: FMWConstants.EQUATION_FONT
     }, options );
 
@@ -63,7 +63,7 @@ class SumEquationNode extends Node {
       font: options.font
     } );
 
-    assert && assert( !options.children, 'SumEquationNode sets children' );
+    assert && assert( !options.children, 'DiscreteSumEquationNode sets children' );
     options.children = [ leftNode, summationNode, rightNode ];
 
     super( options );
@@ -103,5 +103,5 @@ class SumEquationNode extends Node {
   }
 }
 
-fourierMakingWaves.register( 'SumEquationNode', SumEquationNode );
-export default SumEquationNode;
+fourierMakingWaves.register( 'DiscreteSumEquationNode', DiscreteSumEquationNode );
+export default DiscreteSumEquationNode;

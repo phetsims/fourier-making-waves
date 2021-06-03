@@ -37,7 +37,7 @@ import FourierSoundGenerator from './FourierSoundGenerator.js';
 import HarmonicsEquationNode from './HarmonicsEquationNode.js';
 import PeriodCalipersNode from './PeriodCalipersNode.js';
 import PeriodClockNode from './PeriodClockNode.js';
-import SumEquationNode from './SumEquationNode.js';
+import DiscreteSumEquationNode from './DiscreteSumEquationNode.js';
 import WavelengthCalipersNode from './WavelengthCalipersNode.js';
 
 // constants, in view coordinates, determined empirically
@@ -152,7 +152,7 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     // Equation that appears above the Sum chart, with wrapper Node to handle centering
-    const sumEquationNode = new SumEquationNode( model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty,
+    const sumEquationNode = new DiscreteSumEquationNode( model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty,
       model.seriesTypeProperty, model.equationFormProperty, {
         maxWidth: 0.5 * CHART_RECTANGLE_SIZE.width,
         tandem: sumTandem.createTandem( 'sumEquationNode' ),

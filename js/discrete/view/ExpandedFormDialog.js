@@ -23,7 +23,7 @@ import Domain from '../../common/model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from './EquationMarkup.js';
-import SumEquationNode from './SumEquationNode.js';
+import DiscreteSumEquationNode from './DiscreteSumEquationNode.js';
 
 // Maximum number of terms per line in the expanded form
 const TERMS_PER_LINE = 3;
@@ -58,7 +58,7 @@ class ExpandedFormDialog extends Dialog {
     } );
 
     // links to Properties, must be disposed.
-    const sumEquationNode = new SumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
+    const sumEquationNode = new DiscreteSumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
       seriesTypeProperty, equationFormProperty, {
         font: FMWConstants.EQUATION_FONT
       } );
@@ -71,7 +71,7 @@ class ExpandedFormDialog extends Dialog {
 
     // F(...) =
     // There's a bit of CSS cleverness here that's worth explaining. Without resorting to using multiple Nodes here
-    // and in SumEquationNode, we don't want to see the 'F(..)' portion of this markup. But we need it to be present
+    // and in DiscreteSumEquationNode, we don't want to see the 'F(..)' portion of this markup. But we need it to be present
     // in order for the '=' to align with 'F(...) =' that's at the beginning of sumEquationNode. So we're hiding the
     // 'F(...)' bit using 'color: transparent'.
     const functionEqualToNode = new RichText( `<span style='color: transparent'>${EquationMarkup.getFunctionOfMarkup( domain )}</span> ${MathSymbols.EQUAL_TO}`, {
