@@ -1,5 +1,6 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
+//TODO move to common/
 /**
  * SummationSymbolNode displays a typical summation symbol, showing the index symbol and range of the index.
  * I briefly considered using FormulaNode (which uses katex) here, but was dissuaded by the experience of other
@@ -44,7 +45,7 @@ class SummationSymbolNode extends Node {
     const indexFont = new PhetFont( options.indexFontSize );
 
     // Index and min (starting) value, which appears below the sigma character
-    const minNode = new RichText( `${indexSymbol} ${MathSymbols.EQUAL_TO} ${indexMin}`, {
+    const minNode = new RichText( `${indexSymbol} ${MathSymbols.EQUAL_TO} ${indexToString( indexMin )}`, {
       font: indexFont,
       centerX: sigmaNode.centerX,
       top: sigmaNode.bottom + options.spacing
@@ -61,7 +62,7 @@ class SummationSymbolNode extends Node {
     super( options );
 
     const indexMaxListener = indexMax => {
-      maxNode.text = indexMaxProperty.value;
+      maxNode.text = indexToString( indexMaxProperty.value );
       maxNode.centerX = sigmaNode.centerX;
       maxNode.bottom = sigmaNode.top - options.spacing;
     };
@@ -80,6 +81,23 @@ class SummationSymbolNode extends Node {
   dispose() {
     this.disposeSummationSymbolNode();
     super.dispose();
+  }
+}
+
+/**
+ * Converts a summation index to a string.
+ * @param {number} index
+ * @returns {string}
+ */
+function indexToString( index ) {
+  if ( index === Infinity ) {
+    return `${MathSymbols.INFINITY}`;
+  }
+  else if ( index === -Infinity ) {
+    return `-${MathSymbols.INFINITY}`;
+  }
+  else {
+    return `${index}`;
   }
 }
 

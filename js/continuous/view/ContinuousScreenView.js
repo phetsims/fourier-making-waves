@@ -25,6 +25,7 @@ import ComponentsEquationNode from './ComponentsEquationNode.js';
 import ContinuousAmplitudesChartNode from './ContinuousAmplitudesChartNode.js';
 import ContinuousControlPanel from './ContinuousControlPanel.js';
 import ContinuousSumChartNode from './ContinuousSumChartNode.js';
+import ContinuousSumEquationNode from './ContinuousSumEquationNode.js';
 
 // constants
 const CHART_TITLE_Y_SPACING = 15; // space between chart title and the chart
@@ -76,6 +77,7 @@ class ContinuousScreenView extends ScreenView {
     // Parent tandem for all components related to the Components chart
     const componentsTandem = options.tandem.createTandem( 'components' );
 
+    // Equation above the Components chart
     const componentsEquationNode = new ComponentsEquationNode( model.domainProperty, model.seriesTypeProperty, {
       tandem: componentsTandem.createTandem( 'equationNode' )
     } );
@@ -104,6 +106,14 @@ class ContinuousScreenView extends ScreenView {
 
     // Parent tandem for all components related to the Sum chart
     const sumTandem = options.tandem.createTandem( 'sum' );
+
+    // Equation above the Sum chart
+    const sumEquationNode = new ContinuousSumEquationNode( model.domainProperty, model.seriesTypeProperty, {
+      tandem: componentsTandem.createTandem( 'equationNode' )
+    } );
+    const sumEquationWrapperNode = new Node( {
+      children: [ sumEquationNode ]
+    } );
 
     // Button to show/hide the Sum chart
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
@@ -175,6 +185,7 @@ class ContinuousScreenView extends ScreenView {
         componentsEquationWrapperNode,
         componentsExpandCollapseButton,
         componentsChartNode,
+        sumEquationWrapperNode,
         sumExpandCollapseButton,
         sumChartNode,
         controlPanel,
@@ -192,6 +203,10 @@ class ContinuousScreenView extends ScreenView {
     componentsEquationNode.boundsProperty.link( () => {
       componentsEquationWrapperNode.centerX = componentsChartNode.x + DiscreteScreenView.CHART_RECTANGLE_SIZE.width / 2;
       componentsEquationWrapperNode.bottom = componentsChartNode.top - 3;
+    } );
+    sumEquationNode.boundsProperty.link( () => {
+      sumEquationWrapperNode.centerX = sumChartNode.x + DiscreteScreenView.CHART_RECTANGLE_SIZE.width / 2;
+      sumEquationWrapperNode.bottom = sumChartNode.top - 3;
     } );
 
     // pdom -traversal order

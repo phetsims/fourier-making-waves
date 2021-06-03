@@ -1,5 +1,6 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
+//TODO move to common/
 /**
  * EquationMarkup is a set of utility functions for creating markup used to render equations that describe a
  * Fourier series.
