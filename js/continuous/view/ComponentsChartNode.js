@@ -49,6 +49,9 @@ class ComponentsChartNode extends Node {
     options.children = [ chartRectangle ];
 
     super( options );
+
+    // @public for layout
+    this.chartRectangle = chartRectangle;
   }
 }
 

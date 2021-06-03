@@ -61,6 +61,9 @@ class ContinuousSumChartNode extends Node {
     options.children = [ chartRectangle, envelopeCheckbox ];
 
     super( options );
+
+    // @public for layout
+    this.chartRectangle = chartRectangle;
   }
 }
 

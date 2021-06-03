@@ -137,6 +137,9 @@ class ContinuousAmplitudesChartNode extends Node {
       xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
       xAxisLabel.bottom = chartRectangle.bottom;
     } );
+
+    // @public for layout
+    this.chartRectangle = chartRectangle;
   }
 }
 

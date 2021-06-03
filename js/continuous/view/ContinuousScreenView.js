@@ -21,6 +21,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import ContinuousModel from '../model/ContinuousModel.js';
 import ComponentsChartNode from './ComponentsChartNode.js';
+import ComponentsEquationNode from './ComponentsEquationNode.js';
 import ContinuousAmplitudesChartNode from './ContinuousAmplitudesChartNode.js';
 import ContinuousControlPanel from './ContinuousControlPanel.js';
 import ContinuousSumChartNode from './ContinuousSumChartNode.js';
@@ -51,9 +52,13 @@ class ContinuousScreenView extends ScreenView {
     // Parent for all popups
     const popupParent = new Node();
 
+    // Parent tandem for all components related to the Components chart
+    const amplitudesTandem = options.tandem.createTandem( 'amplitudes' );
+
     // An equation
     const amplitudeChartEquationNode = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
-      font: FMWConstants.EQUATION_FONT
+      font: FMWConstants.EQUATION_FONT,
+      tandem: amplitudesTandem.createTandem( 'equationNode' )
     } );
 
     // Amplitudes chart
@@ -70,6 +75,13 @@ class ContinuousScreenView extends ScreenView {
 
     // Parent tandem for all components related to the Components chart
     const componentsTandem = options.tandem.createTandem( 'components' );
+
+    const componentsEquationNode = new ComponentsEquationNode( model.domainProperty, model.seriesTypeProperty, {
+      tandem: componentsTandem.createTandem( 'equationNode' )
+    } );
+    const componentsEquationWrapperNode = new Node( {
+      children: [ componentsEquationNode ]
+    } );
 
     // Button to show/hide the Components chart
     const componentsExpandCollapseButton = new LabeledExpandCollapseButton(
@@ -160,6 +172,7 @@ class ContinuousScreenView extends ScreenView {
       children: [
         amplitudeChartEquationNode,
         amplitudesChartNode,
+        componentsEquationWrapperNode,
         componentsExpandCollapseButton,
         componentsChartNode,
         sumExpandCollapseButton,
@@ -172,6 +185,14 @@ class ContinuousScreenView extends ScreenView {
       ]
     } );
     this.addChild( screenViewRootNode );
+
+    // Center dynamic equations above their respective charts.
+    // Since we need to listen to the bounds of these equations in order to respect their maxWidth, wrapper Nodes are
+    // transformed. See https://github.com/phetsims/fourier-making-waves/issues/40
+    componentsEquationNode.boundsProperty.link( () => {
+      componentsEquationWrapperNode.centerX = componentsChartNode.x + DiscreteScreenView.CHART_RECTANGLE_SIZE.width / 2;
+      componentsEquationWrapperNode.bottom = componentsChartNode.top - 3;
+    } );
 
     // pdom -traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53
