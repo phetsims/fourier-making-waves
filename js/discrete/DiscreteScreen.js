@@ -68,6 +68,7 @@ class DiscreteScreen extends Screen {
   }
 }
 
+//TODO all of the things used herein need to be tandem:Tandem.OPTIONAL
 /**
  * Creates the Home screen icon for this screen.
  * @returns {ScreenIcon}
