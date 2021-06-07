@@ -75,9 +75,7 @@ class ContinuousAmplitudesChartNode extends Node {
 
     const xAxis = new Line( 0, 0, options.transformOptions.viewWidth, 0, {
       stroke: FMWColorProfile.axisStrokeProperty,
-      lineWidth: 1,
-      centerX: chartRectangle.centerX,
-      centerY: chartRectangle.bottom
+      lineWidth: 1
     } );
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, Math.PI / 2, TICK_MARK_OPTIONS );
     const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, 2 * Math.PI, {

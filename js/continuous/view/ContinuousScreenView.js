@@ -93,7 +93,7 @@ class ContinuousScreenView extends ScreenView {
       } );
 
     // Components chart
-    const componentsChartNode = new ComponentsChartNode( {
+    const componentsChartNode = new ComponentsChartNode( model.domainProperty, {
       transformOptions: {
         modelXRange: new Range( -2, 2 ), //TODO
         modelYRange: new Range( -model.maxAmplitude, model.maxAmplitude ), //TODO
@@ -123,7 +123,7 @@ class ContinuousScreenView extends ScreenView {
       } );
 
     // Sum chart
-    const sumChartNode = new ContinuousSumChartNode( model.envelopeVisibleProperty, {
+    const sumChartNode = new ContinuousSumChartNode( model.domainProperty, model.envelopeVisibleProperty, {
       transformOptions: {
         modelXRange: new Range( -2, 2 ), //TODO
         modelYRange: new Range( -1.25, 1.25 ), //TODO

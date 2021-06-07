@@ -11,21 +11,30 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
+import FMWConstants from '../../common/FMWConstants.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
+import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import EnvelopeCheckbox from './EnvelopeCheckbox.js';
 
 //TODO placeholder
 class ContinuousSumChartNode extends Node {
 
   /**
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<boolean>} envelopeVisibleProperty
    * @param {Object} [options]
    */
-  constructor( envelopeVisibleProperty, options ) {
+  constructor( domainProperty, envelopeVisibleProperty, options ) {
 
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( envelopeVisibleProperty, 'boolean' );
 
     options = merge( {
@@ -51,6 +60,43 @@ class ContinuousSumChartNode extends Node {
       tandem: options.tandem.createTandem( 'chartRectangle' )
     } );
 
+    // x axis ---------------------------------------------------------
+
+    //TODO duplicated from ComponentsChartNode
+    const xAxis = new Line( 0, 0, options.transformOptions.viewWidth, 0, {
+      stroke: FMWColorProfile.axisStrokeProperty,
+      lineWidth: 1,
+      center: chartRectangle.center
+    } );
+
+    //TODO duplicated from ComponentsChartNode
+    const xAxisLabel = new RichText( '', {
+      font: FMWConstants.AXIS_LABEL_FONT,
+      maxWidth: 60, // determined empirically
+      tandem: options.tandem.createTandem( 'xAxisLabel' )
+    } );
+
+    // y axis ---------------------------------------------------------
+
+    //TODO duplicated from ComponentsChartNode
+    const yAxis = new Line( 0, 0, 0, options.transformOptions.viewHeight, {
+      stroke: FMWColorProfile.axisStrokeProperty,
+      lineWidth: 1,
+      center: chartRectangle.center
+    } );
+
+    //TODO duplicated from ComponentsChartNode
+    const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
+      font: FMWConstants.AXIS_LABEL_FONT,
+      rotation: -Math.PI / 2,
+      right: chartRectangle.left - FMWConstants.Y_AXIS_LABEL_SPACING,
+      centerY: chartRectangle.centerY,
+      maxWidth: 0.85 * chartRectangle.height,
+      tandem: options.tandem.createTandem( 'yAxisLabel' )
+    } );
+
+    // Addition UI components ---------------------------------------------------------
+
     const envelopeCheckbox = new EnvelopeCheckbox( envelopeVisibleProperty, {
       right: chartRectangle.right - 5,
       top: chartRectangle.bottom + 5,
@@ -58,9 +104,27 @@ class ContinuousSumChartNode extends Node {
     } );
 
     assert && assert( !options.children );
-    options.children = [ chartRectangle, envelopeCheckbox ];
+    options.children = [
+      chartRectangle,
+      xAxis, xAxisLabel,
+      yAxis, yAxisLabel,
+      envelopeCheckbox
+    ];
 
     super( options );
+
+    //TODO duplicated from ComponentsChartNode
+    // Adjust the x-axis label to match the domain.
+    domainProperty.link( domain => {
+      xAxisLabel.text = StringUtils.fillIn( fourierMakingWavesStrings.xAxisLabel, {
+        symbol: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t,
+        units: ( domain === Domain.SPACE ) ?
+               fourierMakingWavesStrings.units.meters :
+               fourierMakingWavesStrings.units.milliseconds
+      } );
+      xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
+      xAxisLabel.centerY = chartRectangle.centerY;
+    } );
 
     // @public for layout
     this.chartRectangle = chartRectangle;
