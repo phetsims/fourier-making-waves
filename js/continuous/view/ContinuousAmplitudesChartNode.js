@@ -77,11 +77,14 @@ class ContinuousAmplitudesChartNode extends Node {
       stroke: FMWColorProfile.axisStrokeProperty,
       lineWidth: 1
     } );
+
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, Math.PI / 2, TICK_MARK_OPTIONS );
+
     const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, 2 * Math.PI, {
       createLabel: createXTickLabel,
       edge: 'min'
     } );
+
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
       maxWidth: 60, // determined empirically
@@ -96,6 +99,7 @@ class ContinuousAmplitudesChartNode extends Node {
       centerX: chartRectangle.left,
       centerY: chartRectangle.centerY
     } );
+
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,

@@ -63,6 +63,7 @@ class ComponentsChartNode extends Node {
       lineWidth: 1,
       center: chartRectangle.center
     } );
+
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
       maxWidth: 60, // determined empirically
@@ -76,6 +77,7 @@ class ComponentsChartNode extends Node {
       lineWidth: 1,
       center: chartRectangle.center
     } );
+
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
