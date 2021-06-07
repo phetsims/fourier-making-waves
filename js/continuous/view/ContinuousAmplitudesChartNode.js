@@ -142,6 +142,11 @@ class ContinuousAmplitudesChartNode extends Node {
 
     // @public for layout
     this.chartRectangle = chartRectangle;
+
+    // pdom - traversal order
+    this.pdomOrder = [
+      continuousWaveformCheckbox
+    ];
   }
 }
 

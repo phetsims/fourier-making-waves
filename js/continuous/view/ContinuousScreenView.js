@@ -213,10 +213,11 @@ class ContinuousScreenView extends ScreenView {
     // See https://github.com/phetsims/fourier-making-waves/issues/53
     screenViewRootNode.pdomOrder = [
       controlPanel,
+      amplitudesChartNode,
       componentsExpandCollapseButton,
-      //TODO put componentsChartNode here
+      componentsChartNode,
       sumExpandCollapseButton,
-      //TODO put sumChartNode here
+      sumChartNode,
       //TODO put width indicators here
       resetAllButton
     ];
