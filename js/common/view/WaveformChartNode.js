@@ -106,10 +106,16 @@ class WaveformChartNode extends Node {
     // x axis (space or time) ---------------------------------------------------------
 
     const xAxis = new AxisNode( chartTransform, Orientation.HORIZONTAL, AXIS_OPTIONS );
-    const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, xAxisDescriptionProperty.value.gridLineSpacing, GRID_LINE_OPTIONS );
-    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, xAxisDescriptionProperty.value.tickMarkSpacing, TICK_MARK_OPTIONS );
+
+    const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL,
+      xAxisDescriptionProperty.value.gridLineSpacing, GRID_LINE_OPTIONS );
+
+    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL,
+      xAxisDescriptionProperty.value.tickMarkSpacing, TICK_MARK_OPTIONS );
+
     const xTickLabels = new XTickLabelSet( chartTransform, xAxisDescriptionProperty.value.tickLabelSpacing, domainProperty,
       xAxisTickLabelFormatProperty, L, T );
+
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
       maxWidth: 30, // determined empirically
@@ -162,9 +168,15 @@ class WaveformChartNode extends Node {
     // y axis (amplitude ) ---------------------------------------------------------
 
     const yAxis = new AxisNode( chartTransform, Orientation.VERTICAL, AXIS_OPTIONS );
-    const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, yAxisDescriptionProperty.value.gridLineSpacing, GRID_LINE_OPTIONS );
-    const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, yAxisDescriptionProperty.value.tickMarkSpacing, TICK_MARK_OPTIONS );
+
+    const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL,
+      yAxisDescriptionProperty.value.gridLineSpacing, GRID_LINE_OPTIONS );
+
+    const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL,
+      yAxisDescriptionProperty.value.tickMarkSpacing, TICK_MARK_OPTIONS );
+
     const yTickLabels = new YTickLabelSet( chartTransform, yAxisDescriptionProperty.value.tickLabelSpacing );
+
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
