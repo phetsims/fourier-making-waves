@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -74,6 +75,11 @@ class WavePacketXWidthControl extends VBox {
                  fourierMakingWavesStrings.units.radiansPerMillisecond
         } );
       } );
+
+    // @public {DerivedProperty.<boolean>} Whether the user is interacting with this control.
+    this.isPressedProperty = new DerivedProperty(
+      [ slider.thumbDragListener.isPressedProperty, slider.trackDragListener.isPressedProperty ],
+      ( thumbIsPressed, trackIsPressed ) => ( thumbIsPressed || trackIsPressed ) );
   }
 }
 

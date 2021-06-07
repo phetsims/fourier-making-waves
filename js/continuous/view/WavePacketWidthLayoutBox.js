@@ -61,6 +61,15 @@ class WavePacketWidthLayoutBox extends VBox {
     ];
 
     super( options );
+
+    // When one of the controls is being used, disable the other control.
+    // unlink is not needed.
+    kWidthControl.isPressedProperty.link( isPressed => {
+      xWidthControl.enabledProperty.value = !isPressed;
+    } );
+    xWidthControl.isPressedProperty.link( isPressed => {
+      kWidthControl.enabledProperty.value = !isPressed;
+    } );
   }
 
   /**
