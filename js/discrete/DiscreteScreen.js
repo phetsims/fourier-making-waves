@@ -8,7 +8,7 @@
 
 import Screen from '../../../joist/js/Screen.js';
 import merge from '../../../phet-core/js/merge.js';
-import GeneralKeyboardHelpSection from '../../../scenery-phet/js/keyboard/help/GeneralKeyboardHelpSection.js';
+import SliderAndGeneralKeyboardHelpContent from '../../../scenery-phet/js/keyboard/help/SliderAndGeneralKeyboardHelpContent.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import FMWColorProfile from '../common/FMWColorProfile.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
@@ -31,9 +31,11 @@ class DiscreteScreen extends Screen {
       //TODO add homeScreenIcon using ScreenIcon, see https://github.com/phetsims/fourier-making-waves/issues/44
 
       // pdom
-      keyboardHelpNode: new GeneralKeyboardHelpSection( {
+      keyboardHelpNode: new SliderAndGeneralKeyboardHelpContent( {
         labelMaxWidth: 250,
-        withCheckboxContent: true
+        generalSectionOptions: {
+          withCheckboxContent: true
+        }
       } ),
 
       // phet-io options
