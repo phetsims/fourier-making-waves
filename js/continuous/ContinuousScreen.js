@@ -62,6 +62,7 @@ class ContinuousScreen extends Screen {
   }
 }
 
+//TODO delete Continuous-home-screen-icon.png if it is not used
 /**
  * Creates the Home screen icons for this screen.
  * @returns {ScreenIcon}
