@@ -69,7 +69,7 @@ class DiscreteScreen extends Screen {
 }
 
 /**
- * Creates the Home screen icons for this screen.
+ * Creates the Home screen icon for this screen.
  * @returns {ScreenIcon}
  */
 function createHomeScreenIcon() {

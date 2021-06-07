@@ -64,7 +64,7 @@ class ContinuousScreen extends Screen {
 
 //TODO delete Continuous-home-screen-icon.png if it is not used
 /**
- * Creates the Home screen icons for this screen.
+ * Creates the Home screen icon for this screen.
  * @returns {ScreenIcon}
  */
 function createHomeScreenIcon() {
