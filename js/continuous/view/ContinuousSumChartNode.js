@@ -24,7 +24,6 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import EnvelopeCheckbox from './EnvelopeCheckbox.js';
 
-//TODO placeholder
 class ContinuousSumChartNode extends Node {
 
   /**
