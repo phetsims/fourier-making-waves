@@ -7,9 +7,12 @@
  */
 
 import Screen from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import merge from '../../../phet-core/js/merge.js';
 import SliderAndGeneralKeyboardHelpContent from '../../../scenery-phet/js/keyboard/help/SliderAndGeneralKeyboardHelpContent.js';
+import Image from '../../../scenery/js/nodes/Image.js';
 import Tandem from '../../../tandem/js/Tandem.js';
+import phetGirlJugglingStarsImage from '../../../vegas/images/phet-girl-juggling-stars_png.js';
 import FMWColorProfile from '../common/FMWColorProfile.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
@@ -28,7 +31,7 @@ class WaveGameScreen extends Screen {
       // Screen options
       name: fourierMakingWavesStrings.screen.waveGame,
       backgroundColorProperty: FMWColorProfile.screenBackgroundColorProperty,
-      //TODO add homeScreenIcon using ScreenIcon, see https://github.com/phetsims/fourier-making-waves/issues/44
+      homeScreenIcon: createHomeScreenIcon(),
 
       // pdom
       keyboardHelpNode: new SliderAndGeneralKeyboardHelpContent( {
@@ -54,6 +57,17 @@ class WaveGameScreen extends Screen {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
+}
+
+/**
+ * Creates the Home screen icons for this screen.
+ * @returns {ScreenIcon}
+ */
+function createHomeScreenIcon() {
+  const iconNode = new Image( phetGirlJugglingStarsImage );
+  return new ScreenIcon( iconNode, {
+    fill: FMWColorProfile.screenBackgroundColorProperty
+  } );
 }
 
 fourierMakingWaves.register( 'WaveGameScreen', WaveGameScreen );
