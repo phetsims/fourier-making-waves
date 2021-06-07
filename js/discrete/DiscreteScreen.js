@@ -98,8 +98,7 @@ function createHomeScreenIcon() {
   const emphasizedHarmonics = new EmphasizedHarmonics();
   const sliders = new HBox( {
     spacing: 10,
-    children: _.map( harmonics, harmonic => new AmplitudeSlider( harmonic, emphasizedHarmonics ) ),
-    pickable: false
+    children: _.map( harmonics, harmonic => new AmplitudeSlider( harmonic, emphasizedHarmonics ) )
   } );
 
   // Create grid lines
