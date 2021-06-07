@@ -12,16 +12,6 @@ Duplication in ComponentSpacingControl, WavePacketCenterControl, WavePacketKWidt
 Duplication in ComponentSpacingSlider, WavePacketCenterSlider, WavePacketKWidthSlider, WavePacketXWidthSlider
 Brute-force tick marks in ComponentSpacingSlider, WavePacketCenterSlider, WavePacketKWidthSlider
 
-DESIGN:
-I'm not sure the symbols and units are correct.
-Sliders are not long enough to get to all values.
-Do we need keypad to enter values associated with sliders?
-Do we really need 2 sliders for Wave Packet Width, or could we replace the bottom slider?
-If we have 2 sliders for Wave Packet Width, dragging one needs to disable the other.
-k1=, k0=, etc. labels seem incorrect. k is wave number, and this is a value "for that wave number".
-The 2 sliders for Wave Packet Width aren't the width. Width = 2 * kWidth.
-Should we remove leading '0' before decimal point, like '.2', as in Java version?
-
 ## PhET-iO
 
 Do a basic instrumentation pass
