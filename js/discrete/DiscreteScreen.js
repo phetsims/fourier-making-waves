@@ -104,7 +104,7 @@ function createHomeScreenIcon() {
     } )
   } );
 
-  // Create grid lines
+  // Create x axis
   const xMargin = 20;
   const xAxis = new Line( -xMargin, sliders.height / 2, sliders.width + xMargin, sliders.height / 2, {
     stroke: FMWColorProfile.axisStrokeProperty,
