@@ -99,7 +99,10 @@ function createHomeScreenIcon() {
   const emphasizedHarmonics = new EmphasizedHarmonics();
   const sliders = new HBox( {
     spacing: 10,
-    children: _.map( harmonics, harmonic => new AmplitudeSlider( harmonic, emphasizedHarmonics ) )
+    children: _.map( harmonics, harmonic => new AmplitudeSlider( harmonic, emphasizedHarmonics, {
+      //TODO workaround for https://github.com/phetsims/fourier-making-waves/issues/73
+      focusable: false
+    } ) )
   } );
 
   // Create grid lines
