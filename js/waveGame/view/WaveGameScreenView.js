@@ -76,6 +76,7 @@ class WaveGameScreenView extends ScreenView {
     this.addChild( this.transitionNode );
 
     // Transition between the level-selection UI and the selected level.
+    // A null value for levelProperty indicates that no level is selected, and levelSelectionNode should be shown.
     model.levelProperty.lazyLink( level => {
       this.interruptSubtreeInput();
       if ( level ) {
