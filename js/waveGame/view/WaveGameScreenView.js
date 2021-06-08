@@ -68,14 +68,14 @@ class WaveGameScreenView extends ScreenView {
       children: this.levelNodes
     } );
 
-    // Handles the animated 'slide' transition between level-selection and levels
+    // Handles the animated 'slide' transition between levelSelectionNode and a level.
     this.transitionNode = new TransitionNode( this.visibleBoundsProperty, {
       content: ( model.levelProperty.value === null ) ? levelSelectionNode : levelsParent,
       cachedNodes: [ levelSelectionNode, levelsParent ]
     } );
     this.addChild( this.transitionNode );
 
-    // Transition between the level-selection UI and the selected level.
+    // Transition between levelSelectionNode and the selected level.
     // A null value for levelProperty indicates that no level is selected, and levelSelectionNode should be shown.
     model.levelProperty.lazyLink( level => {
       this.interruptSubtreeInput();
