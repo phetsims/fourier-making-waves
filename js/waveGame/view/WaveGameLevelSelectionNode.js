@@ -19,6 +19,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import WaveGameLevel from '../model/WaveGameLevel.js';
 import WaveGameInfoDialog from './WaveGameInfoDialog.js';
 import WaveGameLevelSelectionButton from './WaveGameLevelSelectionButton.js';
 
@@ -122,9 +123,23 @@ class WaveGameLevelSelectionNode extends Node {
 
     super( options );
 
+    // @private
+    this.levelSelectionButtons = levelSelectionButtons;
+
     // pdom - traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53
     this.pdomOrder = [ buttonsBox, infoButton, resetAllButton ];
+  }
+
+  /**
+   * Gets the button associated with a specified level.
+   * @param {WaveGameLevel} level
+   * @returns {WaveGameLevelSelectionButton}
+   * @public
+   */
+  getButtonForLevel( level ) {
+    assert && assert( level instanceof WaveGameLevel );
+    return _.find( this.levelSelectionButtons, button => button.level === level );
   }
 }
 

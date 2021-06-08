@@ -8,6 +8,7 @@
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
+import PDOMUtils from '../../../../scenery/js/accessibility/pdom/PDOMUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Easing from '../../../../twixt/js/Easing.js';
 import TransitionNode from '../../../../twixt/js/TransitionNode.js';
@@ -64,21 +65,51 @@ class WaveGameScreenView extends ScreenView {
 
     // Handles the animated 'slide' transition between levelSelectionNode and a level.
     this.transitionNode = new TransitionNode( this.visibleBoundsProperty, {
-      content: levelSelectionNode
+      content: levelSelectionNode,
+      cachedNodes: [ levelSelectionNode, ...this.levelNodes ]
     } );
     this.addChild( this.transitionNode );
 
     // Transition between levelSelectionNode and the selected level.
     // A null value for levelProperty indicates that no level is selected, and levelSelectionNode should be shown.
-    model.levelProperty.lazyLink( level => {
+    model.levelProperty.lazyLink( ( level, previousLevel ) => {
+
       this.interruptSubtreeInput();
+
       if ( level ) {
+
+        // Transition to the selected level.
         const selectedLevelNode = _.find( this.levelNodes, levelNode => ( levelNode.level === level ) );
-        this.transitionNode.slideLeftTo( selectedLevelNode, TRANSITION_OPTIONS );
+        const transition = this.transitionNode.slideLeftTo( selectedLevelNode, TRANSITION_OPTIONS );
+
+        // Set focus to the first focusable element in selectedLevelNode.
+        // See specification at https://github.com/phetsims/vegas/issues/90#issuecomment-854034816
+        const transitionEndedListener = () => {
+          assert && assert( this.transitionNode.hasChild( selectedLevelNode ) && selectedLevelNode.visible );
+
+          // This is a little brittle. If anything else is added to the screen in the future that is
+          // not associated with transitionNode, then it might get the focus.
+          PDOMUtils.getFirstFocusable().focus();
+          transition.endedEmitter.removeListener( transitionEndedListener );
+        };
+        transition.endedEmitter.addListener( transitionEndedListener );
       }
       else {
-        this.transitionNode.slideRightTo( levelSelectionNode, TRANSITION_OPTIONS );
+
+        // Selected level was null, so transition to levelSelectionNode.
+        const transition = this.transitionNode.slideRightTo( levelSelectionNode, TRANSITION_OPTIONS );
+
+        // Set focus to the level-selection button that is associated with previousLevel.
+        // See specification at https://github.com/phetsims/vegas/issues/90#issuecomment-854034816
+        const transitionEndedListener = () => {
+          assert && assert( this.transitionNode.hasChild( levelSelectionNode ) && levelSelectionNode.visible );
+          levelSelectionNode.getButtonForLevel( previousLevel ).focus();
+          transition.endedEmitter.removeListener( transitionEndedListener );
+        };
+        transition.endedEmitter.addListener( transitionEndedListener );
       }
+
+
     } );
   }
 
