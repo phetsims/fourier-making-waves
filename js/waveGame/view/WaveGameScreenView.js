@@ -108,8 +108,6 @@ class WaveGameScreenView extends ScreenView {
         };
         transition.endedEmitter.addListener( transitionEndedListener );
       }
-
-
     } );
   }
 
