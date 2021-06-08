@@ -109,7 +109,7 @@ class ContinuousScreenView extends ScreenView {
 
     // Equation above the Sum chart
     const sumEquationNode = new ContinuousSumEquationNode( model.domainProperty, model.seriesTypeProperty, {
-      tandem: componentsTandem.createTandem( 'equationNode' )
+      tandem: sumTandem.createTandem( 'equationNode' )
     } );
     const sumEquationWrapperNode = new Node( {
       children: [ sumEquationNode ]
