@@ -116,6 +116,8 @@ function createHomeScreenIcon() {
     pdomVisible: false // TODO workaround for https://github.com/phetsims/fourier-making-waves/issues/73
   } );
 
+  //TODO Consider using iconNode.rasterized( { resolution: 2 } ) to avoid memory, phet-io, and pdom issues
+  // associated with all of the above elements.
   return new ScreenIcon( iconNode, {
     fill: FMWColorProfile.screenBackgroundColorProperty
   } );
