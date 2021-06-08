@@ -68,7 +68,6 @@ class DiscreteScreen extends Screen {
   }
 }
 
-//TODO all of the things used herein need to be tandem:Tandem.OPTIONAL
 /**
  * Creates the Home screen icon for this screen.
  * @returns {ScreenIcon}
@@ -99,10 +98,7 @@ function createHomeScreenIcon() {
   const emphasizedHarmonics = new EmphasizedHarmonics();
   const sliders = new HBox( {
     spacing: 10,
-    children: _.map( harmonics, harmonic => new AmplitudeSlider( harmonic, emphasizedHarmonics, {
-      //TODO workaround for https://github.com/phetsims/fourier-making-waves/issues/73
-      focusable: false
-    } ) )
+    children: _.map( harmonics, harmonic => new AmplitudeSlider( harmonic, emphasizedHarmonics ) )
   } );
 
   // Create grid lines
@@ -113,7 +109,8 @@ function createHomeScreenIcon() {
   } );
 
   const iconNode = new Node( {
-    children: [ xAxis, sliders ]
+    children: [ xAxis, sliders ],
+    pdomVisible: false // TODO workaround for https://github.com/phetsims/fourier-making-waves/issues/73
   } );
 
   return new ScreenIcon( iconNode, {
