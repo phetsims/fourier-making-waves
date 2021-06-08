@@ -8,7 +8,6 @@
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Easing from '../../../../twixt/js/Easing.js';
 import TransitionNode from '../../../../twixt/js/TransitionNode.js';
@@ -58,21 +57,14 @@ class WaveGameScreenView extends ScreenView {
     } );
 
     // @private {SolveItSceneNode[]} a Node for each level of the game
-    // Each WaveGameLevelNode manages its own visibility.
     this.levelNodes = _.map( model.levels, level => new WaveGameLevelNode( level, model.levelProperty,
       layoutBounds, this.visibleBoundsProperty, gameAudioPlayer, {
         tandem: options.tandem.createTandem( `level${level.levelNumber}Node` )
       } ) );
 
-    // Parent for all WaveGameLevelNode instances
-    const levelsParent = new Node( {
-      children: this.levelNodes
-    } );
-
     // Handles the animated 'slide' transition between levelSelectionNode and a level.
     this.transitionNode = new TransitionNode( this.visibleBoundsProperty, {
-      content: ( model.levelProperty.value === null ) ? levelSelectionNode : levelsParent,
-      cachedNodes: [ levelSelectionNode, levelsParent ]
+      content: levelSelectionNode
     } );
     this.addChild( this.transitionNode );
 
@@ -81,7 +73,8 @@ class WaveGameScreenView extends ScreenView {
     model.levelProperty.lazyLink( level => {
       this.interruptSubtreeInput();
       if ( level ) {
-        this.transitionNode.slideLeftTo( levelsParent, TRANSITION_OPTIONS );
+        const selectedLevelNode = _.find( this.levelNodes, levelNode => ( levelNode.level === level ) );
+        this.transitionNode.slideLeftTo( selectedLevelNode, TRANSITION_OPTIONS );
       }
       else {
         this.transitionNode.slideRightTo( levelSelectionNode, TRANSITION_OPTIONS );

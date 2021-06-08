@@ -311,11 +311,6 @@ class WaveGameLevelNode extends Node {
 
     super( options );
 
-    // This Node is visible when its level is selected.
-    levelProperty.link( levelValue => {
-      this.visible = ( levelValue === level );
-    } );
-
     // Evaluate the guess when all sliders have been released.
     // If the challenge has not been previously solved, award points.
     Property.multilink( [ level.isMatchedProperty, amplitudesChartNode.numberOfSlidersDraggingProperty ],
@@ -383,6 +378,9 @@ class WaveGameLevelNode extends Node {
         this.pointsAwardedAnimation.start();
       }
     } );
+
+    // @public
+    this.level = level;
 
     // @private
     this.rewardNode = rewardNode;
