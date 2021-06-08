@@ -90,7 +90,8 @@ function createHomeScreenIcon() {
       wavelength: 1,
       amplitudeRange: amplitudeRange,
       amplitude: amplitudes[ order - 1 ],
-      colorProperty: FMWColorProfile.getHarmonicColorProperty( order )
+      colorProperty: FMWColorProfile.getHarmonicColorProperty( order ),
+      tandem: Tandem.OPT_OUT
     } ) );
   }
 
@@ -98,7 +99,9 @@ function createHomeScreenIcon() {
   const emphasizedHarmonics = new EmphasizedHarmonics();
   const sliders = new HBox( {
     spacing: 10,
-    children: _.map( harmonics, harmonic => new AmplitudeSlider( harmonic, emphasizedHarmonics ) )
+    children: _.map( harmonics, harmonic => new AmplitudeSlider( harmonic, emphasizedHarmonics ), {
+      tandem: Tandem.OPT_OUT
+    } )
   } );
 
   // Create grid lines
