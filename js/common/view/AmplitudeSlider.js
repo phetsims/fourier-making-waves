@@ -81,7 +81,7 @@ class AmplitudeSlider extends AudibleSlider {
       Utils.toFixedNumber( harmonic.amplitudeProperty.range.max, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES )
     );
 
-    // See note above about what swapped is necessary.
+    // See note above about why swapped is necessary.
     const thumbSize = new Dimension2( THUMB_WIDTH, THUMB_HEIGHT ).swapped();
     const trackSize = new Dimension2( TRACK_WIDTH, options.trackHeight ).swapped();
 
