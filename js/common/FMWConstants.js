@@ -87,7 +87,7 @@ const FMWConstants = {
 
   // Number of decimal places for amplitude sliders
   AMPLITUDE_SLIDER_DECIMAL_PLACES: 2,
-  AMPLITUDE_SLIDER_SNAP_INTERVAL: 0.05,
+  AMPLITUDE_SLIDER_MOUSE_TOUCH_STEP: 0.05,
 
   // Charts
   ZOOM_BUTTON_GROUP_SCALE: 0.75,

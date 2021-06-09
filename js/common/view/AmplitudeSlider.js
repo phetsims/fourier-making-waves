@@ -64,13 +64,13 @@ class AmplitudeSlider extends AudibleSlider {
       orientation: Orientation.VERTICAL,
 
       // {number} snap to this interval when using mouse/touch, unless the value is min or max
-      snapInterval: FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL,
+      mouseTouchStep: FMWConstants.AMPLITUDE_SLIDER_MOUSE_TOUCH_STEP,
 
       // pdom options
       // slider steps, see https://github.com/phetsims/fourier-making-waves/issues/53
-      keyboardStep: 0.1,
-      shiftKeyboardStep: 0.01, // finer grain
-      pageKeyboardStep: 0.25, // coarser grain
+      keyboardStep: 0.1, // used by all alternative-input devices
+      shiftKeyboardStep: 0.01, // finer grain, used by keyboard only
+      pageKeyboardStep: 0.25, // coarser grain, used by keyboard only
 
       // phet-io options
       tandem: Tandem.REQUIRED
@@ -107,7 +107,7 @@ class AmplitudeSlider extends AudibleSlider {
     assert && assert( !options.constrainValue, 'AmplitudeSlider sets constrainValue' );
     options.constrainValue = amplitude => {
       if ( amplitude !== amplitudeRange.min && amplitude !== amplitudeRange.max ) {
-        amplitude = Utils.roundToInterval( amplitude, options.snapInterval );
+        amplitude = Utils.roundToInterval( amplitude, options.mouseTouchStep );
       }
       return amplitude;
     };
