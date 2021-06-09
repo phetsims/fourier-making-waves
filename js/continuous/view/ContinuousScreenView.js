@@ -77,9 +77,10 @@ class ContinuousScreenView extends ScreenView {
     const componentsTandem = options.tandem.createTandem( 'components' );
 
     // Equation above the Components chart
-    const componentsEquationNode = new ComponentsEquationNode( model.domainProperty, model.seriesTypeProperty, {
-      tandem: componentsTandem.createTandem( 'equationNode' )
-    } );
+    const componentsEquationNode = new ComponentsEquationNode( model.domainProperty, model.seriesTypeProperty,
+      model.wavePacket.componentSpacingProperty, {
+        tandem: componentsTandem.createTandem( 'equationNode' )
+      } );
     const componentsEquationWrapperNode = new Node( {
       children: [ componentsEquationNode ]
     } );
@@ -107,9 +108,10 @@ class ContinuousScreenView extends ScreenView {
     const sumTandem = options.tandem.createTandem( 'sum' );
 
     // Equation above the Sum chart
-    const sumEquationNode = new ContinuousSumEquationNode( model.domainProperty, model.seriesTypeProperty, {
-      tandem: sumTandem.createTandem( 'equationNode' )
-    } );
+    const sumEquationNode = new ContinuousSumEquationNode( model.domainProperty, model.seriesTypeProperty,
+      model.wavePacket.componentSpacingProperty, {
+        tandem: sumTandem.createTandem( 'equationNode' )
+      } );
     const sumEquationWrapperNode = new Node( {
       children: [ sumEquationNode ]
     } );

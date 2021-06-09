@@ -107,6 +107,9 @@
   "symbol.cos": {
     "value": "cos"
   },
+  "symbol.d": {
+    "value": "d"
+  },
   "symbol.F": {
     "value": "F"
   },

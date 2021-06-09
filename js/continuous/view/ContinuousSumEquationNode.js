@@ -31,12 +31,14 @@ class ContinuousSumEquationNode extends Node {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {Property.<number>} componentSpacingProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, seriesTypeProperty, options ) {
+  constructor( domainProperty, seriesTypeProperty, componentSpacingProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
+    assert && AssertUtils.assertPropertyOf( componentSpacingProperty, 'number' );
 
     options = merge( {
 
@@ -55,7 +57,7 @@ class ContinuousSumEquationNode extends Node {
     } );
 
     // Everything to the right of the summation symbol, same as the equation above the Components chart.
-    const rightNode = new ComponentsEquationNode( domainProperty, seriesTypeProperty );
+    const rightNode = new ComponentsEquationNode( domainProperty, seriesTypeProperty, componentSpacingProperty );
 
     assert && assert( !options.children, 'ContinuousSumEquationNode sets children' );
     options.children = [ leftNode, summationNode, rightNode ];
@@ -63,6 +65,7 @@ class ContinuousSumEquationNode extends Node {
     super( options );
 
     // Update the left side of the equation to match the domain.
+    // unlink is not needed.
     domainProperty.link( domain => {
       leftNode.text = `${EquationMarkup.getFunctionOfMarkup( domain )} ${EQUAL_TO}`; // F(...) =
     } );
