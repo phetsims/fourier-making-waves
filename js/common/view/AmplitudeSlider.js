@@ -76,7 +76,6 @@ class AmplitudeSlider extends AudibleSlider {
       tandem: Tandem.REQUIRED
     }, options );
 
-    //TODO https://github.com/phetsims/sun/issues/698 constrainValue is overriding shiftKeyboardStep
     assert && assert( !options.constrainValue, 'AmplitudeSlider sets constrainValue' );
     options.constrainValue = amplitude => {
       if ( amplitude !== amplitudeRange.min && amplitude !== amplitudeRange.max ) {
