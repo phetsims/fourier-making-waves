@@ -76,6 +76,15 @@ class AmplitudeSlider extends AudibleSlider {
       tandem: Tandem.REQUIRED
     }, options );
 
+    //TODO https://github.com/phetsims/sun/issues/698 constrainValue is overriding shiftKeyboardStep
+    assert && assert( !options.constrainValue, 'AmplitudeSlider sets constrainValue' );
+    options.constrainValue = amplitude => {
+      if ( amplitude !== amplitudeRange.min && amplitude !== amplitudeRange.max ) {
+        amplitude = Utils.roundToInterval( amplitude, options.mouseTouchStep );
+      }
+      return amplitude;
+    };
+
     // Constrain the range to the desired number of decimal places.
     const amplitudeRange = new Range(
       Utils.toFixedNumber( harmonic.amplitudeProperty.range.min, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES ),
@@ -102,15 +111,6 @@ class AmplitudeSlider extends AudibleSlider {
     } );
     assert && assert( !options.trackNode, 'AmplitudeSlider sets trackNode' );
     options.trackNode = trackNode;
-
-    //TODO https://github.com/phetsims/sun/issues/698 constrainValue is overriding shiftKeyboardStep
-    assert && assert( !options.constrainValue, 'AmplitudeSlider sets constrainValue' );
-    options.constrainValue = amplitude => {
-      if ( amplitude !== amplitudeRange.min && amplitude !== amplitudeRange.max ) {
-        amplitude = Utils.roundToInterval( amplitude, options.mouseTouchStep );
-      }
-      return amplitude;
-    };
 
     super( harmonic.amplitudeProperty, amplitudeRange, options );
 
