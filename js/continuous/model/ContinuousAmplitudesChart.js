@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO delete if not used
 /**
  * ContinuousAmplitudesChart is the 'Amplitudes' chart on the 'Continuous' screen.
  *
@@ -15,9 +14,10 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class ContinuousAmplitudesChart {
 
   /**
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
-  constructor( options ) {
+  constructor( domainProperty, options ) {
 
     options = merge( {
 
@@ -26,11 +26,12 @@ class ContinuousAmplitudesChart {
     }, options );
 
     // @public
+    this.domainProperty = domainProperty;
+
+    // @public
     this.continuousWaveformVisibleProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
     } );
-
-    //TODO flesh out
   }
 
   /**

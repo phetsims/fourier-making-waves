@@ -14,7 +14,6 @@ import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -26,6 +25,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import ContinuousAmplitudesChart from '../model/ContinuousAmplitudesChart.js';
 import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
 
 // constants
@@ -39,14 +39,12 @@ const TICK_MARK_OPTIONS = {
 class ContinuousAmplitudesChartNode extends Node {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<boolean>} continuousWaveformVisibleProperty
+   * @param {ContinuousAmplitudesChart} amplitudesChart
    * @param {Object} [options]
    */
-  constructor( domainProperty, continuousWaveformVisibleProperty, options ) {
+  constructor( amplitudesChart, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( continuousWaveformVisibleProperty, 'boolean' );
+    assert && assert( amplitudesChart instanceof ContinuousAmplitudesChart );
 
     options = merge( {
 
@@ -111,7 +109,7 @@ class ContinuousAmplitudesChartNode extends Node {
 
     // Addition UI components ---------------------------------------------------------
 
-    const continuousWaveformCheckbox = new ContinuousWaveformCheckbox( continuousWaveformVisibleProperty, {
+    const continuousWaveformCheckbox = new ContinuousWaveformCheckbox( amplitudesChart.continuousWaveformVisibleProperty, {
       right: chartRectangle.right - 5,
       top: xTickLabels.bottom + 7,
       tandem: options.tandem.createTandem( 'continuousWaveformCheckbox' )
@@ -129,7 +127,8 @@ class ContinuousAmplitudesChartNode extends Node {
     super( options );
 
     // Adjust the x-axis label to match the domain.
-    domainProperty.link( domain => {
+    // unlink is not needed.
+    amplitudesChart.domainProperty.link( domain => {
       xAxisLabel.text = StringUtils.fillIn( fourierMakingWavesStrings.xAxisLabel, {
         symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
         units: ( domain === Domain.SPACE ) ?

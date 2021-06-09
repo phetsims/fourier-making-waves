@@ -67,7 +67,7 @@ class ContinuousModel {
     } );
 
     // @public
-    this.amplitudesChart = new ContinuousAmplitudesChart( {
+    this.amplitudesChart = new ContinuousAmplitudesChart( this.domainProperty, {
       tandem: options.tandem.createTandem( 'amplitudesChart' )
     } );
 
