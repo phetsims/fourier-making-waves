@@ -11,6 +11,7 @@ TODO.txt for fourier-making-waves
 Duplication in ComponentSpacingControl, WavePacketCenterControl, WavePacketKWidthControl, WavePacketXWidthControl
 Duplication in ComponentSpacingSlider, WavePacketCenterSlider, WavePacketKWidthSlider, WavePacketXWidthSlider
 Brute-force tick marks in ComponentSpacingSlider, WavePacketCenterSlider, WavePacketKWidthSlider
+Duplication in ComponentsChartNode, ContinuousSumChartNode
 
 ## PhET-iO
 
