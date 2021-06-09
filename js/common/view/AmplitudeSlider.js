@@ -56,14 +56,14 @@ class AmplitudeSlider extends AudibleSlider {
       // {function} called when there's a press anywhere on this Node
       press: _.noop,
 
-      // {number} snap to this interval when using mouse/touch, unless the value is min or max
-      snapInterval: FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL,
-
       // {number} height of the track
       trackHeight: 120,
 
       // AudibleSlider options
       orientation: Orientation.VERTICAL,
+
+      // {number} snap to this interval when using mouse/touch, unless the value is min or max
+      snapInterval: FMWConstants.AMPLITUDE_SLIDER_SNAP_INTERVAL,
 
       // pdom options
       // slider steps, see https://github.com/phetsims/fourier-making-waves/issues/53
