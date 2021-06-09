@@ -20,7 +20,7 @@ import Domain from '../../common/model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from './EquationMarkup.js';
-import SummationSymbolNode from './SummationSymbolNode.js';
+import SumSymbolNode from './SumSymbolNode.js';
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
 const EQUAL_TO = MathSymbols.EQUAL_TO;
@@ -54,7 +54,7 @@ class DiscreteSumEquationNode extends Node {
     } );
 
     // Capital sigma, summation symbol
-    const summationNode = new SummationSymbolNode( n, 1, numberOfHarmonicsProperty, {
+    const summationNode = new SumSymbolNode( n, 1, numberOfHarmonicsProperty, {
       font: options.font
     } );
 

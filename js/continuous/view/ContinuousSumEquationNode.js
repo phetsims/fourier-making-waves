@@ -20,7 +20,7 @@ import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import ComponentsEquationNode from './ComponentsEquationNode.js';
 import EquationMarkup from '../../discrete/view/EquationMarkup.js';
-import SummationSymbolNode from '../../discrete/view/SummationSymbolNode.js';
+import SumSymbolNode from '../../discrete/view/SumSymbolNode.js';
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
 const EQUAL_TO = MathSymbols.EQUAL_TO;
@@ -52,15 +52,19 @@ class ContinuousSumEquationNode extends Node {
     } );
 
     // Capital sigma, summation symbol
-    const summationNode = new SummationSymbolNode( n, -Infinity, new NumberProperty( Infinity ), {
+    const sumSymbolNode = new SumSymbolNode( n, -Infinity, new NumberProperty( Infinity ), {
       font: options.font
+    } );
+
+    componentSpacingProperty.link( componentSpacing => {
+      sumSymbolNode.integrationProperty.value = ( componentSpacing === 0 );
     } );
 
     // Everything to the right of the summation symbol, same as the equation above the Components chart.
     const rightNode = new ComponentsEquationNode( domainProperty, seriesTypeProperty, componentSpacingProperty );
 
     assert && assert( !options.children, 'ContinuousSumEquationNode sets children' );
-    options.children = [ leftNode, summationNode, rightNode ];
+    options.children = [ leftNode, sumSymbolNode, rightNode ];
 
     super( options );
 
@@ -71,11 +75,11 @@ class ContinuousSumEquationNode extends Node {
     } );
 
     Property.multilink(
-      [ leftNode.boundsProperty, summationNode.boundsProperty, rightNode.boundsProperty ],
+      [ leftNode.boundsProperty, sumSymbolNode.boundsProperty, rightNode.boundsProperty ],
       () => {
-        summationNode.left = leftNode.right + 2;
-        summationNode.y = leftNode.y + 5; // lower summation a bit, determined empirically
-        rightNode.left = summationNode.right + 2;
+        sumSymbolNode.left = leftNode.right + 2;
+        sumSymbolNode.y = leftNode.y + 5; // lower sum symbol a bit, determined empirically
+        rightNode.left = sumSymbolNode.right + 2;
         rightNode.y = leftNode.y;
       } );
   }
