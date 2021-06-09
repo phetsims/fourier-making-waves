@@ -76,6 +76,11 @@ class AmplitudeSlider extends AudibleSlider {
       tandem: Tandem.REQUIRED
     }, options );
 
+    assert && assert( options.shiftKeyboardStep < options.keyboardStep );
+    assert && assert( options.pageKeyboardStep > options.keyboardStep );
+    assert && assert( options.keyboardStep >= options.mouseTouchStep, 'see https://github.com/phetsims/sun/issues/698' );
+    assert && assert( options.pageKeyboardStep >= options.mouseTouchStep, 'see https://github.com/phetsims/sun/issues/698' );
+
     assert && assert( !options.constrainValue, 'AmplitudeSlider sets constrainValue' );
     options.constrainValue = amplitude => {
       if ( amplitude !== amplitudeRange.min && amplitude !== amplitudeRange.max ) {
