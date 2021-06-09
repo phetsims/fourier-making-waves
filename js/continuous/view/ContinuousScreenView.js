@@ -65,7 +65,7 @@ class ContinuousScreenView extends ScreenView {
     // Amplitudes chart
     const amplitudesChartNode = new ContinuousAmplitudesChartNode( model.amplitudesChart, {
       transformOptions: {
-        modelXRange: model.wavePacket.significantWidthRange,
+        modelXRange: new Range( 0, model.significantWidth ),
         modelYRange: new Range( 0, model.maxAmplitude ), //TODO this needs to autoscale!
         viewWidth: DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
         viewHeight: DiscreteScreenView.CHART_RECTANGLE_SIZE.height
@@ -122,7 +122,7 @@ class ContinuousScreenView extends ScreenView {
       } );
 
     // Sum chart
-    const sumChartNode = new ContinuousSumChartNode( model.domainProperty, model.envelopeVisibleProperty, {
+    const sumChartNode = new ContinuousSumChartNode( model.sumChart, {
       transformOptions: {
         modelXRange: new Range( -2, 2 ), //TODO
         modelYRange: new Range( -1.25, 1.25 ), //TODO

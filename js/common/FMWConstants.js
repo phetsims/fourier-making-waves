@@ -38,6 +38,10 @@ const FMWConstants = {
   // Reaching this score results in a reward in the Wave Game
   REWARD_SCORE: FMWQueryParameters.rewardScore,
 
+  //TODO rename?
+  // The range over which components are significant, in radians/meter
+  WAVE_PACKET_SIGNIFICANT_WIDTH: 24 * Math.PI,
+
   // View ============================================================================================================
 
   SCREEN_VIEW_X_MARGIN: 15,

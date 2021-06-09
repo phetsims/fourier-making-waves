@@ -1,7 +1,13 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * TODO
+ * WavePacket is the model of a Gaussian wave packet.
+ *
+ * Note that while the model uses field names that are specific to the space domain, those fields are used for both
+ * the space domain and time domain. We can make this simplification (which originated in the Java version) because
+ * we assume that the values of L (wavelength of the fundamental harmonic) and T (period of the fundamental harmonic)
+ * are the same. That is, L=1 meter and T=1 millisecond. Changing the domain therefore only changes the symbols and
+ * units that appear in the user interface. Where the space domain uses meters, the time domain uses milliseconds.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -44,10 +50,6 @@ class WavePacket {
       range: new Range( 9 * Math.PI, 15 * Math.PI ),
       tandem: options.tandem.createTandem( 'centerProperty' )
     } );
-
-    //TODO rename this
-    // @public the range over which components are significant, in radians/meter
-    this.significantWidthRange = new Range( 0, 24 * Math.PI );
 
     //TODO why does Java version refer to this as deltaK?
     // @public wave packet width in k space, in radians/meter.

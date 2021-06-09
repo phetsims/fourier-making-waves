@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO delete if not used
 /**
  * ContinuousSumChart is the 'Sum' chart on the 'Continuous' screen.
  *
@@ -8,21 +7,32 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class ContinuousSumChart {
 
   /**
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
-  constructor( options ) {
+  constructor( domainProperty, options ) {
+
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+
+    // @public
+    this.domainProperty = domainProperty;
 
     // @public whether the Sum chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'chartVisibleProperty' )
     } );
 
-    //TODO flesh out
+    // @public whether the envelope of the sum waveform is visible
+    this.envelopeVisibleProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'envelopeVisibleProperty' )
+    } );
   }
 
   /**
@@ -37,6 +47,7 @@ class ContinuousSumChart {
    */
   reset() {
     this.chartVisibleProperty.reset();
+    this.envelopeVisibleProperty.reset();
   }
 }
 

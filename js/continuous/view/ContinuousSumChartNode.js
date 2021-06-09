@@ -10,7 +10,6 @@ import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -22,19 +21,18 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import ContinuousSumChart from '../model/ContinuousSumChart.js';
 import EnvelopeCheckbox from './EnvelopeCheckbox.js';
 
 class ContinuousSumChartNode extends Node {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<boolean>} envelopeVisibleProperty
+   * @param {ContinuousSumChart} sumChart
    * @param {Object} [options]
    */
-  constructor( domainProperty, envelopeVisibleProperty, options ) {
+  constructor( sumChart, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( envelopeVisibleProperty, 'boolean' );
+    assert && assert( sumChart instanceof ContinuousSumChart );
 
     options = merge( {
 
@@ -96,7 +94,7 @@ class ContinuousSumChartNode extends Node {
 
     // Addition UI components ---------------------------------------------------------
 
-    const envelopeCheckbox = new EnvelopeCheckbox( envelopeVisibleProperty, {
+    const envelopeCheckbox = new EnvelopeCheckbox( sumChart.envelopeVisibleProperty, {
       right: chartRectangle.right - 5,
       top: chartRectangle.bottom + 5,
       tandem: options.tandem.createTandem( 'envelopeCheckbox' )
@@ -114,7 +112,8 @@ class ContinuousSumChartNode extends Node {
 
     //TODO duplicated from ComponentsChartNode
     // Adjust the x-axis label to match the domain.
-    domainProperty.link( domain => {
+    // unlink is not needed.
+    sumChart.domainProperty.link( domain => {
       xAxisLabel.text = StringUtils.fillIn( fourierMakingWavesStrings.xAxisLabel, {
         symbol: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t,
         units: ( domain === Domain.SPACE ) ?

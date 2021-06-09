@@ -3,12 +3,6 @@
 /**
  * ContinuousModel is the top-level model for the 'Continuous' screen.
  *
- * Note that while the model uses field names that are specific to the space domain, those fields are used for both
- * the space domain and time domain. We can make this simplification (which originated in the Java version) because
- * we assume that the values of L (wavelength of the fundamental harmonic) and T (period of the fundamental harmonic)
- * are the same. That is, L=1 meter and T=1 millisecond. Changing the domain therefore only changes the symbols and
- * units that appear in the user interface. Where the space domain uses meters, the time domain uses milliseconds.
- *
  * @author Chris Malley (PixelZoom, Inc.
  */
 
@@ -37,13 +31,9 @@ class ContinuousModel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // @public
-    this.maxAmplitude = 0.21;
-
-    // @public
-    this.wavePacket = new WavePacket( {
-      tandem: options.tandem.createTandem( 'wavePacket' )
-    } );
+    // @public (read-only)
+    this.maxAmplitude = 0.21; //TODO ??
+    this.significantWidth = 24 * Math.PI; //TODO rename
 
     // @public
     this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE, {
@@ -57,13 +47,13 @@ class ContinuousModel {
     } );
 
     // @public
-    this.envelopeVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'envelopeVisibleProperty' )
+    this.widthIndicatorsVisibleProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'widthIndicatorsVisibleProperty' )
     } );
 
     // @public
-    this.widthIndicatorsVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'widthIndicatorsVisibleProperty' )
+    this.wavePacket = new WavePacket( {
+      tandem: options.tandem.createTandem( 'wavePacket' )
     } );
 
     // @public
@@ -77,7 +67,7 @@ class ContinuousModel {
     } );
 
     // @public
-    this.sumChart = new ContinuousSumChart( {
+    this.sumChart = new ContinuousSumChart( this.domainProperty, {
       tandem: options.tandem.createTandem( 'sumChart' )
     } );
   }
@@ -89,7 +79,7 @@ class ContinuousModel {
 
     // Properties
     this.domainProperty.reset();
-    this.envelopeVisibleProperty.reset();
+    this.seriesTypeProperty.reset();
     this.widthIndicatorsVisibleProperty.reset();
 
     // sub-models
