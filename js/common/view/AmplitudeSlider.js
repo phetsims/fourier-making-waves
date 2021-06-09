@@ -150,6 +150,7 @@ class AmplitudeSlider extends AudibleSlider {
 
 /**
  * GrippyThumb is a custom thumb for AmplitudeSlider. It has grippy dots on it that are color-coded to the harmonic.
+ * Created in horizontal orientation because VSlider will rotate it -90 degrees to vertical orientation.
  */
 class GrippyThumb extends Node {
 
@@ -211,8 +212,8 @@ class GrippyThumb extends Node {
 }
 
 /**
- * BarTrack is a custom track for AmplitudeSlider.  It fills a colored bar that grows up and down from
- * the center of the track.
+ * BarTrack is a custom track for AmplitudeSlider.  It fills a colored bar that grows up and down from the center of
+ * the track. Created in horizontal orientation because VSlider will rotate it -90 degrees to vertical orientation.
  */
 class BarTrack extends SliderTrack {
 
