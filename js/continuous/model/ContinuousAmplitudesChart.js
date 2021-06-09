@@ -8,7 +8,9 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class ContinuousAmplitudesChart {
@@ -18,6 +20,8 @@ class ContinuousAmplitudesChart {
    * @param {Object} [options]
    */
   constructor( domainProperty, options ) {
+
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     options = merge( {
 

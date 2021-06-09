@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO delete if not used
 /**
  * ComponentsChart is the 'Components' chart on the 'Continuous' screen.
  *
@@ -9,15 +8,20 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class ComponentsChart {
 
   /**
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
-  constructor( options ) {
+  constructor( domainProperty, options ) {
+
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     options = merge( {
 
@@ -25,12 +29,13 @@ class ComponentsChart {
       tandem: Tandem.REQUIRED
     }, options );
 
+    // @public
+    this.domainProperty = domainProperty;
+
     // @public whether the Sum chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'chartVisibleProperty' )
     } );
-
-    //TODO flesh out
   }
 
   /**

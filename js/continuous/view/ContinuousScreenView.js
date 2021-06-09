@@ -92,7 +92,7 @@ class ContinuousScreenView extends ScreenView {
       } );
 
     // Components chart
-    const componentsChartNode = new ComponentsChartNode( model.domainProperty, {
+    const componentsChartNode = new ComponentsChartNode( model.componentsChart, {
       transformOptions: {
         modelXRange: new Range( -2, 2 ), //TODO
         modelYRange: new Range( -model.maxAmplitude, model.maxAmplitude ), //TODO

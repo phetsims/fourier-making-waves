@@ -72,7 +72,7 @@ class ContinuousModel {
     } );
 
     // @public
-    this.componentsChart = new ComponentsChart( {
+    this.componentsChart = new ComponentsChart( this.domainProperty, {
       tandem: options.tandem.createTandem( 'componentsChart' )
     } );
 
