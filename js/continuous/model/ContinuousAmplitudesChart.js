@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO delete if not used
 /**
  * ContinuousAmplitudesChart is the 'Amplitudes' chart on the 'Continuous' screen.
  *
