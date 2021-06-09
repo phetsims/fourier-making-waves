@@ -85,6 +85,10 @@ class ContinuousScreenView extends ScreenView {
       children: [ componentsEquationNode ]
     } );
 
+    model.componentsChart.chartVisibleProperty.link( chartVisible => {
+      componentsEquationNode.visible = chartVisible;
+    } );
+
     // Button to show/hide the Components chart
     const componentsExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.componentsChart, model.componentsChart.chartVisibleProperty, {
@@ -114,6 +118,10 @@ class ContinuousScreenView extends ScreenView {
       } );
     const sumEquationWrapperNode = new Node( {
       children: [ sumEquationNode ]
+    } );
+
+    model.sumChart.chartVisibleProperty.link( chartVisible => {
+      sumEquationNode.visible = chartVisible;
     } );
 
     // Button to show/hide the Sum chart
@@ -208,6 +216,11 @@ class ContinuousScreenView extends ScreenView {
     sumEquationNode.boundsProperty.link( () => {
       sumEquationWrapperNode.centerX = sumChartNode.x + DiscreteScreenView.CHART_RECTANGLE_SIZE.width / 2;
       sumEquationWrapperNode.bottom = sumChartNode.top - 3;
+    } );
+
+    model.wavePacket.componentSpacingProperty.link( componentSpacing => {
+      //TODO hide Components chart and equation if ( componentSpacing === 0),
+      // show message "Cannot show infinite number of components."
     } );
 
     // pdom -traversal order
