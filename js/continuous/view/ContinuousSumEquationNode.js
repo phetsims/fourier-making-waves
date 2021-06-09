@@ -20,7 +20,7 @@ import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import ComponentsEquationNode from './ComponentsEquationNode.js';
 import EquationMarkup from '../../discrete/view/EquationMarkup.js';
-import SumSymbolNode from '../../discrete/view/SumSymbolNode.js';
+import SumSymbolNode from '../../common/view/SumSymbolNode.js';
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
 const EQUAL_TO = MathSymbols.EQUAL_TO;

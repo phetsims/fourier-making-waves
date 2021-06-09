@@ -1,6 +1,5 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
-//TODO move to common/
 /**
  * SumSymbolNode displays a symbol that indicates a sum of quantities. It can use either the summation symbol
  * (sum of a small number of large quantities) or the integration symbol (sum of a large number of small quantities).
@@ -16,7 +15,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import FMWSymbols from '../../common/FMWSymbols.js';
+import FMWSymbols from '../FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // This extends Node instead of VBox so that the origin will be at the origin of symbolNode, useful for
