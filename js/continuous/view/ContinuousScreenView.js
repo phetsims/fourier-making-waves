@@ -64,9 +64,9 @@ class ContinuousScreenView extends ScreenView {
 
     // Amplitudes chart
     const amplitudesChartNode = new ContinuousAmplitudesChartNode( model.domainProperty,
-      model.continuousWaveformVisibleProperty, {
+      model.amplitudesChart.continuousWaveformVisibleProperty, {
         transformOptions: {
-          modelXRange: model.significantWidthRange,
+          modelXRange: model.wavePacket.significantWidthRange,
           modelYRange: new Range( 0, model.maxAmplitude ), //TODO this needs to autoscale!
           viewWidth: DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
           viewHeight: DiscreteScreenView.CHART_RECTANGLE_SIZE.height

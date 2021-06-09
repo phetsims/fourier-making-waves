@@ -46,7 +46,7 @@ class ContinuousControlPanel extends Panel {
     }, options );
 
     const componentSpacingLayoutBox = new ComponentSpacingLayoutBox( model.domainProperty,
-      model.componentSpacingProperty, model.componentSpacingIndexProperty, {
+      model.wavePacket.componentSpacingProperty, model.wavePacket.componentSpacingIndexProperty, {
         spacing: VERTICAL_SPACING,
         tandem: options.tandem.createTandem( 'componentSpacingLayoutBox' )
       } );
@@ -57,13 +57,13 @@ class ContinuousControlPanel extends Panel {
       componentSpacingLayoutBox,
 
       // Wave Packet Center
-      new WavePacketCenterLayoutBox( model.domainProperty, model.wavePacketCenterProperty, {
+      new WavePacketCenterLayoutBox( model.domainProperty, model.wavePacket.centerProperty, {
         spacing: VERTICAL_SPACING,
         tandem: options.tandem.createTandem( 'wavePacketCenterLayoutBox' )
       } ),
 
       // Wave Packet Width
-      new WavePacketWidthLayoutBox( model.domainProperty, model.kWidthProperty, model.xWidthProperty, {
+      new WavePacketWidthLayoutBox( model.domainProperty, model.wavePacket.kWidthProperty, model.wavePacket.xWidthProperty, {
         spacing: VERTICAL_SPACING,
         tandem: options.tandem.createTandem( 'wavePacketWidthLayoutBox' )
       } ),
