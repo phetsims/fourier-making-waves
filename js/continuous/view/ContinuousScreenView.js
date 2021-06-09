@@ -82,11 +82,8 @@ class ContinuousScreenView extends ScreenView {
         tandem: componentsTandem.createTandem( 'equationNode' )
       } );
     const componentsEquationWrapperNode = new Node( {
+      visibleProperty: model.componentsChart.chartVisibleProperty,
       children: [ componentsEquationNode ]
-    } );
-
-    model.componentsChart.chartVisibleProperty.link( chartVisible => {
-      componentsEquationNode.visible = chartVisible;
     } );
 
     // Button to show/hide the Components chart
@@ -114,14 +111,11 @@ class ContinuousScreenView extends ScreenView {
     // Equation above the Sum chart
     const sumEquationNode = new ContinuousSumEquationNode( model.domainProperty, model.seriesTypeProperty,
       model.wavePacket.componentSpacingProperty, {
+        visibleProperty: model.sumChart.chartVisibleProperty,
         tandem: sumTandem.createTandem( 'equationNode' )
       } );
     const sumEquationWrapperNode = new Node( {
       children: [ sumEquationNode ]
-    } );
-
-    model.sumChart.chartVisibleProperty.link( chartVisible => {
-      sumEquationNode.visible = chartVisible;
     } );
 
     // Button to show/hide the Sum chart
