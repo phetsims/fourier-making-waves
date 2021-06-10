@@ -112,8 +112,7 @@ function createHomeScreenIcon() {
   } );
 
   const iconNode = new Node( {
-    children: [ xAxis, sliders ],
-    pdomVisible: false // TODO workaround for https://github.com/phetsims/fourier-making-waves/issues/73
+    children: [ xAxis, sliders ]
   } );
 
   //TODO Consider using iconNode.rasterized( { resolution: 2 } ) to avoid memory, phet-io, and pdom issues
