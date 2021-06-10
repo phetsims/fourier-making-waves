@@ -1,17 +1,19 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ContinuousSumChart is the 'Sum' chart on the 'Continuous' screen.
+ * WavePacketAmplitudesChart is the 'Amplitudes' chart on the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class ContinuousSumChart {
+class WavePacketAmplitudesChart {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -21,17 +23,18 @@ class ContinuousSumChart {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
+    options = merge( {
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
+    }, options );
+
     // @public
     this.domainProperty = domainProperty;
 
-    // @public whether the Sum chart is visible
-    this.chartVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
-    } );
-
-    // @public whether the envelope of the sum waveform is visible
-    this.envelopeVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'envelopeVisibleProperty' )
+    // @public
+    this.continuousWaveformVisibleProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
     } );
   }
 
@@ -46,10 +49,9 @@ class ContinuousSumChart {
    * @public
    */
   reset() {
-    this.chartVisibleProperty.reset();
-    this.envelopeVisibleProperty.reset();
+    this.continuousWaveformVisibleProperty.reset();
   }
 }
 
-fourierMakingWaves.register( 'ContinuousSumChart', ContinuousSumChart );
-export default ContinuousSumChart;
+fourierMakingWaves.register( 'WavePacketAmplitudesChart', WavePacketAmplitudesChart );
+export default WavePacketAmplitudesChart;

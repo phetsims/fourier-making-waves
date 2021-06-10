@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WidthIndicatorsCheckbox is the checkbox used to show width indicators on the 'Continuous' screen.
+ * WidthIndicatorsCheckbox is the checkbox used to show width indicators on the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

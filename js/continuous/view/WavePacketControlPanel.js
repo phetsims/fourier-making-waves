@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ContinuousControlPanel is the control panel in the 'Continuous' screen.
+ * WavePacketControlPanel is the control panel in the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,26 +17,26 @@ import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FWMConstants from '../../common/FMWConstants.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import ContinuousModel from '../model/ContinuousModel.js';
+import WavePacketModel from '../model/WavePacketModel.js';
 import ComponentSpacingLayoutBox from './ComponentSpacingLayoutBox.js';
-import ContinuousGraphControlsLayoutBox from './ContinuousGraphControlsLayoutBox.js';
-import ContinuousSymbolsDialog from './ContinuousSymbolsDialog.js';
+import WavePacketGraphControlsLayoutBox from './WavePacketGraphControlsLayoutBox.js';
+import WavePacketSymbolsDialog from './WavePacketSymbolsDialog.js';
 import WavePacketCenterLayoutBox from './WavePacketCenterLayoutBox.js';
 import WavePacketWidthLayoutBox from './WavePacketWidthLayoutBox.js';
 
 // constants
 const VERTICAL_SPACING = 8;
 
-class ContinuousControlPanel extends Panel {
+class WavePacketControlPanel extends Panel {
 
   /**
-   * @param {ContinuousModel} model
+   * @param {WavePacketModel} model
    * @param {Node} popupParent
    * @param {Object} [options]
    */
   constructor( model, popupParent, options ) {
 
-    assert && assert( model instanceof ContinuousModel );
+    assert && assert( model instanceof WavePacketModel );
     assert && assert( popupParent instanceof Node );
 
     options = merge( {}, FMWConstants.PANEL_OPTIONS, {
@@ -69,7 +69,7 @@ class ContinuousControlPanel extends Panel {
       } ),
 
       // Graph Controls
-      new ContinuousGraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty,
+      new WavePacketGraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty,
         model.widthIndicatorsVisibleProperty, popupParent, {
           spacing: VERTICAL_SPACING,
           tandem: options.tandem.createTandem( 'graphControlsLayoutBox' )
@@ -96,7 +96,7 @@ class ContinuousControlPanel extends Panel {
     } ) );
 
     // Dialog that displays a key for math symbols
-    const symbolsDialog = new ContinuousSymbolsDialog();
+    const symbolsDialog = new WavePacketSymbolsDialog();
 
     //TODO where should this button be located?
     // Push button to open the dialog.
@@ -125,5 +125,5 @@ class ContinuousControlPanel extends Panel {
   }
 }
 
-fourierMakingWaves.register( 'ContinuousControlPanel', ContinuousControlPanel );
-export default ContinuousControlPanel;
+fourierMakingWaves.register( 'WavePacketControlPanel', WavePacketControlPanel );
+export default WavePacketControlPanel;

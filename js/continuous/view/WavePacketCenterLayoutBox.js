@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WavePacketCenterLayoutBox is the 'Wave Packet Center' section of the control panel in the 'Continuous' screen.
+ * WavePacketCenterLayoutBox is the 'Wave Packet Center' section of the control panel in the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

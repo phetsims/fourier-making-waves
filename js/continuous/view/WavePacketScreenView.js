@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * ContinuousScreenView is the view for the 'Continuous' screen.
+ * WavePacketScreenView is the view for the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.
  */
@@ -21,25 +21,25 @@ import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapse
 import DiscreteScreenView from '../../discrete/view/DiscreteScreenView.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import ContinuousModel from '../model/ContinuousModel.js';
+import WavePacketModel from '../model/WavePacketModel.js';
 import ComponentsChartNode from './ComponentsChartNode.js';
 import ComponentsEquationNode from './ComponentsEquationNode.js';
-import ContinuousAmplitudesChartNode from './ContinuousAmplitudesChartNode.js';
-import ContinuousControlPanel from './ContinuousControlPanel.js';
-import ContinuousSumChartNode from './ContinuousSumChartNode.js';
-import ContinuousSumEquationNode from './ContinuousSumEquationNode.js';
+import WavePacketAmplitudesChartNode from './WavePacketAmplitudesChartNode.js';
+import WavePacketControlPanel from './WavePacketControlPanel.js';
+import WavePacketSumChartNode from './WavePacketSumChartNode.js';
+import WavePacketSumEquationNode from './WavePacketSumEquationNode.js';
 
 // constants
 const CHART_TITLE_Y_SPACING = 15; // space between chart title and the chart
 
-class ContinuousScreenView extends ScreenView {
+class WavePacketScreenView extends ScreenView {
 
   /**
-   * @param {ContinuousModel} model
+   * @param {WavePacketModel} model
    * @param {Object} [options]
    */
   constructor( model, options ) {
-    assert && assert( model instanceof ContinuousModel );
+    assert && assert( model instanceof WavePacketModel );
 
     options = merge( {
 
@@ -65,7 +65,7 @@ class ContinuousScreenView extends ScreenView {
     } );
 
     // Amplitudes chart
-    const amplitudesChartNode = new ContinuousAmplitudesChartNode( model.amplitudesChart, {
+    const amplitudesChartNode = new WavePacketAmplitudesChartNode( model.amplitudesChart, {
       transformOptions: {
         modelXRange: new Range( 0, model.significantWidth ),
         modelYRange: new Range( 0, model.maxAmplitude ), //TODO this needs to autoscale!
@@ -119,7 +119,7 @@ class ContinuousScreenView extends ScreenView {
     const sumTandem = options.tandem.createTandem( 'sum' );
 
     // Equation above the Sum chart
-    const sumEquationNode = new ContinuousSumEquationNode( model.domainProperty, model.seriesTypeProperty,
+    const sumEquationNode = new WavePacketSumEquationNode( model.domainProperty, model.seriesTypeProperty,
       model.wavePacket.componentSpacingProperty, {
         visibleProperty: model.sumChart.chartVisibleProperty,
         tandem: sumTandem.createTandem( 'equationNode' )
@@ -136,7 +136,7 @@ class ContinuousScreenView extends ScreenView {
       } );
 
     // Sum chart
-    const sumChartNode = new ContinuousSumChartNode( model.sumChart, {
+    const sumChartNode = new WavePacketSumChartNode( model.sumChart, {
       transformOptions: {
         modelXRange: new Range( -2, 2 ), //TODO
         modelYRange: new Range( -1.25, 1.25 ), //TODO
@@ -147,7 +147,7 @@ class ContinuousScreenView extends ScreenView {
       tandem: sumTandem.createTandem( 'sumChartNode' )
     } );
 
-    const controlPanel = new ContinuousControlPanel( model, popupParent );
+    const controlPanel = new WavePacketControlPanel( model, popupParent );
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {
@@ -264,5 +264,5 @@ class ContinuousScreenView extends ScreenView {
   }
 }
 
-fourierMakingWaves.register( 'ContinuousScreenView', ContinuousScreenView );
-export default ContinuousScreenView;
+fourierMakingWaves.register( 'WavePacketScreenView', WavePacketScreenView );
+export default WavePacketScreenView;

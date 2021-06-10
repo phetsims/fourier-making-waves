@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ContinuousSumChartNode is the 'Sum' chart on the 'Continuous' screen.
+ * WavePacketSumChartNode is the 'Sum' chart on the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -21,18 +21,18 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import ContinuousSumChart from '../model/ContinuousSumChart.js';
+import WavePacketSumChart from '../model/WavePacketSumChart.js';
 import WaveformEnvelopeCheckbox from './WaveformEnvelopeCheckbox.js';
 
-class ContinuousSumChartNode extends Node {
+class WavePacketSumChartNode extends Node {
 
   /**
-   * @param {ContinuousSumChart} sumChart
+   * @param {WavePacketSumChart} sumChart
    * @param {Object} [options]
    */
   constructor( sumChart, options ) {
 
-    assert && assert( sumChart instanceof ContinuousSumChart );
+    assert && assert( sumChart instanceof WavePacketSumChart );
 
     options = merge( {
 
@@ -135,5 +135,5 @@ class ContinuousSumChartNode extends Node {
   }
 }
 
-fourierMakingWaves.register( 'ContinuousSumChartNode', ContinuousSumChartNode );
-export default ContinuousSumChartNode;
+fourierMakingWaves.register( 'WavePacketSumChartNode', WavePacketSumChartNode );
+export default WavePacketSumChartNode;

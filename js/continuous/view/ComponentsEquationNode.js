@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ComponentsEquationNode is the equation that appears above the 'Components' chart in the 'Continuous' screen.
+ * ComponentsEquationNode is the equation that appears above the 'Components' chart in the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

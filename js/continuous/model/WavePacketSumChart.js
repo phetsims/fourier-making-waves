@@ -1,19 +1,17 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ContinuousAmplitudesChart is the 'Amplitudes' chart on the 'Continuous' screen.
+ * WavePacketSumChart is the 'Sum' chart on the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class ContinuousAmplitudesChart {
+class WavePacketSumChart {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -23,18 +21,17 @@ class ContinuousAmplitudesChart {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
-    options = merge( {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
-
     // @public
     this.domainProperty = domainProperty;
 
-    // @public
-    this.continuousWaveformVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
+    // @public whether the Sum chart is visible
+    this.chartVisibleProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
+    } );
+
+    // @public whether the envelope of the sum waveform is visible
+    this.envelopeVisibleProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'envelopeVisibleProperty' )
     } );
   }
 
@@ -49,9 +46,10 @@ class ContinuousAmplitudesChart {
    * @public
    */
   reset() {
-    this.continuousWaveformVisibleProperty.reset();
+    this.chartVisibleProperty.reset();
+    this.envelopeVisibleProperty.reset();
   }
 }
 
-fourierMakingWaves.register( 'ContinuousAmplitudesChart', ContinuousAmplitudesChart );
-export default ContinuousAmplitudesChart;
+fourierMakingWaves.register( 'WavePacketSumChart', WavePacketSumChart );
+export default WavePacketSumChart;

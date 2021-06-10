@@ -8,8 +8,8 @@
   "screen.waveGame": {
     "value": "Wave Game"
   },
-  "screen.continuous": {
-    "value": "Continuous"
+  "screen.wavePacket": {
+    "value": "Wave Packet"
   },
   "fourierSeries": {
     "value": "Fourier Series"

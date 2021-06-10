@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * ContinuousScreen is the 'Continuous' screen.
+ * WavePacketScreen is the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.
  */
@@ -16,10 +16,10 @@ import continuousHomeScreenImage from '../../images/Continuous-home-screen-icon_
 import FMWColorProfile from '../common/FMWColorProfile.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
-import ContinuousModel from './model/ContinuousModel.js';
-import ContinuousScreenView from './view/ContinuousScreenView.js';
+import WavePacketModel from './model/WavePacketModel.js';
+import WavePacketScreenView from './view/WavePacketScreenView.js';
 
-class ContinuousScreen extends Screen {
+class WavePacketScreen extends Screen {
 
   /**
    * @param {Object} [options]
@@ -29,7 +29,7 @@ class ContinuousScreen extends Screen {
     options = merge( {
 
       // Screen options
-      name: fourierMakingWavesStrings.screen.continuous,
+      name: fourierMakingWavesStrings.screen.wavePacket,
       backgroundColorProperty: FMWColorProfile.screenBackgroundColorProperty,
       homeScreenIcon: createHomeScreenIcon(),
 
@@ -46,8 +46,8 @@ class ContinuousScreen extends Screen {
     }, options );
 
     super(
-      () => new ContinuousModel( { tandem: options.tandem.createTandem( 'model' ) } ),
-      model => new ContinuousScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
+      () => new WavePacketModel( { tandem: options.tandem.createTandem( 'model' ) } ),
+      model => new WavePacketScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
       options
     );
   }
@@ -62,7 +62,7 @@ class ContinuousScreen extends Screen {
   }
 }
 
-//TODO delete Continuous-home-screen-icon.png if it is not used
+//TODO delete Wave-Packet-home-screen-icon.png if it is not used
 /**
  * Creates the Home screen icon for this screen.
  * @returns {ScreenIcon}
@@ -74,5 +74,5 @@ function createHomeScreenIcon() {
   } );
 }
 
-fourierMakingWaves.register( 'ContinuousScreen', ContinuousScreen );
-export default ContinuousScreen;
+fourierMakingWaves.register( 'WavePacketScreen', WavePacketScreen );
+export default WavePacketScreen;

@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ContinuousAmplitudesChartNode is the 'Amplitudes' chart on the 'Continuous' screen.
+ * WavePacketAmplitudesChartNode is the 'Amplitudes' chart on the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -25,7 +25,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import ContinuousAmplitudesChart from '../model/ContinuousAmplitudesChart.js';
+import WavePacketAmplitudesChart from '../model/WavePacketAmplitudesChart.js';
 import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
 
 // constants
@@ -36,15 +36,15 @@ const TICK_MARK_OPTIONS = {
 };
 
 //TODO placeholder
-class ContinuousAmplitudesChartNode extends Node {
+class WavePacketAmplitudesChartNode extends Node {
 
   /**
-   * @param {ContinuousAmplitudesChart} amplitudesChart
+   * @param {WavePacketAmplitudesChart} amplitudesChart
    * @param {Object} [options]
    */
   constructor( amplitudesChart, options ) {
 
-    assert && assert( amplitudesChart instanceof ContinuousAmplitudesChart );
+    assert && assert( amplitudesChart instanceof WavePacketAmplitudesChart );
 
     options = merge( {
 
@@ -163,5 +163,5 @@ function createXTickLabel( value ) {
   } );
 }
 
-fourierMakingWaves.register( 'ContinuousAmplitudesChartNode', ContinuousAmplitudesChartNode );
-export default ContinuousAmplitudesChartNode;
+fourierMakingWaves.register( 'WavePacketAmplitudesChartNode', WavePacketAmplitudesChartNode );
+export default WavePacketAmplitudesChartNode;

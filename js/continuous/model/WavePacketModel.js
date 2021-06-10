@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * ContinuousModel is the top-level model for the 'Continuous' screen.
+ * WavePacketModel is the top-level model for the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.
  */
@@ -14,11 +14,11 @@ import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import ComponentsChart from './ComponentsChart.js';
-import ContinuousAmplitudesChart from './ContinuousAmplitudesChart.js';
-import ContinuousSumChart from './ContinuousSumChart.js';
+import WavePacketAmplitudesChart from './WavePacketAmplitudesChart.js';
+import WavePacketSumChart from './WavePacketSumChart.js';
 import WavePacket from './WavePacket.js';
 
-class ContinuousModel {
+class WavePacketModel {
 
   /**
    * @param {Object} [options]
@@ -57,7 +57,7 @@ class ContinuousModel {
     } );
 
     // @public
-    this.amplitudesChart = new ContinuousAmplitudesChart( this.domainProperty, {
+    this.amplitudesChart = new WavePacketAmplitudesChart( this.domainProperty, {
       tandem: options.tandem.createTandem( 'amplitudesChart' )
     } );
 
@@ -67,7 +67,7 @@ class ContinuousModel {
     } );
 
     // @public
-    this.sumChart = new ContinuousSumChart( this.domainProperty, {
+    this.sumChart = new WavePacketSumChart( this.domainProperty, {
       tandem: options.tandem.createTandem( 'sumChart' )
     } );
   }
@@ -97,5 +97,5 @@ class ContinuousModel {
   }
 }
 
-fourierMakingWaves.register( 'ContinuousModel', ContinuousModel );
-export default ContinuousModel;
+fourierMakingWaves.register( 'WavePacketModel', WavePacketModel );
+export default WavePacketModel;

@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * ContinuousGraphControlsLayoutBox is the 'Graph Controls' section of the control panel in the 'Continuous' screen.
+ * WavePacketGraphControlsLayoutBox is the 'Graph Controls' section of the control panel in the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -22,7 +22,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WidthIndicatorsCheckbox from './WidthIndicatorsCheckbox.js';
 
-class ContinuousGraphControlsLayoutBox extends VBox {
+class WavePacketGraphControlsLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -85,7 +85,7 @@ class ContinuousGraphControlsLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'widthIndicatorsCheckbox' )
     } );
 
-    assert && assert( !options.children, 'ContinuousGraphControlsLayoutBox sets children' );
+    assert && assert( !options.children, 'WavePacketGraphControlsLayoutBox sets children' );
     options.children = [
       graphControlsText,
       functionOfBox,
@@ -106,5 +106,5 @@ class ContinuousGraphControlsLayoutBox extends VBox {
   }
 }
 
-fourierMakingWaves.register( 'ContinuousGraphControlsLayoutBox', ContinuousGraphControlsLayoutBox );
-export default ContinuousGraphControlsLayoutBox;
+fourierMakingWaves.register( 'WavePacketGraphControlsLayoutBox', WavePacketGraphControlsLayoutBox );
+export default WavePacketGraphControlsLayoutBox;

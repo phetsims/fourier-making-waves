@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ContinuousSumEquationNode is the equation that appears above the 'Sum' chart in the 'Continuous' screen.
+ * WavePacketSumEquationNode is the equation that appears above the 'Sum' chart in the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -25,7 +25,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 const EQUAL_TO = MathSymbols.EQUAL_TO;
 const n = FMWSymbols.n;
 
-class ContinuousSumEquationNode extends Node {
+class WavePacketSumEquationNode extends Node {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -41,7 +41,7 @@ class ContinuousSumEquationNode extends Node {
 
     options = merge( {
 
-      // ContinuousSumEquationNode options
+      // WavePacketSumEquationNode options
       font: FMWConstants.EQUATION_FONT
     }, options );
 
@@ -60,7 +60,7 @@ class ContinuousSumEquationNode extends Node {
       font: options.font
     } );
 
-    assert && assert( !options.children, 'ContinuousSumEquationNode sets children' );
+    assert && assert( !options.children, 'WavePacketSumEquationNode sets children' );
     options.children = [ leftNode, sumSymbolNode, rightNode ];
 
     super( options );
@@ -111,5 +111,5 @@ class ContinuousSumEquationNode extends Node {
   }
 }
 
-fourierMakingWaves.register( 'ContinuousSumEquationNode', ContinuousSumEquationNode );
-export default ContinuousSumEquationNode;
+fourierMakingWaves.register( 'WavePacketSumEquationNode', WavePacketSumEquationNode );
+export default WavePacketSumEquationNode;

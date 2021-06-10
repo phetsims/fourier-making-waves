@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ComponentsChartNode is the 'Components' chart on the 'Continuous' screen.
+ * ComponentsChartNode is the 'Components' chart on the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

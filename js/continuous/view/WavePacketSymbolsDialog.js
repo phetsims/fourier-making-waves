@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * ContinuousSymbolsDialog is a dialog that shows a key to the symbols used in the 'Continuous' screen.
+ * WavePacketSymbolsDialog is a dialog that shows a key to the symbols used in the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -19,7 +19,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 // constants
 const MAX_WIDTH = 800; // determined empirically
 
-class ContinuousSymbolsDialog extends Dialog {
+class WavePacketSymbolsDialog extends Dialog {
 
   /**
    * @param {Object} [options]
@@ -33,7 +33,7 @@ class ContinuousSymbolsDialog extends Dialog {
       cornerRadius: FMWConstants.PANEL_CORNER_RADIUS
     }, options );
 
-    assert && assert( !options.title, 'ContinuousSymbolsDialog sets children' );
+    assert && assert( !options.title, 'WavePacketSymbolsDialog sets children' );
     options.title = new Text( fourierMakingWavesStrings.symbolsDialog.title, {
       font: FMWConstants.DIALOG_TITLE_FONT,
       maxWidth: MAX_WIDTH
@@ -70,5 +70,5 @@ class ContinuousSymbolsDialog extends Dialog {
   }
 }
 
-fourierMakingWaves.register( 'ContinuousSymbolsDialog', ContinuousSymbolsDialog );
-export default ContinuousSymbolsDialog;
+fourierMakingWaves.register( 'WavePacketSymbolsDialog', WavePacketSymbolsDialog );
+export default WavePacketSymbolsDialog;
