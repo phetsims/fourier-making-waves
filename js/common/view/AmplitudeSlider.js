@@ -68,7 +68,7 @@ class AmplitudeSlider extends AudibleSlider {
 
       // pdom options
       // slider steps, see https://github.com/phetsims/fourier-making-waves/issues/53
-      keyboardStep: 0.1, // used by all alternative-input devices
+      keyboardStep: FMWConstants.AMPLITUDE_SLIDER_MOUSE_TOUCH_STEP, // used by all alternative-input devices
       shiftKeyboardStep: 0.01, // finer grain, used by keyboard only
       pageKeyboardStep: 0.25, // coarser grain, used by keyboard only
 
