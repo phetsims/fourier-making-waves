@@ -10,7 +10,7 @@ import Vector2 from '../../dot/js/Vector2.js';
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
-import WavePacketScreen from './continuous/WavePacketScreen.js';
+import WavePacketScreen from './wavepacket/WavePacketScreen.js';
 import DiscreteScreen from './discrete/DiscreteScreen.js';
 import fourierMakingWavesStrings from './fourierMakingWavesStrings.js';
 import WaveGameScreen from './waveGame/WaveGameScreen.js';

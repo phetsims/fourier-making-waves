@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ContinuousWaveformCheckbox is the checkbox that is used to show the continuous waveform.
+ * ContinuousWaveformCheckbox is the checkbox that is used to show the wavepacket waveform.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
