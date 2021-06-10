@@ -8,6 +8,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -15,13 +16,13 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
+import Slider from '../../../../sun/js/Slider.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import WavePacketXWidthSlider from './WavePacketXWidthSlider.js';
 
 class WavePacketXWidthControl extends VBox {
 
@@ -80,6 +81,36 @@ class WavePacketXWidthControl extends VBox {
     this.isPressedProperty = new DerivedProperty(
       [ slider.thumbDragListener.isPressedProperty, slider.trackDragListener.isPressedProperty ],
       ( thumbIsPressed, trackIsPressed ) => ( thumbIsPressed || trackIsPressed ) );
+  }
+}
+
+class WavePacketXWidthSlider extends Slider {
+
+  /**
+   * @param {NumberProperty} xWidthProperty
+   * @param {Object} [options]
+   */
+  constructor( xWidthProperty, options ) {
+
+    assert && assert( xWidthProperty instanceof NumberProperty );
+    assert && assert( xWidthProperty.range );
+
+    options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
+
+      // WavePacketXWidthSlider options
+      tickDecimals: 3
+
+      // pdom options
+      //TODO alt input steps
+    }, options );
+
+    super( xWidthProperty, xWidthProperty.range, options );
+
+    //TODO handle this more robustly, less brute-force
+    const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
+    this.addMajorTick( 1, new RichText( '1', textOptions ) );
+    this.addMajorTick( 1 / Math.PI, new RichText( `1/${FMWSymbols.pi}`, textOptions ) );
+    this.addMajorTick( 1 / ( 4 * Math.PI ), new RichText( `1/(4${FMWSymbols.pi})`, textOptions ) );
   }
 }
 
