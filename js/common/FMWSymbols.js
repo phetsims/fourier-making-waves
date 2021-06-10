@@ -23,7 +23,7 @@ import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
 const FMWSymbols = {
   A: fourierMakingWavesStrings.symbol.A, // amplitude
   cos: fourierMakingWavesStrings.symbol.cos, // cosine
-  d: fourierMakingWavesStrings.symbol.d, //TODO
+  d: MathSymbolFont.getRichTextMarkup( fourierMakingWavesStrings.symbol.d ), // differential, like dx
   F: fourierMakingWavesStrings.symbol.F, // function of frequency
   f: MathSymbolFont.getRichTextMarkup( fourierMakingWavesStrings.symbol.f ), // frequency
   integral: MathSymbolFont.getRichTextMarkup( '\u222B', 'normal' ), // integration symbol
