@@ -227,8 +227,8 @@
   "componentsChart": {
     "value": "Components"
   },
-  "envelope": {
-    "value": "Envelope"
+  "waveformEnvelope": {
+    "value": "Waveform Envelope"
   },
   "widthIndicators": {
     "value": "Width Indicators"

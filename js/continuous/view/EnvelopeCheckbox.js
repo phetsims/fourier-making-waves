@@ -26,7 +26,7 @@ class EnvelopeCheckbox extends Checkbox {
 
     options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, options );
 
-    const envelopeText = new Text( fourierMakingWavesStrings.envelope, {
+    const envelopeText = new Text( fourierMakingWavesStrings.waveformEnvelope, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 200
     } );
