@@ -6,8 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Slider from '../../../../sun/js/Slider.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -17,12 +17,12 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class WavePacketKWidthSlider extends Slider {
 
   /**
-   * @param {Property.<number>} kWidthProperty
+   * @param {NumberProperty} kWidthProperty
    * @param {Object} [options]
    */
   constructor( kWidthProperty, options ) {
 
-    assert && AssertUtils.assertPropertyOf( kWidthProperty, 'number' );
+    assert && assert( kWidthProperty instanceof NumberProperty );
     assert && assert( kWidthProperty.range );
 
     options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {

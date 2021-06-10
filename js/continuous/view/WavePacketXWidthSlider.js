@@ -6,23 +6,23 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Utils from '../../../../dot/js/Utils.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Slider from '../../../../sun/js/Slider.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class WavePacketXWidthSlider extends Slider {
 
   /**
-   * @param {Property.<number>} xWidthProperty
+   * @param {NumberProperty} xWidthProperty
    * @param {Object} [options]
    */
   constructor( xWidthProperty, options ) {
 
-    assert && AssertUtils.assertPropertyOf( xWidthProperty, 'number' );
+    assert && assert( xWidthProperty instanceof NumberProperty );
     assert && assert( xWidthProperty.range );
 
     options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
@@ -36,31 +36,11 @@ class WavePacketXWidthSlider extends Slider {
 
     super( xWidthProperty, xWidthProperty.range, options );
 
-    // Major ticks at min and max, and at 0.2 intervals between min and max
-    assert && assert( xWidthProperty.range.max === 1 );
-    {
-      const tickValues = [];
-      tickValues.push( xWidthProperty.range.min, xWidthProperty.range.max );
-
-      assert && assert( xWidthProperty.range.max === 1 );
-      const TICK_INTERVAL = 0.2;
-      let tickValue = xWidthProperty.range.max - TICK_INTERVAL;
-      while ( tickValue > xWidthProperty.range.min ) {
-        tickValues.push( tickValue );
-        tickValue -= TICK_INTERVAL;
-      }
-
-      const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
-      tickValues.forEach( tickValue => {
-        const value = Utils.toFixedNumber( tickValue, options.tickDecimals );
-        let string = value.toString();
-        if ( Math.abs( value ) < 1 ) {
-          // Remove the leading zero before numbers that have only a decimal component. E.g. '0.2' -> '.2'
-          string = `.${string.split( '.' )[ 1 ]}`;
-        }
-        this.addMajorTick( tickValue, new Text( string, textOptions ) );
-      } );
-    }
+    //TODO handle this more robustly, less brute-force
+    const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
+    this.addMajorTick( 1, new RichText( '1', textOptions ) );
+    this.addMajorTick( 1 / Math.PI, new RichText( `1/${FMWSymbols.pi}`, textOptions ) );
+    this.addMajorTick( 1 / ( 4 * Math.PI ), new RichText( `1/(4${FMWSymbols.pi})`, textOptions ) );
   }
 }
 
