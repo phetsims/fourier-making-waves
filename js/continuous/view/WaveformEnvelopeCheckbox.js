@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * EnvelopeCheckbox is the checkbox that is used to show the waveform envelope.
+ * WaveformEnvelopeCheckbox is the checkbox that is used to show the waveform envelope.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +14,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class EnvelopeCheckbox extends Checkbox {
+class WaveformEnvelopeCheckbox extends Checkbox {
 
   /**
    * @param {Property.<boolean>} envelopeVisibleProperty
@@ -35,5 +35,5 @@ class EnvelopeCheckbox extends Checkbox {
   }
 }
 
-fourierMakingWaves.register( 'EnvelopeCheckbox', EnvelopeCheckbox );
-export default EnvelopeCheckbox;
+fourierMakingWaves.register( 'WaveformEnvelopeCheckbox', WaveformEnvelopeCheckbox );
+export default WaveformEnvelopeCheckbox;

@@ -22,7 +22,7 @@ import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import ContinuousSumChart from '../model/ContinuousSumChart.js';
-import EnvelopeCheckbox from './EnvelopeCheckbox.js';
+import WaveformEnvelopeCheckbox from './WaveformEnvelopeCheckbox.js';
 
 class ContinuousSumChartNode extends Node {
 
@@ -94,10 +94,10 @@ class ContinuousSumChartNode extends Node {
 
     // Addition UI components ---------------------------------------------------------
 
-    const envelopeCheckbox = new EnvelopeCheckbox( sumChart.envelopeVisibleProperty, {
+    const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( sumChart.envelopeVisibleProperty, {
       right: chartRectangle.right - 5,
       top: chartRectangle.bottom + 5,
-      tandem: options.tandem.createTandem( 'envelopeCheckbox' )
+      tandem: options.tandem.createTandem( 'waveformEnvelopeCheckbox' )
     } );
 
     assert && assert( !options.children );
@@ -105,7 +105,7 @@ class ContinuousSumChartNode extends Node {
       chartRectangle,
       xAxis, xAxisLabel,
       yAxis, yAxisLabel,
-      envelopeCheckbox
+      waveformEnvelopeCheckbox
     ];
 
     super( options );
@@ -130,7 +130,7 @@ class ContinuousSumChartNode extends Node {
     // pdom - traversal order
     this.pdomOrder = [
       //TODO x-axis zoom button group
-      envelopeCheckbox
+      waveformEnvelopeCheckbox
     ];
   }
 }
