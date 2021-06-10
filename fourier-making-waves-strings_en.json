@@ -253,5 +253,8 @@
   },
   "xAxisLabel": {
     "value": "{{symbol}} ({{units}})"
+  },
+  "infiniteComponentsCannotBePlotted": {
+    "value": "An infinite number of components cannot be plotted."
   }
 }
