@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -78,7 +79,7 @@ class ContinuousScreenView extends ScreenView {
 
     // Equation above the Components chart
     const componentsEquationNode = new ComponentsEquationNode( model.domainProperty, model.seriesTypeProperty,
-      model.wavePacket.componentSpacingProperty, {
+      new NumberProperty( 1 ), {
         tandem: componentsTandem.createTandem( 'equationNode' )
       } );
     const componentsEquationWrapperNode = new Node( {
