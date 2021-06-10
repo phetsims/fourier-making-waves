@@ -91,6 +91,20 @@ const EquationMarkup = {
   getFunctionOfMarkup( domain ) {
     const variables = ( domain === Domain.SPACE ) ? x : ( ( domain === Domain.TIME ) ? t : `${x},${t}` );
     return `${F}(${variables})`;
+  },
+
+  /**
+   * Gets the markup used for the equation about the Components graph in the Continuous screen.
+   * @param {Domain} domain
+   * @param {SeriesType} seriesType
+   * @returns {string}
+   */
+  getComponentsEquationMarkup( domain, seriesType ) {
+    const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t;
+    const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega;
+    const seriesTypeString = ( seriesType === SeriesType.SINE ) ? FMWSymbols.sin : FMWSymbols.cos;
+    return `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub> ` +
+           `${seriesTypeString}( ${componentSymbol}<sub>${FMWSymbols.n}</sub>${domainSymbol} )`;
   }
 };
 

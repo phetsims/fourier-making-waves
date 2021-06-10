@@ -17,10 +17,9 @@ import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
-import ComponentsEquationNode from './ComponentsEquationNode.js';
-import EquationMarkup from '../../discrete/view/EquationMarkup.js';
 import SumSymbolNode from '../../common/view/SumSymbolNode.js';
+import EquationMarkup from '../../discrete/view/EquationMarkup.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
 const EQUAL_TO = MathSymbols.EQUAL_TO;
@@ -56,12 +55,10 @@ class ContinuousSumEquationNode extends Node {
       font: options.font
     } );
 
-    componentSpacingProperty.link( componentSpacing => {
-      sumSymbolNode.integrationProperty.value = ( componentSpacing === 0 );
-    } );
-
     // Everything to the right of the summation symbol, same as the equation above the Components chart.
-    const rightNode = new ComponentsEquationNode( domainProperty, seriesTypeProperty, componentSpacingProperty );
+    const rightNode = new RichText( '', {
+      font: options.font
+    } );
 
     assert && assert( !options.children, 'ContinuousSumEquationNode sets children' );
     options.children = [ leftNode, sumSymbolNode, rightNode ];
@@ -74,6 +71,26 @@ class ContinuousSumEquationNode extends Node {
       leftNode.text = `${EquationMarkup.getFunctionOfMarkup( domain )} ${EQUAL_TO}`; // F(...) =
     } );
 
+    // unmultilink is not needed.
+    Property.multilink(
+      [ domainProperty, seriesTypeProperty, componentSpacingProperty ],
+      ( domain, seriesType, componentSpacing ) => {
+        leftNode.text = `${EquationMarkup.getFunctionOfMarkup( domain )} ${EQUAL_TO}`; // F(...) =
+        sumSymbolNode.integrationProperty.value = ( componentSpacing === 0 );
+        if ( componentSpacing === 0 ) {
+          const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t;
+          const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega;
+          const seriesTypeString = ( seriesType === SeriesType.SINE ) ? FMWSymbols.sin : FMWSymbols.cos;
+          rightNode.text = `${FMWSymbols.A}(${componentSymbol}) ` +
+                           `${seriesTypeString}( ${componentSymbol}${domainSymbol} ) ${FMWSymbols.d}${componentSymbol}`;
+        }
+        else {
+          rightNode.text = EquationMarkup.getComponentsEquationMarkup( domain, seriesType );
+        }
+      }
+    );
+
+    // unmultilink is not needed.
     Property.multilink(
       [ leftNode.boundsProperty, sumSymbolNode.boundsProperty, rightNode.boundsProperty ],
       () => {
