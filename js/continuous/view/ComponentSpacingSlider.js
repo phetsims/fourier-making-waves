@@ -32,8 +32,11 @@ class ComponentSpacingSlider extends Slider {
       // Slider options
       constrainValue: value => Utils.roundSymmetric( value ),
 
-      // pdom options
-      keyboardStep: 1
+      // pdom options - only a few indices to chose from so no need for fine/course control with shift or page
+      // modifier keys
+      keyboardStep: 1,
+      shiftKeyboardStep: 1,
+      pageKeyboardStep: 1
     }, options );
 
     super( componentSpacingIndexProperty, componentSpacingIndexProperty.range, options );
