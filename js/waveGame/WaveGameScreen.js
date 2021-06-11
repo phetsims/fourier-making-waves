@@ -10,13 +10,12 @@ import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import merge from '../../../phet-core/js/merge.js';
 import SliderAndGeneralKeyboardHelpContent from '../../../scenery-phet/js/keyboard/help/SliderAndGeneralKeyboardHelpContent.js';
-import Image from '../../../scenery/js/nodes/Image.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-import phetGirlJugglingStarsImage from '../../../vegas/images/phet-girl-juggling-stars_png.js';
 import FMWColorProfile from '../common/FMWColorProfile.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
 import WaveGameModel from './model/WaveGameModel.js';
+import PointsAwardedNode from './view/PointsAwardedNode.js';
 import WaveGameScreenView from './view/WaveGameScreenView.js';
 
 class WaveGameScreen extends Screen {
@@ -64,7 +63,7 @@ class WaveGameScreen extends Screen {
  * @returns {ScreenIcon}
  */
 function createHomeScreenIcon() {
-  const iconNode = new Image( phetGirlJugglingStarsImage );
+  const iconNode = new PointsAwardedNode();
   return new ScreenIcon( iconNode, {
     fill: FMWColorProfile.screenBackgroundColorProperty
   } );
