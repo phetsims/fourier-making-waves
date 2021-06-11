@@ -156,31 +156,31 @@
     "value": "{{f}} = frequency, in Hz"
   },
   "symbolsDialog.lambda": {
-    "value": "{{lambda}} = wavelength, in meters"
+    "value": "{{lambda}} = wavelength, in m"
   },
   "symbolsDialog.k": {
-    "value": "{{k}} = wave number"
+    "value": "{{k}} = wave number, in rad/m"
   },
   "symbolsDialog.L": {
-    "value": "{{L}} = string length, in meters (if this were a plucked string)"
+    "value": "{{L}} = string length, in m (if this were a plucked string)"
   },
   "symbolsDialog.n": {
     "value": "{{n}} = mode, harmonic number, order"
   },
   "symbolsDialog.t": {
-    "value": "{{t}} = time, in milliseconds"
+    "value": "{{t}} = time, in ms"
   },
   "symbolsDialog.T": {
-    "value": "{{T}} = period, in milliseconds"
+    "value": "{{T}} = period, in ms"
   },
   "symbolsDialog.x": {
-    "value": "{{x}} = position in space, in meters"
+    "value": "{{x}} = position in space, in m"
   },
   "symbolsDialog.sigma": {
-    "value": "{{sigma}} = Gaussian wave packet width"
+    "value": "{{sigma}} = standard deviation of Gaussian wave packet"
   },
   "symbolsDialog.omega": {
-    "value": "{{omega}} = angular frequency, in radians/millisecond"
+    "value": "{{omega}} = angular frequency, in rad/ms"
   },
   "levels": {
     "value": "Levels"
