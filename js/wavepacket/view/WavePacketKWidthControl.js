@@ -82,6 +82,15 @@ class WavePacketKWidthControl extends VBox {
       [ slider.thumbDragListener.isPressedProperty, slider.trackDragListener.isPressedProperty ],
       ( thumbIsPressed, trackIsPressed ) => ( thumbIsPressed || trackIsPressed ) );
   }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 class WavePacketKWidthSlider extends Slider {

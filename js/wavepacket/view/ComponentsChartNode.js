@@ -117,6 +117,15 @@ class ComponentsChartNode extends Node {
       //TODO x-axis zoom button group
     ];
   }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 fourierMakingWaves.register( 'ComponentsChartNode', ComponentsChartNode );
