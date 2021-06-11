@@ -44,7 +44,9 @@ import DiscreteSymbolsDialog from './DiscreteSymbolsDialog.js';
 import EquationComboBox from './EquationComboBox.js';
 import HarmonicsSpinner from './HarmonicsSpinner.js';
 import OrderSpinner from './OrderSpinner.js';
+import PeriodCheckbox from './PeriodCheckbox.js';
 import WaveformComboBox from './WaveformComboBox.js';
+import WavelengthCheckbox from './WavelengthCheckbox.js';
 
 class DiscreteControlPanel extends Panel {
 
@@ -377,15 +379,9 @@ class MeasurementToolsLayoutBox extends VBox {
     };
 
     // Wavelength
-    const wavelengthText = new Text( fourierMakingWavesStrings.wavelength, {
-      font: FMWConstants.CONTROL_FONT,
-      maxWidth: 80, // determined empirically
-      tandem: options.tandem.createTandem( 'wavelengthText' )
+    const wavelengthCheckbox = new WavelengthCheckbox( wavelengthTool.isSelectedProperty, {
+      tandem: options.tandem.createTandem( 'wavelengthCheckbox' )
     } );
-    const wavelengthCheckbox = new Checkbox( wavelengthText, wavelengthTool.isSelectedProperty,
-      merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
-        tandem: options.tandem.createTandem( 'wavelengthCheckbox' )
-      } ) );
     const wavelengthSpinner = new OrderSpinner( FMWSymobls.lambda, wavelengthTool.orderProperty, {
       tandem: options.tandem.createTandem( 'wavelengthSpinner' )
     } );
@@ -397,15 +393,9 @@ class MeasurementToolsLayoutBox extends VBox {
     } ) );
 
     // Period
-    const periodText = new Text( fourierMakingWavesStrings.period, {
-      font: FMWConstants.CONTROL_FONT,
-      maxWidth: 80, // determined empirically
-      tandem: options.tandem.createTandem( 'periodText' )
+    const periodCheckbox = new PeriodCheckbox( periodTool.isSelectedProperty, {
+      tandem: options.tandem.createTandem( 'periodCheckbox' )
     } );
-    const periodCheckbox = new Checkbox( periodText, periodTool.isSelectedProperty,
-      merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
-        tandem: options.tandem.createTandem( 'periodCheckbox' )
-      } ) );
     const periodSpinner = new OrderSpinner( FMWSymobls.T, periodTool.orderProperty, {
       tandem: options.tandem.createTandem( 'periodSpinner' )
     } );
