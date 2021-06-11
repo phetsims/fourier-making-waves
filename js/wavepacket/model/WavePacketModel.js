@@ -62,7 +62,7 @@ class WavePacketModel {
     } );
 
     // @public
-    this.componentsChart = new ComponentsChart( this.domainProperty, {
+    this.componentsChart = new ComponentsChart( this.domainProperty, this.wavePacket, {
       tandem: options.tandem.createTandem( 'componentsChart' )
     } );
 

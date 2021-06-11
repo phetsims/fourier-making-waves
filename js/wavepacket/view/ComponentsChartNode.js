@@ -11,9 +11,11 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -87,14 +89,30 @@ class ComponentsChartNode extends Node {
       tandem: options.tandem.createTandem( 'yAxisLabel' )
     } );
 
+    // Other UI components ---------------------------------------------------------
+
+    // Message shown when we have an infinite number of components.
+    const messageNode = new Text( fourierMakingWavesStrings.infiniteComponentsCannotBePlotted, {
+      font: new PhetFont( 18 ),
+      centerX: chartRectangle.centerX,
+      bottom: chartRectangle.centerY - 5,
+      maxWidth: 0.75 * chartRectangle.width
+    } );
+
     assert && assert( !options.children );
     options.children = [
       chartRectangle,
       xAxis, xAxisLabel,
-      yAxis, yAxisLabel
+      yAxis, yAxisLabel,
+      messageNode
     ];
 
     super( options );
+
+    // unlink is not needed
+    componentsChart.wavePacket.componentSpacingProperty.link( componentSpacing => {
+      messageNode.visible = ( componentSpacing === 0 );
+    } );
 
     // Adjust the x-axis label to match the domain.
     // unlink is not needed.

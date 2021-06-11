@@ -12,15 +12,18 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import WavePacket from './WavePacket.js';
 
 class ComponentsChart {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {WavePacket} wavePacket
    * @param {Object} [options]
    */
-  constructor( domainProperty, options ) {
+  constructor( domainProperty, wavePacket, options ) {
 
+    assert && assert( wavePacket instanceof WavePacket );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     options = merge( {
@@ -31,6 +34,7 @@ class ComponentsChart {
 
     // @public
     this.domainProperty = domainProperty;
+    this.wavePacket = wavePacket;
 
     // @public whether the Sum chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {

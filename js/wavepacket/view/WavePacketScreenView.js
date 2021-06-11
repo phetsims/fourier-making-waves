@@ -10,9 +10,7 @@ import Range from '../../../../dot/js/Range.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -106,15 +104,6 @@ class WavePacketScreenView extends ScreenView {
       tandem: componentsTandem.createTandem( 'componentsChartNode' )
     } );
 
-    // Message shown when we have an infinite number of components.
-    const infiniteComponentsMessageNode = new Text( fourierMakingWavesStrings.infiniteComponentsCannotBePlotted, {
-      font: new PhetFont( 18 ),
-      maxWidth: 0.75 * componentsChartNode.chartRectangle.width
-    } );
-    model.wavePacket.componentSpacingProperty.link( componentSpacing => {
-      infiniteComponentsMessageNode.visible = ( componentSpacing === 0 );
-    } );
-
     // Parent tandem for all components related to the Sum chart
     const sumTandem = options.tandem.createTandem( 'sum' );
 
@@ -174,10 +163,6 @@ class WavePacketScreenView extends ScreenView {
       componentsChartNode.x = amplitudesChartNode.x;
       componentsChartNode.y = componentsExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
 
-      // Message centered on Components chart
-      infiniteComponentsMessageNode.centerX = componentsChartNode.x + DiscreteScreenView.CHART_RECTANGLE_SIZE.width / 2;
-      infiniteComponentsMessageNode.bottom = componentsChartNode.y + DiscreteScreenView.CHART_RECTANGLE_SIZE.height / 2 - 5;
-
       // Sum chart below the Components chart
       sumExpandCollapseButton.left = componentsExpandCollapseButton.left;
       sumExpandCollapseButton.top = componentsChartNode.bottom + 30;
@@ -202,7 +187,6 @@ class WavePacketScreenView extends ScreenView {
         componentsEquationWrapperNode,
         componentsExpandCollapseButton,
         componentsChartNode,
-        infiniteComponentsMessageNode,
         sumEquationWrapperNode,
         sumExpandCollapseButton,
         sumChartNode,
