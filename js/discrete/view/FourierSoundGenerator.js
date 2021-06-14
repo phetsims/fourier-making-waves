@@ -17,7 +17,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-// Output level range of each harmonic.
+// Output level range of each harmonic. These have a reduced range because harmonics are summed.
 // See https://github.com/phetsims/fourier-making-waves/issues/45
 const HARMONIC_OUTPUT_LEVEL_RANGE = new Range( -1 / FMWConstants.MAX_HARMONICS, 1 / FMWConstants.MAX_HARMONICS );
 
