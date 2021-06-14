@@ -12,6 +12,7 @@ import Range from '../../../../dot/js/Range.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import OscillatorSoundGenerator from '../../../../tambo/js/sound-generators/OscillatorSoundGenerator.js';
 import SoundGenerator from '../../../../tambo/js/sound-generators/SoundGenerator.js';
+import soundConstants from '../../../../tambo/js/soundConstants.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -61,9 +62,14 @@ class FourierSoundGenerator extends SoundGenerator {
     // Set amplitudes for harmonics. unlink is not needed.
     fourierSeries.amplitudesProperty.lazyLink( amplitudes => {
 
+      // If audio is disabled, update immediately by using timeConstant=0. Otherwise we'll briefly hear stale
+      // output levels the next time that oscillatorSoundGenerator.play is called.
+      // See https://github.com/phetsims/fourier-making-waves/issues/45
+      const timeConstant = enabledProperty.value ? soundConstants.DEFAULT_PARAM_CHANGE_TIME_CONSTANT : 0;
+
       // Set amplitudes for the harmonics.
       for ( let i = 0; i < amplitudes.length; i++ ) {
-        oscillatorSoundGenerators[ i ].setOutputLevel( amplitudeToOutputLevel( amplitudes[ i ] ) );
+        oscillatorSoundGenerators[ i ].setOutputLevel( amplitudeToOutputLevel( amplitudes[ i ] ), timeConstant );
       }
     } );
 
