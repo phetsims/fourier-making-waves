@@ -7,13 +7,11 @@
  */
 
 import Screen from '../../../joist/js/Screen.js';
-import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import merge from '../../../phet-core/js/merge.js';
 import SliderAndGeneralKeyboardHelpContent from '../../../scenery-phet/js/keyboard/help/SliderAndGeneralKeyboardHelpContent.js';
-import Image from '../../../scenery/js/nodes/Image.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-import continuousHomeScreenImage from '../../images/Continuous-home-screen-icon_png.js';
 import FMWColorProfile from '../common/FMWColorProfile.js';
+import FMWIconFactory from '../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
 import WavePacketModel from './model/WavePacketModel.js';
@@ -31,7 +29,7 @@ class WavePacketScreen extends Screen {
       // Screen options
       name: fourierMakingWavesStrings.screen.wavePacket,
       backgroundColorProperty: FMWColorProfile.screenBackgroundColorProperty,
-      homeScreenIcon: createHomeScreenIcon(),
+      homeScreenIcon: FMWIconFactory.createWavePacketHomeScreenIcon(),
 
       // pdom
       keyboardHelpNode: new SliderAndGeneralKeyboardHelpContent( {
@@ -60,18 +58,6 @@ class WavePacketScreen extends Screen {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
-}
-
-//TODO delete Wave-Packet-home-screen-icon.png if it is not used
-/**
- * Creates the Home screen icon for this screen.
- * @returns {ScreenIcon}
- */
-function createHomeScreenIcon() {
-  const iconNode = new Image( continuousHomeScreenImage );
-  return new ScreenIcon( iconNode, {
-    fill: FMWColorProfile.screenBackgroundColorProperty
-  } );
 }
 
 fourierMakingWaves.register( 'WavePacketScreen', WavePacketScreen );

@@ -7,15 +7,14 @@
  */
 
 import Screen from '../../../joist/js/Screen.js';
-import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import merge from '../../../phet-core/js/merge.js';
 import SliderAndGeneralKeyboardHelpContent from '../../../scenery-phet/js/keyboard/help/SliderAndGeneralKeyboardHelpContent.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import FMWColorProfile from '../common/FMWColorProfile.js';
+import FMWIconFactory from '../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
 import WaveGameModel from './model/WaveGameModel.js';
-import PointsAwardedNode from './view/PointsAwardedNode.js';
 import WaveGameScreenView from './view/WaveGameScreenView.js';
 
 class WaveGameScreen extends Screen {
@@ -30,7 +29,7 @@ class WaveGameScreen extends Screen {
       // Screen options
       name: fourierMakingWavesStrings.screen.waveGame,
       backgroundColorProperty: FMWColorProfile.screenBackgroundColorProperty,
-      homeScreenIcon: createHomeScreenIcon(),
+      homeScreenIcon: FMWIconFactory.createWaveGameHomeScreenIcon(),
 
       // pdom
       keyboardHelpNode: new SliderAndGeneralKeyboardHelpContent( {
@@ -56,17 +55,6 @@ class WaveGameScreen extends Screen {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
-}
-
-/**
- * Creates the Home screen icon for this screen.
- * @returns {ScreenIcon}
- */
-function createHomeScreenIcon() {
-  const iconNode = new PointsAwardedNode();
-  return new ScreenIcon( iconNode, {
-    fill: FMWColorProfile.screenBackgroundColorProperty
-  } );
 }
 
 fourierMakingWaves.register( 'WaveGameScreen', WaveGameScreen );
