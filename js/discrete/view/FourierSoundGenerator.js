@@ -75,7 +75,10 @@ class FourierSoundGenerator extends SoundGenerator {
 
     // Set the master output level. unlink is not needed.
     outputLevelProperty.link( outputLevel => {
-      this.setOutputLevel( outputLevel );
+
+      // See comment above about timeConstant.
+      const timeConstant = enabledProperty.value ? undefined : 0;
+      this.setOutputLevel( outputLevel, timeConstant );
       phet.log && phet.log( `FourierSoundGenerator outputLevel=${outputLevel}` );
     } );
 
