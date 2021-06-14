@@ -1,7 +1,5 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/fourier-making-waves/issues/45 do we need a limiter to prevent overdrive/clipping?
-//TODO https://github.com/phetsims/fourier-making-waves/issues/45 should output level be converted to log scale?
 /**
  * FourierSoundGenerator generates sound for a fourier series.
  *
@@ -14,11 +12,13 @@ import Range from '../../../../dot/js/Range.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import OscillatorSoundGenerator from '../../../../tambo/js/sound-generators/OscillatorSoundGenerator.js';
 import SoundGenerator from '../../../../tambo/js/sound-generators/SoundGenerator.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-// constants
-const OUTPUT_LEVEL_RANGE = new Range( -1, 1 );
+// Output level range of each harmonic.
+// See https://github.com/phetsims/fourier-making-waves/issues/45
+const HARMONIC_OUTPUT_LEVEL_RANGE = new Range( -1 / FMWConstants.MAX_HARMONICS, 1 / FMWConstants.MAX_HARMONICS );
 
 class FourierSoundGenerator extends SoundGenerator {
 
@@ -43,7 +43,7 @@ class FourierSoundGenerator extends SoundGenerator {
     // Maps amplitude to an output level that is appropriate for SoundGenerator.
     const amplitudeToOutputLevel = new LinearFunction(
       fourierSeries.amplitudeRange.min, fourierSeries.amplitudeRange.max,
-      OUTPUT_LEVEL_RANGE.min, OUTPUT_LEVEL_RANGE.max
+      HARMONIC_OUTPUT_LEVEL_RANGE.min, HARMONIC_OUTPUT_LEVEL_RANGE.max
     );
 
     // {OscillatorSoundGenerator[]} Create an oscillator for each harmonic.

@@ -76,7 +76,7 @@ class DiscreteModel {
     } );
 
     // @public volume of the sound for the Fourier series
-    this.fourierSeriesSoundOutputLevelProperty = new NumberProperty( 0.25, {
+    this.fourierSeriesSoundOutputLevelProperty = new NumberProperty( 0.5, {
       range: new Range( 0, 1 ),
       tandem: soundTandem.createTandem( 'fourierSeriesSoundOutputLevelProperty' )
     } );
