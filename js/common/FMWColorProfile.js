@@ -93,7 +93,7 @@ const FMWColorProfile = new ColorProfile( [ 'default' ], {
   },
 
   levelSelectionButtonFill: {
-    default: new Color( 243, 177, 175 )
+    default: new Color( 255, 214, 228 )
   },
 
   scoreBoardFill: {
