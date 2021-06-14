@@ -252,7 +252,7 @@ class DiscreteScreenView extends ScreenView {
     {
       // Amplitudes chart at top left
       amplitudesChartNode.x = X_CHART_RECTANGLES;
-      amplitudesChartNode.y = 54;
+      amplitudesChartNode.y = 58;
 
       // Eraser button to the right of the amplitude NumberDisplays
       const amplitudesChartRightTop = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.rightTop );

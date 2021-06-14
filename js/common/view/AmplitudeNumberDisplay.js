@@ -21,7 +21,7 @@ import Harmonic from '../model/Harmonic.js';
 import AmplitudeKeypadDialog from './AmplitudeKeypadDialog.js';
 
 // constants
-const DEFAULT_FONT = new PhetFont( 12 );
+const DEFAULT_FONT = new PhetFont( 14 );
 
 class AmplitudeNumberDisplay extends VBox {
 
