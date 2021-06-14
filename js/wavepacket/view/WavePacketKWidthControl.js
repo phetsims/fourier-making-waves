@@ -28,13 +28,13 @@ class WavePacketKWidthControl extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<number>} kWidthProperty
+   * @param {NumberProperty} kWidthProperty
    * @param {Object} [options]
    */
   constructor( domainProperty, kWidthProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( kWidthProperty, 'number' );
+    assert && assert( kWidthProperty instanceof NumberProperty );
 
     options = merge( {
 

@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -26,13 +27,13 @@ class WavePacketCenterControl extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<number>} wavePacketCenterProperty
+   * @param {NumberProperty} wavePacketCenterProperty
    * @param {Object} [options]
    */
   constructor( domainProperty, wavePacketCenterProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( wavePacketCenterProperty, 'number' );
+    assert && assert( wavePacketCenterProperty instanceof NumberProperty );
 
     options = merge( {
 
@@ -89,12 +90,12 @@ class WavePacketCenterControl extends VBox {
 class WavePacketCenterSlider extends Slider {
 
   /**
-   * @param {Property.<number>} wavePacketCenterProperty
+   * @param {NumberProperty} wavePacketCenterProperty
    * @param {Object} [options]
    */
   constructor( wavePacketCenterProperty, options ) {
 
-    assert && AssertUtils.assertPropertyOf( wavePacketCenterProperty, 'number' );
+    assert && assert( wavePacketCenterProperty instanceof NumberProperty );
     assert && assert( wavePacketCenterProperty.range );
 
     options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {

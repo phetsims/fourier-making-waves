@@ -9,6 +9,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -29,14 +30,14 @@ class ComponentSpacingControl extends VBox {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {DerivedProperty} componentSpacingProperty
-   * @param {Property.<number>} componentSpacingIndexProperty
+   * @param {NumberProperty} componentSpacingIndexProperty
    * @param {Object} [options]
    */
   constructor( domainProperty, componentSpacingProperty, componentSpacingIndexProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( componentSpacingProperty instanceof DerivedProperty );
-    assert && AssertUtils.assertPropertyOf( componentSpacingIndexProperty, 'number' );
+    assert && assert( componentSpacingIndexProperty instanceof NumberProperty );
 
     options = merge( {
 

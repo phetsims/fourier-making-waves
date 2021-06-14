@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
@@ -143,14 +144,14 @@ class ComponentSpacingLayoutBox extends VBox {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {DerivedProperty} componentSpacingProperty
-   * @param {Property.<number>} componentSpacingIndexProperty
+   * @param {NumberProperty} componentSpacingIndexProperty
    * @param {Object} [options]
    */
   constructor( domainProperty, componentSpacingProperty, componentSpacingIndexProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( componentSpacingProperty instanceof DerivedProperty );
-    assert && AssertUtils.assertPropertyOf( componentSpacingIndexProperty, 'number' );
+    assert && assert( componentSpacingIndexProperty instanceof NumberProperty );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 
@@ -203,13 +204,13 @@ class WavePacketCenterLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<number>} wavePacketCenterProperty
+   * @param {NumberProperty} wavePacketCenterProperty
    * @param {Object} [options]
    */
   constructor( domainProperty, wavePacketCenterProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( wavePacketCenterProperty, 'number' );
+    assert && assert( wavePacketCenterProperty instanceof NumberProperty );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 
@@ -255,15 +256,15 @@ class WavePacketWidthLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<number>} kWidthProperty
-   * @param {Property.<number>} xWidthProperty
+   * @param {NumberProperty} kWidthProperty
+   * @param {NumberProperty} xWidthProperty
    * @param {Object} [options]
    */
   constructor( domainProperty, kWidthProperty, xWidthProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( kWidthProperty, 'number' );
-    assert && AssertUtils.assertPropertyOf( xWidthProperty, 'number' );
+    assert && assert( kWidthProperty instanceof NumberProperty );
+    assert && assert( xWidthProperty instanceof NumberProperty );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 

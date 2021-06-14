@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -30,14 +31,14 @@ class WavePacketSumEquationNode extends Node {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {Property.<number>} componentSpacingProperty
+   * @param {NumberProperty} componentSpacingProperty
    * @param {Object} [options]
    */
   constructor( domainProperty, seriesTypeProperty, componentSpacingProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
-    assert && AssertUtils.assertPropertyOf( componentSpacingProperty, 'number' );
+    assert && assert( componentSpacingProperty instanceof DerivedProperty );
 
     options = merge( {
 
