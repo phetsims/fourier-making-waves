@@ -11,6 +11,7 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -36,6 +37,12 @@ import WaveformEnvelopeCheckbox from './WaveformEnvelopeCheckbox.js';
 const TICK_MARK_OPTIONS = {
   edge: 'min',
   extent: 6
+};
+
+//TODO duplicated in WaveformChartNode
+const GRID_LINE_OPTIONS = {
+  stroke: FMWColorProfile.chartGridLinesStrokeProperty,
+  lineWidth: 0.5
 };
 
 class WavePacketSumChartNode extends Node {
@@ -92,6 +99,9 @@ class WavePacketSumChartNode extends Node {
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
+    const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL,
+      xAxisDescriptionProperty.value.gridLineSpacing, GRID_LINE_OPTIONS );
+
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL,
       xAxisDescriptionProperty.value.tickMarkSpacing, TICK_MARK_OPTIONS );
 
@@ -116,6 +126,7 @@ class WavePacketSumChartNode extends Node {
         const xMin = value * xAxisDescription.range.min;
         const xMax = value * xAxisDescription.range.max;
         chartTransform.setModelXRange( new Range( xMin, xMax ) );
+        xGridLines.setSpacing( xAxisDescription.gridLineSpacing * value );
         xTickMarks.setSpacing( xAxisDescription.tickMarkSpacing * value );
         xTickLabels.setSpacing( xAxisDescription.tickLabelSpacing * value );
         xTickLabels.invalidateLabelSet();
@@ -155,7 +166,7 @@ class WavePacketSumChartNode extends Node {
     options.children = [
       xTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
       chartRectangle,
-      xAxis, xAxisLabel, xTickLabels, xZoomButtonGroup,
+      xAxis, xAxisLabel, xGridLines, xTickLabels, xZoomButtonGroup,
       yAxis, yAxisLabel,
       waveformEnvelopeCheckbox
     ];

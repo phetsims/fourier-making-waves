@@ -20,31 +20,31 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 const WavePacketXAxisDescriptions = [
   new XAxisDescription( {
     max: 8,
-    gridLineSpacing: 8,
+    gridLineSpacing: 1,
     tickMarkSpacing: 1,
     tickLabelSpacing: 1
   } ),
   new XAxisDescription( {
     max: 4,
-    gridLineSpacing: 4,
+    gridLineSpacing: 1,
     tickMarkSpacing: 0.5,
     tickLabelSpacing: 1
   } ),
   new XAxisDescription( {
     max: 2,
-    gridLineSpacing: 2,
+    gridLineSpacing: 0.5,
     tickMarkSpacing: 0.5,
     tickLabelSpacing: 0.5
   } ),
   new XAxisDescription( {
     max: 1,
-    gridLineSpacing: 1,
+    gridLineSpacing: 0.5,
     tickMarkSpacing: 0.1,
     tickLabelSpacing: 0.5
   } ),
   new XAxisDescription( {
     max: 0.5,
-    gridLineSpacing: 0.5,
+    gridLineSpacing: 0.1,
     tickMarkSpacing: 0.1,
     tickLabelSpacing: 0.1
   } )
