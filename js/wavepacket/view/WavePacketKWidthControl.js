@@ -107,7 +107,9 @@ class WavePacketKWidthSlider extends Slider {
     options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
 
       // pdom options
-      //TODO alt input steps
+      keyboardStep: 1,
+      shiftKeyboardStep: 0.01,
+      pageKeyboardStep: Math.PI
     }, options );
 
     super( kWidthProperty, kWidthProperty.range, options );

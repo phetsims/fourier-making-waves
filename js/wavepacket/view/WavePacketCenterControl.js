@@ -101,7 +101,9 @@ class WavePacketCenterSlider extends Slider {
     options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
 
       // pdom options
-      //TODO alt input steps
+      keyboardStep: 1,
+      shiftKeyboardStep: 0.1,
+      pageKeyboardStep: Math.PI
     }, options );
 
     super( wavePacketCenterProperty, wavePacketCenterProperty.range, options );
