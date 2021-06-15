@@ -37,7 +37,7 @@ import WavePacketXWidthControl from './WavePacketXWidthControl.js';
 import WidthIndicatorsCheckbox from './WidthIndicatorsCheckbox.js';
 
 // constants
-const VERTICAL_SPACING = 8;
+const VERTICAL_SPACING = 6;
 
 class WavePacketControlPanel extends Panel {
 
