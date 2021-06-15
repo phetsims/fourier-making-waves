@@ -93,7 +93,20 @@ const FMWConstants = {
   // Charts
   ZOOM_BUTTON_GROUP_SCALE: 0.75,
   X_AXIS_LABEL_SPACING: 10, // horizontal space between chart rectangle and x-axis label
-  Y_AXIS_LABEL_SPACING: 36  // horizontal space between chart rectangle and y-axis label
+  Y_AXIS_LABEL_SPACING: 36,  // horizontal space between chart rectangle and y-axis label
+  AXIS_OPTIONS: {
+    fill: FMWColorProfile.axisStrokeProperty,
+    stroke: null,
+    tailWidth: 1
+  },
+  GRID_LINE_OPTIONS: {
+    stroke: FMWColorProfile.chartGridLinesStrokeProperty,
+    lineWidth: 0.5
+  },
+  TICK_MARK_OPTIONS: {
+    edge: 'min',
+    extent: 6
+  }
 };
 
 // Verify some of the above constants

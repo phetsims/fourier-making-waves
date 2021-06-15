@@ -33,18 +33,6 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import ComponentsChart from '../model/ComponentsChart.js';
 
-//TODO duplicated in WaveformChartNode
-const TICK_MARK_OPTIONS = {
-  edge: 'min',
-  extent: 6
-};
-
-//TODO duplicated in WaveformChartNode
-const GRID_LINE_OPTIONS = {
-  stroke: FMWColorProfile.chartGridLinesStrokeProperty,
-  lineWidth: 0.5
-};
-
 class ComponentsChartNode extends Node {
 
   /**
@@ -87,6 +75,7 @@ class ComponentsChartNode extends Node {
 
     // x axis ---------------------------------------------------------
 
+    //TODO use AxisNode
     const xAxis = new Line( 0, 0, options.transformOptions.viewWidth, 0, {
       stroke: FMWColorProfile.axisStrokeProperty,
       lineWidth: 1,
@@ -100,10 +89,10 @@ class ComponentsChartNode extends Node {
     } );
 
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL,
-      xAxisDescriptionProperty.value.gridLineSpacing, GRID_LINE_OPTIONS );
+      xAxisDescriptionProperty.value.gridLineSpacing, FMWConstants.GRID_LINE_OPTIONS );
 
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL,
-      xAxisDescriptionProperty.value.tickMarkSpacing, TICK_MARK_OPTIONS );
+      xAxisDescriptionProperty.value.tickMarkSpacing, FMWConstants.TICK_MARK_OPTIONS );
 
     const xTickLabels = new XTickLabelSet( chartTransform, xAxisDescriptionProperty.value.tickLabelSpacing,
       domainProperty, new EnumerationProperty( TickLabelFormat, TickLabelFormat.NUMERIC ), L, T );
@@ -134,6 +123,7 @@ class ComponentsChartNode extends Node {
 
     // y axis ---------------------------------------------------------
 
+    //TODO use AxisNode
     const yAxis = new Line( 0, 0, 0, options.transformOptions.viewHeight, {
       stroke: FMWColorProfile.axisStrokeProperty,
       lineWidth: 1,

@@ -28,14 +28,6 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketAmplitudesChart from '../model/WavePacketAmplitudesChart.js';
 import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
 
-// constants
-//TODO duplicated in WaveformChartNode
-const TICK_MARK_OPTIONS = {
-  edge: 'min',
-  extent: 6
-};
-
-//TODO placeholder
 class WavePacketAmplitudesChartNode extends Node {
 
   /**
@@ -75,12 +67,13 @@ class WavePacketAmplitudesChartNode extends Node {
 
     // x axis ---------------------------------------------------------
 
+    //TODO use AxisNode
     const xAxis = new Line( 0, 0, options.transformOptions.viewWidth, 0, {
       stroke: FMWColorProfile.axisStrokeProperty,
       lineWidth: 1
     } );
 
-    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, Math.PI, TICK_MARK_OPTIONS );
+    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, Math.PI, FMWConstants.TICK_MARK_OPTIONS );
 
     const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, 2 * Math.PI, {
       createLabel: createXTickLabel,
@@ -95,6 +88,7 @@ class WavePacketAmplitudesChartNode extends Node {
 
     // y axis ---------------------------------------------------------
 
+    //TODO use AxisNode
     const yAxis = new Line( 0, 0, 0, options.transformOptions.viewHeight, {
       stroke: FMWColorProfile.axisStrokeProperty,
       lineWidth: 1,

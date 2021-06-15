@@ -31,23 +31,6 @@ import FMWZoomButtonGroup from './FMWZoomButtonGroup.js';
 import XTickLabelSet from './XTickLabelSet.js';
 import YTickLabelSet from './YTickLabelSet.js';
 
-// constants
-const AXIS_OPTIONS = {
-  fill: FMWColorProfile.axisStrokeProperty,
-  stroke: null,
-  tailWidth: 1
-};
-
-const GRID_LINE_OPTIONS = {
-  stroke: FMWColorProfile.chartGridLinesStrokeProperty,
-  lineWidth: 0.5
-};
-
-const TICK_MARK_OPTIONS = {
-  edge: 'min',
-  extent: 6
-};
-
 class WaveformChartNode extends Node {
 
   /**
@@ -105,13 +88,13 @@ class WaveformChartNode extends Node {
 
     // x axis (space or time) ---------------------------------------------------------
 
-    const xAxis = new AxisNode( chartTransform, Orientation.HORIZONTAL, AXIS_OPTIONS );
+    const xAxis = new AxisNode( chartTransform, Orientation.HORIZONTAL, FMWConstants.AXIS_OPTIONS );
 
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL,
-      xAxisDescriptionProperty.value.gridLineSpacing, GRID_LINE_OPTIONS );
+      xAxisDescriptionProperty.value.gridLineSpacing, FMWConstants.GRID_LINE_OPTIONS );
 
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL,
-      xAxisDescriptionProperty.value.tickMarkSpacing, TICK_MARK_OPTIONS );
+      xAxisDescriptionProperty.value.tickMarkSpacing, FMWConstants.TICK_MARK_OPTIONS );
 
     const xTickLabels = new XTickLabelSet( chartTransform, xAxisDescriptionProperty.value.tickLabelSpacing, domainProperty,
       xAxisTickLabelFormatProperty, L, T );
@@ -167,13 +150,13 @@ class WaveformChartNode extends Node {
 
     // y axis (amplitude ) ---------------------------------------------------------
 
-    const yAxis = new AxisNode( chartTransform, Orientation.VERTICAL, AXIS_OPTIONS );
+    const yAxis = new AxisNode( chartTransform, Orientation.VERTICAL, FMWConstants.AXIS_OPTIONS );
 
     const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL,
-      yAxisDescriptionProperty.value.gridLineSpacing, GRID_LINE_OPTIONS );
+      yAxisDescriptionProperty.value.gridLineSpacing, FMWConstants.GRID_LINE_OPTIONS );
 
     const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL,
-      yAxisDescriptionProperty.value.tickMarkSpacing, TICK_MARK_OPTIONS );
+      yAxisDescriptionProperty.value.tickMarkSpacing, FMWConstants.TICK_MARK_OPTIONS );
 
     const yTickLabels = new YTickLabelSet( chartTransform, yAxisDescriptionProperty.value.tickLabelSpacing );
 
