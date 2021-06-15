@@ -65,6 +65,7 @@ class ComponentsChartNode extends Node {
     // Fields of interest in componentsChart, to improve readability
     const L = componentsChart.wavePacket.L;
     const T = componentsChart.wavePacket.T;
+    const componentSpacingProperty = componentsChart.wavePacket.componentSpacingProperty;
     const domainProperty = componentsChart.domainProperty;
     const xAxisDescriptionProperty = componentsChart.xAxisDescriptionProperty;
 
@@ -158,20 +159,25 @@ class ComponentsChartNode extends Node {
 
     super( options );
 
+    // Show the 'cannot plot' message when we have infinite components.
     // unlink is not needed
-    componentsChart.wavePacket.componentSpacingProperty.link( componentSpacing => {
+    componentSpacingProperty.link( componentSpacing => {
       messageNode.visible = ( componentSpacing === 0 );
     } );
 
     // Adjust the x-axis label to match the domain.
     // unlink is not needed.
-    componentsChart.domainProperty.link( domain => {
+    domainProperty.link( domain => {
+
+      // update the label
       xAxisLabel.text = StringUtils.fillIn( fourierMakingWavesStrings.xAxisLabel, {
         symbol: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t,
         units: ( domain === Domain.SPACE ) ?
                fourierMakingWavesStrings.units.meters :
                fourierMakingWavesStrings.units.milliseconds
       } );
+
+      // position at left of chart, vertically centered on the x axis
       xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
       xAxisLabel.centerY = chartRectangle.centerY;
     } );

@@ -67,6 +67,7 @@ class WavePacketSumChartNode extends Node {
     const T = sumChart.wavePacket.T;
     const domainProperty = sumChart.domainProperty;
     const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;
+    const envelopeVisibleProperty = sumChart.envelopeVisibleProperty;
 
     // the transform from model to view coordinates
     const chartTransform = new ChartTransform( options.transformOptions );
@@ -97,7 +98,7 @@ class WavePacketSumChartNode extends Node {
     const xTickLabels = new XTickLabelSet( chartTransform, xAxisDescriptionProperty.value.tickLabelSpacing,
       domainProperty, new EnumerationProperty( TickLabelFormat, TickLabelFormat.NUMERIC ), L, T );
 
-    const xZoomButtonGroup = new FMWZoomButtonGroup( sumChart.xAxisDescriptionProperty, {
+    const xZoomButtonGroup = new FMWZoomButtonGroup( xAxisDescriptionProperty, {
       orientation: 'horizontal',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
       touchAreaXDilation: 5,
@@ -139,7 +140,7 @@ class WavePacketSumChartNode extends Node {
 
     // Addition UI components ---------------------------------------------------------
 
-    const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( sumChart.envelopeVisibleProperty, {
+    const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( envelopeVisibleProperty, {
       right: chartRectangle.right - 5,
       top: xTickLabels.bottom + 8,
       tandem: options.tandem.createTandem( 'waveformEnvelopeCheckbox' )
@@ -158,13 +159,17 @@ class WavePacketSumChartNode extends Node {
 
     // Adjust the x-axis label to match the domain.
     // unlink is not needed.
-    sumChart.domainProperty.link( domain => {
+    domainProperty.link( domain => {
+
+      // update the label
       xAxisLabel.text = StringUtils.fillIn( fourierMakingWavesStrings.xAxisLabel, {
         symbol: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t,
         units: ( domain === Domain.SPACE ) ?
                fourierMakingWavesStrings.units.meters :
                fourierMakingWavesStrings.units.milliseconds
       } );
+
+      // position at left of chart, vertically centered on the x axis
       xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
       xAxisLabel.centerY = chartRectangle.centerY;
     } );

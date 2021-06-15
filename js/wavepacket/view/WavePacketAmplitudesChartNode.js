@@ -60,6 +60,10 @@ class WavePacketAmplitudesChartNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
+    // Fields of interest in amplitudesChart, to improve readability
+    const domainProperty = amplitudesChart.domainProperty;
+    const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
+
     // the transform from model to view coordinates
     const chartTransform = new ChartTransform( options.transformOptions );
 
@@ -109,7 +113,7 @@ class WavePacketAmplitudesChartNode extends Node {
 
     // Addition UI components ---------------------------------------------------------
 
-    const continuousWaveformCheckbox = new ContinuousWaveformCheckbox( amplitudesChart.continuousWaveformVisibleProperty, {
+    const continuousWaveformCheckbox = new ContinuousWaveformCheckbox( continuousWaveformVisibleProperty, {
       right: chartRectangle.right - 5,
       top: xTickLabels.bottom + 8,
       tandem: options.tandem.createTandem( 'continuousWaveformCheckbox' )
@@ -128,13 +132,17 @@ class WavePacketAmplitudesChartNode extends Node {
 
     // Adjust the x-axis label to match the domain.
     // unlink is not needed.
-    amplitudesChart.domainProperty.link( domain => {
+    domainProperty.link( domain => {
+
+      // update the label
       xAxisLabel.text = StringUtils.fillIn( fourierMakingWavesStrings.xAxisLabel, {
         symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
         units: ( domain === Domain.SPACE ) ?
                fourierMakingWavesStrings.units.radiansPerMeter :
                fourierMakingWavesStrings.units.radiansPerMillisecond
       } );
+
+      // position at lower right corner of chart, because x axis corresponds to bottom of chart
       xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
       xAxisLabel.bottom = chartRectangle.bottom;
     } );
