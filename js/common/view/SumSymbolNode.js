@@ -8,15 +8,15 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import FMWSymbols from '../FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import FMWSymbols from '../FMWSymbols.js';
 
 // This extends Node instead of VBox so that the origin will be at the origin of symbolNode, useful for
 // layout with other text.
@@ -35,8 +35,7 @@ class SumSymbolNode extends Node {
       // SumSymbolNode options
       integration: false, // true=integration, false=summation
       fontSize: 30,
-      indexFontSize: 10,
-      ySpacing: 0 // must work with both summation and integration symbols!
+      indexFontSize: 10
     }, options );
 
     // The symbol for the type of sum.
@@ -44,46 +43,59 @@ class SumSymbolNode extends Node {
       font: new PhetFont( options.fontSize )
     } );
 
-    // true=integration, false=summation
-    const integrationProperty = new BooleanProperty( options.integration );
-    integrationProperty.link( integration => {
-      symbolNode.text = integration ? FMWSymbols.integral : FMWSymbols.SIGMA;
-    } );
-
     const minMaxOptions = { font: new PhetFont( options.indexFontSize ) };
 
     // Index and min (starting) value, which appears below the sum symbol. E.g. 'n = 0'
-    const minNode = new RichText( `${indexSymbol} ${MathSymbols.EQUAL_TO} ${indexToString( indexMin )}`, minMaxOptions );
+    const minNode = new RichText( '', minMaxOptions );
 
     // Max (stopping) value, which appears above the sum symbol
     const maxNode = new Text( '', minMaxOptions );
-    const indexMaxListener = indexMax => {
-      maxNode.text = indexToString( indexMax );
-    };
-    indexMaxProperty.link( indexMaxListener );
 
     assert && assert( !options.children, 'SumSymbolNode sets children' );
     options.children = [ maxNode, symbolNode, minNode ];
 
     super( options );
 
-    // Update layout if subcomponents of this Node change size.
-    Property.multilink(
-      [ symbolNode.boundsProperty, minNode.boundsProperty, maxNode.boundsProperty ],
-      () => {
-        minNode.centerX = symbolNode.centerX;
-        minNode.top = symbolNode.bottom + options.ySpacing;
-        maxNode.centerX = symbolNode.centerX;
-        maxNode.bottom = symbolNode.top - options.ySpacing;
-      } );
+    // @public true=integration, false=summation
+    // dispose is required.
+    this.integrationProperty = new BooleanProperty( options.integration );
 
-    // @public
-    this.integrationProperty = integrationProperty;
+    // Update the equation form and layout. dispose is required.
+    const multilink = new Multilink(
+      [ this.integrationProperty, indexMaxProperty ],
+      ( integration, indexMax ) => {
+
+        // update text
+        if ( integration ) {
+          symbolNode.text = FMWSymbols.integral;
+          minNode.text = indexToString( indexMin );
+        }
+        else {
+          symbolNode.text = FMWSymbols.SIGMA;
+          minNode.text = `${indexSymbol} ${MathSymbols.EQUAL_TO} ${indexToString( indexMin )}`;
+        }
+        maxNode.text = indexToString( indexMax );
+
+        // update layout
+        // WARNING - magic numbers herein were arrived at empirically, tuned because RichText bounds are inaccurate
+        if ( integration ) {
+          minNode.left = symbolNode.right;
+          minNode.bottom = symbolNode.bottom;
+          maxNode.left = symbolNode.right + 3;
+          maxNode.top = symbolNode.top - 5;
+        }
+        else {
+          minNode.centerX = symbolNode.centerX;
+          minNode.top = symbolNode.bottom - 3;
+          maxNode.centerX = symbolNode.centerX;
+          maxNode.bottom = symbolNode.top + 5;
+        }
+      } );
 
     // @private
     this.disposeSummationSymbolNode = () => {
-      indexMaxProperty.unlink( indexMaxListener );
       this.integrationProperty.dispose();
+      multilink.dispose();
     };
   }
 
