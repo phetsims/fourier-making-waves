@@ -181,7 +181,7 @@ class ComponentsChartNode extends Node {
 
     // pdom - traversal order
     this.pdomOrder = [
-      //TODO x-axis zoom button group
+      xZoomButtonGroup
     ];
   }
 
