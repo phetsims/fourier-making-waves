@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO use NumberControl
 /**
  * WavePacketKWidthControl displays the wave packet width in k space, and allows it to be changed via a slider.
  *

@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO use NumberControl
 /**
  * WavePacketCenterControl displays the wave packet center value, and allows it to be changed via a slider.
  *

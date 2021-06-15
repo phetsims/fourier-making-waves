@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO use NumberControl, call recomputeText to update label when domainProperty changes
 /**
  * ComponentSpacingControl displays the component spacing value, and allows it to be changed via a slider.
  * It sets componentSpacingIndexProperty, which is an index into a small set of valid spacing values.
