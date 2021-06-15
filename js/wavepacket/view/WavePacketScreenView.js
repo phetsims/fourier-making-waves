@@ -151,7 +151,7 @@ class WavePacketScreenView extends ScreenView {
     {
       // Amplitudes chart at top left
       amplitudesChartNode.x = DiscreteScreenView.X_CHART_RECTANGLES;
-      amplitudesChartNode.y = 48;
+      amplitudesChartNode.y = 36;
 
       // Equation centered above Amplitudes chart
       amplitudeChartEquationNode.centerX = amplitudesChartNode.x + DiscreteScreenView.CHART_RECTANGLE_SIZE.width / 2;
@@ -159,7 +159,7 @@ class WavePacketScreenView extends ScreenView {
 
       // Components chart below the Amplitudes chart
       componentsExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-      componentsExpandCollapseButton.top = amplitudesChartNode.bottom + 15;
+      componentsExpandCollapseButton.top = amplitudesChartNode.bottom;
       componentsChartNode.x = amplitudesChartNode.x;
       componentsChartNode.y = componentsExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
 
