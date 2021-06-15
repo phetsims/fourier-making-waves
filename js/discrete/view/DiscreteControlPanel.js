@@ -66,8 +66,9 @@ class DiscreteControlPanel extends Panel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const fourierSeriesLayoutBox = new FourierSeriesLayoutBox( model.waveformProperty,
-      model.fourierSeries.numberOfHarmonicsProperty, popupParent, {
+    const fourierSeriesLayoutBox = new FourierSeriesLayoutBox( model.waveformProperty, popupParent,
+      model.fourierSeries.numberOfHarmonicsProperty, model.fourierSeriesSoundEnabledProperty,
+      model.fourierSeriesSoundOutputLevelProperty, {
         tandem: options.tandem.createTandem( 'fourierSeriesLayoutBox' )
       } );
 
@@ -79,9 +80,6 @@ class DiscreteControlPanel extends Panel {
       } ),
       new MeasurementToolsLayoutBox( model.wavelengthTool, model.periodTool, model.domainProperty, {
         tandem: options.tandem.createTandem( 'measurementToolsLayoutBox' )
-      } ),
-      new SoundLayoutBox( model.fourierSeriesSoundEnabledProperty, model.fourierSeriesSoundOutputLevelProperty, {
-        tandem: options.tandem.createTandem( 'soundLayoutBox' )
       } )
     ];
 
@@ -147,15 +145,20 @@ class FourierSeriesLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<Waveform>} waveformProperty
-   * @param {NumberProperty} numberOfHarmonicsProperty
    * @param {Node} popupParent
+   * @param {NumberProperty} numberOfHarmonicsProperty
+   * @param {Property.<boolean>} soundEnabledProperty
+   * @param {NumberProperty} soundOutputLevelProperty
    * @param {Object} [options]
    */
-  constructor( waveformProperty, numberOfHarmonicsProperty, popupParent, options ) {
+  constructor( waveformProperty, popupParent, numberOfHarmonicsProperty, soundEnabledProperty,
+               soundOutputLevelProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty );
     assert && assert( popupParent instanceof Node );
+    assert && AssertUtils.assertPropertyOf( soundEnabledProperty, 'boolean' );
+    assert && assert( soundOutputLevelProperty instanceof NumberProperty );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 
@@ -177,6 +180,7 @@ class FourierSeriesLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'fourierSeriesText' )
     } );
 
+    // Waveform combo box
     const waveformText = new Text( fourierMakingWavesStrings.waveform, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 70, // determined empirically
@@ -192,6 +196,7 @@ class FourierSeriesLayoutBox extends VBox {
       children: [ new AlignBox( waveformText, labelsAlignBoxOptions ), waveformComboBox ]
     } );
 
+    // Harmonics spinner
     const harmonicsText = new Text( fourierMakingWavesStrings.harmonics, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 70,  // determined empirically
@@ -207,8 +212,18 @@ class FourierSeriesLayoutBox extends VBox {
       children: [ new AlignBox( harmonicsText, labelsAlignBoxOptions ), harmonicsSpinner ]
     } );
 
+    // Sound checkbox and slider
+    const soundLayoutBox = new SoundLayoutBox( soundEnabledProperty, soundOutputLevelProperty, {
+      tandem: options.tandem.createTandem( 'soundLayoutBox' )
+    } );
+
     assert && assert( !options.children, 'FourierSeriesLayoutBox sets children' );
-    options.children = [ fourierSeriesText, waveformBox, harmonicsBox ];
+    options.children = [
+      fourierSeriesText,
+      waveformBox,
+      harmonicsBox,
+      soundLayoutBox
+    ];
 
     super( options );
 
@@ -464,14 +479,14 @@ class SoundLayoutBox extends HBox {
 
   /**
    * @param {Property.<boolean>} soundEnabledProperty
-   * @param {NumberProperty} outputLevelProperty
+   * @param {NumberProperty} soundOutputLevelProperty
    * @param {Object} [options]
    */
-  constructor( soundEnabledProperty, outputLevelProperty, options ) {
+  constructor( soundEnabledProperty, soundOutputLevelProperty, options ) {
 
     assert && AssertUtils.assertPropertyOf( soundEnabledProperty, 'boolean' );
-    assert && assert( outputLevelProperty instanceof NumberProperty );
-    assert && assert( outputLevelProperty.range, 'outputLevelProperty.range required' );
+    assert && assert( soundOutputLevelProperty instanceof NumberProperty );
+    assert && assert( soundOutputLevelProperty.range, 'soundOutputLevelProperty.range required' );
 
     options = merge( {
 
@@ -490,7 +505,7 @@ class SoundLayoutBox extends HBox {
     } ) );
 
     // Slider for controlling output level
-    const outputLevelSlider = new HSlider( outputLevelProperty, outputLevelProperty.range, {
+    const outputLevelSlider = new HSlider( soundOutputLevelProperty, soundOutputLevelProperty.range, {
       thumbSize: new Dimension2( 10, 20 ),
       trackSize: new Dimension2( 100, 3 ),
       trackStroke: Color.grayColor( 160 ),
