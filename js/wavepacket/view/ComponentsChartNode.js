@@ -63,8 +63,8 @@ class ComponentsChartNode extends Node {
     }, options );
 
     // Fields of interest in componentsChart, to improve readability
-    const L = componentsChart.L;
-    const T = componentsChart.T;
+    const L = componentsChart.wavePacket.L;
+    const T = componentsChart.wavePacket.T;
     const domainProperty = componentsChart.domainProperty;
     const xAxisDescriptionProperty = componentsChart.xAxisDescriptionProperty;
 

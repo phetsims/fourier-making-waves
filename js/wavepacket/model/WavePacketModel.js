@@ -42,12 +42,6 @@ class WavePacketModel {
     this.maxAmplitude = 0.21; //TODO ??
     this.significantWidth = 24 * Math.PI; //TODO rename
 
-    // Assumptions about L and T were inherited from the Java version.
-    const L = 1;
-    const T = 1;
-    assert && assert( L === 1 && T === 1, 'Many things in this implementation assume 1' );
-    assert && assert( L === T, 'Many things in this implementation assume L === T' );
-
     // @public
     this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE, {
       validValues: [ Domain.SPACE, Domain.TIME ],
@@ -75,17 +69,17 @@ class WavePacketModel {
     } );
 
     // @public
-    this.amplitudesChart = new WavePacketAmplitudesChart( this.domainProperty, {
+    this.amplitudesChart = new WavePacketAmplitudesChart( this.wavePacket, this.domainProperty, {
       tandem: options.tandem.createTandem( 'amplitudesChart' )
     } );
 
     // @public
-    this.componentsChart = new ComponentsChart( this.domainProperty, this.wavePacket, xAxisDescriptionProperty, L, T, {
+    this.componentsChart = new ComponentsChart( this.wavePacket, this.domainProperty, xAxisDescriptionProperty, {
       tandem: options.tandem.createTandem( 'componentsChart' )
     } );
 
     // @public
-    this.sumChart = new WavePacketSumChart( this.domainProperty, xAxisDescriptionProperty, {
+    this.sumChart = new WavePacketSumChart( this.wavePacket, this.domainProperty, xAxisDescriptionProperty, {
       tandem: options.tandem.createTandem( 'sumChart' )
     } );
   }

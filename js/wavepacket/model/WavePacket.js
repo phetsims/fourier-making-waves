@@ -28,6 +28,14 @@ class WavePacket {
    */
   constructor( options ) {
 
+    // @public
+    this.L = 1; // wavelength, in meters
+    this.T = 1; // period, in milliseconds
+
+    // Assumptions about L and T that were inherited from the Java version.
+    assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
+      'Many things in this implementation assume L === T === 1' );
+
     // @public index into COMPONENT_SPACING_VALUES, so that we have a linear value to control via Slider
     this.componentSpacingIndexProperty = new NumberProperty( 3, {
       numberType: 'Integer',

@@ -18,20 +18,16 @@ import WavePacket from './WavePacket.js';
 class ComponentsChart {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {WavePacket} wavePacket
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
-   * @param {number} L
-   * @param {number} T
    * @param {Object} [options]
    */
-  constructor( domainProperty, wavePacket, xAxisDescriptionProperty, L, T, options ) {
+  constructor( wavePacket, domainProperty, xAxisDescriptionProperty, options ) {
 
     assert && assert( wavePacket instanceof WavePacket );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, XAxisDescription );
-    assert && AssertUtils.assertPositiveNumber( L );
-    assert && AssertUtils.assertPositiveNumber( T );
 
     options = merge( {
 
@@ -40,11 +36,9 @@ class ComponentsChart {
     }, options );
 
     // @public
-    this.domainProperty = domainProperty;
     this.wavePacket = wavePacket;
+    this.domainProperty = domainProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
-    this.L = L;
-    this.T = T;
 
     // @public whether the Sum chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {

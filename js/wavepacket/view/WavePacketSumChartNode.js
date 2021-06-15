@@ -49,6 +49,12 @@ class WavePacketSumChartNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
+    // Fields of interest in componentsChart, to improve readability
+    // const L = sumChart.wavePacket.L;
+    // const T = sumChart.wavePacket.T;
+    // const domainProperty = sumChart.domainProperty;
+    // const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;
+
     // the transform from model to view coordinates
     const chartTransform = new ChartTransform( options.transformOptions );
 

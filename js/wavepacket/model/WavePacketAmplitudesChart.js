@@ -12,15 +12,18 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import WavePacket from './WavePacket.js';
 
 class WavePacketAmplitudesChart {
 
   /**
+   * @param {WavePacket} wavePacket
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, options ) {
+  constructor( wavePacket, domainProperty, options ) {
 
+    assert && assert( wavePacket instanceof WavePacket );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     options = merge( {
@@ -30,6 +33,7 @@ class WavePacketAmplitudesChart {
     }, options );
 
     // @public
+    this.wavePacket = wavePacket;
     this.domainProperty = domainProperty;
 
     // @public
