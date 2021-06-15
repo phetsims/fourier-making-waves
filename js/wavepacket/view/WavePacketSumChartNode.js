@@ -19,6 +19,7 @@ import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
+import FMWZoomButtonGroup from '../../common/view/FMWZoomButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketSumChart from '../model/WavePacketSumChart.js';
@@ -73,6 +74,17 @@ class WavePacketSumChartNode extends Node {
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
+    //TODO duplicated from ComponentsChartNode
+    const xZoomButtonGroup = new FMWZoomButtonGroup( sumChart.xAxisDescriptionProperty, {
+      orientation: 'horizontal',
+      scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
+      touchAreaXDilation: 5,
+      touchAreaYDilation: 10,
+      left: chartRectangle.right + 6,
+      bottom: chartRectangle.bottom,
+      tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
+    } );
+
     // y axis ---------------------------------------------------------
 
     //TODO duplicated from ComponentsChartNode
@@ -103,7 +115,7 @@ class WavePacketSumChartNode extends Node {
     assert && assert( !options.children );
     options.children = [
       chartRectangle,
-      xAxis, xAxisLabel,
+      xAxis, xAxisLabel, xZoomButtonGroup,
       yAxis, yAxisLabel,
       waveformEnvelopeCheckbox
     ];

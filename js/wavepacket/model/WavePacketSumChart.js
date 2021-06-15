@@ -9,20 +9,24 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Domain from '../../common/model/Domain.js';
+import XAxisDescription from '../../common/model/XAxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class WavePacketSumChart {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, options ) {
+  constructor( domainProperty, xAxisDescriptionProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, XAxisDescription );
 
     // @public
     this.domainProperty = domainProperty;
+    this.xAxisDescriptionProperty = xAxisDescriptionProperty;
 
     // @public whether the Sum chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {

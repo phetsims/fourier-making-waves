@@ -21,6 +21,7 @@ import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
+import FMWZoomButtonGroup from '../../common/view/FMWZoomButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import ComponentsChart from '../model/ComponentsChart.js';
@@ -72,6 +73,16 @@ class ComponentsChartNode extends Node {
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
+    const xZoomButtonGroup = new FMWZoomButtonGroup( componentsChart.xAxisDescriptionProperty, {
+      orientation: 'horizontal',
+      scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
+      touchAreaXDilation: 5,
+      touchAreaYDilation: 10,
+      left: chartRectangle.right + 6,
+      bottom: chartRectangle.bottom,
+      tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
+    } );
+
     // y axis ---------------------------------------------------------
 
     const yAxis = new Line( 0, 0, 0, options.transformOptions.viewHeight, {
@@ -102,7 +113,7 @@ class ComponentsChartNode extends Node {
     assert && assert( !options.children );
     options.children = [
       chartRectangle,
-      xAxis, xAxisLabel,
+      xAxis, xAxisLabel, xZoomButtonGroup,
       yAxis, yAxisLabel,
       messageNode
     ];
