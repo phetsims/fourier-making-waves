@@ -13,12 +13,17 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import DiscreteXAxisDescriptions from '../../discrete/model/DiscreteXAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import WavePacketXAxisDescriptions from '../../waveGame/model/WavePacketXAxisDescriptions.js';
 import ComponentsChart from './ComponentsChart.js';
 import WavePacket from './WavePacket.js';
 import WavePacketAmplitudesChart from './WavePacketAmplitudesChart.js';
 import WavePacketSumChart from './WavePacketSumChart.js';
+
+// {AxisDescription} default description for the x axis
+const DEFAULT_X_AXIS_DESCRIPTION = WavePacketXAxisDescriptions[ 4 ];
+assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.getLength() === 4,
+  'Expected DEFAULT_X_AXIS_DESCRIPTION range to be 4 wavelengths. Did you change DiscreteYAxisDescriptions?' );
 
 class WavePacketModel {
 
@@ -58,11 +63,9 @@ class WavePacketModel {
       tandem: options.tandem.createTandem( 'wavePacket' )
     } );
 
-    //TODO initial value and valid values are not correct
     // {Property.<XAxisDescription>} the x-axis description is shared by the Components and Sum charts.
-    // dispose is not needed.
-    const xAxisDescriptionProperty = new Property( DiscreteXAxisDescriptions[ DiscreteXAxisDescriptions.length - 2 ], {
-      validValues: DiscreteXAxisDescriptions
+    const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
+      validValues: WavePacketXAxisDescriptions
     } );
 
     // @public

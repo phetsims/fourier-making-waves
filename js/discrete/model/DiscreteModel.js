@@ -40,7 +40,7 @@ const TIME_SCALE = 0.001;
 const STEP_DT = 50;
 
 // {AxisDescription} default description for the x axis
-const DEFAULT_X_AXIS_DESCRIPTION = DiscreteXAxisDescriptions[ DiscreteXAxisDescriptions.length - 2 ];
+const DEFAULT_X_AXIS_DESCRIPTION = DiscreteXAxisDescriptions[ 4 ];
 assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.getLength() === 1,
   'Expected DEFAULT_X_AXIS_DESCRIPTION range to be 1 wavelength. Did you change DiscreteXAxisDescriptions?' );
 
@@ -145,7 +145,6 @@ class DiscreteModel {
       'DEFAULT_X_ZOOM_LEVEL is probably incorrect - did you modify DiscreteXAxisDescriptions?' );
 
     // {Property.<XAxisDescription>} the x-axis description is shared by the Harmonics and Sum charts.
-    // dispose is not needed.
     const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
       validValues: DiscreteXAxisDescriptions
     } );
