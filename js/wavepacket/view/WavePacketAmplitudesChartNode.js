@@ -111,7 +111,7 @@ class WavePacketAmplitudesChartNode extends Node {
 
     const continuousWaveformCheckbox = new ContinuousWaveformCheckbox( amplitudesChart.continuousWaveformVisibleProperty, {
       right: chartRectangle.right - 5,
-      top: xTickLabels.bottom + 7,
+      top: xTickLabels.bottom + 10,
       tandem: options.tandem.createTandem( 'continuousWaveformCheckbox' )
     } );
 

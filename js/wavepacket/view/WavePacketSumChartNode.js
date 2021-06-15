@@ -96,7 +96,7 @@ class WavePacketSumChartNode extends Node {
 
     const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( sumChart.envelopeVisibleProperty, {
       right: chartRectangle.right - 5,
-      top: chartRectangle.bottom + 5,
+      top: chartRectangle.bottom + 10,
       tandem: options.tandem.createTandem( 'waveformEnvelopeCheckbox' )
     } );
 

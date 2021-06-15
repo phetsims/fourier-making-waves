@@ -151,7 +151,7 @@ class WavePacketScreenView extends ScreenView {
     {
       // Amplitudes chart at top left
       amplitudesChartNode.x = DiscreteScreenView.X_CHART_RECTANGLES;
-      amplitudesChartNode.y = 54;
+      amplitudesChartNode.y = 48;
 
       // Equation centered above Amplitudes chart
       amplitudeChartEquationNode.centerX = amplitudesChartNode.x + DiscreteScreenView.CHART_RECTANGLE_SIZE.width / 2;
