@@ -9,6 +9,7 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import AxisLine from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
@@ -17,7 +18,6 @@ import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -75,12 +75,7 @@ class WavePacketSumChartNode extends Node {
 
     // x axis ---------------------------------------------------------
 
-    //TODO use AxisNode
-    const xAxis = new Line( 0, 0, options.transformOptions.viewWidth, 0, {
-      stroke: FMWColorProfile.axisStrokeProperty,
-      lineWidth: 1,
-      center: chartRectangle.center
-    } );
+    const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, FMWConstants.AXIS_LINE_OPTIONS );
 
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
@@ -123,12 +118,7 @@ class WavePacketSumChartNode extends Node {
 
     // y axis ---------------------------------------------------------
 
-    //TODO use AxisNode
-    const yAxis = new Line( 0, 0, 0, options.transformOptions.viewHeight, {
-      stroke: FMWColorProfile.axisStrokeProperty,
-      lineWidth: 1,
-      center: chartRectangle.center
-    } );
+    const yAxis = new AxisLine( chartTransform, Orientation.VERTICAL, FMWConstants.AXIS_LINE_OPTIONS );
 
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,

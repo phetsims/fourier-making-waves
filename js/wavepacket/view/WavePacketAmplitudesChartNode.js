@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import AxisLine from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
@@ -15,7 +16,6 @@ import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -67,11 +67,7 @@ class WavePacketAmplitudesChartNode extends Node {
 
     // x axis ---------------------------------------------------------
 
-    //TODO use AxisNode
-    const xAxis = new Line( 0, 0, options.transformOptions.viewWidth, 0, {
-      stroke: FMWColorProfile.axisStrokeProperty,
-      lineWidth: 1
-    } );
+    const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, FMWConstants.AXIS_LINE_OPTIONS );
 
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, Math.PI, FMWConstants.TICK_MARK_OPTIONS );
 
@@ -88,13 +84,7 @@ class WavePacketAmplitudesChartNode extends Node {
 
     // y axis ---------------------------------------------------------
 
-    //TODO use AxisNode
-    const yAxis = new Line( 0, 0, 0, options.transformOptions.viewHeight, {
-      stroke: FMWColorProfile.axisStrokeProperty,
-      lineWidth: 1,
-      centerX: chartRectangle.left,
-      centerY: chartRectangle.centerY
-    } );
+    const yAxis = new AxisLine( chartTransform, Orientation.VERTICAL, FMWConstants.AXIS_LINE_OPTIONS );
 
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
