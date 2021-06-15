@@ -6,10 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
+import Orientation from '../../../../phet-core/js/Orientation.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
@@ -21,10 +25,18 @@ import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
+import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import FMWZoomButtonGroup from '../../common/view/FMWZoomButtonGroup.js';
+import XTickLabelSet from '../../common/view/XTickLabelSet.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import ComponentsChart from '../model/ComponentsChart.js';
+
+//TODO duplicated in WaveformChartNode
+const TICK_MARK_OPTIONS = {
+  edge: 'min',
+  extent: 6
+};
 
 class ComponentsChartNode extends Node {
 
@@ -50,6 +62,12 @@ class ComponentsChartNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
+    // Fields of interest in componentsChart, to improve readability
+    const L = componentsChart.L;
+    const T = componentsChart.T;
+    const domainProperty = componentsChart.domainProperty;
+    const xAxisDescriptionProperty = componentsChart.xAxisDescriptionProperty;
+
     // the transform from model to view coordinates
     const chartTransform = new ChartTransform( options.transformOptions );
 
@@ -73,7 +91,13 @@ class ComponentsChartNode extends Node {
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
-    const xZoomButtonGroup = new FMWZoomButtonGroup( componentsChart.xAxisDescriptionProperty, {
+    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL,
+      xAxisDescriptionProperty.value.tickMarkSpacing, TICK_MARK_OPTIONS );
+
+    const xTickLabels = new XTickLabelSet( chartTransform, xAxisDescriptionProperty.value.tickLabelSpacing,
+      domainProperty, new EnumerationProperty( TickLabelFormat, TickLabelFormat.NUMERIC ), L, T );
+
+    const xZoomButtonGroup = new FMWZoomButtonGroup( xAxisDescriptionProperty, {
       orientation: 'horizontal',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
       touchAreaXDilation: 5,
@@ -82,6 +106,19 @@ class ComponentsChartNode extends Node {
       bottom: chartRectangle.bottom,
       tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
     } );
+
+    // unmultilink is not needed.
+    Property.multilink(
+      [ xAxisDescriptionProperty, domainProperty ],
+      ( xAxisDescription, domain ) => {
+        const value = ( domain === Domain.TIME ) ? T : L;
+        const xMin = value * xAxisDescription.range.min;
+        const xMax = value * xAxisDescription.range.max;
+        chartTransform.setModelXRange( new Range( xMin, xMax ) );
+        xTickMarks.setSpacing( xAxisDescription.tickMarkSpacing * value );
+        xTickLabels.setSpacing( xAxisDescription.tickLabelSpacing * value );
+        xTickLabels.invalidateLabelSet();
+      } );
 
     // y axis ---------------------------------------------------------
 
@@ -112,8 +149,9 @@ class ComponentsChartNode extends Node {
 
     assert && assert( !options.children );
     options.children = [
+      xTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
       chartRectangle,
-      xAxis, xAxisLabel, xZoomButtonGroup,
+      xAxis, xAxisLabel, xTickLabels, xZoomButtonGroup,
       yAxis, yAxisLabel,
       messageNode
     ];

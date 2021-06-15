@@ -21,13 +21,17 @@ class ComponentsChart {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {WavePacket} wavePacket
    * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
+   * @param {number} L
+   * @param {number} T
    * @param {Object} [options]
    */
-  constructor( domainProperty, wavePacket, xAxisDescriptionProperty, options ) {
+  constructor( domainProperty, wavePacket, xAxisDescriptionProperty, L, T, options ) {
 
     assert && assert( wavePacket instanceof WavePacket );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, XAxisDescription );
+    assert && AssertUtils.assertPositiveNumber( L );
+    assert && AssertUtils.assertPositiveNumber( T );
 
     options = merge( {
 
@@ -39,6 +43,8 @@ class ComponentsChart {
     this.domainProperty = domainProperty;
     this.wavePacket = wavePacket;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
+    this.L = L;
+    this.T = T;
 
     // @public whether the Sum chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {

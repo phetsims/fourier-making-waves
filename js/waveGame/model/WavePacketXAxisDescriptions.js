@@ -25,33 +25,15 @@ const WavePacketXAxisDescriptions = [
     tickLabelSpacing: 1
   } ),
   new XAxisDescription( {
-    max: 6,
-    gridLineSpacing: 6,
-    tickMarkSpacing: 1,
-    tickLabelSpacing: 1
-  } ),
-  new XAxisDescription( {
     max: 4,
     gridLineSpacing: 4,
-    tickMarkSpacing: 1,
+    tickMarkSpacing: 0.5,
     tickLabelSpacing: 1
-  } ),
-  new XAxisDescription( {
-    max: 3,
-    gridLineSpacing: 3,
-    tickMarkSpacing: 0.1,
-    tickLabelSpacing: 0.5
   } ),
   new XAxisDescription( {
     max: 2,
     gridLineSpacing: 2,
-    tickMarkSpacing: 0.1,
-    tickLabelSpacing: 0.5
-  } ),
-  new XAxisDescription( {
-    max: 1.5,
-    gridLineSpacing: 1.5,
-    tickMarkSpacing: 0.1,
+    tickMarkSpacing: 0.5,
     tickLabelSpacing: 0.5
   } ),
   new XAxisDescription( {
@@ -61,16 +43,10 @@ const WavePacketXAxisDescriptions = [
     tickLabelSpacing: 0.5
   } ),
   new XAxisDescription( {
-    max: 0.7,
-    gridLineSpacing: 0.7,
-    tickMarkSpacing: 0.1,
-    tickLabelSpacing: 0.5
-  } ),
-  new XAxisDescription( {
     max: 0.5,
     gridLineSpacing: 0.5,
     tickMarkSpacing: 0.1,
-    tickLabelSpacing: 0.5
+    tickLabelSpacing: 0.1
   } )
 ];
 

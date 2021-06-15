@@ -76,7 +76,7 @@ class WavePacketAmplitudesChartNode extends Node {
       lineWidth: 1
     } );
 
-    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, Math.PI / 2, TICK_MARK_OPTIONS );
+    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, Math.PI, TICK_MARK_OPTIONS );
 
     const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, 2 * Math.PI, {
       createLabel: createXTickLabel,

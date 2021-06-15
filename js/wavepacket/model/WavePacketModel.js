@@ -21,7 +21,7 @@ import WavePacketAmplitudesChart from './WavePacketAmplitudesChart.js';
 import WavePacketSumChart from './WavePacketSumChart.js';
 
 // {AxisDescription} default description for the x axis
-const DEFAULT_X_AXIS_DESCRIPTION = WavePacketXAxisDescriptions[ 4 ];
+const DEFAULT_X_AXIS_DESCRIPTION = WavePacketXAxisDescriptions[ 2 ];
 assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.getLength() === 4,
   'Expected DEFAULT_X_AXIS_DESCRIPTION range to be 4 wavelengths. Did you change DiscreteYAxisDescriptions?' );
 
@@ -41,6 +41,12 @@ class WavePacketModel {
     // @public (read-only)
     this.maxAmplitude = 0.21; //TODO ??
     this.significantWidth = 24 * Math.PI; //TODO rename
+
+    // Assumptions about L and T were inherited from the Java version.
+    const L = 1;
+    const T = 1;
+    assert && assert( L === 1 && T === 1, 'Many things in this implementation assume 1' );
+    assert && assert( L === T, 'Many things in this implementation assume L === T' );
 
     // @public
     this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE, {
@@ -74,7 +80,7 @@ class WavePacketModel {
     } );
 
     // @public
-    this.componentsChart = new ComponentsChart( this.domainProperty, this.wavePacket, xAxisDescriptionProperty, {
+    this.componentsChart = new ComponentsChart( this.domainProperty, this.wavePacket, xAxisDescriptionProperty, L, T, {
       tandem: options.tandem.createTandem( 'componentsChart' )
     } );
 
