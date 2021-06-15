@@ -218,11 +218,11 @@
   "componentSpacing": {
     "value": "Component Spacing"
   },
-  "wavePacketCenter": {
-    "value": "Wave Packet Center"
+  "center": {
+    "value": "Center"
   },
-  "wavePacketWidth": {
-    "value": "Wave Packet Width"
+  "width": {
+    "value": "Width"
   },
   "componentsChart": {
     "value": "Components"
@@ -256,5 +256,8 @@
   },
   "infiniteComponentsCannotBePlotted": {
     "value": "An infinite number of components cannot be plotted."
+  },
+  "wavePacketTitle": {
+    "value": "Wave Packet"
   }
 }
