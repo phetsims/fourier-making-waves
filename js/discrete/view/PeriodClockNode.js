@@ -194,7 +194,7 @@ function createElapsedTimeShape( harmonic, t, radius ) {
 
   assert && assert( harmonic instanceof Harmonic );
   assert && AssertUtils.assertNonNegativeNumber( t );
-  assert && assert( typeof radius === 'number' && radius > 0 );
+  assert && AssertUtils.assertPositiveNumber( radius );
 
   const percentTime = ( t % harmonic.period ) / harmonic.period;
   const startAngle = -Math.PI / 2; // 12:00
