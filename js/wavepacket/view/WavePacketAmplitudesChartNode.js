@@ -111,6 +111,11 @@ class WavePacketAmplitudesChartNode extends Node {
       tandem: options.tandem.createTandem( 'yAxisLabel' )
     } );
 
+    //TODO yGridLines
+    //TODO yTickMarks
+    //TODO yTickLabels
+    //TODO auto-scale to the appropriate yAxisDescription
+
     // Addition UI components ---------------------------------------------------------
 
     const continuousWaveformCheckbox = new ContinuousWaveformCheckbox( continuousWaveformVisibleProperty, {

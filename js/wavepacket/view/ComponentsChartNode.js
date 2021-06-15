@@ -138,6 +138,11 @@ class ComponentsChartNode extends Node {
       tandem: options.tandem.createTandem( 'yAxisLabel' )
     } );
 
+    //TODO yGridLines
+    //TODO yTickMarks
+    //TODO yTickLabels
+    //TODO auto-scale to the appropriate yAxisDescription
+
     // Other UI components ---------------------------------------------------------
 
     // Message shown when we have an infinite number of components.
@@ -163,6 +168,7 @@ class ComponentsChartNode extends Node {
     // unlink is not needed
     componentSpacingProperty.link( componentSpacing => {
       messageNode.visible = ( componentSpacing === 0 );
+      //TODO other things to hide when this messageNod is visible?
     } );
 
     // Adjust the x-axis label to match the domain.
