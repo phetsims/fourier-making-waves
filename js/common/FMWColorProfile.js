@@ -122,6 +122,10 @@ const FMWColorProfile = new ColorProfile( [ 'default' ], {
 
   infiniteHarmonicsStroke: {
     default: Color.grayColor( 189 )
+  },
+
+  widthIndicatorsColor: {
+    default: new Color( 255, 0, 0 )
   }
 } );
 

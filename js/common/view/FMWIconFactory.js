@@ -9,6 +9,7 @@
 import Range from '../../../../dot/js/Range.js';
 import ScreenIcon from '../../../../joist/js/ScreenIcon.js';
 import merge from '../../../../phet-core/js/merge.js';
+import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
@@ -80,6 +81,7 @@ const FMWIconFactory = {
   /**
    * Creates the Home screen icon for the 'Discrete' screen.
    * @returns {ScreenIcon}
+   * @public
    */
   createDiscreteHomeScreenIcon() {
     // AmplitudeSlider requires the range to be symmetric. So we're using a mixture of positive and negative
@@ -95,6 +97,7 @@ const FMWIconFactory = {
   /**
    * Creates the Home screen icon for the 'Wave Game' screen.
    * @returns {ScreenIcon}
+   * @public
    */
   createWaveGameHomeScreenIcon() {
     const iconNode = new PointsAwardedNode();
@@ -106,6 +109,7 @@ const FMWIconFactory = {
   /**
    * Creates the Home screen icon for the 'Wave Packet' screen.
    * @returns {ScreenIcon}
+   * @public
    */
   createWavePacketHomeScreenIcon() {
     const iconNode = new Image( wavePacketHomeScreenImage );
@@ -120,6 +124,7 @@ const FMWIconFactory = {
    * @param {number} levelNumber
    * @param {number} numberOfLevels
    * @returns {Node}
+   * @public
    */
   createLevelSelectionButtonIcon( levelNumber, numberOfLevels ) {
 
@@ -159,6 +164,39 @@ const FMWIconFactory = {
     return new Node( {
       children: [ rectangle, slidersIcon, levelNode ],
       pdomVisible: false // so that focus traversal does not visit subcomponents of this icon
+    } );
+  },
+
+  //TODO eventually use the actual width indicator Node here
+  /**
+   * Creates the icon for the 'Width Indicators' checkbox
+   * @returns {Node}
+   * @public
+   */
+  createWidthIndicatorsIcon() {
+
+    const lineWidth = 2;
+
+    const arrowNode = new ArrowNode( 0, 0, 40, 0, {
+      headHeight: 10,
+      headWidth: 7,
+      tailWidth: lineWidth,
+      fill: FMWColorProfile.widthIndicatorsColorProperty,
+      stroke: null,
+      doubleHead: true
+    } );
+
+    const endLineLength = 10;
+    const endLineOptions = {
+      stroke: FMWColorProfile.widthIndicatorsColorProperty,
+      lineWidth: lineWidth
+    };
+    const leftLine = new Line( 0, 0, 0, endLineLength, endLineOptions );
+    const rightLine = new Line( 0, 0, 0, endLineLength, endLineOptions );
+
+    return new HBox( {
+      children: [ leftLine, arrowNode, rightLine ],
+      spacing: 0
     } );
   }
 };

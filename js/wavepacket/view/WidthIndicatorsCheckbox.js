@@ -8,9 +8,11 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWIconFactory from '../../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
@@ -26,12 +28,19 @@ class WidthIndicatorsCheckbox extends Checkbox {
 
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
 
-    const widthIndicatorsText = new Text( fourierMakingWavesStrings.widthIndicators, {
+    const textNode = new Text( fourierMakingWavesStrings.widthIndicators, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 200
     } );
 
-    super( widthIndicatorsText, widthIndicatorsVisibleProperty, options );
+    const iconNode = FMWIconFactory.createWidthIndicatorsIcon();
+
+    const content = new HBox( {
+      children: [ textNode, iconNode ],
+      spacing: 10
+    } );
+
+    super( content, widthIndicatorsVisibleProperty, options );
   }
 }
 
