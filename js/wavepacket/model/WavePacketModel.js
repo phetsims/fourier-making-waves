@@ -14,7 +14,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WavePacketXAxisDescriptions from '../../waveGame/model/WavePacketXAxisDescriptions.js';
+import WavePacketXAxisDescriptions from './WavePacketXAxisDescriptions.js';
 import ComponentsChart from './ComponentsChart.js';
 import WavePacket from './WavePacket.js';
 import WavePacketAmplitudesChart from './WavePacketAmplitudesChart.js';
