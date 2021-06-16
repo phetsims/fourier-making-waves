@@ -4,10 +4,9 @@
  * WavePacketXAxisDescriptions is the set of descriptions for the x-axes of the Components and Sum charts in the
  * 'Wave Packet' screen.
  *
- * There is one AxisDescription for each zoom level, and the array is ordered from most 'zoomed out' to
- * most 'zoomed in'. Values in the AxisDescriptions are coefficients (multipliers) for L or T, depending
- * on which domain (space, time, space & time) is plotted. Use axisDescription.createAxisRange to create
- * a numeric range suitable for use with a chart.
+ * There is one AxisDescription for each zoom level, and the array is ordered from most 'zoomed out' to most 'zoomed in'.
+ * Values in the AxisDescriptions are coefficients (multipliers) for L or T, depending on which domain is plotted.
+ * Use axisDescription.createAxisRange to create a numeric range suitable for use with a chart.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,57 +19,33 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 const WavePacketXAxisDescriptions = [
   new XAxisDescription( {
     max: 8,
-    gridLineSpacing: 8,
-    tickMarkSpacing: 1,
-    tickLabelSpacing: 1
-  } ),
-  new XAxisDescription( {
-    max: 6,
-    gridLineSpacing: 6,
+    gridLineSpacing: 1,
     tickMarkSpacing: 1,
     tickLabelSpacing: 1
   } ),
   new XAxisDescription( {
     max: 4,
-    gridLineSpacing: 4,
-    tickMarkSpacing: 1,
+    gridLineSpacing: 1,
+    tickMarkSpacing: 0.5,
     tickLabelSpacing: 1
   } ),
   new XAxisDescription( {
-    max: 3,
-    gridLineSpacing: 3,
-    tickMarkSpacing: 0.1,
-    tickLabelSpacing: 0.5
-  } ),
-  new XAxisDescription( {
     max: 2,
-    gridLineSpacing: 2,
-    tickMarkSpacing: 0.1,
-    tickLabelSpacing: 0.5
-  } ),
-  new XAxisDescription( {
-    max: 1.5,
-    gridLineSpacing: 1.5,
-    tickMarkSpacing: 0.1,
+    gridLineSpacing: 0.5,
+    tickMarkSpacing: 0.5,
     tickLabelSpacing: 0.5
   } ),
   new XAxisDescription( {
     max: 1,
-    gridLineSpacing: 1,
-    tickMarkSpacing: 0.1,
-    tickLabelSpacing: 0.5
-  } ),
-  new XAxisDescription( {
-    max: 0.7,
-    gridLineSpacing: 0.7,
+    gridLineSpacing: 0.5,
     tickMarkSpacing: 0.1,
     tickLabelSpacing: 0.5
   } ),
   new XAxisDescription( {
     max: 0.5,
-    gridLineSpacing: 0.5,
+    gridLineSpacing: 0.1,
     tickMarkSpacing: 0.1,
-    tickLabelSpacing: 0.5
+    tickLabelSpacing: 0.1
   } )
 ];
 

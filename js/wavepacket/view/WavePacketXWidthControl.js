@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO use NumberControl
 /**
  * WavePacketXWidthControl displays the wave packet width in x space, and allows it to be changed via a slider.
  *
@@ -107,10 +106,12 @@ class WavePacketXWidthSlider extends Slider {
     options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
 
       // WavePacketXWidthSlider options
-      tickDecimals: 3
+      tickDecimals: 3,
 
       // pdom options
-      //TODO alt input steps
+      keyboardStep: 0.01,
+      shiftKeyboardStep: 0.001,
+      pageKeyboardStep: 0.1
     }, options );
 
     super( xWidthProperty, xWidthProperty.range, options );

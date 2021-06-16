@@ -6,8 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import AxisLine from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Range from '../../../../dot/js/Range.js';
@@ -15,7 +17,6 @@ import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -23,19 +24,12 @@ import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
+import YTickLabelSet from '../../common/view/YTickLabelSet.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketAmplitudesChart from '../model/WavePacketAmplitudesChart.js';
 import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
 
-// constants
-//TODO duplicated in WaveformChartNode
-const TICK_MARK_OPTIONS = {
-  edge: 'min',
-  extent: 6
-};
-
-//TODO placeholder
 class WavePacketAmplitudesChartNode extends Node {
 
   /**
@@ -60,6 +54,11 @@ class WavePacketAmplitudesChartNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
+    // Fields of interest in amplitudesChart, to improve readability
+    const domainProperty = amplitudesChart.domainProperty;
+    const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
+    const yAxisDescriptionProperty = amplitudesChart.yAxisDescriptionProperty;
+
     // the transform from model to view coordinates
     const chartTransform = new ChartTransform( options.transformOptions );
 
@@ -71,17 +70,7 @@ class WavePacketAmplitudesChartNode extends Node {
 
     // x axis ---------------------------------------------------------
 
-    const xAxis = new Line( 0, 0, options.transformOptions.viewWidth, 0, {
-      stroke: FMWColorProfile.axisStrokeProperty,
-      lineWidth: 1
-    } );
-
-    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, Math.PI / 2, TICK_MARK_OPTIONS );
-
-    const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, 2 * Math.PI, {
-      createLabel: createXTickLabel,
-      edge: 'min'
-    } );
+    const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, FMWConstants.AXIS_LINE_OPTIONS );
 
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
@@ -89,14 +78,16 @@ class WavePacketAmplitudesChartNode extends Node {
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
+    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, Math.PI, FMWConstants.TICK_MARK_OPTIONS );
+
+    const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, 2 * Math.PI, {
+      createLabel: createXTickLabel,
+      edge: 'min'
+    } );
+
     // y axis ---------------------------------------------------------
 
-    const yAxis = new Line( 0, 0, 0, options.transformOptions.viewHeight, {
-      stroke: FMWColorProfile.axisStrokeProperty,
-      lineWidth: 1,
-      centerX: chartRectangle.left,
-      centerY: chartRectangle.centerY
-    } );
+    const yAxis = new AxisLine( chartTransform, Orientation.VERTICAL, FMWConstants.AXIS_LINE_OPTIONS );
 
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
@@ -107,11 +98,36 @@ class WavePacketAmplitudesChartNode extends Node {
       tandem: options.tandem.createTandem( 'yAxisLabel' )
     } );
 
+    const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL,
+      yAxisDescriptionProperty.value.gridLineSpacing, FMWConstants.GRID_LINE_OPTIONS );
+
+    const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, Math.PI, FMWConstants.TICK_MARK_OPTIONS );
+
+    const yTickLabels = new YTickLabelSet( chartTransform, 2 * Math.PI, {
+      decimalPlaces: 3
+    } );
+
+    // Update the y-axis. unlink is not needed.
+    yAxisDescriptionProperty.link( yAxisDescription => {
+
+      //TODO replace this with auto scaling
+      //TODO this is a problem - AxisDescription assumes range is symmetric, which is not the case in Wave Packet screen
+      chartTransform.setModelYRange( new Range( 0, yAxisDescription.range.max ) );
+
+      // Grid lines and tick marks are determined by AxisDescriptions regardless of whether auto scale is enabled.
+      // This is because the model keeps AxisDescriptions in sync with yAxisAutoScaleRange.
+      yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
+      yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
+      yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
+    } );
+
+    //TODO auto-scale to the appropriate yAxisDescription
+
     // Addition UI components ---------------------------------------------------------
 
-    const continuousWaveformCheckbox = new ContinuousWaveformCheckbox( amplitudesChart.continuousWaveformVisibleProperty, {
+    const continuousWaveformCheckbox = new ContinuousWaveformCheckbox( continuousWaveformVisibleProperty, {
       right: chartRectangle.right - 5,
-      top: xTickLabels.bottom + 10,
+      top: xTickLabels.bottom + 8,
       tandem: options.tandem.createTandem( 'continuousWaveformCheckbox' )
     } );
 
@@ -120,7 +136,7 @@ class WavePacketAmplitudesChartNode extends Node {
       xTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
       chartRectangle,
       xAxis, xAxisLabel, xTickLabels,
-      yAxis, yAxisLabel,
+      yAxis, yAxisLabel, yGridLines, yTickMarks, yTickLabels,
       continuousWaveformCheckbox
     ];
 
@@ -128,13 +144,17 @@ class WavePacketAmplitudesChartNode extends Node {
 
     // Adjust the x-axis label to match the domain.
     // unlink is not needed.
-    amplitudesChart.domainProperty.link( domain => {
+    domainProperty.link( domain => {
+
+      // update the label
       xAxisLabel.text = StringUtils.fillIn( fourierMakingWavesStrings.xAxisLabel, {
         symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
         units: ( domain === Domain.SPACE ) ?
                fourierMakingWavesStrings.units.radiansPerMeter :
                fourierMakingWavesStrings.units.radiansPerMillisecond
       } );
+
+      // position at lower right corner of chart, because x axis corresponds to bottom of chart
       xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
       xAxisLabel.bottom = chartRectangle.bottom;
     } );

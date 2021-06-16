@@ -1,17 +1,23 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO most of this is duplicated from ComponentsChartNode
 /**
  * WavePacketSumChartNode is the 'Sum' chart on the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import AxisLine from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
+import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
+import Orientation from '../../../../phet-core/js/Orientation.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -19,7 +25,9 @@ import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
+import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import FMWZoomButtonGroup from '../../common/view/FMWZoomButtonGroup.js';
+import XTickLabelSet from '../../common/view/XTickLabelSet.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketSumChart from '../model/WavePacketSumChart.js';
@@ -49,6 +57,13 @@ class WavePacketSumChartNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
+    // Fields of interest in componentsChart, to improve readability
+    const L = sumChart.wavePacket.L;
+    const T = sumChart.wavePacket.T;
+    const domainProperty = sumChart.domainProperty;
+    const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;
+    const envelopeVisibleProperty = sumChart.envelopeVisibleProperty;
+
     // the transform from model to view coordinates
     const chartTransform = new ChartTransform( options.transformOptions );
 
@@ -60,22 +75,24 @@ class WavePacketSumChartNode extends Node {
 
     // x axis ---------------------------------------------------------
 
-    //TODO duplicated from ComponentsChartNode
-    const xAxis = new Line( 0, 0, options.transformOptions.viewWidth, 0, {
-      stroke: FMWColorProfile.axisStrokeProperty,
-      lineWidth: 1,
-      center: chartRectangle.center
-    } );
+    const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, FMWConstants.AXIS_LINE_OPTIONS );
 
-    //TODO duplicated from ComponentsChartNode
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
       maxWidth: 60, // determined empirically
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
-    //TODO duplicated from ComponentsChartNode
-    const xZoomButtonGroup = new FMWZoomButtonGroup( sumChart.xAxisDescriptionProperty, {
+    const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL,
+      xAxisDescriptionProperty.value.gridLineSpacing, FMWConstants.GRID_LINE_OPTIONS );
+
+    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL,
+      xAxisDescriptionProperty.value.tickMarkSpacing, FMWConstants.TICK_MARK_OPTIONS );
+
+    const xTickLabels = new XTickLabelSet( chartTransform, xAxisDescriptionProperty.value.tickLabelSpacing,
+      domainProperty, new EnumerationProperty( TickLabelFormat, TickLabelFormat.NUMERIC ), L, T );
+
+    const xZoomButtonGroup = new FMWZoomButtonGroup( xAxisDescriptionProperty, {
       orientation: 'horizontal',
       scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
       touchAreaXDilation: 5,
@@ -85,16 +102,24 @@ class WavePacketSumChartNode extends Node {
       tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
     } );
 
+    // unmultilink is not needed.
+    Property.multilink(
+      [ xAxisDescriptionProperty, domainProperty ],
+      ( xAxisDescription, domain ) => {
+        const value = ( domain === Domain.TIME ) ? T : L;
+        const xMin = value * xAxisDescription.range.min;
+        const xMax = value * xAxisDescription.range.max;
+        chartTransform.setModelXRange( new Range( xMin, xMax ) );
+        xGridLines.setSpacing( xAxisDescription.gridLineSpacing * value );
+        xTickMarks.setSpacing( xAxisDescription.tickMarkSpacing * value );
+        xTickLabels.setSpacing( xAxisDescription.tickLabelSpacing * value );
+        xTickLabels.invalidateLabelSet();
+      } );
+
     // y axis ---------------------------------------------------------
 
-    //TODO duplicated from ComponentsChartNode
-    const yAxis = new Line( 0, 0, 0, options.transformOptions.viewHeight, {
-      stroke: FMWColorProfile.axisStrokeProperty,
-      lineWidth: 1,
-      center: chartRectangle.center
-    } );
+    const yAxis = new AxisLine( chartTransform, Orientation.VERTICAL, FMWConstants.AXIS_LINE_OPTIONS );
 
-    //TODO duplicated from ComponentsChartNode
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
@@ -104,34 +129,43 @@ class WavePacketSumChartNode extends Node {
       tandem: options.tandem.createTandem( 'yAxisLabel' )
     } );
 
+    //TODO yGridLines
+    //TODO yTickMarks
+    //TODO yTickLabels
+    //TODO auto-scale to the appropriate yAxisDescription
+
     // Addition UI components ---------------------------------------------------------
 
-    const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( sumChart.envelopeVisibleProperty, {
+    const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( envelopeVisibleProperty, {
       right: chartRectangle.right - 5,
-      top: chartRectangle.bottom + 10,
+      top: xTickLabels.bottom + 8,
       tandem: options.tandem.createTandem( 'waveformEnvelopeCheckbox' )
     } );
 
     assert && assert( !options.children );
     options.children = [
+      xTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
       chartRectangle,
-      xAxis, xAxisLabel, xZoomButtonGroup,
+      xAxis, xAxisLabel, xGridLines, xTickLabels, xZoomButtonGroup,
       yAxis, yAxisLabel,
       waveformEnvelopeCheckbox
     ];
 
     super( options );
 
-    //TODO duplicated from ComponentsChartNode
     // Adjust the x-axis label to match the domain.
     // unlink is not needed.
-    sumChart.domainProperty.link( domain => {
+    domainProperty.link( domain => {
+
+      // update the label
       xAxisLabel.text = StringUtils.fillIn( fourierMakingWavesStrings.xAxisLabel, {
         symbol: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t,
         units: ( domain === Domain.SPACE ) ?
                fourierMakingWavesStrings.units.meters :
                fourierMakingWavesStrings.units.milliseconds
       } );
+
+      // position at left of chart, vertically centered on the x axis
       xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
       xAxisLabel.centerY = chartRectangle.centerY;
     } );
@@ -141,7 +175,7 @@ class WavePacketSumChartNode extends Node {
 
     // pdom - traversal order
     this.pdomOrder = [
-      //TODO x-axis zoom button group
+      xZoomButtonGroup,
       waveformEnvelopeCheckbox
     ];
   }

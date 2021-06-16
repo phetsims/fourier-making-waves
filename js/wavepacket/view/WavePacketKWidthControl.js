@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO use NumberControl
 /**
  * WavePacketKWidthControl displays the wave packet width in k space, and allows it to be changed via a slider.
  *
@@ -107,7 +106,9 @@ class WavePacketKWidthSlider extends Slider {
     options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
 
       // pdom options
-      //TODO alt input steps
+      keyboardStep: 1,
+      shiftKeyboardStep: 0.01,
+      pageKeyboardStep: Math.PI
     }, options );
 
     super( kWidthProperty, kWidthProperty.range, options );

@@ -18,12 +18,12 @@ import WavePacket from './WavePacket.js';
 class ComponentsChart {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {WavePacket} wavePacket
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, wavePacket, xAxisDescriptionProperty, options ) {
+  constructor( wavePacket, domainProperty, xAxisDescriptionProperty, options ) {
 
     assert && assert( wavePacket instanceof WavePacket );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
@@ -36,8 +36,8 @@ class ComponentsChart {
     }, options );
 
     // @public
-    this.domainProperty = domainProperty;
     this.wavePacket = wavePacket;
+    this.domainProperty = domainProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
 
     // @public whether the Sum chart is visible

@@ -14,14 +14,14 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WavePacketXAxisDescriptions from '../../waveGame/model/WavePacketXAxisDescriptions.js';
+import WavePacketXAxisDescriptions from './WavePacketXAxisDescriptions.js';
 import ComponentsChart from './ComponentsChart.js';
 import WavePacket from './WavePacket.js';
 import WavePacketAmplitudesChart from './WavePacketAmplitudesChart.js';
 import WavePacketSumChart from './WavePacketSumChart.js';
 
 // {AxisDescription} default description for the x axis
-const DEFAULT_X_AXIS_DESCRIPTION = WavePacketXAxisDescriptions[ 4 ];
+const DEFAULT_X_AXIS_DESCRIPTION = WavePacketXAxisDescriptions[ 2 ];
 assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.getLength() === 4,
   'Expected DEFAULT_X_AXIS_DESCRIPTION range to be 4 wavelengths. Did you change DiscreteYAxisDescriptions?' );
 
@@ -69,17 +69,17 @@ class WavePacketModel {
     } );
 
     // @public
-    this.amplitudesChart = new WavePacketAmplitudesChart( this.domainProperty, {
+    this.amplitudesChart = new WavePacketAmplitudesChart( this.wavePacket, this.domainProperty, {
       tandem: options.tandem.createTandem( 'amplitudesChart' )
     } );
 
     // @public
-    this.componentsChart = new ComponentsChart( this.domainProperty, this.wavePacket, xAxisDescriptionProperty, {
+    this.componentsChart = new ComponentsChart( this.wavePacket, this.domainProperty, xAxisDescriptionProperty, {
       tandem: options.tandem.createTandem( 'componentsChart' )
     } );
 
     // @public
-    this.sumChart = new WavePacketSumChart( this.domainProperty, xAxisDescriptionProperty, {
+    this.sumChart = new WavePacketSumChart( this.wavePacket, this.domainProperty, xAxisDescriptionProperty, {
       tandem: options.tandem.createTandem( 'sumChart' )
     } );
   }

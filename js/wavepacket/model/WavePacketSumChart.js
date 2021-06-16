@@ -11,20 +11,24 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Domain from '../../common/model/Domain.js';
 import XAxisDescription from '../../common/model/XAxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import WavePacket from './WavePacket.js';
 
 class WavePacketSumChart {
 
   /**
+   * @param {WavePacket} wavePacket
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, xAxisDescriptionProperty, options ) {
+  constructor( wavePacket, domainProperty, xAxisDescriptionProperty, options ) {
 
+    assert && assert( wavePacket instanceof WavePacket );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, XAxisDescription );
 
     // @public
+    this.wavePacket = wavePacket;
     this.domainProperty = domainProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
 

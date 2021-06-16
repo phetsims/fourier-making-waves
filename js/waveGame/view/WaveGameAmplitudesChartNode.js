@@ -9,6 +9,7 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -90,7 +91,8 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
    * @public
    */
   setAmplitudeVisible( order, visible ) {
-    assert && assert( typeof order === 'number' && order > 0 && order <= this.sliders.length, `invalid order: ${order}` );
+    assert && AssertUtils.assertPositiveNumber( order );
+    assert && assert( order <= this.sliders.length, `invalid order: ${order}` );
     assert && assert( typeof visible === 'boolean' );
 
     const index = order - 1;

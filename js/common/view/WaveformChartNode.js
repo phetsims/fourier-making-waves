@@ -8,7 +8,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import AxisNode from '../../../../bamboo/js/AxisNode.js';
+import AxisLine from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
@@ -30,23 +30,6 @@ import WaveformChart from '../model/WaveformChart.js';
 import FMWZoomButtonGroup from './FMWZoomButtonGroup.js';
 import XTickLabelSet from './XTickLabelSet.js';
 import YTickLabelSet from './YTickLabelSet.js';
-
-// constants
-const AXIS_OPTIONS = {
-  fill: FMWColorProfile.axisStrokeProperty,
-  stroke: null,
-  tailWidth: 1
-};
-
-const GRID_LINE_OPTIONS = {
-  stroke: FMWColorProfile.chartGridLinesStrokeProperty,
-  lineWidth: 0.5
-};
-
-const TICK_MARK_OPTIONS = {
-  edge: 'min',
-  extent: 6
-};
 
 class WaveformChartNode extends Node {
 
@@ -105,13 +88,13 @@ class WaveformChartNode extends Node {
 
     // x axis (space or time) ---------------------------------------------------------
 
-    const xAxis = new AxisNode( chartTransform, Orientation.HORIZONTAL, AXIS_OPTIONS );
+    const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, FMWConstants.AXIS_LINE_OPTIONS );
 
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL,
-      xAxisDescriptionProperty.value.gridLineSpacing, GRID_LINE_OPTIONS );
+      xAxisDescriptionProperty.value.gridLineSpacing, FMWConstants.GRID_LINE_OPTIONS );
 
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL,
-      xAxisDescriptionProperty.value.tickMarkSpacing, TICK_MARK_OPTIONS );
+      xAxisDescriptionProperty.value.tickMarkSpacing, FMWConstants.TICK_MARK_OPTIONS );
 
     const xTickLabels = new XTickLabelSet( chartTransform, xAxisDescriptionProperty.value.tickLabelSpacing, domainProperty,
       xAxisTickLabelFormatProperty, L, T );
@@ -167,13 +150,13 @@ class WaveformChartNode extends Node {
 
     // y axis (amplitude ) ---------------------------------------------------------
 
-    const yAxis = new AxisNode( chartTransform, Orientation.VERTICAL, AXIS_OPTIONS );
+    const yAxis = new AxisLine( chartTransform, Orientation.VERTICAL, FMWConstants.AXIS_LINE_OPTIONS );
 
     const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL,
-      yAxisDescriptionProperty.value.gridLineSpacing, GRID_LINE_OPTIONS );
+      yAxisDescriptionProperty.value.gridLineSpacing, FMWConstants.GRID_LINE_OPTIONS );
 
     const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL,
-      yAxisDescriptionProperty.value.tickMarkSpacing, TICK_MARK_OPTIONS );
+      yAxisDescriptionProperty.value.tickMarkSpacing, FMWConstants.TICK_MARK_OPTIONS );
 
     const yTickLabels = new YTickLabelSet( chartTransform, yAxisDescriptionProperty.value.tickLabelSpacing );
 
@@ -217,19 +200,12 @@ class WaveformChartNode extends Node {
 
     // ---------------------------------------------------------------
 
-    // Parent for Nodes that must be clipped to the bounds of chartRectangle
-    const clippedParent = new Node( {
-      clipArea: chartRectangle.getShape(),
-      children: [ xAxis, yAxis ]
-    } );
-
     assert && assert( !options.children, 'AmplitudesChartNode sets children' );
     options.children = [
       xTickMarks, yTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
       chartRectangle,
-      xAxisLabel, xGridLines, xTickLabels,
-      yAxisLabel, yGridLines, yTickLabels,
-      clippedParent
+      xAxis, xAxisLabel, xGridLines, xTickLabels,
+      yAxis, yAxisLabel, yGridLines, yTickLabels
     ];
     xZoomButtonGroup && options.children.push( xZoomButtonGroup );
     yZoomButtonGroup && options.children.push( yZoomButtonGroup );

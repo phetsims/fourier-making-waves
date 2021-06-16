@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO use NumberControl
 /**
  * WavePacketCenterControl displays the wave packet center value, and allows it to be changed via a slider.
  *
@@ -101,7 +100,9 @@ class WavePacketCenterSlider extends Slider {
     options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
 
       // pdom options
-      //TODO alt input steps
+      keyboardStep: 1,
+      shiftKeyboardStep: 0.1,
+      pageKeyboardStep: Math.PI
     }, options );
 
     super( wavePacketCenterProperty, wavePacketCenterProperty.range, options );

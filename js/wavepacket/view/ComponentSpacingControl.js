@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO use NumberControl, call recomputeText to update label when domainProperty changes
 /**
  * ComponentSpacingControl displays the component spacing value, and allows it to be changed via a slider.
  * It sets componentSpacingIndexProperty, which is an index into a small set of valid spacing values.
@@ -107,8 +106,8 @@ class ComponentSpacingSlider extends Slider {
       // Slider options
       constrainValue: value => Utils.roundSymmetric( value ),
 
-      // pdom options - only a few indices to chose from so no need for fine/course control with shift or page
-      // modifier keys
+      // pdom options - This is selecting an index, not the actual value. And there are only a few indices to chose
+      // from, so no need for fine/course control with shift or page modifier keys
       keyboardStep: 1,
       shiftKeyboardStep: 1,
       pageKeyboardStep: 1

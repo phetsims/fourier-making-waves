@@ -9,6 +9,7 @@
  */
 
 import Range from '../../../../dot/js/Range.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
@@ -34,8 +35,8 @@ class XAxisDescription extends AxisDescription {
   createAxisRange( domain, L, T ) {
 
     assert && assert( Domain.includes( domain ) );
-    assert && assert( typeof L === 'number' && L > 0 );
-    assert && assert( typeof T === 'number' && T > 0 );
+    assert && AssertUtils.assertPositiveNumber( L );
+    assert && AssertUtils.assertPositiveNumber( T );
 
     const value = ( domain === Domain.TIME ) ? T : L;
     const xMin = value * this.range.min;
