@@ -118,6 +118,8 @@ class AmplitudesChartNode extends Node {
 
     // y axis ---------------------------------------------------------
 
+    // No y axis!
+
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
@@ -134,8 +136,11 @@ class AmplitudesChartNode extends Node {
 
     const yLabelSet = new LabelSet( chartTransform, Orientation.VERTICAL, Y_TICK_SPACING, {
       edge: 'min',
+
       // Create tick labels with trailing zeros removed from decimal places.
-      createLabel: value => new Text( Utils.toFixedNumber( value, Y_TICK_LABEL_DECIMAL_PLACES ), { fontSize: 12 } )
+      createLabel: value => new Text( Utils.toFixedNumber( value, Y_TICK_LABEL_DECIMAL_PLACES ), {
+        font: FMWConstants.TICK_LABEL_FONT
+      } )
     } );
 
     // ---------------------------------------------------------------
