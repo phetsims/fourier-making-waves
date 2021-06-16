@@ -39,7 +39,10 @@ class WavePacket {
     assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
       'Many things in this implementation assume L === T === 1' );
 
-    // @public index into K1_VALUES, so that we have a linear value to control via Slider
+    //TODO should this be moved to K1Control?
+    // @public index into K1_VALUES. K1_VALUES is a non-linear set of discrete values that we'll be selecting from using
+    // a Slider, with the values appearing at equally-spaced intervals. The Slider will set k1IndexProperty, and that
+    // will determine k1Property.
     this.k1IndexProperty = new NumberProperty( 3, {
       numberType: 'Integer',
       range: new Range( 0, K1_VALUES.length - 1 ),
