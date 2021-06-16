@@ -65,7 +65,7 @@ class WavePacketScreenView extends ScreenView {
     // Amplitudes chart
     const amplitudesChartNode = new WavePacketAmplitudesChartNode( model.amplitudesChart, {
       transformOptions: {
-        modelXRange: new Range( 0, model.significantWidth ),
+        modelXRange: model.wavePacket.xRange,
         modelYRange: new Range( 0, model.maxAmplitude ), //TODO this needs to autoscale!
         viewWidth: DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
         viewHeight: DiscreteScreenView.CHART_RECTANGLE_SIZE.height

@@ -40,7 +40,6 @@ class WavePacketModel {
 
     // @public (read-only)
     this.maxAmplitude = 0.21; //TODO ??
-    this.significantWidth = 24 * Math.PI; //TODO rename
 
     // @public
     this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE, {

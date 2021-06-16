@@ -15,6 +15,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -31,6 +32,8 @@ class WavePacket {
     // @public
     this.L = 1; // wavelength, in meters
     this.T = 1; // period, in milliseconds
+    this.xRange = new Range( 0, 24 * Math.PI );
+    assert && assert( this.xRange.min === 0 );
 
     // Assumptions about L and T that were inherited from the Java version.
     assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
@@ -51,6 +54,18 @@ class WavePacket {
         validValues: COMPONENT_SPACING_VALUES,
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
         tandem: options.tandem.createTandem( 'componentSpacingProperty' )
+      } );
+
+    // @public {DerivedProperty.<number>} the number of components
+    this.numberOfComponentsProperty = new DerivedProperty(
+      [ this.componentSpacingProperty ],
+      componentSpacing => {
+        if ( componentSpacing === 0 ) {
+          return Infinity;
+        }
+        else {
+          return Math.floor( this.xRange.getLength() / componentSpacing ) - 1;
+        }
       } );
 
     // @public k0, the center of the wave packet, in radians/meter
@@ -105,7 +120,7 @@ class WavePacket {
   }
 
   /**
-   * Gets the amplitude of some component, using the standard Gaussian formula:
+   * Gets the amplitude of component k, using the standard Gaussian formula:
    *
    * A(k,k0,dk) = exp[ -((k-k0)^2) / (2 * (dk^2) )  ] / (dk * sqrt( 2pi ))
    *
@@ -120,6 +135,49 @@ class WavePacket {
     const dk = this.dkProperty.value;
     const kk0 = k - k0;
     return Math.exp( -( kk0 * kk0 ) / ( 2 * dk * dk ) ) / ( dk * Math.sqrt( 2 * Math.PI ) );
+  }
+
+  /**
+   * Gets the data set for component amplitudes. If the number of components is infinite, returns an empty data set.
+   * @returns {Vector2[]}
+   * @public
+   */
+  getComponentAmplitudesDataSet() {
+
+    const dataSet = []; // {Vector2}
+    const numberOfComponents = this.numberOfComponentsProperty.value;
+    if ( numberOfComponents !== Infinity ) {
+      const k1 = this.componentSpacingProperty.value;
+
+      for ( let order = 1; order <= numberOfComponents; order++ ) {
+        const kn = order * k1;
+        const An = this.getAmplitude( kn ) * k1;
+        dataSet.push( new Vector2( kn, An ) );
+      }
+    }
+
+    return dataSet;
+  }
+
+  /**
+   * Gets the data set that approximates a continuous waveform.
+   * @returns {Vector2[]}
+   * @public
+   */
+  getContinuousWaveformDataSet() {
+
+    const dataSet = []; // {Vector2[]}
+    const kStep = Math.PI / 10; // set empirically, so that the plot looks smooth
+    const kMax = this.xRange.max + Math.PI;
+
+    let k = this.xRange.min;
+    while ( k <= kMax ) {
+      const amplitude = this.getAmplitude( k );
+      dataSet.add( new Vector2( k, amplitude ) );
+      k += kStep;
+    }
+
+    return dataSet;
   }
 }
 
