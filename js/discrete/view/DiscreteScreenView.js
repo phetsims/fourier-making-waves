@@ -313,6 +313,7 @@ class DiscreteScreenView extends ScreenView {
     this.addChild( screenViewRootNode );
 
     // Get the bounds of the chart rectangles in this coordinate frame, used for layout.
+    // Do this AFTER adding Nodes to the scene graph.
     const harmonicsChartRectangleLocalBounds = this.globalToLocalBounds( harmonicsChartNode.chartRectangle.parentToGlobalBounds( harmonicsChartNode.chartRectangle.bounds ) );
     const sumChartRectangleLocalBounds = this.globalToLocalBounds( sumChartNode.chartRectangle.parentToGlobalBounds( sumChartNode.chartRectangle.bounds ) );
 

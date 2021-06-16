@@ -195,14 +195,16 @@ class WavePacketScreenView extends ScreenView {
     } );
     this.addChild( screenViewRootNode );
 
+    // Get the bounds of the chart rectangles in this coordinate frame, used for layout.
+    // Do this AFTER adding Nodes to the scene graph.
+    const amplitudeChartRectangleLocalBounds = this.globalToLocalBounds( amplitudesChartNode.chartRectangle.parentToGlobalBounds( amplitudesChartNode.chartRectangle.bounds ) );
+    const componentsChartRectangleLocalBounds = this.globalToLocalBounds( componentsChartNode.chartRectangle.parentToGlobalBounds( componentsChartNode.chartRectangle.bounds ) );
+    const sumChartRectangleLocalBounds = this.globalToLocalBounds( sumChartNode.chartRectangle.parentToGlobalBounds( sumChartNode.chartRectangle.bounds ) );
+
     // Center dynamic equations above their respective charts. Since we need to listen to the bounds of these equations
     // in order to respect their maxWidth, wrapper Nodes are transformed for equations that are dynamic.
     // See https://github.com/phetsims/fourier-making-waves/issues/40
     {
-      const amplitudeChartRectangleLocalBounds = this.globalToLocalBounds( amplitudesChartNode.chartRectangle.parentToGlobalBounds( amplitudesChartNode.chartRectangle.bounds ) );
-      const componentsChartRectangleLocalBounds = this.globalToLocalBounds( componentsChartNode.chartRectangle.parentToGlobalBounds( componentsChartNode.chartRectangle.bounds ) );
-      const sumChartRectangleLocalBounds = this.globalToLocalBounds( sumChartNode.chartRectangle.parentToGlobalBounds( sumChartNode.chartRectangle.bounds ) );
-
       amplitudeEquationNode.boundsProperty.link( () => {
         amplitudeEquationNode.centerX = amplitudeChartRectangleLocalBounds.centerX;
         amplitudeEquationNode.bottom = amplitudeChartRectangleLocalBounds.top - 3;
