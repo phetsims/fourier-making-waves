@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -30,14 +31,14 @@ class WavePacketSumEquationNode extends Node {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {NumberProperty} k1Property
+   * @param {DerivedProperty} numberOfComponentsProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, seriesTypeProperty, k1Property, options ) {
+  constructor( domainProperty, seriesTypeProperty, numberOfComponentsProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
-    assert && AssertUtils.assertPropertyOf( k1Property, 'number' );
+    assert && assert( numberOfComponentsProperty instanceof DerivedProperty );
 
     options = merge( {
 
@@ -65,19 +66,21 @@ class WavePacketSumEquationNode extends Node {
 
     super( options );
 
-    // Update the left side of the equation to match the domain.
-    // unlink is not needed.
-    domainProperty.link( domain => {
-      leftNode.text = `${EquationMarkup.getFunctionOfMarkup( domain )} ${EQUAL_TO}`; // F(...) =
-    } );
-
     // unmultilink is not needed.
     Property.multilink(
-      [ domainProperty, seriesTypeProperty, k1Property ],
-      ( domain, seriesType, k1 ) => {
+      [ domainProperty, seriesTypeProperty, numberOfComponentsProperty ],
+      ( domain, seriesType, numberOfComponents ) => {
+
+        // Update the left side of the equation to match the domain.
         leftNode.text = `${EquationMarkup.getFunctionOfMarkup( domain )} ${EQUAL_TO}`; // F(...) =
-        sumSymbolNode.integrationProperty.value = ( k1 === 0 );
-        if ( k1 === 0 ) {
+
+        // Summation vs integration
+        sumSymbolNode.integrationProperty.value = ( numberOfComponents === Infinity );
+
+        // Right side of the equation
+        if ( numberOfComponents === Infinity ) {
+
+          // Infinite number of components
           const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t;
           const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega;
           const seriesTypeString = ( seriesType === SeriesType.SINE ) ? FMWSymbols.sin : FMWSymbols.cos;
@@ -85,6 +88,8 @@ class WavePacketSumEquationNode extends Node {
                            `${seriesTypeString}( ${componentSymbol}${domainSymbol} ) ${FMWSymbols.d}${componentSymbol}`;
         }
         else {
+
+          // Finite number of components, use same equation as above the Components chart.
           rightNode.text = EquationMarkup.getComponentsEquationMarkup( domain, seriesType );
         }
       }

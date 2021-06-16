@@ -7,13 +7,10 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Domain from '../../common/model/Domain.js';
-import XAxisDescription from '../../common/model/XAxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WavePacket from './WavePacket.js';
+import WavePacketChart from './WavePacketChart.js';
 
-class WavePacketSumChart {
+class WavePacketSumChart extends WavePacketChart {
 
   /**
    * @param {WavePacket} wavePacket
@@ -23,19 +20,7 @@ class WavePacketSumChart {
    */
   constructor( wavePacket, domainProperty, xAxisDescriptionProperty, options ) {
 
-    assert && assert( wavePacket instanceof WavePacket );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, XAxisDescription );
-
-    // @public
-    this.wavePacket = wavePacket;
-    this.domainProperty = domainProperty;
-    this.xAxisDescriptionProperty = xAxisDescriptionProperty;
-
-    // @public whether the Sum chart is visible
-    this.chartVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
-    } );
+    super( wavePacket, domainProperty, xAxisDescriptionProperty, options );
 
     // @public whether the envelope of the sum waveform is visible
     this.envelopeVisibleProperty = new BooleanProperty( false, {

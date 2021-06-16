@@ -109,7 +109,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Equation above the Sum chart
     const sumEquationNode = new WavePacketSumEquationNode( model.domainProperty, model.seriesTypeProperty,
-      model.wavePacket.k1Property, {
+      model.wavePacket.numberOfComponentsProperty, {
         visibleProperty: model.sumChart.chartVisibleProperty,
         tandem: sumTandem.createTandem( 'equationNode' )
       } );
