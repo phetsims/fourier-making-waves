@@ -214,7 +214,7 @@ class DiscreteScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'timeControlNode' )
     } );
 
-    // Enabled time controls only when there is the possibility of animation.
+    // Enable time controls only when there is the possibility of animation.
     model.domainProperty.link( domain => {
       timeControlNode.enabled = ( domain === Domain.SPACE_AND_TIME );
     } );
