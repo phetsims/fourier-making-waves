@@ -176,7 +176,7 @@ class WaveformChartNode extends Node {
     // Position the y-axis label at the left of the chart, vertically centered at y=0.
     yAxisLabel.boundsProperty.link( bounds => {
       yAxisLabel.right = chartRectangle.left - FMWConstants.Y_AXIS_LABEL_SPACING;
-      yAxisLabel.centerY = chartTransform.modelToView( Orientation.VERTICAL, yAxis.value );
+      yAxisLabel.centerY = chartTransform.modelToView( Orientation.VERTICAL, xAxis.value /* yes, xAxis.value */ );
     } );
 
     // {Node|undefined} Optional zoom buttons for the y-axis range, at bottom left.
