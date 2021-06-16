@@ -195,7 +195,7 @@ class WavePacketScreenView extends ScreenView {
     } );
     this.addChild( screenViewRootNode );
 
-    // Get the bounds of the chart rectangles in this coordinate frame, used for layout.
+    // Get the bounds of the ChartRectangles in this coordinate frame, used for layout.
     // Do this AFTER adding Nodes to the scene graph.
     const amplitudeChartRectangleLocalBounds = this.globalToLocalBounds( amplitudesChartNode.chartRectangle.parentToGlobalBounds( amplitudesChartNode.chartRectangle.bounds ) );
     const componentsChartRectangleLocalBounds = this.globalToLocalBounds( componentsChartNode.chartRectangle.parentToGlobalBounds( componentsChartNode.chartRectangle.bounds ) );
@@ -205,19 +205,22 @@ class WavePacketScreenView extends ScreenView {
     // in order to respect their maxWidth, wrapper Nodes are transformed for equations that are dynamic.
     // See https://github.com/phetsims/fourier-making-waves/issues/40
     {
+      // Space between top of the ChartRectangle and bottom of the equation
+      const equationYSpacing = 3;
+
       amplitudeEquationNode.boundsProperty.link( () => {
         amplitudeEquationNode.centerX = amplitudeChartRectangleLocalBounds.centerX;
-        amplitudeEquationNode.bottom = amplitudeChartRectangleLocalBounds.top - 3;
+        amplitudeEquationNode.bottom = amplitudeChartRectangleLocalBounds.top - equationYSpacing;
       } );
 
       componentsEquationNode.boundsProperty.link( () => {
         componentsEquationWrapperNode.centerX = componentsChartRectangleLocalBounds.centerX;
-        componentsEquationWrapperNode.bottom = componentsChartRectangleLocalBounds.top - 3;
+        componentsEquationWrapperNode.bottom = componentsChartRectangleLocalBounds.top - equationYSpacing;
       } );
 
       sumEquationNode.boundsProperty.link( () => {
         sumEquationWrapperNode.centerX = sumChartRectangleLocalBounds.centerX;
-        sumEquationWrapperNode.bottom = sumChartRectangleLocalBounds.top - 3;
+        sumEquationWrapperNode.bottom = sumChartRectangleLocalBounds.top - equationYSpacing;
       } );
     }
 

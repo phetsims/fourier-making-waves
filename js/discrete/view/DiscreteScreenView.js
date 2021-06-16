@@ -312,7 +312,7 @@ class DiscreteScreenView extends ScreenView {
     } );
     this.addChild( screenViewRootNode );
 
-    // Get the bounds of the chart rectangles in this coordinate frame, used for layout.
+    // Get the bounds of the ChartRectangles in this coordinate frame, used for layout.
     // Do this AFTER adding Nodes to the scene graph.
     const harmonicsChartRectangleLocalBounds = this.globalToLocalBounds( harmonicsChartNode.chartRectangle.parentToGlobalBounds( harmonicsChartNode.chartRectangle.bounds ) );
     const sumChartRectangleLocalBounds = this.globalToLocalBounds( sumChartNode.chartRectangle.parentToGlobalBounds( sumChartNode.chartRectangle.bounds ) );
@@ -321,11 +321,14 @@ class DiscreteScreenView extends ScreenView {
     // Since we need to listen to the bounds of these equations in order to respect their maxWidth, wrapper Nodes are
     // transformed. See https://github.com/phetsims/fourier-making-waves/issues/40
     {
+      // Space between top of the ChartRectangle and bottom of the equation
+      const equationYSpacing = 3;
+
       harmonicsEquationNode.boundsProperty.link( () => {
 
         // Center the equation above the Harmonics chart.
         harmonicsEquationWrapperNode.centerX = harmonicsChartRectangleLocalBounds.centerX;
-        harmonicsEquationWrapperNode.bottom = harmonicsChartRectangleLocalBounds.top - 3;
+        harmonicsEquationWrapperNode.bottom = harmonicsChartRectangleLocalBounds.top - equationYSpacing;
       } );
 
       sumEquationNode.boundsProperty.link( () => {
@@ -335,7 +338,7 @@ class DiscreteScreenView extends ScreenView {
 
         // Center the equation above the Sum chart.
         sumEquationWrapperNode.centerX = sumChartRectangleLocalBounds.centerX;
-        sumEquationWrapperNode.centerY = sumChartRectangleLocalBounds.top - ( maxHeight / 2 ) - 3;
+        sumEquationWrapperNode.centerY = sumChartRectangleLocalBounds.top - ( maxHeight / 2 ) - equationYSpacing;
 
         // Button to the right of the equation
         expandedFormButton.left = sumEquationWrapperNode.right + 20;
