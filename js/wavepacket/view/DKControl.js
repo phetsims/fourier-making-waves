@@ -113,7 +113,7 @@ class DKSlider extends Slider {
 
     super( dkProperty, dkProperty.range, options );
 
-    //TODO handle this more robustly, less brute-force
+    // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
     const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
     this.addMajorTick( 1, new RichText( '1', textOptions ) );
     this.addMajorTick( Math.PI, new RichText( `${FMWSymbols.pi}`, textOptions ) );

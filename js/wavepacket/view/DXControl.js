@@ -116,7 +116,7 @@ class DXSlider extends Slider {
 
     super( dxProperty, dxProperty.range, options );
 
-    //TODO handle this more robustly, less brute-force
+    // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
     const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
     this.addMajorTick( 1, new RichText( '1', textOptions ) );
     this.addMajorTick( 1 / Math.PI, new RichText( `1/${FMWSymbols.pi}`, textOptions ) );

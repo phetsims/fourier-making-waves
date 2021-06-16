@@ -110,9 +110,9 @@ class K1Slider extends Slider {
       pageKeyboardStep: 1
     }, options );
 
-    // k1Property has a small set of valid values. Only these values are to be selectable, and they are to be
-    // distributed at equal intervals on the Slider.  So we create an index into this set of values that is
-    // actually controlled by the Slider.
+    // k1Property has a small set of valid values. Only those values are to be settable via this Slider, and they are
+    // to be distributed at equally-space tick marks on the Slider. So we create an index into this set of values, and
+    // control that index with the Slider. The selected index determines the value of k1 selected from its valid values.
     const validValues = k1Property.validValues;
     const defaultIndex = validValues.indexOf( k1Property.value );
     const k1IndexProperty = new NumberProperty( defaultIndex, {
@@ -122,7 +122,7 @@ class K1Slider extends Slider {
 
     super( k1IndexProperty, k1IndexProperty.range, options );
 
-    //TODO handle this more robustly, less brute-force
+    // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
     assert && assert( k1IndexProperty.range.getLength() === 4 );
     const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
     this.addMajorTick( 0, new RichText( '0', textOptions ) );
