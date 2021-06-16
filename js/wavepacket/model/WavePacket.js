@@ -16,7 +16,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // valid values for k1 (component spacing)
@@ -39,25 +38,12 @@ class WavePacket {
     assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
       'Many things in this implementation assume L === T === 1' );
 
-    //TODO should this be moved to K1Control?
-    // @public index into K1_VALUES. K1_VALUES is a non-linear set of discrete values that we'll be selecting from using
-    // a Slider, with the values appearing at equally-spaced intervals. The Slider will set k1IndexProperty, and that
-    // will determine k1Property.
-    this.k1IndexProperty = new NumberProperty( 3, {
-      numberType: 'Integer',
-      range: new Range( 0, K1_VALUES.length - 1 ),
-      tandem: options.tandem.createTandem( 'k1IndexProperty' )
-    } );
-
     // @public {DerivedProperty.<number>} k1, the spacing between Fourier components, in radians/meter.
     // dispose is not needed
-    this.k1Property = new DerivedProperty(
-      [ this.k1IndexProperty ],
-      index => K1_VALUES[ index ], {
-        validValues: K1_VALUES,
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
-        tandem: options.tandem.createTandem( 'k1Property' )
-      } );
+    this.k1Property = new NumberProperty( K1_VALUES[ 3 ], {
+      validValues: K1_VALUES,
+      tandem: options.tandem.createTandem( 'k1Property' )
+    } );
 
     // @public {DerivedProperty.<number>} the number of components
     this.numberOfComponentsProperty = new DerivedProperty(
@@ -77,7 +63,7 @@ class WavePacket {
       tandem: options.tandem.createTandem( 'k0Property' )
     } );
 
-    // @public dk is half the wave packet width in k space, in radians/meter.
+    // @public dk, half the wave packet width, in radians/meter.
     this.dkProperty = new NumberProperty( 3 * Math.PI, {
       reentrant: true, //TODO
       range: new Range( 1, 4 * Math.PI ),
@@ -116,7 +102,7 @@ class WavePacket {
    * @public
    */
   reset() {
-    this.k1IndexProperty.reset();
+    this.k1Property.reset();
     this.k0Property.reset();
     this.dkProperty.reset();
     this.dxProperty.reset();

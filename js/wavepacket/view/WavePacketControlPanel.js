@@ -6,8 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
@@ -29,11 +27,11 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacket from '../model/WavePacket.js';
 import WavePacketModel from '../model/WavePacketModel.js';
-import K1Control from './K1Control.js';
-import K0Control from './K0Control.js';
 import DKControl from './DKControl.js';
-import WavePacketSymbolsDialog from './WavePacketSymbolsDialog.js';
 import DXControl from './DXControl.js';
+import K0Control from './K0Control.js';
+import K1Control from './K1Control.js';
+import WavePacketSymbolsDialog from './WavePacketSymbolsDialog.js';
 import WidthIndicatorsCheckbox from './WidthIndicatorsCheckbox.js';
 
 // constants
@@ -57,11 +55,10 @@ class WavePacketControlPanel extends Panel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const fourierSeriesLayoutBox = new FourierSeriesLayoutBox( model.domainProperty,
-      model.wavePacket.k1Property, model.wavePacket.k1IndexProperty, {
-        spacing: VERTICAL_SPACING,
-        tandem: options.tandem.createTandem( 'fourierSeriesLayoutBox' )
-      } );
+    const fourierSeriesLayoutBox = new FourierSeriesLayoutBox( model.domainProperty, model.wavePacket.k1Property, {
+      spacing: VERTICAL_SPACING,
+      tandem: options.tandem.createTandem( 'fourierSeriesLayoutBox' )
+    } );
 
     const sectionNodes = [
 
@@ -136,15 +133,13 @@ class FourierSeriesLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {DerivedProperty} k1Property
-   * @param {NumberProperty} k1IndexProperty
+   * @param {Property} k1Property
    * @param {Object} [options]
    */
-  constructor( domainProperty, k1Property, k1IndexProperty, options ) {
+  constructor( domainProperty, k1Property, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( k1Property instanceof DerivedProperty );
-    assert && assert( k1IndexProperty instanceof NumberProperty );
+    assert && AssertUtils.assertPropertyOf( k1Property, 'number' );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 
@@ -169,7 +164,7 @@ class FourierSeriesLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'componentSpacingText' )
     } );
 
-    const k1Control = new K1Control( domainProperty, k1Property, k1IndexProperty, {
+    const k1Control = new K1Control( domainProperty, k1Property, {
       tandem: options.tandem.createTandem( 'k1Control' )
     } );
 

@@ -2,14 +2,13 @@
 
 /**
  * K1Control displays the value of k1 (component spacing), and allows it to be changed via a slider.
- * It sets k1IndexProperty, which is an index into a small set of valid k1 values.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -29,14 +28,12 @@ class K1Control extends VBox {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {DerivedProperty} k1Property
-   * @param {NumberProperty} k1IndexProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, k1Property, k1IndexProperty, options ) {
+  constructor( domainProperty, k1Property, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( k1Property instanceof DerivedProperty );
-    assert && assert( k1IndexProperty instanceof NumberProperty );
+    assert && AssertUtils.assertPropertyOf( k1Property, 'number' );
 
     options = merge( {
 
@@ -56,7 +53,7 @@ class K1Control extends VBox {
       tandem: options.tandem.createTandem( 'valueNode' )
     } );
 
-    const slider = new K1Slider( k1IndexProperty, {
+    const slider = new K1Slider( k1Property, {
       tandem: options.tandem.createTandem( 'slider' )
     } );
 
@@ -93,13 +90,13 @@ class K1Control extends VBox {
 class K1Slider extends Slider {
 
   /**
-   * @param {Property.<number>} k1IndexProperty
+   * @param {Property.<number>} k1Property
    * @param {Object} [options]
    */
-  constructor( k1IndexProperty, options ) {
+  constructor( k1Property, options ) {
 
-    assert && AssertUtils.assertPropertyOf( k1IndexProperty, 'number' );
-    assert && assert( k1IndexProperty.range );
+    assert && AssertUtils.assertPropertyOf( k1Property, 'number' );
+    assert && assert( k1Property.validValues );
 
     options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
 
@@ -113,6 +110,16 @@ class K1Slider extends Slider {
       pageKeyboardStep: 1
     }, options );
 
+    // k1Property has a small set of valid values. Only these values are to be selectable, and they are to be
+    // distributed at equal intervals on the Slider.  So we create an index into this set of values that is
+    // actually controlled by the Slider.
+    const validValues = k1Property.validValues;
+    const defaultIndex = validValues.indexOf( k1Property.value );
+    const k1IndexProperty = new NumberProperty( defaultIndex, {
+      numberType: 'Integer',
+      range: new Range( 0, validValues.length - 1 )
+    } );
+
     super( k1IndexProperty, k1IndexProperty.range, options );
 
     //TODO handle this more robustly, less brute-force
@@ -123,6 +130,14 @@ class K1Slider extends Slider {
     this.addMajorTick( 2, new RichText( `${FMWSymbols.pi}/2`, textOptions ) );
     this.addMajorTick( 3, new RichText( `${FMWSymbols.pi}`, textOptions ) );
     this.addMajorTick( 4, new RichText( `2${FMWSymbols.pi}`, textOptions ) );
+
+    // Keep k1 and k1Index in sync
+    k1Property.link( k1 => {
+      k1IndexProperty.value = validValues.indexOf( k1 );
+    } );
+    k1IndexProperty.link( k1Index => {
+      k1Property.value = validValues[ k1Index ];
+    } );
   }
 }
 
