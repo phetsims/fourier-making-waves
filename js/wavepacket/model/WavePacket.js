@@ -19,8 +19,8 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-// valid values for componentSpacingProperty
-const COMPONENT_SPACING_VALUES = [ 0, Math.PI / 4, Math.PI / 2, Math.PI, 2 * Math.PI ];
+// valid values for k1 (component spacing)
+const K1_VALUES = [ 0, Math.PI / 4, Math.PI / 2, Math.PI, 2 * Math.PI ];
 
 class WavePacket {
 
@@ -39,32 +39,32 @@ class WavePacket {
     assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
       'Many things in this implementation assume L === T === 1' );
 
-    // @public index into COMPONENT_SPACING_VALUES, so that we have a linear value to control via Slider
-    this.componentSpacingIndexProperty = new NumberProperty( 3, {
+    // @public index into K1_VALUES, so that we have a linear value to control via Slider
+    this.k1IndexProperty = new NumberProperty( 3, {
       numberType: 'Integer',
-      range: new Range( 0, COMPONENT_SPACING_VALUES.length - 1 ),
-      tandem: options.tandem.createTandem( 'componentSpacingIndexProperty' )
+      range: new Range( 0, K1_VALUES.length - 1 ),
+      tandem: options.tandem.createTandem( 'k1IndexProperty' )
     } );
 
-    // @public {DerivedProperty.<number>} spacing between Fourier components, in radians/meter.
+    // @public {DerivedProperty.<number>} k1, the spacing between Fourier components, in radians/meter.
     // dispose is not needed
-    this.componentSpacingProperty = new DerivedProperty(
-      [ this.componentSpacingIndexProperty ],
-      index => COMPONENT_SPACING_VALUES[ index ], {
-        validValues: COMPONENT_SPACING_VALUES,
+    this.k1Property = new DerivedProperty(
+      [ this.k1IndexProperty ],
+      index => K1_VALUES[ index ], {
+        validValues: K1_VALUES,
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
-        tandem: options.tandem.createTandem( 'componentSpacingProperty' )
+        tandem: options.tandem.createTandem( 'k1Property' )
       } );
 
     // @public {DerivedProperty.<number>} the number of components
     this.numberOfComponentsProperty = new DerivedProperty(
-      [ this.componentSpacingProperty ],
-      componentSpacing => {
-        if ( componentSpacing === 0 ) {
+      [ this.k1Property ],
+      k1 => {
+        if ( k1 === 0 ) {
           return Infinity;
         }
         else {
-          return Math.floor( this.xRange.getLength() / componentSpacing ) - 1;
+          return Math.floor( this.xRange.getLength() / k1 ) - 1;
         }
       } );
 
@@ -113,7 +113,7 @@ class WavePacket {
    * @public
    */
   reset() {
-    this.componentSpacingIndexProperty.reset();
+    this.k1IndexProperty.reset();
     this.k0Property.reset();
     this.dkProperty.reset();
     this.dxProperty.reset();
@@ -147,8 +147,7 @@ class WavePacket {
     const dataSet = []; // {Vector2}
     const numberOfComponents = this.numberOfComponentsProperty.value;
     if ( numberOfComponents !== Infinity ) {
-      const k1 = this.componentSpacingProperty.value;
-
+      const k1 = this.k1Property.value;
       for ( let order = 1; order <= numberOfComponents; order++ ) {
         const kn = order * k1;
         const An = this.getAmplitude( kn ) * k1;

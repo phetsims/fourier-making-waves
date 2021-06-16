@@ -29,7 +29,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacket from '../model/WavePacket.js';
 import WavePacketModel from '../model/WavePacketModel.js';
-import ComponentSpacingControl from './ComponentSpacingControl.js';
+import K1Control from './K1Control.js';
 import K0Control from './K0Control.js';
 import DKControl from './DKControl.js';
 import WavePacketSymbolsDialog from './WavePacketSymbolsDialog.js';
@@ -58,7 +58,7 @@ class WavePacketControlPanel extends Panel {
     }, options );
 
     const fourierSeriesLayoutBox = new FourierSeriesLayoutBox( model.domainProperty,
-      model.wavePacket.componentSpacingProperty, model.wavePacket.componentSpacingIndexProperty, {
+      model.wavePacket.k1Property, model.wavePacket.k1IndexProperty, {
         spacing: VERTICAL_SPACING,
         tandem: options.tandem.createTandem( 'fourierSeriesLayoutBox' )
       } );
@@ -136,15 +136,15 @@ class FourierSeriesLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {DerivedProperty} componentSpacingProperty
-   * @param {NumberProperty} componentSpacingIndexProperty
+   * @param {DerivedProperty} k1Property
+   * @param {NumberProperty} k1IndexProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, componentSpacingProperty, componentSpacingIndexProperty, options ) {
+  constructor( domainProperty, k1Property, k1IndexProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( componentSpacingProperty instanceof DerivedProperty );
-    assert && assert( componentSpacingIndexProperty instanceof NumberProperty );
+    assert && assert( k1Property instanceof DerivedProperty );
+    assert && assert( k1IndexProperty instanceof NumberProperty );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 
@@ -169,17 +169,15 @@ class FourierSeriesLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'componentSpacingText' )
     } );
 
-    // Value display and slider
-    const componentSpacingControl = new ComponentSpacingControl( domainProperty, componentSpacingProperty,
-      componentSpacingIndexProperty, {
-        tandem: options.tandem.createTandem( 'componentSpacingControl' )
-      } );
+    const k1Control = new K1Control( domainProperty, k1Property, k1IndexProperty, {
+      tandem: options.tandem.createTandem( 'k1Control' )
+    } );
 
     assert && assert( !options.children, 'FourierSeriesLayoutBox sets children' );
     options.children = [
       fourierSeriesText,
       componentSpacingText,
-      componentSpacingControl
+      k1Control
     ];
 
     super( options );

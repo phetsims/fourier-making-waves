@@ -1,8 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ComponentSpacingControl displays the component spacing value, and allows it to be changed via a slider.
- * It sets componentSpacingIndexProperty, which is an index into a small set of valid spacing values.
+ * K1Control displays the value of k1 (component spacing), and allows it to be changed via a slider.
+ * It sets k1IndexProperty, which is an index into a small set of valid k1 values.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -24,19 +24,19 @@ import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class ComponentSpacingControl extends VBox {
+class K1Control extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {DerivedProperty} componentSpacingProperty
-   * @param {NumberProperty} componentSpacingIndexProperty
+   * @param {DerivedProperty} k1Property
+   * @param {NumberProperty} k1IndexProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, componentSpacingProperty, componentSpacingIndexProperty, options ) {
+  constructor( domainProperty, k1Property, k1IndexProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( componentSpacingProperty instanceof DerivedProperty );
-    assert && assert( componentSpacingIndexProperty instanceof NumberProperty );
+    assert && assert( k1Property instanceof DerivedProperty );
+    assert && assert( k1IndexProperty instanceof NumberProperty );
 
     options = merge( {
 
@@ -56,7 +56,7 @@ class ComponentSpacingControl extends VBox {
       tandem: options.tandem.createTandem( 'valueNode' )
     } );
 
-    const slider = new ComponentSpacingSlider( componentSpacingIndexProperty, {
+    const slider = new K1Slider( k1IndexProperty, {
       tandem: options.tandem.createTandem( 'slider' )
     } );
 
@@ -67,12 +67,12 @@ class ComponentSpacingControl extends VBox {
 
     // Update the displayed value.
     Property.multilink(
-      [ domainProperty, componentSpacingProperty ],
-      ( domain, componentSpacing ) => {
+      [ domainProperty, k1Property ],
+      ( domain, k1 ) => {
         valueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
           symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
           subscript: 1,
-          value: Utils.toFixedNumber( componentSpacing, options.decimals ),
+          value: Utils.toFixedNumber( k1, options.decimals ),
           units: ( domain === Domain.SPACE ) ?
                  fourierMakingWavesStrings.units.radiansPerMeter :
                  fourierMakingWavesStrings.units.radiansPerMillisecond
@@ -90,16 +90,16 @@ class ComponentSpacingControl extends VBox {
   }
 }
 
-class ComponentSpacingSlider extends Slider {
+class K1Slider extends Slider {
 
   /**
-   * @param {Property.<number>} componentSpacingIndexProperty
+   * @param {Property.<number>} k1IndexProperty
    * @param {Object} [options]
    */
-  constructor( componentSpacingIndexProperty, options ) {
+  constructor( k1IndexProperty, options ) {
 
-    assert && AssertUtils.assertPropertyOf( componentSpacingIndexProperty, 'number' );
-    assert && assert( componentSpacingIndexProperty.range );
+    assert && AssertUtils.assertPropertyOf( k1IndexProperty, 'number' );
+    assert && assert( k1IndexProperty.range );
 
     options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
 
@@ -113,10 +113,10 @@ class ComponentSpacingSlider extends Slider {
       pageKeyboardStep: 1
     }, options );
 
-    super( componentSpacingIndexProperty, componentSpacingIndexProperty.range, options );
+    super( k1IndexProperty, k1IndexProperty.range, options );
 
     //TODO handle this more robustly, less brute-force
-    assert && assert( componentSpacingIndexProperty.range.getLength() === 4 );
+    assert && assert( k1IndexProperty.range.getLength() === 4 );
     const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
     this.addMajorTick( 0, new RichText( '0', textOptions ) );
     this.addMajorTick( 1, new RichText( `${FMWSymbols.pi}/4`, textOptions ) );
@@ -126,5 +126,5 @@ class ComponentSpacingSlider extends Slider {
   }
 }
 
-fourierMakingWaves.register( 'ComponentSpacingControl', ComponentSpacingControl );
-export default ComponentSpacingControl;
+fourierMakingWaves.register( 'K1Control', K1Control );
+export default K1Control;

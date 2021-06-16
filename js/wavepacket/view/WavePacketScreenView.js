@@ -109,7 +109,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Equation above the Sum chart
     const sumEquationNode = new WavePacketSumEquationNode( model.domainProperty, model.seriesTypeProperty,
-      model.wavePacket.componentSpacingProperty, {
+      model.wavePacket.k1Property, {
         visibleProperty: model.sumChart.chartVisibleProperty,
         tandem: sumTandem.createTandem( 'equationNode' )
       } );
@@ -209,11 +209,6 @@ class WavePacketScreenView extends ScreenView {
     sumEquationNode.boundsProperty.link( () => {
       sumEquationWrapperNode.centerX = sumChartNode.x + DiscreteScreenView.CHART_RECTANGLE_SIZE.width / 2;
       sumEquationWrapperNode.bottom = sumChartNode.top - 3;
-    } );
-
-    model.wavePacket.componentSpacingProperty.link( componentSpacing => {
-      //TODO hide Components chart and equation if ( componentSpacing === 0),
-      // show message "Cannot show infinite number of components."
     } );
 
     // pdom -traversal order

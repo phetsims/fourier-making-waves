@@ -60,7 +60,7 @@ class ComponentsChartNode extends Node {
     // Fields of interest in componentsChart, to improve readability
     const L = componentsChart.wavePacket.L;
     const T = componentsChart.wavePacket.T;
-    const componentSpacingProperty = componentsChart.wavePacket.componentSpacingProperty;
+    const k1Property = componentsChart.wavePacket.k1Property;
     const domainProperty = componentsChart.domainProperty;
     const xAxisDescriptionProperty = componentsChart.xAxisDescriptionProperty;
 
@@ -157,8 +157,8 @@ class ComponentsChartNode extends Node {
 
     // Show the 'cannot plot' message when we have infinite components.
     // unlink is not needed
-    componentSpacingProperty.link( componentSpacing => {
-      messageNode.visible = ( componentSpacing === 0 );
+    k1Property.link( k1 => {
+      messageNode.visible = ( k1 === 0 );
       //TODO other things to hide when this messageNod is visible?
     } );
 

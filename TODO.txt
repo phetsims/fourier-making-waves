@@ -8,7 +8,7 @@ TODO.txt for fourier-making-waves
 
 # Continuous
 
-Duplication in ComponentSpacingControl, K0Control, DKControl, DXControl
+Duplication in K1Control, K0Control, DKControl, DXControl
 Duplication in ComponentSpacingSlider, WavePacketCenterSlider, WavePacketKWidthSlider, WavePacketXWidthSlider
 Brute-force tick marks in ComponentSpacingSlider, WavePacketCenterSlider, WavePacketKWidthSlider
 Duplication in ComponentsChartNode, WavePacketSumChartNode
