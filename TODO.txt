@@ -6,12 +6,16 @@ TODO.txt for fourier-making-waves
 
 ## Wave Game screen
 
-# Continuous
+# Wave Packet screen
+
+Amplitude BarPlots: see addBarPlots in D2CAmplitudesView.java
+Component LinePlots: see update in D2CComponentsView.java
+Sum LinePlot: see addFourierSeriesPlot in D2CSumView.js
+Continuous Waveform: see addContinuousPlot in D2CAmplitudesView.java and D2CSumView.js
+Waveform Envelope: see updateEnvelope in D2CAmplitudesView.java and D2CSumView.js
 
 Duplication in K1Control, K0Control, DKControl, DXControl
 Duplication in ComponentSpacingSlider, WavePacketCenterSlider, WavePacketKWidthSlider, WavePacketXWidthSlider
-Brute-force tick marks in ComponentSpacingSlider, WavePacketCenterSlider, WavePacketKWidthSlider
-Duplication in ComponentsChartNode, WavePacketSumChartNode
 
 ## PhET-iO
 
