@@ -1,12 +1,12 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO much in common with WaveformChart
 /**
  * WavePacketChart is the base class for the 'Components' and 'Sum' charts on the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -39,11 +39,6 @@ class WavePacketChart {
     this.wavePacket = wavePacket;
     this.domainProperty = domainProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
-
-    // @public whether the Sum chart is visible
-    this.chartVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
-    } );
   }
 
   /**
@@ -51,13 +46,6 @@ class WavePacketChart {
    */
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-  }
-
-  /**
-   * @public
-   */
-  reset() {
-    this.chartVisibleProperty.reset();
   }
 }
 

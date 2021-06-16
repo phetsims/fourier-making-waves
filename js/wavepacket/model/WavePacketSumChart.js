@@ -22,6 +22,11 @@ class WavePacketSumChart extends WavePacketChart {
 
     super( wavePacket, domainProperty, xAxisDescriptionProperty, options );
 
+    // @public whether the Sum chart is visible
+    this.chartVisibleProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
+    } );
+
     // @public whether the envelope of the sum waveform is visible
     this.envelopeVisibleProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'envelopeVisibleProperty' )
