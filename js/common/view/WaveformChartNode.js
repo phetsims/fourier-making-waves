@@ -105,6 +105,12 @@ class WaveformChartNode extends Node {
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
+    // Position the x-axis label at the right of the chart, vertically centered at y=0.
+    xAxisLabel.boundsProperty.link( bounds => {
+      xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
+      xAxisLabel.centerY = chartTransform.modelToView( Orientation.VERTICAL, xAxis.value );
+    } );
+
     // {Node|undefined} Optional zoom buttons for the x-axis range, at bottom right.
     let xZoomButtonGroup;
     if ( waveformChart.hasXZoom ) {
@@ -163,10 +169,14 @@ class WaveformChartNode extends Node {
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
-      right: chartRectangle.left - FMWConstants.Y_AXIS_LABEL_SPACING,
-      centerY: chartRectangle.centerY,
       maxWidth: 0.85 * chartRectangle.height,
       tandem: options.tandem.createTandem( 'yAxisLabel' )
+    } );
+
+    // Position the y-axis label at the left of the chart, vertically centered at y=0.
+    yAxisLabel.boundsProperty.link( bounds => {
+      yAxisLabel.right = chartRectangle.left - FMWConstants.Y_AXIS_LABEL_SPACING;
+      yAxisLabel.centerY = chartTransform.modelToView( Orientation.VERTICAL, yAxis.value );
     } );
 
     // {Node|undefined} Optional zoom buttons for the y-axis range, at bottom left.

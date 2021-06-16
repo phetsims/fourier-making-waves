@@ -81,6 +81,12 @@ class WavePacketChartNode extends Node {
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
+    // Position the x-axis label at the right of the chart, vertically centered at y=0.
+    xAxisLabel.boundsProperty.link( bounds => {
+      xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
+      xAxisLabel.centerY = chartTransform.modelToView( Orientation.VERTICAL, xAxis.value );
+    } );
+
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL,
       xAxisDescriptionProperty.value.gridLineSpacing, FMWConstants.GRID_LINE_OPTIONS );
 
@@ -121,10 +127,14 @@ class WavePacketChartNode extends Node {
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
-      right: chartRectangle.left - FMWConstants.Y_AXIS_LABEL_SPACING,
-      centerY: chartRectangle.centerY,
       maxWidth: 0.85 * chartRectangle.height,
       tandem: options.tandem.createTandem( 'yAxisLabel' )
+    } );
+
+    // Position the y-axis label at the left of the chart, vertically centered at y=0.
+    yAxisLabel.boundsProperty.link( bounds => {
+      yAxisLabel.right = chartRectangle.left - FMWConstants.Y_AXIS_LABEL_SPACING;
+      yAxisLabel.centerY = chartTransform.modelToView( Orientation.VERTICAL, yAxis.value );
     } );
 
     //TODO yGridLines
@@ -145,18 +155,12 @@ class WavePacketChartNode extends Node {
     // Adjust the x-axis label to match the domain.
     // unlink is not needed.
     domainProperty.link( domain => {
-
-      // update the label
       xAxisLabel.text = StringUtils.fillIn( fourierMakingWavesStrings.xAxisLabel, {
         symbol: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t,
         units: ( domain === Domain.SPACE ) ?
                fourierMakingWavesStrings.units.meters :
                fourierMakingWavesStrings.units.milliseconds
       } );
-
-      // position at left of chart, vertically centered on the x axis
-      xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
-      xAxisLabel.centerY = chartRectangle.centerY;
     } );
 
     // @public for layout
