@@ -142,6 +142,8 @@ class WavePacketChartNode extends Node {
     //TODO yTickLabels
     //TODO auto-scale to the appropriate yAxisDescription
 
+    // ----------------------------------------------------------------
+
     assert && assert( !options.children );
     options.children = [
       xTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
