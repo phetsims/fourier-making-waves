@@ -1,11 +1,12 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WavePacketCenterControl displays the wave packet center value, and allows it to be changed via a slider.
+ * DXControl displays the wave packet's dx value, and allows it to be changed via a slider.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -22,21 +23,21 @@ import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class WavePacketCenterControl extends VBox {
+class DXControl extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} wavePacketCenterProperty
+   * @param {NumberProperty} dxProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, wavePacketCenterProperty, options ) {
+  constructor( domainProperty, dxProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( wavePacketCenterProperty instanceof NumberProperty );
+    assert && assert( dxProperty instanceof NumberProperty );
 
     options = merge( {
 
-      decimals: 1,
+      decimals: 3,
 
       // VBox options
       spacing: 5,
@@ -52,7 +53,7 @@ class WavePacketCenterControl extends VBox {
       tandem: options.tandem.createTandem( 'valueNode' )
     } );
 
-    const slider = new WavePacketCenterSlider( wavePacketCenterProperty, {
+    const slider = new DXSlider( dxProperty, {
       tandem: options.tandem.createTandem( 'slider' )
     } );
 
@@ -63,17 +64,22 @@ class WavePacketCenterControl extends VBox {
 
     // Update the displayed value.
     Property.multilink(
-      [ domainProperty, wavePacketCenterProperty ],
-      ( domain, wavePacketCenter ) => {
+      [ domainProperty, dxProperty ],
+      ( domain, xWidth ) => {
         valueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
-          symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
-          subscript: 0,
-          value: Utils.toFixedNumber( wavePacketCenter, options.decimals ),
+          symbol: FMWSymbols.sigma,
+          subscript: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t,
+          value: Utils.toFixedNumber( xWidth, options.decimals ),
           units: ( domain === Domain.SPACE ) ?
                  fourierMakingWavesStrings.units.radiansPerMeter :
                  fourierMakingWavesStrings.units.radiansPerMillisecond
         } );
       } );
+
+    // @public {DerivedProperty.<boolean>} Whether the user is interacting with this control.
+    this.isPressedProperty = new DerivedProperty(
+      [ slider.thumbDragListener.isPressedProperty, slider.trackDragListener.isPressedProperty ],
+      ( thumbIsPressed, trackIsPressed ) => ( thumbIsPressed || trackIsPressed ) );
   }
 
   /**
@@ -86,38 +92,37 @@ class WavePacketCenterControl extends VBox {
   }
 }
 
-class WavePacketCenterSlider extends Slider {
+class DXSlider extends Slider {
 
   /**
-   * @param {NumberProperty} wavePacketCenterProperty
+   * @param {NumberProperty} dxProperty
    * @param {Object} [options]
    */
-  constructor( wavePacketCenterProperty, options ) {
+  constructor( dxProperty, options ) {
 
-    assert && assert( wavePacketCenterProperty instanceof NumberProperty );
-    assert && assert( wavePacketCenterProperty.range );
+    assert && assert( dxProperty instanceof NumberProperty );
+    assert && assert( dxProperty.range );
 
     options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
 
+      // DXSlider options
+      tickDecimals: 3,
+
       // pdom options
-      keyboardStep: 1,
-      shiftKeyboardStep: 0.1,
-      pageKeyboardStep: Math.PI
+      keyboardStep: 0.01,
+      shiftKeyboardStep: 0.001,
+      pageKeyboardStep: 0.1
     }, options );
 
-    super( wavePacketCenterProperty, wavePacketCenterProperty.range, options );
+    super( dxProperty, dxProperty.range, options );
 
     //TODO handle this more robustly, less brute-force
     const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
-    this.addMajorTick( 9 * Math.PI, new RichText( `9${FMWSymbols.pi}`, textOptions ) );
-    this.addMinorTick( 10 * Math.PI, new RichText( '', textOptions ) );
-    this.addMinorTick( 11 * Math.PI, new RichText( '', textOptions ) );
-    this.addMajorTick( 12 * Math.PI, new RichText( `12${FMWSymbols.pi}`, textOptions ) );
-    this.addMinorTick( 13 * Math.PI, new RichText( '', textOptions ) );
-    this.addMinorTick( 14 * Math.PI, new RichText( '', textOptions ) );
-    this.addMajorTick( 15 * Math.PI, new RichText( `15${FMWSymbols.pi}`, textOptions ) );
+    this.addMajorTick( 1, new RichText( '1', textOptions ) );
+    this.addMajorTick( 1 / Math.PI, new RichText( `1/${FMWSymbols.pi}`, textOptions ) );
+    this.addMajorTick( 1 / ( 4 * Math.PI ), new RichText( `1/(4${FMWSymbols.pi})`, textOptions ) );
   }
 }
 
-fourierMakingWaves.register( 'WavePacketCenterControl', WavePacketCenterControl );
-export default WavePacketCenterControl;
+fourierMakingWaves.register( 'DXControl', DXControl );
+export default DXControl;

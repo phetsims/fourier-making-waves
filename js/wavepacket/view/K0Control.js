@@ -1,12 +1,11 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WavePacketKWidthControl displays the wave packet width in k space, and allows it to be changed via a slider.
+ * K0Control displays the value of k0, the wave packet's center, and allows it to be changed via a slider.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -23,21 +22,21 @@ import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class WavePacketKWidthControl extends VBox {
+class K0Control extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} dkProperty
+   * @param {NumberProperty} k0Property
    * @param {Object} [options]
    */
-  constructor( domainProperty, dkProperty, options ) {
+  constructor( domainProperty, k0Property, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( dkProperty instanceof NumberProperty );
+    assert && assert( k0Property instanceof NumberProperty );
 
     options = merge( {
 
-      decimals: 2,
+      decimals: 1,
 
       // VBox options
       spacing: 5,
@@ -53,7 +52,7 @@ class WavePacketKWidthControl extends VBox {
       tandem: options.tandem.createTandem( 'valueNode' )
     } );
 
-    const slider = new WavePacketKWidthSlider( dkProperty, {
+    const slider = new K0Slider( k0Property, {
       tandem: options.tandem.createTandem( 'slider' )
     } );
 
@@ -64,22 +63,17 @@ class WavePacketKWidthControl extends VBox {
 
     // Update the displayed value.
     Property.multilink(
-      [ domainProperty, dkProperty ],
-      ( domain, kWidth ) => {
+      [ domainProperty, k0Property ],
+      ( domain, wavePacketCenter ) => {
         valueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
-          symbol: FMWSymbols.sigma,
-          subscript: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
-          value: Utils.toFixedNumber( kWidth, options.decimals ),
+          symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
+          subscript: 0,
+          value: Utils.toFixedNumber( wavePacketCenter, options.decimals ),
           units: ( domain === Domain.SPACE ) ?
                  fourierMakingWavesStrings.units.radiansPerMeter :
                  fourierMakingWavesStrings.units.radiansPerMillisecond
         } );
       } );
-
-    // @public {DerivedProperty.<boolean>} Whether the user is interacting with this control.
-    this.isPressedProperty = new DerivedProperty(
-      [ slider.thumbDragListener.isPressedProperty, slider.trackDragListener.isPressedProperty ],
-      ( thumbIsPressed, trackIsPressed ) => ( thumbIsPressed || trackIsPressed ) );
   }
 
   /**
@@ -92,36 +86,38 @@ class WavePacketKWidthControl extends VBox {
   }
 }
 
-class WavePacketKWidthSlider extends Slider {
+class K0Slider extends Slider {
 
   /**
-   * @param {NumberProperty} dkProperty
+   * @param {NumberProperty} k0Property
    * @param {Object} [options]
    */
-  constructor( dkProperty, options ) {
+  constructor( k0Property, options ) {
 
-    assert && assert( dkProperty instanceof NumberProperty );
-    assert && assert( dkProperty.range );
+    assert && assert( k0Property instanceof NumberProperty );
+    assert && assert( k0Property.range );
 
     options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
 
       // pdom options
       keyboardStep: 1,
-      shiftKeyboardStep: 0.01,
+      shiftKeyboardStep: 0.1,
       pageKeyboardStep: Math.PI
     }, options );
 
-    super( dkProperty, dkProperty.range, options );
+    super( k0Property, k0Property.range, options );
 
     //TODO handle this more robustly, less brute-force
     const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
-    this.addMajorTick( 1, new RichText( '1', textOptions ) );
-    this.addMajorTick( Math.PI, new RichText( `${FMWSymbols.pi}`, textOptions ) );
-    this.addMajorTick( 2 * Math.PI, new RichText( `2${FMWSymbols.pi}`, textOptions ) );
-    this.addMajorTick( 3 * Math.PI, new RichText( `3${FMWSymbols.pi}`, textOptions ) );
-    this.addMajorTick( 4 * Math.PI, new RichText( `4${FMWSymbols.pi}`, textOptions ) );
+    this.addMajorTick( 9 * Math.PI, new RichText( `9${FMWSymbols.pi}`, textOptions ) );
+    this.addMinorTick( 10 * Math.PI, new RichText( '', textOptions ) );
+    this.addMinorTick( 11 * Math.PI, new RichText( '', textOptions ) );
+    this.addMajorTick( 12 * Math.PI, new RichText( `12${FMWSymbols.pi}`, textOptions ) );
+    this.addMinorTick( 13 * Math.PI, new RichText( '', textOptions ) );
+    this.addMinorTick( 14 * Math.PI, new RichText( '', textOptions ) );
+    this.addMajorTick( 15 * Math.PI, new RichText( `15${FMWSymbols.pi}`, textOptions ) );
   }
 }
 
-fourierMakingWaves.register( 'WavePacketKWidthControl', WavePacketKWidthControl );
-export default WavePacketKWidthControl;
+fourierMakingWaves.register( 'K0Control', K0Control );
+export default K0Control;

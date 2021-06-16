@@ -30,10 +30,10 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacket from '../model/WavePacket.js';
 import WavePacketModel from '../model/WavePacketModel.js';
 import ComponentSpacingControl from './ComponentSpacingControl.js';
-import WavePacketCenterControl from './WavePacketCenterControl.js';
-import WavePacketKWidthControl from './WavePacketKWidthControl.js';
+import K0Control from './K0Control.js';
+import DKControl from './DKControl.js';
 import WavePacketSymbolsDialog from './WavePacketSymbolsDialog.js';
-import WavePacketXWidthControl from './WavePacketXWidthControl.js';
+import DXControl from './DXControl.js';
 import WidthIndicatorsCheckbox from './WidthIndicatorsCheckbox.js';
 
 // constants
@@ -235,8 +235,8 @@ class WavePacketLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'centerText' )
     } );
 
-    const wavePacketCenterControl = new WavePacketCenterControl( domainProperty, wavePacket.centerProperty, {
-      tandem: options.tandem.createTandem( 'wavePacketCenterControl' )
+    const k0Control = new K0Control( domainProperty, wavePacket.k0Property, {
+      tandem: options.tandem.createTandem( 'k0Control' )
     } );
 
     // Width
@@ -246,11 +246,11 @@ class WavePacketLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'widthText' )
     } );
 
-    const dkControl = new WavePacketKWidthControl( domainProperty, wavePacket.dkProperty, {
+    const dkControl = new DKControl( domainProperty, wavePacket.dkProperty, {
       tandem: options.tandem.createTandem( 'dkControl' )
     } );
 
-    const dxControl = new WavePacketXWidthControl( domainProperty, wavePacket.dxProperty, {
+    const dxControl = new DXControl( domainProperty, wavePacket.dxProperty, {
       tandem: options.tandem.createTandem( 'dxControl' )
     } );
 
@@ -262,7 +262,7 @@ class WavePacketLayoutBox extends VBox {
     options.children = [
       wavePacketText,
       centerText,
-      wavePacketCenterControl,
+      k0Control,
       widthText,
       dkControl,
       dxControl,

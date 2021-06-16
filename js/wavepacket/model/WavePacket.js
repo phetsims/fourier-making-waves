@@ -53,10 +53,10 @@ class WavePacket {
         tandem: options.tandem.createTandem( 'componentSpacingProperty' )
       } );
 
-    // @public center of the wave packet, in radians/meter
-    this.centerProperty = new NumberProperty( 12 * Math.PI, {
+    // @public k0, the center of the wave packet, in radians/meter
+    this.k0Property = new NumberProperty( 12 * Math.PI, {
       range: new Range( 9 * Math.PI, 15 * Math.PI ),
-      tandem: options.tandem.createTandem( 'centerProperty' )
+      tandem: options.tandem.createTandem( 'k0Property' )
     } );
 
     // @public dk is half the wave packet width in k space, in radians/meter.
@@ -99,7 +99,7 @@ class WavePacket {
    */
   reset() {
     this.componentSpacingIndexProperty.reset();
-    this.centerProperty.reset();
+    this.k0Property.reset();
     this.dkProperty.reset();
     this.dxProperty.reset();
   }
@@ -116,7 +116,7 @@ class WavePacket {
   getAmplitude( k ) {
     assert && assert( typeof k === 'number' );
 
-    const k0 = this.centerProperty.value;
+    const k0 = this.k0Property.value;
     const dk = this.dkProperty.value;
     const kk0 = k - k0;
     return Math.exp( -( kk0 * kk0 ) / ( 2 * dk * dk ) ) / ( dk * Math.sqrt( 2 * Math.PI ) );

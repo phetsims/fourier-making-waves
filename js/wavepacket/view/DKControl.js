@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WavePacketXWidthControl displays the wave packet width in x space, and allows it to be changed via a slider.
+ * DKControl displays the wave packet's dk value, and allows it to be changed via a slider.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -23,21 +23,21 @@ import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class WavePacketXWidthControl extends VBox {
+class DKControl extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} dxProperty
+   * @param {NumberProperty} dkProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, dxProperty, options ) {
+  constructor( domainProperty, dkProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( dxProperty instanceof NumberProperty );
+    assert && assert( dkProperty instanceof NumberProperty );
 
     options = merge( {
 
-      decimals: 3,
+      decimals: 2,
 
       // VBox options
       spacing: 5,
@@ -53,7 +53,7 @@ class WavePacketXWidthControl extends VBox {
       tandem: options.tandem.createTandem( 'valueNode' )
     } );
 
-    const slider = new WavePacketXWidthSlider( dxProperty, {
+    const slider = new DKSlider( dkProperty, {
       tandem: options.tandem.createTandem( 'slider' )
     } );
 
@@ -64,12 +64,12 @@ class WavePacketXWidthControl extends VBox {
 
     // Update the displayed value.
     Property.multilink(
-      [ domainProperty, dxProperty ],
-      ( domain, xWidth ) => {
+      [ domainProperty, dkProperty ],
+      ( domain, kWidth ) => {
         valueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
           symbol: FMWSymbols.sigma,
-          subscript: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t,
-          value: Utils.toFixedNumber( xWidth, options.decimals ),
+          subscript: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
+          value: Utils.toFixedNumber( kWidth, options.decimals ),
           units: ( domain === Domain.SPACE ) ?
                  fourierMakingWavesStrings.units.radiansPerMeter :
                  fourierMakingWavesStrings.units.radiansPerMillisecond
@@ -92,37 +92,36 @@ class WavePacketXWidthControl extends VBox {
   }
 }
 
-class WavePacketXWidthSlider extends Slider {
+class DKSlider extends Slider {
 
   /**
-   * @param {NumberProperty} dxProperty
+   * @param {NumberProperty} dkProperty
    * @param {Object} [options]
    */
-  constructor( dxProperty, options ) {
+  constructor( dkProperty, options ) {
 
-    assert && assert( dxProperty instanceof NumberProperty );
-    assert && assert( dxProperty.range );
+    assert && assert( dkProperty instanceof NumberProperty );
+    assert && assert( dkProperty.range );
 
     options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
 
-      // WavePacketXWidthSlider options
-      tickDecimals: 3,
-
       // pdom options
-      keyboardStep: 0.01,
-      shiftKeyboardStep: 0.001,
-      pageKeyboardStep: 0.1
+      keyboardStep: 1,
+      shiftKeyboardStep: 0.01,
+      pageKeyboardStep: Math.PI
     }, options );
 
-    super( dxProperty, dxProperty.range, options );
+    super( dkProperty, dkProperty.range, options );
 
     //TODO handle this more robustly, less brute-force
     const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
     this.addMajorTick( 1, new RichText( '1', textOptions ) );
-    this.addMajorTick( 1 / Math.PI, new RichText( `1/${FMWSymbols.pi}`, textOptions ) );
-    this.addMajorTick( 1 / ( 4 * Math.PI ), new RichText( `1/(4${FMWSymbols.pi})`, textOptions ) );
+    this.addMajorTick( Math.PI, new RichText( `${FMWSymbols.pi}`, textOptions ) );
+    this.addMajorTick( 2 * Math.PI, new RichText( `2${FMWSymbols.pi}`, textOptions ) );
+    this.addMajorTick( 3 * Math.PI, new RichText( `3${FMWSymbols.pi}`, textOptions ) );
+    this.addMajorTick( 4 * Math.PI, new RichText( `4${FMWSymbols.pi}`, textOptions ) );
   }
 }
 
-fourierMakingWaves.register( 'WavePacketXWidthControl', WavePacketXWidthControl );
-export default WavePacketXWidthControl;
+fourierMakingWaves.register( 'DKControl', DKControl );
+export default DKControl;
