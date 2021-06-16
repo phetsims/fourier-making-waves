@@ -246,12 +246,12 @@ class WavePacketLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'widthText' )
     } );
 
-    const kWidthControl = new WavePacketKWidthControl( domainProperty, wavePacket.kWidthProperty, {
-      tandem: options.tandem.createTandem( 'kWidthControl' )
+    const dkControl = new WavePacketKWidthControl( domainProperty, wavePacket.dkProperty, {
+      tandem: options.tandem.createTandem( 'dkControl' )
     } );
 
-    const xWidthControl = new WavePacketXWidthControl( domainProperty, wavePacket.xWidthProperty, {
-      tandem: options.tandem.createTandem( 'xWidthControl' )
+    const dxControl = new WavePacketXWidthControl( domainProperty, wavePacket.dxProperty, {
+      tandem: options.tandem.createTandem( 'dxControl' )
     } );
 
     const widthIndicatorsCheckbox = new WidthIndicatorsCheckbox( widthIndicatorsVisibleProperty, {
@@ -264,8 +264,8 @@ class WavePacketLayoutBox extends VBox {
       centerText,
       wavePacketCenterControl,
       widthText,
-      kWidthControl,
-      xWidthControl,
+      dkControl,
+      dxControl,
       widthIndicatorsCheckbox
     ];
 

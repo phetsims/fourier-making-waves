@@ -27,13 +27,13 @@ class WavePacketKWidthControl extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} kWidthProperty
+   * @param {NumberProperty} dkProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, kWidthProperty, options ) {
+  constructor( domainProperty, dkProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( kWidthProperty instanceof NumberProperty );
+    assert && assert( dkProperty instanceof NumberProperty );
 
     options = merge( {
 
@@ -53,7 +53,7 @@ class WavePacketKWidthControl extends VBox {
       tandem: options.tandem.createTandem( 'valueNode' )
     } );
 
-    const slider = new WavePacketKWidthSlider( kWidthProperty, {
+    const slider = new WavePacketKWidthSlider( dkProperty, {
       tandem: options.tandem.createTandem( 'slider' )
     } );
 
@@ -64,7 +64,7 @@ class WavePacketKWidthControl extends VBox {
 
     // Update the displayed value.
     Property.multilink(
-      [ domainProperty, kWidthProperty ],
+      [ domainProperty, dkProperty ],
       ( domain, kWidth ) => {
         valueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
           symbol: FMWSymbols.sigma,
@@ -95,13 +95,13 @@ class WavePacketKWidthControl extends VBox {
 class WavePacketKWidthSlider extends Slider {
 
   /**
-   * @param {NumberProperty} kWidthProperty
+   * @param {NumberProperty} dkProperty
    * @param {Object} [options]
    */
-  constructor( kWidthProperty, options ) {
+  constructor( dkProperty, options ) {
 
-    assert && assert( kWidthProperty instanceof NumberProperty );
-    assert && assert( kWidthProperty.range );
+    assert && assert( dkProperty instanceof NumberProperty );
+    assert && assert( dkProperty.range );
 
     options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
 
@@ -111,7 +111,7 @@ class WavePacketKWidthSlider extends Slider {
       pageKeyboardStep: Math.PI
     }, options );
 
-    super( kWidthProperty, kWidthProperty.range, options );
+    super( dkProperty, dkProperty.range, options );
 
     //TODO handle this more robustly, less brute-force
     const textOptions = { font: FMWConstants.TICK_LABEL_FONT };

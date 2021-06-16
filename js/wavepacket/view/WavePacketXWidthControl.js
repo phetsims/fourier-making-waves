@@ -27,13 +27,13 @@ class WavePacketXWidthControl extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} xWidthProperty
+   * @param {NumberProperty} dxProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, xWidthProperty, options ) {
+  constructor( domainProperty, dxProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( xWidthProperty instanceof NumberProperty );
+    assert && assert( dxProperty instanceof NumberProperty );
 
     options = merge( {
 
@@ -53,7 +53,7 @@ class WavePacketXWidthControl extends VBox {
       tandem: options.tandem.createTandem( 'valueNode' )
     } );
 
-    const slider = new WavePacketXWidthSlider( xWidthProperty, {
+    const slider = new WavePacketXWidthSlider( dxProperty, {
       tandem: options.tandem.createTandem( 'slider' )
     } );
 
@@ -64,7 +64,7 @@ class WavePacketXWidthControl extends VBox {
 
     // Update the displayed value.
     Property.multilink(
-      [ domainProperty, xWidthProperty ],
+      [ domainProperty, dxProperty ],
       ( domain, xWidth ) => {
         valueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
           symbol: FMWSymbols.sigma,
@@ -95,13 +95,13 @@ class WavePacketXWidthControl extends VBox {
 class WavePacketXWidthSlider extends Slider {
 
   /**
-   * @param {NumberProperty} xWidthProperty
+   * @param {NumberProperty} dxProperty
    * @param {Object} [options]
    */
-  constructor( xWidthProperty, options ) {
+  constructor( dxProperty, options ) {
 
-    assert && assert( xWidthProperty instanceof NumberProperty );
-    assert && assert( xWidthProperty.range );
+    assert && assert( dxProperty instanceof NumberProperty );
+    assert && assert( dxProperty.range );
 
     options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
 
@@ -114,7 +114,7 @@ class WavePacketXWidthSlider extends Slider {
       pageKeyboardStep: 0.1
     }, options );
 
-    super( xWidthProperty, xWidthProperty.range, options );
+    super( dxProperty, dxProperty.range, options );
 
     //TODO handle this more robustly, less brute-force
     const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
