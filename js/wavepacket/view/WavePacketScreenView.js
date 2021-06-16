@@ -56,8 +56,8 @@ class WavePacketScreenView extends ScreenView {
     // Parent tandem for all components related to the Components chart
     const amplitudesTandem = options.tandem.createTandem( 'amplitudes' );
 
-    // An equation
-    const amplitudeChartEquationNode = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
+    // Equation above the Amplitudes chart
+    const amplitudeEquationNode = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
       font: FMWConstants.EQUATION_FONT,
       tandem: amplitudesTandem.createTandem( 'equationNode' )
     } );
@@ -153,10 +153,6 @@ class WavePacketScreenView extends ScreenView {
       amplitudesChartNode.x = DiscreteScreenView.X_CHART_RECTANGLES;
       amplitudesChartNode.y = 32;
 
-      // Equation centered above Amplitudes chart
-      amplitudeChartEquationNode.centerX = amplitudesChartNode.x + DiscreteScreenView.CHART_RECTANGLE_SIZE.width / 2;
-      amplitudeChartEquationNode.bottom = amplitudesChartNode.y - 3;
-
       // Components chart below the Amplitudes chart
       componentsExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
       componentsExpandCollapseButton.top = amplitudesChartNode.bottom;
@@ -182,7 +178,7 @@ class WavePacketScreenView extends ScreenView {
     // This should improve startup performance, compared to calling this.addChild for each Node.
     const screenViewRootNode = new Node( {
       children: [
-        amplitudeChartEquationNode,
+        amplitudeEquationNode,
         amplitudesChartNode,
         componentsEquationWrapperNode,
         componentsExpandCollapseButton,
@@ -199,17 +195,29 @@ class WavePacketScreenView extends ScreenView {
     } );
     this.addChild( screenViewRootNode );
 
-    // Center dynamic equations above their respective charts.
-    // Since we need to listen to the bounds of these equations in order to respect their maxWidth, wrapper Nodes are
-    // transformed. See https://github.com/phetsims/fourier-making-waves/issues/40
-    componentsEquationNode.boundsProperty.link( () => {
-      componentsEquationWrapperNode.centerX = componentsChartNode.x + DiscreteScreenView.CHART_RECTANGLE_SIZE.width / 2;
-      componentsEquationWrapperNode.bottom = componentsChartNode.y - 3;
-    } );
-    sumEquationNode.boundsProperty.link( () => {
-      sumEquationWrapperNode.centerX = sumChartNode.x + DiscreteScreenView.CHART_RECTANGLE_SIZE.width / 2;
-      sumEquationWrapperNode.bottom = sumChartNode.y - 3;
-    } );
+    // Center dynamic equations above their respective charts. Since we need to listen to the bounds of these equations
+    // in order to respect their maxWidth, wrapper Nodes are transformed for equations that are dynamic.
+    // See https://github.com/phetsims/fourier-making-waves/issues/40
+    {
+      const amplitudeChartRectangleLocalBounds = this.globalToLocalBounds( amplitudesChartNode.chartRectangle.parentToGlobalBounds( amplitudesChartNode.chartRectangle.bounds ) );
+      const componentsChartRectangleLocalBounds = this.globalToLocalBounds( componentsChartNode.chartRectangle.parentToGlobalBounds( componentsChartNode.chartRectangle.bounds ) );
+      const sumChartRectangleLocalBounds = this.globalToLocalBounds( sumChartNode.chartRectangle.parentToGlobalBounds( sumChartNode.chartRectangle.bounds ) );
+
+      amplitudeEquationNode.boundsProperty.link( () => {
+        amplitudeEquationNode.centerX = amplitudeChartRectangleLocalBounds.centerX;
+        amplitudeEquationNode.bottom = amplitudeChartRectangleLocalBounds.top - 3;
+      } );
+
+      componentsEquationNode.boundsProperty.link( () => {
+        componentsEquationWrapperNode.centerX = componentsChartRectangleLocalBounds.centerX;
+        componentsEquationWrapperNode.bottom = componentsChartRectangleLocalBounds.top - 3;
+      } );
+
+      sumEquationNode.boundsProperty.link( () => {
+        sumEquationWrapperNode.centerX = sumChartRectangleLocalBounds.centerX;
+        sumEquationWrapperNode.bottom = sumChartRectangleLocalBounds.top - 3;
+      } );
+    }
 
     // pdom -traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53

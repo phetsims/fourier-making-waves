@@ -319,26 +319,28 @@ class DiscreteScreenView extends ScreenView {
     // Center equations above their respective charts.
     // Since we need to listen to the bounds of these equations in order to respect their maxWidth, wrapper Nodes are
     // transformed. See https://github.com/phetsims/fourier-making-waves/issues/40
-    harmonicsEquationNode.boundsProperty.link( () => {
+    {
+      harmonicsEquationNode.boundsProperty.link( () => {
 
-      // Center the equation above the Harmonics chart.
-      harmonicsEquationWrapperNode.centerX = harmonicsChartRectangleLocalBounds.centerX;
-      harmonicsEquationWrapperNode.bottom = harmonicsChartRectangleLocalBounds.top - 3;
-    } );
+        // Center the equation above the Harmonics chart.
+        harmonicsEquationWrapperNode.centerX = harmonicsChartRectangleLocalBounds.centerX;
+        harmonicsEquationWrapperNode.bottom = harmonicsChartRectangleLocalBounds.top - 3;
+      } );
 
-    sumEquationNode.boundsProperty.link( () => {
+      sumEquationNode.boundsProperty.link( () => {
 
-      // Ensure that expandedFormButton is always above the chart, regardless of how tall the equation is.
-      const maxHeight = Math.max( sumEquationNode.height, expandedFormButton.height );
+        // Ensure that expandedFormButton is always above the chart, regardless of how tall the equation is.
+        const maxHeight = Math.max( sumEquationNode.height, expandedFormButton.height );
 
-      // Center the equation above the Sum chart.
-      sumEquationWrapperNode.centerX = sumChartRectangleLocalBounds.centerX;
-      sumEquationWrapperNode.centerY = sumChartRectangleLocalBounds.top - ( maxHeight / 2 ) - 3;
+        // Center the equation above the Sum chart.
+        sumEquationWrapperNode.centerX = sumChartRectangleLocalBounds.centerX;
+        sumEquationWrapperNode.centerY = sumChartRectangleLocalBounds.top - ( maxHeight / 2 ) - 3;
 
-      // Button to the right of the equation
-      expandedFormButton.left = sumEquationWrapperNode.right + 20;
-      expandedFormButton.centerY = sumEquationWrapperNode.centerY;
-    } );
+        // Button to the right of the equation
+        expandedFormButton.left = sumEquationWrapperNode.right + 20;
+        expandedFormButton.centerY = sumEquationWrapperNode.centerY;
+      } );
+    }
 
     // Position the measurement tools.
     function resetMeasurementToolPositions() {
