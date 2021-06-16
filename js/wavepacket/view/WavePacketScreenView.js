@@ -151,11 +151,11 @@ class WavePacketScreenView extends ScreenView {
     {
       // Amplitudes chart at top left
       amplitudesChartNode.x = DiscreteScreenView.X_CHART_RECTANGLES;
-      amplitudesChartNode.y = 36;
+      amplitudesChartNode.y = 32;
 
       // Equation centered above Amplitudes chart
       amplitudeChartEquationNode.centerX = amplitudesChartNode.x + DiscreteScreenView.CHART_RECTANGLE_SIZE.width / 2;
-      amplitudeChartEquationNode.bottom = amplitudesChartNode.top - 3;
+      amplitudeChartEquationNode.bottom = amplitudesChartNode.y - 3;
 
       // Components chart below the Amplitudes chart
       componentsExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
@@ -204,11 +204,11 @@ class WavePacketScreenView extends ScreenView {
     // transformed. See https://github.com/phetsims/fourier-making-waves/issues/40
     componentsEquationNode.boundsProperty.link( () => {
       componentsEquationWrapperNode.centerX = componentsChartNode.x + DiscreteScreenView.CHART_RECTANGLE_SIZE.width / 2;
-      componentsEquationWrapperNode.bottom = componentsChartNode.top - 3;
+      componentsEquationWrapperNode.bottom = componentsChartNode.y - 3;
     } );
     sumEquationNode.boundsProperty.link( () => {
       sumEquationWrapperNode.centerX = sumChartNode.x + DiscreteScreenView.CHART_RECTANGLE_SIZE.width / 2;
-      sumEquationWrapperNode.bottom = sumChartNode.top - 3;
+      sumEquationWrapperNode.bottom = sumChartNode.y - 3;
     } );
 
     // pdom -traversal order
