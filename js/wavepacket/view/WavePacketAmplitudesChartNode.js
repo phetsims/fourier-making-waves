@@ -9,6 +9,7 @@
 import AxisLine from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Range from '../../../../dot/js/Range.js';
@@ -23,6 +24,7 @@ import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
+import YTickLabelSet from '../../common/view/YTickLabelSet.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketAmplitudesChart from '../model/WavePacketAmplitudesChart.js';
@@ -55,6 +57,7 @@ class WavePacketAmplitudesChartNode extends Node {
     // Fields of interest in amplitudesChart, to improve readability
     const domainProperty = amplitudesChart.domainProperty;
     const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
+    const yAxisDescriptionProperty = amplitudesChart.yAxisDescriptionProperty;
 
     // the transform from model to view coordinates
     const chartTransform = new ChartTransform( options.transformOptions );
@@ -69,17 +72,17 @@ class WavePacketAmplitudesChartNode extends Node {
 
     const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, FMWConstants.AXIS_LINE_OPTIONS );
 
+    const xAxisLabel = new RichText( '', {
+      font: FMWConstants.AXIS_LABEL_FONT,
+      maxWidth: 60, // determined empirically
+      tandem: options.tandem.createTandem( 'xAxisLabel' )
+    } );
+
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, Math.PI, FMWConstants.TICK_MARK_OPTIONS );
 
     const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, 2 * Math.PI, {
       createLabel: createXTickLabel,
       edge: 'min'
-    } );
-
-    const xAxisLabel = new RichText( '', {
-      font: FMWConstants.AXIS_LABEL_FONT,
-      maxWidth: 60, // determined empirically
-      tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
     // y axis ---------------------------------------------------------
@@ -95,9 +98,29 @@ class WavePacketAmplitudesChartNode extends Node {
       tandem: options.tandem.createTandem( 'yAxisLabel' )
     } );
 
-    //TODO yGridLines
-    //TODO yTickMarks
-    //TODO yTickLabels
+    const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL,
+      yAxisDescriptionProperty.value.gridLineSpacing, FMWConstants.GRID_LINE_OPTIONS );
+
+    const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, Math.PI, FMWConstants.TICK_MARK_OPTIONS );
+
+    const yTickLabels = new YTickLabelSet( chartTransform, 2 * Math.PI, {
+      decimalPlaces: 3
+    } );
+
+    // Update the y-axis. unlink is not needed.
+    yAxisDescriptionProperty.link( yAxisDescription => {
+
+      //TODO replace this with auto scaling
+      //TODO this is a problem - AxisDescription assumes range is symmetric, which is not the case in Wave Packet screen
+      chartTransform.setModelYRange( new Range( 0, yAxisDescription.range.max ) );
+
+      // Grid lines and tick marks are determined by AxisDescriptions regardless of whether auto scale is enabled.
+      // This is because the model keeps AxisDescriptions in sync with yAxisAutoScaleRange.
+      yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
+      yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
+      yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
+    } );
+
     //TODO auto-scale to the appropriate yAxisDescription
 
     // Addition UI components ---------------------------------------------------------
@@ -113,7 +136,7 @@ class WavePacketAmplitudesChartNode extends Node {
       xTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
       chartRectangle,
       xAxis, xAxisLabel, xTickLabels,
-      yAxis, yAxisLabel,
+      yAxis, yAxisLabel, yGridLines, yTickMarks, yTickLabels,
       continuousWaveformCheckbox
     ];
 
