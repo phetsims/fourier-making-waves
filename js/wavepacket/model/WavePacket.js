@@ -59,35 +59,32 @@ class WavePacket {
       tandem: options.tandem.createTandem( 'centerProperty' )
     } );
 
-    //TODO why does Java version refer to this as deltaK?
-    // @public wave packet width in k space, in radians/meter.
-    this.kWidthProperty = new NumberProperty( 3 * Math.PI, {
+    // @public dk is half the wave packet width in k space, in radians/meter.
+    this.dkProperty = new NumberProperty( 3 * Math.PI, {
       reentrant: true, //TODO
       range: new Range( 1, 4 * Math.PI ),
-      tandem: options.tandem.createTandem( 'kWidthProperty' )
+      tandem: options.tandem.createTandem( 'dkProperty' )
     } );
 
-    //TODO why does Java version refer to this as deltaX?
-    // @public wave packet width in x space, in meters.
-    // Note that kWidth * xWidth = 1, so xWidth = 1 / kWidth
-    this.xWidthProperty = new NumberProperty( 1 / this.kWidthProperty.value, {
+    // @public dk * dx = 1, so dx = 1 / dk
+    this.dxProperty = new NumberProperty( 1 / this.dkProperty.value, {
       reentrant: true, //TODO
-      range: new Range( 1 / this.kWidthProperty.range.max, 1 / this.kWidthProperty.range.min ),
-      tandem: options.tandem.createTandem( 'xWidthProperty' )
+      range: new Range( 1 / this.dkProperty.range.max, 1 / this.dkProperty.range.min ),
+      tandem: options.tandem.createTandem( 'dxProperty' )
     } );
 
     //TODO need a better solution here.
-    // Keep kWidth and xWidth synchronized.
-    this.kWidthProperty.lazyLink( kWidth => {
-      this.xWidthProperty.value = 1 / kWidth;
+    // Keep dk and dx synchronized.
+    this.dkProperty.lazyLink( dk => {
+      this.dxProperty.value = 1 / dk;
     } );
-    this.xWidthProperty.lazyLink( xWidth => {
-      this.kWidthProperty.value = 1 / xWidth;
+    this.dxProperty.lazyLink( dx => {
+      this.dkProperty.value = 1 / dx;
     } );
 
     // @public wave packet width, in radians/meter
     // dispose is not needed.
-    this.widthProperty = new DerivedProperty( [ this.kWidthProperty ], kWidth => 2 * kWidth );
+    this.widthProperty = new DerivedProperty( [ this.dkProperty ], dk => 2 * dk );
   }
 
   /**
@@ -103,8 +100,26 @@ class WavePacket {
   reset() {
     this.componentSpacingIndexProperty.reset();
     this.centerProperty.reset();
-    this.kWidthProperty.reset();
-    this.xWidthProperty.reset();
+    this.dkProperty.reset();
+    this.dxProperty.reset();
+  }
+
+  /**
+   * Gets the amplitude of some component, using the standard Gaussian formula:
+   *
+   * A(k,k0,dk) = exp[ -((k-k0)^2) / (2 * (dk^2) )  ] / (dk * sqrt( 2pi ))
+   *
+   * @param {number} k - component value, in radians/mm
+   * @returns {number}
+   * @public
+   */
+  getAmplitude( k ) {
+    assert && assert( typeof k === 'number' );
+
+    const k0 = this.centerProperty.value;
+    const dk = this.dkProperty.value;
+    const kk0 = k - k0;
+    return Math.exp( -( kk0 * kk0 ) / ( 2 * dk * dk ) ) / ( dk * Math.sqrt( 2 * Math.PI ) );
   }
 }
 
