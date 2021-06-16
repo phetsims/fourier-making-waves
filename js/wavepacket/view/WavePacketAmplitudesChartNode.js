@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO some things in common with WavePacketChartNode
 /**
  * WavePacketAmplitudesChartNode is the 'Amplitudes' chart on the 'Wave Packet' screen.
  *
