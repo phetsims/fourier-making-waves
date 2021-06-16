@@ -110,11 +110,11 @@ class K0Slider extends Slider {
     // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
     const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
     this.addMajorTick( 9 * Math.PI, new RichText( `9${FMWSymbols.pi}`, textOptions ) );
-    this.addMinorTick( 10 * Math.PI, new RichText( '', textOptions ) );
-    this.addMinorTick( 11 * Math.PI, new RichText( '', textOptions ) );
+    this.addMinorTick( 10 * Math.PI );
+    this.addMinorTick( 11 * Math.PI );
     this.addMajorTick( 12 * Math.PI, new RichText( `12${FMWSymbols.pi}`, textOptions ) );
-    this.addMinorTick( 13 * Math.PI, new RichText( '', textOptions ) );
-    this.addMinorTick( 14 * Math.PI, new RichText( '', textOptions ) );
+    this.addMinorTick( 13 * Math.PI );
+    this.addMinorTick( 14 * Math.PI );
     this.addMajorTick( 15 * Math.PI, new RichText( `15${FMWSymbols.pi}`, textOptions ) );
   }
 }
