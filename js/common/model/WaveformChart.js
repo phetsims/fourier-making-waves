@@ -1,6 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO Generalize to replace WavePacketChart. Move L and T elsewhere. This is usable for all XY charts in this sim.
+//TODO Generalize to replace WavePacketChart. This is usable for all XY charts in this sim.
 /**
  * WaveformChart is the base class for charts that plot one or more 2D waveforms related to a Fourier series.
  * The x axis is either space or time, while the y axis is always amplitude.
