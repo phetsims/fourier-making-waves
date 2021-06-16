@@ -117,10 +117,12 @@ class DXSlider extends Slider {
     super( dxProperty, dxProperty.range, options );
 
     // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
+    // The assertion below should help with maintainability, in the event that dxProperty.range is changed.
+    assert && assert( dxProperty.range.min === 1 / ( 4 * Math.PI ) && dxProperty.range.max === 1 );
     const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
-    this.addMajorTick( 1, new RichText( '1', textOptions ) );
-    this.addMajorTick( 1 / Math.PI, new RichText( `1/${FMWSymbols.pi}`, textOptions ) );
     this.addMajorTick( 1 / ( 4 * Math.PI ), new RichText( `1/(4${FMWSymbols.pi})`, textOptions ) );
+    this.addMajorTick( 1 / Math.PI, new RichText( `1/${FMWSymbols.pi}`, textOptions ) );
+    this.addMajorTick( 1, new RichText( '1', textOptions ) );
   }
 }
 

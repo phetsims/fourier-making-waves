@@ -123,7 +123,8 @@ class K1Slider extends Slider {
     super( k1IndexProperty, k1IndexProperty.range, options );
 
     // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
-    assert && assert( k1IndexProperty.range.getLength() === 4 );
+    // The assertion below should help with maintainability, in the event that k1Property.range is changed.
+    assert && assert( k1IndexProperty.range.min === 0 && k1IndexProperty.range.max === 4 );
     const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
     this.addMajorTick( 0, new RichText( '0', textOptions ) );
     this.addMajorTick( 1, new RichText( `${FMWSymbols.pi}/4`, textOptions ) );
