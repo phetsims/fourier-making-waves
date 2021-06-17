@@ -180,11 +180,16 @@ class WaveGameLevelNode extends Node {
       tandem: options.tandem.createTandem( 'amplitudeControlsSpinner' )
     } );
 
-    // Enable the Show Answers button when the challenge has been solved, or the user has made an attempt to solve it.
+    // Enable the Show Answers button when either:
+    // - the challenge has not been solved, and the user has made an attempt to solve it, or
+    // - the challenge has been solved, and the current settings do not match the answer
+    // See https://github.com/phetsims/fourier-making-waves/issues/90
     const showAnswersEnabledProperty = new DerivedProperty(
-      [ level.isMatchedProperty, level.isSolvedProperty, amplitudesChartNode.numberOfPressesProperty ],
-      ( isMatched, isSolved, numberOfPresses ) =>
-        !isMatched && ( isSolved || numberOfPresses >= MIN_NUMBER_OF_AMPLITUDE_PRESSES )
+      [ level.isSolvedProperty, amplitudesChartNode.numberOfPressesProperty, faceVisibleProperty ],
+      ( isSolved, numberOfPresses, faceVisible ) => {
+        const minNumberOfPresses = Math.max( MIN_NUMBER_OF_AMPLITUDE_PRESSES, level.answerSeries.getNumberOfNonZeroHarmonics() + 1 );
+        return ( !isSolved && numberOfPresses >= minNumberOfPresses ) || ( isSolved && !faceVisible );
+      }
     );
 
     // Show Answer button shows the answer to the challenge. Points will not be awarded after pressing this button.
