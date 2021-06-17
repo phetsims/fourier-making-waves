@@ -63,7 +63,7 @@ class WaveGameLevel {
       // {number} default number of amplitude controls to show for a challenge
       defaultNumberOfAmplitudeControls: required( config.defaultNumberOfAmplitudeControls ),
 
-      // {function():number} the number of non-zero harmonics is each challenge
+      // {function():number} the number of non-zero harmonics is each challenge, by default same as level number
       getNumberOfNonZeroHarmonics: () => levelNumber,
 
       // {string} message shown in the status bar that appears at the top of the Wave Game screen
@@ -136,7 +136,7 @@ class WaveGameLevel {
 
     // @public the number of amplitude controls (sliders) to show in the Amplitudes chart
     this.numberOfAmplitudeControlsProperty = new NumberProperty( config.defaultNumberOfAmplitudeControls, {
-      range: new Range( config.defaultNumberOfAmplitudeControls, this.guessSeries.harmonics.length )
+      range: new Range( this.answerSeries.getNumberOfNonZeroHarmonics(), this.answerSeries.harmonics.length )
     } );
 
     // @private The harmonics to be emphasized in the Harmonics chart, as the result of UI interactions.
