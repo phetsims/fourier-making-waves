@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -186,13 +187,20 @@ class DiscreteScreenView extends ScreenView {
         expandedFormButton.visible = visible;
       } );
 
+    // Disable the eraser button when all amplitudes are zero.
+    const eraserButtonEnabledProperty = new DerivedProperty(
+      [ model.fourierSeries.amplitudesProperty ],
+      amplitudes => !!_.find( amplitudes, amplitude => ( amplitude !== 0 ) )
+    );
+
     // Push button to reset all amplitudes to zero
     const eraserButton = new EraserButton( {
       scale: 0.85,
       listener: () => {
         model.waveformProperty.value = Waveform.CUSTOM;
         model.fourierSeries.setAllAmplitudes( 0 );
-      }
+      },
+      enabledProperty: eraserButtonEnabledProperty
     } );
 
     // Control panel
