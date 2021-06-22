@@ -191,6 +191,15 @@ class WaveGameLevel {
   }
 
   /**
+   * Sets all amplitudes to zero for the guess.
+   * This method is called when the eraser button is pressed.
+   * @public
+   */
+  eraseAmplitudes() {
+    this.guessSeries.setAllAmplitudes( 0 );
+  }
+
+  /**
    * Checks the user's guess, awards points if appropriate, and notifies listeners of the result.
    * This method is called when the 'Check Answer' button is pressed.
    * @public
@@ -206,6 +215,16 @@ class WaveGameLevel {
     else {
       this.incorrectEmitter.emit();
     }
+  }
+
+  /**
+   * Shows the answer for the challenge.
+   * This method is called when the 'Show Answer' button is pressed.
+   * @public
+   */
+  showAnswer() {
+    this.isSolvedProperty.value = true;
+    this.guessSeries.setAmplitudes( this.answerSeries.amplitudesProperty.value );
   }
 
   /**
@@ -238,25 +257,6 @@ class WaveGameLevel {
 
     // Notify listeners that the new waveform is fully initialized
     this.newWaveformEmitter.emit();
-  }
-
-  /**
-   * Shows the answer for the challenge.
-   * This method is called when the 'Show Answer' button is pressed.
-   * @public
-   */
-  showAnswer() {
-    this.isSolvedProperty.value = true;
-    this.guessSeries.setAmplitudes( this.answerSeries.amplitudesProperty.value );
-  }
-
-  /**
-   * Sets all amplitudes to zero for the guess.
-   * This method is called when the eraser button is pressed.
-   * @public
-   */
-  eraseAmplitudes() {
-    this.guessSeries.setAllAmplitudes( 0 );
   }
 }
 
