@@ -8,13 +8,13 @@
 
 import Screen from '../../../joist/js/Screen.js';
 import merge from '../../../phet-core/js/merge.js';
-import SliderAndGeneralKeyboardHelpContent from '../../../scenery-phet/js/keyboard/help/SliderAndGeneralKeyboardHelpContent.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import FMWColorProfile from '../common/FMWColorProfile.js';
 import FMWIconFactory from '../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
 import WavePacketModel from './model/WavePacketModel.js';
+import WavePacketKeyboardHelpContent from './view/WavePacketKeyboardHelpContent.js';
 import WavePacketScreenView from './view/WavePacketScreenView.js';
 
 class WavePacketScreen extends Screen {
@@ -31,13 +31,8 @@ class WavePacketScreen extends Screen {
       backgroundColorProperty: FMWColorProfile.screenBackgroundColorProperty,
       homeScreenIcon: FMWIconFactory.createWavePacketHomeScreenIcon(),
 
-      // pdom
-      keyboardHelpNode: new SliderAndGeneralKeyboardHelpContent( {
-        labelMaxWidth: 250,
-        generalSectionOptions: {
-          withCheckboxContent: true
-        }
-      } ),
+      // pdom options
+      keyboardHelpNode: new WavePacketKeyboardHelpContent(),
 
       // phet-io options
       tandem: Tandem.REQUIRED
