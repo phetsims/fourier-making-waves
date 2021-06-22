@@ -235,7 +235,7 @@ class WaveGameLevelNode extends Node {
     } );
 
     //TODO https://github.com/phetsims/scenery/issues/1241 this listener is firing 5x per key
-    // Hot-key support for 'Check Answer'
+    // Hotkey support for 'Check Answer'
     globalKeyStateTracker.keyupEmitter.addListener( event => {
       phet.log && phet.log( `key=${event.key}` );
       if (
