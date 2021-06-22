@@ -6,7 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -17,6 +19,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Animation from '../../../../twixt/js/Animation.js';
@@ -45,9 +48,6 @@ const DEFAULT_FONT = new PhetFont( 16 );
 const CHART_RECTANGLE_SIZE = DiscreteScreenView.CHART_RECTANGLE_SIZE;
 const X_CHART_RECTANGLES = DiscreteScreenView.X_CHART_RECTANGLES;
 const BUTTON_TEXT_MAX_WIDTH = 150; // maxWidth for button text, determined empirically
-
-// Show Answer button is enabled when the user has interacted with the Amplitudes chart this many times.
-const MIN_NUMBER_OF_AMPLITUDE_PRESSES = 3;
 
 class WaveGameLevelNode extends Node {
 
@@ -148,20 +148,35 @@ class WaveGameLevelNode extends Node {
 
     // Smiley face is visible when the waveform is matched.
     const faceVisibleProperty = new DerivedProperty(
-      [ level.isSolvedProperty, level.isMatchedProperty, amplitudesChartNode.numberOfSlidersDraggingProperty ],
-      ( isSolved, isMatched, numberOfSlidersDragging ) =>
-        isSolved && isMatched && ( numberOfSlidersDragging === 0 )
+      [ level.isSolvedProperty, level.isMatchedProperty ],
+      ( isSolved, isMatched ) => isSolved && isMatched
     );
-    const faceNode = new FaceNode( 125 /* headDiameter */, {
+    const smileyFaceNode = new FaceNode( 125 /* headDiameter */, {
       visibleProperty: faceVisibleProperty,
-      tandem: options.tandem.createTandem( 'faceNode' ),
+      tandem: options.tandem.createTandem( 'smileyFaceNode' ),
       phetioReadOnly: true
     } );
 
-    // Shown when points are added to the user's score, then fades out.
+    // Shown when a correct guess is made, then fades out.
     const pointsAwardedNode = new PointsAwardedNode( {
-      visible: false
+      visible: false,
+      tandem: options.tandem.createTandem( 'pointsAwardedNode' ),
+      phetioReadOnly: true
     } );
+
+    // Shown when an incorrect guess is made, then fades out.
+    const frownyFaceNode = new FaceNode( 250 /* headDiameter */, {
+      visible: false,
+      tandem: options.tandem.createTandem( 'frownyFaceNode' ),
+      phetioReadOnly: true
+    } );
+    frownyFaceNode.frown();
+
+    // Enabled when any amplitude is non-zero.
+    const eraserButtonEnabledProperty = new DerivedProperty(
+      [ level.guessSeries.amplitudesProperty ],
+      amplitudes => !!_.find( amplitudes, amplitude => ( amplitude !== 0 ) )
+    );
 
     // Eraser button sets all of the amplitudes in the guess to zero.
     const eraserButton = new EraserButton( {
@@ -169,7 +184,8 @@ class WaveGameLevelNode extends Node {
       listener: () => {
         this.interruptSubtreeInput();
         level.eraseAmplitudes();
-      }
+      },
+      enabledProperty: eraserButtonEnabledProperty
     } );
 
     // Controls the number of amplitude controls (sliders) visible in the Amplitudes chart.
@@ -180,19 +196,47 @@ class WaveGameLevelNode extends Node {
       tandem: options.tandem.createTandem( 'amplitudeControlsSpinner' )
     } );
 
-    // Enable the Show Answers button when either:
-    // - the challenge has not been solved, and the user has made an attempt to solve it, or
-    // - the challenge has been solved, and the current settings do not match the answer
-    // See https://github.com/phetsims/fourier-making-waves/issues/90
-    const showAnswersEnabledProperty = new DerivedProperty(
-      [ level.isSolvedProperty, amplitudesChartNode.numberOfPressesProperty, faceVisibleProperty ],
-      ( isSolved, numberOfPresses, faceVisible ) => {
-        const minNumberOfPresses = Math.max( MIN_NUMBER_OF_AMPLITUDE_PRESSES, level.answerSeries.getNumberOfNonZeroHarmonics() + 1 );
-        return ( !isSolved && numberOfPresses >= minNumberOfPresses ) || ( isSolved && !faceVisible );
-      }
+    // Whether the user has changed the guess since the last time that 'Check Answer' button was pressed.
+    const guessChangedProperty = new BooleanProperty( false );
+    level.guessSeries.amplitudesProperty.lazyLink( () => {
+      guessChangedProperty.value = true;
+    } );
+
+    // The number of times that the 'Check Answer' button has been pressed for the current challenge.
+    const numberOfCheckAnswerButtonPressesProperty = new NumberProperty( 0, {
+      numberType: 'Integer'
+    } );
+
+    // 'Check Answer' button is enabled when the challenge has not been solved, and the user has
+    // changed something about their guess that is checkable.
+    const checkAnswerButtonEnabledProperty = new DerivedProperty(
+      [ level.isSolvedProperty, guessChangedProperty ],
+      ( isSolved, guessChanged ) => ( !isSolved && guessChanged )
     );
 
-    // Show Answer button shows the answer to the challenge. Points will not be awarded after pressing this button.
+    const checkAnswerButton = new RectangularPushButton( {
+      content: new Text( fourierMakingWavesStrings.checkAnswer, {
+        font: DEFAULT_FONT,
+        maxWidth: BUTTON_TEXT_MAX_WIDTH
+      } ),
+      baseColor: FMWColorProfile.checkAnswerButtonFillProperty,
+      listener: () => {
+        this.interruptSubtreeInput();
+        numberOfCheckAnswerButtonPressesProperty.value++;
+        guessChangedProperty.value = false;
+        level.checkAnswer();
+      },
+      enabledProperty: checkAnswerButtonEnabledProperty
+    } );
+
+    // TODO
+    const showAnswerButtonEnabledProperty = new DerivedProperty(
+      [ numberOfCheckAnswerButtonPressesProperty, level.isSolvedProperty, faceVisibleProperty ],
+      ( numberOfCheckAnswerButtonPresses, isSolved, faceVisible ) =>
+        ( !isSolved && numberOfCheckAnswerButtonPresses >= 2 ) || ( isSolved && !faceVisible )
+    );
+
+    // Show Answer button shows the answer to the challenge. Points will NOT be awarded after pressing this button.
     const showAnswerButton = new RectangularPushButton( {
       content: new Text( fourierMakingWavesStrings.showAnswer, {
         font: DEFAULT_FONT,
@@ -203,14 +247,12 @@ class WaveGameLevelNode extends Node {
         this.interruptSubtreeInput();
         level.showAnswer();
       },
-      enabledProperty: showAnswersEnabledProperty
+      enabledProperty: showAnswerButtonEnabledProperty
     } );
 
     // Creates a new challenge, a new waveform to match.
     const newWaveform = () => {
       this.interruptSubtreeInput();
-      amplitudesChartNode.numberOfPressesProperty.value = 0;
-      pointsAwardedNode.visible = false;
       level.newWaveform();
     };
 
@@ -224,6 +266,15 @@ class WaveGameLevelNode extends Node {
       baseColor: FMWColorProfile.newWaveformButtonFillProperty,
       tandem: options.tandem.createTandem( 'newWaveformButton' ),
       phetioReadOnly: true
+    } );
+
+    const buttonsBox = new VBox( {
+      spacing: 20,
+      children: [
+        checkAnswerButton,
+        showAnswerButton,
+        newWaveformButton
+      ]
     } );
 
     // The reward shown while rewardDialog is open.
@@ -277,6 +328,10 @@ class WaveGameLevelNode extends Node {
       eraserButton.left = amplitudesChartRightTop.x + 10;
       eraserButton.bottom = amplitudesChartRightTop.y - 10;
 
+      // centered on the Harmonics chart
+      frownyFaceNode.centerX = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.center ).x;
+      frownyFaceNode.centerY = layoutBounds.centerY;
+
       // center of the space to the right of the charts
       const controlsCenterX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
 
@@ -284,16 +339,14 @@ class WaveGameLevelNode extends Node {
       amplitudeControlsSpinner.centerX = controlsCenterX;
       amplitudeControlsSpinner.centerY = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.center ).y;
 
-      // centered on Harmonics chart
+      // buttons centered on Harmonics chart
       const harmonicsChartCenterY = harmonicsChartNode.localToGlobalPoint( harmonicsChartNode.chartRectangle.center ).y;
-      showAnswerButton.centerX = controlsCenterX;
-      showAnswerButton.bottom = harmonicsChartCenterY - 10;
-      newWaveformButton.centerX = controlsCenterX;
-      newWaveformButton.top = harmonicsChartCenterY + 10;
+      buttonsBox.centerX = controlsCenterX;
+      buttonsBox.centerY = harmonicsChartCenterY;
 
       // centered on the Sum chart
-      faceNode.centerX = controlsCenterX;
-      faceNode.centerY = sumChartNode.localToGlobalPoint( sumChartNode.chartRectangle.center ).y;
+      smileyFaceNode.centerX = controlsCenterX;
+      smileyFaceNode.centerY = sumChartNode.localToGlobalPoint( sumChartNode.chartRectangle.center ).y;
     }
 
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
@@ -307,36 +360,26 @@ class WaveGameLevelNode extends Node {
       sumChartNode,
       eraserButton,
       amplitudeControlsSpinner,
-      showAnswerButton,
-      newWaveformButton,
-      faceNode,
+      buttonsBox,
+      smileyFaceNode,
       pointsAwardedNode,
+      frownyFaceNode,
       rewardNode
     ];
 
     super( options );
 
-    // Evaluate the guess when all sliders have been released.
-    // If the challenge has not been previously solved, award points.
-    Property.multilink( [ level.isMatchedProperty, amplitudesChartNode.numberOfSlidersDraggingProperty ],
-      ( isMatched, numberOfSlidersDragging ) => {
-        if ( isMatched && numberOfSlidersDragging === 0 ) {
-          if ( !level.isSolvedProperty.value ) {
-            level.isSolvedProperty.value = true;
-            level.scoreProperty.value += FMWConstants.POINTS_PER_CHALLENGE;
-          }
-        }
-      } );
+    // When a new waveform (challenge) is presented, reset some things.
+    level.newWaveformEmitter.addListener( () => {
+      pointsAwardedNode.visible = false;
+      frownyFaceNode.visible = false;
+      guessChangedProperty.value = false;
+      numberOfCheckAnswerButtonPressesProperty.value = 0;
+    } );
 
-    // @private {Animation|null} animation of pointAwardedNode
-    this.pointsAwardedAnimation = null;
-
-    // When points are awarded, provide feedback.
-    // unlink is not needed.
-    level.scoreProperty.link( ( score, previousScore ) => {
-
-      // Do nothing when the score is reset.
-      if ( score === 0 ) { return; }
+    // When the user's guess is correct, provide feedback.
+    // removeListener is not needed.
+    level.correctEmitter.addListener( pointsAwarded => {
 
       // Interrupt any in-progress interactions, since the challenge has been solved.
       // The user is free to resume experimenting with the current challenge after this point.
@@ -351,44 +394,26 @@ class WaveGameLevelNode extends Node {
       else {
 
         // The score doesn't warrant a reward, so just show the points that were rewarded.
-
-        // ding!
-        gameAudioPlayer.correctAnswer();
-
-        // Show points awarded, centered on charts.
-        pointsAwardedNode.setPoints( score - previousScore );
-        pointsAwardedNode.centerX = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.center ).x;
-        pointsAwardedNode.centerY = layoutBounds.centerY;
-        pointsAwardedNode.visible = true;
-
-        // Animate opacity of pointsAwardedNode, fade it out.
-        pointsAwardedNode.opacityProperty.value = 1;
-        this.pointsAwardedAnimation = new Animation( {
-          stepEmitter: null, // via step function
-          delay: 1,
-          duration: 0.8,
-          targets: [ {
-            property: pointsAwardedNode.opacityProperty,
-            easing: Easing.LINEAR,
-            to: 0
-          } ]
-        } );
-
-        // removeListener not needed
-        this.pointsAwardedAnimation.finishEmitter.addListener( () => {
-          pointsAwardedNode.visible = false;
-          this.pointsAwardedAnimation = null;
-        } );
-
-        this.pointsAwardedAnimation.start();
+        this.correctFeedback( pointsAwarded );
       }
     } );
+
+    // When the user's guess is incorrect, provide feedback.
+    // removeListener is not needed.
+    level.incorrectEmitter.addListener( () => this.incorrectFeedback() );
 
     // @public
     this.level = level;
 
     // @private
+    this.layoutBounds = layoutBounds;
+    this.gameAudioPlayer = gameAudioPlayer;
+    this.amplitudesChartNode = amplitudesChartNode;
     this.rewardNode = rewardNode;
+    this.pointsAwardedNode = pointsAwardedNode;
+    this.pointsAwardedAnimation = null; // {Animation|null}
+    this.frownyFaceNode = frownyFaceNode;
+    this.frownyFaceAnimation = null; // {Animation|null}
 
     // pdom - traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53
@@ -397,6 +422,7 @@ class WaveGameLevelNode extends Node {
       amplitudesChartNode,
       eraserButton,
       amplitudeControlsSpinner,
+      checkAnswerButton,
       showAnswerButton,
       newWaveformButton
     ];
@@ -407,8 +433,80 @@ class WaveGameLevelNode extends Node {
    * @public
    */
   step( dt ) {
-    this.pointsAwardedAnimation && this.pointsAwardedAnimation.step( dt );
     this.rewardNode.visible && this.rewardNode.step( dt );
+    this.pointsAwardedAnimation && this.pointsAwardedAnimation.step( dt );
+    this.frownyFaceAnimation && this.frownyFaceAnimation.step( dt );
+  }
+
+  /**
+   * Provides feedback when the user has made a correct guess.
+   * @param {number} pointsAwarded
+   * @private
+   */
+  correctFeedback( pointsAwarded ) {
+    assert && AssertUtils.assertPositiveNumber( pointsAwarded );
+
+    // Audio feedback
+    this.gameAudioPlayer.correctAnswer();
+
+    // Show points awarded, centered on charts.
+    this.pointsAwardedNode.setPoints( pointsAwarded );
+    this.pointsAwardedNode.centerX = this.amplitudesChartNode.localToGlobalPoint( this.amplitudesChartNode.chartRectangle.center ).x;
+    this.pointsAwardedNode.centerY = this.layoutBounds.centerY;
+
+    // Animate opacity of pointsAwardedNode, fade it out.
+    this.pointsAwardedNode.visible = true;
+    this.pointsAwardedNode.opacityProperty.value = 1;
+    this.pointsAwardedAnimation = new Animation( {
+      stepEmitter: null, // via step function
+      delay: 1,
+      duration: 0.8,
+      targets: [ {
+        property: this.pointsAwardedNode.opacityProperty,
+        easing: Easing.LINEAR,
+        to: 0
+      } ]
+    } );
+
+    // removeListener not needed
+    this.pointsAwardedAnimation.finishEmitter.addListener( () => {
+      this.pointsAwardedNode.visible = false;
+      this.pointsAwardedAnimation = null;
+    } );
+
+    this.pointsAwardedAnimation.start();
+  }
+
+  /**
+   * Provides feedback when the user has made an incorrect guess.
+   * @private
+   */
+  incorrectFeedback() {
+
+    // Audio feedback
+    this.gameAudioPlayer.wrongAnswer();
+
+    // Animate opacity of frownyFaceNode, fade it out.
+    this.frownyFaceNode.visible = true;
+    this.frownyFaceNode.opacityProperty.value = 1;
+    this.frownyFaceAnimation = new Animation( {
+      stepEmitter: null, // via step function
+      delay: 1,
+      duration: 0.8,
+      targets: [ {
+        property: this.frownyFaceNode.opacityProperty,
+        easing: Easing.LINEAR,
+        to: 0
+      } ]
+    } );
+
+    // removeListener not needed
+    this.frownyFaceAnimation.finishEmitter.addListener( () => {
+      this.frownyFaceNode.visible = false;
+      this.frownyFaceAnimation = null;
+    } );
+
+    this.frownyFaceAnimation.start();
   }
 }
 

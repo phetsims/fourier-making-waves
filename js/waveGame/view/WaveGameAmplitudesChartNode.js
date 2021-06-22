@@ -7,10 +7,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameAmplitudesChart from '../model/WaveGameAmplitudesChart.js';
@@ -61,27 +59,6 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
 
     // Adjust number of amplitude controls that are visible.
     numberOfAmplitudeControlsProperty.lazyLink( updateAmplitudeControlsVisibility );
-
-    // @public Keep track of the number of times the user has started an interaction with the Amplitudes chart.
-    // This is used to enabled the Show Answers button after the user has made an attempt to solve.
-    this.numberOfPressesProperty = new NumberProperty( 0, {
-      numberType: 'Integer'
-    } );
-    this.addInputListener( new PressListener( {
-      attach: false,
-      press: () => this.numberOfPressesProperty.value++
-    } ) );
-
-    // @public Keep track of the number of sliders that the user is dragging on the Amplitudes chart.
-    // The user's guess is not evaluated until all sliders have been released.
-    this.numberOfSlidersDraggingProperty = new NumberProperty( 0, {
-      numberType: 'Integer'
-    } );
-    this.slidersParent.addInputListener( new PressListener( {
-      attach: false,
-      press: () => this.numberOfSlidersDraggingProperty.value++,
-      release: () => this.numberOfSlidersDraggingProperty.value--
-    } ) );
   }
 
   /**

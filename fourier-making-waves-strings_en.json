@@ -206,11 +206,14 @@
   "infoNumberOrMoreHarmonics": {
     "value": "<b>Level {{levelNumber}}</b>: {{numberOfHarmonics}} <u>or more</u> harmonics"
   },
-  "newWaveform": {
-    "value": "New Waveform"
+  "checkAnswer": {
+    "value": "Check Answer"
   },
   "showAnswer": {
     "value": "Show Answer"
+  },
+  "newWaveform": {
+    "value": "New Waveform"
   },
   "amplitudeControls": {
     "value": "Amplitude Controls:"

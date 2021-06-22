@@ -8,6 +8,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -15,6 +16,7 @@ import required from '../../../../phet-core/js/required.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
@@ -159,6 +161,22 @@ class WaveGameLevel {
     // @public
     this.sumChart = new WaveGameSumChart( this.answerSeries, this.guessSeries,
       DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, DiscreteYAxisDescriptions );
+
+    // @public Fires when a new waveform has been fully initialized, see method newWaveform.
+    this.newWaveformEmitter = new Emitter();
+
+    // @public Fires when the guess is checked and found to be correct.
+    this.correctEmitter = new Emitter( {
+      tandem: config.tandem.createTandem( 'correctEmitter' ),
+      parameters: [
+        { name: 'pointsAwarded', phetioType: NumberIO }
+      ]
+    } );
+
+    // @public Fires when the guess is checked and found to be incorrect.
+    this.incorrectEmitter = new Emitter( {
+      tandem: config.tandem.createTandem( 'incorrectEmitter' )
+    } );
   }
 
   /**
@@ -170,6 +188,24 @@ class WaveGameLevel {
     // Not necessary to reset this.numberOfAmplitudeControlsProperty
     this.emphasizedHarmonics.reset();
     this.newWaveform(); //TODO PhET-iO Is it OK that we're not resetting to the original answer?
+  }
+
+  /**
+   * Checks the user's guess, awards points if appropriate, and notifies listeners of the result.
+   * This method is called when the 'Check Answer' button is pressed.
+   * @public
+   */
+  checkAnswer() {
+    assert && assert( !this.isSolvedProperty.value );
+    if ( this.isMatchedProperty.value ) {
+      const pointAwarded = FMWConstants.POINTS_PER_CHALLENGE;
+      this.scoreProperty.value += pointAwarded;
+      this.isSolvedProperty.value = true;
+      this.correctEmitter.emit( pointAwarded );
+    }
+    else {
+      this.incorrectEmitter.emit();
+    }
   }
 
   /**
@@ -199,6 +235,9 @@ class WaveGameLevel {
     const max = this.numberOfAmplitudeControlsProperty.rangeProperty.value.max;
     const value = Math.max( this.numberOfAmplitudeControlsProperty.value, this.defaultNumberOfAmplitudeControls );
     this.numberOfAmplitudeControlsProperty.setValueAndRange( value, new Range( min, max ) );
+
+    // Notify listeners that the new waveform is fully initialized
+    this.newWaveformEmitter.emit();
   }
 
   /**

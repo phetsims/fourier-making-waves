@@ -104,6 +104,10 @@ const FMWColorProfile = new ColorProfile( [ 'default' ], {
     default: PhetColorScheme.BUTTON_YELLOW
   },
 
+  checkAnswerButtonFill: {
+    default: PhetColorScheme.BUTTON_YELLOW
+  },
+
   showAnswerButtonFill: {
     default: PhetColorScheme.BUTTON_YELLOW
   },
