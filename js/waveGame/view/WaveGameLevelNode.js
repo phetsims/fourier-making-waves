@@ -50,6 +50,7 @@ const DEFAULT_FONT = new PhetFont( 16 );
 const CHART_RECTANGLE_SIZE = DiscreteScreenView.CHART_RECTANGLE_SIZE;
 const X_CHART_RECTANGLES = DiscreteScreenView.X_CHART_RECTANGLES;
 const BUTTON_TEXT_MAX_WIDTH = 150; // maxWidth for button text, determined empirically
+const CHECK_ANSWER_PRESSES = 2; // number of 'Check Answer' button presses required to enabled the 'Show Answers' button
 
 class WaveGameLevelNode extends Node {
 
@@ -248,11 +249,11 @@ class WaveGameLevelNode extends Node {
       }
     } );
 
-    // TODO
+    // 'Show Answer' button is enabled after the user has tried 'Check Answer'.
     const showAnswerButtonEnabledProperty = new DerivedProperty(
       [ numberOfCheckAnswerButtonPressesProperty, level.isSolvedProperty, faceVisibleProperty ],
       ( numberOfCheckAnswerButtonPresses, isSolved, faceVisible ) =>
-        ( !isSolved && numberOfCheckAnswerButtonPresses >= 2 ) || ( isSolved && !faceVisible )
+        ( !isSolved && numberOfCheckAnswerButtonPresses >= CHECK_ANSWER_PRESSES ) || ( isSolved && !faceVisible )
     );
 
     // Show Answer button shows the answer to the challenge. Points will NOT be awarded after pressing this button.
