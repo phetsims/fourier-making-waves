@@ -16,6 +16,8 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import globalKeyStateTracker from '../../../../scenery/js/accessibility/globalKeyStateTracker.js';
+import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -214,19 +216,36 @@ class WaveGameLevelNode extends Node {
       ( isSolved, guessChanged ) => ( !isSolved && guessChanged )
     );
 
+    const checkAnswerListener = () => {
+      this.interruptSubtreeInput();
+      numberOfCheckAnswerButtonPressesProperty.value++;
+      guessChangedProperty.value = false;
+      level.checkAnswer();
+    };
+
     const checkAnswerButton = new RectangularPushButton( {
       content: new Text( fourierMakingWavesStrings.checkAnswer, {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
       baseColor: FMWColorProfile.checkAnswerButtonFillProperty,
-      listener: () => {
-        this.interruptSubtreeInput();
-        numberOfCheckAnswerButtonPressesProperty.value++;
-        guessChangedProperty.value = false;
-        level.checkAnswer();
-      },
+      listener: checkAnswerListener,
       enabledProperty: checkAnswerButtonEnabledProperty
+    } );
+
+    //TODO https://github.com/phetsims/scenery/issues/1241 this listener is firing 5x per key
+    // Hot-key support for 'Check Answer'
+    globalKeyStateTracker.keyupEmitter.addListener( event => {
+      phet.log && phet.log( `key=${event.key}` );
+      if (
+        //TODO https://github.com/phetsims/scenery/issues/1053 this is not identifying keys correctly
+        KeyboardUtils.isKeyEvent( event, KeyboardUtils.KEY_C ) &&
+        globalKeyStateTracker.altKeyDown &&
+        checkAnswerButton.enabledProperty.value &&
+        checkAnswerButton.pdomDisplayed
+      ) {
+        checkAnswerListener();
+      }
     } );
 
     // TODO
