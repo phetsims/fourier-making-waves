@@ -17,13 +17,13 @@ import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
+import SceneryConstants from '../../../../scenery/js/SceneryConstants.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import HSeparator from '../../../../sun/js/HSeparator.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
-import SunConstants from '../../../../sun/js/SunConstants.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
@@ -533,8 +533,8 @@ class SoundLayoutBox extends HBox {
       this.interruptSubtreeInput();
       soundEnabledCheckbox.enabled = enabled;
       outputLevelSlider.enabled = enabled;
-      volumeOffIcon.opacity = enabled ? 1 : SunConstants.DISABLED_OPACITY;
-      volumeUpIcon.opacity = enabled ? 1 : SunConstants.DISABLED_OPACITY;
+      volumeOffIcon.opacity = enabled ? 1 : SceneryConstants.DISABLED_OPACITY;
+      volumeUpIcon.opacity = enabled ? 1 : SceneryConstants.DISABLED_OPACITY;
     } );
   }
 
