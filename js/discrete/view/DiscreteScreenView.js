@@ -213,7 +213,7 @@ class DiscreteScreenView extends ScreenView {
       playPauseStepButtonOptions: {
         playPauseButtonOptions: {
           //TODO https://github.com/phetsims/fourier-making-waves/issues/92 workaround, we do not want partial hotkey support
-          includeGlobalHotKey: false
+          includeGlobalHotkey: false
         },
         stepForwardButtonOptions: {
           listener: () => {
