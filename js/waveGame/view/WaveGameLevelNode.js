@@ -234,13 +234,16 @@ class WaveGameLevelNode extends Node {
       enabledProperty: checkAnswerButtonEnabledProperty
     } );
 
-    // Hotkey support for 'Check Answer'
+    // Hotkey support for 'Check Answer'. globalKeyStateTracker listeners always fire, so its our responsibility
+    // to short-circuit this listener if the checkAnswerButton is not in the PDOM, and not enabled.
     globalKeyStateTracker.keyupEmitter.addListener( event => {
-      if ( checkAnswerButton.pdomDisplayed && checkAnswerButton.enabledProperty.value ) {
-        phet.log && phet.log( `key=${event.key}` );
-        if ( KeyboardUtils.isKeyEvent( event, KeyboardUtils.KEY_C ) && globalKeyStateTracker.altKeyDown ) {
-          checkAnswerListener();
-        }
+      if (
+        checkAnswerButton.pdomDisplayed &&
+        checkAnswerButton.enabledProperty.value &&
+        globalKeyStateTracker.altKeyDown &&
+        KeyboardUtils.isKeyEvent( event, KeyboardUtils.KEY_C )
+      ) {
+        checkAnswerListener();
       }
     } );
 
