@@ -234,18 +234,13 @@ class WaveGameLevelNode extends Node {
       enabledProperty: checkAnswerButtonEnabledProperty
     } );
 
-    //TODO https://github.com/phetsims/scenery/issues/1241 this listener is firing 5x per key
     // Hotkey support for 'Check Answer'
     globalKeyStateTracker.keyupEmitter.addListener( event => {
-      phet.log && phet.log( `key=${event.key}` );
-      if (
-        //TODO https://github.com/phetsims/scenery/issues/1053 this is not identifying keys correctly
-        KeyboardUtils.isKeyEvent( event, KeyboardUtils.KEY_C ) &&
-        globalKeyStateTracker.altKeyDown &&
-        checkAnswerButton.enabledProperty.value &&
-        checkAnswerButton.pdomDisplayed
-      ) {
-        checkAnswerListener();
+      if ( checkAnswerButton.pdomDisplayed && checkAnswerButton.enabledProperty.value ) {
+        phet.log && phet.log( `key=${event.key}` );
+        if ( KeyboardUtils.isKeyEvent( event, KeyboardUtils.KEY_C ) && globalKeyStateTracker.altKeyDown ) {
+          checkAnswerListener();
+        }
       }
     } );
 
