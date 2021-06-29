@@ -56,7 +56,7 @@ class AmplitudesGenerator {
     do {
       amplitudes = generateRandomAmplitudes( this.numberOfHarmonics, numberOfNonZeroHarmonics, this.maxAmplitude );
       attempts++;
-    } while ( previousAmplitudes && ( attempts < maxAttempts ) && isSimilar( amplitudes, previousAmplitudes ) );
+    } while ( previousAmplitudes && ( attempts < maxAttempts ) && isSimilar( amplitudes, previousAmplitudes ) ); // eslint-disable-line no-unmodified-loop-condition
 
     // If we reached the max number of attempts, log a warning and continue with a 'similar' set of amplitudes.
     // In practice, this should occur rarely, if ever.  If it occurs too frequently, increase maxAttempts.
