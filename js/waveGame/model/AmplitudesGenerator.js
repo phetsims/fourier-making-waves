@@ -41,7 +41,7 @@ class AmplitudesGenerator {
   /**
    * Creates a set of amplitudes for the harmonics in a Fourier series.
    * Attempts to prevent consecutive sets of amplitudes from being similar.
-   * @param {number[]} [previousAmplitudes]
+   * @param {number[]} [previousAmplitudes] - optional previous amplitudes
    * @returns {number[]}
    * @public
    */
@@ -50,13 +50,20 @@ class AmplitudesGenerator {
 
     let amplitudes;
     const numberOfNonZeroHarmonics = this.getNumberOfNonZeroHarmonics();
-    let attempts = 1;
+    let attempts = 0;
     const maxAttempts = 10;
 
+    // Generate a set of random amplitudes. If optional previousAmplitudes was provided, continue to iterate until
+    // the amplitudes are not "similar" to the previous amplitudes, or until we reach a maximum number of attempts.
+    // The no-unmodified-loop-condition lint rule is disabled here because it apparently doesn't understand the
+    // importance of using a constant to short-circuit a do-while loop. In this case, it complains because
+    // previousAmplitudes is not modified in the loop.
+    // See https://github.com/phetsims/fourier-making-waves/issues/96.
     do {
       amplitudes = generateRandomAmplitudes( this.numberOfHarmonics, numberOfNonZeroHarmonics, this.maxAmplitude );
       attempts++;
-    } while ( previousAmplitudes && ( attempts < maxAttempts ) && isSimilar( amplitudes, previousAmplitudes ) ); // eslint-disable-line no-unmodified-loop-condition
+      // eslint-disable-next-line no-unmodified-loop-condition
+    } while ( previousAmplitudes && ( attempts < maxAttempts ) && isSimilar( amplitudes, previousAmplitudes ) );
 
     // If we reached the max number of attempts, log a warning and continue with a 'similar' set of amplitudes.
     // In practice, this should occur rarely, if ever.  If it occurs too frequently, increase maxAttempts.
@@ -64,6 +71,8 @@ class AmplitudesGenerator {
       phet.log && phet.log( `WARNING: Similar amplitudes were generated ${attempts} times in a row.` );
     }
 
+    assert && AssertUtils.assertArrayOf( amplitudes, 'number' );
+    assert && assert( amplitudes.length === this.numberOfHarmonics );
     return amplitudes;
   }
 }
