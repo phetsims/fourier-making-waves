@@ -56,8 +56,8 @@ class AmplitudesGenerator {
     // Generate a set of random amplitudes. If optional previousAmplitudes was provided, continue to iterate until
     // the amplitudes are not "similar" to the previous amplitudes, or until we reach a maximum number of attempts.
     // The no-unmodified-loop-condition lint rule is disabled here because it apparently doesn't understand the
-    // importance of using a constant to short-circuit a do-while loop. In this case, it complains because
-    // previousAmplitudes is not modified in the loop.
+    // approach of using a constant to ensure that a do-while loop executes exactly once. In this case, it complains
+    // because previousAmplitudes is not modified in the loop.
     // See https://github.com/phetsims/fourier-making-waves/issues/96.
     do {
       amplitudes = generateRandomAmplitudes( this.numberOfHarmonics, numberOfNonZeroHarmonics, this.maxAmplitude );
