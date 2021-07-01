@@ -34,6 +34,7 @@ class OrderSpinner extends NumberSpinner {
       numberDisplayOptions: {
         useRichText: true,
         numberFormatter: order => `${symbol}<sub>${order}</sub>`,
+        align: 'center',
         cornerRadius: 3,
         xMargin: 8,
         yMargin: 2,
