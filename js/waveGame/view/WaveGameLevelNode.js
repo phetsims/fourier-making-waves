@@ -353,7 +353,7 @@ class WaveGameLevelNode extends Node {
 
     // centered on the Harmonics chart
     frownyFaceNode.centerX = harmonicsChartRectangleCenter.x;
-    frownyFaceNode.centerY = layoutBounds.centerY;
+    frownyFaceNode.centerY = harmonicsChartRectangleCenter.y;
 
     // Center of the space to the right of the charts
     const controlsCenterX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
@@ -431,7 +431,7 @@ class WaveGameLevelNode extends Node {
     // @private
     this.layoutBounds = layoutBounds;
     this.gameAudioPlayer = gameAudioPlayer;
-    this.harmonicsChartRectangleCenterX = harmonicsChartRectangleCenter.x;
+    this.harmonicsChartRectangleCenter = harmonicsChartRectangleCenter;
     this.rewardNode = rewardNode;
     this.pointsAwardedNode = pointsAwardedNode;
     this.pointsAwardedAnimation = null; // {Animation|null}
@@ -474,8 +474,8 @@ class WaveGameLevelNode extends Node {
 
     // Show points awarded, centered on charts.
     this.pointsAwardedNode.setPoints( pointsAwarded );
-    this.pointsAwardedNode.centerX = this.harmonicsChartRectangleCenterX;
-    this.pointsAwardedNode.centerY = this.layoutBounds.centerY;
+    this.pointsAwardedNode.centerX = this.harmonicsChartRectangleCenter.x;
+    this.pointsAwardedNode.centerY = this.harmonicsChartRectangleCenter.y;
 
     // Animate opacity of pointsAwardedNode, fade it out.
     this.pointsAwardedNode.visible = true;
