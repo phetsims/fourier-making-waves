@@ -368,7 +368,7 @@ class DiscreteScreenView extends ScreenView {
       // Clock-like tool is in the space between the Harmonics and Sum chart, right justified.
       periodClockNode.positionProperty.value = new Vector2(
         harmonicsChartRectangleLocalBounds.right,
-        harmonicsChartRectangleLocalBounds.maxY + ( sumChartRectangleLocalBounds.minY - harmonicsChartRectangleLocalBounds.maxY ) / 2
+        harmonicsChartNode.bottom + ( sumChartRectangleLocalBounds.minY - harmonicsChartNode.bottom ) / 2
       );
     }
 
