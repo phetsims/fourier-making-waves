@@ -39,7 +39,7 @@ class OrderSpinner extends NumberSpinner {
         xMargin: 8,
         yMargin: 2,
         textOptions: {
-          font: FMWConstants.CONTROL_FONT,
+          font: FMWConstants.MATH_CONTROL_FONT,
           maxWidth: 50 // determined empirically
         }
       }

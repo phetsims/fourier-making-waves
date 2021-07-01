@@ -10,6 +10,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -39,6 +40,10 @@ class EquationComboBox extends FMWComboBox {
       }
     }, options );
 
+    const mathTextOptions = {
+      font: FMWConstants.MATH_CONTROL_FONT
+    };
+
     // {{string:string, value:EquationForm}[]}
     const choices = [
       {
@@ -47,38 +52,46 @@ class EquationComboBox extends FMWComboBox {
       },
       {
         value: EquationForm.WAVELENGTH,
-        string: FMWSymbols.lambda
+        string: FMWSymbols.lambda,
+        textOptions: mathTextOptions
       },
       {
         value: EquationForm.WAVE_NUMBER,
-        string: FMWSymbols.k
+        string: FMWSymbols.k,
+        textOptions: mathTextOptions
       },
       {
         value: EquationForm.FREQUENCY,
-        string: FMWSymbols.F
+        string: FMWSymbols.F,
+        textOptions: mathTextOptions
       },
       {
         value: EquationForm.PERIOD,
-        string: FMWSymbols.T
+        string: FMWSymbols.T,
+        textOptions: mathTextOptions
       },
       {
         value: EquationForm.ANGULAR_FREQUENCY,
-        string: FMWSymbols.omega
+        string: FMWSymbols.omega,
+        textOptions: mathTextOptions
       },
       {
         value: EquationForm.WAVELENGTH_AND_PERIOD,
-        string: FMWSymbols.T
+        string: FMWSymbols.T,
+        textOptions: mathTextOptions
       },
       {
         value: EquationForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY,
         string: StringUtils.fillIn( fourierMakingWavesStrings.kAndOmega, {
           k: FMWSymbols.k,
           omega: FMWSymbols.omega
-        } )
+        } ),
+        textOptions: mathTextOptions
       },
       {
         value: EquationForm.MODE,
-        string: FMWSymbols.n
+        string: FMWSymbols.n,
+        textOptions: mathTextOptions
       }
     ];
 
