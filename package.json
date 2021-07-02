@@ -12,7 +12,6 @@
   "phet": {
     "requirejsNamespace": "FOURIER_MAKING_WAVES",
     "simulation": true,
-    "supportsSound": true,
     "runnable": true,
     "colorProfile": true,
     "supportedBrands": [
@@ -29,6 +28,7 @@
       "validation": false
     },
     "features": {
+      "supportsSound": true,
       "supportsInteractiveDescription": true
     }
   },
