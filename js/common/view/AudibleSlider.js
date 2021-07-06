@@ -1,6 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/fourier-making-waves/issues/56 sound for pressing in track
+//TODO https://github.com/phetsims/sun/issues/697 delete when Slider sound API is available
+//TODO https://github.com/phetsims/fourier-making-waves/issues/56 sound for pressing in track?
 /**
  * AudibleSlider is a slider that supports user-interface sound. You'll hear one sound for the snap interval,
  * and another sound for the min or max value.
