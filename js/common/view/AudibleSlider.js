@@ -21,7 +21,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 // constants
 const DEFAULT_MIN_MAX_SOUND = generalBoundaryBoopSoundPlayer;
 const DEFAULT_SNAP_SOUND = generalSoftClickSoundPlayer;
-const SNAP_SOUND_DURATION = 25; //TODO generalSoftClickSoundPlayer.duration, https://github.com/phetsims/tambo/issues/141
+const SNAP_SOUND_DURATION = 25; // determined empirically
 const SNAP_SOUND_MIN_SILENCE = 15; // minimum silence between snap sounds, in milliseconds
 
 class AudibleSlider extends Slider {
