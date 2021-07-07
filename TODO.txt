@@ -15,7 +15,6 @@ Continuous Waveform: see addContinuousPlot in D2CAmplitudesView.java and D2CSumV
 Waveform Envelope: see updateEnvelope in D2CAmplitudesView.java and D2CSumView.js
 
 Duplication in K1Control, K0Control, DKControl, DXControl
-Duplication in ComponentSpacingSlider, WavePacketCenterSlider, WavePacketKWidthSlider, WavePacketXWidthSlider
 
 ## PhET-iO
 
