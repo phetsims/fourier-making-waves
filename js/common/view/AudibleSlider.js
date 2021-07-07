@@ -66,7 +66,7 @@ class AudibleSlider extends Slider {
         else if ( dtPlay >= IN_BETWEEN_SOUND_DURATION + IN_BETWEEN_SOUND_MIN_SILENCE ) {
 
           // Play in-between sound at some minimum interval, so that moving the slider doesn't create a bunch of sounds
-          // playing on top of each other, which sounds like garbage.
+          // playing on top of each other, which sounds like an out-of-control popcorn machine.
           options.inBetweenSound.play();
         }
 
