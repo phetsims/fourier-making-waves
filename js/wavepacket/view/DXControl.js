@@ -92,6 +92,7 @@ class DXControl extends VBox {
   }
 }
 
+//TODO https://github.com/phetsims/fourier-making-waves/issues/54 UI sound
 class DXSlider extends Slider {
 
   /**

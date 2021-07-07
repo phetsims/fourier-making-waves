@@ -504,6 +504,7 @@ class SoundLayoutBox extends HBox {
     } ) );
 
     // Slider for controlling output level
+    //TODO https://github.com/phetsims/fourier-making-waves/issues/54 UI sound
     const outputLevelSlider = new HSlider( soundOutputLevelProperty, soundOutputLevelProperty.range, {
       thumbSize: new Dimension2( 10, 20 ),
       trackSize: new Dimension2( 100, 3 ),

@@ -86,6 +86,7 @@ class K0Control extends VBox {
   }
 }
 
+//TODO https://github.com/phetsims/fourier-making-waves/issues/54 UI sound
 class K0Slider extends Slider {
 
   /**
