@@ -2,12 +2,9 @@
 
 //TODO https://github.com/phetsims/sun/issues/697 temporary solution, delete this class when Slider sound API is available
 /**
- * AudibleSlider is a slider that supports user-interface sound. You'll hear one sound for the snap interval,
- * and another sound for the min or max value.
- *
- * NOTE: Slider.js currently does not support sound, and this is a way to keep the sound-specific implementation
- * encapsulated.  When Slider gets a proper sound API, this implementation should be considered for incorporation
- * into that API, and this class can eventually be replaced or rewritten.
+ * AudibleSlider is a slider that supports user-interface sound. You'll hear one sound for the min or max value,
+ * and another sound for in-between values.  Slider.js currently does not support sound, and this is a temporary
+ * solution until https://github.com/phetsims/sun/issues/697 is addressed. This code is not production-ready.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,9 +17,9 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // constants
 const DEFAULT_MIN_MAX_SOUND = generalBoundaryBoopSoundPlayer;
-const DEFAULT_SNAP_SOUND = generalSoftClickSoundPlayer;
-const SNAP_SOUND_DURATION = 25; // determined empirically
-const SNAP_SOUND_MIN_SILENCE = 15; // minimum silence between snap sounds, in milliseconds
+const DEFAULT_IN_BETWEEN_SOUND = generalSoftClickSoundPlayer;
+const IN_BETWEEN_SOUND_DURATION = 25; // determined empirically
+const IN_BETWEEN_SOUND_MIN_SILENCE = 15; // minimum silence between in-between sounds, in milliseconds
 
 class AudibleSlider extends Slider {
 
@@ -37,7 +34,7 @@ class AudibleSlider extends Slider {
 
       // AudibleSlider options
       minMaxSound: DEFAULT_MIN_MAX_SOUND,
-      snapSound: DEFAULT_SNAP_SOUND
+      inBetweenSound: DEFAULT_IN_BETWEEN_SOUND
     }, options );
 
     // Keep track of the previous value on slider drag for playing sounds
@@ -58,7 +55,7 @@ class AudibleSlider extends Slider {
 
       if ( currentValue !== previousValue ) {
 
-        options.snapSound.isPlaying && options.snapSound.stop();
+        options.inBetweenSound.isPlaying && options.inBetweenSound.stop();
         options.minMaxSound.isPlaying && options.minMaxSound.stop();
 
         if ( currentValue === range.min || currentValue === range.max ) {
@@ -66,11 +63,11 @@ class AudibleSlider extends Slider {
           // Play min/max sound regardless of time since previous sound, otherwise we will sometime not hear them.
           options.minMaxSound.play();
         }
-        else if ( dtPlay >= SNAP_SOUND_DURATION + SNAP_SOUND_MIN_SILENCE ) {
+        else if ( dtPlay >= IN_BETWEEN_SOUND_DURATION + IN_BETWEEN_SOUND_MIN_SILENCE ) {
 
-          // Play snap sound at some minimum interval, so that moving the slider doesn't create a bunch of sounds
+          // Play in-between sound at some minimum interval, so that moving the slider doesn't create a bunch of sounds
           // playing on top of each other, which sounds like garbage.
-          options.snapSound.play();
+          options.inBetweenSound.play();
         }
 
         tPlay = Date.now();
