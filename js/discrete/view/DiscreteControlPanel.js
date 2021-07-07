@@ -24,7 +24,6 @@ import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import HSeparator from '../../../../sun/js/HSeparator.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
-import soundManager from '../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FWMConstants from '../../common/FMWConstants.js';
@@ -528,8 +527,9 @@ class SoundLayoutBox extends HBox {
 
     super( options );
 
-    // Disable this control when soundManager is disabled.
-    soundManager.enabledProperty.link( enabled => {
+    // Disable this control when UI sounds are disabled.
+    //TODO https://github.com/phetsims/joist/issues/724 this is a temporary workaround, do not publish
+    phet.joist.sim.allAudioEnabledProperty.link( enabled => {
       this.interruptSubtreeInput();
       soundEnabledCheckbox.enabled = enabled;
       outputLevelSlider.enabled = enabled;
