@@ -37,13 +37,8 @@ class AudibleSlider extends Slider {
 
       // AudibleSlider options
       minMaxSound: DEFAULT_MIN_MAX_SOUND,
-      snapSound: DEFAULT_SNAP_SOUND,
-
-      // Slider options
-      snapInterval: 1
+      snapSound: DEFAULT_SNAP_SOUND
     }, options );
-
-    assert && assert( options.snapInterval > 0, `invalid snapInterval: ${options.snapInterval}` );
 
     // Keep track of the previous value on slider drag for playing sounds
     let previousValue = property.value;
