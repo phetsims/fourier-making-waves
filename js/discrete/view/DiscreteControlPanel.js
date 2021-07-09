@@ -15,12 +15,15 @@ import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import SceneryConstants from '../../../../scenery/js/SceneryConstants.js';
 import Color from '../../../../scenery/js/util/Color.js';
+import musicSolidShape from '../../../../sherpa/js/fontawesome-5/musicSolidShape.js';
+import volumeOffSolidShape from '../../../../sherpa/js/fontawesome-5/volumeOffSolidShape.js';
+import volumeUpSolidShape from '../../../../sherpa/js/fontawesome-5/volumeUpSolidShape.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
-import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import HSeparator from '../../../../sun/js/HSeparator.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
@@ -496,9 +499,10 @@ class SoundLayoutBox extends HBox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // Checkbox with music notes icon
-    const soundEnabledCheckbox = new Checkbox( new FontAwesomeNode( 'music_solid', {
-      scale: 0.35
+    // Checkbox with fontawesome music icon
+    const soundEnabledCheckbox = new Checkbox( new Path( musicSolidShape, {
+      scale: 0.028,
+      fill: 'black'
     } ), soundEnabledProperty, merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
       tandem: options.tandem.createTandem( 'soundEnabledCheckbox' )
     } ) );
@@ -513,9 +517,12 @@ class SoundLayoutBox extends HBox {
     } );
 
     // Icons at the extremes of the slider
-    const iconOptions = { scale: 0.5 };
-    const volumeOffIcon = new FontAwesomeNode( 'volume_off', iconOptions );
-    const volumeUpIcon = new FontAwesomeNode( 'volume_up', iconOptions );
+    const iconOptions = {
+      scale: 0.037,
+      fill: 'black'
+    };
+    const volumeOffIcon = new Path( volumeOffSolidShape, iconOptions );
+    const volumeUpIcon = new Path( volumeUpSolidShape, iconOptions );
 
     // Layout for slider and icons
     const sliderBox = new HBox( {
