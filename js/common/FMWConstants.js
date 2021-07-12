@@ -131,7 +131,10 @@ const FMWConstants = {
   TICK_MARK_OPTIONS: {
     edge: 'min',
     extent: 6
-  }
+  },
+
+  // maxWidth
+  CHART_TITLE_MAX_WIDTH: 150
 };
 
 // Verify some of the above constants

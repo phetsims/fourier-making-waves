@@ -34,7 +34,8 @@ class LabeledExpandCollapseButton extends HBox {
 
       // Text options
       textOptions: {
-        font: FMWConstants.TITLE_FONT
+        font: FMWConstants.TITLE_FONT,
+        maxWidth: FMWConstants.CHART_TITLE_MAX_WIDTH
       },
 
       // phet-io options

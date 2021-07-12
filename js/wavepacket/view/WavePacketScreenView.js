@@ -90,7 +90,6 @@ class WavePacketScreenView extends ScreenView {
     // Button to show/hide the Components chart
     const componentsExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.componentsChart, model.componentsChart.chartVisibleProperty, {
-        textOptions: { maxWidth: 150 }, // determined empirically
         tandem: componentsTandem.createTandem( 'componentsExpandCollapseButton' )
       } );
 
@@ -123,7 +122,6 @@ class WavePacketScreenView extends ScreenView {
     // Button to show/hide the Sum chart
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.sum, model.sumChart.chartVisibleProperty, {
-        textOptions: { maxWidth: 150 }, // determined empirically
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
       } );
 

@@ -102,7 +102,6 @@ class DiscreteScreenView extends ScreenView {
     // Button to show/hide the Harmonics chart
     const harmonicsExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.harmonicsChart, model.harmonicsChart.chartVisibleProperty, {
-        textOptions: { maxWidth: 150 }, // determined empirically
         tandem: harmonicsTandem.createTandem( 'harmonicsExpandCollapseButton' )
       } );
 
@@ -140,7 +139,6 @@ class DiscreteScreenView extends ScreenView {
     // Button to show/hide the Sum chart
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.sum, model.sumChart.chartVisibleProperty, {
-        textOptions: { maxWidth: 150 }, // determined empirically
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
       } );
 
