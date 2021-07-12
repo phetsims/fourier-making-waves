@@ -41,7 +41,8 @@ class EquationComboBox extends FMWComboBox {
     }, options );
 
     const mathTextOptions = {
-      font: FMWConstants.MATH_CONTROL_FONT
+      font: FMWConstants.MATH_CONTROL_FONT,
+      maxWidth: 100
     };
 
     // {{string:string, value:EquationForm}[]}
