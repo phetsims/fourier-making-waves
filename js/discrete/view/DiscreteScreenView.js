@@ -382,9 +382,9 @@ class DiscreteScreenView extends ScreenView {
     } );
     model.oopsSawtoothWithCosinesEmitter.addListener( () => oopsSawtoothWithCosinesDialog.show() );
 
-    // When sound is enabled for the Fourier series, duck all user-interface sounds.
+    // When the FourierSoundGenerator is producing sound, duck all user-interface sounds.
     const userInterfaceDefaultOutputLevel = soundManager.getOutputLevelForCategory( 'user-interface' );
-    model.fourierSeriesSoundEnabledProperty.link( enabled => {
+    fourierSoundGenerator.fullyEnabledProperty.link( enabled => {
       const outputLevel = enabled ? 0.1 * userInterfaceDefaultOutputLevel : userInterfaceDefaultOutputLevel;
       soundManager.setOutputLevelForCategory( 'user-interface', outputLevel );
     } );
