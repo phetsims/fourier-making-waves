@@ -433,14 +433,8 @@ class MeasurementToolsLayoutBox extends VBox {
     super( options );
 
     // unlink is not necessary
-    wavelengthTool.isSelectedProperty.link( enabled => {
-      !enabled && wavelengthSpinner.interruptSubtreeInput();
-    } );
-
-    // unlink is not necessary
-    periodTool.isSelectedProperty.link( enabled => {
-      !enabled && periodSpinner.interruptSubtreeInput();
-    } );
+    wavelengthTool.isSelectedProperty.link( () => wavelengthSpinner.interruptSubtreeInput() );
+    periodTool.isSelectedProperty.link( () => periodSpinner.interruptSubtreeInput() );
 
     // unlink is not necessary
     domainProperty.link( domain => {
