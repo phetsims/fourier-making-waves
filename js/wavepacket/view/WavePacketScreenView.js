@@ -16,7 +16,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapseButton.js';
-import DiscreteScreenView from '../../discrete/view/DiscreteScreenView.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
@@ -28,7 +27,7 @@ import WavePacketSumChartNode from './WavePacketSumChartNode.js';
 import WavePacketSumEquationNode from './WavePacketSumEquationNode.js';
 
 // constants
-const CHART_TITLE_Y_SPACING = 15; // space between chart title and the chart
+const TITLE_BOTTOM_SPACING = 15; // space below the title of a chart
 
 class WavePacketScreenView extends ScreenView {
 
@@ -59,7 +58,7 @@ class WavePacketScreenView extends ScreenView {
     // Equation above the Amplitudes chart
     const amplitudeEquationNode = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
       font: FMWConstants.EQUATION_FONT,
-      maxWidth: 0.5 * DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
+      maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
       tandem: amplitudesTandem.createTandem( 'equationNode' )
     } );
 
@@ -68,8 +67,8 @@ class WavePacketScreenView extends ScreenView {
       transformOptions: {
         modelXRange: model.wavePacket.xRange,
         modelYRange: new Range( 0, model.maxAmplitude ), //TODO this needs to autoscale!
-        viewWidth: DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
-        viewHeight: DiscreteScreenView.CHART_RECTANGLE_SIZE.height
+        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
+        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
       },
       tandem: options.tandem.createTandem( 'amplitudesChartNode' )
     } );
@@ -79,7 +78,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Equation above the Components chart
     const componentsEquationNode = new ComponentsEquationNode( model.domainProperty, model.seriesTypeProperty, {
-      maxWidth: 0.5 * DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
+      maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
       tandem: componentsTandem.createTandem( 'equationNode' )
     } );
     const componentsEquationWrapperNode = new Node( {
@@ -98,8 +97,8 @@ class WavePacketScreenView extends ScreenView {
       transformOptions: {
         modelXRange: new Range( -2, 2 ), //TODO
         modelYRange: new Range( -model.maxAmplitude, model.maxAmplitude ), //TODO
-        viewWidth: DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
-        viewHeight: DiscreteScreenView.CHART_RECTANGLE_SIZE.height
+        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
+        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
       },
       visibleProperty: model.componentsChart.chartVisibleProperty,
       tandem: componentsTandem.createTandem( 'componentsChartNode' )
@@ -111,7 +110,7 @@ class WavePacketScreenView extends ScreenView {
     // Equation above the Sum chart
     const sumEquationNode = new WavePacketSumEquationNode( model.domainProperty, model.seriesTypeProperty,
       model.wavePacket.numberOfComponentsProperty, {
-        maxWidth: 0.5 * DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
+        maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
         tandem: sumTandem.createTandem( 'equationNode' )
       } );
     const sumEquationWrapperNode = new Node( {
@@ -130,8 +129,8 @@ class WavePacketScreenView extends ScreenView {
       transformOptions: {
         modelXRange: new Range( -2, 2 ), //TODO
         modelYRange: new Range( -1.25, 1.25 ), //TODO
-        viewWidth: DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
-        viewHeight: DiscreteScreenView.CHART_RECTANGLE_SIZE.height
+        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
+        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
       },
       visibleProperty: model.sumChart.chartVisibleProperty,
       tandem: sumTandem.createTandem( 'sumChartNode' )
@@ -151,20 +150,20 @@ class WavePacketScreenView extends ScreenView {
     // Layout, constants determined empirically
     {
       // Amplitudes chart at top left
-      amplitudesChartNode.x = DiscreteScreenView.X_CHART_RECTANGLES;
+      amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
       amplitudesChartNode.y = 32;
 
       // Components chart below the Amplitudes chart
       componentsExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
       componentsExpandCollapseButton.top = amplitudesChartNode.bottom;
       componentsChartNode.x = amplitudesChartNode.x;
-      componentsChartNode.y = componentsExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
+      componentsChartNode.y = componentsExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
 
       // Sum chart below the Components chart
       sumExpandCollapseButton.left = componentsExpandCollapseButton.left;
       sumExpandCollapseButton.top = componentsChartNode.bottom + 30;
       sumChartNode.x = componentsChartNode.x;
-      sumChartNode.y = sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
+      sumChartNode.y = sumExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
 
       // Control panel centered in the space to the right of the charts
       controlPanel.centerX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;

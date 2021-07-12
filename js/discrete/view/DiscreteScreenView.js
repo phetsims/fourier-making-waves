@@ -8,7 +8,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -32,19 +31,17 @@ import DiscreteAmplitudesChartNode from './DiscreteAmplitudesChartNode.js';
 import DiscreteControlPanel from './DiscreteControlPanel.js';
 import DiscreteHarmonicsChartNode from './DiscreteHarmonicsChartNode.js';
 import DiscreteSumChartNode from './DiscreteSumChartNode.js';
+import DiscreteSumEquationNode from './DiscreteSumEquationNode.js';
 import ExpandedFormButton from './ExpandedFormButton.js';
 import ExpandedFormDialog from './ExpandedFormDialog.js';
 import FourierSoundGenerator from './FourierSoundGenerator.js';
 import HarmonicsEquationNode from './HarmonicsEquationNode.js';
 import PeriodCalipersNode from './PeriodCalipersNode.js';
 import PeriodClockNode from './PeriodClockNode.js';
-import DiscreteSumEquationNode from './DiscreteSumEquationNode.js';
 import WavelengthCalipersNode from './WavelengthCalipersNode.js';
 
-// constants, in view coordinates, determined empirically
-const CHART_RECTANGLE_SIZE = new Dimension2( 645, 123 ); // size of the chart rectangles
-const X_CHART_RECTANGLES = 65; // x origin of the rectangle part of the charts, so that they are all aligned
-const CHART_TITLE_Y_SPACING = 15; // space between chart title and the chart
+// constants
+const TITLE_BOTTOM_SPACING = 15; // space below the title of a chart
 
 class DiscreteScreenView extends ScreenView {
 
@@ -90,8 +87,8 @@ class DiscreteScreenView extends ScreenView {
       // Changing any amplitude switches the waveform to 'custom'.
       onEdit: () => { model.waveformProperty.value = Waveform.CUSTOM; },
       transformOptions: {
-        viewWidth: CHART_RECTANGLE_SIZE.width,
-        viewHeight: CHART_RECTANGLE_SIZE.height
+        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
+        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
       },
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
     } );
@@ -108,8 +105,8 @@ class DiscreteScreenView extends ScreenView {
     // Harmonics chart
     const harmonicsChartNode = new DiscreteHarmonicsChartNode( model.harmonicsChart, {
       transformOptions: {
-        viewWidth: CHART_RECTANGLE_SIZE.width,
-        viewHeight: CHART_RECTANGLE_SIZE.height
+        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
+        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
       },
       visibleProperty: model.harmonicsChart.chartVisibleProperty,
       tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
@@ -118,7 +115,7 @@ class DiscreteScreenView extends ScreenView {
     // Equation that appears above the Harmonics chart, with wrapper Node to handle centering
     const harmonicsEquationNode = new HarmonicsEquationNode(
       model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, {
-        maxWidth: 0.5 * CHART_RECTANGLE_SIZE.width,
+        maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
         tandem: harmonicsTandem.createTandem( 'harmonicsEquationNode' ),
         phetioReadOnly: true
       } );
@@ -145,8 +142,8 @@ class DiscreteScreenView extends ScreenView {
     // Sum chart
     const sumChartNode = new DiscreteSumChartNode( model.sumChart, model.waveformProperty, {
       transformOptions: {
-        viewWidth: CHART_RECTANGLE_SIZE.width,
-        viewHeight: CHART_RECTANGLE_SIZE.height
+        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
+        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
       },
       visibleProperty: model.sumChart.chartVisibleProperty,
       tandem: sumTandem.createTandem( 'sumChartNode' )
@@ -155,7 +152,7 @@ class DiscreteScreenView extends ScreenView {
     // Equation that appears above the Sum chart, with wrapper Node to handle centering
     const sumEquationNode = new DiscreteSumEquationNode( model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty,
       model.seriesTypeProperty, model.equationFormProperty, {
-        maxWidth: 0.5 * CHART_RECTANGLE_SIZE.width,
+        maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
         tandem: sumTandem.createTandem( 'sumEquationNode' ),
         phetioReadOnly: true
       } );
@@ -263,7 +260,7 @@ class DiscreteScreenView extends ScreenView {
     // Layout, constants determined empirically
     {
       // Amplitudes chart at top left
-      amplitudesChartNode.x = X_CHART_RECTANGLES;
+      amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
       amplitudesChartNode.y = 58;
 
       // Eraser button to the right of the amplitude NumberDisplays
@@ -274,14 +271,14 @@ class DiscreteScreenView extends ScreenView {
       // Harmonics chart below the Amplitudes chart
       harmonicsExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
       harmonicsExpandCollapseButton.top = amplitudesChartNode.bottom + 15;
-      harmonicsChartNode.x = X_CHART_RECTANGLES;
-      harmonicsChartNode.y = harmonicsExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
+      harmonicsChartNode.x = FMWConstants.X_CHART_RECTANGLES;
+      harmonicsChartNode.y = harmonicsExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
 
       // Sum chart below the Harmonics chart
       sumExpandCollapseButton.left = harmonicsExpandCollapseButton.left;
       sumExpandCollapseButton.top = harmonicsChartNode.bottom + 30;
-      sumChartNode.x = X_CHART_RECTANGLES;
-      sumChartNode.y = sumExpandCollapseButton.bottom + CHART_TITLE_Y_SPACING;
+      sumChartNode.x = FMWConstants.X_CHART_RECTANGLES;
+      sumChartNode.y = sumExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
 
       // Control panel to the right of the charts
       controlPanel.right = layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
@@ -419,11 +416,6 @@ class DiscreteScreenView extends ScreenView {
     super.dispose();
   }
 }
-
-//TODO move to FMWConstants, used in all screens
-// @public ... because these same values are needed in Wave Game screen.
-DiscreteScreenView.CHART_RECTANGLE_SIZE = CHART_RECTANGLE_SIZE;
-DiscreteScreenView.X_CHART_RECTANGLES = X_CHART_RECTANGLES;
 
 fourierMakingWaves.register( 'DiscreteScreenView', DiscreteScreenView );
 export default DiscreteScreenView;

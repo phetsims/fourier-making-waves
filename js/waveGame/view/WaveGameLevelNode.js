@@ -33,7 +33,6 @@ import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
-import DiscreteScreenView from '../../discrete/view/DiscreteScreenView.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
@@ -47,10 +46,10 @@ import WaveGameSumChartNode from './WaveGameSumChartNode.js';
 
 // constants
 const DEFAULT_FONT = new PhetFont( 16 );
-const CHART_RECTANGLE_SIZE = DiscreteScreenView.CHART_RECTANGLE_SIZE;
-const X_CHART_RECTANGLES = DiscreteScreenView.X_CHART_RECTANGLES;
 const BUTTON_TEXT_MAX_WIDTH = 150; // maxWidth for button text, determined empirically
 const CHECK_ANSWER_PRESSES = 2; // number of 'Check Answer' button presses required to enabled the 'Show Answers' button
+const TITLE_TOP_SPACING = 10; // space above the title of a chart
+const TITLE_BOTTOM_SPACING = 10; // space below the title of a chart
 
 class WaveGameLevelNode extends Node {
 
@@ -105,8 +104,8 @@ class WaveGameLevelNode extends Node {
 
     const amplitudesChartNode = new WaveGameAmplitudesChartNode( level.amplitudesChart, amplitudeKeypadDialog, {
       transformOptions: {
-        viewWidth: CHART_RECTANGLE_SIZE.width,
-        viewHeight: CHART_RECTANGLE_SIZE.height
+        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
+        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
       },
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
     } );
@@ -128,8 +127,8 @@ class WaveGameLevelNode extends Node {
 
     const harmonicsChartNode = new WaveGameHarmonicsChartNode( level.harmonicsChart, {
       transformOptions: {
-        viewWidth: CHART_RECTANGLE_SIZE.width,
-        viewHeight: CHART_RECTANGLE_SIZE.height
+        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
+        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
       },
       tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
     } );
@@ -145,8 +144,8 @@ class WaveGameLevelNode extends Node {
 
     const sumChartNode = new WaveGameSumChartNode( level.sumChart, {
       transformOptions: {
-        viewWidth: CHART_RECTANGLE_SIZE.width,
-        viewHeight: CHART_RECTANGLE_SIZE.height
+        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
+        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
       },
       tandem: sumTandem.createTandem( 'sumChartNode' )
     } );
@@ -328,16 +327,16 @@ class WaveGameLevelNode extends Node {
 
     // Beginning of layout ----------------------------------------------
 
-    amplitudesChartNode.x = X_CHART_RECTANGLES;
+    amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
     amplitudesChartNode.top = statusBar.bottom + 5;
     harmonicsTitleNode.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-    harmonicsTitleNode.top = amplitudesChartNode.bottom + 10;
+    harmonicsTitleNode.top = amplitudesChartNode.bottom + TITLE_TOP_SPACING;
     harmonicsChartNode.x = amplitudesChartNode.x;
-    harmonicsChartNode.y = harmonicsTitleNode.bottom + 10;
+    harmonicsChartNode.y = harmonicsTitleNode.bottom + TITLE_BOTTOM_SPACING;
     sumTitleNode.left = harmonicsTitleNode.left;
-    sumTitleNode.top = harmonicsChartNode.bottom + 10;
+    sumTitleNode.top = harmonicsChartNode.bottom + TITLE_TOP_SPACING;
     sumChartNode.x = amplitudesChartNode.x;
-    sumChartNode.y = sumTitleNode.bottom + 10;
+    sumChartNode.y = sumTitleNode.bottom + TITLE_BOTTOM_SPACING;
 
     // Center of the ChartRectangle for each chart
     const amplitudesChartRectangleCenter = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.center );
