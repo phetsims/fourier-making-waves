@@ -7,15 +7,13 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
-import VBox from '../../../../scenery/js/nodes/VBox.js';
-import Slider from '../../../../sun/js/Slider.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
@@ -23,92 +21,58 @@ import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class K1Control extends VBox {
+// constants
+const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
+const DECIMALS = 2;
+
+class K1Control extends NumberControl {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {DerivedProperty} k1Property
+   * @param {NumberProperty} k1Property
    * @param {Object} [options]
    */
   constructor( domainProperty, k1Property, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( k1Property, 'number' );
+    assert && assert( k1Property instanceof NumberProperty );
+    assert && assert( k1Property.range );
 
-    options = merge( {
+    options = merge( {}, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, {
 
-      decimals: 2,
+      // NumberDisplay options
+      delta: 1, // because the control is setting an index
+      numberDisplayOptions: {
+        numberFormatter: k1Index =>
+          StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
+            symbol: ( domainProperty.value === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
+            subscript: 1,
+            value: Utils.toFixedNumber( k1Property.validValues[ k1Index ], DECIMALS ),
+            units: ( domainProperty.value === Domain.SPACE ) ?
+                   fourierMakingWavesStrings.units.radiansPerMeter :
+                   fourierMakingWavesStrings.units.radiansPerMillisecond
+          } )
+      },
 
-      // VBox options
-      spacing: 5,
-      align: 'left',
+      // Slider options
+      sliderOptions: {
+        constrainValue: value => Utils.roundSymmetric( value ),
+
+        // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
+        majorTicks: [
+          { value: 0, label: new RichText( '0', TEXT_OPTIONS ) },
+          { value: 1, label: new RichText( `${FMWSymbols.pi}/4`, TEXT_OPTIONS ) },
+          { value: 2, label: new RichText( `${FMWSymbols.pi}/2`, TEXT_OPTIONS ) },
+          { value: 3, label: new RichText( `${FMWSymbols.pi}`, TEXT_OPTIONS ) },
+          { value: 4, label: new RichText( `2${FMWSymbols.pi}`, TEXT_OPTIONS ) }
+        ],
+
+        // pdom options
+        keyboardStep: 1 // This is selecting an index, not the actual value.
+      },
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, options );
-
-    const valueNode = new RichText( '', {
-      font: FMWConstants.CONTROL_FONT,
-      maxWidth: 200,
-      tandem: options.tandem.createTandem( 'valueNode' )
-    } );
-
-    const slider = new K1Slider( k1Property, {
-      tandem: options.tandem.createTandem( 'slider' )
-    } );
-
-    assert && assert( !options.children );
-    options.children = [ valueNode, slider ];
-
-    super( options );
-
-    // Update the displayed value.
-    Property.multilink(
-      [ domainProperty, k1Property ],
-      ( domain, k1 ) => {
-        valueNode.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
-          symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
-          subscript: 1,
-          value: Utils.toFixedNumber( k1, options.decimals ),
-          units: ( domain === Domain.SPACE ) ?
-                 fourierMakingWavesStrings.units.radiansPerMeter :
-                 fourierMakingWavesStrings.units.radiansPerMillisecond
-        } );
-      } );
-  }
-
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
-  }
-}
-
-//TODO https://github.com/phetsims/fourier-making-waves/issues/54 UI sound
-class K1Slider extends Slider {
-
-  /**
-   * @param {Property.<number>} k1Property
-   * @param {Object} [options]
-   */
-  constructor( k1Property, options ) {
-
-    assert && AssertUtils.assertPropertyOf( k1Property, 'number' );
-    assert && assert( k1Property.validValues );
-
-    options = merge( {}, FMWConstants.CONTINUOUS_SLIDER_OPTIONS, {
-
-      // Slider options
-      constrainValue: value => Utils.roundSymmetric( value ),
-
-      // pdom options - This is selecting an index, not the actual value. And there are only a few indices to chose
-      // from, so no need for fine/course control with shift or page modifier keys
-      keyboardStep: 1,
-      shiftKeyboardStep: 1,
-      pageKeyboardStep: 1
     }, options );
 
     // k1Property has a small set of valid values. Only those values are to be settable via this Slider, and they are
@@ -120,18 +84,8 @@ class K1Slider extends Slider {
       numberType: 'Integer',
       range: new Range( 0, validValues.length - 1 )
     } );
-
-    super( k1IndexProperty, k1IndexProperty.range, options );
-
-    // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
-    // The assertion below should help with maintainability, in the event that k1Property.range is changed.
-    assert && assert( k1IndexProperty.range.min === 0 && k1IndexProperty.range.max === 4 );
-    const textOptions = { font: FMWConstants.TICK_LABEL_FONT };
-    this.addMajorTick( 0, new RichText( '0', textOptions ) );
-    this.addMajorTick( 1, new RichText( `${FMWSymbols.pi}/4`, textOptions ) );
-    this.addMajorTick( 2, new RichText( `${FMWSymbols.pi}/2`, textOptions ) );
-    this.addMajorTick( 3, new RichText( `${FMWSymbols.pi}`, textOptions ) );
-    this.addMajorTick( 4, new RichText( `2${FMWSymbols.pi}`, textOptions ) );
+    assert && assert( k1IndexProperty.range.min === 0 && k1IndexProperty.range.max === 4,
+      'implementation of tick marks is dependent on a specific range' );
 
     // Keep k1 and k1Index in sync
     k1Property.link( k1 => {
@@ -140,6 +94,20 @@ class K1Slider extends Slider {
     k1IndexProperty.link( k1Index => {
       k1Property.value = validValues[ k1Index ];
     } );
+
+    super( '', k1IndexProperty, k1IndexProperty.range, options );
+
+    // Update the displayed value.
+    domainProperty.link( () => this.redrawNumberDisplay() );
+  }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
   }
 }
 

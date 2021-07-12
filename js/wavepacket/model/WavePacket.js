@@ -42,6 +42,7 @@ class WavePacket {
     // dispose is not needed
     this.k1Property = new NumberProperty( K1_VALUES[ 3 ], {
       validValues: K1_VALUES,
+      range: new Range( K1_VALUES[ 0 ], K1_VALUES[ K1_VALUES.length - 1 ] ),
       tandem: options.tandem.createTandem( 'k1Property' )
     } );
 

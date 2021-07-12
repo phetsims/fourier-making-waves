@@ -35,7 +35,7 @@ import WavePacketSymbolsDialog from './WavePacketSymbolsDialog.js';
 import WidthIndicatorsCheckbox from './WidthIndicatorsCheckbox.js';
 
 // constants
-const VERTICAL_SPACING = 6;
+const VERTICAL_SPACING = 5;
 
 class WavePacketControlPanel extends Panel {
 

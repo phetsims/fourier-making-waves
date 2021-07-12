@@ -9,12 +9,14 @@
 import Dimension2 from '../../../dot/js/Dimension2.js';
 import AssertUtils from '../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
+import VBox from '../../../scenery/js/nodes/VBox.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWColorProfile from './FMWColorProfile.js';
 import FMWQueryParameters from './FMWQueryParameters.js';
 
 // constants - view
 const PANEL_CORNER_RADIUS = 5;
+const CONTROL_FONT = new PhetFont( 12 );
 
 const FMWConstants = {
 
@@ -69,18 +71,41 @@ const FMWConstants = {
     spacing: 18
   },
 
-  // options for sliders in the Continuous screen
-  CONTINUOUS_SLIDER_OPTIONS: {
-    trackSize: new Dimension2( 175, 3 ),
-    thumbSize: new Dimension2( 12, 20 ),
-    majorTickLength: 10
+  // options for NumberControls in the Wave Packet screen
+  WAVE_PACKET_NUMBER_CONTROL_OPTIONS: {
+
+    // NumberControl options
+    includeArrowButtons: false,
+    layoutFunction: ( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) => new VBox( {
+      spacing: 5,
+      align: 'left',
+      children: [ numberDisplay, slider ]
+    } ),
+
+    // NumberDisplay options
+    numberDisplayOptions: {
+      font: CONTROL_FONT,
+      useRichText: true,
+      align: 'left',
+      textOptions: {
+        maxWidth: 175
+      }
+    },
+
+    // Slider options
+    sliderOptions: {
+      trackSize: new Dimension2( 175, 3 ),
+      thumbSize: new Dimension2( 12, 20 ),
+      majorTickLength: 10,
+      tickLabelSpacing: 4
+    }
   },
 
   // Fonts
   TITLE_FONT: new PhetFont( { size: 14, weight: 'bold' } ),
   SUBTITLE_FONT: new PhetFont( { size: 12, weight: 'bold' } ),
   DIALOG_TITLE_FONT: new PhetFont( { size: 18, weight: 'bold' } ),
-  CONTROL_FONT: new PhetFont( 12 ),
+  CONTROL_FONT: CONTROL_FONT,
   MATH_CONTROL_FONT: new PhetFont( 13 ), // use a larger font for math symbols, see https://github.com/phetsims/fourier-making-waves/issues/99
   AXIS_LABEL_FONT: new PhetFont( 12 ),
   TICK_LABEL_FONT: new PhetFont( 12 ),
