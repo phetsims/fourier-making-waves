@@ -87,6 +87,7 @@ const FMWConstants = {
       font: CONTROL_FONT,
       useRichText: true,
       align: 'left',
+      minBackgroundWidth: 110,
       textOptions: {
         maxWidth: 175
       }
@@ -119,9 +120,10 @@ const FMWConstants = {
   // Charts
   CHART_RECTANGLE_SIZE: new Dimension2( 645, 123 ),
   X_CHART_RECTANGLES: 65, // x origin of ChartRectangles, so that they are all aligned
+  CHART_TITLE_MAX_WIDTH: 150,
   ZOOM_BUTTON_GROUP_SCALE: 0.75,
-  X_AXIS_LABEL_MAX_WIDTH: 30,
-  X_AXIS_LABEL_SPACING: 10, // horizontal space between chart rectangle and x-axis label
+  X_AXIS_LABEL_MAX_WIDTH: 38,
+  X_AXIS_LABEL_SPACING: 6, // horizontal space between chart rectangle and x-axis label
   Y_AXIS_LABEL_SPACING: 36,  // horizontal space between chart rectangle and y-axis label
   AXIS_LINE_OPTIONS: {
     stroke: FMWColorProfile.axisStrokeProperty,
@@ -134,10 +136,7 @@ const FMWConstants = {
   TICK_MARK_OPTIONS: {
     edge: 'min',
     extent: 6
-  },
-
-  // maxWidth
-  CHART_TITLE_MAX_WIDTH: 150
+  }
 };
 
 // Verify some of the above constants
