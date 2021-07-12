@@ -59,6 +59,7 @@ class WavePacketScreenView extends ScreenView {
     // Equation above the Amplitudes chart
     const amplitudeEquationNode = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
       font: FMWConstants.EQUATION_FONT,
+      maxWidth: 0.5 * DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
       tandem: amplitudesTandem.createTandem( 'equationNode' )
     } );
 
@@ -78,6 +79,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Equation above the Components chart
     const componentsEquationNode = new ComponentsEquationNode( model.domainProperty, model.seriesTypeProperty, {
+      maxWidth: 0.5 * DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
       tandem: componentsTandem.createTandem( 'equationNode' )
     } );
     const componentsEquationWrapperNode = new Node( {
@@ -110,10 +112,11 @@ class WavePacketScreenView extends ScreenView {
     // Equation above the Sum chart
     const sumEquationNode = new WavePacketSumEquationNode( model.domainProperty, model.seriesTypeProperty,
       model.wavePacket.numberOfComponentsProperty, {
-        visibleProperty: model.sumChart.chartVisibleProperty,
+        maxWidth: 0.5 * DiscreteScreenView.CHART_RECTANGLE_SIZE.width,
         tandem: sumTandem.createTandem( 'equationNode' )
       } );
     const sumEquationWrapperNode = new Node( {
+      visibleProperty: model.sumChart.chartVisibleProperty,
       children: [ sumEquationNode ]
     } );
 
