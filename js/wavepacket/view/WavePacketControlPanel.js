@@ -247,6 +247,14 @@ class WavePacketLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'dxControl' )
     } );
 
+    // These 2 controls are mutually-exclusive. You cannot interact with them both at the same time.
+    dkControl.isPressedProperty.link( isPressed => {
+      isPressed && dxControl.interruptSubtreeInput();
+    } );
+    dxControl.isPressedProperty.link( isPressed => {
+      isPressed && dkControl.interruptSubtreeInput();
+    } );
+
     const widthIndicatorsCheckbox = new WidthIndicatorsCheckbox( widthIndicatorsVisibleProperty, {
       tandem: options.tandem.createTandem( 'widthIndicatorsCheckbox' )
     } );
