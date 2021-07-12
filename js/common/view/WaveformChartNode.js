@@ -101,7 +101,7 @@ class WaveformChartNode extends Node {
 
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
-      maxWidth: 30, // determined empirically
+      maxWidth: FMWConstants.X_AXIS_LABEL_MAX_WIDTH,
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
@@ -126,11 +126,11 @@ class WaveformChartNode extends Node {
     }
 
     // Set the x-axis label based on domain.
-    const spaceLabel = StringUtils.fillIn( fourierMakingWavesStrings.xAxisLabel, {
+    const spaceLabel = StringUtils.fillIn( fourierMakingWavesStrings.symbolUnits, {
       symbol: FMWSymbols.x,
       units: fourierMakingWavesStrings.units.meters
     } );
-    const timeLabel = StringUtils.fillIn( fourierMakingWavesStrings.xAxisLabel, {
+    const timeLabel = StringUtils.fillIn( fourierMakingWavesStrings.symbolUnits, {
       symbol: FMWSymbols.t,
       units: fourierMakingWavesStrings.units.milliseconds
     } );

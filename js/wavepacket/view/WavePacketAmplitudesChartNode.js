@@ -75,7 +75,7 @@ class WavePacketAmplitudesChartNode extends Node {
 
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
-      maxWidth: 60, // determined empirically
+      maxWidth: FMWConstants.X_AXIS_LABEL_MAX_WIDTH,
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
@@ -147,8 +147,8 @@ class WavePacketAmplitudesChartNode extends Node {
     // unlink is not needed.
     domainProperty.link( domain => {
 
-      // update the label
-      xAxisLabel.text = StringUtils.fillIn( fourierMakingWavesStrings.xAxisLabel, {
+      // Update the label. Note that units are on a separate line so that this label takes up less horizontal space.
+      xAxisLabel.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolBreakUnits, {
         symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
         units: ( domain === Domain.SPACE ) ?
                fourierMakingWavesStrings.units.radiansPerMeter :

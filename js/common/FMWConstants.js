@@ -120,6 +120,7 @@ const FMWConstants = {
   CHART_RECTANGLE_SIZE: new Dimension2( 645, 123 ),
   X_CHART_RECTANGLES: 65, // x origin of ChartRectangles, so that they are all aligned
   ZOOM_BUTTON_GROUP_SCALE: 0.75,
+  X_AXIS_LABEL_MAX_WIDTH: 30,
   X_AXIS_LABEL_SPACING: 10, // horizontal space between chart rectangle and x-axis label
   Y_AXIS_LABEL_SPACING: 36,  // horizontal space between chart rectangle and y-axis label
   AXIS_LINE_OPTIONS: {
