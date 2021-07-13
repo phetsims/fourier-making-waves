@@ -1,14 +1,14 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
-//TODO this is a bit like NumberDisplay, but not currently general enough for common code
 /**
- * StringDisplay displays a string value in a rectangle. It's used to display what the user has typed on the
- * Keypad, which is in string format.
+ * StringDisplay displays a string value in a rectangle. The rectangle dimensions are constant, and the string will
+ * be scaled to fit inside the rectangle.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
@@ -17,6 +17,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // constants
 const DEFAULT_FONT = new PhetFont( 12 );
+const ALIGN_VALUE_VALUES = [ 'left', 'center', 'right' ];
 
 class StringDisplay extends Node {
 
@@ -26,18 +27,20 @@ class StringDisplay extends Node {
    */
   constructor( stringProperty, options ) {
 
+    assert && AssertUtils.assertPropertyOf( stringProperty, 'string' );
+
     options = merge( {
 
       // StringDisplay options
+      align: 'center',
       width: 100,
       height: 50,
       xMargin: 0,
       yMargin: 0,
+      stringFormat: string => string,
 
       // Rectangle options
       rectangleOptions: {
-        width: 100,
-        height: 50,
         cornerRadius: 0,
         fill: 'white',
         stroke: 'black'
@@ -50,26 +53,32 @@ class StringDisplay extends Node {
       }
     }, options );
 
-    const backgroundNode = new Rectangle( 0, 0, options.width, options.height, options.rectangleOptions );
+    assert && assert( ALIGN_VALUE_VALUES.includes( options.align ), `invalid align: ${options.align}` );
 
-    const stringNode = new RichText( '0', merge( {
-      maxWidth: backgroundNode.width - 2 * options.xMargin,
-      maxHeight: backgroundNode.height - 2 * options.yMargin
+    const rectangle = new Rectangle( 0, 0, options.width, options.height, options.rectangleOptions );
+
+    const textNode = new RichText( '', merge( {
+      maxWidth: rectangle.width - 2 * options.xMargin,
+      maxHeight: rectangle.height - 2 * options.yMargin
     }, options.textOptions ) );
 
     assert && assert( !options.children, 'StringDisplay sets children' );
-    options.children = [ backgroundNode, stringNode ];
+    options.children = [ rectangle, textNode ];
 
     super( options );
 
-    const stringListener = value => {
-      stringNode.text = value;
-      stringNode.center = backgroundNode.center;
-    };
-    stringProperty.link( stringListener ); // unlink is required on dispose
+    // Display the string value. unlink is required on dispose.
+    const stringListener = string => { textNode.text = options.stringFormat( string ); };
+    stringProperty.link( stringListener );
+
+    // Keep the text centered in the background. unlink is not required.
+    textNode.boundsProperty.link( () => {
+      textNode.center = rectangle.center;
+    } );
 
     // @private
-    this.stringNode = stringNode;
+    this.rectangle = rectangle;
+    this.textNode = textNode;
 
     // @private
     this.disposeStringDisplay = () => {
@@ -87,12 +96,21 @@ class StringDisplay extends Node {
   }
 
   /**
-   * Sets the fill used to display the string.
+   * Sets the fill for the rectangle.
    * @param {string} fill
    * @public
    */
-  setStringFill( fill ) {
-    this.stringNode.fill = fill;
+  setRectangleFill( fill ) {
+    this.rectangle.fill = fill;
+  }
+
+  /**
+   * Sets the fill for the text.
+   * @param {string} fill
+   * @public
+   */
+  setTextFill( fill ) {
+    this.textNode.fill = fill;
   }
 }
 

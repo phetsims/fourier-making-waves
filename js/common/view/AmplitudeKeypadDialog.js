@@ -149,14 +149,14 @@ class AmplitudeKeypadDialog extends Dialog {
       else {
 
         // An invalid value was entered, indicate by highlighting the value and range.
-        stringDisplay.setStringFill( INVALID_VALUE_FILL );
+        stringDisplay.setTextFill( INVALID_VALUE_FILL );
         rangeNode.fill = INVALID_VALUE_FILL;
       }
     } );
 
     // When any key is pressed, restore colors.
     keypad.accumulatedKeysProperty.link( () => {
-      stringDisplay.setStringFill( VALID_VALUE_FILL );
+      stringDisplay.setTextFill( VALID_VALUE_FILL );
       rangeNode.fill = VALID_VALUE_FILL;
     } );
   }
