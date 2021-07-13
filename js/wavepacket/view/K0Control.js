@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * K0Control displays the value of k0, the wave packet's center, and allows it to be changed via a slider.
+ * K0Control displays the value of k0 (the wave packet's center) and allows it to be changed via a slider.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
