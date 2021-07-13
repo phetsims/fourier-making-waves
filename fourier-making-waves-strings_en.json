@@ -239,8 +239,8 @@
   "continuousWaveform": {
     "value": "Continuous Waveform"
   },
-  "symbolSubscriptEqualsValueUnits": {
-    "value": "{{symbol}}<sub>{{subscript}}</sub> = {{value}} {{units}}"
+  "symbolEqualsValueUnits": {
+    "value": "{{symbol}} = {{value}} {{units}}"
   },
   "units.meters": {
     "value": "m"
@@ -261,7 +261,7 @@
     "value": "{{symbol}}<br>({{units}})"
   },
   "dxPattern": {
-    "value": "{{symbol1}}<sub>{{subscript1}}</sub> = 1/{{symbol2}}<sub>{{subscript2}}</sub> = {{value}} {{units}}"
+    "value": "{{symbol1}} = 1/{{symbol2}} = {{value}} {{units}}"
   },
   "infiniteComponentsCannotBePlotted": {
     "value": "An infinite number of components cannot be plotted."

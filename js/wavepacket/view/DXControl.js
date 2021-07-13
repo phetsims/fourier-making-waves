@@ -45,17 +45,7 @@ class DXControl extends NumberControl {
       delta: DELTA,
       numberDisplayOptions: {
         minBackgroundWidth: 140,
-        numberFormatter: dx =>
-          StringUtils.fillIn( fourierMakingWavesStrings.dxPattern, {
-            symbol1: FMWSymbols.sigma,
-            subscript1: ( domainProperty.value === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t,
-            symbol2: FMWSymbols.sigma,
-            subscript2: ( domainProperty.value === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
-            value: Utils.toFixedNumber( dx, DECIMALS ),
-            units: ( domainProperty.value === Domain.SPACE ) ?
-                   fourierMakingWavesStrings.units.radiansPerMeter :
-                   fourierMakingWavesStrings.units.radiansPerMillisecond
-          } )
+        numberFormatter: dx => numberFormatter( dx, domainProperty.value )
       },
 
       // Slider options
@@ -96,6 +86,36 @@ class DXControl extends NumberControl {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
+}
+
+/**
+ * Formats the number for display by NumberDisplay.
+ * @param {number} dx
+ * @param {Domain} domain
+ * @returns {string}
+ */
+function numberFormatter( dx, domain ) {
+
+  const pattern = `${FMWSymbols.sigma}<sub>{{subscript}}</sub>`;
+  const symbol1 = StringUtils.fillIn( pattern, {
+    subscript: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t
+  } );
+  const symbol2 = StringUtils.fillIn( pattern, {
+    subscript: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega
+  } );
+
+  const value = Utils.toFixedNumber( dx, DECIMALS );
+
+  const units = ( domain === Domain.SPACE ) ?
+                fourierMakingWavesStrings.units.radiansPerMeter :
+                fourierMakingWavesStrings.units.radiansPerMillisecond;
+
+  return StringUtils.fillIn( fourierMakingWavesStrings.dxPattern, {
+    symbol1: symbol1,
+    symbol2: symbol2,
+    value: value,
+    units: units
+  } );
 }
 
 fourierMakingWaves.register( 'DXControl', DXControl );

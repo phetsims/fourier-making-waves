@@ -45,9 +45,11 @@ class DKControl extends NumberControl {
       delta: DELTA,
       numberDisplayOptions: {
         numberFormatter: dk =>
-          StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
-            symbol: FMWSymbols.sigma,
-            subscript: ( domainProperty.value === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
+          StringUtils.fillIn( fourierMakingWavesStrings.symbolEqualsValueUnits, {
+            symbol: StringUtils.fillIn( '{{symbol}}<sub>{{subscript}}</sub>', {
+              symbol: FMWSymbols.sigma,
+              subscript: ( domainProperty.value === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega
+            } ),
             value: Utils.toFixedNumber( dk, DECIMALS ),
             units: ( domainProperty.value === Domain.SPACE ) ?
                    fourierMakingWavesStrings.units.radiansPerMeter :

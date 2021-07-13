@@ -43,15 +43,7 @@ class K1Control extends NumberControl {
       // NumberDisplay options
       delta: 1, // because the control is setting an index
       numberDisplayOptions: {
-        numberFormatter: k1Index =>
-          StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
-            symbol: ( domainProperty.value === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
-            subscript: 1,
-            value: Utils.toFixedNumber( k1Property.validValues[ k1Index ], DECIMALS ),
-            units: ( domainProperty.value === Domain.SPACE ) ?
-                   fourierMakingWavesStrings.units.radiansPerMeter :
-                   fourierMakingWavesStrings.units.radiansPerMillisecond
-          } )
+        numberFormatter: k1Index => numberFormatter( k1Property.validValues[ k1Index ], domainProperty.value )
       },
 
       // Slider options
@@ -109,6 +101,31 @@ class K1Control extends NumberControl {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
+}
+
+/**
+ * Formats the number for display by NumberDisplay.
+ * @param {number} k1
+ * @param {Domain} domain
+ * @returns {string}
+ */
+function numberFormatter( k1, domain ) {
+
+  const symbol = StringUtils.fillIn( '{{symbol}}<sub>1</sub>', {
+    symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega
+  } );
+
+  const value = Utils.toFixedNumber( k1, DECIMALS );
+
+  const units = ( domain === Domain.SPACE ) ?
+                fourierMakingWavesStrings.units.radiansPerMeter :
+                fourierMakingWavesStrings.units.radiansPerMillisecond;
+
+  return StringUtils.fillIn( fourierMakingWavesStrings.symbolEqualsValueUnits, {
+    symbol: symbol,
+    value: value,
+    units: units
+  } );
 }
 
 fourierMakingWaves.register( 'K1Control', K1Control );
