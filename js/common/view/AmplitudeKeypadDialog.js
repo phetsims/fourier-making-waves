@@ -92,7 +92,8 @@ class AmplitudeKeypadDialog extends Dialog {
       maxWidth: keypad.width
     } );
 
-    // Displays what has been entered on the keypad
+    // Displays what has been entered on the keypad. We cannot use NumberDisplay because it displays numbers,
+    // and is not capable of displaying partial numeric input like '1.'
     const stringDisplay = new StringDisplay( keypad.stringProperty, {
       width: keypad.width,
       height: 28, // determined empirically
