@@ -1,5 +1,6 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
+//TODO migrate to scenery-phet?
 /**
  * StringDisplay displays a string value in a rectangle. The rectangle dimensions are constant, and the string will
  * be scaled to fit inside the rectangle.
