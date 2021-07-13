@@ -44,10 +44,13 @@ class DXControl extends NumberControl {
       // NumberDisplay options
       delta: DELTA,
       numberDisplayOptions: {
+        minBackgroundWidth: 140,
         numberFormatter: dx =>
-          StringUtils.fillIn( fourierMakingWavesStrings.symbolSubscriptEqualsValueUnits, {
-            symbol: FMWSymbols.sigma,
-            subscript: ( domainProperty.value === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t,
+          StringUtils.fillIn( fourierMakingWavesStrings.dxPattern, {
+            symbol1: FMWSymbols.sigma,
+            subscript1: ( domainProperty.value === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t,
+            symbol2: FMWSymbols.sigma,
+            subscript2: ( domainProperty.value === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
             value: Utils.toFixedNumber( dx, DECIMALS ),
             units: ( domainProperty.value === Domain.SPACE ) ?
                    fourierMakingWavesStrings.units.radiansPerMeter :

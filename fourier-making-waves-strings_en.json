@@ -260,6 +260,9 @@
   "symbolBreakUnits": {
     "value": "{{symbol}}<br>({{units}})"
   },
+  "dxPattern": {
+    "value": "{{symbol1}}<sub>{{subscript1}}</sub> = 1/{{symbol2}}<sub>{{subscript2}}</sub> = {{value}} {{units}}"
+  },
   "infiniteComponentsCannotBePlotted": {
     "value": "An infinite number of components cannot be plotted."
   }
