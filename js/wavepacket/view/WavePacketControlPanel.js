@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
@@ -25,7 +26,6 @@ import DomainComboBox from '../../common/view/DomainComboBox.js';
 import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import WavePacket from '../model/WavePacket.js';
 import WavePacketModel from '../model/WavePacketModel.js';
 import DKControl from './DKControl.js';
 import DXControl from './DXControl.js';
@@ -35,7 +35,7 @@ import WavePacketSymbolsDialog from './WavePacketSymbolsDialog.js';
 import WidthIndicatorsCheckbox from './WidthIndicatorsCheckbox.js';
 
 // constants
-const VERTICAL_SPACING = 5;
+const VERTICAL_SPACING = 7;
 
 class WavePacketControlPanel extends Panel {
 
@@ -55,7 +55,7 @@ class WavePacketControlPanel extends Panel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const fourierSeriesLayoutBox = new FourierSeriesLayoutBox( model.domainProperty, model.wavePacket.k1Property, {
+    const fourierSeriesLayoutBox = new ComponentSpacingLayoutBox( model.domainProperty, model.wavePacket.k1Property, {
       spacing: VERTICAL_SPACING,
       tandem: options.tandem.createTandem( 'fourierSeriesLayoutBox' )
     } );
@@ -65,11 +65,18 @@ class WavePacketControlPanel extends Panel {
       // Fourier Series
       fourierSeriesLayoutBox,
 
-      // Wave Packet
-      new WavePacketLayoutBox( model.domainProperty, model.wavePacket, model.widthIndicatorsVisibleProperty, {
+      // Wave Packet - Center
+      new WavePacketCenterLayoutBox( model.domainProperty, model.wavePacket.k0Property, {
         spacing: VERTICAL_SPACING,
         tandem: options.tandem.createTandem( 'wavePacketCenterLayoutBox' )
       } ),
+
+      // Wave Packet - Width
+      new WavePacketWidthLayoutBox( model.domainProperty, model.wavePacket.dkProperty, model.wavePacket.dxProperty,
+        model.widthIndicatorsVisibleProperty, {
+          spacing: VERTICAL_SPACING,
+          tandem: options.tandem.createTandem( 'wavePacketCenterLayoutBox' )
+        } ),
 
       // Graph Controls
       new GraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty, popupParent, {
@@ -107,8 +114,8 @@ class WavePacketControlPanel extends Panel {
       scale: 0.4,
       right: vBox.right,
       centerY: fourierSeriesLayoutBox.globalToParentBounds(
-        fourierSeriesLayoutBox.fourierSeriesText.parentToGlobalBounds(
-          fourierSeriesLayoutBox.fourierSeriesText.bounds ) ).centerY
+        fourierSeriesLayoutBox.componentSpacingText.parentToGlobalBounds(
+          fourierSeriesLayoutBox.componentSpacingText.bounds ) ).centerY
     } );
 
     const content = new Node( {
@@ -127,9 +134,9 @@ class WavePacketControlPanel extends Panel {
 }
 
 /**
- * FourierSeriesLayoutBox is the 'Fourier Series' section of this control panel.
+ * ComponentSpacingLayoutBox is the 'Fourier Component Spacing' section of this control panel.
  */
-class FourierSeriesLayoutBox extends VBox {
+class ComponentSpacingLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -151,15 +158,8 @@ class FourierSeriesLayoutBox extends VBox {
     }, options );
 
     // Fourier Series
-    const fourierSeriesText = new Text( fourierMakingWavesStrings.fourierSeries, {
-      font: FMWConstants.TITLE_FONT,
-      maxWidth: 180, // determined empirically
-      tandem: options.tandem.createTandem( 'fourierSeriesText' )
-    } );
-
-    // Component Spacing
     const componentSpacingText = new Text( fourierMakingWavesStrings.componentSpacing, {
-      font: FMWConstants.SUBTITLE_FONT,
+      font: FMWConstants.TITLE_FONT,
       maxWidth: 180, // determined empirically
       tandem: options.tandem.createTandem( 'componentSpacingText' )
     } );
@@ -168,9 +168,8 @@ class FourierSeriesLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'k1Control' )
     } );
 
-    assert && assert( !options.children, 'FourierSeriesLayoutBox sets children' );
+    assert && assert( !options.children, 'ComponentSpacingLayoutBox sets children' );
     options.children = [
-      fourierSeriesText,
       componentSpacingText,
       k1Control
     ];
@@ -178,7 +177,7 @@ class FourierSeriesLayoutBox extends VBox {
     super( options );
 
     // @public for layout
-    this.fourierSeriesText = fourierSeriesText;
+    this.componentSpacingText = componentSpacingText;
   }
 
   /**
@@ -192,20 +191,73 @@ class FourierSeriesLayoutBox extends VBox {
 }
 
 /**
- * WavePacketLayoutBox is the 'Wave Packet' section of this control panel.
+ * WavePacketCenterLayoutBox is the 'Wave Packet - Center' section of this control panel.
  */
-class WavePacketLayoutBox extends VBox {
+class WavePacketCenterLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {WavePacket} wavePacket
+   * @param {NumberProperty} k0Property
+   * @param {Object} [options]
+   */
+  constructor( domainProperty, k0Property, options ) {
+
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( k0Property instanceof NumberProperty );
+
+    options = merge( {}, FMWConstants.VBOX_OPTIONS, {
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
+    }, options );
+
+    // Wave Packet - Center
+    const wavePacketCenter = new Text( fourierMakingWavesStrings.wavePacketCenter, {
+      font: FMWConstants.TITLE_FONT,
+      maxWidth: 180, // determined empirically
+      tandem: options.tandem.createTandem( 'wavePacketCenter' )
+    } );
+
+    const k0Control = new K0Control( domainProperty, k0Property, {
+      tandem: options.tandem.createTandem( 'k0Control' )
+    } );
+
+    assert && assert( !options.children, 'WavePacketCenterLayoutBox sets children' );
+    options.children = [
+      wavePacketCenter,
+      k0Control
+    ];
+
+    super( options );
+  }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
+}
+
+/**
+ * WavePacketWidthLayoutBox is the 'Wave Packet - Width' section of this control panel.
+ */
+class WavePacketWidthLayoutBox extends VBox {
+
+  /**
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {NumberProperty} dkProperty
+   * @param {NumberProperty} dxProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, wavePacket, widthIndicatorsVisibleProperty, options ) {
+  constructor( domainProperty, dkProperty, dxProperty, widthIndicatorsVisibleProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( wavePacket instanceof WavePacket );
+    assert && assert( dkProperty instanceof NumberProperty );
+    assert && assert( dxProperty instanceof NumberProperty );
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
@@ -214,36 +266,18 @@ class WavePacketLayoutBox extends VBox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // Wave packet
-    const wavePacketText = new Text( fourierMakingWavesStrings.wavePacketTitle, {
+    // Wave Packet - Width
+    const wavePacketWidth = new Text( fourierMakingWavesStrings.wavePacketWidth, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 180, // determined empirically
-      tandem: options.tandem.createTandem( 'wavePacketText' )
+      tandem: options.tandem.createTandem( 'wavePacketWidth' )
     } );
 
-    // Center
-    const centerText = new Text( fourierMakingWavesStrings.center, {
-      font: FMWConstants.SUBTITLE_FONT,
-      maxWidth: 200, // determined empirically
-      tandem: options.tandem.createTandem( 'centerText' )
-    } );
-
-    const k0Control = new K0Control( domainProperty, wavePacket.k0Property, {
-      tandem: options.tandem.createTandem( 'k0Control' )
-    } );
-
-    // Width
-    const widthText = new Text( fourierMakingWavesStrings.width, {
-      font: FMWConstants.SUBTITLE_FONT,
-      maxWidth: 200, // determined empirically
-      tandem: options.tandem.createTandem( 'widthText' )
-    } );
-
-    const dkControl = new DKControl( domainProperty, wavePacket.dkProperty, {
+    const dkControl = new DKControl( domainProperty, dkProperty, {
       tandem: options.tandem.createTandem( 'dkControl' )
     } );
 
-    const dxControl = new DXControl( domainProperty, wavePacket.dxProperty, {
+    const dxControl = new DXControl( domainProperty, dxProperty, {
       tandem: options.tandem.createTandem( 'dxControl' )
     } );
 
@@ -261,10 +295,7 @@ class WavePacketLayoutBox extends VBox {
 
     assert && assert( !options.children, 'WavePacketLayoutBox sets children' );
     options.children = [
-      wavePacketText,
-      centerText,
-      k0Control,
-      widthText,
+      wavePacketWidth,
       dkControl,
       dxControl,
       widthIndicatorsCheckbox
