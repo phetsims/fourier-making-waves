@@ -26,10 +26,10 @@ import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import Domain from '../../common/model/Domain.js';
 import MeasurementTool from '../model/MeasurementTool.js';
 
 class MeasurementToolNode extends Node {
@@ -38,19 +38,19 @@ class MeasurementToolNode extends Node {
    * @param {MeasurementTool} tool
    * @param {Property.<Harmonic>} harmonicProperty
    * @param {EmphasizedHarmonics} emphasizedHarmonics
-   * @param {Property.<Bounds2>} visibleBoundsProperty - visible bounds of the associated ScreenView
+   * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Domain[]} relevantDomains - the Domain values that are relevant for this tool
    * @param {function} updateNodes - updates this tool's child Nodes to match the selected harmonic
    * @param {Object} [options]
    */
-  constructor( tool, harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, domainProperty, relevantDomains,
+  constructor( tool, harmonicProperty, emphasizedHarmonics, dragBoundsProperty, domainProperty, relevantDomains,
                updateNodes, options ) {
 
     assert && assert( tool instanceof MeasurementTool );
     assert && AssertUtils.assertPropertyOf( harmonicProperty, Harmonic );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
-    assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
+    assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( Array.isArray( relevantDomains ) );
     assert && assert( typeof updateNodes === 'function' );
@@ -59,9 +59,6 @@ class MeasurementToolNode extends Node {
 
       // For debugging
       debugName: 'tool',
-
-      // {Property.<Bounds2>|null} dragging is constrained to these bounds. If null, default is set below.
-      dragBoundsProperty: null,
 
       // Node options
       cursor: 'pointer',
@@ -96,18 +93,8 @@ class MeasurementToolNode extends Node {
     // Position of the tool in view coordinates
     const positionProperty = new Property( this.translation );
 
-    // By default, tools are constrained to be fully inside the visible bounds of the ScreenView.
-    const dragBoundsProperty = options.dragBoundsProperty || new DerivedProperty(
-      [ visibleBoundsProperty, this.localBoundsProperty ],
-      ( visibleBounds, localBounds ) => visibleBounds.copy().setMinMax(
-        visibleBounds.minX - localBounds.minX,
-        visibleBounds.minY - localBounds.minY,
-        visibleBounds.maxX - localBounds.maxX,
-        visibleBounds.maxY - localBounds.maxY
-      )
-    );
-
-    // Constrained dragging of the tool
+    // Constrained dragging of the tool. Some tools (e.g. calipers) may be wider than the ScreenView, so we cannot
+    // constrain the entire tool to be within the drag bounds. So just the origin is constrained.
     const dragListener = new DragListener( {
       positionProperty: positionProperty,
       dragBoundsProperty: dragBoundsProperty

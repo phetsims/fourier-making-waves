@@ -35,13 +35,13 @@ class PeriodClockNode extends MeasurementToolNode {
 
   /**
    * @param {DiscreteModel} model
-   * @param {Property.<Bounds2>} visibleBoundsProperty - visible bounds of the associated ScreenView
+   * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {Object} [options]
    */
-  constructor( model, visibleBoundsProperty, options ) {
+  constructor( model, dragBoundsProperty, options ) {
 
     assert && assert( model instanceof DiscreteModel );
-    assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
+    assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
 
     options = merge( {
 
@@ -93,7 +93,7 @@ class PeriodClockNode extends MeasurementToolNode {
     // Initialize child Nodes before calling super
     updateNodes();
 
-    super( tool, harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, domainProperty,
+    super( tool, harmonicProperty, emphasizedHarmonics, dragBoundsProperty, domainProperty,
       [ Domain.SPACE_AND_TIME ], // relevant Domains
       updateNodes,
       options );

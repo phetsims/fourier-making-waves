@@ -8,6 +8,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -240,20 +241,23 @@ class DiscreteScreenView extends ScreenView {
     // Parent tandem for all measurement tools
     const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
 
+    // Drag bounds for all measurement tools. This will be adjusted after Nodes are added to the scene graph.
+    const measurementToolsDragBoundsProperty = new Property( this.layoutBounds );
+
     // For measuring a harmonic's wavelength in the 'space' and 'space & time' domains.
     const wavelengthCalipersNode = new WavelengthCalipersNode( model, harmonicsChartNode.chartTransform,
-      this.visibleBoundsProperty, {
+      measurementToolsDragBoundsProperty, {
         tandem: measurementToolsTandem.createTandem( 'wavelengthCalipersNode' )
       } );
 
     // For measuring a harmonic's period in the 'time' domain.
     const periodCalipersNode = new PeriodCalipersNode( model, harmonicsChartNode.chartTransform,
-      this.visibleBoundsProperty, {
+      measurementToolsDragBoundsProperty, {
         tandem: measurementToolsTandem.createTandem( 'periodCalipersNode' )
       } );
 
     // For measuring a harmonic's period in the 'space & time' domain.
-    const periodClockNode = new PeriodClockNode( model, this.visibleBoundsProperty, {
+    const periodClockNode = new PeriodClockNode( model, measurementToolsDragBoundsProperty, {
       tandem: measurementToolsTandem.createTandem( 'periodClockNode' )
     } );
 
@@ -371,6 +375,17 @@ class DiscreteScreenView extends ScreenView {
 
     // Call this after layout has been done, since tool positions are relative to other Nodes.
     resetMeasurementToolPositions();
+
+    // Adjust the drag bounds for the measurement tools. The tools are all constrained to the same drag bounds,
+    // which is roughly the portion of the layoutBounds that is to the left of the control panel.
+    const dragBoundsXMargin = 20;
+    const dragBoundsYMargin = 20;
+    measurementToolsDragBoundsProperty.value = new Bounds2(
+      this.layoutBounds.minX + dragBoundsXMargin,
+      this.layoutBounds.minY + dragBoundsYMargin,
+      controlPanel.left - dragBoundsXMargin,
+      this.layoutBounds.maxY - dragBoundsYMargin
+    );
 
     // Creating a sawtooth wave using cosines is impossible because it is asymmetric. Display a dialog if the user
     // attempts this.  The model is responsible for other adjustments. This dialog is created eagerly because it's

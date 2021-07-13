@@ -20,14 +20,14 @@ class PeriodCalipersNode extends CalipersNode {
   /**
    * @param {DiscreteModel} model
    * @param {ChartTransform} chartTransform
-   * @param {Property.<Bounds2>} visibleBoundsProperty - visible bounds of the associated ScreenView
+   * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {Object} [options]
    */
-  constructor( model, chartTransform, visibleBoundsProperty, options ) {
+  constructor( model, chartTransform, dragBoundsProperty, options ) {
 
     assert && assert( model instanceof DiscreteModel );
     assert && assert( chartTransform instanceof ChartTransform );
-    assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
+    assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
 
     options = merge( {
 
@@ -41,7 +41,7 @@ class PeriodCalipersNode extends CalipersNode {
     const emphasizedHarmonics = model.harmonicsChart.emphasizedHarmonics;
     const domainProperty = model.domainProperty;
 
-    super( tool, harmonics, emphasizedHarmonics, chartTransform, visibleBoundsProperty, domainProperty,
+    super( tool, harmonics, emphasizedHarmonics, chartTransform, dragBoundsProperty, domainProperty,
       [ Domain.TIME ], // relevant Domains
       harmonic => harmonic.period, // gets the quantity of Harmonic that is being measured
       options );

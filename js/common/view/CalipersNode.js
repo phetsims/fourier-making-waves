@@ -41,20 +41,20 @@ class CalipersNode extends MeasurementToolNode {
    * @param {Harmonic[]} harmonics
    * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {ChartTransform} chartTransform - transform for the Harmonics chart
-   * @param {Property.<Bounds2>} visibleBoundsProperty - visible bounds of the associated ScreenView
+   * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Domain[]} relevantDomains - the Domain values that are relevant for this tool
    * @param {function(harmonic:Harmonic):number} getModelValue - gets the quantity of the harmonic that is being measured
    * @param {Object} [options]
    */
-  constructor( tool, harmonics, emphasizedHarmonics, chartTransform, visibleBoundsProperty,
+  constructor( tool, harmonics, emphasizedHarmonics, chartTransform, dragBoundsProperty,
                domainProperty, relevantDomains, getModelValue, options ) {
 
     assert && assert( tool instanceof MeasurementTool );
     assert && assert( Array.isArray( harmonics ) );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
     assert && assert( chartTransform instanceof ChartTransform );
-    assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
+    assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( Array.isArray( relevantDomains ) );
     assert && assert( typeof getModelValue === 'function' );
@@ -138,19 +138,8 @@ class CalipersNode extends MeasurementToolNode {
     // Initialize child Nodes before deriving drag bounds and calling super
     updateNodes();
 
-    // Derives the drag bounds. Calipers may be wider than the ScreenView, so we cannot constrain the entire tool
-    // to be within the visible bounds of the ScreenView.  So the tip of the left caliper is constrained to be inside
-    // the visible bounds of the ScreenView, minus some x margin.
-    assert && assert( !options.dragBoundsProperty, 'CalipersNode defines dragBoundsProperty' );
-    options.dragBoundsProperty = new DerivedProperty(
-      [ visibleBoundsProperty ],
-      visibleBounds => {
-        const yOffset = parentNode.height / 2;
-        return visibleBounds.erodedXY( 40, yOffset ).shiftedY( yOffset );
-      }
-    );
-
-    super( tool, harmonicProperty, emphasizedHarmonics, visibleBoundsProperty, domainProperty, relevantDomains, updateNodes, options );
+    super( tool, harmonicProperty, emphasizedHarmonics, dragBoundsProperty, domainProperty, relevantDomains,
+      updateNodes, options );
 
     // Update when the range of the associated axis changes. removeListener is not needed.
     chartTransform.changedEmitter.addListener( updateNodes );
