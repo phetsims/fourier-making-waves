@@ -25,7 +25,7 @@ import Domain from '../../common/model/Domain.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import MeasurementToolNode from '../../common/view/MeasurementToolNode.js';
+import MeasurementToolNode from './MeasurementToolNode.js';
 
 // Margins for the translucent background behind the label
 const BACKGROUND_X_MARGIN = 2;

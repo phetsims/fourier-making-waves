@@ -18,11 +18,11 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import FMWConstants from '../FMWConstants.js';
-import Domain from '../model/Domain.js';
-import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
+import FMWConstants from '../../common/FMWConstants.js';
+import Domain from '../../common/model/Domain.js';
+import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import MeasurementTool from '../../discrete/model/MeasurementTool.js';
+import MeasurementTool from '../model/MeasurementTool.js';
 import MeasurementToolNode from './MeasurementToolNode.js';
 
 // Margins for the translucent background behind the label
