@@ -94,7 +94,7 @@ const EquationMarkup = {
   },
 
   /**
-   * Gets the markup used for the equation about the Components graph in the Continuous screen.
+   * Gets the markup used for the equation above the Components graph in the Wave Packet screen.
    * @param {Domain} domain
    * @param {SeriesType} seriesType
    * @returns {string}
