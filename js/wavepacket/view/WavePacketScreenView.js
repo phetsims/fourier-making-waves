@@ -233,7 +233,6 @@ class WavePacketScreenView extends ScreenView {
       componentsChartNode,
       sumExpandCollapseButton,
       sumChartNode,
-      //TODO put width indicators here
       resetAllButton
     ];
   }
