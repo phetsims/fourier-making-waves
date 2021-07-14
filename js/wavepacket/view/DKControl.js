@@ -45,7 +45,7 @@ class DKControl extends NumberControl {
       delta: DELTA,
       numberDisplayOptions: {
         numberFormatter: dk =>
-          StringUtils.fillIn( fourierMakingWavesStrings.symbolEqualsValueUnits, {
+          StringUtils.fillIn( fourierMakingWavesStrings.symbolValueUnits, {
             symbol: StringUtils.fillIn( '{{symbol}}<sub>{{subscript}}</sub>', {
               symbol: FMWSymbols.sigma,
               subscript: ( domainProperty.value === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega

@@ -110,7 +110,7 @@ function numberFormatter( dx, domain ) {
                 fourierMakingWavesStrings.units.radiansPerMeter :
                 fourierMakingWavesStrings.units.radiansPerMillisecond;
 
-  return StringUtils.fillIn( fourierMakingWavesStrings.symbolEqualsSymbolEqualsValueUnits, {
+  return StringUtils.fillIn( fourierMakingWavesStrings.symbolSymbolValueUnits, {
     symbol1: symbol1,
     symbol2: symbol2,
     value: value,

@@ -121,7 +121,7 @@ function numberFormatter( k1, domain ) {
                 fourierMakingWavesStrings.units.radiansPerMeter :
                 fourierMakingWavesStrings.units.radiansPerMillisecond;
 
-  return StringUtils.fillIn( fourierMakingWavesStrings.symbolEqualsValueUnits, {
+  return StringUtils.fillIn( fourierMakingWavesStrings.symbolValueUnits, {
     symbol: symbol,
     value: value,
     units: units

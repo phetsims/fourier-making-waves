@@ -239,10 +239,10 @@
   "continuousWaveform": {
     "value": "Continuous Waveform"
   },
-  "symbolEqualsValueUnits": {
+  "symbolValueUnits": {
     "value": "{{symbol}} = {{value}} {{units}}"
   },
-  "symbolEqualsSymbolEqualsValueUnits": {
+  "symbolSymbolValueUnits": {
     "value": "{{symbol1}} = 1/{{symbol2}} = {{value}} {{units}}"
   },
   "units.meters": {
