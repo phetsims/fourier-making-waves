@@ -56,7 +56,7 @@
   "spaceSymbol": {
     "value": "space ({{symbol}})"
   },
-  "timeSymbols": {
+  "timeSymbol": {
     "value": "time ({{symbol}})"
   },
   "spaceAndTimeSymbols": {
@@ -96,7 +96,7 @@
     "value": "Enter"
   },
   "sawtoothWithCosines": {
-    "value": "You can't make a sawtooth wave out of cosines<br>because it is asymmetric. Switching to sines."
+    "value": "You cannot make a sawtooth wave out of cosines<br>because it is asymmetric. Switching to sines."
   },
   "expandedForm": {
     "value": "Expanded Form"

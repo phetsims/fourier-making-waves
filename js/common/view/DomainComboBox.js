@@ -25,7 +25,7 @@ const CHOICES = [
   },
   {
     value: Domain.TIME,
-    string: StringUtils.fillIn( fourierMakingWavesStrings.timeSymbols, {
+    string: StringUtils.fillIn( fourierMakingWavesStrings.timeSymbol, {
       symbol: FMWSymbols.t
     } )
   },
