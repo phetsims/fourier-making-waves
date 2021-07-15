@@ -225,9 +225,10 @@ class WavePacketScreenView extends ScreenView {
     }
 
     // pdom -traversal order
-    // See https://github.com/phetsims/fourier-making-waves/issues/53
+    // See https://github.com/phetsims/fourier-making-waves/issues/53 and https://github.com/phetsims/fourier-making-waves/issues/84.
     screenViewRootNode.pdomOrder = [
       controlPanel,
+      //TODO https://github.com/phetsims/fourier-making-waves/issues/84 put measurement tools here
       amplitudesChartNode,
       componentsExpandCollapseButton,
       componentsChartNode,
