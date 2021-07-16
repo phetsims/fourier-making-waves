@@ -9,6 +9,7 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import audioManager from '../../../../joist/js/audioManager.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
@@ -533,7 +534,7 @@ class SoundLayoutBox extends HBox {
 
     // Disable this control when UI sounds are not being produced.
     Property.multilink(
-      [ phet.joist.sim.allAudioEnabledProperty, soundManager.enabledProperty ],
+      [ audioManager.audioEnabledProperty, soundManager.enabledProperty ],
       ( audioEnabled, soundEnabled ) => {
         const enabled = ( audioEnabled && soundEnabled );
         this.interruptSubtreeInput();
