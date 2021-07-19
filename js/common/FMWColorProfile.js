@@ -8,130 +8,130 @@
  */
 
 import AssertUtils from '../../../phetcommon/js/AssertUtils.js';
-import ColorProfile from '../../../scenery-phet/js/ColorProfile.js';
 import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 import Color from '../../../scenery/js/util/Color.js';
+import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 
-const FMWColorProfile = new ColorProfile( [ 'default' ], {
+const FMWColorProfile = {
 
   // Background color that is currently shared by all screens in this sim.
-  screenBackgroundColor: {
+  screenBackgroundColorProperty: new ProfileColorProperty( 'screenBackgroundColor', {
     default: new Color( 236, 255, 255 )
-  },
+  } ),
 
   // Fill for all Panels
-  panelFill: {
+  panelFillProperty: new ProfileColorProperty( 'panelFill', {
     default: Color.grayColor( 245 )
-  },
+  } ),
 
   // Stroke for all Panels
-  panelStroke: {
+  panelStrokeProperty: new ProfileColorProperty( 'panelStroke', {
     default: Color.grayColor( 160 )
-  },
+  } ),
 
   // Stroke for horizontal separators in Panels
-  separatorStroke: {
+  separatorStrokeProperty: new ProfileColorProperty( 'separatorStroke', {
     default: Color.grayColor( 200 )
-  },
+  } ),
 
   // Colors for each harmonics. Name format is `harmonic${order}Color` to facilitate lookup by order.
-  harmonic1Color: {
+  harmonic1ColorProperty: new ProfileColorProperty( 'harmonic1Color', {
     default: new Color( 255, 0, 0 )
-  },
+  } ),
 
-  harmonic2Color: {
+  harmonic2ColorProperty: new ProfileColorProperty( 'harmonic2Color', {
     default: new Color( 255, 128, 0 )
-  },
+  } ),
 
-  harmonic3Color: {
+  harmonic3ColorProperty: new ProfileColorProperty( 'harmonic3Color', {
     default: new Color( 255, 255, 0 )
-  },
+  } ),
 
-  harmonic4Color: {
+  harmonic4ColorProperty: new ProfileColorProperty( 'harmonic4Color', {
     default: new Color( 0, 255, 0 )
-  },
+  } ),
 
-  harmonic5Color: {
+  harmonic5ColorProperty: new ProfileColorProperty( 'harmonic5Color', {
     default: new Color( 0, 201, 87 )
-  },
+  } ),
 
-  harmonic6Color: {
+  harmonic6ColorProperty: new ProfileColorProperty( 'harmonic6Color', {
     default: new Color( 100, 149, 237 )
-  },
+  } ),
 
-  harmonic7Color: {
+  harmonic7ColorProperty: new ProfileColorProperty( 'harmonic7Color', {
     default: new Color( 0, 0, 255 )
-  },
+  } ),
 
-  harmonic8Color: {
+  harmonic8ColorProperty: new ProfileColorProperty( 'harmonic8Color', {
     default: new Color( 0, 0, 128 )
-  },
+  } ),
 
-  harmonic9Color: {
+  harmonic9ColorProperty: new ProfileColorProperty( 'harmonic9Color', {
     default: new Color( 145, 33, 158 )
-  },
+  } ),
 
-  harmonic10Color: {
+  harmonic10ColorProperty: new ProfileColorProperty( 'harmonic10Color', {
     default: new Color( 186, 85, 211 )
-  },
+  } ),
 
-  harmonic11Color: {
+  harmonic11ColorProperty: new ProfileColorProperty( 'harmonic11Color', {
     default: new Color( 255, 105, 180 )
-  },
+  } ),
 
-  amplitudeGridLinesStroke: {
+  amplitudeGridLinesStrokeProperty: new ProfileColorProperty( 'amplitudeGridLinesStroke', {
     default: Color.BLACK
-  },
+  } ),
 
-  chartGridLinesStroke: {
+  chartGridLinesStrokeProperty: new ProfileColorProperty( 'chartGridLinesStroke', {
     default: Color.grayColor( 200 )
-  },
+  } ),
 
-  axisStroke: {
+  axisStrokeProperty: new ProfileColorProperty( 'axisStroke', {
     default: Color.grayColor( 170 )
-  },
+  } ),
 
-  levelSelectionButtonFill: {
+  levelSelectionButtonFillProperty: new ProfileColorProperty( 'levelSelectionButtonFill', {
     default: new Color( 255, 214, 228 )
-  },
+  } ),
 
-  scoreBoardFill: {
+  scoreBoardFillProperty: new ProfileColorProperty( 'scoreBoardFill', {
     default: new Color( 255, 214, 228 )
-  },
+  } ),
 
-  newWaveformButtonFill: {
+  newWaveformButtonFillProperty: new ProfileColorProperty( 'newWaveformButtonFill', {
     default: PhetColorScheme.BUTTON_YELLOW
-  },
+  } ),
 
-  checkAnswerButtonFill: {
+  checkAnswerButtonFillProperty: new ProfileColorProperty( 'checkAnswerButtonFill', {
     default: PhetColorScheme.BUTTON_YELLOW
-  },
+  } ),
 
-  showAnswerButtonFill: {
+  showAnswerButtonFillProperty: new ProfileColorProperty( 'showAnswerButtonFill', {
     default: PhetColorScheme.BUTTON_YELLOW
-  },
+  } ),
 
-  sumStroke: {
+  sumStrokeProperty: new ProfileColorProperty( 'sumStroke', {
     default: new Color( 0, 0, 0 )
-  },
+  } ),
 
-  answerSumStroke: {
+  answerSumStrokeProperty: new ProfileColorProperty( 'answerSumStroke', {
     default: new Color( 255, 0, 255 )
-  },
+  } ),
 
-  guessSumStroke: {
+  guessSumStrokeProperty: new ProfileColorProperty( 'guessSumStroke', {
     default: new Color( 0, 0, 0 )
-  },
+  } ),
 
-  infiniteHarmonicsStroke: {
+  infiniteHarmonicsStrokeProperty: new ProfileColorProperty( 'infiniteHarmonicsStroke', {
     default: Color.grayColor( 189 )
-  },
+  } ),
 
-  widthIndicatorsColor: {
+  widthIndicatorsColorProperty: new ProfileColorProperty( 'widthIndicatorsColor', {
     default: new Color( 255, 0, 0 )
-  }
-} );
+  } )
+};
 
 /**
  * Gets the color Property for a harmonic.
