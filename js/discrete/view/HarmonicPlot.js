@@ -48,7 +48,7 @@ class HarmonicPlot extends CanvasLinePlot {
     } );
 
     // CanvasLinePlot does not support Property.<Color> for its stroke option.
-    // So it's the client's responsibility to keep the plot in sync with the ColorProfile.
+    // So it's the client's responsibility to keep the plot in sync with the colorProfileProperty.
     // unlink is not needed.
     harmonic.colorProperty.lazyLink( color => {
       this.setStroke( color );
