@@ -7,44 +7,13 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
-
-// constants
-
-// Auto-scaling of the y axis will choose an appropriate description from this array.
-const Y_AXIS_DESCRIPTIONS = [
-  new AxisDescription( {
-    max: 5,
-    gridLineSpacing: 1,
-    tickMarkSpacing: 1,
-    tickLabelSpacing: 1
-  } ),
-  new AxisDescription( {
-    max: 0.5,
-    gridLineSpacing: 0.1,
-    tickMarkSpacing: 0.1,
-    tickLabelSpacing: 0.1
-  } ),
-  new AxisDescription( {
-    max: 0.05,
-    gridLineSpacing: 0.01,
-    tickMarkSpacing: 0.01,
-    tickLabelSpacing: 0.01
-  } ),
-  new AxisDescription( {
-    max: 0.005,
-    gridLineSpacing: 0.001,
-    tickMarkSpacing: 0.001,
-    tickLabelSpacing: 0.001
-  } )
-];
 
 class WavePacketAmplitudesChart {
 
@@ -73,10 +42,14 @@ class WavePacketAmplitudesChart {
       tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
     } );
 
-    // @public
-    this.yAxisDescriptionProperty = new Property( Y_AXIS_DESCRIPTIONS[ 1 ], {
-      isValidValue: value => Y_AXIS_DESCRIPTIONS.includes( value )
-    } );
+    // @public {DerivedProperty.<Vector2[]>} data set for a discrete number of components, to be plotted as a BarPlot
+    this.barPlotDataSetProperty = new DerivedProperty(
+      [ wavePacket.k1Property, wavePacket.k0Property, wavePacket.dkProperty ],
+      ( k1, k0, dk ) => wavePacket.getComponentAmplitudesDataSet()
+    );
+
+    // @public {DerivedProperty.<Vector2[]>} data set for an infinite number of components
+    //TODO
   }
 
   /**
@@ -91,7 +64,20 @@ class WavePacketAmplitudesChart {
    */
   reset() {
     this.continuousWaveformVisibleProperty.reset();
-    this.yAxisDescriptionProperty.reset();
+  }
+
+  /**
+   * Gets the maximum y values (amplitude) of the bar plot.
+   * @returns {number}
+   * @public
+   */
+  getBarPlotMaxY() {
+    const barPlotDataSet = this.barPlotDataSetProperty.value;
+    let maxY = 0;
+    if ( barPlotDataSet.length > 0 ) {
+      maxY = _.maxBy( this.barPlotDataSetProperty.value, point => point.y ).y;
+    }
+    return maxY;
   }
 }
 

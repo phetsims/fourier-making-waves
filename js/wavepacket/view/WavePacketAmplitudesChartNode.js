@@ -8,6 +8,7 @@
  */
 
 import AxisLine from '../../../../bamboo/js/AxisLine.js';
+import BarPlot from '../../../../bamboo/js/BarPlot.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
@@ -58,7 +59,7 @@ class WavePacketAmplitudesChartNode extends Node {
     // Fields of interest in amplitudesChart, to improve readability
     const domainProperty = amplitudesChart.domainProperty;
     const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
-    const yAxisDescriptionProperty = amplitudesChart.yAxisDescriptionProperty;
+    const barPlotDataSetProperty = amplitudesChart.barPlotDataSetProperty;
 
     // the transform from model to view coordinates
     const chartTransform = new ChartTransform( options.transformOptions );
@@ -99,8 +100,7 @@ class WavePacketAmplitudesChartNode extends Node {
       tandem: options.tandem.createTandem( 'yAxisLabel' )
     } );
 
-    const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL,
-      yAxisDescriptionProperty.value.gridLineSpacing, FMWConstants.GRID_LINE_OPTIONS );
+    const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, 1, FMWConstants.GRID_LINE_OPTIONS );
 
     const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, Math.PI, FMWConstants.TICK_MARK_OPTIONS );
 
@@ -108,21 +108,12 @@ class WavePacketAmplitudesChartNode extends Node {
       decimalPlaces: 3
     } );
 
-    // Update the y-axis. unlink is not needed.
-    yAxisDescriptionProperty.link( yAxisDescription => {
+    // Plots -------------------------------------------------------------------------
 
-      //TODO replace this with auto scaling
-      //TODO this is a problem - AxisDescription assumes range is symmetric, which is not the case in Wave Packet screen
-      chartTransform.setModelYRange( new Range( 0, yAxisDescription.range.max ) );
-
-      // Grid lines and tick marks are determined by AxisDescriptions regardless of whether auto scale is enabled.
-      // This is because the model keeps AxisDescriptions in sync with yAxisAutoScaleRange.
-      yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
-      yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
-      yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
+    //TODO how to assign a different color to each bar, or use a gradient for the BarPlot?
+    const barPlot = new BarPlot( chartTransform, [], {
+      barWidth: 5
     } );
-
-    //TODO auto-scale to the appropriate yAxisDescription
 
     // Addition UI components ---------------------------------------------------------
 
@@ -132,12 +123,18 @@ class WavePacketAmplitudesChartNode extends Node {
       tandem: options.tandem.createTandem( 'continuousWaveformCheckbox' )
     } );
 
+    const chartClip = new Node( {
+      clipArea: chartRectangle.getShape(),
+      children: [ barPlot ]
+    } );
+
     assert && assert( !options.children );
     options.children = [
       xTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
       chartRectangle,
       xAxis, xAxisLabel, xTickLabels,
       yAxis, yAxisLabel, yGridLines, yTickMarks, yTickLabels,
+      chartClip,
       continuousWaveformCheckbox
     ];
 
@@ -158,6 +155,56 @@ class WavePacketAmplitudesChartNode extends Node {
       // position at lower right corner of chart, because x axis corresponds to bottom of chart
       xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
       xAxisLabel.bottom = chartRectangle.bottom;
+    } );
+
+    barPlotDataSetProperty.link( dataSet => {
+
+      // Update the bar plot.
+      barPlot.setDataSet( dataSet );
+
+      // Autoscale the y axis.
+      if ( dataSet.length > 0 ) {
+
+        // Extend the range, so there's some space above maxY.
+        const maxY = amplitudesChart.getBarPlotMaxY();
+        chartTransform.setModelYRange( new Range( 0, 1.05 * maxY ) );
+
+        // Adjust ticks and gridlines.
+        // These values were taken from D2CAmplitudesChart.java, in the Java version.
+        //TODO should this use AxisDescription, and amplitudesChart.yAxisDescriptionProperty, like other charts?
+        let tickLabelSpacing;
+        let tickMarkSpacing;
+        if ( maxY > 1 ) {
+          tickLabelSpacing = 1.0;
+          tickMarkSpacing = 0.5;
+        }
+        else if ( maxY > 0.5 ) {
+          tickLabelSpacing = 0.2;
+          tickMarkSpacing = 0.1;
+        }
+        else if ( maxY > 0.2 ) {
+          tickLabelSpacing = 0.1;
+          tickMarkSpacing = 0.05;
+        }
+        else if ( maxY > 0.05 ) {
+          tickLabelSpacing = 0.05;
+          tickMarkSpacing = 0.01;
+        }
+        else if ( maxY > 0.02 ) {
+          tickLabelSpacing = 0.01;
+          tickMarkSpacing = 0.005;
+        }
+        else {
+          tickLabelSpacing = 0.005;
+          tickMarkSpacing = 0.001;
+        }
+        assert && assert( tickLabelSpacing > 0 );
+        assert && assert( tickMarkSpacing > 0 );
+
+        yGridLines.setSpacing( tickLabelSpacing );
+        yTickLabels.setSpacing( tickLabelSpacing );
+        yTickMarks.setSpacing( tickMarkSpacing );
+      }
     } );
 
     // @public for layout

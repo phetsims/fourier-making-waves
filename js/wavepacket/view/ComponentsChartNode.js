@@ -34,11 +34,12 @@ class ComponentsChartNode extends WavePacketChartNode {
     } );
     this.addChild( messageNode );
 
-    // Show the 'cannot plot' message when we have infinite components.
+    // Show the 'cannot plot' message when we have zero spacing between components, and therefore and infinite
+    // number of components.
     // unlink is not needed
-    componentsChart.wavePacket.numberOfComponentsProperty.link( numberOfComponents => {
-      messageNode.visible = ( numberOfComponents === Infinity );
-      //TODO other things to hide when this messageNod is visible?
+    componentsChart.wavePacket.k1Property.link( k1 => {
+      messageNode.visible = ( k1 === 0 );
+      //TODO other things to hide when messageNode is visible?
     } );
   }
 }

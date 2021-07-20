@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -31,14 +30,14 @@ class WavePacketSumEquationNode extends Node {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {DerivedProperty} numberOfComponentsProperty
+   * @param {Property.<number>} k1Property
    * @param {Object} [options]
    */
-  constructor( domainProperty, seriesTypeProperty, numberOfComponentsProperty, options ) {
+  constructor( domainProperty, seriesTypeProperty, k1Property, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
-    assert && assert( numberOfComponentsProperty instanceof DerivedProperty );
+    assert && AssertUtils.assertPropertyOf( k1Property, 'number' );
 
     options = merge( {
 
@@ -68,17 +67,19 @@ class WavePacketSumEquationNode extends Node {
 
     // unmultilink is not needed.
     Property.multilink(
-      [ domainProperty, seriesTypeProperty, numberOfComponentsProperty ],
-      ( domain, seriesType, numberOfComponents ) => {
+      [ domainProperty, seriesTypeProperty, k1Property ],
+      ( domain, seriesType, k1 ) => {
 
         // Update the left side of the equation to match the domain.
         leftNode.text = `${EquationMarkup.getFunctionOfMarkup( domain )} ${EQUAL_TO}`; // F(...) =
 
+        const hasInfiniteComponents = ( k1 === 0 );
+
         // Summation vs integration
-        sumSymbolNode.integrationProperty.value = ( numberOfComponents === Infinity );
+        sumSymbolNode.integrationProperty.value = hasInfiniteComponents;
 
         // Right side of the equation
-        if ( numberOfComponents === Infinity ) {
+        if ( hasInfiniteComponents ) {
 
           // Infinite number of components
           const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t;

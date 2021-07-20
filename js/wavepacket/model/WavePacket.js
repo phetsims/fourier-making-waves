@@ -46,18 +46,6 @@ class WavePacket {
       tandem: options.tandem.createTandem( 'k1Property' )
     } );
 
-    // @public {DerivedProperty.<number>} the number of components
-    this.numberOfComponentsProperty = new DerivedProperty(
-      [ this.k1Property ],
-      k1 => {
-        if ( k1 === 0 ) {
-          return Infinity;
-        }
-        else {
-          return Math.floor( this.xRange.getLength() / k1 ) - 1;
-        }
-      } );
-
     // @public k0 (or omega0), the center of the wave packet, in rad/m (or rad/ms)
     this.k0Property = new NumberProperty( 12 * Math.PI, {
       range: new Range( 9 * Math.PI, 15 * Math.PI ),
@@ -92,6 +80,21 @@ class WavePacket {
   }
 
   /**
+   * Gets the number of components in the Fourier series.
+   * @returns {number}
+   * @public
+   */
+  getNumberOfComponents() {
+    const k1 = this.k1Property.value;
+    if ( k1 === 0 ) {
+      return Infinity;
+    }
+    else {
+      return Math.floor( this.xRange.getLength() / k1 ) - 1;
+    }
+  }
+
+  /**
    * Gets the amplitude of component k, using the standard Gaussian formula:
    *
    * A(k,k0,dk) = exp[ -((k-k0)^2) / (2 * (dk^2) )  ] / (dk * sqrt( 2pi ))
@@ -117,7 +120,7 @@ class WavePacket {
   getComponentAmplitudesDataSet() {
 
     const dataSet = []; // {Vector2}
-    const numberOfComponents = this.numberOfComponentsProperty.value;
+    const numberOfComponents = this.getNumberOfComponents();
     if ( numberOfComponents !== Infinity ) {
       const k1 = this.k1Property.value;
       for ( let order = 1; order <= numberOfComponents; order++ ) {

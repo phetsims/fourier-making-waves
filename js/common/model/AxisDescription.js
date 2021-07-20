@@ -43,6 +43,7 @@ class AxisDescription {
     this.tickLabelSpacing = config.tickLabelSpacing;
   }
 
+  //TODO This seems wrong. Don't we want to find the AxisDescription that best encloses range?
   /**
    * Gets AxisDescription that is appropriate for a specified axis range.
    * This is the first entry in axisDescriptions such that range.max >= axisDescription.range.max.
@@ -55,7 +56,6 @@ class AxisDescription {
    */
   static getAxisDescriptionForRange( range, axisDescriptions ) {
     assert && assert( range instanceof Range );
-    assert && assert( Math.abs( range.min ) === range.max, 'expected range to be symmetrical' );
     assert && AssertUtils.assertArrayOf( axisDescriptions, AxisDescription );
 
     const axisDescription = _.find( axisDescriptions, axisDescription => range.max >= axisDescription.range.max );
