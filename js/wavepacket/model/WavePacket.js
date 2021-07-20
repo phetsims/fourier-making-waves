@@ -96,7 +96,7 @@ class WavePacket {
    *
    * A(k,k0,dk) = exp[ -((k-k0)^2) / (2 * (dk^2) )  ] / (dk * sqrt( 2pi ))
    *
-   * @param {number} k - component value, in radians/mm
+   * @param {number} k - component value, in radians/m
    * @returns {number}
    * @public
    */
