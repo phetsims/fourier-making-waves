@@ -82,7 +82,6 @@ class DKControl extends NumberControl {
     // Update the displayed value.
     domainProperty.link( () => this.redrawNumberDisplay() );
 
-    //TODO only update when released
     // @public {DerivedProperty.<boolean>} Whether the user is interacting with this control.
     this.isPressedProperty = new DerivedProperty(
       [ this.slider.thumbDragListener.isPressedProperty, this.slider.trackDragListener.isPressedProperty ],

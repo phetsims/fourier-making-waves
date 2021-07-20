@@ -271,6 +271,8 @@ class WavePacketWidthLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'wavePacketWidth' )
     } );
 
+    //TODO only update dkProperty when a slider is released, will require an adapter Property
+
     const dkControl = new DKControl( domainProperty, dkProperty, {
       tandem: options.tandem.createTandem( 'dkControl' )
     } );
