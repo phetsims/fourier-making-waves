@@ -7,7 +7,6 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import audioManager from '../../../../joist/js/audioManager.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -29,7 +28,6 @@ import Checkbox from '../../../../sun/js/Checkbox.js';
 import HSeparator from '../../../../sun/js/HSeparator.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
-import soundManager from '../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColorProfile from '../../common/FMWColorProfile.js';
 import FWMConstants from '../../common/FMWConstants.js';
@@ -533,16 +531,13 @@ class SoundLayoutBox extends HBox {
     super( options );
 
     // Disable this control when UI sounds are not being produced.
-    Property.multilink(
-      [ audioManager.audioEnabledProperty, soundManager.enabledProperty ],
-      ( audioEnabled, soundEnabled ) => {
-        const enabled = ( audioEnabled && soundEnabled );
-        this.interruptSubtreeInput();
-        soundEnabledCheckbox.enabled = enabled;
-        outputLevelSlider.enabled = enabled;
-        volumeOffIcon.opacity = enabled ? 1 : SceneryConstants.DISABLED_OPACITY;
-        volumeUpIcon.opacity = enabled ? 1 : SceneryConstants.DISABLED_OPACITY;
-      } );
+    audioManager.audioAndSoundEnabledProperty.link( audioAndSoundEnabled => {
+      this.interruptSubtreeInput();
+      soundEnabledCheckbox.enabled = audioAndSoundEnabled;
+      outputLevelSlider.enabled = audioAndSoundEnabled;
+      volumeOffIcon.opacity = audioAndSoundEnabled ? 1 : SceneryConstants.DISABLED_OPACITY;
+      volumeUpIcon.opacity = audioAndSoundEnabled ? 1 : SceneryConstants.DISABLED_OPACITY;
+    } );
   }
 
   /**
