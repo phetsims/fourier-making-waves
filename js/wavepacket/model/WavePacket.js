@@ -29,8 +29,8 @@ class WavePacket {
   constructor( options ) {
 
     // @public
-    this.L = 1; // wavelength, in meters
-    this.T = 1; // period, in milliseconds
+    this.L = 1; // wavelength, in m
+    this.T = 1; // period, in ms
     this.xRange = new Range( 0, 24 * Math.PI );
     assert && assert( this.xRange.min === 0 );
 
@@ -38,7 +38,7 @@ class WavePacket {
     assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
       'Many things in this implementation assume L === T === 1' );
 
-    // @public {DerivedProperty.<number>} k1, the spacing between Fourier components, in radians/meter.
+    // @public k1 (or sigma1), the spacing between Fourier components, in rad/m (or rad/ms).
     // dispose is not needed
     this.k1Property = new NumberProperty( K1_VALUES[ 3 ], {
       validValues: K1_VALUES,
@@ -58,20 +58,20 @@ class WavePacket {
         }
       } );
 
-    // @public k0, the center of the wave packet, in radians/meter
+    // @public k0 (or omega0), the center of the wave packet, in rad/m (or rad/ms)
     this.k0Property = new NumberProperty( 12 * Math.PI, {
       range: new Range( 9 * Math.PI, 15 * Math.PI ),
       tandem: options.tandem.createTandem( 'k0Property' )
     } );
 
-    // @public dk, half the wave packet width, in radians/meter.
+    // @public dk, half the wave packet width, in rad/m (or rad/ms)
     this.dkProperty = new NumberProperty( 3 * Math.PI, {
       reentrant: true, //TODO
       range: new Range( 1, 4 * Math.PI ),
       tandem: options.tandem.createTandem( 'dkProperty' )
     } );
 
-    // @public wave packet width, in radians/meter
+    // @public wave packet width, in rad/m (or rad/ms)
     // dispose is not needed.
     this.widthProperty = new DerivedProperty( [ this.dkProperty ], dk => 2 * dk );
   }
