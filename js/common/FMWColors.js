@@ -2,7 +2,6 @@
 
 /**
  * FMWColors defines the colors for this simulation.
- * Default colors are required. Colors for other profiles are optional.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
