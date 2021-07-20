@@ -8,6 +8,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -30,14 +31,14 @@ class DXControl extends NumberControl {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} dxProperty
+   * @param {NumberProperty} dkProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, dxProperty, options ) {
+  constructor( domainProperty, dkProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( dxProperty instanceof NumberProperty );
-    assert && assert( dxProperty.range );
+    assert && assert( dkProperty instanceof NumberProperty );
+    assert && assert( dkProperty.range );
 
     options = merge( {}, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, {
 
@@ -65,6 +66,33 @@ class DXControl extends NumberControl {
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
+
+    // dxProperty serves as an adapter Property that allows us to change dkProperty. dk * dx = 1, so dx = 1 / dk.
+    // We define this Property here, rather than in the model, so that this is certain to be the only control
+    // directly modifying this Property, we don't have to consider reentrancy, etc. And this is the only place
+    // in the simulation where dxProperty is needed. See https://github.com/phetsims/fourier-making-waves/issues/106.
+    const dxProperty = new NumberProperty( 1 / dkProperty.value, {
+      reentrant: true, //TODO
+      range: new Range( 1 / dkProperty.range.max, 1 / dkProperty.range.min ),
+      tandem: options.tandem.createTandem( 'dxProperty' )
+    } );
+
+    // Keep dk and dx synchronized, while avoiding reentrant behavior.
+    let isSynchronizing = false;
+    dkProperty.lazyLink( dk => {
+      if ( !isSynchronizing ) {
+        isSynchronizing = true;
+        dxProperty.value = 1 / dk;
+        isSynchronizing = false;
+      }
+    } );
+    dxProperty.lazyLink( dx => {
+      if ( !isSynchronizing ) {
+        isSynchronizing = true;
+        dkProperty.value = 1 / dx;
+        isSynchronizing = false;
+      }
+    } );
 
     super( '', dxProperty, dxProperty.range, options );
 

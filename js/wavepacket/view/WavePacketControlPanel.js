@@ -72,7 +72,7 @@ class WavePacketControlPanel extends Panel {
       } ),
 
       // Wave Packet - Width
-      new WavePacketWidthLayoutBox( model.domainProperty, model.wavePacket.dkProperty, model.wavePacket.dxProperty,
+      new WavePacketWidthLayoutBox( model.domainProperty, model.wavePacket.dkProperty,
         model.widthIndicatorsVisibleProperty, {
           spacing: VERTICAL_SPACING,
           tandem: options.tandem.createTandem( 'wavePacketCenterLayoutBox' )
@@ -249,15 +249,13 @@ class WavePacketWidthLayoutBox extends VBox {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {NumberProperty} dkProperty
-   * @param {NumberProperty} dxProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, dkProperty, dxProperty, widthIndicatorsVisibleProperty, options ) {
+  constructor( domainProperty, dkProperty, widthIndicatorsVisibleProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( dkProperty instanceof NumberProperty );
-    assert && assert( dxProperty instanceof NumberProperty );
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
@@ -277,11 +275,11 @@ class WavePacketWidthLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'dkControl' )
     } );
 
-    const dxControl = new DXControl( domainProperty, dxProperty, {
+    const dxControl = new DXControl( domainProperty, dkProperty, {
       tandem: options.tandem.createTandem( 'dxControl' )
     } );
 
-    // These 2 controls are mutually-exclusive. You cannot interact with them both at the same time.
+    // Interaction with these 2 controls is mutually-exclusive, because dk * dx = 1.
     dkControl.isPressedProperty.link( isPressed => {
       isPressed && dxControl.interruptSubtreeInput();
     } );

@@ -71,22 +71,6 @@ class WavePacket {
       tandem: options.tandem.createTandem( 'dkProperty' )
     } );
 
-    // @public dk * dx = 1, so dx = 1 / dk
-    this.dxProperty = new NumberProperty( 1 / this.dkProperty.value, {
-      reentrant: true, //TODO
-      range: new Range( 1 / this.dkProperty.range.max, 1 / this.dkProperty.range.min ),
-      tandem: options.tandem.createTandem( 'dxProperty' )
-    } );
-
-    //TODO need a better solution here.
-    // Keep dk and dx synchronized.
-    this.dkProperty.lazyLink( dk => {
-      this.dxProperty.value = 1 / dk;
-    } );
-    this.dxProperty.lazyLink( dx => {
-      this.dkProperty.value = 1 / dx;
-    } );
-
     // @public wave packet width, in radians/meter
     // dispose is not needed.
     this.widthProperty = new DerivedProperty( [ this.dkProperty ], dk => 2 * dk );
@@ -106,7 +90,6 @@ class WavePacket {
     this.k1Property.reset();
     this.k0Property.reset();
     this.dkProperty.reset();
-    this.dxProperty.reset();
   }
 
   /**
