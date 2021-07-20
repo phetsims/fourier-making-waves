@@ -11,7 +11,7 @@ import AssertUtils from '../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import VBox from '../../../scenery/js/nodes/VBox.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
-import FMWColorProfile from './FMWColorProfile.js';
+import FMWColors from './FMWColors.js';
 import FMWQueryParameters from './FMWQueryParameters.js';
 
 // constants - view
@@ -58,8 +58,8 @@ const FMWConstants = {
     cornerRadius: PANEL_CORNER_RADIUS,
     xMargin: 15,
     yMargin: 15,
-    fill: FMWColorProfile.panelFillProperty,
-    stroke: FMWColorProfile.panelStrokeProperty
+    fill: FMWColors.panelFillProperty,
+    stroke: FMWColors.panelStrokeProperty
   },
 
   CHECKBOX_OPTIONS: {
@@ -126,11 +126,11 @@ const FMWConstants = {
   X_AXIS_LABEL_SPACING: 6, // horizontal space between chart rectangle and x-axis label
   Y_AXIS_LABEL_SPACING: 36,  // horizontal space between chart rectangle and y-axis label
   AXIS_LINE_OPTIONS: {
-    stroke: FMWColorProfile.axisStrokeProperty,
+    stroke: FMWColors.axisStrokeProperty,
     lineWidth: 1
   },
   GRID_LINE_OPTIONS: {
-    stroke: FMWColorProfile.chartGridLinesStrokeProperty,
+    stroke: FMWColors.chartGridLinesStrokeProperty,
     lineWidth: 0.5
   },
   TICK_MARK_OPTIONS: {

@@ -29,7 +29,7 @@ import Easing from '../../../../twixt/js/Easing.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
 import InfiniteStatusBar from '../../../../vegas/js/InfiniteStatusBar.js';
 import RewardDialog from '../../../../vegas/js/RewardDialog.js';
-import FMWColorProfile from '../../common/FMWColorProfile.js';
+import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
@@ -86,7 +86,7 @@ class WaveGameLevelNode extends Node {
     const statusBar = new InfiniteStatusBar( layoutBounds, visibleBoundsProperty, levelDescriptionText, level.scoreProperty, {
       floatToTop: false,
       spacing: 20,
-      barFill: FMWColorProfile.scoreBoardFillProperty,
+      barFill: FMWColors.scoreBoardFillProperty,
       backButtonListener: () => {
         this.interruptSubtreeInput();
         levelProperty.value = null; // back to the level-selection UI
@@ -230,7 +230,7 @@ class WaveGameLevelNode extends Node {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
-      baseColor: FMWColorProfile.checkAnswerButtonFillProperty,
+      baseColor: FMWColors.checkAnswerButtonFillProperty,
       listener: checkAnswerListener,
       enabledProperty: checkAnswerButtonEnabledProperty
     } );
@@ -261,7 +261,7 @@ class WaveGameLevelNode extends Node {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
-      baseColor: FMWColorProfile.showAnswerButtonFillProperty,
+      baseColor: FMWColors.showAnswerButtonFillProperty,
       listener: () => {
         this.interruptSubtreeInput();
         level.showAnswer();
@@ -282,7 +282,7 @@ class WaveGameLevelNode extends Node {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
-      baseColor: FMWColorProfile.newWaveformButtonFillProperty,
+      baseColor: FMWColors.newWaveformButtonFillProperty,
       tandem: options.tandem.createTandem( 'newWaveformButton' ),
       phetioReadOnly: true
     } );

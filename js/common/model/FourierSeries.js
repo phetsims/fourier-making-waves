@@ -16,7 +16,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import FMWColorProfile from '../FMWColorProfile.js';
+import FMWColors from '../FMWColors.js';
 import FMWConstants from '../FMWConstants.js';
 import Domain from './Domain.js';
 import getAmplitudeFunction from './getAmplitudeFunction.js';
@@ -77,7 +77,7 @@ class FourierSeries extends PhetioObject {
         order: order,
         frequency: this.fundamentalFrequency * order,
         wavelength: this.L / order,
-        colorProperty: FMWColorProfile.getHarmonicColorProperty( order ),
+        colorProperty: FMWColors.getHarmonicColorProperty( order ),
         amplitude: options.amplitudes[ order - 1 ],
         amplitudeRange: this.amplitudeRange,
         tandem: harmonicsTandem.createTandem( `harmonic${order}` )

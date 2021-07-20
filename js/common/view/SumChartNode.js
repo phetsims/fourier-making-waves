@@ -12,7 +12,7 @@ import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import FMWColorProfile from '../FMWColorProfile.js';
+import FMWColors from '../FMWColors.js';
 import SumChart from '../model/SumChart.js';
 import WaveformChartNode from './WaveformChartNode.js';
 
@@ -29,7 +29,7 @@ class SumChartNode extends WaveformChartNode {
     options = merge( {
 
       // SumChartNode options
-      sumPlotStrokeProperty: FMWColorProfile.sumStrokeProperty,
+      sumPlotStrokeProperty: FMWColors.sumStrokeProperty,
       sumPlotLineWidth: 1
     }, options );
 

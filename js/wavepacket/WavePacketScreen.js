@@ -9,7 +9,7 @@
 import Screen from '../../../joist/js/Screen.js';
 import merge from '../../../phet-core/js/merge.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-import FMWColorProfile from '../common/FMWColorProfile.js';
+import FMWColors from '../common/FMWColors.js';
 import FMWIconFactory from '../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
@@ -28,7 +28,7 @@ class WavePacketScreen extends Screen {
 
       // Screen options
       name: fourierMakingWavesStrings.screen.wavePacket,
-      backgroundColorProperty: FMWColorProfile.screenBackgroundColorProperty,
+      backgroundColorProperty: FMWColors.screenBackgroundColorProperty,
       homeScreenIcon: FMWIconFactory.createWavePacketHomeScreenIcon(),
 
       // pdom options

@@ -10,7 +10,7 @@
 
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import merge from '../../../../phet-core/js/merge.js';
-import FMWColorProfile from '../../common/FMWColorProfile.js';
+import FMWColors from '../../common/FMWColors.js';
 import SumChartNode from '../../common/view/SumChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameSumChart from '../model/WaveGameSumChart.js';
@@ -27,7 +27,7 @@ class WaveGameSumChartNode extends SumChartNode {
     options = merge( {
 
       // SumChartNode options
-      sumPlotStrokeProperty: FMWColorProfile.answerSumStrokeProperty,
+      sumPlotStrokeProperty: FMWColors.answerSumStrokeProperty,
       sumPlotLineWidth: 4
     }, options );
 
@@ -35,12 +35,12 @@ class WaveGameSumChartNode extends SumChartNode {
 
     // Plot that shows the sum for the answer
     const guessPlot = new CanvasLinePlot( this.chartTransform, [], {
-      stroke: FMWColorProfile.guessSumStrokeProperty.value,
+      stroke: FMWColors.guessSumStrokeProperty.value,
       lineWidth: 1.5
     } );
 
     // CanvasLinePlot does not allow stroke to be a Property, so we have to manage changes ourselves.
-    FMWColorProfile.guessSumStrokeProperty.link( stroke => {
+    FMWColors.guessSumStrokeProperty.link( stroke => {
       guessPlot.stroke = stroke;
       this.chartCanvasNode.update();
     } );

@@ -21,7 +21,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import wavePacketHomeScreenImage from '../../../images/Wave-Packet-home-screen-icon_png.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import PointsAwardedNode from '../../waveGame/view/PointsAwardedNode.js';
-import FMWColorProfile from '../FMWColorProfile.js';
+import FMWColors from '../FMWColors.js';
 import FMWConstants from '../FMWConstants.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
@@ -49,7 +49,7 @@ const FMWIconFactory = {
         wavelength: 1,
         amplitudeRange: amplitudeRange,
         amplitude: amplitudes[ order - 1 ],
-        colorProperty: FMWColorProfile.getHarmonicColorProperty( order ),
+        colorProperty: FMWColors.getHarmonicColorProperty( order ),
         tandem: Tandem.OPT_OUT
       } ) );
     }
@@ -66,7 +66,7 @@ const FMWIconFactory = {
     // x axis
     const xMargin = 10;
     const xAxis = new Line( -xMargin, sliders.height / 2, sliders.width + xMargin, sliders.height / 2, {
-      stroke: FMWColorProfile.axisStrokeProperty,
+      stroke: FMWColors.axisStrokeProperty,
       lineWidth: 2
     } );
 
@@ -90,7 +90,7 @@ const FMWIconFactory = {
     const amplitudeRange = new Range( -1, 1 );
     const iconNode = FMWIconFactory.createSlidersIcon( amplitudes, amplitudeRange );
     return new ScreenIcon( iconNode, {
-      fill: FMWColorProfile.screenBackgroundColorProperty
+      fill: FMWColors.screenBackgroundColorProperty
     } );
   },
 
@@ -102,7 +102,7 @@ const FMWIconFactory = {
   createWaveGameHomeScreenIcon() {
     const iconNode = new PointsAwardedNode();
     return new ScreenIcon( iconNode, {
-      fill: FMWColorProfile.screenBackgroundColorProperty
+      fill: FMWColors.screenBackgroundColorProperty
     } );
   },
 
@@ -114,7 +114,7 @@ const FMWIconFactory = {
   createWavePacketHomeScreenIcon() {
     const iconNode = new Image( wavePacketHomeScreenImage );
     return new ScreenIcon( iconNode, {
-      fill: FMWColorProfile.screenBackgroundColorProperty
+      fill: FMWColors.screenBackgroundColorProperty
     } );
   },
 
@@ -181,14 +181,14 @@ const FMWIconFactory = {
       headHeight: 10,
       headWidth: 7,
       tailWidth: lineWidth,
-      fill: FMWColorProfile.widthIndicatorsColorProperty,
+      fill: FMWColors.widthIndicatorsColorProperty,
       stroke: null,
       doubleHead: true
     } );
 
     const endLineLength = 10;
     const endLineOptions = {
-      stroke: FMWColorProfile.widthIndicatorsColorProperty,
+      stroke: FMWColors.widthIndicatorsColorProperty,
       lineWidth: lineWidth
     };
     const leftLine = new Line( 0, 0, 0, endLineLength, endLineOptions );

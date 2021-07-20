@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * FMWColorProfile defines the colors for this simulation.
+ * FMWColors defines the colors for this simulation.
  * Default colors are required. Colors for other profiles are optional.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -13,7 +13,7 @@ import Color from '../../../scenery/js/util/Color.js';
 import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 
-const FMWColorProfile = {
+const FMWColors = {
 
   // Background color that is currently shared by all screens in this sim.
   screenBackgroundColorProperty: new ProfileColorProperty( 'screenBackgroundColor', {
@@ -138,12 +138,12 @@ const FMWColorProfile = {
  * @param {number} order - order of the harmonic
  * @returns {Property.<Color>}
  */
-FMWColorProfile.getHarmonicColorProperty = order => {
+FMWColors.getHarmonicColorProperty = order => {
   assert && AssertUtils.assertPositiveInteger( order );
   const propertyName = `harmonic${order}ColorProperty`;
-  assert && assert( FMWColorProfile.hasOwnProperty( propertyName ), `invalid order: ${order}` );
-  return FMWColorProfile[ propertyName ];
+  assert && assert( FMWColors.hasOwnProperty( propertyName ), `invalid order: ${order}` );
+  return FMWColors[ propertyName ];
 };
 
-fourierMakingWaves.register( 'FMWColorProfile', FMWColorProfile );
-export default FMWColorProfile;
+fourierMakingWaves.register( 'FMWColors', FMWColors );
+export default FMWColors;

@@ -17,7 +17,7 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import HSeparator from '../../../../sun/js/HSeparator.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FMWColorProfile from '../../common/FMWColorProfile.js';
+import FMWColors from '../../common/FMWColors.js';
 import FWMConstants from '../../common/FMWConstants.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
@@ -89,7 +89,7 @@ class WavePacketControlPanel extends Panel {
     // Use a uniform separator width, sized to fit the widest section
     const separatorWidth = _.maxBy( sectionNodes, layoutBox => layoutBox.width ).width;
     const separatorOptions = {
-      stroke: FMWColorProfile.separatorStrokeProperty
+      stroke: FMWColors.separatorStrokeProperty
     };
     const children = [];
     for ( let i = 0; i < sectionNodes.length; i++ ) {

@@ -11,7 +11,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import LevelSelectionButton from '../../../../vegas/js/LevelSelectionButton.js';
 import ScoreDisplayNumberAndStar from '../../../../vegas/js/ScoreDisplayNumberAndStar.js';
-import FMWColorProfile from '../../common/FMWColorProfile.js';
+import FMWColors from '../../common/FMWColors.js';
 import FMWIconFactory from '../../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
@@ -34,7 +34,7 @@ class WaveGameLevelSelectionButton extends LevelSelectionButton {
 
       // LevelSelectionButton options
       scoreDisplayConstructor: ScoreDisplayNumberAndStar,
-      baseColor: FMWColorProfile.levelSelectionButtonFillProperty,
+      baseColor: FMWColors.levelSelectionButtonFillProperty,
       listener: () => {
         levelProperty.value = level;
       }

@@ -21,7 +21,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FMWColorProfile from '../../common/FMWColorProfile.js';
+import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
@@ -66,7 +66,7 @@ class WavePacketChartNode extends Node {
     const chartTransform = new ChartTransform( options.transformOptions );
 
     const chartRectangle = new ChartRectangle( chartTransform, {
-      stroke: FMWColorProfile.chartGridLinesStrokeProperty,
+      stroke: FMWColors.chartGridLinesStrokeProperty,
       fill: 'white',
       tandem: options.tandem.createTandem( 'chartRectangle' )
     } );
