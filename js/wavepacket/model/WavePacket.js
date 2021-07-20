@@ -7,7 +7,7 @@
  * the space domain and time domain. We can make this simplification (which originated in the Java version) because
  * we assume that the values of L (wavelength of the fundamental harmonic) and T (period of the fundamental harmonic)
  * are the same. That is, L=1 meter and T=1 millisecond. Changing the domain therefore only changes the symbols and
- * units that appear in the user interface. Where the space domain uses meters, the time domain uses milliseconds.
+ * units that appear in the user interface.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
