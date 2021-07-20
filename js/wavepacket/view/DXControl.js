@@ -72,7 +72,6 @@ class DXControl extends NumberControl {
     // directly modifying this Property, we don't have to consider reentrancy, etc. And this is the only place
     // in the simulation where dxProperty is needed. See https://github.com/phetsims/fourier-making-waves/issues/106.
     const dxProperty = new NumberProperty( 1 / dkProperty.value, {
-      reentrant: true, //TODO
       range: new Range( 1 / dkProperty.range.max, 1 / dkProperty.range.min ),
       tandem: options.tandem.createTandem( 'dxProperty' )
     } );

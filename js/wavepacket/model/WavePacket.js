@@ -66,7 +66,6 @@ class WavePacket {
 
     // @public dk, half the wave packet width, in rad/m (or rad/ms)
     this.dkProperty = new NumberProperty( 3 * Math.PI, {
-      reentrant: true, //TODO
       range: new Range( 1, 4 * Math.PI ),
       tandem: options.tandem.createTandem( 'dkProperty' )
     } );
