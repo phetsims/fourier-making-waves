@@ -9,18 +9,18 @@ It's assumed that the reader has some basic knowledge of Fourier Series.
 
 * A = amplitude
 * A<sub>n</sub> = amplitude of the n<sup>th</sup> harmonic
-* f = frequency, in Hz
+* f = frequency, in Hz = 1 / T
 * F = function of
-* λ = wavelength, in meters
-* k = wave number
-* L = string length, if this were a plucked string, in meters
+* λ = wavelength, in m = L
+* k = wave number, in rad/m = 2π / λ
+* L = string length, if this were a plucked string, in m = λ
 * n = harmonic number, order, or mode
 * π = pi
-* σ = Gaussian wave packet width, in radians/meter
-* t = time, in milliseconds
-* T = period, in milliseconds
-* ω = angular frequency, in radians
-* x = position in space along L, in meters
+* σ = Gaussian wave packet width, in rad/m
+* t = time, in ms
+* T = period, in ms = 1 / f
+* ω = angular frequency, in rad/ms = 2π / T
+* x = position in space along L, in m
 
 ## Terminology
 
