@@ -3,7 +3,7 @@
 @author Chris Malley (PixelZoom, Inc.)
 
 This document is a high-level description of the model used in PhET's _Fourier: Making Waves_ simulation. It's assumed
-that the reader has some basic knowledge of Fourier Series and wave packets.
+that the reader is familiar with Fourier Series and wave packets.
 
 ## Mathematical symbols:
 
