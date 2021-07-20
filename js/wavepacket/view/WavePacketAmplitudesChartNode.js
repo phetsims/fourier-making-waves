@@ -170,7 +170,7 @@ class WavePacketAmplitudesChartNode extends Node {
         chartTransform.setModelYRange( new Range( 0, 1.05 * maxY ) );
 
         // Adjust ticks and gridlines.
-        // These values and logic were taken from D2CAmplitudesChart.java, in the Java version.
+        // This logic and values were taken from D2CAmplitudesChart.java, in the Java version.
         //TODO should this use AxisDescription, and amplitudesChart.yAxisDescriptionProperty, like other charts?
         let tickLabelSpacing;
         let tickMarkSpacing;
