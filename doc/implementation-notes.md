@@ -79,9 +79,9 @@ Charts follow the MVC pattern. The view is implemented using components from the
 `FMWChartNode` is the base class used by all 3 screens. There is additional code-sharing between the _Discrete_ and _
 Wave Game_ screens.
 
-```
-MODEL
+The model class hierarchy is:
 
+```
 AmplitudesChart
   ↳ DiscreteAmplitudesChart
   ↳ WaveGameAmplitudesChart
@@ -97,27 +97,30 @@ SumChart
 WavePacketAmplitudesChart
 WavePacketComponentsChart
 WavePacketSumChart
+```
 
-VIEW
+The view class hierarchy is:
 
+```
 Node
-
-AmplitudesChartNode
-  ↳ DiscreteAmplitudeChartsNode
-  ↳ WaveGameAmplitudesChartNode
-WavePacketAmplitudesChartNode
-
-WaveformChartNode
-  ↳ HarmonicsChartNode
-    ↳ DiscreteHarmonicsChartNode
-    ↳ WaveGameHarmonicsChartNode
-  ↳ SumChartNode
-    ↳ DiscreteSumChartNode
-    ↳ WaveGameSumChartNode
-
-FMWChartNode
-  ↳ WavePacketComponentsChartNode
-  ↳ WavePacketSumChartNode
+  ↳ AmplitudesChartNode
+    ↳ DiscreteAmplitudeChartsNode
+    ↳ WaveGameAmplitudesChartNode
+  ↳ WavePacketAmplitudesChartNode
+  
+Node
+  ↳ WaveformChartNode
+    ↳ HarmonicsChartNode
+      ↳ DiscreteHarmonicsChartNode
+      ↳ WaveGameHarmonicsChartNode
+    ↳ SumChartNode
+      ↳ DiscreteSumChartNode
+      ↳ WaveGameSumChartNode
+      
+Node
+  ↳ FMWChartNode
+    ↳ WavePacketComponentsChartNode
+    ↳ WavePacketSumChartNode
 ```
 
 # PhET-iO
