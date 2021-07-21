@@ -44,14 +44,14 @@ class FMWChartNode extends Node {
     options = merge( {
 
       // x axis
-      xAxisLabel: FMWSymbols.x,
+      xAxisString: FMWSymbols.x,
       xGridLineSpacing: 1,
       xTickMarkSpacing: 1,
       xTickLabelSpacing: 1,
       xZoomLevelProperty: null, // {NumberProperty|null} adds optional zoom buttons
 
       // y axis
-      yAxisLabel: fourierMakingWavesStrings.amplitude,
+      yAxisString: fourierMakingWavesStrings.amplitude,
       yGridLineSpacing: 1,
       yTickMarkSpacing: 1,
       yTickLabelSpacing: 1,
@@ -120,14 +120,14 @@ class FMWChartNode extends Node {
 
     // x axis
     const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, options.axisLineOptions );
-    const xAxisLabel = new RichText( options.xAxisLabel, options.xAxisLabelOptions );
+    const xAxisLabel = new RichText( options.xAxisString, options.xAxisLabelOptions );
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, options.xGridLineSpacing, options.gridLineOptions );
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, options.xTickMarkSpacing, options.tickMarkOptions );
     const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, options.xTickLabelSpacing, options.xLabelSetOptions );
 
     // y axis
     const yAxis = new AxisLine( chartTransform, Orientation.VERTICAL, options.axisLineOptions );
-    const yAxisLabel = new RichText( options.yAxisLabel, options.yAxisLabelOptions );
+    const yAxisLabel = new RichText( options.yAxisString, options.yAxisLabelOptions );
     const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, options.yGridLineSpacing, options.gridLineOptions );
     const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, options.yTickMarkSpacing, options.tickMarkOptions );
     const yTickLabels = new LabelSet( chartTransform, Orientation.VERTICAL, options.yTickLabelSpacing, options.yLabelSetOptions );
