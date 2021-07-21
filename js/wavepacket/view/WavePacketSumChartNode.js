@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO most of this is duplicated from WavePacketComponentsChartNode
 /**
  * WavePacketSumChartNode is the 'Sum' chart on the 'Wave Packet' screen.
  *
