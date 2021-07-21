@@ -34,7 +34,6 @@ const X_TIME_LABEL = StringUtils.fillIn( fourierMakingWavesStrings.symbolUnits, 
 
 class WaveformChartNode extends FMWChartNode {
 
-  //TODO
   /**
    * @param {WaveformChart} chart
    * @param {Object} [options]
