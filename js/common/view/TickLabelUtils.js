@@ -8,6 +8,8 @@
 
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
+import Fraction from '../../../../phetcommon/js/model/Fraction.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -31,7 +33,7 @@ const TickLabelUtils = {
   },
 
   /**
-   * Creates a symbolic tick label, by converting a value to a coefficient followed by a symbol.
+   * Creates a symbolic tick label, by converting a value to a symbol and a fraction.
    * @param {number} value
    * @param {string} symbol
    * @param {number} symbolValue
@@ -41,16 +43,40 @@ const TickLabelUtils = {
    * @public
    */
   createSymbolicTickLabel( value, symbol, symbolValue, coefficientDecimals, options ) {
+
     options = merge( {
-      font: FMWConstants.TICK_LABEL_FONT,
-      maxWidth: 20
+      font: FMWConstants.TICK_LABEL_FONT
     }, options );
-    const coefficient = Utils.toFixedNumber( value / symbolValue, coefficientDecimals );
-    const string = ( coefficient === 0 ) ? '0' :
-                   ( coefficient === 1 ) ? `${symbol}` :
-                   ( coefficient === -1 ) ? `-${symbol}` :
-                   `${coefficient}${symbol}`;
-    return new RichText( string, options );
+
+    let text;
+    if ( value === 0 ) {
+      text = '0';
+    }
+    else {
+
+      // Convert the coefficient to a fraction
+      const coefficient = Utils.toFixedNumber( value / symbolValue, coefficientDecimals );
+      const fraction = Fraction.fromDecimal( coefficient );
+
+      // Pieces of the fraction that we need to create the RichText markup, with trailing zeros truncated
+      const sign = Math.sign( value );
+      const numerator = Math.abs( Utils.toFixedNumber( fraction.numerator, 0 ) );
+      const denominator = Math.abs( Utils.toFixedNumber( fraction.denominator, 0 ) );
+
+      text = '';
+      if ( sign === -1 ) {
+        text += MathSymbols.UNARY_MINUS;
+      }
+      if ( numerator !== 1 ) {
+        text += numerator;
+      }
+      text += symbol;
+      if ( denominator !== 1 ) {
+        text += `/${denominator}`;
+      }
+    }
+
+    return new RichText( text, options );
   },
 
   /**
