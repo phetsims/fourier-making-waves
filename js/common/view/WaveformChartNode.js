@@ -1,8 +1,9 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * WaveformChartNode is the base class for charts that plot one or more 2D waveforms related to a Fourier series.
- * The x axis is either space or time, while the y axis is always amplitude.
+ * WaveformChartNode is the base class for charts that supports multiple domains and multiple formats for its
+ * labels and values.  Labels can be in space or time domains. Values can numeric (as plain old numbers) or
+ * symbolic (as coefficients with symbols).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
