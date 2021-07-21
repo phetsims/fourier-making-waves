@@ -7,7 +7,6 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import HarmonicsChart from '../../common/model/HarmonicsChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -27,12 +26,6 @@ class DiscreteHarmonicsChart extends HarmonicsChart {
   constructor( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
                xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
                options ) {
-
-    options = merge( {
-
-      // HarmonicsChart options
-      hasXZoom: true // Harmonics chart has zoom buttons for the x axis.
-    }, options );
 
     super( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );

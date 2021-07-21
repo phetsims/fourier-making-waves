@@ -42,8 +42,6 @@ class WaveformChart {
       'yAxisDescriptionProperty should have been instantiated with validValues option' );
 
     options = merge( {
-      hasXZoom: false, // Does this chart have zoom buttons for the x axis?
-      hasYZoom: false,  // Does this chart have zoom buttons for the y axis?
       yAutoScaleProperty: null // {null|Property.<boolean>}
     }, options );
 
@@ -56,8 +54,6 @@ class WaveformChart {
     this.yAxisDescriptionProperty = yAxisDescriptionProperty;
 
     // @public (read-only) options
-    this.hasXZoom = options.hasXZoom;
-    this.hasYZoom = options.hasYZoom;
     this.yAutoScaleProperty = options.yAutoScaleProperty;
   }
 }

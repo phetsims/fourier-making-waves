@@ -37,9 +37,7 @@ class DiscreteSumChart extends SumChart {
     options = merge( {
 
       // SumChart options
-      yAutoScaleProperty: new BooleanProperty( false ), // y auto-scale is initially off
-      hasXZoom: true, // Sum chart has zoom buttons for both axes.
-      hasYZoom: true
+      yAutoScaleProperty: new BooleanProperty( false ) // y auto-scale is initially off
     }, options );
 
     super( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
