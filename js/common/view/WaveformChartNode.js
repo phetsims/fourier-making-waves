@@ -12,6 +12,7 @@ import AxisLine from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
+import LabelSet from '../../../../bamboo/js/LabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -28,8 +29,11 @@ import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
 import WaveformChart from '../model/WaveformChart.js';
 import FMWZoomButtonGroup from './FMWZoomButtonGroup.js';
-import XTickLabelSet from './XTickLabelSet.js';
+import TickLabelUtils from './TickLabelUtils.js';
 import YTickLabelSet from './YTickLabelSet.js';
+
+// constants
+const X_TICK_LABEL_DECIMALS = 2; //TODO this should be an option, not hardcoded in a base class
 
 class WaveformChartNode extends Node {
 
@@ -96,8 +100,13 @@ class WaveformChartNode extends Node {
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL,
       xAxisDescriptionProperty.value.tickMarkSpacing, FMWConstants.TICK_MARK_OPTIONS );
 
-    const xTickLabels = new XTickLabelSet( chartTransform, xAxisDescriptionProperty.value.tickLabelSpacing, domainProperty,
-      xAxisTickLabelFormatProperty, L, T );
+    // x-axis tick labels are specific to domain and format (numeric vs symbolic).
+    const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, xAxisDescriptionProperty.value.tickLabelSpacing, {
+      edge: 'min',
+      createLabel: value => TickLabelUtils.createTickLabelForDomain( value, X_TICK_LABEL_DECIMALS,
+        xAxisTickLabelFormatProperty.value, domainProperty.value, L, T )
+    } );
+    Property.multilink( [ xAxisTickLabelFormatProperty, domainProperty ], () => xTickLabels.invalidateLabelSet() );
 
     const xAxisLabel = new RichText( '', {
       font: FMWConstants.AXIS_LABEL_FONT,
