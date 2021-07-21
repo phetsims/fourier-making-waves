@@ -36,22 +36,22 @@ class WaveformChartNode extends FMWChartNode {
 
   //TODO
   /**
-   * @param {WaveformChart} waveformChart
+   * @param {WaveformChart} chart
    * @param {Object} [options]
    */
-  constructor( waveformChart, options ) {
+  constructor( chart, options ) {
 
-    assert && assert( waveformChart instanceof WaveformChart );
+    assert && assert( chart instanceof WaveformChart );
 
-    // Fields of interest in waveformChart, to improve readability
-    const L = waveformChart.L;
-    const T = waveformChart.T;
-    const domainProperty = waveformChart.domainProperty;
-    const xAxisTickLabelFormatProperty = waveformChart.xAxisTickLabelFormatProperty;
-    const xAxisDescriptionProperty = waveformChart.xAxisDescriptionProperty;
-    const yAxisDescriptionProperty = waveformChart.yAxisDescriptionProperty;
-    const yAutoScaleProperty = waveformChart.yAutoScaleProperty;
-    const yAxisAutoScaleRangeProperty = waveformChart.yAxisAutoScaleRangeProperty;
+    // Fields of interest in chart, to improve readability
+    const L = chart.L;
+    const T = chart.T;
+    const domainProperty = chart.domainProperty;
+    const xAxisTickLabelFormatProperty = chart.xAxisTickLabelFormatProperty;
+    const xAxisDescriptionProperty = chart.xAxisDescriptionProperty;
+    const yAxisDescriptionProperty = chart.yAxisDescriptionProperty;
+    const yAutoScaleProperty = chart.yAutoScaleProperty;
+    const yAxisAutoScaleRangeProperty = chart.yAxisAutoScaleRangeProperty;
     assert && assert( ( !yAutoScaleProperty && !yAxisAutoScaleRangeProperty ) ||
                       ( yAutoScaleProperty && yAxisAutoScaleRangeProperty ),
       'yAutoScaleProperty and yAxisAutoScaleRangeProperty are both or neither' );

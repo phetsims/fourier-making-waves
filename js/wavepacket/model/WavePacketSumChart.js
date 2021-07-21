@@ -12,6 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import WaveformChart from '../../common/model/WaveformChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import WavePacket from './WavePacket.js';
 
 class WavePacketSumChart extends WaveformChart {
 
@@ -25,6 +26,7 @@ class WavePacketSumChart extends WaveformChart {
    */
   constructor( wavePacket, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
                yAxisDescriptionProperty, options ) {
+    assert && assert( wavePacket instanceof WavePacket );
 
     options = merge( {
 
