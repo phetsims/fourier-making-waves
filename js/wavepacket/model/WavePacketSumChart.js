@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO factor out duplication with WavePacketComponentsChart
 /**
  * WavePacketSumChart is the 'Sum' chart on the 'Wave Packet' screen.
  *
@@ -7,9 +8,22 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import AxisDescription from '../../common/model/AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+
+// constants
+//TODO flesh out Y_AXIS_DESCRIPTIONS, should they be the same as WavePacketComponentsChart?
+const Y_AXIS_DESCRIPTIONS = [
+  new AxisDescription( {
+    max: 2,
+    gridLineSpacing: 1,
+    tickMarkSpacing: 1,
+    tickLabelSpacing: 1
+  } )
+];
 
 class WavePacketSumChart {
 
@@ -31,6 +45,9 @@ class WavePacketSumChart {
     this.wavePacket = wavePacket;
     this.domainProperty = domainProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
+    this.yAxisDescriptionProperty = new Property( Y_AXIS_DESCRIPTIONS[ 0 ], {
+      validValues: Y_AXIS_DESCRIPTIONS
+    } );
 
     // @public whether the Sum chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {

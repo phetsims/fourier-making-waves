@@ -94,11 +94,9 @@ class WavePacketScreenView extends ScreenView {
 
     // Components chart
     const componentsChartNode = new WavePacketComponentsChartNode( model.componentsChart, {
-      transformOptions: {
+      chartTransformOptions: {
         modelXRange: new Range( -2, 2 ), //TODO
-        modelYRange: new Range( -model.maxAmplitude, model.maxAmplitude ), //TODO
-        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
-        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
+        modelYRange: new Range( -model.maxAmplitude, model.maxAmplitude ) //TODO
       },
       visibleProperty: model.componentsChart.chartVisibleProperty,
       tandem: componentsTandem.createTandem( 'componentsChartNode' )
@@ -126,11 +124,9 @@ class WavePacketScreenView extends ScreenView {
 
     // Sum chart
     const sumChartNode = new WavePacketSumChartNode( model.sumChart, {
-      transformOptions: {
+      chartTransformOptions: {
         modelXRange: new Range( -2, 2 ), //TODO
-        modelYRange: new Range( -1.25, 1.25 ), //TODO
-        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
-        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
+        modelYRange: new Range( -1.25, 1.25 ) //TODO
       },
       visibleProperty: model.sumChart.chartVisibleProperty,
       tandem: sumTandem.createTandem( 'sumChartNode' )

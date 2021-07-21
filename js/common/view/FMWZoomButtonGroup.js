@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO delete this eventually
 /**
  * FMWZoomButtonGroup is a zoom button group for this sim, and serves as an adapter to PlusMinusZoomButtonGroup.
  * This sim describes zoom levels as {AxisDescription[]}, while the API for superclass PlusMinusZoomButtonGroup

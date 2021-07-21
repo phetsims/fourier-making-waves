@@ -1,9 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO use this class or delete it
 //TODO move some of FMWConstants into this file, if they aren't used elsewhere.
 /**
- * FWMChartNode is the base class for most of the charts in this simulation.
+ * FMWChartNode is the base class for most of the charts in this simulation.
  * It's main responsibility is assembling all of the bamboo components that are needed.
  * Subclasses are responsible for customizing those components.
  *
@@ -19,6 +18,7 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
+import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
@@ -26,6 +26,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FMWColors from '../FMWColors.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
@@ -33,7 +34,7 @@ import FMWSymbols from '../FMWSymbols.js';
 // constants
 const DEFAULT_EDGE = 'min';
 
-class FWMChartNode extends Node {
+class FMWChartNode extends Node {
 
   /**
    * @param {Object} [options]
@@ -50,13 +51,18 @@ class FWMChartNode extends Node {
       xZoomLevelProperty: null, // {NumberProperty|null} adds optional zoom buttons
 
       // y axis
-      yAxisLabel: FMWSymbols.y,
+      yAxisLabel: fourierMakingWavesStrings.amplitude,
       yGridLineSpacing: 1,
       yTickMarkSpacing: 1,
       yTickLabelSpacing: 1,
       yZoomLevelProperty: null, // {NumberProperty|null} adds optional zoom buttons
 
-      chartTransformOptions: {},
+      chartTransformOptions: {
+        modelXRange: new Range( 0, 1 ),
+        modelYRange: new Range( 0, 1 ),
+        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
+        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
+      },
 
       chartRectangleOptions: {
 
@@ -67,9 +73,15 @@ class FWMChartNode extends Node {
         fill: 'white'
       },
 
-      axisLabelOptions: {
+      xAxisLabelOptions: {
         font: FMWConstants.AXIS_LABEL_FONT,
         maxWidth: FMWConstants.X_AXIS_LABEL_MAX_WIDTH
+      },
+
+      yAxisLabelOptions: {
+        font: FMWConstants.AXIS_LABEL_FONT,
+        maxWidth: 0.85 * FMWConstants.CHART_RECTANGLE_SIZE.height,
+        rotation: -Math.PI / 2
       },
 
       axisLineOptions: {
@@ -108,14 +120,14 @@ class FWMChartNode extends Node {
 
     // x axis
     const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, options.axisLineOptions );
-    const xAxisLabel = new RichText( options.xAxisLabel, options.axisLabelOptions );
+    const xAxisLabel = new RichText( options.xAxisLabel, options.xAxisLabelOptions );
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, options.xGridLineSpacing, options.gridLineOptions );
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, options.xTickMarkSpacing, options.tickMarkOptions );
     const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, options.xTickLabelSpacing, options.xLabelSetOptions );
 
     // y axis
     const yAxis = new AxisLine( chartTransform, Orientation.VERTICAL, options.axisLineOptions );
-    const yAxisLabel = new RichText( options.yAxisLabel, options.axisLabelOptions );
+    const yAxisLabel = new RichText( options.yAxisLabel, options.yAxisLabelOptions );
     const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, options.yGridLineSpacing, options.gridLineOptions );
     const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, options.yTickMarkSpacing, options.tickMarkOptions );
     const yTickLabels = new LabelSet( chartTransform, Orientation.VERTICAL, options.yTickLabelSpacing, options.xLabelSetOptions );
@@ -161,13 +173,43 @@ class FWMChartNode extends Node {
 
     super( options );
 
+    // Position the x-axis label at the right of the chart, vertically centered at y=0.
+    xAxisLabel.boundsProperty.link( bounds => {
+      xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
+      xAxisLabel.centerY = chartTransform.modelToView( Orientation.VERTICAL, 0 );
+    } );
+
+    // Position the y-axis label at the left of the chart, vertically centered at y=0.
+    yAxisLabel.boundsProperty.link( bounds => {
+      yAxisLabel.right = chartRectangle.left - FMWConstants.Y_AXIS_LABEL_SPACING;
+      yAxisLabel.centerY = chartTransform.modelToView( Orientation.VERTICAL, 0 );
+    } );
+
+    // pdom - traversal order
+    // See https://github.com/phetsims/fourier-making-waves/issues/53
+    const pdomOrder = [];
+    xZoomButtonGroup && pdomOrder.push( xZoomButtonGroup );
+    yZoomButtonGroup && pdomOrder.push( yZoomButtonGroup );
+    this.pdomOrder = pdomOrder;
+
     // @protected fields for use by subclasses
-    //TODO
+    this.chartTransform = chartTransform;
+    this.chartRectangle = chartRectangle;
+    this.xAxis = xAxis;
+    this.xAxisLabel = xAxisLabel;
+    this.xGridLines = xGridLines;
+    this.xTickMarks = xTickMarks;
+    this.xTickLabels = xTickLabels;
+    this.yAxis = yAxis;
+    this.yAxisLabel = yAxisLabel;
+    this.yGridLines = yGridLines;
+    this.yTickMarks = yTickMarks;
+    this.yTickLabels = yTickLabels;
 
     // @public fields the are part of the public API
     //TODO
   }
 }
 
-fourierMakingWaves.register( 'FWMChartNode', FWMChartNode );
-export default FWMChartNode;
+fourierMakingWaves.register( 'FMWChartNode', FMWChartNode );
+export default FMWChartNode;
