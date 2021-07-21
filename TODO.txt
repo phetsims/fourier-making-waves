@@ -2,6 +2,8 @@ TODO.txt for fourier-making-waves
 
 ## Common
 
+Use yAxisDescriptionProperty in WavePacketAmplitudesChartNode, then extend WaveformChartNode
+
 Combine FMWChartNode and WaveformChartNode, use for all charts, except Amplitudes in Discrete & Wave Game.
 OR
 Keep FMWChartNode bamboo only, rename WaveformChartNode to DomainChartNode to handle multiple domains
