@@ -62,13 +62,62 @@ the sim are not intended to be disposed, and their `dispose` implementation look
 
 ```js
   /**
-   * @public
-   * @override
-   */
-  dispose() {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
-  }
+ * @public
+ * @override
+ */
+dispose()
+{
+  assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+  super.dispose();
+}
+```
+
+# Charts
+
+Charts follow the MVC pattern. The view is implemented using components from the bamboo repository.
+
+`FMWChartNode` is the base class used by all 3 screens. There is additional code-sharing between the _Discrete_ and _
+Wave Game_ screens.
+
+```
+MODEL
+
+AmplitudesChart
+  ↳ DiscreteAmplitudesChart
+  ↳ WaveGameAmplitudesChart
+
+HarmonicsChart
+ ↳ DiscreteHarmonicsChart
+ ↳ WaveGameHarmonicsChart
+
+SumChart
+ ↳ DiscreteSumChart
+ ↳ WaveGameSumChart
+
+WavePacketAmplitudesChart
+WavePacketComponentsChart
+WavePacketSumChart
+
+VIEW
+
+Node
+
+AmplitudesChartNode
+  ↳ DiscreteAmplitudeChartsNode
+  ↳ WaveGameAmplitudesChartNode
+WavePacketAmplitudesChartNode
+
+WaveformChartNode
+  ↳ HarmonicsChartNode
+    ↳ DiscreteHarmonicsChartNode
+    ↳ WaveGameHarmonicsChartNode
+  ↳ SumChartNode
+    ↳ DiscreteSumChartNode
+    ↳ WaveGameSumChartNode
+
+FMWChartNode
+  ↳ WavePacketComponentsChartNode
+  ↳ WavePacketSumChartNode
 ```
 
 # PhET-iO
