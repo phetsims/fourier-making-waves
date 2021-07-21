@@ -8,12 +8,10 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
-import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import FMWChartNode from '../../common/view/FMWChartNode.js';
@@ -21,6 +19,10 @@ import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketComponentsChart from '../model/WavePacketComponentsChart.js';
+
+// constants
+const X_TICK_LABEL_DECIMALS = 1;
+const Y_TICK_LABEL_DECIMALS = 2;
 
 class WavePacketComponentsChartNode extends FMWChartNode {
 
@@ -42,14 +44,10 @@ class WavePacketComponentsChartNode extends FMWChartNode {
     options = merge( {
       xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),
       xLabelSetOptions: {
-        createLabel: value => new Text( Utils.toFixedNumber( value, 1 ), {
-          font: FMWConstants.TICK_LABEL_FONT
-        } )
+        createLabel: value => FMWChartNode.createNumericTickLabel( value, X_TICK_LABEL_DECIMALS )
       },
       yLabelSetOptions: {
-        createLabel: value => new Text( Utils.toFixedNumber( value, 2 ), {
-          font: FMWConstants.TICK_LABEL_FONT
-        } )
+        createLabel: value => FMWChartNode.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
       }
     }, options );
 

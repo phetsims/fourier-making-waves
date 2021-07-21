@@ -19,11 +19,13 @@ import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Range from '../../../../dot/js/Range.js';
+import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -130,7 +132,7 @@ class FMWChartNode extends Node {
     const yAxisLabel = new RichText( options.yAxisLabel, options.yAxisLabelOptions );
     const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, options.yGridLineSpacing, options.gridLineOptions );
     const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, options.yTickMarkSpacing, options.tickMarkOptions );
-    const yTickLabels = new LabelSet( chartTransform, Orientation.VERTICAL, options.yTickLabelSpacing, options.xLabelSetOptions );
+    const yTickLabels = new LabelSet( chartTransform, Orientation.VERTICAL, options.yTickLabelSpacing, options.yLabelSetOptions );
 
     // Optional zoom buttons
     let xZoomButtonGroup;
@@ -173,16 +175,23 @@ class FMWChartNode extends Node {
 
     super( options );
 
-    // Position the x-axis label at the right of the chart, vertically centered at y=0.
+    // Position the x-axis label at the right of the chart. The y position depends on the y range. If the y range
+    // is non-negative, then the y-axis label is aligned with the bottom of the chart. Otherwise it's vertically
+    // centered on the chart.
     xAxisLabel.boundsProperty.link( bounds => {
       xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
-      xAxisLabel.centerY = chartTransform.modelToView( Orientation.VERTICAL, 0 );
+      if ( chartTransform.modelYRange.min >= 0 ) {
+        xAxisLabel.bottom = chartRectangle.bottom;
+      }
+      else {
+        xAxisLabel.centerY = chartRectangle.centerY;
+      }
     } );
 
-    // Position the y-axis label at the left of the chart, vertically centered at y=0.
+    // Position the y-axis label at the left of the chart, vertically centered on chartRectangle.
     yAxisLabel.boundsProperty.link( bounds => {
       yAxisLabel.right = chartRectangle.left - FMWConstants.Y_AXIS_LABEL_SPACING;
-      yAxisLabel.centerY = chartTransform.modelToView( Orientation.VERTICAL, 0 );
+      yAxisLabel.centerY = chartRectangle.centerY;
     } );
 
     // pdom - traversal order
@@ -194,7 +203,6 @@ class FMWChartNode extends Node {
 
     // @protected fields for use by subclasses
     this.chartTransform = chartTransform;
-    this.chartRectangle = chartRectangle;
     this.xAxis = xAxis;
     this.xAxisLabel = xAxisLabel;
     this.xGridLines = xGridLines;
@@ -207,7 +215,36 @@ class FMWChartNode extends Node {
     this.yTickLabels = yTickLabels;
 
     // @public fields the are part of the public API
-    //TODO
+    this.chartRectangle = chartRectangle;
+  }
+
+  /**
+   * Creates a numeric tick label.
+   * @param {number} value
+   * @param {number} [decimals]
+   * @returns {Text}
+   * @public
+   */
+  static createNumericTickLabel( value, decimals = 0 ) {
+    return new Text( Utils.toFixedNumber( value, decimals ), {
+      font: FMWConstants.TICK_LABEL_FONT
+    } );
+  }
+
+  /**
+   * Creates a tick label that is a coefficient times the PI symbol.
+   * @param {number} value
+   * @param {number} [decimals] - decimal places in the coefficient
+   * @returns {Node}
+   * @public
+   */
+  static createPiTickLabel( value, decimals = 0 ) {
+    const coefficient = Utils.toFixedNumber( value / Math.PI, decimals );
+    const string = ( coefficient === 0 ) ? '0' : `${coefficient}${FMWSymbols.pi}`;
+    return new RichText( string, {
+      font: FMWConstants.TICK_LABEL_FONT,
+      maxWidth: 20
+    } );
   }
 }
 

@@ -106,7 +106,6 @@ Node
   ↳ AmplitudesChartNode
     ↳ DiscreteAmplitudeChartsNode
     ↳ WaveGameAmplitudesChartNode
-  ↳ WavePacketAmplitudesChartNode
   
 Node
   ↳ WaveformChartNode
@@ -119,6 +118,7 @@ Node
       
 Node
   ↳ FMWChartNode
+    ↳ WavePacketAmplitudesChartNode
     ↳ WavePacketComponentsChartNode
     ↳ WavePacketSumChartNode
 ```

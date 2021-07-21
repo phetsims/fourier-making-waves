@@ -64,11 +64,9 @@ class WavePacketScreenView extends ScreenView {
 
     // Amplitudes chart
     const amplitudesChartNode = new WavePacketAmplitudesChartNode( model.amplitudesChart, {
-      transformOptions: {
+      chartTransformOptions: {
         modelXRange: model.wavePacket.xRange,
-        modelYRange: new Range( 0, model.maxAmplitude ), //TODO this needs to autoscale!
-        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
-        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
+        modelYRange: new Range( 0, model.maxAmplitude ) //TODO this needs to autoscale!
       },
       tandem: options.tandem.createTandem( 'amplitudesChartNode' )
     } );
