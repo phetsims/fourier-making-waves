@@ -115,7 +115,7 @@ class FMWChartNode extends Node {
     // the transform between model and view coordinate frames
     const chartTransform = new ChartTransform( options.chartTransformOptions );
 
-    // The chart's background rectangle
+    // the chart's background rectangle
     const chartRectangle = new ChartRectangle( chartTransform, options.chartRectangleOptions );
 
     // x axis

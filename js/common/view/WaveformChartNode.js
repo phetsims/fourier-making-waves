@@ -35,6 +35,7 @@ import ZoomLevelProperty from './ZoomLevelProperty.js';
 // constants
 const X_TICK_LABEL_DECIMALS = 2; //TODO this should be an option, not hardcoded in a base class
 const Y_TICK_LABEL_DECIMALS = 1; //TODO this should be an option, not hardcoded in a base class
+const DEFAULT_EDGE = 'min';
 
 class WaveformChartNode extends Node {
 
@@ -61,67 +62,91 @@ class WaveformChartNode extends Node {
 
     options = merge( {
 
-      // ChartTransform options
       chartTransformOptions: {
+        modelXRange: xAxisDescriptionProperty.value.createAxisRange( domainProperty.value, L, T ),
+        modelYRange: yAxisDescriptionProperty.value.range,
         viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
         viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
+      },
+
+      chartRectangleOptions: {
+
+        // Use the same color as the grid lines. If use a different color (e.g. 'black') then we'll see a black line
+        // appearing and disappearing at the top of the chart when the y-axis range is auto scaling. This is because
+        // sometimes a grid line will coincide with min/max of the range, and sometimes it won't.
+        stroke: FMWColors.chartGridLinesStrokeProperty,
+        fill: 'white'
+      },
+
+      gridLineOptions: {
+        stroke: FMWColors.chartGridLinesStrokeProperty,
+        lineWidth: 0.5
+      },
+
+      tickMarkOptions: {
+        edge: DEFAULT_EDGE,
+        extent: 6
+      },
+
+      axisLineOptions: {
+        stroke: FMWColors.axisStrokeProperty,
+        lineWidth: 1
+      },
+
+      xAxisLabelOptions: {
+        font: FMWConstants.AXIS_LABEL_FONT,
+        maxWidth: FMWConstants.X_AXIS_LABEL_MAX_WIDTH
+      },
+
+      yAxisLabelOptions: {
+        font: FMWConstants.AXIS_LABEL_FONT,
+        maxWidth: 0.85 * FMWConstants.CHART_RECTANGLE_SIZE.height,
+        rotation: -Math.PI / 2
+      },
+
+      xLabelSetOptions: {
+        edge: 'min',
+        createLabel: value => TickLabelUtils.createTickLabelForDomain( value, X_TICK_LABEL_DECIMALS,
+          xAxisTickLabelFormatProperty.value, domainProperty.value, L, T )
+      },
+
+      yLabelSetOptions: {
+        edge: 'min',
+        createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
       },
 
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 
-    assert && assert( !options.chartTransformOptions.modelXRange, 'WaveformChartNode sets modelXRange' );
-    assert && assert( !options.chartTransformOptions.modelYRange, 'WaveformChartNode sets modelYRange' );
-
     // the transform between model and view coordinate frames
-    const chartTransform = new ChartTransform( merge( {
-      modelXRange: xAxisDescriptionProperty.value.createAxisRange( domainProperty.value, L, T ),
-      modelYRange: yAxisDescriptionProperty.value.range
-    }, options.chartTransformOptions ) );
+    const chartTransform = new ChartTransform( options.chartTransformOptions );
 
-    // The chart's background rectangle
-    const chartRectangle = new ChartRectangle( chartTransform, {
+    // the chart's background rectangle
+    const chartRectangle = new ChartRectangle( chartTransform, options.chartRectangleOptions );
 
-      // Use the same color as the grid lines. If use a different color (e.g. 'black') then we'll see a black line
-      // appearing and disappearing at the top of the chart when the y-axis range is auto scaling. This is because
-      // sometimes a grid line will coincide with min/max of the range, and sometimes it won't.
-      stroke: FMWColors.chartGridLinesStrokeProperty,
-      fill: 'white',
-      tandem: options.tandem.createTandem( 'chartRectangle' )
-    } );
-
-    // x axis (space or time) ---------------------------------------------------------
-
-    const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, FMWConstants.AXIS_LINE_OPTIONS );
-
+    // x axis, with tick labels that are specific to domain and format (numeric vs symbolic)
+    const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, options.axisLineOptions );
+    const xAxisLabel = new RichText( '', options.xAxisLabelOptions );
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL,
-      xAxisDescriptionProperty.value.gridLineSpacing, FMWConstants.GRID_LINE_OPTIONS );
-
+      xAxisDescriptionProperty.value.gridLineSpacing, options.gridLineOptions );
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL,
-      xAxisDescriptionProperty.value.tickMarkSpacing, FMWConstants.TICK_MARK_OPTIONS );
-
-    // x-axis tick labels are specific to domain and format (numeric vs symbolic).
-    const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL, xAxisDescriptionProperty.value.tickLabelSpacing, {
-      edge: 'min',
-      createLabel: value => TickLabelUtils.createTickLabelForDomain( value, X_TICK_LABEL_DECIMALS,
-        xAxisTickLabelFormatProperty.value, domainProperty.value, L, T )
-    } );
+      xAxisDescriptionProperty.value.tickMarkSpacing, options.tickMarkOptions );
+    const xTickLabels = new LabelSet( chartTransform, Orientation.HORIZONTAL,
+      xAxisDescriptionProperty.value.tickLabelSpacing, options.xLabelSetOptions );
     Property.multilink( [ xAxisTickLabelFormatProperty, domainProperty ], () => xTickLabels.invalidateLabelSet() );
 
-    const xAxisLabel = new RichText( '', {
-      font: FMWConstants.AXIS_LABEL_FONT,
-      maxWidth: FMWConstants.X_AXIS_LABEL_MAX_WIDTH,
-      tandem: options.tandem.createTandem( 'xAxisLabel' )
-    } );
+    // y axis
+    const yAxis = new AxisLine( chartTransform, Orientation.VERTICAL, options.axisLineOptions );
+    const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL,
+      yAxisDescriptionProperty.value.gridLineSpacing, options.gridLineOptions );
+    const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL,
+      yAxisDescriptionProperty.value.tickMarkSpacing, options.tickMarkOptions );
+    const yTickLabels = new LabelSet( chartTransform, Orientation.VERTICAL,
+      yAxisDescriptionProperty.value.tickLabelSpacing, options.yLabelSetOptions );
+    const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, options.yAxisLabelOptions );
 
-    // Position the x-axis label at the right of the chart, vertically centered at y=0.
-    xAxisLabel.boundsProperty.link( bounds => {
-      xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
-      xAxisLabel.centerY = chartTransform.modelToView( Orientation.VERTICAL, xAxis.value );
-    } );
-
-    // {Node|undefined} Optional zoom buttons for the x-axis range, at bottom right.
+    // Optional zoom buttons
     let xZoomButtonGroup;
     if ( waveformChart.hasXZoom ) {
       const xZoomLevelProperty = new ZoomLevelProperty( waveformChart.xAxisDescriptionProperty );
@@ -135,6 +160,73 @@ class WaveformChartNode extends Node {
         tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
       } );
     }
+
+    let yZoomButtonGroup;
+    if ( waveformChart.hasYZoom ) {
+      const yZoomLevelProperty = new ZoomLevelProperty( waveformChart.yAxisDescriptionProperty );
+      yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {
+        orientation: 'vertical',
+        scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
+        touchAreaXDilation: 10,
+        touchAreaYDilation: 5,
+        right: chartRectangle.left - 31, // determined empirically
+        top: chartRectangle.bottom,
+        tandem: options.tandem.createTandem( 'yZoomButtonGroup' )
+      } );
+    }
+
+    assert && assert( !options.children, 'AmplitudesChartNode sets children' );
+    options.children = [
+      xTickMarks, yTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
+      chartRectangle,
+      xAxis, xAxisLabel, xGridLines, xTickLabels,
+      yAxis, yAxisLabel, yGridLines, yTickLabels
+    ];
+    xZoomButtonGroup && options.children.push( xZoomButtonGroup );
+    yZoomButtonGroup && options.children.push( yZoomButtonGroup );
+
+    super( options );
+
+    // Position the x-axis label at the right of the chart, vertically centered at y=0.
+    xAxisLabel.boundsProperty.link( bounds => {
+      xAxisLabel.left = chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING;
+      xAxisLabel.centerY = chartTransform.modelToView( Orientation.VERTICAL, xAxis.value );
+    } );
+
+    // Position the y-axis label at the left of the chart, vertically centered at y=0.
+    yAxisLabel.boundsProperty.link( bounds => {
+      yAxisLabel.right = chartRectangle.left - FMWConstants.Y_AXIS_LABEL_SPACING;
+      yAxisLabel.centerY = chartTransform.modelToView( Orientation.VERTICAL, xAxis.value /* yes, xAxis.value */ );
+    } );
+
+    // Update the x axis.
+    Property.multilink(
+      [ xAxisDescriptionProperty, domainProperty ],
+      ( xAxisDescription, domain ) => {
+        const value = ( domain === Domain.TIME ) ? T : L;
+        const xMin = value * xAxisDescription.range.min;
+        const xMax = value * xAxisDescription.range.max;
+        chartTransform.setModelXRange( new Range( xMin, xMax ) );
+        xGridLines.setSpacing( xAxisDescription.gridLineSpacing * value );
+        xTickMarks.setSpacing( xAxisDescription.tickMarkSpacing * value );
+        xTickLabels.setSpacing( xAxisDescription.tickLabelSpacing * value );
+        xTickLabels.invalidateLabelSet();
+      } );
+
+    // Update the y-axis.
+    yAxisDescriptionProperty.link( yAxisDescription => {
+
+      // Range is determined by yAxisDescription only if auto scale is disabled.
+      if ( !yAutoScaleProperty || !yAutoScaleProperty.value ) {
+        chartTransform.setModelYRange( yAxisDescription.range );
+      }
+
+      // Grid lines and tick marks are determined by AxisDescriptions regardless of whether auto scale is enabled.
+      // This is because the model keeps AxisDescriptions in sync with yAxisAutoScaleRange.
+      yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
+      yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
+      yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
+    } );
 
     // Set the x-axis label based on domain.
     const spaceLabel = StringUtils.fillIn( fourierMakingWavesStrings.symbolUnits, {
@@ -151,103 +243,16 @@ class WaveformChartNode extends Node {
       xAxisLabel.centerY = chartRectangle.centerY;
     } );
 
-    // unmultilink is not needed.
-    Property.multilink(
-      [ xAxisDescriptionProperty, domainProperty ],
-      ( xAxisDescription, domain ) => {
-        const value = ( domain === Domain.TIME ) ? T : L;
-        const xMin = value * xAxisDescription.range.min;
-        const xMax = value * xAxisDescription.range.max;
-        chartTransform.setModelXRange( new Range( xMin, xMax ) );
-        xGridLines.setSpacing( xAxisDescription.gridLineSpacing * value );
-        xTickMarks.setSpacing( xAxisDescription.tickMarkSpacing * value );
-        xTickLabels.setSpacing( xAxisDescription.tickLabelSpacing * value );
-        xTickLabels.invalidateLabelSet();
-      } );
-
-    // y axis (amplitude ) ---------------------------------------------------------
-
-    const yAxis = new AxisLine( chartTransform, Orientation.VERTICAL, FMWConstants.AXIS_LINE_OPTIONS );
-
-    const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL,
-      yAxisDescriptionProperty.value.gridLineSpacing, FMWConstants.GRID_LINE_OPTIONS );
-
-    const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL,
-      yAxisDescriptionProperty.value.tickMarkSpacing, FMWConstants.TICK_MARK_OPTIONS );
-
-    const yTickLabels = new LabelSet( chartTransform, Orientation.VERTICAL,
-      yAxisDescriptionProperty.value.tickLabelSpacing, {
-        edge: 'min',
-        createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
-      } );
-
-    const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
-      font: FMWConstants.AXIS_LABEL_FONT,
-      rotation: -Math.PI / 2,
-      maxWidth: 0.85 * chartRectangle.height,
-      tandem: options.tandem.createTandem( 'yAxisLabel' )
-    } );
-
-    // Position the y-axis label at the left of the chart, vertically centered at y=0.
-    yAxisLabel.boundsProperty.link( bounds => {
-      yAxisLabel.right = chartRectangle.left - FMWConstants.Y_AXIS_LABEL_SPACING;
-      yAxisLabel.centerY = chartTransform.modelToView( Orientation.VERTICAL, xAxis.value /* yes, xAxis.value */ );
-    } );
-
-    // {Node|undefined} Optional zoom buttons for the y-axis range, at bottom left.
-    let yZoomButtonGroup;
-    if ( waveformChart.hasYZoom ) {
-      const yZoomLevelProperty = new ZoomLevelProperty( waveformChart.yAxisDescriptionProperty );
-      yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {
-        orientation: 'vertical',
-        scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
-        touchAreaXDilation: 10,
-        touchAreaYDilation: 5,
-        right: chartRectangle.left - 31, // determined empirically
-        top: chartRectangle.bottom,
-        tandem: options.tandem.createTandem( 'yZoomButtonGroup' )
-      } );
-    }
-
-    // Update the y-axis. unlink is not needed.
-    yAxisDescriptionProperty.link( yAxisDescription => {
-
-      // Range is determined by yAxisDescription only if auto scale is disabled.
-      if ( !yAutoScaleProperty || !yAutoScaleProperty.value ) {
-        chartTransform.setModelYRange( yAxisDescription.range );
-      }
-
-      // Grid lines and tick marks are determined by AxisDescriptions regardless of whether auto scale is enabled.
-      // This is because the model keeps AxisDescriptions in sync with yAxisAutoScaleRange.
-      yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
-      yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
-      yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
-    } );
-
-    // ---------------------------------------------------------------
-
-    assert && assert( !options.children, 'AmplitudesChartNode sets children' );
-    options.children = [
-      xTickMarks, yTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
-      chartRectangle,
-      xAxis, xAxisLabel, xGridLines, xTickLabels,
-      yAxis, yAxisLabel, yGridLines, yTickLabels
-    ];
-    xZoomButtonGroup && options.children.push( xZoomButtonGroup );
-    yZoomButtonGroup && options.children.push( yZoomButtonGroup );
-
-    super( options );
-
-    // @public
-    this.chartRectangle = chartRectangle;
-    this.chartTransform = chartTransform;
-
-    // @protected
+    // @protected fields for use by subclasses
     this.xTickLabels = xTickLabels;
     this.yGridLines = yGridLines;
     this.yTickMarks = yTickMarks;
     this.yTickLabels = yTickLabels;
     this.yZoomButtonGroup = yZoomButtonGroup;
+
+    // @public fields the are part of the public API
+    this.chartRectangle = chartRectangle;
+    this.chartTransform = chartTransform;
 
     // pdom - traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53
