@@ -86,17 +86,18 @@ AmplitudesChart
   ↳ DiscreteAmplitudesChart
   ↳ WaveGameAmplitudesChart
 
-HarmonicsChart
- ↳ DiscreteHarmonicsChart
- ↳ WaveGameHarmonicsChart
-
-SumChart
- ↳ DiscreteSumChart
- ↳ WaveGameSumChart
+WaveformChart
+  ↳ HarmonicsChart
+    ↳ DiscreteHarmonicsChart
+    ↳ WaveGameHarmonicsChart
+  ↳ SumChart
+    ↳ DiscreteSumChart
+    ↳ WaveGameSumChart
 
 WavePacketAmplitudesChart
-WavePacketComponentsChart
-WavePacketSumChart
+WaveformChart
+  ↳ WavePacketComponentsChart
+  ↳ WavePacketSumChart
 ```
 
 The view class hierarchy is:
@@ -106,8 +107,6 @@ Node
   ↳ AmplitudesChartNode
     ↳ DiscreteAmplitudeChartsNode
     ↳ WaveGameAmplitudesChartNode
-  
-Node
   ↳ FMWChartNode
     ↳ WaveformChartNode
       ↳ HarmonicsChartNode
@@ -116,9 +115,6 @@ Node
       ↳ SumChartNode
         ↳ DiscreteSumChartNode
         ↳ WaveGameSumChartNode
-      
-Node
-  ↳ FMWChartNode
     ↳ WavePacketAmplitudesChartNode
     ↳ WaveformChartNode
       ↳ WavePacketComponentsChartNode
