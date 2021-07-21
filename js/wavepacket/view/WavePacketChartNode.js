@@ -30,17 +30,14 @@ import FMWZoomButtonGroup from '../../common/view/FMWZoomButtonGroup.js';
 import XTickLabelSet from '../../common/view/XTickLabelSet.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import WavePacketChart from '../model/WavePacketChart.js';
 
 class WavePacketChartNode extends Node {
 
   /**
-   * @param {WavePacketChart} chart
+   * @param {TODO} chart
    * @param {Object} [options]
    */
   constructor( chart, options ) {
-
-    assert && assert( chart instanceof WavePacketChart );
 
     options = merge( {
 

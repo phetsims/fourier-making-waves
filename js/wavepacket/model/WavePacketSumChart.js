@@ -7,10 +7,11 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WavePacketChart from './WavePacketChart.js';
 
-class WavePacketSumChart extends WavePacketChart {
+class WavePacketSumChart {
 
   /**
    * @param {WavePacket} wavePacket
@@ -20,7 +21,16 @@ class WavePacketSumChart extends WavePacketChart {
    */
   constructor( wavePacket, domainProperty, xAxisDescriptionProperty, options ) {
 
-    super( wavePacket, domainProperty, xAxisDescriptionProperty, options );
+    options = merge( {
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
+    }, options );
+
+    // @public
+    this.wavePacket = wavePacket;
+    this.domainProperty = domainProperty;
+    this.xAxisDescriptionProperty = xAxisDescriptionProperty;
 
     // @public whether the Sum chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {
