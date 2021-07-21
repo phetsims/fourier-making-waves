@@ -7,48 +7,29 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import AxisDescription from '../../common/model/AxisDescription.js';
-import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import WaveformChart from '../../common/model/WaveformChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-
-// constants
-//TODO flesh out Y_AXIS_DESCRIPTIONS
-const Y_AXIS_DESCRIPTIONS = [
-  new AxisDescription( {
-    max: 2,
-    gridLineSpacing: 1,
-    tickMarkSpacing: 1,
-    tickLabelSpacing: 1
-  } )
-];
 
 class WavePacketComponentsChart extends WaveformChart {
 
   /**
    * @param {WavePacket} wavePacket
    * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
+   * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( wavePacket, domainProperty, xAxisDescriptionProperty, options ) {
+  constructor( wavePacket, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
+               yAxisDescriptionProperty, options ) {
 
     options = merge( {
 
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
-
-    const yAxisDescriptionProperty = new Property( Y_AXIS_DESCRIPTIONS[ 0 ], {
-      validValues: Y_AXIS_DESCRIPTIONS
-    } );
-    const xAxisTickLabelFormatProperty = new EnumerationProperty( TickLabelFormat, TickLabelFormat.NUMERIC, {
-      validValues: [ TickLabelFormat.NUMERIC ]
-    } );
 
     super( wavePacket.L, wavePacket.T, domainProperty, xAxisTickLabelFormatProperty,
       xAxisDescriptionProperty, yAxisDescriptionProperty, options );

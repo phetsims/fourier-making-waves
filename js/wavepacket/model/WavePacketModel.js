@@ -11,19 +11,31 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
+import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WavePacketXAxisDescriptions from './WavePacketXAxisDescriptions.js';
-import WavePacketComponentsChart from './WavePacketComponentsChart.js';
 import WavePacket from './WavePacket.js';
 import WavePacketAmplitudesChart from './WavePacketAmplitudesChart.js';
+import WavePacketComponentsChart from './WavePacketComponentsChart.js';
 import WavePacketSumChart from './WavePacketSumChart.js';
+import WavePacketXAxisDescriptions from './WavePacketXAxisDescriptions.js';
 
 // {AxisDescription} default description for the x axis
 const DEFAULT_X_AXIS_DESCRIPTION = WavePacketXAxisDescriptions[ 2 ];
 assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.getLength() === 4,
   'Expected DEFAULT_X_AXIS_DESCRIPTION range to be 4 wavelengths. Did you change DiscreteYAxisDescriptions?' );
+
+//TODO flesh out Y_AXIS_DESCRIPTIONS
+const Y_AXIS_DESCRIPTIONS = [
+  new AxisDescription( {
+    max: 2,
+    gridLineSpacing: 1,
+    tickMarkSpacing: 1,
+    tickLabelSpacing: 1
+  } )
+];
 
 class WavePacketModel {
 
@@ -62,9 +74,25 @@ class WavePacketModel {
       tandem: options.tandem.createTandem( 'wavePacket' )
     } );
 
+    // The format of x-axis labels for the Components and Sum charts, supports only numeric.
+    // A Property is required by some reusable components.
+    const xAxisTickLabelFormatProperty = new EnumerationProperty( TickLabelFormat, TickLabelFormat.NUMERIC, {
+      validValues: [ TickLabelFormat.NUMERIC ]
+    } );
+
     // {Property.<XAxisDescription>} the x-axis description is shared by the Components and Sum charts.
     const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
       validValues: WavePacketXAxisDescriptions
+    } );
+
+    // {Property.<XAxisDescription>} the y-axis description for the Components chart
+    const componentsYAxisDescriptionProperty = new Property( Y_AXIS_DESCRIPTIONS[ 0 ], {
+      validValues: Y_AXIS_DESCRIPTIONS
+    } );
+
+    // {Property.<XAxisDescription>} the y-axis description for the Sum chart
+    const sumYAxisDescriptionProperty = new Property( Y_AXIS_DESCRIPTIONS[ 0 ], {
+      validValues: Y_AXIS_DESCRIPTIONS
     } );
 
     // @public
@@ -73,14 +101,16 @@ class WavePacketModel {
     } );
 
     // @public
-    this.componentsChart = new WavePacketComponentsChart( this.wavePacket, this.domainProperty, xAxisDescriptionProperty, {
-      tandem: options.tandem.createTandem( 'componentsChart' )
-    } );
+    this.componentsChart = new WavePacketComponentsChart( this.wavePacket, this.domainProperty,
+      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, componentsYAxisDescriptionProperty, {
+        tandem: options.tandem.createTandem( 'componentsChart' )
+      } );
 
     // @public
-    this.sumChart = new WavePacketSumChart( this.wavePacket, this.domainProperty, xAxisDescriptionProperty, {
-      tandem: options.tandem.createTandem( 'sumChart' )
-    } );
+    this.sumChart = new WavePacketSumChart( this.wavePacket, this.domainProperty, xAxisTickLabelFormatProperty,
+      xAxisDescriptionProperty, sumYAxisDescriptionProperty, {
+        tandem: options.tandem.createTandem( 'sumChart' )
+      } );
   }
 
   /**
