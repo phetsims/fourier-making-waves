@@ -6,16 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
-import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import FMWSymbols from '../../common/FMWSymbols.js';
-import Domain from '../../common/model/Domain.js';
-import FMWChartNode from '../../common/view/FMWChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
+import WaveformChartNode from '../../common/view/WaveformChartNode.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -25,7 +20,7 @@ import WavePacketComponentsChart from '../model/WavePacketComponentsChart.js';
 const X_TICK_LABEL_DECIMALS = 1;
 const Y_TICK_LABEL_DECIMALS = 2;
 
-class WavePacketComponentsChartNode extends FMWChartNode {
+class WavePacketComponentsChartNode extends WaveformChartNode {
 
   /**
    * @param {WavePacketComponentsChart} componentsChart
@@ -36,11 +31,8 @@ class WavePacketComponentsChartNode extends FMWChartNode {
     assert && assert( componentsChart instanceof WavePacketComponentsChart );
 
     // Fields of interest in componentsChart, to improve readability
-    const L = componentsChart.wavePacket.L;
-    const T = componentsChart.wavePacket.T;
-    const domainProperty = componentsChart.domainProperty;
     const xAxisDescriptionProperty = componentsChart.xAxisDescriptionProperty;
-    const yAxisDescriptionProperty = componentsChart.yAxisDescriptionProperty;
+    const k1Property = componentsChart.wavePacket.k1Property;
 
     options = merge( {
       xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),
@@ -52,7 +44,7 @@ class WavePacketComponentsChartNode extends FMWChartNode {
       }
     }, options );
 
-    super( options );
+    super( componentsChart, options );
 
     // Message shown when we have an infinite number of components.
     const messageNode = new Text( fourierMakingWavesStrings.infiniteComponentsCannotBePlotted, {
@@ -63,45 +55,10 @@ class WavePacketComponentsChartNode extends FMWChartNode {
     } );
     this.addChild( messageNode );
 
-    // Show the 'cannot plot...' message when we have an infinite number of components.
-    componentsChart.wavePacket.k1Property.link( k1 => {
+    // Show the '...cannot be plotted' message when we have an infinite number of components.
+    k1Property.link( k1 => {
       messageNode.visible = ( k1 === 0 );
       //TODO other things to hide when messageNode is visible?
-    } );
-
-    // Adjust the x-axis label to match the domain.
-    domainProperty.link( domain => {
-      this.xAxisLabel.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolUnits, {
-        symbol: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t,
-        units: ( domain === Domain.SPACE ) ?
-               fourierMakingWavesStrings.units.meters :
-               fourierMakingWavesStrings.units.milliseconds
-      } );
-    } );
-
-    // Update the x axis to match its description and domain.
-    Property.multilink(
-      [ xAxisDescriptionProperty, domainProperty ],
-      ( xAxisDescription, domain ) => {
-        const value = ( domain === Domain.TIME ) ? T : L;
-        const xMin = value * xAxisDescription.range.min;
-        const xMax = value * xAxisDescription.range.max;
-        this.chartTransform.setModelXRange( new Range( xMin, xMax ) );
-        this.xGridLines.setSpacing( xAxisDescription.gridLineSpacing * value );
-        this.xTickMarks.setSpacing( xAxisDescription.tickMarkSpacing * value );
-        this.xTickLabels.setSpacing( xAxisDescription.tickLabelSpacing * value );
-        this.xTickLabels.invalidateLabelSet();
-      } );
-
-    // Update the y axis to match its description.
-    yAxisDescriptionProperty.link( yAxisDescription => {
-
-      //TODO autoscale should setModelYRange based on maxY of component data sets
-      this.chartTransform.setModelYRange( yAxisDescription.range );
-      this.yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
-      this.yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
-      this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
-      this.yTickLabels.invalidateLabelSet();
     } );
 
     //TODO add plots, observe componentsChart.dataSetsProperty to update plots

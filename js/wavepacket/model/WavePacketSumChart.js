@@ -8,10 +8,13 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
+import TickLabelFormat from '../../common/model/TickLabelFormat.js';
+import WaveformChart from '../../common/model/WaveformChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // constants
@@ -25,7 +28,7 @@ const Y_AXIS_DESCRIPTIONS = [
   } )
 ];
 
-class WavePacketSumChart {
+class WavePacketSumChart extends WaveformChart {
 
   /**
    * @param {WavePacket} wavePacket
@@ -41,13 +44,20 @@ class WavePacketSumChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // @public
-    this.wavePacket = wavePacket;
-    this.domainProperty = domainProperty;
-    this.xAxisDescriptionProperty = xAxisDescriptionProperty;
-    this.yAxisDescriptionProperty = new Property( Y_AXIS_DESCRIPTIONS[ 0 ], {
+    //TODO move to model, share with WavePacketComponentsChart
+    const yAxisDescriptionProperty = new Property( Y_AXIS_DESCRIPTIONS[ 0 ], {
       validValues: Y_AXIS_DESCRIPTIONS
     } );
+    //TODO move to model, share with WavePacketComponentsChart
+    const xAxisTickLabelFormatProperty = new EnumerationProperty( TickLabelFormat, TickLabelFormat.NUMERIC, {
+      validValues: [ TickLabelFormat.NUMERIC ]
+    } );
+
+    super( wavePacket.L, wavePacket.T, domainProperty, xAxisTickLabelFormatProperty,
+      xAxisDescriptionProperty, yAxisDescriptionProperty, options );
+
+    // @public
+    this.wavePacket = wavePacket;
 
     // @public whether the Sum chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {

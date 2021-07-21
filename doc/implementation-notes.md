@@ -120,8 +120,9 @@ Node
 Node
   ↳ FMWChartNode
     ↳ WavePacketAmplitudesChartNode
-    ↳ WavePacketComponentsChartNode
-    ↳ WavePacketSumChartNode
+    ↳ WaveformChartNode
+      ↳ WavePacketComponentsChartNode
+      ↳ WavePacketSumChartNode
 ```
 
 # PhET-iO
