@@ -3,7 +3,7 @@ TODO.txt for fourier-making-waves
 ## Common
 
 Use yAxisDescriptionProperty in WavePacketAmplitudesChartNode, then extend WaveformChartNode
-Rename WaveformChart and WaveformChartNode
+Fold WaveformChartNode into FMWChartNode, rename WaveformChart to FMWChart
 
 ## Discrete screen
 
