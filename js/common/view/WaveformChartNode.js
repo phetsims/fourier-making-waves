@@ -18,6 +18,7 @@ import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -28,8 +29,8 @@ import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
 import WaveformChart from '../model/WaveformChart.js';
-import FMWZoomButtonGroup from './FMWZoomButtonGroup.js';
 import TickLabelUtils from './TickLabelUtils.js';
+import ZoomLevelProperty from './ZoomLevelProperty.js';
 
 // constants
 const X_TICK_LABEL_DECIMALS = 2; //TODO this should be an option, not hardcoded in a base class
@@ -123,7 +124,8 @@ class WaveformChartNode extends Node {
     // {Node|undefined} Optional zoom buttons for the x-axis range, at bottom right.
     let xZoomButtonGroup;
     if ( waveformChart.hasXZoom ) {
-      xZoomButtonGroup = new FMWZoomButtonGroup( waveformChart.xAxisDescriptionProperty, {
+      const xZoomLevelProperty = new ZoomLevelProperty( waveformChart.xAxisDescriptionProperty );
+      xZoomButtonGroup = new PlusMinusZoomButtonGroup( xZoomLevelProperty, {
         orientation: 'horizontal',
         scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
         touchAreaXDilation: 5,
@@ -195,7 +197,8 @@ class WaveformChartNode extends Node {
     // {Node|undefined} Optional zoom buttons for the y-axis range, at bottom left.
     let yZoomButtonGroup;
     if ( waveformChart.hasYZoom ) {
-      yZoomButtonGroup = new FMWZoomButtonGroup( yAxisDescriptionProperty, {
+      const yZoomLevelProperty = new ZoomLevelProperty( waveformChart.yAxisDescriptionProperty );
+      yZoomButtonGroup = new PlusMinusZoomButtonGroup( yZoomLevelProperty, {
         orientation: 'vertical',
         scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
         touchAreaXDilation: 10,
