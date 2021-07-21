@@ -2,6 +2,7 @@ TODO.txt for fourier-making-waves
 
 ## Common
 
+Add yAxisAutoScaleRangeProperty for all of WaveformChart subclasses in Wave Packet screen
 Use yAxisDescriptionProperty in WavePacketAmplitudesChartNode, then extend WaveformChartNode
 Fold WaveformChartNode into FMWChartNode, rename WaveformChart to FMWChart
 
