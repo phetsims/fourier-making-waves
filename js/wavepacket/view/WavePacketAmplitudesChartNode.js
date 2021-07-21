@@ -14,6 +14,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import FMWChartNode from '../../common/view/FMWChartNode.js';
+import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketAmplitudesChart from '../model/WavePacketAmplitudesChart.js';
@@ -44,10 +45,10 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       xTickMarkSpacing: Math.PI,
       xTickLabelSpacing: 2 * Math.PI,
       xLabelSetOptions: {
-        createLabel: value => FMWChartNode.createPiTickLabel( value, X_TICK_LABEL_DECIMALS )
+        createLabel: value => TickLabelUtils.createPiTickLabel( value, X_TICK_LABEL_DECIMALS )
       },
       yLabelSetOptions: {
-        createLabel: value => FMWChartNode.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
+        createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
       }
     }, options );
 

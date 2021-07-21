@@ -19,13 +19,11 @@ import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
 import Range from '../../../../dot/js/Range.js';
-import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -216,35 +214,6 @@ class FMWChartNode extends Node {
 
     // @public fields the are part of the public API
     this.chartRectangle = chartRectangle;
-  }
-
-  /**
-   * Creates a numeric tick label.
-   * @param {number} value
-   * @param {number} [decimals]
-   * @returns {Text}
-   * @public
-   */
-  static createNumericTickLabel( value, decimals = 0 ) {
-    return new Text( Utils.toFixedNumber( value, decimals ), {
-      font: FMWConstants.TICK_LABEL_FONT
-    } );
-  }
-
-  /**
-   * Creates a tick label that is a coefficient times the PI symbol.
-   * @param {number} value
-   * @param {number} [decimals] - decimal places in the coefficient
-   * @returns {Node}
-   * @public
-   */
-  static createPiTickLabel( value, decimals = 0 ) {
-    const coefficient = Utils.toFixedNumber( value / Math.PI, decimals );
-    const string = ( coefficient === 0 ) ? '0' : `${coefficient}${FMWSymbols.pi}`;
-    return new RichText( string, {
-      font: FMWConstants.TICK_LABEL_FONT,
-      maxWidth: 20
-    } );
   }
 }
 

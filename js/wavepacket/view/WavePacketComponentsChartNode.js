@@ -15,6 +15,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import FMWChartNode from '../../common/view/FMWChartNode.js';
+import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -44,10 +45,10 @@ class WavePacketComponentsChartNode extends FMWChartNode {
     options = merge( {
       xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),
       xLabelSetOptions: {
-        createLabel: value => FMWChartNode.createNumericTickLabel( value, X_TICK_LABEL_DECIMALS )
+        createLabel: value => TickLabelUtils.createNumericTickLabel( value, X_TICK_LABEL_DECIMALS )
       },
       yLabelSetOptions: {
-        createLabel: value => FMWChartNode.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
+        createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
       }
     }, options );
 
