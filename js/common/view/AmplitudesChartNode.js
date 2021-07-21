@@ -55,18 +55,17 @@ class AmplitudesChartNode extends Node {
       // {function} called when the user starts editing any amplitude value
       onEdit: _.noop,
 
-      // ChartTransform options
-      transformOptions: {
-        viewWidth: 100,
-        viewHeight: 100
+      chartTransformOptions: {
+        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
+        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
       },
 
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 
-    assert && assert( !options.transformOptions.modelXRange, 'AmplitudesChartNode sets modelXRange' );
-    assert && assert( !options.transformOptions.modelYRange, 'AmplitudesChartNode sets modelYRange' );
+    assert && assert( !options.chartTransformOptions.modelXRange, 'AmplitudesChartNode sets modelXRange' );
+    assert && assert( !options.chartTransformOptions.modelYRange, 'AmplitudesChartNode sets modelYRange' );
 
     // Fields of interest in amplitudesChart, to improve readability
     const fourierSeries = amplitudesChart.fourierSeries;
@@ -76,7 +75,7 @@ class AmplitudesChartNode extends Node {
     const chartTransform = new ChartTransform( merge( {
       modelXRange: new Range( 1 - X_MARGIN, fourierSeries.harmonics.length + X_MARGIN ),
       modelYRange: fourierSeries.amplitudeRange
-    }, options.transformOptions ) );
+    }, options.chartTransformOptions ) );
 
     const chartRectangle = new ChartRectangle( chartTransform );
 
@@ -94,7 +93,7 @@ class AmplitudesChartNode extends Node {
     const sliders = _.map( fourierSeries.harmonics, harmonic =>
       new AmplitudeSlider( harmonic, emphasizedHarmonics, {
         press: options.onEdit,
-        trackHeight: options.transformOptions.viewHeight,
+        trackHeight: options.chartTransformOptions.viewHeight,
         center: chartTransform.modelToViewXY( harmonic.order, 0 ),
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` )
       } )

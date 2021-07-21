@@ -103,10 +103,6 @@ class WaveGameLevelNode extends Node {
     } );
 
     const amplitudesChartNode = new WaveGameAmplitudesChartNode( level.amplitudesChart, amplitudeKeypadDialog, {
-      transformOptions: {
-        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
-        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
-      },
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
     } );
 
@@ -126,10 +122,6 @@ class WaveGameLevelNode extends Node {
     } );
 
     const harmonicsChartNode = new WaveGameHarmonicsChartNode( level.harmonicsChart, {
-      transformOptions: {
-        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
-        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
-      },
       tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
     } );
 
@@ -143,10 +135,6 @@ class WaveGameLevelNode extends Node {
     } );
 
     const sumChartNode = new WaveGameSumChartNode( level.sumChart, {
-      transformOptions: {
-        viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
-        viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
-      },
       tandem: sumTandem.createTandem( 'sumChartNode' )
     } );
 
