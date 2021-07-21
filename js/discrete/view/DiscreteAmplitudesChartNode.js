@@ -9,15 +9,18 @@
 
 import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import DiscreteAmplitudesChart from '../model/DiscreteAmplitudesChart.js';
 
 class DiscreteAmplitudesChartNode extends AmplitudesChartNode {
 
   /**
-   * @param {AmplitudesChart} amplitudesChart
+   * @param {DiscreteAmplitudesChart} amplitudesChart
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
    * @param {Object} [options]
    */
   constructor( amplitudesChart, amplitudeKeypadDialog, options ) {
+
+    assert && assert( amplitudesChart instanceof DiscreteAmplitudesChart );
 
     super( amplitudesChart, amplitudeKeypadDialog, options );
 

@@ -18,12 +18,12 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
-import AmplitudesChart from '../../common/model/AmplitudesChart.js';
 import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import DiscreteAmplitudesChart from './DiscreteAmplitudesChart.js';
 import DiscreteFourierSeries from './DiscreteFourierSeries.js';
 import DiscreteHarmonicsChart from './DiscreteHarmonicsChart.js';
 import DiscreteSumChart from './DiscreteSumChart.js';
@@ -150,7 +150,7 @@ class DiscreteModel {
     } );
 
     // @public
-    this.amplitudesChart = new AmplitudesChart( this.fourierSeries, emphasizedHarmonics );
+    this.amplitudesChart = new DiscreteAmplitudesChart( this.fourierSeries, emphasizedHarmonics );
 
     // {Property.<AxisDescription>} y-axis description is specific to the Harmonics chart, not shared with the Sum chart.
     // The Harmonics chart has no zoom buttons, so it only has one y-axis description.
