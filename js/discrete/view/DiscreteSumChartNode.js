@@ -46,12 +46,11 @@ class DiscreteSumChartNode extends SumChartNode {
     this.chartCanvasNode.setPainters( [ infiniteHarmonicsPlot, ...this.chartCanvasNode.painters ] );
 
     // Disable the y-axis zoom buttons when auto scale is enabled. unlink is not needed.
-    if ( this.yZoomButtonGroup ) {
-      yAutoScaleProperty.link( yAutoScale => {
-        this.yZoomButtonGroup.enabled = !yAutoScale;
-      } );
-      this.yZoomButtonGroup.enabledProperty.link( () => this.yZoomButtonGroup.interruptSubtreeInput() );
-    }
+    assert && assert( this.yZoomButtonGroup, 'expected the Sum chart to have y-axis zoom buttons' );
+    yAutoScaleProperty.link( yAutoScale => {
+      this.yZoomButtonGroup.enabled = !yAutoScale;
+    } );
+    this.yZoomButtonGroup.enabledProperty.link( () => this.yZoomButtonGroup.interruptSubtreeInput() );
 
     // Automatically scales the y axis to show the entire plot
     const autoScaleCheckbox = new AutoScaleCheckbox( yAutoScaleProperty, {

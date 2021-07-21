@@ -200,7 +200,6 @@ class FMWChartNode extends Node {
     this.pdomOrder = pdomOrder;
 
     // @protected fields for use by subclasses
-    this.chartTransform = chartTransform;
     this.xAxis = xAxis;
     this.xAxisLabel = xAxisLabel;
     this.xGridLines = xGridLines;
@@ -211,8 +210,10 @@ class FMWChartNode extends Node {
     this.yGridLines = yGridLines;
     this.yTickMarks = yTickMarks;
     this.yTickLabels = yTickLabels;
+    this.yZoomButtonGroup = yZoomButtonGroup;
 
     // @public fields the are part of the public API
+    this.chartTransform = chartTransform;
     this.chartRectangle = chartRectangle;
   }
 }

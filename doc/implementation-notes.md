@@ -108,13 +108,14 @@ Node
     ↳ WaveGameAmplitudesChartNode
   
 Node
-  ↳ WaveformChartNode
-    ↳ HarmonicsChartNode
-      ↳ DiscreteHarmonicsChartNode
-      ↳ WaveGameHarmonicsChartNode
-    ↳ SumChartNode
-      ↳ DiscreteSumChartNode
-      ↳ WaveGameSumChartNode
+  ↳ FMWChartNode
+    ↳ WaveformChartNode
+      ↳ HarmonicsChartNode
+        ↳ DiscreteHarmonicsChartNode
+        ↳ WaveGameHarmonicsChartNode
+      ↳ SumChartNode
+        ↳ DiscreteSumChartNode
+        ↳ WaveGameSumChartNode
       
 Node
   ↳ FMWChartNode
