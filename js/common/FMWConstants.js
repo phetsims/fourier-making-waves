@@ -1,5 +1,6 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
+//TODO delete constants that are no longer used
 /**
  * FMWConstants defines constants used throughout this simulation.
  *

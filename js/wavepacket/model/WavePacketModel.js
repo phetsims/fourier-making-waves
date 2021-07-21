@@ -15,7 +15,7 @@ import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketXAxisDescriptions from './WavePacketXAxisDescriptions.js';
-import ComponentsChart from './ComponentsChart.js';
+import WavePacketComponentsChart from './WavePacketComponentsChart.js';
 import WavePacket from './WavePacket.js';
 import WavePacketAmplitudesChart from './WavePacketAmplitudesChart.js';
 import WavePacketSumChart from './WavePacketSumChart.js';
@@ -73,7 +73,7 @@ class WavePacketModel {
     } );
 
     // @public
-    this.componentsChart = new ComponentsChart( this.wavePacket, this.domainProperty, xAxisDescriptionProperty, {
+    this.componentsChart = new WavePacketComponentsChart( this.wavePacket, this.domainProperty, xAxisDescriptionProperty, {
       tandem: options.tandem.createTandem( 'componentsChart' )
     } );
 

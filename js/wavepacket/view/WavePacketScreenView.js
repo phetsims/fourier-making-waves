@@ -19,7 +19,7 @@ import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapse
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
-import ComponentsChartNode from './ComponentsChartNode.js';
+import WavePacketComponentsChartNode from './WavePacketComponentsChartNode.js';
 import ComponentsEquationNode from './ComponentsEquationNode.js';
 import WavePacketAmplitudesChartNode from './WavePacketAmplitudesChartNode.js';
 import WavePacketControlPanel from './WavePacketControlPanel.js';
@@ -93,7 +93,7 @@ class WavePacketScreenView extends ScreenView {
       } );
 
     // Components chart
-    const componentsChartNode = new ComponentsChartNode( model.componentsChart, {
+    const componentsChartNode = new WavePacketComponentsChartNode( model.componentsChart, {
       transformOptions: {
         modelXRange: new Range( -2, 2 ), //TODO
         modelYRange: new Range( -model.maxAmplitude, model.maxAmplitude ), //TODO

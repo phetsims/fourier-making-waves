@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ComponentsChartNode is the 'Components' chart on the 'Wave Packet' screen.
+ * WavePacketComponentsChartNode is the 'Components' chart on the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -10,18 +10,18 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import ComponentsChart from '../model/ComponentsChart.js';
+import WavePacketComponentsChart from '../model/WavePacketComponentsChart.js';
 import WavePacketChartNode from './WavePacketChartNode.js';
 
-class ComponentsChartNode extends WavePacketChartNode {
+class WavePacketComponentsChartNode extends WavePacketChartNode {
 
   /**
-   * @param {ComponentsChart} componentsChart
+   * @param {WavePacketComponentsChart} componentsChart
    * @param {Object} [options]
    */
   constructor( componentsChart, options ) {
 
-    assert && assert( componentsChart instanceof ComponentsChart );
+    assert && assert( componentsChart instanceof WavePacketComponentsChart );
 
     super( componentsChart, options );
 
@@ -44,5 +44,5 @@ class ComponentsChartNode extends WavePacketChartNode {
   }
 }
 
-fourierMakingWaves.register( 'ComponentsChartNode', ComponentsChartNode );
-export default ComponentsChartNode;
+fourierMakingWaves.register( 'WavePacketComponentsChartNode', WavePacketComponentsChartNode );
+export default WavePacketComponentsChartNode;

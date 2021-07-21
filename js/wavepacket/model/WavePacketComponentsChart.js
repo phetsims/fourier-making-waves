@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ComponentsChart is the 'Components' chart on the 'Wave Packet' screen.
+ * WavePacketComponentsChart is the 'Components' chart on the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -10,7 +10,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketChart from './WavePacketChart.js';
 
-class ComponentsChart extends WavePacketChart {
+class WavePacketComponentsChart extends WavePacketChart {
 
   /**
    * @param {WavePacket} wavePacket
@@ -36,5 +36,5 @@ class ComponentsChart extends WavePacketChart {
   }
 }
 
-fourierMakingWaves.register( 'ComponentsChart', ComponentsChart );
-export default ComponentsChart;
+fourierMakingWaves.register( 'WavePacketComponentsChart', WavePacketComponentsChart );
+export default WavePacketComponentsChart;
