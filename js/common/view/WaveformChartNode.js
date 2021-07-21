@@ -30,10 +30,10 @@ import Domain from '../model/Domain.js';
 import WaveformChart from '../model/WaveformChart.js';
 import FMWZoomButtonGroup from './FMWZoomButtonGroup.js';
 import TickLabelUtils from './TickLabelUtils.js';
-import YTickLabelSet from './YTickLabelSet.js';
 
 // constants
 const X_TICK_LABEL_DECIMALS = 2; //TODO this should be an option, not hardcoded in a base class
+const Y_TICK_LABEL_DECIMALS = 1; //TODO this should be an option, not hardcoded in a base class
 
 class WaveformChartNode extends Node {
 
@@ -173,7 +173,11 @@ class WaveformChartNode extends Node {
     const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL,
       yAxisDescriptionProperty.value.tickMarkSpacing, FMWConstants.TICK_MARK_OPTIONS );
 
-    const yTickLabels = new YTickLabelSet( chartTransform, yAxisDescriptionProperty.value.tickLabelSpacing );
+    const yTickLabels = new LabelSet( chartTransform, Orientation.VERTICAL,
+      yAxisDescriptionProperty.value.tickLabelSpacing, {
+        edge: 'min',
+        createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
+      } );
 
     const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
