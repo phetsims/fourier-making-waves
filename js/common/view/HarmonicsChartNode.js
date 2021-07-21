@@ -33,6 +33,8 @@ class HarmonicsChartNode extends WaveformChartNode {
     assert && assert( harmonicsChart instanceof HarmonicsChart );
 
     options = merge( {
+
+      // WaveformChartNode options
       xZoomLevelProperty: new ZoomLevelProperty( harmonicsChart.xAxisDescriptionProperty )
     }, options );
 
