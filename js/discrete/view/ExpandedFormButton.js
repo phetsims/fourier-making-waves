@@ -9,7 +9,7 @@
 import merge from '../../../../phet-core/js/merge.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import eyeRegularShape from '../../../../sherpa/js/fontawesome-5/eyeRegularShape.js';
+import eyeSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSolidShape.js';
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -29,7 +29,7 @@ class ExpandedFormButton extends RoundPushButton {
     }, options );
 
     assert && assert( !options.content, 'RoundPushButton sets content' );
-    options.content = new Path( eyeRegularShape, {
+    options.content = new Path( eyeSolidShape, {
       scale: 0.072,
       fill: 'black'
     } );
