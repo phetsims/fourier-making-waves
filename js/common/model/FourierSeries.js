@@ -22,7 +22,7 @@ import Domain from './Domain.js';
 import getAmplitudeFunction from './getAmplitudeFunction.js';
 import Harmonic from './Harmonic.js';
 import SeriesType from './SeriesType.js';
-import XAxisDescription from './XAxisDescription.js';
+import AxisDescription from './AxisDescription.js';
 
 // constants
 const DEFAULT_AMPLITUDES = Array( FMWConstants.MAX_HARMONICS ).fill( 0 );
@@ -164,7 +164,7 @@ class FourierSeries extends PhetioObject {
    *     in the data set created by Harmonic.createDataSet is a function of the harmonic's frequency, as more points
    *     are required to plot higher-frequency harmonics.
    *
-   * @param {XAxisDescription} xAxisDescription
+   * @param {AxisDescription} xAxisDescription
    * @param {Domain} domain
    * @param {SeriesType} seriesType
    * @param {number} t
@@ -173,14 +173,14 @@ class FourierSeries extends PhetioObject {
    */
   createSumDataSet( xAxisDescription, domain, seriesType, t ) {
 
-    assert && assert( xAxisDescription instanceof XAxisDescription );
+    assert && assert( xAxisDescription instanceof AxisDescription );
     assert && assert( Domain.includes( domain ) );
     assert && assert( SeriesType.includes( seriesType ) );
     assert && AssertUtils.assertNonNegativeNumber( t );
 
     const sumDataSet = []; // {Vector2[]}
 
-    const xRange = xAxisDescription.createAxisRange( domain, this.L, this.T );
+    const xRange = xAxisDescription.createXAxisRange( domain, this.L, this.T );
     const numberOfHarmonics = this.harmonics.length;
     const dx = xRange.getLength() / FMWConstants.MAX_POINTS_PER_DATA_SET;
     const amplitudeFunction = getAmplitudeFunction( domain, seriesType );

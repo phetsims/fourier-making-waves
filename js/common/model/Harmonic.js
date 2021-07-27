@@ -19,7 +19,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from './Domain.js';
 import getAmplitudeFunction from './getAmplitudeFunction.js';
 import SeriesType from './SeriesType.js';
-import XAxisDescription from './XAxisDescription.js';
+import AxisDescription from './AxisDescription.js';
 
 class Harmonic extends PhetioObject {
 
@@ -96,7 +96,7 @@ class Harmonic extends PhetioObject {
    * @param {number} numberOfPoints
    * @param {number} L
    * @param {number} T
-   * @param {XAxisDescription} xAxisDescription
+   * @param {AxisDescription} xAxisDescription
    * @param {Domain} domain
    * @param {SeriesType} seriesType
    * @param {number} t
@@ -108,7 +108,7 @@ class Harmonic extends PhetioObject {
     assert && AssertUtils.assertPositiveInteger( numberOfPoints );
     assert && AssertUtils.assertPositiveNumber( L );
     assert && AssertUtils.assertPositiveNumber( T );
-    assert && assert( xAxisDescription instanceof XAxisDescription );
+    assert && assert( xAxisDescription instanceof AxisDescription );
     assert && assert( Domain.includes( domain ) );
     assert && assert( SeriesType.includes( seriesType ) );
     assert && AssertUtils.assertNonNegativeNumber( t );
@@ -117,7 +117,7 @@ class Harmonic extends PhetioObject {
     const order = this.order;
     const amplitude = this.amplitudeProperty.value;
     const amplitudeFunction = getAmplitudeFunction( domain, seriesType );
-    const xRange = xAxisDescription.createAxisRange( domain, L, T );
+    const xRange = xAxisDescription.createXAxisRange( domain, L, T );
 
     // Make dx a bit larger than necessary, so that we cover the entire xRange by slightly exceeding xRange.max.
     const dx = xRange.getLength() / ( numberOfPoints - 1 );

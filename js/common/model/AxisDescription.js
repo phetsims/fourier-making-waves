@@ -5,6 +5,9 @@
  * zoom level. A zoom level is an index into a {AxisDescription[]}. Units for the fields in an AxisDescription are
  * specific to the axis.
  *
+ * For the x axis, AxisDescription contains coefficients to be applied to L or T, depending on which domain is
+ * being plotted. Use createXAxisRange to multiply that description by L or T, depending on domain (space or time).
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
@@ -13,6 +16,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import Domain from './Domain.js';
 
 class AxisDescription {
 
@@ -75,6 +79,27 @@ class AxisDescription {
       ( axisDescription, index, axisDescriptions ) =>
         ( index === 0 || axisDescriptions[ index - 1 ].range.getLength() > axisDescription.range.getLength() )
     );
+  }
+
+  /**
+   * Creates the range for the x-axis. For the x axis, AxisDescription contains coefficients to be applied to L or T,
+   * depending on which domain is being plotted.
+   * @param {Domain} domain
+   * @param {number} L - wavelength of the fundamental harmonic, in m
+   * @param {number} T - period of the fundamental harmonic, in
+   * @returns {Range}
+   * @public
+   */
+  createXAxisRange( domain, L, T ) {
+
+    assert && assert( Domain.includes( domain ) );
+    assert && AssertUtils.assertPositiveNumber( L );
+    assert && AssertUtils.assertPositiveNumber( T );
+
+    const value = ( domain === Domain.TIME ) ? T : L;
+    const xMin = value * this.range.min;
+    const xMax = value * this.range.max;
+    return new Range( xMin, xMax );
   }
 }
 

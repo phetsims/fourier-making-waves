@@ -14,7 +14,6 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
 import TickLabelFormat from './TickLabelFormat.js';
-import XAxisDescription from './XAxisDescription.js';
 
 class WaveformChart {
 
@@ -23,7 +22,7 @@ class WaveformChart {
    * @param {number} T - period of the fundamental harmonic, in milliseconds
    * @param {EnumerationProperty.<Domain>} domainProperty - domain of the x axis
    * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty - format of the x-axis tick labels
-   * @param {Property.<XAxisDescription>} xAxisDescriptionProperty - describes the x axis
+   * @param {Property.<AxisDescription>} xAxisDescriptionProperty - describes the x axis
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty - describes the y axis
    * @param {Object} [options]
    */
@@ -34,7 +33,7 @@ class WaveformChart {
     assert && AssertUtils.assertPositiveNumber( T );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( xAxisTickLabelFormatProperty, TickLabelFormat );
-    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, XAxisDescription );
+    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
     assert && assert( xAxisDescriptionProperty.validValues,
       'xAxisDescriptionProperty should have been instantiated with validValues option' );
     assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );

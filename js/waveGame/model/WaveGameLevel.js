@@ -22,7 +22,7 @@ import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import XAxisDescription from '../../common/model/XAxisDescription.js';
+import AxisDescription from '../../common/model/AxisDescription.js';
 import DiscreteYAxisDescriptions from '../../discrete/model/DiscreteYAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -40,7 +40,7 @@ const t = 0; // lowercase t (time) to distinguish from uppercase T (period)
 const AMPLITUDE_THRESHOLD = 0.01; // a guess amplitude must be at least this close to an answer amplitude
 
 // Fixed x-axis description, because Wave Game has no zoom buttons for the x axes.
-const X_AXIS_DESCRIPTION = new XAxisDescription( {
+const X_AXIS_DESCRIPTION = new AxisDescription( {
   max: 1 / 2,
   gridLineSpacing: 1 / 8,
   tickMarkSpacing: 1 / 4,

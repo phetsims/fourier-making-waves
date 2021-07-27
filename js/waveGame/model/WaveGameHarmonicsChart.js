@@ -14,7 +14,6 @@ import Domain from '../../common/model/Domain.js';
 import HarmonicsChart from '../../common/model/HarmonicsChart.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import TickLabelFormat from '../../common/model/TickLabelFormat.js';
-import XAxisDescription from '../../common/model/XAxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class WaveGameHarmonicsChart extends HarmonicsChart {
@@ -25,13 +24,13 @@ class WaveGameHarmonicsChart extends HarmonicsChart {
    * @param {Domain} domain
    * @param {SeriesType} seriesType
    * @param {number} t
-   * @param {XAxisDescription} xAxisDescription
+   * @param {AxisDescription} xAxisDescription
    * @param {AxisDescription} yAxisDescription
    * @param {Object} [options]
    */
   constructor( guessSeries, emphasizedHarmonics, domain, seriesType, t, xAxisDescription, yAxisDescription, options ) {
 
-    assert && assert( xAxisDescription instanceof XAxisDescription );
+    assert && assert( xAxisDescription instanceof AxisDescription );
     assert && assert( yAxisDescription instanceof AxisDescription );
 
     super(

@@ -7,48 +7,47 @@
  *
  * There is one AxisDescription for each zoom level, and the array is ordered from most 'zoomed out' to most 'zoomed in'.
  * Values in the AxisDescriptions are coefficients (multipliers) for L or T, depending on which domain is plotted.
- * Use axisDescription.createAxisRange to create a numeric range suitable for use with a chart.
+ * Use axisDescription.createXAxisRange to create a numeric range suitable for use with a chart.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import AxisDescription from '../../common/model/AxisDescription.js';
-import XAxisDescription from '../../common/model/XAxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-// {XAxisDescription[]}
+// {AxisDescription[]}
 const DiscreteXAxisDescriptions = [
-  new XAxisDescription( {
+  new AxisDescription( {
     max: 2,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 2
   } ),
-  new XAxisDescription( {
+  new AxisDescription( {
     max: 3 / 2,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 2
   } ),
-  new XAxisDescription( {
+  new AxisDescription( {
     max: 1,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 4
   } ),
-  new XAxisDescription( {
+  new AxisDescription( {
     max: 3 / 4,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 4
   } ),
-  new XAxisDescription( {
+  new AxisDescription( {
     max: 1 / 2,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
     tickLabelSpacing: 1 / 4
   } ),
-  new XAxisDescription( {
+  new AxisDescription( {
     max: 1 / 4,
     gridLineSpacing: 1 / 8,
     tickMarkSpacing: 1 / 4,
