@@ -1,9 +1,11 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * AxisDescription is a data structure used to describe the range, grid lines, and ticks for an axis at a specific
- * zoom level. A zoom level is an index into a {AxisDescription[]}. Units for the fields in an AxisDescription are
- * specific to the axis.
+ * AxisDescription is a data structure used to describe the range, grid lines, and ticks for an axis.
+ * An array of AxisDescription can be used to describe the zoom levels for an axis, where a zoom level is an index
+ * into the array.
+ *
+ * Units for the fields in an AxisDescription are specific to the axis.
  *
  * For the x axis, AxisDescription contains coefficients to be applied to L or T, depending on which domain is
  * being plotted. Use createXAxisRange to multiply that description by L or T, depending on domain (space or time).
