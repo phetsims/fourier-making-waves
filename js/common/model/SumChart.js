@@ -25,7 +25,7 @@ class SumChart extends WaveformChart {
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
    * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
-   * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
+   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */

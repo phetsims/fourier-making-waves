@@ -19,7 +19,7 @@ class WavePacketComponentsChart extends WaveformChart {
    * @param {WavePacket} wavePacket
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<TickLabelFormat>} xAxisTickLabelFormatProperty
-   * @param {Property.<XAxisDescription>} xAxisDescriptionProperty
+   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */

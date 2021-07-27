@@ -147,7 +147,7 @@ class DiscreteModel {
     assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.max === 1 / 2,
       'DEFAULT_X_ZOOM_LEVEL is probably incorrect - did you modify X_AXIS_DESCRIPTIONS?' );
 
-    // {Property.<XAxisDescription>} the x-axis description is shared by the Harmonics and Sum charts.
+    // {Property.<AxisDescription>} the x-axis description is shared by the Harmonics and Sum charts.
     const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
       validValues: X_AXIS_DESCRIPTIONS
     } );
