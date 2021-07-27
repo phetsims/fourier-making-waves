@@ -50,7 +50,7 @@ class AxisDescription {
   }
 
   /**
-   * Determines whether the range is symmetric about zero.  This is a requirement of many of the axes in this sim.
+   * Determines whether the range is symmetric about zero. This is a requirement for many of the axes in this sim.
    * @returns {boolean}
    * @public
    */
