@@ -14,14 +14,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import DiscreteXAxisDescriptions from './DiscreteXAxisDescriptions.js';
 
 // constants
 const PI = Math.PI; // to improve readability
-
-// {Vector2[]} arrays herein are hardcoded, ported from Preset.java.
-assert && assert( DiscreteXAxisDescriptions[ 0 ].range.max === 2,
-  'hardcoded points herein assume that the maximum x-axis multiplier is 2' );
 
 //TODO Document INFINITE_HARMONICS_BASE_POINTS, x coordinates are coefficients, why we need more points than x range
 // to accommodate shiftX, etc.  ... or create functions to produce INFINITE_HARMONICS_BASE_POINTS

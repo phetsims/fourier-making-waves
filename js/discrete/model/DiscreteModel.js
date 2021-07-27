@@ -27,8 +27,7 @@ import DiscreteAmplitudesChart from './DiscreteAmplitudesChart.js';
 import DiscreteFourierSeries from './DiscreteFourierSeries.js';
 import DiscreteHarmonicsChart from './DiscreteHarmonicsChart.js';
 import DiscreteSumChart from './DiscreteSumChart.js';
-import DiscreteXAxisDescriptions from './DiscreteXAxisDescriptions.js';
-import DiscreteYAxisDescriptions from './DiscreteYAxisDescriptions.js';
+import DiscreteAxisDescriptions from './DiscreteAxisDescriptions.js';
 import EquationForm from './EquationForm.js';
 import MeasurementTool from './MeasurementTool.js';
 import Waveform from './Waveform.js';
@@ -39,15 +38,19 @@ const TIME_SCALE = 0.001;
 // How much to step the simulation when the Step button is pressed, in milliseconds, determined empirically.
 const STEP_DT = 50;
 
+// descriptions for the axes
+const X_AXIS_DESCRIPTIONS = DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS;
+const Y_AXIS_DESCRIPTIONS = DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS;
+
 // {AxisDescription} default description for the x axis
-const DEFAULT_X_AXIS_DESCRIPTION = DiscreteXAxisDescriptions[ 4 ];
+const DEFAULT_X_AXIS_DESCRIPTION = X_AXIS_DESCRIPTIONS[ 4 ];
 assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.getLength() === 1,
-  'Expected DEFAULT_X_AXIS_DESCRIPTION range to be 1 wavelength. Did you change DiscreteXAxisDescriptions?' );
+  'Expected DEFAULT_X_AXIS_DESCRIPTION range to be 1 wavelength. Did you modify X_AXIS_DESCRIPTIONS?' );
 
 // {AxisDescription} default description for the y axis
-const DEFAULT_Y_AXIS_DESCRIPTION = DiscreteYAxisDescriptions[ DiscreteYAxisDescriptions.length - 1 ];
+const DEFAULT_Y_AXIS_DESCRIPTION = Y_AXIS_DESCRIPTIONS[ Y_AXIS_DESCRIPTIONS.length - 1 ];
 assert && assert( DEFAULT_Y_AXIS_DESCRIPTION.range.max === FMWConstants.MAX_AMPLITUDE,
-  'Expected DEFAULT_Y_AXIS_DESCRIPTION range to match maximum amplitude. Did you change DiscreteYAxisDescriptions?' );
+  'Expected DEFAULT_Y_AXIS_DESCRIPTION range to match maximum amplitude. Did you modify Y_AXIS_DESCRIPTIONS?' );
 
 class DiscreteModel {
 
@@ -140,13 +143,13 @@ class DiscreteModel {
       equationForm => ( equationForm === EquationForm.HIDDEN ) ? TickLabelFormat.NUMERIC : TickLabelFormat.SYMBOLIC
     );
 
-    // Guard again accidentally changing the default if DiscreteXAxisDescriptions is modified.
+    // Guard again accidentally changing the default if X_AXIS_DESCRIPTIONS is modified.
     assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.max === 1 / 2,
-      'DEFAULT_X_ZOOM_LEVEL is probably incorrect - did you modify DiscreteXAxisDescriptions?' );
+      'DEFAULT_X_ZOOM_LEVEL is probably incorrect - did you modify X_AXIS_DESCRIPTIONS?' );
 
     // {Property.<XAxisDescription>} the x-axis description is shared by the Harmonics and Sum charts.
     const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
-      validValues: DiscreteXAxisDescriptions
+      validValues: X_AXIS_DESCRIPTIONS
     } );
 
     // @public
@@ -168,7 +171,7 @@ class DiscreteModel {
     // {Property.<AxisDescription>} y-axis description is specific to the Sum chart, not shared with the Harmonics
     // chart. Sum chart has zoom buttons, with an AxisDescription for each zoom level.
     const sumYAxisDescriptionProperty = new Property( DEFAULT_Y_AXIS_DESCRIPTION, {
-      validValues: DiscreteYAxisDescriptions
+      validValues: Y_AXIS_DESCRIPTIONS
     } );
 
     // @public

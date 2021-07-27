@@ -1,0 +1,129 @@
+// Copyright 2021, University of Colorado Boulder
+
+/**
+ * DiscreteAxisDescriptions is the set of descriptions for the axes of the Harmonics and Sum chart in the
+ * 'Discrete' and 'Wave Game' screens.
+ *
+ * There is one AxisDescription for each zoom level, and each array is ordered from most 'zoomed out' to most
+ * 'zoomed in'.
+ *
+ * Values for the x-axis AxisDescriptions are coefficients (multipliers) for L or T, depending on which domain is
+ * plotted. Use AxisDescription.createRangeForDomain to create a numeric range suitable for use with a chart.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
+
+import FMWConstants from '../../common/FMWConstants.js';
+import AxisDescription from '../../common/model/AxisDescription.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
+
+const DiscreteAxisDescriptions = {
+
+  // {AxisDescription[]}
+  X_AXIS_DESCRIPTIONS: [
+    new AxisDescription( {
+      max: 2,
+      gridLineSpacing: 1 / 8,
+      tickMarkSpacing: 1 / 4,
+      tickLabelSpacing: 1 / 2
+    } ),
+    new AxisDescription( {
+      max: 3 / 2,
+      gridLineSpacing: 1 / 8,
+      tickMarkSpacing: 1 / 4,
+      tickLabelSpacing: 1 / 2
+    } ),
+    new AxisDescription( {
+      max: 1,
+      gridLineSpacing: 1 / 8,
+      tickMarkSpacing: 1 / 4,
+      tickLabelSpacing: 1 / 4
+    } ),
+    new AxisDescription( {
+      max: 3 / 4,
+      gridLineSpacing: 1 / 8,
+      tickMarkSpacing: 1 / 4,
+      tickLabelSpacing: 1 / 4
+    } ),
+    new AxisDescription( {
+      max: 1 / 2,
+      gridLineSpacing: 1 / 8,
+      tickMarkSpacing: 1 / 4,
+      tickLabelSpacing: 1 / 4
+    } ),
+    new AxisDescription( {
+      max: 1 / 4,
+      gridLineSpacing: 1 / 8,
+      tickMarkSpacing: 1 / 4,
+      tickLabelSpacing: 1 / 4
+    } )
+  ],
+
+  // {AxisDescription[]}
+  Y_AXIS_DESCRIPTIONS: [
+    new AxisDescription( {
+      max: 15,
+      gridLineSpacing: 5,
+      tickMarkSpacing: 5,
+      tickLabelSpacing: 5
+    } ),
+    new AxisDescription( {
+      max: 10,
+      gridLineSpacing: 5,
+      tickMarkSpacing: 5,
+      tickLabelSpacing: 5
+    } ),
+    new AxisDescription( {
+      max: 8,
+      gridLineSpacing: 1,
+      tickMarkSpacing: 5,
+      tickLabelSpacing: 5
+    } ),
+    new AxisDescription( {
+      max: 5,
+      gridLineSpacing: 1,
+      tickMarkSpacing: 5,
+      tickLabelSpacing: 5
+    } ),
+    new AxisDescription( {
+      max: 4,
+      gridLineSpacing: 1,
+      tickMarkSpacing: 2,
+      tickLabelSpacing: 2
+    } ),
+    new AxisDescription( {
+      max: 3,
+      gridLineSpacing: 1,
+      tickMarkSpacing: 1,
+      tickLabelSpacing: 1
+    } ),
+    new AxisDescription( {
+      max: 2,
+      gridLineSpacing: 1,
+      tickMarkSpacing: 1,
+      tickLabelSpacing: 1
+    } ),
+    new AxisDescription( {
+      max: FMWConstants.MAX_AMPLITUDE,
+      gridLineSpacing: 0.5,
+      tickMarkSpacing: 0.5,
+      tickLabelSpacing: 0.5
+    } )
+  ]
+};
+
+assert && assert( AxisDescription.isSortedDescending( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS ),
+  'DiscreteAxisDescriptions must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
+
+assert && assert(
+  _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.range.getLength() >= 0.5 ),
+  'The implementation of y-axis auto-scaling requires that at least 1/2 of the wavelength is always visible. ' +
+  'Zooming in on the x-axis violates that requirement.' );
+
+//TODO delete this if we switch to an equation for Waveform.WAVE_PACKET?
+assert && assert( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS[ 0 ].range.max === 2,
+  'Hardcoded points for Waveform.WAVE_PACKET assume that the maximum x-axis multiplier is 2. ' +
+  'Did you modify X_AXIS_DESCRIPTIONS?' );
+
+fourierMakingWaves.register( 'DiscreteAxisDescriptions', DiscreteAxisDescriptions );
+export default DiscreteAxisDescriptions;

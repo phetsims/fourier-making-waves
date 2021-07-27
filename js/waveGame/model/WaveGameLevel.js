@@ -18,12 +18,12 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import AxisDescription from '../../common/model/AxisDescription.js';
-import DiscreteYAxisDescriptions from '../../discrete/model/DiscreteYAxisDescriptions.js';
+import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import AmplitudesGenerator from './AmplitudesGenerator.js';
@@ -49,6 +49,9 @@ const X_AXIS_DESCRIPTION = new AxisDescription( {
 assert && assert( X_AXIS_DESCRIPTION.range.getLength() >= 0.5,
   'The implementation of y-axis auto-scaling requires that at least 1/2 of the wavelength is always visible. ' +
   'X_AXIS_DESCRIPTION violates that requirement.' );
+
+// y-axis descriptions are the same as Discrete screen.
+const Y_AXIS_DESCRIPTIONS = DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS;
 
 class WaveGameLevel {
 
@@ -152,7 +155,7 @@ class WaveGameLevel {
       this.numberOfAmplitudeControlsProperty );
 
     // y-axis scale is fixed for the Harmonics chart. There are no zoom controls
-    const harmonicsYAxisDescription = DiscreteYAxisDescriptions[ DiscreteYAxisDescriptions.length - 1 ];
+    const harmonicsYAxisDescription = Y_AXIS_DESCRIPTIONS[ Y_AXIS_DESCRIPTIONS.length - 1 ];
 
     // @public
     this.harmonicsChart = new WaveGameHarmonicsChart( this.guessSeries, this.emphasizedHarmonics,
@@ -160,7 +163,7 @@ class WaveGameLevel {
 
     // @public
     this.sumChart = new WaveGameSumChart( this.answerSeries, this.guessSeries,
-      DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, DiscreteYAxisDescriptions );
+      DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, Y_AXIS_DESCRIPTIONS );
 
     // @public Fires when a new waveform has been fully initialized, see method newWaveform.
     this.newWaveformEmitter = new Emitter();
