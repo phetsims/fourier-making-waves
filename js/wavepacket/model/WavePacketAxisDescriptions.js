@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WavePacketAxisDescriptions is the set of descriptions for the axes of 'Components' and 'Sum' charts in
+ * WavePacketAxisDescriptions is the set of descriptions for the axes of the 'Components' and 'Sum' charts in
  * the 'Wave Packet' screen. There is one AxisDescription for each zoom level, and each array is ordered from
  * most 'zoomed out' to most 'zoomed in'.
  *
