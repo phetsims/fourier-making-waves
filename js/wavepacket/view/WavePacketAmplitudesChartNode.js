@@ -35,13 +35,11 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     assert && assert( amplitudesChart instanceof WavePacketAmplitudesChart );
 
     // Fields of interest in amplitudesChart, to improve readability
-    const xRange = amplitudesChart.wavePacket.xRange;
     const domainProperty = amplitudesChart.domainProperty;
     const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
     const barPlotDataSetProperty = amplitudesChart.barPlotDataSetProperty;
 
     options = merge( {
-      xGridLineSpacing: xRange.max, // so that we don't see any grid line
       xTickMarkSpacing: Math.PI,
       xTickLabelSpacing: 2 * Math.PI,
       xLabelSetOptions: {
@@ -52,8 +50,10 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       }
     }, options );
 
-
     super( options );
+
+    // No x-axis grid lines for this chart.
+    this.xGridLines.visible = false;
 
     //TODO how to assign a different color to each bar, or use a gradient for the BarPlot?
     const barPlot = new BarPlot( this.chartTransform, [], {
