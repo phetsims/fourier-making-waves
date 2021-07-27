@@ -49,6 +49,15 @@ class AxisDescription {
     this.tickLabelSpacing = config.tickLabelSpacing;
   }
 
+  /**
+   * Determines whether the range is symmetric about zero.  This is a requirement of many of the axes in this sim.
+   * @returns {boolean}
+   * @public
+   */
+  hasSymmetricRange() {
+    return ( this.range.getCenter() === 0 );
+  }
+
   //TODO This seems wrong. Don't we want to find the AxisDescription that best encloses range?
   /**
    * Gets AxisDescription that is appropriate for a specified axis range.

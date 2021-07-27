@@ -69,11 +69,11 @@ assert && assert( AxisDescription.isSortedDescending( DiscreteAxisDescriptions.Y
   'Y_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
 
 assert && assert(
-  _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.range.getCenter() === 0 ),
+  _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
   'range must be symmetric for X_AXIS_DESCRIPTIONS' );
 
 assert && assert(
-  _.every( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS, axisDescription => axisDescription.range.getCenter() === 0 ),
+  _.every( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
   'range must be symmetric for Y_AXIS_DESCRIPTIONS' );
 
 fourierMakingWaves.register( 'WavePacketAxisDescriptions', WavePacketAxisDescriptions );
