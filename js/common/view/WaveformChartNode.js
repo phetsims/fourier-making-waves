@@ -59,7 +59,7 @@ class WaveformChartNode extends FMWChartNode {
     options = merge( {
 
       chartTransformOptions: {
-        modelXRange: xAxisDescriptionProperty.value.createXAxisRange( domainProperty.value, L, T ),
+        modelXRange: xAxisDescriptionProperty.value.createRangeForDomain( domainProperty.value, L, T ),
         modelYRange: yAxisDescriptionProperty.value.range
       },
 

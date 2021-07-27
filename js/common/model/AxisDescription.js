@@ -82,15 +82,15 @@ class AxisDescription {
   }
 
   /**
-   * Creates the range for the x-axis. For the x axis, AxisDescription contains coefficients to be applied to L or T,
-   * depending on which domain is being plotted.
+   * Creates a range for a specified domain. This is used for the Discrete and Wave Game screens, where the AxisDescriptions
+   * for the x axis contain coefficients to be applied to L or T, depending on which domain (space or time) is being plotted.
    * @param {Domain} domain
    * @param {number} L - wavelength of the fundamental harmonic, in m
    * @param {number} T - period of the fundamental harmonic, in
    * @returns {Range}
    * @public
    */
-  createXAxisRange( domain, L, T ) {
+  createRangeForDomain( domain, L, T ) {
 
     assert && assert( Domain.includes( domain ) );
     assert && AssertUtils.assertPositiveNumber( L );

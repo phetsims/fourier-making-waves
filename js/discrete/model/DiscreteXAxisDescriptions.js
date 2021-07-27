@@ -7,7 +7,7 @@
  *
  * There is one AxisDescription for each zoom level, and the array is ordered from most 'zoomed out' to most 'zoomed in'.
  * Values in the AxisDescriptions are coefficients (multipliers) for L or T, depending on which domain is plotted.
- * Use axisDescription.createXAxisRange to create a numeric range suitable for use with a chart.
+ * Use AxisDescription.createRangeForDomain to create a numeric range suitable for use with a chart.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

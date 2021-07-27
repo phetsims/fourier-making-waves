@@ -117,7 +117,7 @@ class Harmonic extends PhetioObject {
     const order = this.order;
     const amplitude = this.amplitudeProperty.value;
     const amplitudeFunction = getAmplitudeFunction( domain, seriesType );
-    const xRange = xAxisDescription.createXAxisRange( domain, L, T );
+    const xRange = xAxisDescription.createRangeForDomain( domain, L, T );
 
     // Make dx a bit larger than necessary, so that we cover the entire xRange by slightly exceeding xRange.max.
     const dx = xRange.getLength() / ( numberOfPoints - 1 );

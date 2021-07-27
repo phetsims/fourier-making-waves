@@ -180,7 +180,7 @@ class FourierSeries extends PhetioObject {
 
     const sumDataSet = []; // {Vector2[]}
 
-    const xRange = xAxisDescription.createXAxisRange( domain, this.L, this.T );
+    const xRange = xAxisDescription.createRangeForDomain( domain, this.L, this.T );
     const numberOfHarmonics = this.harmonics.length;
     const dx = xRange.getLength() / FMWConstants.MAX_POINTS_PER_DATA_SET;
     const amplitudeFunction = getAmplitudeFunction( domain, seriesType );
