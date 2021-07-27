@@ -14,9 +14,9 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 const DiscreteAxisDescriptions = {
 
-  // {AxisDescription[]} Values for the x-axis AxisDescriptions are coefficients (multipliers) for L or T, depending
-  // on which domain is * plotted. Use AxisDescription.createRangeForDomain to create a numeric range suitable for
-  // use with a chart.
+  // {AxisDescription[]}
+  // Values for the x-axis AxisDescriptions are coefficients (multipliers) for L or T, depending on which domain is
+  // plotted. Use AxisDescription.createRangeForDomain to create a numeric range suitable for use with a chart.
   X_AXIS_DESCRIPTIONS: [
     new AxisDescription( {
       max: 2,
