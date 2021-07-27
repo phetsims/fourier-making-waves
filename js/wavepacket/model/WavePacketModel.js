@@ -73,7 +73,7 @@ class WavePacketModel {
       validValues: [ TickLabelFormat.NUMERIC ]
     } );
 
-    // {Property.<AxisDescription>} the x-axis description is shared by the Components and Sum charts.
+    // {Property.<AxisDescription>} the x-axis description shared by the Components and Sum charts
     const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
       validValues: X_AXIS_DESCRIPTIONS
     } );
