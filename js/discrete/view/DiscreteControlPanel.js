@@ -22,6 +22,7 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import SceneryConstants from '../../../../scenery/js/SceneryConstants.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import musicSolidShape from '../../../../sherpa/js/fontawesome-5/musicSolidShape.js';
+import volumeDownSolidShape from '../../../../sherpa/js/fontawesome-5/volumeDownSolidShape.js';
 import volumeOffSolidShape from '../../../../sherpa/js/fontawesome-5/volumeOffSolidShape.js';
 import volumeUpSolidShape from '../../../../sherpa/js/fontawesome-5/volumeUpSolidShape.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
@@ -516,12 +517,12 @@ class SoundLayoutBox extends HBox {
       scale: 0.037,
       fill: 'black'
     };
-    const volumeOffIcon = new Path( volumeOffSolidShape, iconOptions );
-    const volumeUpIcon = new Path( volumeUpSolidShape, iconOptions );
+    const minVolumeIcon = new Path( soundOutputLevelProperty.range.min === 0 ? volumeOffSolidShape : volumeDownSolidShape, iconOptions );
+    const maxVolumeIcon = new Path( volumeUpSolidShape, iconOptions );
 
     // Layout for slider and icons
     const sliderBox = new HBox( {
-      children: [ volumeOffIcon, outputLevelSlider, volumeUpIcon ],
+      children: [ minVolumeIcon, outputLevelSlider, maxVolumeIcon ],
       spacing: 5
     } );
 
@@ -535,8 +536,8 @@ class SoundLayoutBox extends HBox {
       this.interruptSubtreeInput();
       soundEnabledCheckbox.enabled = audioAndSoundEnabled;
       outputLevelSlider.enabled = audioAndSoundEnabled;
-      volumeOffIcon.opacity = audioAndSoundEnabled ? 1 : SceneryConstants.DISABLED_OPACITY;
-      volumeUpIcon.opacity = audioAndSoundEnabled ? 1 : SceneryConstants.DISABLED_OPACITY;
+      minVolumeIcon.opacity = audioAndSoundEnabled ? 1 : SceneryConstants.DISABLED_OPACITY;
+      maxVolumeIcon.opacity = audioAndSoundEnabled ? 1 : SceneryConstants.DISABLED_OPACITY;
     } );
   }
 
