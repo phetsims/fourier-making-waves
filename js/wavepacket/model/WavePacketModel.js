@@ -11,31 +11,24 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
 import WavePacketAmplitudesChart from './WavePacketAmplitudesChart.js';
+import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
 import WavePacketComponentsChart from './WavePacketComponentsChart.js';
 import WavePacketSumChart from './WavePacketSumChart.js';
-import WavePacketXAxisDescriptions from './WavePacketXAxisDescriptions.js';
+
+// constants
+const X_AXIS_DESCRIPTIONS = WavePacketAxisDescriptions.X_AXIS_DESCRIPTIONS;
+const Y_AXIS_DESCRIPTIONS = WavePacketAxisDescriptions.Y_AXIS_DESCRIPTIONS;
 
 // {AxisDescription} default description for the x axis
-const DEFAULT_X_AXIS_DESCRIPTION = WavePacketXAxisDescriptions[ 2 ];
+const DEFAULT_X_AXIS_DESCRIPTION = X_AXIS_DESCRIPTIONS[ 2 ];
 assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.getLength() === 4,
-  'Expected DEFAULT_X_AXIS_DESCRIPTION range to be 4 wavelengths. Did you change DiscreteYAxisDescriptions?' );
-
-//TODO flesh out Y_AXIS_DESCRIPTIONS
-const Y_AXIS_DESCRIPTIONS = [
-  new AxisDescription( {
-    max: 2,
-    gridLineSpacing: 1,
-    tickMarkSpacing: 1,
-    tickLabelSpacing: 1
-  } )
-];
+  'Expected DEFAULT_X_AXIS_DESCRIPTION range to be 4 wavelengths. Did you modify X_AXIS_DESCRIPTIONS?' );
 
 class WavePacketModel {
 
@@ -82,7 +75,7 @@ class WavePacketModel {
 
     // {Property.<XAxisDescription>} the x-axis description is shared by the Components and Sum charts.
     const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
-      validValues: WavePacketXAxisDescriptions
+      validValues: X_AXIS_DESCRIPTIONS
     } );
 
     // {Property.<XAxisDescription>} the y-axis description for the Components chart

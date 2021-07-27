@@ -1,14 +1,9 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * DiscreteAxisDescriptions is the set of descriptions for the axes of the Harmonics and Sum chart in the
- * 'Discrete' and 'Wave Game' screens.
- *
- * There is one AxisDescription for each zoom level, and each array is ordered from most 'zoomed out' to most
- * 'zoomed in'.
- *
- * Values for the x-axis AxisDescriptions are coefficients (multipliers) for L or T, depending on which domain is
- * plotted. Use AxisDescription.createRangeForDomain to create a numeric range suitable for use with a chart.
+ * DiscreteAxisDescriptions is the set of descriptions for the axes of the Harmonics and Sum chart in the 'Discrete'
+ * and 'Wave Game' screens. There is one AxisDescription for each zoom level, and each array is ordered from most
+ * 'zoomed out' to most 'zoomed in'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -19,7 +14,9 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 const DiscreteAxisDescriptions = {
 
-  // {AxisDescription[]}
+  // {AxisDescription[]} Values for the x-axis AxisDescriptions are coefficients (multipliers) for L or T, depending
+  // on which domain is * plotted. Use AxisDescription.createRangeForDomain to create a numeric range suitable for
+  // use with a chart.
   X_AXIS_DESCRIPTIONS: [
     new AxisDescription( {
       max: 2,
@@ -113,7 +110,10 @@ const DiscreteAxisDescriptions = {
 };
 
 assert && assert( AxisDescription.isSortedDescending( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS ),
-  'DiscreteAxisDescriptions must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
+  'X_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
+
+assert && assert( AxisDescription.isSortedDescending( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS ),
+  'Y_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
 
 assert && assert(
   _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.range.getLength() >= 0.5 ),
