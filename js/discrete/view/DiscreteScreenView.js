@@ -381,12 +381,17 @@ class DiscreteScreenView extends ScreenView {
     } );
     model.oopsSawtoothWithCosinesEmitter.addListener( () => oopsSawtoothWithCosinesDialog.show() );
 
-    // When the FourierSoundGenerator is producing sound, duck all user-interface sounds.
+    // When the FourierSoundGenerator is producing audible sound, duck all user-interface sounds.
     const userInterfaceDefaultOutputLevel = soundManager.getOutputLevelForCategory( 'user-interface' );
-    fourierSoundGenerator.fullyEnabledProperty.link( enabled => {
-      const outputLevel = enabled ? 0.1 * userInterfaceDefaultOutputLevel : userInterfaceDefaultOutputLevel;
-      soundManager.setOutputLevelForCategory( 'user-interface', outputLevel );
-    } );
+    Property.multilink(
+      [ fourierSoundGenerator.fullyEnabledProperty, model.fourierSeriesSoundEnabledProperty ],
+      ( soundGeneratorFullyEnabled, fourierSeriesSoundEnabled ) => {
+        console.log( `soundGeneratorFullyEnabled=${soundGeneratorFullyEnabled} fourierSeriesSoundEnabled=${fourierSeriesSoundEnabled}` );
+        const fourierSeriesSoundIsAudible = ( soundGeneratorFullyEnabled && fourierSeriesSoundEnabled );
+        const outputLevel = fourierSeriesSoundIsAudible ? 0.1 * userInterfaceDefaultOutputLevel : userInterfaceDefaultOutputLevel;
+        soundManager.setOutputLevelForCategory( 'user-interface', outputLevel );
+      }
+    );
 
     // pdom -traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53
