@@ -41,11 +41,12 @@ const AMPLITUDE_THRESHOLD = 0.01; // a guess amplitude must be at least this clo
 
 // Fixed x-axis description, because Wave Game has no zoom buttons for the x axes.
 const X_AXIS_DESCRIPTION = new AxisDescription( {
-  max: 1 / 2,
+  range: new Range( -1 / 2, 1 / 2 ),
   gridLineSpacing: 1 / 8,
   tickMarkSpacing: 1 / 4,
   tickLabelSpacing: 1 / 4
 } );
+assert && assert( X_AXIS_DESCRIPTION.range.getCenter() === 0, 'X_AXIS_DESCRIPTION.range must be symmetric' );
 assert && assert( X_AXIS_DESCRIPTION.range.getLength() >= 0.5,
   'The implementation of y-axis auto-scaling requires that at least 1/2 of the wavelength is always visible. ' +
   'X_AXIS_DESCRIPTION violates that requirement.' );

@@ -8,6 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Range from '../../../../dot/js/Range.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
 import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -19,31 +20,31 @@ const WavePacketAxisDescriptions = {
   // plotted. Use AxisDescription.createRangeForDomain to create a numeric range suitable for use with a chart.
   X_AXIS_DESCRIPTIONS: [
     new AxisDescription( {
-      max: 8,
+      range: new Range( -8, 8 ),
       gridLineSpacing: 1,
       tickMarkSpacing: 1,
       tickLabelSpacing: 1
     } ),
     new AxisDescription( {
-      max: 4,
+      range: new Range( -4, 4 ),
       gridLineSpacing: 1,
       tickMarkSpacing: 0.5,
       tickLabelSpacing: 1
     } ),
     new AxisDescription( {
-      max: 2,
+      range: new Range( -2, 2 ),
       gridLineSpacing: 0.5,
       tickMarkSpacing: 0.5,
       tickLabelSpacing: 0.5
     } ),
     new AxisDescription( {
-      max: 1,
+      range: new Range( -1, 1 ),
       gridLineSpacing: 0.5,
       tickMarkSpacing: 0.1,
       tickLabelSpacing: 0.5
     } ),
     new AxisDescription( {
-      max: 0.5,
+      range: new Range( -0.5, 0.5 ),
       gridLineSpacing: 0.1,
       tickMarkSpacing: 0.1,
       tickLabelSpacing: 0.1
@@ -53,7 +54,7 @@ const WavePacketAxisDescriptions = {
   // {AxisDescription} TODO flesh out Y_AXIS_DESCRIPTIONS
   Y_AXIS_DESCRIPTIONS: [
     new AxisDescription( {
-      max: 2,
+      range: new Range( -2, 2 ),
       gridLineSpacing: 1,
       tickMarkSpacing: 1,
       tickLabelSpacing: 1
@@ -66,6 +67,14 @@ assert && assert( AxisDescription.isSortedDescending( DiscreteAxisDescriptions.X
 
 assert && assert( AxisDescription.isSortedDescending( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS ),
   'Y_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
+
+assert && assert(
+  _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.range.getCenter() === 0 ),
+  'range must be symmetric for X_AXIS_DESCRIPTIONS' );
+
+assert && assert(
+  _.every( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS, axisDescription => axisDescription.range.getCenter() === 0 ),
+  'range must be symmetric for Y_AXIS_DESCRIPTIONS' );
 
 fourierMakingWaves.register( 'WavePacketAxisDescriptions', WavePacketAxisDescriptions );
 export default WavePacketAxisDescriptions;

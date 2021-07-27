@@ -8,6 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Range from '../../../../dot/js/Range.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -19,37 +20,37 @@ const DiscreteAxisDescriptions = {
   // plotted. Use AxisDescription.createRangeForDomain to create a numeric range suitable for use with a chart.
   X_AXIS_DESCRIPTIONS: [
     new AxisDescription( {
-      max: 2,
+      range: new Range( -2, 2 ),
       gridLineSpacing: 1 / 8,
       tickMarkSpacing: 1 / 4,
       tickLabelSpacing: 1 / 2
     } ),
     new AxisDescription( {
-      max: 3 / 2,
+      range: new Range( -3 / 2, 3 / 2 ),
       gridLineSpacing: 1 / 8,
       tickMarkSpacing: 1 / 4,
       tickLabelSpacing: 1 / 2
     } ),
     new AxisDescription( {
-      max: 1,
+      range: new Range( -1, 1 ),
       gridLineSpacing: 1 / 8,
       tickMarkSpacing: 1 / 4,
       tickLabelSpacing: 1 / 4
     } ),
     new AxisDescription( {
-      max: 3 / 4,
+      range: new Range( -3 / 4, 3 / 4 ),
       gridLineSpacing: 1 / 8,
       tickMarkSpacing: 1 / 4,
       tickLabelSpacing: 1 / 4
     } ),
     new AxisDescription( {
-      max: 1 / 2,
+      range: new Range( -1 / 2, 1 / 2 ),
       gridLineSpacing: 1 / 8,
       tickMarkSpacing: 1 / 4,
       tickLabelSpacing: 1 / 4
     } ),
     new AxisDescription( {
-      max: 1 / 4,
+      range: new Range( -1 / 4, 1 / 4 ),
       gridLineSpacing: 1 / 8,
       tickMarkSpacing: 1 / 4,
       tickLabelSpacing: 1 / 4
@@ -59,49 +60,49 @@ const DiscreteAxisDescriptions = {
   // {AxisDescription[]}
   Y_AXIS_DESCRIPTIONS: [
     new AxisDescription( {
-      max: 15,
+      range: new Range( -15, 15 ),
       gridLineSpacing: 5,
       tickMarkSpacing: 5,
       tickLabelSpacing: 5
     } ),
     new AxisDescription( {
-      max: 10,
+      range: new Range( -10, 10 ),
       gridLineSpacing: 5,
       tickMarkSpacing: 5,
       tickLabelSpacing: 5
     } ),
     new AxisDescription( {
-      max: 8,
+      range: new Range( -8, 8 ),
       gridLineSpacing: 1,
       tickMarkSpacing: 5,
       tickLabelSpacing: 5
     } ),
     new AxisDescription( {
-      max: 5,
+      range: new Range( -5, 5 ),
       gridLineSpacing: 1,
       tickMarkSpacing: 5,
       tickLabelSpacing: 5
     } ),
     new AxisDescription( {
-      max: 4,
+      range: new Range( -4, 4 ),
       gridLineSpacing: 1,
       tickMarkSpacing: 2,
       tickLabelSpacing: 2
     } ),
     new AxisDescription( {
-      max: 3,
+      range: new Range( -3, 3 ),
       gridLineSpacing: 1,
       tickMarkSpacing: 1,
       tickLabelSpacing: 1
     } ),
     new AxisDescription( {
-      max: 2,
+      range: new Range( -2, 2 ),
       gridLineSpacing: 1,
       tickMarkSpacing: 1,
       tickLabelSpacing: 1
     } ),
     new AxisDescription( {
-      max: FMWConstants.MAX_AMPLITUDE,
+      range: new Range( -FMWConstants.MAX_AMPLITUDE, FMWConstants.MAX_AMPLITUDE ),
       gridLineSpacing: 0.5,
       tickMarkSpacing: 0.5,
       tickLabelSpacing: 0.5
@@ -114,6 +115,14 @@ assert && assert( AxisDescription.isSortedDescending( DiscreteAxisDescriptions.X
 
 assert && assert( AxisDescription.isSortedDescending( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS ),
   'Y_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
+
+assert && assert(
+  _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.range.getCenter() === 0 ),
+  'range must be symmetric for X_AXIS_DESCRIPTIONS' );
+
+assert && assert(
+  _.every( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS, axisDescription => axisDescription.range.getCenter() === 0 ),
+  'range must be symmetric for Y_AXIS_DESCRIPTIONS' );
 
 assert && assert(
   _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.range.getLength() >= 0.5 ),

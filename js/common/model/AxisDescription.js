@@ -27,8 +27,8 @@ class AxisDescription {
 
     config = merge( {
 
-      // {number} used to define a symmetric range [-max,max] for the axis
-      max: required( config.max ),
+      // {Range} range of the axis
+      range: required( config.range ),
 
       // {number} spacing between grid lines
       gridLineSpacing: required( config.gridLineSpacing ),
@@ -41,7 +41,7 @@ class AxisDescription {
     }, config );
 
     // @public (read-only)
-    this.range = new Range( -config.max, config.max );
+    this.range = config.range;
     this.gridLineSpacing = config.gridLineSpacing;
     this.tickMarkSpacing = config.tickMarkSpacing;
     this.tickLabelSpacing = config.tickLabelSpacing;
