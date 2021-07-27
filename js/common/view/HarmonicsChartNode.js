@@ -8,13 +8,11 @@
 
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Shape from '../../../../kite/js/Shape.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import HarmonicPlot from '../../discrete/view/HarmonicPlot.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import HarmonicsChart from '../model/HarmonicsChart.js';
 import WaveformChartNode from './WaveformChartNode.js';
-import ZoomLevelProperty from './ZoomLevelProperty.js';
 
 // constants
 const NORMAL_LINE_WIDTH = 1;
@@ -31,12 +29,6 @@ class HarmonicsChartNode extends WaveformChartNode {
   constructor( harmonicsChart, options ) {
 
     assert && assert( harmonicsChart instanceof HarmonicsChart );
-
-    options = merge( {
-
-      // WaveformChartNode options
-      xZoomLevelProperty: new ZoomLevelProperty( harmonicsChart.xAxisDescriptionProperty )
-    }, options );
 
     // Fields of interest in harmonicsChart, to improve readability
     const harmonics = harmonicsChart.fourierSeries.harmonics;

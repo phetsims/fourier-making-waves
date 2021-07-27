@@ -7,9 +7,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import SumChartNode from '../../common/view/SumChartNode.js';
+import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteSumChart from '../model/DiscreteSumChart.js';
 import Waveform from '../model/Waveform.js';
@@ -28,6 +30,13 @@ class DiscreteSumChartNode extends SumChartNode {
 
     assert && assert( sumChart instanceof DiscreteSumChart );
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
+
+    options = merge( {
+
+      // WaveformChartNode options
+      xZoomLevelProperty: new ZoomLevelProperty( sumChart.xAxisDescriptionProperty ),
+      yZoomLevelProperty: new ZoomLevelProperty( sumChart.yAxisDescriptionProperty )
+    }, options );
 
     super( sumChart, options );
 

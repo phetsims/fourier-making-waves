@@ -15,7 +15,6 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColors from '../FMWColors.js';
 import SumChart from '../model/SumChart.js';
 import WaveformChartNode from './WaveformChartNode.js';
-import ZoomLevelProperty from './ZoomLevelProperty.js';
 
 class SumChartNode extends WaveformChartNode {
 
@@ -31,11 +30,7 @@ class SumChartNode extends WaveformChartNode {
 
       // SumChartNode options
       sumPlotStrokeProperty: FMWColors.sumStrokeProperty,
-      sumPlotLineWidth: 1,
-
-      // WaveformChartNode options
-      xZoomLevelProperty: new ZoomLevelProperty( sumChart.xAxisDescriptionProperty ),
-      yZoomLevelProperty: new ZoomLevelProperty( sumChart.yAxisDescriptionProperty )
+      sumPlotLineWidth: 1
     }, options );
 
     // Fields of interest in sumChart, to improve readability
