@@ -41,7 +41,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     const barPlotDataSetProperty = amplitudesChart.barPlotDataSetProperty;
 
     options = merge( {
-      xGridLineSpacing: xRange.max,
+      xGridLineSpacing: xRange.max, // so that we don't see any grid line
       xTickMarkSpacing: Math.PI,
       xTickLabelSpacing: 2 * Math.PI,
       xLabelSetOptions: {
