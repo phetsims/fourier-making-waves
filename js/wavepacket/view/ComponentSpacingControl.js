@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * K1Control displays the value of k1 (component spacing), and allows it to be changed via a slider.
+ * ComponentSpacingControl controls the value of Fourier component spacing (k1 or sigma1).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -25,25 +25,26 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 const DECIMALS = 2;
 
-class K1Control extends NumberControl {
+class ComponentSpacingControl extends NumberControl {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} k1Property
+   * @param {NumberProperty} componentSpacingProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, k1Property, options ) {
+  constructor( domainProperty, componentSpacingProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( k1Property instanceof NumberProperty );
-    assert && assert( k1Property.range );
+    assert && assert( componentSpacingProperty instanceof NumberProperty );
+    assert && assert( componentSpacingProperty.range );
 
     options = merge( {}, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, {
 
       // NumberDisplay options
       delta: 1, // because the control is setting an index
       numberDisplayOptions: {
-        numberFormatter: k1Index => numberFormatter( k1Property.validValues[ k1Index ], domainProperty.value )
+        numberFormatter: componentSpacingIndex =>
+          numberFormatter( componentSpacingProperty.validValues[ componentSpacingIndex ], domainProperty.value )
       },
 
       // Slider options
@@ -67,27 +68,27 @@ class K1Control extends NumberControl {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // k1Property has a small set of valid values. Only those values are to be settable via this Slider, and they are
-    // to be distributed at equally-space tick marks on the Slider. So we create an index into this set of values, and
-    // control that index with the Slider. The selected index determines the value of k1 selected from its valid values.
-    const validValues = k1Property.validValues;
-    const defaultIndex = validValues.indexOf( k1Property.value );
-    const k1IndexProperty = new NumberProperty( defaultIndex, {
+    // componentSpacingProperty has a small set of valid values. Only those values are to be settable via this Slider,
+    // and they are to be distributed at equally-space tick marks on the Slider. So we create an index into this set
+    // of values, and control that index with the Slider.
+    const validValues = componentSpacingProperty.validValues;
+    const defaultIndex = validValues.indexOf( componentSpacingProperty.value );
+    const componentSpacingIndexProperty = new NumberProperty( defaultIndex, {
       numberType: 'Integer',
       range: new Range( 0, validValues.length - 1 )
     } );
-    assert && assert( k1IndexProperty.range.min === 0 && k1IndexProperty.range.max === 4,
+    assert && assert( componentSpacingIndexProperty.range.min === 0 && componentSpacingIndexProperty.range.max === 4,
       'implementation of tick marks is dependent on a specific range' );
 
-    // Keep k1 and k1Index in sync
-    k1Property.link( k1 => {
-      k1IndexProperty.value = validValues.indexOf( k1 );
+    // Keep componentSpacing and componentSpacingIndex in sync
+    componentSpacingProperty.link( componentSpacing => {
+      componentSpacingIndexProperty.value = validValues.indexOf( componentSpacing );
     } );
-    k1IndexProperty.link( k1Index => {
-      k1Property.value = validValues[ k1Index ];
+    componentSpacingIndexProperty.link( componentSpacingIndex => {
+      componentSpacingProperty.value = validValues[ componentSpacingIndex ];
     } );
 
-    super( '', k1IndexProperty, k1IndexProperty.range, options );
+    super( '', componentSpacingIndexProperty, componentSpacingIndexProperty.range, options );
 
     // Update the displayed value.
     domainProperty.link( () => this.redrawNumberDisplay() );
@@ -105,17 +106,17 @@ class K1Control extends NumberControl {
 
 /**
  * Formats the number for display by NumberDisplay.
- * @param {number} k1
+ * @param {number} componentSpacing
  * @param {Domain} domain
  * @returns {string}
  */
-function numberFormatter( k1, domain ) {
+function numberFormatter( componentSpacing, domain ) {
 
   const symbol = StringUtils.fillIn( '{{symbol}}<sub>1</sub>', {
     symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega
   } );
 
-  const value = Utils.toFixedNumber( k1, DECIMALS );
+  const value = Utils.toFixedNumber( componentSpacing, DECIMALS );
 
   const units = ( domain === Domain.SPACE ) ?
                 fourierMakingWavesStrings.units.radiansPerMeter :
@@ -128,5 +129,5 @@ function numberFormatter( k1, domain ) {
   } );
 }
 
-fourierMakingWaves.register( 'K1Control', K1Control );
-export default K1Control;
+fourierMakingWaves.register( 'ComponentSpacingControl', ComponentSpacingControl );
+export default ComponentSpacingControl;

@@ -30,14 +30,14 @@ class WavePacketSumEquationNode extends Node {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {Property.<number>} k1Property
+   * @param {Property.<number>} componentSpacingProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, seriesTypeProperty, k1Property, options ) {
+  constructor( domainProperty, seriesTypeProperty, componentSpacingProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
-    assert && AssertUtils.assertPropertyOf( k1Property, 'number' );
+    assert && AssertUtils.assertPropertyOf( componentSpacingProperty, 'number' );
 
     options = merge( {
 
@@ -67,13 +67,13 @@ class WavePacketSumEquationNode extends Node {
 
     // unmultilink is not needed.
     Property.multilink(
-      [ domainProperty, seriesTypeProperty, k1Property ],
-      ( domain, seriesType, k1 ) => {
+      [ domainProperty, seriesTypeProperty, componentSpacingProperty ],
+      ( domain, seriesType, componentSpacing ) => {
 
         // Update the left side of the equation to match the domain.
         leftNode.text = `${EquationMarkup.getFunctionOfMarkup( domain )} ${EQUAL_TO}`; // F(...) =
 
-        const hasInfiniteComponents = ( k1 === 0 );
+        const hasInfiniteComponents = ( componentSpacing === 0 );
 
         // Summation vs integration
         sumSymbolNode.integrationProperty.value = hasInfiniteComponents;

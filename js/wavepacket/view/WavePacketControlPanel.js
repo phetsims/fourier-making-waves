@@ -30,7 +30,7 @@ import WavePacketModel from '../model/WavePacketModel.js';
 import DKControl from './DKControl.js';
 import DXControl from './DXControl.js';
 import K0Control from './K0Control.js';
-import K1Control from './K1Control.js';
+import ComponentSpacingControl from './ComponentSpacingControl.js';
 import WavePacketSymbolsDialog from './WavePacketSymbolsDialog.js';
 import WidthIndicatorsCheckbox from './WidthIndicatorsCheckbox.js';
 
@@ -55,10 +55,11 @@ class WavePacketControlPanel extends Panel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const fourierSeriesLayoutBox = new ComponentSpacingLayoutBox( model.domainProperty, model.wavePacket.k1Property, {
-      spacing: VERTICAL_SPACING,
-      tandem: options.tandem.createTandem( 'fourierSeriesLayoutBox' )
-    } );
+    const fourierSeriesLayoutBox = new ComponentSpacingLayoutBox( model.domainProperty,
+      model.wavePacket.componentSpacingProperty, {
+        spacing: VERTICAL_SPACING,
+        tandem: options.tandem.createTandem( 'fourierSeriesLayoutBox' )
+      } );
 
     const sectionNodes = [
 
@@ -140,13 +141,13 @@ class ComponentSpacingLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property} k1Property
+   * @param {Property} componentSpacingProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, k1Property, options ) {
+  constructor( domainProperty, componentSpacingProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( k1Property, 'number' );
+    assert && AssertUtils.assertPropertyOf( componentSpacingProperty, 'number' );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 
@@ -164,14 +165,14 @@ class ComponentSpacingLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'componentSpacingText' )
     } );
 
-    const k1Control = new K1Control( domainProperty, k1Property, {
-      tandem: options.tandem.createTandem( 'k1Control' )
+    const componentSpacingControl = new ComponentSpacingControl( domainProperty, componentSpacingProperty, {
+      tandem: options.tandem.createTandem( 'componentSpacingControl' )
     } );
 
     assert && assert( !options.children, 'ComponentSpacingLayoutBox sets children' );
     options.children = [
       componentSpacingText,
-      k1Control
+      componentSpacingControl
     ];
 
     super( options );

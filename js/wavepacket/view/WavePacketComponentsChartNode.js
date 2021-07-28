@@ -32,7 +32,7 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
 
     // Fields of interest in componentsChart, to improve readability
     const xAxisDescriptionProperty = componentsChart.xAxisDescriptionProperty;
-    const k1Property = componentsChart.wavePacket.k1Property;
+    const componentSpacingProperty = componentsChart.wavePacket.componentSpacingProperty;
 
     options = merge( {
       xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),
@@ -56,8 +56,8 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
     this.addChild( messageNode );
 
     // Show the '...cannot be plotted' message when we have an infinite number of components.
-    k1Property.link( k1 => {
-      messageNode.visible = ( k1 === 0 );
+    componentSpacingProperty.link( componentSpacing => {
+      messageNode.visible = ( componentSpacing === 0 );
       //TODO other things to hide when messageNode is visible?
     } );
 

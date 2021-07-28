@@ -105,7 +105,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Equation above the Sum chart
     const sumEquationNode = new WavePacketSumEquationNode( model.domainProperty, model.seriesTypeProperty,
-      model.wavePacket.k1Property, {
+      model.wavePacket.componentSpacingProperty, {
         maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
         tandem: sumTandem.createTandem( 'equationNode' )
       } );

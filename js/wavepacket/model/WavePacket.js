@@ -18,8 +18,8 @@ import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-// valid values for k1 (component spacing)
-const K1_VALUES = [ 0, Math.PI / 4, Math.PI / 2, Math.PI, 2 * Math.PI ];
+// valid values for component spacing
+const COMPONENT_SPACING_VALUES = [ 0, Math.PI / 4, Math.PI / 2, Math.PI, 2 * Math.PI ];
 
 class WavePacket {
 
@@ -38,12 +38,11 @@ class WavePacket {
     assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
       'Many things in this implementation assume L === T === 1' );
 
-    // @public k1 (or sigma1), the spacing between Fourier components, in rad/m (or rad/ms).
-    // dispose is not needed
-    this.k1Property = new NumberProperty( K1_VALUES[ 3 ], {
-      validValues: K1_VALUES,
-      range: new Range( K1_VALUES[ 0 ], K1_VALUES[ K1_VALUES.length - 1 ] ),
-      tandem: options.tandem.createTandem( 'k1Property' )
+    // @public the spacing between Fourier components, k1 (rad/m) or sigma1 (rad/ms)
+    this.componentSpacingProperty = new NumberProperty( COMPONENT_SPACING_VALUES[ 3 ], {
+      validValues: COMPONENT_SPACING_VALUES,
+      range: new Range( COMPONENT_SPACING_VALUES[ 0 ], COMPONENT_SPACING_VALUES[ COMPONENT_SPACING_VALUES.length - 1 ] ),
+      tandem: options.tandem.createTandem( 'componentSpacingProperty' )
     } );
 
     // @public k0 (or omega0), the center of the wave packet, in rad/m (or rad/ms)
@@ -74,7 +73,7 @@ class WavePacket {
    * @public
    */
   reset() {
-    this.k1Property.reset();
+    this.componentSpacingProperty.reset();
     this.k0Property.reset();
     this.dkProperty.reset();
   }
@@ -85,12 +84,12 @@ class WavePacket {
    * @public
    */
   getNumberOfComponents() {
-    const k1 = this.k1Property.value;
-    if ( k1 === 0 ) {
+    const componentSpacing = this.componentSpacingProperty.value;
+    if ( componentSpacing === 0 ) {
       return Infinity;
     }
     else {
-      return Math.floor( this.xRange.getLength() / k1 ) - 1;
+      return Math.floor( this.xRange.getLength() / componentSpacing ) - 1;
     }
   }
 
@@ -122,10 +121,10 @@ class WavePacket {
     const dataSet = []; // {Vector2}
     const numberOfComponents = this.getNumberOfComponents();
     if ( numberOfComponents !== Infinity ) {
-      const k1 = this.k1Property.value;
+      const componentSpacing = this.componentSpacingProperty.value;
       for ( let order = 1; order <= numberOfComponents; order++ ) {
-        const kn = order * k1;
-        const An = this.getAmplitude( kn ) * k1;
+        const kn = order * componentSpacing;
+        const An = this.getAmplitude( kn ) * componentSpacing;
         dataSet.push( new Vector2( kn, An ) );
       }
     }
