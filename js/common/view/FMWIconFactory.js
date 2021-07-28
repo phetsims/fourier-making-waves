@@ -90,7 +90,7 @@ const FMWIconFactory = {
     const amplitudeRange = new Range( -1, 1 );
     const iconNode = FMWIconFactory.createSlidersIcon( amplitudes, amplitudeRange );
     return new ScreenIcon( iconNode, {
-      fill: FMWColors.screenBackgroundColorProperty
+      fill: FMWColors.discreteScreenBackgroundColorProperty
     } );
   },
 
@@ -102,7 +102,7 @@ const FMWIconFactory = {
   createWaveGameHomeScreenIcon() {
     const iconNode = new PointsAwardedNode();
     return new ScreenIcon( iconNode, {
-      fill: FMWColors.screenBackgroundColorProperty
+      fill: FMWColors.waveGameScreenBackgroundColorProperty
     } );
   },
 
@@ -114,7 +114,7 @@ const FMWIconFactory = {
   createWavePacketHomeScreenIcon() {
     const iconNode = new Image( wavePacketHomeScreenImage );
     return new ScreenIcon( iconNode, {
-      fill: FMWColors.screenBackgroundColorProperty
+      fill: FMWColors.wavePacketScreenBackgroundColorProperty
     } );
   },
 

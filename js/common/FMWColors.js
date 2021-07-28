@@ -14,9 +14,15 @@ import fourierMakingWaves from '../fourierMakingWaves.js';
 
 const FMWColors = {
 
-  // Background color that is currently shared by all screens in this sim.
-  screenBackgroundColorProperty: new ProfileColorProperty( 'screenBackgroundColor', {
+  // Background colors for screens.
+  discreteScreenBackgroundColorProperty: new ProfileColorProperty( 'discreteScreenBackgroundColorProperty', {
     default: new Color( 236, 255, 255 )
+  } ),
+  waveGameScreenBackgroundColorProperty: new ProfileColorProperty( 'waveGameScreenBackgroundColorProperty', {
+    default: new Color( 236, 255, 255 )
+  } ),
+  wavePacketScreenBackgroundColorProperty: new ProfileColorProperty( 'wavePacketScreenBackgroundColor', {
+    default: new Color( 255, 250, 227 )
   } ),
 
   // Fill for all Panels

@@ -28,7 +28,7 @@ class WavePacketScreen extends Screen {
 
       // Screen options
       name: fourierMakingWavesStrings.screen.wavePacket,
-      backgroundColorProperty: FMWColors.screenBackgroundColorProperty,
+      backgroundColorProperty: FMWColors.wavePacketScreenBackgroundColorProperty,
       homeScreenIcon: FMWIconFactory.createWavePacketHomeScreenIcon(),
 
       // pdom options

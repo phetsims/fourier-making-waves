@@ -28,7 +28,7 @@ class WaveGameScreen extends Screen {
 
       // Screen options
       name: fourierMakingWavesStrings.screen.waveGame,
-      backgroundColorProperty: FMWColors.screenBackgroundColorProperty,
+      backgroundColorProperty: FMWColors.waveGameScreenBackgroundColorProperty,
       homeScreenIcon: FMWIconFactory.createWaveGameHomeScreenIcon(),
 
       // pdom options

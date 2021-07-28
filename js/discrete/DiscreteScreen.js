@@ -28,7 +28,7 @@ class DiscreteScreen extends Screen {
 
       // Screen options
       name: fourierMakingWavesStrings.screen.discrete,
-      backgroundColorProperty: FMWColors.screenBackgroundColorProperty,
+      backgroundColorProperty: FMWColors.discreteScreenBackgroundColorProperty,
       homeScreenIcon: FMWIconFactory.createDiscreteHomeScreenIcon(),
 
       // pdom options
