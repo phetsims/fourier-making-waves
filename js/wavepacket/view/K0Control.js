@@ -41,7 +41,7 @@ class K0Control extends NumberControl {
     options = merge( {}, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, {
 
       // NumberDisplay options
-      delta: DELTA,
+      delta: Math.PI / 4,
       numberDisplayOptions: {
         numberFormatter: k0 => numberFormatter( k0, domainProperty.value )
       },
