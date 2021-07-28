@@ -33,4 +33,3 @@ Duplication in K1Control, K0Control, DKControl, DXControl
 
 Do a basic instrumentation pass
 
-Test
