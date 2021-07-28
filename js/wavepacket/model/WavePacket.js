@@ -32,7 +32,6 @@ class WavePacket {
       'Many things in this implementation assume that L === T === 1, inherited from Java version' );
 
     // @public
-    // the center of the wave packet, k0 (rad/m) or omega0 (rad/ms)
     this.centerProperty = new NumberProperty( 12 * Math.PI, {
       range: new Range( 9 * Math.PI, 15 * Math.PI ),
       tandem: options.tandem.createTandem( 'centerProperty' ),
