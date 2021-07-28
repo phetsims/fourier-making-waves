@@ -11,6 +11,7 @@ import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import FMWChartNode from '../../common/view/FMWChartNode.js';
@@ -23,6 +24,11 @@ import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
 // constants
 const X_TICK_LABEL_DECIMALS = 0;
 const Y_TICK_LABEL_DECIMALS = 3;
+
+// range for the grayscale fill of bars in the BarPlot
+const BAR_RGB_RANGE = new Range( 0, 230 );
+assert && assert( BAR_RGB_RANGE.min >= 0 && BAR_RGB_RANGE.min <= 255 );
+assert && assert( BAR_RGB_RANGE.max >= 0 && BAR_RGB_RANGE.max <= 255 );
 
 class WavePacketAmplitudesChartNode extends FMWChartNode {
 
@@ -38,6 +44,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     const domainProperty = amplitudesChart.domainProperty;
     const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
     const barPlotDataSetProperty = amplitudesChart.barPlotDataSetProperty;
+    const xRange = amplitudesChart.fourierSeries.xRange;
 
     options = merge( {
       xTickMarkSpacing: Math.PI,
@@ -55,9 +62,15 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     // No x-axis grid lines for this chart.
     this.xGridLines.visible = false;
 
-    //TODO how to assign a different color to each bar, or use a gradient for the BarPlot?
     const barPlot = new BarPlot( this.chartTransform, [], {
-      barWidth: 5
+      barWidth: 5,
+
+      // Assign a grayscale color to each bar in barPlot.
+      pointToPaintableFields: point => {
+        let rgb = BAR_RGB_RANGE.min + BAR_RGB_RANGE.getLength() * point.x / xRange.max;
+        rgb = BAR_RGB_RANGE.constrainValue( rgb );
+        return { fill: Color.grayColor( rgb ) };
+      }
     } );
 
     // Clip barPlot to the chartRectangle bounds.
