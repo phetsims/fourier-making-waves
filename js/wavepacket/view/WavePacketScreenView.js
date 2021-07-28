@@ -52,8 +52,11 @@ class WavePacketScreenView extends ScreenView {
     // Parent for all popups
     const popupParent = new Node();
 
+    // Parent tandem for all charts
+    const chartsTandem = options.tandem.createTandem( 'charts' );
+
     // Parent tandem for all components related to the Components chart
-    const amplitudesTandem = options.tandem.createTandem( 'amplitudes' );
+    const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
     // Equation above the Amplitudes chart
     const amplitudeEquationNode = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
@@ -68,11 +71,11 @@ class WavePacketScreenView extends ScreenView {
         modelXRange: model.wavePacket.xRange,
         modelYRange: new Range( 0, model.maxAmplitude ) //TODO this needs to autoscale!
       },
-      tandem: options.tandem.createTandem( 'amplitudesChartNode' )
+      tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
     } );
 
     // Parent tandem for all components related to the Components chart
-    const componentsTandem = options.tandem.createTandem( 'components' );
+    const componentsTandem = chartsTandem.createTandem( 'components' );
 
     // Equation above the Components chart
     const componentsEquationNode = new ComponentsEquationNode( model.domainProperty, model.seriesTypeProperty, {
@@ -101,7 +104,7 @@ class WavePacketScreenView extends ScreenView {
     } );
 
     // Parent tandem for all components related to the Sum chart
-    const sumTandem = options.tandem.createTandem( 'sum' );
+    const sumTandem = chartsTandem.createTandem( 'sum' );
 
     // Equation above the Sum chart
     const sumEquationNode = new WavePacketSumEquationNode( model.domainProperty, model.seriesTypeProperty,

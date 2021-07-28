@@ -88,21 +88,24 @@ class WavePacketModel {
       validValues: Y_AXIS_DESCRIPTIONS
     } );
 
+    // Parent tandem for all charts
+    const chartsTandem = options.tandem.createTandem( 'charts' );
+
     // @public
     this.amplitudesChart = new WavePacketAmplitudesChart( this.wavePacket, this.domainProperty, {
-      tandem: options.tandem.createTandem( 'amplitudesChart' )
+      tandem: chartsTandem.createTandem( 'amplitudesChart' )
     } );
 
     // @public
     this.componentsChart = new WavePacketComponentsChart( this.wavePacket, this.domainProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, componentsYAxisDescriptionProperty, {
-        tandem: options.tandem.createTandem( 'componentsChart' )
+        tandem: chartsTandem.createTandem( 'componentsChart' )
       } );
 
     // @public
     this.sumChart = new WavePacketSumChart( this.wavePacket, this.domainProperty, xAxisTickLabelFormatProperty,
       xAxisDescriptionProperty, sumYAxisDescriptionProperty, {
-        tandem: options.tandem.createTandem( 'sumChart' )
+        tandem: chartsTandem.createTandem( 'sumChart' )
       } );
   }
 
