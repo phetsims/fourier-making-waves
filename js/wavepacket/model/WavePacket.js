@@ -38,7 +38,7 @@ class WavePacket {
     this.xRange = new Range( 0, 24 * Math.PI );
     assert && assert( this.xRange.min === 0 );
 
-    // @public the spacing between Fourier components, k1 (rad/m) or sigma1 (rad/ms)
+    // @public the spacing between Fourier components, k1 (rad/m) or omega (rad/ms)
     this.componentSpacingProperty = new NumberProperty( COMPONENT_SPACING_VALUES[ 3 ], {
       validValues: COMPONENT_SPACING_VALUES,
       range: new Range( COMPONENT_SPACING_VALUES[ 0 ], COMPONENT_SPACING_VALUES[ COMPONENT_SPACING_VALUES.length - 1 ] ),
@@ -99,7 +99,7 @@ class WavePacket {
    * A(k,k0,dk) = exp[ -((k-k0)^2) / (2 * (dk^2) )  ] / (dk * sqrt( 2pi ))
    *
    * Note that symbols (k, rad/m) used in this method are specific to the space domain. But this method can also be used
-   * for the time domain (sigma, rad/ms), because L === T === 1.
+   * for the time domain (omega, rad/ms), because L === T === 1.
    *
    * @param {number} k - component value, in rad/m
    * @returns {number}

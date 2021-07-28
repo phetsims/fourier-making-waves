@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ComponentSpacingControl controls the value of Fourier component spacing (k1 or sigma1).
+ * ComponentSpacingControl controls the value of Fourier component spacing (k1 or omega1).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
