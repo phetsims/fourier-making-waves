@@ -31,12 +31,12 @@ class WavePacket {
     // @public
     this.L = 1; // wavelength, in m
     this.T = 1; // period, in ms
+    assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
+      'Many things in this implementation assume that L === T === 1, inherited from Java version' );
+
+    // @public
     this.xRange = new Range( 0, 24 * Math.PI );
     assert && assert( this.xRange.min === 0 );
-
-    // Assumptions about L and T that were inherited from the Java version.
-    assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
-      'Many things in this implementation assume L === T === 1' );
 
     // @public the spacing between Fourier components, k1 (rad/m) or sigma1 (rad/ms)
     this.componentSpacingProperty = new NumberProperty( COMPONENT_SPACING_VALUES[ 3 ], {
@@ -45,10 +45,10 @@ class WavePacket {
       tandem: options.tandem.createTandem( 'componentSpacingProperty' )
     } );
 
-    // @public k0 (or omega0), the center of the wave packet, in rad/m (or rad/ms)
-    this.k0Property = new NumberProperty( 12 * Math.PI, {
+    // @public the center of the wave packet, k0 (rad/m) or omega0 (rad/ms)
+    this.centerProperty = new NumberProperty( 12 * Math.PI, {
       range: new Range( 9 * Math.PI, 15 * Math.PI ),
-      tandem: options.tandem.createTandem( 'k0Property' )
+      tandem: options.tandem.createTandem( 'centerProperty' )
     } );
 
     // @public dk, half the wave packet width, in rad/m (or rad/ms)
@@ -74,7 +74,7 @@ class WavePacket {
    */
   reset() {
     this.componentSpacingProperty.reset();
-    this.k0Property.reset();
+    this.centerProperty.reset();
     this.dkProperty.reset();
   }
 
@@ -98,14 +98,18 @@ class WavePacket {
    *
    * A(k,k0,dk) = exp[ -((k-k0)^2) / (2 * (dk^2) )  ] / (dk * sqrt( 2pi ))
    *
-   * @param {number} k - component value, in radians/m
+   * Note that symbols (k, rad/m) used in this method are specific to the space domain. But this method can also be used
+   * for the time domain (sigma, rad/ms), because L === T === 1.
+   *
+   * @param {number} k - component value, in rad/m
    * @returns {number}
    * @public
    */
   getAmplitude( k ) {
     assert && assert( typeof k === 'number' );
+    assert && assert( this.L === 1 && this.T === 1 );
 
-    const k0 = this.k0Property.value;
+    const k0 = this.centerProperty.value;
     const dk = this.dkProperty.value;
     const kk0 = k - k0;
     return Math.exp( -( kk0 * kk0 ) / ( 2 * dk * dk ) ) / ( dk * Math.sqrt( 2 * Math.PI ) );

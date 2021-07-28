@@ -44,8 +44,8 @@ class WavePacketAmplitudesChart {
 
     // @public {DerivedProperty.<Vector2[]>} data set for a discrete number of components, to be plotted as a BarPlot
     this.barPlotDataSetProperty = new DerivedProperty(
-      [ wavePacket.componentSpacingProperty, wavePacket.k0Property, wavePacket.dkProperty ],
-      ( componentSpacing, k0, dk ) => wavePacket.getComponentAmplitudesDataSet()
+      [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.dkProperty ],
+      () => wavePacket.getComponentAmplitudesDataSet()
     );
 
     // @public {DerivedProperty.<Vector2[]>} data set for an infinite number of components

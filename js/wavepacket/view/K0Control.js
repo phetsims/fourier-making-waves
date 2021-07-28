@@ -29,21 +29,21 @@ class K0Control extends NumberControl {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} k0Property
+   * @param {NumberProperty} centerProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, k0Property, options ) {
+  constructor( domainProperty, centerProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( k0Property instanceof NumberProperty );
-    assert && assert( k0Property.range );
+    assert && assert( centerProperty instanceof NumberProperty );
+    assert && assert( centerProperty.range );
 
     options = merge( {}, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, {
 
       // NumberDisplay options
       delta: Math.PI / 4,
       numberDisplayOptions: {
-        numberFormatter: k0 => numberFormatter( k0, domainProperty.value )
+        numberFormatter: center => numberFormatter( center, domainProperty.value )
       },
 
       // Slider options
@@ -65,7 +65,7 @@ class K0Control extends NumberControl {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( '', k0Property, k0Property.range, options );
+    super( '', centerProperty, centerProperty.range, options );
 
     // Update the displayed value.
     domainProperty.link( () => this.redrawNumberDisplay() );
@@ -83,17 +83,17 @@ class K0Control extends NumberControl {
 
 /**
  * Formats the number for display by NumberDisplay.
- * @param {number} k0
+ * @param {number} center
  * @param {Domain} domain
  * @returns {string}
  */
-function numberFormatter( k0, domain ) {
+function numberFormatter( center, domain ) {
 
   const symbol = StringUtils.fillIn( '{{symbol}}<sub>0</sub>', {
     symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega
   } );
 
-  const value = Utils.toFixedNumber( k0, DECIMALS );
+  const value = Utils.toFixedNumber( center, DECIMALS );
 
   const units = ( domain === Domain.SPACE ) ?
                 fourierMakingWavesStrings.units.radiansPerMeter :

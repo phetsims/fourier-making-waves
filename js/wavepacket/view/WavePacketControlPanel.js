@@ -67,7 +67,7 @@ class WavePacketControlPanel extends Panel {
       fourierSeriesLayoutBox,
 
       // Wave Packet - Center
-      new WavePacketCenterLayoutBox( model.domainProperty, model.wavePacket.k0Property, {
+      new WavePacketCenterLayoutBox( model.domainProperty, model.wavePacket.centerProperty, {
         spacing: VERTICAL_SPACING,
         tandem: options.tandem.createTandem( 'wavePacketCenterLayoutBox' )
       } ),
@@ -198,13 +198,13 @@ class WavePacketCenterLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} k0Property
+   * @param {NumberProperty} centerProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, k0Property, options ) {
+  constructor( domainProperty, centerProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( k0Property instanceof NumberProperty );
+    assert && assert( centerProperty instanceof NumberProperty );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 
@@ -219,14 +219,14 @@ class WavePacketCenterLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'wavePacketCenter' )
     } );
 
-    const k0Control = new K0Control( domainProperty, k0Property, {
-      tandem: options.tandem.createTandem( 'k0Control' )
+    const centerControl = new K0Control( domainProperty, centerProperty, {
+      tandem: options.tandem.createTandem( 'centerControl' )
     } );
 
     assert && assert( !options.children, 'WavePacketCenterLayoutBox sets children' );
     options.children = [
       wavePacketCenter,
-      k0Control
+      centerControl
     ];
 
     super( options );
