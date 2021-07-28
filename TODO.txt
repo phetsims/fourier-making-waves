@@ -13,9 +13,6 @@ Can SumChart be used by WavePacketSumChart?
 
 # Wave Packet screen
 
-Need a model element for Fourier Series, which should have componentSpacingProperty, be responsible for computing
-  amplitudes, etc.
-
 Amplitude chart:
 y axis scale jitters as you adjust Wave Packet Center k0
 Is center working correctly, in HTML5 and Java versions?

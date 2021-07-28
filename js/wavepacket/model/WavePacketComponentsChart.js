@@ -12,10 +12,12 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import WaveformChart from '../../common/model/WaveformChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
+import WavePacketFourierSeries from './WavePacketFourierSeries.js';
 
 class WavePacketComponentsChart extends WaveformChart {
 
   /**
+   * @param {WavePacketFourierSeries} fourierSeries
    * @param {WavePacket} wavePacket
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<TickLabelFormat>} xAxisTickLabelFormatProperty
@@ -23,8 +25,9 @@ class WavePacketComponentsChart extends WaveformChart {
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( wavePacket, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
+  constructor( fourierSeries, wavePacket, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
                yAxisDescriptionProperty, options ) {
+    assert && assert( fourierSeries instanceof WavePacketFourierSeries );
     assert && assert( wavePacket instanceof WavePacket );
 
     options = merge( {
@@ -37,6 +40,7 @@ class WavePacketComponentsChart extends WaveformChart {
       xAxisDescriptionProperty, yAxisDescriptionProperty, options );
 
     // @public
+    this.fourierSeries = fourierSeries;
     this.wavePacket = wavePacket;
 
     // @public whether the Sum chart is visible

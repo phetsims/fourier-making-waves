@@ -56,7 +56,7 @@ class WavePacketControlPanel extends Panel {
     }, options );
 
     const fourierSeriesLayoutBox = new ComponentSpacingLayoutBox( model.domainProperty,
-      model.wavePacket.componentSpacingProperty, {
+      model.fourierSeries.componentSpacingProperty, {
         spacing: VERTICAL_SPACING,
         tandem: options.tandem.createTandem( 'fourierSeriesLayoutBox' )
       } );

@@ -14,16 +14,19 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
+import WavePacketFourierSeries from './WavePacketFourierSeries.js';
 
 class WavePacketAmplitudesChart {
 
   /**
+   * @param {WavePacketFourierSeries} fourierSeries
    * @param {WavePacket} wavePacket
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
-  constructor( wavePacket, domainProperty, options ) {
+  constructor( fourierSeries, wavePacket, domainProperty, options ) {
 
+    assert && assert( fourierSeries instanceof WavePacketFourierSeries );
     assert && assert( wavePacket instanceof WavePacket );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
@@ -34,6 +37,7 @@ class WavePacketAmplitudesChart {
     }, options );
 
     // @public
+    this.fourierSeries = fourierSeries;
     this.wavePacket = wavePacket;
     this.domainProperty = domainProperty;
 
@@ -44,8 +48,8 @@ class WavePacketAmplitudesChart {
 
     // @public {DerivedProperty.<Vector2[]>} data set for a discrete number of components, to be plotted as a BarPlot
     this.barPlotDataSetProperty = new DerivedProperty(
-      [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.dkProperty ],
-      () => wavePacket.getComponentAmplitudesDataSet()
+      [ fourierSeries.componentSpacingProperty, wavePacket.centerProperty, wavePacket.dkProperty ],
+      () => fourierSeries.getComponentAmplitudesDataSet( wavePacket )
     );
 
     // @public {DerivedProperty.<Vector2[]>} data set for an infinite number of components

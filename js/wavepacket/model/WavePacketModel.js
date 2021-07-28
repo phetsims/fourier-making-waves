@@ -19,6 +19,7 @@ import WavePacket from './WavePacket.js';
 import WavePacketAmplitudesChart from './WavePacketAmplitudesChart.js';
 import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
 import WavePacketComponentsChart from './WavePacketComponentsChart.js';
+import WavePacketFourierSeries from './WavePacketFourierSeries.js';
 import WavePacketSumChart from './WavePacketSumChart.js';
 
 // constants
@@ -43,27 +44,24 @@ class WavePacketModel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // @public (read-only)
-    this.maxAmplitude = 0.21; //TODO ??
-
-    // @public
-    this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE, {
+    const domainProperty = new EnumerationProperty( Domain, Domain.SPACE, {
       validValues: [ Domain.SPACE, Domain.TIME ],
       tandem: options.tandem.createTandem( 'domainProperty' )
     } );
 
-    // @public
-    this.seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE, {
+    const seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE, {
       tandem: options.tandem.createTandem( 'seriesTypeProperty' )
     } );
 
-    // @public
-    this.widthIndicatorsVisibleProperty = new BooleanProperty( false, {
+    const widthIndicatorsVisibleProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'widthIndicatorsVisibleProperty' )
     } );
 
-    // @public
-    this.wavePacket = new WavePacket( {
+    const fourierSeries = new WavePacketFourierSeries( {
+      tandem: options.tandem.createTandem( 'fourierSeries' )
+    } );
+
+    const wavePacket = new WavePacket( {
       tandem: options.tandem.createTandem( 'wavePacket' )
     } );
 
@@ -92,21 +90,31 @@ class WavePacketModel {
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
     // @public
-    this.amplitudesChart = new WavePacketAmplitudesChart( this.wavePacket, this.domainProperty, {
+    this.amplitudesChart = new WavePacketAmplitudesChart( fourierSeries, wavePacket, domainProperty, {
       tandem: chartsTandem.createTandem( 'amplitudesChart' )
     } );
 
     // @public
-    this.componentsChart = new WavePacketComponentsChart( this.wavePacket, this.domainProperty,
+    this.componentsChart = new WavePacketComponentsChart( fourierSeries, wavePacket, domainProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, componentsYAxisDescriptionProperty, {
         tandem: chartsTandem.createTandem( 'componentsChart' )
       } );
 
     // @public
-    this.sumChart = new WavePacketSumChart( this.wavePacket, this.domainProperty, xAxisTickLabelFormatProperty,
+    this.sumChart = new WavePacketSumChart( fourierSeries, wavePacket, domainProperty, xAxisTickLabelFormatProperty,
       xAxisDescriptionProperty, sumYAxisDescriptionProperty, {
         tandem: chartsTandem.createTandem( 'sumChart' )
       } );
+
+    // @public (read-only)
+    this.maxAmplitude = 0.21; //TODO ??
+
+    // @public
+    this.domainProperty = domainProperty;
+    this.seriesTypeProperty = seriesTypeProperty;
+    this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
+    this.fourierSeries = fourierSeries;
+    this.wavePacket = wavePacket;
   }
 
   /**
