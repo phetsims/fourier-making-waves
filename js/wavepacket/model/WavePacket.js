@@ -29,7 +29,7 @@ class WavePacket {
     this.L = 1; // wavelength, in m
     this.T = 1; // period, in ms
     assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
-      'Many things in this implementation assume that L === T === 1, inherited from Java version' );
+      'Many things in this implementation assume that L === T === 1, inherited from Java version.' );
 
     // @public
     this.centerProperty = new NumberProperty( 12 * Math.PI, {

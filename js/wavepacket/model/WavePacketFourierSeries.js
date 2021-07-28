@@ -88,6 +88,7 @@ class WavePacketFourierSeries {
   getAmplitude( k, wavePacket ) {
     assert && assert( typeof k === 'number' );
     assert && assert( wavePacket instanceof WavePacket );
+    assert && assert( wavePacket.L === 1 && wavePacket.T === 1 );
 
     const k0 = wavePacket.centerProperty.value;
     const dk = wavePacket.dkProperty.value;
