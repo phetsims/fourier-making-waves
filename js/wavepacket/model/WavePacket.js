@@ -31,22 +31,32 @@ class WavePacket {
     assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
       'Many things in this implementation assume that L === T === 1, inherited from Java version' );
 
-    // @public the center of the wave packet, k0 (rad/m) or omega0 (rad/ms)
+    // @public
+    // the center of the wave packet, k0 (rad/m) or omega0 (rad/ms)
     this.centerProperty = new NumberProperty( 12 * Math.PI, {
       range: new Range( 9 * Math.PI, 15 * Math.PI ),
-      tandem: options.tandem.createTandem( 'centerProperty' )
+      tandem: options.tandem.createTandem( 'centerProperty' ),
+      phetioDocumentation: 'The center of the wave packet. ' +
+                           'In the space domain this is k<sub>0</sub>, in rad/m. ' +
+                           'In the time domain, this is \u03c9<sub>0</sub>, in rad/ms.'
     } );
 
-    // @public half the wave packet width, sigma-sub-k (in rad/m) or sigma-sub-omega (rad/ms)
+    // @public
     this.dkProperty = new NumberProperty( 3 * Math.PI, {
       range: new Range( 1, 4 * Math.PI ),
-      tandem: options.tandem.createTandem( 'dkProperty' )
+      tandem: options.tandem.createTandem( 'dkProperty' ),
+      phetioDocumentation: 'The standard deviation of the wave packet width. ' +
+                           'In the space domain this is k<sub>1</sub>, in rad/m. ' +
+                           'In the time domain, this is \u03c9<sub>1</sub>, in rad/ms.'
     } );
 
-    // @public wave packet width, in rad/m or rad/ms
+    // @public
     this.widthProperty = new DerivedProperty( [ this.dkProperty ], dk => 2 * dk, {
       tandem: options.tandem.createTandem( 'widthProperty' ),
-      phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
+      phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+      phetioDocumentation: 'The width of the wave packet. ' +
+                           'In the space domain this is in rad/m. ' +
+                           'In the time domain, this is in rad/ms.'
     } );
   }
 
