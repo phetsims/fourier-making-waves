@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -37,13 +36,11 @@ class AmplitudeKeypadDialog extends Dialog {
 
   /**
    * @param {Range} amplitudeRange
-   * @param {Bounds2} layoutBounds
    * @param {Object} [options]
    */
-  constructor( amplitudeRange, layoutBounds, options ) {
+  constructor( amplitudeRange, options ) {
 
     assert && assert( amplitudeRange instanceof Range );
-    assert && assert( layoutBounds instanceof Bounds2 );
 
     options = merge( {
 
@@ -51,10 +48,11 @@ class AmplitudeKeypadDialog extends Dialog {
       closeButtonLength: 12,
       cornerRadius: FMWConstants.PANEL_CORNER_RADIUS,
       layoutStrategy: ( dialog, simBounds, screenBounds, scale ) => {
+        assert && assert( dialog.layoutBounds );
 
-        // a little below center in the layoutBounds
-        dialog.centerX = layoutBounds.centerX;
-        dialog.centerY = layoutBounds.centerY + 50;
+        // a little below center, so that it does not overlap the Amplitudes chart
+        dialog.centerX = dialog.layoutBounds.centerX;
+        dialog.centerY = dialog.layoutBounds.centerY + 50;
       }
     }, options );
 
