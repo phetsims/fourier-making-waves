@@ -61,7 +61,7 @@ class SumChart extends WaveformChart {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
     } );
 
-    // Update the sum when dependencies change. unmultilink is not needed.
+    // Update the sum when dependencies change.
     Property.lazyMultilink(
       [ fourierSeries.amplitudesProperty, xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
       () => {

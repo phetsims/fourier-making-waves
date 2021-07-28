@@ -193,7 +193,7 @@ class DiscreteModel {
       tandem: options.tandem.createTandem( 'oopsSawtoothWithCosinesEmitter' )
     } );
 
-    // umultilink is not needed.
+    // Update the amplitudes
     Property.multilink(
       [ this.fourierSeries.numberOfHarmonicsProperty, this.waveformProperty, this.seriesTypeProperty ],
       () => this.updateAmplitudes()

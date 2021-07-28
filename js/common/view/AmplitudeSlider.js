@@ -129,7 +129,7 @@ class AmplitudeSlider extends AudibleSlider {
       ( thumbIsHighlighted, trackIsHighlighted ) => ( thumbIsHighlighted || trackIsHighlighted )
     );
 
-    // Emphasize the associated harmonic. unmultilink is not needed.
+    // Emphasize the associated harmonic.
     isEmphasizedProperty.lazyLink( isEmphasized => {
       if ( isEmphasized ) {
         emphasizedHarmonics.push( this, harmonic );
@@ -276,7 +276,7 @@ class BarTrack extends SliderTrack {
         visibleTrackNode.setRect( ( width / 2 ) - trackWidth, 0, trackWidth, height );
       }
     };
-    harmonic.amplitudeProperty.link( amplitudeListener ); // unlink is not needed.
+    harmonic.amplitudeProperty.link( amplitudeListener );
 
     const visibleTrackPressListener = new PressListener( {
       attach: false // so that the DragListener for the track isn't ignored

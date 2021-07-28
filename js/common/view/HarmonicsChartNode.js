@@ -51,7 +51,7 @@ class HarmonicsChartNode extends WaveformChartNode {
     } );
     this.addChild( chartCanvasNode );
 
-    // When any plot changes, redraw the entire Canvas. unlink is not needed.
+    // When any plot changes, redraw the entire Canvas.
     const plotChangedListener = () => chartCanvasNode.update();
     plots.forEach( plot => plot.changedEmitter.addListener( plotChangedListener ) );
 
@@ -80,7 +80,7 @@ class HarmonicsChartNode extends WaveformChartNode {
       } );
       chartCanvasNode.update();
     };
-    emphasizedHarmonics.addChangedListener( emphasizedHarmonicsChangedListener ); // removeChangedListener is not needed
+    emphasizedHarmonics.addChangedListener( emphasizedHarmonicsChangedListener );
   }
 }
 

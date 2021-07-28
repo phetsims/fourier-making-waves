@@ -71,7 +71,6 @@ class MeasurementToolNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // Visibility, unmultilink is not needed.
     assert && assert( !options.visibleProperty, 'MeasurementToolNode sets visibleProperty' );
     options.visibleProperty = new DerivedProperty( [ tool.isSelectedProperty, domainProperty ],
       ( isSelected, domain ) => ( isSelected && relevantDomains.includes( domain ) ), {
@@ -99,7 +98,7 @@ class MeasurementToolNode extends Node {
       positionProperty: positionProperty,
       dragBoundsProperty: dragBoundsProperty
     } );
-    this.addInputListener( dragListener ); // removeInputListener is not needed.
+    this.addInputListener( dragListener );
 
     // Emphasize the associated harmonic while interacting with this tool.
     dragListener.isHighlightedProperty.lazyLink( isHighlighted => {
@@ -113,12 +112,12 @@ class MeasurementToolNode extends Node {
       }
     } );
 
-    // Move the tool to its position. unlink is not needed.
+    // Move the tool to its position.
     positionProperty.link( position => {
       this.translation = position;
     } );
 
-    // Update the tool to match the selected harmonic. unlink is not needed.
+    // Update the tool to match the selected harmonic.
     harmonicProperty.lazyLink( () => {
       this.interruptSubtreeInput();
       updateNodes();
@@ -127,7 +126,7 @@ class MeasurementToolNode extends Node {
     // Interrupt interaction when visibility changes.
     this.visibleProperty.link( () => this.interruptSubtreeInput() );
 
-    // If the tool's origin is outside the drag bounds, move it inside. unlink is not needed.
+    // If the tool's origin is outside the drag bounds, move it inside.
     dragBoundsProperty.link( dragBounds => {
       if ( !dragBounds.containsPoint( positionProperty.value ) ) {
         this.interruptSubtreeInput();

@@ -46,7 +46,6 @@ class HarmonicsEquationNode extends Node {
 
     super( options );
 
-    // unmultilink is not needed.
     Property.multilink(
       [ domainProperty, seriesTypeProperty, equationFormProperty ],
       ( domain, seriesType, equationForm ) => {

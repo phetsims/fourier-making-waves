@@ -79,7 +79,7 @@ class HarmonicsChart extends WaveformChart {
       } );
       this.harmonicDataSetProperties.push( dataSetProperty );
 
-      // Update the harmonic's data set when dependencies change. unmultilink is not needed.
+      // Update the harmonic's data set when dependencies change.
       Property.lazyMultilink( [ harmonic.amplitudeProperty, xAxisDescriptionProperty, domainProperty,
           seriesTypeProperty, tProperty ],
         () => {

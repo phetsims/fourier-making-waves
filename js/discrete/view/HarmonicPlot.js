@@ -41,7 +41,7 @@ class HarmonicPlot extends CanvasLinePlot {
     // @public (read-only) fires when the plot needs to be redrawn
     this.changedEmitter = new Emitter();
 
-    // Keep synchronized with the data set. unlink is not needed.
+    // Keep synchronized with the data set.
     dataSetProperty.lazyLink( dataSet => {
       this.setDataSet( dataSet );
       this.changedEmitter.emit();
@@ -49,7 +49,6 @@ class HarmonicPlot extends CanvasLinePlot {
 
     // CanvasLinePlot does not support Property.<Color> for its stroke option.
     // So it's the client's responsibility to keep the plot in sync with the colorProfileProperty.
-    // unlink is not needed.
     harmonic.colorProperty.lazyLink( color => {
       this.setStroke( color );
       this.changedEmitter.emit();

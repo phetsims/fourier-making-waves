@@ -393,7 +393,6 @@ class WaveGameLevelNode extends Node {
     } );
 
     // When the user's guess is correct, provide feedback.
-    // removeListener is not needed.
     level.correctEmitter.addListener( pointsAwarded => {
 
       // Interrupt any in-progress interactions, since the challenge has been solved.
@@ -414,7 +413,6 @@ class WaveGameLevelNode extends Node {
     } );
 
     // When the user's guess is incorrect, provide feedback.
-    // removeListener is not needed.
     level.incorrectEmitter.addListener( () => this.incorrectFeedback() );
 
     // @public
@@ -483,7 +481,6 @@ class WaveGameLevelNode extends Node {
       } ]
     } );
 
-    // removeListener not needed
     this.pointsAwardedAnimation.finishEmitter.addListener( () => {
       this.pointsAwardedNode.visible = false;
       this.pointsAwardedAnimation = null;
@@ -515,7 +512,6 @@ class WaveGameLevelNode extends Node {
       } ]
     } );
 
-    // removeListener not needed
     this.frownyFaceAnimation.finishEmitter.addListener( () => {
       this.frownyFaceNode.visible = false;
       this.frownyFaceAnimation = null;

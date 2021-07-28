@@ -58,7 +58,7 @@ class FourierSoundGenerator extends SoundGenerator {
       oscillatorSoundGenerators.push( oscillatorSoundGenerator );
     }
 
-    // Set amplitudes for harmonics. unlink is not needed.
+    // Set amplitudes for harmonics.
     fourierSeries.amplitudesProperty.lazyLink( amplitudes => {
 
       // If audio is disabled, update immediately by using optional timeConstant=0. This cancels scheduled values on
@@ -73,7 +73,7 @@ class FourierSoundGenerator extends SoundGenerator {
       }
     } );
 
-    // Set the master output level. unlink is not needed.
+    // Set the master output level.
     outputLevelProperty.link( outputLevel => {
 
       // See comment above about timeConstant.
@@ -82,7 +82,7 @@ class FourierSoundGenerator extends SoundGenerator {
       phet.log && phet.log( `FourierSoundGenerator outputLevel=${outputLevel}` );
     } );
 
-    // Turn sound on/off. unlink is not needed.  We could have controlled this via options.enableControlProperties,
+    // Turn sound on/off. We could have controlled this via options.enableControlProperties,
     // but stopping OscillatorSoundGenerators may use fewer resources.
     enabledProperty.link( enabled => {
       if ( enabled ) {

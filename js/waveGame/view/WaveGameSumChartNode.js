@@ -47,7 +47,7 @@ class WaveGameSumChartNode extends SumChartNode {
 
     this.chartCanvasNode.setPainters( [ this.sumPlot, guessPlot ] );
 
-    // Keep the guess plot synchronized with the model. unlink is not needed.
+    // Keep the guess plot synchronized with the model.
     sumChart.guessDataSetProperty.link( dataSet => {
       guessPlot.setDataSet( dataSet );
       this.chartCanvasNode.update();

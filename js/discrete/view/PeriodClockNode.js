@@ -56,7 +56,7 @@ class PeriodClockNode extends MeasurementToolNode {
     const tProperty = model.tProperty;
     const domainProperty = model.domainProperty;
 
-    // The harmonic associated with this tool. dispose is not needed.
+    // The harmonic associated with this tool.
     const harmonicProperty = new DerivedProperty( [ tool.orderProperty ], order => harmonics[ order - 1 ] );
 
     const clockFaceNode = new ClockFaceNode( harmonicProperty, tProperty );
@@ -156,7 +156,6 @@ class ClockFaceNode extends Node {
 
     // When the harmonic changes, update the color used to fill in the elapsed time, and
     // update the elapsed time to correspond to the new harmonic's period at the current time t.
-    // unlink is not needed.
     harmonicProperty.link( harmonic => {
       elapsedTimeNode.fill = harmonic.colorProperty;
       if ( this.visible ) {
@@ -165,7 +164,7 @@ class ClockFaceNode extends Node {
     } );
 
     // When the time changes while the tool is visible, update the elapsed time to correspond to the harmonic's period
-    // at the current time t. unlink is not needed.
+    // at the current time t.
     tProperty.link( t => {
       if ( this.visible ) {
         elapsedTimeNode.shape = createElapsedTimeShape( harmonicProperty.value, t, options.radius );

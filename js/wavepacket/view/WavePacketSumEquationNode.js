@@ -65,7 +65,6 @@ class WavePacketSumEquationNode extends Node {
 
     super( options );
 
-    // unmultilink is not needed.
     Property.multilink(
       [ domainProperty, seriesTypeProperty, componentSpacingProperty ],
       ( domain, seriesType, componentSpacing ) => {
@@ -96,7 +95,6 @@ class WavePacketSumEquationNode extends Node {
       }
     );
 
-    // unmultilink is not needed.
     Property.multilink(
       [ leftNode.boundsProperty, sumSymbolNode.boundsProperty, rightNode.boundsProperty ],
       () => {

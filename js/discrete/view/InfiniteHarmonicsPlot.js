@@ -35,13 +35,12 @@ class InfiniteHarmonicsPlot extends CanvasLinePlot {
     // @public (read-only) fires when the plot needs to be redrawn
     this.changedEmitter = new Emitter();
 
-    // Keep synchronized with the data set. unlink is not needed.
+    // Keep synchronized with the data set.
     dataSetProperty.lazyLink( dataSet => {
       this.setDataSet( dataSet );
       this.changedEmitter.emit();
     } );
 
-    // unlink is not needed.
     visibleProperty.link( visible => {
       this.visible = visible;
       this.changedEmitter.emit();
@@ -49,7 +48,6 @@ class InfiniteHarmonicsPlot extends CanvasLinePlot {
 
     // CanvasLinePlot does not support Property.<Color> for its stroke option.
     // So it's the client's responsibility to keep the plot in sync with the colorProfileProperty.
-    // unlink is not needed.
     FMWColors.infiniteHarmonicsStrokeProperty.lazyLink( color => {
       this.setStroke( color );
       this.changedEmitter.emit();

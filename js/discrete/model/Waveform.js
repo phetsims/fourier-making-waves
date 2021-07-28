@@ -139,6 +139,7 @@ const SINUSOID = new WaveformValue( {
     return amplitudes;
   }
 
+  //TODO chain getInfiniteHarmonicsDataSet to call getAmplitudes?
   // getInfiniteHarmonicsDataSet is not needed. The sum is an exact approximation, and we'll reuse its data set.
 } );
 

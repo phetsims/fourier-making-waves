@@ -104,7 +104,7 @@ class AmplitudeNumberDisplay extends VBox {
     } );
     this.addInputListener( pressListener );
 
-    // Emphasize the associated harmonic. unlink is not needed.
+    // Emphasize the associated harmonic.
     pressListener.isHighlightedProperty.link( isHighlighted => {
       if ( isHighlighted ) {
         emphasizedHarmonics.push( this, harmonic );

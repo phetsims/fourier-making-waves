@@ -87,7 +87,6 @@ class FourierSeries extends PhetioObject {
 
     // @public {DerivedProperty.<number[]>} amplitudesProperty - amplitudes for all harmonics
     // This was requested for PhET-iO, but has proven to be generally useful.
-    // dispose is not needed
     this.amplitudesProperty = new DerivedProperty(
       _.map( this.harmonics, harmonic => harmonic.amplitudeProperty ),
       () => {

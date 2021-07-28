@@ -35,7 +35,6 @@ class ComponentsEquationNode extends RichText {
 
     super( '', options );
 
-    // unmultilink is not needed.
     Property.multilink(
       [ domainProperty, seriesTypeProperty ],
       ( domain, seriesType ) => {

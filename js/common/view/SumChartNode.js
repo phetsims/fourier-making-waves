@@ -54,13 +54,12 @@ class SumChartNode extends WaveformChartNode {
     this.addChild( chartCanvasNode );
 
     // CanvasLinePlot does not allow stroke to be a Property, so we have to manage changes ourselves.
-    // unlink is not needed.
     options.sumPlotStrokeProperty.link( stroke => {
       sumPlot.stroke = stroke;
       chartCanvasNode.update();
     } );
 
-    // unlink is not needed.
+    // Display the data set.
     sumDataSetProperty.lazyLink( dataSet => {
       sumPlot.setDataSet( dataSet );
       chartCanvasNode.update();

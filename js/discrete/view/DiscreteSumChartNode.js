@@ -54,7 +54,7 @@ class DiscreteSumChartNode extends SumChartNode {
     // Put the infiniteHarmonicsPlot behind plots that were added by the superclass.
     this.chartCanvasNode.setPainters( [ infiniteHarmonicsPlot, ...this.chartCanvasNode.painters ] );
 
-    // Disable the y-axis zoom buttons when auto scale is enabled. unlink is not needed.
+    // Disable the y-axis zoom buttons when auto scale is enabled.
     assert && assert( this.yZoomButtonGroup, 'expected the Sum chart to have y-axis zoom buttons' );
     yAutoScaleProperty.link( yAutoScale => {
       this.yZoomButtonGroup.enabled = !yAutoScale;
@@ -71,7 +71,7 @@ class DiscreteSumChartNode extends SumChartNode {
       tandem: options.tandem.createTandem( 'infiniteHarmonicsCheckbox' )
     } );
 
-    // Disable infiniteHarmonicsCheckbox for custom and wave-packet waveforms. unlink is not needed.
+    // Disable infiniteHarmonicsCheckbox for custom and wave-packet waveforms.
     waveformProperty.link( waveform => {
       infiniteHarmonicsCheckbox.enabled = ( waveform !== Waveform.CUSTOM && waveform !== Waveform.WAVE_PACKET );
     } );

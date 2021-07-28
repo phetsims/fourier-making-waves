@@ -61,7 +61,7 @@ class CalipersNode extends MeasurementToolNode {
 
     options = merge( {}, options );
 
-    // The harmonic associated with this tool. dispose is not needed.
+    // The harmonic associated with this tool.
     const harmonicProperty = new DerivedProperty( [ tool.orderProperty ], order => harmonics[ order - 1 ] );
 
     // Horizontal beam
@@ -141,7 +141,7 @@ class CalipersNode extends MeasurementToolNode {
     super( tool, harmonicProperty, emphasizedHarmonics, dragBoundsProperty, domainProperty, relevantDomains,
       updateNodes, options );
 
-    // Update when the range of the associated axis changes. removeListener is not needed.
+    // Update when the range of the associated axis changes.
     chartTransform.changedEmitter.addListener( updateNodes );
 
     // Pointer areas

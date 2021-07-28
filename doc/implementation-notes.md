@@ -48,20 +48,19 @@ its behavior, do so with logging enabled via the `log` query parameter.
 
 **Memory Management** 
 
-* **Listeners**: All uses of `link`, `addListener`, etc. are documented as to whether they need a corresponding 
-`unlink`, `removeListener`, etc. For example:
+* **Dynamic allocation**: Most things in this sim are allocated at startup, and exist for the lifetime of the
+  simulation. The exceptions to that are: TODO
+
+* **Pooling**: TODO describe Vector2 pooling
+
+* **Listeners**: Unless otherwise noted in the code, all used of `link`, `addListener`, etc. do not need a corresponding
+  `unlink`, `removeListener`, etc.
+
+* **dispose:** All classes have a `dispose` method. Sim-specific classes whose instances exist for the lifetime of the
+  sim are not intended to be disposed, and their `dispose` implementation looks like this:
 
 ```js
-    // Scrolls the x-axis so that 'now' is always the max x value. unlink is not necessary.
-    timeInGenerationsProperty.link( timeInGeneration => {
-      ...
-```
-
-* **dispose:** All classes have a `dispose` method. Sim-specific classes whose instances exist for the lifetime of 
-the sim are not intended to be disposed, and their `dispose` implementation looks like this:
-
-```js
-  /**
+/**
  * @public
  * @override
  */

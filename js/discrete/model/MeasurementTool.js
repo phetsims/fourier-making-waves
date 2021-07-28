@@ -48,7 +48,6 @@ class MeasurementTool {
       tandem: options.tandem.createTandem( 'orderProperty' )
     } );
 
-    // unlink is not needed.
     numberOfHarmonicsProperty.link( numberOfHarmonics => {
 
       // Adjust the tool when a harmonic becomes irrelevant.
