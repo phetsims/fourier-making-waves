@@ -149,23 +149,30 @@ class DiscreteModel {
 
     // {Property.<AxisDescription>} the x-axis description is shared by the Harmonics and Sum charts.
     const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
-      validValues: X_AXIS_DESCRIPTIONS
+      validValues: X_AXIS_DESCRIPTIONS,
+      tandem: options.tandem.createTandem( 'xAxisDescriptionProperty' )
     } );
 
+    // Parent tandem for all charts
+    const chartsTandem = options.tandem.createTandem( 'charts' );
+
     // @public
-    this.amplitudesChart = new DiscreteAmplitudesChart( this.fourierSeries, emphasizedHarmonics );
+    this.amplitudesChart = new DiscreteAmplitudesChart( this.fourierSeries, emphasizedHarmonics, {
+      tandem: chartsTandem.createTandem( 'amplitudesChart' )
+    } );
 
     // {Property.<AxisDescription>} y-axis description is specific to the Harmonics chart, not shared with the Sum chart.
     // The Harmonics chart has no zoom buttons, so it only has one y-axis description.
     const harmonicsYAxisDescriptionProperty = new Property( DEFAULT_Y_AXIS_DESCRIPTION, {
-      validValues: [ DEFAULT_Y_AXIS_DESCRIPTION ]
+      validValues: [ DEFAULT_Y_AXIS_DESCRIPTION ],
+      tandem: options.tandem.createTandem( 'harmonicsYAxisDescriptionProperty' )
     } );
 
     // @public
     this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, emphasizedHarmonics,
       this.domainProperty, this.seriesTypeProperty, this.tProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, harmonicsYAxisDescriptionProperty, {
-        tandem: options.tandem.createTandem( 'harmonicsChart' )
+        tandem: chartsTandem.createTandem( 'harmonicsChart' )
       } );
 
     // {Property.<AxisDescription>} y-axis description is specific to the Sum chart, not shared with the Harmonics
@@ -178,7 +185,7 @@ class DiscreteModel {
     this.sumChart = new DiscreteSumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
       this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, sumYAxisDescriptionProperty,
       this.waveformProperty, {
-        tandem: options.tandem.createTandem( 'sumChart' )
+        tandem: chartsTandem.createTandem( 'sumChart' )
       } );
 
     // @public emits if you try to make a sawtooth wave with cosines

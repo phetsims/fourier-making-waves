@@ -74,8 +74,11 @@ class DiscreteScreenView extends ScreenView {
     // Parent for all popups
     const popupParent = new Node();
 
+    // Parent tandem for all charts
+    const chartsTandem = options.tandem.createTandem( 'charts' );
+
     // Parent tandem for all components related to the Amplitudes chart
-    const amplitudesTandem = options.tandem.createTandem( 'amplitudes' );
+    const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
     // Keypad Dialog, for changing amplitude value
     const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, layoutBounds, {
@@ -91,7 +94,7 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     // Parent tandem for all components related to the Harmonics chart
-    const harmonicsTandem = options.tandem.createTandem( 'harmonics' );
+    const harmonicsTandem = chartsTandem.createTandem( 'harmonics' );
 
     // Button to show/hide the Harmonics chart
     const harmonicsExpandCollapseButton = new LabeledExpandCollapseButton(
@@ -124,7 +127,7 @@ class DiscreteScreenView extends ScreenView {
       } );
 
     // Parent tandem for all components related to the Sum chart
-    const sumTandem = options.tandem.createTandem( 'sum' );
+    const sumTandem = chartsTandem.createTandem( 'sum' );
 
     // Button to show/hide the Sum chart
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(

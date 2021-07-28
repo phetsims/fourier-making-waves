@@ -94,8 +94,11 @@ class WaveGameLevelNode extends Node {
       tandem: options.tandem.createTandem( 'statusBar' )
     } );
 
+    // Parent tandem for all charts
+    const chartsTandem = options.tandem.createTandem( 'charts' );
+
     // Parent tandem for all components related to the Amplitudes chart
-    const amplitudesTandem = options.tandem.createTandem( 'amplitudes' );
+    const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
     // Keypad Dialog, for changing amplitude value
     const amplitudeKeypadDialog = new AmplitudeKeypadDialog( level.guessSeries.amplitudeRange, layoutBounds, {
@@ -113,7 +116,7 @@ class WaveGameLevelNode extends Node {
     } );
 
     // Parent tandem for all components related to the Harmonics chart
-    const harmonicsTandem = options.tandem.createTandem( 'harmonics' );
+    const harmonicsTandem = chartsTandem.createTandem( 'harmonics' );
 
     const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonicsChart, {
       font: FMWConstants.TITLE_FONT,
@@ -126,7 +129,7 @@ class WaveGameLevelNode extends Node {
     } );
 
     // Parent tandem for all components related to the Sum chart
-    const sumTandem = options.tandem.createTandem( 'sum' );
+    const sumTandem = chartsTandem.createTandem( 'sum' );
 
     const sumTitleNode = new Text( fourierMakingWavesStrings.sum, {
       font: FMWConstants.TITLE_FONT,

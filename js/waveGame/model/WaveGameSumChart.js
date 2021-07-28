@@ -15,6 +15,7 @@ import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
@@ -44,7 +45,10 @@ class WaveGameSumChart extends SumChart {
 
       // SumChart options
       // This causes the chart to auto scale to answerSeries. This should remain static - do not instrument!
-      yAutoScaleProperty: new BooleanProperty( true )
+      yAutoScaleProperty: new BooleanProperty( true ),
+
+      // phet-io
+      tandem: Tandem.REQUIRED
     }, options );
 
     super(
@@ -72,7 +76,9 @@ class WaveGameSumChart extends SumChart {
 
     // @public
     this.guessDataSetProperty = new Property( createGuessDataSet(), {
-      isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
+      isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 ),
+      tandem: options.tandem.createTandem( 'guessDataSetProperty' ),
+      phetioReadOnly: true
     } );
 
     // When the guess amplitudes change, update the corresponding data set for the sum.

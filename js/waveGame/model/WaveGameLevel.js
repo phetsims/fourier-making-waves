@@ -111,7 +111,10 @@ class WaveGameLevel {
 
     // @public Whether the current challenge has been solved. A challenge is considered solved when the user has
     // correctly guessed the answer, or when the user has pressed the 'Show Answer' button.
-    this.isSolvedProperty = new BooleanProperty( false );
+    this.isSolvedProperty = new BooleanProperty( false, {
+      tandem: config.tandem.createTandem( 'isSolvedProperty' ),
+      phetioReadOnly: true
+    } );
 
     // @private Generates amplitudes for answerSeries
     this.amplitudesGenerator = new AmplitudesGenerator( {
@@ -142,7 +145,8 @@ class WaveGameLevel {
 
     // @public the number of amplitude controls (sliders) to show in the Amplitudes chart
     this.numberOfAmplitudeControlsProperty = new NumberProperty( config.defaultNumberOfAmplitudeControls, {
-      range: new Range( this.answerSeries.getNumberOfNonZeroHarmonics(), this.answerSeries.harmonics.length )
+      range: new Range( this.answerSeries.getNumberOfNonZeroHarmonics(), this.answerSeries.harmonics.length ),
+      tandem: config.tandem.createTandem( 'numberOfAmplitudeControlsProperty' )
     } );
 
     // @private The harmonics to be emphasized in the Harmonics chart, as the result of UI interactions.
@@ -151,20 +155,29 @@ class WaveGameLevel {
       tandem: config.tandem.createTandem( 'emphasizedHarmonics' )
     } );
 
+    // Parent tandem for all charts
+    const chartsTandem = config.tandem.createTandem( 'charts' );
+
     // @public
     this.amplitudesChart = new WaveGameAmplitudesChart( this.answerSeries, this.guessSeries, this.emphasizedHarmonics,
-      this.numberOfAmplitudeControlsProperty );
+      this.numberOfAmplitudeControlsProperty, {
+        tandem: chartsTandem.createTandem( 'amplitudesChart' )
+      } );
 
     // y-axis scale is fixed for the Harmonics chart. There are no zoom controls
     const harmonicsYAxisDescription = Y_AXIS_DESCRIPTIONS[ Y_AXIS_DESCRIPTIONS.length - 1 ];
 
     // @public
     this.harmonicsChart = new WaveGameHarmonicsChart( this.guessSeries, this.emphasizedHarmonics,
-      DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, harmonicsYAxisDescription );
+      DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, harmonicsYAxisDescription, {
+        tandem: chartsTandem.createTandem( 'harmonicsChart' )
+      } );
 
     // @public
     this.sumChart = new WaveGameSumChart( this.answerSeries, this.guessSeries,
-      DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, Y_AXIS_DESCRIPTIONS );
+      DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, Y_AXIS_DESCRIPTIONS, {
+        tandem: chartsTandem.createTandem( 'sumChart' )
+      } );
 
     // @public Fires when a new waveform has been fully initialized, see method newWaveform.
     this.newWaveformEmitter = new Emitter();
