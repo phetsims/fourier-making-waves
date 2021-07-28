@@ -116,6 +116,7 @@ function numberFormatter( componentSpacing, domain ) {
     symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega
   } );
 
+  // Using toFixedNumber removes trailing zeros.
   const value = Utils.toFixedNumber( componentSpacing, DECIMALS );
 
   const units = ( domain === Domain.SPACE ) ?

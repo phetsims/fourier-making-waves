@@ -50,7 +50,7 @@ class DKControl extends NumberControl {
               symbol: FMWSymbols.sigma,
               subscript: ( domainProperty.value === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega
             } ),
-            value: Utils.toFixedNumber( dk, DECIMALS ),
+            value: Utils.toFixedNumber( dk, DECIMALS ), // Using toFixedNumber removes trailing zeros.
             units: ( domainProperty.value === Domain.SPACE ) ?
                    fourierMakingWavesStrings.units.radiansPerMeter :
                    fourierMakingWavesStrings.units.radiansPerMillisecond

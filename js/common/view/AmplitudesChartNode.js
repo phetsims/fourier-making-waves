@@ -135,7 +135,7 @@ class AmplitudesChartNode extends Node {
     const yLabelSet = new LabelSet( chartTransform, Orientation.VERTICAL, Y_TICK_SPACING, {
       edge: 'min',
 
-      // Create tick labels with trailing zeros removed from decimal places.
+      // Create tick labels. Using toFixedNumber removes trailing zeros.
       createLabel: value => new Text( Utils.toFixedNumber( value, Y_TICK_LABEL_DECIMAL_PLACES ), {
         font: FMWConstants.TICK_LABEL_FONT
       } )

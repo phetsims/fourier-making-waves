@@ -29,6 +29,8 @@ const TickLabelUtils = {
    * @public
    */
   createNumericTickLabel: ( value, decimals, options ) => {
+
+    // Using toFixedNumber removes trailing zeros.
     return new Text( Utils.toFixedNumber( value, decimals ), merge( {
       font: FMWConstants.TICK_LABEL_FONT
     }, options ) );
