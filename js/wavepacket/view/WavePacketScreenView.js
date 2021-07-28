@@ -130,7 +130,9 @@ class WavePacketScreenView extends ScreenView {
       tandem: sumTandem.createTandem( 'sumChartNode' )
     } );
 
-    const controlPanel = new WavePacketControlPanel( model, popupParent );
+    const controlPanel = new WavePacketControlPanel( model, popupParent, {
+      tandem: options.tandem.createTandem( 'controlPanel' )
+    } );
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {

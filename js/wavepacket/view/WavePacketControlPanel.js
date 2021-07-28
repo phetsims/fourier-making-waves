@@ -76,7 +76,7 @@ class WavePacketControlPanel extends Panel {
       new WavePacketWidthLayoutBox( model.domainProperty, model.wavePacket.dkProperty,
         model.widthIndicatorsVisibleProperty, {
           spacing: VERTICAL_SPACING,
-          tandem: options.tandem.createTandem( 'wavePacketCenterLayoutBox' )
+          tandem: options.tandem.createTandem( 'wavePacketWidthLayoutBox' )
         } ),
 
       // Graph Controls
@@ -213,10 +213,10 @@ class WavePacketCenterLayoutBox extends VBox {
     }, options );
 
     // Wave Packet - Center
-    const wavePacketCenter = new Text( fourierMakingWavesStrings.wavePacketCenter, {
+    const wavePacketCenterText = new Text( fourierMakingWavesStrings.wavePacketCenter, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 180, // determined empirically
-      tandem: options.tandem.createTandem( 'wavePacketCenter' )
+      tandem: options.tandem.createTandem( 'wavePacketCenterText' )
     } );
 
     const centerControl = new CenterControl( domainProperty, centerProperty, {
@@ -225,7 +225,7 @@ class WavePacketCenterLayoutBox extends VBox {
 
     assert && assert( !options.children, 'WavePacketCenterLayoutBox sets children' );
     options.children = [
-      wavePacketCenter,
+      wavePacketCenterText,
       centerControl
     ];
 
@@ -266,10 +266,10 @@ class WavePacketWidthLayoutBox extends VBox {
     }, options );
 
     // Wave Packet - Width
-    const wavePacketWidth = new Text( fourierMakingWavesStrings.wavePacketWidth, {
+    const wavePacketWidthText = new Text( fourierMakingWavesStrings.wavePacketWidth, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 180, // determined empirically
-      tandem: options.tandem.createTandem( 'wavePacketWidth' )
+      tandem: options.tandem.createTandem( 'wavePacketWidthText' )
     } );
 
     //TODO only update dkProperty when a slider is released, will require an adapter Property
@@ -296,7 +296,7 @@ class WavePacketWidthLayoutBox extends VBox {
 
     assert && assert( !options.children, 'WavePacketLayoutBox sets children' );
     options.children = [
-      wavePacketWidth,
+      wavePacketWidthText,
       dkControl,
       dxControl,
       widthIndicatorsCheckbox
