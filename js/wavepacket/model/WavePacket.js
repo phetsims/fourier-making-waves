@@ -116,8 +116,10 @@ class WavePacket {
   }
 
   /**
-   * Gets the data set for component amplitudes. If the number of components is infinite, returns an empty data set.
-   * @returns {Vector2[]}
+   * Gets the data set for Fourier component amplitudes. Note that the position of the Fourier components is fixed.
+   * If the wave packet's center is not located at the position of one of the components, then the approximation
+   * (and the amplitudes) will be asymmetric.
+   * @returns {Vector2[]} - empty if the number of components is infinite
    * @public
    */
   getComponentAmplitudesDataSet() {
