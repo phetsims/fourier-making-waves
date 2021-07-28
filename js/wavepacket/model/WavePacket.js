@@ -36,7 +36,7 @@ class WavePacket {
       range: new Range( 9 * Math.PI, 15 * Math.PI ),
       tandem: options.tandem.createTandem( 'centerProperty' ),
       phetioDocumentation: 'The center of the wave packet. ' +
-                           'In the space domain this is k<sub>0</sub>, in rad/m. ' +
+                           'In the space domain, this is k<sub>0</sub>, in rad/m. ' +
                            'In the time domain, this is \u03c9<sub>0</sub>, in rad/ms.'
     } );
 
@@ -45,7 +45,7 @@ class WavePacket {
       range: new Range( 1, 4 * Math.PI ),
       tandem: options.tandem.createTandem( 'dkProperty' ),
       phetioDocumentation: 'The standard deviation of the wave packet width. ' +
-                           'In the space domain this is k<sub>1</sub>, in rad/m. ' +
+                           'In the space domain, this is k<sub>1</sub>, in rad/m. ' +
                            'In the time domain, this is \u03c9<sub>1</sub>, in rad/ms.'
     } );
 
@@ -54,7 +54,7 @@ class WavePacket {
       tandem: options.tandem.createTandem( 'widthProperty' ),
       phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
       phetioDocumentation: 'The width of the wave packet. ' +
-                           'In the space domain this is in rad/m. ' +
+                           'In the space domain, this is in rad/m. ' +
                            'In the time domain, this is in rad/ms.'
     } );
   }
