@@ -44,12 +44,16 @@ class WaveGameSumChart extends SumChart {
     options = merge( {
 
       // SumChart options
-      // This causes the chart to auto scale to answerSeries. This should remain static - do not instrument!
+      // This causes the chart to auto scale to answerSeries. This should remain true - do not instrument!
       yAutoScaleProperty: new BooleanProperty( true ),
 
       // phet-io
       tandem: Tandem.REQUIRED
     }, options );
+
+    options.yAutoScaleProperty.lazyLink( yAutoScale => {
+      assert && assert( yAutoScale, 'yAutoScale must always be true for this the Wave Game Screen' );
+    } );
 
     super(
       // Superclass will render the sum for the challenge answer.
