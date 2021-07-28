@@ -10,6 +10,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import SumChart from '../../common/model/SumChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Waveform from './Waveform.js';
@@ -36,9 +37,14 @@ class DiscreteSumChart extends SumChart {
     assert && assert( !options.yAutoScaleProperty );
     options = merge( {
 
-      // SumChart options
-      yAutoScaleProperty: new BooleanProperty( false ) // y auto-scale is initially off
+      // phet-io options
+      tandem: Tandem.REQUIRED
     }, options );
+
+    assert && assert( !options.yAutoScaleProperty );
+    options.yAutoScaleProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'yAutoScaleProperty' )
+    } );
 
     super( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
