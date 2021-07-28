@@ -181,14 +181,14 @@ const FMWIconFactory = {
       headHeight: 10,
       headWidth: 7,
       tailWidth: lineWidth,
-      fill: FMWColors.widthIndicatorsColorProperty,
+      fill: FMWColors.widthIndicatorsFillProperty,
       stroke: null,
       doubleHead: true
     } );
 
     const endLineLength = 10;
     const endLineOptions = {
-      stroke: FMWColors.widthIndicatorsColorProperty,
+      stroke: FMWColors.widthIndicatorsFillProperty,
       lineWidth: lineWidth
     };
     const leftLine = new Line( 0, 0, 0, endLineLength, endLineOptions );

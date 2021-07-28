@@ -15,6 +15,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
+import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import globalKeyStateTracker from '../../../../scenery/js/accessibility/globalKeyStateTracker.js';
 import KeyboardUtils from '../../../../scenery/js/accessibility/KeyboardUtils.js';
@@ -86,7 +87,7 @@ class WaveGameLevelNode extends Node {
     const statusBar = new InfiniteStatusBar( layoutBounds, visibleBoundsProperty, levelDescriptionText, level.scoreProperty, {
       floatToTop: false,
       spacing: 20,
-      barFill: FMWColors.scoreBoardFillProperty,
+      barFill: FMWColors.levelSelectionButtonFillProperty, // same as level-selection buttons!
       backButtonListener: () => {
         this.interruptSubtreeInput();
         levelProperty.value = null; // back to the level-selection UI
@@ -221,7 +222,7 @@ class WaveGameLevelNode extends Node {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
-      baseColor: FMWColors.checkAnswerButtonFillProperty,
+      baseColor: PhetColorScheme.BUTTON_YELLOW,
       listener: checkAnswerListener,
       enabledProperty: checkAnswerButtonEnabledProperty
     } );
@@ -252,7 +253,7 @@ class WaveGameLevelNode extends Node {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
-      baseColor: FMWColors.showAnswerButtonFillProperty,
+      baseColor: PhetColorScheme.BUTTON_YELLOW,
       listener: () => {
         this.interruptSubtreeInput();
         level.showAnswer();
@@ -273,7 +274,7 @@ class WaveGameLevelNode extends Node {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
-      baseColor: FMWColors.newWaveformButtonFillProperty,
+      baseColor: PhetColorScheme.BUTTON_YELLOW,
       tandem: options.tandem.createTandem( 'newWaveformButton' ),
       phetioReadOnly: true
     } );

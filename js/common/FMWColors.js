@@ -1,6 +1,6 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
-//TODO Should any of these be moved to where they are used?
+//TODO Should any of these be moved to where they are used? or don't need to be ProfileColorProperty?
 //TODO tandem for each ProfileColorProperty instance
 /**
  * FMWColors defines the colors for this simulation.
@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 import Color from '../../../scenery/js/util/Color.js';
 import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
@@ -41,56 +40,45 @@ const FMWColors = {
     default: Color.grayColor( 200 )
   } ),
 
-  amplitudeGridLinesStrokeProperty: new ProfileColorProperty( 'amplitudeGridLinesStroke', {
-    default: Color.BLACK
-  } ),
-
+  // Grid line stroke for all charts except the Amplitude chart in the 'Discrete' and 'Wave Game' screens
   chartGridLinesStrokeProperty: new ProfileColorProperty( 'chartGridLinesStroke', {
     default: Color.grayColor( 200 )
   } ),
 
+  // Stroke for all x and y axes
   axisStrokeProperty: new ProfileColorProperty( 'axisStroke', {
     default: Color.grayColor( 170 )
   } ),
 
-  levelSelectionButtonFillProperty: new ProfileColorProperty( 'levelSelectionButtonFill', {
-    default: new Color( 255, 214, 228 )
+  // Stroke for the sum plot in the Discrete and Wave Packet screens
+  sumPlotStrokeProperty: new ProfileColorProperty( 'sumStroke', {
+    default: 'black'
   } ),
 
-  scoreBoardFillProperty: new ProfileColorProperty( 'scoreBoardFill', {
-    default: new Color( 255, 214, 228 )
-  } ),
-
-  newWaveformButtonFillProperty: new ProfileColorProperty( 'newWaveformButtonFill', {
-    default: PhetColorScheme.BUTTON_YELLOW
-  } ),
-
-  checkAnswerButtonFillProperty: new ProfileColorProperty( 'checkAnswerButtonFill', {
-    default: PhetColorScheme.BUTTON_YELLOW
-  } ),
-
-  showAnswerButtonFillProperty: new ProfileColorProperty( 'showAnswerButtonFill', {
-    default: PhetColorScheme.BUTTON_YELLOW
-  } ),
-
-  sumStrokeProperty: new ProfileColorProperty( 'sumStroke', {
-    default: new Color( 0, 0, 0 )
-  } ),
-
-  answerSumStrokeProperty: new ProfileColorProperty( 'answerSumStroke', {
+  // Stroke used to plot answer to a challenge in Sum chart of the Wave Game screen.
+  // If you're thinking of changing this to something other than pink, note that the UI says "Match the pink waveform..."
+  answerSumPlotStrokeProperty: new ProfileColorProperty( 'answerSumPlotStroke', {
     default: new Color( 255, 0, 255 )
   } ),
 
-  guessSumStrokeProperty: new ProfileColorProperty( 'guessSumStroke', {
-    default: new Color( 0, 0, 0 )
+  // Stoke used to plot the user's guess to a challenge in the Sum chart of the Wave Game screen.
+  guessSumPlotStrokeProperty: new ProfileColorProperty( 'guessSumPlotStroke', {
+    default: 'black'
   } ),
 
+  // Stroke used to plot the Sum for infinite harmonics in the Discrete screen
   infiniteHarmonicsStrokeProperty: new ProfileColorProperty( 'infiniteHarmonicsStroke', {
     default: Color.grayColor( 189 )
   } ),
 
-  widthIndicatorsColorProperty: new ProfileColorProperty( 'widthIndicatorsColor', {
-    default: new Color( 255, 0, 0 )
+  // Fill for the level-selection buttons AND the scoreboard in the Wave Game screen
+  levelSelectionButtonFillProperty: new ProfileColorProperty( 'levelSelectionButtonFill', {
+    default: new Color( 255, 214, 228 )
+  } ),
+
+  // Fill for the width indicators in the Wave Packet screen
+  widthIndicatorsFillProperty: new ProfileColorProperty( 'widthIndicatorsColor', {
+    default: 'red'
   } )
 };
 

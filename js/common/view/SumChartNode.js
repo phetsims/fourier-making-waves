@@ -29,7 +29,7 @@ class SumChartNode extends WaveformChartNode {
     options = merge( {
 
       // SumChartNode options
-      sumPlotStrokeProperty: FMWColors.sumStrokeProperty,
+      sumPlotStrokeProperty: FMWColors.sumPlotStrokeProperty,
       sumPlotLineWidth: 1
     }, options );
 

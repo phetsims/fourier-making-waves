@@ -27,7 +27,7 @@ class WaveGameSumChartNode extends SumChartNode {
     options = merge( {
 
       // SumChartNode options
-      sumPlotStrokeProperty: FMWColors.answerSumStrokeProperty,
+      sumPlotStrokeProperty: FMWColors.answerSumPlotStrokeProperty,
       sumPlotLineWidth: 4
     }, options );
 
@@ -35,12 +35,12 @@ class WaveGameSumChartNode extends SumChartNode {
 
     // Plot that shows the sum for the answer
     const guessPlot = new CanvasLinePlot( this.chartTransform, [], {
-      stroke: FMWColors.guessSumStrokeProperty.value,
+      stroke: FMWColors.guessSumPlotStrokeProperty.value,
       lineWidth: 1.5
     } );
 
     // CanvasLinePlot does not allow stroke to be a Property, so we have to manage changes ourselves.
-    FMWColors.guessSumStrokeProperty.link( stroke => {
+    FMWColors.guessSumPlotStrokeProperty.link( stroke => {
       guessPlot.stroke = stroke;
       this.chartCanvasNode.update();
     } );

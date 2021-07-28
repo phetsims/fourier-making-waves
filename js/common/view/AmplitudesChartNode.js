@@ -24,7 +24,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import FMWColors from '../FMWColors.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import AmplitudesChart from '../model/AmplitudesChart.js';
@@ -129,7 +128,7 @@ class AmplitudesChartNode extends Node {
     } );
 
     const yGridLineSet = new GridLineSet( chartTransform, Orientation.VERTICAL, Y_TICK_SPACING, {
-      stroke: FMWColors.amplitudeGridLinesStrokeProperty,
+      stroke: 'black',
       lineWidth: 0.5
     } );
 
