@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * K0Control displays the value of k0 (the wave packet's center) and allows it to be changed via a slider.
+ * CenterControl controls the value the wave packet's center (k0 or omega0).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -25,7 +25,7 @@ const DELTA = 0.1;
 const DECIMALS = Utils.numberOfDecimalPlaces( DELTA );
 const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 
-class K0Control extends NumberControl {
+class CenterControl extends NumberControl {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -106,5 +106,5 @@ function numberFormatter( center, domain ) {
   } );
 }
 
-fourierMakingWaves.register( 'K0Control', K0Control );
-export default K0Control;
+fourierMakingWaves.register( 'CenterControl', CenterControl );
+export default CenterControl;

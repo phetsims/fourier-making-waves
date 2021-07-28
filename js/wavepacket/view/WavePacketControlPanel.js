@@ -29,7 +29,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
 import DKControl from './DKControl.js';
 import DXControl from './DXControl.js';
-import K0Control from './K0Control.js';
+import CenterControl from './CenterControl.js';
 import ComponentSpacingControl from './ComponentSpacingControl.js';
 import WavePacketSymbolsDialog from './WavePacketSymbolsDialog.js';
 import WidthIndicatorsCheckbox from './WidthIndicatorsCheckbox.js';
@@ -219,7 +219,7 @@ class WavePacketCenterLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'wavePacketCenter' )
     } );
 
-    const centerControl = new K0Control( domainProperty, centerProperty, {
+    const centerControl = new CenterControl( domainProperty, centerProperty, {
       tandem: options.tandem.createTandem( 'centerControl' )
     } );
 
