@@ -25,7 +25,8 @@ const FMWConstants = {
 
   MAX_HARMONICS: 11,
 
-  // Amplitude range is [-MAX_AMPLITUDE, MAX_AMPLITUDE], see https://github.com/phetsims/fourier-making-waves/issues/22
+  // Amplitude range is [-MAX_AMPLITUDE, MAX_AMPLITUDE] in the Discrete and Wave Game screens.
+  // See https://github.com/phetsims/fourier-making-waves/issues/22
   MAX_AMPLITUDE: 1.5,
 
   //TODO add some verification for this value, since it depends on MAX_HARMONICS and XZoomDescriptions?
@@ -35,10 +36,10 @@ const FMWConstants = {
   // smooth when the Harmonics chart is fully zoomed out.
   MAX_POINTS_PER_DATA_SET: 2000,
 
-  // Number of points awarded for each correct answer in the Wave Game
+  // Number of points awarded for each correct answer in the Wave Game screen
   POINTS_PER_CHALLENGE: 1,
 
-  // Reaching this score results in a reward in the Wave Game
+  // Reaching this score results in a reward in the Wave Game screen
   REWARD_SCORE: FMWQueryParameters.rewardScore,
 
   // View ============================================================================================================
@@ -47,6 +48,7 @@ const FMWConstants = {
   SCREEN_VIEW_Y_MARGIN: 15,
   SCREEN_VIEW_X_SPACING: 10,
   SCREEN_VIEW_Y_SPACING: 10,
+
   CONTROL_PANEL_WIDTH: 250,
 
   EXPAND_COLLAPSE_BUTTON_OPTIONS: {
