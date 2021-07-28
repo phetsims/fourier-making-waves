@@ -16,6 +16,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // valid values for component spacing
@@ -59,7 +60,10 @@ class WavePacket {
 
     // @public wave packet width, in rad/m (or rad/ms)
     // dispose is not needed.
-    this.widthProperty = new DerivedProperty( [ this.dkProperty ], dk => 2 * dk );
+    this.widthProperty = new DerivedProperty( [ this.dkProperty ], dk => 2 * dk, {
+      tandem: options.tandem.createTandem( 'widthProperty' ),
+      phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
+    } );
   }
 
   /**
