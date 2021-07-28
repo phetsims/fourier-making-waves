@@ -23,7 +23,7 @@ import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
 
 // constants
 const X_TICK_LABEL_DECIMALS = 0;
-const Y_TICK_LABEL_DECIMALS = 3;
+const Y_TICK_LABEL_DECIMALS = 2;
 
 // range for the grayscale fill of bars in the BarPlot
 const BAR_RGB_RANGE = new Range( 0, 230 );
