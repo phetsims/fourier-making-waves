@@ -48,6 +48,7 @@ class FourierSeries extends PhetioObject {
     }, options );
 
     assert && AssertUtils.assertPositiveInteger( options.numberOfHarmonics );
+    assert && assert( options.numberOfHarmonics <= FMWColors.HARMONIC_COLOR_PROPERTIES.length );
     assert && assert( options.amplitudeRange instanceof Range );
     assert && AssertUtils.assertArrayOf( options.amplitudes, 'number' );
     assert && assert( _.every( options.amplitudes, amplitude => options.amplitudeRange.contains( amplitude ) ),
@@ -77,7 +78,7 @@ class FourierSeries extends PhetioObject {
         order: order,
         frequency: this.fundamentalFrequency * order,
         wavelength: this.L / order,
-        colorProperty: FMWColors.getHarmonicColorProperty( order ),
+        colorProperty: FMWColors.HARMONIC_COLOR_PROPERTIES[ order - 1 ],
         amplitude: options.amplitudes[ order - 1 ],
         amplitudeRange: this.amplitudeRange,
         tandem: harmonicsTandem.createTandem( `harmonic${order}` )

@@ -1,12 +1,13 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
+//TODO Should any of these be moved to where they are used?
+//TODO tandem for each ProfileColorProperty instance
 /**
  * FMWColors defines the colors for this simulation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import AssertUtils from '../../../phetcommon/js/AssertUtils.js';
 import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 import Color from '../../../scenery/js/util/Color.js';
 import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
@@ -38,51 +39,6 @@ const FMWColors = {
   // Stroke for horizontal separators in Panels
   separatorStrokeProperty: new ProfileColorProperty( 'separatorStroke', {
     default: Color.grayColor( 200 )
-  } ),
-
-  // Colors for each harmonics. Name format is `harmonic${order}Color` to facilitate lookup by order.
-  harmonic1ColorProperty: new ProfileColorProperty( 'harmonic1Color', {
-    default: new Color( 255, 0, 0 )
-  } ),
-
-  harmonic2ColorProperty: new ProfileColorProperty( 'harmonic2Color', {
-    default: new Color( 255, 128, 0 )
-  } ),
-
-  harmonic3ColorProperty: new ProfileColorProperty( 'harmonic3Color', {
-    default: new Color( 255, 255, 0 )
-  } ),
-
-  harmonic4ColorProperty: new ProfileColorProperty( 'harmonic4Color', {
-    default: new Color( 0, 255, 0 )
-  } ),
-
-  harmonic5ColorProperty: new ProfileColorProperty( 'harmonic5Color', {
-    default: new Color( 0, 201, 87 )
-  } ),
-
-  harmonic6ColorProperty: new ProfileColorProperty( 'harmonic6Color', {
-    default: new Color( 100, 149, 237 )
-  } ),
-
-  harmonic7ColorProperty: new ProfileColorProperty( 'harmonic7Color', {
-    default: new Color( 0, 0, 255 )
-  } ),
-
-  harmonic8ColorProperty: new ProfileColorProperty( 'harmonic8Color', {
-    default: new Color( 0, 0, 128 )
-  } ),
-
-  harmonic9ColorProperty: new ProfileColorProperty( 'harmonic9Color', {
-    default: new Color( 145, 33, 158 )
-  } ),
-
-  harmonic10ColorProperty: new ProfileColorProperty( 'harmonic10Color', {
-    default: new Color( 186, 85, 211 )
-  } ),
-
-  harmonic11ColorProperty: new ProfileColorProperty( 'harmonic11Color', {
-    default: new Color( 255, 105, 180 )
   } ),
 
   amplitudeGridLinesStrokeProperty: new ProfileColorProperty( 'amplitudeGridLinesStroke', {
@@ -138,17 +94,25 @@ const FMWColors = {
   } )
 };
 
-/**
- * Gets the color Property for a harmonic.
- * @param {number} order - order of the harmonic
- * @returns {Property.<Color>}
- */
-FMWColors.getHarmonicColorProperty = order => {
-  assert && AssertUtils.assertPositiveInteger( order );
-  const propertyName = `harmonic${order}ColorProperty`;
-  assert && assert( FMWColors.hasOwnProperty( propertyName ), `invalid order: ${order}` );
-  return FMWColors[ propertyName ];
-};
+// Create a ProfileColorProperty for each harmonic. Colors are listed by increasing harmonic order.
+// Given a harmonic order, the harmonic's ProfileColorProperty is FMWColors.HARMONIC_COLOR_PROPERTIES[order - 1].
+const HARMONIC_COLORS = [
+  new Color( 255, 0, 0 ),
+  new Color( 255, 128, 0 ),
+  new Color( 255, 255, 0 ),
+  new Color( 0, 255, 0 ),
+  new Color( 0, 201, 87 ),
+  new Color( 100, 149, 237 ),
+  new Color( 0, 0, 255 ),
+  new Color( 0, 0, 128 ),
+  new Color( 145, 33, 158 ),
+  new Color( 186, 85, 211 ),
+  new Color( 255, 105, 180 )
+];
+FMWColors.HARMONIC_COLOR_PROPERTIES = _.map( HARMONIC_COLORS,
+  ( color, index ) => new ProfileColorProperty( `harmonic${index + 1}Color`, {
+    default: HARMONIC_COLORS[ index ]
+  } ) );
 
 fourierMakingWaves.register( 'FMWColors', FMWColors );
 export default FMWColors;

@@ -49,7 +49,7 @@ const FMWIconFactory = {
         wavelength: 1,
         amplitudeRange: amplitudeRange,
         amplitude: amplitudes[ order - 1 ],
-        colorProperty: FMWColors.getHarmonicColorProperty( order ),
+        colorProperty: FMWColors.HARMONIC_COLOR_PROPERTIES[ order - 1 ],
         tandem: Tandem.OPT_OUT
       } ) );
     }
