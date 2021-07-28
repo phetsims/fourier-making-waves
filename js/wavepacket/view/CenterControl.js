@@ -21,6 +21,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
 // constants
+const DELTA = Math.PI / 4;
 const DECIMALS = 1;
 const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 
@@ -39,8 +40,7 @@ class CenterControl extends NumberControl {
 
     options = merge( {}, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, {
 
-      // keyboardStep defaults to this value
-      delta: Math.PI / 4,
+      delta: DELTA,
 
       // NumberDisplay options
       numberDisplayOptions: {
@@ -56,7 +56,10 @@ class CenterControl extends NumberControl {
           { value: 12 * Math.PI, label: new RichText( `12${FMWSymbols.pi}`, TEXT_OPTIONS ) },
           { value: 15 * Math.PI, label: new RichText( `15${FMWSymbols.pi}`, TEXT_OPTIONS ) }
         ],
-        minorTickSpacing: Math.PI
+        minorTickSpacing: Math.PI,
+
+        // pdom options
+        keyboardStep: Math.PI
       },
 
       // phet-io options
