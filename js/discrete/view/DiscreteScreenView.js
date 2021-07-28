@@ -386,7 +386,6 @@ class DiscreteScreenView extends ScreenView {
     Property.multilink(
       [ fourierSoundGenerator.fullyEnabledProperty, model.fourierSeriesSoundEnabledProperty ],
       ( soundGeneratorFullyEnabled, fourierSeriesSoundEnabled ) => {
-        console.log( `soundGeneratorFullyEnabled=${soundGeneratorFullyEnabled} fourierSeriesSoundEnabled=${fourierSeriesSoundEnabled}` );
         const fourierSeriesSoundIsAudible = ( soundGeneratorFullyEnabled && fourierSeriesSoundEnabled );
         const outputLevel = fourierSeriesSoundIsAudible ? 0.1 * userInterfaceDefaultOutputLevel : userInterfaceDefaultOutputLevel;
         soundManager.setOutputLevelForCategory( 'user-interface', outputLevel );
