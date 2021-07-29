@@ -67,7 +67,7 @@ class WavePacket {
     // it from Studio, which also requires a phetioType, and there's currently no DynamicPropertyIO. So this next
     // bit of code does the work that a bidirectional DynamicProperty would do - it keeps standardDeviation and
     // conjugateStandardDeviationProperty synchronized. And unlike DynamicProperty, it avoids reentrant behavior,
-    // so neither Property requires reentrant:true.
+    // so neither Property requires reentrant:true.  See https://github.com/phetsims/axon/issues/358
     let isSynchronizing = false;
     this.standardDeviationProperty.lazyLink( standardDeviation => {
       if ( !isSynchronizing ) {
