@@ -41,22 +41,24 @@ class WavePacket {
     } );
 
     // @public
-    this.dkProperty = new NumberProperty( 3 * Math.PI, {
+    this.standardDeviationProperty = new NumberProperty( 3 * Math.PI, {
       range: new Range( 1, 4 * Math.PI ),
-      tandem: options.tandem.createTandem( 'dkProperty' ),
-      phetioDocumentation: 'The standard deviation of the wave packet width. ' +
-                           'In the space domain, this is k<sub>1</sub>, in rad/m. ' +
-                           'In the time domain, this is \u03c9<sub>1</sub>, in rad/ms.'
+      tandem: options.tandem.createTandem( 'standardDeviationProperty' ),
+      phetioDocumentation: 'Standard deviation, which is a measure of the wave packet width. ' +
+                           'In the space domain, this is \u03c3<sub>k</sub>, in rad/m. ' +
+                           'In the time domain, this is \u03c3<sub>\u03c9</sub>, in rad/ms.'
     } );
 
     // @public
-    this.widthProperty = new DerivedProperty( [ this.dkProperty ], dk => 2 * dk, {
-      tandem: options.tandem.createTandem( 'widthProperty' ),
-      phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
-      phetioDocumentation: 'The width of the wave packet. ' +
-                           'In the space domain, this is in rad/m. ' +
-                           'In the time domain, this is in rad/ms.'
-    } );
+    this.widthProperty = new DerivedProperty(
+      [ this.standardDeviationProperty ],
+      standardDeviation => 2 * standardDeviation, {
+        tandem: options.tandem.createTandem( 'widthProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioDocumentation: 'The width of the wave packet. ' +
+                             'In the space domain, this is in rad/m. ' +
+                             'In the time domain, this is in rad/ms.'
+      } );
   }
 
   /**
@@ -71,7 +73,7 @@ class WavePacket {
    */
   reset() {
     this.centerProperty.reset();
-    this.dkProperty.reset();
+    this.standardDeviationProperty.reset();
   }
 }
 

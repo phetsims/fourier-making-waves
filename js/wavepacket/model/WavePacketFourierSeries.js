@@ -91,9 +91,8 @@ class WavePacketFourierSeries {
     assert && assert( wavePacket.L === 1 && wavePacket.T === 1 );
 
     const k0 = wavePacket.centerProperty.value;
-    const dk = wavePacket.dkProperty.value;
-    const kk0 = k - k0;
-    return Math.exp( -( kk0 * kk0 ) / ( 2 * dk * dk ) ) / ( dk * Math.sqrt( 2 * Math.PI ) );
+    const dk = wavePacket.standardDeviationProperty.value;
+    return Math.exp( -( ( k - k0 ) * ( k - k0 ) ) / ( 2 * dk * dk ) ) / ( dk * Math.sqrt( 2 * Math.PI ) );
   }
 
   /**

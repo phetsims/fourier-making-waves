@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * DXControl displays the wave packet's dx value, and allows it to be changed via a slider.
+ * InverseStandardDeviationControl controls the inverse of the standard deviation, which defines the wave packet's width.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -27,18 +27,18 @@ const DELTA = 0.001;
 const DECIMALS = Utils.numberOfDecimalPlaces( DELTA );
 const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 
-class DXControl extends NumberControl {
+class InverseStandardDeviationControl extends NumberControl {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} dkProperty
+   * @param {NumberProperty} standardDeviationProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, dkProperty, options ) {
+  constructor( domainProperty, standardDeviationProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( dkProperty instanceof NumberProperty );
-    assert && assert( dkProperty.range );
+    assert && assert( standardDeviationProperty instanceof NumberProperty );
+    assert && assert( standardDeviationProperty.range );
 
     options = merge( {}, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, {
 
@@ -46,7 +46,7 @@ class DXControl extends NumberControl {
       delta: DELTA,
       numberDisplayOptions: {
         minBackgroundWidth: 140,
-        numberFormatter: dx => numberFormatter( dx, domainProperty.value )
+        numberFormatter: inverseStandardDeviation => numberFormatter( inverseStandardDeviation, domainProperty.value )
       },
 
       // Slider options
@@ -67,34 +67,36 @@ class DXControl extends NumberControl {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // dxProperty serves as an adapter Property that allows us to change dkProperty. dk * dx = 1, so dx = 1 / dk.
+    // inverseStandardDeviationProperty serves as an adapter Property that allows us to change standardDeviationProperty.
+    // standardDeviation * inverseStandardDeviation = 1, so inverseStandardDeviation = 1 / standardDeviation.
     // We define this Property here, rather than in the model, so that this is certain to be the only control
     // directly modifying this Property, we don't have to consider reentrancy, etc. And this is the only place
-    // in the simulation where dxProperty is needed. See https://github.com/phetsims/fourier-making-waves/issues/106.
-    const dxProperty = new NumberProperty( 1 / dkProperty.value, {
+    // in the simulation where inverseStandardDeviationProperty is needed.
+    // See https://github.com/phetsims/fourier-making-waves/issues/106.
+    const inverseStandardDeviationProperty = new NumberProperty( 1 / standardDeviationProperty.value, {
       //TODO https://github.com/phetsims/fourier-making-waves/issues/105 units?
-      range: new Range( 1 / dkProperty.range.max, 1 / dkProperty.range.min ),
-      tandem: options.tandem.createTandem( 'dxProperty' )
+      range: new Range( 1 / standardDeviationProperty.range.max, 1 / standardDeviationProperty.range.min ),
+      tandem: options.tandem.createTandem( 'inverseStandardDeviationProperty' )
     } );
 
-    // Keep dk and dx synchronized, while avoiding reentrant behavior.
+    // Keep standardDeviation its inverse synchronized, while avoiding reentrant behavior.
     let isSynchronizing = false;
-    dkProperty.lazyLink( dk => {
+    standardDeviationProperty.lazyLink( standardDeviation => {
       if ( !isSynchronizing ) {
         isSynchronizing = true;
-        dxProperty.value = 1 / dk;
+        inverseStandardDeviationProperty.value = 1 / standardDeviation;
         isSynchronizing = false;
       }
     } );
-    dxProperty.lazyLink( dx => {
+    inverseStandardDeviationProperty.lazyLink( inverseStandardDeviation => {
       if ( !isSynchronizing ) {
         isSynchronizing = true;
-        dkProperty.value = 1 / dx;
+        standardDeviationProperty.value = 1 / inverseStandardDeviation;
         isSynchronizing = false;
       }
     } );
 
-    super( '', dxProperty, dxProperty.range, options );
+    super( '', inverseStandardDeviationProperty, inverseStandardDeviationProperty.range, options );
 
     // Update the displayed value.
     domainProperty.link( () => this.redrawNumberDisplay() );
@@ -117,11 +119,11 @@ class DXControl extends NumberControl {
 
 /**
  * Formats the number for display by NumberDisplay.
- * @param {number} dx
+ * @param {number} inverseStandardDeviation
  * @param {Domain} domain
  * @returns {string}
  */
-function numberFormatter( dx, domain ) {
+function numberFormatter( inverseStandardDeviation, domain ) {
 
   const pattern = `${FMWSymbols.sigma}<sub>{{subscript}}</sub>`;
   const symbol1 = StringUtils.fillIn( pattern, {
@@ -132,7 +134,7 @@ function numberFormatter( dx, domain ) {
   } );
 
   // Using toFixedNumber removes trailing zeros.
-  const value = Utils.toFixedNumber( dx, DECIMALS );
+  const value = Utils.toFixedNumber( inverseStandardDeviation, DECIMALS );
 
   const units = ( domain === Domain.SPACE ) ?
                 fourierMakingWavesStrings.units.radiansPerMeter :
@@ -146,5 +148,5 @@ function numberFormatter( dx, domain ) {
   } );
 }
 
-fourierMakingWaves.register( 'DXControl', DXControl );
-export default DXControl;
+fourierMakingWaves.register( 'InverseStandardDeviationControl', InverseStandardDeviationControl );
+export default InverseStandardDeviationControl;

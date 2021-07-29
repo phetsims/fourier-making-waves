@@ -48,7 +48,7 @@ class WavePacketAmplitudesChart {
 
     // @public {DerivedProperty.<Vector2[]>} data set for a discrete number of components, to be plotted as a BarPlot
     this.barPlotDataSetProperty = new DerivedProperty(
-      [ fourierSeries.componentSpacingProperty, wavePacket.centerProperty, wavePacket.dkProperty ],
+      [ fourierSeries.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
       () => fourierSeries.getComponentAmplitudesDataSet( wavePacket )
     );
 

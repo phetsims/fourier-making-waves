@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * DKControl displays the wave packet's dk value, and allows it to be changed via a slider.
+ * StandardDeviationControl controls the standard deviation, which defines the wave packet's width.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -26,31 +26,31 @@ const DELTA = 0.01;
 const DECIMALS = Utils.numberOfDecimalPlaces( DELTA );
 const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 
-class DKControl extends NumberControl {
+class StandardDeviationControl extends NumberControl {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} dkProperty
+   * @param {NumberProperty} standardDeviationProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, dkProperty, options ) {
+  constructor( domainProperty, standardDeviationProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( dkProperty instanceof NumberProperty );
-    assert && assert( dkProperty.range );
+    assert && assert( standardDeviationProperty instanceof NumberProperty );
+    assert && assert( standardDeviationProperty.range );
 
     options = merge( {}, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, {
 
       // NumberDisplay options
       delta: DELTA,
       numberDisplayOptions: {
-        numberFormatter: dk =>
+        numberFormatter: standardDeviation =>
           StringUtils.fillIn( fourierMakingWavesStrings.symbolValueUnits, {
             symbol: StringUtils.fillIn( '{{symbol}}<sub>{{subscript}}</sub>', {
               symbol: FMWSymbols.sigma,
               subscript: ( domainProperty.value === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega
             } ),
-            value: Utils.toFixedNumber( dk, DECIMALS ), // Using toFixedNumber removes trailing zeros.
+            value: Utils.toFixedNumber( standardDeviation, DECIMALS ), // Using toFixedNumber removes trailing zeros.
             units: ( domainProperty.value === Domain.SPACE ) ?
                    fourierMakingWavesStrings.units.radiansPerMeter :
                    fourierMakingWavesStrings.units.radiansPerMillisecond
@@ -77,7 +77,7 @@ class DKControl extends NumberControl {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( '', dkProperty, dkProperty.range, options );
+    super( '', standardDeviationProperty, standardDeviationProperty.range, options );
 
     // Update the displayed value.
     domainProperty.link( () => this.redrawNumberDisplay() );
@@ -98,5 +98,5 @@ class DKControl extends NumberControl {
   }
 }
 
-fourierMakingWaves.register( 'DKControl', DKControl );
-export default DKControl;
+fourierMakingWaves.register( 'StandardDeviationControl', StandardDeviationControl );
+export default StandardDeviationControl;

@@ -27,8 +27,8 @@ import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonG
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
-import DKControl from './DKControl.js';
-import DXControl from './DXControl.js';
+import StandardDeviationControl from './StandardDeviationControl.js';
+import InverseStandardDeviationControl from './InverseStandardDeviationControl.js';
 import CenterControl from './CenterControl.js';
 import ComponentSpacingControl from './ComponentSpacingControl.js';
 import WavePacketSymbolsDialog from './WavePacketSymbolsDialog.js';
@@ -73,7 +73,7 @@ class WavePacketControlPanel extends Panel {
       } ),
 
       // Wave Packet - Width
-      new WavePacketWidthLayoutBox( model.domainProperty, model.wavePacket.dkProperty,
+      new WavePacketWidthLayoutBox( model.domainProperty, model.wavePacket.standardDeviationProperty,
         model.widthIndicatorsVisibleProperty, {
           spacing: VERTICAL_SPACING,
           tandem: options.tandem.createTandem( 'wavePacketWidthLayoutBox' )
@@ -249,14 +249,14 @@ class WavePacketWidthLayoutBox extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} dkProperty
+   * @param {NumberProperty} standardDeviationProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, dkProperty, widthIndicatorsVisibleProperty, options ) {
+  constructor( domainProperty, standardDeviationProperty, widthIndicatorsVisibleProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( dkProperty instanceof NumberProperty );
+    assert && assert( standardDeviationProperty instanceof NumberProperty );
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
@@ -272,22 +272,22 @@ class WavePacketWidthLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'wavePacketWidthText' )
     } );
 
-    //TODO only update dkProperty when a slider is released, will require an adapter Property
+    //TODO only update standardDeviationProperty when a slider is released, will require an adapter Property
 
-    const dkControl = new DKControl( domainProperty, dkProperty, {
-      tandem: options.tandem.createTandem( 'dkControl' )
+    const standardDeviationControl = new StandardDeviationControl( domainProperty, standardDeviationProperty, {
+      tandem: options.tandem.createTandem( 'standardDeviationControl' )
     } );
 
-    const dxControl = new DXControl( domainProperty, dkProperty, {
-      tandem: options.tandem.createTandem( 'dxControl' )
+    const inverseStandardDeviationControl = new InverseStandardDeviationControl( domainProperty, standardDeviationProperty, {
+      tandem: options.tandem.createTandem( 'inverseStandardDeviationControl' )
     } );
 
-    // Interaction with these 2 controls is mutually-exclusive, because dk * dx = 1.
-    dkControl.isPressedProperty.link( isPressed => {
-      isPressed && dxControl.interruptSubtreeInput();
+    // Interaction with these 2 controls is mutually-exclusive, because they both change standardDeviation.
+    standardDeviationControl.isPressedProperty.link( isPressed => {
+      isPressed && inverseStandardDeviationControl.interruptSubtreeInput();
     } );
-    dxControl.isPressedProperty.link( isPressed => {
-      isPressed && dkControl.interruptSubtreeInput();
+    inverseStandardDeviationControl.isPressedProperty.link( isPressed => {
+      isPressed && standardDeviationControl.interruptSubtreeInput();
     } );
 
     const widthIndicatorsCheckbox = new WidthIndicatorsCheckbox( widthIndicatorsVisibleProperty, {
@@ -297,8 +297,8 @@ class WavePacketWidthLayoutBox extends VBox {
     assert && assert( !options.children, 'WavePacketLayoutBox sets children' );
     options.children = [
       wavePacketWidthText,
-      dkControl,
-      dxControl,
+      standardDeviationControl,
+      inverseStandardDeviationControl,
       widthIndicatorsCheckbox
     ];
 
