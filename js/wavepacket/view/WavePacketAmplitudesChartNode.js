@@ -22,6 +22,7 @@ import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketAmplitudesChart from '../model/WavePacketAmplitudesChart.js';
+import AreaPlot from './AreaPlot.js';
 import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
 
 // constants
@@ -88,11 +89,10 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
 
     // Displays an infinite number of components. This uses the same data set as continuousWaveformPlot, but plots
     // it as an area under that the curve defined by that waveform.
-    const infiniteComponentsPlot = new LinePlot( this.chartTransform, [], {
-      stroke: new LinearGradient( 0, 0, this.chartRectangle.width, 0 )
+    const infiniteComponentsPlot = new AreaPlot( this.chartTransform, [], {
+      fill: new LinearGradient( 0, 0, this.chartRectangle.width, 0 )
         .addColorStop( 0, Color.grayColor( BAR_RGB_RANGE.min ) )
-        .addColorStop( 1, Color.grayColor( BAR_RGB_RANGE.max ) ),
-      lineWidth: 8
+        .addColorStop( 1, Color.grayColor( BAR_RGB_RANGE.max ) )
     } );
 
     // Clip these elements to the chartRectangle bounds.
