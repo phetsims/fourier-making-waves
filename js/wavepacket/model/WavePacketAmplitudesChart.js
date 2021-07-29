@@ -54,7 +54,7 @@ class WavePacketAmplitudesChart {
     );
 
     // @public {DerivedProperty.<Vector2[]>} data set display when the 'Continuous Wave' checkbox is checked
-    this.continuosWaveformDataSetProperty = new DerivedProperty(
+    this.continuousWaveformDataSetProperty = new DerivedProperty(
       [ fourierSeries.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
       () => fourierSeries.getContinuousWaveformDataSet( wavePacket )
     );

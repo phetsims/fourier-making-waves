@@ -45,7 +45,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     const domainProperty = amplitudesChart.domainProperty;
     const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
     const barPlotDataSetProperty = amplitudesChart.barPlotDataSetProperty;
-    const continuosWaveformDataSetProperty = amplitudesChart.continuosWaveformDataSetProperty;
+    const continuousWaveformDataSetProperty = amplitudesChart.continuousWaveformDataSetProperty;
     const xRange = amplitudesChart.fourierSeries.xRange;
 
     options = merge( {
@@ -109,7 +109,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     barPlotDataSetProperty.link( dataSet => barPlot.setDataSet( dataSet ) );
 
     // Display the continuous waveform, and scale the y axis to fit.
-    continuosWaveformDataSetProperty.link( dataSet => {
+    continuousWaveformDataSetProperty.link( dataSet => {
       continuousWaveformPlot.setDataSet( dataSet );
 
       // Scale the axis relative to the continuous waveform, because maxY may be smaller component amplitudes.
