@@ -74,7 +74,7 @@ class WavePacketControlPanel extends Panel {
 
       // Wave Packet - Width
       new WavePacketWidthLayoutBox( model.domainProperty, model.wavePacket.standardDeviationProperty,
-        model.widthIndicatorsVisibleProperty, {
+        model.wavePacket.inverseStandardDeviationProperty, model.widthIndicatorsVisibleProperty, {
           spacing: VERTICAL_SPACING,
           tandem: options.tandem.createTandem( 'wavePacketWidthLayoutBox' )
         } ),
@@ -250,13 +250,15 @@ class WavePacketWidthLayoutBox extends VBox {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {NumberProperty} standardDeviationProperty
+   * @param {NumberProperty} inverseStandardDeviationProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, standardDeviationProperty, widthIndicatorsVisibleProperty, options ) {
+  constructor( domainProperty, standardDeviationProperty, inverseStandardDeviationProperty, widthIndicatorsVisibleProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( standardDeviationProperty instanceof NumberProperty );
+    assert && assert( inverseStandardDeviationProperty instanceof NumberProperty );
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
@@ -278,7 +280,7 @@ class WavePacketWidthLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'standardDeviationControl' )
     } );
 
-    const inverseStandardDeviationControl = new InverseStandardDeviationControl( domainProperty, standardDeviationProperty, {
+    const inverseStandardDeviationControl = new InverseStandardDeviationControl( domainProperty, inverseStandardDeviationProperty, {
       tandem: options.tandem.createTandem( 'inverseStandardDeviationControl' )
     } );
 

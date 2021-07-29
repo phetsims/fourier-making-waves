@@ -8,7 +8,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -31,14 +30,14 @@ class InverseStandardDeviationControl extends NumberControl {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} standardDeviationProperty
+   * @param {NumberProperty} inverseStandardDeviationProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, standardDeviationProperty, options ) {
+  constructor( domainProperty, inverseStandardDeviationProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( standardDeviationProperty instanceof NumberProperty );
-    assert && assert( standardDeviationProperty.range );
+    assert && assert( inverseStandardDeviationProperty instanceof NumberProperty );
+    assert && assert( inverseStandardDeviationProperty.range );
 
     options = merge( {}, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, {
 
@@ -66,35 +65,6 @@ class InverseStandardDeviationControl extends NumberControl {
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
-
-    // inverseStandardDeviationProperty serves as an adapter Property that allows us to change standardDeviationProperty.
-    // standardDeviation * inverseStandardDeviation = 1, so inverseStandardDeviation = 1 / standardDeviation.
-    // We define this Property here, rather than in the model, so that this is certain to be the only control
-    // directly modifying this Property, we don't have to consider reentrancy, etc. And this is the only place
-    // in the simulation where inverseStandardDeviationProperty is needed.
-    // See https://github.com/phetsims/fourier-making-waves/issues/106.
-    const inverseStandardDeviationProperty = new NumberProperty( 1 / standardDeviationProperty.value, {
-      //TODO https://github.com/phetsims/fourier-making-waves/issues/105 units?
-      range: new Range( 1 / standardDeviationProperty.range.max, 1 / standardDeviationProperty.range.min ),
-      tandem: options.tandem.createTandem( 'inverseStandardDeviationProperty' )
-    } );
-
-    // Keep standardDeviation its inverse synchronized, while avoiding reentrant behavior.
-    let isSynchronizing = false;
-    standardDeviationProperty.lazyLink( standardDeviation => {
-      if ( !isSynchronizing ) {
-        isSynchronizing = true;
-        inverseStandardDeviationProperty.value = 1 / standardDeviation;
-        isSynchronizing = false;
-      }
-    } );
-    inverseStandardDeviationProperty.lazyLink( inverseStandardDeviation => {
-      if ( !isSynchronizing ) {
-        isSynchronizing = true;
-        standardDeviationProperty.value = 1 / inverseStandardDeviation;
-        isSynchronizing = false;
-      }
-    } );
 
     super( '', inverseStandardDeviationProperty, inverseStandardDeviationProperty.range, options );
 

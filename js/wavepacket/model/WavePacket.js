@@ -44,9 +44,35 @@ class WavePacket {
     this.standardDeviationProperty = new NumberProperty( 3 * Math.PI, {
       range: new Range( 1, 4 * Math.PI ),
       tandem: options.tandem.createTandem( 'standardDeviationProperty' ),
-      phetioDocumentation: 'Standard deviation, which is a measure of the wave packet width. ' +
+      phetioDocumentation: 'Standard deviation, a measure of the wave packet width. ' +
                            'In the space domain, this is \u03c3<sub>k</sub>, in rad/m. ' +
                            'In the time domain, this is \u03c3<sub>\u03c9</sub>, in rad/ms.'
+    } );
+
+    // @public
+    this.inverseStandardDeviationProperty = new NumberProperty( 1 / this.standardDeviationProperty.value, {
+      range: new Range( 1 / this.standardDeviationProperty.range.max, 1 / this.standardDeviationProperty.range.min ),
+      tandem: options.tandem.createTandem( 'inverseStandardDeviationProperty' ),
+      phetioDocumentation: 'Inverse of standard deviation, a measure of the wave packet width. ' +
+                           'In the space domain, this is \u03c3<sub>x</sub>, in rad/m. ' +
+                           'In the time domain, this is \u03c3<sub>t</sub>, in rad/ms.'
+    } );
+
+    // Keep standardDeviation and inverseStandardDeviationProperty synchronized, while avoiding reentrant behavior.
+    let isSynchronizing = false;
+    this.standardDeviationProperty.lazyLink( standardDeviation => {
+      if ( !isSynchronizing ) {
+        isSynchronizing = true;
+        this.inverseStandardDeviationProperty.value = 1 / standardDeviation;
+        isSynchronizing = false;
+      }
+    } );
+    this.inverseStandardDeviationProperty.lazyLink( inverseStandardDeviation => {
+      if ( !isSynchronizing ) {
+        isSynchronizing = true;
+        this.standardDeviationProperty.value = 1 / inverseStandardDeviation;
+        isSynchronizing = false;
+      }
     } );
 
     // @public
@@ -74,6 +100,7 @@ class WavePacket {
   reset() {
     this.centerProperty.reset();
     this.standardDeviationProperty.reset();
+    this.inverseStandardDeviationProperty.reset();
   }
 }
 
