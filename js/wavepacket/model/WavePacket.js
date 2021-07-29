@@ -54,8 +54,8 @@ class WavePacket {
       range: new Range( 1 / this.standardDeviationProperty.range.max, 1 / this.standardDeviationProperty.range.min ),
       tandem: options.tandem.createTandem( 'inverseStandardDeviationProperty' ),
       phetioDocumentation: 'Inverse of standard deviation, a measure of the wave packet width. ' +
-                           'In the space domain, this is \u03c3<sub>x</sub>, in rad/m. ' +
-                           'In the time domain, this is \u03c3<sub>t</sub>, in rad/ms.'
+                           'In the space domain, this is \u03c3<sub>x</sub>, in m/rad. ' +
+                           'In the time domain, this is \u03c3<sub>t</sub>, in ms/rad.'
     } );
 
     // inverseStandardDeviationProperty seems like a natural place to use DynamicProperty. But since we need to
