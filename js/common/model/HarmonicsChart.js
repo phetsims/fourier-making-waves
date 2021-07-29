@@ -80,8 +80,8 @@ class HarmonicsChart extends WaveformChart {
       this.harmonicDataSetProperties.push( dataSetProperty );
 
       // Update the harmonic's data set when dependencies change.
-      Property.lazyMultilink( [ harmonic.amplitudeProperty, xAxisDescriptionProperty, domainProperty,
-          seriesTypeProperty, tProperty ],
+      Property.lazyMultilink(
+        [ harmonic.amplitudeProperty, xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
         () => {
 
           // Free the current points to the Vector2 pool.
