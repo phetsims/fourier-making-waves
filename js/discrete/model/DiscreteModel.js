@@ -149,8 +149,7 @@ class DiscreteModel {
 
     // {Property.<AxisDescription>} the x-axis description is shared by the Harmonics and Sum charts.
     const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
-      validValues: X_AXIS_DESCRIPTIONS,
-      tandem: options.tandem.createTandem( 'xAxisDescriptionProperty' )
+      validValues: X_AXIS_DESCRIPTIONS
     } );
 
     // Parent tandem for all charts
@@ -164,8 +163,7 @@ class DiscreteModel {
     // {Property.<AxisDescription>} y-axis description is specific to the Harmonics chart, not shared with the Sum chart.
     // The Harmonics chart has no zoom buttons, so it only has one y-axis description.
     const harmonicsYAxisDescriptionProperty = new Property( DEFAULT_Y_AXIS_DESCRIPTION, {
-      validValues: [ DEFAULT_Y_AXIS_DESCRIPTION ],
-      tandem: options.tandem.createTandem( 'harmonicsYAxisDescriptionProperty' )
+      validValues: [ DEFAULT_Y_AXIS_DESCRIPTION ]
     } );
 
     // @public
