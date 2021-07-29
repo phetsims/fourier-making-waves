@@ -2,6 +2,7 @@
 
 /**
  * WavePacketAmplitudesChartNode is the 'Amplitudes' chart on the 'Wave Packet' screen.
+ * This is optimized to update only the plots that are visible.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,6 +14,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Color from '../../../../scenery/js/util/Color.js';
+import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import FMWChartNode from '../../common/view/FMWChartNode.js';
@@ -47,6 +49,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     const componentAmplitudesDataSetProperty = amplitudesChart.componentAmplitudesDataSetProperty;
     const continuousWaveformDataSetProperty = amplitudesChart.continuousWaveformDataSetProperty;
     const xRange = amplitudesChart.fourierSeries.xRange;
+    const componentSpacingProperty = amplitudesChart.fourierSeries.componentSpacingProperty;
 
     options = merge( {
       xTickMarkSpacing: Math.PI,
@@ -64,10 +67,11 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     // No x-axis grid lines for this chart.
     this.xGridLines.visible = false;
 
-    const barPlot = new BarPlot( this.chartTransform, [], {
+    // Displays each Fourier component amplitude as a vertical bar
+    const componentAmplitudesPlot = new BarPlot( this.chartTransform, [], {
       barWidth: 5,
 
-      // Assign a grayscale color to each bar in barPlot.
+      // Assign a grayscale color to each bar in the BarPlot.
       pointToPaintableFields: point => {
         let rgb = BAR_RGB_RANGE.min + BAR_RGB_RANGE.getLength() * point.x / xRange.max;
         rgb = BAR_RGB_RANGE.constrainValue( rgb );
@@ -75,16 +79,26 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       }
     } );
 
+    // Displays the continuous waveform
     const continuousWaveformPlot = new LinePlot( this.chartTransform, [], {
       stroke: Color.grayColor( 192 ), // ENVELOPE_COLOR in D2CAmplitudesView.java
       lineWidth: 4, // ENVELOPE_STROKE in D2CAmplitudesView.java
-      visibleProperty: amplitudesChart.continuousWaveformVisibleProperty
+      visibleProperty: continuousWaveformVisibleProperty
     } );
 
-    // Clip barPlot to the chartRectangle bounds.
+    // Displays an infinite number of components. This uses the same data set as continuousWaveformPlot, but plots
+    // it as an area under that the curve defined by that waveform.
+    const infiniteComponentsPlot = new LinePlot( this.chartTransform, [], {
+      stroke: new LinearGradient( 0, 0, this.chartRectangle.width, 0 )
+        .addColorStop( 0, Color.grayColor( BAR_RGB_RANGE.min ) )
+        .addColorStop( 1, Color.grayColor( BAR_RGB_RANGE.max ) ),
+      lineWidth: 8
+    } );
+
+    // Clip these elements to the chartRectangle bounds.
     const clipNode = new Node( {
       clipArea: this.chartRectangle.getShape(),
-      children: [ continuousWaveformPlot, barPlot ]
+      children: [ infiniteComponentsPlot, continuousWaveformPlot, componentAmplitudesPlot ]
     } );
     this.addChild( clipNode );
 
@@ -107,15 +121,43 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     } );
 
     // Display the Fourier component amplitudes.
-    componentAmplitudesDataSetProperty.link( dataSet => barPlot.setDataSet( dataSet ) );
+    // Performance optimization: Update only if the plots is visible.
+    componentAmplitudesDataSetProperty.link( dataSet => {
+      if ( componentAmplitudesPlot.visible ) {
+        componentAmplitudesPlot.setDataSet( dataSet );
+      }
+    } );
 
-    // Display the continuous waveform, and scale the y axis to fit.
+    // Update plots that rely on continuous waveform data set, and scale the y axis to fit.
+    // Performance optimization: Update only the visible plots.
     continuousWaveformDataSetProperty.link( dataSet => {
-      continuousWaveformPlot.setDataSet( dataSet );
+
+      // Update visible plots.
+      if ( continuousWaveformPlot.visible ) {
+        continuousWaveformPlot.setDataSet( dataSet );
+      }
+      if ( infiniteComponentsPlot.visible ) {
+        infiniteComponentsPlot.setDataSet( dataSet );
+      }
 
       // Scale the axis relative to the continuous waveform, because maxY may be smaller component amplitudes.
       this.scaleYAxis( dataSet );
     } );
+
+    // When we have infinite components, hide componentAmplitudesPlot and show infiniteComponentsPlot.
+    componentSpacingProperty.link( componentSpacing => {
+      const isInfinite = ( componentSpacing === 0 );
+      componentAmplitudesPlot.visible = !isInfinite;
+      infiniteComponentsPlot.visible = isInfinite;
+    } );
+
+    // Performance optimization: Update data set when a plot becomes visible, clear data set when it becomes invisible.
+    componentAmplitudesPlot.visibleProperty.link(
+      visible => componentAmplitudesPlot.setDataSet( visible ? componentAmplitudesDataSetProperty.value : [] ) );
+    continuousWaveformPlot.visibleProperty.link(
+      visible => continuousWaveformPlot.setDataSet( visible ? continuousWaveformDataSetProperty.value : [] ) );
+    infiniteComponentsPlot.visibleProperty.link(
+      visible => infiniteComponentsPlot.setDataSet( visible ? continuousWaveformDataSetProperty.value : [] ) );
 
     // pdom - traversal order
     this.pdomOrder = [
