@@ -111,6 +111,8 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     // Display the continuous waveform, and scale the y axis to fit.
     continuosWaveformDataSetProperty.link( dataSet => {
       continuousWaveformPlot.setDataSet( dataSet );
+
+      // Scale the axis relative to the continuous waveform, because maxY may be smaller component amplitudes.
       this.scaleYAxis( dataSet );
     } );
 
