@@ -49,7 +49,6 @@ class WavePacket {
                            'In the time domain, this is \u03c3<sub>\u03c9</sub>, in rad/ms.'
     } );
 
-    //TODO use DynamicProperty here?
     // @public
     this.inverseStandardDeviationProperty = new NumberProperty( 1 / this.standardDeviationProperty.value, {
       range: new Range( 1 / this.standardDeviationProperty.range.max, 1 / this.standardDeviationProperty.range.min ),
@@ -59,7 +58,12 @@ class WavePacket {
                            'In the time domain, this is \u03c3<sub>t</sub>, in rad/ms.'
     } );
 
-    // Keep standardDeviation and inverseStandardDeviationProperty synchronized, while avoiding reentrant behavior.
+    // inverseStandardDeviationProperty seems like a natural place to use DynamicProperty. But since we need to
+    // control it with a NumberControl, it needs to be a {Property.<number>} with a Range. We also need to control
+    // it from Studio, which also requires a phetioType, and there's currently no DynamicPropertyIO. So this next
+    // bit of code does the work that a bidirectional DynamicProperty would do - it keeps standardDeviation and
+    // inverseStandardDeviationProperty synchronized. And unlike DynamicProperty, it avoids reentrant behavior,
+    // so neither Property requires reentrant:true.
     let isSynchronizing = false;
     this.standardDeviationProperty.lazyLink( standardDeviation => {
       if ( !isSynchronizing ) {
