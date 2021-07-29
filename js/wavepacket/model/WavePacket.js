@@ -49,6 +49,7 @@ class WavePacket {
                            'In the time domain, this is \u03c3<sub>\u03c9</sub>, in rad/ms.'
     } );
 
+    //TODO use DynamicProperty here?
     // @public
     this.inverseStandardDeviationProperty = new NumberProperty( 1 / this.standardDeviationProperty.value, {
       range: new Range( 1 / this.standardDeviationProperty.range.max, 1 / this.standardDeviationProperty.range.min ),
