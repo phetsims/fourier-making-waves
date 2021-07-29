@@ -24,10 +24,10 @@ import SeriesType from '../../common/model/SeriesType.js';
 import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteAmplitudesChart from './DiscreteAmplitudesChart.js';
+import DiscreteAxisDescriptions from './DiscreteAxisDescriptions.js';
 import DiscreteFourierSeries from './DiscreteFourierSeries.js';
 import DiscreteHarmonicsChart from './DiscreteHarmonicsChart.js';
 import DiscreteSumChart from './DiscreteSumChart.js';
-import DiscreteAxisDescriptions from './DiscreteAxisDescriptions.js';
 import EquationForm from './EquationForm.js';
 import MeasurementTool from './MeasurementTool.js';
 import Waveform from './Waveform.js';
@@ -156,9 +156,7 @@ class DiscreteModel {
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
     // @public
-    this.amplitudesChart = new DiscreteAmplitudesChart( this.fourierSeries, emphasizedHarmonics, {
-      tandem: chartsTandem.createTandem( 'amplitudesChart' )
-    } );
+    this.amplitudesChart = new DiscreteAmplitudesChart( this.fourierSeries, emphasizedHarmonics );
 
     // {Property.<AxisDescription>} y-axis description is specific to the Harmonics chart, not shared with the Sum chart.
     // The Harmonics chart has no zoom buttons, so it only has one y-axis description.

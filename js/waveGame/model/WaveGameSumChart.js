@@ -80,9 +80,7 @@ class WaveGameSumChart extends SumChart {
 
     // @public
     this.guessDataSetProperty = new Property( createGuessDataSet(), {
-      isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 ),
-      tandem: options.tandem.createTandem( 'guessDataSetProperty' ),
-      phetioReadOnly: true
+      isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
     } );
 
     // When the guess amplitudes change, update the corresponding data set for the sum.

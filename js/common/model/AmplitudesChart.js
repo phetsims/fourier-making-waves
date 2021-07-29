@@ -6,10 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class AmplitudesChart extends PhetioObject {
+class AmplitudesChart {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -17,8 +16,6 @@ class AmplitudesChart extends PhetioObject {
    * @param {Object} [options]
    */
   constructor( fourierSeries, emphasizedHarmonics, options ) {
-
-    super( options );
 
     // @public
     this.fourierSeries = fourierSeries;

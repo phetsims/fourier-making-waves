@@ -10,13 +10,12 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
 import TickLabelFormat from './TickLabelFormat.js';
 
-class WaveformChart extends PhetioObject {
+class WaveformChart {
 
   /**
    * @param {number} L - wavelength of the fundamental harmonic, in meters
@@ -44,8 +43,6 @@ class WaveformChart extends PhetioObject {
     options = merge( {
       yAutoScaleProperty: null // {null|Property.<boolean>}
     }, options );
-
-    super( options );
 
     // @public (read-only) params
     this.L = L;
