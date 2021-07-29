@@ -44,7 +44,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     // Fields of interest in amplitudesChart, to improve readability
     const domainProperty = amplitudesChart.domainProperty;
     const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
-    const barPlotDataSetProperty = amplitudesChart.barPlotDataSetProperty;
+    const componentAmplitudesDataSetProperty = amplitudesChart.componentAmplitudesDataSetProperty;
     const continuousWaveformDataSetProperty = amplitudesChart.continuousWaveformDataSetProperty;
     const xRange = amplitudesChart.fourierSeries.xRange;
 
@@ -77,7 +77,8 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
 
     const continuousWaveformPlot = new LinePlot( this.chartTransform, [], {
       stroke: Color.grayColor( 192 ), // ENVELOPE_COLOR in D2CAmplitudesView.java
-      lineWidth: 4 // ENVELOPE_STROKE in D2CAmplitudesView.java
+      lineWidth: 4, // ENVELOPE_STROKE in D2CAmplitudesView.java
+      visibleProperty: amplitudesChart.continuousWaveformVisibleProperty
     } );
 
     // Clip barPlot to the chartRectangle bounds.
@@ -106,7 +107,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     } );
 
     // Display the Fourier component amplitudes.
-    barPlotDataSetProperty.link( dataSet => barPlot.setDataSet( dataSet ) );
+    componentAmplitudesDataSetProperty.link( dataSet => barPlot.setDataSet( dataSet ) );
 
     // Display the continuous waveform, and scale the y axis to fit.
     continuousWaveformDataSetProperty.link( dataSet => {
@@ -114,10 +115,6 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
 
       // Scale the axis relative to the continuous waveform, because maxY may be smaller component amplitudes.
       this.scaleYAxis( dataSet );
-    } );
-
-    amplitudesChart.continuousWaveformVisibleProperty.link( visible => {
-      continuousWaveformPlot.visible = visible;
     } );
 
     // pdom - traversal order

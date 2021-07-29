@@ -46,9 +46,8 @@ class WavePacketAmplitudesChart {
       tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
     } );
 
-    //TODO rename componentAmplitudesDataSetProperty
-    // @public {DerivedProperty.<Vector2[]>} data set for a discrete number of components, to be plotted as a BarPlot
-    this.barPlotDataSetProperty = new DerivedProperty(
+    // @public {DerivedProperty.<Vector2[]>} data set for the Fourier component amplitudes
+    this.componentAmplitudesDataSetProperty = new DerivedProperty(
       [ fourierSeries.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
       () => fourierSeries.getComponentAmplitudesDataSet( wavePacket )
     );
@@ -72,20 +71,6 @@ class WavePacketAmplitudesChart {
    */
   reset() {
     this.continuousWaveformVisibleProperty.reset();
-  }
-
-  /**
-   * Gets the maximum y values (amplitude) of the bar plot.
-   * @returns {number}
-   * @public
-   */
-  getBarPlotMaxY() {
-    const barPlotDataSet = this.barPlotDataSetProperty.value;
-    let maxY = 0;
-    if ( barPlotDataSet.length > 0 ) {
-      maxY = _.maxBy( this.barPlotDataSetProperty.value, point => point.y ).y;
-    }
-    return maxY;
   }
 }
 
