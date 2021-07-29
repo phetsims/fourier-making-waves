@@ -284,7 +284,9 @@ class DiscreteModel {
       phet.log && phet.log( 'not possible to make a sawtooth out of cosines, switching to sine' );
       this.oopsSawtoothWithCosinesEmitter.emit();
 
-      // Switch to sine on the next tick, so that we don't have a reentry problem with seriesTypeProperty.
+      // Switch to sine on the next frame, so that we don't have a reentry problem with seriesTypeProperty.
+      // We'd prefer not to set seriesTypeProperty to reentrant: true. And AquaRadioButton seems to have a
+      // problem setting its state correctly when its associated Property is reentered in the same frame.
       animationFrameTimer.runOnNextTick( () => {
         this.seriesTypeProperty.value = SeriesType.SINE;
       } );
