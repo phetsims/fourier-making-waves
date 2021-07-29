@@ -257,12 +257,6 @@
   "units.radiansPerMillisecond": {
     "value": "rad/ms"
   },
-  "units.metersPerRadian": {
-    "value": "m/rad"
-  },
-  "units.millisecondsPerRadian": {
-    "value": "ms/rad"
-  },
   "symbolUnits": {
     "value": "{{symbol}} ({{units}})"
   },
