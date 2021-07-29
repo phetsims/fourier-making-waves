@@ -75,8 +75,8 @@ dispose()
 
 Charts follow the MVC pattern. The view is implemented using components from the bamboo repository.
 
-`FMWChartNode` is the base class used by all 3 screens. There is additional code-sharing between the _Discrete_ and _
-Wave Game_ screens.
+`FMWChartNode` is the base class used by all 3 screens. There is additional code-sharing between the _Discrete_ and
+_Wave Game_ screens.
 
 The model class hierarchy is:
 
