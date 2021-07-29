@@ -18,6 +18,7 @@ Use AxisDescription for the y axis
 y-axis scale jitters as you adjust Wave Packet Center k0
 Use WavePacket.getContinuousWaveformDataSet for infinite components and "Continuous Waveform" checkbox
 Create a new plot type that fills in the area under the plot, for infinite components.
+Amplitudes are missing at 0 and 24pi. Is this wrong? Set component spacing to pi/4, width to max, then move center to min/max.
 
 Amplitude BarPlots: see addBarPlots in D2CAmplitudesView.java
 Component LinePlots: see update in D2CComponentsView.java
