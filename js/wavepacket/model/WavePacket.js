@@ -37,8 +37,8 @@ class WavePacket {
       range: new Range( 9 * Math.PI, 15 * Math.PI ),
       tandem: options.tandem.createTandem( 'centerProperty' ),
       phetioDocumentation: 'The center of the wave packet. ' +
-                           'In the space domain, this is k<sub>0</sub>, in rad/m. ' +
-                           'In the time domain, this is \u03c9<sub>0</sub>, in rad/ms.'
+                           'In the space domain, this is k<sub>0</sub> in rad/m. ' +
+                           'In the time domain, this is \u03c9<sub>0</sub> in rad/ms.'
     } );
 
     // @public
@@ -46,8 +46,8 @@ class WavePacket {
       range: new Range( 1, 4 * Math.PI ),
       tandem: options.tandem.createTandem( 'standardDeviationProperty' ),
       phetioDocumentation: 'Standard deviation, a measure of the wave packet width. ' +
-                           'In the space domain, this is \u03c3<sub>k</sub>, in rad/m. ' +
-                           'In the time domain, this is \u03c3<sub>\u03c9</sub>, in rad/ms.'
+                           'In the space domain, this is \u03c3<sub>k</sub> in rad/m. ' +
+                           'In the time domain, this is \u03c3<sub>\u03c9</sub> in rad/ms.'
     } );
 
     // @public
@@ -58,8 +58,8 @@ class WavePacket {
       phetioDocumentation: 'This Property and standardDeviationProperty are a conjugate pair, ' +
                            'where conjugateStandardDeviation = 1 / standardDeviation.' +
                            'They are both measures of the wave packet width.' +
-                           'In the space domain, this is \u03c3<sub>x</sub>, in m. ' +
-                           'In the time domain, this is \u03c3<sub>t</sub>, in ms.'
+                           'In the space domain, this is \u03c3<sub>x</sub> in m. ' +
+                           'In the time domain, this is \u03c3<sub>t</sub> in ms.'
     } );
 
     // conjugateStandardDeviationProperty seems like a natural place to use DynamicProperty. But since we need to
