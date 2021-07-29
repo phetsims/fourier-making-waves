@@ -1,7 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO is this general enough to move to bamboo?
 /**
- * AreaUnderBellCurvePlot plots a bell curve, and fills the area below the curve.
+ * AreaPlot fills the area below a curve.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -12,7 +13,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class AreaUnderBellCurvePlot extends Path {
+class AreaPlot extends Path {
 
   /**
    * @param {ChartTransform} chartTransform
@@ -65,6 +66,7 @@ class AreaUnderBellCurvePlot extends Path {
   update() {
     assert && assert( _.every( this.dataSet, point => point !== null ), 'all points in data set must be non-null' );
     assert && assert( _.every( this.dataSet, point => point.isFinite() ), 'all points in data set must be finite' );
+    assert && assert( _.every( this.dataSet, point => point.y >= 0 ), 'all y values must be >= 0' );
 
     const shape = new Shape();
     const numberOfPoints = this.dataSet.length;
@@ -115,5 +117,5 @@ class AreaUnderBellCurvePlot extends Path {
   }
 }
 
-fourierMakingWaves.register( 'AreaUnderBellCurvePlot', AreaUnderBellCurvePlot );
-export default AreaUnderBellCurvePlot;
+fourierMakingWaves.register( 'AreaPlot', AreaPlot );
+export default AreaPlot;
