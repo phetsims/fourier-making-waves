@@ -14,7 +14,7 @@ Can SumChart be used by WavePacketSumChart?
 # Wave Packet screen
 
 Amplitude chart:
-Using AxisDescription for the y axis
+Use AxisDescription for the y axis
 y axis scale jitters as you adjust Wave Packet Center k0
 Is center working correctly, in HTML5 and Java versions?
 Use WavePacket.getContinuousWaveformDataSet for infinite components and "Continuous Waveform" checkbox

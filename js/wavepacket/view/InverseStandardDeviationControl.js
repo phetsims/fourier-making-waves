@@ -107,8 +107,8 @@ function numberFormatter( inverseStandardDeviation, domain ) {
   const value = Utils.toFixedNumber( inverseStandardDeviation, DECIMALS );
 
   const units = ( domain === Domain.SPACE ) ?
-                fourierMakingWavesStrings.units.radiansPerMeter :
-                fourierMakingWavesStrings.units.radiansPerMillisecond;
+                fourierMakingWavesStrings.units.metersPerRadian :
+                fourierMakingWavesStrings.units.millisecondsPerRadian;
 
   return StringUtils.fillIn( fourierMakingWavesStrings.symbolSymbolValueUnits, {
     symbol1: symbol1,
