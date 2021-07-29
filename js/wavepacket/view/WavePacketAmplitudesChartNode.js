@@ -7,6 +7,7 @@
  */
 
 import BarPlot from '../../../../bamboo/js/BarPlot.js';
+import LinePlot from '../../../../bamboo/js/LinePlot.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
@@ -44,6 +45,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     const domainProperty = amplitudesChart.domainProperty;
     const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
     const barPlotDataSetProperty = amplitudesChart.barPlotDataSetProperty;
+    const continuosWaveformDataSetProperty = amplitudesChart.continuosWaveformDataSetProperty;
     const xRange = amplitudesChart.fourierSeries.xRange;
 
     options = merge( {
@@ -73,10 +75,15 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       }
     } );
 
+    const continuousWaveformPlot = new LinePlot( this.chartTransform, [], {
+      stroke: Color.grayColor( 192 ), // ENVELOPE_COLOR in D2CAmplitudesView.java
+      lineWidth: 4 // ENVELOPE_STROKE in D2CAmplitudesView.java
+    } );
+
     // Clip barPlot to the chartRectangle bounds.
     const clipNode = new Node( {
       clipArea: this.chartRectangle.getShape(),
-      children: [ barPlot ]
+      children: [ continuousWaveformPlot, barPlot ]
     } );
     this.addChild( clipNode );
 
@@ -98,55 +105,17 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       } );
     } );
 
-    // Display the data set for the BarPlot.
-    barPlotDataSetProperty.link( dataSet => {
+    // Display the Fourier component amplitudes.
+    barPlotDataSetProperty.link( dataSet => barPlot.setDataSet( dataSet ) );
 
-      // Update the bar plot.
-      barPlot.setDataSet( dataSet );
+    // Display the continuous waveform, and scale the y axis to fit.
+    continuosWaveformDataSetProperty.link( dataSet => {
+      continuousWaveformPlot.setDataSet( dataSet );
+      this.scaleYAxis( dataSet );
+    } );
 
-      // Autoscale the y axis.
-      if ( dataSet.length > 0 ) {
-
-        // Extend the range, so there's some space above maxY.
-        const maxY = amplitudesChart.getBarPlotMaxY();
-        this.chartTransform.setModelYRange( new Range( 0, 1.05 * maxY ) );
-
-        // Adjust ticks and gridlines.
-        // This logic and values were taken from D2CAmplitudesChart.java, in the Java version.
-        //TODO should this use AxisDescription, and amplitudesChart.yAxisDescriptionProperty, like other charts?
-        let tickLabelSpacing;
-        let tickMarkSpacing;
-        if ( maxY > 1 ) {
-          tickLabelSpacing = 1.0;
-          tickMarkSpacing = 0.5;
-        }
-        else if ( maxY > 0.5 ) {
-          tickLabelSpacing = 0.2;
-          tickMarkSpacing = 0.1;
-        }
-        else if ( maxY > 0.2 ) {
-          tickLabelSpacing = 0.1;
-          tickMarkSpacing = 0.05;
-        }
-        else if ( maxY > 0.05 ) {
-          tickLabelSpacing = 0.05;
-          tickMarkSpacing = 0.01;
-        }
-        else if ( maxY > 0.02 ) {
-          tickLabelSpacing = 0.01;
-          tickMarkSpacing = 0.005;
-        }
-        else {
-          tickLabelSpacing = 0.005;
-          tickMarkSpacing = 0.001;
-        }
-        assert && assert( tickLabelSpacing > 0 );
-        assert && assert( tickMarkSpacing > 0 );
-
-        this.yGridLines.setSpacing( tickLabelSpacing );
-        this.yTickLabels.setSpacing( tickLabelSpacing );
-        this.yTickMarks.setSpacing( tickMarkSpacing );
-      }
+    amplitudesChart.continuousWaveformVisibleProperty.link( visible => {
+      continuousWaveformPlot.visible = visible;
     } );
 
     // pdom - traversal order
@@ -162,6 +131,55 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+
+  /**
+   * Scales the y axis to fit the data set.
+   * @param {Vector2[]} dataSet
+   * @private
+   */
+  scaleYAxis( dataSet ) {
+    assert && assert( dataSet.length > 0 );
+
+    // Extend the range, so there's some space above maxY.
+    const maxY = _.maxBy( dataSet, point => point.y ).y;
+    this.chartTransform.setModelYRange( new Range( 0, 1.05 * maxY ) );
+
+    // Adjust ticks and gridlines.
+    // This logic and values were taken from D2CAmplitudesChart.java, in the Java version.
+    //TODO should this use AxisDescription, and amplitudesChart.yAxisDescriptionProperty, like other charts?
+    let tickLabelSpacing;
+    let tickMarkSpacing;
+    if ( maxY > 1 ) {
+      tickLabelSpacing = 1.0;
+      tickMarkSpacing = 0.5;
+    }
+    else if ( maxY > 0.5 ) {
+      tickLabelSpacing = 0.2;
+      tickMarkSpacing = 0.1;
+    }
+    else if ( maxY > 0.2 ) {
+      tickLabelSpacing = 0.1;
+      tickMarkSpacing = 0.05;
+    }
+    else if ( maxY > 0.05 ) {
+      tickLabelSpacing = 0.05;
+      tickMarkSpacing = 0.01;
+    }
+    else if ( maxY > 0.02 ) {
+      tickLabelSpacing = 0.01;
+      tickMarkSpacing = 0.005;
+    }
+    else {
+      tickLabelSpacing = 0.005;
+      tickMarkSpacing = 0.001;
+    }
+    assert && assert( tickLabelSpacing > 0 );
+    assert && assert( tickMarkSpacing > 0 );
+
+    this.yGridLines.setSpacing( tickLabelSpacing );
+    this.yTickLabels.setSpacing( tickLabelSpacing );
+    this.yTickMarks.setSpacing( tickMarkSpacing );
   }
 }
 

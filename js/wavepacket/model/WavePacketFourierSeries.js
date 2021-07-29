@@ -76,7 +76,7 @@ class WavePacketFourierSeries {
   }
 
   /**
-   * Gets the amplitude of component k, using the standard Gaussian formula:
+   * Gets the amplitude of Fourier component k, using the standard Gaussian formula:
    *
    * A(k,k0,dk) = exp[ -((k-k0)^2) / (2 * (dk^2) )  ] / (dk * sqrt( 2pi ))
    *
@@ -88,7 +88,7 @@ class WavePacketFourierSeries {
    * @returns {number}
    * @public
    */
-  getAmplitude( k, wavePacket ) {
+  getComponentAmplitude( k, wavePacket ) {
     assert && assert( typeof k === 'number' );
     assert && assert( wavePacket instanceof WavePacket );
     assert && assert( wavePacket.L === 1 && wavePacket.T === 1 );
@@ -115,7 +115,7 @@ class WavePacketFourierSeries {
       const componentSpacing = this.componentSpacingProperty.value;
       for ( let order = 1; order <= numberOfComponents; order++ ) {
         const kn = order * componentSpacing;
-        const An = this.getAmplitude( kn, wavePacket ) * componentSpacing;
+        const An = this.getComponentAmplitude( kn, wavePacket ) * componentSpacing;
         dataSet.push( new Vector2( kn, An ) );
       }
     }
@@ -133,13 +133,17 @@ class WavePacketFourierSeries {
     assert && assert( wavePacket instanceof WavePacket );
 
     const dataSet = []; // {Vector2[]}
-    const kStep = Math.PI / 10; // set empirically, so that the plot looks smooth
+    const kStep = Math.PI / 10; // ENVELOPE_STEP in D2CAmplitudesView.java, chosen so that the plot looks smooth
     const kMax = this.xRange.max + Math.PI;
+    const k1 = this.componentSpacingProperty.value;
 
     let k = this.xRange.min;
     while ( k <= kMax ) {
-      const amplitude = this.getAmplitude( k, wavePacket );
-      dataSet.add( new Vector2( k, amplitude ) );
+      let amplitude = this.getComponentAmplitude( k, wavePacket );
+      if ( k1 !== 0 ) {
+        amplitude *= k1;
+      }
+      dataSet.push( new Vector2( k, amplitude ) );
       k += kStep;
     }
 

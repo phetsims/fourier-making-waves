@@ -46,14 +46,18 @@ class WavePacketAmplitudesChart {
       tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
     } );
 
+    //TODO rename componentAmplitudesDataSetProperty
     // @public {DerivedProperty.<Vector2[]>} data set for a discrete number of components, to be plotted as a BarPlot
     this.barPlotDataSetProperty = new DerivedProperty(
       [ fourierSeries.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
       () => fourierSeries.getComponentAmplitudesDataSet( wavePacket )
     );
 
-    // @public {DerivedProperty.<Vector2[]>} data set for an infinite number of components
-    //TODO
+    // @public {DerivedProperty.<Vector2[]>} data set display when the 'Continuous Wave' checkbox is checked
+    this.continuosWaveformDataSetProperty = new DerivedProperty(
+      [ fourierSeries.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
+      () => fourierSeries.getContinuousWaveformDataSet( wavePacket )
+    );
   }
 
   /**
