@@ -51,32 +51,35 @@ class WavePacket {
     } );
 
     // @public
-    this.inverseStandardDeviationProperty = new NumberProperty( 1 / this.standardDeviationProperty.value, {
+    // See https://github.com/phetsims/fourier-making-waves/issues/105#issuecomment-889386852 for name decision.
+    this.conjugateStandardDeviationProperty = new NumberProperty( 1 / this.standardDeviationProperty.value, {
       range: new Range( 1 / this.standardDeviationProperty.range.max, 1 / this.standardDeviationProperty.range.min ),
-      tandem: options.tandem.createTandem( 'inverseStandardDeviationProperty' ),
-      phetioDocumentation: 'Inverse of standard deviation, a measure of the wave packet width. ' +
-                           'In the space domain, this is \u03c3<sub>x</sub>, in m/rad. ' +
-                           'In the time domain, this is \u03c3<sub>t</sub>, in ms/rad.'
+      tandem: options.tandem.createTandem( 'conjugateStandardDeviationProperty' ),
+      phetioDocumentation: 'This Property and standardDeviationProperty are a conjugate pair, ' +
+                           'where conjugateStandardDeviation = 1 / standardDeviation.' +
+                           'They are both measures of the wave packet width.' +
+                           'In the space domain, this is \u03c3<sub>x</sub>, in m. ' +
+                           'In the time domain, this is \u03c3<sub>t</sub>, in ms.'
     } );
 
-    // inverseStandardDeviationProperty seems like a natural place to use DynamicProperty. But since we need to
+    // conjugateStandardDeviationProperty seems like a natural place to use DynamicProperty. But since we need to
     // control it with a NumberControl, it needs to be a {Property.<number>} with a Range. We also need to control
     // it from Studio, which also requires a phetioType, and there's currently no DynamicPropertyIO. So this next
     // bit of code does the work that a bidirectional DynamicProperty would do - it keeps standardDeviation and
-    // inverseStandardDeviationProperty synchronized. And unlike DynamicProperty, it avoids reentrant behavior,
+    // conjugateStandardDeviationProperty synchronized. And unlike DynamicProperty, it avoids reentrant behavior,
     // so neither Property requires reentrant:true.
     let isSynchronizing = false;
     this.standardDeviationProperty.lazyLink( standardDeviation => {
       if ( !isSynchronizing ) {
         isSynchronizing = true;
-        this.inverseStandardDeviationProperty.value = 1 / standardDeviation;
+        this.conjugateStandardDeviationProperty.value = 1 / standardDeviation;
         isSynchronizing = false;
       }
     } );
-    this.inverseStandardDeviationProperty.lazyLink( inverseStandardDeviation => {
+    this.conjugateStandardDeviationProperty.lazyLink( conjugateStandardDeviation => {
       if ( !isSynchronizing ) {
         isSynchronizing = true;
-        this.standardDeviationProperty.value = 1 / inverseStandardDeviation;
+        this.standardDeviationProperty.value = 1 / conjugateStandardDeviation;
         isSynchronizing = false;
       }
     } );
@@ -106,7 +109,7 @@ class WavePacket {
   reset() {
     this.centerProperty.reset();
     this.standardDeviationProperty.reset();
-    this.inverseStandardDeviationProperty.reset();
+    this.conjugateStandardDeviationProperty.reset();
   }
 }
 

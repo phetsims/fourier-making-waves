@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * StandardDeviationControl controls the standard deviation, which defines the wave packet's width.
+ * StandardDeviationControl controls the standard deviation, a measure of the wave packet's width.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

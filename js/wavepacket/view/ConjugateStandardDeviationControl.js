@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * InverseStandardDeviationControl controls the inverse of the standard deviation, which defines the wave packet's width.
+ * ConjugateStandardDeviationControl controls the conjugate standard deviation, a measure of the wave packet's width.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -26,18 +26,18 @@ const DELTA = 0.001;
 const DECIMALS = Utils.numberOfDecimalPlaces( DELTA );
 const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 
-class InverseStandardDeviationControl extends NumberControl {
+class ConjugateStandardDeviationControl extends NumberControl {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} inverseStandardDeviationProperty
+   * @param {NumberProperty} conjugateStandardDeviationProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, inverseStandardDeviationProperty, options ) {
+  constructor( domainProperty, conjugateStandardDeviationProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( inverseStandardDeviationProperty instanceof NumberProperty );
-    assert && assert( inverseStandardDeviationProperty.range );
+    assert && assert( conjugateStandardDeviationProperty instanceof NumberProperty );
+    assert && assert( conjugateStandardDeviationProperty.range );
 
     options = merge( {}, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, {
 
@@ -45,7 +45,7 @@ class InverseStandardDeviationControl extends NumberControl {
       delta: DELTA,
       numberDisplayOptions: {
         minBackgroundWidth: 140,
-        numberFormatter: inverseStandardDeviation => numberFormatter( inverseStandardDeviation, domainProperty.value )
+        numberFormatter: conjugateStandardDeviation => numberFormatter( conjugateStandardDeviation, domainProperty.value )
       },
 
       // Slider options
@@ -66,7 +66,7 @@ class InverseStandardDeviationControl extends NumberControl {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( '', inverseStandardDeviationProperty, inverseStandardDeviationProperty.range, options );
+    super( '', conjugateStandardDeviationProperty, conjugateStandardDeviationProperty.range, options );
 
     // Update the displayed value.
     domainProperty.link( () => this.redrawNumberDisplay() );
@@ -89,11 +89,11 @@ class InverseStandardDeviationControl extends NumberControl {
 
 /**
  * Formats the number for display by NumberDisplay.
- * @param {number} inverseStandardDeviation
+ * @param {number} conjugateStandardDeviation
  * @param {Domain} domain
  * @returns {string}
  */
-function numberFormatter( inverseStandardDeviation, domain ) {
+function numberFormatter( conjugateStandardDeviation, domain ) {
 
   const pattern = `${FMWSymbols.sigma}<sub>{{subscript}}</sub>`;
   const symbol1 = StringUtils.fillIn( pattern, {
@@ -104,7 +104,7 @@ function numberFormatter( inverseStandardDeviation, domain ) {
   } );
 
   // Using toFixedNumber removes trailing zeros.
-  const value = Utils.toFixedNumber( inverseStandardDeviation, DECIMALS );
+  const value = Utils.toFixedNumber( conjugateStandardDeviation, DECIMALS );
 
   const units = ( domain === Domain.SPACE ) ?
                 fourierMakingWavesStrings.units.meters :
@@ -118,5 +118,5 @@ function numberFormatter( inverseStandardDeviation, domain ) {
   } );
 }
 
-fourierMakingWaves.register( 'InverseStandardDeviationControl', InverseStandardDeviationControl );
-export default InverseStandardDeviationControl;
+fourierMakingWaves.register( 'ConjugateStandardDeviationControl', ConjugateStandardDeviationControl );
+export default ConjugateStandardDeviationControl;

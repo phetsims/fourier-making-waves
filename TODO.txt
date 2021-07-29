@@ -25,7 +25,7 @@ Sum LinePlot: see addFourierSeriesPlot in D2CSumView.js
 Continuous Waveform: see addContinuousPlot in D2CAmplitudesView.java and D2CSumView.js
 Waveform Envelope: see updateEnvelope in D2CAmplitudesView.java and D2CSumView.js
 
-Duplication in ComponentSpacingControl, CenterControl, StandardDeviationControl, InverseStandardDeviationControl
+Duplication in ComponentSpacingControl, CenterControl, StandardDeviationControl, ConjugateStandardDeviationControl
 
 ## PhET-iO
 

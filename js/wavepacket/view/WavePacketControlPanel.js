@@ -28,7 +28,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
 import StandardDeviationControl from './StandardDeviationControl.js';
-import InverseStandardDeviationControl from './InverseStandardDeviationControl.js';
+import ConjugateStandardDeviationControl from './ConjugateStandardDeviationControl.js';
 import CenterControl from './CenterControl.js';
 import ComponentSpacingControl from './ComponentSpacingControl.js';
 import WavePacketSymbolsDialog from './WavePacketSymbolsDialog.js';
@@ -74,7 +74,7 @@ class WavePacketControlPanel extends Panel {
 
       // Wave Packet - Width
       new WavePacketWidthLayoutBox( model.domainProperty, model.wavePacket.standardDeviationProperty,
-        model.wavePacket.inverseStandardDeviationProperty, model.widthIndicatorsVisibleProperty, {
+        model.wavePacket.conjugateStandardDeviationProperty, model.widthIndicatorsVisibleProperty, {
           spacing: VERTICAL_SPACING,
           tandem: options.tandem.createTandem( 'wavePacketWidthLayoutBox' )
         } ),
@@ -250,15 +250,15 @@ class WavePacketWidthLayoutBox extends VBox {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {NumberProperty} standardDeviationProperty
-   * @param {NumberProperty} inverseStandardDeviationProperty
+   * @param {NumberProperty} conjugateStandardDeviationProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, standardDeviationProperty, inverseStandardDeviationProperty, widthIndicatorsVisibleProperty, options ) {
+  constructor( domainProperty, standardDeviationProperty, conjugateStandardDeviationProperty, widthIndicatorsVisibleProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( standardDeviationProperty instanceof NumberProperty );
-    assert && assert( inverseStandardDeviationProperty instanceof NumberProperty );
+    assert && assert( conjugateStandardDeviationProperty instanceof NumberProperty );
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
@@ -280,15 +280,15 @@ class WavePacketWidthLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'standardDeviationControl' )
     } );
 
-    const inverseStandardDeviationControl = new InverseStandardDeviationControl( domainProperty, inverseStandardDeviationProperty, {
-      tandem: options.tandem.createTandem( 'inverseStandardDeviationControl' )
+    const conjugateStandardDeviationControl = new ConjugateStandardDeviationControl( domainProperty, conjugateStandardDeviationProperty, {
+      tandem: options.tandem.createTandem( 'conjugateStandardDeviationControl' )
     } );
 
     // Interaction with these 2 controls is mutually-exclusive, because they both change standardDeviation.
     standardDeviationControl.isPressedProperty.link( isPressed => {
-      isPressed && inverseStandardDeviationControl.interruptSubtreeInput();
+      isPressed && conjugateStandardDeviationControl.interruptSubtreeInput();
     } );
-    inverseStandardDeviationControl.isPressedProperty.link( isPressed => {
+    conjugateStandardDeviationControl.isPressedProperty.link( isPressed => {
       isPressed && standardDeviationControl.interruptSubtreeInput();
     } );
 
@@ -300,7 +300,7 @@ class WavePacketWidthLayoutBox extends VBox {
     options.children = [
       wavePacketWidthText,
       standardDeviationControl,
-      inverseStandardDeviationControl,
+      conjugateStandardDeviationControl,
       widthIndicatorsCheckbox
     ];
 
