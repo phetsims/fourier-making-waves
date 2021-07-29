@@ -57,7 +57,7 @@ class WavePacket {
       tandem: options.tandem.createTandem( 'conjugateStandardDeviationProperty' ),
       phetioDocumentation: 'This Property and standardDeviationProperty are a conjugate pair, ' +
                            'where conjugateStandardDeviation = 1 / standardDeviation.' +
-                           'They are both measures of the wave packet width.' +
+                           'They are both measures of the wave packet width. ' +
                            'In the space domain, this is \u03c3<sub>x</sub> in m. ' +
                            'In the time domain, this is \u03c3<sub>t</sub> in ms.'
     } );
