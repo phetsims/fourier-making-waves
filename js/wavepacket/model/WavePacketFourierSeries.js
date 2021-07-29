@@ -39,7 +39,10 @@ class WavePacketFourierSeries {
     this.componentSpacingProperty = new NumberProperty( COMPONENT_SPACING_VALUES[ 3 ], {
       validValues: COMPONENT_SPACING_VALUES,
       range: new Range( COMPONENT_SPACING_VALUES[ 0 ], COMPONENT_SPACING_VALUES[ COMPONENT_SPACING_VALUES.length - 1 ] ),
-      tandem: options.tandem.createTandem( 'componentSpacingProperty' )
+      tandem: options.tandem.createTandem( 'componentSpacingProperty' ),
+      phetioDocumentation: 'The spacing of components in the Fourier series that is used to approximate the wave packet. ' +
+                           'In the space domain, this is k<sub>1</sub>, in rad/m. ' +
+                           'In the time domain, this is \u03c9<sub>1</sub>, in rad/ms.'
     } );
   }
 

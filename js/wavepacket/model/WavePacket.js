@@ -3,11 +3,12 @@
 /**
  * WavePacket is the model of a Gaussian wave packet.
  *
- * Note that while the model uses field names that are specific to the space domain, those fields are used for both
- * the space domain and time domain. We can make this simplification (which originated in the Java version) because
- * we assume that the values of L (wavelength of the fundamental harmonic) and T (period of the fundamental harmonic)
- * are the same. That is, L=1 meter and T=1 millisecond. Changing the domain therefore only changes the symbols and
- * units that appear in the user interface.
+ * Note that many of the Properties herein have values that are the same for both the space and time domain.
+ * We can make this simplification (which originated in the Java version) because we assume that the values of L
+ * (wavelength of the fundamental harmonic) and T (period of the fundamental harmonic) are the same. That is,
+ * L=1 meter and T=1 millisecond. The units for these Properties are therefore dependent on the domain, and changing
+ * the domain simply changes the symbols and units that appear in the user interface.  This also means that we can't
+ * use Property's units option, so we describe the units in phetioDocumentation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
