@@ -286,8 +286,7 @@ class DiscreteModel {
 
       // Set all amplitudes to zero, so that we don't briefly see a bogus Sum plot.
       // See https://github.com/phetsims/fourier-making-waves/issues/111
-      const amplitudes = new Array( this.fourierSeries.harmonics.length ).fill( 0 );
-      this.fourierSeries.setAmplitudes( amplitudes );
+      this.fourierSeries.setAllAmplitudes( 0 );
 
       // Switch to sine on the next frame, so that we don't have a reentry problem with seriesTypeProperty.
       // We'd prefer not to set seriesTypeProperty to reentrant: true. And AquaRadioButton seems to have a
