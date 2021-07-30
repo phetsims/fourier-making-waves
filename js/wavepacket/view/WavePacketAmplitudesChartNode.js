@@ -82,8 +82,10 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
 
     // Displays the continuous waveform
     const continuousWaveformPlot = new LinePlot( this.chartTransform, [], {
-      stroke: Color.grayColor( 192 ), // ENVELOPE_COLOR in D2CAmplitudesView.java
-      lineWidth: 4, // ENVELOPE_STROKE in D2CAmplitudesView.java
+
+      // Stroke with darkest color. Otherwise continuousWaveformPlot looks odd when displayed with infiniteComponentsPlot.
+      stroke: Color.grayColor( BAR_RGB_RANGE.min ),
+      lineWidth: 3,
       visibleProperty: continuousWaveformVisibleProperty
     } );
 
