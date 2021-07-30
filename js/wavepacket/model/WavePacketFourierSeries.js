@@ -71,7 +71,7 @@ class WavePacketFourierSeries {
       return Infinity;
     }
     else {
-      return Math.floor( this.xRange.getLength() / componentSpacing ) - 1;
+      return Math.floor( this.xRange.getLength() / componentSpacing ) + 1;
     }
   }
 
@@ -113,8 +113,8 @@ class WavePacketFourierSeries {
     const numberOfComponents = this.getNumberOfComponents();
     if ( numberOfComponents !== Infinity ) {
       const componentSpacing = this.componentSpacingProperty.value;
-      for ( let order = 1; order <= numberOfComponents; order++ ) {
-        const kn = order * componentSpacing;
+      for ( let i = 0; i < numberOfComponents; i++ ) {
+        const kn = i * componentSpacing;
         const An = this.getComponentAmplitude( kn, wavePacket ) * componentSpacing;
         dataSet.push( new Vector2( kn, An ) );
       }
