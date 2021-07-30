@@ -79,6 +79,11 @@ const FMWColors = {
   // Fill for the width indicators in the Wave Packet screen
   widthIndicatorsFillProperty: new ProfileColorProperty( 'widthIndicatorsColor', {
     default: 'red'
+  } ),
+
+  // Stroke for the Continuous Waveform in the Wave Packet screen
+  continuousWaveformStrokeProperty: new ProfileColorProperty( 'continuousWaveformStrokeProperty', {
+    default: Color.grayColor( 189 )
   } )
 };
 

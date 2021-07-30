@@ -15,6 +15,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
+import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import FMWChartNode from '../../common/view/FMWChartNode.js';
@@ -84,7 +85,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     const continuousWaveformPlot = new LinePlot( this.chartTransform, [], {
 
       // Stroke with darkest color. Otherwise continuousWaveformPlot looks odd when displayed with infiniteComponentsPlot.
-      stroke: Color.grayColor( BAR_RGB_RANGE.min ),
+      stroke: FMWColors.continuousWaveformStrokeProperty,
       lineWidth: 3,
       visibleProperty: continuousWaveformVisibleProperty
     } );
