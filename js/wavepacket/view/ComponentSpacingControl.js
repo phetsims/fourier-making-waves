@@ -12,12 +12,12 @@ import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
+import FMWNumberControl from '../../common/view/FMWNumberControl.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
@@ -25,7 +25,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 const DECIMALS = 2;
 
-class ComponentSpacingControl extends NumberControl {
+class ComponentSpacingControl extends FMWNumberControl {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -88,7 +88,7 @@ class ComponentSpacingControl extends NumberControl {
       componentSpacingProperty.value = validValues[ componentSpacingIndex ];
     } );
 
-    super( '', componentSpacingIndexProperty, componentSpacingIndexProperty.range, options );
+    super( '', componentSpacingIndexProperty, options );
 
     // Update the displayed value.
     domainProperty.link( () => this.redrawNumberDisplay() );

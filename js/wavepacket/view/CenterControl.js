@@ -11,12 +11,12 @@ import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
+import FMWNumberControl from '../../common/view/FMWNumberControl.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
@@ -25,7 +25,7 @@ const DELTA = Math.PI / 4;
 const DECIMALS = 1;
 const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 
-class CenterControl extends NumberControl {
+class CenterControl extends FMWNumberControl {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -66,7 +66,7 @@ class CenterControl extends NumberControl {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( '', centerProperty, centerProperty.range, options );
+    super( '', centerProperty, options );
 
     // Update the displayed value.
     domainProperty.link( () => this.redrawNumberDisplay() );

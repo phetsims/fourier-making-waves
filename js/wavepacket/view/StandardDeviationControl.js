@@ -12,12 +12,12 @@ import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
+import FMWNumberControl from '../../common/view/FMWNumberControl.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
@@ -26,7 +26,7 @@ const DELTA = 0.01;
 const DECIMALS = Utils.numberOfDecimalPlaces( DELTA );
 const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 
-class StandardDeviationControl extends NumberControl {
+class StandardDeviationControl extends FMWNumberControl {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -77,7 +77,7 @@ class StandardDeviationControl extends NumberControl {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( '', standardDeviationProperty, standardDeviationProperty.range, options );
+    super( '', standardDeviationProperty, options );
 
     // Update the displayed value.
     domainProperty.link( () => this.redrawNumberDisplay() );
