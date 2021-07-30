@@ -82,7 +82,7 @@ const FMWColors = {
   } ),
 
   // Stroke for the Continuous Waveform in the Wave Packet screen
-  continuousWaveformStrokeProperty: new ProfileColorProperty( 'continuousWaveformStrokeProperty', {
+  continuousWaveformStrokeProperty: new ProfileColorProperty( 'continuousWaveformStroke', {
     default: Color.grayColor( 189 )
   } )
 };
