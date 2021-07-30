@@ -86,7 +86,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
 
       // Stroke with darkest color. Otherwise continuousWaveformPlot looks odd when displayed with infiniteComponentsPlot.
       stroke: FMWColors.continuousWaveformStrokeProperty,
-      lineWidth: 3,
+      lineWidth: 4,
       visibleProperty: continuousWaveformVisibleProperty
     } );
 
