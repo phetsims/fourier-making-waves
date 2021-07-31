@@ -14,7 +14,7 @@ Can SumChart be used by WavePacketSumChart?
 # Wave Packet screen
 
 Java version uses FourierSeries to compute waveforms for components and sum. Should WavePacketFourierSeries extend
-FourierSeries? Or should it be a different optimized class that doesn't rely on Harmonic?
+FourierSeries? Or should it be a different optimized class that doesn't rely on Harmonic? Max 97 Harmonics are required.
 
 Amplitude chart:
 Use AxisDescription for the y axis
