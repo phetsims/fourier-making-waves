@@ -37,6 +37,7 @@ class WavePacket {
       'Many things in this implementation assume that L === T === 1, inherited from Java version.' );
 
     // @public (read-only) x-axis range for Fourier components, k (rad/m) or omega (rad/ms)
+    //TODO better name for this.xRange
     this.xRange = new Range( 0, 24 * Math.PI );
     assert && assert( this.xRange.min === 0 );
 
