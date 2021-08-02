@@ -36,7 +36,6 @@ class WavePacket {
     assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
       'Many things in this implementation assume that L === T === 1, inherited from Java version.' );
 
-
     // @public (read-only) x-axis range for Fourier components, k (rad/m) or omega (rad/ms)
     this.xRange = new Range( 0, 24 * Math.PI );
     assert && assert( this.xRange.min === 0 );
@@ -113,6 +112,23 @@ class WavePacket {
                              'In the space domain, this is in rad/m. ' +
                              'In the time domain, this is in rad/ms.'
       } );
+
+    // @public {DerivedProperty.<Vector2[]>} the Fourier components used to approximate the wave packet
+    this.componentAmplitudesDataSetProperty = new DerivedProperty(
+      [ this.componentSpacingProperty, this.centerProperty, this.standardDeviationProperty ],
+      ( componentSpacing, center, standardDeviation ) => {
+        const dataSet = []; // {Vector2[]}
+        const numberOfComponents = this.getNumberOfComponents();
+        if ( numberOfComponents !== Infinity ) {
+          for ( let i = 0; i < numberOfComponents; i++ ) {
+            const waveNumber = i * componentSpacing; // spatial in rad/m, or angular in rad/ms
+            const An = this.getComponentAmplitude( waveNumber ) * componentSpacing;
+            dataSet.push( new Vector2( waveNumber, An ) );
+          }
+        }
+        return dataSet;
+      }
+    );
   }
 
   /**
@@ -152,47 +168,18 @@ class WavePacket {
    *
    * A(k,k0,dk) = exp[ -((k-k0)^2) / (2 * (dk^2) )  ] / (dk * sqrt( 2pi ))
    *
-   * Note that symbols (k, rad/m) used in this method are specific to the space domain. But this method can also be used
-   * for the time domain (omega, rad/ms), because L === T === 1.
+   * Note that symbol k used in this method is specific to the space domain, and is in rad/m.
+   * But this method can also be used for the time domain (omega, in rad/ms), because L === T === 1.
    *
-   * @param {number} k - component value, in rad/m
-   * @param {WavePacket} wavePacket
+   * @param {number} k - wave number, spatial in rad/m, or angular in rad/ms
    * @returns {number}
    * @public
    */
-  getComponentAmplitude( k, wavePacket ) {
+  getComponentAmplitude( k ) {
     assert && assert( typeof k === 'number' );
-    assert && assert( wavePacket instanceof WavePacket );
-    assert && assert( wavePacket.L === 1 && wavePacket.T === 1 );
-
-    const k0 = wavePacket.centerProperty.value;
-    const dk = wavePacket.standardDeviationProperty.value;
+    const k0 = this.centerProperty.value;
+    const dk = this.standardDeviationProperty.value;
     return Math.exp( -( ( k - k0 ) * ( k - k0 ) ) / ( 2 * dk * dk ) ) / ( dk * Math.sqrt( 2 * Math.PI ) );
-  }
-
-  /**
-   * Gets the data set for Fourier component amplitudes. Note that the position of the Fourier components is fixed.
-   * If the wave packet's center is not located at the position of one of the components, then the approximation
-   * (and the amplitudes) will be asymmetric.
-   * @param {WavePacket} wavePacket
-   * @returns {Vector2[]} - empty if the number of components is infinite
-   * @public
-   */
-  getComponentAmplitudesDataSet( wavePacket ) {
-    assert && assert( wavePacket instanceof WavePacket );
-
-    const dataSet = []; // {Vector2}
-    const numberOfComponents = this.getNumberOfComponents();
-    if ( numberOfComponents !== Infinity ) {
-      const componentSpacing = this.componentSpacingProperty.value;
-      for ( let i = 0; i < numberOfComponents; i++ ) {
-        const kn = i * componentSpacing;
-        const An = this.getComponentAmplitude( kn, wavePacket ) * componentSpacing;
-        dataSet.push( new Vector2( kn, An ) );
-      }
-    }
-
-    return dataSet;
   }
 }
 

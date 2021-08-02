@@ -48,7 +48,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     // Fields of interest in amplitudesChart, to improve readability
     const domainProperty = amplitudesChart.domainProperty;
     const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
-    const componentAmplitudesDataSetProperty = amplitudesChart.componentAmplitudesDataSetProperty;
+    const componentAmplitudesDataSetProperty = amplitudesChart.wavePacket.componentAmplitudesDataSetProperty;
     const continuousWaveformDataSetProperty = amplitudesChart.continuousWaveformDataSetProperty;
     const xRange = amplitudesChart.wavePacket.xRange;
     const componentSpacingProperty = amplitudesChart.wavePacket.componentSpacingProperty;

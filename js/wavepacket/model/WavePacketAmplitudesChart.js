@@ -43,13 +43,7 @@ class WavePacketAmplitudesChart {
       tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
     } );
 
-    // @public {DerivedProperty.<Vector2[]>} data set for the Fourier component amplitudes
-    this.componentAmplitudesDataSetProperty = new DerivedProperty(
-      [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
-      () => wavePacket.getComponentAmplitudesDataSet( wavePacket )
-    );
-
-    // @public {DerivedProperty.<Vector2[]>} data set display when the 'Continuous Wave' checkbox is checked
+    // @public {DerivedProperty.<Vector2[]>} data set displayed when the 'Continuous Wave' checkbox is checked
     this.continuousWaveformDataSetProperty = new DerivedProperty(
       [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
       () => this.createContinuousWaveformDataSet( wavePacket )
