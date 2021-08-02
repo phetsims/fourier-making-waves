@@ -50,7 +50,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
     const componentAmplitudesDataSetProperty = amplitudesChart.wavePacket.componentAmplitudesDataSetProperty;
     const continuousWaveformDataSetProperty = amplitudesChart.continuousWaveformDataSetProperty;
-    const xRange = amplitudesChart.wavePacket.xRange;
+    const waveNumberRange = amplitudesChart.wavePacket.waveNumberRange;
     const componentSpacingProperty = amplitudesChart.wavePacket.componentSpacingProperty;
 
     options = merge( {
@@ -75,7 +75,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
 
       // Assign a grayscale color to each bar in the BarPlot.
       pointToPaintableFields: point => {
-        let rgb = BAR_RGB_RANGE.min + BAR_RGB_RANGE.getLength() * point.x / xRange.max;
+        let rgb = BAR_RGB_RANGE.min + BAR_RGB_RANGE.getLength() * point.x / waveNumberRange.max;
         rgb = BAR_RGB_RANGE.constrainValue( rgb );
         return { fill: Color.grayColor( rgb ) };
       }

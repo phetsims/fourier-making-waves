@@ -36,10 +36,10 @@ class WavePacket {
     assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
       'Many things in this implementation assume that L === T === 1, inherited from Java version.' );
 
-    // @public (read-only) x-axis range for Fourier components, k (rad/m) or omega (rad/ms)
-    //TODO better name for this.xRange
-    this.xRange = new Range( 0, 24 * Math.PI );
-    assert && assert( this.xRange.min === 0 );
+    // @public (read-only) x-axis range for Fourier components,
+    // k (rad/m) is spatial wave number, or omega (rad/ms) is angular wave number
+    this.waveNumberRange = new Range( 0, 24 * Math.PI );
+    assert && assert( this.waveNumberRange.min === 0 );
 
     // @public the spacing between Fourier components, k1 (rad/m) or omega (rad/ms)
     this.componentSpacingProperty = new NumberProperty( COMPONENT_SPACING_VALUES[ 3 ], {
@@ -163,7 +163,7 @@ class WavePacket {
       return Infinity;
     }
     else {
-      return Math.floor( this.xRange.getLength() / componentSpacing ) + 1;
+      return Math.floor( this.waveNumberRange.getLength() / componentSpacing ) + 1;
     }
   }
 
