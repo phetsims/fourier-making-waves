@@ -229,7 +229,9 @@ const WAVE_PACKET = new WaveformValue( {
     // const no = ( numberOfHarmonics + 1 ) / 2;
     // const base = 1 / ( p * Math.sqrt( 2 * PI ) );
     // for ( let n = 1; n <= numberOfHarmonics; n++ ) {
-    //   const exponent = -Math.pow( n - no, 2 ) / ( 2 * p * p );
+    //   //const exponent = -Math.pow( n - no, 2 ) / ( 2 * p * p );
+    //   //TODO https://github.com/phetsims/fourier-making-waves/issues/18 fixes operator precedence, but creates small non-zero amplitudes that display as 0.00
+    //   const exponent = Math.pow( -( n - no ), 2 ) / ( 2 * p * p );
     //   const amplitude = Math.pow( base, exponent );
     //   amplitudes.push( amplitude );
     // }
