@@ -89,11 +89,10 @@ class WavePacket {
                            'In the time domain, this is \u03c3<sub>t</sub> in ms.'
     } );
 
-    // conjugateStandardDeviationProperty seems like a natural place to use DynamicProperty. But since we need to
-    // control it with a NumberControl, it needs to be a {Property.<number>} with a Range. We also need to control
-    // it from Studio, which also requires a phetioType, and there's currently no DynamicPropertyIO. So this next
-    // bit of code does the work that a bidirectional DynamicProperty would do - it keeps standardDeviation and
-    // conjugateStandardDeviationProperty synchronized. And unlike DynamicProperty, it avoids reentrant behavior,
+    // conjugateStandardDeviationProperty seems like a natural place to use DynamicProperty. But as of this writing,
+    // DynamicProperty is not instrumented for PhET-iO, and it doesn't support range (needed by NumberControl).
+    // So this next bit of code does the work that a bidirectional DynamicProperty would do - it keeps standardDeviation
+    // and conjugateStandardDeviationProperty synchronized. And unlike DynamicProperty, it avoids reentrant behavior,
     // so neither Property requires reentrant:true.  See https://github.com/phetsims/axon/issues/358
     let isSynchronizing = false;
     this.standardDeviationProperty.lazyLink( standardDeviation => {
