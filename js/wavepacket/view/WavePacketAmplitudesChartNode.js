@@ -50,8 +50,8 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
     const componentAmplitudesDataSetProperty = amplitudesChart.componentAmplitudesDataSetProperty;
     const continuousWaveformDataSetProperty = amplitudesChart.continuousWaveformDataSetProperty;
-    const xRange = amplitudesChart.fourierSeries.xRange;
-    const componentSpacingProperty = amplitudesChart.fourierSeries.componentSpacingProperty;
+    const xRange = amplitudesChart.wavePacket.xRange;
+    const componentSpacingProperty = amplitudesChart.wavePacket.componentSpacingProperty;
 
     options = merge( {
       xTickMarkSpacing: Math.PI,

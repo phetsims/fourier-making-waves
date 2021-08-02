@@ -32,7 +32,7 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
 
     // Fields of interest in componentsChart, to improve readability
     const xAxisDescriptionProperty = componentsChart.xAxisDescriptionProperty;
-    const componentSpacingProperty = componentsChart.fourierSeries.componentSpacingProperty;
+    const componentSpacingProperty = componentsChart.wavePacket.componentSpacingProperty;
 
     options = merge( {
       xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),

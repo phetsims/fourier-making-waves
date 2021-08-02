@@ -68,7 +68,7 @@ class WavePacketScreenView extends ScreenView {
     // Amplitudes chart
     const amplitudesChartNode = new WavePacketAmplitudesChartNode( model.amplitudesChart, {
       chartTransformOptions: {
-        modelXRange: model.fourierSeries.xRange,
+        modelXRange: model.wavePacket.xRange,
         modelYRange: new Range( 0, model.maxAmplitude ) //TODO this needs to autoscale!
       },
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
@@ -108,7 +108,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Equation above the Sum chart
     const sumEquationNode = new WavePacketSumEquationNode( model.domainProperty, model.seriesTypeProperty,
-      model.fourierSeries.componentSpacingProperty, {
+      model.wavePacket.componentSpacingProperty, {
         maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
         tandem: sumTandem.createTandem( 'equationNode' )
       } );

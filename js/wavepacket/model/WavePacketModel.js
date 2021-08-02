@@ -19,7 +19,6 @@ import WavePacket from './WavePacket.js';
 import WavePacketAmplitudesChart from './WavePacketAmplitudesChart.js';
 import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
 import WavePacketComponentsChart from './WavePacketComponentsChart.js';
-import WavePacketFourierSeries from './WavePacketFourierSeries.js';
 import WavePacketSumChart from './WavePacketSumChart.js';
 
 // constants
@@ -57,10 +56,6 @@ class WavePacketModel {
       tandem: options.tandem.createTandem( 'widthIndicatorsVisibleProperty' )
     } );
 
-    const fourierSeries = new WavePacketFourierSeries( {
-      tandem: options.tandem.createTandem( 'fourierSeries' )
-    } );
-
     const wavePacket = new WavePacket( {
       tandem: options.tandem.createTandem( 'wavePacket' )
     } );
@@ -90,18 +85,18 @@ class WavePacketModel {
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
     // @public
-    this.amplitudesChart = new WavePacketAmplitudesChart( fourierSeries, wavePacket, domainProperty, {
+    this.amplitudesChart = new WavePacketAmplitudesChart( wavePacket, domainProperty, {
       tandem: chartsTandem.createTandem( 'amplitudesChart' )
     } );
 
     // @public
-    this.componentsChart = new WavePacketComponentsChart( fourierSeries, wavePacket, domainProperty,
+    this.componentsChart = new WavePacketComponentsChart( wavePacket, domainProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, componentsYAxisDescriptionProperty, {
         tandem: chartsTandem.createTandem( 'componentsChart' )
       } );
 
     // @public
-    this.sumChart = new WavePacketSumChart( fourierSeries, wavePacket, domainProperty, xAxisTickLabelFormatProperty,
+    this.sumChart = new WavePacketSumChart( wavePacket, domainProperty, xAxisTickLabelFormatProperty,
       xAxisDescriptionProperty, sumYAxisDescriptionProperty, {
         tandem: chartsTandem.createTandem( 'sumChart' )
       } );
@@ -113,7 +108,6 @@ class WavePacketModel {
     this.domainProperty = domainProperty;
     this.seriesTypeProperty = seriesTypeProperty;
     this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
-    this.fourierSeries = fourierSeries;
     this.wavePacket = wavePacket;
   }
 

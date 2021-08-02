@@ -15,19 +15,16 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
-import WavePacketFourierSeries from './WavePacketFourierSeries.js';
 
 class WavePacketAmplitudesChart {
 
   /**
-   * @param {WavePacketFourierSeries} fourierSeries
    * @param {WavePacket} wavePacket
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
-  constructor( fourierSeries, wavePacket, domainProperty, options ) {
+  constructor( wavePacket, domainProperty, options ) {
 
-    assert && assert( fourierSeries instanceof WavePacketFourierSeries );
     assert && assert( wavePacket instanceof WavePacket );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
@@ -38,7 +35,6 @@ class WavePacketAmplitudesChart {
     }, options );
 
     // @public
-    this.fourierSeries = fourierSeries;
     this.wavePacket = wavePacket;
     this.domainProperty = domainProperty;
 
@@ -49,13 +45,13 @@ class WavePacketAmplitudesChart {
 
     // @public {DerivedProperty.<Vector2[]>} data set for the Fourier component amplitudes
     this.componentAmplitudesDataSetProperty = new DerivedProperty(
-      [ fourierSeries.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
-      () => fourierSeries.getComponentAmplitudesDataSet( wavePacket )
+      [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
+      () => wavePacket.getComponentAmplitudesDataSet( wavePacket )
     );
 
     // @public {DerivedProperty.<Vector2[]>} data set display when the 'Continuous Wave' checkbox is checked
     this.continuousWaveformDataSetProperty = new DerivedProperty(
-      [ fourierSeries.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
+      [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
       () => this.createContinuousWaveformDataSet( wavePacket )
     );
   }
@@ -85,12 +81,12 @@ class WavePacketAmplitudesChart {
 
     const dataSet = []; // {Vector2[]}
     const kStep = Math.PI / 10; // ENVELOPE_STEP in D2CAmplitudesView.java, chosen so that the plot looks smooth
-    const kMax = this.fourierSeries.xRange.max + Math.PI;
-    const k1 = this.fourierSeries.componentSpacingProperty.value;
+    const kMax = this.wavePacket.xRange.max + Math.PI;
+    const k1 = this.wavePacket.componentSpacingProperty.value;
 
-    let k = this.fourierSeries.xRange.min;
+    let k = this.wavePacket.xRange.min;
     while ( k <= kMax ) {
-      let amplitude = this.fourierSeries.getComponentAmplitude( k, this.wavePacket );
+      let amplitude = this.wavePacket.getComponentAmplitude( k, this.wavePacket );
       if ( k1 !== 0 ) {
         amplitude *= k1;
       }
