@@ -16,10 +16,10 @@ import Color from '../../../../scenery/js/util/Color.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
 import getAmplitudeFunction from './getAmplitudeFunction.js';
 import SeriesType from './SeriesType.js';
-import AxisDescription from './AxisDescription.js';
 
 class Harmonic extends PhetioObject {
 
@@ -92,7 +92,9 @@ class Harmonic extends PhetioObject {
   }
 
   /**
-   * Creates a data set for this harmonic.
+   * Creates a data set for any harmonic.
+   * @param {number} order
+   * @param {number} amplitude
    * @param {number} numberOfPoints
    * @param {number} L
    * @param {number} T
@@ -102,9 +104,12 @@ class Harmonic extends PhetioObject {
    * @param {number} t
    * @returns {Vector2[]}
    * @public
+   * @static
    */
-  createDataSet( numberOfPoints, L, T, xAxisDescription, domain, seriesType, t ) {
+  static createDataSetStatic( order, amplitude, numberOfPoints, L, T, xAxisDescription, domain, seriesType, t ) {
 
+    assert && AssertUtils.assertPositiveInteger( order );
+    assert && assert( typeof amplitude === 'number' );
     assert && AssertUtils.assertPositiveInteger( numberOfPoints );
     assert && AssertUtils.assertPositiveNumber( L );
     assert && AssertUtils.assertPositiveNumber( T );
@@ -114,8 +119,6 @@ class Harmonic extends PhetioObject {
     assert && AssertUtils.assertNonNegativeNumber( t );
 
     const dataSet = [];
-    const order = this.order;
-    const amplitude = this.amplitudeProperty.value;
     const amplitudeFunction = getAmplitudeFunction( domain, seriesType );
     const xRange = xAxisDescription.createRangeForDomain( domain, L, T );
 
@@ -132,6 +135,24 @@ class Harmonic extends PhetioObject {
     assert && assert( dataSet.length === numberOfPoints, 'incorrect number of points in dataSet' );
 
     return dataSet;
+  }
+
+  /**
+   * Create a data set of this harmonic.
+   * @param {number} numberOfPoints
+   * @param {number} L
+   * @param {number} T
+   * @param {AxisDescription} xAxisDescription
+   * @param {Domain} domain
+   * @param {SeriesType} seriesType
+   * @param {number} t
+   * @returns {Vector2[]}
+   * @public
+   */
+  createDataSet( numberOfPoints, L, T, xAxisDescription, domain, seriesType, t ) {
+    const order = this.order;
+    const amplitude = this.amplitudeProperty.value;
+    return Harmonic.createDataSetStatic( order, amplitude, numberOfPoints, L, T, xAxisDescription, domain, seriesType, t );
   }
 }
 

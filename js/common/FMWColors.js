@@ -8,6 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Range from '../../../dot/js/Range.js';
 import Color from '../../../scenery/js/util/Color.js';
 import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
@@ -84,7 +85,10 @@ const FMWColors = {
   // Stroke for the Continuous Waveform in the Wave Packet screen
   continuousWaveformStrokeProperty: new ProfileColorProperty( 'continuousWaveformStroke', {
     default: Color.grayColor( 189 )
-  } )
+  } ),
+
+  // The range of gray colors that are assigned to Fourier components in Wave Packet screen
+  FOURIER_COMPONENT_GRAY_RANGE: new Range( 0, 230 )
 };
 
 // Create a ProfileColorProperty for each harmonic. Colors are listed by increasing harmonic order.

@@ -29,11 +29,7 @@ import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
 // constants
 const X_TICK_LABEL_DECIMALS = 0;
 const Y_TICK_LABEL_DECIMALS = 2;
-
-// range for the grayscale fill of bars in the BarPlot
-const BAR_RGB_RANGE = new Range( 0, 230 );
-assert && assert( BAR_RGB_RANGE.min >= 0 && BAR_RGB_RANGE.min <= 255 );
-assert && assert( BAR_RGB_RANGE.max >= 0 && BAR_RGB_RANGE.max <= 255 );
+const GRAY_RANGE = FMWColors.FOURIER_COMPONENT_GRAY_RANGE;
 
 class WavePacketAmplitudesChartNode extends FMWChartNode {
 
@@ -75,8 +71,8 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
 
       // Assign a grayscale color to each bar in the BarPlot.
       pointToPaintableFields: point => {
-        let rgb = BAR_RGB_RANGE.min + BAR_RGB_RANGE.getLength() * point.x / waveNumberRange.max;
-        rgb = BAR_RGB_RANGE.constrainValue( rgb );
+        let rgb = GRAY_RANGE.min + GRAY_RANGE.getLength() * point.x / waveNumberRange.max;
+        rgb = GRAY_RANGE.constrainValue( rgb );
         return { fill: Color.grayColor( rgb ) };
       }
     } );
@@ -94,8 +90,8 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     // the area under that curve with the same grayscale gradient that is used to color the bars.
     const infiniteComponentsPlot = new AreaPlot( this.chartTransform, [], {
       fill: new LinearGradient( 0, 0, this.chartRectangle.width, 0 )
-        .addColorStop( 0, Color.grayColor( BAR_RGB_RANGE.min ) )
-        .addColorStop( 1, Color.grayColor( BAR_RGB_RANGE.max ) )
+        .addColorStop( 0, Color.grayColor( GRAY_RANGE.min ) )
+        .addColorStop( 1, Color.grayColor( GRAY_RANGE.max ) )
     } );
 
     // Clip these elements to the chartRectangle bounds.

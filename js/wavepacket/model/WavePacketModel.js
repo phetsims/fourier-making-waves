@@ -90,7 +90,7 @@ class WavePacketModel {
     } );
 
     // @public
-    this.componentsChart = new WavePacketComponentsChart( wavePacket, domainProperty,
+    this.componentsChart = new WavePacketComponentsChart( wavePacket, domainProperty, seriesTypeProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, componentsYAxisDescriptionProperty, {
         tandem: chartsTandem.createTandem( 'componentsChart' )
       } );
