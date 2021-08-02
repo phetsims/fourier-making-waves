@@ -75,7 +75,7 @@ class WavePacketAmplitudesChart {
 
     const dataSet = []; // {Vector2[]}
     const kStep = Math.PI / 10; // ENVELOPE_STEP in D2CAmplitudesView.java, chosen so that the plot looks smooth
-    const kMax = this.wavePacket.waveNumberRange.max + Math.PI; //TODO why + Math.PI?
+    const kMax = this.wavePacket.waveNumberRange.max + kStep; // one more point than we need
     const k1 = this.wavePacket.componentSpacingProperty.value;
 
     let k = this.wavePacket.waveNumberRange.min;
