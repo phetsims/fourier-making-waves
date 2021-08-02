@@ -67,7 +67,7 @@ class WavePacketAmplitudesChart {
   /**
    * Creates the data set that approximates a continuous waveform.
    * @param {WavePacket} wavePacket
-   * @returns {Vector2[]}
+   * @returns {Vector2[]} - x is wave number, y is amplitude
    * @private
    */
   createContinuousWaveformDataSet( wavePacket ) {
