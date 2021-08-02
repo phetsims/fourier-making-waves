@@ -167,19 +167,21 @@ class WavePacket {
    * Gets the amplitude of Fourier component k, using the standard Gaussian formula:
    *
    * A(k,k0,dk) = exp[ -((k-k0)^2) / (2 * (dk^2) )  ] / (dk * sqrt( 2pi ))
+   * where k = wave number, k0 = wave packet center, dk = standard deviation of width
    *
-   * Note that symbol k used in this method is specific to the space domain, and is in rad/m.
+   * Note that symbol k used in the formula above is specific to the space domain, and is in rad/m.
    * But this method can also be used for the time domain (omega, in rad/ms), because L === T === 1.
    *
-   * @param {number} k - wave number, spatial in rad/m, or angular in rad/ms
+   * @param {number} waveNumber
    * @returns {number}
    * @public
    */
-  getComponentAmplitude( k ) {
-    assert && assert( typeof k === 'number' );
-    const k0 = this.centerProperty.value;
-    const dk = this.standardDeviationProperty.value;
-    return Math.exp( -( ( k - k0 ) * ( k - k0 ) ) / ( 2 * dk * dk ) ) / ( dk * Math.sqrt( 2 * Math.PI ) );
+  getComponentAmplitude( waveNumber ) {
+    assert && assert( typeof waveNumber === 'number' );
+    const center = this.centerProperty.value;
+    const sigma = this.standardDeviationProperty.value;
+    return Math.exp( -( ( waveNumber - center ) * ( waveNumber - center ) ) / ( 2 * sigma * sigma ) ) /
+           ( sigma * Math.sqrt( 2 * Math.PI ) );
   }
 }
 
