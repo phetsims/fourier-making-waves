@@ -8,6 +8,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -55,7 +56,7 @@ class WavePacketAmplitudesChart {
     // @public {DerivedProperty.<Vector2[]>} data set display when the 'Continuous Wave' checkbox is checked
     this.continuousWaveformDataSetProperty = new DerivedProperty(
       [ fourierSeries.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
-      () => fourierSeries.getContinuousWaveformDataSet( wavePacket )
+      () => this.createContinuousWaveformDataSet( wavePacket )
     );
   }
 
@@ -71,6 +72,33 @@ class WavePacketAmplitudesChart {
    */
   reset() {
     this.continuousWaveformVisibleProperty.reset();
+  }
+
+  /**
+   * Creates the data set that approximates a continuous waveform.
+   * @param {WavePacket} wavePacket
+   * @returns {Vector2[]}
+   * @private
+   */
+  createContinuousWaveformDataSet( wavePacket ) {
+    assert && assert( wavePacket instanceof WavePacket );
+
+    const dataSet = []; // {Vector2[]}
+    const kStep = Math.PI / 10; // ENVELOPE_STEP in D2CAmplitudesView.java, chosen so that the plot looks smooth
+    const kMax = this.fourierSeries.xRange.max + Math.PI;
+    const k1 = this.fourierSeries.componentSpacingProperty.value;
+
+    let k = this.fourierSeries.xRange.min;
+    while ( k <= kMax ) {
+      let amplitude = this.fourierSeries.getComponentAmplitude( k, this.wavePacket );
+      if ( k1 !== 0 ) {
+        amplitude *= k1;
+      }
+      dataSet.push( new Vector2( k, amplitude ) );
+      k += kStep;
+    }
+
+    return dataSet;
   }
 }
 

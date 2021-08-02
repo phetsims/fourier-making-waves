@@ -122,33 +122,6 @@ class WavePacketFourierSeries {
 
     return dataSet;
   }
-
-  /**
-   * Gets the data set that approximates a continuous waveform.
-   * @param {WavePacket} wavePacket
-   * @returns {Vector2[]}
-   * @public
-   */
-  getContinuousWaveformDataSet( wavePacket ) {
-    assert && assert( wavePacket instanceof WavePacket );
-
-    const dataSet = []; // {Vector2[]}
-    const kStep = Math.PI / 10; // ENVELOPE_STEP in D2CAmplitudesView.java, chosen so that the plot looks smooth
-    const kMax = this.xRange.max + Math.PI;
-    const k1 = this.componentSpacingProperty.value;
-
-    let k = this.xRange.min;
-    while ( k <= kMax ) {
-      let amplitude = this.getComponentAmplitude( k, wavePacket );
-      if ( k1 !== 0 ) {
-        amplitude *= k1;
-      }
-      dataSet.push( new Vector2( k, amplitude ) );
-      k += kStep;
-    }
-
-    return dataSet;
-  }
 }
 
 fourierMakingWaves.register( 'WavePacketFourierSeries', WavePacketFourierSeries );
