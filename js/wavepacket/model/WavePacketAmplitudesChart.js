@@ -73,19 +73,19 @@ class WavePacketAmplitudesChart {
   createContinuousWaveformDataSet( wavePacket ) {
     assert && assert( wavePacket instanceof WavePacket );
 
-    const dataSet = []; // {Vector2[]}
-    const kStep = Math.PI / 10; // ENVELOPE_STEP in D2CAmplitudesView.java, chosen so that the plot looks smooth
-    const kMax = this.wavePacket.waveNumberRange.max + kStep; // one more point than we need
-    const k1 = this.wavePacket.componentSpacingProperty.value;
+    const componentSpacing = this.wavePacket.componentSpacingProperty.value;
+    const step = Math.PI / 10; // chosen empirically, so that the plot looks smooth
+    const maxWaveNumber = this.wavePacket.waveNumberRange.max + step; // one more point than we need
 
-    let k = this.wavePacket.waveNumberRange.min;
-    while ( k <= kMax ) {
-      let amplitude = this.wavePacket.getComponentAmplitude( k, this.wavePacket );
-      if ( k1 !== 0 ) {
-        amplitude *= k1;
+    const dataSet = []; // {Vector2[]}
+    let waveNumber = this.wavePacket.waveNumberRange.min;
+    while ( waveNumber <= maxWaveNumber ) {
+      let amplitude = this.wavePacket.getComponentAmplitude( waveNumber );
+      if ( componentSpacing !== 0 ) {
+        amplitude *= componentSpacing;
       }
-      dataSet.push( new Vector2( k, amplitude ) );
-      k += kStep;
+      dataSet.push( new Vector2( waveNumber, amplitude ) );
+      waveNumber += step;
     }
 
     return dataSet;
