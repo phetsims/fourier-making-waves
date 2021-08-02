@@ -72,8 +72,8 @@ class WavePacket {
     } );
 
     // @public
-    // See https://github.com/phetsims/fourier-making-waves/issues/105#issuecomment-889386852 for name decision.
-    // This is sometimes referred to as a delta (dx, dt) in literature and in code comments.
+    // See https://github.com/phetsims/fourier-making-waves/issues/105#issuecomment-889386852 for decision about
+    // name and units. This is sometimes referred to as a delta (dx, dt) in literature and in code comments.
     this.conjugateStandardDeviationProperty = new NumberProperty( 1 / this.standardDeviationProperty.value, {
       range: new Range( 1 / this.standardDeviationProperty.range.max, 1 / this.standardDeviationProperty.range.min ),
       tandem: options.tandem.createTandem( 'conjugateStandardDeviationProperty' ),
