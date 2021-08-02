@@ -22,6 +22,10 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // valid values for component spacing
 const COMPONENT_SPACING_VALUES = [ 0, Math.PI / 4, Math.PI / 2, Math.PI, 2 * Math.PI ];
+assert && assert(
+  _.every( COMPONENT_SPACING_VALUES, ( element, index, array ) => ( index === 0 || array[ index - 1 ] < element ) ),
+  'COMPONENT_SPACING_VALUES must be unique and sorted in ascending order'
+);
 
 class WavePacket {
 
