@@ -40,7 +40,7 @@ class WavePacket {
     assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
       'Many things in this implementation assume that L === T === 1, inherited from Java version.' );
 
-    // @public (read-only) x-axis range for Fourier components,
+    // @public (read-only) range of the wave number for Fourier components
     // k (rad/m) is spatial wave number, or omega (rad/ms) is angular wave number
     this.waveNumberRange = new Range( 0, 24 * Math.PI );
     assert && assert( this.waveNumberRange.min === 0 );
