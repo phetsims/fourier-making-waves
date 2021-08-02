@@ -17,6 +17,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -136,8 +137,15 @@ class WavePacket {
           }
         }
         return dataSet;
-      }
-    );
+      }, {
+        tandem: options.tandem.createTandem( 'componentAmplitudesDataSetProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( ArrayIO( Vector2.Vector2IO ) ),
+        phetioDocumentation: 'Describes the amplitudes of the Fourier components as an array of Vector2. ' +
+                             'For each Vector2, x is wave number, and y is amplitude. ' +
+                             'For the space domain, k is the spatial wave number, in rad/m. ' +
+                             'For the time domain, \u03c9 is the angular wave number, in rad/ms. ' +
+                             'Amplitude is unitless.'
+      } );
   }
 
   /**
