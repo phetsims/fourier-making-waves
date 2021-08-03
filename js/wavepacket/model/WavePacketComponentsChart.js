@@ -17,7 +17,7 @@ import WaveformChart from '../../common/model/WaveformChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
 
-//TODO should be based on frequency, not the same for every component
+//TODO should be based on frequency - more points for higher frequency - not the same for every component
 //TODO reconcile this with FMWConstants.MAX_POINTS_PER_DATA_SET
 const POINTS_PER_COMPONENT = 1000;
 
