@@ -93,49 +93,57 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
     // Update the plot for each component.
     componentsChart.componentDataSetsProperty.link( componentDataSets => {
 
-      const plots = chartCanvasNode.painters;
-      const numberOfPlots = plots.length;
       const numberOfComponents = componentDataSets.length;
+      if ( numberOfComponents > 0 ) {
 
-      // The maximum y value (amplitude), for autoscaling the y axis.
-      let maxY = 0;
+        const plots = chartCanvasNode.painters;
+        const numberOfPlots = plots.length;
 
-      for ( let i = 0; i < numberOfComponents; i++ ) {
+        // The maximum amplitude, for autoscaling the y axis.
+        let maxAmplitude = 0;
 
-        const dataSet = componentDataSets[ i ];
-        maxY = Math.max( maxY, _.maxBy( dataSet, point => point.y ).y );
-        const rgb = GRAY_RANGE.constrainValue( GRAY_RANGE.min + GRAY_RANGE.getLength() * i / numberOfComponents );
-        const stroke = Color.grayColor( rgb );
+        for ( let i = 0; i < numberOfComponents; i++ ) {
 
-        if ( i < numberOfPlots ) {
+          const dataSet = componentDataSets[ i ];
+          assert && assert( dataSet.length > 0 );
 
-          // Reuse an existing plot.
-          const plot = plots[ i ];
-          plot.setDataSet( dataSet );
-          plot.stroke = stroke;
-        }
-        else {
+          // Inspect this component for maximum amplitude.
+          maxAmplitude = Math.max( maxAmplitude, _.maxBy( dataSet, point => point.y ).y );
 
-          // Create a new plot.
-          const plot = new CanvasLinePlot( this.chartTransform, dataSet, {
-            stroke: Color.grayColor( rgb )
-          } );
-          chartCanvasNode.painters.push( plot );
-        }
+          // Gray to be used to stroke this component
+          const rgb = GRAY_RANGE.constrainValue( GRAY_RANGE.min + GRAY_RANGE.getLength() * i / numberOfComponents );
+          const stroke = Color.grayColor( rgb );
 
-        // Any unused plots get an empty data set, so that they draw nothing.
-        if ( numberOfComponents < numberOfPlots ) {
-          for ( let i = numberOfComponents; i < numberOfPlots; i++ ) {
+          if ( i < numberOfPlots ) {
+
+            // Reuse an existing plot.
             const plot = plots[ i ];
-            if ( plot.dataSet.length > 0 ) {
-              plot.setDataSet( [] );
+            plot.setDataSet( dataSet );
+            plot.stroke = stroke;
+          }
+          else {
+
+            // Create a new plot.
+            const plot = new CanvasLinePlot( this.chartTransform, dataSet, {
+              stroke: Color.grayColor( rgb )
+            } );
+            chartCanvasNode.painters.push( plot );
+          }
+
+          // Any unused plots get an empty data set, so that they draw nothing.
+          if ( numberOfComponents < numberOfPlots ) {
+            for ( let i = numberOfComponents; i < numberOfPlots; i++ ) {
+              const plot = plots[ i ];
+              if ( plot.dataSet.length > 0 ) {
+                plot.setDataSet( [] );
+              }
             }
           }
         }
 
-        //TODO this is not working as expected
-        maxY = 1.1 * maxY; // add a bit of padding
-        this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
+        // Autoscale the y axis.
+        maxAmplitude = 1.1 * maxAmplitude; // add a bit of padding
+        this.chartTransform.setModelYRange( new Range( -maxAmplitude, maxAmplitude ) );
         phet.log && phet.log( `Components chart modelYRange = ${this.chartTransform.modelYRange}` );
 
         chartCanvasNode.update();
