@@ -119,24 +119,24 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
             // Reuse an existing plot.
             const plot = plots[ i ];
             plot.setDataSet( dataSet );
-            plot.stroke = stroke;
+            plot.setStroke( stroke );
           }
           else {
 
             // Create a new plot.
             const plot = new CanvasLinePlot( this.chartTransform, dataSet, {
-              stroke: Color.grayColor( rgb )
+              stroke: stroke
             } );
             chartCanvasNode.painters.push( plot );
           }
+        }
 
-          // Any unused plots get an empty data set, so that they draw nothing.
-          if ( numberOfComponents < numberOfPlots ) {
-            for ( let i = numberOfComponents; i < numberOfPlots; i++ ) {
-              const plot = plots[ i ];
-              if ( plot.dataSet.length > 0 ) {
-                plot.setDataSet( [] );
-              }
+        // Any unused plots get an empty data set, so that they draw nothing.
+        if ( numberOfComponents < numberOfPlots ) {
+          for ( let i = numberOfComponents; i < numberOfPlots; i++ ) {
+            const plot = plots[ i ];
+            if ( plot.dataSet.length > 0 ) {
+              plot.setDataSet( [] );
             }
           }
         }
