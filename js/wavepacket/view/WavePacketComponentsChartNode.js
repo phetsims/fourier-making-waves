@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO should plots be added in reverse order, so that the fundamental is in the foreground, as in Java version?
 /**
  * WavePacketComponentsChartNode is the 'Components' chart on the 'Wave Packet' screen.
  *
@@ -134,6 +135,7 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
 
         //TODO this is not working as expected
         maxY = 1.1 * maxY; // add a bit of padding
+        console.log( `maxY=${maxY}` );
         this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
 
         chartCanvasNode.update();
