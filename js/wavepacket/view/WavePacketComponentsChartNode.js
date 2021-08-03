@@ -142,8 +142,8 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
         }
 
         // Autoscale the y axis.
-        maxAmplitude = 1.1 * maxAmplitude; // add a bit of padding
-        this.chartTransform.setModelYRange( new Range( -maxAmplitude, maxAmplitude ) );
+        const maxY = 1.1 * maxAmplitude; // add a bit of padding
+        this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
         this.yGridLines.setSpacing( maxAmplitude );
         this.yTickMarks.setSpacing( maxAmplitude );
         this.yTickLabels.setSpacing( maxAmplitude );
