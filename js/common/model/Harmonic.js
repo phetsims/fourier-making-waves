@@ -92,6 +92,26 @@ class Harmonic extends PhetioObject {
   }
 
   /**
+   * Create a data set of this harmonic.
+   * @param {number} numberOfPoints
+   * @param {number} L
+   * @param {number} T
+   * @param {AxisDescription} xAxisDescription
+   * @param {Domain} domain
+   * @param {SeriesType} seriesType
+   * @param {number} t
+   * @returns {Vector2[]}
+   * @public
+   */
+  createDataSet( numberOfPoints, L, T, xAxisDescription, domain, seriesType, t ) {
+    assert && assert( xAxisDescription instanceof AxisDescription );
+    const order = this.order;
+    const amplitude = this.amplitudeProperty.value;
+    const xRange = xAxisDescription.createRangeForDomain( domain, L, T );
+    return Harmonic.createDataSetStatic( order, amplitude, numberOfPoints, L, T, xRange, domain, seriesType, t );
+  }
+
+  /**
    * Creates a data set for any harmonic. This is used in the Wave Packet screen, which does not create Harmonic
    * instances due to the large number of Fourier components involved.
    * @param {number} order
@@ -135,26 +155,6 @@ class Harmonic extends PhetioObject {
     assert && assert( dataSet.length === numberOfPoints, 'incorrect number of points in dataSet' );
 
     return dataSet;
-  }
-
-  /**
-   * Create a data set of this harmonic.
-   * @param {number} numberOfPoints
-   * @param {number} L
-   * @param {number} T
-   * @param {AxisDescription} xAxisDescription
-   * @param {Domain} domain
-   * @param {SeriesType} seriesType
-   * @param {number} t
-   * @returns {Vector2[]}
-   * @public
-   */
-  createDataSet( numberOfPoints, L, T, xAxisDescription, domain, seriesType, t ) {
-    assert && assert( xAxisDescription instanceof AxisDescription );
-    const order = this.order;
-    const amplitude = this.amplitudeProperty.value;
-    const xRange = xAxisDescription.createRangeForDomain( domain, L, T );
-    return Harmonic.createDataSetStatic( order, amplitude, numberOfPoints, L, T, xRange, domain, seriesType, t );
   }
 }
 
