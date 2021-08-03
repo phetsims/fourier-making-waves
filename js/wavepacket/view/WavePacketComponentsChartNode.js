@@ -135,8 +135,8 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
 
         //TODO this is not working as expected
         maxY = 1.1 * maxY; // add a bit of padding
-        console.log( `maxY=${maxY}` );
         this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
+        phet.log && phet.log( `Components chart modelYRange = ${this.chartTransform.modelYRange}` );
 
         chartCanvasNode.update();
       }
