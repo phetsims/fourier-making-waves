@@ -205,6 +205,7 @@ class FMWChartNode extends Node {
     this.xGridLines = xGridLines;
     this.xTickMarks = xTickMarks;
     this.xTickLabels = xTickLabels;
+    this.xZoomButtonGroup = xZoomButtonGroup;
     this.yAxis = yAxis;
     this.yAxisLabel = yAxisLabel;
     this.yGridLines = yGridLines;

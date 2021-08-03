@@ -56,23 +56,38 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
     // Message shown when we have an infinite number of components.
     const messageNode = new Text( fourierMakingWavesStrings.infiniteComponentsCannotBePlotted, {
       font: new PhetFont( 18 ),
-      centerX: this.chartRectangle.centerX,
-      bottom: this.chartRectangle.centerY - 5,
+      center: this.chartRectangle.center,
       maxWidth: 0.75 * this.chartRectangle.width
     } );
     this.addChild( messageNode );
-
-    // Show the '...cannot be plotted' message when we have an infinite number of components.
-    componentSpacingProperty.link( componentSpacing => {
-      messageNode.visible = ( componentSpacing === 0 );
-      //TODO other things to hide when messageNode is visible?
-    } );
 
     // Render the plots using Canvas, clipped to chartRectangle.
     const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [], {
       clipArea: Shape.bounds( this.chartRectangle.bounds )
     } );
     this.addChild( chartCanvasNode );
+
+    // When we have an infinite number of components...
+    componentSpacingProperty.link( componentSpacing => {
+      const hasInfiniteComponents = ( componentSpacing === 0 );
+
+      // Show the '...cannot be plotted' message.
+      messageNode.visible = hasInfiniteComponents;
+
+      // Hide some chart elements.
+      chartCanvasNode.visible = !hasInfiniteComponents;
+      this.xAxis.visible = !hasInfiniteComponents;
+      this.yAxis.visible = !hasInfiniteComponents;
+      this.xGridLines.visible = !hasInfiniteComponents;
+      this.xTickMarks.visible = !hasInfiniteComponents;
+      this.xTickLabels.visible = !hasInfiniteComponents;
+      this.yGridLines.visible = !hasInfiniteComponents;
+      this.yTickMarks.visible = !hasInfiniteComponents;
+      this.yTickLabels.visible = !hasInfiniteComponents;
+
+      // Disable the x-axis zoom buttons
+      this.xZoomButtonGroup.enabled = !hasInfiniteComponents;
+    } );
 
     // Update the plot for each component.
     componentsChart.componentDataSetsProperty.link( componentDataSets => {
