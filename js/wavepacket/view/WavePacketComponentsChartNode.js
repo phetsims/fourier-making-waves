@@ -112,7 +112,7 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
           for ( let i = numberOfComponents; i < numberOfPlots; i++ ) {
             const plot = plots[ i ];
             if ( plot.dataSet.length > 0 ) {
-              plot.setDataSet( [] ); // {LinePlot}
+              plot.setDataSet( [] );
             }
           }
         }
