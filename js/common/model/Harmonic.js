@@ -92,13 +92,14 @@ class Harmonic extends PhetioObject {
   }
 
   /**
-   * Creates a data set for any harmonic.
+   * Creates a data set for any harmonic. This is used in the Wave Packet screen, which does not create Harmonic
+   * instances due to the large number of Fourier components involved.
    * @param {number} order
    * @param {number} amplitude
    * @param {number} numberOfPoints
    * @param {number} L
    * @param {number} T
-   * @param {AxisDescription} xAxisDescription
+   * @param {Range} xRange
    * @param {Domain} domain
    * @param {SeriesType} seriesType
    * @param {number} t
@@ -106,21 +107,20 @@ class Harmonic extends PhetioObject {
    * @public
    * @static
    */
-  static createDataSetStatic( order, amplitude, numberOfPoints, L, T, xAxisDescription, domain, seriesType, t ) {
+  static createDataSetStatic( order, amplitude, numberOfPoints, L, T, xRange, domain, seriesType, t ) {
 
     assert && AssertUtils.assertPositiveInteger( order );
     assert && assert( typeof amplitude === 'number' );
     assert && AssertUtils.assertPositiveInteger( numberOfPoints );
     assert && AssertUtils.assertPositiveNumber( L );
     assert && AssertUtils.assertPositiveNumber( T );
-    assert && assert( xAxisDescription instanceof AxisDescription );
+    assert && assert( xRange instanceof Range );
     assert && assert( Domain.includes( domain ) );
     assert && assert( SeriesType.includes( seriesType ) );
     assert && AssertUtils.assertNonNegativeNumber( t );
 
     const dataSet = [];
     const amplitudeFunction = getAmplitudeFunction( domain, seriesType );
-    const xRange = xAxisDescription.createRangeForDomain( domain, L, T );
 
     // Make dx a bit larger than necessary, so that we cover the entire xRange by slightly exceeding xRange.max.
     const dx = xRange.getLength() / ( numberOfPoints - 1 );
@@ -150,9 +150,11 @@ class Harmonic extends PhetioObject {
    * @public
    */
   createDataSet( numberOfPoints, L, T, xAxisDescription, domain, seriesType, t ) {
+    assert && assert( xAxisDescription instanceof AxisDescription );
     const order = this.order;
     const amplitude = this.amplitudeProperty.value;
-    return Harmonic.createDataSetStatic( order, amplitude, numberOfPoints, L, T, xAxisDescription, domain, seriesType, t );
+    const xRange = xAxisDescription.createRangeForDomain( domain, L, T );
+    return Harmonic.createDataSetStatic( order, amplitude, numberOfPoints, L, T, xRange, domain, seriesType, t );
   }
 }
 
