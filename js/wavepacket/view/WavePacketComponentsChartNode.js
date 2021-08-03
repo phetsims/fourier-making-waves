@@ -147,7 +147,6 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
         this.yGridLines.setSpacing( maxAmplitude );
         this.yTickMarks.setSpacing( maxAmplitude );
         this.yTickLabels.setSpacing( maxAmplitude );
-        phet.log && phet.log( `Components chart modelYRange = ${this.chartTransform.modelYRange}` );
 
         chartCanvasNode.update();
       }
