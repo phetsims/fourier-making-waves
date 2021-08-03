@@ -1,6 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 //TODO should plots be added in reverse order, so that the fundamental is in the foreground, as in Java version?
+//TODO plot colors do not currently match Java version
 /**
  * WavePacketComponentsChartNode is the 'Components' chart on the 'Wave Packet' screen.
  *
