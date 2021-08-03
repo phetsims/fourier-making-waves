@@ -55,7 +55,6 @@ class WavePacketComponentsChart extends WaveformChart {
     } );
 
     //TODO adjust yAxisDescriptionProperty based on the maxY of the component data sets
-    //TODO amplitude or maxY seems to be wrong here
     this.componentDataSetsProperty = new DerivedProperty(
       [ wavePacket.componentAmplitudesDataSetProperty, seriesTypeProperty, xAxisDescriptionProperty ],
       ( componentAmplitudesDataSet, seriesType, xAxisDescription ) => {
