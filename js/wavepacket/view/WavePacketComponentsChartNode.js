@@ -148,6 +148,7 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
         this.yTickMarks.setSpacing( maxAmplitude );
         this.yTickLabels.setSpacing( maxAmplitude );
 
+        // Redraw the plots.
         chartCanvasNode.update();
       }
     } );
