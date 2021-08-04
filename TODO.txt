@@ -16,9 +16,6 @@ Can SumChart be used by WavePacketSumChart?
 Amplitude chart:
 Use AxisDescription for the y axis
 
-I used a different approach for gridLines and ticks in the Components & Sum charts, only putting them at max/min of
-the y-axis range. This adds less clutter to busy charts, and clearly shows the amplitude range. Run this past AR.
-
 WavePacketComponentsChart and WavePacketSumPlot do not use AxisDescription for y-axis, but yAxisDescriptionProperty
 is required by their superclass WaveformChart.
 
