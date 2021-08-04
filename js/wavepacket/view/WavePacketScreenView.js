@@ -12,6 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
@@ -19,9 +20,9 @@ import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapse
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
-import WavePacketComponentsChartNode from './WavePacketComponentsChartNode.js';
 import ComponentsEquationNode from './ComponentsEquationNode.js';
 import WavePacketAmplitudesChartNode from './WavePacketAmplitudesChartNode.js';
+import WavePacketComponentsChartNode from './WavePacketComponentsChartNode.js';
 import WavePacketControlPanel from './WavePacketControlPanel.js';
 import WavePacketSumChartNode from './WavePacketSumChartNode.js';
 import WavePacketSumEquationNode from './WavePacketSumEquationNode.js';
@@ -58,10 +59,15 @@ class WavePacketScreenView extends ScreenView {
     // Parent tandem for all components related to the Components chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
+    const amplitudesOfFourierComponentsText = new Text( fourierMakingWavesStrings.amplitudesOfFourierComponents, {
+      font: FMWConstants.TITLE_FONT,
+      maxWidth: 300
+    } );
+
     // Equation above the Amplitudes chart
     const amplitudeEquationNode = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
       font: FMWConstants.EQUATION_FONT,
-      maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
+      maxWidth: 100,
       tandem: amplitudesTandem.createTandem( 'equationNode' )
     } );
 
@@ -89,7 +95,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Button to show/hide the Components chart
     const componentsExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.componentsChart, model.componentsChart.chartVisibleProperty, {
+      fourierMakingWavesStrings.fourierComponents, model.componentsChart.chartVisibleProperty, {
         tandem: componentsTandem.createTandem( 'componentsExpandCollapseButton' )
       } );
 
@@ -149,8 +155,10 @@ class WavePacketScreenView extends ScreenView {
     // Layout, constants determined empirically
     {
       // Amplitudes chart at top left
+      amplitudesOfFourierComponentsText.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+      amplitudesOfFourierComponentsText.top = layoutBounds.top + 10;
       amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
-      amplitudesChartNode.y = 32;
+      amplitudesChartNode.y = amplitudesOfFourierComponentsText.bottom + TITLE_BOTTOM_SPACING;
 
       // Components chart below the Amplitudes chart
       componentsExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
@@ -177,6 +185,7 @@ class WavePacketScreenView extends ScreenView {
     // This should improve startup performance, compared to calling this.addChild for each Node.
     const screenViewRootNode = new Node( {
       children: [
+        amplitudesOfFourierComponentsText,
         amplitudeEquationNode,
         amplitudesChartNode,
         componentsEquationWrapperNode,

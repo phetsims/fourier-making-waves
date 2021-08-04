@@ -227,8 +227,11 @@
   "wavePacketWidth": {
     "value": "Wave Packet Width"
   },
-  "componentsChart": {
-    "value": "Components"
+  "amplitudesOfFourierComponents": {
+    "value": "Amplitudes of Fourier Components"
+  },
+  "fourierComponents": {
+    "value": "Fourier Components"
   },
   "waveformEnvelope": {
     "value": "Waveform Envelope"
