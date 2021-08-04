@@ -58,6 +58,7 @@ class WavePacketComponentsChart extends WaveformChart {
 
     // @public {DerivedProperty<Array.<Array.<Vector2>>}
     // A data set for each Fourier component's waveform, [] when the number of components is infinite.
+    // Ordered by increasing order of Fourier component, i.e. the fundamental component has index=0.
     // This is loosely based on the update method in D2CComponentsView.java.
     this.componentDataSetsProperty = new DerivedProperty(
       [ wavePacket.componentAmplitudesDataSetProperty, seriesTypeProperty, xAxisDescriptionProperty ],

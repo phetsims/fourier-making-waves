@@ -55,6 +55,7 @@ class WavePacketSumChart extends WaveformChart {
     // @public {DerivedProperty.<Array.<Vector2>>}
     // Data set for the sum of a finite number of components, [] when the number of components is infinite.
     // This simply takes the data sets for components, and sums the y values (amplitudes) of corresponding x values.
+    // Ordered by increasing x-axis value.
     this.sumDataSetProperty = new DerivedProperty(
       [ componentDataSetsProperty ],
       componentDataSets => {
