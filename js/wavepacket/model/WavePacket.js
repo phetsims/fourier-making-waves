@@ -123,6 +123,7 @@ class WavePacket {
 
     // @public {DerivedProperty.<Vector2[]>} the Fourier components used to approximate the wave packet
     // For each Vector2 instance, x is wave number, y is amplitude.
+    // This is loosely based on the addGeneralPathPlot method in D2CAmplitudesView.java.
     this.componentAmplitudesDataSetProperty = new DerivedProperty(
       [ this.componentSpacingProperty, this.centerProperty, this.standardDeviationProperty ],
       ( componentSpacing, center, standardDeviation ) => {

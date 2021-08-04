@@ -66,6 +66,7 @@ class WavePacketAmplitudesChart {
 
   /**
    * Creates the data set that approximates a continuous waveform.
+   * This is loosely based on the updateEnvelope method in D2CAmplitudesView.java.
    * @param {WavePacket} wavePacket
    * @returns {Vector2[]} - x is wave number, y is amplitude
    * @private
