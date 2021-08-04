@@ -1,7 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO should plots be added in reverse order, so that the fundamental is in the foreground, as in Java version?
-//TODO plot colors do not currently match Java version
 /**
  * WavePacketComponentsChartNode is the 'Components' chart on the 'Wave Packet' screen.
  *
@@ -141,6 +139,11 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
             }
           }
         }
+
+        // Reverse the order of plots, so that lower-order components (darker gray) are rendered last,
+        // and therefore appear on top. If we don't do this, then the higher-order components (lighter gray)
+        // will wash out the chart, reducing the contrast.
+        chartCanvasNode.painters.reverse();
 
         // Autoscale the y axis.
         // See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
