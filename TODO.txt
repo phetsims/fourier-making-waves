@@ -21,7 +21,7 @@ is required by their superclass WaveformChart.
 
 Sum plot (finite components): see addFourierSeriesPlot in D2CSumView.js
 Sum plot (infinite components): see addContinuousPlot in D2CSumView.js
-Sum Waveform Envelope: see updateEnvelope in D2CAmplitudesView.java and D2CSumView.js
+Sum Waveform Envelope: see updateEnvelope in D2CSumView.js
 
 Width indicators
 Wavelength/Period tools
