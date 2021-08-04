@@ -5,6 +5,8 @@
  * These preset waveforms are all based on a peak amplitude of 1.
  * Since the 'Infinite Harmonics' data sets are small, the data sets always cover the maximum x range.
  *
+ * Much of this file is ported from, or loosely based on, Presets.java.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
