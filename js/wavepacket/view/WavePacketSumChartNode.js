@@ -74,6 +74,7 @@ class WavePacketSumChartNode extends WaveformChartNode {
       if ( sumDataSet.length > 0 ) {
 
         // Autoscale the y axis.
+        // See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
         const maxAmplitude = _.maxBy( sumDataSet, point => point.y ).y;
         const maxY = 1.1 * maxAmplitude; // add a bit of padding
         this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );

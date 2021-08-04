@@ -143,6 +143,7 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
         }
 
         // Autoscale the y axis.
+        // See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
         const maxY = 1.1 * maxAmplitude; // add a bit of padding
         this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
         this.yGridLines.setSpacing( maxAmplitude );
