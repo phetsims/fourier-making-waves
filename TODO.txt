@@ -19,7 +19,6 @@ Use AxisDescription for the y axis
 WavePacketComponentsChart and WavePacketSumPlot do not use AxisDescription for y-axis, but yAxisDescriptionProperty
 is required by their superclass WaveformChart.
 
-Sum plot (finite components): see addFourierSeriesPlot in D2CSumView.js
 Sum plot (infinite components): see addContinuousPlot in D2CSumView.js
 Sum Waveform Envelope: see updateEnvelope in D2CSumView.js
 
