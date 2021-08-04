@@ -20,7 +20,11 @@ Use WavePacket.getContinuousWaveformDataSet for infinite components and "Continu
 I used a different approach for gridLines and ticks in the Components & Sum charts, only putting them at max/min of
 the y-axis range. This adds less clutter to busy charts, and clearly shows the amplitude range. Run this past AR.
 
-Sum LinePlot: see addFourierSeriesPlot in D2CSumView.js
+WavePacketComponentsChart and WavePacketSumPlot do not use AxisDescription for y-axis, but yAxisDescriptionProperty
+is required by their superclass WaveformChart.
+
+Sum plot (finite components): see addFourierSeriesPlot in D2CSumView.js
+Sum plot (infinite components): ??
 Waveform Envelope: see updateEnvelope in D2CAmplitudesView.java and D2CSumView.js
 
 ## PhET-iO
