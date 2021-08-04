@@ -156,7 +156,7 @@ class FourierSeries extends PhetioObject {
   }
 
   /**
-   * Creates the data set for the sum of the harmonics in the Fourier Series.
+   * Creates the data set for the sum of the harmonics in the Fourier Series. Points are ordered by increasing x value.
    *
    * This does not use Harmonic.createDataSet or the datasets that it creates, because:
    * (1) Calling Harmonic.createDataSet would create many more Vector2 instances.

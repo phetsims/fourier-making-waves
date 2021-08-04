@@ -78,7 +78,7 @@ class WaveGameSumChart extends SumChart {
 
     const createGuessDataSet = () => guessSeries.createSumDataSet( xAxisDescription, domain, seriesType, t );
 
-    // @public
+    // @public Data set that displays the waveform for the user's guess. Points are ordered by increasing x value.
     this.guessDataSetProperty = new Property( createGuessDataSet(), {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
     } );

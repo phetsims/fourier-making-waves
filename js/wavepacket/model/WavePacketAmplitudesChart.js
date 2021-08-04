@@ -43,7 +43,8 @@ class WavePacketAmplitudesChart {
       tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
     } );
 
-    // @public {DerivedProperty.<Vector2[]>} data set displayed when the 'Continuous Wave' checkbox is checked
+    // @public {DerivedProperty.<Vector2[]>} data set displayed when the 'Continuous Wave' checkbox is checked.
+    // Points are ordered by increasing x value.
     this.continuousWaveformDataSetProperty = new DerivedProperty(
       [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
       () => this.createContinuousWaveformDataSet( wavePacket )

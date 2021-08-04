@@ -56,7 +56,7 @@ class SumChart extends WaveformChart {
         domainProperty.value, seriesTypeProperty.value, tProperty.value );
     };
 
-    // {Property.<Vector2[]>} the data set for the sum
+    // {Property.<Vector2[]>} The data set for the sum. Points are ordered by increasing x value.
     const sumDataSetProperty = new Property( createSumDataSet(), {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
     } );
