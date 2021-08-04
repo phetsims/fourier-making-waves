@@ -11,7 +11,7 @@ Can SumChart be used by WavePacketSumChart?
 
 ## Wave Game screen
 
-# Wave Packet screen
+## Wave Packet screen
 
 Amplitude chart:
 Use AxisDescription for the y axis
