@@ -17,9 +17,8 @@ Amplitude chart:
 Use AxisDescription for the y axis
 Use WavePacket.getContinuousWaveformDataSet for infinite components and "Continuous Waveform" checkbox
 
-I used a different approach for gridLines and ticks in the Components chart, only putting them at max/min of
-the y-axis range. This adds less clutter to a very busy chart, and clearly shows the amplitude range. Run this
-past AR.
+I used a different approach for gridLines and ticks in the Components & Sum charts, only putting them at max/min of
+the y-axis range. This adds less clutter to busy charts, and clearly shows the amplitude range. Run this past AR.
 
 Sum LinePlot: see addFourierSeriesPlot in D2CSumView.js
 Waveform Envelope: see updateEnvelope in D2CAmplitudesView.java and D2CSumView.js
