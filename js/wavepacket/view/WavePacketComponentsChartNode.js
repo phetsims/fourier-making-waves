@@ -55,6 +55,12 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
 
     super( componentsChart, options );
 
+    // Render the plots using Canvas, clipped to chartRectangle.
+    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [], {
+      clipArea: Shape.bounds( this.chartRectangle.bounds )
+    } );
+    this.addChild( chartCanvasNode );
+
     // Message shown when we have an infinite number of components.
     const messageNode = new Text( fourierMakingWavesStrings.infiniteComponentsCannotBePlotted, {
       font: new PhetFont( 18 ),
@@ -62,12 +68,6 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
       maxWidth: 0.75 * this.chartRectangle.width
     } );
     this.addChild( messageNode );
-
-    // Render the plots using Canvas, clipped to chartRectangle.
-    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [], {
-      clipArea: Shape.bounds( this.chartRectangle.bounds )
-    } );
-    this.addChild( chartCanvasNode );
 
     // When we have an infinite number of components...
     componentSpacingProperty.link( componentSpacing => {

@@ -7,6 +7,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
+import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
+import Range from '../../../../dot/js/Range.js';
+import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import WaveformChartNode from '../../common/view/WaveformChartNode.js';
@@ -45,6 +49,17 @@ class WavePacketSumChartNode extends WaveformChartNode {
 
     super( sumChart, options );
 
+    // Plots the sum of a finite number of components
+    const sumPlot = new CanvasLinePlot( this.chartTransform, [], {
+      stroke: 'black'
+    } );
+
+    // Render the plots using Canvas, clipped to chartRectangle.
+    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [ sumPlot ], {
+      clipArea: Shape.bounds( this.chartRectangle.bounds )
+    } );
+    this.addChild( chartCanvasNode );
+
     // Waveform Envelope checkbox
     const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( envelopeVisibleProperty, {
       right: this.chartRectangle.right - 5,
@@ -53,10 +68,26 @@ class WavePacketSumChartNode extends WaveformChartNode {
     } );
     this.addChild( waveformEnvelopeCheckbox );
 
+    sumChart.sumDataSetProperty.link( sumDataSet => {
+
+      sumPlot.setDataSet( sumDataSet );
+      if ( sumDataSet.length > 0 ) {
+
+        // Autoscale the y axis.
+        const maxAmplitude = _.maxBy( sumDataSet, point => point.y ).y;
+        const maxY = 1.1 * maxAmplitude; // add a bit of padding
+        this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
+        this.yGridLines.setSpacing( maxAmplitude );
+        this.yTickMarks.setSpacing( maxAmplitude );
+        this.yTickLabels.setSpacing( maxAmplitude );
+      }
+
+      // Redraw the plots.
+      chartCanvasNode.update();
+    } );
+
     // pdom - append to the superclass traversal order
     this.pdomOrder = this.getPDOMOrder().concat( [ waveformEnvelopeCheckbox ] );
-
-    //TODO add plots, observe sumChart.dataSetsProperty to update plots
   }
 
   /**

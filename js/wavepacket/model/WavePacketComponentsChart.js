@@ -54,7 +54,8 @@ class WavePacketComponentsChart extends WaveformChart {
       tandem: options.tandem.createTandem( 'chartVisibleProperty' )
     } );
 
-    //TODO adjust yAxisDescriptionProperty based on the maxY of the component data sets
+    // @public {DerivedProperty<Array.<Array.<Vector2>>}
+    // a data set for each Fourier component's waveform, [] when the number of components is infinite
     this.componentDataSetsProperty = new DerivedProperty(
       [ wavePacket.componentAmplitudesDataSetProperty, seriesTypeProperty, xAxisDescriptionProperty ],
       ( componentAmplitudesDataSet, seriesType, xAxisDescription ) => {

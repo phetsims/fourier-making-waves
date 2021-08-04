@@ -8,6 +8,8 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import WaveformChart from '../../common/model/WaveformChart.js';
@@ -17,6 +19,7 @@ import WavePacket from './WavePacket.js';
 class WavePacketSumChart extends WaveformChart {
 
   /**
+   * @param {DerivedProperty.<Array.<Array.<Vector2>>>} componentDataSetsProperty
    * @param {WavePacket} wavePacket
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<TickLabelFormat>} xAxisTickLabelFormatProperty
@@ -24,7 +27,7 @@ class WavePacketSumChart extends WaveformChart {
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( wavePacket, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
+  constructor( componentDataSetsProperty, wavePacket, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
                yAxisDescriptionProperty, options ) {
     assert && assert( wavePacket instanceof WavePacket );
 
@@ -49,6 +52,38 @@ class WavePacketSumChart extends WaveformChart {
     this.envelopeVisibleProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'envelopeVisibleProperty' )
     } );
+
+    // @public {DerivedProperty.<Array.<Vector2>>}
+    // data set for the sum of a finite number of components, [] when the number of components is infinite.
+    this.sumDataSetProperty = new DerivedProperty(
+      [ componentDataSetsProperty ],
+      componentDataSets => {
+        const sumDataSet = [];
+        if ( componentDataSets.length > 0 ) {
+
+          const pointsPerDataSet = componentDataSets[ 0 ].length;
+          assert && assert( pointsPerDataSet > 0 );
+
+          if ( pointsPerDataSet > 0 ) {
+            assert && assert( _.every( componentDataSets, dataSet => dataSet.length === pointsPerDataSet ),
+              `All data sets much have ${pointsPerDataSet} points.` );
+
+            for ( let i = 0; i < pointsPerDataSet; i++ ) {
+              let sum = 0;
+              const x = componentDataSets[ 0 ][ i ].x;
+              for ( let j = 0; j < componentDataSets.length; j++ ) {
+                assert && assert( componentDataSets[ j ][ i ].x === x,
+                  'all points with the same index must have the same x coordinate' );
+                sum += componentDataSets[ j ][ i ].y;
+              }
+              sumDataSet.push( new Vector2( x, sum ) );
+            }
+          }
+        }
+        return sumDataSet;
+      } );
+
+    //TODO plot for infinite components
   }
 
   /**
