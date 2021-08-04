@@ -60,10 +60,10 @@ class WavePacketScreenView extends ScreenView {
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
     // Title above the Amplitudes chart
-    const amplitudesOfFourierComponentsText = new Text( fourierMakingWavesStrings.amplitudesOfFourierComponents, {
+    const fourierComponentAmplitudesText = new Text( fourierMakingWavesStrings.fourierComponentAmplitudes, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 300,
-      tandem: amplitudesTandem.createTandem( 'amplitudesOfFourierComponentsText' )
+      tandem: amplitudesTandem.createTandem( 'fourierComponentAmplitudesText' )
     } );
 
     // Equation above the Amplitudes chart
@@ -157,10 +157,10 @@ class WavePacketScreenView extends ScreenView {
     // Layout, constants determined empirically
     {
       // Amplitudes chart at top left
-      amplitudesOfFourierComponentsText.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-      amplitudesOfFourierComponentsText.top = layoutBounds.top + 10;
+      fourierComponentAmplitudesText.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+      fourierComponentAmplitudesText.top = layoutBounds.top + 10;
       amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
-      amplitudesChartNode.y = amplitudesOfFourierComponentsText.bottom + TITLE_BOTTOM_SPACING;
+      amplitudesChartNode.y = fourierComponentAmplitudesText.bottom + TITLE_BOTTOM_SPACING;
 
       // Components chart below the Amplitudes chart
       componentsExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
@@ -187,7 +187,7 @@ class WavePacketScreenView extends ScreenView {
     // This should improve startup performance, compared to calling this.addChild for each Node.
     const screenViewRootNode = new Node( {
       children: [
-        amplitudesOfFourierComponentsText,
+        fourierComponentAmplitudesText,
         amplitudeEquationNode,
         amplitudesChartNode,
         componentsEquationWrapperNode,
