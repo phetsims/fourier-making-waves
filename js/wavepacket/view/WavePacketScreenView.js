@@ -59,9 +59,11 @@ class WavePacketScreenView extends ScreenView {
     // Parent tandem for all components related to the Components chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
+    // Title above the Amplitudes chart
     const amplitudesOfFourierComponentsText = new Text( fourierMakingWavesStrings.amplitudesOfFourierComponents, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 300
+      maxWidth: 300,
+      tandem: amplitudesTandem.createTandem( 'amplitudesOfFourierComponentsText' )
     } );
 
     // Equation above the Amplitudes chart
