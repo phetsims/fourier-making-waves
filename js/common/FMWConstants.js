@@ -29,12 +29,11 @@ const FMWConstants = {
   // See https://github.com/phetsims/fourier-making-waves/issues/22
   MAX_AMPLITUDE: 1.5,
 
-  //TODO add some verification for this value, since it depends on MAX_HARMONICS and XZoomDescriptions?
   // Number of points in the data set for the highest order (highest frequency) harmonic
-  // The number of points for each harmonic plot is a function of order, because higher-frequency harmonics require
-  // more points to draw a smooth plot. This value was chosen empirically, such that the highest-order harmonic looks
-  // smooth when the Harmonics chart is fully zoomed out.
-  MAX_POINTS_PER_DATA_SET: 2000,
+  // This value was chosen empirically, such that the highest-order harmonic looks smooth a chart is fully zoomed out.
+  // If you change this, visually examine the plots of the highest frequency harmonics in the Discrete screen and
+  // the Wave Packet screen, and confirm that those plots look smooth - pay special attention to the peaks!
+  MAX_POINTS_PER_DATA_SET: 1000,
 
   // Number of points awarded for each correct answer in the Wave Game screen
   POINTS_PER_CHALLENGE: 1,

@@ -57,8 +57,8 @@ class HarmonicsChart extends WaveformChart {
      */
     const createDataSet = harmonic => {
 
-      // Higher-frequency (higher-order) harmonics require more points to draw a smooth plot.
-      // See documentation for FMWConstants.MAX_POINTS_PER_DATA_SET.
+      // The number of points for each harmonic plot is a function of order, because higher-frequency harmonics require
+      // more points to draw a smooth plot.
       const numberOfPoints = Math.ceil( FMWConstants.MAX_POINTS_PER_DATA_SET *
                                         harmonic.order / fourierSeries.harmonics.length );
 

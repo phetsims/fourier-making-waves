@@ -11,15 +11,17 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import WaveformChart from '../../common/model/WaveformChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
 
-//TODO should be based on frequency - more points for higher frequency - not the same for every component
-//TODO reconcile this with FMWConstants.MAX_POINTS_PER_DATA_SET
-const POINTS_PER_COMPONENT = 1000;
+// We could use different numbers of points for different Fourier components, because lower-order components have a
+// longer period, and therefore require fewer points to make them look smooth. But computing the same number of points
+// for all components makes it easier and more efficient to compute the Sum of those components in the Wave Packet screen.
+const POINTS_PER_DATA_SET = FMWConstants.MAX_POINTS_PER_DATA_SET;
 
 class WavePacketComponentsChart extends WaveformChart {
 
@@ -67,12 +69,12 @@ class WavePacketComponentsChart extends WaveformChart {
           const domain = domainProperty.value;
           const range = xAxisDescription.range;
           const L = 2 * Math.PI / wavePacket.componentSpacingProperty.value;
-          const T = L; // because the WavePacket model is independent of domain
+          const T = L; // because the WavePacket model is independent of domain, and assumes that L === T
           const t = 0; // there is no animation in this screen, so time is always 0
 
           for ( let order = 1; order <= componentAmplitudesDataSet.length; order++ ) {
             const amplitude = componentAmplitudesDataSet[ order - 1 ].y;
-            dataSets.push( Harmonic.createDataSetStatic( order, amplitude, POINTS_PER_COMPONENT, L, T, range, domain, seriesType, t ) );
+            dataSets.push( Harmonic.createDataSetStatic( order, amplitude, POINTS_PER_DATA_SET, L, T, range, domain, seriesType, t ) );
           }
         }
         return dataSets;
