@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO factor out duplication with WavePacketComponentsChart
 /**
  * WavePacketSumChart is the 'Sum' chart on the 'Wave Packet' screen.
  *
