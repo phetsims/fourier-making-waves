@@ -189,6 +189,8 @@ class WavePacket {
    * Note that symbol k used in the formula above is specific to the space domain, and is in rad/m.
    * But this method can also be used for the time domain (omega, in rad/ms), because L === T === 1.
    *
+   * This was ported from the getAmplitude method in GaussianWavePacket.java.
+   *
    * @param {number} waveNumber
    * @returns {number}
    * @public
