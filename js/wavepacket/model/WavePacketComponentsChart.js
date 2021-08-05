@@ -75,7 +75,7 @@ class WavePacketComponentsChart extends WaveformChart {
           const t = 0; // there is no animation in this screen, so time is always 0
 
           for ( let order = 1; order <= components.length; order++ ) {
-            const amplitude = components[ order - 1 ].y;
+            const amplitude = components[ order - 1 ].amplitude;
             dataSets.push( Harmonic.createDataSetStatic( order, amplitude, POINTS_PER_DATA_SET, L, T, range, domain, seriesType, t ) );
           }
         }

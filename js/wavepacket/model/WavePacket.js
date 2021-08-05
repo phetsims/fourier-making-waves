@@ -16,10 +16,10 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import FourierComponent from './FourierComponent.js';
 
 // valid values for component spacing
 const COMPONENT_SPACING_VALUES = [ 0, Math.PI / 4, Math.PI / 2, Math.PI, 2 * Math.PI ];
@@ -121,10 +121,8 @@ class WavePacket {
                              'In the time domain, this is in rad/ms.'
       } );
 
-    //TODO should this be called componentsProperty, because it identifies wave number (x) and amplitude (y)?
-
-    // @public {DerivedProperty.<Vector2[]>} the Fourier components used to approximate the wave packet.
-    // For each Vector2 instance, x is wave number, y is amplitude. Ordered by increasing wave number.
+    // @public {DerivedProperty.<FourierComponent[]>} the Fourier components used to approximate the wave packet.
+    // Ordered by increasing wave number.
     // This is loosely based on the addGeneralPathPlot method in D2CAmplitudesView.java.
     this.componentsProperty = new DerivedProperty(
       [ this.componentSpacingProperty, this.centerProperty, this.standardDeviationProperty ],
@@ -135,15 +133,15 @@ class WavePacket {
           for ( let i = 0; i < numberOfComponents; i++ ) {
             const waveNumber = i * componentSpacing; // spatial in rad/m, or angular in rad/ms
             const An = this.getComponentAmplitude( waveNumber ) * componentSpacing;
-            dataSet.push( new Vector2( waveNumber, An ) );
+            dataSet.push( new FourierComponent( waveNumber, An ) );
           }
         }
         return dataSet;
       }, {
         tandem: options.tandem.createTandem( 'componentsProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( ArrayIO( Vector2.Vector2IO ) ),
-        phetioDocumentation: 'Describes the Fourier components as an array of Vector2. ' +
-                             'For each Vector2, x is wave number, and y is amplitude. ' +
+        phetioType: DerivedProperty.DerivedPropertyIO( ArrayIO( FourierComponent.FourierComponentIO ) ),
+        phetioDocumentation: 'The set of Fourier components used to approximate the wave packet. ' +
+                             'Each component has a wave number and an amplitude. ' +
                              'For the space domain, k is the spatial wave number, in rad/m. ' +
                              'For the time domain, \u03c9 is the angular wave number, in rad/ms. ' +
                              'Amplitude is unitless.'
