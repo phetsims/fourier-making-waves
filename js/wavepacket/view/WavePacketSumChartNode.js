@@ -53,6 +53,8 @@ class WavePacketSumChartNode extends WaveformChartNode {
       stroke: 'black'
     } );
 
+    //TODO add waveformEnvelopePlot
+
     // Render the plots using Canvas, clipped to chartRectangle.
     const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [ sumPlot ], {
       clipArea: Shape.bounds( this.chartRectangle.bounds )

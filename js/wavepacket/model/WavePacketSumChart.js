@@ -84,7 +84,7 @@ class WavePacketSumChart extends WaveformChart {
         return sumDataSet;
       } );
 
-    //TODO plot for infinite components
+    //TODO add this.waveformEnvelopeDataSetProperty
   }
 
   /**
