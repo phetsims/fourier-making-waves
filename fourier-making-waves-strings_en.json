@@ -159,7 +159,7 @@
     "value": "{{lambda}} - wavelength, in m"
   },
   "symbolsDialog.k": {
-    "value": "{{k}} - wave number, in rad/m"
+    "value": "{{k}} - spatial wave number, in rad/m"
   },
   "symbolsDialog.L": {
     "value": "{{L}} - string length, in m (if this were a plucked string)"
@@ -180,7 +180,7 @@
     "value": "{{sigma}} - standard deviation of Gaussian wave packet"
   },
   "symbolsDialog.omega": {
-    "value": "{{omega}} - angular frequency, in rad/ms"
+    "value": "{{omega}} - angular wave number, in rad/ms"
   },
   "levels": {
     "value": "Levels"
