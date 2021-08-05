@@ -20,8 +20,8 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class FourierComponent {
 
   /**
-   * @param {number} waveNumber
-   * @param {number} amplitude
+   * @param {number} waveNumber - k is spatial wave number in rad/m, omega is angular wave number in rad/ms
+   * @param {number} amplitude - unitless
    */
   constructor( waveNumber, amplitude ) {
     assert && AssertUtils.assertNonNegativeNumber( waveNumber );
