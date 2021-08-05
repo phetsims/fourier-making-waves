@@ -122,7 +122,6 @@ class WavePacket {
       } );
 
     //TODO should this be called componentsProperty, because it identifies wave number (x) and amplitude (y)?
-    //TODO create a FourierComponent class that has wave number and amplitude fields, so it's not involved in Vector2 point caching?
 
     // @public {DerivedProperty.<Vector2[]>} the Fourier components used to approximate the wave packet
     // For each Vector2 instance, x is wave number, y is amplitude. Ordered by increasing wave number.
