@@ -71,6 +71,7 @@ class Harmonic extends PhetioObject {
       tandem: config.tandem.createTandem( 'amplitudeProperty' )
     } );
 
+    //TODO colorProperty link is not showing up in Studio
     // Show link to colorProperty in Studio
     this.addLinkedElement( this.colorProperty, {
       tandem: config.tandem.createTandem( 'colorProperty' )
