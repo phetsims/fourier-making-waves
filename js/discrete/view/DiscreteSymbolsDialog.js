@@ -49,6 +49,7 @@ class DiscreteSymbolsDialog extends Dialog {
       StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.n, { n: FMWSymbols.n } ),
       StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.t, { t: FMWSymbols.t } ),
       StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.T, { T: FMWSymbols.T } ),
+      StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.omega, { omega: FMWSymbols.omega } ),
       StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.x, { x: FMWSymbols.x } )
     ];
 
