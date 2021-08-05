@@ -61,12 +61,12 @@ class WavePacketComponentsChart extends WaveformChart {
     // Ordered by increasing order of Fourier component, i.e. the fundamental component has index=0.
     // This is loosely based on the update method in D2CComponentsView.java.
     this.componentDataSetsProperty = new DerivedProperty(
-      [ wavePacket.componentAmplitudesDataSetProperty, seriesTypeProperty, xAxisDescriptionProperty ],
-      ( componentAmplitudesDataSet, seriesType, xAxisDescription ) => {
+      [ wavePacket.componentsProperty, seriesTypeProperty, xAxisDescriptionProperty ],
+      ( components, seriesType, xAxisDescription ) => {
 
         const dataSets = []; // {Array.<Array.<Vector2>>}
 
-        if ( componentAmplitudesDataSet.length > 0 ) {
+        if ( components.length > 0 ) {
 
           const domain = domainProperty.value;
           const range = xAxisDescription.range;
@@ -74,8 +74,8 @@ class WavePacketComponentsChart extends WaveformChart {
           const T = L; // because the WavePacket model is independent of domain, and assumes that L === T
           const t = 0; // there is no animation in this screen, so time is always 0
 
-          for ( let order = 1; order <= componentAmplitudesDataSet.length; order++ ) {
-            const amplitude = componentAmplitudesDataSet[ order - 1 ].y;
+          for ( let order = 1; order <= components.length; order++ ) {
+            const amplitude = components[ order - 1 ].y;
             dataSets.push( Harmonic.createDataSetStatic( order, amplitude, POINTS_PER_DATA_SET, L, T, range, domain, seriesType, t ) );
           }
         }

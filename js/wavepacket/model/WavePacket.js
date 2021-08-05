@@ -123,10 +123,10 @@ class WavePacket {
 
     //TODO should this be called componentsProperty, because it identifies wave number (x) and amplitude (y)?
 
-    // @public {DerivedProperty.<Vector2[]>} the Fourier components used to approximate the wave packet
+    // @public {DerivedProperty.<Vector2[]>} the Fourier components used to approximate the wave packet.
     // For each Vector2 instance, x is wave number, y is amplitude. Ordered by increasing wave number.
     // This is loosely based on the addGeneralPathPlot method in D2CAmplitudesView.java.
-    this.componentAmplitudesDataSetProperty = new DerivedProperty(
+    this.componentsProperty = new DerivedProperty(
       [ this.componentSpacingProperty, this.centerProperty, this.standardDeviationProperty ],
       ( componentSpacing, center, standardDeviation ) => {
         const dataSet = []; // {Vector2[]}
@@ -140,9 +140,9 @@ class WavePacket {
         }
         return dataSet;
       }, {
-        tandem: options.tandem.createTandem( 'componentAmplitudesDataSetProperty' ),
+        tandem: options.tandem.createTandem( 'componentsProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( ArrayIO( Vector2.Vector2IO ) ),
-        phetioDocumentation: 'Describes the amplitudes of the Fourier components as an array of Vector2. ' +
+        phetioDocumentation: 'Describes the Fourier components as an array of Vector2. ' +
                              'For each Vector2, x is wave number, and y is amplitude. ' +
                              'For the space domain, k is the spatial wave number, in rad/m. ' +
                              'For the time domain, \u03c9 is the angular wave number, in rad/ms. ' +

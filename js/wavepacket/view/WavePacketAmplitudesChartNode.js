@@ -10,7 +10,9 @@
 import BarPlot from '../../../../bamboo/js/BarPlot.js';
 import LinePlot from '../../../../bamboo/js/LinePlot.js';
 import Range from '../../../../dot/js/Range.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Color from '../../../../scenery/js/util/Color.js';
@@ -44,7 +46,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     // Fields of interest in amplitudesChart, to improve readability
     const domainProperty = amplitudesChart.domainProperty;
     const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
-    const componentAmplitudesDataSetProperty = amplitudesChart.wavePacket.componentAmplitudesDataSetProperty;
+    const componentsProperty = amplitudesChart.wavePacket.componentsProperty;
     const continuousWaveformDataSetProperty = amplitudesChart.continuousWaveformDataSetProperty;
     const waveNumberRange = amplitudesChart.wavePacket.waveNumberRange;
     const componentSpacingProperty = amplitudesChart.wavePacket.componentSpacingProperty;
@@ -120,10 +122,12 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     } );
 
     // Display the Fourier component amplitudes.
-    // Performance optimization: Update only if the plots is visible.
-    componentAmplitudesDataSetProperty.link( dataSet => {
+    // Components are modeled as a data set of {Vector2[]}, compatible with componentAmplitudesPlot.
+    // Performance optimization: Update only if the plot is visible.
+    componentsProperty.link( components => {
+      assert && AssertUtils.assertArrayOf( components, Vector2 );
       if ( componentAmplitudesPlot.visible ) {
-        componentAmplitudesPlot.setDataSet( dataSet );
+        componentAmplitudesPlot.setDataSet( components );
       }
     } );
 
@@ -152,7 +156,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
 
     // Performance optimization: Update data set when a plot becomes visible, clear data set when it becomes invisible.
     componentAmplitudesPlot.visibleProperty.link(
-      visible => componentAmplitudesPlot.setDataSet( visible ? componentAmplitudesDataSetProperty.value : [] ) );
+      visible => componentAmplitudesPlot.setDataSet( visible ? componentsProperty.value : [] ) );
     continuousWaveformPlot.visibleProperty.link(
       visible => continuousWaveformPlot.setDataSet( visible ? continuousWaveformDataSetProperty.value : [] ) );
     infiniteComponentsPlot.visibleProperty.link(
