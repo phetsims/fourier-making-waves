@@ -87,7 +87,7 @@ class WidthIndicatorPlot extends Node {
       labelNode.text = `2${FMWSymbols.sigma}<sub>${waveNumberSymbol}</sub>`;
     } );
 
-    // Horizontally center the label.
+    // Horizontally center the label BELOW the arrows so that it doesn't get clipped in the charts.
     Property.multilink(
       [ backgroundNode.boundsProperty, dimensionalArrowsNode.boundsProperty ],
       () => {
