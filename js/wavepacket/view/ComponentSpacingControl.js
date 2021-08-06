@@ -111,6 +111,7 @@ class ComponentSpacingControl extends FMWNumberControl {
  * @returns {string}
  */
 function numberFormatter( componentSpacing, domain ) {
+  assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
 
   const symbol = StringUtils.fillIn( '{{symbol}}<sub>1</sub>', {
     symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega

@@ -100,6 +100,8 @@ const EquationMarkup = {
    * @returns {string}
    */
   getComponentsEquationMarkup( domain, seriesType ) {
+    assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
+
     const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t;
     const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega;
     const seriesTypeString = ( seriesType === SeriesType.SINE ) ? FMWSymbols.sin : FMWSymbols.cos;

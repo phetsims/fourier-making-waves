@@ -94,6 +94,7 @@ class ConjugateStandardDeviationControl extends FMWNumberControl {
  * @returns {string}
  */
 function numberFormatter( conjugateStandardDeviation, domain ) {
+  assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
 
   const pattern = `${FMWSymbols.sigma}<sub>{{subscript}}</sub>`;
   const symbol1 = StringUtils.fillIn( pattern, {
