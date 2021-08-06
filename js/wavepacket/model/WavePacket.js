@@ -116,7 +116,7 @@ class WavePacket {
       standardDeviation => 2 * standardDeviation, {
         tandem: options.tandem.createTandem( 'widthProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
-        phetioDocumentation: 'The width of the wave packet. ' +
+        phetioDocumentation: 'The width of the wave packet, derived from standardDeviationProperty. ' +
                              'In the space domain, this is in rad/m. ' +
                              'In the time domain, this is in rad/ms.'
       } );
