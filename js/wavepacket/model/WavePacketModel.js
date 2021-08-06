@@ -71,11 +71,13 @@ class WavePacketModel {
       validValues: X_AXIS_DESCRIPTIONS
     } );
 
+    //TODO not used!
     // {Property.<AxisDescription>} the y-axis description for the Components chart
     const componentsYAxisDescriptionProperty = new Property( Y_AXIS_DESCRIPTIONS[ 0 ], {
       validValues: Y_AXIS_DESCRIPTIONS
     } );
 
+    //TODO not used!
     // {Property.<AxisDescription>} the y-axis description for the Sum chart
     const sumYAxisDescriptionProperty = new Property( Y_AXIS_DESCRIPTIONS[ 0 ], {
       validValues: Y_AXIS_DESCRIPTIONS
@@ -84,19 +86,16 @@ class WavePacketModel {
     // Parent tandem for all charts
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
-    // @public
-    this.amplitudesChart = new WavePacketAmplitudesChart( wavePacket, domainProperty, widthIndicatorsVisibleProperty, {
+    const amplitudesChart = new WavePacketAmplitudesChart( wavePacket, domainProperty, widthIndicatorsVisibleProperty, {
       tandem: chartsTandem.createTandem( 'amplitudesChart' )
     } );
 
-    // @public
-    this.componentsChart = new WavePacketComponentsChart( wavePacket, domainProperty, seriesTypeProperty,
+    const componentsChart = new WavePacketComponentsChart( wavePacket, domainProperty, seriesTypeProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, componentsYAxisDescriptionProperty, {
         tandem: chartsTandem.createTandem( 'componentsChart' )
       } );
 
-    // @public
-    this.sumChart = new WavePacketSumChart( this.componentsChart.componentDataSetsProperty,
+    const sumChart = new WavePacketSumChart( componentsChart.componentDataSetsProperty,
       wavePacket, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
       sumYAxisDescriptionProperty, widthIndicatorsVisibleProperty, {
         tandem: chartsTandem.createTandem( 'sumChart' )
@@ -105,28 +104,39 @@ class WavePacketModel {
     // @public (read-only)
     this.maxAmplitude = 0.21; //TODO ??
 
+    // @private
+    this.resetWavePacketModel = () => {
+
+      // Properties
+      domainProperty.reset();
+      seriesTypeProperty.reset();
+      widthIndicatorsVisibleProperty.reset();
+      xAxisDescriptionProperty.reset();
+      componentsYAxisDescriptionProperty.reset();
+      sumYAxisDescriptionProperty.reset();
+
+      // sub-models
+      wavePacket.reset();
+      amplitudesChart.reset();
+      componentsChart.reset();
+      sumChart.reset();
+    };
+
     // @public
     this.domainProperty = domainProperty;
     this.seriesTypeProperty = seriesTypeProperty;
     this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
     this.wavePacket = wavePacket;
+    this.amplitudesChart = amplitudesChart;
+    this.componentsChart = componentsChart;
+    this.sumChart = sumChart;
   }
 
   /**
    * @public
    */
   reset() {
-
-    // Properties
-    this.domainProperty.reset();
-    this.seriesTypeProperty.reset();
-    this.widthIndicatorsVisibleProperty.reset();
-
-    // sub-models
-    this.wavePacket.reset();
-    this.amplitudesChart.reset();
-    this.componentsChart.reset();
-    this.sumChart.reset();
+    this.resetWavePacketModel();
   }
 
   /**
