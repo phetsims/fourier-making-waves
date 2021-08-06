@@ -113,7 +113,8 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
 
     const continuousWaveformCheckbox = new ContinuousWaveformCheckbox( continuousWaveformVisibleProperty, {
       right: this.chartRectangle.right - 5,
-      top: this.xTickLabels.bottom + 8
+      top: this.xTickLabels.bottom + 8,
+      tandem: options.tandem.createTandem( 'continuousWaveformCheckbox' )
     } );
     this.addChild( continuousWaveformCheckbox );
 
