@@ -24,7 +24,6 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketAmplitudesChart from '../model/WavePacketAmplitudesChart.js';
 import AreaPlot from './AreaPlot.js';
-import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
 import WidthIndicatorPlot from './WidthIndicatorPlot.js';
 
 // constants
@@ -111,13 +110,6 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     } );
     this.addChild( clipNode );
 
-    const continuousWaveformCheckbox = new ContinuousWaveformCheckbox( continuousWaveformVisibleProperty, {
-      right: this.chartRectangle.right - 5,
-      top: this.xTickLabels.bottom + 8,
-      tandem: options.tandem.createTandem( 'continuousWaveformCheckbox' )
-    } );
-    this.addChild( continuousWaveformCheckbox );
-
     // Adjust the x-axis label to match the domain.
     domainProperty.link( domain => {
 
@@ -168,11 +160,6 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       visible => continuousWaveformPlot.setDataSet( visible ? continuousWaveformDataSetProperty.value : [] ) );
     infiniteComponentsPlot.visibleProperty.link(
       visible => infiniteComponentsPlot.setDataSet( visible ? continuousWaveformDataSetProperty.value : [] ) );
-
-    // pdom - traversal order
-    this.pdomOrder = [
-      continuousWaveformCheckbox
-    ];
   }
 
   /**

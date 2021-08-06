@@ -21,6 +21,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
 import ComponentsEquationNode from './ComponentsEquationNode.js';
+import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
 import WavePacketAmplitudesChartNode from './WavePacketAmplitudesChartNode.js';
 import WavePacketComponentsChartNode from './WavePacketComponentsChartNode.js';
 import WavePacketControlPanel from './WavePacketControlPanel.js';
@@ -81,6 +82,12 @@ class WavePacketScreenView extends ScreenView {
       },
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
     } );
+
+    const continuousWaveformCheckbox = new ContinuousWaveformCheckbox(
+      model.amplitudesChart.continuousWaveformVisibleProperty, {
+        tandem: amplitudesTandem.createTandem( 'continuousWaveformCheckbox' )
+      } );
+    this.addChild( continuousWaveformCheckbox );
 
     // Parent tandem for all components related to the Components chart
     const componentsTandem = chartsTandem.createTandem( 'components' );
@@ -143,34 +150,36 @@ class WavePacketScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
 
-    // Layout, constants determined empirically
-    {
-      // Amplitudes chart at top left
-      fourierComponentAmplitudesText.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-      fourierComponentAmplitudesText.top = layoutBounds.top + 10;
-      amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
-      amplitudesChartNode.y = fourierComponentAmplitudesText.bottom + TITLE_BOTTOM_SPACING;
+    // Layout, constants determined empirically -----------------------------------------
 
-      // Components chart below the Amplitudes chart
-      componentsExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-      componentsExpandCollapseButton.top = amplitudesChartNode.bottom;
-      componentsChartNode.x = amplitudesChartNode.x;
-      componentsChartNode.y = componentsExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
+    // Amplitudes chart at top left
+    fourierComponentAmplitudesText.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+    fourierComponentAmplitudesText.top = layoutBounds.top + 10;
+    amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
+    amplitudesChartNode.y = fourierComponentAmplitudesText.bottom + TITLE_BOTTOM_SPACING;
+    const amplitudeChartRectangleLocalBounds = this.globalToLocalBounds( amplitudesChartNode.chartRectangle.parentToGlobalBounds( amplitudesChartNode.chartRectangle.bounds ) );
+    continuousWaveformCheckbox.right = amplitudeChartRectangleLocalBounds.right - 5;
+    continuousWaveformCheckbox.top = amplitudesChartNode.bottom + 8;
 
-      // Sum chart below the Components chart
-      sumExpandCollapseButton.left = componentsExpandCollapseButton.left;
-      sumExpandCollapseButton.top = componentsChartNode.bottom + 30;
-      sumChartNode.x = componentsChartNode.x;
-      sumChartNode.y = sumExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
+    // Components chart below the Amplitudes chart
+    componentsExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+    componentsExpandCollapseButton.top = continuousWaveformCheckbox.bottom;
+    componentsChartNode.x = amplitudesChartNode.x;
+    componentsChartNode.y = componentsExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
 
-      // Control panel centered in the space to the right of the charts
-      controlPanel.centerX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
-      controlPanel.top = layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
+    // Sum chart below the Components chart
+    sumExpandCollapseButton.left = componentsExpandCollapseButton.left;
+    sumExpandCollapseButton.top = componentsChartNode.bottom + 30;
+    sumChartNode.x = componentsChartNode.x;
+    sumChartNode.y = sumExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
 
-      // Reset All button at bottom right
-      resetAllButton.right = layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
-      resetAllButton.bottom = layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
-    }
+    // Control panel centered in the space to the right of the charts
+    controlPanel.centerX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
+    controlPanel.top = layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
+
+    // Reset All button at bottom right
+    resetAllButton.right = layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
+    resetAllButton.bottom = layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
 
     // Add everything to one root Node, then add that root Node to the scene graph.
     // This should improve startup performance, compared to calling this.addChild for each Node.
@@ -179,6 +188,7 @@ class WavePacketScreenView extends ScreenView {
         fourierComponentAmplitudesText,
         amplitudeEquationNode,
         amplitudesChartNode,
+        continuousWaveformCheckbox,
         componentsEquationWrapperNode,
         componentsExpandCollapseButton,
         componentsChartNode,
@@ -196,7 +206,6 @@ class WavePacketScreenView extends ScreenView {
 
     // Get the bounds of the ChartRectangles in this coordinate frame, used for layout.
     // Do this AFTER adding Nodes to the scene graph.
-    const amplitudeChartRectangleLocalBounds = this.globalToLocalBounds( amplitudesChartNode.chartRectangle.parentToGlobalBounds( amplitudesChartNode.chartRectangle.bounds ) );
     const componentsChartRectangleLocalBounds = this.globalToLocalBounds( componentsChartNode.chartRectangle.parentToGlobalBounds( componentsChartNode.chartRectangle.bounds ) );
     const sumChartRectangleLocalBounds = this.globalToLocalBounds( sumChartNode.chartRectangle.parentToGlobalBounds( sumChartNode.chartRectangle.bounds ) );
 
@@ -229,6 +238,7 @@ class WavePacketScreenView extends ScreenView {
       controlPanel,
       //TODO https://github.com/phetsims/fourier-making-waves/issues/84 put measurement tools here
       amplitudesChartNode,
+      continuousWaveformCheckbox,
       componentsExpandCollapseButton,
       componentsChartNode,
       sumExpandCollapseButton,
