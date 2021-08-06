@@ -113,15 +113,15 @@ class SumChart extends WaveformChart {
       } );
     }
 
-    // @public
-    this.fourierSeries = fourierSeries;
-    this.sumDataSetProperty = sumDataSetProperty;
-
     // @private
     this.resetSumChart = () => {
       yAutoScaleProperty.reset();
-      this.sumDataSetProperty.reset();
+      sumDataSetProperty.reset();
     };
+
+    // @public
+    this.fourierSeries = fourierSeries;
+    this.sumDataSetProperty = sumDataSetProperty;
   }
 
   /**
