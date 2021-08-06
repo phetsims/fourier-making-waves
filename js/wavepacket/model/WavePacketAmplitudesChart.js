@@ -62,6 +62,8 @@ class WavePacketAmplitudesChart {
     );
 
     // @public {DerivedProperty.<Vector2>} width that is displayed by the width indicator
+    // This is identical to the wave packet's width, but we are deriving a Property name widthIndicatorWidthProperty
+    // so that all charts have a similar API for width indicators.
     this.widthIndicatorWidthProperty = new DerivedProperty( [ wavePacket.widthProperty ], width => width );
 
     // @public {DerivedProperty.<Vector2>} position of the width indicator
