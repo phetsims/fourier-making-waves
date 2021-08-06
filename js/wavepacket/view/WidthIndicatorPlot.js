@@ -70,7 +70,7 @@ class WidthIndicatorPlot extends Node {
     function updateWidthIndicatorPlot() {
 
       // Resize the dimensional arrows
-      const viewWidth = chartTransform.modelToViewX( widthProperty.value );
+      const viewWidth = chartTransform.modelToViewDeltaX( widthProperty.value );
       dimensionalArrowsNode.setLine( 0, viewWidth );
 
       // Center the dimensional arrows
