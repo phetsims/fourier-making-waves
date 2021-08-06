@@ -44,17 +44,7 @@ class StandardDeviationControl extends FMWNumberControl {
       // NumberDisplay options
       delta: DELTA,
       numberDisplayOptions: {
-        numberFormatter: standardDeviation =>
-          StringUtils.fillIn( fourierMakingWavesStrings.symbolValueUnits, {
-            symbol: StringUtils.fillIn( '{{symbol}}<sub>{{subscript}}</sub>', {
-              symbol: FMWSymbols.sigma,
-              subscript: ( domainProperty.value === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega
-            } ),
-            value: Utils.toFixedNumber( standardDeviation, DECIMALS ), // Using toFixedNumber removes trailing zeros.
-            units: ( domainProperty.value === Domain.SPACE ) ?
-                   fourierMakingWavesStrings.units.radiansPerMeter :
-                   fourierMakingWavesStrings.units.radiansPerMillisecond
-          } )
+        numberFormatter: standardDeviation => numberFormatter( standardDeviation, domainProperty.value )
       },
 
       // Slider options
@@ -96,6 +86,34 @@ class StandardDeviationControl extends FMWNumberControl {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
+}
+
+/**
+ * Formats the number for display by NumberDisplay.
+ * @param {number} standardDeviation
+ * @param {Domain} domain
+ * @returns {string}
+ */
+function numberFormatter( standardDeviation, domain ) {
+  assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
+
+  const symbol = StringUtils.fillIn( '{{symbol}}<sub>{{subscript}}</sub>', {
+    symbol: FMWSymbols.sigma,
+    subscript: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega
+  } );
+
+  // Using toFixedNumber removes trailing zeros.
+  const value = Utils.toFixedNumber( standardDeviation, DECIMALS );
+
+  const units = ( domain === Domain.SPACE ) ?
+                fourierMakingWavesStrings.units.radiansPerMeter :
+                fourierMakingWavesStrings.units.radiansPerMillisecond;
+
+  return StringUtils.fillIn( fourierMakingWavesStrings.symbolValueUnits, {
+    symbol: symbol,
+    value: value,
+    units: units
+  } );
 }
 
 fourierMakingWaves.register( 'StandardDeviationControl', StandardDeviationControl );
