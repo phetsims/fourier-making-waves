@@ -58,7 +58,12 @@ class WidthIndicatorPlot extends Node {
     const labelNode = new RichText( '', options.richTextOptions );
 
     // Label on a translucent background that resizes to fit the label.
-    const backgroundNode = new BackgroundNode( labelNode );
+    const backgroundNode = new BackgroundNode( labelNode, {
+      xMargin: 5,
+      backgroundOptions: {
+        cornerRadius: 2
+      }
+    } );
 
     assert && assert( !options.children, 'DimensionalArrowsNode sets children' );
     options = merge( {
