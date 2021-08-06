@@ -92,7 +92,7 @@ class WidthIndicatorPlot extends Node {
       [ backgroundNode.boundsProperty, dimensionalArrowsNode.boundsProperty ],
       () => {
         backgroundNode.centerX = dimensionalArrowsNode.centerX;
-        backgroundNode.bottom = dimensionalArrowsNode.top;
+        backgroundNode.top = dimensionalArrowsNode.bottom;
       } );
   }
 }
