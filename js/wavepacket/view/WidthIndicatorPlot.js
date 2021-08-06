@@ -60,7 +60,7 @@ class WidthIndicatorPlot extends Node {
     // Label on a translucent background that resizes to fit the label.
     const backgroundNode = new BackgroundNode( labelNode, {
       xMargin: 5,
-      backgroundOptions: {
+      rectangleOptions: {
         cornerRadius: 2
       }
     } );
