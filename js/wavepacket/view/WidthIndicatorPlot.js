@@ -67,14 +67,11 @@ class WidthIndicatorPlot extends Node {
 
     super( options );
 
-    // Make the line grow from the center out, and reposition left arrow and vertical line.
     function updateWidthIndicatorPlot() {
 
       // Resize the dimensional arrows
       const viewWidth = chartTransform.modelToViewX( widthProperty.value );
-      const x1 = -viewWidth / 2;
-      const x2 = viewWidth / 2;
-      dimensionalArrowsNode.setLine( x1, x2 );
+      dimensionalArrowsNode.setLine( 0, viewWidth );
 
       // Center the dimensional arrows
       dimensionalArrowsNode.center = chartTransform.modelToViewPosition( positionProperty.value );
