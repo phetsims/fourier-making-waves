@@ -117,8 +117,8 @@ class WavePacket {
         tandem: options.tandem.createTandem( 'widthProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
         phetioDocumentation: 'The width of the wave packet, derived from standardDeviationProperty. ' +
-                             'In the space domain, this is in rad/m. ' +
-                             'In the time domain, this is in rad/ms.'
+                             'In the space domain, width is in rad/m. ' +
+                             'In the time domain, width is in rad/ms.'
       } );
 
     // @public {DerivedProperty.<FourierComponent[]>} the Fourier components used to approximate the wave packet.
