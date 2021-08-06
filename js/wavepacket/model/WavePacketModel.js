@@ -44,7 +44,7 @@ class WavePacketModel {
     }, options );
 
     const domainProperty = new EnumerationProperty( Domain, Domain.SPACE, {
-      validValues: [ Domain.SPACE, Domain.TIME ],
+      validValues: [ Domain.SPACE, Domain.TIME ], // Domain SPACE_AND_TIME is not supported in this screen
       tandem: options.tandem.createTandem( 'domainProperty' )
     } );
 
@@ -97,8 +97,8 @@ class WavePacketModel {
 
     // @public
     this.sumChart = new WavePacketSumChart( this.componentsChart.componentDataSetsProperty,
-      wavePacket, domainProperty, xAxisTickLabelFormatProperty,
-      xAxisDescriptionProperty, sumYAxisDescriptionProperty, {
+      wavePacket, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
+      sumYAxisDescriptionProperty, widthIndicatorsVisibleProperty, {
         tandem: chartsTandem.createTandem( 'sumChart' )
       } );
 

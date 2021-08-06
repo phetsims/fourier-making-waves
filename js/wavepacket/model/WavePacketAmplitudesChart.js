@@ -61,6 +61,9 @@ class WavePacketAmplitudesChart {
       () => this.createContinuousWaveformDataSet( wavePacket )
     );
 
+    // @public {DerivedProperty.<Vector2>} width that is displayed by the width indicator
+    this.widthIndicatorWidthProperty = new DerivedProperty( [ wavePacket.widthProperty ], width => width );
+
     // @public {DerivedProperty.<Vector2>} position of the width indicator
     // This is loosely based on the getModelLocation method in WavePacketKWidthPlot.java.
     this.widthIndicatorPositionProperty = new DerivedProperty(

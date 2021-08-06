@@ -49,9 +49,9 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
     const waveNumberRange = amplitudesChart.wavePacket.waveNumberRange;
     const componentSpacingProperty = amplitudesChart.wavePacket.componentSpacingProperty;
-    const widthProperty = amplitudesChart.wavePacket.widthProperty;
+    const widthIndicatorWidthProperty = amplitudesChart.widthIndicatorWidthProperty;
     const widthIndicatorPositionProperty = amplitudesChart.widthIndicatorPositionProperty;
-    const widthIndicatorsWidthProperty = amplitudesChart.widthIndicatorsVisibleProperty;
+    const widthIndicatorsVisibleProperty = amplitudesChart.widthIndicatorsVisibleProperty;
 
     options = merge( {
       xTickMarkSpacing: Math.PI,
@@ -99,9 +99,9 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     } );
 
     // Width indicator, labeled dimensional arrows
-    const widthIndicatorPlot = new WidthIndicatorPlot( this.chartTransform, widthProperty, widthIndicatorPositionProperty,
-      domainProperty, FMWSymbols.k, FMWSymbols.omega, {
-        visibleProperty: widthIndicatorsWidthProperty
+    const widthIndicatorPlot = new WidthIndicatorPlot( this.chartTransform, widthIndicatorWidthProperty,
+      widthIndicatorPositionProperty, domainProperty, FMWSymbols.k, FMWSymbols.omega, {
+        visibleProperty: widthIndicatorsVisibleProperty
       } );
 
     // Clip these elements to the chartRectangle bounds.

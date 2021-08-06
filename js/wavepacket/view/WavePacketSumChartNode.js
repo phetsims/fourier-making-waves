@@ -9,14 +9,16 @@
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
-import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import WaveformChartNode from '../../common/view/WaveformChartNode.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketSumChart from '../model/WavePacketSumChart.js';
 import WaveformEnvelopeCheckbox from './WaveformEnvelopeCheckbox.js';
+import WidthIndicatorPlot from './WidthIndicatorPlot.js';
 
 // constants
 const X_TICK_LABEL_DECIMALS = 1;
@@ -33,8 +35,12 @@ class WavePacketSumChartNode extends WaveformChartNode {
     assert && assert( sumChart instanceof WavePacketSumChart );
 
     // Fields of interest in sumChart, to improve readability
+    const domainProperty = sumChart.domainProperty;
     const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;
     const envelopeVisibleProperty = sumChart.envelopeVisibleProperty;
+    const widthIndicatorWidthProperty = sumChart.widthIndicatorWidthProperty;
+    const widthIndicatorPositionProperty = sumChart.widthIndicatorPositionProperty;
+    const widthIndicatorsVisibleProperty = sumChart.widthIndicatorsVisibleProperty;
 
     options = merge( {
       xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),
@@ -56,11 +62,21 @@ class WavePacketSumChartNode extends WaveformChartNode {
 
     //TODO add waveformEnvelopePlot
 
-    // Render the plots using Canvas, clipped to chartRectangle.
-    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [ sumPlot ], {
-      clipArea: Shape.bounds( this.chartRectangle.bounds )
+    // Render the plots using Canvas.
+    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [ sumPlot ] );
+
+    // Width indicator, labeled dimensional arrows
+    const widthIndicatorPlot = new WidthIndicatorPlot( this.chartTransform, widthIndicatorWidthProperty,
+      widthIndicatorPositionProperty, domainProperty, FMWSymbols.x, FMWSymbols.t, {
+        visibleProperty: widthIndicatorsVisibleProperty
+      } );
+
+    // Clip these elements to the chartRectangle bounds.
+    const clipNode = new Node( {
+      clipArea: this.chartRectangle.getShape(),
+      children: [ chartCanvasNode, widthIndicatorPlot ]
     } );
-    this.addChild( chartCanvasNode );
+    this.addChild( clipNode );
 
     // Waveform Envelope checkbox
     const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( envelopeVisibleProperty, {

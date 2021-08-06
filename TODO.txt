@@ -14,6 +14,8 @@ Can SumChart be used by WavePacketSumChart?
 
 ## Wave Packet screen
 
+xZoomLevelProperty is not resetting for Components and Sum charts.
+
 Amplitude chart:
 Use AxisDescription for the y axis
 

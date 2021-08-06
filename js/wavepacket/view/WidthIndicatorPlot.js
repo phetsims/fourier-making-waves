@@ -24,12 +24,12 @@ import HorizontalDimensionalArrowsNode from './HorizontalDimensionalArrowNode.js
 class WidthIndicatorPlot extends Node {
 
   /**
-   * @param {ChartTransform} chartTransform
-   * @param {Property.<number>} widthProperty
-   * @param {Property.<Vector2>} positionProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {string} spaceSymbol
-   * @param {string} timeSymbol
+   * @param {ChartTransform} chartTransform - transform for the chart that renders this plot
+   * @param {Property.<number>} widthProperty - width of the indicator, in model coordinates
+   * @param {Property.<Vector2>} positionProperty - position of the indicator, in model coordinates
+   * @param {EnumerationProperty.<Domain>} domainProperty - the domain, space or time
+   * @param {string} spaceSymbol - symbol for the space domain
+   * @param {string} timeSymbol - symbol for the time domain
    * @param {Object} [options]
    */
   constructor( chartTransform, widthProperty, positionProperty, domainProperty, spaceSymbol, timeSymbol, options ) {
@@ -86,7 +86,7 @@ class WidthIndicatorPlot extends Node {
 
     // Update the label to match the domain
     domainProperty.link( domain => {
-      const waveNumberSymbol = ( domain === Domain.TIME ) ? timeSymbol : spaceSymbol;
+      const waveNumberSymbol = ( domain === Domain.SPACE ) ? spaceSymbol : timeSymbol;
       labelNode.text = `2${FMWSymbols.sigma}<sub>${waveNumberSymbol}</sub>`;
     } );
 

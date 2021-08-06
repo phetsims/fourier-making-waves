@@ -9,7 +9,9 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import WaveformChart from '../../common/model/WaveformChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -24,11 +26,13 @@ class WavePacketSumChart extends WaveformChart {
    * @param {EnumerationProperty.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty
+   * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Object} [options]
    */
   constructor( componentDataSetsProperty, wavePacket, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
-               yAxisDescriptionProperty, options ) {
+               yAxisDescriptionProperty, widthIndicatorsVisibleProperty, options ) {
     assert && assert( wavePacket instanceof WavePacket );
+    assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
 
     options = merge( {
 
@@ -41,6 +45,7 @@ class WavePacketSumChart extends WaveformChart {
 
     // @public
     this.wavePacket = wavePacket;
+    this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
 
     // @public whether the Sum chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {
@@ -85,6 +90,21 @@ class WavePacketSumChart extends WaveformChart {
       } );
 
     //TODO add this.waveformEnvelopeDataSetProperty
+
+    // @public {Vector2} width displayed by the width indicator
+    // This is loosely based on the getModelWidth method in WavePacketXWidthPlot.java.
+    this.widthIndicatorWidthProperty = new DerivedProperty(
+      [ wavePacket.conjugateStandardDeviationProperty ],
+      conjugateStandardDeviation => 2 * conjugateStandardDeviation
+    );
+
+    // @public {Vector2} position of the width indicator
+    // This is a constant, but the view requires a Property. We use validValues to constrain it to 1 value.
+    // This is loosely based on the getModelLocation method in WavePacketXWidthPlot.java.
+    const widthIndicatorPosition = new Vector2( 0, 1 / Math.sqrt( Math.E ) );
+    this.widthIndicatorPositionProperty = new Vector2Property( widthIndicatorPosition, {
+      validValues: [ widthIndicatorPosition ]
+    } );
   }
 
   /**
