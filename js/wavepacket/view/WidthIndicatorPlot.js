@@ -1,14 +1,14 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WidthIndicatorNode shows the width of the wave packet.
- * It's a horizontal dimensional indicator, with a label centered above it.
+ * WidthIndicatorPlot plots width on a chart, using dimensional arrows.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Property from '../../../../axon/js/Property.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
@@ -21,20 +21,22 @@ import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import HorizontalDimensionalArrowsNode from './HorizontalDimensionalArrowNode.js';
 
-class WidthIndicatorNode extends Node {
+class WidthIndicatorPlot extends Node {
 
   /**
    * @param {ChartTransform} chartTransform
    * @param {Property.<number>} widthProperty
+   * @param {Property.<Vector2>} positionProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {string} spaceSymbol
    * @param {string} timeSymbol
    * @param {Object} [options]
    */
-  constructor( chartTransform, widthProperty, domainProperty, spaceSymbol, timeSymbol, options ) {
+  constructor( chartTransform, widthProperty, positionProperty, domainProperty, spaceSymbol, timeSymbol, options ) {
 
     assert && assert( chartTransform instanceof ChartTransform );
     assert && AssertUtils.assertPropertyOf( widthProperty, 'number' );
+    assert && AssertUtils.assertPropertyOf( positionProperty, Vector2 );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( typeof spaceSymbol === 'string' );
     assert && assert( typeof timeSymbol === 'string' );
@@ -66,12 +68,21 @@ class WidthIndicatorNode extends Node {
     super( options );
 
     // Make the line grow from the center out, and reposition left arrow and vertical line.
-    widthProperty.link( width => {
-      const viewWidth = chartTransform.modelToViewX( width );
+    function updateWidthIndicatorPlot() {
+
+      // Resize the dimensional arrows
+      const viewWidth = chartTransform.modelToViewX( widthProperty.value );
       const x1 = -viewWidth / 2;
       const x2 = viewWidth / 2;
       dimensionalArrowsNode.setLine( x1, x2 );
-    } );
+
+      // Center the dimensional arrows
+      dimensionalArrowsNode.center = chartTransform.modelToViewPosition( positionProperty.value );
+    }
+
+    chartTransform.changedEmitter.addListener( updateWidthIndicatorPlot );
+    widthProperty.link( updateWidthIndicatorPlot );
+    positionProperty.link( updateWidthIndicatorPlot );
 
     // Update the label to match the domain
     domainProperty.link( domain => {
@@ -89,5 +100,5 @@ class WidthIndicatorNode extends Node {
   }
 }
 
-fourierMakingWaves.register( 'WidthIndicatorNode', WidthIndicatorNode );
-export default WidthIndicatorNode;
+fourierMakingWaves.register( 'WidthIndicatorPlot', WidthIndicatorPlot );
+export default WidthIndicatorPlot;

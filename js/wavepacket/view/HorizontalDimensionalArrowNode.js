@@ -30,9 +30,8 @@ class HorizontalDimensionalArrowsNode extends Node {
       x2: 100,
       color: 'black',
       horizontalLineWidth: 2,
-      horizontalLineDash: [ 5, 5 ],
-      verticalLineWidth: 1,
-      verticalLineLength: 12,
+      verticalLineWidth: 2,
+      verticalLineLength: 14,
       arrowHeadDimensions: new Dimension2( 8, 8 )
     }, options );
 

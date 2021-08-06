@@ -25,6 +25,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketAmplitudesChart from '../model/WavePacketAmplitudesChart.js';
 import AreaPlot from './AreaPlot.js';
 import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
+import WidthIndicatorPlot from './WidthIndicatorPlot.js';
 
 // constants
 const X_TICK_LABEL_DECIMALS = 0;
@@ -48,6 +49,9 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
     const waveNumberRange = amplitudesChart.wavePacket.waveNumberRange;
     const componentSpacingProperty = amplitudesChart.wavePacket.componentSpacingProperty;
+    const widthProperty = amplitudesChart.wavePacket.widthProperty;
+    const widthIndicatorPositionProperty = amplitudesChart.widthIndicatorPositionProperty;
+    const widthIndicatorsWidthProperty = amplitudesChart.widthIndicatorsVisibleProperty;
 
     options = merge( {
       xTickMarkSpacing: Math.PI,
@@ -94,10 +98,16 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
         .addColorStop( 1, Color.grayColor( GRAY_RANGE.max ) )
     } );
 
+    // Width indicator, labeled dimensional arrows
+    const widthIndicatorPlot = new WidthIndicatorPlot( this.chartTransform, widthProperty, widthIndicatorPositionProperty,
+      domainProperty, FMWSymbols.k, FMWSymbols.omega, {
+        visibleProperty: widthIndicatorsWidthProperty
+      } );
+
     // Clip these elements to the chartRectangle bounds.
     const clipNode = new Node( {
       clipArea: this.chartRectangle.getShape(),
-      children: [ infiniteComponentsPlot, continuousWaveformPlot, amplitudesPlot ]
+      children: [ infiniteComponentsPlot, continuousWaveformPlot, amplitudesPlot, widthIndicatorPlot ]
     } );
     this.addChild( clipNode );
 

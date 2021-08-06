@@ -21,12 +21,14 @@ class WavePacketAmplitudesChart {
   /**
    * @param {WavePacket} wavePacket
    * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( wavePacket, domainProperty, options ) {
+  constructor( wavePacket, domainProperty, widthIndicatorsVisibleProperty, options ) {
 
     assert && assert( wavePacket instanceof WavePacket );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
 
     options = merge( {
 
@@ -37,6 +39,7 @@ class WavePacketAmplitudesChart {
     // @public
     this.wavePacket = wavePacket;
     this.domainProperty = domainProperty;
+    this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
 
     // @public
     this.continuousWaveformVisibleProperty = new BooleanProperty( false, {
@@ -56,6 +59,24 @@ class WavePacketAmplitudesChart {
     this.continuousWaveformDataSetProperty = new DerivedProperty(
       [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
       () => this.createContinuousWaveformDataSet( wavePacket )
+    );
+
+    // @public {DerivedProperty.<Vector2>} position of the width indicator
+    // This is loosely based on the getModelLocation method in WavePacketKWidthPlot.java.
+    this.widthIndicatorPositionProperty = new DerivedProperty(
+      [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
+      ( componentSpacing, center, standardDeviation ) => {
+        const x = center;
+        const waveNumber = center + standardDeviation;
+        let y = wavePacket.getComponentAmplitude( waveNumber );
+        if ( componentSpacing !== 0 ) {
+          y = componentSpacing * y;
+        }
+        return new Vector2( x, y );
+      } );
+    //TODO delete this:
+    this.widthIndicatorPositionProperty.link(
+      widthIndicatorPosition => console.log( `widthIndicatorPosition=${widthIndicatorPosition}` )
     );
   }
 

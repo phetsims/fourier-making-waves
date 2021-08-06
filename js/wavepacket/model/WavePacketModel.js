@@ -85,7 +85,7 @@ class WavePacketModel {
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
     // @public
-    this.amplitudesChart = new WavePacketAmplitudesChart( wavePacket, domainProperty, {
+    this.amplitudesChart = new WavePacketAmplitudesChart( wavePacket, domainProperty, widthIndicatorsVisibleProperty, {
       tandem: chartsTandem.createTandem( 'amplitudesChart' )
     } );
 
