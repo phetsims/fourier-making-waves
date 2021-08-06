@@ -156,7 +156,7 @@ class WavePacketScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
 
-    // Layout, constants determined empirically -----------------------------------------
+    // Layout vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
     // Amplitudes chart at top left
     fourierComponentAmplitudesText.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
@@ -190,6 +190,8 @@ class WavePacketScreenView extends ScreenView {
     // Reset All button at bottom right
     resetAllButton.right = layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+
+    // Layout ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     // Add everything to one root Node, then add that root Node to the scene graph.
     // This should improve startup performance, compared to calling this.addChild for each Node.
