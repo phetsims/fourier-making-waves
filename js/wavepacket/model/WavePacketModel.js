@@ -60,7 +60,8 @@ class WavePacketModel {
       tandem: options.tandem.createTandem( 'wavePacket' )
     } );
 
-    // The format of x-axis labels for the Components and Sum charts, supports only numeric.
+    // The format of x-axis labels for the Components and Sum charts. The view in this screen supports only numeric.
+    // We use validValues to limit this Property to its single supported value.
     // A Property is required by some reusable components.
     const xAxisTickLabelFormatProperty = new EnumerationProperty( TickLabelFormat, TickLabelFormat.NUMERIC, {
       validValues: [ TickLabelFormat.NUMERIC ]
