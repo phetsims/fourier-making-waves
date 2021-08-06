@@ -74,10 +74,6 @@ class WavePacketAmplitudesChart {
         }
         return new Vector2( x, y );
       } );
-    //TODO delete this:
-    this.widthIndicatorPositionProperty.link(
-      widthIndicatorPosition => console.log( `widthIndicatorPosition=${widthIndicatorPosition}` )
-    );
   }
 
   /**
