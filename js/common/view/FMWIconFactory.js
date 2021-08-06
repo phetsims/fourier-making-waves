@@ -9,7 +9,6 @@
 import Range from '../../../../dot/js/Range.js';
 import ScreenIcon from '../../../../joist/js/ScreenIcon.js';
 import merge from '../../../../phet-core/js/merge.js';
-import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
@@ -21,6 +20,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import wavePacketHomeScreenImage from '../../../images/Wave-Packet-home-screen-icon_png.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import PointsAwardedNode from '../../waveGame/view/PointsAwardedNode.js';
+import HorizontalDimensionalArrowsNode from '../../wavepacket/view/HorizontalDimensionalArrowNode.js';
 import FMWColors from '../FMWColors.js';
 import FMWConstants from '../FMWConstants.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
@@ -167,36 +167,16 @@ const FMWIconFactory = {
     } );
   },
 
-  //TODO eventually use the actual width indicator Node here
   /**
    * Creates the icon for the 'Width Indicators' checkbox
    * @returns {Node}
    * @public
    */
   createWidthIndicatorsIcon() {
-
-    const lineWidth = 2;
-
-    const arrowNode = new ArrowNode( 0, 0, 40, 0, {
-      headHeight: 10,
-      headWidth: 7,
-      tailWidth: lineWidth,
-      fill: FMWColors.widthIndicatorsFillProperty,
-      stroke: null,
-      doubleHead: true
-    } );
-
-    const endLineLength = 10;
-    const endLineOptions = {
-      stroke: FMWColors.widthIndicatorsFillProperty,
-      lineWidth: lineWidth
-    };
-    const leftLine = new Line( 0, 0, 0, endLineLength, endLineOptions );
-    const rightLine = new Line( 0, 0, 0, endLineLength, endLineOptions );
-
-    return new HBox( {
-      children: [ leftLine, arrowNode, rightLine ],
-      spacing: 0
+    return new HorizontalDimensionalArrowsNode( {
+      x1: 0,
+      x2: 45,
+      color: FMWColors.widthIndicatorsColorProperty
     } );
   }
 };

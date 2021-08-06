@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -26,6 +27,7 @@ import WavePacketComponentsChartNode from './WavePacketComponentsChartNode.js';
 import WavePacketControlPanel from './WavePacketControlPanel.js';
 import WavePacketSumChartNode from './WavePacketSumChartNode.js';
 import WavePacketSumEquationNode from './WavePacketSumEquationNode.js';
+import WidthIndicatorNode from './WidthIndicatorNode.js';
 
 // constants
 const TITLE_BOTTOM_SPACING = 15; // space below the title of a chart
@@ -82,6 +84,13 @@ class WavePacketScreenView extends ScreenView {
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
     } );
 
+    //TODO convert to WidthIndicatorPlot
+    const amplitudesWidthProperty = new NumberProperty( 2 );//TODO placeholder
+    const amplitudesWidthIndicatorNode = new WidthIndicatorNode( amplitudesChartNode.chartTransform,
+      amplitudesWidthProperty, model.domainProperty, FMWSymbols.k, FMWSymbols.omega, {
+        visibleProperty: model.widthIndicatorsVisibleProperty
+      } );
+
     // Parent tandem for all components related to the Components chart
     const componentsTandem = chartsTandem.createTandem( 'components' );
 
@@ -103,11 +112,6 @@ class WavePacketScreenView extends ScreenView {
 
     // Components chart
     const componentsChartNode = new WavePacketComponentsChartNode( model.componentsChart, {
-      chartTransformOptions: {
-        modelXRange: new Range( -2, 2 ), //TODO
-        modelYRange: new Range( -model.maxAmplitude, model.maxAmplitude ) //TODO
-      },
-      visibleProperty: model.componentsChart.chartVisibleProperty,
       tandem: componentsTandem.createTandem( 'componentsChartNode' )
     } );
 
@@ -133,13 +137,15 @@ class WavePacketScreenView extends ScreenView {
 
     // Sum chart
     const sumChartNode = new WavePacketSumChartNode( model.sumChart, {
-      chartTransformOptions: {
-        modelXRange: new Range( -2, 2 ), //TODO
-        modelYRange: new Range( -1.25, 1.25 ) //TODO
-      },
-      visibleProperty: model.sumChart.chartVisibleProperty,
       tandem: sumTandem.createTandem( 'sumChartNode' )
     } );
+
+    //TODO convert to WidthIndicatorPlot
+    const sumWidthProperty = new NumberProperty( 2 );//TODO placeholder
+    const sumWidthIndicatorNode = new WidthIndicatorNode( componentsChartNode.chartTransform,
+      sumWidthProperty, model.domainProperty, FMWSymbols.x, FMWSymbols.t, {
+        visibleProperty: model.widthIndicatorsVisibleProperty
+      } );
 
     const controlPanel = new WavePacketControlPanel( model, popupParent, {
       tandem: options.tandem.createTandem( 'controlPanel' )
@@ -190,12 +196,14 @@ class WavePacketScreenView extends ScreenView {
         fourierComponentAmplitudesText,
         amplitudeEquationNode,
         amplitudesChartNode,
+        amplitudesWidthIndicatorNode,
         componentsEquationWrapperNode,
         componentsExpandCollapseButton,
         componentsChartNode,
         sumEquationWrapperNode,
         sumExpandCollapseButton,
         sumChartNode,
+        sumWidthIndicatorNode,
         controlPanel,
         resetAllButton,
 
@@ -231,6 +239,18 @@ class WavePacketScreenView extends ScreenView {
       sumEquationNode.boundsProperty.link( () => {
         sumEquationWrapperNode.centerX = sumChartRectangleLocalBounds.centerX;
         sumEquationWrapperNode.bottom = sumChartRectangleLocalBounds.top - equationYSpacing;
+      } );
+    }
+
+    //TODO these positions are not correct. Convert width indicator to Plot.
+    // Center width indicators
+    {
+      sumWidthIndicatorNode.center = sumChartRectangleLocalBounds.center;
+
+      model.wavePacket.centerProperty.link( center => {
+        amplitudesWidthIndicatorNode.y = amplitudeChartRectangleLocalBounds.top +
+                                         ( ( 2 / 3 ) * amplitudeChartRectangleLocalBounds.height );
+        amplitudesWidthIndicatorNode.centerX = amplitudeChartRectangleLocalBounds.centerX;
       } );
     }
 

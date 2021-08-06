@@ -78,7 +78,7 @@ const FMWColors = {
   } ),
 
   // Fill for the width indicators in the Wave Packet screen
-  widthIndicatorsFillProperty: new ProfileColorProperty( 'widthIndicatorsColor', {
+  widthIndicatorsColorProperty: new ProfileColorProperty( 'widthIndicatorsColor', {
     default: 'red'
   } ),
 
