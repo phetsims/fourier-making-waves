@@ -17,7 +17,6 @@ import WaveformChartNode from '../../common/view/WaveformChartNode.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketSumChart from '../model/WavePacketSumChart.js';
-import WaveformEnvelopeCheckbox from './WaveformEnvelopeCheckbox.js';
 import WidthIndicatorPlot from './WidthIndicatorPlot.js';
 
 // constants
@@ -37,7 +36,6 @@ class WavePacketSumChartNode extends WaveformChartNode {
     // Fields of interest in sumChart, to improve readability
     const domainProperty = sumChart.domainProperty;
     const xAxisDescriptionProperty = sumChart.xAxisDescriptionProperty;
-    const envelopeVisibleProperty = sumChart.envelopeVisibleProperty;
     const widthIndicatorWidthProperty = sumChart.widthIndicatorWidthProperty;
     const widthIndicatorPositionProperty = sumChart.widthIndicatorPositionProperty;
     const widthIndicatorsVisibleProperty = sumChart.widthIndicatorsVisibleProperty;
@@ -78,14 +76,6 @@ class WavePacketSumChartNode extends WaveformChartNode {
     } );
     this.addChild( clipNode );
 
-    // Waveform Envelope checkbox
-    const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( envelopeVisibleProperty, {
-      right: this.chartRectangle.right - 5,
-      top: this.xTickLabels.bottom + 8,
-      tandem: options.tandem.createTandem( 'waveformEnvelopeCheckbox' )
-    } );
-    this.addChild( waveformEnvelopeCheckbox );
-
     sumChart.sumDataSetProperty.link( sumDataSet => {
 
       sumPlot.setDataSet( sumDataSet );
@@ -104,9 +94,6 @@ class WavePacketSumChartNode extends WaveformChartNode {
       // Redraw the plots.
       chartCanvasNode.update();
     } );
-
-    // pdom - append to the superclass traversal order
-    this.pdomOrder = this.getPDOMOrder().concat( [ waveformEnvelopeCheckbox ] );
   }
 
   /**

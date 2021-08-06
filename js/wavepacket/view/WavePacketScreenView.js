@@ -22,6 +22,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
 import ComponentsEquationNode from './ComponentsEquationNode.js';
 import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
+import WaveformEnvelopeCheckbox from './WaveformEnvelopeCheckbox.js';
 import WavePacketAmplitudesChartNode from './WavePacketAmplitudesChartNode.js';
 import WavePacketComponentsChartNode from './WavePacketComponentsChartNode.js';
 import WavePacketControlPanel from './WavePacketControlPanel.js';
@@ -138,6 +139,11 @@ class WavePacketScreenView extends ScreenView {
       tandem: sumTandem.createTandem( 'sumChartNode' )
     } );
 
+    // Waveform Envelope checkbox
+    const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( model.sumChart.envelopeVisibleProperty, {
+      tandem: sumTandem.createTandem( 'waveformEnvelopeCheckbox' )
+    } );
+
     const controlPanel = new WavePacketControlPanel( model, popupParent, {
       tandem: options.tandem.createTandem( 'controlPanel' )
     } );
@@ -166,12 +172,16 @@ class WavePacketScreenView extends ScreenView {
     componentsExpandCollapseButton.top = continuousWaveformCheckbox.bottom;
     componentsChartNode.x = amplitudesChartNode.x;
     componentsChartNode.y = componentsExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
+    const componentsChartRectangleLocalBounds = this.globalToLocalBounds( componentsChartNode.chartRectangle.parentToGlobalBounds( componentsChartNode.chartRectangle.bounds ) );
 
     // Sum chart below the Components chart
     sumExpandCollapseButton.left = componentsExpandCollapseButton.left;
     sumExpandCollapseButton.top = componentsChartNode.bottom + 30;
     sumChartNode.x = componentsChartNode.x;
     sumChartNode.y = sumExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
+    const sumChartRectangleLocalBounds = this.globalToLocalBounds( sumChartNode.chartRectangle.parentToGlobalBounds( sumChartNode.chartRectangle.bounds ) );
+    waveformEnvelopeCheckbox.right = sumChartRectangleLocalBounds.right - 5;
+    waveformEnvelopeCheckbox.top = sumChartNode.bottom + 8;
 
     // Control panel centered in the space to the right of the charts
     controlPanel.centerX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
@@ -195,6 +205,7 @@ class WavePacketScreenView extends ScreenView {
         sumEquationWrapperNode,
         sumExpandCollapseButton,
         sumChartNode,
+        waveformEnvelopeCheckbox,
         controlPanel,
         resetAllButton,
 
@@ -203,11 +214,6 @@ class WavePacketScreenView extends ScreenView {
       ]
     } );
     this.addChild( screenViewRootNode );
-
-    // Get the bounds of the ChartRectangles in this coordinate frame, used for layout.
-    // Do this AFTER adding Nodes to the scene graph.
-    const componentsChartRectangleLocalBounds = this.globalToLocalBounds( componentsChartNode.chartRectangle.parentToGlobalBounds( componentsChartNode.chartRectangle.bounds ) );
-    const sumChartRectangleLocalBounds = this.globalToLocalBounds( sumChartNode.chartRectangle.parentToGlobalBounds( sumChartNode.chartRectangle.bounds ) );
 
     // Center dynamic equations above their respective charts. Since we need to listen to the bounds of these equations
     // in order to respect their maxWidth, wrapper Nodes are transformed for equations that are dynamic.
@@ -243,6 +249,7 @@ class WavePacketScreenView extends ScreenView {
       componentsChartNode,
       sumExpandCollapseButton,
       sumChartNode,
+      waveformEnvelopeCheckbox,
       resetAllButton
     ];
   }
