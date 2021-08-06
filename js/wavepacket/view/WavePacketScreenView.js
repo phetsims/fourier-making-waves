@@ -139,7 +139,6 @@ class WavePacketScreenView extends ScreenView {
       listener: () => {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
         model.reset();
-        this.reset();
       },
       tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
@@ -245,14 +244,6 @@ class WavePacketScreenView extends ScreenView {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
-  }
-
-  /**
-   * Resets the view.
-   * @public
-   */
-  reset() {
-    //TODO
   }
 }
 
