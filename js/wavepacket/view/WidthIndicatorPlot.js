@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -42,9 +41,13 @@ class WidthIndicatorPlot extends Node {
     assert && assert( typeof timeSymbol === 'string' );
 
     options = merge( {
+
+      // HorizontalDimensionalArrowsNode options
       dimensionalArrowsNodeOptions: {
         color: FMWColors.widthIndicatorsColorProperty
       },
+
+      // RichText options
       richTextOptions: {
         font: new PhetFont( 16 ),
         stroke: FMWColors.widthIndicatorsColorProperty
@@ -54,10 +57,8 @@ class WidthIndicatorPlot extends Node {
     // Dimensional arrows
     const dimensionalArrowsNode = new HorizontalDimensionalArrowsNode( options.dimensionalArrowsNodeOptions );
 
-    // Label
-    const labelNode = new RichText( '', options.richTextOptions );
-
     // Label on a translucent background that resizes to fit the label.
+    const labelNode = new RichText( '', options.richTextOptions );
     const backgroundNode = new BackgroundNode( labelNode, {
       xMargin: 5,
       rectangleOptions: {
@@ -72,33 +73,30 @@ class WidthIndicatorPlot extends Node {
 
     super( options );
 
-    function updateWidthIndicatorPlot() {
-
-      // Resize the dimensional arrows
-      const viewWidth = chartTransform.modelToViewDeltaX( widthProperty.value );
-      dimensionalArrowsNode.setLine( 0, viewWidth );
-
-      // Center the dimensional arrows
-      dimensionalArrowsNode.center = chartTransform.modelToViewPosition( positionProperty.value );
+    // Center the label BELOW the dimensional arrows, so that it doesn't get clipped by the charts.
+    function updateLabelPosition() {
+      backgroundNode.centerX = dimensionalArrowsNode.centerX;
+      backgroundNode.top = dimensionalArrowsNode.bottom;
     }
 
-    chartTransform.changedEmitter.addListener( updateWidthIndicatorPlot );
-    widthProperty.link( updateWidthIndicatorPlot );
-    positionProperty.link( updateWidthIndicatorPlot );
+    // Resize the dimensional arrows, and center them on the position.
+    function updateDimensionalArrows() {
+      const viewWidth = chartTransform.modelToViewDeltaX( widthProperty.value );
+      dimensionalArrowsNode.setLine( 0, viewWidth );
+      dimensionalArrowsNode.center = chartTransform.modelToViewPosition( positionProperty.value );
+      updateLabelPosition();
+    }
+
+    chartTransform.changedEmitter.addListener( updateDimensionalArrows );
+    widthProperty.link( updateDimensionalArrows );
+    positionProperty.link( updateDimensionalArrows );
 
     // Update the label to match the domain
     domainProperty.link( domain => {
       const waveNumberSymbol = ( domain === Domain.SPACE ) ? spaceSymbol : timeSymbol;
       labelNode.text = `2${FMWSymbols.sigma}<sub>${waveNumberSymbol}</sub>`;
+      updateLabelPosition();
     } );
-
-    // Horizontally center the label BELOW the arrows so that it doesn't get clipped in the charts.
-    Property.multilink(
-      [ backgroundNode.boundsProperty, dimensionalArrowsNode.boundsProperty ],
-      () => {
-        backgroundNode.centerX = dimensionalArrowsNode.centerX;
-        backgroundNode.top = dimensionalArrowsNode.bottom;
-      } );
   }
 }
 
