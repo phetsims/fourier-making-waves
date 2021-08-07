@@ -56,6 +56,7 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
     super( componentsChart, options );
 
     // Render the plots using Canvas, clipped to chartRectangle.
+    // Remember! When any of the associated plots is updated, you must call chartCanvasNode.update().
     const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [], {
       clipArea: Shape.bounds( this.chartRectangle.bounds )
     } );

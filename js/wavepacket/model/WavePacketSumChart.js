@@ -59,8 +59,8 @@ class WavePacketSumChart extends WaveformChart {
     } );
 
     // @public whether the envelope of the sum waveform is visible
-    this.envelopeVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'envelopeVisibleProperty' )
+    this.waveformEnvelopeVisibleProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'waveformEnvelopeVisibleProperty' )
     } );
 
     // @public {DerivedProperty.<Array.<Vector2>>}
@@ -123,7 +123,14 @@ class WavePacketSumChart extends WaveformChart {
         return dataSet;
       } );
 
-    //TODO add this.waveformEnvelopeDataSetProperty - see updateEnvelope in D2CSumView.js
+    // @public {DerivedProperty.<Vector2[]>} data set for the waveform envelope.
+    // Points are ordered by increasing x value.
+    // This is based on the updateEnvelope method in D2CSumView.js.
+    this.waveformEnvelopeDataSetProperty = new DerivedProperty(
+      [ componentDataSetsProperty ], //TODO not the correct dependencies
+      () => {
+        return [ new Vector2( -1, 0 ), new Vector2( 1, 0 ) ]; //TODO dummy data
+      } );
 
     // @public {Vector2} width displayed by the width indicator
     // This is loosely based on the getModelWidth method in WavePacketXWidthPlot.java.
@@ -153,7 +160,7 @@ class WavePacketSumChart extends WaveformChart {
    */
   reset() {
     this.chartVisibleProperty.reset();
-    this.envelopeVisibleProperty.reset();
+    this.waveformEnvelopeVisibleProperty.reset();
   }
 }
 

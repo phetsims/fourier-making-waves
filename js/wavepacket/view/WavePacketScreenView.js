@@ -140,7 +140,7 @@ class WavePacketScreenView extends ScreenView {
     } );
 
     // Waveform Envelope checkbox
-    const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( model.sumChart.envelopeVisibleProperty, {
+    const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( model.sumChart.waveformEnvelopeVisibleProperty, {
       tandem: sumTandem.createTandem( 'waveformEnvelopeCheckbox' )
     } );
 

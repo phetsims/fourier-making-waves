@@ -17,12 +17,12 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 class WaveformEnvelopeCheckbox extends Checkbox {
 
   /**
-   * @param {Property.<boolean>} envelopeVisibleProperty
+   * @param {Property.<boolean>} waveformEnvelopeVisibleProperty
    * @param {Object} [options]
    */
-  constructor( envelopeVisibleProperty, options ) {
+  constructor( waveformEnvelopeVisibleProperty, options ) {
 
-    assert && AssertUtils.assertPropertyOf( envelopeVisibleProperty, 'boolean' );
+    assert && AssertUtils.assertPropertyOf( waveformEnvelopeVisibleProperty, 'boolean' );
 
     options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, options );
 
@@ -31,7 +31,7 @@ class WaveformEnvelopeCheckbox extends Checkbox {
       maxWidth: 200
     } );
 
-    super( envelopeText, envelopeVisibleProperty, options );
+    super( envelopeText, waveformEnvelopeVisibleProperty, options );
   }
 }
 

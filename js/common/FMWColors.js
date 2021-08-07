@@ -87,6 +87,11 @@ const FMWColors = {
     default: Color.grayColor( 189 )
   } ),
 
+  // Stroke for the Waveform Envelope in the Wave Packet screen
+  waveformEnvelopeStrokeProperty: new ProfileColorProperty( 'waveformEnvelopeStroke', {
+    default: Color.grayColor( 189 )
+  } ),
+
   // The range of gray colors that are assigned to Fourier components in Wave Packet screen
   FOURIER_COMPONENT_GRAY_RANGE: new Range( 0, 230 )
 };

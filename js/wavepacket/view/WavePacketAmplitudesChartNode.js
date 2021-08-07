@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO move visibility optimizations into model?
 /**
  * WavePacketAmplitudesChartNode is the 'Amplitudes' chart on the 'Wave Packet' screen.
  * This is optimized to update only the plots that are visible.
@@ -68,6 +69,8 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     // No x-axis grid lines for this chart.
     this.xGridLines.visible = false;
 
+    //TODO initialize plot data sets, then lazyLink to associated Properties
+
     // Displays each Fourier component amplitude as a vertical bar
     const amplitudesPlot = new BarPlot( this.chartTransform, [], {
       barWidth: 5,
@@ -80,10 +83,9 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       }
     } );
 
+    //TODO use CanvasLinePlot
     // Displays the continuous waveform
     const continuousWaveformPlot = new LinePlot( this.chartTransform, [], {
-
-      // Stroke with darkest color. Otherwise continuousWaveformPlot looks odd when displayed with infiniteComponentsPlot.
       stroke: FMWColors.continuousWaveformStrokeProperty,
       lineWidth: 4,
       visibleProperty: continuousWaveformVisibleProperty

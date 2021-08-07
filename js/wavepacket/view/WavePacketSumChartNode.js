@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO move visibility optimizations into model?
 /**
  * WavePacketSumChartNode is the 'Sum' chart on the 'Wave Packet' screen.
  *
@@ -11,6 +12,7 @@ import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import WaveformChartNode from '../../common/view/WaveformChartNode.js';
@@ -41,6 +43,8 @@ class WavePacketSumChartNode extends WaveformChartNode {
     const widthIndicatorsVisibleProperty = sumChart.widthIndicatorsVisibleProperty;
     const finiteSumDataSetProperty = sumChart.finiteSumDataSetProperty;
     const infiniteSumDataSetProperty = sumChart.infiniteSumDataSetProperty;
+    const waveformEnvelopeDataSetProperty = sumChart.waveformEnvelopeDataSetProperty;
+    const waveformEnvelopeVisibleProperty = sumChart.waveformEnvelopeVisibleProperty;
 
     options = merge( {
       xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),
@@ -55,6 +59,8 @@ class WavePacketSumChartNode extends WaveformChartNode {
 
     super( sumChart, options );
 
+    //TODO initialize plot data sets, then lazyLink to associated Properties
+
     // Plots the sum of a finite number of components
     const finiteSumPlot = new CanvasLinePlot( this.chartTransform, [], {
       stroke: 'black'
@@ -65,10 +71,27 @@ class WavePacketSumChartNode extends WaveformChartNode {
       stroke: 'black'
     } );
 
-    //TODO add waveformEnvelopePlot
+    // Plots the envelope of the sum waveform
+    const waveformEnvelopePlot = new CanvasLinePlot( this.chartTransform, [], {
+      lineWidth: 4
+    } );
 
     // Render the plots using Canvas.
-    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [ finiteSumPlot, infiniteSumPlot ] );
+    // Remember! When any of the associated plots is updated, you must call chartCanvasNode.update().
+    const chartCanvasNode = new ChartCanvasNode( this.chartTransform,
+      [ waveformEnvelopePlot, finiteSumPlot, infiniteSumPlot ] );
+
+    // CanvasLinePlot stroke does not support Property, so handle it here.
+    FMWColors.waveformEnvelopeStrokeProperty.link( stroke => {
+      waveformEnvelopePlot.setStroke( stroke );
+      chartCanvasNode.update();
+    } );
+
+    // CanvasLinePlot does not support visibleProperty, so handle it here by clearing the data set when invisible.
+    waveformEnvelopeVisibleProperty.link( visible => {
+      waveformEnvelopePlot.setDataSet( visible ? waveformEnvelopeDataSetProperty.value : [] );
+      chartCanvasNode.update();
+    } );
 
     // Width indicator, labeled dimensional arrows
     const widthIndicatorPlot = new WidthIndicatorPlot( this.chartTransform, widthIndicatorWidthProperty,
@@ -86,8 +109,18 @@ class WavePacketSumChartNode extends WaveformChartNode {
     // @private
     this.chartCanvasNode = chartCanvasNode;
 
+    // Update the sum data set. Exactly one of these will have a populated data set.
     finiteSumDataSetProperty.link( ( newDataSet, oldDataSet ) => this.updatePlot( finiteSumPlot, newDataSet, oldDataSet ) );
     infiniteSumDataSetProperty.link( ( newDataSet, oldDataSet ) => this.updatePlot( infiniteSumPlot, newDataSet, oldDataSet ) );
+
+    // Display the envelope of the sum waveform.
+    // Performance optimization: Update only if the plot is visible.
+    waveformEnvelopeDataSetProperty.link( dataSet => {
+      if ( waveformEnvelopeVisibleProperty.visible ) {
+        waveformEnvelopePlot.setDataSet( dataSet );
+        chartCanvasNode.update();
+      }
+    } );
   }
 
   /**
