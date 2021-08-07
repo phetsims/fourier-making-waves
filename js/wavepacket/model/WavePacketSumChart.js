@@ -123,7 +123,7 @@ class WavePacketSumChart extends WaveformChart {
         return dataSet;
       } );
 
-    //TODO add this.waveformEnvelopeDataSetProperty
+    //TODO add this.waveformEnvelopeDataSetProperty - see updateEnvelope in D2CSumView.js
 
     // @public {Vector2} width displayed by the width indicator
     // This is loosely based on the getModelWidth method in WavePacketXWidthPlot.java.
