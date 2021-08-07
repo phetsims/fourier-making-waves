@@ -14,14 +14,14 @@ Can SumChart be used by WavePacketSumChart?
 
 ## Wave Packet screen
 
+FEATURE: Sum plot (infinite components), see addContinuousPlot in D2CSumView.js
+FEATURE: Sum Waveform Envelope, see updateEnvelope in D2CSumView.js
+
 Amplitude chart:
 Use AxisDescription for the y axis
 
 WavePacketComponentsChart and WavePacketSumPlot do not use AxisDescription for y-axis, but yAxisDescriptionProperty
 is required by their superclass WaveformChart.
-
-Sum plot (infinite components): see addContinuousPlot in D2CSumView.js
-Sum Waveform Envelope: see updateEnvelope in D2CSumView.js
 
 Wavelength/Period tools
 
