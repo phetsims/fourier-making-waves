@@ -17,6 +17,8 @@ Can SumChart be used by WavePacketSumChart?
 FEATURE: Sum Waveform Envelope, see updateEnvelope in D2CSumView.js
 FEATURE: Wavelength/Period tools
 
+create CanvasBarPlot and CanvasAreaPlot, for use in WavePacketAmplitudesChartNode
+
 Amplitude chart:
 Use AxisDescription for the y axis
 
