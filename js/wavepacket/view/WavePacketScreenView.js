@@ -163,7 +163,7 @@ class WavePacketScreenView extends ScreenView {
     fourierComponentAmplitudesText.top = layoutBounds.top + 10;
     amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
     amplitudesChartNode.y = fourierComponentAmplitudesText.bottom + TITLE_BOTTOM_SPACING;
-    const amplitudeChartRectangleLocalBounds = this.globalToLocalBounds( amplitudesChartNode.chartRectangle.parentToGlobalBounds( amplitudesChartNode.chartRectangle.bounds ) );
+    const amplitudeChartRectangleLocalBounds = amplitudesChartNode.chartRectangle.boundsTo( this );
     continuousWaveformCheckbox.right = amplitudeChartRectangleLocalBounds.right - 5;
     continuousWaveformCheckbox.top = amplitudesChartNode.bottom + 8;
 
@@ -172,14 +172,14 @@ class WavePacketScreenView extends ScreenView {
     componentsExpandCollapseButton.top = continuousWaveformCheckbox.bottom;
     componentsChartNode.x = amplitudesChartNode.x;
     componentsChartNode.y = componentsExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
-    const componentsChartRectangleLocalBounds = this.globalToLocalBounds( componentsChartNode.chartRectangle.parentToGlobalBounds( componentsChartNode.chartRectangle.bounds ) );
+    const componentsChartRectangleLocalBounds = componentsChartNode.chartRectangle.boundsTo( this );
 
     // Sum chart below the Components chart
     sumExpandCollapseButton.left = componentsExpandCollapseButton.left;
     sumExpandCollapseButton.top = componentsChartNode.bottom + 30;
     sumChartNode.x = componentsChartNode.x;
     sumChartNode.y = sumExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
-    const sumChartRectangleLocalBounds = this.globalToLocalBounds( sumChartNode.chartRectangle.parentToGlobalBounds( sumChartNode.chartRectangle.bounds ) );
+    const sumChartRectangleLocalBounds = sumChartNode.chartRectangle.boundsTo( this );
     waveformEnvelopeCheckbox.right = sumChartRectangleLocalBounds.right - 5;
     waveformEnvelopeCheckbox.top = sumChartNode.bottom + 8;
 

@@ -253,41 +253,45 @@ class DiscreteScreenView extends ScreenView {
       tandem: measurementToolsTandem.createTandem( 'periodClockNode' )
     } );
 
-    // Layout, constants determined empirically
-    {
-      // Amplitudes chart at top left
-      amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
-      amplitudesChartNode.y = 58;
+    // Layout vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
-      // Eraser button to the right of the amplitude NumberDisplays
-      const amplitudesChartRightTop = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.rightTop );
-      eraserButton.left = amplitudesChartRightTop.x + 10;
-      eraserButton.bottom = amplitudesChartRightTop.y - 10;
+    // Amplitudes chart at top left
+    amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
+    amplitudesChartNode.y = 58;
+    const amplitudesChartRectangleLocalBounds = amplitudesChartNode.chartRectangle.boundsTo( this );
 
-      // Harmonics chart below the Amplitudes chart
-      harmonicsExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-      harmonicsExpandCollapseButton.top = amplitudesChartNode.bottom + 15;
-      harmonicsChartNode.x = FMWConstants.X_CHART_RECTANGLES;
-      harmonicsChartNode.y = harmonicsExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
+    // Eraser button to the right of the amplitude NumberDisplays
+    const amplitudesChartRightTop = amplitudesChartRectangleLocalBounds.rightTop;
+    eraserButton.left = amplitudesChartRightTop.x + 10;
+    eraserButton.bottom = amplitudesChartRightTop.y - 10;
 
-      // Sum chart below the Harmonics chart
-      sumExpandCollapseButton.left = harmonicsExpandCollapseButton.left;
-      sumExpandCollapseButton.top = harmonicsChartNode.bottom + 30;
-      sumChartNode.x = FMWConstants.X_CHART_RECTANGLES;
-      sumChartNode.y = sumExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
+    // Harmonics chart below the Amplitudes chart
+    harmonicsExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+    harmonicsExpandCollapseButton.top = amplitudesChartNode.bottom + 15;
+    harmonicsChartNode.x = FMWConstants.X_CHART_RECTANGLES;
+    harmonicsChartNode.y = harmonicsExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
+    const harmonicsChartRectangleLocalBounds = harmonicsChartNode.chartRectangle.boundsTo( this );
 
-      // Control panel to the right of the charts
-      controlPanel.right = layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
-      controlPanel.top = layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
+    // Sum chart below the Harmonics chart
+    sumExpandCollapseButton.left = harmonicsExpandCollapseButton.left;
+    sumExpandCollapseButton.top = harmonicsChartNode.bottom + 30;
+    sumChartNode.x = FMWConstants.X_CHART_RECTANGLES;
+    sumChartNode.y = sumExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
+    const sumChartRectangleLocalBounds = sumChartNode.chartRectangle.boundsTo( this );
 
-      // Time control below the control panel
-      timeControlNode.left = controlPanel.left + 30;
-      timeControlNode.bottom = layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+    // Control panel to the right of the charts
+    controlPanel.right = layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
+    controlPanel.top = layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
 
-      // Reset All button at bottom right
-      resetAllButton.right = layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
-      resetAllButton.bottom = layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
-    }
+    // Time control below the control panel
+    timeControlNode.left = controlPanel.left + 30;
+    timeControlNode.bottom = layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+
+    // Reset All button at bottom right
+    resetAllButton.right = layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
+    resetAllButton.bottom = layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+
+    // Layout ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     // Add everything to one root Node, then add that root Node to the scene graph.
     // This should improve startup performance, compared to calling this.addChild for each Node.
@@ -316,11 +320,6 @@ class DiscreteScreenView extends ScreenView {
       ]
     } );
     this.addChild( screenViewRootNode );
-
-    // Get the bounds of the ChartRectangles in this coordinate frame, used for layout.
-    // Do this AFTER adding Nodes to the scene graph.
-    const harmonicsChartRectangleLocalBounds = this.globalToLocalBounds( harmonicsChartNode.chartRectangle.parentToGlobalBounds( harmonicsChartNode.chartRectangle.bounds ) );
-    const sumChartRectangleLocalBounds = this.globalToLocalBounds( sumChartNode.chartRectangle.parentToGlobalBounds( sumChartNode.chartRectangle.bounds ) );
 
     // Center equations above their respective charts.
     // Since we need to listen to the bounds of these equations in order to respect their maxWidth, wrapper Nodes are

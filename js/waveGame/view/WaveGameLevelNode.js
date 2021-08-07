@@ -318,54 +318,6 @@ class WaveGameLevelNode extends Node {
       }
     } );
 
-    // Beginning of layout ----------------------------------------------
-
-    amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
-    amplitudesChartNode.top = statusBar.bottom + 5;
-    harmonicsTitleNode.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-    harmonicsTitleNode.top = amplitudesChartNode.bottom + TITLE_TOP_SPACING;
-    harmonicsChartNode.x = amplitudesChartNode.x;
-    harmonicsChartNode.y = harmonicsTitleNode.bottom + TITLE_BOTTOM_SPACING;
-    sumTitleNode.left = harmonicsTitleNode.left;
-    sumTitleNode.top = harmonicsChartNode.bottom + TITLE_TOP_SPACING;
-    sumChartNode.x = amplitudesChartNode.x;
-    sumChartNode.y = sumTitleNode.bottom + TITLE_BOTTOM_SPACING;
-
-    // Center of the ChartRectangle for each chart
-    const amplitudesChartRectangleCenter = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.center );
-    const harmonicsChartRectangleCenter = harmonicsChartNode.localToGlobalPoint( harmonicsChartNode.chartRectangle.center );
-    const sumChartRectangleCenter = sumChartNode.localToGlobalPoint( sumChartNode.chartRectangle.center );
-
-    // Below the Amplitudes chart
-    answersNode.x = amplitudesChartNode.x;
-    answersNode.top = amplitudesChartNode.bottom;
-
-    // To the right of the amplitude NumberDisplays
-    const amplitudesChartRightTop = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.rightTop );
-    eraserButton.left = amplitudesChartRightTop.x + 10;
-    eraserButton.bottom = amplitudesChartRightTop.y - 10;
-
-    // centered on the Harmonics chart
-    frownyFaceNode.centerX = harmonicsChartRectangleCenter.x;
-    frownyFaceNode.centerY = harmonicsChartRectangleCenter.y;
-
-    // Center of the space to the right of the charts
-    const controlsCenterX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
-
-    // centered on the Amplitudes chart
-    amplitudeControlsSpinner.centerX = controlsCenterX;
-    amplitudeControlsSpinner.centerY = amplitudesChartRectangleCenter.y;
-
-    // buttons centered on Harmonics chart
-    buttonsBox.centerX = controlsCenterX;
-    buttonsBox.centerY = harmonicsChartRectangleCenter.y;
-
-    // centered on the Sum chart
-    smileyFaceNode.centerX = controlsCenterX;
-    smileyFaceNode.centerY = sumChartRectangleCenter.y;
-
-    // End of layout ----------------------------------------------
-
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
     options.children = [
       statusBar,
@@ -385,6 +337,54 @@ class WaveGameLevelNode extends Node {
     ];
 
     super( options );
+
+    // Layout vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+    amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
+    amplitudesChartNode.top = statusBar.bottom + 5;
+    const amplitudesChartRectangleLocalBounds = amplitudesChartNode.chartRectangle.boundsTo( this );
+
+    harmonicsTitleNode.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+    harmonicsTitleNode.top = amplitudesChartNode.bottom + TITLE_TOP_SPACING;
+    harmonicsChartNode.x = amplitudesChartNode.x;
+    harmonicsChartNode.y = harmonicsTitleNode.bottom + TITLE_BOTTOM_SPACING;
+    const harmonicsChartRectangleLocalBounds = harmonicsChartNode.chartRectangle.boundsTo( this );
+
+    sumTitleNode.left = harmonicsTitleNode.left;
+    sumTitleNode.top = harmonicsChartNode.bottom + TITLE_TOP_SPACING;
+    sumChartNode.x = amplitudesChartNode.x;
+    sumChartNode.y = sumTitleNode.bottom + TITLE_BOTTOM_SPACING;
+    const sumChartRectangleLocalBounds = sumChartNode.chartRectangle.boundsTo( this );
+
+    // Below the Amplitudes chart
+    answersNode.x = amplitudesChartNode.x;
+    answersNode.top = amplitudesChartNode.bottom;
+
+    // To the right of the amplitude NumberDisplays
+    const amplitudesChartRightTop = amplitudesChartNode.localToGlobalPoint( amplitudesChartNode.chartRectangle.rightTop );
+    eraserButton.left = amplitudesChartRightTop.x + 10;
+    eraserButton.bottom = amplitudesChartRightTop.y - 10;
+
+    // centered on the Harmonics chart
+    frownyFaceNode.centerX = harmonicsChartRectangleLocalBounds.centerX;
+    frownyFaceNode.centerY = harmonicsChartRectangleLocalBounds.centerY;
+
+    // Center of the space to the right of the charts
+    const controlsCenterX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
+
+    // centered on the Amplitudes chart
+    amplitudeControlsSpinner.centerX = controlsCenterX;
+    amplitudeControlsSpinner.centerY = amplitudesChartRectangleLocalBounds.centerY;
+
+    // buttons centered on Harmonics chart
+    buttonsBox.centerX = controlsCenterX;
+    buttonsBox.centerY = harmonicsChartRectangleLocalBounds.centerY;
+
+    // centered on the Sum chart
+    smileyFaceNode.centerX = controlsCenterX;
+    smileyFaceNode.centerY = sumChartRectangleLocalBounds.centerY;
+
+    // Layout ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     // When a new waveform (challenge) is presented, reset some things.
     level.newWaveformEmitter.addListener( () => {
@@ -423,7 +423,7 @@ class WaveGameLevelNode extends Node {
     // @private
     this.layoutBounds = layoutBounds;
     this.gameAudioPlayer = gameAudioPlayer;
-    this.harmonicsChartRectangleCenter = harmonicsChartRectangleCenter;
+    this.harmonicsChartRectangleLocalBounds = harmonicsChartRectangleLocalBounds;
     this.rewardNode = rewardNode;
     this.pointsAwardedNode = pointsAwardedNode;
     this.pointsAwardedAnimation = null; // {Animation|null}
@@ -466,8 +466,8 @@ class WaveGameLevelNode extends Node {
 
     // Show points awarded, centered on charts.
     this.pointsAwardedNode.setPoints( pointsAwarded );
-    this.pointsAwardedNode.centerX = this.harmonicsChartRectangleCenter.x;
-    this.pointsAwardedNode.centerY = this.harmonicsChartRectangleCenter.y;
+    this.pointsAwardedNode.centerX = this.harmonicsChartRectangleLocalBounds.centerX;
+    this.pointsAwardedNode.centerY = this.harmonicsChartRectangleLocalBounds.centerY;
 
     // Animate opacity of pointsAwardedNode, fade it out.
     this.pointsAwardedNode.visible = true;
