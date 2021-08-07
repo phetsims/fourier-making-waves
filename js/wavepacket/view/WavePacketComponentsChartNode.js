@@ -11,6 +11,7 @@ import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
+import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
@@ -61,10 +62,13 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
     this.addChild( chartCanvasNode );
 
     // Message shown when we have an infinite number of components.
-    const messageNode = new Text( fourierMakingWavesStrings.infiniteComponentsCannotBePlotted, {
+    const messageNode = new BackgroundNode( new Text( fourierMakingWavesStrings.infiniteComponentsCannotBePlotted, {
       font: new PhetFont( 18 ),
-      center: this.chartRectangle.center,
       maxWidth: 0.75 * this.chartRectangle.width
+    } ), {
+      xMargin: 12,
+      yMargin: 6,
+      center: this.chartRectangle.center
     } );
     this.addChild( messageNode );
 
@@ -77,17 +81,9 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
 
       // Hide some chart elements.
       chartCanvasNode.visible = !hasInfiniteComponents;
-      this.xAxis.visible = !hasInfiniteComponents;
-      this.yAxis.visible = !hasInfiniteComponents;
-      this.xGridLines.visible = !hasInfiniteComponents;
-      this.xTickMarks.visible = !hasInfiniteComponents;
-      this.xTickLabels.visible = !hasInfiniteComponents;
       this.yGridLines.visible = !hasInfiniteComponents;
       this.yTickMarks.visible = !hasInfiniteComponents;
       this.yTickLabels.visible = !hasInfiniteComponents;
-
-      // Disable the x-axis zoom buttons
-      this.xZoomButtonGroup.enabled = !hasInfiniteComponents;
     } );
 
     // Update the plot for each component.
