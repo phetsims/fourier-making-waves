@@ -13,6 +13,8 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWConstants from '../../common/FMWConstants.js';
+import SeriesType from '../../common/model/SeriesType.js';
 import WaveformChart from '../../common/model/WaveformChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
@@ -23,15 +25,19 @@ class WavePacketSumChart extends WaveformChart {
    * @param {DerivedProperty.<Array.<Array.<Vector2>>>} componentDataSetsProperty
    * @param {WavePacket} wavePacket
    * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} seriesTypeProperty
    * @param {EnumerationProperty.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Object} [options]
    */
-  constructor( componentDataSetsProperty, wavePacket, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
+  constructor( componentDataSetsProperty, wavePacket, domainProperty, seriesTypeProperty,
+               xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
                yAxisDescriptionProperty, widthIndicatorsVisibleProperty, options ) {
+    assert && assert( componentDataSetsProperty instanceof DerivedProperty );
     assert && assert( wavePacket instanceof WavePacket );
+    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
 
     options = merge( {
@@ -61,12 +67,13 @@ class WavePacketSumChart extends WaveformChart {
     // Data set for the sum of a finite number of components, [] when the number of components is infinite.
     // This simply takes the data sets for components, and sums the y values (amplitudes) of corresponding x values.
     // Points are ordered by increasing x value.
-    this.sumDataSetProperty = new DerivedProperty(
+    this.finiteSumDataSetProperty = new DerivedProperty(
       [ componentDataSetsProperty ],
       componentDataSets => {
         const sumDataSet = [];
         if ( componentDataSets.length > 0 ) {
 
+          // Finite number of components
           const pointsPerDataSet = componentDataSets[ 0 ].length;
           assert && assert( pointsPerDataSet > 0 );
 
@@ -87,6 +94,33 @@ class WavePacketSumChart extends WaveformChart {
           }
         }
         return sumDataSet;
+      } );
+
+    // @public {DerivedProperty.<Array.<Vector2>>}
+    // Data set for the sum of an infinite number of components, [] when the number of components is finite.
+    // Points are ordered by increasing x value.
+    // This is based on the updateDataSet method in GaussianWavePacketPlot.java.
+    this.infiniteSumDataSetProperty = new DerivedProperty(
+      [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.conjugateStandardDeviationProperty,
+        seriesTypeProperty, xAxisDescriptionProperty ],
+      ( componentSpacing, center, conjugateStandardDeviation, seriesType, xAxisDescription ) => {
+        const dataSet = [];
+        if ( componentSpacing === 0 ) {
+
+          const numberOfPoints = FMWConstants.MAX_POINTS_PER_DATA_SET + 1;
+          const dx = xAxisDescription.range.getLength() / numberOfPoints;
+
+          for ( let i = 0; i < numberOfPoints; i++ ) {
+            const x = xAxisDescription.range.min + ( i * dx );
+
+            // y = F(x) = exp( -(x^2) / (2 * (dx^2)) ) * sin(k0*x)
+            const sinCosTerm = ( seriesType === SeriesType.SINE ) ? Math.sin( center * x ) : Math.cos( center * x );
+            const y = Math.exp( -( x * x ) / ( 2 * ( conjugateStandardDeviation * conjugateStandardDeviation ) ) ) * sinCosTerm;
+
+            dataSet.push( new Vector2( x, y ) );
+          }
+        }
+        return dataSet;
       } );
 
     //TODO add this.waveformEnvelopeDataSetProperty

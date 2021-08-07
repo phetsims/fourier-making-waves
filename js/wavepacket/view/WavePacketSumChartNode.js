@@ -39,6 +39,8 @@ class WavePacketSumChartNode extends WaveformChartNode {
     const widthIndicatorWidthProperty = sumChart.widthIndicatorWidthProperty;
     const widthIndicatorPositionProperty = sumChart.widthIndicatorPositionProperty;
     const widthIndicatorsVisibleProperty = sumChart.widthIndicatorsVisibleProperty;
+    const finiteSumDataSetProperty = sumChart.finiteSumDataSetProperty;
+    const infiniteSumDataSetProperty = sumChart.infiniteSumDataSetProperty;
 
     options = merge( {
       xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),
@@ -54,14 +56,19 @@ class WavePacketSumChartNode extends WaveformChartNode {
     super( sumChart, options );
 
     // Plots the sum of a finite number of components
-    const sumPlot = new CanvasLinePlot( this.chartTransform, [], {
+    const finiteSumPlot = new CanvasLinePlot( this.chartTransform, [], {
+      stroke: 'black'
+    } );
+
+    // Plots the sum of an infinite number of components
+    const infiniteSumPlot = new CanvasLinePlot( this.chartTransform, [], {
       stroke: 'black'
     } );
 
     //TODO add waveformEnvelopePlot
 
     // Render the plots using Canvas.
-    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [ sumPlot ] );
+    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [ finiteSumPlot, infiniteSumPlot ] );
 
     // Width indicator, labeled dimensional arrows
     const widthIndicatorPlot = new WidthIndicatorPlot( this.chartTransform, widthIndicatorWidthProperty,
@@ -76,23 +83,32 @@ class WavePacketSumChartNode extends WaveformChartNode {
     } );
     this.addChild( clipNode );
 
-    sumChart.sumDataSetProperty.link( sumDataSet => {
+    // Scales the y axis to fit a data set.
+    // See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
+    const scaleYAxis = dataSet => {
+      assert && assert( dataSet.length > 0 );
+      const maxAmplitude = _.maxBy( dataSet, point => point.y ).y;
+      const maxY = 1.1 * maxAmplitude; // add a bit of padding
+      this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
+      this.yGridLines.setSpacing( maxAmplitude );
+      this.yTickMarks.setSpacing( maxAmplitude );
+      this.yTickLabels.setSpacing( maxAmplitude );
+    };
 
-      sumPlot.setDataSet( sumDataSet );
-      if ( sumDataSet.length > 0 ) {
-
-        // Autoscale the y axis.
-        // See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
-        const maxAmplitude = _.maxBy( sumDataSet, point => point.y ).y;
-        const maxY = 1.1 * maxAmplitude; // add a bit of padding
-        this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
-        this.yGridLines.setSpacing( maxAmplitude );
-        this.yTickMarks.setSpacing( maxAmplitude );
-        this.yTickLabels.setSpacing( maxAmplitude );
+    finiteSumDataSetProperty.link( dataSet => {
+      finiteSumPlot.setDataSet( dataSet );
+      if ( dataSet.length > 0 ) {
+        scaleYAxis( dataSet );
       }
+      chartCanvasNode.update();  // Redraw the plots.
+    } );
 
-      // Redraw the plots.
-      chartCanvasNode.update();
+    infiniteSumDataSetProperty.link( dataSet => {
+      infiniteSumPlot.setDataSet( dataSet );
+      if ( dataSet.length > 0 ) {
+        scaleYAxis( dataSet );
+      }
+      chartCanvasNode.update();  // Redraw the plots.
     } );
   }
 

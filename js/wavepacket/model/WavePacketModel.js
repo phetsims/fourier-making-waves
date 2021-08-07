@@ -97,7 +97,7 @@ class WavePacketModel {
       } );
 
     const sumChart = new WavePacketSumChart( componentsChart.componentDataSetsProperty,
-      wavePacket, domainProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
+      wavePacket, domainProperty, seriesTypeProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
       sumYAxisDescriptionProperty, widthIndicatorsVisibleProperty, {
         tandem: chartsTandem.createTandem( 'sumChart' )
       } );
