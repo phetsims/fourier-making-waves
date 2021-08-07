@@ -14,7 +14,6 @@ Can SumChart be used by WavePacketSumChart?
 
 ## Wave Packet screen
 
-FEATURE: Sum plot (infinite components), see addContinuousPlot in D2CSumView.js
 FEATURE: Sum Waveform Envelope, see updateEnvelope in D2CSumView.js
 FEATURE: Wavelength/Period tools
 
