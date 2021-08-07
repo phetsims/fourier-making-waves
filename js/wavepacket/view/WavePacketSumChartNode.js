@@ -83,33 +83,11 @@ class WavePacketSumChartNode extends WaveformChartNode {
     } );
     this.addChild( clipNode );
 
-    // Scales the y axis to fit a data set.
-    // See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
-    const scaleYAxis = dataSet => {
-      assert && assert( dataSet.length > 0 );
-      const maxAmplitude = _.maxBy( dataSet, point => point.y ).y;
-      const maxY = 1.1 * maxAmplitude; // add a bit of padding
-      this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
-      this.yGridLines.setSpacing( maxAmplitude );
-      this.yTickMarks.setSpacing( maxAmplitude );
-      this.yTickLabels.setSpacing( maxAmplitude );
-    };
+    // @private
+    this.chartCanvasNode = chartCanvasNode;
 
-    finiteSumDataSetProperty.link( dataSet => {
-      finiteSumPlot.setDataSet( dataSet );
-      if ( dataSet.length > 0 ) {
-        scaleYAxis( dataSet );
-      }
-      chartCanvasNode.update();  // Redraw the plots.
-    } );
-
-    infiniteSumDataSetProperty.link( dataSet => {
-      infiniteSumPlot.setDataSet( dataSet );
-      if ( dataSet.length > 0 ) {
-        scaleYAxis( dataSet );
-      }
-      chartCanvasNode.update();  // Redraw the plots.
-    } );
+    finiteSumDataSetProperty.link( ( newDataSet, oldDataSet ) => this.updatePlot( finiteSumPlot, newDataSet, oldDataSet ) );
+    infiniteSumDataSetProperty.link( ( newDataSet, oldDataSet ) => this.updatePlot( infiniteSumPlot, newDataSet, oldDataSet ) );
   }
 
   /**
@@ -119,6 +97,35 @@ class WavePacketSumChartNode extends WaveformChartNode {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+
+  /**
+   * Updates a plot.
+   * @param {CanvasLinePlot} plot
+   * @param {Vector2[]} newDataSet
+   * @param {Vector2[]} oldDataSet
+   * @private
+   */
+  updatePlot( plot, newDataSet, oldDataSet ) {
+
+    // Update the plot's data set.
+    plot.setDataSet( newDataSet );
+
+    // Scale the y axis to fit the new data set.
+    // See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
+    if ( newDataSet.length > 0 ) {
+      const maxAmplitude = _.maxBy( newDataSet, point => point.y ).y;
+      const maxY = 1.1 * maxAmplitude; // add a bit of padding
+      this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
+      this.yGridLines.setSpacing( maxAmplitude );
+      this.yTickMarks.setSpacing( maxAmplitude );
+      this.yTickLabels.setSpacing( maxAmplitude );
+    }
+
+    // Redraw plots if necessary.
+    if ( newDataSet.length > 0 || !oldDataSet || oldDataSet.length > 0 ) {
+      this.chartCanvasNode.update();
+    }
   }
 }
 
