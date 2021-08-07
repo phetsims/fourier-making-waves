@@ -59,7 +59,8 @@ class WavePacketSumChartNode extends WaveformChartNode {
 
     super( sumChart, options );
 
-    //TODO initialize plot data sets, then lazyLink to associated Properties
+    // NOTE: CanvasLinePlot dataSets are initialized to [] because the listeners to their data set Properties
+    // also handle y-axis scaling.
 
     // Plots the sum of a finite number of components
     const finiteSumPlot = new CanvasLinePlot( this.chartTransform, [], {

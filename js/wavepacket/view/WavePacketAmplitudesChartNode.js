@@ -69,7 +69,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     // No x-axis grid lines for this chart.
     this.xGridLines.visible = false;
 
-    //TODO initialize plot data sets, then lazyLink to associated Properties
+    // NOTE: Data sets for plots are initialized to [] because the listeners for their data sets handle y-axis scaling.
 
     // Displays each Fourier component amplitude as a vertical bar
     const amplitudesPlot = new BarPlot( this.chartTransform, [], {
