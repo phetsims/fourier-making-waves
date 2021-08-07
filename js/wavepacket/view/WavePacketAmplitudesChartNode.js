@@ -9,8 +9,10 @@
  */
 
 import BarPlot from '../../../../bamboo/js/BarPlot.js';
-import LinePlot from '../../../../bamboo/js/LinePlot.js';
+import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
+import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
+import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -83,12 +85,28 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       }
     } );
 
-    //TODO use CanvasLinePlot
     // Displays the continuous waveform
-    const continuousWaveformPlot = new LinePlot( this.chartTransform, [], {
-      stroke: FMWColors.continuousWaveformStrokeProperty,
+    const continuousWaveformPlot = new CanvasLinePlot( this.chartTransform, [], {
       lineWidth: 4,
       visibleProperty: continuousWaveformVisibleProperty
+    } );
+
+    // Render the plots using Canvas.
+    // Remember! When any of the associated plots is updated, you must call chartCanvasNode.update().
+    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [ continuousWaveformPlot ], {
+      clipArea: Shape.bounds( this.chartRectangle.bounds )
+    } );
+
+    // CanvasLinePlot stroke does not support Property, so handle it here.
+    FMWColors.continuousWaveformStrokeProperty.link( stroke => {
+      continuousWaveformPlot.setStroke( stroke );
+      chartCanvasNode.update();
+    } );
+
+    // CanvasLinePlot does not support visibleProperty, so handle it here by clearing the data set when invisible.
+    continuousWaveformVisibleProperty.link( visible => {
+      continuousWaveformPlot.setDataSet( visible ? continuousWaveformDataSetProperty.value : [] );
+      chartCanvasNode.update();
     } );
 
     // Displays an infinite number of components. This uses the same data set as continuousWaveformPlot, but fills
@@ -108,7 +126,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     // Clip these elements to the chartRectangle bounds.
     const clipNode = new Node( {
       clipArea: this.chartRectangle.getShape(),
-      children: [ infiniteComponentsPlot, continuousWaveformPlot, amplitudesPlot, widthIndicatorPlot ]
+      children: [ infiniteComponentsPlot, chartCanvasNode, amplitudesPlot, widthIndicatorPlot ]
     } );
     this.addChild( clipNode );
 
@@ -137,8 +155,9 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     continuousWaveformDataSetProperty.link( dataSet => {
 
       // Update visible plots.
-      if ( continuousWaveformPlot.visible ) {
+      if ( continuousWaveformVisibleProperty.value ) {
         continuousWaveformPlot.setDataSet( dataSet );
+        chartCanvasNode.update();
       }
       if ( infiniteComponentsPlot.visible ) {
         infiniteComponentsPlot.setDataSet( dataSet );
@@ -158,8 +177,6 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     // Performance optimization: Update data set when a plot becomes visible, clear data set when it becomes invisible.
     amplitudesPlot.visibleProperty.link(
       visible => amplitudesPlot.setDataSet( visible ? amplitudesDataSetProperty.value : [] ) );
-    continuousWaveformPlot.visibleProperty.link(
-      visible => continuousWaveformPlot.setDataSet( visible ? continuousWaveformDataSetProperty.value : [] ) );
     infiniteComponentsPlot.visibleProperty.link(
       visible => infiniteComponentsPlot.setDataSet( visible ? continuousWaveformDataSetProperty.value : [] ) );
   }
