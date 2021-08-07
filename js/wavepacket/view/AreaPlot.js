@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 //TODO is this general enough to move to bamboo?
-//TODO implement as a paintable for ChartCanvasNode?
+//TODO convert to CanvasAreaPlot, ala CanvasLinePlot
 /**
  * AreaPlot fills the area below a curve.
  *
