@@ -142,13 +142,6 @@ class DiscreteScreenView extends ScreenView {
       children: [ harmonicsChartNode, harmonicsEquationNode ]
     } );
 
-    // Visibility of the equation above the Harmonics chart
-    Property.multilink(
-      [ model.harmonicsChart.chartVisibleProperty, model.equationFormProperty ],
-      ( chartVisible, equationForm ) => {
-        harmonicsEquationNode.visible = chartVisible && ( equationForm !== EquationForm.HIDDEN );
-      } );
-
     // Sum chart -------------------------------------------------------------------
 
     // Parent tandem for all elements related to the Sum chart
@@ -167,6 +160,7 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     // Equation that appears above the Sum chart, with wrapper Node to handle centering
+    const sumEquationNodeTandem = sumTandem.createTandem( 'sumEquationNode' );
     const sumEquationNode = new DiscreteSumEquationNode( model.fourierSeries.numberOfHarmonicsProperty, model.domainProperty,
       model.seriesTypeProperty, model.equationFormProperty, {
         maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
@@ -184,25 +178,20 @@ class DiscreteScreenView extends ScreenView {
           } );
         dialog.show();
       },
-      tandem: sumTandem.createTandem( 'expandedFormButton' ),
+      // Make this button appear to be a child of sumEquationNode.
+      tandem: sumEquationNodeTandem.createTandem( 'expandedFormButton' ),
       phetioReadOnly: true
+    } );
+
+    const sumEquationParentNode = new Node( {
+      children: [ sumEquationNode, expandedFormButton ]
     } );
 
     // All of the Sum elements whose visibility need to be controlled.
     const sumParentNode = new Node( {
       visibleProperty: model.sumChart.chartVisibleProperty,
-      children: [ sumChartNode, sumEquationNode, expandedFormButton ]
+      children: [ sumChartNode, sumEquationParentNode ]
     } );
-
-    // Visibility of the equation and push button above the Sum chart
-    Property.multilink(
-      [ model.sumChart.chartVisibleProperty, model.equationFormProperty ],
-      ( chartVisible, equationForm ) => {
-        const visible = chartVisible && ( equationForm !== EquationForm.HIDDEN );
-        sumEquationNode.visible = visible;
-        expandedFormButton.interruptSubtreeInput();
-        expandedFormButton.visible = visible;
-      } );
 
     // Measurement Tools -------------------------------------------------------------------
 
@@ -406,6 +395,13 @@ class DiscreteScreenView extends ScreenView {
         soundManager.setOutputLevelForCategory( 'user-interface', outputLevel );
       }
     );
+
+    // Visibility of the equations above the charts
+    model.equationFormProperty.link( equationForm => {
+      const visible = ( equationForm !== EquationForm.HIDDEN );
+      harmonicsEquationNode.visible = visible;
+      sumEquationParentNode.visible = visible;
+    } );
 
     // pdom -traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53
