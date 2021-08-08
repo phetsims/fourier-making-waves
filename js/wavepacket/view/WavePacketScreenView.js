@@ -81,7 +81,7 @@ class WavePacketScreenView extends ScreenView {
     const amplitudeEquationNode = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
       font: FMWConstants.EQUATION_FONT,
       maxWidth: 100,
-      tandem: amplitudesTandem.createTandem( 'equationNode' )
+      tandem: amplitudesTandem.createTandem( 'amplitudeEquationNode' )
     } );
 
     const continuousWaveformCheckbox = new ContinuousWaveformCheckbox(
@@ -114,7 +114,7 @@ class WavePacketScreenView extends ScreenView {
     // Equation above the Components chart
     const componentsEquationNode = new ComponentsEquationNode( model.domainProperty, model.seriesTypeProperty, {
       maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
-      tandem: componentsTandem.createTandem( 'equationNode' )
+      tandem: componentsTandem.createTandem( 'componentsEquationNode' )
     } );
 
     // All of the Components elements whose visibility need to be controlled.
@@ -143,7 +143,7 @@ class WavePacketScreenView extends ScreenView {
     const sumEquationNode = new WavePacketSumEquationNode( model.domainProperty, model.seriesTypeProperty,
       model.wavePacket.componentSpacingProperty, {
         maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
-        tandem: sumTandem.createTandem( 'equationNode' )
+        tandem: sumTandem.createTandem( 'sumEquationNode' )
       } );
 
     // Waveform Envelope checkbox
