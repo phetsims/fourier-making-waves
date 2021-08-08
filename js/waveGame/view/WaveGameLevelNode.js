@@ -98,6 +98,8 @@ class WaveGameLevelNode extends Node {
     // Parent tandem for all charts
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
+    // Amplitudes chart -------------------------------------------------------------------
+
     // Parent tandem for all components related to the Amplitudes chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
@@ -110,64 +112,6 @@ class WaveGameLevelNode extends Node {
     const amplitudesChartNode = new WaveGameAmplitudesChartNode( level.amplitudesChart, amplitudeKeypadDialog, {
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
     } );
-
-    // When the ?showAnswers query parameter is present, show the answer to the current challenge.
-    // This Node has very low overhead. So it is added to the scenegraph in all cases so that it gets tested.
-    const answersNode = new AnswersNode( amplitudesChartNode.chartTransform, level.answerSeries, {
-      visible: phet.chipper.queryParameters.showAnswers
-    } );
-
-    // Parent tandem for all components related to the Harmonics chart
-    const harmonicsTandem = chartsTandem.createTandem( 'harmonics' );
-
-    const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonicsChart, {
-      font: FMWConstants.TITLE_FONT,
-      maxWidth: 150,
-      tandem: harmonicsTandem.createTandem( 'harmonicsTitleNode' )
-    } );
-
-    const harmonicsChartNode = new WaveGameHarmonicsChartNode( level.harmonicsChart, {
-      tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
-    } );
-
-    // Parent tandem for all components related to the Sum chart
-    const sumTandem = chartsTandem.createTandem( 'sum' );
-
-    const sumTitleNode = new Text( fourierMakingWavesStrings.sum, {
-      font: FMWConstants.TITLE_FONT,
-      maxWidth: FMWConstants.CHART_TITLE_MAX_WIDTH,
-      tandem: sumTandem.createTandem( 'harmonicsTitleNode' )
-    } );
-
-    const sumChartNode = new WaveGameSumChartNode( level.sumChart, {
-      tandem: sumTandem.createTandem( 'sumChartNode' )
-    } );
-
-    // Smiley face is visible when the waveform is matched.
-    const faceVisibleProperty = new DerivedProperty(
-      [ level.isSolvedProperty, level.isMatchedProperty ],
-      ( isSolved, isMatched ) => isSolved && isMatched
-    );
-    const smileyFaceNode = new FaceNode( 125 /* headDiameter */, {
-      visibleProperty: faceVisibleProperty,
-      tandem: options.tandem.createTandem( 'smileyFaceNode' ),
-      phetioReadOnly: true
-    } );
-
-    // Shown when a correct guess is made, then fades out.
-    const pointsAwardedNode = new PointsAwardedNode( {
-      visible: false,
-      tandem: options.tandem.createTandem( 'pointsAwardedNode' ),
-      phetioReadOnly: true
-    } );
-
-    // Shown when an incorrect guess is made, then fades out.
-    const frownyFaceNode = new FaceNode( 250 /* headDiameter */, {
-      visible: false,
-      tandem: options.tandem.createTandem( 'frownyFaceNode' ),
-      phetioReadOnly: true
-    } );
-    frownyFaceNode.frown();
 
     // Enabled when any amplitude is non-zero.
     const eraserButtonEnabledProperty = new DerivedProperty(
@@ -184,6 +128,44 @@ class WaveGameLevelNode extends Node {
       },
       enabledProperty: eraserButtonEnabledProperty
     } );
+
+    // When the ?showAnswers query parameter is present, show the answer to the current challenge.
+    // This Node has very low overhead. So it is added to the scenegraph in all cases so that it gets tested.
+    const answersNode = new AnswersNode( amplitudesChartNode.chartTransform, level.answerSeries, {
+      visible: phet.chipper.queryParameters.showAnswers
+    } );
+
+    // Harmonics chart -------------------------------------------------------------------
+
+    // Parent tandem for all components related to the Harmonics chart
+    const harmonicsTandem = chartsTandem.createTandem( 'harmonics' );
+
+    const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonicsChart, {
+      font: FMWConstants.TITLE_FONT,
+      maxWidth: 150,
+      tandem: harmonicsTandem.createTandem( 'harmonicsTitleNode' )
+    } );
+
+    const harmonicsChartNode = new WaveGameHarmonicsChartNode( level.harmonicsChart, {
+      tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
+    } );
+
+    // Sum chart -------------------------------------------------------------------
+
+    // Parent tandem for all components related to the Sum chart
+    const sumTandem = chartsTandem.createTandem( 'sum' );
+
+    const sumTitleNode = new Text( fourierMakingWavesStrings.sum, {
+      font: FMWConstants.TITLE_FONT,
+      maxWidth: FMWConstants.CHART_TITLE_MAX_WIDTH,
+      tandem: sumTandem.createTandem( 'harmonicsTitleNode' )
+    } );
+
+    const sumChartNode = new WaveGameSumChartNode( level.sumChart, {
+      tandem: sumTandem.createTandem( 'sumChartNode' )
+    } );
+
+    // Control to the right of the charts -------------------------------------------------------------------
 
     // Controls the number of amplitude controls (sliders) visible in the Amplitudes chart.
     const amplitudeControlsSpinner = new AmplitudeControlsSpinner( level.numberOfAmplitudeControlsProperty, {
@@ -241,6 +223,12 @@ class WaveGameLevelNode extends Node {
       }
     } );
 
+    // Smiley face is visible when the waveform is matched.
+    const faceVisibleProperty = new DerivedProperty(
+      [ level.isSolvedProperty, level.isMatchedProperty ],
+      ( isSolved, isMatched ) => isSolved && isMatched
+    );
+
     // 'Show Answer' button is enabled after the user has tried 'Check Answer'.
     const showAnswerButtonEnabledProperty = new DerivedProperty(
       [ numberOfCheckAnswerButtonPressesProperty, level.isSolvedProperty, faceVisibleProperty ],
@@ -289,6 +277,29 @@ class WaveGameLevelNode extends Node {
       ]
     } );
 
+    // Transient UI elements that provide game feedback ---------------------------------------------------------------
+
+    const smileyFaceNode = new FaceNode( 125 /* headDiameter */, {
+      visibleProperty: faceVisibleProperty,
+      tandem: options.tandem.createTandem( 'smileyFaceNode' ),
+      phetioReadOnly: true
+    } );
+
+    // Shown when a correct guess is made, then fades out.
+    const pointsAwardedNode = new PointsAwardedNode( {
+      visible: false,
+      tandem: options.tandem.createTandem( 'pointsAwardedNode' ),
+      phetioReadOnly: true
+    } );
+
+    // Shown when an incorrect guess is made, then fades out.
+    const frownyFaceNode = new FaceNode( 250 /* headDiameter */, {
+      visible: false,
+      tandem: options.tandem.createTandem( 'frownyFaceNode' ),
+      phetioReadOnly: true
+    } );
+    frownyFaceNode.frown();
+
     // The reward shown while rewardDialog is open.
     const rewardNode = new WaveGameRewardNode( level.levelNumber, {
       visible: false
@@ -317,6 +328,8 @@ class WaveGameLevelNode extends Node {
         rewardNode.visible = false;
       }
     } );
+
+    // Rendering order ---------------------------------------------------------------
 
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
     options.children = [
