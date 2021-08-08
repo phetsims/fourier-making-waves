@@ -55,34 +55,34 @@ class WavePacketControlPanel extends Panel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const fourierSeriesLayoutBox = new ComponentSpacingLayoutBox( model.domainProperty,
+    const componentSpacingSubpanel = new ComponentSpacingSubpanel( model.domainProperty,
       model.wavePacket.componentSpacingProperty, {
         spacing: VERTICAL_SPACING,
-        tandem: options.tandem.createTandem( 'fourierSeriesLayoutBox' )
+        tandem: options.tandem.createTandem( 'componentSpacingSubpanel' )
       } );
 
     const sectionNodes = [
 
       // Fourier Series
-      fourierSeriesLayoutBox,
+      componentSpacingSubpanel,
 
       // Wave Packet - Center
-      new WavePacketCenterLayoutBox( model.domainProperty, model.wavePacket.centerProperty, {
+      new WavePacketCenterSubpanel( model.domainProperty, model.wavePacket.centerProperty, {
         spacing: VERTICAL_SPACING,
-        tandem: options.tandem.createTandem( 'wavePacketCenterLayoutBox' )
+        tandem: options.tandem.createTandem( 'wavePacketCenterSubpanel' )
       } ),
 
       // Wave Packet - Width
-      new WavePacketWidthLayoutBox( model.domainProperty, model.wavePacket.standardDeviationProperty,
+      new WavePacketWidthSubpanel( model.domainProperty, model.wavePacket.standardDeviationProperty,
         model.wavePacket.conjugateStandardDeviationProperty, model.widthIndicatorsVisibleProperty, {
           spacing: VERTICAL_SPACING,
-          tandem: options.tandem.createTandem( 'wavePacketWidthLayoutBox' )
+          tandem: options.tandem.createTandem( 'wavePacketWidthSubpanel' )
         } ),
 
       // Graph Controls
-      new GraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty, popupParent, {
+      new GraphControlsSubpanel( model.domainProperty, model.seriesTypeProperty, popupParent, {
         spacing: VERTICAL_SPACING,
-        tandem: options.tandem.createTandem( 'graphControlsLayoutBox' )
+        tandem: options.tandem.createTandem( 'graphControlsSubpanel' )
       } )
     ];
 
@@ -114,9 +114,9 @@ class WavePacketControlPanel extends Panel {
       iconFill: 'rgb( 50, 145, 184 )',
       scale: 0.4,
       right: vBox.right,
-      centerY: fourierSeriesLayoutBox.globalToParentBounds(
-        fourierSeriesLayoutBox.componentSpacingText.parentToGlobalBounds(
-          fourierSeriesLayoutBox.componentSpacingText.bounds ) ).centerY
+      centerY: componentSpacingSubpanel.globalToParentBounds(
+        componentSpacingSubpanel.componentSpacingText.parentToGlobalBounds(
+          componentSpacingSubpanel.componentSpacingText.bounds ) ).centerY
     } );
 
     const content = new Node( {
@@ -135,9 +135,9 @@ class WavePacketControlPanel extends Panel {
 }
 
 /**
- * ComponentSpacingLayoutBox is the 'Fourier Component Spacing' section of this control panel.
+ * ComponentSpacingSubpanel is the 'Fourier Component Spacing' section of this control panel.
  */
-class ComponentSpacingLayoutBox extends VBox {
+class ComponentSpacingSubpanel extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -169,7 +169,7 @@ class ComponentSpacingLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'componentSpacingControl' )
     } );
 
-    assert && assert( !options.children, 'ComponentSpacingLayoutBox sets children' );
+    assert && assert( !options.children, 'ComponentSpacingSubpanel sets children' );
     options.children = [
       componentSpacingText,
       componentSpacingControl
@@ -192,9 +192,9 @@ class ComponentSpacingLayoutBox extends VBox {
 }
 
 /**
- * WavePacketCenterLayoutBox is the 'Wave Packet - Center' section of this control panel.
+ * WavePacketCenterSubpanel is the 'Wave Packet - Center' section of this control panel.
  */
-class WavePacketCenterLayoutBox extends VBox {
+class WavePacketCenterSubpanel extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -223,7 +223,7 @@ class WavePacketCenterLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'centerControl' )
     } );
 
-    assert && assert( !options.children, 'WavePacketCenterLayoutBox sets children' );
+    assert && assert( !options.children, 'WavePacketCenterSubpanel sets children' );
     options.children = [
       wavePacketCenterText,
       centerControl
@@ -243,9 +243,9 @@ class WavePacketCenterLayoutBox extends VBox {
 }
 
 /**
- * WavePacketWidthLayoutBox is the 'Wave Packet - Width' section of this control panel.
+ * WavePacketWidthSubpanel is the 'Wave Packet - Width' section of this control panel.
  */
-class WavePacketWidthLayoutBox extends VBox {
+class WavePacketWidthSubpanel extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -318,9 +318,9 @@ class WavePacketWidthLayoutBox extends VBox {
 }
 
 /**
- * GraphControlsLayoutBox is the 'Graph Controls' section of this control panel.
+ * GraphControlsSubpanel is the 'Graph Controls' section of this control panel.
  */
-class GraphControlsLayoutBox extends VBox {
+class GraphControlsSubpanel extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -355,7 +355,7 @@ class GraphControlsLayoutBox extends VBox {
     } );
 
     const domainComboBox = new DomainComboBox( domainProperty, popupParent, {
-      tandem: options.tandem.createTandem( 'domainComboBox' )
+      tandem: options.tandem.createTandem( 'functionOfComboBox' ) // tandem name differs by request
     } );
 
     const functionOfBox = new HBox( {
@@ -371,7 +371,7 @@ class GraphControlsLayoutBox extends VBox {
     } );
 
     const seriesTypeRadioButtonGroup = new SeriesTypeRadioButtonGroup( seriesTypeProperty, {
-      tandem: options.tandem.createTandem( 'seriesTypeRadioButtonGroup' )
+      tandem: options.tandem.createTandem( 'seriesRadioButtonGroup' ) // tandem name differs by request
     } );
 
     const seriesBox = new HBox( {
@@ -379,7 +379,7 @@ class GraphControlsLayoutBox extends VBox {
       children: [ seriesText, seriesTypeRadioButtonGroup ]
     } );
 
-    assert && assert( !options.children, 'GraphControlsLayoutBox sets children' );
+    assert && assert( !options.children, 'GraphControlsSubpanel sets children' );
     options.children = [
       graphControlsText,
       functionOfBox,

@@ -70,20 +70,20 @@ class DiscreteControlPanel extends Panel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const fourierSeriesLayoutBox = new FourierSeriesLayoutBox( model.waveformProperty, popupParent,
+    const fourierSeriesLayoutBox = new FourierSeriesSubpanel( model.waveformProperty, popupParent,
       model.fourierSeries.numberOfHarmonicsProperty, model.fourierSeriesSoundEnabledProperty,
       model.fourierSeriesSoundOutputLevelProperty, {
-        tandem: options.tandem.createTandem( 'fourierSeriesLayoutBox' )
+        tandem: options.tandem.createTandem( 'fourierSeriesSubpanel' )
       } );
 
     // {Node[]} logical sections of the control panel
     const sectionNodes = [
       fourierSeriesLayoutBox,
-      new GraphControlsLayoutBox( model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, popupParent, {
-        tandem: options.tandem.createTandem( 'graphControlsLayoutBox' )
+      new GraphControlsSubpanel( model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, popupParent, {
+        tandem: options.tandem.createTandem( 'graphControlsSubpanel' )
       } ),
-      new MeasurementToolsLayoutBox( model.wavelengthTool, model.periodTool, model.domainProperty, {
-        tandem: options.tandem.createTandem( 'measurementToolsLayoutBox' )
+      new MeasurementToolsSubpanel( model.wavelengthTool, model.periodTool, model.domainProperty, {
+        tandem: options.tandem.createTandem( 'measurementToolsSubpanel' )
       } )
     ];
 
@@ -143,9 +143,9 @@ class DiscreteControlPanel extends Panel {
 }
 
 /**
- * FourierSeriesLayoutBox is the 'Fourier Series' sub-panel of this control panel.
+ * FourierSeriesSubpanel is the 'Fourier Series' sub-panel of this control panel.
  */
-class FourierSeriesLayoutBox extends VBox {
+class FourierSeriesSubpanel extends VBox {
 
   /**
    * @param {EnumerationProperty.<Waveform>} waveformProperty
@@ -221,7 +221,7 @@ class FourierSeriesLayoutBox extends VBox {
       tandem: options.tandem.createTandem( 'soundLayoutBox' )
     } );
 
-    assert && assert( !options.children, 'FourierSeriesLayoutBox sets children' );
+    assert && assert( !options.children, 'FourierSeriesSubpanel sets children' );
     options.children = [
       fourierSeriesText,
       waveformBox,
@@ -246,9 +246,9 @@ class FourierSeriesLayoutBox extends VBox {
 }
 
 /**
- * GraphControlsLayoutBox is the 'Graph Controls' sub-panel of this control panel.
+ * GraphControlsSubpanel is the 'Graph Controls' sub-panel of this control panel.
  */
-class GraphControlsLayoutBox extends VBox {
+class GraphControlsSubpanel extends VBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -292,7 +292,7 @@ class GraphControlsLayoutBox extends VBox {
     } );
 
     const domainComboBox = new DomainComboBox( domainProperty, popupParent, {
-      tandem: options.tandem.createTandem( 'domainComboBox' )
+      tandem: options.tandem.createTandem( 'functionOfComboBox' ) // tandem name differs by request
     } );
 
     const functionOfBox = new HBox( {
@@ -307,7 +307,7 @@ class GraphControlsLayoutBox extends VBox {
     } );
 
     const seriesTypeRadioButtonGroup = new SeriesTypeRadioButtonGroup( seriesTypeProperty, {
-      tandem: options.tandem.createTandem( 'seriesTypeRadioButtonGroup' )
+      tandem: options.tandem.createTandem( 'seriesRadioButtonGroup' ) // tandem name differs by request
     } );
 
     const seriesBox = new HBox( {
@@ -330,7 +330,7 @@ class GraphControlsLayoutBox extends VBox {
       children: [ new AlignBox( equationText, labelsAlignBoxOptions ), equationComboBox ]
     } );
 
-    assert && assert( !options.children, 'DiscreteGraphControlsLayoutBox sets children' );
+    assert && assert( !options.children, 'DiscreteGraphControlsSubpanel sets children' );
     options.children = [
       graphControlsText,
       functionOfBox,
@@ -352,9 +352,9 @@ class GraphControlsLayoutBox extends VBox {
 }
 
 /**
- * MeasurementToolsLayoutBox is the 'Measurement Tools' sub-panel of this control panel.
+ * MeasurementToolsSubpanel is the 'Measurement Tools' sub-panel of this control panel.
  */
-class MeasurementToolsLayoutBox extends VBox {
+class MeasurementToolsSubpanel extends VBox {
 
   /**
    * @param {MeasurementTool} wavelengthTool
@@ -425,7 +425,7 @@ class MeasurementToolsLayoutBox extends VBox {
       ]
     } ) );
 
-    assert && assert( !options.children, 'MeasurementToolsLayoutBox sets children' );
+    assert && assert( !options.children, 'MeasurementToolsSubpanel sets children' );
     options.children = [
       measurementToolsText,
       wavelengthBox,
