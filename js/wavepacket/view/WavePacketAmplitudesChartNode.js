@@ -63,8 +63,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       },
       yLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
-      },
-      visibleProperty: amplitudesChart.chartVisibleProperty
+      }
     }, options );
 
     super( options );

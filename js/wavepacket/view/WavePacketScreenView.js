@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
-import Range from '../../../../dot/js/Range.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -69,9 +68,10 @@ class WavePacketScreenView extends ScreenView {
 
     // Amplitudes chart
     const amplitudesChartNode = new WavePacketAmplitudesChartNode( model.amplitudesChart, {
+      visibleProperty: model.amplitudesChart.chartVisibleProperty,
       chartTransformOptions: {
-        modelXRange: model.wavePacket.waveNumberRange,
-        modelYRange: new Range( 0, model.maxAmplitude ) //TODO this needs to autoscale!
+        modelXRange: model.wavePacket.waveNumberRange
+        // modelYRange will automatically scale to fit the data set
       },
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
     } );
@@ -105,6 +105,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Components chart
     const componentsChartNode = new WavePacketComponentsChartNode( model.componentsChart, {
+      visibleProperty: model.componentsChart.chartVisibleProperty,
       tandem: componentsTandem.createTandem( 'componentsChartNode' )
     } );
 
@@ -129,6 +130,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Sum chart
     const sumChartNode = new WavePacketSumChartNode( model.sumChart, {
+      visibleProperty: model.sumChart.chartVisibleProperty,
       tandem: sumTandem.createTandem( 'sumChartNode' )
     } );
 

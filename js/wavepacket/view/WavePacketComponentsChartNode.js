@@ -49,8 +49,7 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
       },
       yLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
-      },
-      visibleProperty: componentsChart.chartVisibleProperty
+      }
     }, options );
 
     super( componentsChart, options );

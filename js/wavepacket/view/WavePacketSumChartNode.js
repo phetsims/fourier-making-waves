@@ -50,8 +50,7 @@ class WavePacketSumChartNode extends WaveformChartNode {
       },
       yLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
-      },
-      visibleProperty: sumChart.chartVisibleProperty
+      }
     }, options );
 
     super( sumChart, options );
