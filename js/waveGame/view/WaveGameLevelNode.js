@@ -97,12 +97,12 @@ class WaveGameLevelNode extends Node {
       tandem: options.tandem.createTandem( 'statusBar' )
     } );
 
+    // Amplitudes chart -------------------------------------------------------------------
+
     // Parent tandem for all charts
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
-    // Amplitudes chart -------------------------------------------------------------------
-
-    // Parent tandem for all components related to the Amplitudes chart
+    // Parent tandem for all elements related to the Amplitudes chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
     // Keypad Dialog, for changing amplitude value
@@ -139,7 +139,7 @@ class WaveGameLevelNode extends Node {
 
     // Harmonics chart -------------------------------------------------------------------
 
-    // Parent tandem for all components related to the Harmonics chart
+    // Parent tandem for all elements related to the Harmonics chart
     const harmonicsTandem = chartsTandem.createTandem( 'harmonics' );
 
     const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonicsChart, {

@@ -79,7 +79,7 @@ class DiscreteScreenView extends ScreenView {
 
     // Amplitudes chart -------------------------------------------------------------------
 
-    // Parent tandem for all components related to the Amplitudes chart
+    // Parent tandem for all elements related to the Amplitudes chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
     // Keypad Dialog, for changing amplitude value
@@ -114,7 +114,7 @@ class DiscreteScreenView extends ScreenView {
 
     // Harmonics chart -------------------------------------------------------------------
 
-    // Parent tandem for all components related to the Harmonics chart
+    // Parent tandem for all elements related to the Harmonics chart
     const harmonicsTandem = chartsTandem.createTandem( 'harmonics' );
 
     // Button to show/hide the Harmonics chart
@@ -151,7 +151,7 @@ class DiscreteScreenView extends ScreenView {
 
     // Sum chart -------------------------------------------------------------------
 
-    // Parent tandem for all components related to the Sum chart
+    // Parent tandem for all elements related to the Sum chart
     const sumTandem = chartsTandem.createTandem( 'sum' );
 
     // Button to show/hide the Sum chart

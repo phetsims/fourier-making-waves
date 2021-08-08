@@ -58,7 +58,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Amplitudes chart -------------------------------------------------------------------
 
-    // Parent tandem for all components related to the Amplitudes chart
+    // Parent tandem for all elements related to the Amplitudes chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
     // Button to show/hide the Amplitudes chart
@@ -97,7 +97,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Components chart -------------------------------------------------------------------
 
-    // Parent tandem for all components related to the Components chart
+    // Parent tandem for all elements related to the Components chart
     const componentsTandem = chartsTandem.createTandem( 'components' );
 
     // Button to show/hide the Components chart
@@ -125,7 +125,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Sum chart -------------------------------------------------------------------
 
-    // Parent tandem for all components related to the Sum chart
+    // Parent tandem for all elements related to the Sum chart
     const sumTandem = chartsTandem.createTandem( 'sum' );
 
     // Button to show/hide the Sum chart
