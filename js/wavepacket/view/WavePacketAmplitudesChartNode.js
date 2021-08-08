@@ -73,8 +73,8 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
 
     // NOTE: Data sets for plots are initialized to [] because the listeners for their data sets handle y-axis scaling.
 
-    // Displays each Fourier component amplitude as a vertical bar
-    const amplitudesPlot = new BarPlot( this.chartTransform, [], {
+    // Displays a finite number of Fourier components as vertical bars
+    const finiteComponentsPlot = new BarPlot( this.chartTransform, [], {
       barWidth: 5,
 
       // Assign a grayscale color to each bar in the BarPlot.
@@ -83,6 +83,14 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
         rgb = GRAY_RANGE.constrainValue( rgb );
         return { fill: Color.grayColor( rgb ) };
       }
+    } );
+
+    // Displays an infinite number of components. This uses the same data set as continuousWaveformPlot, but fills
+    // the area under that curve with the same grayscale gradient that is used to color the bars.
+    const infiniteComponentsPlot = new AreaPlot( this.chartTransform, [], {
+      fill: new LinearGradient( 0, 0, this.chartRectangle.width, 0 )
+        .addColorStop( 0, Color.grayColor( GRAY_RANGE.min ) )
+        .addColorStop( 1, Color.grayColor( GRAY_RANGE.max ) )
     } );
 
     // Displays the continuous waveform
@@ -109,14 +117,6 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       chartCanvasNode.update();
     } );
 
-    // Displays an infinite number of components. This uses the same data set as continuousWaveformPlot, but fills
-    // the area under that curve with the same grayscale gradient that is used to color the bars.
-    const infiniteComponentsPlot = new AreaPlot( this.chartTransform, [], {
-      fill: new LinearGradient( 0, 0, this.chartRectangle.width, 0 )
-        .addColorStop( 0, Color.grayColor( GRAY_RANGE.min ) )
-        .addColorStop( 1, Color.grayColor( GRAY_RANGE.max ) )
-    } );
-
     // Width indicator, labeled dimensional arrows
     const widthIndicatorPlot = new WidthIndicatorPlot( this.chartTransform, widthIndicatorWidthProperty,
       widthIndicatorPositionProperty, domainProperty, FMWSymbols.k, FMWSymbols.omega, {
@@ -126,7 +126,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     // Clip these elements to the chartRectangle bounds.
     const clipNode = new Node( {
       clipArea: this.chartRectangle.getShape(),
-      children: [ infiniteComponentsPlot, chartCanvasNode, amplitudesPlot, widthIndicatorPlot ]
+      children: [ infiniteComponentsPlot, chartCanvasNode, finiteComponentsPlot, widthIndicatorPlot ]
     } );
     this.addChild( clipNode );
 
@@ -145,8 +145,8 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     // Display the Fourier components, where x = wave number, y = amplitude.
     // Performance optimization: Update only if the plot is visible.
     amplitudesDataSetProperty.link( amplitudesDataSet => {
-      if ( amplitudesPlot.visible ) {
-        amplitudesPlot.setDataSet( amplitudesDataSet );
+      if ( finiteComponentsPlot.visible ) {
+        finiteComponentsPlot.setDataSet( amplitudesDataSet );
       }
     } );
 
@@ -167,16 +167,16 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       this.scaleYAxis( dataSet );
     } );
 
-    // When we have infinite components, hide amplitudesPlot and show infiniteComponentsPlot.
+    // When we have infinite components, hide finiteComponentsPlot and show infiniteComponentsPlot.
     componentSpacingProperty.link( componentSpacing => {
       const isInfinite = ( componentSpacing === 0 );
-      amplitudesPlot.visible = !isInfinite;
+      finiteComponentsPlot.visible = !isInfinite;
       infiniteComponentsPlot.visible = isInfinite;
     } );
 
     // Performance optimization: Update data set when a plot becomes visible, clear data set when it becomes invisible.
-    amplitudesPlot.visibleProperty.link(
-      visible => amplitudesPlot.setDataSet( visible ? amplitudesDataSetProperty.value : [] ) );
+    finiteComponentsPlot.visibleProperty.link(
+      visible => finiteComponentsPlot.setDataSet( visible ? amplitudesDataSetProperty.value : [] ) );
     infiniteComponentsPlot.visibleProperty.link(
       visible => infiniteComponentsPlot.setDataSet( visible ? continuousWaveformDataSetProperty.value : [] ) );
   }

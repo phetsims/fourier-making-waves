@@ -46,8 +46,8 @@ class WavePacketAmplitudesChart {
       tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
     } );
 
-    // @public {DerivedProperty.<Vector2[]>} data set for Fourier components, x = wave number, y = amplitude.
-    // Points are ordered by increasing wave number.
+    // @public {DerivedProperty.<Vector2[]>} data set for a finite number of Fourier components, [] if the number 
+    // of components is infinite. x = wave number, y = amplitude. Points are ordered by increasing wave number.
     this.amplitudesDataSetProperty = new DerivedProperty(
       [ wavePacket.componentsProperty ],
       components => {
