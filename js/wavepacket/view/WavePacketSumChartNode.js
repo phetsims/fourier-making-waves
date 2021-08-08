@@ -43,7 +43,7 @@ class WavePacketSumChartNode extends WaveformChartNode {
     const widthIndicatorsVisibleProperty = sumChart.widthIndicatorsVisibleProperty;
     const finiteSumDataSetProperty = sumChart.finiteSumDataSetProperty;
     const infiniteSumDataSetProperty = sumChart.infiniteSumDataSetProperty;
-    const waveformEnvelopeDataSetProperty = sumChart.waveformEnvelopeDataSetProperty;
+    const infiniteWaveformEnvelopeDataSetProperty = sumChart.infiniteWaveformEnvelopeDataSetProperty;
     const waveformEnvelopeVisibleProperty = sumChart.waveformEnvelopeVisibleProperty;
 
     options = merge( {
@@ -72,25 +72,25 @@ class WavePacketSumChartNode extends WaveformChartNode {
       stroke: 'black'
     } );
 
-    // Plots the envelope of the sum waveform
-    const waveformEnvelopePlot = new CanvasLinePlot( this.chartTransform, [], {
+    // Plots the envelope of the sum waveform for an infinite number of components
+    const infiniteWaveformEnvelopePlot = new CanvasLinePlot( this.chartTransform, [], {
       lineWidth: 4
     } );
 
     // Render the plots using Canvas.
     // Remember! When any of the associated plots is updated, you must call chartCanvasNode.update().
     const chartCanvasNode = new ChartCanvasNode( this.chartTransform,
-      [ waveformEnvelopePlot, finiteSumPlot, infiniteSumPlot ] );
+      [ infiniteWaveformEnvelopePlot, finiteSumPlot, infiniteSumPlot ] );
 
     // CanvasLinePlot stroke does not support Property, so handle it here.
     FMWColors.waveformEnvelopeStrokeProperty.link( stroke => {
-      waveformEnvelopePlot.setStroke( stroke );
+      infiniteWaveformEnvelopePlot.setStroke( stroke );
       chartCanvasNode.update();
     } );
 
     // CanvasLinePlot does not support visibleProperty, so handle it here by clearing the data set when invisible.
     waveformEnvelopeVisibleProperty.link( visible => {
-      waveformEnvelopePlot.setDataSet( visible ? waveformEnvelopeDataSetProperty.value : [] );
+      infiniteWaveformEnvelopePlot.setDataSet( visible ? infiniteWaveformEnvelopeDataSetProperty.value : [] );
       chartCanvasNode.update();
     } );
 
@@ -116,9 +116,9 @@ class WavePacketSumChartNode extends WaveformChartNode {
 
     // Display the envelope of the sum waveform.
     // Performance optimization: Update only if the plot is visible.
-    waveformEnvelopeDataSetProperty.link( dataSet => {
-      if ( waveformEnvelopeVisibleProperty.visible ) {
-        waveformEnvelopePlot.setDataSet( dataSet );
+    infiniteWaveformEnvelopeDataSetProperty.link( dataSet => {
+      if ( waveformEnvelopeVisibleProperty.value ) {
+        infiniteWaveformEnvelopePlot.setDataSet( dataSet );
         chartCanvasNode.update();
       }
     } );
