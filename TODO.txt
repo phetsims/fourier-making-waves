@@ -14,7 +14,7 @@ Move visibleProperty for charts into view?
 
 ## Wave Packet screen
 
-FEATURE: WavePacketSumChart.waveformEnvelopeDataSetProperty, see updateEnvelope in D2CSumView.js
+FEATURE: WavePacketSumChart.finiteWaveformEnvelopeDataSetProperty, see updateEnvelope in D2CSumView.js
 FEATURE: Wavelength/Period tools
 
 create CanvasBarPlot and CanvasAreaPlot, for use in WavePacketAmplitudesChartNode
