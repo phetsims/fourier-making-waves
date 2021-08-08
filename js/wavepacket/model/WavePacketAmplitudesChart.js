@@ -58,7 +58,7 @@ class WavePacketAmplitudesChart {
     // Points are ordered by increasing x value.
     this.continuousWaveformDataSetProperty = new DerivedProperty(
       [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
-      () => this.createContinuousWaveformDataSet( wavePacket )
+      () => createContinuousWaveformDataSet( wavePacket )
     );
 
     // @public {DerivedProperty.<Vector2>} width that is displayed by the width indicator
@@ -94,34 +94,34 @@ class WavePacketAmplitudesChart {
   reset() {
     this.continuousWaveformVisibleProperty.reset();
   }
+}
 
-  /**
-   * Creates the data set that approximates a continuous waveform. Ordered by increasing wave number.
-   * This is loosely based on the updateEnvelope method in D2CAmplitudesView.java.
-   * @param {WavePacket} wavePacket
-   * @returns {Vector2[]} - x is wave number, y is amplitude
-   * @private
-   */
-  createContinuousWaveformDataSet( wavePacket ) {
-    assert && assert( wavePacket instanceof WavePacket );
+/**
+ * Creates the data set that approximates a continuous waveform. Ordered by increasing wave number.
+ * This is loosely based on the updateEnvelope method in D2CAmplitudesView.java.
+ * @param {WavePacket} wavePacket
+ * @returns {Vector2[]} - x is wave number, y is amplitude
+ * @private
+ */
+function createContinuousWaveformDataSet( wavePacket ) {
+  assert && assert( wavePacket instanceof WavePacket );
 
-    const componentSpacing = this.wavePacket.componentSpacingProperty.value;
-    const step = Math.PI / 10; // chosen empirically, so that the plot looks smooth
-    const maxWaveNumber = this.wavePacket.waveNumberRange.max + step; // one more point than we need
+  const componentSpacing = wavePacket.componentSpacingProperty.value;
+  const step = Math.PI / 10; // chosen empirically, so that the plot looks smooth
+  const maxWaveNumber = wavePacket.waveNumberRange.max + step; // one more point than we need
 
-    const dataSet = []; // {Vector2[]}
-    let waveNumber = this.wavePacket.waveNumberRange.min;
-    while ( waveNumber <= maxWaveNumber ) {
-      let amplitude = this.wavePacket.getComponentAmplitude( waveNumber );
-      if ( componentSpacing !== 0 ) {
-        amplitude *= componentSpacing;
-      }
-      dataSet.push( new Vector2( waveNumber, amplitude ) );
-      waveNumber += step;
+  const dataSet = []; // {Vector2[]}
+  let waveNumber = wavePacket.waveNumberRange.min;
+  while ( waveNumber <= maxWaveNumber ) {
+    let amplitude = wavePacket.getComponentAmplitude( waveNumber );
+    if ( componentSpacing !== 0 ) {
+      amplitude *= componentSpacing;
     }
-
-    return dataSet;
+    dataSet.push( new Vector2( waveNumber, amplitude ) );
+    waveNumber += step;
   }
+
+  return dataSet;
 }
 
 fourierMakingWaves.register( 'WavePacketAmplitudesChart', WavePacketAmplitudesChart );
