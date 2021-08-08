@@ -116,6 +116,20 @@ class WavePacketSumChart extends WaveformChart {
       } );
 
     // @public {DerivedProperty.<Vector2[]>} data set for the waveform envelope of a wave packet with infinite
+    // components, [] when the number of components is finite. This is computed by computing 2 wave packet waveforms
+    // USING THE FOURIER COMPONENTS - one for sine, one for cosine - then combining y values. Points are ordered by
+    // increasing x value. This is based on the updateEnvelope method in D2CSumView.js.
+    this.finiteWaveformEnvelopeDataSetProperty = new DerivedProperty(
+      [ componentDataSetsProperty ],
+      componentsDataSet => {
+        let dataSet = [];
+        if ( componentsDataSet.length > 0 ) {
+          dataSet = [ new Vector2( -1, 0 ), new Vector2( 1, 0 ) ]; //TODO dummy data
+        }
+        return dataSet;
+      } );
+
+    // @public {DerivedProperty.<Vector2[]>} data set for the waveform envelope of a wave packet with infinite
     // components, [] when the number of components is finite. This is computed by computing 2 wave packet waveforms -
     // one for sine, one for cosine - then combining y values. Points are ordered by increasing x value.
     // This is based on the updateEnvelope method in D2CSumView.js.
