@@ -15,8 +15,11 @@ import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
+import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
@@ -54,7 +57,7 @@ assert && assert( X_AXIS_DESCRIPTION.range.getLength() >= 0.5,
 // y-axis descriptions are the same as Discrete screen.
 const Y_AXIS_DESCRIPTIONS = DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS;
 
-class WaveGameLevel {
+class WaveGameLevel extends PhetioObject {
 
   /**
    * @param {number} levelNumber
@@ -84,7 +87,9 @@ class WaveGameLevel {
         numberOfHarmonics: levelNumber
       } ),
 
-      tandem: Tandem.REQUIRED
+      tandem: Tandem.REQUIRED,
+      phetioType: WaveGameLevel.WaveGameLevelIO,
+      phetioState: false
     }, config );
 
     assert && assert( typeof config.getNumberOfNonZeroHarmonics === 'function' );
@@ -92,6 +97,8 @@ class WaveGameLevel {
     assert && assert( config.defaultNumberOfAmplitudeControls >= levelNumber && config.defaultNumberOfAmplitudeControls <= FMWConstants.MAX_HARMONICS );
     assert && assert( typeof config.statusBarMessage === 'string' );
     assert && assert( typeof config.infoDialogDescription === 'string' );
+
+    super( config );
 
     // @public (read-only)
     this.levelNumber = levelNumber;
@@ -276,6 +283,11 @@ class WaveGameLevel {
     this.newWaveformEmitter.emit();
   }
 }
+
+WaveGameLevel.WaveGameLevelIO = new IOType( 'WaveGameLevelIO', {
+  valueType: WaveGameLevel,
+  supertype: ReferenceIO( IOType.ObjectIO )
+} );
 
 fourierMakingWaves.register( 'WaveGameLevel', WaveGameLevel );
 export default WaveGameLevel;

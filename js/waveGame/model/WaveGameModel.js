@@ -11,6 +11,7 @@ import dotRandom from '../../../../dot/js/dotRandom.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -78,7 +79,10 @@ class WaveGameModel {
 
     // @public {Property.<null|WaveGameLevel>} the selected game level, null returns to the level-selection UI
     this.levelProperty = new Property( null, {
-      validValues: [ null, ...this.levels ]
+      validValues: [ null, ...this.levels ],
+      phetioType: Property.PropertyIO( NullableIO( WaveGameLevel.WaveGameLevelIO ) ),
+      tandem: options.tandem.createTandem( 'levelProperty' ),
+      phetioDocumentation: 'The level currently selected in the Wave Game, null if no level is selected.'
     } );
   }
 
