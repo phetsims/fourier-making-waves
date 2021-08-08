@@ -289,30 +289,34 @@ class WaveGameLevelNode extends Node {
 
     // Transient UI elements that provide game feedback ---------------------------------------------------------------
 
+    const feedbackTandem = options.tandem.createTandem( 'feedback' );
+
     const smileyFaceNode = new FaceNode( 125 /* headDiameter */, {
       visibleProperty: faceVisibleProperty,
-      tandem: options.tandem.createTandem( 'smileyFaceNode' ),
+      tandem: feedbackTandem.createTandem( 'smileyFaceNode' ),
       phetioReadOnly: true
     } );
 
     // Shown when a correct guess is made, then fades out.
     const pointsAwardedNode = new PointsAwardedNode( {
       visible: false,
-      tandem: options.tandem.createTandem( 'pointsAwardedNode' ),
+      tandem: feedbackTandem.createTandem( 'pointsAwardedNode' ),
       phetioReadOnly: true
     } );
 
     // Shown when an incorrect guess is made, then fades out.
     const frownyFaceNode = new FaceNode( 250 /* headDiameter */, {
       visible: false,
-      tandem: options.tandem.createTandem( 'frownyFaceNode' ),
+      tandem: feedbackTandem.createTandem( 'frownyFaceNode' ),
       phetioReadOnly: true
     } );
     frownyFaceNode.frown();
 
     // The reward shown while rewardDialog is open.
     const rewardNode = new WaveGameRewardNode( level.levelNumber, {
-      visible: false
+      visible: false,
+      tandem: options.tandem.createTandem( 'rewardNode' ),
+      phetioReadOnly: true
     } );
 
     // {RewardDialog} dialog that is displayed when the score reaches the reward value.
@@ -336,7 +340,10 @@ class WaveGameLevelNode extends Node {
       // When the dialog is hidden, hide the reward.
       hideCallback: () => {
         rewardNode.visible = false;
-      }
+      },
+
+      tandem: options.tandem.createTandem( 'rewardDialog' ),
+      phetioReadOnly: true
     } );
 
     // Rendering order ---------------------------------------------------------------
