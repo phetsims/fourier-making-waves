@@ -61,7 +61,7 @@ class WavePacketScreenView extends ScreenView {
     // Parent tandem for all elements related to the Amplitudes chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
-    // Button to show/hide the Amplitudes chart
+    // Button to show/hide the Amplitudes chart and its related UI element
     const amplitudesExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.amplitudesOfFourierComponents, model.amplitudesChart.chartVisibleProperty, {
         textOptions: { maxWidth: 300 },
@@ -100,7 +100,7 @@ class WavePacketScreenView extends ScreenView {
     // Parent tandem for all elements related to the Components chart
     const componentsTandem = chartsTandem.createTandem( 'components' );
 
-    // Button to show/hide the Components chart
+    // Button to show/hide the Components chart and its related UI element
     const componentsExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.fourierComponents, model.componentsChart.chartVisibleProperty, {
         tandem: componentsTandem.createTandem( 'componentsExpandCollapseButton' )
@@ -128,7 +128,7 @@ class WavePacketScreenView extends ScreenView {
     // Parent tandem for all elements related to the Sum chart
     const sumTandem = chartsTandem.createTandem( 'sum' );
 
-    // Button to show/hide the Sum chart
+    // Button to show/hide the Sum chart and its related UI element
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.sum, model.sumChart.chartVisibleProperty, {
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )

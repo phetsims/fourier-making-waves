@@ -117,7 +117,7 @@ class DiscreteScreenView extends ScreenView {
     // Parent tandem for all elements related to the Harmonics chart
     const harmonicsTandem = chartsTandem.createTandem( 'harmonics' );
 
-    // Button to show/hide the Harmonics chart
+    // Button to show/hide the Harmonics chart and its related UI element
     const harmonicsExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.harmonicsChart, model.harmonicsChart.chartVisibleProperty, {
         tandem: harmonicsTandem.createTandem( 'harmonicsExpandCollapseButton' )
@@ -154,7 +154,7 @@ class DiscreteScreenView extends ScreenView {
     // Parent tandem for all elements related to the Sum chart
     const sumTandem = chartsTandem.createTandem( 'sum' );
 
-    // Button to show/hide the Sum chart
+    // Button to show/hide the Sum chart and its related UI element
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
       fourierMakingWavesStrings.sum, model.sumChart.chartVisibleProperty, {
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
