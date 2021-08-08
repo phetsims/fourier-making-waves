@@ -62,10 +62,10 @@ class WavePacketScreenView extends ScreenView {
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
     // Title above the Amplitudes chart
-    const fourierComponentAmplitudesText = new Text( fourierMakingWavesStrings.fourierComponentAmplitudes, {
+    const amplitudesOfFourierComponentsText = new Text( fourierMakingWavesStrings.amplitudesOfFourierComponents, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 300,
-      tandem: amplitudesTandem.createTandem( 'fourierComponentAmplitudesText' )
+      tandem: amplitudesTandem.createTandem( 'amplitudesOfFourierComponentsText' )
     } );
 
     // Equation above the Amplitudes chart
@@ -159,10 +159,10 @@ class WavePacketScreenView extends ScreenView {
     // Layout vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
     // Amplitudes chart at top left
-    fourierComponentAmplitudesText.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-    fourierComponentAmplitudesText.top = layoutBounds.top + 10;
+    amplitudesOfFourierComponentsText.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+    amplitudesOfFourierComponentsText.top = layoutBounds.top + 10;
     amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
-    amplitudesChartNode.y = fourierComponentAmplitudesText.bottom + TITLE_BOTTOM_SPACING;
+    amplitudesChartNode.y = amplitudesOfFourierComponentsText.bottom + TITLE_BOTTOM_SPACING;
     const amplitudeChartRectangleLocalBounds = amplitudesChartNode.chartRectangle.boundsTo( this );
     continuousWaveformCheckbox.right = amplitudeChartRectangleLocalBounds.right - 5;
     continuousWaveformCheckbox.top = amplitudesChartNode.bottom + 8;
@@ -197,7 +197,7 @@ class WavePacketScreenView extends ScreenView {
     // This should improve startup performance, compared to calling this.addChild for each Node.
     const screenViewRootNode = new Node( {
       children: [
-        fourierComponentAmplitudesText,
+        amplitudesOfFourierComponentsText,
         amplitudeEquationNode,
         amplitudesChartNode,
         continuousWaveformCheckbox,

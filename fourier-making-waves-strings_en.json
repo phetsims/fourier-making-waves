@@ -227,8 +227,8 @@
   "wavePacketWidth": {
     "value": "Wave Packet Width"
   },
-  "fourierComponentAmplitudes": {
-    "value": "Fourier Component Amplitudes"
+  "amplitudesOfFourierComponents": {
+    "value": "Amplitudes of Fourier Components"
   },
   "fourierComponents": {
     "value": "Fourier Components"
