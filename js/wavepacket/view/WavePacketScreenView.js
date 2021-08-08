@@ -68,13 +68,6 @@ class WavePacketScreenView extends ScreenView {
       tandem: amplitudesTandem.createTandem( 'amplitudesOfFourierComponentsText' )
     } );
 
-    // Equation above the Amplitudes chart
-    const amplitudeEquationNode = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
-      font: FMWConstants.EQUATION_FONT,
-      maxWidth: 100,
-      tandem: amplitudesTandem.createTandem( 'equationNode' )
-    } );
-
     // Amplitudes chart
     const amplitudesChartNode = new WavePacketAmplitudesChartNode( model.amplitudesChart, {
       chartTransformOptions: {
@@ -82,6 +75,13 @@ class WavePacketScreenView extends ScreenView {
         modelYRange: new Range( 0, model.maxAmplitude ) //TODO this needs to autoscale!
       },
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
+    } );
+
+    // Equation above the Amplitudes chart
+    const amplitudeEquationNode = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
+      font: FMWConstants.EQUATION_FONT,
+      maxWidth: 100,
+      tandem: amplitudesTandem.createTandem( 'equationNode' )
     } );
 
     const continuousWaveformCheckbox = new ContinuousWaveformCheckbox(
@@ -92,16 +92,6 @@ class WavePacketScreenView extends ScreenView {
 
     // Parent tandem for all components related to the Components chart
     const componentsTandem = chartsTandem.createTandem( 'components' );
-
-    // Equation above the Components chart
-    const componentsEquationNode = new ComponentsEquationNode( model.domainProperty, model.seriesTypeProperty, {
-      maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
-      tandem: componentsTandem.createTandem( 'equationNode' )
-    } );
-    const componentsEquationWrapperNode = new Node( {
-      visibleProperty: model.componentsChart.chartVisibleProperty,
-      children: [ componentsEquationNode ]
-    } );
 
     // Button to show/hide the Components chart
     const componentsExpandCollapseButton = new LabeledExpandCollapseButton(
@@ -114,19 +104,18 @@ class WavePacketScreenView extends ScreenView {
       tandem: componentsTandem.createTandem( 'componentsChartNode' )
     } );
 
+    // Equation above the Components chart
+    const componentsEquationNode = new ComponentsEquationNode( model.domainProperty, model.seriesTypeProperty, {
+      maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
+      tandem: componentsTandem.createTandem( 'equationNode' )
+    } );
+    const componentsEquationWrapperNode = new Node( {
+      visibleProperty: model.componentsChart.chartVisibleProperty,
+      children: [ componentsEquationNode ]
+    } );
+
     // Parent tandem for all components related to the Sum chart
     const sumTandem = chartsTandem.createTandem( 'sum' );
-
-    // Equation above the Sum chart
-    const sumEquationNode = new WavePacketSumEquationNode( model.domainProperty, model.seriesTypeProperty,
-      model.wavePacket.componentSpacingProperty, {
-        maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
-        tandem: sumTandem.createTandem( 'equationNode' )
-      } );
-    const sumEquationWrapperNode = new Node( {
-      visibleProperty: model.sumChart.chartVisibleProperty,
-      children: [ sumEquationNode ]
-    } );
 
     // Button to show/hide the Sum chart
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
@@ -137,6 +126,17 @@ class WavePacketScreenView extends ScreenView {
     // Sum chart
     const sumChartNode = new WavePacketSumChartNode( model.sumChart, {
       tandem: sumTandem.createTandem( 'sumChartNode' )
+    } );
+
+    // Equation above the Sum chart
+    const sumEquationNode = new WavePacketSumEquationNode( model.domainProperty, model.seriesTypeProperty,
+      model.wavePacket.componentSpacingProperty, {
+        maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
+        tandem: sumTandem.createTandem( 'equationNode' )
+      } );
+    const sumEquationWrapperNode = new Node( {
+      visibleProperty: model.sumChart.chartVisibleProperty,
+      children: [ sumEquationNode ]
     } );
 
     // Waveform Envelope checkbox
