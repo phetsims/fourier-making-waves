@@ -12,7 +12,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
@@ -61,12 +60,12 @@ class WavePacketScreenView extends ScreenView {
     // Parent tandem for all components related to the Components chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
-    // Title above the Amplitudes chart
-    const amplitudesOfFourierComponentsText = new Text( fourierMakingWavesStrings.amplitudesOfFourierComponents, {
-      font: FMWConstants.TITLE_FONT,
-      maxWidth: 300,
-      tandem: amplitudesTandem.createTandem( 'amplitudesOfFourierComponentsText' )
-    } );
+    // Button to show/hide the Amplitudes chart
+    const amplitudesExpandCollapseButton = new LabeledExpandCollapseButton(
+      fourierMakingWavesStrings.amplitudesOfFourierComponents, model.amplitudesChart.chartVisibleProperty, {
+        textOptions: { maxWidth: 300 },
+        tandem: amplitudesTandem.createTandem( 'amplitudesExpandCollapseButton' )
+      } );
 
     // Amplitudes chart
     const amplitudesChartNode = new WavePacketAmplitudesChartNode( model.amplitudesChart, {
@@ -83,9 +82,14 @@ class WavePacketScreenView extends ScreenView {
       maxWidth: 100,
       tandem: amplitudesTandem.createTandem( 'equationNode' )
     } );
+    const amplitudeEquationWrapperNode = new Node( {
+      visibleProperty: model.amplitudesChart.chartVisibleProperty,
+      children: [ amplitudeEquationNode ]
+    } );
 
     const continuousWaveformCheckbox = new ContinuousWaveformCheckbox(
       model.amplitudesChart.continuousWaveformVisibleProperty, {
+        visibleProperty: model.amplitudesChart.chartVisibleProperty,
         tandem: amplitudesTandem.createTandem( 'continuousWaveformCheckbox' )
       } );
     this.addChild( continuousWaveformCheckbox );
@@ -141,6 +145,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Waveform Envelope checkbox
     const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( model.sumChart.waveformEnvelopeVisibleProperty, {
+      visibleProperty: model.sumChart.chartVisibleProperty,
       tandem: sumTandem.createTandem( 'waveformEnvelopeCheckbox' )
     } );
 
@@ -159,10 +164,10 @@ class WavePacketScreenView extends ScreenView {
     // Layout vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
     // Amplitudes chart at top left
-    amplitudesOfFourierComponentsText.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-    amplitudesOfFourierComponentsText.top = layoutBounds.top + 10;
+    amplitudesExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+    amplitudesExpandCollapseButton.top = layoutBounds.top + 10;
     amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
-    amplitudesChartNode.y = amplitudesOfFourierComponentsText.bottom + TITLE_BOTTOM_SPACING;
+    amplitudesChartNode.y = amplitudesExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
     const amplitudeChartRectangleLocalBounds = amplitudesChartNode.chartRectangle.boundsTo( this );
     continuousWaveformCheckbox.right = amplitudeChartRectangleLocalBounds.right - 5;
     continuousWaveformCheckbox.top = amplitudesChartNode.bottom + 8;
@@ -197,8 +202,8 @@ class WavePacketScreenView extends ScreenView {
     // This should improve startup performance, compared to calling this.addChild for each Node.
     const screenViewRootNode = new Node( {
       children: [
-        amplitudesOfFourierComponentsText,
-        amplitudeEquationNode,
+        amplitudesExpandCollapseButton,
+        amplitudeEquationWrapperNode,
         amplitudesChartNode,
         continuousWaveformCheckbox,
         componentsEquationWrapperNode,

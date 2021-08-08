@@ -51,7 +51,7 @@ class WavePacketComponentsChart extends WaveformChart {
     // @public
     this.wavePacket = wavePacket;
 
-    // @public whether the Sum chart is visible
+    // @public whether this chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'chartVisibleProperty' )
     } );
