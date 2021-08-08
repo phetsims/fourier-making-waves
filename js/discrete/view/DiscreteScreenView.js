@@ -77,6 +77,8 @@ class DiscreteScreenView extends ScreenView {
     // Parent tandem for all charts
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
+    // Amplitudes chart -------------------------------------------------------------------
+
     // Parent tandem for all components related to the Amplitudes chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
@@ -93,6 +95,8 @@ class DiscreteScreenView extends ScreenView {
       onEdit: () => { model.waveformProperty.value = Waveform.CUSTOM; },
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
     } );
+
+    // Harmonics chart -------------------------------------------------------------------
 
     // Parent tandem for all components related to the Harmonics chart
     const harmonicsTandem = chartsTandem.createTandem( 'harmonics' );
@@ -128,6 +132,8 @@ class DiscreteScreenView extends ScreenView {
       ( chartVisible, equationForm ) => {
         harmonicsEquationNode.visible = chartVisible && ( equationForm !== EquationForm.HIDDEN );
       } );
+
+    // Sum chart -------------------------------------------------------------------
 
     // Parent tandem for all components related to the Sum chart
     const sumTandem = chartsTandem.createTandem( 'sum' );
@@ -182,6 +188,33 @@ class DiscreteScreenView extends ScreenView {
         expandedFormButton.visible = visible;
       } );
 
+    // Measurement Tools -------------------------------------------------------------------
+
+    // Parent tandem for all measurement tools
+    const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
+
+    // Drag bounds for all measurement tools. This will be adjusted after Nodes are added to the scene graph.
+    const measurementToolsDragBoundsProperty = new Property( this.layoutBounds );
+
+    // For measuring a harmonic's wavelength in the 'space' and 'space & time' domains.
+    const wavelengthCalipersNode = new WavelengthCalipersNode( model, harmonicsChartNode.chartTransform,
+      measurementToolsDragBoundsProperty, {
+        tandem: measurementToolsTandem.createTandem( 'wavelengthCalipersNode' )
+      } );
+
+    // For measuring a harmonic's period in the 'time' domain.
+    const periodCalipersNode = new PeriodCalipersNode( model, harmonicsChartNode.chartTransform,
+      measurementToolsDragBoundsProperty, {
+        tandem: measurementToolsTandem.createTandem( 'periodCalipersNode' )
+      } );
+
+    // For measuring a harmonic's period in the 'space & time' domain.
+    const periodClockNode = new PeriodClockNode( model, measurementToolsDragBoundsProperty, {
+      tandem: measurementToolsTandem.createTandem( 'periodClockNode' )
+    } );
+
+    // Other UI elements -------------------------------------------------------------------
+
     // Disable the eraser button when all amplitudes are zero.
     const eraserButtonEnabledProperty = new DerivedProperty(
       [ model.fourierSeries.amplitudesProperty ],
@@ -233,29 +266,6 @@ class DiscreteScreenView extends ScreenView {
         resetMeasurementToolPositions();
       },
       tandem: options.tandem.createTandem( 'resetAllButton' )
-    } );
-
-    // Parent tandem for all measurement tools
-    const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
-
-    // Drag bounds for all measurement tools. This will be adjusted after Nodes are added to the scene graph.
-    const measurementToolsDragBoundsProperty = new Property( this.layoutBounds );
-
-    // For measuring a harmonic's wavelength in the 'space' and 'space & time' domains.
-    const wavelengthCalipersNode = new WavelengthCalipersNode( model, harmonicsChartNode.chartTransform,
-      measurementToolsDragBoundsProperty, {
-        tandem: measurementToolsTandem.createTandem( 'wavelengthCalipersNode' )
-      } );
-
-    // For measuring a harmonic's period in the 'time' domain.
-    const periodCalipersNode = new PeriodCalipersNode( model, harmonicsChartNode.chartTransform,
-      measurementToolsDragBoundsProperty, {
-        tandem: measurementToolsTandem.createTandem( 'periodCalipersNode' )
-      } );
-
-    // For measuring a harmonic's period in the 'space & time' domain.
-    const periodClockNode = new PeriodClockNode( model, measurementToolsDragBoundsProperty, {
-      tandem: measurementToolsTandem.createTandem( 'periodClockNode' )
     } );
 
     // Layout vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv

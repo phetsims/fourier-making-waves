@@ -56,7 +56,9 @@ class WavePacketScreenView extends ScreenView {
     // Parent tandem for all charts
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
-    // Parent tandem for all components related to the Components chart
+    // Amplitudes chart -------------------------------------------------------------------
+
+    // Parent tandem for all components related to the Amplitudes chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
     // Button to show/hide the Amplitudes chart
@@ -93,6 +95,8 @@ class WavePacketScreenView extends ScreenView {
       children: [ amplitudesChartNode, amplitudeEquationNode, continuousWaveformCheckbox ]
     } );
 
+    // Components chart -------------------------------------------------------------------
+
     // Parent tandem for all components related to the Components chart
     const componentsTandem = chartsTandem.createTandem( 'components' );
 
@@ -118,6 +122,8 @@ class WavePacketScreenView extends ScreenView {
       visibleProperty: model.componentsChart.chartVisibleProperty,
       children: [ componentsChartNode, componentsEquationNode ]
     } );
+
+    // Sum chart -------------------------------------------------------------------
 
     // Parent tandem for all components related to the Sum chart
     const sumTandem = chartsTandem.createTandem( 'sum' );
@@ -150,6 +156,8 @@ class WavePacketScreenView extends ScreenView {
       visibleProperty: model.sumChart.chartVisibleProperty,
       children: [ sumChartNode, sumEquationNode, waveformEnvelopeCheckbox ]
     } );
+
+    // Other UI elements -------------------------------------------------------------------
 
     const controlPanel = new WavePacketControlPanel( model, popupParent, {
       tandem: options.tandem.createTandem( 'controlPanel' )
