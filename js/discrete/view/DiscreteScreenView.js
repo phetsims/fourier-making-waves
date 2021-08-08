@@ -133,7 +133,7 @@ class DiscreteScreenView extends ScreenView {
       model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, {
         maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
         tandem: harmonicsTandem.createTandem( 'harmonicsEquationNode' ),
-        phetioReadOnly: true
+        visiblePropertyOptions: { phetioReadOnly: true }
       } );
 
     // All of the Harmonics elements whose visibility need to be controlled.
@@ -165,7 +165,7 @@ class DiscreteScreenView extends ScreenView {
       model.seriesTypeProperty, model.equationFormProperty, {
         maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
         tandem: sumTandem.createTandem( 'sumEquationNode' ),
-        phetioReadOnly: true
+        visiblePropertyOptions: { phetioReadOnly: true }
       } );
 
     // Push button that opens the 'Expanded Sum' dialog
@@ -179,8 +179,7 @@ class DiscreteScreenView extends ScreenView {
         dialog.show();
       },
       // Make this button appear to be a child of sumEquationNode.
-      tandem: sumEquationNodeTandem.createTandem( 'expandedFormButton' ),
-      phetioReadOnly: true
+      tandem: sumEquationNodeTandem.createTandem( 'expandedFormButton' )
     } );
 
     const sumEquationParentNode = new Node( {

@@ -73,16 +73,19 @@ class WaveGameLevelNode extends Node {
     options = merge( {
 
       // phet-io options
-      tandem: Tandem.REQUIRED
+      tandem: Tandem.REQUIRED,
+      visiblePropertyOptions: { phetioReadOnly: true }
     }, options );
 
     // Status bar -------------------------------------------------------------------
+
+    const statusBarTandem = options.tandem.createTandem( 'statusBar' );
 
     // Level description, displayed in the status bar
     const levelDescriptionText = new RichText( level.statusBarMessage, {
       font: DEFAULT_FONT,
       maxWidth: 650, // determined empirically
-      tandem: options.tandem.createTandem( 'levelDescriptionText' )
+      tandem: statusBarTandem.createTandem( 'levelDescriptionText' )
     } );
 
     // Bar across the top of the screen
@@ -94,7 +97,7 @@ class WaveGameLevelNode extends Node {
         this.interruptSubtreeInput();
         levelProperty.value = null; // back to the level-selection UI
       },
-      tandem: options.tandem.createTandem( 'statusBar' )
+      tandem: statusBarTandem
     } );
 
     // Amplitudes chart -------------------------------------------------------------------
@@ -177,6 +180,9 @@ class WaveGameLevelNode extends Node {
       tandem: options.tandem.createTandem( 'amplitudeControlsSpinner' )
     } );
 
+    // Parent tandem for all buttons
+    const buttonsTandem = options.tandem.createTandem( 'buttons' );
+
     // Whether the user has changed the guess since the last time that 'Check Answer' button was pressed.
     const guessChangedProperty = new BooleanProperty( false );
     level.guessSeries.amplitudesProperty.lazyLink( () => {
@@ -209,7 +215,8 @@ class WaveGameLevelNode extends Node {
       } ),
       baseColor: PhetColorScheme.BUTTON_YELLOW,
       listener: checkAnswerListener,
-      enabledProperty: checkAnswerButtonEnabledProperty
+      enabledProperty: checkAnswerButtonEnabledProperty,
+      tandem: buttonsTandem.createTandem( 'checkAnswerButton' )
     } );
 
     // Hotkey support for 'Check Answer'. globalKeyStateTracker listeners always fire, so its our responsibility
@@ -249,7 +256,8 @@ class WaveGameLevelNode extends Node {
         this.interruptSubtreeInput();
         level.showAnswer();
       },
-      enabledProperty: showAnswerButtonEnabledProperty
+      enabledProperty: showAnswerButtonEnabledProperty,
+      tandem: buttonsTandem.createTandem( 'showAnswerButton' )
     } );
 
     // Creates a new challenge, a new waveform to match.
@@ -266,8 +274,7 @@ class WaveGameLevelNode extends Node {
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
       baseColor: PhetColorScheme.BUTTON_YELLOW,
-      tandem: options.tandem.createTandem( 'newWaveformButton' ),
-      phetioReadOnly: true
+      tandem: buttonsTandem.createTandem( 'newWaveformButton' )
     } );
 
     const buttonsBox = new VBox( {
@@ -276,7 +283,8 @@ class WaveGameLevelNode extends Node {
         checkAnswerButton,
         showAnswerButton,
         newWaveformButton
-      ]
+      ],
+      tandem: buttonsTandem
     } );
 
     // Transient UI elements that provide game feedback ---------------------------------------------------------------
