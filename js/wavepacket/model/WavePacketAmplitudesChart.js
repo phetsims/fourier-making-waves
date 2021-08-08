@@ -66,6 +66,19 @@ class WavePacketAmplitudesChart {
       () => createContinuousWaveformDataSet( wavePacket )
     );
 
+    this.maxYProperty = new DerivedProperty(
+      [ this.continuousWaveformVisibleProperty, this.amplitudesDataSetProperty, this.continuousWaveformDataSetProperty ],
+      ( continuousWaveformVisible, amplitudesDataSet, continuousWaveformDataSet ) => {
+        let dataSet;
+        if ( continuousWaveformVisible || amplitudesDataSet.length === 0 ) {
+          dataSet = continuousWaveformDataSet;
+        }
+        else {
+          dataSet = amplitudesDataSet;
+        }
+        return Math.max( 1e-3, _.maxBy( dataSet, point => point.y ).y );
+      } );
+
     // @public {DerivedProperty.<Vector2>} width that is displayed by the width indicator
     // This is identical to the wave packet's width, but we are deriving a Property name widthIndicatorWidthProperty
     // so that all charts have a similar API for width indicators.

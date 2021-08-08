@@ -54,6 +54,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     const widthIndicatorWidthProperty = amplitudesChart.widthIndicatorWidthProperty;
     const widthIndicatorPositionProperty = amplitudesChart.widthIndicatorPositionProperty;
     const widthIndicatorsVisibleProperty = amplitudesChart.widthIndicatorsVisibleProperty;
+    const maxYProperty = amplitudesChart.maxYProperty;
 
     options = merge( {
       xTickMarkSpacing: Math.PI,
@@ -150,22 +151,22 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       }
     } );
 
-    // Update plots that rely on continuous waveform data set, and scale the y axis to fit.
+    // Update plots that rely on continuous waveform data set.
     // Performance optimization: Update only the visible plots.
     continuousWaveformDataSetProperty.link( dataSet => {
 
-      // Update visible plots.
       if ( continuousWaveformVisibleProperty.value ) {
         continuousWaveformPlot.setDataSet( dataSet );
         chartCanvasNode.update();
       }
+
       if ( infiniteComponentsPlot.visible ) {
         infiniteComponentsPlot.setDataSet( dataSet );
       }
-
-      // Scale the axis relative to the continuous waveform, because maxY may be smaller component amplitudes.
-      this.scaleYAxis( dataSet );
     } );
+
+    // Scale the y axis.
+    maxYProperty.link( maxY => this.scaleYAxis( maxY ) );
 
     // When we have infinite components, hide finiteComponentsPlot and show infiniteComponentsPlot.
     componentSpacingProperty.link( componentSpacing => {
@@ -191,20 +192,19 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
   }
 
   /**
-   * Scales the y axis to fit the data set.
-   * @param {Vector2[]} dataSet
+   * Scales the y axis.
+   * @param {number} maxY
    * @private
    */
-  scaleYAxis( dataSet ) {
-    assert && assert( dataSet.length > 0 );
+  scaleYAxis( maxY ) {
+    assert && assert( typeof maxY === 'number' && maxY > 0 );
 
     // Extend the range, so there's some space above maxY.
-    const maxY = _.maxBy( dataSet, point => point.y ).y;
     this.chartTransform.setModelYRange( new Range( 0, 1.05 * maxY ) );
 
     // Adjust ticks and gridlines.
     // This logic and values were taken from D2CAmplitudesChart.java, in the Java version.
-    //TODO should this use AxisDescription, and amplitudesChart.yAxisDescriptionProperty, like other charts?
+    //TODO use AxisDescription and amplitudesChart.yAxisDescriptionProperty
     let tickLabelSpacing;
     let tickMarkSpacing;
     if ( maxY > 1 ) {
