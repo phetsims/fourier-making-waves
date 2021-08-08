@@ -132,10 +132,10 @@ class WavePacketSumChart extends WaveformChart {
     // then combining y values. Points are ordered by increasing x value.
     // This is based on the updateEnvelope method in D2CSumView.js.
     const finiteWaveformEnvelopeDataSetProperty = new DerivedProperty(
-      [ componentDataSetsProperty, this.waveformEnvelopeVisibleProperty ],
-      ( componentsDataSet, waveformEnvelopeVisible ) => {
+      [ this.waveformEnvelopeVisibleProperty, componentDataSetsProperty ],
+      ( waveformEnvelopeVisible, componentsDataSet ) => {
         let dataSet = EMPTY_DATA_SET;
-        if ( componentsDataSet.length > 0 && waveformEnvelopeVisible ) {
+        if ( waveformEnvelopeVisible && componentsDataSet.length > 0 ) {
           dataSet = [ new Vector2( -1, 0 ), new Vector2( 1, 0 ) ]; //TODO dummy data
         }
         return dataSet;
@@ -147,11 +147,11 @@ class WavePacketSumChart extends WaveformChart {
     // Points are ordered by increasing x value.
     // This is based on the updateEnvelope method in D2CSumView.js.
     const infiniteWaveformEnvelopeDataSetProperty = new DerivedProperty(
-      [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.conjugateStandardDeviationProperty,
-        seriesTypeProperty, xAxisDescriptionProperty, this.waveformEnvelopeVisibleProperty ],
-      ( componentSpacing, center, conjugateStandardDeviation, seriesType, xAxisDescription, waveformEnvelopeVisible ) => {
+      [ this.waveformEnvelopeVisibleProperty, wavePacket.componentSpacingProperty, wavePacket.centerProperty,
+        wavePacket.conjugateStandardDeviationProperty, seriesTypeProperty, xAxisDescriptionProperty ],
+      ( waveformEnvelopeVisible, componentSpacing, center, conjugateStandardDeviation, seriesType, xAxisDescription ) => {
         let dataSet = EMPTY_DATA_SET;
-        if ( componentSpacing === 0 && waveformEnvelopeVisible ) {
+        if ( waveformEnvelopeVisible && componentSpacing === 0 ) {
 
           // Compute the same wave packet, using sin and cos.
           const sinDataSet = createWavePacketDataSet( center, conjugateStandardDeviation, SeriesType.SINE, xAxisDescription.range );
