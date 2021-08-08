@@ -313,7 +313,7 @@ class WaveGameLevelNode extends Node {
     frownyFaceNode.frown();
 
     // The reward shown while rewardDialog is open.
-    const rewardNode = new WaveGameRewardNode( level.levelNumber, {
+    const rewardNode = new WaveGameRewardNode( {
       visible: false,
       tandem: options.tandem.createTandem( 'rewardNode' ),
       phetioReadOnly: true

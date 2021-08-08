@@ -24,10 +24,9 @@ const NODES = [
 class WaveGameRewardNode extends RewardNode {
 
   /**
-   * @param {number} level
    * @param {Object} [options]
    */
-  constructor( level, options ) {
+  constructor( options ) {
 
     options = merge( {}, options );
 
