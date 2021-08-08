@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO move visibility optimizations into model?
 /**
  * WavePacketSumChartNode is the 'Sum' chart on the 'Wave Packet' screen.
  *
@@ -43,7 +42,6 @@ class WavePacketSumChartNode extends WaveformChartNode {
     const widthIndicatorsVisibleProperty = sumChart.widthIndicatorsVisibleProperty;
     const sumDataSetProperty = sumChart.sumDataSetProperty;
     const waveformEnvelopeDataSetProperty = sumChart.waveformEnvelopeDataSetProperty;
-    const waveformEnvelopeVisibleProperty = sumChart.waveformEnvelopeVisibleProperty;
 
     options = merge( {
       xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),
@@ -66,7 +64,9 @@ class WavePacketSumChartNode extends WaveformChartNode {
       stroke: 'black'
     } );
 
-    // Plots the waveform envelope of the sum
+    // Plots the waveform envelope of the sum.  There is no need to handle this plot's visibility, because its
+    // data set will be empty when it's not a visible - a performance optimization in the model.  CanvasLinePlot
+    // also does not support visibleProperty.
     const waveformEnvelopePlot = new CanvasLinePlot( this.chartTransform, [], {
       lineWidth: 4
     } );
@@ -78,12 +78,6 @@ class WavePacketSumChartNode extends WaveformChartNode {
     // CanvasLinePlot stroke does not support Property, so handle it here.
     FMWColors.waveformEnvelopeStrokeProperty.link( stroke => {
       waveformEnvelopePlot.setStroke( stroke );
-      chartCanvasNode.update();
-    } );
-
-    // CanvasLinePlot does not support visibleProperty, so handle it here by clearing the data set when invisible.
-    waveformEnvelopeVisibleProperty.link( visible => {
-      waveformEnvelopePlot.setDataSet( visible ? waveformEnvelopeDataSetProperty.value : [] );
       chartCanvasNode.update();
     } );
 
@@ -125,12 +119,9 @@ class WavePacketSumChartNode extends WaveformChartNode {
     } );
 
     // Update the waveform envelope.
-    // Performance optimization: Update only if the plot is visible.
     waveformEnvelopeDataSetProperty.link( dataSet => {
-      if ( waveformEnvelopeVisibleProperty.value ) {
-        waveformEnvelopePlot.setDataSet( dataSet );
-        chartCanvasNode.update();
-      }
+      waveformEnvelopePlot.setDataSet( dataSet );
+      chartCanvasNode.update();
     } );
   }
 

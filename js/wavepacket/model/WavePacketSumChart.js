@@ -122,29 +122,31 @@ class WavePacketSumChart extends WaveformChart {
     );
 
     // {DerivedProperty.<Vector2[]>} data set for the waveform envelope of a wave packet with infinite
-    // components, [] when the number of components is finite. This is computed by computing 2 wave packet waveforms
-    // USING THE FOURIER COMPONENTS - one for sine, one for cosine - then combining y values. Points are ordered by
-    // increasing x value. This is based on the updateEnvelope method in D2CSumView.js.
+    // components, [] when the number of components is finite or the envelope is not visible.
+    // This is computed using 2 wave packet waveforms USING THE FOURIER COMPONENTS - one for sine, one for cosine -
+    // then combining y values. Points are ordered by increasing x value.
+    // This is based on the updateEnvelope method in D2CSumView.js.
     const finiteWaveformEnvelopeDataSetProperty = new DerivedProperty(
-      [ componentDataSetsProperty ],
-      componentsDataSet => {
+      [ componentDataSetsProperty, this.waveformEnvelopeVisibleProperty ],
+      ( componentsDataSet, waveformEnvelopeVisible ) => {
         let dataSet = [];
-        if ( componentsDataSet.length > 0 ) {
+        if ( componentsDataSet.length > 0 && waveformEnvelopeVisible ) {
           dataSet = [ new Vector2( -1, 0 ), new Vector2( 1, 0 ) ]; //TODO dummy data
         }
         return dataSet;
       } );
 
     // {DerivedProperty.<Vector2[]>} data set for the waveform envelope of a wave packet with infinite
-    // components, [] when the number of components is finite. This is computed by computing 2 wave packet waveforms -
-    // one for sine, one for cosine - then combining y values. Points are ordered by increasing x value.
+    // components, [] when the number of components is finite or the envelope is not visible.
+    // This is computed using 2 wave packet waveforms - one for sine, one for cosine - then combining y values.
+    // Points are ordered by increasing x value.
     // This is based on the updateEnvelope method in D2CSumView.js.
     const infiniteWaveformEnvelopeDataSetProperty = new DerivedProperty(
       [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.conjugateStandardDeviationProperty,
-        seriesTypeProperty, xAxisDescriptionProperty ],
-      ( componentSpacing, center, conjugateStandardDeviation, seriesType, xAxisDescription ) => {
+        seriesTypeProperty, xAxisDescriptionProperty, this.waveformEnvelopeVisibleProperty ],
+      ( componentSpacing, center, conjugateStandardDeviation, seriesType, xAxisDescription, waveformEnvelopeVisible ) => {
         const dataSet = [];
-        if ( componentSpacing === 0 ) {
+        if ( componentSpacing === 0 && waveformEnvelopeVisible ) {
 
           // Compute the same wave packet, using sin and cos.
           const sinDataSet = createWavePacketDataSet( center, conjugateStandardDeviation, SeriesType.SINE, xAxisDescription.range );
