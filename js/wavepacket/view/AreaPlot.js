@@ -1,7 +1,12 @@
 // Copyright 2021, University of Colorado Boulder
 
 //TODO is this general enough to move to bamboo?
-//TODO convert to CanvasAreaPlot, ala CanvasLinePlot
+//TODO convert to CanvasAreaPlot, ala CanvasLinePlot. To fill with a linear gradient:
+//   const gradient = context.createLinearGradient( x1, y1, x2, y2 );
+//   gradient.addColorStop( 0, ... );
+//   gradient.addColorStop( 1, ... );
+//   context.fillStyle = gradient;
+
 /**
  * AreaPlot fills the area below a curve.
  *
