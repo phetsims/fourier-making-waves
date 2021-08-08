@@ -20,6 +20,10 @@ import WaveformChart from '../../common/model/WaveformChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
 
+// An empty data set, used so that we can rely on value comparison in Property, and not trigger notifications when
+// the value changes from one [] to another [].  This is a performance optimization.
+const EMPTY_DATA_SET = Object.freeze( [] );
+
 class WavePacketSumChart extends WaveformChart {
 
   /**
@@ -65,19 +69,20 @@ class WavePacketSumChart extends WaveformChart {
     } );
 
     // {DerivedProperty.<Array.<Vector2>>}
-    // Data set for the sum of a finite number of components, [] when the number of components is infinite.
+    // Data set for the sum of a finite number of components, EMPTY_DATA_SET when the number of components is infinite.
     // This simply takes the data sets for components, and sums the y values (amplitudes) of corresponding x values.
     // Points are ordered by increasing x value.
     const finiteSumDataSetProperty = new DerivedProperty(
       [ componentDataSetsProperty ],
       componentDataSets => {
-        const sumDataSet = [];
+        let sumDataSet = EMPTY_DATA_SET;
         if ( componentDataSets.length > 0 ) {
 
           // Finite number of components
           const pointsPerDataSet = componentDataSets[ 0 ].length;
           assert && assert( pointsPerDataSet > 0 );
 
+          sumDataSet = [];
           if ( pointsPerDataSet > 0 ) {
             assert && assert( _.every( componentDataSets, dataSet => dataSet.length === pointsPerDataSet ),
               `All data sets much have ${pointsPerDataSet} points.` );
@@ -98,14 +103,14 @@ class WavePacketSumChart extends WaveformChart {
       } );
 
     // {DerivedProperty.<Array.<Vector2>>}
-    // Data set for the sum of an infinite number of components, [] when the number of components is finite.
+    // Data set for the sum of an infinite number of components, EMPTY_DATA_SET when the number of components is finite.
     // Points are ordered by increasing x value.
     // This is based on the updateDataSet method in GaussianWavePacketPlot.java.
     const infiniteSumDataSetProperty = new DerivedProperty(
       [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.conjugateStandardDeviationProperty,
         seriesTypeProperty, xAxisDescriptionProperty ],
       ( componentSpacing, center, conjugateStandardDeviation, seriesType, xAxisDescription ) => {
-        let dataSet = [];
+        let dataSet = EMPTY_DATA_SET;
         if ( componentSpacing === 0 ) {
           dataSet = createWavePacketDataSet( center, conjugateStandardDeviation, seriesType, xAxisDescription.range );
         }
@@ -113,7 +118,7 @@ class WavePacketSumChart extends WaveformChart {
       } );
 
     // @public {DerivedProperty.<Array.<Vector2>>} data set for the sum.
-    // One of these dependencies will be [] and the other will contain points, depending on whether the
+    // One of these dependencies will be EMPTY_DATA_SET and the other will contain points, depending on whether the
     // number of Fourier components is finite or infinite.
     this.sumDataSetProperty = new DerivedProperty(
       [ finiteSumDataSetProperty, infiniteSumDataSetProperty ],
@@ -122,14 +127,14 @@ class WavePacketSumChart extends WaveformChart {
     );
 
     // {DerivedProperty.<Vector2[]>} data set for the waveform envelope of a wave packet with infinite
-    // components, [] when the number of components is finite or the envelope is not visible.
+    // components, EMPTY_DATA_SET when the number of components is finite or the envelope is not visible.
     // This is computed using 2 wave packet waveforms USING THE FOURIER COMPONENTS - one for sine, one for cosine -
     // then combining y values. Points are ordered by increasing x value.
     // This is based on the updateEnvelope method in D2CSumView.js.
     const finiteWaveformEnvelopeDataSetProperty = new DerivedProperty(
       [ componentDataSetsProperty, this.waveformEnvelopeVisibleProperty ],
       ( componentsDataSet, waveformEnvelopeVisible ) => {
-        let dataSet = [];
+        let dataSet = EMPTY_DATA_SET;
         if ( componentsDataSet.length > 0 && waveformEnvelopeVisible ) {
           dataSet = [ new Vector2( -1, 0 ), new Vector2( 1, 0 ) ]; //TODO dummy data
         }
@@ -137,7 +142,7 @@ class WavePacketSumChart extends WaveformChart {
       } );
 
     // {DerivedProperty.<Vector2[]>} data set for the waveform envelope of a wave packet with infinite
-    // components, [] when the number of components is finite or the envelope is not visible.
+    // components, EMPTY_DATA_SET when the number of components is finite or the envelope is not visible.
     // This is computed using 2 wave packet waveforms - one for sine, one for cosine - then combining y values.
     // Points are ordered by increasing x value.
     // This is based on the updateEnvelope method in D2CSumView.js.
@@ -145,7 +150,7 @@ class WavePacketSumChart extends WaveformChart {
       [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.conjugateStandardDeviationProperty,
         seriesTypeProperty, xAxisDescriptionProperty, this.waveformEnvelopeVisibleProperty ],
       ( componentSpacing, center, conjugateStandardDeviation, seriesType, xAxisDescription, waveformEnvelopeVisible ) => {
-        const dataSet = [];
+        let dataSet = EMPTY_DATA_SET;
         if ( componentSpacing === 0 && waveformEnvelopeVisible ) {
 
           // Compute the same wave packet, using sin and cos.
@@ -154,6 +159,7 @@ class WavePacketSumChart extends WaveformChart {
           assert && assert( sinDataSet.length === cosDataSet.length );
 
           // Combine the 2 wave packets.
+          dataSet = [];
           for ( let i = 0; i < sinDataSet.length; i++ ) {
 
             // x
@@ -172,7 +178,7 @@ class WavePacketSumChart extends WaveformChart {
       } );
 
     // @public {DerivedProperty.<Array.<Vector2>>} data set for the waveform envelope.
-    // One of these dependencies will be [] and the other will contain points, depending on whether the
+    // One of these dependencies will be EMPTY_DATA_SET and the other will contain points, depending on whether the
     // number of Fourier components is finite or infinite.
     this.waveformEnvelopeDataSetProperty = new DerivedProperty(
       [ finiteWaveformEnvelopeDataSetProperty, infiniteWaveformEnvelopeDataSetProperty ],
