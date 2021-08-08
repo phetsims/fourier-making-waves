@@ -68,7 +68,6 @@ class WavePacketScreenView extends ScreenView {
 
     // Amplitudes chart
     const amplitudesChartNode = new WavePacketAmplitudesChartNode( model.amplitudesChart, {
-      visibleProperty: model.amplitudesChart.chartVisibleProperty,
       chartTransformOptions: {
         modelXRange: model.wavePacket.waveNumberRange
         // modelYRange will automatically scale to fit the data set
@@ -82,17 +81,17 @@ class WavePacketScreenView extends ScreenView {
       maxWidth: 100,
       tandem: amplitudesTandem.createTandem( 'equationNode' )
     } );
-    const amplitudeEquationWrapperNode = new Node( {
-      visibleProperty: model.amplitudesChart.chartVisibleProperty,
-      children: [ amplitudeEquationNode ]
-    } );
 
     const continuousWaveformCheckbox = new ContinuousWaveformCheckbox(
       model.amplitudesChart.continuousWaveformVisibleProperty, {
-        visibleProperty: model.amplitudesChart.chartVisibleProperty,
         tandem: amplitudesTandem.createTandem( 'continuousWaveformCheckbox' )
       } );
-    this.addChild( continuousWaveformCheckbox );
+
+    // All of the Amplitudes elements whose visibility need to be controlled.
+    const amplitudesParentNode = new Node( {
+      visibleProperty: model.amplitudesChart.chartVisibleProperty,
+      children: [ amplitudesChartNode, amplitudeEquationNode, continuousWaveformCheckbox ]
+    } );
 
     // Parent tandem for all components related to the Components chart
     const componentsTandem = chartsTandem.createTandem( 'components' );
@@ -105,7 +104,6 @@ class WavePacketScreenView extends ScreenView {
 
     // Components chart
     const componentsChartNode = new WavePacketComponentsChartNode( model.componentsChart, {
-      visibleProperty: model.componentsChart.chartVisibleProperty,
       tandem: componentsTandem.createTandem( 'componentsChartNode' )
     } );
 
@@ -114,9 +112,11 @@ class WavePacketScreenView extends ScreenView {
       maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
       tandem: componentsTandem.createTandem( 'equationNode' )
     } );
-    const componentsEquationWrapperNode = new Node( {
+
+    // All of the Components elements whose visibility need to be controlled.
+    const componentsParentNode = new Node( {
       visibleProperty: model.componentsChart.chartVisibleProperty,
-      children: [ componentsEquationNode ]
+      children: [ componentsChartNode, componentsEquationNode ]
     } );
 
     // Parent tandem for all components related to the Sum chart
@@ -130,7 +130,6 @@ class WavePacketScreenView extends ScreenView {
 
     // Sum chart
     const sumChartNode = new WavePacketSumChartNode( model.sumChart, {
-      visibleProperty: model.sumChart.chartVisibleProperty,
       tandem: sumTandem.createTandem( 'sumChartNode' )
     } );
 
@@ -140,15 +139,16 @@ class WavePacketScreenView extends ScreenView {
         maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
         tandem: sumTandem.createTandem( 'equationNode' )
       } );
-    const sumEquationWrapperNode = new Node( {
-      visibleProperty: model.sumChart.chartVisibleProperty,
-      children: [ sumEquationNode ]
-    } );
 
     // Waveform Envelope checkbox
     const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( model.sumChart.waveformEnvelopeVisibleProperty, {
-      visibleProperty: model.sumChart.chartVisibleProperty,
       tandem: sumTandem.createTandem( 'waveformEnvelopeCheckbox' )
+    } );
+
+    // All of the Sum elements whose visibility need to be controlled.
+    const sumParentNode = new Node( {
+      visibleProperty: model.sumChart.chartVisibleProperty,
+      children: [ sumChartNode, sumEquationNode, waveformEnvelopeCheckbox ]
     } );
 
     const controlPanel = new WavePacketControlPanel( model, popupParent, {
@@ -205,16 +205,11 @@ class WavePacketScreenView extends ScreenView {
     const screenViewRootNode = new Node( {
       children: [
         amplitudesExpandCollapseButton,
-        amplitudeEquationWrapperNode,
-        amplitudesChartNode,
-        continuousWaveformCheckbox,
-        componentsEquationWrapperNode,
+        amplitudesParentNode,
         componentsExpandCollapseButton,
-        componentsChartNode,
-        sumEquationWrapperNode,
+        componentsParentNode,
         sumExpandCollapseButton,
-        sumChartNode,
-        waveformEnvelopeCheckbox,
+        sumParentNode,
         controlPanel,
         resetAllButton,
 
@@ -237,13 +232,13 @@ class WavePacketScreenView extends ScreenView {
       } );
 
       componentsEquationNode.boundsProperty.link( () => {
-        componentsEquationWrapperNode.centerX = componentsChartRectangleLocalBounds.centerX;
-        componentsEquationWrapperNode.bottom = componentsChartRectangleLocalBounds.top - equationYSpacing;
+        componentsEquationNode.centerX = componentsChartRectangleLocalBounds.centerX;
+        componentsEquationNode.bottom = componentsChartRectangleLocalBounds.top - equationYSpacing;
       } );
 
       sumEquationNode.boundsProperty.link( () => {
-        sumEquationWrapperNode.centerX = sumChartRectangleLocalBounds.centerX;
-        sumEquationWrapperNode.bottom = sumChartRectangleLocalBounds.top - equationYSpacing;
+        sumEquationNode.centerX = sumChartRectangleLocalBounds.centerX;
+        sumEquationNode.bottom = sumChartRectangleLocalBounds.top - equationYSpacing;
       } );
     }
 
@@ -252,7 +247,7 @@ class WavePacketScreenView extends ScreenView {
     screenViewRootNode.pdomOrder = [
       controlPanel,
       //TODO https://github.com/phetsims/fourier-making-waves/issues/84 put measurement tools here
-      amplitudesChartNode,
+      amplitudesExpandCollapseButton,
       continuousWaveformCheckbox,
       componentsExpandCollapseButton,
       componentsChartNode,
