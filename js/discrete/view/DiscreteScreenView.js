@@ -96,6 +96,22 @@ class DiscreteScreenView extends ScreenView {
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
     } );
 
+    // Disable the eraser button when all amplitudes are zero.
+    const eraserButtonEnabledProperty = new DerivedProperty(
+      [ model.fourierSeries.amplitudesProperty ],
+      amplitudes => !!_.find( amplitudes, amplitude => ( amplitude !== 0 ) )
+    );
+
+    // Push button to reset all amplitudes to zero
+    const eraserButton = new EraserButton( {
+      scale: 0.85,
+      listener: () => {
+        model.waveformProperty.value = Waveform.CUSTOM;
+        model.fourierSeries.setAllAmplitudes( 0 );
+      },
+      enabledProperty: eraserButtonEnabledProperty
+    } );
+
     // Harmonics chart -------------------------------------------------------------------
 
     // Parent tandem for all components related to the Harmonics chart
@@ -214,22 +230,6 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     // Other UI elements -------------------------------------------------------------------
-
-    // Disable the eraser button when all amplitudes are zero.
-    const eraserButtonEnabledProperty = new DerivedProperty(
-      [ model.fourierSeries.amplitudesProperty ],
-      amplitudes => !!_.find( amplitudes, amplitude => ( amplitude !== 0 ) )
-    );
-
-    // Push button to reset all amplitudes to zero
-    const eraserButton = new EraserButton( {
-      scale: 0.85,
-      listener: () => {
-        model.waveformProperty.value = Waveform.CUSTOM;
-        model.fourierSeries.setAllAmplitudes( 0 );
-      },
-      enabledProperty: eraserButtonEnabledProperty
-    } );
 
     // Control panel
     const controlPanel = new DiscreteControlPanel( model, popupParent, {
