@@ -64,11 +64,11 @@ class WavePacketSumChart extends WaveformChart {
       tandem: options.tandem.createTandem( 'waveformEnvelopeVisibleProperty' )
     } );
 
-    // @public {DerivedProperty.<Array.<Vector2>>}
+    // {DerivedProperty.<Array.<Vector2>>}
     // Data set for the sum of a finite number of components, [] when the number of components is infinite.
     // This simply takes the data sets for components, and sums the y values (amplitudes) of corresponding x values.
     // Points are ordered by increasing x value.
-    this.finiteSumDataSetProperty = new DerivedProperty(
+    const finiteSumDataSetProperty = new DerivedProperty(
       [ componentDataSetsProperty ],
       componentDataSets => {
         const sumDataSet = [];
@@ -97,29 +97,35 @@ class WavePacketSumChart extends WaveformChart {
         return sumDataSet;
       } );
 
-    // @public {DerivedProperty.<Array.<Vector2>>}
+    // {DerivedProperty.<Array.<Vector2>>}
     // Data set for the sum of an infinite number of components, [] when the number of components is finite.
     // Points are ordered by increasing x value.
     // This is based on the updateDataSet method in GaussianWavePacketPlot.java.
-    this.infiniteSumDataSetProperty = new DerivedProperty(
+    const infiniteSumDataSetProperty = new DerivedProperty(
       [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.conjugateStandardDeviationProperty,
         seriesTypeProperty, xAxisDescriptionProperty ],
       ( componentSpacing, center, conjugateStandardDeviation, seriesType, xAxisDescription ) => {
-        let dataSet;
+        let dataSet = [];
         if ( componentSpacing === 0 ) {
           dataSet = createWavePacketDataSet( center, conjugateStandardDeviation, seriesType, xAxisDescription.range );
-        }
-        else {
-          dataSet = [];
         }
         return dataSet;
       } );
 
-    // @public {DerivedProperty.<Vector2[]>} data set for the waveform envelope of a wave packet with infinite
+    // @public {DerivedProperty.<Array.<Vector2>>} data set for the sum.
+    // One of these dependencies will be [] and the other will contain points, depending on whether the
+    // number of Fourier components is finite or infinite.
+    this.sumDataSetProperty = new DerivedProperty(
+      [ finiteSumDataSetProperty, infiniteSumDataSetProperty ],
+      ( finiteDataSet, infiniteDataSet ) =>
+        ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet
+    );
+
+    // {DerivedProperty.<Vector2[]>} data set for the waveform envelope of a wave packet with infinite
     // components, [] when the number of components is finite. This is computed by computing 2 wave packet waveforms
     // USING THE FOURIER COMPONENTS - one for sine, one for cosine - then combining y values. Points are ordered by
     // increasing x value. This is based on the updateEnvelope method in D2CSumView.js.
-    this.finiteWaveformEnvelopeDataSetProperty = new DerivedProperty(
+    const finiteWaveformEnvelopeDataSetProperty = new DerivedProperty(
       [ componentDataSetsProperty ],
       componentsDataSet => {
         let dataSet = [];
@@ -129,11 +135,11 @@ class WavePacketSumChart extends WaveformChart {
         return dataSet;
       } );
 
-    // @public {DerivedProperty.<Vector2[]>} data set for the waveform envelope of a wave packet with infinite
+    // {DerivedProperty.<Vector2[]>} data set for the waveform envelope of a wave packet with infinite
     // components, [] when the number of components is finite. This is computed by computing 2 wave packet waveforms -
     // one for sine, one for cosine - then combining y values. Points are ordered by increasing x value.
     // This is based on the updateEnvelope method in D2CSumView.js.
-    this.infiniteWaveformEnvelopeDataSetProperty = new DerivedProperty(
+    const infiniteWaveformEnvelopeDataSetProperty = new DerivedProperty(
       [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.conjugateStandardDeviationProperty,
         seriesTypeProperty, xAxisDescriptionProperty ],
       ( componentSpacing, center, conjugateStandardDeviation, seriesType, xAxisDescription ) => {
@@ -162,6 +168,15 @@ class WavePacketSumChart extends WaveformChart {
         }
         return dataSet;
       } );
+
+    // @public {DerivedProperty.<Array.<Vector2>>} data set for the waveform envelope.
+    // One of these dependencies will be [] and the other will contain points, depending on whether the
+    // number of Fourier components is finite or infinite.
+    this.waveformEnvelopeDataSetProperty = new DerivedProperty(
+      [ finiteWaveformEnvelopeDataSetProperty, infiniteWaveformEnvelopeDataSetProperty ],
+      ( finiteDataSet, infiniteDataSet ) =>
+        ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet
+    );
 
     // @public {Vector2} width displayed by the width indicator
     // This is loosely based on the getModelWidth method in WavePacketXWidthPlot.java.
@@ -201,7 +216,7 @@ class WavePacketSumChart extends WaveformChart {
  * @param conjugateStandardDeviation - the wave packet's conjugate standard deviation, a measure of width
  * @param xRange - range of the Sum chart's x axis
  * @param seriesType - sine or cosine
- * @returns {*[]}
+ * @returns {Vector2[]}
  */
 function createWavePacketDataSet( center, conjugateStandardDeviation, seriesType, xRange ) {
   assert && AssertUtils.assertPositiveNumber( center );

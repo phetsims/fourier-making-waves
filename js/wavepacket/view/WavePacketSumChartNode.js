@@ -41,10 +41,8 @@ class WavePacketSumChartNode extends WaveformChartNode {
     const widthIndicatorWidthProperty = sumChart.widthIndicatorWidthProperty;
     const widthIndicatorPositionProperty = sumChart.widthIndicatorPositionProperty;
     const widthIndicatorsVisibleProperty = sumChart.widthIndicatorsVisibleProperty;
-    const finiteSumDataSetProperty = sumChart.finiteSumDataSetProperty;
-    const infiniteSumDataSetProperty = sumChart.infiniteSumDataSetProperty;
-    const finiteWaveformEnvelopeDataSetProperty = sumChart.finiteWaveformEnvelopeDataSetProperty;
-    const infiniteWaveformEnvelopeDataSetProperty = sumChart.infiniteWaveformEnvelopeDataSetProperty;
+    const sumDataSetProperty = sumChart.sumDataSetProperty;
+    const waveformEnvelopeDataSetProperty = sumChart.waveformEnvelopeDataSetProperty;
     const waveformEnvelopeVisibleProperty = sumChart.waveformEnvelopeVisibleProperty;
 
     options = merge( {
@@ -63,44 +61,29 @@ class WavePacketSumChartNode extends WaveformChartNode {
     // NOTE: CanvasLinePlot dataSets are initialized to [] because the listeners to their data set Properties
     // also handle y-axis scaling.
 
-    //TODO do we need separate plots for finite and infinite, or could we combine, since 1 data set is always []?
-
-    // Plots the sum of a finite number of components
-    const finiteSumPlot = new CanvasLinePlot( this.chartTransform, [], {
+    // Plots the sum
+    const sumPlot = new CanvasLinePlot( this.chartTransform, [], {
       stroke: 'black'
     } );
 
-    // Plots the sum of an infinite number of components
-    const infiniteSumPlot = new CanvasLinePlot( this.chartTransform, [], {
-      stroke: 'black'
-    } );
-
-    // Plots the envelope of the sum waveform for a finite number of components
-    const finiteWaveformEnvelopePlot = new CanvasLinePlot( this.chartTransform, [], {
-      lineWidth: 4
-    } );
-
-    // Plots the envelope of the sum waveform for an infinite number of components
-    const infiniteWaveformEnvelopePlot = new CanvasLinePlot( this.chartTransform, [], {
+    // Plots the waveform envelope of the sum
+    const waveformEnvelopePlot = new CanvasLinePlot( this.chartTransform, [], {
       lineWidth: 4
     } );
 
     // Render the plots using Canvas.
     // Remember! When any of the associated plots is updated, you must call chartCanvasNode.update().
-    const chartCanvasNode = new ChartCanvasNode( this.chartTransform,
-      [ finiteWaveformEnvelopePlot, infiniteWaveformEnvelopePlot, finiteSumPlot, infiniteSumPlot ] );
+    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [ waveformEnvelopePlot, sumPlot ] );
 
     // CanvasLinePlot stroke does not support Property, so handle it here.
     FMWColors.waveformEnvelopeStrokeProperty.link( stroke => {
-      finiteWaveformEnvelopePlot.setStroke( stroke );
-      infiniteWaveformEnvelopePlot.setStroke( stroke );
+      waveformEnvelopePlot.setStroke( stroke );
       chartCanvasNode.update();
     } );
 
     // CanvasLinePlot does not support visibleProperty, so handle it here by clearing the data set when invisible.
     waveformEnvelopeVisibleProperty.link( visible => {
-      finiteWaveformEnvelopePlot.setDataSet( visible ? finiteWaveformEnvelopeDataSetProperty.value : [] );
-      infiniteWaveformEnvelopePlot.setDataSet( visible ? infiniteWaveformEnvelopeDataSetProperty.value : [] );
+      waveformEnvelopePlot.setDataSet( visible ? waveformEnvelopeDataSetProperty.value : [] );
       chartCanvasNode.update();
     } );
 
@@ -120,21 +103,32 @@ class WavePacketSumChartNode extends WaveformChartNode {
     // @private
     this.chartCanvasNode = chartCanvasNode;
 
-    // Update the sum data set. Exactly one of these will have a populated data set.
-    finiteSumDataSetProperty.link( ( newDataSet, oldDataSet ) => this.updatePlot( finiteSumPlot, newDataSet, oldDataSet ) );
-    infiniteSumDataSetProperty.link( ( newDataSet, oldDataSet ) => this.updatePlot( infiniteSumPlot, newDataSet, oldDataSet ) );
+    // Update the sum data set.
+    sumDataSetProperty.link( dataSet => {
 
-    // Display the envelope of the sum waveform.
-    // Performance optimization: Update only if the plot is visible.
-    finiteWaveformEnvelopeDataSetProperty.link( dataSet => {
-      if ( waveformEnvelopeVisibleProperty.value ) {
-        finiteWaveformEnvelopePlot.setDataSet( dataSet );
-        chartCanvasNode.update();
+      // Update the plot's data set.
+      sumPlot.setDataSet( dataSet );
+
+      // Scale the y axis to fit the new data set.
+      // See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
+      if ( dataSet.length > 0 ) {
+        const maxAmplitude = _.maxBy( dataSet, point => point.y ).y;
+        const maxY = 1.1 * maxAmplitude; // add a bit of padding
+        this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
+        this.yGridLines.setSpacing( maxAmplitude );
+        this.yTickMarks.setSpacing( maxAmplitude );
+        this.yTickLabels.setSpacing( maxAmplitude );
       }
+
+      // Redraw plots.
+      this.chartCanvasNode.update();
     } );
-    infiniteWaveformEnvelopeDataSetProperty.link( dataSet => {
+
+    // Update the waveform envelope.
+    // Performance optimization: Update only if the plot is visible.
+    waveformEnvelopeDataSetProperty.link( dataSet => {
       if ( waveformEnvelopeVisibleProperty.value ) {
-        infiniteWaveformEnvelopePlot.setDataSet( dataSet );
+        waveformEnvelopePlot.setDataSet( dataSet );
         chartCanvasNode.update();
       }
     } );
@@ -147,35 +141,6 @@ class WavePacketSumChartNode extends WaveformChartNode {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
-  }
-
-  /**
-   * Updates a plot.
-   * @param {CanvasLinePlot} plot
-   * @param {Vector2[]} newDataSet
-   * @param {Vector2[]} oldDataSet
-   * @private
-   */
-  updatePlot( plot, newDataSet, oldDataSet ) {
-
-    // Update the plot's data set.
-    plot.setDataSet( newDataSet );
-
-    // Scale the y axis to fit the new data set.
-    // See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
-    if ( newDataSet.length > 0 ) {
-      const maxAmplitude = _.maxBy( newDataSet, point => point.y ).y;
-      const maxY = 1.1 * maxAmplitude; // add a bit of padding
-      this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
-      this.yGridLines.setSpacing( maxAmplitude );
-      this.yTickMarks.setSpacing( maxAmplitude );
-      this.yTickLabels.setSpacing( maxAmplitude );
-    }
-
-    // Redraw plots if necessary.
-    if ( newDataSet.length > 0 || !oldDataSet || oldDataSet.length > 0 ) {
-      this.chartCanvasNode.update();
-    }
   }
 }
 
