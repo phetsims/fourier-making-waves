@@ -105,7 +105,6 @@ class DiscreteScreenView extends ScreenView {
 
     // Harmonics chart
     const harmonicsChartNode = new DiscreteHarmonicsChartNode( model.harmonicsChart, {
-      visibleProperty: model.harmonicsChart.chartVisibleProperty,
       tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
     } );
 
@@ -116,8 +115,11 @@ class DiscreteScreenView extends ScreenView {
         tandem: harmonicsTandem.createTandem( 'harmonicsEquationNode' ),
         phetioReadOnly: true
       } );
-    const harmonicsEquationWrapperNode = new Node( {
-      children: [ harmonicsEquationNode ]
+
+    // All of the Harmonics elements whose visibility need to be controlled.
+    const harmonicsParentNode = new Node( {
+      visibleProperty: model.harmonicsChart.chartVisibleProperty,
+      children: [ harmonicsChartNode, harmonicsEquationNode ]
     } );
 
     // Visibility of the equation above the Harmonics chart
@@ -149,9 +151,6 @@ class DiscreteScreenView extends ScreenView {
         tandem: sumTandem.createTandem( 'sumEquationNode' ),
         phetioReadOnly: true
       } );
-    const sumEquationWrapperNode = new Node( {
-      children: [ sumEquationNode ]
-    } );
 
     // Push button that opens the 'Expanded Sum' dialog
     const expandedFormButton = new ExpandedFormButton( {
@@ -165,6 +164,12 @@ class DiscreteScreenView extends ScreenView {
       },
       tandem: sumTandem.createTandem( 'expandedFormButton' ),
       phetioReadOnly: true
+    } );
+
+    // All of the Sum elements whose visibility need to be controlled.
+    const sumParentNode = new Node( {
+      visibleProperty: model.sumChart.chartVisibleProperty,
+      children: [ sumChartNode, sumEquationNode, expandedFormButton ]
     } );
 
     // Visibility of the equation and push button above the Sum chart
@@ -300,12 +305,9 @@ class DiscreteScreenView extends ScreenView {
         amplitudesChartNode,
         eraserButton,
         harmonicsExpandCollapseButton,
-        harmonicsChartNode,
-        harmonicsEquationWrapperNode,
+        harmonicsParentNode,
         sumExpandCollapseButton,
-        sumChartNode,
-        sumEquationWrapperNode,
-        expandedFormButton,
+        sumParentNode,
         controlPanel,
         timeControlNode,
         resetAllButton,
@@ -331,8 +333,8 @@ class DiscreteScreenView extends ScreenView {
       harmonicsEquationNode.boundsProperty.link( () => {
 
         // Center the equation above the Harmonics chart.
-        harmonicsEquationWrapperNode.centerX = harmonicsChartRectangleLocalBounds.centerX;
-        harmonicsEquationWrapperNode.bottom = harmonicsChartRectangleLocalBounds.top - equationYSpacing;
+        harmonicsEquationNode.centerX = harmonicsChartRectangleLocalBounds.centerX;
+        harmonicsEquationNode.bottom = harmonicsChartRectangleLocalBounds.top - equationYSpacing;
       } );
 
       sumEquationNode.boundsProperty.link( () => {
@@ -341,12 +343,12 @@ class DiscreteScreenView extends ScreenView {
         const maxHeight = Math.max( sumEquationNode.height, expandedFormButton.height );
 
         // Center the equation above the Sum chart.
-        sumEquationWrapperNode.centerX = sumChartRectangleLocalBounds.centerX;
-        sumEquationWrapperNode.centerY = sumChartRectangleLocalBounds.top - ( maxHeight / 2 ) - equationYSpacing;
+        sumEquationNode.centerX = sumChartRectangleLocalBounds.centerX;
+        sumEquationNode.centerY = sumChartRectangleLocalBounds.top - ( maxHeight / 2 ) - equationYSpacing;
 
         // Button to the right of the equation
-        expandedFormButton.left = sumEquationWrapperNode.right + 20;
-        expandedFormButton.centerY = sumEquationWrapperNode.centerY;
+        expandedFormButton.left = sumEquationNode.right + 20;
+        expandedFormButton.centerY = sumEquationNode.centerY;
       } );
     }
 
