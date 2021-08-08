@@ -3,10 +3,10 @@ TODO.txt for fourier-making-waves
 ## Common
 
 AxisDescription and Properties of that type have been a constant pain. Get rid of it?
-Add yAxisAutoScaleRangeProperty for all of WaveformChart subclasses in Wave Packet screen
-Use yAxisDescriptionProperty in WavePacketAmplitudesChartNode, then extend WaveformChartNode
-Fold WaveformChartNode into FMWChartNode, rename WaveformChart to FMWChart
+Use yAxisDescriptionProperty in WavePacketAmplitudesChartNode?
+Fold WaveformChartNode into FMWChartNode, rename WaveformChart to FMWChart?
 Can SumChart be used by WavePacketSumChart?
+Move visibleProperty for charts into view?
 
 ## Discrete screen
 
