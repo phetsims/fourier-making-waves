@@ -2,7 +2,8 @@
 
 /**
  * WaveGameRewardNode is the reward that's shown behind the RewardDialog when the user reaches the score
- * that results in a reward.  See design decisions in https://github.com/phetsims/fourier-making-waves/issues/50.
+ * that results in a reward. This is a bunch of smiley faces and stars that fall from the top of the screen.
+ * See design decisions in https://github.com/phetsims/fourier-making-waves/issues/50.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

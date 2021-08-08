@@ -60,15 +60,19 @@ class WaveGameLevelNode extends Node {
    * @param {Bounds2} layoutBounds
    * @param {Property.<Bounds2>} visibleBoundsProperty
    * @param {GameAudioPlayer} gameAudioPlayer
+   * @param {WaveGameRewardNode} rewardNode
+   * @param {RewardDialog} rewardDialog
    * @param {Object} [options]
    */
-  constructor( level, levelProperty, layoutBounds, visibleBoundsProperty, gameAudioPlayer, options ) {
+  constructor( level, levelProperty, layoutBounds, visibleBoundsProperty, gameAudioPlayer, rewardNode, rewardDialog, options ) {
 
     assert && assert( level instanceof WaveGameLevel );
     assert && assert( levelProperty instanceof Property );
     assert && assert( layoutBounds instanceof Bounds2 );
     assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
     assert && assert( gameAudioPlayer instanceof GameAudioPlayer );
+    assert && assert( rewardNode instanceof WaveGameRewardNode );
+    assert && assert( rewardDialog instanceof RewardDialog );
 
     options = merge( {
 
@@ -312,40 +316,6 @@ class WaveGameLevelNode extends Node {
     } );
     frownyFaceNode.frown();
 
-    // The reward shown while rewardDialog is open.
-    const rewardNode = new WaveGameRewardNode( {
-      visible: false,
-      tandem: options.tandem.createTandem( 'rewardNode' ),
-      phetioReadOnly: true
-    } );
-
-    // {RewardDialog} dialog that is displayed when the score reaches the reward value.
-    const rewardDialog = new RewardDialog( FMWConstants.REWARD_SCORE, {
-
-      // 'Keep Going' hides the dialog
-      keepGoingButtonListener: () => rewardDialog.hide(),
-
-      // 'New Level' takes us back to the level-selection interface, and pre-loads a new challenge for this level.
-      newLevelButtonListener: () => {
-        rewardDialog.hide();
-        levelProperty.value = null; // back to the level-selection UI
-        newWaveform();
-      },
-
-      // When the dialog is shown, show the reward.
-      showCallback: () => {
-        rewardNode.visible = true;
-      },
-
-      // When the dialog is hidden, hide the reward.
-      hideCallback: () => {
-        rewardNode.visible = false;
-      },
-
-      tandem: options.tandem.createTandem( 'rewardDialog' ),
-      phetioReadOnly: true
-    } );
-
     // Rendering order ---------------------------------------------------------------
 
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
@@ -362,8 +332,7 @@ class WaveGameLevelNode extends Node {
       buttonsBox,
       smileyFaceNode,
       pointsAwardedNode,
-      frownyFaceNode,
-      rewardNode
+      frownyFaceNode
     ];
 
     super( options );
@@ -454,7 +423,6 @@ class WaveGameLevelNode extends Node {
     this.layoutBounds = layoutBounds;
     this.gameAudioPlayer = gameAudioPlayer;
     this.harmonicsChartRectangleLocalBounds = harmonicsChartRectangleLocalBounds;
-    this.rewardNode = rewardNode;
     this.pointsAwardedNode = pointsAwardedNode;
     this.pointsAwardedAnimation = null; // {Animation|null}
     this.frownyFaceNode = frownyFaceNode;
@@ -478,7 +446,6 @@ class WaveGameLevelNode extends Node {
    * @public
    */
   step( dt ) {
-    this.rewardNode.visible && this.rewardNode.step( dt );
     this.pointsAwardedAnimation && this.pointsAwardedAnimation.step( dt );
     this.frownyFaceAnimation && this.frownyFaceAnimation.step( dt );
   }

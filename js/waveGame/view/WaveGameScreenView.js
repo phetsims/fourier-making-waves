@@ -17,6 +17,8 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameModel from '../model/WaveGameModel.js';
 import WaveGameLevelNode from './WaveGameLevelNode.js';
 import WaveGameLevelSelectionNode from './WaveGameLevelSelectionNode.js';
+import WaveGameRewardDialog from './WaveGameRewardDialog.js';
+import WaveGameRewardNode from './WaveGameRewardNode.js';
 
 // constants
 const TRANSITION_OPTIONS = {
@@ -57,9 +59,21 @@ class WaveGameScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'levelSelectionNode' )
     } );
 
+    // @private The reward shown while rewardDialog is open.
+    this.rewardNode = new WaveGameRewardNode( {
+      visible: false,
+      tandem: options.tandem.createTandem( 'rewardNode' ),
+      phetioReadOnly: true
+    } );
+
+    // Dialog that is displayed when the score reaches the reward value.
+    const rewardDialog = new WaveGameRewardDialog( model.levelProperty, this.rewardNode, {
+      tandem: options.tandem.createTandem( 'rewardDialog' )
+    } );
+
     // @private {SolveItSceneNode[]} a Node for each level of the game
     this.levelNodes = _.map( model.levels, level => new WaveGameLevelNode( level, model.levelProperty,
-      layoutBounds, this.visibleBoundsProperty, gameAudioPlayer, {
+      layoutBounds, this.visibleBoundsProperty, gameAudioPlayer, this.rewardNode, rewardDialog, {
         tandem: options.tandem.createTandem( `level${level.levelNumber}Node` )
       } ) );
 
@@ -68,7 +82,6 @@ class WaveGameScreenView extends ScreenView {
       content: levelSelectionNode,
       cachedNodes: [ levelSelectionNode, ...this.levelNodes ]
     } );
-    this.addChild( this.transitionNode );
 
     // Transition between levelSelectionNode and the selected level.
     // A null value for levelProperty indicates that no level is selected, and levelSelectionNode should be shown.
@@ -109,6 +122,9 @@ class WaveGameScreenView extends ScreenView {
         transition.endedEmitter.addListener( transitionEndedListener );
       }
     } );
+
+    this.addChild( this.transitionNode );
+    this.addChild( this.rewardNode );
   }
 
   /**
@@ -134,6 +150,8 @@ class WaveGameScreenView extends ScreenView {
    * @public
    */
   step( dt ) {
+
+    this.rewardNode.visible && this.rewardNode.step( dt );
 
     // animate the view for the selected level
     for ( let i = 0; i < this.levelNodes.length; i++ ) {
