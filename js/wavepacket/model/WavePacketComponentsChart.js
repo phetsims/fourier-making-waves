@@ -76,6 +76,8 @@ class WavePacketComponentsChart extends WaveformChart {
 
           for ( let order = 1; order <= components.length; order++ ) {
             const amplitude = components[ order - 1 ].amplitude;
+
+            //TODO createDataSetStatic uses pooling
             dataSets.push( Harmonic.createDataSetStatic( order, amplitude, POINTS_PER_DATA_SET, L, T, range, domain, seriesType, t ) );
           }
         }
