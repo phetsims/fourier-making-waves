@@ -144,6 +144,12 @@ class WaveGameLevelNode extends Node {
       visible: phet.chipper.queryParameters.showAnswers
     } );
 
+    // All of the Amplitudes elements whose visibility can be controlled.
+    const amplitudesParentNode = new Node( {
+      visibleProperty: level.amplitudesChart.chartVisibleProperty,
+      children: [ amplitudesChartNode, eraserButton, answersNode ]
+    } );
+
     // Harmonics chart -------------------------------------------------------------------
 
     // Parent tandem for all elements related to the Harmonics chart
@@ -321,13 +327,11 @@ class WaveGameLevelNode extends Node {
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
     options.children = [
       statusBar,
-      amplitudesChartNode,
-      answersNode,
+      amplitudesParentNode,
       harmonicsTitleNode,
       harmonicsChartNode,
       sumTitleNode,
       sumChartNode,
-      eraserButton,
       amplitudeControlsSpinner,
       buttonsBox,
       smileyFaceNode,

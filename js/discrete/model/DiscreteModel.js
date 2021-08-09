@@ -156,7 +156,9 @@ class DiscreteModel {
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
     // @public
-    this.amplitudesChart = new DiscreteAmplitudesChart( this.fourierSeries, emphasizedHarmonics );
+    this.amplitudesChart = new DiscreteAmplitudesChart( this.fourierSeries, emphasizedHarmonics, {
+      tandem: chartsTandem.createTandem( 'amplitudesChart' )
+    } );
 
     // {Property.<AxisDescription>} y-axis description is specific to the Harmonics chart, not shared with the Sum chart.
     // The Harmonics chart has no zoom buttons, so it only has one y-axis description.

@@ -8,6 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -54,6 +55,18 @@ class WaveformChart {
 
     // @public (read-only) options
     this.yAutoScaleProperty = options.yAutoScaleProperty;
+
+    // @public whether this chart is visible
+    this.chartVisibleProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
+    } );
+  }
+
+  /**
+   * @public
+   */
+  reset() {
+    this.chartVisibleProperty.reset();
   }
 }
 

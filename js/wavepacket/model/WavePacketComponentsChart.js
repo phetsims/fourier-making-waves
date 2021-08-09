@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -54,11 +53,6 @@ class WavePacketComponentsChart extends WaveformChart {
     // @public
     this.wavePacket = wavePacket;
 
-    // @public whether this chart is visible
-    this.chartVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
-    } );
-
     // @public {DerivedProperty<Array.<Array.<Vector2>>}
     // A data set for each Fourier component's waveform, [] when the number of components is infinite.
     // Ordered by increasing order of Fourier component, i.e. the fundamental component has index=0.
@@ -76,13 +70,6 @@ class WavePacketComponentsChart extends WaveformChart {
 
     // NOTE: This chart does not have a maxYProperty because its more efficient for the view to determine
     // the y-axis range while iterating over componentDataSetsProperty.
-  }
-
-  /**
-   * @public
-   */
-  reset() {
-    this.chartVisibleProperty.reset();
   }
 
   /**

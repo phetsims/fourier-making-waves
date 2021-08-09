@@ -109,6 +109,7 @@ class WavePacketAmplitudesChart {
    * @public
    */
   reset() {
+    this.chartVisibleProperty.reset();
     this.continuousWaveformVisibleProperty.reset();
   }
 }

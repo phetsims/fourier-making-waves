@@ -112,6 +112,12 @@ class DiscreteScreenView extends ScreenView {
       enabledProperty: eraserButtonEnabledProperty
     } );
 
+    // All of the Amplitudes elements whose visibility can be controlled.
+    const amplitudesParentNode = new Node( {
+      visibleProperty: model.amplitudesChart.chartVisibleProperty,
+      children: [ amplitudesChartNode, eraserButton ]
+    } );
+
     // Harmonics chart -------------------------------------------------------------------
 
     // Parent tandem for all elements related to the Harmonics chart
@@ -300,8 +306,7 @@ class DiscreteScreenView extends ScreenView {
     // This should improve startup performance, compared to calling this.addChild for each Node.
     const screenViewRootNode = new Node( {
       children: [
-        amplitudesChartNode,
-        eraserButton,
+        amplitudesParentNode,
         harmonicsExpandCollapseButton,
         harmonicsParentNode,
         sumExpandCollapseButton,

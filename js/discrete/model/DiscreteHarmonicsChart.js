@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import HarmonicsChart from '../../common/model/HarmonicsChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -26,23 +25,8 @@ class DiscreteHarmonicsChart extends HarmonicsChart {
   constructor( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
                xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
                options ) {
-
     super( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
-
-    // @public whether the Harmonics chart is visible
-    this.chartVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
-    } );
-  }
-
-  /**
-   * @public
-   * @override
-   */
-  reset() {
-    super.reset();
-    this.chartVisibleProperty.reset();
   }
 }
 

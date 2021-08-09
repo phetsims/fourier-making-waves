@@ -59,11 +59,6 @@ class WavePacketSumChart extends WaveformChart {
     this.wavePacket = wavePacket;
     this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
 
-    // @public whether this chart is visible
-    this.chartVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
-    } );
-
     // @public whether the envelope of the sum waveform is visible
     this.waveformEnvelopeVisibleProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'waveformEnvelopeVisibleProperty' )
@@ -209,7 +204,6 @@ class WavePacketSumChart extends WaveformChart {
    * @public
    */
   reset() {
-    this.chartVisibleProperty.reset();
     this.waveformEnvelopeVisibleProperty.reset();
   }
 }
