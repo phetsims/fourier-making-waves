@@ -178,7 +178,7 @@ class WavePacketSumChart extends WaveformChart {
 
     // @public {Vector2} position of the width indicator
     // This is a constant, but the view requires a Property. We use validValues to constrain it to 1 value.
-    // This is loosely based on the getModelLocation method in WavePacketXWidthPlot.java.
+    // This is based on the getModelLocation method in WavePacketXWidthPlot.java.
     const widthIndicatorPosition = new Vector2( 0, 1 / Math.sqrt( Math.E ) );
     this.widthIndicatorPositionProperty = new Vector2Property( widthIndicatorPosition, {
       validValues: [ widthIndicatorPosition ]
