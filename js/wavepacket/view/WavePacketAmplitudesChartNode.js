@@ -195,7 +195,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
    * Scales the y axis.
    * @param {number} maxAmplitude
    * @public
-   * @override TODO
+   * @override TODO FMWChartNode defines the implementation used by Components and Sum charts
    */
   scaleYAxis( maxAmplitude ) {
     assert && assert( typeof maxAmplitude === 'number' && maxAmplitude > 0 );
