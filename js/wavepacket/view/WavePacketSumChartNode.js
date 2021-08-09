@@ -18,6 +18,7 @@ import WaveformChartNode from '../../common/view/WaveformChartNode.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketSumChart from '../model/WavePacketSumChart.js';
+import WavePacketComponentsChartNode from './WavePacketComponentsChartNode.js';
 import WidthIndicatorPlot from './WidthIndicatorPlot.js';
 
 // constants
@@ -63,6 +64,10 @@ class WavePacketSumChartNode extends WaveformChartNode {
       stroke: 'black'
     } );
 
+    // Render sumPlot using Canvas. Remember! When sumPlot is updated, you must call update().
+    // This ChartCanvasNode renders only sumPlot because it has its own clipArea requirements.
+    const sumChartCanvasNode = new ChartCanvasNode( this.chartTransform, [ sumPlot ] );
+
     // Plots the waveform envelope of the sum.  There is no need to handle this plot's visibility, because its
     // data set will be empty when it's not a visible - a performance optimization in the model.  CanvasLinePlot
     // also does not support visibleProperty.
@@ -70,14 +75,13 @@ class WavePacketSumChartNode extends WaveformChartNode {
       lineWidth: 4
     } );
 
-    // Render the plots using Canvas.
-    // Remember! When any of the associated plots is updated, you must call chartCanvasNode.update().
-    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [ waveformEnvelopePlot, sumPlot ] );
+    // Render waveformEnvelopePlot using Canvas. Remember! When waveformEnvelopePlot is updated, you must call update().
+    const waveformEnvelopeChartCanvasNode = new ChartCanvasNode( this.chartTransform, [ waveformEnvelopePlot ] );
 
     // CanvasLinePlot stroke does not support Property, so handle it here.
     FMWColors.waveformEnvelopeStrokeProperty.link( stroke => {
       waveformEnvelopePlot.setStroke( stroke );
-      chartCanvasNode.update();
+      waveformEnvelopeChartCanvasNode.update();
     } );
 
     // Width indicator, labeled dimensional arrows
@@ -89,12 +93,9 @@ class WavePacketSumChartNode extends WaveformChartNode {
     // Clip these elements to the chartRectangle bounds.
     const clipNode = new Node( {
       clipArea: this.chartRectangle.getShape(),
-      children: [ chartCanvasNode, widthIndicatorPlot ]
+      children: [ waveformEnvelopeChartCanvasNode, sumChartCanvasNode, widthIndicatorPlot ]
     } );
     this.addChild( clipNode );
-
-    // @private
-    this.chartCanvasNode = chartCanvasNode;
 
     // Update the sum data set.
     sumDataSetProperty.link( dataSet => {
@@ -102,25 +103,31 @@ class WavePacketSumChartNode extends WaveformChartNode {
       // Update the plot's data set.
       sumPlot.setDataSet( dataSet );
 
-      // Scale the y axis to fit the new data set.
-      // See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
       if ( dataSet.length > 0 ) {
+
+        // Scale the y axis to fit the new data set.
+        // See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
         const maxAmplitude = _.maxBy( dataSet, point => point.y ).y;
         const maxY = 1.1 * maxAmplitude; // add a bit of padding
         this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
         this.yGridLines.setSpacing( maxAmplitude );
         this.yTickMarks.setSpacing( maxAmplitude );
         this.yTickLabels.setSpacing( maxAmplitude );
+
+        // Clip to the range [-maxAmplitude,maxAmplitude], to trim rendering anomalies that occur when zoomed out.
+        // See https://github.com/phetsims/fourier-making-waves/issues/121
+        sumChartCanvasNode.clipArea =
+          WavePacketComponentsChartNode.computeClipArea( maxAmplitude, this.chartTransform, this.chartRectangle );
       }
 
       // Redraw plots.
-      this.chartCanvasNode.update();
+      sumChartCanvasNode.update();
     } );
 
     // Update the waveform envelope.
     waveformEnvelopeDataSetProperty.link( dataSet => {
       waveformEnvelopePlot.setDataSet( dataSet );
-      chartCanvasNode.update();
+      waveformEnvelopeChartCanvasNode.update();
     } );
   }
 

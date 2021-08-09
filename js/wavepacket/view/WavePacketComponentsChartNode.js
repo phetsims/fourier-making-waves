@@ -8,6 +8,9 @@
 
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
+import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -150,6 +153,11 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
         this.yTickMarks.setSpacing( maxAmplitude );
         this.yTickLabels.setSpacing( maxAmplitude );
 
+        // Clip to the range [-maxAmplitude,maxAmplitude], to trim rendering anomalies that occur when zoomed out.
+        // See https://github.com/phetsims/fourier-making-waves/issues/121
+        chartCanvasNode.clipArea =
+          WavePacketComponentsChartNode.computeClipArea( maxAmplitude, this.chartTransform, this.chartRectangle );
+
         // Redraw the plots.
         chartCanvasNode.update();
       }
@@ -163,6 +171,33 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+
+  /**
+   * Computes the clipArea that will trim any data that is outside the y-axis range [-maxAmplitude,maxAmplitude].
+   * This is used to trim anomalies that occur when the x-axis is zoomed way out.
+   * See https://github.com/phetsims/fourier-making-waves/issues/121
+   * @param {number} maxAmplitude
+   * @param {ChartTransform} chartTransform
+   * @param {ChartRectangle} chartRectangle
+   * @returns {Shape}
+   * @public
+   * @static
+   */
+  static computeClipArea( maxAmplitude, chartTransform, chartRectangle ) {
+
+    assert && assert( typeof maxAmplitude === 'number' && maxAmplitude > 0 );
+    assert && assert( chartTransform instanceof ChartTransform );
+    assert && assert( chartRectangle instanceof ChartRectangle );
+
+    const chartRectangleBounds = chartRectangle.bounds;
+    const x1 = chartRectangleBounds.left;
+    const x2 = chartRectangleBounds.right;
+    const rangeHeight = chartTransform.modelToViewY( -maxAmplitude ) - chartTransform.modelToViewY( maxAmplitude );
+    const yTrim = ( chartRectangleBounds.height - rangeHeight ) / 2;
+    const y1 = chartRectangleBounds.top + yTrim;
+    const y2 = chartRectangleBounds.bottom - yTrim;
+    return Shape.bounds( new Bounds2( x1, y1, x2, y2 ) );
   }
 }
 
