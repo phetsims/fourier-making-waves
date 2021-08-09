@@ -12,10 +12,10 @@ import fourierMakingWaves from '../fourierMakingWaves.js';
 
 const SCHEMA = {
 
-  // The score (number of points) required to see the reward in the Wave Game screen
+  // The score (number of points) required to see the reward in the Wave Game screen.
+  // For internal use only, not public facing.
   rewardScore: {
     type: 'number',
-    public: true,
     defaultValue: 10,
     isValidValue: value => ( value > 0 ) && Number.isInteger( value )
   },
@@ -28,11 +28,6 @@ const SCHEMA = {
 const FMWQueryParameters = QueryStringMachine.getAll( SCHEMA );
 
 fourierMakingWaves.register( 'FMWQueryParameters', FMWQueryParameters );
-
-// Apply shortcut
-if ( FMWQueryParameters.ai ) {
-  phet.chipper.queryParameters.supportsInteractiveDescription = true;
-}
 
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );
