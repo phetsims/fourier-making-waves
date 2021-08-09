@@ -52,7 +52,7 @@ class WavePacketAmplitudesChart {
     } );
 
     // @public {DerivedProperty.<Vector2[]>} data set for a finite number of Fourier components, [] if the number 
-    // of components is infinite. x = wave number, y = amplitude. Points are ordered by increasing wave number.
+    // of components is infinite. x = wave number, y = amplitude. Points are ordered by increasing x value.
     this.amplitudesDataSetProperty = new DerivedProperty(
       [ wavePacket.componentsProperty ],
       components => {
@@ -80,7 +80,7 @@ class WavePacketAmplitudesChart {
       } );
 
     // @public {DerivedProperty.<Vector2>} width that is displayed by the width indicator
-    // This is identical to the wave packet's width, but we are deriving a Property name widthIndicatorWidthProperty
+    // This is identical to the wave packet's width, but we are deriving a Property named widthIndicatorWidthProperty
     // so that all charts have a similar API for width indicators.
     this.widthIndicatorWidthProperty = new DerivedProperty( [ wavePacket.widthProperty ], width => width );
 
@@ -90,8 +90,7 @@ class WavePacketAmplitudesChart {
       [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
       ( componentSpacing, center, standardDeviation ) => {
         const x = center;
-        const waveNumber = center + standardDeviation;
-        let y = wavePacket.getComponentAmplitude( waveNumber );
+        let y = wavePacket.getComponentAmplitude( center + standardDeviation );
         if ( componentSpacing !== 0 ) {
           y = componentSpacing * y;
         }
