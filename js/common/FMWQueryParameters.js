@@ -2,7 +2,7 @@
 
 /**
  * FMWQueryParameters defines query parameters that are specific to this simulation.
- * Run with ?log to print these query parameters and their values to the browser console at startup.
+ * Run with ?log to print these all query parameters and their values to the browser console at startup.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
