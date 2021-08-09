@@ -7,6 +7,7 @@ Use yAxisDescriptionProperty in WavePacketAmplitudesChartNode?
 Fold WaveformChartNode into FMWChartNode, rename WaveformChart to FMWChart?
 Can SumChart be used by WavePacketSumChart?
 Factor out XZoomHandler and YZoomHandler, use composition to add zoom feature to charts?
+Add a sim-specific "slow assertion" query parameter
 
 ## Discrete screen
 

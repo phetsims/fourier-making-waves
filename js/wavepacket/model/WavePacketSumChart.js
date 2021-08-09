@@ -75,37 +75,16 @@ class WavePacketSumChart extends WaveformChart {
     const finiteSumDataSetProperty = new DerivedProperty(
       [ componentDataSetsProperty ],
       componentDataSets => {
-        let sumDataSet = EMPTY_DATA_SET;
+        let dataSet = EMPTY_DATA_SET;
         if ( componentDataSets.length > 0 ) {
-
-          // Finite number of components
-          const pointsPerDataSet = componentDataSets[ 0 ].length;
-          assert && assert( pointsPerDataSet > 0 );
-
-          sumDataSet = [];
-          if ( pointsPerDataSet > 0 ) {
-            assert && assert( _.every( componentDataSets, dataSet => dataSet.length === pointsPerDataSet ),
-              `All data sets much have ${pointsPerDataSet} points.` );
-
-            for ( let i = 0; i < pointsPerDataSet; i++ ) {
-              let sum = 0;
-              const x = componentDataSets[ 0 ][ i ].x;
-              for ( let j = 0; j < componentDataSets.length; j++ ) {
-                assert && assert( componentDataSets[ j ][ i ].x === x,
-                  'all points with the same index must have the same x coordinate' );
-                sum += componentDataSets[ j ][ i ].y;
-              }
-              sumDataSet.push( new Vector2( x, sum ) );
-            }
-          }
+          dataSet = sumDataSets( componentDataSets );
         }
-        return sumDataSet;
+        return dataSet;
       } );
 
     // {DerivedProperty.<Array.<Vector2>>}
     // Data set for the sum of an infinite number of components, EMPTY_DATA_SET when the number of components is finite.
     // Points are ordered by increasing x value.
-    // This is based on the updateDataSet method in GaussianWavePacketPlot.java.
     const infiniteSumDataSetProperty = new DerivedProperty(
       [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.conjugateStandardDeviationProperty,
         seriesTypeProperty, xAxisDescriptionProperty ],
@@ -145,7 +124,6 @@ class WavePacketSumChart extends WaveformChart {
     // components, EMPTY_DATA_SET when the number of components is finite or the envelope is not visible.
     // This is computed using 2 wave packet waveforms - one for sine, one for cosine - then combining y values.
     // Points are ordered by increasing x value.
-    // This is based on the updateEnvelope method in D2CSumView.js.
     const infiniteWaveformEnvelopeDataSetProperty = new DerivedProperty(
       [ this.waveformEnvelopeVisibleProperty, wavePacket.componentSpacingProperty, wavePacket.centerProperty,
         wavePacket.conjugateStandardDeviationProperty, seriesTypeProperty, xAxisDescriptionProperty ],
@@ -153,26 +131,13 @@ class WavePacketSumChart extends WaveformChart {
         let dataSet = EMPTY_DATA_SET;
         if ( waveformEnvelopeVisible && componentSpacing === 0 ) {
 
-          // Compute the same wave packet, using sin and cos.
+          // Compute data sets for the same wave packet, using sin and cos.
           const sinDataSet = createWavePacketDataSet( center, conjugateStandardDeviation, SeriesType.SINE, xAxisDescription.range );
           const cosDataSet = createWavePacketDataSet( center, conjugateStandardDeviation, SeriesType.COSINE, xAxisDescription.range );
           assert && assert( sinDataSet.length === cosDataSet.length );
 
-          // Combine the 2 wave packets.
-          dataSet = [];
-          for ( let i = 0; i < sinDataSet.length; i++ ) {
-
-            // x
-            const x = sinDataSet[ i ].x;
-            assert && assert( x === cosDataSet[ i ].x );
-
-            // y = sqrt( ySin^2 + yCos^2 )
-            const ySin = sinDataSet[ i ].y;
-            const yCos = cosDataSet[ i ].y;
-            const y = Math.sqrt( ( ySin * ySin ) + ( yCos * yCos ) );
-
-            dataSet.push( new Vector2( x, y ) );
-          }
+          // Combine the 2 data sets to create the envelope.
+          dataSet = createEnvelopeDataSet( sinDataSet, cosDataSet );
         }
         return dataSet;
       } );
@@ -219,7 +184,37 @@ class WavePacketSumChart extends WaveformChart {
 }
 
 /**
+ * Create a new data set by summing the y components of data sets. The client is responsible for providing data sets
+ * that have the same number of points, and points with the same index must have the same x value.
+ * @param {Vector2[][]} dataSets
+ * @returns {Vector2[]}
+ */
+function sumDataSets( dataSets ) {
+  assert && assert( Array.isArray( dataSets ) );
+  assert && assert( dataSets.length > 0 );
+  assert && assert( _.every( dataSets, dataSet => Array.isArray( dataSet ) ) );
+
+  const pointsPerDataSet = dataSets[ 0 ].length;
+  assert && assert( pointsPerDataSet > 0, 'Data sets must contain points.' );
+  assert && assert( _.every( dataSets, dataSet => dataSet.length === pointsPerDataSet ),
+    'All data sets much have the same number of points.' );
+
+  const dataSet = [];
+  for ( let i = 0; i < pointsPerDataSet; i++ ) {
+    let sum = 0;
+    const x = dataSets[ 0 ][ i ].x;
+    for ( let j = 0; j < dataSets.length; j++ ) {
+      assert && assert( dataSets[ j ][ i ].x === x, 'Points with the same index must have the same x value.' );
+      sum += dataSets[ j ][ i ].y;
+    }
+    dataSet.push( new Vector2( x, sum ) );
+  }
+  return dataSet;
+}
+
+/**
  * Creates a data set for a wave packet approximated using an infinite number of Fourier components.
+ * This is based on the updateDataSet method in GaussianWavePacketPlot.java.
  * @param center - the wave packet's center
  * @param conjugateStandardDeviation - the wave packet's conjugate standard deviation, a measure of width
  * @param xRange - range of the Sum chart's x axis
@@ -244,6 +239,36 @@ function createWavePacketDataSet( center, conjugateStandardDeviation, seriesType
     // y = F(x) = exp( -(x^2) / (2 * (dx^2)) ) * sin(k0*x)
     const sinCosTerm = ( seriesType === SeriesType.SINE ) ? Math.sin( center * x ) : Math.cos( center * x );
     const y = Math.exp( -( x * x ) / ( 2 * ( conjugateStandardDeviation * conjugateStandardDeviation ) ) ) * sinCosTerm;
+
+    dataSet.push( new Vector2( x, y ) );
+  }
+  return dataSet;
+}
+
+/**
+ * Creates the data set for the waveform envelope. The client is responsible for providing 2 data sets that describe
+ * the same wave packet - one computed using sine, the other computed using cosine. The y values of those 2 data sets
+ * are then combined to create the envelope. This is based on the updateEnvelope method in D2CSumView.js.
+ * @param {Vector2[]} dataSet1
+ * @param {Vector2[]} dataSet2
+ * @returns {Vector2[]}
+ */
+function createEnvelopeDataSet( dataSet1, dataSet2 ) {
+  assert && assert( Array.isArray( dataSet1 ) && dataSet1.length > 0 );
+  assert && assert( Array.isArray( dataSet2 ) && dataSet2.length > 0 );
+  assert && assert( dataSet1.length === dataSet2.length );
+
+  const dataSet = [];
+  for ( let i = 0; i < dataSet1.length; i++ ) {
+
+    // x
+    const x = dataSet1[ i ].x;
+    assert && assert( x === dataSet2[ i ].x, 'points with the same index must have the same x value' );
+
+    // y = sqrt( y1^2 + yCos^2 )
+    const y1 = dataSet1[ i ].y;
+    const y2 = dataSet2[ i ].y;
+    const y = Math.sqrt( ( y1 * y1 ) + ( y2 * y2 ) );
 
     dataSet.push( new Vector2( x, y ) );
   }
