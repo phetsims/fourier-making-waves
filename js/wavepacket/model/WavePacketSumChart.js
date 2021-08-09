@@ -267,7 +267,7 @@ function createWavePacketDataSet( center, conjugateStandardDeviation, seriesType
 /**
  * Creates the data set for the waveform envelope. The provided data sets must describe the same wave packet -
  * one computed using sine, the other computed using cosine. They must have the same number of points,
- * and and points with the same index must have the same x value.
+ * and points with the same index must have the same x value.
  * This is based on the updateEnvelope method in D2CSumView.js.
  * @param {Vector2[]} dataSet1
  * @param {Vector2[]} dataSet2
