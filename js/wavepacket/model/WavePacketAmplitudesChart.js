@@ -66,17 +66,17 @@ class WavePacketAmplitudesChart {
       () => createContinuousWaveformDataSet( wavePacket )
     );
 
+    // @public {DerivedProperty.<number>} the maximum y value, used to scale the chart's y axis.
     this.maxYProperty = new DerivedProperty(
       [ this.continuousWaveformVisibleProperty, this.amplitudesDataSetProperty, this.continuousWaveformDataSetProperty ],
       ( continuousWaveformVisible, amplitudesDataSet, continuousWaveformDataSet ) => {
-        let dataSet;
-        if ( continuousWaveformVisible || amplitudesDataSet.length === 0 ) {
-          dataSet = continuousWaveformDataSet;
-        }
-        else {
-          dataSet = amplitudesDataSet;
-        }
-        return Math.max( 1e-3, _.maxBy( dataSet, point => point.y ).y );
+
+        // Choose the data set that determines the maxY.
+        const dataSet = ( continuousWaveformVisible || amplitudesDataSet.length === 0 ) ?
+                        continuousWaveformDataSet : amplitudesDataSet;
+
+        // Find maxY in that data set. Use a small value to ensure that it's non-zero.
+        return Math.max( 1e-6, _.maxBy( dataSet, point => point.y ).y );
       } );
 
     // @public {DerivedProperty.<Vector2>} width that is displayed by the width indicator
