@@ -144,7 +144,7 @@ class WaveGameLevelNode extends Node {
       visible: phet.chipper.queryParameters.showAnswers
     } );
 
-    // All of the Amplitudes elements whose visibility can be controlled.
+    // All of the Amplitudes elements whose visibility should change together.
     const amplitudesParentNode = new Node( {
       visibleProperty: level.amplitudesChart.chartVisibleProperty,
       children: [ amplitudesChartNode, eraserButton, answersNode ]
@@ -165,6 +165,12 @@ class WaveGameLevelNode extends Node {
       tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
     } );
 
+    // All of the Harmonics elements whose visibility should change together.
+    const harmonicsParentNode = new Node( {
+      visibleProperty: level.harmonicsChart.chartVisibleProperty,
+      children: [ harmonicsTitleNode, harmonicsChartNode ]
+    } );
+
     // Sum chart -------------------------------------------------------------------
 
     // Parent tandem for all components related to the Sum chart
@@ -178,6 +184,12 @@ class WaveGameLevelNode extends Node {
 
     const sumChartNode = new WaveGameSumChartNode( level.sumChart, {
       tandem: sumTandem.createTandem( 'sumChartNode' )
+    } );
+
+    // All of the Sum elements whose visibility should change together.
+    const sumParentNode = new Node( {
+      visibleProperty: level.sumChart.chartVisibleProperty,
+      children: [ sumTitleNode, sumChartNode ]
     } );
 
     // Control to the right of the charts -------------------------------------------------------------------
@@ -328,10 +340,8 @@ class WaveGameLevelNode extends Node {
     options.children = [
       statusBar,
       amplitudesParentNode,
-      harmonicsTitleNode,
-      harmonicsChartNode,
-      sumTitleNode,
-      sumChartNode,
+      harmonicsParentNode,
+      sumParentNode,
       amplitudeControlsSpinner,
       buttonsBox,
       smileyFaceNode,

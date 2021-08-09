@@ -112,7 +112,7 @@ class DiscreteScreenView extends ScreenView {
       enabledProperty: eraserButtonEnabledProperty
     } );
 
-    // All of the Amplitudes elements whose visibility can be controlled.
+    // All of the Amplitudes elements whose visibility should change together.
     const amplitudesParentNode = new Node( {
       visibleProperty: model.amplitudesChart.chartVisibleProperty,
       children: [ amplitudesChartNode, eraserButton ]
@@ -142,7 +142,7 @@ class DiscreteScreenView extends ScreenView {
         visiblePropertyOptions: { phetioReadOnly: true }
       } );
 
-    // All of the Harmonics elements whose visibility need to be controlled.
+    // All of the Harmonics elements whose visibility should change together.
     const harmonicsParentNode = new Node( {
       visibleProperty: model.harmonicsChart.chartVisibleProperty,
       children: [ harmonicsChartNode, harmonicsEquationNode ]
@@ -192,7 +192,7 @@ class DiscreteScreenView extends ScreenView {
       children: [ sumEquationNode, expandedFormButton ]
     } );
 
-    // All of the Sum elements whose visibility need to be controlled.
+    // All of the Sum elements whose visibility should change together.
     const sumParentNode = new Node( {
       visibleProperty: model.sumChart.chartVisibleProperty,
       children: [ sumChartNode, sumEquationParentNode ]

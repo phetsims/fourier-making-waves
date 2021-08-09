@@ -89,7 +89,7 @@ class WavePacketScreenView extends ScreenView {
         tandem: amplitudesTandem.createTandem( 'continuousWaveformCheckbox' )
       } );
 
-    // All of the Amplitudes elements whose visibility need to be controlled.
+    // All of the Amplitudes elements whose visibility should change together.
     const amplitudesParentNode = new Node( {
       visibleProperty: model.amplitudesChart.chartVisibleProperty,
       children: [ amplitudesChartNode, amplitudeEquationNode, continuousWaveformCheckbox ]
@@ -117,7 +117,7 @@ class WavePacketScreenView extends ScreenView {
       tandem: componentsTandem.createTandem( 'componentsEquationNode' )
     } );
 
-    // All of the Components elements whose visibility need to be controlled.
+    // All of the Components elements whose visibility should change together.
     const componentsParentNode = new Node( {
       visibleProperty: model.componentsChart.chartVisibleProperty,
       children: [ componentsChartNode, componentsEquationNode ]
@@ -151,7 +151,7 @@ class WavePacketScreenView extends ScreenView {
       tandem: sumTandem.createTandem( 'waveformEnvelopeCheckbox' )
     } );
 
-    // All of the Sum elements whose visibility need to be controlled.
+    // All of the Sum elements whose visibility should change together.
     const sumParentNode = new Node( {
       visibleProperty: model.sumChart.chartVisibleProperty,
       children: [ sumChartNode, sumEquationNode, waveformEnvelopeCheckbox ]
