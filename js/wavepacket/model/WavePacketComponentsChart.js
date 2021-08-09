@@ -83,6 +83,9 @@ class WavePacketComponentsChart extends WaveformChart {
         }
         return dataSets;
       } );
+
+    // NOTE: This chart does not have a maxAmplitudeProperty because its more efficient for the view to determine
+    // the maximum amplitude while iterating over componentDataSetsProperty.
   }
 
   /**
