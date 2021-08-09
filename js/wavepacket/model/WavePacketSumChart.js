@@ -115,7 +115,7 @@ class WavePacketSumChart extends WaveformChart {
       ( waveformEnvelopeVisible, componentsDataSet ) => {
         let dataSet = EMPTY_DATA_SET;
         if ( waveformEnvelopeVisible && componentsDataSet.length > 0 ) {
-          dataSet = [ new Vector2( -1, 0 ), new Vector2( 1, 0 ) ]; //TODO dummy data
+          dataSet = [ new Vector2( -2, -2 ), new Vector2( 2, 2 ) ]; //TODO dummy data
         }
         return dataSet;
       } );
@@ -150,6 +150,25 @@ class WavePacketSumChart extends WaveformChart {
       ( finiteDataSet, infiniteDataSet ) =>
         ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet
     );
+
+    // @public {DerivedProperty.<number>} the maximum amplitude, used to scale the chart's y axis.
+    // If we're in a transition between finite and infinite components, there can be an intermediate state
+    // where both data sets are empty. In that case, maxAmplitudeProperty is zero.
+    this.maxAmplitudeProperty = new DerivedProperty(
+      [ this.waveformEnvelopeVisibleProperty, this.waveformEnvelopeDataSetProperty, this.sumDataSetProperty ],
+      ( waveformEnvelopeVisible, waveformEnvelopeDataSet, sumDataSet ) => {
+
+        // Choose the data set that determines the maximum amplitude.
+        const dataSet = waveformEnvelopeVisible ? waveformEnvelopeDataSet : sumDataSet;
+
+        // Find the maximum amplitude in that data set. Use a small value to ensure that it's non-zero.
+        let maxAmplitude = 0;
+        if ( dataSet.length > 0 ) {
+          maxAmplitude = Math.max( 1e-6, _.maxBy( dataSet, point => point.y ).y );
+        }
+        return maxAmplitude;
+      } );
+
 
     // @public {Vector2} width displayed by the width indicator
     // This is loosely based on the getModelWidth method in WavePacketXWidthPlot.java.

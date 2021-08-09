@@ -40,6 +40,7 @@ class WavePacketSumChartNode extends WaveformChartNode {
     const widthIndicatorPositionProperty = sumChart.widthIndicatorPositionProperty;
     const widthIndicatorsVisibleProperty = sumChart.widthIndicatorsVisibleProperty;
     const sumDataSetProperty = sumChart.sumDataSetProperty;
+    const maxAmplitudeProperty = sumChart.maxAmplitudeProperty;
     const waveformEnvelopeDataSetProperty = sumChart.waveformEnvelopeDataSetProperty;
 
     options = merge( {
@@ -96,23 +97,15 @@ class WavePacketSumChartNode extends WaveformChartNode {
 
     // Update the sum data set.
     sumDataSetProperty.link( dataSet => {
-
-      // Update the plot's data set.
       sumPlot.setDataSet( dataSet );
-
-      if ( dataSet.length > 0 ) {
-
-        // Scale the y axis.
-        const maxAmplitude = _.maxBy( dataSet, point => point.y ).y;
-        this.scaleYAxis( maxAmplitude );
-
-        // Clip to the range [-maxAmplitude,maxAmplitude], to trim rendering anomalies that occur when zoomed out.
-        // See https://github.com/phetsims/fourier-making-waves/issues/121
-        sumChartCanvasNode.clipArea = this.computeClipAreaForAmplitudeRange( -maxAmplitude, maxAmplitude );
-      }
-
-      // Redraw plots.
       sumChartCanvasNode.update();
+    } );
+
+    // Scale the y axis.
+    maxAmplitudeProperty.link( maxAmplitude => {
+      if ( maxAmplitude > 0 ) {
+        this.scaleYAxis( maxAmplitude );
+      }
     } );
 
     // Update the waveform envelope.
