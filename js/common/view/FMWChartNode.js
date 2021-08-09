@@ -224,10 +224,15 @@ class FMWChartNode extends Node {
    * Scales the y-axis to fit a given maximum amplitude, with a bit of padding above/below.
    * See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
    * @param {number} maxAmplitude
+   * @param {number} paddingFactor
    * @public
    */
-  scaleYAxis( maxAmplitude ) {
-    const maxY = 1.1 * maxAmplitude; // add a bit of padding
+  scaleYAxis( maxAmplitude, paddingFactor = 1.1 ) {
+
+    assert && assert( typeof maxAmplitude === 'number' && maxAmplitude > 0 );
+    assert && assert( typeof paddingFactor === 'number' && paddingFactor >= 1 );
+
+    const maxY = maxAmplitude * paddingFactor;
     this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
     this.yGridLines.setSpacing( maxAmplitude );
     this.yTickMarks.setSpacing( maxAmplitude );
