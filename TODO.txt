@@ -3,9 +3,12 @@ TODO.txt for fourier-making-waves
 ## Common
 
 AxisDescription and Properties of that type have been a constant pain. Get rid of it?
+
 WavePacketComponentsChart and WavePacketSumPlot do not use AxisDescription for y-axis, but yAxisDescriptionProperty
   is required by their superclass WaveformChart.
+
 Fold WaveformChartNode into FMWChartNode, rename WaveformChart to FMWChart?
+
 Factor out XZoomHandler and YZoomHandler, use composition to add zoom feature to charts?
 
 ## Discrete screen
