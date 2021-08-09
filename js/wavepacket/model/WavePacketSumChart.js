@@ -203,8 +203,8 @@ class WavePacketSumChart extends WaveformChart {
 }
 
 /**
- * Create a new data set by summing the y components of data sets. The client is responsible for providing data sets
- * that have the same number of points, and points with the same index must have the same x value.
+ * Create a new data set by summing the y components of data sets. The provided data sets must have the same number
+ * of points, and points with the same index must have the same x value.
  * @param {Vector2[][]} dataSets
  * @returns {Vector2[]}
  */
@@ -265,9 +265,10 @@ function createWavePacketDataSet( center, conjugateStandardDeviation, seriesType
 }
 
 /**
- * Creates the data set for the waveform envelope. The client is responsible for providing 2 data sets that describe
- * the same wave packet - one computed using sine, the other computed using cosine. The y values of those 2 data sets
- * are then combined to create the envelope. This is based on the updateEnvelope method in D2CSumView.js.
+ * Creates the data set for the waveform envelope. The provided data sets must describe the same wave packet -
+ * one computed using sine, the other computed using cosine. They must have the same number of points,
+ * and and points with the same index must have the same x value.
+ * This is based on the updateEnvelope method in D2CSumView.js.
  * @param {Vector2[]} dataSet1
  * @param {Vector2[]} dataSet2
  * @returns {Vector2[]}
