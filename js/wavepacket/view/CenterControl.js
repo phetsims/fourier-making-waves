@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * CenterControl controls the value the wave packet's center (k0 or omega0).
+ * CenterControl controls the wave packet's center (k0 or omega0).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
