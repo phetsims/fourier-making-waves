@@ -137,7 +137,6 @@ function createContinuousWaveformDataSet( wavePacket ) {
     dataSet.push( new Vector2( waveNumber, amplitude ) );
     waveNumber += step;
   }
-
   return dataSet;
 }
 
