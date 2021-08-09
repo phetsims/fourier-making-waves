@@ -7,7 +7,6 @@
  * lightweight due to the large number of components.
  *
  * A Fourier component was originally modeled as a Vector2, but this abstraction is better.
- * For PhET-iO, the implementation of FourierComponentIO is borrowed from Vector2IO.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -60,8 +59,9 @@ class FourierComponent {
   }
 }
 
+// FourierComponentIO is adapted from Vector2.Vector2IO.
 FourierComponent.FourierComponentIO = IOType.fromCoreType( 'FourierComponentIO', FourierComponent, {
-  documentation: 'Component of Fourier series',
+  documentation: 'Component of a Fourier series',
   stateSchema: {
     waveNumber: NumberIO,
     amplitude: NumberIO
