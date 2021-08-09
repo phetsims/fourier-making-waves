@@ -6,7 +6,9 @@
  * That implementation is overly-complicated for the Wave Packet screen, and we need something more
  * lightweight due to the large number of components.
  *
- * A Fourier component was originally modeled as a Vector2, but this abstraction is better.
+ * A Fourier component was originally modeled as a Vector2. But FourierComponent is more aligned with MVC pattern -
+ * we can refer to waveNumber and amplitude (model properties), instead of Vector2's x and y (view properties).
+ * This results in clearer code and PhET-iO API.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
