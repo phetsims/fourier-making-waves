@@ -30,7 +30,7 @@ const FMWConstants = {
   MAX_AMPLITUDE: 1.5,
 
   // Number of points in the data set for the highest order (highest frequency) harmonic
-  // This value was chosen empirically, such that the highest-order harmonic looks smooth a chart is fully zoomed out.
+  // This value was chosen empirically, such that the highest-order harmonic looks smooth at all zoom levels.
   // If you change this, visually examine the plots of the highest frequency harmonics in the Discrete screen and
   // the Wave Packet screen, and confirm that those plots look smooth - pay special attention to the peaks!
   MAX_POINTS_PER_DATA_SET: 1000,
