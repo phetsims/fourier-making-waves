@@ -15,7 +15,6 @@ Add a sim-specific "slow assertion" query parameter
 
 ## Wave Packet screen
 
-FEATURE: WavePacketSumChart.finiteWaveformEnvelopeDataSetProperty, see updateEnvelope in D2CSumView.js
 FEATURE: Wavelength/Period tools
 
 create CanvasBarPlot and CanvasAreaPlot, for use in WavePacketAmplitudesChartNode

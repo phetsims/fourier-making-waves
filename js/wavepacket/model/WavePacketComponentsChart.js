@@ -8,14 +8,17 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import Domain from '../../common/model/Domain.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import WaveformChart from '../../common/model/WaveformChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import FourierComponent from './FourierComponent.js';
 import WavePacket from './WavePacket.js';
 
 // We could use different numbers of points for different Fourier components, because lower-order components have a
@@ -61,25 +64,12 @@ class WavePacketComponentsChart extends WaveformChart {
     // Ordered by increasing order of Fourier component, i.e. the fundamental component has index=0.
     // This is loosely based on the update method in D2CComponentsView.java.
     this.componentDataSetsProperty = new DerivedProperty(
-      [ wavePacket.componentsProperty, seriesTypeProperty, xAxisDescriptionProperty ],
-      ( components, seriesType, xAxisDescription ) => {
-
-        const dataSets = []; // {Array.<Array.<Vector2>>}
-
+      [ wavePacket.componentsProperty, domainProperty, seriesTypeProperty, xAxisDescriptionProperty ],
+      ( components, domain, seriesType, xAxisDescription ) => {
+        let dataSets = [];
         if ( components.length > 0 ) {
-
-          const domain = domainProperty.value;
-          const range = xAxisDescription.range;
-          const L = 2 * Math.PI / wavePacket.componentSpacingProperty.value;
-          const T = L; // because the WavePacket model is independent of domain, and assumes that L === T
-          const t = 0; // there is no animation in this screen, so time is always 0
-
-          for ( let order = 1; order <= components.length; order++ ) {
-            const amplitude = components[ order - 1 ].amplitude;
-
-            //TODO createDataSetStatic uses pooling
-            dataSets.push( Harmonic.createDataSetStatic( order, amplitude, POINTS_PER_DATA_SET, L, T, range, domain, seriesType, t ) );
-          }
+          dataSets = WavePacketComponentsChart.createComponentsDataSets( components,
+            wavePacket.componentSpacingProperty.value, domain, seriesType, xAxisDescription.range );
         }
         return dataSets;
       } );
@@ -93,6 +83,40 @@ class WavePacketComponentsChart extends WaveformChart {
    */
   reset() {
     this.chartVisibleProperty.reset();
+  }
+
+  /**
+   * Creates data sets for the waveforms that correspond to a set of Fourier components.
+   * @param {FourierComponent[]} components
+   * @param {number} componentSpacing
+   * @param {Domain} domain
+   * @param {SeriesType} seriesType
+   * @param {Range} xRange
+   * @returns {Array.<Array.<Vector2>}
+   * @public
+   * @static
+   */
+  static createComponentsDataSets( components, componentSpacing, domain, seriesType, xRange ) {
+
+    assert && AssertUtils.assertArrayOf( components, FourierComponent );
+    assert && assert( components.length > 0 );
+    assert && AssertUtils.assertNonNegativeNumber( componentSpacing );
+    assert && assert( Domain.includes( domain ) );
+    assert && assert( SeriesType.includes( seriesType ) );
+    assert && assert( xRange instanceof Range );
+
+    const dataSets = []; // {Array.<Array.<Vector2>>}
+    const L = 2 * Math.PI / componentSpacing;
+    const T = L; // because the WavePacket model is independent of domain, and assumes that L === T
+    const t = 0; // there is no animation in this screen, so time is always 0
+
+    for ( let order = 1; order <= components.length; order++ ) {
+      const amplitude = components[ order - 1 ].amplitude;
+
+      //TODO createDataSetStatic uses pooling
+      dataSets.push( Harmonic.createDataSetStatic( order, amplitude, POINTS_PER_DATA_SET, L, T, xRange, domain, seriesType, t ) );
+    }
+    return dataSets;
   }
 }
 

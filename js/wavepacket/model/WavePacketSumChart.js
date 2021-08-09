@@ -19,6 +19,7 @@ import SeriesType from '../../common/model/SeriesType.js';
 import WaveformChart from '../../common/model/WaveformChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
+import WavePacketComponentsChart from './WavePacketComponentsChart.js';
 
 // An empty data set, used so that we can rely on value comparison in Property, and not trigger notifications when
 // the value changes from one [] to another [].  This is a performance optimization.
@@ -77,7 +78,7 @@ class WavePacketSumChart extends WaveformChart {
       componentDataSets => {
         let dataSet = EMPTY_DATA_SET;
         if ( componentDataSets.length > 0 ) {
-          dataSet = sumDataSets( componentDataSets );
+          dataSet = createSumDataSet( componentDataSets );
         }
         return dataSet;
       } );
@@ -111,11 +112,23 @@ class WavePacketSumChart extends WaveformChart {
     // then combining y values. Points are ordered by increasing x value.
     // This is based on the updateEnvelope method in D2CSumView.js.
     const finiteWaveformEnvelopeDataSetProperty = new DerivedProperty(
-      [ this.waveformEnvelopeVisibleProperty, componentDataSetsProperty ],
-      ( waveformEnvelopeVisible, componentsDataSet ) => {
+      [ this.waveformEnvelopeVisibleProperty, finiteSumDataSetProperty ],
+      ( waveformEnvelopeVisible, finiteSumDataSet ) => {
         let dataSet = EMPTY_DATA_SET;
-        if ( waveformEnvelopeVisible && componentsDataSet.length > 0 ) {
-          dataSet = [ new Vector2( -2, -2 ), new Vector2( 2, 2 ) ]; //TODO dummy data
+        if ( waveformEnvelopeVisible && finiteSumDataSet.length > 0 ) {
+
+          // We'll be using finiteSumDataSet as one of the data sets. It was computed for either a SeriesType,
+          // either sine or cosine. Compute the other data set by creating component data sets using the other
+          // SeriesType, then summing those data sets.
+          const seriesType = ( seriesTypeProperty.value === SeriesType.SINE ) ? SeriesType.COSINE : SeriesType.SINE;
+          const otherComponentDataSets = WavePacketComponentsChart.createComponentsDataSets(
+            wavePacket.componentsProperty.value, wavePacket.componentSpacingProperty.value, domainProperty.value,
+            seriesType, xAxisDescriptionProperty.value.range
+          );
+          const otherSumDataSet = createSumDataSet( otherComponentDataSets );
+
+          // Combine the 2 data sets to create the envelope.
+          dataSet = createEnvelopeDataSet( finiteSumDataSet, otherSumDataSet );
         }
         return dataSet;
       } );
@@ -207,7 +220,7 @@ class WavePacketSumChart extends WaveformChart {
  * @param {Vector2[][]} dataSets
  * @returns {Vector2[]}
  */
-function sumDataSets( dataSets ) {
+function createSumDataSet( dataSets ) {
   assert && assert( Array.isArray( dataSets ) );
   assert && assert( dataSets.length > 0 );
   assert && assert( _.every( dataSets, dataSet => Array.isArray( dataSet ) ) );
