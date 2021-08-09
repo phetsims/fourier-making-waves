@@ -6,7 +6,6 @@ AxisDescription and Properties of that type have been a constant pain. Get rid o
 Use yAxisDescriptionProperty in WavePacketAmplitudesChartNode?
 Fold WaveformChartNode into FMWChartNode, rename WaveformChart to FMWChart?
 Can SumChart be used by WavePacketSumChart?
-Move visibleProperty for charts into view?
 Factor out XZoomHandler and YZoomHandler, use composition to add zoom feature to charts?
 
 ## Discrete screen
