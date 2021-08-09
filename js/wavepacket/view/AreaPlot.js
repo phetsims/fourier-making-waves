@@ -1,6 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO is this general enough to move to bamboo?
+//TODO is this general enough to move to bamboo? if not, rename to something like WavePacketAreaPlot
 //TODO convert to CanvasAreaPlot, ala CanvasLinePlot. To fill with a linear gradient:
 //   const gradient = context.createLinearGradient( x1, y1, x2, y2 );
 //   gradient.addColorStop( 0, ... );
