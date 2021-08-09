@@ -221,6 +221,20 @@ class FMWChartNode extends Node {
   }
 
   /**
+   * Scales the y-axis to fit a given maximum amplitude, with a bit of padding above/below.
+   * See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
+   * @param {number} maxAmplitude
+   * @public
+   */
+  scaleYAxis( maxAmplitude ) {
+    const maxY = 1.1 * maxAmplitude; // add a bit of padding
+    this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
+    this.yGridLines.setSpacing( maxAmplitude );
+    this.yTickMarks.setSpacing( maxAmplitude );
+    this.yTickLabels.setSpacing( maxAmplitude );
+  }
+
+  /**
    * Computes the clipArea that will trim any data that is outside of a given amplitude range.
    * This is used to trim anomalies that occur when the x-axis is zoomed way out.
    * See https://github.com/phetsims/fourier-making-waves/issues/121

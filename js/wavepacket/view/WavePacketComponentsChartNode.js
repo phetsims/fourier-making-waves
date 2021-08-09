@@ -8,7 +8,6 @@
 
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
-import Range from '../../../../dot/js/Range.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
@@ -142,13 +141,8 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
         // will wash out the chart, reducing the contrast.
         chartCanvasNode.painters.reverse();
 
-        // Autoscale the y axis.
-        // See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
-        const maxY = 1.1 * maxAmplitude; // add a bit of padding
-        this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
-        this.yGridLines.setSpacing( maxAmplitude );
-        this.yTickMarks.setSpacing( maxAmplitude );
-        this.yTickLabels.setSpacing( maxAmplitude );
+        // Scale the y axis.
+        this.scaleYAxis( maxAmplitude );
 
         // Clip to the range [-maxAmplitude,maxAmplitude], to trim rendering anomalies that occur when zoomed out.
         // See https://github.com/phetsims/fourier-making-waves/issues/121
