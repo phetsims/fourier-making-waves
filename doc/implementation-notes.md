@@ -85,6 +85,8 @@ AmplitudesChart
     ↳ DiscreteAmplitudesChart
     ↳ WaveGameAmplitudesChart
 
+WavePacketAmplitudesChart
+
 WaveformChart
     ↳ HarmonicsChart
         ↳ DiscreteHarmonicsChart
@@ -92,10 +94,6 @@ WaveformChart
     ↳ SumChart
         ↳ DiscreteSumChart
         ↳ WaveGameSumChart
-
-WavePacketAmplitudesChart
-
-WaveformChart
     ↳ WavePacketComponentsChart
     ↳ WavePacketSumChart
 ```
