@@ -101,7 +101,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     } );
 
     // Render the plots using Canvas.
-    // Remember! When any of the associated plots is updated, you must call chartCanvasNode.update().
+    // Remember! When any of the associated plots is updated, you must call update().
     const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [ continuousWaveformPlot ], {
       clipArea: Shape.bounds( this.chartRectangle.bounds )
     } );

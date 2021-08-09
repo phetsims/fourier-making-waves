@@ -8,7 +8,6 @@
 
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
-import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -53,11 +52,9 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
 
     super( componentsChart, options );
 
-    // Render the plots using Canvas, clipped to chartRectangle.
-    // Remember! When any of the associated plots is updated, you must call chartCanvasNode.update().
-    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [], {
-      clipArea: Shape.bounds( this.chartRectangle.bounds )
-    } );
+    // Render the plots using Canvas.
+    // Remember! When any of the associated plots is updated, you must call update().
+    const chartCanvasNode = new ChartCanvasNode( this.chartTransform, [] );
     this.addChild( chartCanvasNode );
 
     // Message shown when we have an infinite number of components.

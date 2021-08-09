@@ -90,7 +90,6 @@ class WavePacketSumChartNode extends WaveformChartNode {
 
     // Clip these elements to the chartRectangle bounds.
     const clipNode = new Node( {
-      clipArea: this.chartRectangle.getShape(),
       children: [ waveformEnvelopeChartCanvasNode, sumChartCanvasNode, widthIndicatorPlot ]
     } );
     this.addChild( clipNode );
