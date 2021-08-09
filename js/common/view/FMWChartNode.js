@@ -224,7 +224,7 @@ class FMWChartNode extends Node {
    * Scales the y-axis to fit a given maximum amplitude, with a bit of padding above/below.
    * See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
    * @param {number} maxAmplitude
-   * @param {number} paddingFactor
+   * @param {number} paddingFactor - multiplier for maxAmplitude to determine y-axis scale
    * @public
    */
   scaleYAxis( maxAmplitude, paddingFactor = 1.1 ) {
