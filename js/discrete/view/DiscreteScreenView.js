@@ -109,7 +109,8 @@ class DiscreteScreenView extends ScreenView {
         model.waveformProperty.value = Waveform.CUSTOM;
         model.fourierSeries.setAllAmplitudes( 0 );
       },
-      enabledProperty: eraserButtonEnabledProperty
+      enabledProperty: eraserButtonEnabledProperty,
+      tandem: amplitudesTandem.createTandem( 'eraserButton' )
     } );
 
     // All of the Amplitudes elements whose visibility should change together.

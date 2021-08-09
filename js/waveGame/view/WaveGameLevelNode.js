@@ -135,7 +135,8 @@ class WaveGameLevelNode extends Node {
         this.interruptSubtreeInput();
         level.eraseAmplitudes();
       },
-      enabledProperty: eraserButtonEnabledProperty
+      enabledProperty: eraserButtonEnabledProperty,
+      tandem: amplitudesTandem.createTandem( 'eraserButton' )
     } );
 
     // When the ?showAnswers query parameter is present, show the answer to the current challenge.
