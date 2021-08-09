@@ -169,7 +169,6 @@ class WavePacketSumChart extends WaveformChart {
         return maxAmplitude;
       } );
 
-
     // @public {Vector2} width displayed by the width indicator
     // This is loosely based on the getModelWidth method in WavePacketXWidthPlot.java.
     this.widthIndicatorWidthProperty = new DerivedProperty(
