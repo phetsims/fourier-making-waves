@@ -32,7 +32,7 @@ class FourierComponent {
   }
 
   //--------------------------------------------------------------------------------------------------------------------
-  // Below here are methods used by FourierComponent to serialize PhET-iO state.
+  // Below here are methods used by FourierComponentIO to serialize PhET-iO state.
   //--------------------------------------------------------------------------------------------------------------------
 
   /**
