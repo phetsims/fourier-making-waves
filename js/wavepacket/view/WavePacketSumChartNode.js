@@ -18,7 +18,6 @@ import WaveformChartNode from '../../common/view/WaveformChartNode.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketSumChart from '../model/WavePacketSumChart.js';
-import WavePacketComponentsChartNode from './WavePacketComponentsChartNode.js';
 import WidthIndicatorPlot from './WidthIndicatorPlot.js';
 
 // constants
@@ -116,8 +115,7 @@ class WavePacketSumChartNode extends WaveformChartNode {
 
         // Clip to the range [-maxAmplitude,maxAmplitude], to trim rendering anomalies that occur when zoomed out.
         // See https://github.com/phetsims/fourier-making-waves/issues/121
-        sumChartCanvasNode.clipArea =
-          WavePacketComponentsChartNode.computeClipArea( maxAmplitude, this.chartTransform, this.chartRectangle );
+        sumChartCanvasNode.clipArea = this.computeClipAreaForAmplitudeRange( -maxAmplitude, maxAmplitude );
       }
 
       // Redraw plots.

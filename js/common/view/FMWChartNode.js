@@ -18,7 +18,9 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import LabelSet from '../../../../bamboo/js/LabelSet.js';
 import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
+import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
@@ -216,6 +218,31 @@ class FMWChartNode extends Node {
     // @public fields the are part of the public API
     this.chartTransform = chartTransform;
     this.chartRectangle = chartRectangle;
+  }
+
+  /**
+   * Computes the clipArea that will trim any data that is outside of a given amplitude range.
+   * This is used to trim anomalies that occur when the x-axis is zoomed way out.
+   * See https://github.com/phetsims/fourier-making-waves/issues/121
+   * @param {number} minAmplitude
+   * @param {number} maxAmplitude
+   * @returns {Shape}
+   * @public
+   */
+  computeClipAreaForAmplitudeRange( minAmplitude, maxAmplitude ) {
+
+    assert && assert( typeof minAmplitude === 'number' );
+    assert && assert( typeof maxAmplitude === 'number' );
+    assert && assert( minAmplitude < maxAmplitude );
+
+    const chartRectangleBounds = this.chartRectangle.bounds;
+    const x1 = chartRectangleBounds.left;
+    const x2 = chartRectangleBounds.right;
+    const rangeHeight = this.chartTransform.modelToViewY( minAmplitude ) - this.chartTransform.modelToViewY( maxAmplitude );
+    const yTrim = ( chartRectangleBounds.height - rangeHeight ) / 2;
+    const y1 = chartRectangleBounds.top + yTrim;
+    const y2 = chartRectangleBounds.bottom - yTrim;
+    return Shape.bounds( new Bounds2( x1, y1, x2, y2 ) );
   }
 }
 
