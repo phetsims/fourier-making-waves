@@ -82,42 +82,43 @@ The model class hierarchy is:
 
 ```
 AmplitudesChart
-  ↳ DiscreteAmplitudesChart
-  ↳ WaveGameAmplitudesChart
+    ↳ DiscreteAmplitudesChart
+    ↳ WaveGameAmplitudesChart
 
 WaveformChart
-  ↳ HarmonicsChart
-    ↳ DiscreteHarmonicsChart
-    ↳ WaveGameHarmonicsChart
-  ↳ SumChart
-    ↳ DiscreteSumChart
-    ↳ WaveGameSumChart
+    ↳ HarmonicsChart
+        ↳ DiscreteHarmonicsChart
+        ↳ WaveGameHarmonicsChart
+    ↳ SumChart
+        ↳ DiscreteSumChart
+        ↳ WaveGameSumChart
 
 WavePacketAmplitudesChart
+
 WaveformChart
-  ↳ WavePacketComponentsChart
-  ↳ WavePacketSumChart
+    ↳ WavePacketComponentsChart
+    ↳ WavePacketSumChart
 ```
 
 The view class hierarchy is:
 
 ```
 Node
-  ↳ AmplitudesChartNode
-    ↳ DiscreteAmplitudeChartsNode
-    ↳ WaveGameAmplitudesChartNode
-  ↳ FMWChartNode
-    ↳ WaveformChartNode
-      ↳ HarmonicsChartNode
-        ↳ DiscreteHarmonicsChartNode
-        ↳ WaveGameHarmonicsChartNode
-      ↳ SumChartNode
-        ↳ DiscreteSumChartNode
-        ↳ WaveGameSumChartNode
-    ↳ WavePacketAmplitudesChartNode
-    ↳ WaveformChartNode
-      ↳ WavePacketComponentsChartNode
-      ↳ WavePacketSumChartNode
+    ↳ AmplitudesChartNode
+        ↳ DiscreteAmplitudesChartNode
+        ↳ WaveGameAmplitudesChartNode
+    ↳ FMWChartNode
+        ↳ WaveformChartNode
+            ↳ HarmonicsChartNode
+                ↳ DiscreteHarmonicsChartNode
+                ↳ WaveGameHarmonicsChartNode
+            ↳ SumChartNode
+                ↳ DiscreteSumChartNode
+                ↳ WaveGameSumChartNode
+            ↳ WavePacketComponentsChartNode
+            ↳ WavePacketSumChartNode
+        ↳ WavePacketAmplitudesChartNode
+
 ```
 
 # PhET-iO
