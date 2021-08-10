@@ -53,7 +53,8 @@ class WavePacketMeasurementToolNode extends Node {
           fill: 'white'
         },
         richTextOptions: {
-          font: FMWConstants.TOOL_LABEL_FONT
+          font: FMWConstants.TOOL_LABEL_FONT,
+          maxWidth: 75
         }
       },
 
