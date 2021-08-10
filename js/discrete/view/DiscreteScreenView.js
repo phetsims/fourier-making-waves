@@ -114,17 +114,14 @@ class DiscreteScreenView extends ScreenView {
     );
 
     // Push button to reset all amplitudes to zero
-    const eraserButton = new EraserButton( {
-      scale: 0.85,
+    const eraserButton = new EraserButton( merge( {}, FMWConstants.ERASER_BUTTON_OPTIONS, {
       listener: () => {
         model.waveformProperty.value = Waveform.CUSTOM;
         model.fourierSeries.setAllAmplitudes( 0 );
       },
       enabledProperty: eraserButtonEnabledProperty,
-      touchAreaXDilation: 5,
-      touchAreaYDilation: 5,
       tandem: amplitudesTandem.createTandem( 'eraserButton' )
-    } );
+    } ) );
 
     // All of the Amplitudes elements whose visibility should change together.
     const amplitudesParentNode = new Node( {

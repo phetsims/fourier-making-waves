@@ -133,17 +133,14 @@ class WaveGameLevelNode extends Node {
     );
 
     // Eraser button sets all of the amplitudes in the guess to zero.
-    const eraserButton = new EraserButton( {
-      scale: 0.85,
+    const eraserButton = new EraserButton( merge( {}, FMWConstants.ERASER_BUTTON_OPTIONS, {
       listener: () => {
         this.interruptSubtreeInput();
         level.eraseAmplitudes();
       },
       enabledProperty: eraserButtonEnabledProperty,
-      touchAreaXDilation: 5,
-      touchAreaYDilation: 5,
       tandem: amplitudesTandem.createTandem( 'eraserButton' )
-    } );
+    } ) );
 
     // When the ?showAnswers query parameter is present, show the answer to the current challenge.
     // This Node has very low overhead. So it is added to the scenegraph in all cases so that it gets tested.

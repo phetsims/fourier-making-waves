@@ -73,6 +73,12 @@ const FMWConstants = {
     spacing: 18
   },
 
+  ERASER_BUTTON_OPTIONS: {
+    scale: 0.85,
+    touchAreaXDilation: 5,
+    touchAreaYDilation: 5
+  },
+
   // options for NumberControls in the Wave Packet screen
   WAVE_PACKET_NUMBER_CONTROL_OPTIONS: {
 
