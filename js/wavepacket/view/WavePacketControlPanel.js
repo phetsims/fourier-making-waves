@@ -274,8 +274,6 @@ class WavePacketWidthSubpanel extends VBox {
       tandem: options.tandem.createTandem( 'wavePacketWidthText' )
     } );
 
-    //TODO only update standardDeviationProperty when a slider is released, will require an adapter Property
-
     const standardDeviationControl = new StandardDeviationControl( domainProperty, standardDeviationProperty, {
       tandem: options.tandem.createTandem( 'standardDeviationControl' )
     } );
