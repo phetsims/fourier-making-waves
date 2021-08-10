@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
+import Property from '../../../../axon/js/Property.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -19,6 +20,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
 import ComponentsEquationNode from './ComponentsEquationNode.js';
+import ComponentSpacingToolNode from './ComponentSpacingToolNode.js';
 import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
 import WaveformEnvelopeCheckbox from './WaveformEnvelopeCheckbox.js';
 import WavePacketAmplitudesChartNode from './WavePacketAmplitudesChartNode.js';
@@ -157,6 +159,15 @@ class WavePacketScreenView extends ScreenView {
       children: [ sumChartNode, sumEquationNode, waveformEnvelopeCheckbox ]
     } );
 
+    // Measurement Tools -------------------------------------------------------------------
+
+    // Drag bounds will be adjusted later, to constrain to specific charts.
+    const componentSpacingToolDragBoundsProperty = new Property( this.layoutBounds );
+
+    // Measures component spacing (k1 or omega1)
+    const componentSpacingToolNode = new ComponentSpacingToolNode( model.wavePacket.componentSpacingProperty,
+      amplitudesChartNode.chartTransform, model.domainProperty, componentSpacingToolDragBoundsProperty );
+
     // Other UI elements -------------------------------------------------------------------
 
     const controlPanel = new WavePacketControlPanel( model, popupParent, {
@@ -198,6 +209,10 @@ class WavePacketScreenView extends ScreenView {
     waveformEnvelopeCheckbox.right = sumChartRectangleLocalBounds.right - 5;
     waveformEnvelopeCheckbox.top = sumChartNode.bottom + 8;
 
+    // Measurement tools in upper-right corner of their associated charts
+    componentSpacingToolNode.top = amplitudeChartRectangleLocalBounds.top + 5;
+    componentSpacingToolNode.right = amplitudeChartRectangleLocalBounds.right - 20;
+
     // Control panel centered in the space to the right of the charts
     controlPanel.centerX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
     controlPanel.top = layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
@@ -220,6 +235,7 @@ class WavePacketScreenView extends ScreenView {
         sumParentNode,
         controlPanel,
         resetAllButton,
+        componentSpacingToolNode,
 
         // parent for popups on top
         popupParent
@@ -250,11 +266,15 @@ class WavePacketScreenView extends ScreenView {
       } );
     }
 
+    // Adjust drag bounds of measurement tools.
+    componentSpacingToolDragBoundsProperty.value = amplitudeChartRectangleLocalBounds.dilatedXY( 25, 25 );
+
     // pdom -traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53 and https://github.com/phetsims/fourier-making-waves/issues/84.
     screenViewRootNode.pdomOrder = [
       controlPanel,
       //TODO https://github.com/phetsims/fourier-making-waves/issues/84 put measurement tools here
+      componentSpacingToolNode,
       amplitudesExpandCollapseButton,
       continuousWaveformCheckbox,
       componentsExpandCollapseButton,
