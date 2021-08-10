@@ -21,11 +21,9 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import SceneryConstants from '../../../../scenery/js/SceneryConstants.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import musicSolidShape from '../../../../sherpa/js/fontawesome-5/musicSolidShape.js';
 import volumeDownSolidShape from '../../../../sherpa/js/fontawesome-5/volumeDownSolidShape.js';
 import volumeOffSolidShape from '../../../../sherpa/js/fontawesome-5/volumeOffSolidShape.js';
 import volumeUpSolidShape from '../../../../sherpa/js/fontawesome-5/volumeUpSolidShape.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
 import HSeparator from '../../../../sun/js/HSeparator.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
@@ -40,12 +38,13 @@ import DomainComboBox from '../../common/view/DomainComboBox.js';
 import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import EquationForm from '../model/EquationForm.js';
-import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
 import Waveform from '../model/Waveform.js';
 import DiscreteSymbolsDialog from './DiscreteSymbolsDialog.js';
 import EquationComboBox from './EquationComboBox.js';
+import FourierSoundEnabledCheckbox from './FourierSoundEnabledCheckbox.js';
 import HarmonicsSpinner from './HarmonicsSpinner.js';
 import OrderSpinner from './OrderSpinner.js';
 import PeriodCheckbox from './PeriodCheckbox.js';
@@ -394,7 +393,7 @@ class MeasurementToolsSubpanel extends VBox {
     };
 
     const hBoxOptions = {
-      spacing: 10
+      spacing: 16
     };
 
     // Wavelength
@@ -495,13 +494,10 @@ class SoundLayoutBox extends HBox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // Checkbox with fontawesome music icon
-    const soundEnabledCheckbox = new Checkbox( new Path( musicSolidShape, {
-      scale: 0.028,
-      fill: 'black'
-    } ), soundEnabledProperty, merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
+    // Checkbox with music icon
+    const soundEnabledCheckbox = new FourierSoundEnabledCheckbox( soundEnabledProperty, {
       tandem: options.tandem.createTandem( 'soundEnabledCheckbox' )
-    } ) );
+    } );
 
     // Slider for controlling output level
     //TODO https://github.com/phetsims/fourier-making-waves/issues/54 UI sound

@@ -121,6 +121,8 @@ class DiscreteScreenView extends ScreenView {
         model.fourierSeries.setAllAmplitudes( 0 );
       },
       enabledProperty: eraserButtonEnabledProperty,
+      touchAreaXDilation: 5,
+      touchAreaYDilation: 5,
       tandem: amplitudesTandem.createTandem( 'eraserButton' )
     } );
 

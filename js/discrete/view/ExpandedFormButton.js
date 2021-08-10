@@ -25,7 +25,8 @@ class ExpandedFormButton extends RoundPushButton {
       // RoundPushButton options
       baseColor: Color.grayColor( 238 ),
       xMargin: 10,
-      yMargin: 10
+      yMargin: 10,
+      touchAreaDilation: 15
     }, options );
 
     assert && assert( !options.content, 'RoundPushButton sets content' );

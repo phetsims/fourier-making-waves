@@ -33,6 +33,10 @@ class WavelengthCheckbox extends Checkbox {
     } );
 
     super( wavelengthText, isSelectedProperty, options );
+
+    // pointer areas
+    this.touchArea = this.localBounds.dilatedXY( 6, 6 );
+    this.mouseArea = this.localBounds.dilatedXY( 1, 1 );
   }
 }
 

@@ -140,6 +140,8 @@ class WaveGameLevelNode extends Node {
         level.eraseAmplitudes();
       },
       enabledProperty: eraserButtonEnabledProperty,
+      touchAreaXDilation: 5,
+      touchAreaYDilation: 5,
       tandem: amplitudesTandem.createTandem( 'eraserButton' )
     } );
 
