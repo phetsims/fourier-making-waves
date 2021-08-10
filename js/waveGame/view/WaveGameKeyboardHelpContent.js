@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/fourier-making-waves/issues/93 add hotkey for 'Check Answer'
 /**
  * WaveGameKeyboardHelpContent is the content for the keyboard-help dialog in the 'Wave Game' screen.
  *
