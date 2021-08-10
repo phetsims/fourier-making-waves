@@ -26,6 +26,7 @@ const FMWSymbols = {
   d: MathSymbolFont.getRichTextMarkup( fourierMakingWavesStrings.symbol.d ), // differential, like dx
   F: MathSymbolFont.getRichTextMarkup( fourierMakingWavesStrings.symbol.F, 'normal' ), // function of frequency
   f: MathSymbolFont.getRichTextMarkup( fourierMakingWavesStrings.symbol.f ), // frequency
+  infinity: MathSymbolFont.getRichTextMarkup( '\u221e', 'normal' ),
   integral: MathSymbolFont.getRichTextMarkup( '\u222B', 'normal' ), // integration symbol
   k: MathSymbolFont.getRichTextMarkup( fourierMakingWavesStrings.symbol.k ), // wave number
   L: MathSymbolFont.getRichTextMarkup( fourierMakingWavesStrings.symbol.L, 'normal' ), // string length, if this were a plucked string

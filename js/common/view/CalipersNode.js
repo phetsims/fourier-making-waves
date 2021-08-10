@@ -36,7 +36,7 @@ class CalipersNode extends Node {
 
       // Path options, for the beamNode subcomponent
       pathOptions: {
-        fill: 'black',
+        fill: 'white',
         stroke: 'black'
       },
 

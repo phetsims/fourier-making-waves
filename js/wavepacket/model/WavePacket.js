@@ -36,8 +36,8 @@ class WavePacket {
   constructor( options ) {
 
     // @public
-    this.L = 1; // wavelength, in m
-    this.T = 1; // period, in ms
+    this.L = 1; // wavelength when component spacing is 2 * Math.PI, in m
+    this.T = 1; // period when component spacing is 2 * Math.PI, in ms
     assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
       'Many things in this implementation assume that L === T === 1, inherited from Java version.' );
 
@@ -119,6 +119,23 @@ class WavePacket {
         phetioDocumentation: 'The width of the wave packet, derived from standardDeviationProperty. ' +
                              'In the space domain, width is in rad/m. ' +
                              'In the time domain, width is in rad/ms.'
+      } );
+
+    // @public {DerivedProperty.<number>}
+    this.lengthProperty = new DerivedProperty(
+      [ this.componentSpacingProperty ],
+      componentSpacing => {
+        let period = Infinity;
+        if ( componentSpacing > 0 ) {
+          period = 2 * Math.PI / componentSpacing;
+        }
+        return period;
+      }, {
+        tandem: options.tandem.createTandem( 'lengthProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioDocumentation: 'A measure of the wave packet length. ' +
+                             'In the space domain, wavelength \u03bb<sub>1</sub> in m. ' +
+                             'In the time domain, period T<sub>1</sub> in ms.'
       } );
 
     // @public {DerivedProperty.<FourierComponent[]>} the Fourier components used to approximate the wave packet.
