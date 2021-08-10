@@ -272,14 +272,19 @@ class WavePacketScreenView extends ScreenView {
     // Create measurement tools after layout of charts, because their initial positions and drag bounds depend on
     // final positions and bounds of ChartRectangles.
 
+    // Parent tandem for all measurement tools
+    const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
+
     // Component Spacing (k1 or omega1) measurement tool
     const componentSpacingToolNode = new ComponentSpacingToolNode( model.wavePacket.componentSpacingProperty,
       amplitudesChartNode.chartTransform, model.domainProperty, {
         position: new Vector2( amplitudeChartRectangleLocalBounds.right - 80, amplitudeChartRectangleLocalBounds.top + 50 ),
         dragBounds: amplitudeChartRectangleLocalBounds.withOffsets( 0, 10, 25, 0 ),
-        tandem: amplitudesTandem.createTandem( 'componentSpacingToolNode' ) // ...charts.amplitudes.componentSpacingToolNode
+        tandem: measurementToolsTandem.createTandem( 'componentSpacingToolNode' )
       } );
-    amplitudesParentNode.addChild( componentSpacingToolNode ); // to sync visibility with other Amplitudes elements
+
+    // So that this tool will change visibility with the other Amplitudes chart elements.
+    amplitudesParentNode.addChild( componentSpacingToolNode );
 
     const resetMeasurementTools = () => {
       componentSpacingToolNode.reset();
