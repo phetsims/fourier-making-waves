@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -26,6 +27,7 @@ import WaveformEnvelopeCheckbox from './WaveformEnvelopeCheckbox.js';
 import WavePacketAmplitudesChartNode from './WavePacketAmplitudesChartNode.js';
 import WavePacketComponentsChartNode from './WavePacketComponentsChartNode.js';
 import WavePacketControlPanel from './WavePacketControlPanel.js';
+import WavePacketLengthToolNode from './WavePacketLengthToolNode.js';
 import WavePacketSumChartNode from './WavePacketSumChartNode.js';
 import WavePacketSumEquationNode from './WavePacketSumEquationNode.js';
 
@@ -220,6 +222,9 @@ class WavePacketScreenView extends ScreenView {
     // Rendering order
     //------------------------------------------------------------------------------------------------------------------
 
+    // Measurement tools are created later, added to this parent so we know the rendering order.
+    const measurementToolsParent = new Node();
+
     // Add everything to one root Node, then add that root Node to the scene graph.
     // This should improve startup performance, compared to calling this.addChild for each Node.
     const screenViewRootNode = new Node( {
@@ -232,6 +237,7 @@ class WavePacketScreenView extends ScreenView {
         sumParentNode,
         controlPanel,
         resetAllButton,
+        measurementToolsParent,
 
         // parent for popups on top
         popupParent
@@ -286,9 +292,28 @@ class WavePacketScreenView extends ScreenView {
     // So that this tool will change visibility with the other Amplitudes chart elements.
     amplitudesParentNode.addChild( componentSpacingToolNode );
 
+    // Wavelength (lamda1) or period (T1) tool
+    const lengthToolNode = new WavePacketLengthToolNode( model.wavePacket.lengthProperty,
+      componentsChartNode.chartTransform, model.domainProperty, {
+        position: sumChartRectangleLocalBounds.center,
+        dragBounds: sumChartRectangleLocalBounds.withOffsets( 0, 10, 25, 0 ), //TODO
+        tandem: measurementToolsTandem.createTandem( 'componentSpacingToolNode' )
+      } );
+
+    // Wrap lengthToolNode in a parent Node, so that lengthToolNode can be permanently hidden via PhET-iO.
+    const lengthToolParent = new Node( {
+      children: [ lengthToolNode ],
+
+      // Visible if either the Components or Sum chart is visible.
+      visibleProperty: new DerivedProperty(
+        [ model.componentsChart.chartVisibleProperty, model.sumChart.chartVisibleProperty ],
+        ( componentsChartVisible, sumChartVisible ) => ( componentsChartVisible || sumChartVisible ) )
+    } );
+    measurementToolsParent.addChild( lengthToolParent );
+
     const resetMeasurementTools = () => {
       componentSpacingToolNode.reset();
-      //TODO reset other tools
+      lengthToolNode.reset();
     };
 
     //------------------------------------------------------------------------------------------------------------------

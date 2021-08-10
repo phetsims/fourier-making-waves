@@ -84,31 +84,33 @@ class WavePacketMeasurementToolNode extends Node {
 
     super( options );
 
-    Property.multilink(
-      [ property, domainProperty ],
-      ( value, domain ) => {
+    const update = ( value, domain ) => {
 
-        const symbol = ( domain === Domain.SPACE ) ? spaceSymbol : timeSymbol;
+      const symbol = ( domain === Domain.SPACE ) ? spaceSymbol : timeSymbol;
 
-        if ( value === Infinity ) {
-          calipersNode.visible = false;
-          infinityBackgroundNode.visible = true;
-          infinityText.text = `${symbol} = ${FMWSymbols.infinity}`;
-          calipersNode.center = infinityBackgroundNode.center;
+      if ( value === Infinity ) {
+        calipersNode.visible = false;
+        infinityBackgroundNode.visible = true;
+        infinityText.text = `${symbol} = ${FMWSymbols.infinity}`;
+      }
+      else {
+        infinityBackgroundNode.visible = false;
+        calipersNode.visible = true;
+        calipersNode.setMeasuredWidth( chartTransform.modelToViewDeltaX( value ) );
+        if ( value === 0 ) {
+          calipersNode.setLabel( `${symbol} = 0` ); // ... so there is no question that the caliper jaws are fully closed.
         }
         else {
-          infinityBackgroundNode.visible = false;
-          calipersNode.visible = true;
-          calipersNode.setMeasuredWidth( chartTransform.modelToViewDeltaX( value ) );
-          if ( value === 0 ) {
-            calipersNode.setLabel( `${symbol} = 0` ); // ... so there is no question that the caliper jaws are fully closed.
-          }
-          else {
-            calipersNode.setLabel( symbol );
-          }
-          infinityBackgroundNode.center = calipersNode.center;
+          calipersNode.setLabel( symbol );
         }
-      } );
+      }
+
+      // Keep infinity centered on calipers.
+      infinityBackgroundNode.center = calipersNode.center;
+    };
+
+    chartTransform.changedEmitter.addListener( () => update( property.value, domainProperty.value ) );
+    Property.multilink( [ property, domainProperty ], update );
 
     const positionProperty = new Vector2Property( options.position, {
       tandem: options.tandem.createTandem( 'positionProperty' ),
