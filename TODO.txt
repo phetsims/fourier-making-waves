@@ -21,7 +21,3 @@ WavePacketAmplitudesChartNode: use AxisDescription for the y axis? is it OK to o
 
 create CanvasBarPlot and CanvasAreaPlot, for use in WavePacketAmplitudesChartNode
 
-## PhET-iO
-
-Do a basic instrumentation pass
-
