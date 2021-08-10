@@ -8,7 +8,8 @@
 
 import Property from '../../../../axon/js/Property.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -24,17 +25,17 @@ class ComponentSpacingToolNode extends CalipersNode {
    * @param {Property.<number>} componentSpacingProperty
    * @param {ChartTransform} chartTransform
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {Object} [options]
    */
-  constructor( componentSpacingProperty, chartTransform, domainProperty, dragBoundsProperty, options ) {
+  constructor( componentSpacingProperty, chartTransform, domainProperty, options ) {
 
     assert && AssertUtils.assertPropertyOf( componentSpacingProperty, 'number' );
     assert && assert( chartTransform instanceof ChartTransform );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
 
     options = merge( {
+      position: new Vector2( 0, 0 ),
+      dragBounds: null, // {Bounds2|null}
       cursor: 'pointer',
       pathOptions: {
         fill: 'yellow'
@@ -50,7 +51,11 @@ class ComponentSpacingToolNode extends CalipersNode {
       [ componentSpacingProperty, domainProperty ],
       ( componentSpacing, domain ) => {
         assert && assert( componentSpacing >= 0 );
+
+        // Update width
         this.setMeasuredWidth( chartTransform.modelToViewDeltaX( componentSpacing ) );
+
+        // Update label
         const wavelengthSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega;
         const componentSpacingSymbol = `${wavelengthSymbol}<sub>1</sub>`;
         if ( componentSpacing === 0 ) {
@@ -63,11 +68,33 @@ class ComponentSpacingToolNode extends CalipersNode {
         }
       } );
 
+    const positionProperty = new Vector2Property( options.position, {
+      tandem: options.tandem.createTandem( 'positionProperty' )
+    } );
+    positionProperty.link( position => {
+      this.translation = position;
+    } );
+
+    // This is a fixed value, but DragListener requires a Property.
+    const dragBoundsProperty = new Property( options.dragBounds, {
+      validValues: [ options.dragBounds ]
+    } );
+
     // Dragging, constrained to bounds.
     this.addInputListener( new DragListener( {
-      translateNode: true,
+      positionProperty: positionProperty,
       dragBoundsProperty: dragBoundsProperty
     } ) );
+
+    // @private
+    this.positionProperty = positionProperty;
+  }
+
+  /**
+   * @public
+   */
+  reset() {
+    this.positionProperty.reset();
   }
 }
 

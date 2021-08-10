@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -91,19 +91,10 @@ class WavePacketScreenView extends ScreenView {
         tandem: amplitudesTandem.createTandem( 'continuousWaveformCheckbox' )
       } );
 
-    // Drag bounds will be adjusted later, to constrain to specific charts.
-    const componentSpacingToolDragBoundsProperty = new Property( this.layoutBounds );
-
-    // Measures component spacing (k1 or omega1)
-    const componentSpacingToolNode = new ComponentSpacingToolNode( model.wavePacket.componentSpacingProperty,
-      amplitudesChartNode.chartTransform, model.domainProperty, componentSpacingToolDragBoundsProperty, {
-        tandem: amplitudesTandem.createTandem( 'componentSpacingToolNode' )
-      } );
-
     // All of the Amplitudes elements whose visibility should change together.
     const amplitudesParentNode = new Node( {
       visibleProperty: model.amplitudesChart.chartVisibleProperty,
-      children: [ amplitudesChartNode, amplitudeEquationNode, continuousWaveformCheckbox, componentSpacingToolNode ]
+      children: [ amplitudesChartNode, amplitudeEquationNode, continuousWaveformCheckbox ]
     } );
 
     // Components chart -------------------------------------------------------------------
@@ -178,7 +169,8 @@ class WavePacketScreenView extends ScreenView {
       listener: () => {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
         model.reset();
-        resetMeasurementToolPositions();
+        componentSpacingToolNode.reset();
+        //TODO reset other tools
       },
       tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
@@ -262,19 +254,23 @@ class WavePacketScreenView extends ScreenView {
       } );
     }
 
-    function resetMeasurementToolPositions() {
+    // Measurement Tools -------------------------------------------------------------------
 
-      // Upper-right corner of Amplitudes chart
-      componentSpacingToolNode.top = amplitudeChartRectangleLocalBounds.top + 5;
-      componentSpacingToolNode.right = amplitudeChartRectangleLocalBounds.right - 40;
-    }
+    // Add measurement tools after layout of charts, because their initial positions and drag bounds depend on
+    // final positions and bounds of ChartRectangles.
 
-    resetMeasurementToolPositions(); // initial position
+    // Component Spacing (k1 or omega1) measurement tool
+    const componentSpacingToolNode = new ComponentSpacingToolNode( model.wavePacket.componentSpacingProperty,
+      amplitudesChartNode.chartTransform, model.domainProperty, {
+        position: new Vector2( amplitudeChartRectangleLocalBounds.right - 80, amplitudeChartRectangleLocalBounds.top + 50 ),
+        dragBounds: amplitudeChartRectangleLocalBounds.withOffsets( 0, 10, 25, 0 ),
+        tandem: amplitudesTandem.createTandem( 'componentSpacingToolNode' ) // ...charts.amplitudes.componentSpacingToolNode
+      } );
+    amplitudesParentNode.addChild( componentSpacingToolNode ); // to sync visibility with other Amplitudes elements
 
-    // Adjust drag bounds of measurement tools.
-    componentSpacingToolDragBoundsProperty.value = amplitudeChartRectangleLocalBounds.withOffsets( 0, 10, 25, 0 );
+    // PDOM ---------------------------------------------------------------------------------
 
-    // pdom -traversal order
+    // pdom - traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53 and https://github.com/phetsims/fourier-making-waves/issues/84.
     screenViewRootNode.pdomOrder = [
       controlPanel,
