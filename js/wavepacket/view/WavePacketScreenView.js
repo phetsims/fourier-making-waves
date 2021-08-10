@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -292,11 +293,19 @@ class WavePacketScreenView extends ScreenView {
     // So that this tool will change visibility with the other Amplitudes chart elements.
     amplitudesParentNode.addChild( componentSpacingToolNode );
 
+    // lengthToolNode can be dragged around on the Components and Sum charts.
+    const lengthToolDragBounds = new Bounds2(
+      this.layoutBounds.left + 15,
+      componentsChartRectangleLocalBounds.top,
+      componentsChartRectangleLocalBounds.right + 25,
+      this.layoutBounds.bottom - 5
+    );
+
     // Wavelength (lamda1) or period (T1) tool
     const lengthToolNode = new WavePacketLengthToolNode( model.wavePacket.lengthProperty,
       componentsChartNode.chartTransform, model.domainProperty, {
         position: sumChartRectangleLocalBounds.center,
-        dragBounds: sumChartRectangleLocalBounds.withOffsets( 0, 10, 25, 0 ), //TODO
+        dragBounds: lengthToolDragBounds,
         tandem: measurementToolsTandem.createTandem( 'componentSpacingToolNode' )
       } );
 
