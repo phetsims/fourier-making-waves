@@ -55,9 +55,7 @@ class DiscreteCalipersNode extends MeasurementToolNode {
     assert && assert( !options.children, 'DiscreteCalipersNode sets children' );
     options.children = [ calipersNode ];
 
-    /**
-     * Updates this tool's child Nodes to match the selected harmonic
-     */
+    // Update to match the selected harmonic.
     function updateNodes() {
 
       const harmonic = harmonicProperty.value;
