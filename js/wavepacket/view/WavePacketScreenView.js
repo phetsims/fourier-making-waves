@@ -91,10 +91,19 @@ class WavePacketScreenView extends ScreenView {
         tandem: amplitudesTandem.createTandem( 'continuousWaveformCheckbox' )
       } );
 
+    // Drag bounds will be adjusted later, to constrain to specific charts.
+    const componentSpacingToolDragBoundsProperty = new Property( this.layoutBounds );
+
+    // Measures component spacing (k1 or omega1)
+    const componentSpacingToolNode = new ComponentSpacingToolNode( model.wavePacket.componentSpacingProperty,
+      amplitudesChartNode.chartTransform, model.domainProperty, componentSpacingToolDragBoundsProperty, {
+        tandem: amplitudesTandem.createTandem( 'componentSpacingToolNode' )
+      } );
+
     // All of the Amplitudes elements whose visibility should change together.
     const amplitudesParentNode = new Node( {
       visibleProperty: model.amplitudesChart.chartVisibleProperty,
-      children: [ amplitudesChartNode, amplitudeEquationNode, continuousWaveformCheckbox ]
+      children: [ amplitudesChartNode, amplitudeEquationNode, continuousWaveformCheckbox, componentSpacingToolNode ]
     } );
 
     // Components chart -------------------------------------------------------------------
@@ -158,15 +167,6 @@ class WavePacketScreenView extends ScreenView {
       visibleProperty: model.sumChart.chartVisibleProperty,
       children: [ sumChartNode, sumEquationNode, waveformEnvelopeCheckbox ]
     } );
-
-    // Measurement Tools -------------------------------------------------------------------
-
-    // Drag bounds will be adjusted later, to constrain to specific charts.
-    const componentSpacingToolDragBoundsProperty = new Property( this.layoutBounds );
-
-    // Measures component spacing (k1 or omega1)
-    const componentSpacingToolNode = new ComponentSpacingToolNode( model.wavePacket.componentSpacingProperty,
-      amplitudesChartNode.chartTransform, model.domainProperty, componentSpacingToolDragBoundsProperty );
 
     // Other UI elements -------------------------------------------------------------------
 
@@ -232,7 +232,6 @@ class WavePacketScreenView extends ScreenView {
         sumParentNode,
         controlPanel,
         resetAllButton,
-        componentSpacingToolNode,
 
         // parent for popups on top
         popupParent
