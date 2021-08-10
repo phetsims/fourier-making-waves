@@ -13,6 +13,8 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
@@ -42,7 +44,14 @@ class ComponentSpacingToolNode extends CalipersNode {
       },
       richTextOptions: {
         font: FMWConstants.TOOL_LABEL_FONT
-      }
+      },
+
+      // pdom
+      tagName: 'div',
+      focusable: true,
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
     }, options );
 
     super( options );
@@ -86,7 +95,14 @@ class ComponentSpacingToolNode extends CalipersNode {
       dragBoundsProperty: dragBoundsProperty
     } ) );
 
-    //TODO add KeyboardDragListener, ala DiscreteMeasurementToolNode
+    // pdom - dragging using the keyboard
+    const keyboardDragListener = new KeyboardDragListener( {
+      positionProperty: positionProperty,
+      dragBounds: dragBoundsProperty.value,
+      dragVelocity: 100, // velocity - change in position per second
+      shiftDragVelocity: 20 // finer-grained
+    } );
+    this.addInputListener( keyboardDragListener );
 
     // @private
     this.positionProperty = positionProperty;
