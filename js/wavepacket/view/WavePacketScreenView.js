@@ -178,6 +178,7 @@ class WavePacketScreenView extends ScreenView {
       listener: () => {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
         model.reset();
+        resetMeasurementToolPositions();
       },
       tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
@@ -208,10 +209,6 @@ class WavePacketScreenView extends ScreenView {
     const sumChartRectangleLocalBounds = sumChartNode.chartRectangle.boundsTo( this );
     waveformEnvelopeCheckbox.right = sumChartRectangleLocalBounds.right - 5;
     waveformEnvelopeCheckbox.top = sumChartNode.bottom + 8;
-
-    // Measurement tools in upper-right corner of their associated charts
-    componentSpacingToolNode.top = amplitudeChartRectangleLocalBounds.top + 5;
-    componentSpacingToolNode.right = amplitudeChartRectangleLocalBounds.right - 20;
 
     // Control panel centered in the space to the right of the charts
     controlPanel.centerX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
@@ -266,8 +263,17 @@ class WavePacketScreenView extends ScreenView {
       } );
     }
 
+    function resetMeasurementToolPositions() {
+
+      // Upper-right corner of Amplitudes chart
+      componentSpacingToolNode.top = amplitudeChartRectangleLocalBounds.top + 5;
+      componentSpacingToolNode.right = amplitudeChartRectangleLocalBounds.right - 20;
+    }
+
+    resetMeasurementToolPositions(); // initial position
+
     // Adjust drag bounds of measurement tools.
-    componentSpacingToolDragBoundsProperty.value = amplitudeChartRectangleLocalBounds.dilatedXY( 25, 25 );
+    componentSpacingToolDragBoundsProperty.value = amplitudeChartRectangleLocalBounds.withOffsets( 0, 10, 25, 0 );
 
     // pdom -traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53 and https://github.com/phetsims/fourier-making-waves/issues/84.

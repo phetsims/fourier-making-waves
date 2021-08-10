@@ -42,6 +42,7 @@ class ComponentSpacingToolNode extends Node {
       fill: 'yellow'
     }, options );
 
+    // Shows the width of non-zero component spacing.
     const calipersNode = new CalipersNode( {
       pathOptions: {
         fill: options.fill
@@ -51,6 +52,7 @@ class ComponentSpacingToolNode extends Node {
       }
     } );
 
+    // Displays 'k1 = 0' or 'omega1 = 0' when component spacing is zero.
     const zeroSpacingNode = new RichText( '', {
       font: options.font
     } );
@@ -90,6 +92,7 @@ class ComponentSpacingToolNode extends Node {
 
     // Dragging, constrained to bounds.
     this.addInputListener( new DragListener( {
+      translateNode: true,
       dragBoundsProperty: dragBoundsProperty
     } ) );
   }
