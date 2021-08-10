@@ -306,7 +306,7 @@ class WavePacketScreenView extends ScreenView {
       componentsChartNode.chartTransform, model.domainProperty, {
         position: sumChartRectangleLocalBounds.center,
         dragBounds: lengthToolDragBounds,
-        tandem: measurementToolsTandem.createTandem( 'componentSpacingToolNode' )
+        tandem: measurementToolsTandem.createTandem( 'lengthToolNode' )
       } );
 
     // Wrap lengthToolNode in a parent Node, so that lengthToolNode can be permanently hidden via PhET-iO.
