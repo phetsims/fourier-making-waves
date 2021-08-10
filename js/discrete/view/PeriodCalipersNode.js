@@ -13,9 +13,9 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import CalipersNode from './CalipersNode.js';
+import DiscreteCalipersNode from './DiscreteCalipersNode.js';
 
-class PeriodCalipersNode extends CalipersNode {
+class PeriodCalipersNode extends DiscreteCalipersNode {
 
   /**
    * @param {DiscreteModel} model
@@ -31,7 +31,7 @@ class PeriodCalipersNode extends CalipersNode {
 
     options = merge( {
 
-      // CalipersNode options
+      // DiscreteCalipersNode options
       debugName: 'periodCalipers'
     }, options );
 

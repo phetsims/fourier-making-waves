@@ -11,11 +11,11 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Domain from '../../common/model/Domain.js';
-import CalipersNode from './CalipersNode.js';
+import DiscreteCalipersNode from './DiscreteCalipersNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 
-class WavelengthCalipersNode extends CalipersNode {
+class WavelengthCalipersNode extends DiscreteCalipersNode {
 
   /**
    * @param {DiscreteModel} model
@@ -31,7 +31,7 @@ class WavelengthCalipersNode extends CalipersNode {
 
     options = merge( {
 
-      // CalipersNode options
+      // DiscreteCalipersNode options
       debugName: 'wavelengthCalipers'
     }, options );
 
