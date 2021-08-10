@@ -6,21 +6,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import CalipersNode from '../../common/view/CalipersNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class ComponentSpacingToolNode extends Node {
+class ComponentSpacingToolNode extends CalipersNode {
 
   /**
    * @param {Property.<number>} componentSpacingProperty
@@ -38,57 +36,30 @@ class ComponentSpacingToolNode extends Node {
 
     options = merge( {
       cursor: 'pointer',
-      font: FMWConstants.TOOL_LABEL_FONT,
-      fill: 'yellow'
-    }, options );
-
-    // Shows the width of non-zero component spacing.
-    const calipersNode = new CalipersNode( {
       pathOptions: {
-        fill: options.fill
+        fill: 'yellow'
       },
       richTextOptions: {
-        font: options.font
+        font: FMWConstants.TOOL_LABEL_FONT
       }
-    } );
-
-    // Displays 'k1 = 0' or 'omega1 = 0' when component spacing is zero.
-    const zeroSpacingNode = new RichText( '', {
-      font: options.font
-    } );
-    const zeroSpacingBackgroundNode = new BackgroundNode( zeroSpacingNode, {
-      xMargin: 5,
-      yMargin: 2,
-      rectangleOptions: {
-        cornerRadius: 3,
-        fill: options.fill
-      }
-    } );
-
-    assert && assert( !options.children );
-    options.children = [ zeroSpacingBackgroundNode, calipersNode ];
+    }, options );
 
     super( options );
 
-    calipersNode.boundsProperty.link( bounds => {
-      zeroSpacingBackgroundNode.center = calipersNode.center;
-    } );
-
-    // Update the width of the calipers to match the component spacing.
-    componentSpacingProperty.link( componentSpacing => {
-      assert && assert( componentSpacing >= 0 );
-      calipersNode.setMeasuredWidth( chartTransform.modelToViewDeltaX( componentSpacing ) );
-      calipersNode.visible = ( componentSpacing !== 0 );
-      zeroSpacingBackgroundNode.visible = ( componentSpacing === 0 );
-    } );
-
-    // Update the labels to match the domain.
-    domainProperty.link( domain => {
-      const wavelengthSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega;
-      const wavelengthSymbolSub1 = `${wavelengthSymbol}<sub>1</sub>`;
-      calipersNode.setLabel( wavelengthSymbolSub1 );
-      zeroSpacingNode.text = `${wavelengthSymbolSub1} = 0`;
-    } );
+    Property.multilink(
+      [ componentSpacingProperty, domainProperty ],
+      ( componentSpacing, domain ) => {
+        assert && assert( componentSpacing >= 0 );
+        this.setMeasuredWidth( chartTransform.modelToViewDeltaX( componentSpacing ) );
+        const wavelengthSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega;
+        const componentSpacingSymbol = `${wavelengthSymbol}<sub>1</sub>`;
+        if ( componentSpacing === 0 ) {
+          this.setLabel( `${componentSpacingSymbol} = 0` );
+        }
+        else {
+          this.setLabel( componentSpacingSymbol );
+        }
+      } );
 
     // Dragging, constrained to bounds.
     this.addInputListener( new DragListener( {
