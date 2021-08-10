@@ -131,15 +131,6 @@ class DiscreteMeasurementToolNode extends Node {
     // Interrupt interaction when visibility changes.
     this.visibleProperty.link( () => this.interruptSubtreeInput() );
 
-    //TODO unnecessary?
-    // If the tool's origin is outside the drag bounds, move it inside.
-    dragBoundsProperty.link( dragBounds => {
-      if ( !dragBounds.containsPoint( positionProperty.value ) ) {
-        this.interruptSubtreeInput();
-        positionProperty.value = dragBounds.closestPointTo( positionProperty.value );
-      }
-    } );
-
     // pdom - dragging using the keyboard
     const keyboardDragListener = new KeyboardDragListener( {
       positionProperty: positionProperty,
