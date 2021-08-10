@@ -1,5 +1,6 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
+//TODO rename to WaveformPreset, and rename related Properties?
 /**
  * Waveform is a rich enumeration for the preset waveforms that appear in the 'Discrete' screen.
  * These preset waveforms are all based on a peak amplitude of 1.
