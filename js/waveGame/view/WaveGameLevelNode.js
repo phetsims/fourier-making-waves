@@ -81,7 +81,9 @@ class WaveGameLevelNode extends Node {
       visiblePropertyOptions: { phetioReadOnly: true }
     }, options );
 
-    // Status bar -------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Status Bar
+    //------------------------------------------------------------------------------------------------------------------
 
     const statusBarTandem = options.tandem.createTandem( 'statusBar' );
 
@@ -104,7 +106,9 @@ class WaveGameLevelNode extends Node {
       tandem: statusBarTandem
     } );
 
-    // Amplitudes chart -------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Amplitudes chart
+    //------------------------------------------------------------------------------------------------------------------
 
     // Parent tandem for all charts
     const chartsTandem = options.tandem.createTandem( 'charts' );
@@ -151,7 +155,9 @@ class WaveGameLevelNode extends Node {
       children: [ amplitudesChartNode, eraserButton, answersNode ]
     } );
 
-    // Harmonics chart -------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Harmonics chart
+    //------------------------------------------------------------------------------------------------------------------
 
     // Parent tandem for all elements related to the Harmonics chart
     const harmonicsTandem = chartsTandem.createTandem( 'harmonics' );
@@ -172,7 +178,9 @@ class WaveGameLevelNode extends Node {
       children: [ harmonicsTitleNode, harmonicsChartNode ]
     } );
 
-    // Sum chart -------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Sum chart
+    //------------------------------------------------------------------------------------------------------------------
 
     // Parent tandem for all components related to the Sum chart
     const sumTandem = chartsTandem.createTandem( 'sum' );
@@ -193,7 +201,9 @@ class WaveGameLevelNode extends Node {
       children: [ sumTitleNode, sumChartNode ]
     } );
 
-    // Control to the right of the charts -------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Controls to the right of the charts
+    //------------------------------------------------------------------------------------------------------------------
 
     // Controls the number of amplitude controls (sliders) visible in the Amplitudes chart.
     const amplitudeControlsSpinner = new AmplitudeControlsSpinner( level.numberOfAmplitudeControlsProperty, {
@@ -310,7 +320,9 @@ class WaveGameLevelNode extends Node {
       tandem: buttonsTandem
     } );
 
-    // Transient UI elements that provide game feedback ---------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Transient UI elements that provide game feedback
+    //------------------------------------------------------------------------------------------------------------------
 
     const feedbackTandem = options.tandem.createTandem( 'feedback' );
 
@@ -335,7 +347,9 @@ class WaveGameLevelNode extends Node {
     } );
     frownyFaceNode.frown();
 
-    // Rendering order ---------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Rendering order
+    //------------------------------------------------------------------------------------------------------------------
 
     assert && assert( !options.children, 'WaveGameLevelNode sets children' );
     options.children = [
@@ -352,7 +366,9 @@ class WaveGameLevelNode extends Node {
 
     super( options );
 
-    // Layout vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+    //------------------------------------------------------------------------------------------------------------------
+    // Layout
+    //------------------------------------------------------------------------------------------------------------------
 
     amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
     amplitudesChartNode.top = statusBar.bottom + 5;
@@ -398,7 +414,9 @@ class WaveGameLevelNode extends Node {
     smileyFaceNode.centerX = controlsCenterX;
     smileyFaceNode.centerY = sumChartRectangleLocalBounds.centerY;
 
-    // Layout ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //------------------------------------------------------------------------------------------------------------------
+    // Misc. listeners related to game flow
+    //------------------------------------------------------------------------------------------------------------------
 
     // When a new waveform (challenge) is presented, reset some things.
     level.newWaveformEmitter.addListener( () => {
@@ -431,17 +449,9 @@ class WaveGameLevelNode extends Node {
     // When the user's guess is incorrect, provide feedback.
     level.incorrectEmitter.addListener( () => this.incorrectFeedback() );
 
-    // @public
-    this.level = level;
-
-    // @private
-    this.layoutBounds = layoutBounds;
-    this.gameAudioPlayer = gameAudioPlayer;
-    this.harmonicsChartRectangleLocalBounds = harmonicsChartRectangleLocalBounds;
-    this.pointsAwardedNode = pointsAwardedNode;
-    this.pointsAwardedAnimation = null; // {Animation|null}
-    this.frownyFaceNode = frownyFaceNode;
-    this.frownyFaceAnimation = null; // {Animation|null}
+    //------------------------------------------------------------------------------------------------------------------
+    // PDOM
+    //------------------------------------------------------------------------------------------------------------------
 
     // pdom - traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53
@@ -454,6 +464,22 @@ class WaveGameLevelNode extends Node {
       showAnswerButton,
       newWaveformButton
     ];
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Class fields
+    //------------------------------------------------------------------------------------------------------------------
+
+    // @public
+    this.level = level;
+
+    // @private
+    this.layoutBounds = layoutBounds;
+    this.gameAudioPlayer = gameAudioPlayer;
+    this.harmonicsChartRectangleLocalBounds = harmonicsChartRectangleLocalBounds;
+    this.pointsAwardedNode = pointsAwardedNode;
+    this.pointsAwardedAnimation = null; // {Animation|null}
+    this.frownyFaceNode = frownyFaceNode;
+    this.frownyFaceAnimation = null; // {Animation|null}
   }
 
   /**

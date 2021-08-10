@@ -61,8 +61,9 @@ class DiscreteScreenView extends ScreenView {
 
     super( options );
 
-    // To improve readability
-    const layoutBounds = this.layoutBounds;
+    //------------------------------------------------------------------------------------------------------------------
+    // Sound
+    //------------------------------------------------------------------------------------------------------------------
 
     // Sound for the Fourier series
     const fourierSoundGenerator = new FourierSoundGenerator( model.fourierSeries,
@@ -71,20 +72,30 @@ class DiscreteScreenView extends ScreenView {
       associatedViewNode: this
     } );
 
-    // Parent for all popups
-    const popupParent = new Node();
+    // When the FourierSoundGenerator is producing audible sound, duck all user-interface sounds.
+    const userInterfaceDefaultOutputLevel = soundManager.getOutputLevelForCategory( 'user-interface' );
+    Property.multilink(
+      [ fourierSoundGenerator.fullyEnabledProperty, model.fourierSeriesSoundEnabledProperty ],
+      ( soundGeneratorFullyEnabled, fourierSeriesSoundEnabled ) => {
+        const fourierSeriesSoundIsAudible = ( soundGeneratorFullyEnabled && fourierSeriesSoundEnabled );
+        const outputLevel = fourierSeriesSoundIsAudible ? 0.1 * userInterfaceDefaultOutputLevel : userInterfaceDefaultOutputLevel;
+        soundManager.setOutputLevelForCategory( 'user-interface', outputLevel );
+      }
+    );
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Amplitudes chart
+    //------------------------------------------------------------------------------------------------------------------
 
     // Parent tandem for all charts
     const chartsTandem = options.tandem.createTandem( 'charts' );
-
-    // Amplitudes chart -------------------------------------------------------------------
 
     // Parent tandem for all elements related to the Amplitudes chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
 
     // Keypad Dialog, for changing amplitude value
     const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, {
-      layoutBounds: layoutBounds,
+      layoutBounds: this.layoutBounds,
       tandem: amplitudesTandem.createTandem( 'amplitudeKeypadDialog' )
     } );
 
@@ -119,7 +130,9 @@ class DiscreteScreenView extends ScreenView {
       children: [ amplitudesChartNode, eraserButton ]
     } );
 
-    // Harmonics chart -------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Harmonics chart
+    //------------------------------------------------------------------------------------------------------------------
 
     // Parent tandem for all elements related to the Harmonics chart
     const harmonicsTandem = chartsTandem.createTandem( 'harmonics' );
@@ -149,7 +162,9 @@ class DiscreteScreenView extends ScreenView {
       children: [ harmonicsChartNode, harmonicsEquationNode ]
     } );
 
-    // Sum chart -------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Sum chart
+    //------------------------------------------------------------------------------------------------------------------
 
     // Parent tandem for all elements related to the Sum chart
     const sumTandem = chartsTandem.createTandem( 'sum' );
@@ -199,7 +214,9 @@ class DiscreteScreenView extends ScreenView {
       children: [ sumChartNode, sumEquationParentNode ]
     } );
 
-    // Measurement Tools -------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Measurement Tools
+    //------------------------------------------------------------------------------------------------------------------
 
     // Parent tandem for all measurement tools
     const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
@@ -224,7 +241,12 @@ class DiscreteScreenView extends ScreenView {
       tandem: measurementToolsTandem.createTandem( 'periodClockNode' )
     } );
 
-    // Other UI elements -------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Other UI elements
+    //------------------------------------------------------------------------------------------------------------------
+
+    // Parent for all popups
+    const popupParent = new Node();
 
     // Control panel
     const controlPanel = new DiscreteControlPanel( model, popupParent, {
@@ -263,7 +285,19 @@ class DiscreteScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
 
-    // Layout vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+    // Creating a sawtooth wave using cosines is impossible because it is asymmetric. Display a dialog if the user
+    // attempts this.  The model is responsible for other adjustments. This dialog is created eagerly because it's
+    // highly likely that this situation will be encountered.
+    const oopsSawtoothWithCosinesDialog = new OopsDialog( fourierMakingWavesStrings.sawtoothWithCosines, {
+      phetioReadOnly: true,
+      visiblePropertyOptions: { phetioReadOnly: true },
+      tandem: options.tandem.createTandem( 'oopsSawtoothWithCosinesDialog' )
+    } );
+    model.oopsSawtoothWithCosinesEmitter.addListener( () => oopsSawtoothWithCosinesDialog.show() );
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Layout
+    //------------------------------------------------------------------------------------------------------------------
 
     // Amplitudes chart at top left
     amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
@@ -276,7 +310,7 @@ class DiscreteScreenView extends ScreenView {
     eraserButton.bottom = amplitudesChartRightTop.y - 10;
 
     // Harmonics chart below the Amplitudes chart
-    harmonicsExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+    harmonicsExpandCollapseButton.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
     harmonicsExpandCollapseButton.top = amplitudesChartNode.bottom + 15;
     harmonicsChartNode.x = FMWConstants.X_CHART_RECTANGLES;
     harmonicsChartNode.y = harmonicsExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
@@ -290,18 +324,20 @@ class DiscreteScreenView extends ScreenView {
     const sumChartRectangleLocalBounds = sumChartNode.chartRectangle.boundsTo( this );
 
     // Control panel to the right of the charts
-    controlPanel.right = layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
-    controlPanel.top = layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
+    controlPanel.right = this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
+    controlPanel.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
 
     // Time control below the control panel
     timeControlNode.left = controlPanel.left + 30;
-    timeControlNode.bottom = layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+    timeControlNode.bottom = this.layoutBounds.bottom - FMWConstants.SCREEN_VIEW_Y_MARGIN;
 
     // Reset All button at bottom right
-    resetAllButton.right = layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
-    resetAllButton.bottom = layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+    resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
+    resetAllButton.bottom = this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
 
-    // Layout ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //------------------------------------------------------------------------------------------------------------------
+    // Rendering order
+    //------------------------------------------------------------------------------------------------------------------
 
     // Add everything to one root Node, then add that root Node to the scene graph.
     // This should improve startup performance, compared to calling this.addChild for each Node.
@@ -327,34 +363,49 @@ class DiscreteScreenView extends ScreenView {
     } );
     this.addChild( screenViewRootNode );
 
+    //------------------------------------------------------------------------------------------------------------------
+    // Equation positions
+    //------------------------------------------------------------------------------------------------------------------
+
     // Center equations above their respective charts.
     // Since we need to listen to the bounds of these equations in order to respect their maxWidth, wrapper Nodes are
     // transformed. See https://github.com/phetsims/fourier-making-waves/issues/40
-    {
-      // Space between top of the ChartRectangle and bottom of the equation
-      const equationYSpacing = 3;
 
-      harmonicsEquationNode.boundsProperty.link( () => {
+    // Space between top of the ChartRectangle and bottom of the equation
+    const equationYSpacing = 3;
 
-        // Center the equation above the Harmonics chart.
-        harmonicsEquationNode.centerX = harmonicsChartRectangleLocalBounds.centerX;
-        harmonicsEquationNode.bottom = harmonicsChartRectangleLocalBounds.top - equationYSpacing;
-      } );
+    harmonicsEquationNode.boundsProperty.link( () => {
 
-      sumEquationNode.boundsProperty.link( () => {
+      // Center the equation above the Harmonics chart.
+      harmonicsEquationNode.centerX = harmonicsChartRectangleLocalBounds.centerX;
+      harmonicsEquationNode.bottom = harmonicsChartRectangleLocalBounds.top - equationYSpacing;
+    } );
 
-        // Ensure that expandedFormButton is always above the chart, regardless of how tall the equation is.
-        const maxHeight = Math.max( sumEquationNode.height, expandedFormButton.height );
+    sumEquationNode.boundsProperty.link( () => {
 
-        // Center the equation above the Sum chart.
-        sumEquationNode.centerX = sumChartRectangleLocalBounds.centerX;
-        sumEquationNode.centerY = sumChartRectangleLocalBounds.top - ( maxHeight / 2 ) - equationYSpacing;
+      // Ensure that expandedFormButton is always above the chart, regardless of how tall the equation is.
+      const maxHeight = Math.max( sumEquationNode.height, expandedFormButton.height );
 
-        // Button to the right of the equation
-        expandedFormButton.left = sumEquationNode.right + 20;
-        expandedFormButton.centerY = sumEquationNode.centerY;
-      } );
-    }
+      // Center the equation above the Sum chart.
+      sumEquationNode.centerX = sumChartRectangleLocalBounds.centerX;
+      sumEquationNode.centerY = sumChartRectangleLocalBounds.top - ( maxHeight / 2 ) - equationYSpacing;
+
+      // Button to the right of the equation
+      expandedFormButton.left = sumEquationNode.right + 20;
+      expandedFormButton.centerY = sumEquationNode.centerY;
+    } );
+
+    // Visibility of the equations above the charts
+    model.equationFormProperty.link( equationForm => {
+      const visible = ( equationForm !== EquationForm.HIDDEN );
+      harmonicsEquationNode.visible = visible;
+      sumEquationParentNode.visible = visible;
+    } );
+
+    //TODO handle like WavePacketScreenView, instantiate tools here
+    //------------------------------------------------------------------------------------------------------------------
+    // Measurement tool positions
+    //------------------------------------------------------------------------------------------------------------------
 
     // Position the measurement tools.
     function resetMeasurementToolPositions() {
@@ -380,33 +431,9 @@ class DiscreteScreenView extends ScreenView {
       controlPanel.left, this.layoutBounds.maxY
     ).erodedXY( 20, 20 );
 
-    // Creating a sawtooth wave using cosines is impossible because it is asymmetric. Display a dialog if the user
-    // attempts this.  The model is responsible for other adjustments. This dialog is created eagerly because it's
-    // highly likely that this situation will be encountered.
-    const oopsSawtoothWithCosinesDialog = new OopsDialog( fourierMakingWavesStrings.sawtoothWithCosines, {
-      phetioReadOnly: true,
-      visiblePropertyOptions: { phetioReadOnly: true },
-      tandem: options.tandem.createTandem( 'oopsSawtoothWithCosinesDialog' )
-    } );
-    model.oopsSawtoothWithCosinesEmitter.addListener( () => oopsSawtoothWithCosinesDialog.show() );
-
-    // When the FourierSoundGenerator is producing audible sound, duck all user-interface sounds.
-    const userInterfaceDefaultOutputLevel = soundManager.getOutputLevelForCategory( 'user-interface' );
-    Property.multilink(
-      [ fourierSoundGenerator.fullyEnabledProperty, model.fourierSeriesSoundEnabledProperty ],
-      ( soundGeneratorFullyEnabled, fourierSeriesSoundEnabled ) => {
-        const fourierSeriesSoundIsAudible = ( soundGeneratorFullyEnabled && fourierSeriesSoundEnabled );
-        const outputLevel = fourierSeriesSoundIsAudible ? 0.1 * userInterfaceDefaultOutputLevel : userInterfaceDefaultOutputLevel;
-        soundManager.setOutputLevelForCategory( 'user-interface', outputLevel );
-      }
-    );
-
-    // Visibility of the equations above the charts
-    model.equationFormProperty.link( equationForm => {
-      const visible = ( equationForm !== EquationForm.HIDDEN );
-      harmonicsEquationNode.visible = visible;
-      sumEquationParentNode.visible = visible;
-    } );
+    //------------------------------------------------------------------------------------------------------------------
+    // PDOM
+    //------------------------------------------------------------------------------------------------------------------
 
     // pdom -traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53

@@ -49,9 +49,6 @@ class WavePacketScreenView extends ScreenView {
 
     super( options );
 
-    // To improve readability
-    const layoutBounds = this.layoutBounds;
-
     // Parent tandem for all charts
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
@@ -188,8 +185,8 @@ class WavePacketScreenView extends ScreenView {
     //------------------------------------------------------------------------------------------------------------------
 
     // Amplitudes chart at top left
-    amplitudesExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-    amplitudesExpandCollapseButton.top = layoutBounds.top + 10;
+    amplitudesExpandCollapseButton.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+    amplitudesExpandCollapseButton.top = this.layoutBounds.top + 10;
     amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
     amplitudesChartNode.y = amplitudesExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
     const amplitudeChartRectangleLocalBounds = amplitudesChartNode.chartRectangle.boundsTo( this );
@@ -197,7 +194,7 @@ class WavePacketScreenView extends ScreenView {
     continuousWaveformCheckbox.top = amplitudesChartNode.bottom + 8;
 
     // Components chart below the Amplitudes chart
-    componentsExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+    componentsExpandCollapseButton.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
     componentsExpandCollapseButton.top = continuousWaveformCheckbox.bottom;
     componentsChartNode.x = amplitudesChartNode.x;
     componentsChartNode.y = componentsExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
@@ -213,12 +210,12 @@ class WavePacketScreenView extends ScreenView {
     waveformEnvelopeCheckbox.top = sumChartNode.bottom + 8;
 
     // Control panel centered in the space to the right of the charts
-    controlPanel.centerX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
-    controlPanel.top = layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
+    controlPanel.centerX = amplitudesChartNode.right + ( this.layoutBounds.right - amplitudesChartNode.right ) / 2;
+    controlPanel.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
 
     // Reset All button at bottom right
-    resetAllButton.right = layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
-    resetAllButton.bottom = layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+    resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
+    resetAllButton.bottom = this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
 
     //------------------------------------------------------------------------------------------------------------------
     // Rendering order
