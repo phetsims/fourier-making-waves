@@ -91,7 +91,8 @@ class DiscreteMeasurementToolNode extends Node {
     }
 
     const positionProperty = new Vector2Property( options.position, {
-      tandem: options.tandem.createTandem( 'positionProperty' )
+      tandem: options.tandem.createTandem( 'positionProperty' ),
+      phetioDocumentation: 'position of this tool, in view coordinates'
     } );
     positionProperty.link( position => {
       this.translation = position;
