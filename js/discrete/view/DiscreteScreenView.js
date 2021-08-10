@@ -215,33 +215,6 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     //------------------------------------------------------------------------------------------------------------------
-    // Measurement Tools
-    //------------------------------------------------------------------------------------------------------------------
-
-    // Parent tandem for all measurement tools
-    const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
-
-    // Drag bounds for all measurement tools. This will be adjusted after Nodes are added to the scene graph.
-    const measurementToolsDragBoundsProperty = new Property( this.layoutBounds );
-
-    // For measuring a harmonic's wavelength in the 'space' and 'space & time' domains.
-    const wavelengthCalipersNode = new WavelengthCalipersNode( model, harmonicsChartNode.chartTransform,
-      measurementToolsDragBoundsProperty, {
-        tandem: measurementToolsTandem.createTandem( 'wavelengthCalipersNode' )
-      } );
-
-    // For measuring a harmonic's period in the 'time' domain.
-    const periodCalipersNode = new PeriodCalipersNode( model, harmonicsChartNode.chartTransform,
-      measurementToolsDragBoundsProperty, {
-        tandem: measurementToolsTandem.createTandem( 'periodCalipersNode' )
-      } );
-
-    // For measuring a harmonic's period in the 'space & time' domain.
-    const periodClockNode = new PeriodClockNode( model, measurementToolsDragBoundsProperty, {
-      tandem: measurementToolsTandem.createTandem( 'periodClockNode' )
-    } );
-
-    //------------------------------------------------------------------------------------------------------------------
     // Other UI elements
     //------------------------------------------------------------------------------------------------------------------
 
@@ -280,7 +253,7 @@ class DiscreteScreenView extends ScreenView {
       listener: () => {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
         model.reset();
-        resetMeasurementToolPositions();
+        resetMeasurementTools();
       },
       tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
@@ -339,6 +312,9 @@ class DiscreteScreenView extends ScreenView {
     // Rendering order
     //------------------------------------------------------------------------------------------------------------------
 
+    // Measurement tools are created later, added to this parent so we know the rendering order.
+    const measurementToolsParent = new Node();
+
     // Add everything to one root Node, then add that root Node to the scene graph.
     // This should improve startup performance, compared to calling this.addChild for each Node.
     const screenViewRootNode = new Node( {
@@ -353,9 +329,7 @@ class DiscreteScreenView extends ScreenView {
         resetAllButton,
 
         // Measurement Tools on top
-        wavelengthCalipersNode,
-        periodCalipersNode,
-        periodClockNode,
+        measurementToolsParent,
 
         // parent for popups on top
         popupParent
@@ -402,34 +376,54 @@ class DiscreteScreenView extends ScreenView {
       sumEquationParentNode.visible = visible;
     } );
 
-    //TODO handle like WavePacketScreenView, instantiate tools here
     //------------------------------------------------------------------------------------------------------------------
     // Measurement tool positions
     //------------------------------------------------------------------------------------------------------------------
 
-    // Position the measurement tools.
-    function resetMeasurementToolPositions() {
+    // Create measurement tools after layout of charts, because their initial positions and drag bounds depend on
+    // final positions and bounds of ChartRectangles.
 
-      // Caliper-like tools are positioned at (minX,0) on the Harmonics chart.
-      wavelengthCalipersNode.positionProperty.value = harmonicsChartRectangleLocalBounds.leftCenter;
-      periodCalipersNode.positionProperty.value = harmonicsChartRectangleLocalBounds.leftCenter;
+    // Parent tandem for all measurement tools
+    const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
 
-      // Clock-like tool is in the space between the Harmonics and Sum chart, right justified.
-      periodClockNode.positionProperty.value = new Vector2(
-        harmonicsChartRectangleLocalBounds.right,
-        harmonicsChartNode.bottom + ( sumChartRectangleLocalBounds.minY - harmonicsChartNode.bottom ) / 2
-      );
-    }
-
-    // Call this after layout has been done, since tool positions are relative to other Nodes.
-    resetMeasurementToolPositions();
-
-    // Adjust the drag bounds for the measurement tools. The tools are all constrained to the same drag bounds,
-    // which is roughly the portion of the layoutBounds that is to the left of the control panel.
-    measurementToolsDragBoundsProperty.value = new Bounds2(
+    // Drag bounds for all measurement tools.
+    const measurementToolsDragBounds = new Bounds2(
       this.layoutBounds.minX, this.layoutBounds.minY,
       controlPanel.left, this.layoutBounds.maxY
     ).erodedXY( 20, 20 );
+
+    // For measuring a harmonic's wavelength in the 'space' and 'space & time' domains.
+    const wavelengthCalipersNode = new WavelengthCalipersNode( model, harmonicsChartNode.chartTransform, {
+      position: harmonicsChartRectangleLocalBounds.leftCenter,
+      dragBounds: measurementToolsDragBounds,
+      tandem: measurementToolsTandem.createTandem( 'wavelengthCalipersNode' )
+    } );
+    measurementToolsParent.addChild( wavelengthCalipersNode );
+
+    // For measuring a harmonic's period in the 'time' domain.
+    const periodCalipersNode = new PeriodCalipersNode( model, harmonicsChartNode.chartTransform, {
+      position: harmonicsChartRectangleLocalBounds.leftCenter,
+      dragBounds: measurementToolsDragBounds,
+      tandem: measurementToolsTandem.createTandem( 'periodCalipersNode' )
+    } );
+    measurementToolsParent.addChild( periodCalipersNode );
+
+    // For measuring a harmonic's period in the 'space & time' domain.
+    const periodClockNode = new PeriodClockNode( model, {
+      position: new Vector2(
+        harmonicsChartRectangleLocalBounds.right,
+        harmonicsChartNode.bottom + ( sumChartRectangleLocalBounds.minY - harmonicsChartNode.bottom ) / 2
+      ),
+      dragBounds: measurementToolsDragBounds,
+      tandem: measurementToolsTandem.createTandem( 'periodClockNode' )
+    } );
+    measurementToolsParent.addChild( periodClockNode );
+
+    const resetMeasurementTools = () => {
+      wavelengthCalipersNode.reset();
+      periodCalipersNode.reset();
+      periodClockNode.reset();
+    };
 
     //------------------------------------------------------------------------------------------------------------------
     // PDOM

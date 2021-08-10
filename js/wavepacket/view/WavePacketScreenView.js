@@ -174,8 +174,7 @@ class WavePacketScreenView extends ScreenView {
       listener: () => {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
         model.reset();
-        componentSpacingToolNode.reset();
-        //TODO reset other tools
+        resetMeasurementTools();
       },
       tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
@@ -270,7 +269,7 @@ class WavePacketScreenView extends ScreenView {
     // Measurement Tools
     //------------------------------------------------------------------------------------------------------------------
 
-    // Add measurement tools after layout of charts, because their initial positions and drag bounds depend on
+    // Create measurement tools after layout of charts, because their initial positions and drag bounds depend on
     // final positions and bounds of ChartRectangles.
 
     // Component Spacing (k1 or omega1) measurement tool
@@ -281,6 +280,11 @@ class WavePacketScreenView extends ScreenView {
         tandem: amplitudesTandem.createTandem( 'componentSpacingToolNode' ) // ...charts.amplitudes.componentSpacingToolNode
       } );
     amplitudesParentNode.addChild( componentSpacingToolNode ); // to sync visibility with other Amplitudes elements
+
+    const resetMeasurementTools = () => {
+      componentSpacingToolNode.reset();
+      //TODO reset other tools
+    };
 
     //------------------------------------------------------------------------------------------------------------------
     // PDOM

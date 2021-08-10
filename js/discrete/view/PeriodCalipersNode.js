@@ -7,9 +7,7 @@
  */
 
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
@@ -20,14 +18,12 @@ class PeriodCalipersNode extends DiscreteCalipersNode {
   /**
    * @param {DiscreteModel} model
    * @param {ChartTransform} chartTransform
-   * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {Object} [options]
    */
-  constructor( model, chartTransform, dragBoundsProperty, options ) {
+  constructor( model, chartTransform, options ) {
 
     assert && assert( model instanceof DiscreteModel );
     assert && assert( chartTransform instanceof ChartTransform );
-    assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
 
     options = merge( {
 
@@ -40,7 +36,6 @@ class PeriodCalipersNode extends DiscreteCalipersNode {
       model.fourierSeries.harmonics,
       model.harmonicsChart.emphasizedHarmonics,
       chartTransform,
-      dragBoundsProperty,
       model.domainProperty,
       [ Domain.TIME ], // relevant Domains
       harmonic => harmonic.period, // gets the quantity of Harmonic that is being measured

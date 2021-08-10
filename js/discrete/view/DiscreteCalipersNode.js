@@ -9,7 +9,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Domain from '../../common/model/Domain.js';
@@ -26,20 +25,17 @@ class DiscreteCalipersNode extends DiscreteMeasurementToolNode {
    * @param {Harmonic[]} harmonics
    * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {ChartTransform} chartTransform - transform for the Harmonics chart
-   * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Domain[]} relevantDomains - the Domain values that are relevant for this tool
    * @param {function(harmonic:Harmonic):number} getModelValue - gets the quantity of the harmonic that is being measured
    * @param {Object} [options]
    */
-  constructor( tool, harmonics, emphasizedHarmonics, chartTransform, dragBoundsProperty,
-               domainProperty, relevantDomains, getModelValue, options ) {
+  constructor( tool, harmonics, emphasizedHarmonics, chartTransform, domainProperty, relevantDomains, getModelValue, options ) {
 
     assert && assert( tool instanceof DiscreteMeasurementTool );
     assert && assert( Array.isArray( harmonics ) );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
     assert && assert( chartTransform instanceof ChartTransform );
-    assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( Array.isArray( relevantDomains ) );
     assert && assert( typeof getModelValue === 'function' );
@@ -75,8 +71,7 @@ class DiscreteCalipersNode extends DiscreteMeasurementToolNode {
     // Initialize child Nodes before deriving drag bounds and calling super
     updateNodes();
 
-    super( tool, harmonicProperty, emphasizedHarmonics, dragBoundsProperty, domainProperty, relevantDomains,
-      updateNodes, options );
+    super( tool, harmonicProperty, emphasizedHarmonics, domainProperty, relevantDomains, updateNodes, options );
 
     // Update when the range of the associated axis changes.
     chartTransform.changedEmitter.addListener( updateNodes );

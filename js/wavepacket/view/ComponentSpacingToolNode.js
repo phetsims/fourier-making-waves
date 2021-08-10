@@ -86,6 +86,8 @@ class ComponentSpacingToolNode extends CalipersNode {
       dragBoundsProperty: dragBoundsProperty
     } ) );
 
+    //TODO add KeyboardDragListener, ala DiscreteMeasurementToolNode
+
     // @private
     this.positionProperty = positionProperty;
   }

@@ -17,7 +17,8 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -38,24 +39,24 @@ class DiscreteMeasurementToolNode extends Node {
    * @param {DiscreteMeasurementTool} tool
    * @param {Property.<Harmonic>} harmonicProperty
    * @param {EmphasizedHarmonics} emphasizedHarmonics
-   * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Domain[]} relevantDomains - the Domain values that are relevant for this tool
    * @param {function} updateNodes - updates this tool's child Nodes to match the selected harmonic
    * @param {Object} [options]
    */
-  constructor( tool, harmonicProperty, emphasizedHarmonics, dragBoundsProperty, domainProperty, relevantDomains,
-               updateNodes, options ) {
+  constructor( tool, harmonicProperty, emphasizedHarmonics, domainProperty, relevantDomains, updateNodes, options ) {
 
     assert && assert( tool instanceof DiscreteMeasurementTool );
     assert && AssertUtils.assertPropertyOf( harmonicProperty, Harmonic );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
-    assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( Array.isArray( relevantDomains ) );
     assert && assert( typeof updateNodes === 'function' );
 
     options = merge( {
+
+      position: new Vector2( 0, 0 ),
+      dragBounds: null, // {Bounds2|null}
 
       // For debugging
       debugName: 'tool',
@@ -89,8 +90,17 @@ class DiscreteMeasurementToolNode extends Node {
       this.addChild( new Circle( 2, { fill: 'red' } ) );
     }
 
-    // Position of the tool in view coordinates
-    const positionProperty = new Property( this.translation );
+    const positionProperty = new Vector2Property( options.position, {
+      tandem: options.tandem.createTandem( 'positionProperty' )
+    } );
+    positionProperty.link( position => {
+      this.translation = position;
+    } );
+
+    // This is a fixed value, but DragListener requires a Property.
+    const dragBoundsProperty = new Property( options.dragBounds, {
+      validValues: [ options.dragBounds ]
+    } );
 
     // Constrained dragging of the tool. Some tools (e.g. calipers) may be wider than the ScreenView, so we cannot
     // constrain the entire tool to be within the drag bounds. So just the origin is constrained.
@@ -112,11 +122,6 @@ class DiscreteMeasurementToolNode extends Node {
       }
     } );
 
-    // Move the tool to its position.
-    positionProperty.link( position => {
-      this.translation = position;
-    } );
-
     // Update the tool to match the selected harmonic.
     harmonicProperty.lazyLink( () => {
       this.interruptSubtreeInput();
@@ -126,6 +131,7 @@ class DiscreteMeasurementToolNode extends Node {
     // Interrupt interaction when visibility changes.
     this.visibleProperty.link( () => this.interruptSubtreeInput() );
 
+    //TODO unnecessary?
     // If the tool's origin is outside the drag bounds, move it inside.
     dragBoundsProperty.link( dragBounds => {
       if ( !dragBounds.containsPoint( positionProperty.value ) ) {
@@ -154,6 +160,13 @@ class DiscreteMeasurementToolNode extends Node {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+
+  /**
+   * @public
+   */
+  reset() {
+    this.positionProperty.reset();
   }
 }
 

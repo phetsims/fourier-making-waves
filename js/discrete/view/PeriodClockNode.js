@@ -9,7 +9,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -35,13 +34,11 @@ class PeriodClockNode extends DiscreteMeasurementToolNode {
 
   /**
    * @param {DiscreteModel} model
-   * @param {Property.<Bounds2>} dragBoundsProperty
    * @param {Object} [options]
    */
-  constructor( model, dragBoundsProperty, options ) {
+  constructor( model, options ) {
 
     assert && assert( model instanceof DiscreteModel );
-    assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
 
     options = merge( {
 
@@ -93,7 +90,7 @@ class PeriodClockNode extends DiscreteMeasurementToolNode {
     // Initialize child Nodes before calling super
     updateNodes();
 
-    super( tool, harmonicProperty, emphasizedHarmonics, dragBoundsProperty, domainProperty,
+    super( tool, harmonicProperty, emphasizedHarmonics, domainProperty,
       [ Domain.SPACE_AND_TIME ], // relevant Domains
       updateNodes,
       options );
