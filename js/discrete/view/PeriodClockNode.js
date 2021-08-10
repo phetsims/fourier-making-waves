@@ -25,13 +25,13 @@ import Domain from '../../common/model/Domain.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import MeasurementToolNode from './MeasurementToolNode.js';
+import DiscreteMeasurementToolNode from './DiscreteMeasurementToolNode.js';
 
 // Margins for the translucent background behind the label
 const BACKGROUND_X_MARGIN = 2;
 const BACKGROUND_Y_MARGIN = 2;
 
-class PeriodClockNode extends MeasurementToolNode {
+class PeriodClockNode extends DiscreteMeasurementToolNode {
 
   /**
    * @param {DiscreteModel} model
@@ -45,7 +45,7 @@ class PeriodClockNode extends MeasurementToolNode {
 
     options = merge( {
 
-      // MeasurementToolNode options
+      // DiscreteMeasurementToolNode options
       debugName: 'periodClock'
     }, options );
 

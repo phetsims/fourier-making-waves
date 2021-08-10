@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * MeasurementTool is the model for a measurement tool.
+ * DiscreteMeasurementTool is the model for a measurement tool in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +14,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class MeasurementTool {
+class DiscreteMeasurementTool {
 
   /**
    * @param {string} symbol
@@ -81,5 +81,5 @@ class MeasurementTool {
   }
 }
 
-fourierMakingWaves.register( 'MeasurementTool', MeasurementTool );
-export default MeasurementTool;
+fourierMakingWaves.register( 'DiscreteMeasurementTool', DiscreteMeasurementTool );
+export default DiscreteMeasurementTool;

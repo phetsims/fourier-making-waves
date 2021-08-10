@@ -42,7 +42,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import EquationForm from '../model/EquationForm.js';
-import MeasurementTool from '../model/MeasurementTool.js';
+import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
 import Waveform from '../model/Waveform.js';
 import DiscreteSymbolsDialog from './DiscreteSymbolsDialog.js';
 import EquationComboBox from './EquationComboBox.js';
@@ -357,15 +357,15 @@ class GraphControlsSubpanel extends VBox {
 class MeasurementToolsSubpanel extends VBox {
 
   /**
-   * @param {MeasurementTool} wavelengthTool
-   * @param {MeasurementTool} periodTool
+   * @param {DiscreteMeasurementTool} wavelengthTool
+   * @param {DiscreteMeasurementTool} periodTool
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( wavelengthTool, periodTool, domainProperty, options ) {
 
-    assert && assert( wavelengthTool instanceof MeasurementTool );
-    assert && assert( periodTool instanceof MeasurementTool );
+    assert && assert( wavelengthTool instanceof DiscreteMeasurementTool );
+    assert && assert( periodTool instanceof DiscreteMeasurementTool );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {

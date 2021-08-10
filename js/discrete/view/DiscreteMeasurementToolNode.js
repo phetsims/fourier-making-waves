@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * MeasurementToolNode is the base class for tools that are used to measure harmonics.
+ * DiscreteMeasurementToolNode is the base class for tools that are used to measure harmonics in the 'Discrete' screen.
  * Responsibilities include:
  * - positioning the tool
  * - visibility
@@ -30,12 +30,12 @@ import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import MeasurementTool from '../model/MeasurementTool.js';
+import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
 
-class MeasurementToolNode extends Node {
+class DiscreteMeasurementToolNode extends Node {
 
   /**
-   * @param {MeasurementTool} tool
+   * @param {DiscreteMeasurementTool} tool
    * @param {Property.<Harmonic>} harmonicProperty
    * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {Property.<Bounds2>} dragBoundsProperty
@@ -47,7 +47,7 @@ class MeasurementToolNode extends Node {
   constructor( tool, harmonicProperty, emphasizedHarmonics, dragBoundsProperty, domainProperty, relevantDomains,
                updateNodes, options ) {
 
-    assert && assert( tool instanceof MeasurementTool );
+    assert && assert( tool instanceof DiscreteMeasurementTool );
     assert && AssertUtils.assertPropertyOf( harmonicProperty, Harmonic );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
     assert && AssertUtils.assertPropertyOf( dragBoundsProperty, Bounds2 );
@@ -71,7 +71,7 @@ class MeasurementToolNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    assert && assert( !options.visibleProperty, 'MeasurementToolNode sets visibleProperty' );
+    assert && assert( !options.visibleProperty, 'DiscreteMeasurementToolNode sets visibleProperty' );
     options.visibleProperty = new DerivedProperty( [ tool.isSelectedProperty, domainProperty ],
       ( isSelected, domain ) => ( isSelected && relevantDomains.includes( domain ) ), {
         tandem: options.tandem.createTandem( 'visibleProperty' ),
@@ -157,5 +157,5 @@ class MeasurementToolNode extends Node {
   }
 }
 
-fourierMakingWaves.register( 'MeasurementToolNode', MeasurementToolNode );
-export default MeasurementToolNode;
+fourierMakingWaves.register( 'DiscreteMeasurementToolNode', DiscreteMeasurementToolNode );
+export default DiscreteMeasurementToolNode;

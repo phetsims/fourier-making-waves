@@ -29,7 +29,7 @@ import DiscreteFourierSeries from './DiscreteFourierSeries.js';
 import DiscreteHarmonicsChart from './DiscreteHarmonicsChart.js';
 import DiscreteSumChart from './DiscreteSumChart.js';
 import EquationForm from './EquationForm.js';
-import MeasurementTool from './MeasurementTool.js';
+import DiscreteMeasurementTool from './DiscreteMeasurementTool.js';
 import Waveform from './Waveform.js';
 
 // This factor slows down time for the 'space & time' domain, determined empirically.
@@ -128,12 +128,12 @@ class DiscreteModel {
     const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
 
     // @public the wavelength measurement tool
-    this.wavelengthTool = new MeasurementTool( FMWSymbols.lambda, this.fourierSeries.numberOfHarmonicsProperty, {
+    this.wavelengthTool = new DiscreteMeasurementTool( FMWSymbols.lambda, this.fourierSeries.numberOfHarmonicsProperty, {
       tandem: measurementToolsTandem.createTandem( 'wavelengthTool' )
     } );
 
     // @public the period measurement tool
-    this.periodTool = new MeasurementTool( FMWSymbols.T, this.fourierSeries.numberOfHarmonicsProperty, {
+    this.periodTool = new DiscreteMeasurementTool( FMWSymbols.T, this.fourierSeries.numberOfHarmonicsProperty, {
       tandem: measurementToolsTandem.createTandem( 'periodTool' )
     } );
 

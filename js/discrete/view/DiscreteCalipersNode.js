@@ -16,13 +16,13 @@ import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import CalipersNode from '../../common/view/CalipersNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import MeasurementTool from '../model/MeasurementTool.js';
-import MeasurementToolNode from './MeasurementToolNode.js';
+import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
+import DiscreteMeasurementToolNode from './DiscreteMeasurementToolNode.js';
 
-class DiscreteCalipersNode extends MeasurementToolNode {
+class DiscreteCalipersNode extends DiscreteMeasurementToolNode {
 
   /**
-   * @param {MeasurementTool} tool
+   * @param {DiscreteMeasurementTool} tool
    * @param {Harmonic[]} harmonics
    * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {ChartTransform} chartTransform - transform for the Harmonics chart
@@ -35,7 +35,7 @@ class DiscreteCalipersNode extends MeasurementToolNode {
   constructor( tool, harmonics, emphasizedHarmonics, chartTransform, dragBoundsProperty,
                domainProperty, relevantDomains, getModelValue, options ) {
 
-    assert && assert( tool instanceof MeasurementTool );
+    assert && assert( tool instanceof DiscreteMeasurementTool );
     assert && assert( Array.isArray( harmonics ) );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
     assert && assert( chartTransform instanceof ChartTransform );
