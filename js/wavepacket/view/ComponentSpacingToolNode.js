@@ -54,6 +54,8 @@ class ComponentSpacingToolNode extends CalipersNode {
         const wavelengthSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega;
         const componentSpacingSymbol = `${wavelengthSymbol}<sub>1</sub>`;
         if ( componentSpacing === 0 ) {
+
+          // Show 'symbol = 0' to make it explicit that the caliper jaws are fully closed.
           this.setLabel( `${componentSpacingSymbol} = 0` );
         }
         else {
