@@ -103,7 +103,7 @@ class PeriodClockNode extends DiscreteMeasurementToolNode {
     // Pointer areas
     this.localBoundsProperty.link( localBounds => {
       this.mouseArea = localBounds;
-      this.touchArea = localBounds.dilatedXY( 5, 5 );
+      this.touchArea = localBounds.dilated( 5 );
     } );
   }
 }
