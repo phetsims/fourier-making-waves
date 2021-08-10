@@ -32,6 +32,10 @@ class WaveformEnvelopeCheckbox extends Checkbox {
     } );
 
     super( envelopeText, waveformEnvelopeVisibleProperty, options );
+
+    // pointer areas
+    this.touchArea = this.localBounds.dilatedXY( 6, 6 );
+    this.mouseArea = this.localBounds.dilatedXY( 1, 1 );
   }
 }
 
