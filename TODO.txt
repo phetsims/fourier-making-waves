@@ -17,8 +17,6 @@ Factor out XZoomHandler and YZoomHandler, use composition to add zoom feature to
 
 ## Wave Packet screen
 
-FEATURE: Wavelength/Period tools
-
 WavePacketAmplitudesChartNode: use AxisDescription for the y axis? is it OK to override setYAxis?
 
 create CanvasBarPlot and CanvasAreaPlot, for use in WavePacketAmplitudesChartNode
