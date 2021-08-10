@@ -35,16 +35,17 @@ class PeriodCalipersNode extends DiscreteCalipersNode {
       debugName: 'periodCalipers'
     }, options );
 
-    // Model properties that we'll be using.
-    const tool = model.periodTool;
-    const harmonics = model.fourierSeries.harmonics;
-    const emphasizedHarmonics = model.harmonicsChart.emphasizedHarmonics;
-    const domainProperty = model.domainProperty;
-
-    super( tool, harmonics, emphasizedHarmonics, chartTransform, dragBoundsProperty, domainProperty,
+    super(
+      model.periodTool,
+      model.fourierSeries.harmonics,
+      model.harmonicsChart.emphasizedHarmonics,
+      chartTransform,
+      dragBoundsProperty,
+      model.domainProperty,
       [ Domain.TIME ], // relevant Domains
       harmonic => harmonic.period, // gets the quantity of Harmonic that is being measured
-      options );
+      options
+    );
   }
 }
 
