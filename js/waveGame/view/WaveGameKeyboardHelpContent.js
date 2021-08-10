@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/fourier-making-waves/issues/93 add hotkey for 'Check Answer'
 /**
  * WaveGameKeyboardHelpContent is the content for the keyboard-help dialog in the 'Wave Game' screen.
  *
@@ -8,10 +7,15 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import SliderAndGeneralKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/SliderAndGeneralKeyboardHelpContent.js';
+import GeneralKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/GeneralKeyboardHelpSection.js';
+import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
+import SliderKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderKeyboardHelpSection.js';
+import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
+import LetterKeyNode from '../../../../scenery-phet/js/keyboard/LetterKeyNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class WaveGameKeyboardHelpContent extends SliderAndGeneralKeyboardHelpContent {
+class WaveGameKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
   /**
    * @param {Object} [options]
@@ -22,7 +26,32 @@ class WaveGameKeyboardHelpContent extends SliderAndGeneralKeyboardHelpContent {
       labelMaxWidth: 250
     }, options );
 
-    super( options );
+    const gameControlsHelpSection = new GameControlsHelpSection( {
+      labelMaxWidth: options.labelMaxWidth
+    } );
+    const sliderHelpSection = new SliderKeyboardHelpSection( options.sliderSectionOptions );
+    const generalNavigationHelpSection = new GeneralKeyboardHelpSection( options.generalSectionOptions );
+
+    super( [ gameControlsHelpSection, sliderHelpSection ], [ generalNavigationHelpSection ], options );
+  }
+}
+
+/**
+ * Hotkeys related to the game.
+ */
+class GameControlsHelpSection extends KeyboardHelpSection {
+  constructor( options ) {
+
+    const rowOptions = { labelOptions: { lineWrap: 200 } };
+
+    const checkAnswerRow = KeyboardHelpSection.createGlobalHotkeyRow(
+      fourierMakingWavesStrings.keyboardHelpDialog.checkYourAnswer,
+      fourierMakingWavesStrings.a11y.keyboardHelpDialog.checkYourAnswerDescription,
+      new LetterKeyNode( 'C' ),
+      rowOptions
+    );
+
+    super( fourierMakingWavesStrings.keyboardHelpDialog.gameControls, [ checkAnswerRow ], options );
   }
 }
 

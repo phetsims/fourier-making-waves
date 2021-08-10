@@ -268,5 +268,18 @@
   },
   "infiniteComponentsCannotBePlotted": {
     "value": "An infinite number of components cannot be plotted."
+  },
+  "keyboardHelpDialog.gameControls": {
+    "value": "Game Controls"
+  },
+  "keyboardHelpDialog.checkYourAnswer": {
+    "value": "Check your answer"
+  },
+  "a11y": {
+    "keyboardHelpDialog": {
+      "checkYourAnswerDescription": {
+        "value": "Check your answer to the game with Alt key plus C."
+      }
+    }
   }
 }
