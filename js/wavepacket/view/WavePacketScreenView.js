@@ -52,13 +52,12 @@ class WavePacketScreenView extends ScreenView {
     // To improve readability
     const layoutBounds = this.layoutBounds;
 
-    // Parent for all popups
-    const popupParent = new Node();
-
     // Parent tandem for all charts
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
-    // Amplitudes chart -------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Amplitudes chart
+    //------------------------------------------------------------------------------------------------------------------
 
     // Parent tandem for all elements related to the Amplitudes chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
@@ -97,7 +96,9 @@ class WavePacketScreenView extends ScreenView {
       children: [ amplitudesChartNode, amplitudeEquationNode, continuousWaveformCheckbox ]
     } );
 
-    // Components chart -------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Components chart
+    //------------------------------------------------------------------------------------------------------------------
 
     // Parent tandem for all elements related to the Components chart
     const componentsTandem = chartsTandem.createTandem( 'components' );
@@ -125,7 +126,9 @@ class WavePacketScreenView extends ScreenView {
       children: [ componentsChartNode, componentsEquationNode ]
     } );
 
-    // Sum chart -------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Sum chart
+    //------------------------------------------------------------------------------------------------------------------
 
     // Parent tandem for all elements related to the Sum chart
     const sumTandem = chartsTandem.createTandem( 'sum' );
@@ -159,7 +162,12 @@ class WavePacketScreenView extends ScreenView {
       children: [ sumChartNode, sumEquationNode, waveformEnvelopeCheckbox ]
     } );
 
-    // Other UI elements -------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // Other UI elements
+    //------------------------------------------------------------------------------------------------------------------
+
+    // Parent for all popups
+    const popupParent = new Node();
 
     const controlPanel = new WavePacketControlPanel( model, popupParent, {
       tandem: options.tandem.createTandem( 'controlPanel' )
@@ -175,7 +183,9 @@ class WavePacketScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
 
-    // Layout vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+    //------------------------------------------------------------------------------------------------------------------
+    // Layout
+    //------------------------------------------------------------------------------------------------------------------
 
     // Amplitudes chart at top left
     amplitudesExpandCollapseButton.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
@@ -210,7 +220,9 @@ class WavePacketScreenView extends ScreenView {
     resetAllButton.right = layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
 
-    // Layout ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //------------------------------------------------------------------------------------------------------------------
+    // Rendering order
+    //------------------------------------------------------------------------------------------------------------------
 
     // Add everything to one root Node, then add that root Node to the scene graph.
     // This should improve startup performance, compared to calling this.addChild for each Node.
@@ -231,30 +243,35 @@ class WavePacketScreenView extends ScreenView {
     } );
     this.addChild( screenViewRootNode );
 
+    //------------------------------------------------------------------------------------------------------------------
+    // Equation positions
+    //------------------------------------------------------------------------------------------------------------------
+
     // Center dynamic equations above their respective charts. Since we need to listen to the bounds of these equations
     // in order to respect their maxWidth, wrapper Nodes are transformed for equations that are dynamic.
     // See https://github.com/phetsims/fourier-making-waves/issues/40
-    {
-      // Space between top of the ChartRectangle and bottom of the equation
-      const equationYSpacing = 3;
 
-      amplitudeEquationNode.boundsProperty.link( () => {
-        amplitudeEquationNode.centerX = amplitudeChartRectangleLocalBounds.centerX;
-        amplitudeEquationNode.bottom = amplitudeChartRectangleLocalBounds.top - equationYSpacing;
-      } );
+    // Space between top of the ChartRectangle and bottom of the equation
+    const equationYSpacing = 3;
 
-      componentsEquationNode.boundsProperty.link( () => {
-        componentsEquationNode.centerX = componentsChartRectangleLocalBounds.centerX;
-        componentsEquationNode.bottom = componentsChartRectangleLocalBounds.top - equationYSpacing;
-      } );
+    amplitudeEquationNode.boundsProperty.link( () => {
+      amplitudeEquationNode.centerX = amplitudeChartRectangleLocalBounds.centerX;
+      amplitudeEquationNode.bottom = amplitudeChartRectangleLocalBounds.top - equationYSpacing;
+    } );
 
-      sumEquationNode.boundsProperty.link( () => {
-        sumEquationNode.centerX = sumChartRectangleLocalBounds.centerX;
-        sumEquationNode.bottom = sumChartRectangleLocalBounds.top - equationYSpacing;
-      } );
-    }
+    componentsEquationNode.boundsProperty.link( () => {
+      componentsEquationNode.centerX = componentsChartRectangleLocalBounds.centerX;
+      componentsEquationNode.bottom = componentsChartRectangleLocalBounds.top - equationYSpacing;
+    } );
 
-    // Measurement Tools -------------------------------------------------------------------
+    sumEquationNode.boundsProperty.link( () => {
+      sumEquationNode.centerX = sumChartRectangleLocalBounds.centerX;
+      sumEquationNode.bottom = sumChartRectangleLocalBounds.top - equationYSpacing;
+    } );
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Measurement Tools
+    //------------------------------------------------------------------------------------------------------------------
 
     // Add measurement tools after layout of charts, because their initial positions and drag bounds depend on
     // final positions and bounds of ChartRectangles.
@@ -268,7 +285,9 @@ class WavePacketScreenView extends ScreenView {
       } );
     amplitudesParentNode.addChild( componentSpacingToolNode ); // to sync visibility with other Amplitudes elements
 
-    // PDOM ---------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    // PDOM
+    //------------------------------------------------------------------------------------------------------------------
 
     // pdom - traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53 and https://github.com/phetsims/fourier-making-waves/issues/84.
