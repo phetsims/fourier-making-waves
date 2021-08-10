@@ -18,7 +18,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-// These constants determine the shape of the calipers.
+// These constants determine the shape of the beam and jaws.
 const BEAM_THICKNESS = 5;
 const JAWS_THICKNESS = 5;
 const JAWS_LENGTH = 20;
