@@ -1,7 +1,7 @@
 // Copyright 2020, University of Colorado Boulder
 
 /**
- * EquationForm enumeration the forms of the equations shown in the 'Discrete' screen.
+ * EquationForm enumerates the forms of the equations shown in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
