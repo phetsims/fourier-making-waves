@@ -333,8 +333,8 @@ class WavePacketScreenView extends ScreenView {
     // See https://github.com/phetsims/fourier-making-waves/issues/53 and https://github.com/phetsims/fourier-making-waves/issues/84.
     screenViewRootNode.pdomOrder = [
       controlPanel,
-      //TODO https://github.com/phetsims/fourier-making-waves/issues/84 put measurement tools here
       componentSpacingToolNode,
+      lengthToolNode,
       amplitudesExpandCollapseButton,
       continuousWaveformCheckbox,
       componentsExpandCollapseButton,
