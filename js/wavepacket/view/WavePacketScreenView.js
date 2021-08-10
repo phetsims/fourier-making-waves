@@ -267,7 +267,7 @@ class WavePacketScreenView extends ScreenView {
 
       // Upper-right corner of Amplitudes chart
       componentSpacingToolNode.top = amplitudeChartRectangleLocalBounds.top + 5;
-      componentSpacingToolNode.right = amplitudeChartRectangleLocalBounds.right - 20;
+      componentSpacingToolNode.right = amplitudeChartRectangleLocalBounds.right - 40;
     }
 
     resetMeasurementToolPositions(); // initial position
