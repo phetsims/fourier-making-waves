@@ -34,7 +34,6 @@ class DiscreteFourierSeries extends FourierSeries {
 
     // Zero out amplitudes that are not relevant. Since this causes amplitudesProperty to go through intermediate
     // states, notification of amplitudesProperty listeners is deferred until all harmonics have been updated.
-    // unlink is not necessary.
     this.numberOfHarmonicsProperty.link( numberOfHarmonics => {
       this.amplitudesProperty.setDeferred( true );
       for ( let i = numberOfHarmonics; i < this.numberOfHarmonicsProperty.range.max; i++ ) {

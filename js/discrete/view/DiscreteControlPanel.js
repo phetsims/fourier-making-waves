@@ -438,11 +438,9 @@ class MeasurementToolsSubpanel extends VBox {
 
     super( options );
 
-    // unlink is not necessary
     wavelengthTool.isSelectedProperty.link( () => wavelengthSpinner.interruptSubtreeInput() );
     periodTool.isSelectedProperty.link( () => periodSpinner.interruptSubtreeInput() );
 
-    // unlink is not necessary
     domainProperty.link( domain => {
 
       // Wavelength measurement is enabled when domain involves space.
