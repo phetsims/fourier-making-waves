@@ -1,9 +1,10 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO move visibility optimizations into model?
 /**
  * WavePacketAmplitudesChartNode is the 'Amplitudes' chart on the 'Wave Packet' screen.
- * This is optimized to update only the plots that are visible.
+ *
+ * Note that we do not need to handle visibility of plots in this class.
+ * The model is optimized to return FMWConstants.EMPTY_DATA_SET when nothing needs to be displayed.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -46,11 +47,11 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
 
     // Fields of interest in amplitudesChart, to improve readability
     const domainProperty = amplitudesChart.domainProperty;
-    const amplitudesDataSetProperty = amplitudesChart.amplitudesDataSetProperty;
+    const finiteComponentsDataSetProperty = amplitudesChart.finiteComponentsDataSetProperty;
+    const infiniteComponentsDataSetProperty = amplitudesChart.infiniteComponentsDataSetProperty;
     const continuousWaveformDataSetProperty = amplitudesChart.continuousWaveformDataSetProperty;
     const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
     const waveNumberRange = amplitudesChart.wavePacket.waveNumberRange;
-    const componentSpacingProperty = amplitudesChart.wavePacket.componentSpacingProperty;
     const widthIndicatorWidthProperty = amplitudesChart.widthIndicatorWidthProperty;
     const widthIndicatorPositionProperty = amplitudesChart.widthIndicatorPositionProperty;
     const widthIndicatorsVisibleProperty = amplitudesChart.widthIndicatorsVisibleProperty;
@@ -143,43 +144,16 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       } );
     } );
 
-    // Display the Fourier components, where x = wave number, y = amplitude.
-    // Performance optimization: Update only if the plot is visible.
-    amplitudesDataSetProperty.link( amplitudesDataSet => {
-      if ( finiteComponentsPlot.visible ) {
-        finiteComponentsPlot.setDataSet( amplitudesDataSet );
-      }
-    } );
-
-    // Update plots that rely on continuous waveform data set.
-    // Performance optimization: Update only the visible plots.
+    // Update plots when their data sets change.
+    finiteComponentsDataSetProperty.link( dataSet => finiteComponentsPlot.setDataSet( dataSet ) );
+    infiniteComponentsDataSetProperty.link( dataSet => infiniteComponentsPlot.setDataSet( dataSet ) );
     continuousWaveformDataSetProperty.link( dataSet => {
-
-      if ( continuousWaveformVisibleProperty.value ) {
-        continuousWaveformPlot.setDataSet( dataSet );
-        chartCanvasNode.update();
-      }
-
-      if ( infiniteComponentsPlot.visible ) {
-        infiniteComponentsPlot.setDataSet( dataSet );
-      }
+      continuousWaveformPlot.setDataSet( dataSet );
+      chartCanvasNode.update();
     } );
 
     // Scale the y axis.
     maxAmplitudeProperty.link( maxAmplitude => this.scaleYAxis( maxAmplitude ) );
-
-    // When we have infinite components, hide finiteComponentsPlot and show infiniteComponentsPlot.
-    componentSpacingProperty.link( componentSpacing => {
-      const isInfinite = ( componentSpacing === 0 );
-      finiteComponentsPlot.visible = !isInfinite;
-      infiniteComponentsPlot.visible = isInfinite;
-    } );
-
-    // Performance optimization: Update data set when a plot becomes visible, clear data set when it becomes invisible.
-    finiteComponentsPlot.visibleProperty.link(
-      visible => finiteComponentsPlot.setDataSet( visible ? amplitudesDataSetProperty.value : [] ) );
-    infiniteComponentsPlot.visibleProperty.link(
-      visible => infiniteComponentsPlot.setDataSet( visible ? continuousWaveformDataSetProperty.value : [] ) );
   }
 
   /**

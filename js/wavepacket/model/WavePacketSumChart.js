@@ -2,6 +2,7 @@
 
 /**
  * WavePacketSumChart is the 'Sum' chart on the 'Wave Packet' screen.
+ * Optimized to update only the data sets that will actually be visible.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -21,9 +22,8 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
 import WavePacketComponentsChart from './WavePacketComponentsChart.js';
 
-// An empty data set, used so that we can rely on value comparison in Property, and not trigger notifications when
-// the value changes from one [] to another [].  This is a performance optimization.
-const EMPTY_DATA_SET = Object.freeze( [] );
+// constants
+const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 
 class WavePacketSumChart extends WaveformChart {
 

@@ -41,6 +41,10 @@ const FMWConstants = {
   // Reaching this score results in a reward in the Wave Game screen
   REWARD_SCORE: FMWQueryParameters.rewardScore,
 
+  // An empty data set, used so that we can rely on value comparison in Property, and not trigger notifications when
+  // the value changes from one [] to another [].  This is a performance optimization.
+  EMPTY_DATA_SET: Object.freeze( [] ),
+
   // View ============================================================================================================
 
   SCREEN_VIEW_X_MARGIN: 15,

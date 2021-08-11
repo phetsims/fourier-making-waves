@@ -2,6 +2,7 @@
 
 /**
  * WavePacketComponentsChart is the 'Components' chart on the 'Wave Packet' screen.
+ * Optimized to update only the data sets that will actually be visible.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -24,6 +25,7 @@ import WavePacket from './WavePacket.js';
 // longer period, and therefore require fewer points to make them look smooth. But computing the same number of points
 // for all components makes it easier and more efficient to compute the Sum of those components in the Wave Packet screen.
 const POINTS_PER_DATA_SET = FMWConstants.MAX_POINTS_PER_DATA_SET;
+const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 
 class WavePacketComponentsChart extends WaveformChart {
 
@@ -54,13 +56,13 @@ class WavePacketComponentsChart extends WaveformChart {
     this.wavePacket = wavePacket;
 
     // @public {DerivedProperty<Array.<Array.<Vector2>>}
-    // A data set for each Fourier component's waveform, [] when the number of components is infinite.
+    // A data set for each Fourier component's waveform, EMPTY_DATA_SET when the number of components is infinite.
     // Ordered by increasing order of Fourier component, i.e. the fundamental component has index=0.
     // This is loosely based on the update method in D2CComponentsView.java.
     this.componentDataSetsProperty = new DerivedProperty(
       [ wavePacket.componentsProperty, domainProperty, seriesTypeProperty, xAxisDescriptionProperty ],
       ( components, domain, seriesType, xAxisDescription ) => {
-        let dataSets = [];
+        let dataSets = EMPTY_DATA_SET;
         if ( components.length > 0 ) {
           dataSets = WavePacketComponentsChart.createComponentsDataSets( components,
             wavePacket.componentSpacingProperty.value, domain, seriesType, xAxisDescription.range );

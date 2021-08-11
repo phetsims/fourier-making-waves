@@ -38,7 +38,6 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
 
     // Fields of interest in componentsChart, to improve readability
     const xAxisDescriptionProperty = componentsChart.xAxisDescriptionProperty;
-    const componentSpacingProperty = componentsChart.wavePacket.componentSpacingProperty;
 
     options = merge( {
       xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),
@@ -68,32 +67,36 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
     } );
     this.addChild( messageNode );
 
-    // When we have an infinite number of components...
-    componentSpacingProperty.link( componentSpacing => {
-      const hasInfiniteComponents = ( componentSpacing === 0 );
+    componentsChart.componentDataSetsProperty.link( componentDataSets => {
+
+      // When we have infinite components, componentDataSets cannot be populated and will be [].
+      const hasInfiniteComponents = ( componentDataSets.length === 0 );
 
       // Show the '...cannot be plotted' message.
       messageNode.visible = hasInfiniteComponents;
 
-      // Hide some chart elements.
+      // Hide all component plots.
       chartCanvasNode.visible = !hasInfiniteComponents;
+
+      // Hide some chart elements.
       this.yGridLines.visible = !hasInfiniteComponents;
       this.yTickMarks.visible = !hasInfiniteComponents;
       this.yTickLabels.visible = !hasInfiniteComponents;
-    } );
 
-    // Update the plot for each component.
-    componentsChart.componentDataSetsProperty.link( componentDataSets => {
+      // Update the plot for each component.
+      if ( hasInfiniteComponents ) {
 
-      const numberOfComponents = componentDataSets.length;
-      if ( numberOfComponents > 0 ) {
-
+        // Do nothing. While we could set the data set to [] for every CanvasLinePlot, that would be a performance hit.
+        // Instead, chartCanvasNode.visible is set to false (see above) when we have infinite components.
+      }
+      else {
         const plots = chartCanvasNode.painters;
         const numberOfPlots = plots.length;
 
         // The maximum amplitude, for autoscaling the y axis.
         let maxAmplitude = 0;
 
+        const numberOfComponents = componentDataSets.length;
         for ( let i = 0; i < numberOfComponents; i++ ) {
 
           const dataSet = componentDataSets[ i ];

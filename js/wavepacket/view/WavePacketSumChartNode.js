@@ -3,6 +3,9 @@
 /**
  * WavePacketSumChartNode is the 'Sum' chart on the 'Wave Packet' screen.
  *
+ * Note that we do not need to handle visibility of plots in this class.
+ * The model is optimized to return FMWConstants.EMPTY_DATA_SET when nothing needs to be displayed.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
@@ -101,10 +104,16 @@ class WavePacketSumChartNode extends WaveformChartNode {
     } );
     this.addChild( clipNode );
 
-    // Update the sum data set.
+    // Update the sum plot.
     sumDataSetProperty.link( dataSet => {
       sumPlot.setDataSet( dataSet );
       sumChartCanvasNode.update();
+    } );
+
+    // Update the waveform envelope plot.
+    waveformEnvelopeDataSetProperty.link( dataSet => {
+      waveformEnvelopePlot.setDataSet( dataSet );
+      waveformEnvelopeChartCanvasNode.update();
     } );
 
     // Scale the y axis.
@@ -112,12 +121,6 @@ class WavePacketSumChartNode extends WaveformChartNode {
       if ( maxAmplitude > 0 ) {
         this.scaleYAxis( maxAmplitude );
       }
-    } );
-
-    // Update the waveform envelope.
-    waveformEnvelopeDataSetProperty.link( dataSet => {
-      waveformEnvelopePlot.setDataSet( dataSet );
-      waveformEnvelopeChartCanvasNode.update();
     } );
   }
 

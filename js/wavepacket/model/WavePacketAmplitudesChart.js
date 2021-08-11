@@ -2,6 +2,7 @@
 
 /**
  * WavePacketAmplitudesChart is the 'Amplitudes' chart on the 'Wave Packet' screen.
+ * Optimized to update only the data sets that will actually be visible.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -12,9 +13,13 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
+
+// constants
+const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 
 class WavePacketAmplitudesChart {
 
@@ -51,32 +56,80 @@ class WavePacketAmplitudesChart {
       tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
     } );
 
-    // @public {DerivedProperty.<Vector2[]>} data set for a finite number of Fourier components, [] if the number 
-    // of components is infinite. x = wave number, y = amplitude. Points are ordered by increasing x value.
-    this.amplitudesDataSetProperty = new DerivedProperty(
+    // @public {DerivedProperty.<Vector2[]>} data set for a finite number of Fourier components, EMPTY_DATA_SET if the
+    // number of components is infinite. x = wave number, y = amplitude. Points are ordered by increasing x value.
+    this.finiteComponentsDataSetProperty = new DerivedProperty(
       [ wavePacket.componentsProperty ],
       components => {
-        return _.map( components, component => new Vector2( component.waveNumber, component.amplitude ) );
+        let dataSet = EMPTY_DATA_SET;
+        if ( components.length > 0 ) {
+          dataSet = _.map( components, component => new Vector2( component.waveNumber, component.amplitude ) );
+        }
+        return dataSet;
       } );
 
-    // @public {DerivedProperty.<Vector2[]>} data set displayed when the 'Continuous Wave' checkbox is checked.
-    // Points are ordered by increasing x value.
-    this.continuousWaveformDataSetProperty = new DerivedProperty(
-      [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
-      () => createContinuousWaveformDataSet( wavePacket )
+    // Data set for a continuous waveform. This may be plotted in 2 situations: when the number of components is
+    // infinite, or the 'Continuous Wave' checkbox is checked. Points are ordered by increasing x value.
+    const continuousWaveformDataSetProperty = new DerivedProperty(
+      [ this.continuousWaveformVisibleProperty, wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
+      ( continuousWaveformVisible, componentSpacing, center, standardDeviation ) => {
+        let dataSet = EMPTY_DATA_SET;
+        if ( continuousWaveformVisible || componentSpacing === 0 ) {
+          dataSet = createContinuousWaveformDataSet( wavePacket );
+        }
+        return dataSet;
+      }
     );
 
+    // @public {DerivedProperty.<Vector2[]>} Data set for a continuous waveform, displayed when the number of
+    // components is infinite.
+    this.infiniteComponentsDataSetProperty = new DerivedProperty(
+      [ wavePacket.componentSpacingProperty, continuousWaveformDataSetProperty ],
+      ( componentSpacing, continuousWaveformDataSet ) => {
+        let dataSet = EMPTY_DATA_SET;
+        if ( componentSpacing === 0 ) {
+          dataSet = continuousWaveformDataSet;
+        }
+        return dataSet;
+      } );
+
+    // @public {DerivedProperty.<Vector2[]>} Data set for a continuous waveform, displayed when the
+    // 'Continuous Wave' checkbox is checked.
+    this.continuousWaveformDataSetProperty = new DerivedProperty(
+      [ this.continuousWaveformVisibleProperty, continuousWaveformDataSetProperty ],
+      ( continuousWaveformVisible, continuousWaveformDataSet ) => {
+        let dataSet = EMPTY_DATA_SET;
+        if ( continuousWaveformVisible ) {
+          dataSet = continuousWaveformDataSet;
+        }
+        return dataSet;
+      } );
+
     // @public {DerivedProperty.<number>} the maximum amplitude, used to scale the chart's y axis.
+    // NOTE: This is a bit more complicated because performance is an issue - we do not want to allow
+    // additional arrays, use the spread operator, etc.
     this.maxAmplitudeProperty = new DerivedProperty(
-      [ this.continuousWaveformVisibleProperty, this.amplitudesDataSetProperty, this.continuousWaveformDataSetProperty ],
-      ( continuousWaveformVisible, amplitudesDataSet, continuousWaveformDataSet ) => {
+      [ this.finiteComponentsDataSetProperty, continuousWaveformDataSetProperty ],
+      ( amplitudesDataSet, continuousWaveformDataSet ) => {
 
-        // Choose the data set that determines the maximum amplitude.
-        const dataSet = ( continuousWaveformVisible || amplitudesDataSet.length === 0 ) ?
-                        continuousWaveformDataSet : amplitudesDataSet;
+        // To ensure a non-zero result. That would be an intermediate state, would result in a y-axis range of [0,0],
+        // and could cause problems with our bamboo WavePacketAmplitudeChartsNode.
+        const epsilon = 1e-6;
 
-        // Find the maximum amplitude in that data set. Use a small value to ensure that it's non-zero.
-        return Math.max( 1e-6, _.maxBy( dataSet, point => point.y ).y );
+        // Find the maxY for amplitudesDataSet, which will be [] if we have infinite components.
+        let amplitudesDataSetMaxY = epsilon;
+        if ( amplitudesDataSet.length > 0 ) {
+          amplitudesDataSetMaxY = _.maxBy( amplitudesDataSet, point => point.y ).y;
+        }
+
+        // Find maxY for continuousWaveformDataSet, which will be [] if we have finite components and
+        // the 'Continuous Waveform' checkbox is not checked.
+        let continuousWaveformDataSetMaxY = epsilon;
+        if ( continuousWaveformDataSet.length > 0 ) {
+          continuousWaveformDataSetMaxY = _.maxBy( continuousWaveformDataSet, point => point.y ).y;
+        }
+
+        return Math.max( amplitudesDataSetMaxY, continuousWaveformDataSetMaxY );
       } );
 
     // @public {DerivedProperty.<Vector2>} width that is displayed by the width indicator
