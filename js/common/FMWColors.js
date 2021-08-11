@@ -51,7 +51,7 @@ const FMWColors = {
     default: Color.grayColor( 170 )
   } ),
 
-  // Stroke for the sum plot in the Discrete and Wave Packet screens
+  // Stroke for the sum plot in all screens
   sumPlotStrokeProperty: new ProfileColorProperty( 'sumStroke', {
     default: 'black'
   } ),

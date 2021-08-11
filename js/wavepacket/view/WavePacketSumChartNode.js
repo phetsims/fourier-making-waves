@@ -60,12 +60,18 @@ class WavePacketSumChartNode extends WaveformChartNode {
 
     // Plots the sum
     const sumPlot = new CanvasLinePlot( this.chartTransform, [], {
-      stroke: 'black'
+      stroke: FMWColors.sumPlotStrokeProperty.value
     } );
 
     // Render sumPlot using Canvas. Remember! When sumPlot is updated, you must call update().
     // This ChartCanvasNode renders only sumPlot because it has its own clipArea requirements.
     const sumChartCanvasNode = new ChartCanvasNode( this.chartTransform, [ sumPlot ] );
+
+    // CanvasLinePlot stroke does not support Property, so handle it here.
+    FMWColors.sumPlotStrokeProperty.link( stroke => {
+      sumPlot.setStroke( stroke );
+      sumChartCanvasNode.update();
+    } );
 
     // Plots the waveform envelope of the sum.  There is no need to handle this plot's visibility, because its
     // data set will be empty when it's not a visible - a performance optimization in the model.  CanvasLinePlot
