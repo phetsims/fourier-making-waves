@@ -42,7 +42,7 @@ import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import EquationForm from '../model/EquationForm.js';
 import Waveform from '../model/Waveform.js';
-import DiscreteSymbolsDialog from './DiscreteSymbolsDialog.js';
+import DiscreteInfoDialog from './DiscreteInfoDialog.js';
 import EquationComboBox from './EquationComboBox.js';
 import FourierSoundEnabledCheckbox from './FourierSoundEnabledCheckbox.js';
 import HarmonicsSpinner from './HarmonicsSpinner.js';
@@ -104,30 +104,34 @@ class DiscreteControlPanel extends Panel {
       children: children
     } ) );
 
-    // Dialog that displays a key for math symbols
-    const symbolsDialog = new DiscreteSymbolsDialog();
+    // Dialog that displays a key for math symbols. Created eagerly and reused for PhET-iO.
+    const infoDialog = new DiscreteInfoDialog( {
+      tandem: options.tandem.createTandem( 'infoDialog' )
+    } );
 
-    // Push button to open the dialog, vertically centered on the 'Fourier Series' title.
-    const symbolsButton = new InfoButton( {
-      listener: () => symbolsDialog.show(),
+    // Button to open the dialog
+    const infoButton = new InfoButton( {
+      listener: () => infoDialog.show(),
       iconFill: 'rgb( 50, 145, 184 )',
       scale: 0.4,
       touchAreaDilation: 15,
-      right: vBox.right,
-      centerY: fourierSeriesLayoutBox.globalToParentBounds(
-        fourierSeriesLayoutBox.fourierSeriesText.parentToGlobalBounds( fourierSeriesLayoutBox.fourierSeriesText.bounds ) ).centerY
+      tandem: options.tandem.createTandem( 'infoButton' )
     } );
 
     const content = new Node( {
-      children: [ vBox, symbolsButton ]
+      children: [ vBox, infoButton ]
     } );
+
+    // InfoButton at upper-right of control panel, vertically centered on title.
+    infoButton.right = vBox.right;
+    infoButton.centerY = fourierSeriesLayoutBox.fourierSeriesText.boundsTo( vBox ).centerY;
 
     super( content, options );
 
     // pdom - traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53
     this.pdomOrder = [
-      symbolsButton,
+      infoButton,
       vBox
     ];
   }

@@ -27,11 +27,11 @@ import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonG
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
-import StandardDeviationControl from './StandardDeviationControl.js';
-import ConjugateStandardDeviationControl from './ConjugateStandardDeviationControl.js';
 import CenterControl from './CenterControl.js';
 import ComponentSpacingControl from './ComponentSpacingControl.js';
-import WavePacketSymbolsDialog from './WavePacketSymbolsDialog.js';
+import ConjugateStandardDeviationControl from './ConjugateStandardDeviationControl.js';
+import StandardDeviationControl from './StandardDeviationControl.js';
+import WavePacketInfoDialog from './WavePacketInfoDialog.js';
 import WidthIndicatorsCheckbox from './WidthIndicatorsCheckbox.js';
 
 // constants
@@ -105,31 +105,34 @@ class WavePacketControlPanel extends Panel {
       spacing: 10
     } ) );
 
-    // Dialog that displays a key for math symbols
-    const symbolsDialog = new WavePacketSymbolsDialog();
+    // Dialog that displays a key for math symbols. Created eagerly and reused for PhET-iO.
+    const infoDialog = new WavePacketInfoDialog( {
+      tandem: options.tandem.createTandem( 'infoDialog' )
+    } );
 
-    // Push button to open the dialog.
-    const symbolsButton = new InfoButton( {
-      listener: () => symbolsDialog.show(),
+    // Button to open the dialog.
+    const infoButton = new InfoButton( {
+      listener: () => infoDialog.show(),
       iconFill: 'rgb( 50, 145, 184 )',
       scale: 0.4,
       touchAreaDilation: 15,
-      right: vBox.right,
-      centerY: componentSpacingSubpanel.globalToParentBounds(
-        componentSpacingSubpanel.componentSpacingText.parentToGlobalBounds(
-          componentSpacingSubpanel.componentSpacingText.bounds ) ).centerY
+      tandem: options.tandem.createTandem( 'infoButton' )
     } );
 
     const content = new Node( {
-      children: [ vBox, symbolsButton ]
+      children: [ vBox, infoButton ]
     } );
+
+    // InfoButton at upper-right of control panel, vertically centered on title.
+    infoButton.right = vBox.right;
+    infoButton.centerY = componentSpacingSubpanel.componentSpacingText.boundsTo( vBox ).centerY;
 
     super( content, options );
 
     // pdom - traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53
     this.pdomOrder = [
-      symbolsButton,
+      infoButton,
       vBox
     ];
   }

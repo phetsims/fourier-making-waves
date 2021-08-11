@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * DiscreteSymbolsDialog is a dialog that shows a key to the symbols used in the 'Discrete' screen.
+ * WavePacketInfoDialog is a dialog that shows a key to the symbols used in the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -19,7 +19,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 // constants
 const MAX_WIDTH = 800; // determined empirically
 
-class DiscreteSymbolsDialog extends Dialog {
+class WavePacketInfoDialog extends Dialog {
 
   /**
    * @param {Object} [options]
@@ -33,7 +33,7 @@ class DiscreteSymbolsDialog extends Dialog {
       cornerRadius: FMWConstants.PANEL_CORNER_RADIUS
     }, options );
 
-    assert && assert( !options.title, 'DiscreteSymbolsDialog sets children' );
+    assert && assert( !options.title, 'WavePacketInfoDialog sets children' );
     options.title = new Text( fourierMakingWavesStrings.symbolsDialog.title, {
       font: FMWConstants.DIALOG_TITLE_FONT,
       maxWidth: MAX_WIDTH
@@ -42,10 +42,9 @@ class DiscreteSymbolsDialog extends Dialog {
     // For each translated string describing a symbol, fill in the symbol.
     const strings = [
       StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.A, { A: FMWSymbols.A } ),
-      StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.f, { f: FMWSymbols.f } ),
       StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.lambda, { lambda: FMWSymbols.lambda } ),
       StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.k, { k: FMWSymbols.k } ),
-      StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.L, { L: FMWSymbols.L } ),
+      StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.sigma, { sigma: FMWSymbols.sigma } ),
       StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.n, { n: FMWSymbols.n } ),
       StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.t, { t: FMWSymbols.t } ),
       StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.T, { T: FMWSymbols.T } ),
@@ -71,5 +70,5 @@ class DiscreteSymbolsDialog extends Dialog {
   }
 }
 
-fourierMakingWaves.register( 'DiscreteSymbolsDialog', DiscreteSymbolsDialog );
-export default DiscreteSymbolsDialog;
+fourierMakingWaves.register( 'WavePacketInfoDialog', WavePacketInfoDialog );
+export default WavePacketInfoDialog;

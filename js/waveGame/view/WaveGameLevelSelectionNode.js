@@ -41,29 +41,30 @@ class WaveGameLevelSelectionNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const chooseYourLevelNode = new Text( fourierMakingWavesStrings.chooseYourLevel, {
+    const chooseYourLevelText = new Text( fourierMakingWavesStrings.chooseYourLevel, {
       font: new PhetFont( 50 ),
-      maxWidth: 0.65 * layoutBounds.width
+      maxWidth: 0.65 * layoutBounds.width,
+      tandem: options.tandem.createTandem( 'chooseYourLevelText' )
     } );
 
-    // {WaveGameInfoDialog} Info dialog is created on demand, then reused.
-    let infoDialog = null;
+    // Displays info about the levels. Created eagerly and reused for PhET-iO.
+    const infoDialog = new WaveGameInfoDialog( model.levels );
 
     const infoButton = new InfoButton( {
       iconFill: 'rgb( 41, 106, 163 )',
       maxHeight: 40, // determined empirically
       listener: () => {
-        infoDialog = infoDialog || new WaveGameInfoDialog( model.levels );
         infoDialog.show();
-      }
+      },
+      tandem: options.tandem.createTandem( 'infoButton' )
     } );
 
-    // Add an invisible strut to the left of chooseYourLevelNode, to balance the Info button at the right.
+    // Add an invisible strut to the left of chooseYourLevelText, to balance the Info button at the right.
     // This results in 'Choose Your Level' looking horizontally centered.
     const invisibleStrut = new HStrut( infoButton.width );
 
     const titleBox = new HBox( {
-      children: [ invisibleStrut, chooseYourLevelNode, infoButton ],
+      children: [ invisibleStrut, chooseYourLevelText, infoButton ],
       spacing: 40
     } );
 
