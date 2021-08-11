@@ -1,6 +1,5 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
-//TODO Should any of these be moved to where they are used? or don't need to be ProfileColorProperty?
 /**
  * FMWColors defines the colors for this simulation.
  *
