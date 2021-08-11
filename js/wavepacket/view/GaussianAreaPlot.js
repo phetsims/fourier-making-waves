@@ -71,7 +71,7 @@ class GaussianAreaPlot extends Path {
     assert && assert( _.every( this.dataSet, ( point, index, dataSet ) =>
     ( point !== null ) // null values (gaps) are not supported
     && ( point.isFinite() ) // all points must be finite
-    && ( index === 0 || dataSet[ index - 1 ].x < point.x ) // ordered by ascending x value
+    && ( index === 0 || dataSet[ index - 1 ].x < point.x ) // x values are unique and in ascending order
     && ( point.y >= 0 ) // all y values must be >= 0
     ) );
 
