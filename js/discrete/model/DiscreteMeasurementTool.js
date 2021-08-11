@@ -11,7 +11,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class DiscreteMeasurementTool {
@@ -32,7 +31,7 @@ class DiscreteMeasurementTool {
     }, options );
 
     // @public (read-only)
-    this.symbol = FMWSymbols.lambda;
+    this.symbol = symbol;
 
     // @public whether the Wavelength tool is selected
     this.isSelectedProperty = new BooleanProperty( false, {
