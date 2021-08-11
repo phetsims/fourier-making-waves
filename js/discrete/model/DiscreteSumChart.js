@@ -11,9 +11,13 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import SumChart from '../../common/model/SumChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Waveform from './Waveform.js';
+
+// constants
+const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 
 class DiscreteSumChart extends SumChart {
 
@@ -63,21 +67,23 @@ class DiscreteSumChart extends SumChart {
     const T = fourierSeries.T;
 
     // @public {DerivedProperty.<Vector2>} Data set that corresponds to a waveform preset, as if it were approximated
-    // using a Fourier series with an infinite number of harmonics.
+    // using a Fourier series with an infinite number of harmonics. If the preset is not visible, then returns
+    // EMPTY_DATA_SET.
     this.infiniteHarmonicsDataSetProperty = new DerivedProperty(
-      [ waveformProperty, domainProperty, seriesTypeProperty, tProperty ],
-      ( waveform, domain, seriesType, t ) => {
-        if ( waveform === Waveform.SINUSOID ) {
+      [ this.infiniteHarmonicsVisibleProperty, waveformProperty, domainProperty, seriesTypeProperty, tProperty ],
+      ( infiniteHarmonicsVisible, waveform, domain, seriesType, t ) => {
+        let dataSet = EMPTY_DATA_SET;
+        if ( infiniteHarmonicsVisible ) {
+          if ( waveform === Waveform.SINUSOID ) {
 
-          // Identical to the sum, so reuse the sum's data set.
-          return this.sumDataSetProperty.value;
+            // Identical to the sum, so reuse the sum's data set.
+            dataSet = this.sumDataSetProperty.value;
+          }
+          else {
+            dataSet = waveform.getInfiniteHarmonicsDataSet( domain, seriesType, t, L, T );
+          }
         }
-        else if ( waveform.getInfiniteHarmonicsDataSet ) {
-          return waveform.getInfiniteHarmonicsDataSet( domain, seriesType, t, L, T );
-        }
-        else {
-          return [];
-        }
+        return dataSet;
       } );
 
     // @private

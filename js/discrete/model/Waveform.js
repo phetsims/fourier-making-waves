@@ -15,6 +15,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -93,6 +94,10 @@ const INFINITE_HARMONICS_BASE_POINTS = {
   ]
 };
 
+// An empty array, used so that we can rely on value comparison in Property, and not trigger notifications when
+// the value changes from one [] to another [].  This is a performance optimization.
+const NO_AMPLITUDES = Object.freeze( [] );
+
 class WaveformValue {
 
   /**
@@ -103,18 +108,16 @@ class WaveformValue {
     options = merge( {
 
       /**
-       * {null|function}
-       * Gets the amplitudes for the harmonics in the Fourier series that approximates the waveform.
+       * {function} Gets the amplitudes for the harmonics that approximate the waveform.
        * @param {number} numberOfHarmonics - number of non-zero harmonics is the series
-       * @param {SeriesType} SeriesType - sin or cos
-       * @returns {number[]}
+       * @param {SeriesType} seriesType - sin or cos
+       * @returns {number[]} ordered by increasing harmonic order
        */
-      getAmplitudes: null,
+      getAmplitudes: ( numberOfHarmonics, seriesType ) => NO_AMPLITUDES,
 
       /**
-       * {null|function}
-       * Gets the data set that can be used to plot the actual waveform, as if the waveform were approximated using
-       * a Fourier series with an infinite number of harmonics.
+       * {function} Gets the data set that can be used to plot the actual waveform, as if the waveform were
+       * approximated using a Fourier series with an infinite number of harmonics. Ordered by increasing x coordinate.
        * @param {Domain} domain - domain of the x axis
        * @param {SeriesType} seriesType - sin or cos
        * @param {number} t - time, in milliseconds
@@ -122,7 +125,7 @@ class WaveformValue {
        * @param {number} T - period of the fundamental harmonic, in milliseconds
        * @returns {Vector2[]}
        */
-      getInfiniteHarmonicsDataSet: null
+      getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => FMWConstants.EMPTY_DATA_SET
     }, options );
 
     // @public (read-only)
@@ -143,7 +146,6 @@ const SINUSOID = new WaveformValue( {
     return amplitudes;
   }
 
-  //TODO chain getInfiniteHarmonicsDataSet to call getAmplitudes?
   // getInfiniteHarmonicsDataSet is not needed. The sum is an exact approximation, and we'll reuse its data set.
 } );
 

@@ -1,7 +1,5 @@
 TODO.txt for fourier-making-waves
 
-Optimize Discrete screen to only compute infiniteHarmonicsDataSetProperty when it's visible.
-
 Rename WaveformChartNode, make WavePacketAmplitudesChartNode extends WaveformChartNode,
   WavePacketAmplitudesChart extends WaveformChart
 
