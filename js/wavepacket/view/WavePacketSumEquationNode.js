@@ -18,7 +18,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import SumSymbolNode from '../../common/view/SumSymbolNode.js';
-import EquationMarkup from '../../discrete/view/EquationMarkup.js';
+import EquationMarkup from '../../common/view/EquationMarkup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.

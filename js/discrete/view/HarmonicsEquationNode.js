@@ -16,7 +16,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../../common/model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import EquationMarkup from './EquationMarkup.js';
+import EquationMarkup from '../../common/view/EquationMarkup.js';
 
 class HarmonicsEquationNode extends Node {
 

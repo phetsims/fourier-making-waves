@@ -22,7 +22,7 @@ import DiscreteFourierSeries from '../model/DiscreteFourierSeries.js';
 import Domain from '../../common/model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import EquationMarkup from './EquationMarkup.js';
+import EquationMarkup from '../../common/view/EquationMarkup.js';
 import DiscreteSumEquationNode from './DiscreteSumEquationNode.js';
 
 // Maximum number of terms per line in the expanded form

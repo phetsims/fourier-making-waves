@@ -19,7 +19,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../../common/model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import EquationMarkup from './EquationMarkup.js';
+import EquationMarkup from '../../common/view/EquationMarkup.js';
 import SumSymbolNode from '../../common/view/SumSymbolNode.js';
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.

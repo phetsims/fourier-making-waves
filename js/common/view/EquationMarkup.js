@@ -1,19 +1,18 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
-//TODO move to common/
 /**
- * EquationMarkup is a set of utility functions for creating markup used to render equations that describe a
- * Fourier series.
+ * EquationMarkup is a set of utility functions for creating RichText markup, used to render equations that are
+ * specific to this simulation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import FMWSymbols from '../../common/FMWSymbols.js';
+import FMWSymbols from '../FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import Domain from '../../common/model/Domain.js';
-import EquationForm from '../model/EquationForm.js';
-import SeriesType from '../../common/model/SeriesType.js';
+import Domain from '../model/Domain.js';
+import EquationForm from '../../discrete/model/EquationForm.js';
+import SeriesType from '../model/SeriesType.js';
 
 // constants
 const HIDDEN_STRING = ''; // string for EquationForm.HIDDEN
