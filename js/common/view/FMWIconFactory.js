@@ -30,55 +30,6 @@ import AmplitudeSlider from './AmplitudeSlider.js';
 const FMWIconFactory = {
 
   /**
-   * Creates an icon that contains one or more amplitude spinners, with an x axis.
-   * @param {number[]} amplitudes
-   * @param {Range} amplitudeRange
-   * @param {Object} [options]
-   */
-  createSlidersIcon( amplitudes, amplitudeRange, options ) {
-
-    assert && assert( amplitudes.length < FMWConstants.MAX_HARMONICS );
-    assert && assert( _.every( amplitudes, amplitude => amplitudeRange.contains( amplitude ) ) );
-
-    // Create harmonics
-    const harmonics = [];
-    for ( let order = 1; order <= amplitudes.length; order++ ) {
-      harmonics.push( new Harmonic( {
-        order: order,
-        frequency: 1,
-        wavelength: 1,
-        amplitudeRange: amplitudeRange,
-        amplitude: amplitudes[ order - 1 ],
-        colorProperty: FMWColors.HARMONIC_COLOR_PROPERTIES[ order - 1 ],
-        tandem: Tandem.OPT_OUT
-      } ) );
-    }
-
-    // Create sliders
-    const emphasizedHarmonics = new EmphasizedHarmonics();
-    const sliders = new HBox( {
-      spacing: 10,
-      children: _.map( harmonics, harmonic => new AmplitudeSlider( harmonic, emphasizedHarmonics ), {
-        tandem: Tandem.OPT_OUT
-      } )
-    } );
-
-    // x axis
-    const xMargin = 10;
-    const xAxis = new Line( -xMargin, sliders.height / 2, sliders.width + xMargin, sliders.height / 2, {
-      stroke: FMWColors.axisStrokeProperty,
-      lineWidth: 2
-    } );
-
-    // Note that we could use node.rasterized( { resolution: 2 } ) to avoid memory, phet-io, and pdom issues
-    // associated with all of the above elements. But the quality of the rendering is not as good.
-    return new Node( merge( {}, {
-      children: [ xAxis, sliders ],
-      pdomVisible: false // so that focus traversal does not visit subcomponents of this icon
-    }, options ) );
-  },
-
-  /**
    * Creates the Home screen icon for the 'Discrete' screen.
    * @returns {ScreenIcon}
    * @public
@@ -88,7 +39,7 @@ const FMWIconFactory = {
     // amplitudes to fill the vertical space.
     const amplitudes = [ 1, -0.85, 0.65, 0.3 ];
     const amplitudeRange = new Range( -1, 1 );
-    const iconNode = FMWIconFactory.createSlidersIcon( amplitudes, amplitudeRange );
+    const iconNode = createSlidersIcon( amplitudes, amplitudeRange );
     return new ScreenIcon( iconNode, {
       fill: FMWColors.discreteScreenBackgroundColorProperty
     } );
@@ -145,7 +96,7 @@ const FMWIconFactory = {
     const rectangle = new Rectangle( 0, 0, iconWidth, iconHeight );
 
     // Create sliders
-    const slidersIcon = FMWIconFactory.createSlidersIcon( amplitudes, amplitudeRange, {
+    const slidersIcon = createSlidersIcon( amplitudes, amplitudeRange, {
       maxWidth: rectangle.width,
       maxHeight: rectangle.height,
       center: rectangle.center
@@ -180,6 +131,55 @@ const FMWIconFactory = {
     } );
   }
 };
+
+/**
+ * Creates an icon that contains one or more amplitude spinners, with an x axis.
+ * @param {number[]} amplitudes
+ * @param {Range} amplitudeRange
+ * @param {Object} [options]
+ */
+function createSlidersIcon( amplitudes, amplitudeRange, options ) {
+
+  assert && assert( amplitudes.length < FMWConstants.MAX_HARMONICS );
+  assert && assert( _.every( amplitudes, amplitude => amplitudeRange.contains( amplitude ) ) );
+
+  // Create harmonics
+  const harmonics = [];
+  for ( let order = 1; order <= amplitudes.length; order++ ) {
+    harmonics.push( new Harmonic( {
+      order: order,
+      frequency: 1,
+      wavelength: 1,
+      amplitudeRange: amplitudeRange,
+      amplitude: amplitudes[ order - 1 ],
+      colorProperty: FMWColors.HARMONIC_COLOR_PROPERTIES[ order - 1 ],
+      tandem: Tandem.OPT_OUT
+    } ) );
+  }
+
+  // Create sliders
+  const emphasizedHarmonics = new EmphasizedHarmonics();
+  const sliders = new HBox( {
+    spacing: 10,
+    children: _.map( harmonics, harmonic => new AmplitudeSlider( harmonic, emphasizedHarmonics ), {
+      tandem: Tandem.OPT_OUT
+    } )
+  } );
+
+  // x axis
+  const xMargin = 10;
+  const xAxis = new Line( -xMargin, sliders.height / 2, sliders.width + xMargin, sliders.height / 2, {
+    stroke: FMWColors.axisStrokeProperty,
+    lineWidth: 2
+  } );
+
+  // Note that we could use node.rasterized( { resolution: 2 } ) to avoid memory, phet-io, and pdom issues
+  // associated with all of the above elements. But the quality of the rendering is not as good.
+  return new Node( merge( {}, {
+    children: [ xAxis, sliders ],
+    pdomVisible: false // so that focus traversal does not visit subcomponents of this icon
+  }, options ) );
+}
 
 fourierMakingWaves.register( 'FMWIconFactory', FMWIconFactory );
 export default FMWIconFactory;
