@@ -40,7 +40,12 @@ const FMWColors = {
     default: Color.grayColor( 200 )
   } ),
 
-  // Grid line stroke for all charts except the Amplitude chart in the 'Discrete' and 'Wave Game' screens
+  // Grid line stroke for the Amplitudes chart in the 'Discrete' and 'Wave Game' screens
+  amplitudesGridLinesStrokeProperty: new ProfileColorProperty( 'amplitudesGridLinesStroke', {
+    default: 'black'
+  } ),
+
+  // Grid line stroke for all charts except the Amplitudes chart in the 'Discrete' and 'Wave Game' screens
   chartGridLinesStrokeProperty: new ProfileColorProperty( 'chartGridLinesStroke', {
     default: Color.grayColor( 200 )
   } ),
