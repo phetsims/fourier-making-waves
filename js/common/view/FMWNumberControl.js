@@ -36,7 +36,7 @@ class FMWNumberControl extends NumberControl {
           press: () => { numberProperty.value = value; }
         } ) );
 
-        // Workaround: Slider sets tick labels to pickable:false
+        //TODO https://github.com/phetsims/sun/issues/712 workaround, because Slider sets tick labels to pickable:false
         label.pickable = true;
       } );
     }
