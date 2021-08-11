@@ -88,7 +88,7 @@ class ConjugateStandardDeviationControl extends FMWNumberControl {
 }
 
 /**
- * Formats the number for display by NumberDisplay.
+ * Formats the number for display by NumberDisplay, invoked when this.redrawNumberDisplay is called.
  * @param {number} conjugateStandardDeviation
  * @param {Domain} domain
  * @returns {string}

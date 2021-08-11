@@ -89,7 +89,7 @@ class StandardDeviationControl extends FMWNumberControl {
 }
 
 /**
- * Formats the number for display by NumberDisplay.
+ * Formats the number for display by NumberDisplay, invoked when this.redrawNumberDisplay is called.
  * @param {number} standardDeviation
  * @param {Domain} domain
  * @returns {string}

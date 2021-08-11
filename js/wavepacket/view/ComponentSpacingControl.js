@@ -105,7 +105,7 @@ class ComponentSpacingControl extends FMWNumberControl {
 }
 
 /**
- * Formats the number for display by NumberDisplay.
+ * Formats the number for display by NumberDisplay, invoked when this.redrawNumberDisplay is called.
  * @param {number} componentSpacing
  * @param {Domain} domain
  * @returns {string}
