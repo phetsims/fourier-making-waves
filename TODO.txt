@@ -1,5 +1,7 @@
 TODO.txt for fourier-making-waves
 
+Use FMWChartNode for AmplitudesChartNode, so that all charts have the same base class
+
 Get rid of AmplitudesChart, HarmonicsChart, SumChart. Change to:
     WaveGameAmplitudesChart extends DiscreteAmplitudesChart
     WaveGameHarmonicsChart extends DiscreteHarmonicsChart
