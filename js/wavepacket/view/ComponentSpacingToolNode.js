@@ -7,6 +7,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketMeasurementToolNode from './WavePacketMeasurementToolNode.js';
@@ -24,7 +25,7 @@ class ComponentSpacingToolNode extends WavePacketMeasurementToolNode {
     options = merge( {
       calipersNodeOptions: {
         pathOptions: {
-          fill: 'yellow'
+          fill: FMWColors.componentSpacingToolFillProperty
         }
       }
     }, options );

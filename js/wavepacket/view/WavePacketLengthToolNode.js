@@ -8,6 +8,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketMeasurementToolNode from './WavePacketMeasurementToolNode.js';
@@ -25,7 +26,7 @@ class WavePacketLengthToolNode extends WavePacketMeasurementToolNode {
     options = merge( {
       calipersNodeOptions: {
         pathOptions: {
-          fill: 'rgb( 0, 255, 0 )'
+          fill: FMWColors.wavePacketLengthToolFillProperty
         }
       }
     }, options );

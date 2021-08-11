@@ -92,6 +92,16 @@ const FMWColors = {
     default: Color.grayColor( 189 )
   } ),
 
+  // Fill for the Component Spacing measurement tool in the Wave Packet screen
+  componentSpacingToolFillProperty: new ProfileColorProperty( 'componentSpacingToolFill', {
+    default: 'yellow'
+  } ),
+
+  // Fill for the length (waveform or period) measurement tool in the Wave Packet screen
+  wavePacketLengthToolFillProperty: new ProfileColorProperty( 'wavePacketLengthToolFill', {
+    default: 'rgb( 0, 255, 0 )'
+  } ),
+
   // The range of gray colors that are assigned to Fourier components in Wave Packet screen
   FOURIER_COMPONENT_GRAY_RANGE: new Range( 0, 230 )
 };
