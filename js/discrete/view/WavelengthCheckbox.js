@@ -9,12 +9,13 @@
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWCheckbox from '../../common/view/FMWCheckbox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class WavelengthCheckbox extends Checkbox {
+class WavelengthCheckbox extends FMWCheckbox {
 
   /**
    * @param {Property.<boolean>} isSelectedProperty
@@ -24,7 +25,9 @@ class WavelengthCheckbox extends Checkbox {
 
     assert && AssertUtils.assertPropertyOf( isSelectedProperty, 'boolean' );
 
-    options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, options );
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, options );
 
     const wavelengthText = new Text( fourierMakingWavesStrings.wavelength, {
       font: FMWConstants.CONTROL_FONT,
@@ -33,10 +36,6 @@ class WavelengthCheckbox extends Checkbox {
     } );
 
     super( wavelengthText, isSelectedProperty, options );
-
-    // pointer areas
-    this.touchArea = this.localBounds.dilated( FMWConstants.CHECKBOX_TOUCH_AREA_DILATION );
-    this.mouseArea = this.localBounds.dilated( FMWConstants.CHECKBOX_MOUSE_AREA_DILATION );
   }
 }
 

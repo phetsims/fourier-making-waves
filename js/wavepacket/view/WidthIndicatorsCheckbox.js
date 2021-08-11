@@ -10,13 +10,14 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWCheckbox from '../../common/view/FMWCheckbox.js';
 import FMWIconFactory from '../../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class WidthIndicatorsCheckbox extends Checkbox {
+class WidthIndicatorsCheckbox extends FMWCheckbox {
 
   /**
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
@@ -24,19 +25,22 @@ class WidthIndicatorsCheckbox extends Checkbox {
    */
   constructor( widthIndicatorsVisibleProperty, options ) {
 
-    options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, options );
-
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
 
-    const textNode = new Text( fourierMakingWavesStrings.widthIndicators, {
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, options );
+
+    const widthIndicatorsText = new Text( fourierMakingWavesStrings.widthIndicators, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 100
+      maxWidth: 100,
+      tandem: options.tandem.createTandem( 'widthIndicatorsText' )
     } );
 
     const iconNode = FMWIconFactory.createWidthIndicatorsIcon();
 
     const content = new HBox( {
-      children: [ textNode, iconNode ],
+      children: [ widthIndicatorsText, iconNode ],
       spacing: 10
     } );
 

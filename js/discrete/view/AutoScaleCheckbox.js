@@ -9,12 +9,13 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWCheckbox from '../../common/view/FMWCheckbox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class AutoScaleCheckbox extends Checkbox {
+class AutoScaleCheckbox extends FMWCheckbox {
 
   /**
    * @param {Property.<boolean>} yAutoScaleProperty
@@ -22,18 +23,17 @@ class AutoScaleCheckbox extends Checkbox {
    */
   constructor( yAutoScaleProperty, options ) {
 
-    options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, options );
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, options );
 
-    const labelNode = new Text( fourierMakingWavesStrings.autoScale, {
+    const autoScaleText = new Text( fourierMakingWavesStrings.autoScale, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 200 // determined empirically
+      maxWidth: 200, // determined empirically
+      tandem: options.tandem.createTandem( 'autoScaleText' )
     } );
 
-    super( labelNode, yAutoScaleProperty, options );
-
-    // pointer areas
-    this.touchArea = this.localBounds.dilated( FMWConstants.CHECKBOX_TOUCH_AREA_DILATION );
-    this.mouseArea = this.localBounds.dilated( FMWConstants.CHECKBOX_MOUSE_AREA_DILATION );
+    super( autoScaleText, yAutoScaleProperty, options );
   }
 }
 

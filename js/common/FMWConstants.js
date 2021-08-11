@@ -83,9 +83,6 @@ const FMWConstants = {
     touchAreaYDilation: 5
   },
 
-  CHECKBOX_TOUCH_AREA_DILATION: 6,
-  CHECKBOX_MOUSE_AREA_DILATION: 1,
-
   // options for NumberControls in the Wave Packet screen
   WAVE_PACKET_NUMBER_CONTROL_OPTIONS: {
 

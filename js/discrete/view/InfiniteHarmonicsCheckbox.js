@@ -8,13 +8,13 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWCheckbox from '../../common/view/FMWCheckbox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class InfiniteHarmonicsCheckbox extends Checkbox {
+class InfiniteHarmonicsCheckbox extends FMWCheckbox {
 
   /**
    * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
@@ -23,10 +23,8 @@ class InfiniteHarmonicsCheckbox extends Checkbox {
   constructor( infiniteHarmonicsVisibleProperty, options ) {
 
     options = merge( {
-
-      // phet-io options
       tandem: Tandem.REQUIRED
-    }, FMWConstants.CHECKBOX_OPTIONS, options );
+    }, options );
 
     const infiniteHarmonicsText = new Text( fourierMakingWavesStrings.infiniteHarmonics, {
       font: FMWConstants.CONTROL_FONT,
@@ -35,10 +33,6 @@ class InfiniteHarmonicsCheckbox extends Checkbox {
     } );
 
     super( infiniteHarmonicsText, infiniteHarmonicsVisibleProperty, options );
-
-    // pointer areas
-    this.touchArea = this.localBounds.dilated( FMWConstants.CHECKBOX_TOUCH_AREA_DILATION );
-    this.mouseArea = this.localBounds.dilated( FMWConstants.CHECKBOX_MOUSE_AREA_DILATION );
   }
 }
 

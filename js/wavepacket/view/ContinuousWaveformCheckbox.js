@@ -9,12 +9,13 @@
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWCheckbox from '../../common/view/FMWCheckbox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class ContinuousWaveformCheckbox extends Checkbox {
+class ContinuousWaveformCheckbox extends FMWCheckbox {
 
   /**
    * @param {Property.<boolean>} continuousWaveformVisibleProperty
@@ -24,18 +25,17 @@ class ContinuousWaveformCheckbox extends Checkbox {
 
     assert && AssertUtils.assertPropertyOf( continuousWaveformVisibleProperty, 'boolean' );
 
-    options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, options );
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, options );
 
-    const envelopeText = new Text( fourierMakingWavesStrings.continuousWaveform, {
+    const continuousWaveformText = new Text( fourierMakingWavesStrings.continuousWaveform, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 200
+      maxWidth: 200,
+      tandem: options.tandem.createTandem( 'continuousWaveformText' )
     } );
 
-    super( envelopeText, continuousWaveformVisibleProperty, options );
-
-    // pointer areas
-    this.touchArea = this.localBounds.dilated( FMWConstants.CHECKBOX_TOUCH_AREA_DILATION );
-    this.mouseArea = this.localBounds.dilated( FMWConstants.CHECKBOX_MOUSE_AREA_DILATION );
+    super( continuousWaveformText, continuousWaveformVisibleProperty, options );
   }
 }
 
