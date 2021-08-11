@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * WavePacketInfoDialog is a dialog that shows a key to the symbols used in the 'Wave Packet' screen.
+ * WavePacketInfoDialog is a dialog that shows a key to the math symbols used in the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

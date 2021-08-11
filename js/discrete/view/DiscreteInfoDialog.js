@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * DiscreteInfoDialog is a dialog that shows a key to the symbols used in the 'Discrete' screen.
+ * DiscreteInfoDialog is a dialog that shows a key to the math symbols used in the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
