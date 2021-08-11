@@ -2,6 +2,7 @@
 
 /**
  * FMWNumberControl is a NumberControl with interactive tick labels.
+ * TODO When https://github.com/phetsims/sun/issues/712 is addressed, it may be possible to eliminate this class.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
