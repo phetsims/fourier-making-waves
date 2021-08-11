@@ -68,8 +68,11 @@ class WavePacketAmplitudesChart {
         return dataSet;
       } );
 
-    // Data set for a continuous waveform. This may be plotted in 2 situations: when the number of components is
-    // infinite, or the 'Continuous Wave' checkbox is checked. Points are ordered by increasing x value.
+    // Data set for a continuous waveform, potentially shared in 2 situations:
+    // (1) when the number of components is infinite, and
+    // (2) the 'Continuous Wave' checkbox is checked.
+    // Those 2 situations are supported in the public API by this.infiniteComponentsDataSetProperty and
+    // this.continuousWaveformDataSetProperty respectively.
     const continuousWaveformDataSetProperty = new DerivedProperty(
       [ this.continuousWaveformVisibleProperty, wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
       ( continuousWaveformVisible, componentSpacing, center, standardDeviation ) => {
@@ -82,7 +85,7 @@ class WavePacketAmplitudesChart {
     );
 
     // @public {DerivedProperty.<Vector2[]>} Data set for a continuous waveform, displayed when the number of
-    // components is infinite.
+    // components is infinite, otherwise [].  Points are ordered by increasing x value.
     this.infiniteComponentsDataSetProperty = new DerivedProperty(
       [ wavePacket.componentSpacingProperty, continuousWaveformDataSetProperty ],
       ( componentSpacing, continuousWaveformDataSet ) => {
@@ -94,7 +97,7 @@ class WavePacketAmplitudesChart {
       } );
 
     // @public {DerivedProperty.<Vector2[]>} Data set for a continuous waveform, displayed when the
-    // 'Continuous Wave' checkbox is checked.
+    // 'Continuous Wave' checkbox is checked, otherwise [].  Points are ordered by increasing x value.
     this.continuousWaveformDataSetProperty = new DerivedProperty(
       [ this.continuousWaveformVisibleProperty, continuousWaveformDataSetProperty ],
       ( continuousWaveformVisible, continuousWaveformDataSet ) => {
@@ -106,8 +109,11 @@ class WavePacketAmplitudesChart {
       } );
 
     // @public {DerivedProperty.<number>} the maximum amplitude, used to scale the chart's y axis.
-    // NOTE: This is a bit more complicated because performance is an issue - we do not want to allow
-    // additional arrays, use the spread operator, etc.
+    // NOTE: It very tempting to do this:
+    //   return _.maxBy( [ ...amplitudesDataSet, ...continuousWaveformDataSet ], point => point.y ).y
+    // But both data sets may be empty, continuousWaveformDataSet is large when not empty, and
+    // performance is an issue. So this implementation is a bit more complicated because we need
+    // to avoid using the spread operator, creating additional arrays, etc.
     this.maxAmplitudeProperty = new DerivedProperty(
       [ this.finiteComponentsDataSetProperty, continuousWaveformDataSetProperty ],
       ( amplitudesDataSet, continuousWaveformDataSet ) => {
