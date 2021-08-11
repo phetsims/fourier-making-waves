@@ -38,6 +38,7 @@ const CHOICES = [
     } )
   }
 ];
+assert && assert( _.every( CHOICES, choice => Domain.includes( choice.value ) ) );
 
 class DomainComboBox extends FMWComboBox {
 

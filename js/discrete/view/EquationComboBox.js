@@ -73,6 +73,7 @@ const CHOICES = [
     textOptions: MATH_TEXT_OPTIONS
   }
 ];
+assert && assert( _.every( CHOICES, choice => EquationForm.includes( choice.value ) ) );
 
 class EquationComboBox extends FMWComboBox {
 

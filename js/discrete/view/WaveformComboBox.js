@@ -23,6 +23,7 @@ const CHOICES = [
   { value: Waveform.WAVE_PACKET, string: fourierMakingWavesStrings.wavePacket },
   { value: Waveform.CUSTOM, string: fourierMakingWavesStrings.custom }
 ];
+assert && assert( _.every( CHOICES, choice => Waveform.includes( choice.value ) ) );
 
 class WaveformComboBox extends FMWComboBox {
 
