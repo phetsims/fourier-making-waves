@@ -56,8 +56,8 @@ class CalipersNode extends Node {
     // Beam, with jaws at ends.
     const beamAndJawsNode = new Path( null, options.pathOptions );
 
-    //TODO is this necessary if we set rectangular point areas?
-    // Transparent rectangle that covers beamAndJawsNode, so you can drag by clicking in the space between the calipers
+    // Transparent rectangle that covers beamAndJawsNode, so you can drag by clicking in the space between the calipers.
+    // We do this instead of setting pointer areas, so that interactive calipers are also draggable by their label.
     const transparentRectangle = new Rectangle( 0, 0, 1, 1, {
       fill: 'transparent'
     } );
