@@ -112,6 +112,7 @@ class DiscreteControlPanel extends Panel {
       listener: () => symbolsDialog.show(),
       iconFill: 'rgb( 50, 145, 184 )',
       scale: 0.4,
+      touchAreaDilation: 15,
       right: vBox.right,
       centerY: fourierSeriesLayoutBox.globalToParentBounds(
         fourierSeriesLayoutBox.fourierSeriesText.parentToGlobalBounds( fourierSeriesLayoutBox.fourierSeriesText.bounds ) ).centerY

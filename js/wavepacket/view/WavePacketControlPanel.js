@@ -113,6 +113,7 @@ class WavePacketControlPanel extends Panel {
       listener: () => symbolsDialog.show(),
       iconFill: 'rgb( 50, 145, 184 )',
       scale: 0.4,
+      touchAreaDilation: 15,
       right: vBox.right,
       centerY: componentSpacingSubpanel.globalToParentBounds(
         componentSpacingSubpanel.componentSpacingText.parentToGlobalBounds(
