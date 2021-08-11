@@ -11,7 +11,6 @@ import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
-import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
@@ -59,15 +58,6 @@ class WaveGameLevelSelectionNode extends Node {
       tandem: options.tandem.createTandem( 'infoButton' )
     } );
 
-    // Add an invisible strut to the left of chooseYourLevelText, to balance the Info button at the right.
-    // This results in 'Choose Your Level' looking horizontally centered.
-    const invisibleStrut = new HStrut( infoButton.width );
-
-    const titleBox = new HBox( {
-      children: [ invisibleStrut, chooseYourLevelText, infoButton ],
-      spacing: 40
-    } );
-
     // {WaveGameLevelSelectionButton[]} a level-selection button for each level
     const levelSelectionButtons = _.map( model.levels,
       level => new WaveGameLevelSelectionButton( level, model.levels.length, model.levelProperty, {
@@ -100,8 +90,9 @@ class WaveGameLevelSelectionNode extends Node {
     } );
 
     const titleAndButtonsBox = new VBox( {
-      children: [ titleBox, buttonsBox ],
-      spacing: 50
+      children: [ chooseYourLevelText, buttonsBox ],
+      spacing: 50,
+      excludeInvisibleChildrenFromBounds: false
     } );
 
     // Center the title & buttons on the screen. Observe bounds in case PhET-iO hides a button.
@@ -121,9 +112,16 @@ class WaveGameLevelSelectionNode extends Node {
     } );
 
     assert && assert( !options.children, 'LevelSelectionNode sets children' );
-    options.children = [ titleAndButtonsBox, resetAllButton ];
+    options.children = [ titleAndButtonsBox, resetAllButton, infoButton ];
 
     super( options );
+
+    // InfoButton to the right of title. This is handled dynamically in case the title is changed via PhET-iO.
+    chooseYourLevelText.boundsProperty.link( bounds => {
+      const localBounds = chooseYourLevelText.boundsTo( this );
+      infoButton.left = localBounds.right + 40;
+      infoButton.centerY = localBounds.centerY;
+    } );
 
     // @private
     this.levelSelectionButtons = levelSelectionButtons;
