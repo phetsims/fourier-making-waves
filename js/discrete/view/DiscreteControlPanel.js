@@ -31,7 +31,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';
 import FWMConstants from '../../common/FMWConstants.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import FMWSymobls from '../../common/FMWSymbols.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import DomainComboBox from '../../common/view/DomainComboBox.js';
@@ -405,7 +405,7 @@ class MeasurementToolsSubpanel extends VBox {
     const wavelengthCheckbox = new WavelengthCheckbox( wavelengthTool.isSelectedProperty, {
       tandem: options.tandem.createTandem( 'wavelengthCheckbox' )
     } );
-    const wavelengthSpinner = new OrderSpinner( FMWSymobls.lambda, wavelengthTool.orderProperty, {
+    const wavelengthSpinner = new OrderSpinner( FMWSymbols.lambda, wavelengthTool.orderProperty, {
       tandem: options.tandem.createTandem( 'wavelengthSpinner' )
     } );
     const wavelengthBox = new HBox( merge( {}, hBoxOptions, {
@@ -419,7 +419,7 @@ class MeasurementToolsSubpanel extends VBox {
     const periodCheckbox = new PeriodCheckbox( periodTool.isSelectedProperty, {
       tandem: options.tandem.createTandem( 'periodCheckbox' )
     } );
-    const periodSpinner = new OrderSpinner( FMWSymobls.T, periodTool.orderProperty, {
+    const periodSpinner = new OrderSpinner( FMWSymbols.T, periodTool.orderProperty, {
       tandem: options.tandem.createTandem( 'periodSpinner' )
     } );
     const periodBox = new HBox( merge( {}, hBoxOptions, {
