@@ -77,7 +77,8 @@ class WaveGameModel {
       } )
     ];
 
-    // @public {Property.<null|WaveGameLevel>} the selected game level, null returns to the level-selection UI
+    // @public {Property.<null|WaveGameLevel>} the selected game level
+    // null means 'no selection' and causes the view to return to the level-selection UI
     this.levelProperty = new Property( null, {
       validValues: [ null, ...this.levels ],
       phetioType: Property.PropertyIO( NullableIO( WaveGameLevel.WaveGameLevelIO ) ),
