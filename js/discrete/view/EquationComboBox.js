@@ -45,7 +45,7 @@ class EquationComboBox extends FMWComboBox {
       maxWidth: 100
     };
 
-    // {{string:string, value:EquationForm}[]}
+    // {{value:*, string:string}[]} This format is specific to FMWComboBox.
     const choices = [
       {
         value: EquationForm.HIDDEN,
