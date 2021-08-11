@@ -17,7 +17,7 @@ import SeriesType from '../model/SeriesType.js';
 // constants
 const HIDDEN_STRING = ''; // string for EquationForm.HIDDEN
 
-// To improve readability of markup creation. Each of these is a string than may also include markup.
+// To improve readability of markup creation. Each of these is a string that may also include markup, added by FMWSymbols.
 const A = FMWSymbols.A;
 const F = FMWSymbols.F;
 const f = FMWSymbols.f;
