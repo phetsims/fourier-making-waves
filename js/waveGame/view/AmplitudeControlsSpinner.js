@@ -53,10 +53,15 @@ class AmplitudeControlsSpinner extends VBox {
       spacing: 10
     }, options );
 
-    const amplitudeControlsText = new Text( fourierMakingWavesStrings.amplitudeControls, options.textOptions );
+    const amplitudeControlsText = new Text( fourierMakingWavesStrings.amplitudeControls,
+      merge( {
+        tandem: options.tandem.createTandem( 'amplitudeControlsText' )
+      }, options.textOptions ) );
 
     const spinner = new NumberSpinner( numberOfAmplitudeControlsProperty, numberOfAmplitudeControlsProperty.rangeProperty,
-      options.spinnerOptions );
+      merge( {
+        tandem: options.tandem.createTandem( 'spinner' )
+      }, options.spinnerOptions ) );
 
     assert && assert( !options.children, 'AmplitudeControlsSpinner sets children' );
     options.children = [ amplitudeControlsText, spinner ];
