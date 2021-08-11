@@ -12,11 +12,67 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
+import Domain from '../../common/model/Domain.js';
+import FMWComboBox from '../../common/view/FMWComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import Domain from '../../common/model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
-import FMWComboBox from '../../common/view/FMWComboBox.js';
+
+const MATH_TEXT_OPTIONS = {
+  font: FMWConstants.MATH_CONTROL_FONT,
+  maxWidth: 100
+};
+
+// This format is specific to FMWComboBox.
+const CHOICES = [
+  {
+    value: EquationForm.HIDDEN,
+    string: fourierMakingWavesStrings.hidden
+  },
+  {
+    value: EquationForm.WAVELENGTH,
+    string: FMWSymbols.lambda,
+    textOptions: MATH_TEXT_OPTIONS
+  },
+  {
+    value: EquationForm.WAVE_NUMBER,
+    string: FMWSymbols.k,
+    textOptions: MATH_TEXT_OPTIONS
+  },
+  {
+    value: EquationForm.FREQUENCY,
+    string: FMWSymbols.F,
+    textOptions: MATH_TEXT_OPTIONS
+  },
+  {
+    value: EquationForm.PERIOD,
+    string: FMWSymbols.T,
+    textOptions: MATH_TEXT_OPTIONS
+  },
+  {
+    value: EquationForm.ANGULAR_FREQUENCY,
+    string: FMWSymbols.omega,
+    textOptions: MATH_TEXT_OPTIONS
+  },
+  {
+    value: EquationForm.WAVELENGTH_AND_PERIOD,
+    string: FMWSymbols.T,
+    textOptions: MATH_TEXT_OPTIONS
+  },
+  {
+    value: EquationForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY,
+    string: StringUtils.fillIn( fourierMakingWavesStrings.kAndOmega, {
+      k: FMWSymbols.k,
+      omega: FMWSymbols.omega
+    } ),
+    textOptions: MATH_TEXT_OPTIONS
+  },
+  {
+    value: EquationForm.MODE,
+    string: FMWSymbols.n,
+    textOptions: MATH_TEXT_OPTIONS
+  }
+];
 
 class EquationComboBox extends FMWComboBox {
 
@@ -40,63 +96,7 @@ class EquationComboBox extends FMWComboBox {
       }
     }, options );
 
-    const mathTextOptions = {
-      font: FMWConstants.MATH_CONTROL_FONT,
-      maxWidth: 100
-    };
-
-    // {{value:*, string:string}[]} This format is specific to FMWComboBox.
-    const choices = [
-      {
-        value: EquationForm.HIDDEN,
-        string: fourierMakingWavesStrings.hidden
-      },
-      {
-        value: EquationForm.WAVELENGTH,
-        string: FMWSymbols.lambda,
-        textOptions: mathTextOptions
-      },
-      {
-        value: EquationForm.WAVE_NUMBER,
-        string: FMWSymbols.k,
-        textOptions: mathTextOptions
-      },
-      {
-        value: EquationForm.FREQUENCY,
-        string: FMWSymbols.F,
-        textOptions: mathTextOptions
-      },
-      {
-        value: EquationForm.PERIOD,
-        string: FMWSymbols.T,
-        textOptions: mathTextOptions
-      },
-      {
-        value: EquationForm.ANGULAR_FREQUENCY,
-        string: FMWSymbols.omega,
-        textOptions: mathTextOptions
-      },
-      {
-        value: EquationForm.WAVELENGTH_AND_PERIOD,
-        string: FMWSymbols.T,
-        textOptions: mathTextOptions
-      },
-      {
-        value: EquationForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY,
-        string: StringUtils.fillIn( fourierMakingWavesStrings.kAndOmega, {
-          k: FMWSymbols.k,
-          omega: FMWSymbols.omega
-        } ),
-        textOptions: mathTextOptions
-      },
-      {
-        value: EquationForm.MODE,
-        string: FMWSymbols.n,
-        textOptions: mathTextOptions
-      }
-    ];
-
-    super( choices, equationFormProperty, popupParent, options );
+    super( CHOICES, equationFormProperty, popupParent, options );
 
     // Show only the choices that are appropriate for the selected domain.
     domainProperty.link( domain => {

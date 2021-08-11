@@ -9,10 +9,20 @@
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import FMWComboBox from '../../common/view/FMWComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Waveform from '../model/Waveform.js';
-import FMWComboBox from '../../common/view/FMWComboBox.js';
+
+// This format is specific to FMWComboBox.
+const CHOICES = [
+  { value: Waveform.SINUSOID, string: fourierMakingWavesStrings.sinusoid },
+  { value: Waveform.TRIANGLE, string: fourierMakingWavesStrings.triangle },
+  { value: Waveform.SQUARE, string: fourierMakingWavesStrings.square },
+  { value: Waveform.SAWTOOTH, string: fourierMakingWavesStrings.sawtooth },
+  { value: Waveform.WAVE_PACKET, string: fourierMakingWavesStrings.wavePacket },
+  { value: Waveform.CUSTOM, string: fourierMakingWavesStrings.custom }
+];
 
 class WaveformComboBox extends FMWComboBox {
 
@@ -34,17 +44,7 @@ class WaveformComboBox extends FMWComboBox {
       }
     }, options );
 
-    // {{value:*, string:string}[]} This format is specific to FMWComboBox.
-    const choices = [
-      { value: Waveform.SINUSOID, string: fourierMakingWavesStrings.sinusoid },
-      { value: Waveform.TRIANGLE, string: fourierMakingWavesStrings.triangle },
-      { value: Waveform.SQUARE, string: fourierMakingWavesStrings.square },
-      { value: Waveform.SAWTOOTH, string: fourierMakingWavesStrings.sawtooth },
-      { value: Waveform.WAVE_PACKET, string: fourierMakingWavesStrings.wavePacket },
-      { value: Waveform.CUSTOM, string: fourierMakingWavesStrings.custom }
-    ];
-
-    super( choices, waveformProperty, popupParent, options );
+    super( CHOICES, waveformProperty, popupParent, options );
   }
 }
 

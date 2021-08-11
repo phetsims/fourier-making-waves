@@ -16,7 +16,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import Domain from '../model/Domain.js';
 import FMWComboBox from './FMWComboBox.js';
 
-// {{value:*, string:string}[]} This format is specific to FMWComboBox.
+// This format is specific to FMWComboBox.
 const CHOICES = [
   {
     value: Domain.SPACE,
