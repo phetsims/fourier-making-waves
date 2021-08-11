@@ -53,8 +53,8 @@ class GaussianAreaPlot extends Path {
   }
 
   /**
-   * Sets the dataSet and redraws the plot. If instead the dataSet array is mutated, it is the client's responsibility
-   * to call `update` or make sure `update` is called elsewhere (say, if the chart scrolls in that frame).
+   * Sets the dataSet and redraws the plot.
+   * If the dataSet is mutated directly, it is the client's responsibility to call update.
    * @param {Vector2[]} dataSet
    * @public
    */
@@ -64,9 +64,8 @@ class GaussianAreaPlot extends Path {
   }
 
   /**
-   * Recomputes the rendered shape.
+   * Recomputes the rendered Shape.
    * @public
-   * @override
    */
   update() {
     assert && assert( _.every( this.dataSet, ( point, index, dataSet ) =>
