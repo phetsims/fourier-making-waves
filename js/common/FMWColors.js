@@ -62,7 +62,7 @@ const FMWColors = {
     default: new Color( 255, 0, 255 )
   } ),
 
-  // Stoke used to plot the user's guess to a challenge in the Sum chart of the Wave Game screen.
+  // Stroke used to plot the user's guess to a challenge in the Sum chart of the Wave Game screen.
   guessSumPlotStrokeProperty: new ProfileColorProperty( 'guessSumPlotStroke', {
     default: 'black'
   } ),
