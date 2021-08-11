@@ -3,7 +3,7 @@
 /**
  * Symbols used throughout this sim, as described in model.md.
  *
- * This is also where MathSymbolFont is applied to symbols. By adding markup to a symbol with
+ * This is also where MathSymbolFont is applied to symbols. By adding RichText markup to a symbol with
  * MathSymbolFont.getRichTextMarkup, all occurrences of that symbol will be rendered using MathSymbolFont.
  *
  * The naming convention for fields in this object and associated string keys are:
