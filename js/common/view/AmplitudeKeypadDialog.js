@@ -14,6 +14,8 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Keypad from '../../../../scenery-phet/js/keypad/Keypad.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
@@ -23,7 +25,6 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
-import StringDisplay from './StringDisplay.js';
 
 // constants
 const TITLE_FONT = new PhetFont( 18 );
@@ -31,6 +32,8 @@ const BUTTON_FONT = new PhetFont( 16 );
 const VALUE_FONT = new PhetFont( 14 );
 const VALID_VALUE_FILL = 'black';
 const INVALID_VALUE_FILL = 'red';
+const KEYPAD_DISPLAY_FONT = new PhetFont( 12 );
+const ALIGN_VALUE_VALUES = [ 'left', 'center', 'right' ];
 
 class AmplitudeKeypadDialog extends Dialog {
 
@@ -89,7 +92,7 @@ class AmplitudeKeypadDialog extends Dialog {
 
     // Displays what has been entered on the keypad. We cannot use NumberDisplay because it displays numbers,
     // and is not capable of displaying partial numeric input like '1.'
-    const stringDisplay = new StringDisplay( keypad.stringProperty, {
+    const stringDisplay = new KeypadStringDisplay( keypad.stringProperty, {
       width: keypad.width,
       height: 28, // determined empirically
       rectangleOptions: {
@@ -201,6 +204,94 @@ class AmplitudeKeypadDialog extends Dialog {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+}
+
+/**
+ * Displays a Keypad's stringProperty value, showing what keys the user has 'typed'.
+ */
+class KeypadStringDisplay extends Node {
+
+  /**
+   * @param {Property.<string>} stringProperty
+   * @param {Object} [options]
+   */
+  constructor( stringProperty, options ) {
+
+    assert && AssertUtils.assertPropertyOf( stringProperty, 'string' );
+
+    options = merge( {
+
+      // StringDisplay options
+      align: 'center',
+      width: 100,
+      height: 50,
+      xMargin: 0,
+      yMargin: 0,
+      stringFormat: string => string,
+
+      // Rectangle options
+      rectangleOptions: {
+        cornerRadius: 0,
+        fill: 'white',
+        stroke: 'black'
+      },
+
+      // Text options
+      textOptions: {
+        fill: 'black',
+        font: KEYPAD_DISPLAY_FONT
+      }
+    }, options );
+
+    assert && assert( ALIGN_VALUE_VALUES.includes( options.align ), `invalid align: ${options.align}` );
+
+    const rectangle = new Rectangle( 0, 0, options.width, options.height, options.rectangleOptions );
+
+    const textNode = new RichText( '', merge( {
+      maxWidth: rectangle.width - 2 * options.xMargin,
+      maxHeight: rectangle.height - 2 * options.yMargin
+    }, options.textOptions ) );
+
+    assert && assert( !options.children, 'StringDisplay sets children' );
+    options.children = [ rectangle, textNode ];
+
+    super( options );
+
+    // Display the string value. unlink is required on dispose.
+    const stringListener = string => { textNode.text = options.stringFormat( string ); };
+    stringProperty.link( stringListener );
+
+    // Keep the text centered in the background. unlink is not required.
+    textNode.boundsProperty.link( () => {
+      textNode.center = rectangle.center;
+    } );
+
+    // @private
+    this.textNode = textNode;
+
+    // @private
+    this.disposeStringDisplay = () => {
+      stringProperty.unlink( stringListener );
+    };
+  }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    this.disposeStringDisplay();
+    super.dispose();
+  }
+
+  /**
+   * Sets the fill for the text.
+   * @param {string} fill
+   * @public
+   */
+  setTextFill( fill ) {
+    this.textNode.fill = fill;
   }
 }
 
