@@ -162,7 +162,7 @@ class ComponentSpacingSubpanel extends VBox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // Fourier Series
+    // Title for this subpanel
     const componentSpacingText = new Text( fourierMakingWavesStrings.componentSpacing, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 180, // determined empirically
@@ -216,7 +216,7 @@ class WavePacketCenterSubpanel extends VBox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // Wave Packet - Center
+    /// Title for this subpanel
     const wavePacketCenterText = new Text( fourierMakingWavesStrings.wavePacketCenter, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 180, // determined empirically
@@ -271,7 +271,7 @@ class WavePacketWidthSubpanel extends VBox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // Wave Packet - Width
+    // Title for this subpanel
     const wavePacketWidthText = new Text( fourierMakingWavesStrings.wavePacketWidth, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 180, // determined empirically
@@ -342,7 +342,7 @@ class GraphControlsSubpanel extends VBox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // Graph Controls
+    // Title for this subpanel
     const graphControlsText = new Text( fourierMakingWavesStrings.graphControls, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 200, // determined empirically

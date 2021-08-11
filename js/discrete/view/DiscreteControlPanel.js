@@ -182,6 +182,7 @@ class FourierSeriesSubpanel extends VBox {
       } )
     };
 
+    // Title for this subpanel
     const fourierSeriesText = new Text( fourierMakingWavesStrings.fourierSeries, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 180, // determined empirically
@@ -282,7 +283,7 @@ class GraphControlsSubpanel extends VBox {
       } )
     };
 
-    // Graph Controls
+    // Title for this subpanel
     const graphControlsText = new Text( fourierMakingWavesStrings.graphControls, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 200, // determined empirically
@@ -378,7 +379,7 @@ class MeasurementToolsSubpanel extends VBox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // Measurement Tools
+    // Title for this subpanel
     const measurementToolsText = new Text( fourierMakingWavesStrings.measurementTools, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 200, // determined empirically
