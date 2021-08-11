@@ -106,7 +106,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       clipArea: Shape.bounds( this.chartRectangle.bounds )
     } );
 
-    // CanvasLinePlot stroke does not support Property, so handle it here.
+    // CanvasLinePlot stroke does not support Property, so handle updates here.
     FMWColors.continuousWaveformStrokeProperty.link( stroke => {
       continuousWaveformPlot.setStroke( stroke );
       chartCanvasNode.update();

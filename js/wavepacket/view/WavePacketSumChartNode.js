@@ -67,7 +67,7 @@ class WavePacketSumChartNode extends WaveformChartNode {
     // This ChartCanvasNode renders only sumPlot because it has its own clipArea requirements.
     const sumChartCanvasNode = new ChartCanvasNode( this.chartTransform, [ sumPlot ] );
 
-    // CanvasLinePlot stroke does not support Property, so handle it here.
+    // CanvasLinePlot stroke does not support Property, so handle updates here.
     FMWColors.sumPlotStrokeProperty.link( stroke => {
       sumPlot.setStroke( stroke );
       sumChartCanvasNode.update();
@@ -83,7 +83,7 @@ class WavePacketSumChartNode extends WaveformChartNode {
     // Render waveformEnvelopePlot using Canvas. Remember! When waveformEnvelopePlot is updated, you must call update().
     const waveformEnvelopeChartCanvasNode = new ChartCanvasNode( this.chartTransform, [ waveformEnvelopePlot ] );
 
-    // CanvasLinePlot stroke does not support Property, so handle it here.
+    // CanvasLinePlot stroke does not support Property, so handle updates here.
     FMWColors.waveformEnvelopeStrokeProperty.link( stroke => {
       waveformEnvelopePlot.setStroke( stroke );
       waveformEnvelopeChartCanvasNode.update();
