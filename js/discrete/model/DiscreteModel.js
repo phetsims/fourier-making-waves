@@ -197,7 +197,6 @@ class DiscreteModel {
       () => this.updateAmplitudes()
     );
 
-    //TODO are there other things that should reset t ?
     // Changing these things resets time (t).
     Property.multilink(
       [ this.waveformProperty, this.domainProperty ],

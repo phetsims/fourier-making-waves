@@ -1,8 +1,12 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO When https://github.com/phetsims/sun/issues/712 is addressed, it may be possible to eliminate this class.
+
+//TODO https://github.com/phetsims/sun/issues/697, https://github.com/phetsims/fourier-making-waves/issues/56
+// Add sound for this NumberControl's slider when the Slider sound API has been completed.
+
 /**
  * FMWNumberControl is a NumberControl with interactive tick labels.
- * TODO When https://github.com/phetsims/sun/issues/712 is addressed, it may be possible to eliminate this class.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

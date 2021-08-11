@@ -229,7 +229,7 @@ class DiscreteScreenView extends ScreenView {
     const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
       playPauseStepButtonOptions: {
         playPauseButtonOptions: {
-          //TODO https://github.com/phetsims/fourier-making-waves/issues/92 workaround, we do not want partial hotkey support
+          //TODO https://github.com/phetsims/fourier-making-waves/issues/92 workaround, we do not want partial hotkey support for TimeControlNode
           includeGlobalHotkey: false
         },
         stepForwardButtonOptions: {

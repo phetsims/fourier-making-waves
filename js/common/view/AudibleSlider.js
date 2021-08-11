@@ -1,9 +1,10 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/sun/issues/697, https://github.com/phetsims/fourier-making-waves/issues/56
+// This is a temporary solution, and may be eliminated when the Slider sound API has been completed.
 /**
  * AudibleSlider is a slider that supports user-interface sound. You'll hear one sound for the min or max value,
  * and another sound for in-between values.
- * TODO https://github.com/phetsims/sun/issues/697 This is a temporary solution, and may be eliminated when the Slider sound API has been completed.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
