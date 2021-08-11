@@ -1,7 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WavePacketMeasurementToolNode is the tool for measuring component spacing in the 'Wave Packet' screen.
+ * WavePacketMeasurementToolNode is the base class for measurement tools in the 'Wave Packet' screen.
+ * Origin is at the tip of the caliper's left jaw.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
