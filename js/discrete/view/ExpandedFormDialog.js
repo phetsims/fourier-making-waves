@@ -2,6 +2,8 @@
 
 /**
  * ExpandedFormDialog is a modal dialog that displays the expanded sum of a Fourier series.
+ * This dialog is designed so that 1 instance can be used, and the expand form that is displayed
+ * will remain synchronized to the model.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
