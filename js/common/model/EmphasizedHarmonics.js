@@ -1,14 +1,14 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * EmphasizedHarmonics is an observable set of associations between interactive Nodes and harmonics.
+ * EmphasizedHarmonics is an observable set of associations between interactive Nodes and Harmonics.
  *
  * When the user begins interaction with a Node, an entry is added to this set.
  * When the user ends interaction with a Node, an entry is removed from this set.
- * All harmonics appearing in this set are to be emphasized in the Harmonics chart, and that is the
+ * All Harmonic instances appearing in this set are to be emphasized in the Harmonics chart, and that is the
  * responsibility of HarmonicsChartNode.
  *
- * Each Node can interact with 1 harmonic at a time, while a harmonic can be manipulated by multiple Nodes
+ * Each Node can interact with 1 Harmonic at a time, while a Harmonic can be manipulated by multiple Nodes
  * simultaneously (e.g. an amplitude slider and a measurement tool) via multi-touch. 'node' is therefore a
  * unique key for elements in this set.
  *

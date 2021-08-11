@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * HarmonicsChart is the model base class model for the 'Harmonics' chart.
+ * HarmonicsChart is the model base class model for the 'Harmonics' chart in the 'Discrete' and 'Wave Game' screens.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

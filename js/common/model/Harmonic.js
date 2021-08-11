@@ -1,7 +1,8 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * Harmonic is the model of a harmonic in a Fourier series.
+ * Harmonic is the model of a harmonic in a Fourier series, used in the 'Discrete' and 'Wave Game' screens.
+ * For the 'Wave Packet' screen, see FourierComponent..
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

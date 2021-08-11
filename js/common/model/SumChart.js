@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * SumChart is the model base class for the 'Sum' chart.
+ * SumChart is the model base class for the 'Sum' chart in the 'Discrete' and 'Wave Game' screens.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

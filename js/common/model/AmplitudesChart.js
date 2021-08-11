@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * AmplitudesChart is the model base class model for the 'Amplitudes' chart.
+ * AmplitudesChart is the model base class model for the 'Amplitudes' chart in the 'Discrete' and 'Wave Game' screens.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
