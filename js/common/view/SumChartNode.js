@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * SumChartNode is the view base class for the 'Sum' chart.
+ * SumChartNode is the view base class for the 'Sum' chart, used in the 'Discrete' and 'Wave Game' screens.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

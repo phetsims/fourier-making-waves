@@ -1,8 +1,8 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * AmplitudesChartNode is the base class for displaying and controlling the amplitudes for harmonics in a Fourier series.
- * The x axis is harmonic order (1-N), the y axis is amplitude.
+ * AmplitudesChartNode is the base class for displaying and controlling the amplitudes for harmonics in a Fourier
+ * series, used in the 'Discrete' and 'Wave Game' screens. The x axis is harmonic order (1-N), the y axis is amplitude.
  *
  * Amplitudes are displayed as a bar chart, where each bar is a slider. Amplitude can be adjusted using the slider,
  * or by using a Keypad that opens when a NumberDisplay is pressed.

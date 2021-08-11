@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * HarmonicsChartNode is the view base class for the 'Harmonics' chart.
+ * HarmonicsChartNode is the view base class for the 'Harmonics' chart, used in the 'Discrete' and 'Wave Game' screens.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
