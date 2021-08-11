@@ -1,13 +1,14 @@
 TODO.txt for fourier-making-waves
 
-AxisDescription and Properties of that type have been a constant pain. Get rid of it?
+Rename WaveformChartNode, make WavePacketAmplitudesChartNode extends WaveformChartNode,
+  WavePacketAmplitudesChart extends WaveformChart
 
 WavePacketAmplitudesChartNode: use AxisDescription for the y axis? is it OK to override setYAxis?
 
+AxisDescription and Properties of that type have been a constant pain. Get rid of it?
+
 WavePacketComponentsChart and WavePacketSumPlot do not use AxisDescription for y-axis, but yAxisDescriptionProperty
   is required by their superclass WaveformChart.
-
-Rename WaveformChartNode, make WavePacketAmplitudesChartNode extends WaveformChartNode
 
 Factor out XZoomHandler and YZoomHandler, use composition to add zoom feature to charts?
 
