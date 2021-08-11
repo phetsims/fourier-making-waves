@@ -143,7 +143,7 @@ class Harmonic extends PhetioObject {
     let x = xRange.min;
     let y;
     for ( let i = 0; i < numberOfPoints; i++ ) {
-      y = amplitudeFunction( x, t, L, T, order, amplitude );
+      y = amplitudeFunction( amplitude, order, x, t, L, T );
       dataSet.push( Vector2.createFromPool( x, y ) );
       x += dx;
     }

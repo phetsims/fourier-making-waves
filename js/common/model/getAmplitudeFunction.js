@@ -41,43 +41,43 @@ function getAmplitudeFunction( domain, seriesType ) {
 
 /**
  * These 6 functions all have the same signature, and use the equation that corresponds to EquationForm.MODE.
+ * @param {number} A - the harmonic's amplitude, unitless
+ * @param {number} n - the harmonic's order
  * @param {number} x - x-axis coordinate, whose semantics depend on the domain of the function
  * @param {number} t - the current time, in milliseconds
  * @param {number} L - the harmonic's wavelength, in meters
  * @param {number} T - the harmonic's period, in milliseconds
- * @param {number} n - the harmonic's order
- * @param {number} A - the harmonic's amplitude, unitless
  * @returns {number} y value (amplitude) at x
  * @private
  */
 
 // Domain.SPACE, SeriesType.SINE
-function getAmplitudeSpaceSine( x, t, L, T, n, A ) {
+function getAmplitudeSpaceSine( A, n, x, t, L, T ) {
   return A * Math.sin( 2 * Math.PI * n * x / L );
 }
 
 // Domain.SPACE, SeriesType.COSINE
-function getAmplitudeSpaceCosine( x, t, L, T, n, A ) {
+function getAmplitudeSpaceCosine( A, n, x, t, L, T ) {
   return A * Math.cos( 2 * Math.PI * n * x / L );
 }
 
 // Domain.TIME, SeriesType.SINE
-function getAmplitudeTimeSine( x, t, L, T, n, A ) {
+function getAmplitudeTimeSine( A, n, x, t, L, T ) {
   return A * Math.sin( 2 * Math.PI * n * x / T );
 }
 
 // Domain.TIME, SeriesType.COSINE
-function getAmplitudeTimeCosine( x, t, L, T, n, A ) {
+function getAmplitudeTimeCosine( A, n, x, t, L, T ) {
   return A * Math.cos( 2 * Math.PI * n * x / T );
 }
 
 // Domain.SPACE_AND_TIME, SeriesType.SINE
-function getAmplitudeSpaceAndTimeSine( x, t, L, T, n, A ) {
+function getAmplitudeSpaceAndTimeSine( A, n, x, t, L, T ) {
   return A * Math.sin( 2 * Math.PI * n * ( x / L - t / T ) );
 }
 
 // Domain.SPACE_AND_TIME, SeriesType.COSINE
-function getAmplitudeSpaceAndTimeCosine( x, t, L, T, n, A ) {
+function getAmplitudeSpaceAndTimeCosine( A, n, x, t, L, T ) {
   return A * Math.cos( 2 * Math.PI * n * ( x / L - t / T ) );
 }
 

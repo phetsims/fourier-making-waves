@@ -194,7 +194,7 @@ class FourierSeries extends PhetioObject {
       for ( let j = 0; j < numberOfHarmonics; j++ ) {
         amplitude = this.harmonics[ j ].amplitudeProperty.value;
         if ( amplitude !== 0 ) {
-          y += amplitudeFunction( x, t, this.L, this.T, this.harmonics[ j ].order, amplitude );
+          y += amplitudeFunction( amplitude, this.harmonics[ j ].order, x, t, this.L, this.T );
         }
       }
       sumDataSet.push( Vector2.createFromPool( x, y ) );
