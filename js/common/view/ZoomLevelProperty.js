@@ -2,6 +2,8 @@
 
 /**
  * ZoomLevelProperty is a NumberProperty that synchronizes itself with a Property.<AxisDescription>.
+ *
+ * This is an adapter Property, bridging the needs of the sim to the needs of common code.
  * This sim uses AxisDescription to describe the properties of an axis at a particular zoom level.
  * NumberProperty is required by PlusMinusZoomButtonGroup, the common-code component used by this
  * sim for zoom buttons.
