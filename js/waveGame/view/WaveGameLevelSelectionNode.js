@@ -47,7 +47,9 @@ class WaveGameLevelSelectionNode extends Node {
     } );
 
     // Displays info about the levels. Created eagerly and reused for PhET-iO.
-    const infoDialog = new WaveGameInfoDialog( model.levels );
+    const infoDialog = new WaveGameInfoDialog( model.levels, {
+      tandem: options.tandem.createTandem( 'infoDialog' )
+    } );
 
     const infoButton = new InfoButton( {
       iconFill: 'rgb( 41, 106, 163 )',
