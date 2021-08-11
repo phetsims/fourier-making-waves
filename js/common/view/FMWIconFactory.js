@@ -70,8 +70,8 @@ const FMWIconFactory = {
       lineWidth: 2
     } );
 
-    //TODO Consider using node.rasterized( { resolution: 2 } ) to avoid memory, phet-io, and pdom issues
-    // associated with all of the above elements.
+    // Note that we could use node.rasterized( { resolution: 2 } ) to avoid memory, phet-io, and pdom issues
+    // associated with all of the above elements. But the quality of the rendering is not as good.
     return new Node( merge( {}, {
       children: [ xAxis, sliders ],
       pdomVisible: false // so that focus traversal does not visit subcomponents of this icon
