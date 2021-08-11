@@ -54,7 +54,6 @@ class WaveGameScreenView extends ScreenView {
     const levelSelectionNode = new WaveGameLevelSelectionNode( model, layoutBounds, {
       resetCallback: () => {
         model.reset();
-        this.reset();
       },
       tandem: options.tandem.createTandem( 'levelSelectionNode' )
     } );
@@ -134,14 +133,6 @@ class WaveGameScreenView extends ScreenView {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
-  }
-
-  /**
-   * Resets the view.
-   * @public
-   */
-  reset() {
-    //TODO
   }
 
   /**
