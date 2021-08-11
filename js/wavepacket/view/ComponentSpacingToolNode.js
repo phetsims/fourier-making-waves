@@ -2,6 +2,7 @@
 
 /**
  * ComponentSpacingToolNode is the tool for measuring component spacing in the 'Wave Packet' screen.
+ * Origin is at the tip of the caliper's left jaw.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

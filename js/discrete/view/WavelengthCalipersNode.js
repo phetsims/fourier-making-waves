@@ -2,6 +2,7 @@
 
 /**
  * WavelengthCalipersNode is the tool used to measure a harmonic's wavelength in the 'space' and 'space & time' domains.
+ * Origin is at the tip of the caliper's left jaw.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

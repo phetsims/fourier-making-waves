@@ -2,7 +2,7 @@
 
 /**
  * WavePacketLengthToolNode is the tool for measuring the length (wavelength or period) of a wave packet
- * in the 'Wave Packet' screen.
+ * in the 'Wave Packet' screen. Origin is at the tip of the caliper's left jaw.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
