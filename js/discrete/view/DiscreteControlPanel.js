@@ -147,7 +147,7 @@ class DiscreteControlPanel extends Panel {
 }
 
 /**
- * FourierSeriesSubpanel is the 'Fourier Series' sub-panel of this control panel.
+ * FourierSeriesSubpanel is the 'Fourier Series' subpanel of this control panel.
  */
 class FourierSeriesSubpanel extends VBox {
 
@@ -250,7 +250,7 @@ class FourierSeriesSubpanel extends VBox {
 }
 
 /**
- * GraphControlsSubpanel is the 'Graph Controls' sub-panel of this control panel.
+ * GraphControlsSubpanel is the 'Graph Controls' subpanel of this control panel.
  */
 class GraphControlsSubpanel extends VBox {
 
@@ -356,7 +356,7 @@ class GraphControlsSubpanel extends VBox {
 }
 
 /**
- * MeasurementToolsSubpanel is the 'Measurement Tools' sub-panel of this control panel.
+ * MeasurementToolsSubpanel is the 'Measurement Tools' subpanel of this control panel.
  */
 class MeasurementToolsSubpanel extends VBox {
 
