@@ -1,14 +1,13 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO is this general enough to move to bamboo? if not, rename to something like WavePacketAreaPlot
-//TODO convert to CanvasAreaPlot, ala CanvasLinePlot. To fill with a linear gradient:
-//   const gradient = context.createLinearGradient( x1, y1, x2, y2 );
-//   gradient.addColorStop( 0, ... );
-//   gradient.addColorStop( 1, ... );
-//   context.fillStyle = gradient;
-
 /**
- * AreaPlot fills the area below a curve.
+ * GaussianAreaPlot fills the area below a Gaussian curve. The client is responsible for providing a data set that
+ * describes a Gaussian curve, with points ordered by increasing x value. This plot converts that data set to a
+ * fillable Shape by (1) ensuring that the first and last points in the Shape have y=0, and (2) calling close on
+ * the Shape.
+ *
+ * NOTE: Despite the general-sounding name, this implementation has only been tested for Fourier: Making Waves.
+ * Moving it to bamboo for general use will require further design and generalization.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -19,7 +18,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class AreaPlot extends Path {
+class GaussianAreaPlot extends Path {
 
   /**
    * @param {ChartTransform} chartTransform
@@ -123,5 +122,5 @@ class AreaPlot extends Path {
   }
 }
 
-fourierMakingWaves.register( 'AreaPlot', AreaPlot );
-export default AreaPlot;
+fourierMakingWaves.register( 'GaussianAreaPlot', GaussianAreaPlot );
+export default GaussianAreaPlot;

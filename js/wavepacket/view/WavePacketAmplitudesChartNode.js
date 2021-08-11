@@ -26,7 +26,7 @@ import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketAmplitudesChart from '../model/WavePacketAmplitudesChart.js';
-import AreaPlot from './AreaPlot.js';
+import GaussianAreaPlot from './GaussianAreaPlot.js';
 import WidthIndicatorPlot from './WidthIndicatorPlot.js';
 
 // constants
@@ -88,7 +88,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
 
     // Displays an infinite number of components. This uses the same data set as continuousWaveformPlot, but fills
     // the area under that curve with the same grayscale gradient that is used to color the bars.
-    const infiniteComponentsPlot = new AreaPlot( this.chartTransform, [], {
+    const infiniteComponentsPlot = new GaussianAreaPlot( this.chartTransform, [], {
       fill: new LinearGradient( 0, 0, this.chartRectangle.width, 0 )
         .addColorStop( 0, Color.grayColor( GRAY_RANGE.min ) )
         .addColorStop( 1, Color.grayColor( GRAY_RANGE.max ) )
