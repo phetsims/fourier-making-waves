@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -16,13 +17,13 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import Domain from '../../common/model/Domain.js';
+import SeriesType from '../../common/model/SeriesType.js';
+import EquationMarkup from '../../common/view/EquationMarkup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteFourierSeries from '../model/DiscreteFourierSeries.js';
-import Domain from '../../common/model/Domain.js';
 import EquationForm from '../model/EquationForm.js';
-import SeriesType from '../../common/model/SeriesType.js';
-import EquationMarkup from '../../common/view/EquationMarkup.js';
 import DiscreteSumEquationNode from './DiscreteSumEquationNode.js';
 
 // Maximum number of terms per line in the expanded form
@@ -57,46 +58,47 @@ class ExpandedFormDialog extends Dialog {
       maxWidth: MAX_WIDTH
     } );
 
-    // links to Properties, must be disposed.
     const sumEquationNode = new DiscreteSumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
       seriesTypeProperty, equationFormProperty, {
         font: FMWConstants.EQUATION_FONT
       } );
-
-    const numberOfHarmonics = fourierSeries.numberOfHarmonicsProperty.value;
-    const amplitudes = fourierSeries.amplitudesProperty.value;
-    const domain = domainProperty.value;
-    const seriesType = seriesTypeProperty.value;
-    const equationForm = equationFormProperty.value;
 
     // F(...) =
     // There's a bit of CSS cleverness here that's worth explaining. Without resorting to using multiple Nodes here
     // and in DiscreteSumEquationNode, we don't want to see the 'F(..)' portion of this markup. But we need it to be present
     // in order for the '=' to align with 'F(...) =' that's at the beginning of sumEquationNode. So we're hiding the
     // 'F(...)' bit using 'color: transparent'.
-    const functionEqualToNode = new RichText( `<span style='color: transparent'>${EquationMarkup.getFunctionOfMarkup( domain )}</span> ${MathSymbols.EQUAL_TO}`, {
+    const functionEqualToNode = new RichText( '', {
       font: FMWConstants.EQUATION_FONT
     } );
+    domainProperty.link( domain => {
+      functionEqualToNode.text = `<span style='color: transparent'>${EquationMarkup.getFunctionOfMarkup( domain )}</span> ${MathSymbols.EQUAL_TO}`;
+    } );
 
-    let expandedSumMarkup = '';
-    for ( let order = 1; order <= numberOfHarmonics; order++ ) {
-
-      // Limit number of decimal places, and drop trailing zeros.
-      // See https://github.com/phetsims/fourier-making-waves/issues/20
-      const amplitude = Utils.toFixedNumber( amplitudes[ order - 1 ], FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
-
-      expandedSumMarkup += EquationMarkup.getSpecificFormMarkup( domain, seriesType, equationForm, order, amplitude );
-      if ( order < numberOfHarmonics ) {
-        expandedSumMarkup += ` ${MathSymbols.PLUS} `;
-      }
-      if ( order % TERMS_PER_LINE === 0 ) {
-        expandedSumMarkup += '<br>';
-      }
-    }
-    const expandedSumNode = new RichText( expandedSumMarkup, {
+    const expandedSumNode = new RichText( '', {
       font: FMWConstants.EQUATION_FONT,
       leading: 11
     } );
+    Property.multilink(
+      [ fourierSeries.numberOfHarmonicsProperty, fourierSeries.amplitudesProperty, domainProperty, seriesTypeProperty, equationFormProperty ],
+      ( numberOfHarmonics, amplitudes, domain, seriesType, equationForm ) => {
+        let expandedSumMarkup = '';
+        for ( let order = 1; order <= numberOfHarmonics; order++ ) {
+
+          // Limit number of decimal places, and drop trailing zeros.
+          // See https://github.com/phetsims/fourier-making-waves/issues/20
+          const amplitude = Utils.toFixedNumber( amplitudes[ order - 1 ], FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
+
+          expandedSumMarkup += EquationMarkup.getSpecificFormMarkup( domain, seriesType, equationForm, order, amplitude );
+          if ( order < numberOfHarmonics ) {
+            expandedSumMarkup += ` ${MathSymbols.PLUS} `;
+          }
+          if ( order % TERMS_PER_LINE === 0 ) {
+            expandedSumMarkup += '<br>';
+          }
+        }
+        expandedSumNode.text = expandedSumMarkup;
+      } );
 
     const expandedSumHBox = new HBox( {
       spacing: 4,
@@ -112,11 +114,6 @@ class ExpandedFormDialog extends Dialog {
     } );
 
     super( content, options );
-
-    // @private
-    this.disposeExpandedSumDialog = () => {
-      sumEquationNode.dispose();
-    };
   }
 
   /**
@@ -124,7 +121,7 @@ class ExpandedFormDialog extends Dialog {
    * @override
    */
   dispose() {
-    this.disposeExpandedSumDialog();
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 }

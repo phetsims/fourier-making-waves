@@ -189,16 +189,16 @@ class DiscreteScreenView extends ScreenView {
         visiblePropertyOptions: { phetioReadOnly: true }
       } );
 
+    const expandedFormDialog = new ExpandedFormDialog(
+      model.fourierSeries, model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, {
+        tandem: sumEquationNodeTandem.createTandem( 'expandedFormDialog' )
+      } );
+
     // Push button that opens the 'Expanded Sum' dialog
     const expandedFormButton = new ExpandedFormButton( {
       scale: 0.45,
-      listener: () => {
-        const dialog = new ExpandedFormDialog(
-          model.fourierSeries, model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, {
-            hideCallback: () => dialog.dispose()
-          } );
-        dialog.show();
-      },
+      listener: () => expandedFormDialog.show(),
+
       // Make this button appear to be a child of sumEquationNode.
       tandem: sumEquationNodeTandem.createTandem( 'expandedFormButton' )
     } );
