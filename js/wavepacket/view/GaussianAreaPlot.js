@@ -72,7 +72,7 @@ class GaussianAreaPlot extends Path {
     ( point !== null ) // null values (gaps) are not supported
     && ( point.isFinite() ) // all points must be finite
     && ( index === 0 || dataSet[ index - 1 ].x < point.x ) // ordered by ascending x value
-    && ( point.y >= 0 )      // all y values must be >= 0
+    && ( point.y >= 0 ) // all y values must be >= 0
     ) );
 
     const shape = new Shape();
