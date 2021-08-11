@@ -1,5 +1,10 @@
 TODO.txt for fourier-making-waves
 
+Get rid of AmplitudesChart, HarmonicsChart, SumChart. Change to:
+    WaveGameAmplitudesChart extends DiscreteAmplitudesChart
+    WaveGameHarmonicsChart extends DiscreteHarmonicsChart
+    WaveGameSumChart extends DiscreteSumChart
+
 AxisDescription and Properties of that type have been a constant pain. Get rid of it?
 
 WavePacketComponentsChart and WavePacketSumPlot do not use AxisDescription for y-axis, but yAxisDescriptionProperty
