@@ -69,9 +69,12 @@ class GaussianAreaPlot extends Path {
    * @override
    */
   update() {
-    assert && assert( _.every( this.dataSet, point => point !== null ), 'all points in data set must be non-null' );
-    assert && assert( _.every( this.dataSet, point => point.isFinite() ), 'all points in data set must be finite' );
-    assert && assert( _.every( this.dataSet, point => point.y >= 0 ), 'all y values must be >= 0' );
+    assert && assert( _.every( this.dataSet, ( point, index, dataSet ) =>
+    ( point !== null ) // null values (gaps) are not supported
+    && ( point.isFinite() ) // all points must be finite
+    && ( index === 0 || dataSet[ index - 1 ].x < point.x ) // ordered by ascending x value
+    && ( point.y >= 0 )      // all y values must be >= 0
+    ) );
 
     const shape = new Shape();
     const numberOfPoints = this.dataSet.length;
