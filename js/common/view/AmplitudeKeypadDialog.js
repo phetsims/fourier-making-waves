@@ -76,6 +76,7 @@ class AmplitudeKeypadDialog extends Dialog {
     } );
 
     // Title indicates which amplitude we're editing, e.g. A<sub>2</sub>.
+    // titleNode.text is set when the dialog is opened.
     const titleNode = new RichText( '', {
       font: TITLE_FONT,
       maxWidth: keypad.width
@@ -103,7 +104,7 @@ class AmplitudeKeypadDialog extends Dialog {
       }
     } );
 
-    // Enter button processes what has been entered on the keypad 
+    // Enter button, processes what has been entered on the keypad
     const enterButton = new RectangularPushButton( {
       baseColor: PhetColorScheme.BUTTON_YELLOW,
       content: new Text( fourierMakingWavesStrings.enter, {
@@ -112,6 +113,7 @@ class AmplitudeKeypadDialog extends Dialog {
       } )
     } );
 
+    // Vertical layout
     const content = new VBox( {
       spacing: 10,
       align: 'center',
