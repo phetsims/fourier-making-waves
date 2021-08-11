@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * FMWCheckbox is a Checkbox subclass that implements common styling for this sim.
+ * FMWCheckbox is a Checkbox subclass that implements styling and pointer areas for this sim.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
