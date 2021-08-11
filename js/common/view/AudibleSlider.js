@@ -51,8 +51,6 @@ class AudibleSlider extends Slider {
 
       const dtPlay = Date.now() - tPlay;
 
-      //TODO https://github.com/phetsims/fourier-making-waves/issues/56 Is special handling needed if event.isFromPDOM(), like WaveInterferenceSlider ?
-
       if ( currentValue !== previousValue ) {
 
         options.inBetweenSound.isPlaying && options.inBetweenSound.stop();
