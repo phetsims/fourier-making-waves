@@ -73,6 +73,8 @@ class StandardDeviationControl extends FMWNumberControl {
     domainProperty.link( () => this.redrawNumberDisplay() );
 
     // @public {DerivedProperty.<boolean>} Whether the user is interacting with this control.
+    // This is used to ensure that interaction with StandardDeviationControl and ConjugateStandardDeviationControl
+    // is mutually exclusive.
     this.isPressedProperty = new DerivedProperty(
       [ this.slider.thumbDragListener.isPressedProperty, this.slider.trackDragListener.isPressedProperty ],
       ( thumbIsPressed, trackIsPressed ) => ( thumbIsPressed || trackIsPressed ) );
