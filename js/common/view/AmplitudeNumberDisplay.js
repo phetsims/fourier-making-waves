@@ -2,7 +2,7 @@
 
 /**
  * AmplitudeNumberDisplay is a specialization of NumberDisplay that displays the value of a harmonic's amplitude.
- * Clicking on it opens a keypad dialog, which can be used to enter an amplitude value.
+ * Clicking on it opens an AmplitudeKeypadDialog, where the user can enter an amplitude value using a keypad.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
