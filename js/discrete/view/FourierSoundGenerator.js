@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * FourierSoundGenerator generates sound for a fourier series.
+ * FourierSoundGenerator generates sound for a Fourier series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
