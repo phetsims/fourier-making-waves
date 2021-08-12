@@ -17,13 +17,9 @@ import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import SumSymbolNode from '../../common/view/SumSymbolNode.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
+import SumSymbolNode from '../../common/view/SumSymbolNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-
-// To improve readability of markup creation. Each of these is a string than may also include markup.
-const EQUAL_TO = MathSymbols.EQUAL_TO;
-const n = FMWSymbols.n;
 
 class WavePacketSumEquationNode extends Node {
 
@@ -51,7 +47,7 @@ class WavePacketSumEquationNode extends Node {
     } );
 
     // Capital sigma, summation symbol
-    const sumSymbolNode = new SumSymbolNode( n, -Infinity, new NumberProperty( Infinity ), {
+    const sumSymbolNode = new SumSymbolNode( FMWSymbols.n, -Infinity, new NumberProperty( Infinity ), {
       font: options.font
     } );
 
@@ -70,7 +66,7 @@ class WavePacketSumEquationNode extends Node {
       ( domain, seriesType, componentSpacing ) => {
 
         // Update the left side of the equation to match the domain.
-        leftNode.text = `${EquationMarkup.getFunctionOfMarkup( domain )} ${EQUAL_TO}`; // F(...) =
+        leftNode.text = `${EquationMarkup.getFunctionOfMarkup( domain )} ${MathSymbols.EQUAL_TO}`; // F(...) =
 
         const hasInfiniteComponents = ( componentSpacing === 0 );
 
