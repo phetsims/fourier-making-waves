@@ -17,7 +17,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import wavePacketHomeScreenImage from '../../../images/Wave-Packet-home-screen-icon_png.js';
+import wavePacketHomeScreenImage from '../../../images/wavePacketHomeScreenIcon_png.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import PointsAwardedNode from '../../waveGame/view/PointsAwardedNode.js';
 import HorizontalDimensionalArrowsNode from '../../wavepacket/view/HorizontalDimensionalArrowNode.js';
