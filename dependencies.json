@@ -1,5 +1,5 @@
 {
-  "comment": "# fourier-making-waves 1.0.0-dev.38 Tue Aug 10 2021 15:53:33 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# fourier-making-waves 1.0.0-dev.39 Wed Aug 11 2021 20:51:12 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "master"
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "fourier-making-waves": {
-    "sha": "a1f07c8fb66e64c7fc5e60beb263619031d3338a",
+    "sha": "2602707de20e956c5f1665cf42aca4ce915d2460",
     "branch": "master"
   },
   "joist": {
@@ -77,7 +77,7 @@
     "branch": "master"
   },
   "sherpa": {
-    "sha": "ec49f43aee29c836c13884be095e2772bc9faaa0",
+    "sha": "e40832396a02879ec00c6d328782099fd04d406e",
     "branch": "master"
   },
   "studio": {
@@ -85,7 +85,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "ca4c2fb861e678adc960a84f67b90875eaab3e1c",
+    "sha": "409f5535217127135e82ade6cfad39f84aed9576",
     "branch": "master"
   },
   "tambo": {
