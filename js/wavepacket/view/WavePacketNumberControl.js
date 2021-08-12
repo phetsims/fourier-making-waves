@@ -6,7 +6,8 @@
 // Add sound for this NumberControl's slider when the Slider sound API has been completed.
 
 /**
- * FMWNumberControl is a NumberControl with interactive tick labels.
+ * WavePacketNumberControl is the base class for NumberControls in the Wave Packet screen.
+ * It adds interactive tick labels, isPressedProperty, and synchronizes its display with the domain.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,25 +15,28 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../../common/FMWConstants.js';
 
-class FMWNumberControl extends NumberControl {
+class WavePacketNumberControl extends NumberControl {
 
   /**
    * @param {NumberProperty} numberProperty
    * @param {Object} [options]
    */
-  constructor( numberProperty, options ) {
+  constructor( numberProperty, domainProperty, options ) {
     assert && assert( numberProperty instanceof NumberProperty );
     assert && assert( numberProperty.range );
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     options = merge( {
       tandem: Tandem.REQUIRED
-    }, FMWConstants.NUMBER_CONTROL_OPTIONS, options );
+    }, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, options );
 
     super( '' /* title */, numberProperty, numberProperty.range, options );
 
@@ -60,8 +64,11 @@ class FMWNumberControl extends NumberControl {
     this.isPressedProperty = new DerivedProperty(
       [ this.slider.thumbDragListener.isPressedProperty, this.slider.trackDragListener.isPressedProperty ],
       ( thumbIsPressed, trackIsPressed ) => ( thumbIsPressed || trackIsPressed ) );
+
+    // Update the displayed value.
+    domainProperty.link( () => this.redrawNumberDisplay() );
   }
 }
 
-fourierMakingWaves.register( 'FMWNumberControl', FMWNumberControl );
-export default FMWNumberControl;
+fourierMakingWaves.register( 'WavePacketNumberControl', WavePacketNumberControl );
+export default WavePacketNumberControl;

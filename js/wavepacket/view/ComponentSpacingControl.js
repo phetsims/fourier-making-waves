@@ -17,28 +17,28 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
-import FMWNumberControl from './FMWNumberControl.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import WavePacketNumberControl from './WavePacketNumberControl.js';
 
 // constants
 const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 const DECIMALS = 2;
 
-class ComponentSpacingControl extends FMWNumberControl {
+class ComponentSpacingControl extends WavePacketNumberControl {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {NumberProperty} componentSpacingProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, componentSpacingProperty, options ) {
+  constructor( componentSpacingProperty, domainProperty, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( componentSpacingProperty instanceof NumberProperty );
     assert && assert( componentSpacingProperty.range );
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
-    options = merge( {}, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, {
+    options = merge( {
 
       // NumberDisplay options
       delta: 1, // because the control is setting an index
@@ -88,10 +88,7 @@ class ComponentSpacingControl extends FMWNumberControl {
       componentSpacingProperty.value = validValues[ componentSpacingIndex ];
     } );
 
-    super( componentSpacingIndexProperty, options );
-
-    // Update the displayed value.
-    domainProperty.link( () => this.redrawNumberDisplay() );
+    super( componentSpacingIndexProperty, domainProperty, options );
   }
 
   /**

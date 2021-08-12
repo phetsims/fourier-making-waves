@@ -15,27 +15,27 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
-import FMWNumberControl from './FMWNumberControl.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import WavePacketNumberControl from './WavePacketNumberControl.js';
 
 // constants
 const DELTA = Math.PI / 4;
 const DECIMALS = 1;
 const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 
-class CenterControl extends FMWNumberControl {
+class CenterControl extends WavePacketNumberControl {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {NumberProperty} centerProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, centerProperty, options ) {
+  constructor( centerProperty, domainProperty, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( centerProperty instanceof NumberProperty );
     assert && assert( centerProperty.range );
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     options = merge( {
 
@@ -62,10 +62,7 @@ class CenterControl extends FMWNumberControl {
       }
     }, options );
 
-    super( centerProperty, options );
-
-    // Update the displayed value.
-    domainProperty.link( () => this.redrawNumberDisplay() );
+    super( centerProperty, domainProperty, options );
   }
 
   /**

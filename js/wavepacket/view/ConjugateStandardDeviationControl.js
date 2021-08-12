@@ -15,27 +15,27 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
-import FMWNumberControl from './FMWNumberControl.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import WavePacketNumberControl from './WavePacketNumberControl.js';
 
 // constants
 const DELTA = 0.001;
 const DECIMALS = Utils.numberOfDecimalPlaces( DELTA );
 const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 
-class ConjugateStandardDeviationControl extends FMWNumberControl {
+class ConjugateStandardDeviationControl extends WavePacketNumberControl {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {NumberProperty} conjugateStandardDeviationProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, conjugateStandardDeviationProperty, options ) {
+  constructor( conjugateStandardDeviationProperty, domainProperty, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( conjugateStandardDeviationProperty instanceof NumberProperty );
     assert && assert( conjugateStandardDeviationProperty.range );
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     options = merge( {
 
@@ -61,10 +61,7 @@ class ConjugateStandardDeviationControl extends FMWNumberControl {
       }
     }, options );
 
-    super( conjugateStandardDeviationProperty, options );
-
-    // Update the displayed value.
-    domainProperty.link( () => this.redrawNumberDisplay() );
+    super( conjugateStandardDeviationProperty, domainProperty, options );
   }
 
   /**

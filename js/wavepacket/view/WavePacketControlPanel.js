@@ -169,7 +169,7 @@ class ComponentSpacingSubpanel extends VBox {
       tandem: options.tandem.createTandem( 'componentSpacingText' )
     } );
 
-    const componentSpacingControl = new ComponentSpacingControl( domainProperty, componentSpacingProperty, {
+    const componentSpacingControl = new ComponentSpacingControl( componentSpacingProperty, domainProperty, {
       tandem: options.tandem.createTandem( 'componentSpacingControl' )
     } );
 
@@ -223,7 +223,7 @@ class WavePacketCenterSubpanel extends VBox {
       tandem: options.tandem.createTandem( 'wavePacketCenterText' )
     } );
 
-    const centerControl = new CenterControl( domainProperty, centerProperty, {
+    const centerControl = new CenterControl( centerProperty, domainProperty, {
       tandem: options.tandem.createTandem( 'centerControl' )
     } );
 
@@ -278,13 +278,14 @@ class WavePacketWidthSubpanel extends VBox {
       tandem: options.tandem.createTandem( 'wavePacketWidthText' )
     } );
 
-    const standardDeviationControl = new StandardDeviationControl( domainProperty, standardDeviationProperty, {
+    const standardDeviationControl = new StandardDeviationControl( standardDeviationProperty, domainProperty, {
       tandem: options.tandem.createTandem( 'standardDeviationControl' )
     } );
 
-    const conjugateStandardDeviationControl = new ConjugateStandardDeviationControl( domainProperty, conjugateStandardDeviationProperty, {
-      tandem: options.tandem.createTandem( 'conjugateStandardDeviationControl' )
-    } );
+    const conjugateStandardDeviationControl =
+      new ConjugateStandardDeviationControl( conjugateStandardDeviationProperty, domainProperty, {
+        tandem: options.tandem.createTandem( 'conjugateStandardDeviationControl' )
+      } );
 
     // Interaction with these 2 controls is mutually-exclusive, because they both change standardDeviation.
     standardDeviationControl.isPressedProperty.link( isPressed => {
