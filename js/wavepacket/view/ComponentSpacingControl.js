@@ -88,7 +88,7 @@ class ComponentSpacingControl extends FMWNumberControl {
       componentSpacingProperty.value = validValues[ componentSpacingIndex ];
     } );
 
-    super( '', componentSpacingIndexProperty, options );
+    super( componentSpacingIndexProperty, options );
 
     // Update the displayed value.
     domainProperty.link( () => this.redrawNumberDisplay() );

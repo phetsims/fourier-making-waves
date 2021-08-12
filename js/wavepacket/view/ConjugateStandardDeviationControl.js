@@ -6,14 +6,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
@@ -39,7 +37,7 @@ class ConjugateStandardDeviationControl extends FMWNumberControl {
     assert && assert( conjugateStandardDeviationProperty instanceof NumberProperty );
     assert && assert( conjugateStandardDeviationProperty.range );
 
-    options = merge( {}, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, {
+    options = merge( {
 
       // NumberDisplay options
       delta: DELTA,
@@ -60,23 +58,13 @@ class ConjugateStandardDeviationControl extends FMWNumberControl {
 
         // pdom options
         keyboardStep: 0.01
-      },
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
+      }
     }, options );
 
-    super( '', conjugateStandardDeviationProperty, options );
+    super( conjugateStandardDeviationProperty, options );
 
     // Update the displayed value.
     domainProperty.link( () => this.redrawNumberDisplay() );
-
-    // @public {DerivedProperty.<boolean>} Whether the user is interacting with this control.
-    // This is used to ensure that interaction with StandardDeviationControl and ConjugateStandardDeviationControl
-    // is mutually exclusive.
-    this.isPressedProperty = new DerivedProperty(
-      [ this.slider.thumbDragListener.isPressedProperty, this.slider.trackDragListener.isPressedProperty ],
-      ( thumbIsPressed, trackIsPressed ) => ( thumbIsPressed || trackIsPressed ) );
   }
 
   /**

@@ -12,7 +12,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
@@ -38,7 +37,7 @@ class CenterControl extends FMWNumberControl {
     assert && assert( centerProperty instanceof NumberProperty );
     assert && assert( centerProperty.range );
 
-    options = merge( {}, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, {
+    options = merge( {
 
       delta: DELTA,
 
@@ -60,13 +59,10 @@ class CenterControl extends FMWNumberControl {
 
         // pdom options
         keyboardStep: Math.PI
-      },
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
+      }
     }, options );
 
-    super( '', centerProperty, options );
+    super( centerProperty, options );
 
     // Update the displayed value.
     domainProperty.link( () => this.redrawNumberDisplay() );

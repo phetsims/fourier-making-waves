@@ -83,8 +83,8 @@ const FMWConstants = {
     touchAreaYDilation: 5
   },
 
-  // options for NumberControls in the Wave Packet screen
-  WAVE_PACKET_NUMBER_CONTROL_OPTIONS: {
+  // NumberControl options
+  NUMBER_CONTROL_OPTIONS: {
 
     // NumberControl options
     includeArrowButtons: false,
