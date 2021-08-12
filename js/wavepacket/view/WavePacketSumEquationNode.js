@@ -91,6 +91,7 @@ class WavePacketSumEquationNode extends Node {
       }
     );
 
+    // Layout
     Property.multilink(
       [ leftNode.boundsProperty, sumSymbolNode.boundsProperty, rightNode.boundsProperty ],
       () => {
