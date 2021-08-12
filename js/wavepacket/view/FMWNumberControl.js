@@ -18,7 +18,7 @@ import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import FMWConstants from '../FMWConstants.js';
+import FMWConstants from '../../common/FMWConstants.js';
 
 class FMWNumberControl extends NumberControl {
 
