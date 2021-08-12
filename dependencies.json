@@ -1,11 +1,11 @@
 {
-  "comment": "# fourier-making-waves 1.0.0-dev.39 Wed Aug 11 2021 20:51:12 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# fourier-making-waves 1.0.0-dev.40 Thu Aug 12 2021 14:39:38 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "master"
   },
   "axon": {
-    "sha": "d09f8f50b1a8b97145612bece9e7d91a20e05b28",
+    "sha": "21ac64c317ad19e76863661712f10c2313f59559",
     "branch": "master"
   },
   "bamboo": {
@@ -17,7 +17,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "7aee98a05c3a13c5000e04ed2ea1ddfe84dad715",
+    "sha": "e393e8dc74a9963a786ef28f84208a9fc5f57b5e",
     "branch": "master"
   },
   "dot": {
@@ -25,11 +25,11 @@
     "branch": "master"
   },
   "fourier-making-waves": {
-    "sha": "2602707de20e956c5f1665cf42aca4ce915d2460",
+    "sha": "dfe0a8b159d38c36263463ddf7ee4df16be50804",
     "branch": "master"
   },
   "joist": {
-    "sha": "843feeb1a1c9e32194961faec92e1d15523bbcf6",
+    "sha": "d75da5284795d6ef2285dde4982f9e62b9bc5659",
     "branch": "master"
   },
   "kite": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "perennial-alias": {
-    "sha": "695911d0604c2bd18e9031ea4f5b26d6586bd025",
+    "sha": "79098938668b880d46538bda8e9a3a15e97471b0",
     "branch": "master"
   },
   "phet-core": {
@@ -61,7 +61,7 @@
     "branch": "master"
   },
   "phetmarks": {
-    "sha": "589cdbe7c499adfc1cc478b11340fc0ac61ff93d",
+    "sha": "90974478a78b0c181ba2483a25dc2d5a39878612",
     "branch": "master"
   },
   "query-string-machine": {
@@ -69,11 +69,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "f36b6961a3b3a9d6133ccb7e81887fd56bb82561",
+    "sha": "0687a46cb60b759b6de5230c15886f16fd330133",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "7a6b0480e7b81dc39ec48dc369bd951f59df9523",
+    "sha": "ed72de7735fb1cdefb73e334e195e840e3fe5b92",
     "branch": "master"
   },
   "sherpa": {
@@ -101,7 +101,7 @@
     "branch": "master"
   },
   "utterance-queue": {
-    "sha": "c5024988addef3818199c1bad305d4b9c6e1e385",
+    "sha": "b64b4f424d37ca34b7c059414bd24a02751330f2",
     "branch": "master"
   },
   "vegas": {
