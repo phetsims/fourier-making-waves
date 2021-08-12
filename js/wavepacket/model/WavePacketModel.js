@@ -72,13 +72,13 @@ class WavePacketModel {
       validValues: X_AXIS_DESCRIPTIONS
     } );
 
-    //TODO not used!
+    //TODO componentsYAxisDescriptionProperty is not used!
     // {Property.<AxisDescription>} the y-axis description for the Components chart
     const componentsYAxisDescriptionProperty = new Property( Y_AXIS_DESCRIPTIONS[ 0 ], {
       validValues: Y_AXIS_DESCRIPTIONS
     } );
 
-    //TODO not used!
+    //TODO sumYAxisDescriptionProperty is not used!
     // {Property.<AxisDescription>} the y-axis description for the Sum chart
     const sumYAxisDescriptionProperty = new Property( Y_AXIS_DESCRIPTIONS[ 0 ], {
       validValues: Y_AXIS_DESCRIPTIONS

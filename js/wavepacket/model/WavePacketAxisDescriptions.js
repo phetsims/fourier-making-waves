@@ -51,7 +51,7 @@ const WavePacketAxisDescriptions = {
     } )
   ],
 
-  // {AxisDescription} TODO flesh out Y_AXIS_DESCRIPTIONS
+  // {AxisDescription} TODO flesh out Y_AXIS_DESCRIPTIONS, or maybe even ditch them
   Y_AXIS_DESCRIPTIONS: [
     new AxisDescription( {
       range: new Range( -2, 2 ),
