@@ -8,6 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -48,7 +49,7 @@ class WaveGameSumChart extends SumChart {
 
     // This causes the chart to auto scale to answerSeries, and must always be true.
     assert && assert( !options.yAutoScaleProperty );
-    options.yAutoScaleProperty = new Property( true, {
+    options.yAutoScaleProperty = new BooleanProperty( true, {
       validValues: [ true ]
     } );
 
