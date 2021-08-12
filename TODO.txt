@@ -1,5 +1,7 @@
 TODO.txt for fourier-making-waves
 
+Replace {Property} xAxisTickLabelFormatProperty in model with {function} xAxisLabelFormatter in view.
+
 Rename WaveformChartNode, make WavePacketAmplitudesChartNode extends WaveformChartNode,
   WavePacketAmplitudesChart extends WaveformChart
 
