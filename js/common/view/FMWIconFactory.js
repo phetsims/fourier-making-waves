@@ -17,7 +17,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import wavePacketHomeScreenImage from '../../../images/wavePacketHomeScreenIcon_png.js';
+import wavePacketHomeScreenIcon_png from '../../../images/wavePacketHomeScreenIcon_png.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import PointsAwardedNode from '../../waveGame/view/PointsAwardedNode.js';
 import HorizontalDimensionalArrowsNode from '../../wavepacket/view/HorizontalDimensionalArrowNode.js';
@@ -63,7 +63,7 @@ const FMWIconFactory = {
    * @public
    */
   createWavePacketHomeScreenIcon() {
-    const iconNode = new Image( wavePacketHomeScreenImage );
+    const iconNode = new Image( wavePacketHomeScreenIcon_png );
     return new ScreenIcon( iconNode, {
       fill: FMWColors.wavePacketScreenBackgroundColorProperty
     } );
