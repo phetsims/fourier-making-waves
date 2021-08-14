@@ -15,6 +15,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -50,7 +51,10 @@ class CalipersNode extends Node {
       backgroundNodeOptions: {
         xMargin: 2,
         yMargin: 2
-      }
+      },
+
+      // phet-io options
+      tandem: Tandem.OPTIONAL
     }, options );
 
     // Beam, with jaws at ends.
@@ -63,10 +67,12 @@ class CalipersNode extends Node {
     } );
 
     // Label above the beam
-    const labelNode = new RichText( '', options.richTextOptions );
+    const labelText = new RichText( '', merge( {
+      tandem: options.tandem.createTandem( 'labelText' )
+    }, options.richTextOptions ) );
 
     // Translucent background for the label
-    const backgroundNode = new BackgroundNode( labelNode, options.backgroundNodeOptions );
+    const backgroundNode = new BackgroundNode( labelText, options.backgroundNodeOptions );
 
     const parentNode = new Node( {
       children: [ transparentRectangle, beamAndJawsNode, backgroundNode ]
@@ -80,7 +86,7 @@ class CalipersNode extends Node {
     // @private
     this.beamAndJawsNode = beamAndJawsNode;
     this.transparentRectangle = transparentRectangle;
-    this.labelNode = labelNode;
+    this.labelText = labelText;
     this.backgroundNode = backgroundNode;
 
     this.setMeasuredWidth( options.measuredWidth );
@@ -128,7 +134,7 @@ class CalipersNode extends Node {
    * @public
    */
   setLabel( text ) {
-    this.labelNode.text = text;
+    this.labelText.text = text;
     this.updateLabelPosition();
   }
 

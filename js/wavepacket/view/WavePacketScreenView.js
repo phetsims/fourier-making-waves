@@ -6,12 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
+import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -22,8 +24,10 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
 import ComponentsEquationNode from './ComponentsEquationNode.js';
+import ComponentSpacingToolCheckbox from './ComponentSpacingToolCheckbox.js';
 import ComponentSpacingToolNode from './ComponentSpacingToolNode.js';
 import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
+import LengthToolCheckbox from './LengthToolCheckbox.js';
 import WaveformEnvelopeCheckbox from './WaveformEnvelopeCheckbox.js';
 import WavePacketAmplitudesChartNode from './WavePacketAmplitudesChartNode.js';
 import WavePacketComponentsChartNode from './WavePacketComponentsChartNode.js';
@@ -282,16 +286,31 @@ class WavePacketScreenView extends ScreenView {
     // Parent tandem for all measurement tools
     const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
 
+    const componentSpacingToolVisibleProperty = new BooleanProperty( false, {
+      tandem: measurementToolsTandem.createTandem( 'componentSpacingToolVisibleProperty' )
+    } );
+
     // Component Spacing (k1 or omega1) measurement tool
     const componentSpacingToolNode = new ComponentSpacingToolNode( model.wavePacket.componentSpacingProperty,
       amplitudesChartNode.chartTransform, model.domainProperty, {
         position: new Vector2( amplitudeChartRectangleLocalBounds.right - 80, amplitudeChartRectangleLocalBounds.top + 50 ),
         dragBounds: amplitudeChartRectangleLocalBounds.withOffsets( 0, 10, 25, 0 ),
+        visibleProperty: componentSpacingToolVisibleProperty,
         tandem: measurementToolsTandem.createTandem( 'componentSpacingToolNode' )
+      } );
+
+    // Checkbox for Component Spacing tool
+    const componentSpacingToolCheckbox = new ComponentSpacingToolCheckbox( componentSpacingToolVisibleProperty,
+      model.domainProperty, {
+        tandem: measurementToolsTandem.createTandem( 'componentSpacingToolCheckbox' )
       } );
 
     // So that this tool will change visibility with the other Amplitudes chart elements.
     amplitudesParentNode.addChild( componentSpacingToolNode );
+
+    const lengthToolVisibleProperty = new BooleanProperty( false, {
+      tandem: measurementToolsTandem.createTandem( 'lengthToolVisibleProperty' )
+    } );
 
     // lengthToolNode can be dragged around on the Components and Sum charts.
     const lengthToolDragBounds = new Bounds2(
@@ -304,26 +323,41 @@ class WavePacketScreenView extends ScreenView {
     // Wavelength (lamda1) or period (T1) tool
     const lengthToolNode = new WavePacketLengthToolNode( model.wavePacket.lengthProperty,
       componentsChartNode.chartTransform, model.domainProperty, {
-      
+
         // See https://github.com/phetsims/fourier-making-waves/issues/134 for position.
         position: sumChartRectangleLocalBounds.centerBottom,
         dragBounds: lengthToolDragBounds,
+
+        // Visible if either the Components or Sum chart is visible.
+        visibleProperty: new DerivedProperty(
+          [ lengthToolVisibleProperty, model.componentsChart.chartVisibleProperty, model.sumChart.chartVisibleProperty ],
+          ( lengthToolVisible, componentsChartVisible, sumChartVisible ) =>
+            lengthToolVisible && ( componentsChartVisible || sumChartVisible )
+        ),
         tandem: measurementToolsTandem.createTandem( 'lengthToolNode' )
       } );
+    this.addChild( lengthToolNode );
 
-    // Wrap lengthToolNode in a parent Node, so that lengthToolNode can be permanently hidden via PhET-iO.
-    const lengthToolParent = new Node( {
-      children: [ lengthToolNode ],
+    // Checkbox for Length tool
+    const lengthToolCheckbox = new LengthToolCheckbox( lengthToolVisibleProperty,
+      model.domainProperty, {
+        tandem: measurementToolsTandem.createTandem( 'lengthToolCheckbox' )
+      } );
 
-      // Visible if either the Components or Sum chart is visible.
-      visibleProperty: new DerivedProperty(
-        [ model.componentsChart.chartVisibleProperty, model.sumChart.chartVisibleProperty ],
-        ( componentsChartVisible, sumChartVisible ) => ( componentsChartVisible || sumChartVisible ) )
+    //TODO https://github.com/phetsims/fourier-making-waves/issues/133 this is probably a temporary location
+    // Group tool checkboxes under the main control panel
+    const toolControlsBox = new HBox( {
+      children: [ lengthToolCheckbox, componentSpacingToolCheckbox ],
+      spacing: 25,
+      left: controlPanel.left + 15,
+      top: controlPanel.bottom + 15
     } );
-    measurementToolsParent.addChild( lengthToolParent );
+    this.addChild( toolControlsBox );
 
     const resetMeasurementTools = () => {
+      componentSpacingToolVisibleProperty.reset();
       componentSpacingToolNode.reset();
+      lengthToolVisibleProperty.reset();
       lengthToolNode.reset();
     };
 

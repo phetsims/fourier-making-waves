@@ -43,12 +43,12 @@ class SecondaryWaveformCheckbox extends FMWCheckbox {
       lineWidth: FMWConstants.SECONDARY_WAVEFORM_LINE_WIDTH
     } );
 
-    const hbox = new HBox( {
+    const hBox = new HBox( {
       children: [ infiniteHarmonicsText, icon ],
       spacing: 6
     } );
 
-    super( hbox, visibleProperty, options );
+    super( hBox, visibleProperty, options );
   }
 }
 
