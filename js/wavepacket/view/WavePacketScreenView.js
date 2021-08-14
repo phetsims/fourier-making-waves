@@ -13,7 +13,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -24,10 +23,8 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
 import ComponentsEquationNode from './ComponentsEquationNode.js';
-import ComponentSpacingToolCheckbox from './ComponentSpacingToolCheckbox.js';
 import ComponentSpacingToolNode from './ComponentSpacingToolNode.js';
 import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
-import LengthToolCheckbox from './LengthToolCheckbox.js';
 import WaveformEnvelopeCheckbox from './WaveformEnvelopeCheckbox.js';
 import WavePacketAmplitudesChartNode from './WavePacketAmplitudesChartNode.js';
 import WavePacketComponentsChartNode from './WavePacketComponentsChartNode.js';
@@ -56,12 +53,28 @@ class WavePacketScreenView extends ScreenView {
 
     super( options );
 
+    //------------------------------------------------------------------------------------------------------------------
+    // View Properties
+    //------------------------------------------------------------------------------------------------------------------
+
     // Parent tandem for all charts
-    const chartsTandem = options.tandem.createTandem( 'charts' );
+    const viewPropertiesTandem = options.tandem.createTandem( 'viewProperties' );
+
+    // View Properties
+    const componentSpacingToolVisibleProperty = new BooleanProperty( false, {
+      tandem: viewPropertiesTandem.createTandem( 'componentSpacingToolVisibleProperty' )
+    } );
+
+    const lengthToolVisibleProperty = new BooleanProperty( false, {
+      tandem: viewPropertiesTandem.createTandem( 'lengthToolVisibleProperty' )
+    } );
 
     //------------------------------------------------------------------------------------------------------------------
     // Amplitudes chart
     //------------------------------------------------------------------------------------------------------------------
+
+    // Parent tandem for all charts
+    const chartsTandem = options.tandem.createTandem( 'charts' );
 
     // Parent tandem for all elements related to the Amplitudes chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
@@ -173,9 +186,10 @@ class WavePacketScreenView extends ScreenView {
     // Parent for all popups
     const popupParent = new Node();
 
-    const controlPanel = new WavePacketControlPanel( model, popupParent, {
-      tandem: options.tandem.createTandem( 'controlPanel' )
-    } );
+    const controlPanel = new WavePacketControlPanel( model, componentSpacingToolVisibleProperty,
+      lengthToolVisibleProperty, popupParent, {
+        tandem: options.tandem.createTandem( 'controlPanel' )
+      } );
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {
@@ -216,8 +230,8 @@ class WavePacketScreenView extends ScreenView {
     waveformEnvelopeCheckbox.top = sumChartNode.bottom + 8;
 
     // Control panel centered in the space to the right of the charts
-    controlPanel.centerX = amplitudesChartNode.right + ( this.layoutBounds.right - amplitudesChartNode.right ) / 2;
-    controlPanel.top = this.layoutBounds.top + FMWConstants.SCREEN_VIEW_Y_MARGIN;
+    controlPanel.centerX = componentsChartNode.right + ( this.layoutBounds.right - componentsChartNode.right ) / 2;
+    controlPanel.top = this.layoutBounds.top + 5;
 
     // Reset All button at bottom right
     resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
@@ -288,10 +302,6 @@ class WavePacketScreenView extends ScreenView {
     // Parent tandem for all measurement tools
     const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
 
-    const componentSpacingToolVisibleProperty = new BooleanProperty( false, {
-      tandem: measurementToolsTandem.createTandem( 'componentSpacingToolVisibleProperty' )
-    } );
-
     // Component Spacing (k1 or omega1) measurement tool
     const componentSpacingToolNode = new ComponentSpacingToolNode( model.wavePacket.componentSpacingProperty,
       amplitudesChartNode.chartTransform, model.domainProperty, {
@@ -301,18 +311,8 @@ class WavePacketScreenView extends ScreenView {
         tandem: measurementToolsTandem.createTandem( 'componentSpacingToolNode' )
       } );
 
-    // Checkbox for Component Spacing tool
-    const componentSpacingToolCheckbox = new ComponentSpacingToolCheckbox( componentSpacingToolVisibleProperty,
-      model.domainProperty, {
-        tandem: measurementToolsTandem.createTandem( 'componentSpacingToolCheckbox' )
-      } );
-
     // So that this tool will change visibility with the other Amplitudes chart elements.
     amplitudesParentNode.addChild( componentSpacingToolNode );
-
-    const lengthToolVisibleProperty = new BooleanProperty( false, {
-      tandem: measurementToolsTandem.createTandem( 'lengthToolVisibleProperty' )
-    } );
 
     // lengthToolNode can be dragged around on the Components and Sum charts.
     const lengthToolDragBounds = new Bounds2(
@@ -339,22 +339,6 @@ class WavePacketScreenView extends ScreenView {
         tandem: measurementToolsTandem.createTandem( 'lengthToolNode' )
       } );
     this.addChild( lengthToolNode );
-
-    // Checkbox for Length tool
-    const lengthToolCheckbox = new LengthToolCheckbox( lengthToolVisibleProperty,
-      model.domainProperty, {
-        tandem: measurementToolsTandem.createTandem( 'lengthToolCheckbox' )
-      } );
-
-    //TODO https://github.com/phetsims/fourier-making-waves/issues/133 this is probably a temporary location
-    // Group tool checkboxes under the main control panel
-    const toolControlsBox = new HBox( {
-      children: [ lengthToolCheckbox, componentSpacingToolCheckbox ],
-      spacing: 25,
-      left: controlPanel.left + 15,
-      top: controlPanel.bottom + 15
-    } );
-    this.addChild( toolControlsBox );
 
     const resetMeasurementTools = () => {
       componentSpacingToolVisibleProperty.reset();

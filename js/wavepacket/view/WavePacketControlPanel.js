@@ -29,7 +29,9 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
 import CenterControl from './CenterControl.js';
 import ComponentSpacingControl from './ComponentSpacingControl.js';
+import ComponentSpacingToolCheckbox from './ComponentSpacingToolCheckbox.js';
 import ConjugateStandardDeviationControl from './ConjugateStandardDeviationControl.js';
+import LengthToolCheckbox from './LengthToolCheckbox.js';
 import StandardDeviationControl from './StandardDeviationControl.js';
 import WavePacketInfoDialog from './WavePacketInfoDialog.js';
 import WidthIndicatorsCheckbox from './WidthIndicatorsCheckbox.js';
@@ -41,22 +43,28 @@ class WavePacketControlPanel extends Panel {
 
   /**
    * @param {WavePacketModel} model
+   * @param {Property.<boolean>} componentSpacingToolVisibleProperty
+   * @param {Property.<boolean>} lengthToolVisibleProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
-  constructor( model, popupParent, options ) {
+  constructor( model, componentSpacingToolVisibleProperty, lengthToolVisibleProperty, popupParent, options ) {
 
     assert && assert( model instanceof WavePacketModel );
+    assert && AssertUtils.assertPropertyOf( componentSpacingToolVisibleProperty, 'boolean' );
+    assert && AssertUtils.assertPropertyOf( lengthToolVisibleProperty, 'boolean' );
     assert && assert( popupParent instanceof Node );
 
     options = merge( {}, FMWConstants.PANEL_OPTIONS, {
+
+      yMargin: 5,
 
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 
     const componentSpacingSubpanel = new ComponentSpacingSubpanel( model.domainProperty,
-      model.wavePacket.componentSpacingProperty, {
+      model.wavePacket.componentSpacingProperty, componentSpacingToolVisibleProperty, lengthToolVisibleProperty, {
         spacing: VERTICAL_SPACING,
         tandem: options.tandem.createTandem( 'componentSpacingSubpanel' )
       } );
@@ -146,12 +154,16 @@ class ComponentSpacingSubpanel extends VBox {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property} componentSpacingProperty
+   * @param {Property.<boolean>} componentSpacingToolVisibleProperty
+   * @param {Property.<boolean>} lengthToolVisibleProperty
    * @param {Object} [options]
    */
-  constructor( domainProperty, componentSpacingProperty, options ) {
+  constructor( domainProperty, componentSpacingProperty, componentSpacingToolVisibleProperty, lengthToolVisibleProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( componentSpacingProperty, 'number' );
+    assert && AssertUtils.assertPropertyOf( componentSpacingToolVisibleProperty, 'boolean' );
+    assert && AssertUtils.assertPropertyOf( lengthToolVisibleProperty, 'boolean' );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 
@@ -173,10 +185,24 @@ class ComponentSpacingSubpanel extends VBox {
       tandem: options.tandem.createTandem( 'componentSpacingControl' )
     } );
 
+    const componentSpacingToolCheckbox = new ComponentSpacingToolCheckbox( componentSpacingToolVisibleProperty,
+      domainProperty, {
+        tandem: options.tandem.createTandem( 'componentSpacingToolCheckbox' )
+      } );
+
+    // Checkbox for Length tool
+    const lengthToolCheckbox = new LengthToolCheckbox( lengthToolVisibleProperty, domainProperty, {
+      tandem: options.tandem.createTandem( 'lengthToolCheckbox' )
+    } );
+
     assert && assert( !options.children, 'ComponentSpacingSubpanel sets children' );
     options.children = [
       componentSpacingText,
-      componentSpacingControl
+      componentSpacingControl,
+      new HBox( {
+        children: [ componentSpacingToolCheckbox, lengthToolCheckbox ],
+        spacing: 25
+      } )
     ];
 
     super( options );
