@@ -223,6 +223,7 @@ class DiscreteScreenView extends ScreenView {
 
     // Control panel
     const controlPanel = new DiscreteControlPanel( model, popupParent, {
+      maxWidth: 258, // as a fallback, in case some subcomponent is misbehaving
       tandem: options.tandem.createTandem( 'controlPanel' )
     } );
 

@@ -188,6 +188,7 @@ class WavePacketScreenView extends ScreenView {
 
     const controlPanel = new WavePacketControlPanel( model, componentSpacingToolVisibleProperty,
       lengthToolVisibleProperty, popupParent, {
+        maxWidth: 230, // as a fallback, in case some subcomponent is misbehaving
         tandem: options.tandem.createTandem( 'controlPanel' )
       } );
 
