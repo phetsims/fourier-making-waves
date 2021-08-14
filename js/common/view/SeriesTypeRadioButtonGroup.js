@@ -8,6 +8,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
 import FMWConstants from '../FMWConstants.js';
@@ -36,7 +37,9 @@ class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
 
     const textOptions = {
-      font: FMWConstants.MATH_CONTROL_FONT,
+
+      // Make this font a bit larger, see https://github.com/phetsims/fourier-making-waves/issues/138
+      font: new PhetFont( FMWConstants.MATH_CONTROL_FONT.numericSize + 2 ),
       maxWidth: 40 // determined empirically
     };
 
