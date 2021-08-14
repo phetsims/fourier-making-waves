@@ -119,7 +119,7 @@ const FMWConstants = {
   SUBTITLE_FONT: new PhetFont( { size: 12, weight: 'bold' } ),
   DIALOG_TITLE_FONT: new PhetFont( { size: 18, weight: 'bold' } ),
   CONTROL_FONT: CONTROL_FONT,
-  MATH_CONTROL_FONT: new PhetFont( 13 ), // use a larger font for math symbols, see https://github.com/phetsims/fourier-making-waves/issues/99
+  MATH_CONTROL_FONT: new PhetFont( CONTROL_FONT.numericSize + 1 ), // use a larger font for math symbols, see https://github.com/phetsims/fourier-making-waves/issues/99
   AXIS_LABEL_FONT: new PhetFont( 12 ),
   TICK_LABEL_FONT: new PhetFont( 12 ),
   EQUATION_FONT: new PhetFont( 18 ),
