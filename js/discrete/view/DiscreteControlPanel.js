@@ -197,6 +197,7 @@ class FourierSeriesSubpanel extends VBox {
     } );
 
     const waveformComboBox = new WaveformComboBox( waveformProperty, popupParent, {
+      maxWidth: 135,
       tandem: options.tandem.createTandem( 'waveformComboBox' )
     } );
 
@@ -297,6 +298,7 @@ class GraphControlsSubpanel extends VBox {
     } );
 
     const domainComboBox = new DomainComboBox( domainProperty, popupParent, {
+      maxWidth: 135,
       tandem: options.tandem.createTandem( 'functionOfComboBox' ) // tandem name differs by request
     } );
 
@@ -327,6 +329,7 @@ class GraphControlsSubpanel extends VBox {
     } );
 
     const equationComboBox = new EquationComboBox( equationFormProperty, domainProperty, popupParent, {
+      maxWidth: 135,
       tandem: options.tandem.createTandem( 'equationComboBox' )
     } );
 
@@ -404,6 +407,7 @@ class MeasurementToolsSubpanel extends VBox {
 
     // Wavelength
     const wavelengthCheckbox = new WavelengthCheckbox( wavelengthTool.isSelectedProperty, {
+      maxWidth: 75,
       tandem: options.tandem.createTandem( 'wavelengthCheckbox' )
     } );
     const wavelengthSpinner = new OrderSpinner( FMWSymbols.lambda, wavelengthTool.orderProperty, {
@@ -418,6 +422,7 @@ class MeasurementToolsSubpanel extends VBox {
 
     // Period
     const periodCheckbox = new PeriodCheckbox( periodTool.isSelectedProperty, {
+      maxWidth: 75,
       tandem: options.tandem.createTandem( 'periodCheckbox' )
     } );
     const periodSpinner = new OrderSpinner( FMWSymbols.T, periodTool.orderProperty, {
