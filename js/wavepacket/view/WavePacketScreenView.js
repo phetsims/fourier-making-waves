@@ -304,7 +304,9 @@ class WavePacketScreenView extends ScreenView {
     // Wavelength (lamda1) or period (T1) tool
     const lengthToolNode = new WavePacketLengthToolNode( model.wavePacket.lengthProperty,
       componentsChartNode.chartTransform, model.domainProperty, {
-        position: sumChartRectangleLocalBounds.center,
+      
+        // See https://github.com/phetsims/fourier-making-waves/issues/134 for position.
+        position: sumChartRectangleLocalBounds.centerBottom,
         dragBounds: lengthToolDragBounds,
         tandem: measurementToolsTandem.createTandem( 'lengthToolNode' )
       } );
