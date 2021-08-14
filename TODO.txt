@@ -1,5 +1,7 @@
 TODO.txt for fourier-making-waves
 
+#97 game changes
+
 Optimize to prevent collapsed charts from updating. Ask team if it's appropriate, worth it.
 
 Replace {Property} xAxisTickLabelFormatProperty in model with {function} xAxisLabelFormatter in view.
