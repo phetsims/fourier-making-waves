@@ -1,7 +1,5 @@
 TODO.txt for fourier-making-waves
 
-Replace EMPTY_DATA_SET with EMPTY_ARRAY.
-
 Optimize to prevent collapsed charts from updating. Ask team if it's appropriate, worth it.
 
 Replace {Property} xAxisTickLabelFormatProperty in model with {function} xAxisLabelFormatter in view.
