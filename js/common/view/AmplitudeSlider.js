@@ -63,12 +63,14 @@ class AmplitudeSlider extends AudibleSlider {
       // AudibleSlider options
       orientation: Orientation.VERTICAL,
 
+      decimalPlaces: FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES,
+
       // {number} snap to this interval when using mouse/touch, unless the value is min or max
-      mouseTouchStep: FMWConstants.AMPLITUDE_SLIDER_MOUSE_TOUCH_STEP,
+      mouseTouchStep: FMWConstants.DISCRETE_AMPLITUDE_STEP,
 
       // pdom options
       // slider steps, see https://github.com/phetsims/fourier-making-waves/issues/53
-      keyboardStep: FMWConstants.AMPLITUDE_SLIDER_MOUSE_TOUCH_STEP, // used by all alternative-input devices
+      keyboardStep: FMWConstants.DISCRETE_AMPLITUDE_STEP, // used by all alternative-input devices
       shiftKeyboardStep: 0.01, // finer grain, used by keyboard only
       pageKeyboardStep: 0.25, // coarser grain, used by keyboard only
 
@@ -91,8 +93,8 @@ class AmplitudeSlider extends AudibleSlider {
 
     // Constrain the range to the desired number of decimal places.
     const amplitudeRange = new Range(
-      Utils.toFixedNumber( harmonic.amplitudeProperty.range.min, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES ),
-      Utils.toFixedNumber( harmonic.amplitudeProperty.range.max, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES )
+      Utils.toFixedNumber( harmonic.amplitudeProperty.range.min, options.decimalPlaces ),
+      Utils.toFixedNumber( harmonic.amplitudeProperty.range.max, options.decimalPlaces )
     );
 
     // See note above about why swapped is necessary.

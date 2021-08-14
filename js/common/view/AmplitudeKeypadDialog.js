@@ -47,6 +47,9 @@ class AmplitudeKeypadDialog extends Dialog {
 
     options = merge( {
 
+      // Number of decimal places that can be entered for values.
+      decimalPlaces: FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES,
+
       // Dialog options
       closeButtonLength: 12,
       cornerRadius: FMWConstants.PANEL_CORNER_RADIUS,
@@ -61,14 +64,14 @@ class AmplitudeKeypadDialog extends Dialog {
 
     // Compute the maximum number of digits that can be entered on the keypad.
     const maxDigits = Math.max(
-      Utils.toFixed( amplitudeRange.min, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES ).replace( /[^0-9]/g, '' ).length,
-      Utils.toFixed( amplitudeRange.max, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES ).replace( /[^0-9]/g, '' ).length
+      Utils.toFixed( amplitudeRange.min, options.decimalPlaces ).replace( /[^0-9]/g, '' ).length,
+      Utils.toFixed( amplitudeRange.max, options.decimalPlaces ).replace( /[^0-9]/g, '' ).length
     );
 
     const keypad = new Keypad( Keypad.PositiveAndNegativeFloatingPointLayout, {
       accumulatorOptions: {
         maxDigits: maxDigits,
-        maxDigitsRightOfMantissa: FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES
+        maxDigitsRightOfMantissa: options.decimalPlaces
       },
       buttonWidth: 25,
       buttonHeight: 25,
@@ -84,8 +87,8 @@ class AmplitudeKeypadDialog extends Dialog {
 
     // Range of valid values is shown
     const rangeNode = new Text( StringUtils.fillIn( fourierMakingWavesStrings.minToMax, {
-      min: Utils.toFixedNumber( amplitudeRange.min, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES ),
-      max: Utils.toFixedNumber( amplitudeRange.max, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES )
+      min: Utils.toFixedNumber( amplitudeRange.min, options.decimalPlaces ),
+      max: Utils.toFixedNumber( amplitudeRange.max, options.decimalPlaces )
     } ), {
       font: VALUE_FONT,
       maxWidth: keypad.width

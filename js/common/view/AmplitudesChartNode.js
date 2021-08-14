@@ -54,6 +54,12 @@ class AmplitudesChartNode extends Node {
       // {function} called when the user starts editing any amplitude value
       onEdit: _.noop,
 
+      // AmplitudeSlider options
+      amplitudeSliderOptions: null,
+
+      // AmplitudeNumberDisplay options
+      amplitudeNumberDisplayOptions: null,
+
       chartTransformOptions: {
         viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
         viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
@@ -90,12 +96,12 @@ class AmplitudesChartNode extends Node {
 
     // Create a slider for each harmonic's amplitude
     const sliders = _.map( fourierSeries.harmonics, harmonic =>
-      new AmplitudeSlider( harmonic, emphasizedHarmonics, {
+      new AmplitudeSlider( harmonic, emphasizedHarmonics, merge( {
         press: options.onEdit,
         trackHeight: options.chartTransformOptions.viewHeight,
         center: chartTransform.modelToViewXY( harmonic.order, 0 ),
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` )
-      } )
+      }, options.amplitudeSliderOptions ) )
     );
     const slidersParent = new Node( {
       children: sliders
@@ -103,12 +109,12 @@ class AmplitudesChartNode extends Node {
 
     // Create a number display for each harmonic's amplitude
     const numberDisplays = _.map( fourierSeries.harmonics, harmonic =>
-      new AmplitudeNumberDisplay( harmonic, emphasizedHarmonics, amplitudeKeypadDialog, {
+      new AmplitudeNumberDisplay( harmonic, emphasizedHarmonics, amplitudeKeypadDialog, merge( {
         press: options.onEdit,
         centerX: chartTransform.modelToViewX( harmonic.order ),
         bottom: chartRectangle.top - 10,
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}NumberDisplay` )
-      } )
+      }, options.amplitudeNumberDisplayOptions ) )
     );
     const numberDisplaysParent = new Node( {
       children: numberDisplays

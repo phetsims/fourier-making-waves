@@ -15,6 +15,7 @@ import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
@@ -51,7 +52,7 @@ class AmplitudeNumberDisplay extends VBox {
       // NumberDisplay options
       numberDisplayOptions: {
         align: 'center',
-        decimalPlaces: 2,
+        decimalPlaces: FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES,
         textOptions: {
           font: DEFAULT_FONT
         }

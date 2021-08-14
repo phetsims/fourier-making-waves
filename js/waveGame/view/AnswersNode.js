@@ -28,9 +28,9 @@ const NUMBER_DISPLAY_OPTIONS = {
     fill: 'red'
   },
 
-  // Do not display zero amplitude values.
+  // Do not display zero-amplitude values.
   numberFormatter: amplitude =>
-    ( amplitude === 0 ) ? '' : Utils.toFixed( amplitude, FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES )
+    ( amplitude === 0 ) ? '' : Utils.toFixed( amplitude, FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES )
 };
 
 class AnswersNode extends Node {
@@ -50,9 +50,9 @@ class AnswersNode extends Node {
     const numberDisplays = [];
     for ( let i = 0; i < answerSeries.harmonics.length; i++ ) {
       const numberDisplay = new NumberDisplay( answerSeries.harmonics[ i ].amplitudeProperty, answerSeries.amplitudeRange,
-        merge( NUMBER_DISPLAY_OPTIONS, {
+        merge( {
           centerX: chartTransform.modelToViewX( i + 1 )
-        } ) );
+        }, NUMBER_DISPLAY_OPTIONS ) );
       numberDisplays.push( numberDisplay );
     }
 

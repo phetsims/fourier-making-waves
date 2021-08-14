@@ -95,6 +95,7 @@ class DiscreteScreenView extends ScreenView {
 
     // Keypad Dialog, for changing amplitude value
     const amplitudeKeypadDialog = new AmplitudeKeypadDialog( model.fourierSeries.amplitudeRange, {
+      decimalPlaces: FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES,
       layoutBounds: this.layoutBounds,
       tandem: amplitudesTandem.createTandem( 'amplitudeKeypadDialog' )
     } );

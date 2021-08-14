@@ -8,7 +8,9 @@
  */
 
 import dotRandom from '../../../../dot/js/dotRandom.js';
+import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameAmplitudesChart from '../model/WaveGameAmplitudesChart.js';
@@ -22,6 +24,23 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
    */
   constructor( amplitudesChart, amplitudeKeypadDialog, options ) {
     assert && assert( amplitudesChart instanceof WaveGameAmplitudesChart );
+
+    options = merge( {
+
+      // For the Wave Game, we make it easier to match the pink waveform by using a larger interval and fewer
+      // decimals places for the amplitude sliders and keypad.
+      // See https://github.com/phetsims/fourier-making-waves/issues/97
+      amplitudeSliderOptions: {
+        decimalPlaces: FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES,
+        mouseTouchStep: FMWConstants.WAVE_GAME_AMPLITUDE_STEP,
+        keyboardStep: FMWConstants.WAVE_GAME_AMPLITUDE_STEP
+      },
+      amplitudeNumberDisplayOptions: {
+        numberDisplayOptions: {
+          decimalPlaces: FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES
+        }
+      }
+    }, options );
 
     super( amplitudesChart, amplitudeKeypadDialog, options );
 

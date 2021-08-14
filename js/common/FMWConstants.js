@@ -125,9 +125,15 @@ const FMWConstants = {
   EQUATION_FONT: new PhetFont( 18 ),
   TOOL_LABEL_FONT: new PhetFont( 16 ),
 
-  // Number of decimal places for amplitude sliders
-  AMPLITUDE_SLIDER_DECIMAL_PLACES: 2,
-  AMPLITUDE_SLIDER_MOUSE_TOUCH_STEP: 0.05,
+  // Number of decimal places and step size for amplitude in the Discrete screen.
+  DISCRETE_AMPLITUDE_DECIMAL_PLACES: 2,
+  DISCRETE_AMPLITUDE_STEP: 0.05,
+
+  // Number of decimal places and step size for amplitude in the Wave Game screen.
+  // This is different than the Discrete screen to make it easier to match the pink waveform.
+  // See https://github.com/phetsims/fourier-making-waves/issues/97.
+  WAVE_GAME_AMPLITUDE_DECIMAL_PLACES: 1,
+  WAVE_GAME_AMPLITUDE_STEP: 0.1,
 
   // Charts
   CHART_RECTANGLE_SIZE: new Dimension2( 645, 123 ),

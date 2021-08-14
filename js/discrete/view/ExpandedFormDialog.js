@@ -89,7 +89,7 @@ class ExpandedFormDialog extends Dialog {
 
           // Limit number of decimal places, and drop trailing zeros.
           // See https://github.com/phetsims/fourier-making-waves/issues/20
-          const amplitude = Utils.toFixedNumber( amplitudes[ order - 1 ], FMWConstants.AMPLITUDE_SLIDER_DECIMAL_PLACES );
+          const amplitude = Utils.toFixedNumber( amplitudes[ order - 1 ], FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES );
 
           expandedSumMarkup += EquationMarkup.getSpecificFormMarkup( domain, seriesType, equationForm, order, amplitude );
           if ( order < numberOfHarmonics ) {

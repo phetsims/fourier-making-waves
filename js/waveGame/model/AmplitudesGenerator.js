@@ -128,10 +128,10 @@ function generateRandomAmplitudes( numberOfAmplitudes, numberOfNonZeroHarmonics,
     // Randomly choose a non-zero amplitude value, rounded to the same interval used for the amplitude sliders.
     let amplitude = dotRandom.nextDoubleBetween( -maxAmplitude, 0 );
     if ( amplitude !== -maxAmplitude ) {
-      amplitude = Utils.roundToInterval( amplitude, FMWConstants.AMPLITUDE_SLIDER_MOUSE_TOUCH_STEP );
+      amplitude = Utils.roundToInterval( amplitude, FMWConstants.WAVE_GAME_AMPLITUDE_STEP );
     }
     if ( amplitude === 0 ) {
-      amplitude = -FMWConstants.AMPLITUDE_SLIDER_MOUSE_TOUCH_STEP;
+      amplitude = -FMWConstants.WAVE_GAME_AMPLITUDE_STEP;
     }
     amplitude *= dotRandom.nextBoolean() ? 1 : -1;
     assert && assert( amplitude >= -maxAmplitude && amplitude <= maxAmplitude && amplitude !== 0,

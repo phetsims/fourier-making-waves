@@ -118,6 +118,7 @@ class WaveGameLevelNode extends Node {
 
     // Keypad Dialog, for changing amplitude value
     const amplitudeKeypadDialog = new AmplitudeKeypadDialog( level.guessSeries.amplitudeRange, {
+      decimalPlaces: FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES,
       layoutBounds: layoutBounds,
       tandem: amplitudesTandem.createTandem( 'amplitudeKeypadDialog' )
     } );
