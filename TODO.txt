@@ -4,6 +4,8 @@ Optimize to prevent collapsed charts from updating. Ask team if it's appropriate
 
 Replace {Property} xAxisTickLabelFormatProperty in model with {function} xAxisLabelFormatter in view.
 
+Factor out XAxisHandler and YAxisHandler to handle zoom (and auto scaling?), use composition to these features?
+
 Rename WaveformChartNode, make WavePacketAmplitudesChartNode extends WaveformChartNode,
   WavePacketAmplitudesChart extends WaveformChart
 
@@ -13,8 +15,6 @@ AxisDescription and Properties of that type have been a constant pain. Get rid o
 
 WavePacketComponentsChart and WavePacketSumPlot do not use AxisDescription for y-axis, but yAxisDescriptionProperty
   is required by their superclass WaveformChart.
-
-Factor out XZoomHandler and YZoomHandler, use composition to add zoom feature to charts?
 
 create CanvasBarPlot and CanvasAreaPlot, for use in WavePacketAmplitudesChartNode
 
