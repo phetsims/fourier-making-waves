@@ -280,6 +280,8 @@ class WavePacketScreenView extends ScreenView {
     // Measurement Tools
     //------------------------------------------------------------------------------------------------------------------
 
+    //TODO https://github.com/phetsims/fourier-making-waves/issues/133 clean up this section of code, it's gotten complicated
+
     // Create measurement tools after layout of charts, because their initial positions and drag bounds depend on
     // final positions and bounds of ChartRectangles.
 
