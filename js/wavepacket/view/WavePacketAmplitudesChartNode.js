@@ -19,6 +19,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import FMWColors from '../../common/FMWColors.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import FMWChartNode from '../../common/view/FMWChartNode.js';
@@ -95,7 +96,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
 
     // Displays the continuous waveform
     const continuousWaveformPlot = new CanvasLinePlot( this.chartTransform, [], {
-      lineWidth: 4,
+      lineWidth: FMWConstants.SECONDARY_WAVEFORM_LINE_WIDTH,
       visibleProperty: continuousWaveformVisibleProperty
     } );
 
@@ -106,7 +107,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     } );
 
     // CanvasLinePlot stroke does not support Property, so handle updates here.
-    FMWColors.continuousWaveformStrokeProperty.link( stroke => {
+    FMWColors.secondardWaveformStrokeProperty.link( stroke => {
       continuousWaveformPlot.setStroke( stroke );
       chartCanvasNode.update();
     } );

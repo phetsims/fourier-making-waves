@@ -148,7 +148,8 @@ const FMWConstants = {
   TICK_MARK_OPTIONS: {
     edge: 'min',
     extent: 6
-  }
+  },
+  SECONDARY_WAVEFORM_LINE_WIDTH: 4
 };
 
 // Verify some of the above constants

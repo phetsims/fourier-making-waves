@@ -70,8 +70,8 @@ const FMWColors = {
     default: 'black'
   } ),
 
-  // Stroke used to plot the Sum for infinite harmonics in the Discrete screen
-  infiniteHarmonicsStrokeProperty: new ProfileColorProperty( 'infiniteHarmonicsStroke', {
+  // Stroke used to plot secondary waveforms: Infinite Harmonics, Continuous Waveform, Waveform Envelope
+  secondardWaveformStrokeProperty: new ProfileColorProperty( 'secondardWaveformStroke', {
     default: Color.grayColor( 189 )
   } ),
 
@@ -83,16 +83,6 @@ const FMWColors = {
   // Fill for the width indicators in the Wave Packet screen
   widthIndicatorsColorProperty: new ProfileColorProperty( 'widthIndicatorsColor', {
     default: 'red'
-  } ),
-
-  // Stroke for the Continuous Waveform in the Wave Packet screen
-  continuousWaveformStrokeProperty: new ProfileColorProperty( 'continuousWaveformStroke', {
-    default: Color.grayColor( 189 )
-  } ),
-
-  // Stroke for the Waveform Envelope in the Wave Packet screen
-  waveformEnvelopeStrokeProperty: new ProfileColorProperty( 'waveformEnvelopeStroke', {
-    default: Color.grayColor( 189 )
   } ),
 
   // Fill for the Component Spacing measurement tool in the Wave Packet screen

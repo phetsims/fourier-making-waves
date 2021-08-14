@@ -11,6 +11,7 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import merge from '../../../../phet-core/js/merge.js';
 import FMWColors from '../../common/FMWColors.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class InfiniteHarmonicsPlot extends CanvasLinePlot {
@@ -26,8 +27,7 @@ class InfiniteHarmonicsPlot extends CanvasLinePlot {
     options = merge( {
 
       // CanvasLinePlot options
-      lineWidth: 4,
-      stroke: FMWColors.infiniteHarmonicsStrokeProperty.value // CanvasLinePlot does not support Property.<Color>
+      lineWidth: FMWConstants.SECONDARY_WAVEFORM_LINE_WIDTH
     }, options );
 
     super( chartTransform, dataSetProperty.value, options );
@@ -48,7 +48,7 @@ class InfiniteHarmonicsPlot extends CanvasLinePlot {
 
     // CanvasLinePlot does not support Property.<Color> for its stroke option.
     // So it's the client's responsibility to keep the plot in sync with the colorProfileProperty.
-    FMWColors.infiniteHarmonicsStrokeProperty.lazyLink( color => {
+    FMWColors.secondardWaveformStrokeProperty.lazyLink( color => {
       this.setStroke( color );
       this.changedEmitter.emit();
     } );

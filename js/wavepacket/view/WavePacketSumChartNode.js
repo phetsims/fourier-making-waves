@@ -14,6 +14,7 @@ import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import FMWColors from '../../common/FMWColors.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import WaveformChartNode from '../../common/view/WaveformChartNode.js';
@@ -80,14 +81,14 @@ class WavePacketSumChartNode extends WaveformChartNode {
     // data set will be empty when it's not a visible - a performance optimization in the model.  CanvasLinePlot
     // also does not support visibleProperty.
     const waveformEnvelopePlot = new CanvasLinePlot( this.chartTransform, [], {
-      lineWidth: 4
+      lineWidth: FMWConstants.SECONDARY_WAVEFORM_LINE_WIDTH
     } );
 
     // Render waveformEnvelopePlot using Canvas. Remember! When waveformEnvelopePlot is updated, you must call update().
     const waveformEnvelopeChartCanvasNode = new ChartCanvasNode( this.chartTransform, [ waveformEnvelopePlot ] );
 
     // CanvasLinePlot stroke does not support Property, so handle updates here.
-    FMWColors.waveformEnvelopeStrokeProperty.link( stroke => {
+    FMWColors.secondardWaveformStrokeProperty.link( stroke => {
       waveformEnvelopePlot.setStroke( stroke );
       waveformEnvelopeChartCanvasNode.update();
     } );
