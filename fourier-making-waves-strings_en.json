@@ -263,9 +263,6 @@
   "symbolUnits": {
     "value": "{{symbol}} ({{units}})"
   },
-  "symbolBreakUnits": {
-    "value": "{{symbol}}<br>({{units}})"
-  },
   "infiniteComponentsCannotBePlotted": {
     "value": "An infinite number of components cannot be plotted."
   },

@@ -15,7 +15,6 @@ import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
@@ -25,7 +24,6 @@ import Domain from '../../common/model/Domain.js';
 import FMWChartNode from '../../common/view/FMWChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WavePacketAmplitudesChart from '../model/WavePacketAmplitudesChart.js';
 import GaussianAreaPlot from './GaussianAreaPlot.js';
 import WidthIndicatorPlot from './WidthIndicatorPlot.js';
@@ -135,13 +133,9 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     // Adjust the x-axis label to match the domain.
     domainProperty.link( domain => {
 
-      // Update the label. Note that units are on a separate line so that this label takes up less horizontal space.
-      this.xAxisLabel.text = StringUtils.fillIn( fourierMakingWavesStrings.symbolBreakUnits, {
-        symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega,
-        units: ( domain === Domain.SPACE ) ?
-               fourierMakingWavesStrings.units.radiansPerMeter :
-               fourierMakingWavesStrings.units.radiansPerMillisecond
-      } );
+      // Update the label. Units are omitted by request, due to space constraints.
+      // See https://github.com/phetsims/fourier-making-waves/issues/137.
+      this.xAxisLabel.text = ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega;
     } );
 
     // Update plots when their data sets change.
