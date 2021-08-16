@@ -36,7 +36,7 @@ class WaveGameSumChartNode extends SumChartNode {
     // Plot that shows the sum for the answer
     const guessPlot = new CanvasLinePlot( this.chartTransform, [], {
       stroke: FMWColors.guessSumPlotStrokeProperty.value,
-      lineWidth: 3
+      lineWidth: 2
     } );
 
     // CanvasLinePlot does not allow stroke to be a Property, so we have to manage changes ourselves.
