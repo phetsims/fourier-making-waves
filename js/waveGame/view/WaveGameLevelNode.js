@@ -150,7 +150,8 @@ class WaveGameLevelNode extends Node {
       visible: phet.chipper.queryParameters.showAnswers
     } );
 
-    // All of the Amplitudes elements whose visibility should change together.
+    // All of the elements that should be hidden when chartVisibleProperty is set to false.
+    // In this screen, amplitudesChart.chartVisibleProperty can only be changed via PhET-iO.
     const amplitudesParentNode = new Node( {
       visibleProperty: level.amplitudesChart.chartVisibleProperty,
       children: [ amplitudesChartNode, eraserButton, answersNode ]
@@ -173,7 +174,8 @@ class WaveGameLevelNode extends Node {
       tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
     } );
 
-    // All of the Harmonics elements whose visibility should change together.
+    // All of the elements that should be hidden when chartVisibleProperty is set to false.
+    // In this screen, harmonicsChart.chartVisibleProperty can only be changed via PhET-iO.
     const harmonicsParentNode = new Node( {
       visibleProperty: level.harmonicsChart.chartVisibleProperty,
       children: [ harmonicsTitleNode, harmonicsChartNode ]
@@ -196,7 +198,8 @@ class WaveGameLevelNode extends Node {
       tandem: sumTandem.createTandem( 'sumChartNode' )
     } );
 
-    // All of the Sum elements whose visibility should change together.
+    // All of the elements that should be hidden when chartVisibleProperty is set to false.
+    // In this screen, sumChart.chartVisibleProperty can only be changed via PhET-iO.
     const sumParentNode = new Node( {
       visibleProperty: level.sumChart.chartVisibleProperty,
       children: [ sumTitleNode, sumChartNode ]

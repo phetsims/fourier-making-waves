@@ -112,7 +112,8 @@ class DiscreteScreenView extends ScreenView {
       tandem: amplitudesTandem.createTandem( 'eraserButton' )
     } ) );
 
-    // All of the Amplitudes elements whose visibility should change together.
+    // All of the elements that should be hidden when chartVisibleProperty is set to false.
+    // In this screen, amplitudesChart.chartVisibleProperty can only be changed via PhET-iO.
     const amplitudesParentNode = new Node( {
       visibleProperty: model.amplitudesChart.chartVisibleProperty,
       children: [ amplitudesChartNode, eraserButton ]
@@ -144,7 +145,8 @@ class DiscreteScreenView extends ScreenView {
         visiblePropertyOptions: { phetioReadOnly: true }
       } );
 
-    // All of the Harmonics elements whose visibility should change together.
+    // All of the elements that should be hidden when chartVisibleProperty is set to false.
+    // That can be done using harmonicsExpandCollapseButton, or by changing harmonicsChart.chartVisibleProperty via PhET-iO.
     const harmonicsParentNode = new Node( {
       visibleProperty: model.harmonicsChart.chartVisibleProperty,
       children: [ harmonicsChartNode, harmonicsEquationNode ]
@@ -196,7 +198,8 @@ class DiscreteScreenView extends ScreenView {
       children: [ sumEquationNode, expandedFormButton ]
     } );
 
-    // All of the Sum elements whose visibility should change together.
+    // All of the elements that should be hidden when chartVisibleProperty is set to false.
+    // That can be done using sumExpandCollapseButton, or by changing sumChart.chartVisibleProperty via PhET-iO.
     const sumParentNode = new Node( {
       visibleProperty: model.sumChart.chartVisibleProperty,
       children: [ sumChartNode, sumEquationParentNode ]

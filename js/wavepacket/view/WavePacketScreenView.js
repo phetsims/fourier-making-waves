@@ -107,7 +107,8 @@ class WavePacketScreenView extends ScreenView {
         tandem: amplitudesTandem.createTandem( 'continuousWaveformCheckbox' )
       } );
 
-    // All of the Amplitudes elements whose visibility should change together.
+    // All of the elements that should be hidden when chartVisibleProperty is set to false.
+    // That can be done using amplitudesExpandCollapseButton, or by changing amplitudesChart.chartVisibleProperty via PhET-iO.
     const amplitudesParentNode = new Node( {
       visibleProperty: model.amplitudesChart.chartVisibleProperty,
       children: [ amplitudesChartNode, amplitudeEquationNode, continuousWaveformCheckbox ]
@@ -137,7 +138,8 @@ class WavePacketScreenView extends ScreenView {
       tandem: componentsTandem.createTandem( 'componentsEquationNode' )
     } );
 
-    // All of the Components elements whose visibility should change together.
+    // All of the elements that should be hidden when chartVisibleProperty is set to false.
+    // That can be done using harmonicsExpandCollapseButton, or by changing harmonicsChart.chartVisibleProperty via PhET-iO.
     const componentsParentNode = new Node( {
       visibleProperty: model.componentsChart.chartVisibleProperty,
       children: [ componentsChartNode, componentsEquationNode ]
@@ -173,7 +175,8 @@ class WavePacketScreenView extends ScreenView {
       tandem: sumTandem.createTandem( 'waveformEnvelopeCheckbox' )
     } );
 
-    // All of the Sum elements whose visibility should change together.
+    // All of the elements that should be hidden when chartVisibleProperty is set to false.
+    // That can be done using sumExpandCollapseButton, or by changing sumChart.chartVisibleProperty via PhET-iO.
     const sumParentNode = new Node( {
       visibleProperty: model.sumChart.chartVisibleProperty,
       children: [ sumChartNode, sumEquationNode, waveformEnvelopeCheckbox ]
