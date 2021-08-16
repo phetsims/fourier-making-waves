@@ -1,5 +1,9 @@
 TODO.txt for fourier-making-waves
 
+Vector2 pooling
+createFromPool: Fourier.js, Harmonic.js, Waveform.js
+freeToPool: HarmonicChart.js, SumChart.js -- where is Infinite Harmonics data set freed to pool?
+
 Optimize to prevent collapsed charts from updating. Ask team if it's appropriate, worth it.
 
 Replace {Property} xAxisTickLabelFormatProperty in model with {function} xAxisLabelFormatter in view.
