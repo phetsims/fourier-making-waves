@@ -33,9 +33,6 @@ import WavePacketLengthToolNode from './WavePacketLengthToolNode.js';
 import WavePacketSumChartNode from './WavePacketSumChartNode.js';
 import WavePacketSumEquationNode from './WavePacketSumEquationNode.js';
 
-// constants
-const TITLE_BOTTOM_SPACING = 15; // space below the title of a chart
-
 class WavePacketScreenView extends ScreenView {
 
   /**
@@ -208,11 +205,13 @@ class WavePacketScreenView extends ScreenView {
     // Layout
     //------------------------------------------------------------------------------------------------------------------
 
+    const chartTitleBottomSpacing = 15; // space below the title of a chart
+
     // Amplitudes chart at top left
     amplitudesExpandCollapseButton.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
     amplitudesExpandCollapseButton.top = this.layoutBounds.top + 10;
     amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
-    amplitudesChartNode.y = amplitudesExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
+    amplitudesChartNode.y = amplitudesExpandCollapseButton.bottom + chartTitleBottomSpacing;
     const amplitudeChartRectangleLocalBounds = amplitudesChartNode.chartRectangle.boundsTo( this );
     continuousWaveformCheckbox.right = amplitudeChartRectangleLocalBounds.right - 5;
     continuousWaveformCheckbox.top = amplitudesChartNode.bottom + 8;
@@ -221,14 +220,14 @@ class WavePacketScreenView extends ScreenView {
     componentsExpandCollapseButton.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
     componentsExpandCollapseButton.top = continuousWaveformCheckbox.bottom;
     componentsChartNode.x = amplitudesChartNode.x;
-    componentsChartNode.y = componentsExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
+    componentsChartNode.y = componentsExpandCollapseButton.bottom + chartTitleBottomSpacing;
     const componentsChartRectangleLocalBounds = componentsChartNode.chartRectangle.boundsTo( this );
 
     // Sum chart below the Components chart
     sumExpandCollapseButton.left = componentsExpandCollapseButton.left;
     sumExpandCollapseButton.top = componentsChartNode.bottom + 30;
     sumChartNode.x = componentsChartNode.x;
-    sumChartNode.y = sumExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
+    sumChartNode.y = sumExpandCollapseButton.bottom + chartTitleBottomSpacing;
     const sumChartRectangleLocalBounds = sumChartNode.chartRectangle.boundsTo( this );
     waveformEnvelopeCheckbox.right = sumChartRectangleLocalBounds.right - 5;
     waveformEnvelopeCheckbox.top = sumChartNode.bottom + 8;

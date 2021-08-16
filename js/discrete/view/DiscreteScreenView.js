@@ -40,9 +40,6 @@ import PeriodCalipersNode from './PeriodCalipersNode.js';
 import PeriodClockNode from './PeriodClockNode.js';
 import WavelengthCalipersNode from './WavelengthCalipersNode.js';
 
-// constants
-const TITLE_BOTTOM_SPACING = 15; // space below the title of a chart
-
 class DiscreteScreenView extends ScreenView {
 
   /**
@@ -266,6 +263,8 @@ class DiscreteScreenView extends ScreenView {
     // Layout
     //------------------------------------------------------------------------------------------------------------------
 
+    const chartTitleBottomSpacing = 15; // space below the title of a chart
+
     // Amplitudes chart at top left
     amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
     amplitudesChartNode.y = 58;
@@ -280,14 +279,14 @@ class DiscreteScreenView extends ScreenView {
     harmonicsExpandCollapseButton.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
     harmonicsExpandCollapseButton.top = amplitudesChartNode.bottom + 15;
     harmonicsChartNode.x = FMWConstants.X_CHART_RECTANGLES;
-    harmonicsChartNode.y = harmonicsExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
+    harmonicsChartNode.y = harmonicsExpandCollapseButton.bottom + chartTitleBottomSpacing;
     const harmonicsChartRectangleLocalBounds = harmonicsChartNode.chartRectangle.boundsTo( this );
 
     // Sum chart below the Harmonics chart
     sumExpandCollapseButton.left = harmonicsExpandCollapseButton.left;
     sumExpandCollapseButton.top = harmonicsChartNode.bottom + 30;
     sumChartNode.x = FMWConstants.X_CHART_RECTANGLES;
-    sumChartNode.y = sumExpandCollapseButton.bottom + TITLE_BOTTOM_SPACING;
+    sumChartNode.y = sumExpandCollapseButton.bottom + chartTitleBottomSpacing;
     const sumChartRectangleLocalBounds = sumChartNode.chartRectangle.boundsTo( this );
 
     // Control panel to the right of the charts
