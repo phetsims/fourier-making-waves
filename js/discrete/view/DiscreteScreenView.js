@@ -182,7 +182,8 @@ class DiscreteScreenView extends ScreenView {
 
     const expandedFormDialog = new ExpandedFormDialog(
       model.fourierSeries, model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, {
-        tandem: sumEquationNodeTandem.createTandem( 'expandedFormDialog' )
+        tandem: sumEquationNodeTandem.createTandem( 'expandedFormDialog' ),
+        phetioDocumentation: 'This dialog shows the expanded form of the Sum equation.'
       } );
 
     // Push button that opens the 'Expanded Form' dialog
@@ -191,7 +192,8 @@ class DiscreteScreenView extends ScreenView {
       listener: () => expandedFormDialog.show(),
 
       // Make this button appear to be a child of sumEquationNode.
-      tandem: sumEquationNodeTandem.createTandem( 'expandedFormButton' )
+      tandem: sumEquationNodeTandem.createTandem( 'expandedFormButton' ),
+      phetioDocumentation: 'Pressing this button opens a dialog that shows the expanded form of the Sum equation.'
     } );
 
     const sumEquationParentNode = new Node( {
