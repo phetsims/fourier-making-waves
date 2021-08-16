@@ -32,6 +32,7 @@ import InfiniteStatusBar from '../../../../vegas/js/InfiniteStatusBar.js';
 import RewardDialog from '../../../../vegas/js/RewardDialog.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -437,7 +438,7 @@ class WaveGameLevelNode extends Node {
       // The user is free to resume experimenting with the current challenge after this point.
       this.interruptSubtreeInput();
 
-      if ( level.scoreProperty.value === rewardScore ) {
+      if ( level.scoreProperty.value === rewardScore || FMWQueryParameters.showReward ) {
 
         // The score has reached the magic number where a reward is display.
         gameAudioPlayer.gameOverPerfectScore();
