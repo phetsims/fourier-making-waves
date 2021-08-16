@@ -8,9 +8,9 @@
 
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RewardDialog from '../../../../vegas/js/RewardDialog.js';
-import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameRewardNode from './WaveGameRewardNode.js';
 
@@ -19,12 +19,14 @@ class WaveGameRewardDialog extends RewardDialog {
   /**
    * @param {Property.<null|WaveGameLevel>} levelProperty
    * @param {WaveGameRewardNode} rewardNode
+   * @param {number} rewardScore
    * @param {Object} [options]
    */
-  constructor( levelProperty, rewardNode, options ) {
+  constructor( levelProperty, rewardNode, rewardScore, options ) {
 
     assert && assert( levelProperty instanceof Property );
     assert && assert( rewardNode instanceof WaveGameRewardNode );
+    assert && AssertUtils.assertPositiveInteger( rewardScore );
 
     options = merge( {
 
@@ -53,7 +55,7 @@ class WaveGameRewardDialog extends RewardDialog {
       phetioReadOnly: true
     }, options );
 
-    super( FMWConstants.REWARD_SCORE, options );
+    super( rewardScore, options );
   }
 }
 

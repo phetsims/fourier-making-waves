@@ -32,7 +32,6 @@ import InfiniteStatusBar from '../../../../vegas/js/InfiniteStatusBar.js';
 import RewardDialog from '../../../../vegas/js/RewardDialog.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -64,7 +63,8 @@ class WaveGameLevelNode extends Node {
    * @param {RewardDialog} rewardDialog
    * @param {Object} [options]
    */
-  constructor( level, levelProperty, layoutBounds, visibleBoundsProperty, gameAudioPlayer, rewardNode, rewardDialog, options ) {
+  constructor( level, levelProperty, layoutBounds, visibleBoundsProperty, gameAudioPlayer, rewardNode, rewardDialog,
+               rewardScore, options ) {
 
     assert && assert( level instanceof WaveGameLevel );
     assert && assert( levelProperty instanceof Property );
@@ -73,6 +73,7 @@ class WaveGameLevelNode extends Node {
     assert && assert( gameAudioPlayer instanceof GameAudioPlayer );
     assert && assert( rewardNode instanceof WaveGameRewardNode );
     assert && assert( rewardDialog instanceof RewardDialog );
+    assert && AssertUtils.assertPositiveInteger( rewardScore );
 
     options = merge( {
 
@@ -433,7 +434,7 @@ class WaveGameLevelNode extends Node {
       // The user is free to resume experimenting with the current challenge after this point.
       this.interruptSubtreeInput();
 
-      if ( level.scoreProperty.value === FMWConstants.REWARD_SCORE || FMWQueryParameters.showReward ) {
+      if ( level.scoreProperty.value === rewardScore ) {
 
         // The score has reached the magic number where a reward is display.
         gameAudioPlayer.gameOverPerfectScore();

@@ -13,6 +13,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WaveGameLevel from './WaveGameLevel.js';
@@ -29,6 +30,10 @@ class WaveGameModel {
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
+
+
+    // @public (read-only) reaching this number of points results in a reward
+    this.rewardScore = FMWQueryParameters.rewardScore;
 
     // @public {WaveGameLevel[]}
     // There's some duplication of level number constants here. But the specification for levels changed SO many times,
@@ -63,6 +68,7 @@ class WaveGameModel {
 
       // Level 5
       new WaveGameLevel( 5, {
+        rewardScore: this.rewardScore,
         getNumberOfNonZeroHarmonics: () => dotRandom.nextIntBetween( 5, FMWConstants.MAX_HARMONICS ),
         defaultNumberOfAmplitudeControls: FMWConstants.MAX_HARMONICS,
         statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.statusNumberOrMoreHarmonics, {

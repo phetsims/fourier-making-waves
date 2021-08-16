@@ -13,7 +13,6 @@ import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import VBox from '../../../scenery/js/nodes/VBox.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWColors from './FMWColors.js';
-import FMWQueryParameters from './FMWQueryParameters.js';
 
 // constants - view
 const PANEL_CORNER_RADIUS = 5;
@@ -37,9 +36,6 @@ const FMWConstants = {
 
   // Number of points awarded for each correct answer in the Wave Game screen
   POINTS_PER_CHALLENGE: 1,
-
-  // Reaching this score results in a reward in the Wave Game screen
-  REWARD_SCORE: FMWQueryParameters.rewardScore,
 
   // An empty data set, used so that we can rely on value comparison in Property, and not trigger notifications when
   // the value changes from one [] to another [].  This is a performance optimization.
