@@ -14,13 +14,21 @@ import FMWConstants from './FMWConstants.js';
 
 const SCHEMA = {
 
+  //------------------------------------------------------------------------------------------------------------------
+  // Public-facing query parameters
+  //------------------------------------------------------------------------------------------------------------------
+
   // The score (number of points) required to see the reward in the Wave Game screen.
-  // For internal use only, not public facing.
   rewardScore: {
+    public: true,
     type: 'number',
     defaultValue: 10,
     isValidValue: value => ( value > 0 ) && Number.isInteger( value )
   },
+
+  //------------------------------------------------------------------------------------------------------------------
+  // Internal query parameters
+  //------------------------------------------------------------------------------------------------------------------
 
   // Shows the reward after any correct answer, for testing the Wave Game reward.
   // For internal use only, not public facing.
