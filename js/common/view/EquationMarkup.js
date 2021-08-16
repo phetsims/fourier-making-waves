@@ -119,7 +119,7 @@ const EquationMarkup = {
  */
 function getSpaceMarkup( seriesType, equationForm, order, amplitude ) {
   assert && assert( SeriesType.includes( seriesType ) );
-  assert && assert( [ EquationForm.HIDDEN, EquationForm.WAVELENGTH, EquationForm.WAVE_NUMBER, EquationForm.MODE ].includes( equationForm ),
+  assert && assert( [ EquationForm.HIDDEN, EquationForm.WAVELENGTH, EquationForm.SPATIAL_WAVE_NUMBER, EquationForm.MODE ].includes( equationForm ),
     `unsupported equationForm: ${equationForm}` );
   assert && assert( typeof order === 'string' || typeof order === 'number' );
   assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number' );
@@ -133,7 +133,7 @@ function getSpaceMarkup( seriesType, equationForm, order, amplitude ) {
   else if ( equationForm === EquationForm.WAVELENGTH ) {
     markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${x} / ${lambda}<sub>${order}</sub> )`;
   }
-  else if ( equationForm === EquationForm.WAVE_NUMBER ) {
+  else if ( equationForm === EquationForm.SPATIAL_WAVE_NUMBER ) {
     markup = `${amplitude} ${seriesTypeMarkup}( ${k}<sub>${order}</sub>${x} )`;
   }
   else if ( equationForm === EquationForm.MODE ) {
@@ -155,7 +155,7 @@ function getSpaceMarkup( seriesType, equationForm, order, amplitude ) {
  */
 function getTimeMarkup( seriesType, equationForm, order, amplitude ) {
   assert && assert( SeriesType.includes( seriesType ) );
-  assert && assert( [ EquationForm.HIDDEN, EquationForm.FREQUENCY, EquationForm.PERIOD, EquationForm.ANGULAR_FREQUENCY, EquationForm.MODE ].includes( equationForm ),
+  assert && assert( [ EquationForm.HIDDEN, EquationForm.FREQUENCY, EquationForm.PERIOD, EquationForm.ANGULAR_WAVE_NUMBER, EquationForm.MODE ].includes( equationForm ),
     `unsupported equationForm: ${equationForm}` );
   assert && assert( typeof order === 'string' || typeof order === 'number' );
   assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number' );
@@ -172,7 +172,7 @@ function getTimeMarkup( seriesType, equationForm, order, amplitude ) {
   else if ( equationForm === EquationForm.PERIOD ) {
     markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${t} / ${T}<sub>${order}</sub> )`;
   }
-  else if ( equationForm === EquationForm.ANGULAR_FREQUENCY ) {
+  else if ( equationForm === EquationForm.ANGULAR_WAVE_NUMBER ) {
     markup = `${amplitude} ${seriesTypeMarkup}( ${omega}<sub>${order}</sub>${t} )`;
   }
   else if ( equationForm === EquationForm.MODE ) {
@@ -194,7 +194,8 @@ function getTimeMarkup( seriesType, equationForm, order, amplitude ) {
  */
 function getSpaceAndTimeMarkup( seriesType, equationForm, order, amplitude ) {
   assert && assert( SeriesType.includes( seriesType ) );
-  assert && assert( [ EquationForm.HIDDEN, EquationForm.WAVELENGTH_AND_PERIOD, EquationForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY, EquationForm.MODE ].includes( equationForm ),
+  assert && assert( [ EquationForm.HIDDEN, EquationForm.WAVELENGTH_AND_PERIOD,
+      EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER, EquationForm.MODE ].includes( equationForm ),
     `unsupported equationForm: ${equationForm}` );
   assert && assert( typeof order === 'string' || typeof order === 'number' );
   assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number' );
@@ -208,7 +209,7 @@ function getSpaceAndTimeMarkup( seriesType, equationForm, order, amplitude ) {
   else if ( equationForm === EquationForm.WAVELENGTH_AND_PERIOD ) {
     markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}( ${x}/${lambda}<sub>${order}</sub> ${MINUS} ${t}/${T}<sub>${order}</sub> ) )`;
   }
-  else if ( equationForm === EquationForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY ) {
+  else if ( equationForm === EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER ) {
     markup = `${amplitude} ${seriesTypeMarkup}( ${k}<sub>${order}</sub>${x} ${MINUS} ${omega}<sub>${order}</sub>${t} )`;
   }
   else if ( equationForm === EquationForm.MODE ) {

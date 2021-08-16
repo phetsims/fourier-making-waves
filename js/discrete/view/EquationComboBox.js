@@ -27,53 +27,67 @@ const MATH_TEXT_OPTIONS = {
 const CHOICES = [
   {
     value: EquationForm.HIDDEN,
-    string: fourierMakingWavesStrings.hidden
+    string: fourierMakingWavesStrings.hidden,
+    tandemName: 'hiddenItem'
   },
   {
     value: EquationForm.WAVELENGTH,
     string: FMWSymbols.lambda,
-    textOptions: MATH_TEXT_OPTIONS
+    textOptions: MATH_TEXT_OPTIONS,
+    tandemName: 'wavelengthItem'
   },
   {
-    value: EquationForm.WAVE_NUMBER,
+    value: EquationForm.SPATIAL_WAVE_NUMBER,
     string: FMWSymbols.k,
-    textOptions: MATH_TEXT_OPTIONS
+    textOptions: MATH_TEXT_OPTIONS,
+    tandemName: 'spatialWaveNumberItem'
   },
   {
     value: EquationForm.FREQUENCY,
-    string: FMWSymbols.F,
-    textOptions: MATH_TEXT_OPTIONS
+    string: FMWSymbols.f,
+    textOptions: MATH_TEXT_OPTIONS,
+    tandemName: 'frequencyItem'
   },
   {
     value: EquationForm.PERIOD,
     string: FMWSymbols.T,
-    textOptions: MATH_TEXT_OPTIONS
+    textOptions: MATH_TEXT_OPTIONS,
+    tandemName: 'periodItem'
   },
   {
-    value: EquationForm.ANGULAR_FREQUENCY,
+    value: EquationForm.ANGULAR_WAVE_NUMBER,
     string: FMWSymbols.omega,
-    textOptions: MATH_TEXT_OPTIONS
+    textOptions: MATH_TEXT_OPTIONS,
+    tandemName: 'angularWaveNumberItem'
   },
   {
     value: EquationForm.WAVELENGTH_AND_PERIOD,
-    string: FMWSymbols.T,
-    textOptions: MATH_TEXT_OPTIONS
+    string: StringUtils.fillIn( fourierMakingWavesStrings.symbolAndSymbol, {
+      symbol1: FMWSymbols.lambda,
+      symbol2: FMWSymbols.T
+    } ),
+    textOptions: MATH_TEXT_OPTIONS,
+    tandemName: 'wavelengthAndPeriodItem'
   },
   {
-    value: EquationForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY,
-    string: StringUtils.fillIn( fourierMakingWavesStrings.kAndOmega, {
-      k: FMWSymbols.k,
-      omega: FMWSymbols.omega
+    value: EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER,
+    string: StringUtils.fillIn( fourierMakingWavesStrings.symbolAndSymbol, {
+      symbol1: FMWSymbols.k,
+      symbol2: FMWSymbols.omega
     } ),
-    textOptions: MATH_TEXT_OPTIONS
+    textOptions: MATH_TEXT_OPTIONS,
+    tandemName: 'spatialWaveNumberAndAngularWaveNumber'
   },
   {
     value: EquationForm.MODE,
     string: FMWSymbols.n,
-    textOptions: MATH_TEXT_OPTIONS
+    textOptions: MATH_TEXT_OPTIONS,
+    tandemName: 'modeItem'
   }
 ];
 assert && assert( _.every( CHOICES, choice => EquationForm.includes( choice.value ) ) );
+assert && assert( _.every( CHOICES, choice => choice.tandemName ) );
+
 
 class EquationComboBox extends FMWComboBox {
 
@@ -108,18 +122,18 @@ class EquationComboBox extends FMWComboBox {
       // Domain.SPACE
       const isSpace = ( domain === Domain.SPACE );
       this.setItemVisible( EquationForm.WAVELENGTH, isSpace );
-      this.setItemVisible( EquationForm.WAVE_NUMBER, isSpace );
+      this.setItemVisible( EquationForm.SPATIAL_WAVE_NUMBER, isSpace );
 
       // Domain.TIME
       const isTime = ( domain === Domain.TIME );
       this.setItemVisible( EquationForm.FREQUENCY, isTime );
       this.setItemVisible( EquationForm.PERIOD, isTime );
-      this.setItemVisible( EquationForm.ANGULAR_FREQUENCY, isTime );
+      this.setItemVisible( EquationForm.ANGULAR_WAVE_NUMBER, isTime );
 
       // Domain.SPACE_AND_TIME
       const isSpaceAmdTime = ( domain === Domain.SPACE_AND_TIME );
       this.setItemVisible( EquationForm.WAVELENGTH_AND_PERIOD, isSpaceAmdTime );
-      this.setItemVisible( EquationForm.WAVE_NUMBER_AND_ANGULAR_FREQUENCY, isSpaceAmdTime );
+      this.setItemVisible( EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER, isSpaceAmdTime );
     } );
   }
 

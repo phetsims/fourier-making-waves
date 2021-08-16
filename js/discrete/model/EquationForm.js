@@ -17,16 +17,16 @@ const EquationForm = Enumeration.byKeys( [
 
   // specific to Domain.SPACE
   'WAVELENGTH',
-  'WAVE_NUMBER',
+  'SPATIAL_WAVE_NUMBER',
 
   // specific to Domain.TIME
   'FREQUENCY',
   'PERIOD',
-  'ANGULAR_FREQUENCY',
+  'ANGULAR_WAVE_NUMBER',
 
   // specific to Domain.SPACE_AND_TIME
   'WAVELENGTH_AND_PERIOD',
-  'WAVE_NUMBER_AND_ANGULAR_FREQUENCY'
+  'SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER'
 ] );
 
 fourierMakingWaves.register( 'EquationForm', EquationForm );

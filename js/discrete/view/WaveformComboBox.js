@@ -16,12 +16,12 @@ import Waveform from '../model/Waveform.js';
 
 // This format is specific to FMWComboBox.
 const CHOICES = [
-  { value: Waveform.SINUSOID, string: fourierMakingWavesStrings.sinusoid },
-  { value: Waveform.TRIANGLE, string: fourierMakingWavesStrings.triangle },
-  { value: Waveform.SQUARE, string: fourierMakingWavesStrings.square },
-  { value: Waveform.SAWTOOTH, string: fourierMakingWavesStrings.sawtooth },
-  { value: Waveform.WAVE_PACKET, string: fourierMakingWavesStrings.wavePacket },
-  { value: Waveform.CUSTOM, string: fourierMakingWavesStrings.custom }
+  { value: Waveform.SINUSOID, string: fourierMakingWavesStrings.sinusoid, tandemName: 'sinusoidItem' },
+  { value: Waveform.TRIANGLE, string: fourierMakingWavesStrings.triangle, tandemName: 'triangleItem' },
+  { value: Waveform.SQUARE, string: fourierMakingWavesStrings.square, tandemName: 'squareItem' },
+  { value: Waveform.SAWTOOTH, string: fourierMakingWavesStrings.sawtooth, tandemName: 'sawtoothItem' },
+  { value: Waveform.WAVE_PACKET, string: fourierMakingWavesStrings.wavePacket, tandemName: 'wavePacketItem' },
+  { value: Waveform.CUSTOM, string: fourierMakingWavesStrings.custom, tandemName: 'customItem' }
 ];
 assert && assert( _.every( CHOICES, choice => Waveform.includes( choice.value ) ) );
 

@@ -22,23 +22,27 @@ const CHOICES = [
     value: Domain.SPACE,
     string: StringUtils.fillIn( fourierMakingWavesStrings.spaceSymbol, {
       symbol: FMWSymbols.x
-    } )
+    } ),
+    tandemName: 'spaceItem'
   },
   {
     value: Domain.TIME,
     string: StringUtils.fillIn( fourierMakingWavesStrings.timeSymbol, {
       symbol: FMWSymbols.t
-    } )
+    } ),
+    tandemName: 'timeItem'
   },
   {
     value: Domain.SPACE_AND_TIME,
     string: StringUtils.fillIn( fourierMakingWavesStrings.spaceAndTimeSymbols, {
       spaceSymbol: FMWSymbols.x,
       timeSymbol: FMWSymbols.t
-    } )
+    } ),
+    tandemName: 'spaceAndTimeItem'
   }
 ];
 assert && assert( _.every( CHOICES, choice => Domain.includes( choice.value ) ) );
+assert && assert( _.every( CHOICES, choice => choice.tandemName ) );
 
 class DomainComboBox extends FMWComboBox {
 

@@ -20,7 +20,7 @@ import FMWConstants from '../FMWConstants.js';
 class FMWComboBox extends ComboBox {
 
   /**
-   * @param {value:*, string:string, [textOptions:Object]} choices
+   * @param {value:*, string:string, [textOptions:Object], [tandemName:string]} choices
    * @param {Property} property
    * @param {Node} listboxParent
    * @param {Object} [options]
@@ -51,7 +51,9 @@ class FMWComboBox extends ComboBox {
       // And there is negligible performance impact for using RichText for the strings that don't contain markup.
       const node = new RichText( choice.string, choice.textOptions || options.textOptions );
 
-      items.push( new ComboBoxItem( node, choice.value ) );
+      items.push( new ComboBoxItem( node, choice.value, {
+        tandemName: choice.tandemName || null
+      } ) );
     } );
 
     super( items, property, listboxParent, options );
