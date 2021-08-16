@@ -70,16 +70,16 @@ class AmplitudeSlider extends AudibleSlider {
 
       // pdom options
       // slider steps, see https://github.com/phetsims/fourier-making-waves/issues/53
-      keyboardStep: FMWConstants.DISCRETE_AMPLITUDE_STEP, // used by all alternative-input devices
-      shiftKeyboardStep: 0.01, // finer grain, used by keyboard only
-      pageKeyboardStep: 0.25, // coarser grain, used by keyboard only
+      keyboardStep: FMWConstants.DISCRETE_AMPLITUDE_KEYBOARD_STEP, // used by all alternative-input devices
+      shiftKeyboardStep: FMWConstants.DISCRETE_AMPLITUDE_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
+      pageKeyboardStep: FMWConstants.DISCRETE_AMPLITUDE_PAGE_KEYBOARD_STEP, // coarser grain, used by keyboard only
 
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 
-    assert && assert( options.shiftKeyboardStep < options.keyboardStep );
-    assert && assert( options.pageKeyboardStep > options.keyboardStep );
+    assert && assert( options.shiftKeyboardStep <= options.keyboardStep );
+    assert && assert( options.pageKeyboardStep >= options.keyboardStep );
     assert && assert( options.keyboardStep >= options.mouseTouchStep, 'see https://github.com/phetsims/sun/issues/698' );
     assert && assert( options.pageKeyboardStep >= options.mouseTouchStep, 'see https://github.com/phetsims/sun/issues/698' );
 

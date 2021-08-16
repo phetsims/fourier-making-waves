@@ -33,7 +33,9 @@ class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
       amplitudeSliderOptions: {
         decimalPlaces: FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES,
         mouseTouchStep: FMWConstants.WAVE_GAME_AMPLITUDE_STEP,
-        keyboardStep: FMWConstants.WAVE_GAME_AMPLITUDE_STEP
+        keyboardStep: FMWConstants.WAVE_GAME_AMPLITUDE_KEYBOARD_STEP,
+        shiftKeyboardStep: FMWConstants.WAVE_GAME_AMPLITUDE_SHIFT_KEYBOARD_STEP,
+        pageKeyboardStep: FMWConstants.WAVE_GAME_AMPLITUDE_PAGE_KEYBOARD_STEP
       },
       amplitudeNumberDisplayOptions: {
         numberDisplayOptions: {
