@@ -49,7 +49,8 @@ class HarmonicsChart extends WaveformChart {
     this.fourierSeries = fourierSeries;
     this.emphasizedHarmonics = emphasizedHarmonics;
 
-    // @public {DerivedProperty.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order
+    // @public {DerivedProperty.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order.
+    // Points are ordered by increasing x value.
     this.harmonicDataSetProperties = [];
     for ( let i = 0; i < fourierSeries.harmonics.length; i++ ) {
 
@@ -69,13 +70,6 @@ class HarmonicsChart extends WaveformChart {
         } );
       this.harmonicDataSetProperties.push( dataSetProperty );
     }
-  }
-
-  /**
-   * @public
-   */
-  reset() {
-    this.harmonicDataSetProperties.forEach( dataSetProperty => dataSetProperty.reset() );
   }
 
   /**
