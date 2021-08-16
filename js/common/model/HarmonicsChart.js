@@ -83,11 +83,6 @@ class HarmonicsChart extends WaveformChart {
       Property.lazyMultilink(
         [ harmonic.amplitudeProperty, xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
         () => {
-
-          // Free the current points to the Vector2 pool.
-          _.forEach( dataSetProperty.value, point => point.freeToPool() );
-
-          // Compute the data set, with points from the Vector2 pool.
           dataSetProperty.value = createDataSet( harmonic );
         } );
     }

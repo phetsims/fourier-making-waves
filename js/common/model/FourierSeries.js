@@ -19,11 +19,11 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColors from '../FMWColors.js';
 import FMWConstants from '../FMWConstants.js';
+import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
 import getAmplitudeFunction from './getAmplitudeFunction.js';
 import Harmonic from './Harmonic.js';
 import SeriesType from './SeriesType.js';
-import AxisDescription from './AxisDescription.js';
 
 // constants
 const DEFAULT_AMPLITUDES = Array( FMWConstants.MAX_HARMONICS ).fill( 0 );
@@ -198,7 +198,7 @@ class FourierSeries extends PhetioObject {
           y += amplitudeFunction( amplitude, this.harmonics[ j ].order, x, t, this.L, this.T );
         }
       }
-      sumDataSet.push( Vector2.createFromPool( x, y ) );
+      sumDataSet.push( new Vector2( x, y ) );
       x += dx;
     }
 

@@ -295,10 +295,8 @@ function mapBasePointsToDataSet( basePoints, domain, seriesType, t, L, T ) {
     shiftX += ( remainder * x );
   }
 
-  //TODO make sure Vector2 are being returned to pool
-
   // Apply x and shiftX to the base points.
-  return _.map( basePoints, point => Vector2.createFromPool( ( x * point.x ) + shiftX, point.y ) );
+  return _.map( basePoints, point => new Vector2( ( x * point.x ) + shiftX, point.y ) );
 }
 
 const Waveform = Enumeration.byMap( {

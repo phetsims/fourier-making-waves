@@ -65,11 +65,6 @@ class SumChart extends WaveformChart {
     Property.lazyMultilink(
       [ fourierSeries.amplitudesProperty, xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
       () => {
-
-        // Free the current points to the Vector2 pool.
-        _.forEach( sumDataSetProperty.value, point => point.freeToPool() );
-
-        // Compute the data set, with points from the Vector2 pool.
         sumDataSetProperty.value = createSumDataSet();
       }
     );
