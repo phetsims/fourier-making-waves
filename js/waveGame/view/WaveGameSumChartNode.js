@@ -28,7 +28,7 @@ class WaveGameSumChartNode extends SumChartNode {
 
       // SumChartNode options
       sumPlotStrokeProperty: FMWColors.answerSumPlotStrokeProperty,
-      sumPlotLineWidth: 4
+      sumPlotLineWidth: 3
     }, options );
 
     super( sumChart, options );
@@ -36,7 +36,11 @@ class WaveGameSumChartNode extends SumChartNode {
     // Plot that shows the sum for the answer
     const guessPlot = new CanvasLinePlot( this.chartTransform, [], {
       stroke: FMWColors.guessSumPlotStrokeProperty.value,
-      lineWidth: 1.5
+
+      // Slight narrower lineWidth than the answer, so that we can see the answer behind the guess when there's
+      // and exact match. But now so much narrower that it looks like the guess is a match when it's just "close".
+      // See https://github.com/phetsims/fourier-making-waves/issues/97
+      lineWidth: options.sumPlotLineWidth - 1
     } );
 
     // CanvasLinePlot does not allow stroke to be a Property, so we have to manage changes ourselves.
