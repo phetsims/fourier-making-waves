@@ -48,7 +48,7 @@ class InfiniteHarmonicsPlot extends CanvasLinePlot {
 
     // CanvasLinePlot does not support Property.<Color> for its stroke option.
     // So it's the client's responsibility to keep the plot in sync with the colorProfileProperty.
-    FMWColors.secondardWaveformStrokeProperty.lazyLink( color => {
+    FMWColors.secondardWaveformStrokeProperty.link( color => {
       this.setStroke( color );
       this.changedEmitter.emit();
     } );
