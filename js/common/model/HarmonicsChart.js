@@ -6,8 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -50,42 +49,25 @@ class HarmonicsChart extends WaveformChart {
     this.fourierSeries = fourierSeries;
     this.emphasizedHarmonics = emphasizedHarmonics;
 
-    /**
-     * Creates the data set for a harmonic using current arg values.
-     * @param {Harmonic} harmonic
-     * @returns {Vector2[]}
-     */
-    const createDataSet = harmonic => {
+    // @public {DerivedProperty.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order
+    this.harmonicDataSetProperties = [];
+    for ( let i = 0; i < fourierSeries.harmonics.length; i++ ) {
+
+      const harmonic = fourierSeries.harmonics[ i ];
 
       // The number of points for each harmonic plot is a function of order, because higher-frequency harmonics require
       // more points to draw a smooth plot.
       const numberOfPoints = Math.ceil( FMWConstants.MAX_POINTS_PER_DATA_SET *
                                         harmonic.order / fourierSeries.harmonics.length );
 
-      return harmonic.createDataSet( numberOfPoints, fourierSeries.L, fourierSeries.T,
-        xAxisDescriptionProperty.value, domainProperty.value, seriesTypeProperty.value, tProperty.value );
-    };
-
-    // @public {Property.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order
-    // A data set is updated when any of its dependencies changes.
-    this.harmonicDataSetProperties = [];
-    for ( let i = 0; i < fourierSeries.harmonics.length; i++ ) {
-
-      const harmonic = fourierSeries.harmonics[ i ];
-
       // {Property.<Vector2[]>} the data set for this harmonic
-      //TODO shouldn't this be a DerivedProperty, derived from the dependencies in the multilink below?
-      const dataSetProperty = new Property( createDataSet( harmonic ), {
-        isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
-      } );
-      this.harmonicDataSetProperties.push( dataSetProperty );
-
-      // Update the harmonic's data set when dependencies change.
-      Property.lazyMultilink(
+      const dataSetProperty = new DerivedProperty(
         [ harmonic.amplitudeProperty, xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
-        () => {
-          dataSetProperty.value = createDataSet( harmonic );
+        ( amplitude, xAxisDescription, domain, seriesType, t ) => {
+          return harmonic.createDataSet( numberOfPoints, fourierSeries.L, fourierSeries.T, xAxisDescription,
+            domain, seriesType, t );
         } );
+      this.harmonicDataSetProperties.push( dataSetProperty );
     }
   }
 
