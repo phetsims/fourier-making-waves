@@ -7,7 +7,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
@@ -71,17 +70,6 @@ class DiscreteScreenView extends ScreenView {
     soundManager.addSoundGenerator( fourierSoundGenerator, {
       associatedViewNode: this
     } );
-
-    // When the FourierSoundGenerator is producing audible sound, duck all user-interface sounds.
-    const userInterfaceDefaultOutputLevel = soundManager.getOutputLevelForCategory( 'user-interface' );
-    Property.multilink(
-      [ fourierSoundGenerator.fullyEnabledProperty, model.fourierSeriesSoundEnabledProperty ],
-      ( soundGeneratorFullyEnabled, fourierSeriesSoundEnabled ) => {
-        const fourierSeriesSoundIsAudible = ( soundGeneratorFullyEnabled && fourierSeriesSoundEnabled );
-        const outputLevel = fourierSeriesSoundIsAudible ? 0.1 * userInterfaceDefaultOutputLevel : userInterfaceDefaultOutputLevel;
-        soundManager.setOutputLevelForCategory( 'user-interface', outputLevel );
-      }
-    );
 
     //------------------------------------------------------------------------------------------------------------------
     // Amplitudes chart

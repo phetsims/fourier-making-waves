@@ -7,11 +7,13 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Range from '../../../../dot/js/Range.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import OscillatorSoundGenerator from '../../../../tambo/js/sound-generators/OscillatorSoundGenerator.js';
 import SoundGenerator from '../../../../tambo/js/sound-generators/SoundGenerator.js';
+import soundManager from '../../../../tambo/js/soundManager.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -92,6 +94,17 @@ class FourierSoundGenerator extends SoundGenerator {
         oscillatorSoundGenerators.forEach( oscillatorSoundGenerator => oscillatorSoundGenerator.stop() );
       }
     } );
+
+    // When the FourierSoundGenerator is producing audible sound, duck all user-interface sounds.
+    const userInterfaceDefaultOutputLevel = soundManager.getOutputLevelForCategory( 'user-interface' );
+    Property.multilink(
+      [ this.fullyEnabledProperty, enabledProperty ],
+      ( soundGeneratorFullyEnabled, enabled ) => {
+        const soundIsAudible = ( soundGeneratorFullyEnabled && enabled );
+        const outputLevel = soundIsAudible ? 0.1 * userInterfaceDefaultOutputLevel : userInterfaceDefaultOutputLevel;
+        soundManager.setOutputLevelForCategory( 'user-interface', outputLevel );
+      }
+    );
   }
 
   /**
