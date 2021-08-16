@@ -57,6 +57,7 @@ class SumChart extends WaveformChart {
     };
 
     // {Property.<Vector2[]>} The data set for the sum. Points are ordered by increasing x value.
+    //TODO shouldn't this be a DerivedProperty, derived from the harmonic amplitudes?
     const sumDataSetProperty = new Property( createSumDataSet(), {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
     } );

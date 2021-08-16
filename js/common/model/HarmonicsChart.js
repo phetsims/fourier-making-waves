@@ -74,6 +74,7 @@ class HarmonicsChart extends WaveformChart {
       const harmonic = fourierSeries.harmonics[ i ];
 
       // {Property.<Vector2[]>} the data set for this harmonic
+      //TODO shouldn't this be a DerivedProperty, derived from the dependencies in the multilink below?
       const dataSetProperty = new Property( createDataSet( harmonic ), {
         isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
       } );
