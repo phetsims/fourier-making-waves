@@ -7,9 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -47,27 +45,11 @@ class SumChart extends WaveformChart {
     super( fourierSeries.L, fourierSeries.T, domainProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
 
-    /**
-     * Creates the sum data set using current arg values.
-     * @returns {Vector2[]}
-     */
-    const createSumDataSet = () => {
-      return fourierSeries.createSumDataSet( xAxisDescriptionProperty.value,
-        domainProperty.value, seriesTypeProperty.value, tProperty.value );
-    };
-
-    // {Property.<Vector2[]>} The data set for the sum. Points are ordered by increasing x value.
-    //TODO shouldn't this be a DerivedProperty, derived from the harmonic amplitudes?
-    const sumDataSetProperty = new Property( createSumDataSet(), {
-      isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
-    } );
-
-    // Update the sum when dependencies change.
-    Property.lazyMultilink(
+    // {DerivedProperty.<Vector2[]>} The data set for the sum. Points are ordered by increasing x value.
+    const sumDataSetProperty = new DerivedProperty(
       [ fourierSeries.amplitudesProperty, xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
-      () => {
-        sumDataSetProperty.value = createSumDataSet();
-      }
+      ( amplitudes, xAxisDescription, domain, seriesType, t ) =>
+        fourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t )
     );
 
     // {DerivedProperty.<number>} the peak amplitude of the sum waveform
@@ -112,7 +94,6 @@ class SumChart extends WaveformChart {
     // @private
     this.resetSumChart = () => {
       yAutoScaleProperty.reset();
-      sumDataSetProperty.reset();
     };
 
     // @public
