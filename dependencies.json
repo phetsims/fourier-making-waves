@@ -1,5 +1,5 @@
 {
-  "comment": "# fourier-making-waves 1.0.0-dev.42 Mon Aug 16 2021 09:17:35 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# fourier-making-waves 1.0.0-dev.43 Mon Aug 16 2021 16:52:38 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "master"
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "fourier-making-waves": {
-    "sha": "062365dcf1df4f118af42fd9f515a2bdd0911529",
+    "sha": "895d2df63a6cdfc0c87e449b7ca82b85b39fe0d8",
     "branch": "master"
   },
   "joist": {
@@ -45,7 +45,7 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "9ad3f989de7596fc20fbdf4a7790985aab53899a",
+    "sha": "58fe8642384911d165e007484c880a2553ff2138",
     "branch": "master"
   },
   "phet-io-client-guides": {
@@ -69,11 +69,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "58e9c9834947cc2c59e6b82c926aa3faa04e97a5",
+    "sha": "1c6facfc2ecaddfe504f7914db370d7ae80fd35f",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "22c138b0439bcd4b9faa7637cb278472a115c32c",
+    "sha": "b3963e81730197db27d02e03a7bd1baf612cc9bd",
     "branch": "master"
   },
   "sherpa": {
@@ -105,7 +105,7 @@
     "branch": "master"
   },
   "vegas": {
-    "sha": "4995e8c24092586c23cae1d44a1fff60653cd400",
+    "sha": "a56c326b858b7607bf1fbcaa4b39421b2d503a21",
     "branch": "master"
   }
 }
