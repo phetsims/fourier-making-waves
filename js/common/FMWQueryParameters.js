@@ -7,8 +7,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Utils from '../../../dot/js/Utils.js';
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
+import FMWConstants from './FMWConstants.js';
 
 const SCHEMA = {
 
@@ -22,7 +24,23 @@ const SCHEMA = {
 
   // Shows the reward after any correct answer, for testing the Wave Game reward.
   // For internal use only, not public facing.
-  showReward: { type: 'flag' }
+  showReward: { type: 'flag' },
+
+  // Seeds the game with a specific first challenge in level 5. This is useful for reproducing and testing specific
+  // challenges. You must provide amplitude values for all 11 harmonics, including the zero values.
+  // Example: answer5=0,0.5,0,1,0,0,0,0,0,0,0
+  // For internal use only, not public facing.
+  answer5: {
+    type: 'array',
+    isValidValue: array => ( array === null ) || ( array.length === FMWConstants.MAX_HARMONICS ),
+    elementSchema: {
+      type: 'number',
+      isValidValue: amplitude =>
+        ( amplitude >= -FMWConstants.MAX_AMPLITUDE && amplitude <= FMWConstants.MAX_AMPLITUDE ) &&
+        ( Utils.numberOfDecimalPlaces( amplitude ) <= FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES )
+    },
+    defaultValue: null
+  }
 };
 
 const FMWQueryParameters = QueryStringMachine.getAll( SCHEMA );

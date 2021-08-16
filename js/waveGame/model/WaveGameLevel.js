@@ -21,6 +21,7 @@ import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
@@ -128,9 +129,13 @@ class WaveGameLevel extends PhetioObject {
       getNumberOfNonZeroHarmonics: config.getNumberOfNonZeroHarmonics
     } );
 
+    const firstAnswer = ( this.levelNumber === 5 && FMWQueryParameters.answer5 ) ?
+                        FMWQueryParameters.answer5 :
+                        this.amplitudesGenerator.createAmplitudes();
+
     // @private answer for the challenge, the waveform that the user is attempting to match
     this.answerSeries = new FourierSeries( {
-      amplitudes: this.amplitudesGenerator.createAmplitudes(),
+      amplitudes: firstAnswer,
       tandem: config.tandem.createTandem( 'answerSeries' )
     } );
 
