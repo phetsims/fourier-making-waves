@@ -185,7 +185,7 @@ class DiscreteScreenView extends ScreenView {
         tandem: sumEquationNodeTandem.createTandem( 'expandedFormDialog' )
       } );
 
-    // Push button that opens the 'Expanded Sum' dialog
+    // Push button that opens the 'Expanded Form' dialog
     const expandedFormButton = new ExpandedFormButton( {
       scale: 0.45,
       listener: () => expandedFormDialog.show(),
