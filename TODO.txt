@@ -1,7 +1,5 @@
 TODO.txt for fourier-making-waves
 
-Add a query parameter to test/reproduce specific challenges.
-
 Optimize to prevent collapsed charts from updating. Ask team if it's appropriate, worth it.
 
 Replace {Property} xAxisTickLabelFormatProperty in model with {function} xAxisLabelFormatter in view.
