@@ -7,7 +7,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -102,6 +104,17 @@ class FourierSeries extends PhetioObject {
         phetioType: DerivedProperty.DerivedPropertyIO( ArrayIO( NumberIO ) ),
         tandem: options.tandem.createTandem( 'amplitudesProperty' )
       } );
+
+    // @public whether sound is enabled for this Fourier series
+    this.soundEnabledProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'soundEnabledProperty' )
+    } );
+
+    // @public volume of the sound for this Fourier series
+    this.soundOutputLevelProperty = new NumberProperty( 0.5, {
+      range: new Range( 0.05, 1 ),
+      tandem: options.tandem.createTandem( 'soundOutputLevelProperty' )
+    } );
   }
 
   /**
@@ -112,11 +125,21 @@ class FourierSeries extends PhetioObject {
   }
 
   /**
-   * Resets the Fourier series. Since this causes amplitudesProperty to go through intermediate states,
-   * notification of amplitudesProperty listeners is deferred until all harmonics have been updated.
+   * Resets the Fourier series.
    * @public
    */
   reset() {
+    this.resetHarmonics();
+    this.soundEnabledProperty.reset();
+    this.soundOutputLevelProperty.reset();
+  }
+
+  /**
+   * Resets the harmonics. Since this causes amplitudesProperty to go through intermediate states,
+   * notification of amplitudesProperty listeners is deferred until all harmonics have been updated.
+   * @private
+   */
+  resetHarmonics() {
     this.amplitudesProperty.setDeferred( true );
     this.harmonics.forEach( harmonic => harmonic.reset() );
     const notifyListeners = this.amplitudesProperty.setDeferred( false );
@@ -148,6 +171,8 @@ class FourierSeries extends PhetioObject {
    * @public
    */
   setAllAmplitudes( amplitude ) {
+    assert && assert( typeof amplitude === 'number' );
+
     this.amplitudesProperty.setDeferred( true );
     for ( let i = 0; i < this.harmonics.length; i++ ) {
       this.harmonics[ i ].amplitudeProperty.value = amplitude;

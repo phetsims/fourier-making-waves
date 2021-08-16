@@ -33,6 +33,7 @@ import FWMConstants from '../../common/FMWConstants.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import DomainComboBox from '../../common/view/DomainComboBox.js';
 import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonGroup.js';
@@ -69,11 +70,9 @@ class DiscreteControlPanel extends Panel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const fourierSeriesLayoutBox = new FourierSeriesSubpanel( model.waveformProperty, popupParent,
-      model.fourierSeries.numberOfHarmonicsProperty, model.fourierSeriesSoundEnabledProperty,
-      model.fourierSeriesSoundOutputLevelProperty, {
-        tandem: options.tandem.createTandem( 'fourierSeriesSubpanel' )
-      } );
+    const fourierSeriesLayoutBox = new FourierSeriesSubpanel( model.fourierSeries, model.waveformProperty, popupParent, {
+      tandem: options.tandem.createTandem( 'fourierSeriesSubpanel' )
+    } );
 
     // {Node[]} logical sections of the control panel
     const sectionNodes = [
@@ -152,21 +151,16 @@ class DiscreteControlPanel extends Panel {
 class FourierSeriesSubpanel extends VBox {
 
   /**
+   * @param {FourierSeries} fourierSeries
    * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {Node} popupParent
-   * @param {NumberProperty} numberOfHarmonicsProperty
-   * @param {Property.<boolean>} soundEnabledProperty
-   * @param {NumberProperty} soundOutputLevelProperty
    * @param {Object} [options]
    */
-  constructor( waveformProperty, popupParent, numberOfHarmonicsProperty, soundEnabledProperty,
-               soundOutputLevelProperty, options ) {
+  constructor( fourierSeries, waveformProperty, popupParent, options ) {
 
+    assert && assert( fourierSeries instanceof FourierSeries );
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
-    assert && assert( numberOfHarmonicsProperty instanceof NumberProperty );
     assert && assert( popupParent instanceof Node );
-    assert && AssertUtils.assertPropertyOf( soundEnabledProperty, 'boolean' );
-    assert && assert( soundOutputLevelProperty instanceof NumberProperty );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 
@@ -213,7 +207,7 @@ class FourierSeriesSubpanel extends VBox {
       tandem: options.tandem.createTandem( 'harmonicsText' )
     } );
 
-    const harmonicsSpinner = new HarmonicsSpinner( numberOfHarmonicsProperty, {
+    const harmonicsSpinner = new HarmonicsSpinner( fourierSeries.numberOfHarmonicsProperty, {
       tandem: options.tandem.createTandem( 'harmonicsSpinner' )
     } );
 
@@ -223,7 +217,7 @@ class FourierSeriesSubpanel extends VBox {
     } );
 
     // Sound checkbox and slider
-    const soundLayoutBox = new SoundLayoutBox( soundEnabledProperty, soundOutputLevelProperty, {
+    const soundLayoutBox = new SoundLayoutBox( fourierSeries.soundEnabledProperty, fourierSeries.soundOutputLevelProperty, {
       tandem: options.tandem.createTandem( 'soundLayoutBox' )
     } );
 

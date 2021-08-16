@@ -62,8 +62,7 @@ class DiscreteScreenView extends ScreenView {
     //------------------------------------------------------------------------------------------------------------------
 
     // Sound for the Fourier series
-    const fourierSoundGenerator = new FourierSoundGenerator( model.fourierSeries,
-      model.fourierSeriesSoundEnabledProperty, model.fourierSeriesSoundOutputLevelProperty );
+    const fourierSoundGenerator = new FourierSoundGenerator( model.fourierSeries );
     soundManager.addSoundGenerator( fourierSoundGenerator, {
       associatedViewNode: this
     } );

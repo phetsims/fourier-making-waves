@@ -6,11 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Range from '../../../../dot/js/Range.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import OscillatorSoundGenerator from '../../../../tambo/js/sound-generators/OscillatorSoundGenerator.js';
 import SoundGenerator from '../../../../tambo/js/sound-generators/SoundGenerator.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
@@ -26,20 +24,15 @@ class FourierSoundGenerator extends SoundGenerator {
 
   /**
    * @param {FourierSeries} fourierSeries
-   * @param {Property.<boolean>} enabledProperty
-   * @param {NumberProperty} outputLevelProperty
    */
-  constructor( fourierSeries, enabledProperty, outputLevelProperty ) {
+  constructor( fourierSeries ) {
 
     assert && assert( fourierSeries instanceof FourierSeries );
-    assert && AssertUtils.assertPropertyOf( enabledProperty, 'boolean' );
-    assert && assert( outputLevelProperty instanceof NumberProperty );
-    assert && assert( outputLevelProperty.range, 'outputLevelProperty.range required' );
 
     super( {
 
       // OscillatorSoundGenerator options
-      initialOutputLevel: outputLevelProperty.value
+      initialOutputLevel: fourierSeries.soundOutputLevelProperty.value
     } );
 
     // Maps amplitude to an output level that is appropriate for SoundGenerator.
@@ -67,7 +60,7 @@ class FourierSoundGenerator extends SoundGenerator {
       // the master gain node. If we do not do this, then we'll briefly hear stale output levels the next time that
       // oscillatorSoundGenerator.play is called.
       // See https://github.com/phetsims/fourier-making-waves/issues/45
-      const timeConstant = enabledProperty.value ? undefined : 0;
+      const timeConstant = fourierSeries.soundEnabledProperty.value ? undefined : 0;
 
       // Set amplitudes for the harmonics.
       for ( let i = 0; i < amplitudes.length; i++ ) {
@@ -76,17 +69,16 @@ class FourierSoundGenerator extends SoundGenerator {
     } );
 
     // Set the master output level.
-    outputLevelProperty.link( outputLevel => {
+    fourierSeries.soundOutputLevelProperty.link( outputLevel => {
 
       // See comment above about timeConstant.
-      const timeConstant = enabledProperty.value ? undefined : 0;
+      const timeConstant = fourierSeries.soundEnabledProperty.value ? undefined : 0;
       this.setOutputLevel( outputLevel, timeConstant );
-      phet.log && phet.log( `FourierSoundGenerator outputLevel=${outputLevel}` );
     } );
 
     // Turn sound on/off. We could have controlled this via options.enableControlProperties,
     // but stopping OscillatorSoundGenerators may use fewer resources.
-    enabledProperty.link( enabled => {
+    fourierSeries.soundEnabledProperty.link( enabled => {
       if ( enabled ) {
         oscillatorSoundGenerators.forEach( oscillatorSoundGenerator => oscillatorSoundGenerator.play() );
       }
@@ -98,7 +90,7 @@ class FourierSoundGenerator extends SoundGenerator {
     // When the FourierSoundGenerator is producing audible sound, duck all user-interface sounds.
     const userInterfaceDefaultOutputLevel = soundManager.getOutputLevelForCategory( 'user-interface' );
     Property.multilink(
-      [ this.fullyEnabledProperty, enabledProperty ],
+      [ this.fullyEnabledProperty, fourierSeries.soundEnabledProperty ],
       ( soundGeneratorFullyEnabled, enabled ) => {
         const soundIsAudible = ( soundGeneratorFullyEnabled && enabled );
         const outputLevel = soundIsAudible ? 0.1 * userInterfaceDefaultOutputLevel : userInterfaceDefaultOutputLevel;

@@ -13,7 +13,6 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -27,9 +26,9 @@ import DiscreteAmplitudesChart from './DiscreteAmplitudesChart.js';
 import DiscreteAxisDescriptions from './DiscreteAxisDescriptions.js';
 import DiscreteFourierSeries from './DiscreteFourierSeries.js';
 import DiscreteHarmonicsChart from './DiscreteHarmonicsChart.js';
+import DiscreteMeasurementTool from './DiscreteMeasurementTool.js';
 import DiscreteSumChart from './DiscreteSumChart.js';
 import EquationForm from './EquationForm.js';
-import DiscreteMeasurementTool from './DiscreteMeasurementTool.js';
 import Waveform from './Waveform.js';
 
 // This factor slows down time for the 'space & time' domain, determined empirically.
@@ -68,20 +67,6 @@ class DiscreteModel {
     // @public
     this.isPlayingProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'isPlayingProperty' )
-    } );
-
-    // Group elements related to sound under this tandem.
-    const soundTandem = options.tandem.createTandem( 'sound' );
-
-    // @public whether sound is enabled for the Fourier series
-    this.fourierSeriesSoundEnabledProperty = new BooleanProperty( false, {
-      tandem: soundTandem.createTandem( 'fourierSeriesSoundEnabledProperty' )
-    } );
-
-    // @public volume of the sound for the Fourier series
-    this.fourierSeriesSoundOutputLevelProperty = new NumberProperty( 0.5, {
-      range: new Range( 0.05, 1 ),
-      tandem: soundTandem.createTandem( 'fourierSeriesSoundOutputLevelProperty' )
     } );
 
     // @public time (t), updated only when domainProperty is Domain.SPACE_AND_TIME
@@ -221,8 +206,6 @@ class DiscreteModel {
       this.domainProperty.reset();
       this.equationFormProperty.reset();
       xAxisDescriptionProperty.reset();
-      this.fourierSeriesSoundEnabledProperty.reset();
-      this.fourierSeriesSoundOutputLevelProperty.reset();
 
       // Reset subcomponents
       this.fourierSeries.reset();
