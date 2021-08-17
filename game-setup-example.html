@@ -192,6 +192,8 @@ to receive that specific version.-->
         phetioClient.invoke( 'phetioEngine', 'setState', [ state ], function() {
           /* console.log( 'Finished launching with customizations.' ); */
 
+          // BEGIN EXAMPLE ==============================================================================
+
           // constants, the sim requires these!
           const NUMBER_OF_HARMONICS = 11;
           const MAX_AMPLITUDE = 1.5;
@@ -257,6 +259,8 @@ to receive that specific version.-->
             const sliderVisiblePropertyID = `fourierMakingWaves.waveGameScreen.view.level${level}Node.charts.amplitudes.amplitudesChartNode.amplitude${order}Slider.visibleProperty`;
             phetioClient.invoke( sliderVisiblePropertyID, 'setValue', [ visible ] );
           }
+
+          // END EXAMPLE ==============================================================================
         } );
       }
 
