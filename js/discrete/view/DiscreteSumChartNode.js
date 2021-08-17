@@ -7,14 +7,20 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import SumChartNode from '../../common/view/SumChartNode.js';
+import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteSumChart from '../model/DiscreteSumChart.js';
 import Waveform from '../model/Waveform.js';
 import InfiniteHarmonicsPlot from './InfiniteHarmonicsPlot.js';
+
+// constants
+const X_TICK_LABEL_DECIMALS = 2;
+const Y_TICK_LABEL_DECIMALS = 1;
 
 class DiscreteSumChartNode extends SumChartNode {
 
@@ -31,7 +37,15 @@ class DiscreteSumChartNode extends SumChartNode {
     options = merge( {
 
       // WaveformChartNode options
-      xZoomLevelProperty: new ZoomLevelProperty( sumChart.xAxisDescriptionProperty )
+      xZoomLevelProperty: new ZoomLevelProperty( sumChart.xAxisDescriptionProperty ),
+      xLabelSetOptions: {
+        createLabel: value =>
+          TickLabelUtils.createTickLabelForDomain( value, X_TICK_LABEL_DECIMALS, sumChart.xAxisTickLabelFormatProperty.value,
+            sumChart.domainProperty.value, sumChart.fourierSeries.L, sumChart.fourierSeries.T )
+      },
+      yLabelSetOptions: {
+        createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
+      }
     }, options );
 
     super( sumChart, options );
@@ -51,6 +65,12 @@ class DiscreteSumChartNode extends SumChartNode {
 
     // Interrupt interaction when visibility changes.
     this.visibleProperty.link( () => this.interruptSubtreeInput() );
+
+    // x-axis tick labels are specific to domain and format (numeric vs symbolic).
+    // This causes options.xLabelSetOptions.createLabels to be called.
+    Property.multilink( [ sumChart.domainProperty, sumChart.xAxisTickLabelFormatProperty ],
+      () => this.xTickLabels.invalidateLabelSet()
+    );
   }
 }
 

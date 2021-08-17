@@ -122,9 +122,9 @@ class DiscreteModel {
       tandem: measurementToolsTandem.createTandem( 'periodTool' )
     } );
 
-    // @public {DerivedProperty.<TickLabelFormat>}
+    // {DerivedProperty.<TickLabelFormat>}
     // Determines the format of the x-axis tick labels, shared by the Harmonics and Sum charts.
-    this.xAxisTickLabelFormatProperty = new DerivedProperty(
+    const xAxisTickLabelFormatProperty = new DerivedProperty(
       [ this.equationFormProperty ],
       equationForm => ( equationForm === EquationForm.HIDDEN ) ? TickLabelFormat.NUMERIC : TickLabelFormat.SYMBOLIC
     );
@@ -138,6 +138,15 @@ class DiscreteModel {
       validValues: X_AXIS_DESCRIPTIONS
     } );
 
+    // {Property.<AxisDescription>} The Harmonics and Sum charts have independent y-axis scales, so they each
+    // have their own y-axis description.
+    const harmonicsYAxisDescriptionProperty = new Property( DEFAULT_Y_AXIS_DESCRIPTION, {
+      validValues: [ DEFAULT_Y_AXIS_DESCRIPTION ]
+    } );
+    const sumYAxisDescriptionProperty = new Property( DEFAULT_Y_AXIS_DESCRIPTION, {
+      validValues: Y_AXIS_DESCRIPTIONS
+    } );
+
     // Parent tandem for all charts
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
@@ -146,27 +155,17 @@ class DiscreteModel {
       tandem: chartsTandem.createTandem( 'amplitudesChart' )
     } );
 
-    // {Property.<AxisDescription>} y-axis description is specific to the Harmonics chart, not shared with the Sum chart.
-    // The Harmonics chart has no zoom buttons, so it only has one y-axis description.
-    const harmonicsYAxisDescriptionProperty = new Property( DEFAULT_Y_AXIS_DESCRIPTION, {
-      validValues: [ DEFAULT_Y_AXIS_DESCRIPTION ]
-    } );
-
     // @public
     this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, emphasizedHarmonics, this.domainProperty,
-      this.seriesTypeProperty, this.tProperty, xAxisDescriptionProperty, harmonicsYAxisDescriptionProperty, {
+      this.seriesTypeProperty, this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
+      harmonicsYAxisDescriptionProperty, {
         tandem: chartsTandem.createTandem( 'harmonicsChart' )
       } );
 
-    // {Property.<AxisDescription>} y-axis description is specific to the Sum chart, not shared with the Harmonics
-    // chart. Sum chart has zoom buttons, with an AxisDescription for each zoom level.
-    const sumYAxisDescriptionProperty = new Property( DEFAULT_Y_AXIS_DESCRIPTION, {
-      validValues: Y_AXIS_DESCRIPTIONS
-    } );
-
     // @public
     this.sumChart = new DiscreteSumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
-      this.tProperty, xAxisDescriptionProperty, sumYAxisDescriptionProperty, this.waveformProperty, {
+      this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, sumYAxisDescriptionProperty,
+      this.waveformProperty, {
         tandem: chartsTandem.createTandem( 'sumChart' )
       } );
 

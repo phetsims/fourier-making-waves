@@ -96,14 +96,6 @@ class WaveformChartNode extends FMWChartNode {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
-
-  /**
-   * Invalidates the tick labels, which causes options.xLabelSetOptions.createLabels to be called.
-   * @public
-   */
-  updateXTickLabels() {
-    this.xTickLabels.invalidateLabelSet();
-  }
 }
 
 fourierMakingWaves.register( 'WaveformChartNode', WaveformChartNode );

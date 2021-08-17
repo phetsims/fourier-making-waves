@@ -8,6 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import HarmonicsChart from '../../common/model/HarmonicsChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -19,15 +20,21 @@ class DiscreteHarmonicsChart extends HarmonicsChart {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
+   * @param {DerivedProperty.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
-               xAxisDescriptionProperty, yAxisDescriptionProperty,
+               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
                options ) {
+    assert && assert( xAxisTickLabelFormatProperty instanceof DerivedProperty );
+
     super( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
       xAxisDescriptionProperty, yAxisDescriptionProperty, options );
+
+    // @public
+    this.xAxisTickLabelFormatProperty = xAxisTickLabelFormatProperty;
   }
 }
 

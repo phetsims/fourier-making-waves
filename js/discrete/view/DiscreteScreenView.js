@@ -7,7 +7,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
@@ -23,7 +22,6 @@ import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapseButton.js';
-import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
@@ -42,10 +40,6 @@ import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 import PeriodCalipersNode from './PeriodCalipersNode.js';
 import PeriodClockNode from './PeriodClockNode.js';
 import WavelengthCalipersNode from './WavelengthCalipersNode.js';
-
-// constants
-const X_TICK_LABEL_DECIMALS = 2;
-const Y_TICK_LABEL_DECIMALS = 1;
 
 class DiscreteScreenView extends ScreenView {
 
@@ -135,27 +129,10 @@ class DiscreteScreenView extends ScreenView {
         tandem: harmonicsTandem.createTandem( 'harmonicsExpandCollapseButton' )
       } );
 
-    // Options for tick labels, shared by the Harmonics and Sum charts
-    const xLabelSetOptions = {
-      createLabel: value =>
-        TickLabelUtils.createTickLabelForDomain( value, X_TICK_LABEL_DECIMALS, model.xAxisTickLabelFormatProperty.value,
-          model.domainProperty.value, model.fourierSeries.L, model.fourierSeries.T )
-    };
-    const yLabelSetOptions = {
-      createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
-    };
-
     // Harmonics chart
     const harmonicsChartNode = new DiscreteHarmonicsChartNode( model.harmonicsChart, {
-      xLabelSetOptions: xLabelSetOptions,
-      yLabelSetOptions: yLabelSetOptions,
       tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
     } );
-
-    // x-axis tick labels are specific to domain and format (numeric vs symbolic)
-    Property.multilink( [ model.domainProperty, model.xAxisTickLabelFormatProperty ],
-      () => harmonicsChartNode.updateXTickLabels()
-    );
 
     // Equation that appears above the Harmonics chart, with wrapper Node to handle centering
     const harmonicsEquationNode = new HarmonicsEquationNode(
@@ -187,16 +164,9 @@ class DiscreteScreenView extends ScreenView {
 
     // Sum chart
     const sumChartNode = new DiscreteSumChartNode( model.sumChart, model.waveformProperty, {
-      xLabelSetOptions: xLabelSetOptions,
-      yLabelSetOptions: yLabelSetOptions,
       visibleProperty: model.sumChart.chartVisibleProperty,
       tandem: sumTandem.createTandem( 'sumChartNode' )
     } );
-
-    // x-axis tick labels are specific to domain and format (numeric vs symbolic)
-    Property.multilink( [ model.domainProperty, model.xAxisTickLabelFormatProperty ],
-      () => sumChartNode.updateXTickLabels()
-    );
 
     // Equation that appears above the Sum chart, with wrapper Node to handle centering
     const sumEquationNodeTandem = sumTandem.createTandem( 'sumEquationNode' );
