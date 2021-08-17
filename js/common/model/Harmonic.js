@@ -9,7 +9,6 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
@@ -18,7 +17,6 @@ import Color from '../../../../scenery/js/util/Color.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import FMWConstants from '../FMWConstants.js';
 import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
 import getAmplitudeFunction from './getAmplitudeFunction.js';
@@ -42,7 +40,6 @@ class Harmonic extends PhetioObject {
 
       // Harmonic, optional
       amplitude: 0,
-      amplitudeDecimalPlaces: FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES,
 
       // phet-io options
       tandem: Tandem.REQUIRED,
@@ -71,7 +68,6 @@ class Harmonic extends PhetioObject {
     // @public amplitude of the harmonic, no units
     this.amplitudeProperty = new NumberProperty( config.amplitude, {
       range: this.amplitudeRange,
-      isValidValue: amplitude => ( Utils.numberOfDecimalPlaces( amplitude ) <= config.amplitudeDecimalPlaces ),
       phetioDocumentation: 'the amplitude of this harmonic',
       tandem: config.tandem.createTandem( 'amplitudeProperty' )
     } );

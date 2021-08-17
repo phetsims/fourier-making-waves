@@ -137,13 +137,11 @@ class WaveGameLevel extends PhetioObject {
     // @private answer for the challenge, the waveform that the user is attempting to match
     this.answerSeries = new FourierSeries( {
       amplitudes: firstAnswer,
-      amplitudeDecimalPlaces: FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES,
       tandem: config.tandem.createTandem( 'answerSeries' )
     } );
 
     // @private the Fourier series that corresponds to the user's guess
     this.guessSeries = new FourierSeries( {
-      amplitudeDecimalPlaces: FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES,
       tandem: config.tandem.createTandem( 'guessSeries' )
     } );
 
