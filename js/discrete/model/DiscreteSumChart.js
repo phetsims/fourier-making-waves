@@ -46,7 +46,8 @@ class DiscreteSumChart extends SumChart {
     }, options );
 
     assert && assert( !options.yAutoScaleProperty );
-    options.yAutoScaleProperty = new BooleanProperty( false, {
+    options.yAutoScaleProperty = new BooleanProperty( true, {
+      validValues: [ true ],
       tandem: options.tandem.createTandem( 'yAutoScaleProperty' )
     } );
 

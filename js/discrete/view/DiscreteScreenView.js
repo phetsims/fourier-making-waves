@@ -36,6 +36,7 @@ import ExpandedFormButton from './ExpandedFormButton.js';
 import ExpandedFormDialog from './ExpandedFormDialog.js';
 import FourierSoundGenerator from './FourierSoundGenerator.js';
 import HarmonicsEquationNode from './HarmonicsEquationNode.js';
+import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 import PeriodCalipersNode from './PeriodCalipersNode.js';
 import PeriodClockNode from './PeriodClockNode.js';
 import WavelengthCalipersNode from './WavelengthCalipersNode.js';
@@ -196,11 +197,22 @@ class DiscreteScreenView extends ScreenView {
       children: [ sumEquationNode, expandedFormButton ]
     } );
 
+    // Shows the wave that the Fourier series is attempting to approximate
+    const infiniteHarmonicsCheckbox = new InfiniteHarmonicsCheckbox( model.sumChart.infiniteHarmonicsVisibleProperty, {
+      tandem: sumTandem.createTandem( 'infiniteHarmonicsCheckbox' )
+    } );
+
+    // Disable infiniteHarmonicsCheckbox for custom and wave-packet waveforms.
+    model.waveformProperty.link( waveform => {
+      infiniteHarmonicsCheckbox.interruptSubtreeInput();
+      infiniteHarmonicsCheckbox.enabled = ( waveform !== Waveform.CUSTOM && waveform !== Waveform.WAVE_PACKET );
+    } );
+
     // All of the elements that should be hidden when chartVisibleProperty is set to false.
     // That can be done using sumExpandCollapseButton, or by changing sumChart.chartVisibleProperty via PhET-iO.
     const sumParentNode = new Node( {
       visibleProperty: model.sumChart.chartVisibleProperty,
-      children: [ sumChartNode, sumEquationParentNode ]
+      children: [ sumChartNode, sumEquationParentNode, infiniteHarmonicsCheckbox ]
     } );
 
     //------------------------------------------------------------------------------------------------------------------
@@ -287,6 +299,8 @@ class DiscreteScreenView extends ScreenView {
     sumChartNode.x = FMWConstants.X_CHART_RECTANGLES;
     sumChartNode.y = sumExpandCollapseButton.bottom + chartTitleBottomSpacing;
     const sumChartRectangleLocalBounds = sumChartNode.chartRectangle.boundsTo( this );
+    infiniteHarmonicsCheckbox.right = sumChartRectangleLocalBounds.right - 5;
+    infiniteHarmonicsCheckbox.top = sumChartNode.bottom + 8;
 
     // Control panel to the right of the charts
     controlPanel.right = this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
@@ -434,6 +448,7 @@ class DiscreteScreenView extends ScreenView {
       harmonicsChartNode,
       sumExpandCollapseButton,
       sumChartNode,
+      infiniteHarmonicsCheckbox,
       timeControlNode,
       resetAllButton
     ];

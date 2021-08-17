@@ -61,13 +61,13 @@ const DiscreteAxisDescriptions = {
   Y_AXIS_DESCRIPTIONS: [
     new AxisDescription( {
       range: new Range( -15, 15 ),
-      gridLineSpacing: 5,
+      gridLineSpacing: 1,
       tickMarkSpacing: 5,
       tickLabelSpacing: 5
     } ),
     new AxisDescription( {
       range: new Range( -10, 10 ),
-      gridLineSpacing: 5,
+      gridLineSpacing: 1,
       tickMarkSpacing: 5,
       tickLabelSpacing: 5
     } ),

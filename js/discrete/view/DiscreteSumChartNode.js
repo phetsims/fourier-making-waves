@@ -9,14 +9,11 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import HBox from '../../../../scenery/js/nodes/HBox.js';
 import SumChartNode from '../../common/view/SumChartNode.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteSumChart from '../model/DiscreteSumChart.js';
 import Waveform from '../model/Waveform.js';
-import AutoScaleCheckbox from './AutoScaleCheckbox.js';
-import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 import InfiniteHarmonicsPlot from './InfiniteHarmonicsPlot.js';
 
 class DiscreteSumChartNode extends SumChartNode {
@@ -34,14 +31,12 @@ class DiscreteSumChartNode extends SumChartNode {
     options = merge( {
 
       // WaveformChartNode options
-      xZoomLevelProperty: new ZoomLevelProperty( sumChart.xAxisDescriptionProperty ),
-      yZoomLevelProperty: new ZoomLevelProperty( sumChart.yAxisDescriptionProperty )
+      xZoomLevelProperty: new ZoomLevelProperty( sumChart.xAxisDescriptionProperty )
     }, options );
 
     super( sumChart, options );
 
     // Fields of interest in sumChart, to improve readability
-    const yAutoScaleProperty = sumChart.yAutoScaleProperty;
     const infiniteHarmonicsVisibleProperty = sumChart.infiniteHarmonicsVisibleProperty;
 
     // Plot for the 'Infinite Harmonics' feature
@@ -54,44 +49,8 @@ class DiscreteSumChartNode extends SumChartNode {
     // Put the infiniteHarmonicsPlot behind plots that were added by the superclass.
     this.chartCanvasNode.setPainters( [ infiniteHarmonicsPlot, ...this.chartCanvasNode.painters ] );
 
-    // Disable the y-axis zoom buttons when auto scale is enabled.
-    assert && assert( this.yZoomButtonGroup, 'expected the Sum chart to have y-axis zoom buttons' );
-    yAutoScaleProperty.link( yAutoScale => {
-      this.yZoomButtonGroup.enabled = !yAutoScale;
-    } );
-    this.yZoomButtonGroup.enabledProperty.link( () => this.yZoomButtonGroup.interruptSubtreeInput() );
-
-    // Automatically scales the y axis to show the entire plot
-    const autoScaleCheckbox = new AutoScaleCheckbox( yAutoScaleProperty, {
-      tandem: options.tandem.createTandem( 'autoScaleCheckbox' )
-    } );
-
-    // Shows the wave that the Fourier series is attempting to approximate
-    const infiniteHarmonicsCheckbox = new InfiniteHarmonicsCheckbox( infiniteHarmonicsVisibleProperty, {
-      tandem: options.tandem.createTandem( 'infiniteHarmonicsCheckbox' )
-    } );
-
-    // Disable infiniteHarmonicsCheckbox for custom and wave-packet waveforms.
-    waveformProperty.link( waveform => {
-      infiniteHarmonicsCheckbox.enabled = ( waveform !== Waveform.CUSTOM && waveform !== Waveform.WAVE_PACKET );
-    } );
-    infiniteHarmonicsCheckbox.enabledProperty.link( () => infiniteHarmonicsCheckbox.interruptSubtreeInput() );
-
-    // Group the checkboxes at the lower-left of the chart's rectangle.
-    const checkboxesParent = new HBox( {
-      spacing: 25,
-      children: [ autoScaleCheckbox, infiniteHarmonicsCheckbox ],
-      left: this.chartRectangle.left,
-      top: this.xTickLabels.bottom + 5
-    } );
-    this.addChild( checkboxesParent );
-
     // Interrupt interaction when visibility changes.
     this.visibleProperty.link( () => this.interruptSubtreeInput() );
-
-    // pdom - append to the superclass traversal order
-    // See https://github.com/phetsims/fourier-making-waves/issues/53
-    this.pdomOrder = this.getPDOMOrder().concat( [ autoScaleCheckbox, infiniteHarmonicsCheckbox ] );
   }
 }
 
