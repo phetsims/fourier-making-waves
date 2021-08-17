@@ -145,10 +145,13 @@ class FMWChartNode extends Node {
 
         // right-bottom corner of chartRectangle
         left: chartRectangle.right + 6,
-        bottom: chartRectangle.bottom
+        bottom: chartRectangle.bottom,
+
+        tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
       } );
     }
 
+    //TODO Delete this? There are no y-zoom buttons in this sim.
     let yZoomButtonGroup;
     if ( options.yZoomLevelProperty ) {
       yZoomButtonGroup = new PlusMinusZoomButtonGroup( options.yZoomLevelProperty, {
@@ -159,7 +162,9 @@ class FMWChartNode extends Node {
 
         // left-bottom corner of chartRectangle
         right: chartRectangle.left - 31,
-        top: chartRectangle.bottom
+        top: chartRectangle.bottom,
+
+        tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
       } );
     }
 
