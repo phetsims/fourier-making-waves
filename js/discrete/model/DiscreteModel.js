@@ -122,8 +122,9 @@ class DiscreteModel {
       tandem: measurementToolsTandem.createTandem( 'periodTool' )
     } );
 
+    // @public {DerivedProperty.<TickLabelFormat>}
     // Determines the format of the x-axis tick labels, shared by the Harmonics and Sum charts.
-    const xAxisTickLabelFormatProperty = new DerivedProperty(
+    this.xAxisTickLabelFormatProperty = new DerivedProperty(
       [ this.equationFormProperty ],
       equationForm => ( equationForm === EquationForm.HIDDEN ) ? TickLabelFormat.NUMERIC : TickLabelFormat.SYMBOLIC
     );
@@ -152,9 +153,8 @@ class DiscreteModel {
     } );
 
     // @public
-    this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, emphasizedHarmonics,
-      this.domainProperty, this.seriesTypeProperty, this.tProperty,
-      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, harmonicsYAxisDescriptionProperty, {
+    this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, emphasizedHarmonics, this.domainProperty,
+      this.seriesTypeProperty, this.tProperty, xAxisDescriptionProperty, harmonicsYAxisDescriptionProperty, {
         tandem: chartsTandem.createTandem( 'harmonicsChart' )
       } );
 
@@ -166,8 +166,7 @@ class DiscreteModel {
 
     // @public
     this.sumChart = new DiscreteSumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
-      this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, sumYAxisDescriptionProperty,
-      this.waveformProperty, {
+      this.tProperty, xAxisDescriptionProperty, sumYAxisDescriptionProperty, this.waveformProperty, {
         tandem: chartsTandem.createTandem( 'sumChart' )
       } );
 

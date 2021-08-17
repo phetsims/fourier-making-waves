@@ -32,15 +32,13 @@ class WavePacketSumChart extends WaveformChart {
    * @param {WavePacket} wavePacket
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<Domain>} seriesTypeProperty
-   * @param {EnumerationProperty.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Object} [options]
    */
   constructor( componentDataSetsProperty, wavePacket, domainProperty, seriesTypeProperty,
-               xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
-               yAxisDescriptionProperty, widthIndicatorsVisibleProperty, options ) {
+               xAxisDescriptionProperty, yAxisDescriptionProperty, widthIndicatorsVisibleProperty, options ) {
     assert && assert( componentDataSetsProperty instanceof DerivedProperty );
     assert && assert( wavePacket instanceof WavePacket );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
@@ -52,8 +50,7 @@ class WavePacketSumChart extends WaveformChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( wavePacket.L, wavePacket.T, domainProperty, xAxisTickLabelFormatProperty,
-      xAxisDescriptionProperty, yAxisDescriptionProperty, options );
+    super( wavePacket.L, wavePacket.T, domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
 
     // @public
     this.wavePacket = wavePacket;

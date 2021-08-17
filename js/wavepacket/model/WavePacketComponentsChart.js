@@ -33,12 +33,11 @@ class WavePacketComponentsChart extends WaveformChart {
    * @param {WavePacket} wavePacket
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationProperty.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( wavePacket, domainProperty, seriesTypeProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
+  constructor( wavePacket, domainProperty, seriesTypeProperty, xAxisDescriptionProperty,
                yAxisDescriptionProperty, options ) {
     assert && assert( wavePacket instanceof WavePacket );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
@@ -49,8 +48,7 @@ class WavePacketComponentsChart extends WaveformChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( wavePacket.L, wavePacket.T, domainProperty, xAxisTickLabelFormatProperty,
-      xAxisDescriptionProperty, yAxisDescriptionProperty, options );
+    super( wavePacket.L, wavePacket.T, domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
 
     // @public
     this.wavePacket = wavePacket;

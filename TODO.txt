@@ -2,8 +2,6 @@ TODO.txt for fourier-making-waves
 
 Optimize to prevent collapsed charts from updating. Ask team if it's appropriate, worth it.
 
-Replace {Property} xAxisTickLabelFormatProperty in model with {function} xAxisLabelFormatter in view.
-
 Factor out XAxisHandler and YAxisHandler to handle zoom (and auto scaling?), use composition for these features?
 
 Rename WaveformChartNode, make WavePacketAmplitudesChartNode extends WaveformChartNode,

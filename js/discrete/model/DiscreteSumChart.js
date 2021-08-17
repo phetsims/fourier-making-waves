@@ -26,15 +26,13 @@ class DiscreteSumChart extends SumChart {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
-   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
-               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
-               waveformProperty, options ) {
+               xAxisDescriptionProperty, yAxisDescriptionProperty, waveformProperty, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
@@ -45,8 +43,7 @@ class DiscreteSumChart extends SumChart {
     }, options );
 
     super( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
-      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
-      options );
+      xAxisDescriptionProperty, yAxisDescriptionProperty, options );
 
     // @public
     this.waveformProperty = waveformProperty;

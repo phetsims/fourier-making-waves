@@ -13,7 +13,6 @@ import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
 import HarmonicsChart from '../../common/model/HarmonicsChart.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class WaveGameHarmonicsChart extends HarmonicsChart {
@@ -41,7 +40,6 @@ class WaveGameHarmonicsChart extends HarmonicsChart {
       new EnumerationProperty( Domain, domain ),
       new EnumerationProperty( SeriesType, seriesType ),
       new NumberProperty( t ),
-      new Property( TickLabelFormat.NUMERIC ),
 
       // Harmonics chart has a static scale for both axes, with no zoom buttons.
       new Property( xAxisDescription, { validValues: [ xAxisDescription ] } ),

@@ -11,6 +11,10 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
+import AxisDescription from './AxisDescription.js';
+import Domain from './Domain.js';
+import EmphasizedHarmonics from './EmphasizedHarmonics.js';
+import FourierSeries from './FourierSeries.js';
 import SeriesType from './SeriesType.js';
 import WaveformChart from './WaveformChart.js';
 
@@ -22,17 +26,20 @@ class HarmonicsChart extends WaveformChart {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
-   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
-               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
-               options ) {
+               xAxisDescriptionProperty, yAxisDescriptionProperty, options ) {
 
+    assert && assert( fourierSeries instanceof FourierSeries );
+    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
+    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
+    assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
 
     options = merge( {
 
@@ -40,8 +47,7 @@ class HarmonicsChart extends WaveformChart {
       yAxisDescriptionIndex: 0
     }, options );
 
-    super( fourierSeries.L, fourierSeries.T, domainProperty,
-      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
+    super( fourierSeries.L, fourierSeries.T, domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
 
     // @public
     this.fourierSeries = fourierSeries;

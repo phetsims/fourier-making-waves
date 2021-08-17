@@ -19,7 +19,6 @@ import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import SumChart from '../../common/model/SumChart.js';
-import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class WaveGameSumChart extends SumChart {
@@ -54,7 +53,6 @@ class WaveGameSumChart extends SumChart {
       new EnumerationProperty( Domain, domain ),
       new EnumerationProperty( SeriesType, seriesType ),
       new NumberProperty( t ),
-      new Property( TickLabelFormat.NUMERIC ),
 
       // Sum chart has a static x-axis scale, with no zoom buttons.
       new Property( xAxisDescription, { validValues: [ xAxisDescription ] } ),

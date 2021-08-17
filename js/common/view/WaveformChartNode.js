@@ -19,11 +19,8 @@ import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
 import WaveformChart from '../model/WaveformChart.js';
 import FMWChartNode from './FMWChartNode.js';
-import TickLabelUtils from './TickLabelUtils.js';
 
 // constants
-const X_TICK_LABEL_DECIMALS = 2;
-const Y_TICK_LABEL_DECIMALS = 1;
 const X_SPACE_LABEL = StringUtils.fillIn( fourierMakingWavesStrings.symbolUnits, {
   symbol: FMWSymbols.x,
   units: fourierMakingWavesStrings.units.meters
@@ -47,7 +44,6 @@ class WaveformChartNode extends FMWChartNode {
     const L = chart.L;
     const T = chart.T;
     const domainProperty = chart.domainProperty;
-    const xAxisTickLabelFormatProperty = chart.xAxisTickLabelFormatProperty;
     const xAxisDescriptionProperty = chart.xAxisDescriptionProperty;
     const yAxisDescriptionProperty = chart.yAxisDescriptionProperty;
 
@@ -58,23 +54,11 @@ class WaveformChartNode extends FMWChartNode {
         modelYRange: yAxisDescriptionProperty.value.range
       },
 
-      xLabelSetOptions: {
-        createLabel: value => TickLabelUtils.createTickLabelForDomain( value, X_TICK_LABEL_DECIMALS,
-          xAxisTickLabelFormatProperty.value, domainProperty.value, L, T )
-      },
-
-      yLabelSetOptions: {
-        createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
-      },
-
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 
     super( options );
-
-    // x-axis tick labels are specific to domain and format (numeric vs symbolic)
-    Property.multilink( [ domainProperty, xAxisTickLabelFormatProperty ], () => this.xTickLabels.invalidateLabelSet() );
 
     // Update the x axis.
     Property.multilink(
@@ -111,6 +95,14 @@ class WaveformChartNode extends FMWChartNode {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+
+  /**
+   * Invalidates the tick labels, which causes options.xLabelSetOptions.createLabels to be called.
+   * @public
+   */
+  updateXTickLabels() {
+    this.xTickLabels.invalidateLabelSet();
   }
 }
 

@@ -11,6 +11,8 @@ import Range from '../../../../dot/js/Range.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
+import Domain from './Domain.js';
+import FourierSeries from './FourierSeries.js';
 import SeriesType from './SeriesType.js';
 import WaveformChart from './WaveformChart.js';
 
@@ -21,22 +23,21 @@ class SumChart extends WaveformChart {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
-   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
-               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
-               options ) {
+               xAxisDescriptionProperty, yAxisDescriptionProperty, options ) {
 
+    assert && assert( fourierSeries instanceof FourierSeries );
+    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
-    assert && assert( yAxisDescriptionProperty.validValues,
-      'yAxisDescriptionProperty should have been instantiated with validValues option' );
+    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
+    assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
 
-    super( fourierSeries.L, fourierSeries.T, domainProperty,
-      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
+    super( fourierSeries.L, fourierSeries.T, domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
 
     // {DerivedProperty.<Vector2[]>} The data set for the sum. Points are ordered by increasing x value.
     const sumDataSetProperty = new DerivedProperty(

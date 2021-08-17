@@ -13,7 +13,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
 import WavePacketAmplitudesChart from './WavePacketAmplitudesChart.js';
@@ -60,13 +59,6 @@ class WavePacketModel {
       tandem: options.tandem.createTandem( 'wavePacket' )
     } );
 
-    // The format of x-axis labels for the Components and Sum charts. The view in this screen supports only numeric.
-    // We use validValues to limit this Property to its single supported value.
-    // A Property is required by some reusable components.
-    const xAxisTickLabelFormatProperty = new EnumerationProperty( TickLabelFormat, TickLabelFormat.NUMERIC, {
-      validValues: [ TickLabelFormat.NUMERIC ]
-    } );
-
     // {Property.<AxisDescription>} the x-axis description shared by the Components and Sum charts
     const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
       validValues: X_AXIS_DESCRIPTIONS
@@ -92,12 +84,12 @@ class WavePacketModel {
     } );
 
     const componentsChart = new WavePacketComponentsChart( wavePacket, domainProperty, seriesTypeProperty,
-      xAxisTickLabelFormatProperty, xAxisDescriptionProperty, componentsYAxisDescriptionProperty, {
+      xAxisDescriptionProperty, componentsYAxisDescriptionProperty, {
         tandem: chartsTandem.createTandem( 'componentsChart' )
       } );
 
     const sumChart = new WavePacketSumChart( componentsChart.componentDataSetsProperty,
-      wavePacket, domainProperty, seriesTypeProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
+      wavePacket, domainProperty, seriesTypeProperty, xAxisDescriptionProperty,
       sumYAxisDescriptionProperty, widthIndicatorsVisibleProperty, {
         tandem: chartsTandem.createTandem( 'sumChart' )
       } );

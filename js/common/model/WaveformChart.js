@@ -12,7 +12,6 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
-import TickLabelFormat from './TickLabelFormat.js';
 
 class WaveformChart {
 
@@ -20,18 +19,15 @@ class WaveformChart {
    * @param {number} L - wavelength of the fundamental harmonic, in meters
    * @param {number} T - period of the fundamental harmonic, in milliseconds
    * @param {EnumerationProperty.<Domain>} domainProperty - domain of the x axis
-   * @param {Property.<TickLabelFormat>} xAxisTickLabelFormatProperty - format of the x-axis tick labels
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty - describes the x axis
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty - describes the y axis
    * @param {Object} [options]
    */
-  constructor( L, T, domainProperty,
-               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options ) {
+  constructor( L, T, domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options ) {
 
     assert && AssertUtils.assertPositiveNumber( L );
     assert && AssertUtils.assertPositiveNumber( T );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertPropertyOf( xAxisTickLabelFormatProperty, TickLabelFormat );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
     assert && assert( xAxisDescriptionProperty.validValues,
       'xAxisDescriptionProperty should have been instantiated with validValues option' );
@@ -43,7 +39,6 @@ class WaveformChart {
     this.L = L;
     this.T = T;
     this.domainProperty = domainProperty;
-    this.xAxisTickLabelFormatProperty = xAxisTickLabelFormatProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
     this.yAxisDescriptionProperty = yAxisDescriptionProperty;
 
