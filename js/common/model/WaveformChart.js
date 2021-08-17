@@ -8,7 +8,6 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
@@ -40,10 +39,6 @@ class WaveformChart {
     assert && assert( yAxisDescriptionProperty.validValues,
       'yAxisDescriptionProperty should have been instantiated with validValues option' );
 
-    options = merge( {
-      yAutoScaleProperty: null // {null|Property.<boolean>}
-    }, options );
-
     // @public (read-only) params
     this.L = L;
     this.T = T;
@@ -51,9 +46,6 @@ class WaveformChart {
     this.xAxisTickLabelFormatProperty = xAxisTickLabelFormatProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
     this.yAxisDescriptionProperty = yAxisDescriptionProperty;
-
-    // @public (read-only) options
-    this.yAutoScaleProperty = options.yAutoScaleProperty;
 
     // @public whether this chart is visible
     this.chartVisibleProperty = new BooleanProperty( true, {

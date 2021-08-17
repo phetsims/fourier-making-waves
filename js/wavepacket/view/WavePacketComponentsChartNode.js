@@ -93,7 +93,7 @@ class WavePacketComponentsChartNode extends WaveformChartNode {
         const plots = chartCanvasNode.painters;
         const numberOfPlots = plots.length;
 
-        // The maximum amplitude, for autoscaling the y axis.
+        // The maximum amplitude, for scaling the y axis.
         let maxAmplitude = 0;
 
         const numberOfComponents = componentDataSets.length;

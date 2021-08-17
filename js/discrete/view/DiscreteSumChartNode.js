@@ -1,8 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * DiscreteSumChartNode displays the 'Sum' chart in the 'Discrete' screen. It adds zoom buttons for the x and y axes,
- * and checkboxes for 'auto scale' and 'infinite harmonics'.
+ * DiscreteSumChartNode displays the 'Sum' chart in the 'Discrete' screen. It adds x-axis zoom buttons and an
+ * 'Infinite Harmonics' checkbox.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

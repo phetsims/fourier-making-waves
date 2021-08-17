@@ -53,8 +53,8 @@ const X_AXIS_DESCRIPTION = new AxisDescription( {
 } );
 assert && assert( X_AXIS_DESCRIPTION.hasSymmetricRange(), 'X_AXIS_DESCRIPTION.range must be symmetric' );
 assert && assert( X_AXIS_DESCRIPTION.range.getLength() >= 0.5,
-  'The implementation of y-axis auto-scaling requires that at least 1/2 of the wavelength is always visible. ' +
-  'X_AXIS_DESCRIPTION violates that requirement.' );
+  'The implementation of y-axis scaling requires that at least 1/2 of the wavelength is always visible, in order to. ' +
+  'find the peak amplitude of one full wavelength of the waveform. Zooming in on the x-axis violates that requirement.' );
 
 // y-axis descriptions are the same as Discrete screen.
 const Y_AXIS_DESCRIPTIONS = DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS;

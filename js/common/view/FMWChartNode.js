@@ -68,9 +68,9 @@ class FMWChartNode extends Node {
 
       chartRectangleOptions: {
 
-        // Use the same color as the grid lines. If use a different color (e.g. 'black') then we'll see a black line
-        // appearing and disappearing at the top of the chart when the y-axis range is auto scaling. This is because
-        // sometimes a grid line will coincide with min/max of the range, and sometimes it won't.
+        // Use the same color as the grid lines. If use a different color (e.g. 'black') then we'll occasionally
+        // see a black line appearing and disappearing at the top of the chart as the y-axis range changes.
+        // This is because sometimes a grid line will coincide with min/max of the range, and sometimes it won't.
         stroke: FMWColors.chartGridLinesStrokeProperty,
         fill: 'white'
       },

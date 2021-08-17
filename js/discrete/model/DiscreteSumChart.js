@@ -38,18 +38,11 @@ class DiscreteSumChart extends SumChart {
 
     assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
-    assert && assert( !options.yAutoScaleProperty );
     options = merge( {
 
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
-
-    assert && assert( !options.yAutoScaleProperty );
-    options.yAutoScaleProperty = new BooleanProperty( true, {
-      validValues: [ true ],
-      tandem: options.tandem.createTandem( 'yAutoScaleProperty' )
-    } );
 
     super( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
@@ -86,12 +79,6 @@ class DiscreteSumChart extends SumChart {
         }
         return dataSet;
       } );
-
-    // @private
-    this.resetDiscreteSumChart = () => {
-      options.yAutoScaleProperty.reset();
-      this.infiniteHarmonicsVisibleProperty.reset();
-    };
   }
 
   /**
@@ -100,7 +87,7 @@ class DiscreteSumChart extends SumChart {
    */
   reset() {
     super.reset();
-    this.resetDiscreteSumChart();
+    this.infiniteHarmonicsVisibleProperty.reset();
   }
 }
 

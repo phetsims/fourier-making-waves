@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -46,12 +45,6 @@ class WaveGameSumChart extends SumChart {
       // phet-io
       tandem: Tandem.REQUIRED
     }, options );
-
-    // This causes the chart to auto scale to answerSeries, and must always be true.
-    assert && assert( !options.yAutoScaleProperty );
-    options.yAutoScaleProperty = new BooleanProperty( true, {
-      validValues: [ true ]
-    } );
 
     super(
       // Superclass will render the sum for the challenge answer.

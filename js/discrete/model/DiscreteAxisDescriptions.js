@@ -60,24 +60,6 @@ const DiscreteAxisDescriptions = {
   // {AxisDescription[]}
   Y_AXIS_DESCRIPTIONS: [
     new AxisDescription( {
-      range: new Range( -15, 15 ),
-      gridLineSpacing: 1,
-      tickMarkSpacing: 5,
-      tickLabelSpacing: 5
-    } ),
-    new AxisDescription( {
-      range: new Range( -10, 10 ),
-      gridLineSpacing: 1,
-      tickMarkSpacing: 5,
-      tickLabelSpacing: 5
-    } ),
-    new AxisDescription( {
-      range: new Range( -8, 8 ),
-      gridLineSpacing: 1,
-      tickMarkSpacing: 5,
-      tickLabelSpacing: 5
-    } ),
-    new AxisDescription( {
       range: new Range( -5, 5 ),
       gridLineSpacing: 1,
       tickMarkSpacing: 5,
@@ -88,12 +70,6 @@ const DiscreteAxisDescriptions = {
       gridLineSpacing: 1,
       tickMarkSpacing: 2,
       tickLabelSpacing: 2
-    } ),
-    new AxisDescription( {
-      range: new Range( -3, 3 ),
-      gridLineSpacing: 1,
-      tickMarkSpacing: 1,
-      tickLabelSpacing: 1
     } ),
     new AxisDescription( {
       range: new Range( -2, 2 ),
@@ -126,8 +102,8 @@ assert && assert(
 
 assert && assert(
   _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.range.getLength() >= 0.5 ),
-  'The implementation of y-axis auto-scaling requires that at least 1/2 of the wavelength is always visible. ' +
-  'Zooming in on the x-axis violates that requirement.' );
+  'The implementation of y-axis scaling requires that at least 1/2 of the wavelength is always visible, in order to. ' +
+  'find the peak amplitude of one full wavelength of the waveform. Zooming in on the x-axis violates that requirement.' );
 
 //TODO https://github.com/phetsims/fourier-making-waves/issues/18 delete this if we switch to an equation for Waveform.WAVE_PACKET?
 assert && assert( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS[ 0 ].range.max === 2,

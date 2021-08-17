@@ -50,11 +50,6 @@ class WaveformChartNode extends FMWChartNode {
     const xAxisTickLabelFormatProperty = chart.xAxisTickLabelFormatProperty;
     const xAxisDescriptionProperty = chart.xAxisDescriptionProperty;
     const yAxisDescriptionProperty = chart.yAxisDescriptionProperty;
-    const yAutoScaleProperty = chart.yAutoScaleProperty;
-    const yAxisAutoScaleRangeProperty = chart.yAxisAutoScaleRangeProperty;
-    assert && assert( ( !yAutoScaleProperty && !yAxisAutoScaleRangeProperty ) ||
-                      ( yAutoScaleProperty && yAxisAutoScaleRangeProperty ),
-      'yAutoScaleProperty and yAxisAutoScaleRangeProperty are both or neither' );
 
     options = merge( {
 
@@ -97,14 +92,7 @@ class WaveformChartNode extends FMWChartNode {
 
     // Update the y-axis.
     yAxisDescriptionProperty.link( yAxisDescription => {
-
-      // Range is determined by yAxisDescription only if auto scale is disabled.
-      if ( !yAutoScaleProperty || !yAutoScaleProperty.value ) {
-        this.chartTransform.setModelYRange( yAxisDescription.range );
-      }
-
-      // Grid lines and tick marks are determined by AxisDescriptions regardless of whether auto scale is enabled.
-      // This is because the model keeps AxisDescriptions in sync with yAxisAutoScaleRange.
+      // NOTE: this.chartTransform.setModelYRange is handled via yAxisRangeProperty. TODO is this accurate?
       this.yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
       this.yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
       this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );

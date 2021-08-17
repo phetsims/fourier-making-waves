@@ -40,8 +40,6 @@ class HarmonicsChart extends WaveformChart {
       yAxisDescriptionIndex: 0
     }, options );
 
-    assert && assert( !options.yAutoScaleProperty, 'y auto-scale is not currently supported' );
-
     super( fourierSeries.L, fourierSeries.T, domainProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
 

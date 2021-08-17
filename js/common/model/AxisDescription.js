@@ -60,10 +60,8 @@ class AxisDescription {
 
   //TODO This seems wrong. Don't we want to find the AxisDescription that best encloses range?
   /**
-   * Gets AxisDescription that is appropriate for a specified axis range.
+   * Gets AxisDescription that is the best-fit for a specified axis range.
    * This is the first entry in axisDescriptions such that range.max >= axisDescription.range.max.
-   * This is used to keep the y-axis description in-sync with auto scaling, but is general enough to be used with
-   * either axis.
    * @param {Range} range
    * @param {AxisDescription[]} axisDescriptions
    * @returns {AxisDescription}

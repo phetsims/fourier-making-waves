@@ -8,7 +8,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
@@ -36,12 +35,6 @@ class SumChart extends WaveformChart {
     assert && assert( yAxisDescriptionProperty.validValues,
       'yAxisDescriptionProperty should have been instantiated with validValues option' );
 
-    options = merge( {
-
-      // SumChart options
-      yAutoScaleProperty: null // {null|Property.<boolean>}
-    }, options );
-
     super( fourierSeries.L, fourierSeries.T, domainProperty,
       xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
 
@@ -52,60 +45,27 @@ class SumChart extends WaveformChart {
         fourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t )
     );
 
-    // {DerivedProperty.<number>} the peak amplitude of the sum waveform
-    const peakAmplitudeProperty = new DerivedProperty(
+    // @public {null|DerivedProperty.<Range>} range of the y axis, fitted to the sum's peak amplitude
+    this.yAxisRangeProperty = new DerivedProperty(
       [ sumDataSetProperty ],
-      dataSet => _.maxBy( dataSet, point => point.y ).y
-    );
+      sumDataSet => {
 
-    // @public {null|DerivedProperty.<Range>} auto-scale range of the y axis, fitted to the peak amplitude
-    this.yAxisAutoScaleRangeProperty = new DerivedProperty(
-      [ peakAmplitudeProperty ],
-      peakAmplitude => {
+        const peakAmplitude = _.maxBy( sumDataSet, point => point.y ).y;
 
         // no smaller than the max amplitude of one harmonic, with a bit of padding added at top and bottom
         const maxY = Math.max( fourierSeries.amplitudeRange.max, peakAmplitude * 1.05 );
         return new Range( -maxY, maxY );
       } );
 
-    const yAutoScaleProperty = options.yAutoScaleProperty;
-    if ( yAutoScaleProperty ) {
-
-      // When auto scale is enabled, link this listener to yAxisAutoScaleRangeProperty, and adjust the y-axis so
-      // that's it's appropriate for the auto-scale range.
-      const updateYAxisDescription = yAxisAutoScaleRange => {
-        assert && assert( yAutoScaleProperty.value, 'should not be called when yAutoScale is disabled' );
-        const yAxisDescriptions = yAxisDescriptionProperty.validValues;
-        yAxisDescriptionProperty.value = AxisDescription.getAxisDescriptionForRange( yAxisAutoScaleRange, yAxisDescriptions );
-      };
-
-      yAutoScaleProperty.link( yAutoScale => {
-        if ( yAutoScale ) {
-          this.yAxisAutoScaleRangeProperty.link( updateYAxisDescription );
-        }
-        else {
-          if ( this.yAxisAutoScaleRangeProperty.hasListener( updateYAxisDescription ) ) {
-            this.yAxisAutoScaleRangeProperty.unlink( updateYAxisDescription );
-          }
-        }
-      } );
-    }
-
-    // @private
-    this.resetSumChart = () => {
-      yAutoScaleProperty.reset();
-    };
+    // When the y-axis range changes, choose the best-fit for y-axis description.
+    this.yAxisRangeProperty.link( yAxisRange => {
+      const yAxisDescriptions = yAxisDescriptionProperty.validValues;
+      yAxisDescriptionProperty.value = AxisDescription.getAxisDescriptionForRange( yAxisRange, yAxisDescriptions );
+    } );
 
     // @public
     this.fourierSeries = fourierSeries;
     this.sumDataSetProperty = sumDataSetProperty;
-  }
-
-  /**
-   * @public
-   */
-  reset() {
-    this.resetSumChart();
   }
 
   /**
