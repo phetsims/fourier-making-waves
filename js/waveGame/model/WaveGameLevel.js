@@ -10,6 +10,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
@@ -158,6 +159,12 @@ class WaveGameLevel extends PhetioObject {
     // @public the number of amplitude controls (sliders) to show in the Amplitudes chart
     this.numberOfAmplitudeControlsProperty = new NumberProperty( config.defaultNumberOfAmplitudeControls, {
       range: new Range( this.answerSeries.getNumberOfNonZeroHarmonics(), this.answerSeries.harmonics.length ),
+      rangePropertyOptions: {
+        phetioDocumentation: 'Determines the range of the Amplitude Controls spinner',
+        phetioType: Property.PropertyIO( Range.RangeIO ),
+        phetioReadOnly: false,
+        phetioStudioControl: false
+      },
       tandem: config.tandem.createTandem( 'numberOfAmplitudeControlsProperty' )
     } );
 
