@@ -1,8 +1,6 @@
 TODO.txt for fourier-making-waves
 
-Vector2 pooling
-createFromPool: Fourier.js, Harmonic.js, Waveform.js
-freeToPool: HarmonicChart.js, SumChart.js -- where is Infinite Harmonics data set freed to pool?
+Should amplitudeProperty has `isValidValue` to limit number of decimal places?
 
 Optimize to prevent collapsed charts from updating. Ask team if it's appropriate, worth it.
 
