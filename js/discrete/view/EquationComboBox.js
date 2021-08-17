@@ -76,7 +76,7 @@ const CHOICES = [
       symbol2: FMWSymbols.omega
     } ),
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: 'spatialWaveNumberAndAngularWaveNumber'
+    tandemName: 'spatialWaveNumberAndAngularWaveNumberItem'
   },
   {
     value: EquationForm.MODE,
