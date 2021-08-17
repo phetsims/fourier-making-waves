@@ -46,9 +46,9 @@ class WavePacketAmplitudesChart {
     this.domainProperty = domainProperty;
     this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
 
-    // @public whether this chart is visible
-    this.chartVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
+    // @public whether this chart is expanded
+    this.chartExpandedProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'chartExpandedProperty' )
     } );
 
     // @public
@@ -168,7 +168,7 @@ class WavePacketAmplitudesChart {
    * @public
    */
   reset() {
-    this.chartVisibleProperty.reset();
+    this.chartExpandedProperty.reset();
     this.continuousWaveformVisibleProperty.reset();
   }
 }

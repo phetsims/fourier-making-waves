@@ -38,9 +38,9 @@ class WaveformChart {
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
     this.yAxisDescriptionProperty = yAxisDescriptionProperty;
 
-    // @public whether this chart is visible
-    this.chartVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
+    // @public whether this chart is expanded
+    this.chartExpandedProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'chartExpandedProperty' )
     } );
   }
 
@@ -48,7 +48,7 @@ class WaveformChart {
    * @public
    */
   reset() {
-    this.chartVisibleProperty.reset();
+    this.chartExpandedProperty.reset();
   }
 }
 

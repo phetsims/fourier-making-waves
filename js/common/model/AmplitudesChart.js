@@ -30,9 +30,9 @@ class AmplitudesChart {
     this.fourierSeries = fourierSeries;
     this.emphasizedHarmonics = emphasizedHarmonics;
 
-    // @public
-    this.chartVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'chartVisibleProperty' )
+    // @public whether this chart is expanded
+    this.chartExpandedProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'chartExpandedProperty' )
     } );
   }
 
@@ -40,7 +40,7 @@ class AmplitudesChart {
    * @public
    */
   reset() {
-    this.chartVisibleProperty.reset();
+    this.chartExpandedProperty.reset();
   }
 }
 

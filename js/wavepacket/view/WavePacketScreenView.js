@@ -78,7 +78,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Button to show/hide the Amplitudes chart and its related UI element
     const amplitudesExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.amplitudesOfFourierComponents, model.amplitudesChart.chartVisibleProperty, {
+      fourierMakingWavesStrings.amplitudesOfFourierComponents, model.amplitudesChart.chartExpandedProperty, {
         textOptions: { maxWidth: 300 },
         tandem: amplitudesTandem.createTandem( 'amplitudesExpandCollapseButton' )
       } );
@@ -104,10 +104,10 @@ class WavePacketScreenView extends ScreenView {
         tandem: amplitudesTandem.createTandem( 'continuousWaveformCheckbox' )
       } );
 
-    // All of the elements that should be hidden when chartVisibleProperty is set to false.
-    // That can be done using amplitudesExpandCollapseButton, or by changing amplitudesChart.chartVisibleProperty via PhET-iO.
+    // All of the elements that should be hidden when chartExpandedProperty is set to false.
+    // That can be done using amplitudesExpandCollapseButton, or by changing amplitudesChart.chartExpandedProperty via PhET-iO.
     const amplitudesParentNode = new Node( {
-      visibleProperty: model.amplitudesChart.chartVisibleProperty,
+      visibleProperty: model.amplitudesChart.chartExpandedProperty,
       children: [ amplitudesChartNode, amplitudeEquationNode, continuousWaveformCheckbox ]
     } );
 
@@ -120,7 +120,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Button to show/hide the Components chart and its related UI element
     const componentsExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.fourierComponents, model.componentsChart.chartVisibleProperty, {
+      fourierMakingWavesStrings.fourierComponents, model.componentsChart.chartExpandedProperty, {
         tandem: componentsTandem.createTandem( 'componentsExpandCollapseButton' )
       } );
 
@@ -135,10 +135,10 @@ class WavePacketScreenView extends ScreenView {
       tandem: componentsTandem.createTandem( 'componentsEquationNode' )
     } );
 
-    // All of the elements that should be hidden when chartVisibleProperty is set to false.
-    // That can be done using harmonicsExpandCollapseButton, or by changing harmonicsChart.chartVisibleProperty via PhET-iO.
+    // All of the elements that should be hidden when chartExpandedProperty is set to false.
+    // That can be done using harmonicsExpandCollapseButton, or by changing harmonicsChart.chartExpandedProperty via PhET-iO.
     const componentsParentNode = new Node( {
-      visibleProperty: model.componentsChart.chartVisibleProperty,
+      visibleProperty: model.componentsChart.chartExpandedProperty,
       children: [ componentsChartNode, componentsEquationNode ]
     } );
 
@@ -151,7 +151,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Button to show/hide the Sum chart and its related UI element
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.sum, model.sumChart.chartVisibleProperty, {
+      fourierMakingWavesStrings.sum, model.sumChart.chartExpandedProperty, {
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
       } );
 
@@ -172,10 +172,10 @@ class WavePacketScreenView extends ScreenView {
       tandem: sumTandem.createTandem( 'waveformEnvelopeCheckbox' )
     } );
 
-    // All of the elements that should be hidden when chartVisibleProperty is set to false.
-    // That can be done using sumExpandCollapseButton, or by changing sumChart.chartVisibleProperty via PhET-iO.
+    // All of the elements that should be hidden when chartExpandedProperty is set to false.
+    // That can be done using sumExpandCollapseButton, or by changing sumChart.chartExpandedProperty via PhET-iO.
     const sumParentNode = new Node( {
-      visibleProperty: model.sumChart.chartVisibleProperty,
+      visibleProperty: model.sumChart.chartExpandedProperty,
       children: [ sumChartNode, sumEquationNode, waveformEnvelopeCheckbox ]
     } );
 
@@ -335,9 +335,9 @@ class WavePacketScreenView extends ScreenView {
 
         // Visible if either the Components or Sum chart is visible.
         visibleProperty: new DerivedProperty(
-          [ lengthToolVisibleProperty, model.componentsChart.chartVisibleProperty, model.sumChart.chartVisibleProperty ],
-          ( lengthToolVisible, componentsChartVisible, sumChartVisible ) =>
-            lengthToolVisible && ( componentsChartVisible || sumChartVisible )
+          [ lengthToolVisibleProperty, model.componentsChart.chartExpandedProperty, model.sumChart.chartExpandedProperty ],
+          ( lengthToolVisible, componentsChartExpanded, sumChartExpanded ) =>
+            lengthToolVisible && ( componentsChartExpanded || sumChartExpanded )
         ),
         tandem: measurementToolsTandem.createTandem( 'lengthToolNode' )
       } );

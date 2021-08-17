@@ -109,10 +109,10 @@ class DiscreteScreenView extends ScreenView {
       tandem: amplitudesTandem.createTandem( 'eraserButton' )
     } ) );
 
-    // All of the elements that should be hidden when chartVisibleProperty is set to false.
-    // In this screen, amplitudesChart.chartVisibleProperty can only be changed via PhET-iO.
+    // All of the elements that should be hidden when chartExpandedProperty is set to false.
+    // In this screen, amplitudesChart.chartExpandedProperty can only be changed via PhET-iO.
     const amplitudesParentNode = new Node( {
-      visibleProperty: model.amplitudesChart.chartVisibleProperty,
+      visibleProperty: model.amplitudesChart.chartExpandedProperty,
       children: [ amplitudesChartNode, eraserButton ]
     } );
 
@@ -125,7 +125,7 @@ class DiscreteScreenView extends ScreenView {
 
     // Button to show/hide the Harmonics chart and its related UI element
     const harmonicsExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.harmonicsChart, model.harmonicsChart.chartVisibleProperty, {
+      fourierMakingWavesStrings.harmonicsChart, model.harmonicsChart.chartExpandedProperty, {
         tandem: harmonicsTandem.createTandem( 'harmonicsExpandCollapseButton' )
       } );
 
@@ -142,10 +142,10 @@ class DiscreteScreenView extends ScreenView {
         visiblePropertyOptions: { phetioReadOnly: true }
       } );
 
-    // All of the elements that should be hidden when chartVisibleProperty is set to false.
-    // That can be done using harmonicsExpandCollapseButton, or by changing harmonicsChart.chartVisibleProperty via PhET-iO.
+    // All of the elements that should be hidden when chartExpandedProperty is set to false.
+    // That can be done using harmonicsExpandCollapseButton, or by changing harmonicsChart.chartExpandedProperty via PhET-iO.
     const harmonicsParentNode = new Node( {
-      visibleProperty: model.harmonicsChart.chartVisibleProperty,
+      visibleProperty: model.harmonicsChart.chartExpandedProperty,
       children: [ harmonicsChartNode, harmonicsEquationNode ]
     } );
 
@@ -158,13 +158,12 @@ class DiscreteScreenView extends ScreenView {
 
     // Button to show/hide the Sum chart and its related UI element
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.sum, model.sumChart.chartVisibleProperty, {
+      fourierMakingWavesStrings.sum, model.sumChart.chartExpandedProperty, {
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
       } );
 
     // Sum chart
     const sumChartNode = new DiscreteSumChartNode( model.sumChart, model.waveformProperty, {
-      visibleProperty: model.sumChart.chartVisibleProperty,
       tandem: sumTandem.createTandem( 'sumChartNode' )
     } );
 
@@ -208,10 +207,10 @@ class DiscreteScreenView extends ScreenView {
       infiniteHarmonicsCheckbox.enabled = ( waveform !== Waveform.CUSTOM && waveform !== Waveform.WAVE_PACKET );
     } );
 
-    // All of the elements that should be hidden when chartVisibleProperty is set to false.
-    // That can be done using sumExpandCollapseButton, or by changing sumChart.chartVisibleProperty via PhET-iO.
+    // All of the elements that should be hidden when chartExpandedProperty is set to false.
+    // That can be done using sumExpandCollapseButton, or by changing sumChart.chartExpandedProperty via PhET-iO.
     const sumParentNode = new Node( {
-      visibleProperty: model.sumChart.chartVisibleProperty,
+      visibleProperty: model.sumChart.chartExpandedProperty,
       children: [ sumChartNode, sumEquationParentNode, infiniteHarmonicsCheckbox ]
     } );
 
