@@ -108,7 +108,8 @@ class DiscreteMeasurementToolNode extends Node {
     const dragListener = new DragListener( {
       positionProperty: positionProperty,
       dragBoundsProperty: dragBoundsProperty,
-      tandem: options.tandem.createTandem( 'dragListener' )
+      tandem: options.tandem.createTandem( 'dragListener' ),
+      phetioEnabledPropertyInstrumented: true
     } );
     this.addInputListener( dragListener );
 

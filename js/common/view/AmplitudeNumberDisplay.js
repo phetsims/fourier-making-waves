@@ -102,7 +102,8 @@ class AmplitudeNumberDisplay extends VBox {
           }
         );
       },
-      tandem: options.tandem.createTandem( 'pressListener' )
+      tandem: options.tandem.createTandem( 'pressListener' ),
+      phetioEnabledPropertyInstrumented: true
     } );
     this.addInputListener( pressListener );
 

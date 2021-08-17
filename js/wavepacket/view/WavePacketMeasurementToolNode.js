@@ -131,7 +131,8 @@ class WavePacketMeasurementToolNode extends Node {
     this.addInputListener( new DragListener( {
       positionProperty: positionProperty,
       dragBoundsProperty: dragBoundsProperty,
-      tandem: options.tandem.createTandem( 'dragListener' )
+      tandem: options.tandem.createTandem( 'dragListener' ),
+      phetioEnabledPropertyInstrumented: true
     } ) );
 
     // pdom - dragging using the keyboard
