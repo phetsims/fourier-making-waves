@@ -249,6 +249,8 @@ to receive that specific version.-->
             phetioClient.invoke( amplitudePropertyID, 'setValue', [ amplitude ] );
           }
 
+          //TODO View must done after model because the model is randomly determining which zero-amplitude harmonics have visible controls.
+
           // Set visibility of amplitude Sliders and NumberDisplays. Do this AFTER changing elements of the model.
           // As the model changes, it sends out notifications that result in view changes. If you try to change the
           // view before the model, those notifications are likely to undo your view changes.
