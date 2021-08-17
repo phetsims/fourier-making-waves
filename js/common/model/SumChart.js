@@ -36,6 +36,7 @@ class SumChart extends WaveformChart {
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
     assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
+    assert && assert( yAxisDescriptionProperty.validValues );
 
     super( fourierSeries.L, fourierSeries.T, domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
 

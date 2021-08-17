@@ -29,11 +29,7 @@ class WaveformChart {
     assert && AssertUtils.assertPositiveNumber( T );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
-    assert && assert( xAxisDescriptionProperty.validValues,
-      'xAxisDescriptionProperty should have been instantiated with validValues option' );
     assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
-    assert && assert( yAxisDescriptionProperty.validValues,
-      'yAxisDescriptionProperty should have been instantiated with validValues option' );
 
     // @public (read-only) params
     this.L = L;

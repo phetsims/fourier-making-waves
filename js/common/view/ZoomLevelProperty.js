@@ -25,6 +25,7 @@ class ZoomLevelProperty extends NumberProperty {
    */
   constructor( axisDescriptionProperty, options ) {
     assert && AssertUtils.assertPropertyOf( axisDescriptionProperty, AxisDescription );
+    assert && assert( axisDescriptionProperty.validValues );
 
     const axisDescriptions = axisDescriptionProperty.validValues;
     assert && assert( axisDescriptions, 'axisDescriptionProperty should have been defined with validValues option' );
