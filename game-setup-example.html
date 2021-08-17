@@ -204,7 +204,9 @@ to receive that specific version.-->
           // The array is ordered by increasing harmonic order, i.e. the fundamental is harmonics[0].
           // amplitude is a value in the range [-1.5, 1.5] with at most 1 decimal place.
           // controlVisible determines whether the Slider and NumberDisplay for the harmonic are visible,
-          // defaults to true for non-zero amplitudes, and setting to false for non-zero harmonics is an error.
+          // defaults to false for harmonics with amplitude === 0,
+          // defaults to true for harmonics with amplitude !== 0,
+          // and setting to false for harmonics with amplitude !== 0 is an error.
           const harmonics = [
             { amplitude: 0.1 },
             { amplitude: 0, controlsVisible: true },
