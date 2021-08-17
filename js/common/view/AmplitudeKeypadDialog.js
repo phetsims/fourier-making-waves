@@ -59,7 +59,10 @@ class AmplitudeKeypadDialog extends Dialog {
         // a little below center, so that it does not overlap the Amplitudes chart
         dialog.centerX = dialog.layoutBounds.centerX;
         dialog.centerY = dialog.layoutBounds.centerY + 50;
-      }
+      },
+
+      // phet-io
+      phetioReadOnly: true
     }, options );
 
     // Compute the maximum number of digits that can be entered on the keypad.

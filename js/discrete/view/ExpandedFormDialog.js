@@ -51,7 +51,10 @@ class ExpandedFormDialog extends Dialog {
     options = merge( {
 
       // Dialog options
-      xSpacing: 30
+      xSpacing: 30,
+
+      // phet-io
+      phetioReadOnly: true
     }, options );
 
     assert && assert( !options.title, 'ExpandedFormDialog sets children' );

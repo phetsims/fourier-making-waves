@@ -30,8 +30,10 @@ class WaveGameInfoDialog extends Dialog {
 
       // Dialog options
       ySpacing: 20,
-      bottomMargin: 20
+      bottomMargin: 20,
 
+      // phet-io
+      phetioReadOnly: true
     }, options );
 
     assert && assert( !options.title, 'WaveGameInfoDialog sets title' );

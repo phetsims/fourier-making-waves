@@ -30,7 +30,10 @@ class WavePacketInfoDialog extends Dialog {
 
       // Dialog options
       xSpacing: 30,
-      cornerRadius: FMWConstants.PANEL_CORNER_RADIUS
+      cornerRadius: FMWConstants.PANEL_CORNER_RADIUS,
+
+      // phet-io
+      phetioReadOnly: true
     }, options );
 
     assert && assert( !options.title, 'WavePacketInfoDialog sets children' );
