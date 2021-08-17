@@ -41,6 +41,9 @@ const FMWConstants = {
   // the value changes from one [] to another [].  This is a performance optimization.
   EMPTY_DATA_SET: Object.freeze( [] ),
 
+  // Number of levels in the Wave Game
+  NUMBER_OF_GAME_LEVELS: 5,
+
   // View ============================================================================================================
 
   SCREEN_VIEW_X_MARGIN: 15,

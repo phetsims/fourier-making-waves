@@ -26,6 +26,30 @@ const SCHEMA = {
     isValidValue: value => ( value > 0 ) && Number.isInteger( value )
   },
 
+  // The levels to show in the Wave Game screen.
+  // The level numbers must be unique, valid, and in ascending order.
+  // See https://github.com/phetsims/fourier-making-waves/issues/145
+  gameLevels: {
+    public: true,
+    type: 'array',
+    elementSchema: {
+      type: 'number',
+      isValidValue: Number.isInteger
+    },
+    defaultValue: null,
+    isValidValue: array => {
+      return ( array === null ) || (
+        array.length > 0 &&
+        // unique level numbers
+        array.length === _.uniq( array ).length &&
+        // valid level numbers
+        _.every( array, element => element >= 1 && element <= FMWConstants.NUMBER_OF_GAME_LEVELS ) &&
+        // sorted by ascending level number
+        _.every( array, ( value, index, array ) => ( index === 0 || array[ index - 1 ] <= value ) )
+      );
+    }
+  },
+
   //------------------------------------------------------------------------------------------------------------------
   // Internal query parameters
   //------------------------------------------------------------------------------------------------------------------

@@ -82,6 +82,7 @@ class WaveGameModel {
         tandem: options.tandem.createTandem( 'level5' )
       } )
     ];
+    assert && assert( this.levels.length === FMWConstants.NUMBER_OF_GAME_LEVELS );
 
     // @public {Property.<null|WaveGameLevel>} the selected game level
     // null means 'no selection' and causes the view to return to the level-selection UI
