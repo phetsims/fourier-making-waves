@@ -44,6 +44,7 @@ class FourierSeries extends PhetioObject {
       numberOfHarmonics: FMWConstants.MAX_HARMONICS,
       amplitudeRange: DEFAULT_AMPLITUDE_RANGE, // {Range} the range of all harmonic amplitudes
       amplitudes: DEFAULT_AMPLITUDES, // {number[]} initial amplitudes for the harmonics
+      amplitudeDecimalPlaces: FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES,
 
       // phet-io options
       tandem: Tandem.OPTIONAL,
@@ -84,6 +85,7 @@ class FourierSeries extends PhetioObject {
         colorProperty: FMWColors.HARMONIC_COLOR_PROPERTIES[ order - 1 ],
         amplitude: options.amplitudes[ order - 1 ],
         amplitudeRange: this.amplitudeRange,
+        amplitudeDecimalPlaces: options.amplitudeDecimalPlaces,
         tandem: harmonicsTandem.createTandem( `harmonic${order}` )
       } ) );
     }
