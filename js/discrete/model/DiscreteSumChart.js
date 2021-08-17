@@ -64,14 +64,14 @@ class DiscreteSumChart extends SumChart {
     // using a Fourier series with an infinite number of harmonics. If the preset is not visible, then returns
     // EMPTY_DATA_SET.
     this.infiniteHarmonicsDataSetProperty = new DerivedProperty(
-      [ this.infiniteHarmonicsVisibleProperty, waveformProperty, domainProperty, seriesTypeProperty, tProperty ],
-      ( infiniteHarmonicsVisible, waveform, domain, seriesType, t ) => {
+      [ this.infiniteHarmonicsVisibleProperty, this.sumDataSetProperty, waveformProperty, domainProperty, seriesTypeProperty, tProperty ],
+      ( infiniteHarmonicsVisible, sumDataSet, waveform, domain, seriesType, t ) => {
         let dataSet = EMPTY_DATA_SET;
         if ( infiniteHarmonicsVisible ) {
           if ( waveform === Waveform.SINUSOID ) {
 
             // Identical to the sum, so reuse the sum's data set.
-            dataSet = this.sumDataSetProperty.value;
+            dataSet = sumDataSet;
           }
           else {
             dataSet = waveform.getInfiniteHarmonicsDataSet( domain, seriesType, t, L, T );
