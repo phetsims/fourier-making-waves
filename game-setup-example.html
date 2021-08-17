@@ -202,69 +202,50 @@ to receive that specific version.-->
           // The game level that you're working with.
           const level = 3;
 
-          // {Array:<{amplitude:number, [controlsVisible:boolean]}
-          // Data structure that describes the harmonics in a Wave Game challenge.
-          // The array is ordered by increasing harmonic order, i.e. the fundamental is harmonics[0].
-          // amplitude is a value in the range [-1.5, 1.5] with at most 1 decimal place.
-          // controlVisible determines whether the Slider and NumberDisplay for the harmonic are visible,
-          // defaults to false for harmonics with amplitude === 0,
-          // defaults to true for harmonics with amplitude !== 0,
-          // and setting to false for harmonics with amplitude !== 0 is an error.
-          const harmonics = [
-            { amplitude: 0.1 },
-            { amplitude: 0, controlsVisible: true },
-            { amplitude: 0.3 },
-            { amplitude: 0, controlsVisible: true },
-            { amplitude: 0.5 },
-            { amplitude: 0 },
-            { amplitude: 0.7 },
-            { amplitude: 0 },
-            { amplitude: 0.9 },
-            { amplitude: 0 },
-            { amplitude: 1.1 },
-          ];
-          assert && assert( harmonics.length === NUMBER_OF_HARMONICS, `you must provide ${NUMBER_OF_HARMONICS} harmonics` );
+          // amplitude an array of harmonic amplitudes in the range [-1.5, 1.5], with at most 1 decimal place.
+          // controlsVisible is an array of booleans indicating which harmonics should have amplitude controls visible.
+          // Both arrays are ordered by increasing harmonic order, i.e. the fundamental is harmonics[0].
+          const amplitudes = [ 0.1, 0, 0.3, 0, 0.5, 0, 0.7, 0, 0.9, 0, 1.1 ];
+          const controlsVisible = [ true, true, true, true, true, false, true, false, true, false, true ];
+          assert && assert( amplitudes.length === NUMBER_OF_HARMONICS, `you must provide ${NUMBER_OF_HARMONICS} amplitudes` );
+          assert && assert( controlsVisible.length === NUMBER_OF_HARMONICS, `you must provide ${NUMBER_OF_HARMONICS} controlsVisible` );
 
           // Adjust the range of the 'Amplitude Controls' spinner.
           const numberOfAmplitudeControlsRangePropertyID = `fourierMakingWaves.waveGameScreen.model.level${level}.numberOfAmplitudeControlsProperty.rangeProperty`;
           const numberOfAmplitudeControlsRange = {
-            min: _.filter( harmonics, object => object.amplitude !== 0 ).length,
-            max: harmonics.length
+            min: _.filter( amplitudes, amplitude => ( amplitude !== 0 ) ).length,
+            max: amplitudes.length
           };
           phetioClient.invoke( numberOfAmplitudeControlsRangePropertyID, 'setValue', [ numberOfAmplitudeControlsRange ] );
 
           // Adjust the value of the 'Amplitude Controls' spinner.
           const numberOfAmplitudeControlsPropertyID = `fourierMakingWaves.waveGameScreen.model.level${level}.numberOfAmplitudeControlsProperty`;
-          const numberOfAmplitudeControls = _.filter( harmonics, object => ( object.amplitude !== 0 || object.controlsVisible === true ) ).length;
+          const numberOfAmplitudeControls = _.filter( controlsVisible, controlVisible => ( controlVisible === true ) ).length;
           phetioClient.invoke( numberOfAmplitudeControlsPropertyID, 'setValue', [ numberOfAmplitudeControls ] );
 
           // Set the amplitude values for the challenge answer.
-          for ( let i = 0; i < harmonics.length; i++ ) {
+          for ( let i = 0; i < amplitudes.length; i++ ) {
             const order = i + 1;
-            const amplitude = harmonics[ i ].amplitude;
-            assert && assert( amplitude !== undefined, `harmonic ${order} is missing the amplitude field` );
-            assert && assert( amplitude >= -MAX_AMPLITUDE && amplitude <= MAX_AMPLITUDE, `harmonic ${order} amplitude is out of range: ${amplitude}` );
+            const amplitude = amplitudes[ i ];
+            assert && assert( amplitude >= -MAX_AMPLITUDE && amplitude <= MAX_AMPLITUDE, `amplitude is out of range: ${amplitude}` );
             assert && assert( ( amplitude.toFixed( 0 ) === '' + amplitude ) || ( amplitude.toFixed( 1 ) === '' + amplitude ),
-              `harmonic ${order} amplitude has more than 1 decimal place: ${amplitude}` );
+              `amplitude has more than 1 decimal place: ${amplitude}` );
             const amplitudePropertyID = `fourierMakingWaves.waveGameScreen.model.level${level}.answerSeries.harmonics.harmonic${order}.amplitudeProperty`;
             phetioClient.invoke( amplitudePropertyID, 'setValue', [ amplitude ] );
           }
 
-          //TODO View must done after model because the model is randomly determining which zero-amplitude harmonics have visible controls.
-
           // Set visibility of amplitude Sliders and NumberDisplays. Do this AFTER changing elements of the model.
           // As the model changes, it sends out notifications that result in view changes. If you try to change the
           // view before the model, those notifications are likely to undo your view changes.
-          for ( let i = 0; i < harmonics.length; i++ ) {
+          for ( let i = 0; i < controlsVisible.length; i++ ) {
             const order = i + 1;
-            const amplitude = harmonics[ i ].amplitude;
-            const controlsVisible = harmonics[ i ].controlsVisible;
-            assert && assert( !( amplitude !== 0 && controlsVisible === false ), `harmonic ${order} has a non-zero amplitude and controlsVisible: false` );
-            const visible = ( amplitude !== 0 ) || ( controlsVisible === true );
+            const amplitude = amplitudes[ i ];
+            const controlVisible = controlsVisible[ i ];
+            assert && assert( !( amplitude !== 0 && controlsVisible === false ), `index ${i} has a non-zero amplitude and controlsVisible: false` );
             const numberDisplayVisiblePropertyID = `fourierMakingWaves.waveGameScreen.view.level${level}Node.charts.amplitudes.amplitudesChartNode.amplitude${order}NumberDisplay.visibleProperty`;
-            phetioClient.invoke( numberDisplayVisiblePropertyID, 'setValue', [ visible ] );
+            phetioClient.invoke( numberDisplayVisiblePropertyID, 'setValue', [ controlVisible ] );
             const sliderVisiblePropertyID = `fourierMakingWaves.waveGameScreen.view.level${level}Node.charts.amplitudes.amplitudesChartNode.amplitude${order}Slider.visibleProperty`;
-            phetioClient.invoke( sliderVisiblePropertyID, 'setValue', [ visible ] );
+            phetioClient.invoke( sliderVisiblePropertyID, 'setValue', [ controlVisible ] );
           }
 
           // END EXAMPLE ==============================================================================
