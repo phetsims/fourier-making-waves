@@ -2,8 +2,8 @@
 
 /**
  * WaveformChartNode is the base class for charts that supports multiple domains and multiple formats for its
- * labels and values.  Labels can be in space or time domains. Values can numeric (as plain old numbers) or
- * symbolic (as coefficients with symbols).
+ * labels and values.  Labels can be in space or time domains. Values can be displayed as numeric (as plain old numbers)
+ * or symbolic (as coefficients with symbols).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
