@@ -130,7 +130,8 @@ class WavePacketMeasurementToolNode extends Node {
     // Dragging, constrained to bounds.
     this.addInputListener( new DragListener( {
       positionProperty: positionProperty,
-      dragBoundsProperty: dragBoundsProperty
+      dragBoundsProperty: dragBoundsProperty,
+      tandem: options.tandem.createTandem( 'dragListener' )
     } ) );
 
     // pdom - dragging using the keyboard

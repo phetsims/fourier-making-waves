@@ -107,7 +107,8 @@ class DiscreteMeasurementToolNode extends Node {
     // constrain the entire tool to be within the drag bounds. So just the origin is constrained.
     const dragListener = new DragListener( {
       positionProperty: positionProperty,
-      dragBoundsProperty: dragBoundsProperty
+      dragBoundsProperty: dragBoundsProperty,
+      tandem: options.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( dragListener );
 
