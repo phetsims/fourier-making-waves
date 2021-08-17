@@ -16,6 +16,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
@@ -67,6 +68,14 @@ class WaveGameLevelSelectionNode extends Node {
         tandem: options.tandem.createTandem( `level${level.levelNumber}SelectionButton` )
       } )
     );
+
+    // Hide buttons for levels that are not included in gameLevels query parameter.
+    // We must still create these buttons so that we don't change the PhET-iO API.
+    if ( FMWQueryParameters.gameLevels ) {
+      levelSelectionButtons.forEach( button => {
+        button.visible = FMWQueryParameters.gameLevels.includes( button.level.levelNumber );
+      } );
+    }
 
     // Lay out the level-selection buttons in a grid.
     const BUTTONS_PER_ROW = 3;
