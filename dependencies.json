@@ -1,5 +1,5 @@
 {
-  "comment": "# fourier-making-waves 1.0.0-dev.43 Mon Aug 16 2021 16:52:38 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# fourier-making-waves 1.0.0-dev.44 Tue Aug 17 2021 18:40:18 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "master"
@@ -17,15 +17,15 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "1d62c312200ee7628b55c43969d6492176ce1429",
+    "sha": "6e352103c79b646b89ce49b8ee4c50141722aa30",
     "branch": "master"
   },
   "dot": {
-    "sha": "9973679df035b87793ad35190c79eebdfd959166",
+    "sha": "00d9b249a9bd804a0f71029ef7506376ca37236b",
     "branch": "master"
   },
   "fourier-making-waves": {
-    "sha": "895d2df63a6cdfc0c87e449b7ca82b85b39fe0d8",
+    "sha": "6b0667fd7a9299b014a643f5c22e0733146659d8",
     "branch": "master"
   },
   "joist": {
@@ -33,7 +33,7 @@
     "branch": "master"
   },
   "kite": {
-    "sha": "a5a45cba30bc83d0400d83f03c7e4ffe06d75501",
+    "sha": "2386606ce9190fce00456352044b5d0ca97686f0",
     "branch": "master"
   },
   "perennial-alias": {
@@ -69,15 +69,15 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "1c6facfc2ecaddfe504f7914db370d7ae80fd35f",
+    "sha": "b42bf676ca603dcdffd003da62923da8a5cc6452",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "b3963e81730197db27d02e03a7bd1baf612cc9bd",
+    "sha": "d1bc506f511076df549ea98c2ba3ea0c612cb312",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "eccff937712366a696d6df778546779bc4e36821",
+    "sha": "b6fa8ae5c805a6d764b8a1c8d851ec0f72e1b82a",
     "branch": "master"
   },
   "studio": {
@@ -105,7 +105,7 @@
     "branch": "master"
   },
   "vegas": {
-    "sha": "a56c326b858b7607bf1fbcaa4b39421b2d503a21",
+    "sha": "cb5f23512a31480db58b2d4f58d2c40adfef008b",
     "branch": "master"
   }
 }
