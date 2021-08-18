@@ -14,9 +14,9 @@ import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
 import FourierSeries from './FourierSeries.js';
 import SeriesType from './SeriesType.js';
-import WaveformChart from './WaveformChart.js';
+import DomainChart from './DomainChart.js';
 
-class SumChart extends WaveformChart {
+class SumChart extends DomainChart {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -38,7 +38,7 @@ class SumChart extends WaveformChart {
     assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
     assert && assert( yAxisDescriptionProperty.validValues );
 
-    super( fourierSeries.L, fourierSeries.T, domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
+    super( domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, fourierSeries.L, fourierSeries.T, options );
 
     // {DerivedProperty.<Vector2[]>} The data set for the sum. Points are ordered by increasing x value.
     const sumDataSetProperty = new DerivedProperty(

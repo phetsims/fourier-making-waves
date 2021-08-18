@@ -17,7 +17,7 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import WaveformChart from '../../common/model/WaveformChart.js';
+import DomainChart from '../../common/model/DomainChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
 import WavePacketComponentsChart from './WavePacketComponentsChart.js';
@@ -25,7 +25,7 @@ import WavePacketComponentsChart from './WavePacketComponentsChart.js';
 // constants
 const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 
-class WavePacketSumChart extends WaveformChart {
+class WavePacketSumChart extends DomainChart {
 
   /**
    * @param {DerivedProperty.<Array.<Array.<Vector2>>>} componentDataSetsProperty
@@ -50,7 +50,7 @@ class WavePacketSumChart extends WaveformChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( wavePacket.L, wavePacket.T, domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
+    super( domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, wavePacket.L, wavePacket.T, options );
 
     // @public
     this.wavePacket = wavePacket;

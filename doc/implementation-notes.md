@@ -87,7 +87,7 @@ AmplitudesChart
 
 WavePacketAmplitudesChart
 
-WaveformChart
+DomainChart
     ↳ HarmonicsChart
         ↳ DiscreteHarmonicsChart
         ↳ WaveGameHarmonicsChart
@@ -106,7 +106,7 @@ Node
         ↳ DiscreteAmplitudesChartNode
         ↳ WaveGameAmplitudesChartNode
     ↳ FMWChartNode
-        ↳ WaveformChartNode
+        ↳ DomainChartNode
             ↳ HarmonicsChartNode
                 ↳ DiscreteHarmonicsChartNode
                 ↳ WaveGameHarmonicsChartNode

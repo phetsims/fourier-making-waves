@@ -1,9 +1,8 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * WaveformChartNode is the base class for charts that supports multiple domains and multiple formats for their
- * labels and values.  Labels can be in space or time domains. Values can be displayed as numeric (as plain old numbers)
- * or symbolic (as coefficients with symbols).
+ * DomainChartNode is the base class for charts that need to modify their presentation to match a domain -
+ * space, time, or space-&-time.  This affects the axis labels, tick labels, spacing of grid lines and tick marks, etc.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,7 +16,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
-import WaveformChart from '../model/WaveformChart.js';
+import DomainChart from '../model/DomainChart.js';
 import FMWChartNode from './FMWChartNode.js';
 
 // constants
@@ -30,22 +29,22 @@ const X_TIME_LABEL = StringUtils.fillIn( fourierMakingWavesStrings.symbolUnits, 
   units: fourierMakingWavesStrings.units.milliseconds
 } );
 
-class WaveformChartNode extends FMWChartNode {
+class DomainChartNode extends FMWChartNode {
 
   /**
-   * @param {WaveformChart} chart
+   * @param {DomainChart} chart
    * @param {Object} [options]
    */
   constructor( chart, options ) {
 
-    assert && assert( chart instanceof WaveformChart );
+    assert && assert( chart instanceof DomainChart );
 
     // Fields of interest in chart, to improve readability
-    const L = chart.L;
-    const T = chart.T;
     const domainProperty = chart.domainProperty;
     const xAxisDescriptionProperty = chart.xAxisDescriptionProperty;
     const yAxisDescriptionProperty = chart.yAxisDescriptionProperty;
+    const L = chart.L;
+    const T = chart.T;
 
     options = merge( {
 
@@ -98,5 +97,5 @@ class WaveformChartNode extends FMWChartNode {
   }
 }
 
-fourierMakingWaves.register( 'WaveformChartNode', WaveformChartNode );
-export default WaveformChartNode;
+fourierMakingWaves.register( 'DomainChartNode', DomainChartNode );
+export default DomainChartNode;

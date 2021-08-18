@@ -17,7 +17,7 @@ import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
-import WaveformChartNode from '../../common/view/WaveformChartNode.js';
+import DomainChartNode from '../../common/view/DomainChartNode.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketSumChart from '../model/WavePacketSumChart.js';
@@ -27,7 +27,7 @@ import WidthIndicatorPlot from './WidthIndicatorPlot.js';
 const X_TICK_LABEL_DECIMALS = 1;
 const Y_TICK_LABEL_DECIMALS = 2;
 
-class WavePacketSumChartNode extends WaveformChartNode {
+class WavePacketSumChartNode extends DomainChartNode {
 
   /**
    * @param {WavePacketSumChart} sumChart

@@ -12,7 +12,7 @@ import Color from '../../../../scenery/js/util/Color.js';
 import HarmonicPlot from '../../discrete/view/HarmonicPlot.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import HarmonicsChart from '../model/HarmonicsChart.js';
-import WaveformChartNode from './WaveformChartNode.js';
+import DomainChartNode from './DomainChartNode.js';
 
 // constants
 const NORMAL_LINE_WIDTH = 1;
@@ -20,7 +20,7 @@ const EMPHASIZED_LINE_WIDTH = 2;
 const DE_EMPHASIZED_LINE_WIDTH = 0.5;
 const DE_EMPHASIZED_STROKE = Color.grayColor( 150 );
 
-class HarmonicsChartNode extends WaveformChartNode {
+class HarmonicsChartNode extends DomainChartNode {
 
   /**
    * @param {HarmonicsChart} harmonicsChart

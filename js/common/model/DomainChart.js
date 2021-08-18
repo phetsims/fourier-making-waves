@@ -1,8 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WaveformChart is the base class for charts that plot one or more 2D waveforms related to a Fourier series.
- * The x axis is either space or time, while the y axis is always amplitude.
+ * DomainChart is the base class for charts that need to modify their presentation to match a domain -
+ * space, time, or space-&-time.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,30 +13,30 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
 
-class WaveformChart {
+class DomainChart {
 
   /**
-   * @param {number} L - wavelength of the fundamental harmonic, in meters
-   * @param {number} T - period of the fundamental harmonic, in milliseconds
    * @param {EnumerationProperty.<Domain>} domainProperty - domain of the x axis
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty - describes the x axis
    * @param {Property.<AxisDescription>} yAxisDescriptionProperty - describes the y axis
+   * @param {number} L - wavelength of the fundamental harmonic, in meters
+   * @param {number} T - period of the fundamental harmonic, in milliseconds
    * @param {Object} [options]
    */
-  constructor( L, T, domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options ) {
+  constructor( domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, L, T, options ) {
 
-    assert && AssertUtils.assertPositiveNumber( L );
-    assert && AssertUtils.assertPositiveNumber( T );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
     assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
+    assert && AssertUtils.assertPositiveNumber( L );
+    assert && AssertUtils.assertPositiveNumber( T );
 
     // @public (read-only) params
-    this.L = L;
-    this.T = T;
     this.domainProperty = domainProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
     this.yAxisDescriptionProperty = yAxisDescriptionProperty;
+    this.L = L;
+    this.T = T;
 
     // @public whether this chart is expanded
     this.chartExpandedProperty = new BooleanProperty( true, {
@@ -52,5 +52,5 @@ class WaveformChart {
   }
 }
 
-fourierMakingWaves.register( 'WaveformChart', WaveformChart );
-export default WaveformChart;
+fourierMakingWaves.register( 'DomainChart', DomainChart );
+export default DomainChart;

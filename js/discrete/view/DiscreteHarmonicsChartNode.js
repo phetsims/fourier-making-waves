@@ -30,7 +30,7 @@ class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
 
     options = merge( {
 
-      // WaveformChartNode options
+      // DomainChartNode options
       xZoomLevelProperty: new ZoomLevelProperty( harmonicsChart.xAxisDescriptionProperty ),
       xLabelSetOptions: {
         createLabel: value =>

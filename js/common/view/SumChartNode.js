@@ -13,9 +13,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColors from '../FMWColors.js';
 import SumChart from '../model/SumChart.js';
-import WaveformChartNode from './WaveformChartNode.js';
+import DomainChartNode from './DomainChartNode.js';
 
-class SumChartNode extends WaveformChartNode {
+class SumChartNode extends DomainChartNode {
 
   /**
    * @param {SumChart} sumChart

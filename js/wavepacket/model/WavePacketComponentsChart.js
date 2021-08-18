@@ -16,7 +16,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import WaveformChart from '../../common/model/WaveformChart.js';
+import DomainChart from '../../common/model/DomainChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierComponent from './FourierComponent.js';
 import WavePacket from './WavePacket.js';
@@ -27,7 +27,7 @@ import WavePacket from './WavePacket.js';
 const POINTS_PER_DATA_SET = FMWConstants.MAX_POINTS_PER_DATA_SET;
 const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 
-class WavePacketComponentsChart extends WaveformChart {
+class WavePacketComponentsChart extends DomainChart {
 
   /**
    * @param {WavePacket} wavePacket
@@ -48,7 +48,7 @@ class WavePacketComponentsChart extends WaveformChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( wavePacket.L, wavePacket.T, domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
+    super( domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, wavePacket.L, wavePacket.T, options );
 
     // @public
     this.wavePacket = wavePacket;

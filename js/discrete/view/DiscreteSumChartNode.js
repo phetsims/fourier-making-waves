@@ -36,7 +36,7 @@ class DiscreteSumChartNode extends SumChartNode {
 
     options = merge( {
 
-      // WaveformChartNode options
+      // DomainChartNode options
       xZoomLevelProperty: new ZoomLevelProperty( sumChart.xAxisDescriptionProperty ),
       xLabelSetOptions: {
         createLabel: value =>

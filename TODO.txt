@@ -4,15 +4,14 @@ Optimize to prevent collapsed charts from updating. Ask team if it's appropriate
 
 Factor out XAxisHandler and YAxisHandler to handle zoom (and auto scaling?), use composition for these features?
 
-Rename WaveformChartNode, make WavePacketAmplitudesChartNode extends WaveformChartNode,
-  WavePacketAmplitudesChart extends WaveformChart
+Make WavePacketAmplitudesChart extend DomainChart, WavePacketAmplitudesChartNode extend DomainChartNode?
 
-WavePacketAmplitudesChartNode: use AxisDescription for the y axis? is it OK to override setYAxis?
+WavePacketAmplitudesChartNode: use AxisDescription for the y axis? Is it OK to override setYAxis?
 
 AxisDescription and Properties of that type have been a constant pain. Get rid of it?
 
 WavePacketComponentsChart and WavePacketSumPlot do not use AxisDescription for y-axis, but yAxisDescriptionProperty
-  is required by their superclass WaveformChart.
+  is required by their superclass DomainChart.
 
 create CanvasBarPlot and CanvasAreaPlot, for use in WavePacketAmplitudesChartNode
 

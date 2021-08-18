@@ -16,9 +16,9 @@ import Domain from './Domain.js';
 import EmphasizedHarmonics from './EmphasizedHarmonics.js';
 import FourierSeries from './FourierSeries.js';
 import SeriesType from './SeriesType.js';
-import WaveformChart from './WaveformChart.js';
+import DomainChart from './DomainChart.js';
 
-class HarmonicsChart extends WaveformChart {
+class HarmonicsChart extends DomainChart {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -47,7 +47,7 @@ class HarmonicsChart extends WaveformChart {
       yAxisDescriptionIndex: 0
     }, options );
 
-    super( fourierSeries.L, fourierSeries.T, domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, options );
+    super( domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, fourierSeries.L, fourierSeries.T, options );
 
     // @public
     this.fourierSeries = fourierSeries;

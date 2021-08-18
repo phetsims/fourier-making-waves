@@ -15,7 +15,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import FMWColors from '../../common/FMWColors.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
-import WaveformChartNode from '../../common/view/WaveformChartNode.js';
+import DomainChartNode from '../../common/view/DomainChartNode.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -26,7 +26,7 @@ const X_TICK_LABEL_DECIMALS = 1;
 const Y_TICK_LABEL_DECIMALS = 2;
 const GRAY_RANGE = FMWColors.FOURIER_COMPONENT_GRAY_RANGE;
 
-class WavePacketComponentsChartNode extends WaveformChartNode {
+class WavePacketComponentsChartNode extends DomainChartNode {
 
   /**
    * @param {WavePacketComponentsChart} componentsChart
