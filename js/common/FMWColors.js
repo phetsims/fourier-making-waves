@@ -14,84 +14,84 @@ import fourierMakingWaves from '../fourierMakingWaves.js';
 const FMWColors = {
 
   // Background colors for screens.
-  discreteScreenBackgroundColorProperty: new ProfileColorProperty( 'discreteScreenBackgroundColorProperty', {
+  discreteScreenBackgroundColorProperty: new ProfileColorProperty( fourierMakingWaves, 'discreteScreenBackgroundColorProperty', {
     default: new Color( 236, 255, 255 )
   } ),
-  waveGameScreenBackgroundColorProperty: new ProfileColorProperty( 'waveGameScreenBackgroundColorProperty', {
+  waveGameScreenBackgroundColorProperty: new ProfileColorProperty( fourierMakingWaves, 'waveGameScreenBackgroundColorProperty', {
     default: new Color( 236, 255, 255 )
   } ),
-  wavePacketScreenBackgroundColorProperty: new ProfileColorProperty( 'wavePacketScreenBackgroundColor', {
+  wavePacketScreenBackgroundColorProperty: new ProfileColorProperty( fourierMakingWaves, 'wavePacketScreenBackgroundColor', {
     default: new Color( 255, 250, 227 )
   } ),
 
   // Fill for all Panels
-  panelFillProperty: new ProfileColorProperty( 'panelFill', {
+  panelFillProperty: new ProfileColorProperty( fourierMakingWaves, 'panelFill', {
     default: Color.grayColor( 245 )
   } ),
 
   // Stroke for all Panels
-  panelStrokeProperty: new ProfileColorProperty( 'panelStroke', {
+  panelStrokeProperty: new ProfileColorProperty( fourierMakingWaves, 'panelStroke', {
     default: Color.grayColor( 160 )
   } ),
 
   // Stroke for horizontal separators in Panels
-  separatorStrokeProperty: new ProfileColorProperty( 'separatorStroke', {
+  separatorStrokeProperty: new ProfileColorProperty( fourierMakingWaves, 'separatorStroke', {
     default: Color.grayColor( 200 )
   } ),
 
   // Grid line stroke for the Amplitudes chart in the 'Discrete' and 'Wave Game' screens
-  amplitudesGridLinesStrokeProperty: new ProfileColorProperty( 'amplitudesGridLinesStroke', {
+  amplitudesGridLinesStrokeProperty: new ProfileColorProperty( fourierMakingWaves, 'amplitudesGridLinesStroke', {
     default: 'black'
   } ),
 
   // Grid line stroke for all charts except the Amplitudes chart in the 'Discrete' and 'Wave Game' screens
-  chartGridLinesStrokeProperty: new ProfileColorProperty( 'chartGridLinesStroke', {
+  chartGridLinesStrokeProperty: new ProfileColorProperty( fourierMakingWaves, 'chartGridLinesStroke', {
     default: Color.grayColor( 200 )
   } ),
 
   // Stroke for all x and y axes
-  axisStrokeProperty: new ProfileColorProperty( 'axisStroke', {
+  axisStrokeProperty: new ProfileColorProperty( fourierMakingWaves, 'axisStroke', {
     default: Color.grayColor( 170 )
   } ),
 
   // Stroke for the sum plot in all screens
-  sumPlotStrokeProperty: new ProfileColorProperty( 'sumStroke', {
+  sumPlotStrokeProperty: new ProfileColorProperty( fourierMakingWaves, 'sumStroke', {
     default: 'black'
   } ),
 
   // Stroke used to plot answer to a challenge in Sum chart of the Wave Game screen.
   // If you're thinking of changing this to something other than pink, note that the UI says "Match the pink waveform..."
-  answerSumPlotStrokeProperty: new ProfileColorProperty( 'answerSumPlotStroke', {
+  answerSumPlotStrokeProperty: new ProfileColorProperty( fourierMakingWaves, 'answerSumPlotStroke', {
     default: new Color( 255, 0, 255 )
   } ),
 
   // Stroke used to plot the user's guess to a challenge in the Sum chart of the Wave Game screen.
-  guessSumPlotStrokeProperty: new ProfileColorProperty( 'guessSumPlotStroke', {
+  guessSumPlotStrokeProperty: new ProfileColorProperty( fourierMakingWaves, 'guessSumPlotStroke', {
     default: 'black'
   } ),
 
   // Stroke used to plot secondary waveforms: Infinite Harmonics, Continuous Waveform, Waveform Envelope
-  secondardWaveformStrokeProperty: new ProfileColorProperty( 'secondardWaveformStroke', {
+  secondardWaveformStrokeProperty: new ProfileColorProperty( fourierMakingWaves, 'secondardWaveformStroke', {
     default: Color.grayColor( 189 )
   } ),
 
   // Fill for the level-selection buttons AND the scoreboard in the Wave Game screen
-  levelSelectionButtonFillProperty: new ProfileColorProperty( 'levelSelectionButtonFill', {
+  levelSelectionButtonFillProperty: new ProfileColorProperty( fourierMakingWaves, 'levelSelectionButtonFill', {
     default: new Color( 255, 214, 228 )
   } ),
 
   // Fill for the width indicators in the Wave Packet screen
-  widthIndicatorsColorProperty: new ProfileColorProperty( 'widthIndicatorsColor', {
+  widthIndicatorsColorProperty: new ProfileColorProperty( fourierMakingWaves, 'widthIndicatorsColor', {
     default: 'red'
   } ),
 
   // Fill for the Component Spacing measurement tool in the Wave Packet screen
-  componentSpacingToolFillProperty: new ProfileColorProperty( 'componentSpacingToolFill', {
+  componentSpacingToolFillProperty: new ProfileColorProperty( fourierMakingWaves, 'componentSpacingToolFill', {
     default: 'yellow'
   } ),
 
   // Fill for the length (waveform or period) measurement tool in the Wave Packet screen
-  wavePacketLengthToolFillProperty: new ProfileColorProperty( 'wavePacketLengthToolFill', {
+  wavePacketLengthToolFillProperty: new ProfileColorProperty( fourierMakingWaves, 'wavePacketLengthToolFill', {
     default: 'rgb( 0, 255, 0 )'
   } ),
 
@@ -115,7 +115,7 @@ const HARMONIC_COLORS = [
   new Color( 255, 105, 180 )
 ];
 FMWColors.HARMONIC_COLOR_PROPERTIES = _.map( HARMONIC_COLORS,
-  ( color, index ) => new ProfileColorProperty( `harmonic${index + 1}Color`, {
+  ( color, index ) => new ProfileColorProperty( fourierMakingWaves, `harmonic${index + 1}Color`, {
     default: HARMONIC_COLORS[ index ]
   } ) );
 
