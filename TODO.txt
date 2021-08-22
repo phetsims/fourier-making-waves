@@ -2,7 +2,9 @@ TODO.txt for fourier-making-waves
 
 Optimize to prevent collapsed charts from updating. Ask team if it's appropriate, worth it.
 
-Factor out XAxisHandler and YAxisHandler to handle axis scaling, use composition for these features?
+Replace xAxisDescriptionProperty and yAxisDescriptionProperty with AxisHandler
+* handle axis scaling
+* 4 different strategies (fix, zoom, auto-scale to description, auto-scale to peak
 
 Make WavePacketAmplitudesChart extend DomainChart, WavePacketAmplitudesChartNode extend DomainChartNode?
 
