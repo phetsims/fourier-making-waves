@@ -7,7 +7,7 @@
  * Subclasses are responsible for customizing those components.
  *
  * All of these charts have x and y axes, grid lines, tick marks, and tick labels.
- * Optional features include zoom buttons for each axis.
+ * Optional features include zoom buttons for the x-axis.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -151,23 +151,6 @@ class FMWChartNode extends Node {
       } );
     }
 
-    //TODO Delete this? There are no y-zoom buttons in this sim.
-    let yZoomButtonGroup;
-    if ( options.yZoomLevelProperty ) {
-      yZoomButtonGroup = new PlusMinusZoomButtonGroup( options.yZoomLevelProperty, {
-        orientation: 'vertical',
-        scale: FMWConstants.ZOOM_BUTTON_GROUP_SCALE,
-        touchAreaXDilation: 10,
-        touchAreaYDilation: 5,
-
-        // left-bottom corner of chartRectangle
-        right: chartRectangle.left - 31,
-        top: chartRectangle.bottom,
-
-        tandem: options.tandem.createTandem( 'xZoomButtonGroup' )
-      } );
-    }
-
     assert && assert( !options.children );
     options.children = [
       xTickMarks, yTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
@@ -176,7 +159,6 @@ class FMWChartNode extends Node {
       yAxis, yAxisLabel, yGridLines, yTickLabels
     ];
     xZoomButtonGroup && options.children.push( xZoomButtonGroup );
-    yZoomButtonGroup && options.children.push( yZoomButtonGroup );
 
     super( options );
 
@@ -203,7 +185,6 @@ class FMWChartNode extends Node {
     // See https://github.com/phetsims/fourier-making-waves/issues/53
     const pdomOrder = [];
     xZoomButtonGroup && pdomOrder.push( xZoomButtonGroup );
-    yZoomButtonGroup && pdomOrder.push( yZoomButtonGroup );
     this.pdomOrder = pdomOrder;
 
     // @protected fields for use by subclasses
@@ -218,7 +199,6 @@ class FMWChartNode extends Node {
     this.yGridLines = yGridLines;
     this.yTickMarks = yTickMarks;
     this.yTickLabels = yTickLabels;
-    this.yZoomButtonGroup = yZoomButtonGroup;
 
     // @public fields the are part of the public API
     this.chartTransform = chartTransform;
