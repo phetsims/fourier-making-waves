@@ -1,7 +1,5 @@
 TODO.txt for fourier-making-waves
 
-Rename domainProperty to xDomainProperty throughout
-
 Optimize to prevent collapsed charts from updating. Ask team if it's appropriate, worth it.
 
 Factor out XAxisHandler and YAxisHandler to handle axis scaling, use composition for these features?
