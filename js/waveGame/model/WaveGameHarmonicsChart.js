@@ -36,14 +36,14 @@ class WaveGameHarmonicsChart extends HarmonicsChart {
       guessSeries,
       emphasizedHarmonics,
 
-      // These aspects are static in the Wave Game screen, but dynamic in the superclass.
-      new EnumerationProperty( Domain, domain ),
-      new EnumerationProperty( SeriesType, seriesType ),
-      new NumberProperty( t ),
-
-      // Harmonics chart has a static scale for both axes, with no zoom buttons.
+      // These aspects are constant in the Wave Game screen, but the superclass supports dynamic Properties.
+      // We use validValues to constrain these Properties to a single value, effectively making them constants.
+      new EnumerationProperty( Domain, domain, { validValues: [ domain ] } ),
+      new EnumerationProperty( SeriesType, seriesType, { validValues: [ seriesType ] } ),
+      new NumberProperty( t, { validValues: [ t ] } ),
       new Property( xAxisDescription, { validValues: [ xAxisDescription ] } ),
       new Property( yAxisDescription, { validValues: [ yAxisDescription ] } ),
+
       options
     );
   }

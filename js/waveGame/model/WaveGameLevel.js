@@ -42,7 +42,9 @@ import WaveGameSumChart from './WaveGameSumChart.js';
 const DOMAIN = Domain.SPACE;
 const SERIES_TYPE = SeriesType.SINE;
 const t = 0; // lowercase t (time) to distinguish from uppercase T (period)
-const AMPLITUDE_THRESHOLD = 0.01; // a guess amplitude must be at least this close to an answer amplitude
+
+// a guess amplitude must be at least this close to an answer amplitude TODO should be 0.1 or deleted
+const AMPLITUDE_THRESHOLD = 0.01;
 
 // Fixed x-axis description, because Wave Game has no zoom buttons for the x axes.
 const X_AXIS_DESCRIPTION = new AxisDescription( {
@@ -56,7 +58,7 @@ assert && assert( X_AXIS_DESCRIPTION.range.getLength() >= 0.5,
   'The implementation of y-axis scaling requires that at least 1/2 of the wavelength is always visible, in order to. ' +
   'find the peak amplitude of one full wavelength of the waveform. Zooming in on the x-axis violates that requirement.' );
 
-// y-axis descriptions are the same as Discrete screen.
+// y-axis descriptions are the same as Discrete screen, as it automatically scales in the same manner.
 const Y_AXIS_DESCRIPTIONS = DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS;
 
 class WaveGameLevel extends PhetioObject {

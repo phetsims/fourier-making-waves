@@ -49,16 +49,14 @@ class WaveGameSumChart extends SumChart {
       // Superclass will render the sum for the challenge answer.
       answerSeries,
 
-      // These aspects are static in the Wave Game screen, but dynamic in the superclass.
-      new EnumerationProperty( Domain, domain ),
-      new EnumerationProperty( SeriesType, seriesType ),
-      new NumberProperty( t ),
-
-      // Sum chart has a static x-axis scale, with no zoom buttons.
+      // These aspects are constant in the Wave Game screen, but the superclass supports dynamic Properties.
+      // We use validValues to constrain these Properties to a single value, effectively making them constants.
+      new EnumerationProperty( Domain, domain, { validValues: [ domain ] } ),
+      new EnumerationProperty( SeriesType, seriesType, { validValues: [ seriesType ] } ),
+      new NumberProperty( t, { validValues: [ t ] } ),
       new Property( xAxisDescription, { validValues: [ xAxisDescription ] } ),
-
-      // Sum chart has no y-axis zoom buttons, but the y-axis scales to fit the challenge.
       new Property( yAxisDescriptions[ 0 ], { validValues: yAxisDescriptions } ),
+
       options
     );
 
