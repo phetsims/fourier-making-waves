@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -43,7 +44,7 @@ class WaveGameLevelSelectionNode extends Node {
 
     const chooseYourLevelText = new Text( fourierMakingWavesStrings.chooseYourLevel, {
       font: new PhetFont( 50 ),
-      maxWidth: 0.65 * layoutBounds.width,
+      // maxWidth: 0.65 * layoutBounds.width,
       tandem: options.tandem.createTandem( 'chooseYourLevelText' )
     } );
 
@@ -128,11 +129,13 @@ class WaveGameLevelSelectionNode extends Node {
     super( options );
 
     // InfoButton to the right of title. This is handled dynamically in case the title is changed via PhET-iO.
-    chooseYourLevelText.boundsProperty.link( bounds => {
-      const localBounds = chooseYourLevelText.boundsTo( this );
-      infoButton.left = localBounds.right + 40;
-      infoButton.centerY = localBounds.centerY;
-    } );
+    Property.multilink(
+      [ titleAndButtonsBox.boundsProperty, chooseYourLevelText.boundsProperty ],
+      () => {
+        const localBounds = chooseYourLevelText.boundsTo( this );
+        infoButton.left = localBounds.right + 40;
+        infoButton.centerY = localBounds.centerY;
+      } );
 
     // @private
     this.levelSelectionButtons = levelSelectionButtons;
