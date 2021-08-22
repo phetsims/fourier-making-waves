@@ -97,7 +97,7 @@ const DiscreteAxisDescriptions = {
   ]
 };
 
-// There are many assumptions about AxisDescriptions. Verify them here.
+// There are many assumptions about DiscreteAxisDescriptions. Verify them here.
 assert && assert( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS.includes( DiscreteAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION ),
   'X_AXIS_DESCRIPTIONS must include DEFAULT_X_AXIS_DESCRIPTION' );
 assert && assert( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS.includes( DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION ),
@@ -106,14 +106,11 @@ assert && assert( AxisDescription.isSortedDescending( DiscreteAxisDescriptions.X
   'X_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
 assert && assert( AxisDescription.isSortedDescending( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS ),
   'Y_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
-assert && assert(
-  _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
+assert && assert( _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
   'range must be symmetric for X_AXIS_DESCRIPTIONS' );
-assert && assert(
-  _.every( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
+assert && assert( _.every( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
   'range must be symmetric for Y_AXIS_DESCRIPTIONS' );
-assert && assert(
-  _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.range.getLength() >= 0.5 ),
+assert && assert( _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.range.getLength() >= 0.5 ),
   'The implementation of y-axis scaling requires that at least 1/2 of the wavelength is always visible, in order to. ' +
   'find the peak amplitude of one full wavelength of the waveform. Zooming in on the x-axis violates that requirement.' );
 
