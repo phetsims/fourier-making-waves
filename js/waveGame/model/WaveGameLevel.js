@@ -43,8 +43,9 @@ const DOMAIN = Domain.SPACE;
 const SERIES_TYPE = SeriesType.SINE;
 const t = 0; // lowercase t (time) to distinguish from uppercase T (period)
 
-// a guess amplitude must be at least this close to an answer amplitude TODO should be 0.1 or deleted
-const AMPLITUDE_THRESHOLD = 0.01;
+// A guess amplitude must be at least this close to an answer amplitude,
+// see https://github.com/phetsims/fourier-making-waves/issues/97
+const AMPLITUDE_THRESHOLD = 0;
 
 // Fixed x-axis description, because Wave Game has no zoom buttons for the x axes.
 const X_AXIS_DESCRIPTION = new AxisDescription( {
