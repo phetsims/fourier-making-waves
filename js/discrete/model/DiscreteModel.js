@@ -38,13 +38,7 @@ const TIME_SCALE = 0.001;
 const STEP_DT = 50;
 
 // descriptions for the axes
-const X_AXIS_DESCRIPTIONS = DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS;
 const Y_AXIS_DESCRIPTIONS = DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS;
-
-// {AxisDescription} default description for the x axis
-const DEFAULT_X_AXIS_DESCRIPTION = X_AXIS_DESCRIPTIONS[ 4 ];
-assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.getLength() === 1,
-  'Expected DEFAULT_X_AXIS_DESCRIPTION range to be 1 wavelength. Did you modify X_AXIS_DESCRIPTIONS?' );
 
 // {AxisDescription} default description for the y axis
 const DEFAULT_Y_AXIS_DESCRIPTION = Y_AXIS_DESCRIPTIONS[ Y_AXIS_DESCRIPTIONS.length - 1 ];
@@ -129,22 +123,9 @@ class DiscreteModel {
       equationForm => ( equationForm === EquationForm.HIDDEN ) ? TickLabelFormat.NUMERIC : TickLabelFormat.SYMBOLIC
     );
 
-    // Guard again accidentally changing the default if X_AXIS_DESCRIPTIONS is modified.
-    assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.max === 1 / 2,
-      'DEFAULT_X_ZOOM_LEVEL is probably incorrect - did you modify X_AXIS_DESCRIPTIONS?' );
-
     // {Property.<AxisDescription>} the x-axis description is shared by the Harmonics and Sum charts.
-    const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
-      validValues: X_AXIS_DESCRIPTIONS
-    } );
-
-    // {Property.<AxisDescription>} The Harmonics and Sum charts have independent y-axis scales, so they each
-    // have their own y-axis description.
-    const harmonicsYAxisDescriptionProperty = new Property( DEFAULT_Y_AXIS_DESCRIPTION, {
-      validValues: [ DEFAULT_Y_AXIS_DESCRIPTION ]
-    } );
-    const sumYAxisDescriptionProperty = new Property( DEFAULT_Y_AXIS_DESCRIPTION, {
-      validValues: Y_AXIS_DESCRIPTIONS
+    const xAxisDescriptionProperty = new Property( DiscreteAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION, {
+      validValues: DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS
     } );
 
     // Parent tandem for all charts
@@ -155,12 +136,23 @@ class DiscreteModel {
       tandem: chartsTandem.createTandem( 'amplitudesChart' )
     } );
 
+    // {Property.<AxisDescription>} The Harmonics chart has a fixed y-axis scale, but its superclass requires a
+    // Property. We use validValues to make this Property effectively be a constant.
+    const harmonicsYAxisDescriptionProperty = new Property( DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION, {
+      validValues: [ DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION ]
+    } );
+
     // @public
     this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, emphasizedHarmonics, this.domainProperty,
       this.seriesTypeProperty, this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
       harmonicsYAxisDescriptionProperty, {
         tandem: chartsTandem.createTandem( 'harmonicsChart' )
       } );
+
+    // {Property.<AxisDescription>} The Sum chart has a y-axis that automatically scales to fit the peak amplitude.
+    const sumYAxisDescriptionProperty = new Property( DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION, {
+      validValues: DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS
+    } );
 
     // @public
     this.sumChart = new DiscreteSumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,

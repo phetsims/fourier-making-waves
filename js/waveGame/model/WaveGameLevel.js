@@ -23,7 +23,6 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
-import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
@@ -46,21 +45,6 @@ const t = 0; // lowercase t (time) to distinguish from uppercase T (period)
 // A guess amplitude must be at least this close to an answer amplitude,
 // see https://github.com/phetsims/fourier-making-waves/issues/97
 const AMPLITUDE_THRESHOLD = 0;
-
-// Fixed x-axis description, because Wave Game has no zoom buttons for the x axes.
-const X_AXIS_DESCRIPTION = new AxisDescription( {
-  range: new Range( -1 / 2, 1 / 2 ),
-  gridLineSpacing: 1 / 8,
-  tickMarkSpacing: 1 / 4,
-  tickLabelSpacing: 1 / 4
-} );
-assert && assert( X_AXIS_DESCRIPTION.hasSymmetricRange(), 'X_AXIS_DESCRIPTION.range must be symmetric' );
-assert && assert( X_AXIS_DESCRIPTION.range.getLength() >= 0.5,
-  'The implementation of y-axis scaling requires that at least 1/2 of the wavelength is always visible, in order to. ' +
-  'find the peak amplitude of one full wavelength of the waveform. Zooming in on the x-axis violates that requirement.' );
-
-// y-axis descriptions are the same as Discrete screen, as it automatically scales in the same manner.
-const Y_AXIS_DESCRIPTIONS = DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS;
 
 class WaveGameLevel extends PhetioObject {
 
@@ -186,18 +170,15 @@ class WaveGameLevel extends PhetioObject {
         tandem: chartsTandem.createTandem( 'amplitudesChart' )
       } );
 
-    // y-axis scale is fixed for the Harmonics chart. There are no zoom controls
-    const harmonicsYAxisDescription = Y_AXIS_DESCRIPTIONS[ Y_AXIS_DESCRIPTIONS.length - 1 ];
-
     // @public
-    this.harmonicsChart = new WaveGameHarmonicsChart( this.guessSeries, this.emphasizedHarmonics,
-      DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, harmonicsYAxisDescription, {
+    this.harmonicsChart = new WaveGameHarmonicsChart( this.guessSeries, this.emphasizedHarmonics, DOMAIN, SERIES_TYPE, t,
+      DiscreteAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION, DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION, {
         tandem: chartsTandem.createTandem( 'harmonicsChart' )
       } );
 
     // @public
-    this.sumChart = new WaveGameSumChart( this.answerSeries, this.guessSeries,
-      DOMAIN, SERIES_TYPE, t, X_AXIS_DESCRIPTION, Y_AXIS_DESCRIPTIONS, {
+    this.sumChart = new WaveGameSumChart( this.answerSeries, this.guessSeries, DOMAIN, SERIES_TYPE, t,
+      DiscreteAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION, DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS, {
         tandem: chartsTandem.createTandem( 'sumChart' )
       } );
 

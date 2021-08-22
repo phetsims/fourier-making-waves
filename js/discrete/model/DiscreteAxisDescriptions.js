@@ -13,7 +13,28 @@ import FMWConstants from '../../common/FMWConstants.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
+// For charts that support a dynamic x-axis scale (via zoom buttons) this is the default x-axis description.
+// For charts that have a fixed x-axis scale (no zoom buttons), this is the x-axis description.
+const DEFAULT_X_AXIS_DESCRIPTION = new AxisDescription( {
+  range: new Range( -1 / 2, 1 / 2 ),
+  gridLineSpacing: 1 / 8,
+  tickMarkSpacing: 1 / 4,
+  tickLabelSpacing: 1 / 4
+} );
+
+// For charts that support a dynamic y-axis scale (via auto-scale) this is the default y-axis description.
+// For charts that have a fixed y-axis scale (no auto-scaling), this is the y-axis description.
+const DEFAULT_Y_AXIS_DESCRIPTION = new AxisDescription( {
+  range: new Range( -FMWConstants.MAX_AMPLITUDE, FMWConstants.MAX_AMPLITUDE ),
+  gridLineSpacing: 0.5,
+  tickMarkSpacing: 0.5,
+  tickLabelSpacing: 0.5
+} );
+
 const DiscreteAxisDescriptions = {
+
+  DEFAULT_X_AXIS_DESCRIPTION: DEFAULT_X_AXIS_DESCRIPTION,
+  DEFAULT_Y_AXIS_DESCRIPTION: DEFAULT_Y_AXIS_DESCRIPTION,
 
   // {AxisDescription[]}
   // Values for the x-axis AxisDescriptions are coefficients (multipliers) for L or T, depending on which domain is
@@ -43,12 +64,7 @@ const DiscreteAxisDescriptions = {
       tickMarkSpacing: 1 / 4,
       tickLabelSpacing: 1 / 4
     } ),
-    new AxisDescription( {
-      range: new Range( -1 / 2, 1 / 2 ),
-      gridLineSpacing: 1 / 8,
-      tickMarkSpacing: 1 / 4,
-      tickLabelSpacing: 1 / 4
-    } ),
+    DEFAULT_X_AXIS_DESCRIPTION,
     new AxisDescription( {
       range: new Range( -1 / 4, 1 / 4 ),
       gridLineSpacing: 1 / 8,
@@ -77,29 +93,25 @@ const DiscreteAxisDescriptions = {
       tickMarkSpacing: 1,
       tickLabelSpacing: 1
     } ),
-    new AxisDescription( {
-      range: new Range( -FMWConstants.MAX_AMPLITUDE, FMWConstants.MAX_AMPLITUDE ),
-      gridLineSpacing: 0.5,
-      tickMarkSpacing: 0.5,
-      tickLabelSpacing: 0.5
-    } )
+    DEFAULT_Y_AXIS_DESCRIPTION
   ]
 };
 
+// There are many assumptions about AxisDescriptions. Verify them here.
+assert && assert( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS.includes( DiscreteAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION ),
+  'X_AXIS_DESCRIPTIONS must include DEFAULT_X_AXIS_DESCRIPTION' );
+assert && assert( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS.includes( DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION ),
+  'Y_AXIS_DESCRIPTIONS must include DEFAULT_Y_AXIS_DESCRIPTION' );
 assert && assert( AxisDescription.isSortedDescending( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS ),
   'X_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
-
 assert && assert( AxisDescription.isSortedDescending( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS ),
   'Y_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
-
 assert && assert(
   _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
   'range must be symmetric for X_AXIS_DESCRIPTIONS' );
-
 assert && assert(
   _.every( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
   'range must be symmetric for Y_AXIS_DESCRIPTIONS' );
-
 assert && assert(
   _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.range.getLength() >= 0.5 ),
   'The implementation of y-axis scaling requires that at least 1/2 of the wavelength is always visible, in order to. ' +

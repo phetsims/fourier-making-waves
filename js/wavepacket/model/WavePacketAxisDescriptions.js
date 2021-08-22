@@ -10,7 +10,6 @@
 
 import Range from '../../../../dot/js/Range.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
-import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 const WavePacketAxisDescriptions = {
@@ -62,18 +61,18 @@ const WavePacketAxisDescriptions = {
   ]
 };
 
-assert && assert( AxisDescription.isSortedDescending( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS ),
+assert && assert( AxisDescription.isSortedDescending( WavePacketAxisDescriptions.X_AXIS_DESCRIPTIONS ),
   'X_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
 
-assert && assert( AxisDescription.isSortedDescending( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS ),
+assert && assert( AxisDescription.isSortedDescending( WavePacketAxisDescriptions.Y_AXIS_DESCRIPTIONS ),
   'Y_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
 
 assert && assert(
-  _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
+  _.every( WavePacketAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
   'range must be symmetric for X_AXIS_DESCRIPTIONS' );
 
 assert && assert(
-  _.every( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
+  _.every( WavePacketAxisDescriptions.Y_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
   'range must be symmetric for Y_AXIS_DESCRIPTIONS' );
 
 fourierMakingWaves.register( 'WavePacketAxisDescriptions', WavePacketAxisDescriptions );
