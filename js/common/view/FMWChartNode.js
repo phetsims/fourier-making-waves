@@ -243,7 +243,7 @@ class FMWChartNode extends Node {
     const x1 = chartRectangleBounds.left;
     const x2 = chartRectangleBounds.right;
     const rangeHeight = this.chartTransform.modelToViewY( minAmplitude ) - this.chartTransform.modelToViewY( maxAmplitude );
-    const yTrim = ( chartRectangleBounds.height - rangeHeight ) / 2;
+    const yTrim = Math.max( 0, ( chartRectangleBounds.height - rangeHeight ) / 2 );
     const y1 = chartRectangleBounds.top + yTrim;
     const y2 = chartRectangleBounds.bottom - yTrim;
     return Shape.bounds( new Bounds2( x1, y1, x2, y2 ) );
