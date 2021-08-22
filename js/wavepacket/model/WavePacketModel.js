@@ -20,15 +20,6 @@ import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
 import WavePacketComponentsChart from './WavePacketComponentsChart.js';
 import WavePacketSumChart from './WavePacketSumChart.js';
 
-// constants
-const X_AXIS_DESCRIPTIONS = WavePacketAxisDescriptions.X_AXIS_DESCRIPTIONS;
-const Y_AXIS_DESCRIPTIONS = WavePacketAxisDescriptions.Y_AXIS_DESCRIPTIONS;
-
-// {AxisDescription} default description for the x axis
-const DEFAULT_X_AXIS_DESCRIPTION = X_AXIS_DESCRIPTIONS[ 2 ];
-assert && assert( DEFAULT_X_AXIS_DESCRIPTION.range.getLength() === 4,
-  'Expected DEFAULT_X_AXIS_DESCRIPTION range to be 4 wavelengths. Did you modify X_AXIS_DESCRIPTIONS?' );
-
 class WavePacketModel {
 
   /**
@@ -60,20 +51,20 @@ class WavePacketModel {
     } );
 
     // {Property.<AxisDescription>} the x-axis description shared by the Components and Sum charts
-    const xAxisDescriptionProperty = new Property( DEFAULT_X_AXIS_DESCRIPTION, {
-      validValues: X_AXIS_DESCRIPTIONS
+    const xAxisDescriptionProperty = new Property( WavePacketAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION, {
+      validValues: WavePacketAxisDescriptions.X_AXIS_DESCRIPTIONS
     } );
 
     //TODO componentsYAxisDescriptionProperty is not used!
     // {Property.<AxisDescription>} the y-axis description for the Components chart
-    const componentsYAxisDescriptionProperty = new Property( Y_AXIS_DESCRIPTIONS[ 0 ], {
-      validValues: Y_AXIS_DESCRIPTIONS
+    const componentsYAxisDescriptionProperty = new Property( WavePacketAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION, {
+      validValues: WavePacketAxisDescriptions.Y_AXIS_DESCRIPTIONS
     } );
 
     //TODO sumYAxisDescriptionProperty is not used!
     // {Property.<AxisDescription>} the y-axis description for the Sum chart
-    const sumYAxisDescriptionProperty = new Property( Y_AXIS_DESCRIPTIONS[ 0 ], {
-      validValues: Y_AXIS_DESCRIPTIONS
+    const sumYAxisDescriptionProperty = new Property( WavePacketAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION, {
+      validValues: WavePacketAxisDescriptions.Y_AXIS_DESCRIPTIONS
     } );
 
     // Parent tandem for all charts
