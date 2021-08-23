@@ -402,7 +402,7 @@ class MeasurementToolsSubpanel extends VBox {
 
     // Wavelength
     const wavelengthCheckbox = new WavelengthCheckbox( wavelengthTool.isSelectedProperty, {
-      maxWidth: 75,
+      maxWidth: 90,
       enabledProperty: new DerivedProperty(
         [ domainProperty ],
         domain => ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME )
@@ -426,7 +426,7 @@ class MeasurementToolsSubpanel extends VBox {
 
     // Period
     const periodCheckbox = new PeriodCheckbox( periodTool.isSelectedProperty, {
-      maxWidth: 75,
+      maxWidth: 90,
       enabledProperty: new DerivedProperty(
         [ domainProperty ],
         domain => ( domain === Domain.TIME || domain === Domain.SPACE_AND_TIME )
