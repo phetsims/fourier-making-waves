@@ -50,7 +50,6 @@ class StandardDeviationControl extends WavePacketNumberControl {
 
         // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
         majorTicks: [
-          { value: 1, label: new RichText( '1', TEXT_OPTIONS ) },
           { value: Math.PI, label: new RichText( `${FMWSymbols.pi}`, TEXT_OPTIONS ) },
           { value: 2 * Math.PI, label: new RichText( `2${FMWSymbols.pi}`, TEXT_OPTIONS ) },
           { value: 3 * Math.PI, label: new RichText( `3${FMWSymbols.pi}`, TEXT_OPTIONS ) },
@@ -61,6 +60,14 @@ class StandardDeviationControl extends WavePacketNumberControl {
         keyboardStep: 1
       }
     }, options );
+
+    assert && assert( _.every( options.sliderOptions.majorTicks,
+        tick => standardDeviationProperty.range.contains( tick.value ) ),
+      'a tick mark is out of range' );
+    assert && assert( options.sliderOptions.majorTicks[ 0 ].value === standardDeviationProperty.range.min,
+      'first tick must me range.min' );
+    assert && assert( options.sliderOptions.majorTicks[ options.sliderOptions.majorTicks.length - 1 ].value === standardDeviationProperty.range.max,
+      'last tick must be range.max' );
 
     super( standardDeviationProperty, domainProperty, options );
   }

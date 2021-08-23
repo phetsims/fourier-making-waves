@@ -52,14 +52,22 @@ class ConjugateStandardDeviationControl extends WavePacketNumberControl {
         // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
         majorTicks: [
           { value: 1 / ( 4 * Math.PI ), label: new RichText( `1/(4${FMWSymbols.pi})`, TEXT_OPTIONS ) },
-          { value: 1 / Math.PI, label: new RichText( `1/${FMWSymbols.pi}`, TEXT_OPTIONS ) },
-          { value: 1, label: new RichText( '1', TEXT_OPTIONS ) }
+          { value: 1 / ( 2 * Math.PI ), label: new RichText( `1/(2${FMWSymbols.pi})`, TEXT_OPTIONS ) },
+          { value: 1 / Math.PI, label: new RichText( `1/${FMWSymbols.pi}`, TEXT_OPTIONS ) }
         ],
 
         // pdom options
         keyboardStep: 0.01
       }
     }, options );
+
+    assert && assert( _.every( options.sliderOptions.majorTicks,
+        tick => conjugateStandardDeviationProperty.range.contains( tick.value ) ),
+      'a tick mark is out of range' );
+    assert && assert( options.sliderOptions.majorTicks[ 0 ].value === conjugateStandardDeviationProperty.range.min,
+      'first tick must me range.min' );
+    assert && assert( options.sliderOptions.majorTicks[ options.sliderOptions.majorTicks.length - 1 ].value === conjugateStandardDeviationProperty.range.max,
+      'last tick must be range.max' );
 
     super( conjugateStandardDeviationProperty, domainProperty, options );
   }

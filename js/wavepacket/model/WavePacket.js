@@ -69,7 +69,7 @@ class WavePacket {
     // See https://github.com/phetsims/fourier-making-waves/issues/105#issuecomment-889386852 for name decision.
     // This is sometimes referred to as a delta (dk, d<sub>omega</sub>) in literature and in code comments.
     this.standardDeviationProperty = new NumberProperty( 3 * Math.PI, {
-      range: new Range( 1, 4 * Math.PI ),
+      range: new Range( Math.PI, 4 * Math.PI ),
       tandem: options.tandem.createTandem( 'standardDeviationProperty' ),
       phetioDocumentation: 'Standard deviation, a measure of the wave packet width. ' +
                            'In the space domain, this is \u03c3<sub>k</sub> in rad/m. ' +
