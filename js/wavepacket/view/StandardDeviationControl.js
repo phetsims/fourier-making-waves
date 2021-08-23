@@ -49,6 +49,7 @@ class StandardDeviationControl extends WavePacketNumberControl {
       sliderOptions: {
 
         // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
+        // It was easy to change during development, and is supported by the assertions below.
         majorTicks: [
           { value: Math.PI, label: new RichText( `${FMWSymbols.pi}`, TEXT_OPTIONS ) },
           { value: 2 * Math.PI, label: new RichText( `2${FMWSymbols.pi}`, TEXT_OPTIONS ) },

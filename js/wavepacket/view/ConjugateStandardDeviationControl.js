@@ -50,6 +50,7 @@ class ConjugateStandardDeviationControl extends WavePacketNumberControl {
       sliderOptions: {
 
         // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
+        // It was easy to change during development, and is supported by the assertions below.
         majorTicks: [
           { value: 1 / ( 4 * Math.PI ), label: new RichText( `1/(4${FMWSymbols.pi})`, TEXT_OPTIONS ) },
           { value: 1 / ( 2 * Math.PI ), label: new RichText( `1/(2${FMWSymbols.pi})`, TEXT_OPTIONS ) },

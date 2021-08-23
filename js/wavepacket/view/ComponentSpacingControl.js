@@ -53,6 +53,7 @@ class ComponentSpacingControl extends WavePacketNumberControl {
         constrainValue: value => Utils.roundSymmetric( value ),
 
         // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
+        // It was easy to change during development, and is supported by assertions below.
         majorTicks: [
           { value: 0, label: new RichText( '0', TEXT_OPTIONS ) },
           { value: 1, label: new RichText( `${FMWSymbols.pi}/4`, TEXT_OPTIONS ) },
@@ -77,8 +78,8 @@ class ComponentSpacingControl extends WavePacketNumberControl {
       numberType: 'Integer',
       range: new Range( 0, validValues.length - 1 )
     } );
-    assert && assert( componentSpacingIndexProperty.range.min === 0 && componentSpacingIndexProperty.range.max === 3,
-      'implementation of tick marks is dependent on a specific range' );
+    assert && assert( options.sliderOptions.majorTicks.length === validValues.length,
+      'a tick is required for each value in validValues' );
 
     // Keep componentSpacing and componentSpacingIndex in sync
     componentSpacingProperty.link( componentSpacing => {
