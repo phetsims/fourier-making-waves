@@ -19,22 +19,11 @@ const DEFAULT_X_AXIS_DESCRIPTION = new AxisDescription( {
   tickLabelSpacing: 0.5
 } );
 
-//TODO this is not really used because of how charts auto-scale
-const DEFAULT_Y_AXIS_DESCRIPTION = new AxisDescription( {
-  range: new Range( -2, 2 ),
-  gridLineSpacing: 1,
-  tickMarkSpacing: 1,
-  tickLabelSpacing: 1
-} );
-
 const WavePacketAxisDescriptions = {
 
   DEFAULT_X_AXIS_DESCRIPTION: DEFAULT_X_AXIS_DESCRIPTION,
-  DEFAULT_Y_AXIS_DESCRIPTION: DEFAULT_Y_AXIS_DESCRIPTION,
 
-  // {AxisDescription}
-  // Values for the x-axis AxisDescriptions are coefficients (multipliers) for L or T, depending on which domain is
-  // plotted. Use AxisDescription.createRangeForDomain to create a numeric range suitable for use with a chart.
+  // {AxisDescription} x-axis descriptions shared by the Components and Sum charts
   X_AXIS_DESCRIPTIONS: [
     new AxisDescription( {
       range: new Range( -8, 8 ),
@@ -63,25 +52,39 @@ const WavePacketAxisDescriptions = {
     } )
   ],
 
-  // {AxisDescription} TODO this is not really used because of how charts auto-scale
-  Y_AXIS_DESCRIPTIONS: [
-    DEFAULT_Y_AXIS_DESCRIPTION
-  ]
+  // {AxisDescription} y-axis descriptions for the Sum chart
+  // TODO this is not used because of the Components chart auto-scales
+  COMPONENT_Y_AXIS_DESCRIPTIONS: [
+    new AxisDescription( {
+      range: new Range( -1, 1 ),
+      gridLineSpacing: 1,
+      tickMarkSpacing: 1,
+      tickLabelSpacing: 1
+    } )
+  ],
+
+  // The fixed y-axis for the Sum chart, see https://github.com/phetsims/fourier-making-waves/issues/159
+  SUM_Y_AXIS_DESCRIPTION: new AxisDescription( {
+    range: new Range( -1.1, 1.1 ), // a bit of padding added
+    gridLineSpacing: 1,
+    tickMarkSpacing: 1,
+    tickLabelSpacing: 1
+  } )
 };
 
 // There are many assumptions about WavePacketAxisDescriptions. Verify them here.
 assert && assert( WavePacketAxisDescriptions.X_AXIS_DESCRIPTIONS.includes( WavePacketAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION ),
   'X_AXIS_DESCRIPTIONS must include DEFAULT_X_AXIS_DESCRIPTION' );
-assert && assert( WavePacketAxisDescriptions.Y_AXIS_DESCRIPTIONS.includes( WavePacketAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION ),
-  'Y_AXIS_DESCRIPTIONS must include DEFAULT_Y_AXIS_DESCRIPTION' );
 assert && assert( AxisDescription.isSortedDescending( WavePacketAxisDescriptions.X_AXIS_DESCRIPTIONS ),
   'X_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
-assert && assert( AxisDescription.isSortedDescending( WavePacketAxisDescriptions.Y_AXIS_DESCRIPTIONS ),
-  'Y_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
+assert && assert( AxisDescription.isSortedDescending( WavePacketAxisDescriptions.COMPONENT_Y_AXIS_DESCRIPTIONS ),
+  'COMPONENT_Y_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
 assert && assert( _.every( WavePacketAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
   'range must be symmetric for X_AXIS_DESCRIPTIONS' );
-assert && assert( _.every( WavePacketAxisDescriptions.Y_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
-  'range must be symmetric for Y_AXIS_DESCRIPTIONS' );
+assert && assert( _.every( WavePacketAxisDescriptions.COMPONENT_Y_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
+  'range must be symmetric for COMPONENT_Y_AXIS_DESCRIPTIONS' );
+assert && assert( WavePacketAxisDescriptions.SUM_Y_AXIS_DESCRIPTION.hasSymmetricRange(),
+  'range must be symmetric for SUM_Y_AXIS_DESCRIPTION' );
 
 fourierMakingWaves.register( 'WavePacketAxisDescriptions', WavePacketAxisDescriptions );
 export default WavePacketAxisDescriptions;

@@ -57,14 +57,14 @@ class WavePacketModel {
 
     //TODO componentsYAxisDescriptionProperty is not used!
     // {Property.<AxisDescription>} the y-axis description for the Components chart
-    const componentsYAxisDescriptionProperty = new Property( WavePacketAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION, {
-      validValues: WavePacketAxisDescriptions.Y_AXIS_DESCRIPTIONS
+    const componentsYAxisDescriptionProperty = new Property( WavePacketAxisDescriptions.COMPONENT_Y_AXIS_DESCRIPTIONS[ 0 ], {
+      validValues: WavePacketAxisDescriptions.COMPONENT_Y_AXIS_DESCRIPTIONS
     } );
 
-    //TODO sumYAxisDescriptionProperty is not used!
-    // {Property.<AxisDescription>} the y-axis description for the Sum chart
-    const sumYAxisDescriptionProperty = new Property( WavePacketAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION, {
-      validValues: WavePacketAxisDescriptions.Y_AXIS_DESCRIPTIONS
+    // {Property.<AxisDescription>} the y-axis description for the Sum chart. This chart has a fixed y-axis scale,
+    // so we use validValues to make this essentially a constant.
+    const sumYAxisDescriptionProperty = new Property( WavePacketAxisDescriptions.SUM_Y_AXIS_DESCRIPTION, {
+      validValues: [ WavePacketAxisDescriptions.SUM_Y_AXIS_DESCRIPTION ]
     } );
 
     // Parent tandem for all charts

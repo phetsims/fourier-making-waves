@@ -44,7 +44,6 @@ class WavePacketSumChartNode extends DomainChartNode {
     const widthIndicatorPositionProperty = sumChart.widthIndicatorPositionProperty;
     const widthIndicatorsVisibleProperty = sumChart.widthIndicatorsVisibleProperty;
     const sumDataSetProperty = sumChart.sumDataSetProperty;
-    const maxAmplitudeProperty = sumChart.maxAmplitudeProperty;
     const waveformEnvelopeDataSetProperty = sumChart.waveformEnvelopeDataSetProperty;
 
     options = merge( {
@@ -115,13 +114,6 @@ class WavePacketSumChartNode extends DomainChartNode {
     waveformEnvelopeDataSetProperty.link( dataSet => {
       waveformEnvelopePlot.setDataSet( dataSet );
       waveformEnvelopeChartCanvasNode.update();
-    } );
-
-    // Scale the y axis.
-    maxAmplitudeProperty.link( maxAmplitude => {
-      if ( maxAmplitude > 0 ) {
-        this.scaleYAxis( maxAmplitude );
-      }
     } );
   }
 
