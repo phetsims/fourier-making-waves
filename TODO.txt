@@ -1,7 +1,5 @@
 TODO.txt for fourier-making-waves
 
-Optimize to prevent collapsed charts from updating. Ask team if it's appropriate, worth it.
-
 Replace xAxisDescriptionProperty and yAxisDescriptionProperty with AxisHandler
 * handle axis scaling
 * 4 different strategies (fix, zoom, auto-scale to description, auto-scale to peak
