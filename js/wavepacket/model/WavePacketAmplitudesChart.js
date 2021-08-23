@@ -68,26 +68,18 @@ class WavePacketAmplitudesChart {
         return dataSet;
       } );
 
-    // Data set for a continuous waveform, potentially shared in 2 situations:
-    // (1) when the number of components is infinite, and
-    // (2) the 'Continuous Wave' checkbox is checked.
-    // Those 2 situations are supported in the public API by this.infiniteComponentsDataSetProperty and
-    // this.continuousWaveformDataSetProperty respectively.
-    const continuousWaveformDataSetProperty = new DerivedProperty(
-      [ this.continuousWaveformVisibleProperty, wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
-      ( continuousWaveformVisible, componentSpacing, center, standardDeviation ) => {
-        let dataSet = EMPTY_DATA_SET;
-        if ( continuousWaveformVisible || componentSpacing === 0 ) {
-          dataSet = createContinuousWaveformDataSet( wavePacket );
-        }
-        return dataSet;
-      }
+    // @public {DerivedProperty.<Vector2[]>} Data set for a continuous waveform.
+    // This must always be created, because it determines the maxAmplitude of the chart.
+    this.continuousWaveformDataSetProperty = new DerivedProperty(
+      [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
+      ( componentSpacing, center, standardDeviation ) => createContinuousWaveformDataSet( wavePacket )
     );
 
     // @public {DerivedProperty.<Vector2[]>} Data set for a continuous waveform, displayed when the number of
-    // components is infinite, otherwise [].  Points are ordered by increasing x value.
+    // components is infinite, otherwise [].  When components are infinite, this is the same data set as that's
+    // used for Continuous Waveform, but will be plotted differently.
     this.infiniteComponentsDataSetProperty = new DerivedProperty(
-      [ wavePacket.componentSpacingProperty, continuousWaveformDataSetProperty ],
+      [ wavePacket.componentSpacingProperty, this.continuousWaveformDataSetProperty ],
       ( componentSpacing, continuousWaveformDataSet ) => {
         let dataSet = EMPTY_DATA_SET;
         if ( componentSpacing === 0 ) {
@@ -96,47 +88,11 @@ class WavePacketAmplitudesChart {
         return dataSet;
       } );
 
-    // @public {DerivedProperty.<Vector2[]>} Data set for a continuous waveform, displayed when the
-    // 'Continuous Wave' checkbox is checked, otherwise [].  Points are ordered by increasing x value.
-    this.continuousWaveformDataSetProperty = new DerivedProperty(
-      [ this.continuousWaveformVisibleProperty, continuousWaveformDataSetProperty ],
-      ( continuousWaveformVisible, continuousWaveformDataSet ) => {
-        let dataSet = EMPTY_DATA_SET;
-        if ( continuousWaveformVisible ) {
-          dataSet = continuousWaveformDataSet;
-        }
-        return dataSet;
-      } );
-
     // @public {DerivedProperty.<number>} the maximum amplitude, used to scale the chart's y axis.
-    // NOTE: It very tempting to do this:
-    //   return _.maxBy( [ ...amplitudesDataSet, ...continuousWaveformDataSet ], point => point.y ).y
-    // But both data sets may be empty, continuousWaveformDataSet is large when not empty, and
-    // performance is an issue. So this implementation is a bit more complicated because we need
-    // to avoid using the spread operator, creating additional arrays, etc.
     this.maxAmplitudeProperty = new DerivedProperty(
-      [ this.finiteComponentsDataSetProperty, continuousWaveformDataSetProperty ],
-      ( amplitudesDataSet, continuousWaveformDataSet ) => {
-
-        // To ensure a non-zero result. That would be an intermediate state, would result in a y-axis range of [0,0],
-        // and could cause problems with our bamboo WavePacketAmplitudeChartsNode.
-        const epsilon = 1e-6;
-
-        // Find the maxY for amplitudesDataSet, which will be [] if we have infinite components.
-        let amplitudesDataSetMaxY = epsilon;
-        if ( amplitudesDataSet.length > 0 ) {
-          amplitudesDataSetMaxY = _.maxBy( amplitudesDataSet, point => point.y ).y;
-        }
-
-        // Find maxY for continuousWaveformDataSet, which will be [] if we have finite components and
-        // the 'Continuous Waveform' checkbox is not checked.
-        let continuousWaveformDataSetMaxY = epsilon;
-        if ( continuousWaveformDataSet.length > 0 ) {
-          continuousWaveformDataSetMaxY = _.maxBy( continuousWaveformDataSet, point => point.y ).y;
-        }
-
-        return Math.max( amplitudesDataSetMaxY, continuousWaveformDataSetMaxY );
-      } );
+      [ this.continuousWaveformDataSetProperty ],
+      continuousWaveformDataSet => _.maxBy( continuousWaveformDataSet, point => point.y ).y
+    );
 
     // @public {DerivedProperty.<Vector2>} width that is displayed by the width indicator
     // This is identical to the wave packet's width, but we are deriving a Property named widthIndicatorWidthProperty
