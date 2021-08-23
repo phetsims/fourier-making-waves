@@ -48,7 +48,7 @@ import WaveGameSumChartNode from './WaveGameSumChartNode.js';
 // constants
 const DEFAULT_FONT = new PhetFont( 16 );
 const BUTTON_TEXT_MAX_WIDTH = 150; // maxWidth for button text, determined empirically
-const CHECK_ANSWER_PRESSES = 2; // number of 'Check Answer' button presses required to enabled the 'Show Answers' button
+const CHECK_ANSWER_PRESSES = 1; // number of 'Check Answer' button presses required to enabled the 'Show Answers' button
 const TITLE_TOP_SPACING = 10; // space above the title of a chart
 const TITLE_BOTTOM_SPACING = 10; // space below the title of a chart
 
