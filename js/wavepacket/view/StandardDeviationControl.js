@@ -62,8 +62,7 @@ class StandardDeviationControl extends WavePacketNumberControl {
       }
     }, options );
 
-    assert && assert( _.every( options.sliderOptions.majorTicks,
-        tick => standardDeviationProperty.range.contains( tick.value ) ),
+    assert && assert( _.every( options.sliderOptions.majorTicks, tick => standardDeviationProperty.range.contains( tick.value ) ),
       'a tick mark is out of range' );
     assert && assert( options.sliderOptions.majorTicks[ 0 ].value === standardDeviationProperty.range.min,
       'first tick must me range.min' );
