@@ -9,6 +9,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import BarPlot from '../../../../bamboo/js/BarPlot.js';
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
@@ -112,12 +113,6 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       chartCanvasNode.update();
     } );
 
-    // CanvasLinePlot does not support visibleProperty, so handle it here by clearing the data set when invisible.
-    continuousWaveformVisibleProperty.link( visible => {
-      continuousWaveformPlot.setDataSet( visible ? continuousWaveformDataSetProperty.value : [] );
-      chartCanvasNode.update();
-    } );
-
     // Width indicator, labeled dimensional arrows
     const widthIndicatorPlot = new WidthIndicatorPlot( this.chartTransform, widthIndicatorWidthProperty,
       widthIndicatorPositionProperty, domainProperty, FMWSymbols.k, FMWSymbols.omega, {
@@ -142,10 +137,13 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     // Update plots when their data sets change.
     finiteComponentsDataSetProperty.link( dataSet => finiteComponentsPlot.setDataSet( dataSet ) );
     infiniteComponentsDataSetProperty.link( dataSet => infiniteComponentsPlot.setDataSet( dataSet ) );
-    continuousWaveformDataSetProperty.link( dataSet => {
-      continuousWaveformPlot.setDataSet( dataSet );
-      chartCanvasNode.update();
-    } );
+
+    // CanvasLinePlot does not support visibleProperty, so handle it here by clearing the data set when invisible.
+    Property.multilink( [ continuousWaveformVisibleProperty, continuousWaveformDataSetProperty ],
+      ( visible, dataSet ) => {
+        continuousWaveformPlot.setDataSet( visible ? dataSet : FMWConstants.EMPTY_DATA_SET );
+        chartCanvasNode.update();
+      } );
 
     // Scale the y axis.
     maxAmplitudeProperty.link( maxAmplitude => this.scaleYAxis( maxAmplitude ) );
