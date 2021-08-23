@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import audioManager from '../../../../joist/js/audioManager.js';
@@ -402,9 +403,18 @@ class MeasurementToolsSubpanel extends VBox {
     // Wavelength
     const wavelengthCheckbox = new WavelengthCheckbox( wavelengthTool.isSelectedProperty, {
       maxWidth: 75,
+      enabledProperty: new DerivedProperty(
+        [ domainProperty ],
+        domain => ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME )
+      ),
       tandem: options.tandem.createTandem( 'wavelengthCheckbox' )
     } );
     const wavelengthSpinner = new OrderSpinner( FMWSymbols.lambda, wavelengthTool.orderProperty, {
+      enabledProperty: new DerivedProperty(
+        [ wavelengthTool.isSelectedProperty, domainProperty ],
+        ( isSelected, domain ) =>
+          isSelected && ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME )
+      ),
       tandem: options.tandem.createTandem( 'wavelengthSpinner' )
     } );
     const wavelengthBox = new HBox( merge( {}, hBoxOptions, {
@@ -417,9 +427,18 @@ class MeasurementToolsSubpanel extends VBox {
     // Period
     const periodCheckbox = new PeriodCheckbox( periodTool.isSelectedProperty, {
       maxWidth: 75,
+      enabledProperty: new DerivedProperty(
+        [ domainProperty ],
+        domain => ( domain === Domain.TIME || domain === Domain.SPACE_AND_TIME )
+      ),
       tandem: options.tandem.createTandem( 'periodCheckbox' )
     } );
     const periodSpinner = new OrderSpinner( FMWSymbols.T, periodTool.orderProperty, {
+      enabledProperty: new DerivedProperty(
+        [ periodTool.isSelectedProperty, domainProperty ],
+        ( isSelected, domain ) =>
+          isSelected && ( domain === Domain.TIME || domain === Domain.SPACE_AND_TIME )
+      ),
       tandem: options.tandem.createTandem( 'periodSpinner' )
     } );
     const periodBox = new HBox( merge( {}, hBoxOptions, {
@@ -440,19 +459,6 @@ class MeasurementToolsSubpanel extends VBox {
 
     wavelengthTool.isSelectedProperty.link( () => wavelengthSpinner.interruptSubtreeInput() );
     periodTool.isSelectedProperty.link( () => periodSpinner.interruptSubtreeInput() );
-
-    domainProperty.link( domain => {
-
-      // Wavelength measurement is enabled when domain involves space.
-      const hasSpace = ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME );
-      wavelengthCheckbox.enabledProperty.value = hasSpace;
-      wavelengthSpinner.enabledProperty.value = hasSpace;
-
-      // Period measurement is enabled when domain involves time.
-      const hasTime = ( domain === Domain.TIME || domain === Domain.SPACE_AND_TIME );
-      periodCheckbox.enabledProperty.value = hasTime;
-      periodSpinner.enabledProperty.value = hasTime;
-    } );
 
     // Interrupt input for controls that can be disabled.
     wavelengthCheckbox.enabledProperty.link( () => wavelengthCheckbox.interruptSubtreeInput() );
