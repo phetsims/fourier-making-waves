@@ -57,8 +57,7 @@ class ComponentSpacingControl extends WavePacketNumberControl {
           { value: 0, label: new RichText( '0', TEXT_OPTIONS ) },
           { value: 1, label: new RichText( `${FMWSymbols.pi}/4`, TEXT_OPTIONS ) },
           { value: 2, label: new RichText( `${FMWSymbols.pi}/2`, TEXT_OPTIONS ) },
-          { value: 3, label: new RichText( `${FMWSymbols.pi}`, TEXT_OPTIONS ) },
-          { value: 4, label: new RichText( `2${FMWSymbols.pi}`, TEXT_OPTIONS ) }
+          { value: 3, label: new RichText( `${FMWSymbols.pi}`, TEXT_OPTIONS ) }
         ],
 
         // pdom options
@@ -78,7 +77,7 @@ class ComponentSpacingControl extends WavePacketNumberControl {
       numberType: 'Integer',
       range: new Range( 0, validValues.length - 1 )
     } );
-    assert && assert( componentSpacingIndexProperty.range.min === 0 && componentSpacingIndexProperty.range.max === 4,
+    assert && assert( componentSpacingIndexProperty.range.min === 0 && componentSpacingIndexProperty.range.max === 3,
       'implementation of tick marks is dependent on a specific range' );
 
     // Keep componentSpacing and componentSpacingIndex in sync
