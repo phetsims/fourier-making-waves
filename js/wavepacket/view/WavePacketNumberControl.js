@@ -41,20 +41,22 @@ class WavePacketNumberControl extends NumberControl {
     super( '' /* title */, numberProperty, numberProperty.range, options );
 
     // Make tick label interactive, so that pressing on a tick label sets the Property to that value.
-    if ( _.hasIn( options, 'sliderOptions.majorTicks' ) ) {
+    if ( options.sliderOptions && options.sliderOptions.majorTicks ) {
       options.sliderOptions.majorTicks.forEach( majorTick => {
+        if ( majorTick.label ) {
 
-        const value = majorTick.value;
-        const label = majorTick.label;
+          const value = majorTick.value;
+          const label = majorTick.label;
 
-        // Pressing on a tick's label sets the Property to the value of that tick.
-        label.addInputListener( new PressListener( {
-          press: () => { numberProperty.value = value; }
-        } ) );
+          // Pressing on a tick's label sets the Property to the value of that tick.
+          label.addInputListener( new PressListener( {
+            press: () => { numberProperty.value = value; }
+          } ) );
 
-        //TODO https://github.com/phetsims/sun/issues/712 workaround to support interactive tick labels,
-        // because Slider sets tick labels to pickable:false
-        label.pickable = true;
+          //TODO https://github.com/phetsims/sun/issues/712 workaround to support interactive tick labels,
+          // because Slider sets tick labels to pickable:false
+          label.pickable = true;
+        }
       } );
     }
 
