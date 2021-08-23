@@ -52,7 +52,7 @@ class WavePacketAmplitudesChart {
     } );
 
     // @public
-    this.continuousWaveformVisibleProperty = new BooleanProperty( false, {
+    this.continuousWaveformVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
     } );
 

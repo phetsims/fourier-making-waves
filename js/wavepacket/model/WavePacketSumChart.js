@@ -57,7 +57,7 @@ class WavePacketSumChart extends DomainChart {
     this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
 
     // @public whether the envelope of the sum waveform is visible
-    this.waveformEnvelopeVisibleProperty = new BooleanProperty( false, {
+    this.waveformEnvelopeVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'waveformEnvelopeVisibleProperty' )
     } );
 
