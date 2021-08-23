@@ -8,8 +8,6 @@ Make WavePacketAmplitudesChart extend DomainChart, WavePacketAmplitudesChartNode
 
 WavePacketAmplitudesChartNode: use AxisDescription for the y axis? Is it OK to override setYAxis?
 
-AxisDescription and Properties of that type have been a constant pain. Get rid of it?
-
 WavePacketComponentsChart and WavePacketSumPlot do not use AxisDescription for y-axis, but yAxisDescriptionProperty
   is required by their superclass DomainChart.
 
