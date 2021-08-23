@@ -222,30 +222,11 @@ const SAWTOOTH = new WaveformValue( {
 
 const WAVE_PACKET = new WaveformValue( {
 
-  //TODO https://github.com/phetsims/fourier-making-waves/issues/18 provide a reference for how amplitudes are computed
+  // Presets.java used these same hardcoded amplitude values. It documented an equation, but that equation did not
+  // produce these values, and in fact produced invalid values. After repeated attempts to identify a correct equation,
+  // we gave up and decided to stick with the hardcoded values.
+  // See https://github.com/phetsims/fourier-making-waves/issues/18
   getAmplitudes: ( numberOfHarmonics, seriesType ) => {
-
-    //TODO https://github.com/phetsims/fourier-making-waves/issues/18 see p 26 of 'Fourier Design Outline'
-    // An = (1 / (p * sqrt(2 * PI)))^( -(n-no)^2 / (2 * p^2))
-    // where p = 1.5, N = number of harmonics, no = (N + 1) / 2
-
-    //TODO https://github.com/phetsims/fourier-making-waves/issues/18 creates large (invalid) amplitudes that do not match hardcoded values from Preset.java
-    // const amplitudes = [];
-    // const p = 1.5;
-    // const no = ( numberOfHarmonics + 1 ) / 2;
-    // const base = 1 / ( p * Math.sqrt( 2 * PI ) );
-    // for ( let n = 1; n <= numberOfHarmonics; n++ ) {
-    //   //const exponent = -Math.pow( n - no, 2 ) / ( 2 * p * p );
-    //   //TODO https://github.com/phetsims/fourier-making-waves/issues/18 fixes operator precedence, but creates small non-zero amplitudes that display as 0.00
-    //   const exponent = Math.pow( -( n - no ), 2 ) / ( 2 * p * p );
-    //   const amplitude = Math.pow( base, exponent );
-    //   amplitudes.push( amplitude );
-    // }
-    // console.log( `N=${numberOfHarmonics} amplitudes=${amplitudes}` );//TODO delete me
-    // debugger;
-    // return amplitudes;
-
-    //TODO https://github.com/phetsims/fourier-making-waves/issues/18 workaround by using hardcoded values from Preset.java
     return [
       [ 1.000000 ],
       [ 0.457833, 0.457833 ],
