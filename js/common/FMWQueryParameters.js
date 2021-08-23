@@ -22,7 +22,7 @@ const SCHEMA = {
   rewardScore: {
     public: true,
     type: 'number',
-    defaultValue: 10,
+    defaultValue: 5,
     isValidValue: value => ( value > 0 ) && Number.isInteger( value )
   },
 
