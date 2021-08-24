@@ -60,8 +60,9 @@ class SumChart extends DomainChart {
     // @public {DerivedProperty.<AxisDescription>} y-axis description that is the best-fit for yAxisRangeProperty
     this.yAxisDescriptionProperty = new DerivedProperty(
       [ this.yAxisRangeProperty ],
-      yAxisRange => AxisDescription.getBestFit( yAxisRange, DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS )
-    );
+      yAxisRange => AxisDescription.getBestFit( yAxisRange, DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS ), {
+        validValues: DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS
+      } );
 
     // @public
     this.fourierSeries = fourierSeries;
