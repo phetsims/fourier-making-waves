@@ -1,10 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO When https://github.com/phetsims/sun/issues/712 is addressed, it may be possible to eliminate this class.
-
-//TODO https://github.com/phetsims/sun/issues/697, https://github.com/phetsims/fourier-making-waves/issues/56
-// Add sound for this NumberControl's slider when the Slider sound API has been completed.
-
 /**
  * WavePacketNumberControl is the base class for NumberControls in the Wave Packet screen.
  * It adds interactive tick labels, isPressedProperty, and synchronizes its display with the domain.
@@ -27,6 +22,7 @@ class WavePacketNumberControl extends NumberControl {
 
   /**
    * @param {NumberProperty} numberProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( numberProperty, domainProperty, options ) {
@@ -34,6 +30,7 @@ class WavePacketNumberControl extends NumberControl {
     assert && assert( numberProperty.range );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
+    //TODO https://github.com/phetsims/fourier-making-waves/issues/56 add Slider sound
     options = merge( {
       tandem: Tandem.REQUIRED
     }, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, options );
