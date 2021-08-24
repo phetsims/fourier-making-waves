@@ -3,15 +3,9 @@ TODO.txt for fourier-making-waves
 -------------
 CLEANUP
 
-Replace xAxisDescriptionProperty and yAxisDescriptionProperty with AxisHandler
-* handle axis scaling
-* 4 different strategies (fix, zoom, auto-scale to description, auto-scale to peak
+Make WavePacketComponentsChart dynamically create an appropriate value for yAxisDescriptionProperty.
 
 Make WavePacketAmplitudesChart extend DomainChart, WavePacketAmplitudesChartNode extend DomainChartNode?
-
-WavePacketComponentsChart does not use AxisDescription for y-axis, but yAxisDescriptionProperty is required by superclass DomainChart.
-
-create CanvasBarPlot and CanvasAreaPlot, for use in WavePacketAmplitudesChartNode
 
 -------------
 TODOs
