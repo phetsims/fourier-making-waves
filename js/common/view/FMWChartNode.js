@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO move some of FMWConstants into this file, if they aren't used elsewhere.
 /**
  * FMWChartNode is the base class for most of the charts in this simulation.
  * It's main responsibility is assembling all of the bamboo components that are needed.
