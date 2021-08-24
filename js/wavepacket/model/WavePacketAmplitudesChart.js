@@ -9,14 +9,17 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
+import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
 
 // constants
 const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
@@ -93,6 +96,14 @@ class WavePacketAmplitudesChart {
       [ this.continuousWaveformDataSetProperty ],
       continuousWaveformDataSet => _.maxBy( continuousWaveformDataSet, point => point.y ).y
     );
+
+    // @public {DerivedProperty.<AxisDescription>} y-axis description that is the best-fit for peakAmplitudeProperty
+    this.yAxisDescriptionProperty = new DerivedProperty(
+      [ this.peakAmplitudeProperty ],
+      peakAmplitude =>
+        AxisDescription.getBestFit( new Range( 0, peakAmplitude ), WavePacketAxisDescriptions.AMPLITUDES_Y_AXIS_DESCRIPTIONS ), {
+        validValues: WavePacketAxisDescriptions.AMPLITUDES_Y_AXIS_DESCRIPTIONS
+      } );
 
     // @public {DerivedProperty.<Vector2>} width that is displayed by the width indicator
     // This is identical to the wave packet's width, but we are deriving a Property named widthIndicatorWidthProperty

@@ -79,7 +79,7 @@ class SumChartNode extends DomainChartNode {
     // Update the y-axis range.
     yAxisRangeProperty.link( range => this.chartTransform.setModelYRange( range ) );
 
-    // Update the y-axis.
+    // Update the y-axis decorations.
     yAxisDescriptionProperty.link( yAxisDescription => {
       // NOTE: this.chartTransform.setModelYRange is handled via yAxisRangeProperty listener, above.
       this.yGridLines.setSpacing( yAxisDescription.gridLineSpacing );

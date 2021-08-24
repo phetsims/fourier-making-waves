@@ -53,6 +53,40 @@ const WavePacketAxisDescriptions = {
     } )
   ],
 
+  // {AxisDescription} y-axis descriptions for the Amplitudes chart
+  AMPLITUDES_Y_AXIS_DESCRIPTIONS: [
+    new AxisDescription( {
+      range: new Range( 0, 1 ),
+      gridLineSpacing: 1,
+      tickMarkSpacing: 0.5,
+      tickLabelSpacing: 1
+    } ),
+    new AxisDescription( {
+      range: new Range( 0, 0.5 ),
+      gridLineSpacing: 0.2,
+      tickMarkSpacing: 0.1,
+      tickLabelSpacing: 0.2
+    } ),
+    new AxisDescription( {
+      range: new Range( 0, 0.05 ),
+      gridLineSpacing: 0.05,
+      tickMarkSpacing: 0.01,
+      tickLabelSpacing: 0.05
+    } ),
+    new AxisDescription( {
+      range: new Range( 0, 0.02 ),
+      gridLineSpacing: 0.01,
+      tickMarkSpacing: 0.005,
+      tickLabelSpacing: 0.01
+    } ),
+    new AxisDescription( {
+      range: new Range( 0, 0.01 ),
+      gridLineSpacing: 0.005,
+      tickMarkSpacing: 0.001,
+      tickLabelSpacing: 0.005
+    } )
+  ],
+
   // The Components chart has no y-axis descriptions because it automatically scales to the peak amplitude,
   // and simply puts a tick mark and grid line at that peak amplitude.
 

@@ -56,6 +56,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     const widthIndicatorPositionProperty = amplitudesChart.widthIndicatorPositionProperty;
     const widthIndicatorsVisibleProperty = amplitudesChart.widthIndicatorsVisibleProperty;
     const peakAmplitudeProperty = amplitudesChart.peakAmplitudeProperty;
+    const yAxisDescriptionProperty = amplitudesChart.yAxisDescriptionProperty;
 
     options = merge( {
       xTickMarkSpacing: Math.PI,
@@ -145,8 +146,18 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
         chartCanvasNode.update();
       } );
 
-    // Scale the y axis.
-    peakAmplitudeProperty.link( peakAmplitude => this.scaleYAxis( peakAmplitude ) );
+    // Scale the y axis, with some padding above peakAmplitude.
+    peakAmplitudeProperty.link( peakAmplitude =>
+      this.chartTransform.setModelYRange( new Range( 0, 1.05 * peakAmplitude ) )
+    );
+
+    // Update the y-axis decorations.
+    yAxisDescriptionProperty.link( yAxisDescription => {
+      // NOTE: this.chartTransform.setModelYRange is handled via peakAmplitudeProperty listener, above.
+      this.yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
+      this.yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
+      this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
+    } );
   }
 
   /**
@@ -156,54 +167,6 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
-  }
-
-  /**
-   * Scales the y axis.
-   * @param {number} peakAmplitude
-   * @private
-   */
-  scaleYAxis( peakAmplitude ) {
-    assert && assert( typeof peakAmplitude === 'number' && peakAmplitude > 0 );
-
-    // Extend the y-axis range, so there's some space above peakAmplitude.
-    this.chartTransform.setModelYRange( new Range( 0, 1.05 * peakAmplitude ) );
-
-    // Adjust ticks and gridlines.
-    // This logic and values were taken from D2CAmplitudesChart.java, in the Java version.
-    //TODO use AxisDescription and amplitudesChart.yAxisDescriptionProperty
-    let tickLabelSpacing;
-    let tickMarkSpacing;
-    if ( peakAmplitude > 1 ) {
-      tickLabelSpacing = 1.0;
-      tickMarkSpacing = 0.5;
-    }
-    else if ( peakAmplitude > 0.5 ) {
-      tickLabelSpacing = 0.2;
-      tickMarkSpacing = 0.1;
-    }
-    else if ( peakAmplitude > 0.2 ) {
-      tickLabelSpacing = 0.1;
-      tickMarkSpacing = 0.05;
-    }
-    else if ( peakAmplitude > 0.05 ) {
-      tickLabelSpacing = 0.05;
-      tickMarkSpacing = 0.01;
-    }
-    else if ( peakAmplitude > 0.02 ) {
-      tickLabelSpacing = 0.01;
-      tickMarkSpacing = 0.005;
-    }
-    else {
-      tickLabelSpacing = 0.005;
-      tickMarkSpacing = 0.001;
-    }
-    assert && assert( tickLabelSpacing > 0 );
-    assert && assert( tickMarkSpacing > 0 );
-
-    this.yGridLines.setSpacing( tickLabelSpacing );
-    this.yTickLabels.setSpacing( tickLabelSpacing );
-    this.yTickMarks.setSpacing( tickMarkSpacing );
   }
 }
 

@@ -4,11 +4,3 @@ TODO.txt for fourier-making-waves
 CLEANUP
 
 Make WavePacketAmplitudesChart extend DomainChart, WavePacketAmplitudesChartNode extend DomainChartNode?
-
--------------
-TODOs
-
-WavePacketAmplitudesChartNode:
-//TODO use AxisDescription and amplitudesChart.yAxisDescriptionProperty
-
--------------
