@@ -133,14 +133,9 @@ class DiscreteModel {
         tandem: chartsTandem.createTandem( 'harmonicsChart' )
       } );
 
-    // {Property.<AxisDescription>} The Sum chart has a y-axis that automatically scales to fit the peak amplitude.
-    const sumYAxisDescriptionProperty = new Property( DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION, {
-      validValues: DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS
-    } );
-
     // @public
     this.sumChart = new DiscreteSumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
-      this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, sumYAxisDescriptionProperty,
+      this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
       this.waveformProperty, {
         tandem: chartsTandem.createTandem( 'sumChart' )
       } );

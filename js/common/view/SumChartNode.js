@@ -25,6 +25,12 @@ class SumChartNode extends DomainChartNode {
 
     assert && assert( sumChart instanceof SumChart );
 
+    // Fields of interest in sumChart, to improve readability
+    const fourierSeries = sumChart.fourierSeries;
+    const sumDataSetProperty = sumChart.sumDataSetProperty;
+    const yAxisRangeProperty = sumChart.yAxisRangeProperty;
+    const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
+
     options = merge( {
 
       // SumChartNode options
@@ -34,16 +40,10 @@ class SumChartNode extends DomainChartNode {
       // FMWChartNode options
       chartTransformOptions: {
         // modelXRange is handled by superclass DomainChartNode
-        modelYRange: sumChart.yAxisDescriptionProperty.value.range
+        modelYRange: yAxisDescriptionProperty.value.range
       }
 
     }, options );
-
-    // Fields of interest in sumChart, to improve readability
-    const fourierSeries = sumChart.fourierSeries;
-    const sumDataSetProperty = sumChart.sumDataSetProperty;
-    const yAxisRangeProperty = sumChart.yAxisRangeProperty;
-    const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
 
     super( sumChart, options );
 

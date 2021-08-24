@@ -9,12 +9,13 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
+import DomainChart from './DomainChart.js';
 import FourierSeries from './FourierSeries.js';
 import SeriesType from './SeriesType.js';
-import DomainChart from './DomainChart.js';
 
 class SumChart extends DomainChart {
 
@@ -24,24 +25,18 @@ class SumChart extends DomainChart {
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
-               xAxisDescriptionProperty, yAxisDescriptionProperty, options ) {
+               xAxisDescriptionProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
-    assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
-    assert && assert( yAxisDescriptionProperty.validValues );
 
     super( domainProperty, xAxisDescriptionProperty, fourierSeries.L, fourierSeries.T, options );
-
-    // @public
-    this.yAxisDescriptionProperty = yAxisDescriptionProperty;
 
     // {DerivedProperty.<Vector2[]>} The data set for the sum. Points are ordered by increasing x value.
     const sumDataSetProperty = new DerivedProperty(
@@ -62,11 +57,11 @@ class SumChart extends DomainChart {
         return new Range( -maxY, maxY );
       } );
 
-    // When the y-axis range changes, choose the best-fit for y-axis description.
-    this.yAxisRangeProperty.link( yAxisRange => {
-      const yAxisDescriptions = yAxisDescriptionProperty.validValues;
-      yAxisDescriptionProperty.value = AxisDescription.getBestFit( yAxisRange, yAxisDescriptions );
-    } );
+    // @public {DerivedProperty.<AxisDescription>} y-axis description that is the best-fit for yAxisRangeProperty
+    this.yAxisDescriptionProperty = new DerivedProperty(
+      [ this.yAxisRangeProperty ],
+      yAxisRange => AxisDescription.getBestFit( yAxisRange, DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS )
+    );
 
     // @public
     this.fourierSeries = fourierSeries;

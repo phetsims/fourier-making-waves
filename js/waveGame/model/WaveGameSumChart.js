@@ -13,7 +13,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
@@ -30,14 +29,11 @@ class WaveGameSumChart extends SumChart {
    * @param {SeriesType} seriesType
    * @param {number} t
    * @param {AxisDescription} xAxisDescription
-   * @param {AxisDescription[]} yAxisDescriptions
    * @param {Object} [options]
    */
-  constructor( answerSeries, guessSeries, domain, seriesType, t,
-               xAxisDescription, yAxisDescriptions, options ) {
+  constructor( answerSeries, guessSeries, domain, seriesType, t, xAxisDescription, options ) {
 
     assert && assert( xAxisDescription instanceof AxisDescription );
-    assert && AssertUtils.assertArrayOf( yAxisDescriptions, AxisDescription );
 
     options = merge( {
 
@@ -55,7 +51,6 @@ class WaveGameSumChart extends SumChart {
       new EnumerationProperty( SeriesType, seriesType, { validValues: [ seriesType ] } ),
       new NumberProperty( t, { validValues: [ t ] } ),
       new Property( xAxisDescription, { validValues: [ xAxisDescription ] } ),
-      new Property( yAxisDescriptions[ 0 ], { validValues: yAxisDescriptions } ),
 
       options
     );

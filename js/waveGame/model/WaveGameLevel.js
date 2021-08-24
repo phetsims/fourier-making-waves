@@ -178,7 +178,7 @@ class WaveGameLevel extends PhetioObject {
 
     // @public
     this.sumChart = new WaveGameSumChart( this.answerSeries, this.guessSeries, DOMAIN, SERIES_TYPE, t,
-      DiscreteAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION, DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS, {
+      DiscreteAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION, {
         tandem: chartsTandem.createTandem( 'sumChart' )
       } );
 
