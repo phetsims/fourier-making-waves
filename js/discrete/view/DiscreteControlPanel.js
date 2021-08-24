@@ -509,8 +509,7 @@ class SoundLayoutBox extends HBox {
     } );
 
     // Slider for controlling output level
-    //TODO https://github.com/phetsims/sun/issues/697, https://github.com/phetsims/fourier-making-waves/issues/56
-    // Add sound for this slider when the Slider sound API has been completed.
+    //TODO https://github.com/phetsims/fourier-making-waves/issues/56 add Slider sound
     const outputLevelSlider = new HSlider( soundOutputLevelProperty, soundOutputLevelProperty.range, {
       thumbSize: new Dimension2( 10, 20 ),
       trackSize: new Dimension2( 100, 3 ),
