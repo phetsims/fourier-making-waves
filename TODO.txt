@@ -1,1 +1,3 @@
 TODO.txt for fourier-making-waves
+
+Get rid of DomainChart and DomainChartNode, get this functionality through composition?
