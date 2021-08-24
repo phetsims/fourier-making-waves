@@ -66,7 +66,7 @@ class AxisDescription {
    * @returns {AxisDescription}
    * @public
    */
-  static getAxisDescriptionForRange( range, axisDescriptions ) {
+  static getBestFit( range, axisDescriptions ) {
     assert && assert( range instanceof Range );
     assert && AssertUtils.assertArrayOf( axisDescriptions, AxisDescription );
 

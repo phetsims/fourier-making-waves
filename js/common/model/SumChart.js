@@ -62,7 +62,7 @@ class SumChart extends DomainChart {
     // When the y-axis range changes, choose the best-fit for y-axis description.
     this.yAxisRangeProperty.link( yAxisRange => {
       const yAxisDescriptions = yAxisDescriptionProperty.validValues;
-      yAxisDescriptionProperty.value = AxisDescription.getAxisDescriptionForRange( yAxisRange, yAxisDescriptions );
+      yAxisDescriptionProperty.value = AxisDescription.getBestFit( yAxisRange, yAxisDescriptions );
     } );
 
     // @public
