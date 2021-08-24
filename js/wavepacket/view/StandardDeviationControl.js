@@ -58,7 +58,8 @@ class StandardDeviationControl extends WavePacketNumberControl {
         ],
 
         // pdom options
-        keyboardStep: 1
+        keyboardStep: Math.PI / 4,
+        pageKeyboardStep: Math.PI / 2
       }
     }, options );
 
