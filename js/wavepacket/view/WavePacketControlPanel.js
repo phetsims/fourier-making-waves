@@ -310,6 +310,15 @@ class WavePacketWidthSubpanel extends VBox {
 
     const conjugateStandardDeviationControl =
       new ConjugateStandardDeviationControl( conjugateStandardDeviationProperty, domainProperty, {
+        sliderOptions: {
+
+          // Default pointer areas for widthIndicatorsCheckbox and standardDeviationControl.slider overlap.
+          // We can't eliminate this overlap because we can't afford to add vertical space. So do our best to mitigate
+          // the issue by shrinking the slider's touchArea. It would be nicer if we could shift the slider's touchArea
+          // up, but that isn't supported by the Slider API.
+          // See https://github.com/phetsims/fourier-making-waves/issues/124#issuecomment-897229707
+          thumbTouchAreaYDilation: 5
+        },
         tandem: options.tandem.createTandem( 'conjugateStandardDeviationControl' )
       } );
 
@@ -324,6 +333,12 @@ class WavePacketWidthSubpanel extends VBox {
     const widthIndicatorsCheckbox = new WidthIndicatorsCheckbox( widthIndicatorsVisibleProperty, {
       tandem: options.tandem.createTandem( 'widthIndicatorsCheckbox' )
     } );
+
+    // Default pointer areas for widthIndicatorsCheckbox and standardDeviationControl.slider overlap. We can't
+    // eliminate this overlap because we can't afford to add vertical space. So do our best to mitigate the issue
+    // by shifting widthIndicatorsCheckbox's touchArea down.
+    // See https://github.com/phetsims/fourier-making-waves/issues/124#issuecomment-897229707
+    widthIndicatorsCheckbox.touchArea = widthIndicatorsCheckbox.localBounds.dilatedXY( 6, 4 ).shiftedY( 2 );
 
     assert && assert( !options.children, 'WavePacketLayoutBox sets children' );
     options.children = [
