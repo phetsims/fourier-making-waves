@@ -64,13 +64,7 @@ const DiscreteAxisDescriptions = {
       tickMarkSpacing: 1 / 4,
       tickLabelSpacing: 1 / 4
     } ),
-    DEFAULT_X_AXIS_DESCRIPTION,
-    new AxisDescription( {
-      range: new Range( -1 / 4, 1 / 4 ),
-      gridLineSpacing: 1 / 8,
-      tickMarkSpacing: 1 / 4,
-      tickLabelSpacing: 1 / 4
-    } )
+    DEFAULT_X_AXIS_DESCRIPTION
   ],
 
   // {AxisDescription[]}
