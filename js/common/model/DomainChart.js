@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * DomainChart is the base class for charts that need to modify their presentation to match a domain -
+ * DomainChart is the base class for charts that need to modify their x-axis presentation to match a domain -
  * space, time, or space-&-time.
  *
  * @author Chris Malley (PixelZoom, Inc.)
