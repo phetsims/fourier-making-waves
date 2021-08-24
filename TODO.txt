@@ -3,7 +3,7 @@ TODO.txt for fourier-making-waves
 -------------
 CLEANUP
 
-Make WavePacketComponentsChart dynamically create an appropriate value for yAxisDescriptionProperty.
+Move yAxisDescriptionProperty out of DomainChart and DomainChartNode, and into subclasses that have dynamic y-axis scale.
 
 Make WavePacketAmplitudesChart extend DomainChart, WavePacketAmplitudesChartNode extend DomainChartNode?
 
