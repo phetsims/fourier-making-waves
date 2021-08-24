@@ -36,8 +36,9 @@ const FMWConstants = {
   // Number of points awarded for each correct answer in the Wave Game screen
   POINTS_PER_CHALLENGE: 1,
 
-  // An empty data set, used so that we can rely on value comparison in Property, and not trigger notifications when
-  // the value changes from one [] to another [].  This is a performance optimization.
+  // A data set (in bamboo) is typically an array of Vector2. This is an empty data set, used so that we can rely on
+  // value comparison in Property, and not trigger notifications when the value changes from one [] to another [].
+  // This is a performance optimization.
   EMPTY_DATA_SET: Object.freeze( [] ),
 
   // Number of levels in the Wave Game
