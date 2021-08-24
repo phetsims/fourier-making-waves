@@ -35,9 +35,10 @@ class CaliperCheckbox extends FMWCheckbox {
     options = merge( {
       calipersNodeOptions: {
         measuredWidth: 65,
+        labelPosition: 'left', // put label to left of caliper, to minimize vertical space
         scale: 0.5,
         richTextOptions: {
-          font: new PhetFont( 20 )
+          font: new PhetFont( 25 )
         }
       },
 

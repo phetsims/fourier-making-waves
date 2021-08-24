@@ -24,6 +24,12 @@ const BEAM_THICKNESS = 5;
 const JAWS_THICKNESS = 5;
 const JAWS_LENGTH = 20;
 
+// Positions for the label, relative to the calipers.
+const VALID_LABEL_POSITIONS = [
+  'above', // used for the interactive tools
+  'left' // used for icons in control panels, where we need to conserve vertical space
+];
+
 class CalipersNode extends Node {
 
   /**
@@ -34,6 +40,7 @@ class CalipersNode extends Node {
     options = merge( {
 
       measuredWidth: 100,
+      labelPosition: 'above',
 
       // Path options, for the beamNode subcomponent
       pathOptions: {
@@ -56,6 +63,8 @@ class CalipersNode extends Node {
       // phet-io options
       tandem: Tandem.OPTIONAL
     }, options );
+
+    assert && assert( VALID_LABEL_POSITIONS.includes( options.labelPosition ) );
 
     // Beam, with jaws at ends.
     const beamAndJawsNode = new Path( null, options.pathOptions );
@@ -88,6 +97,7 @@ class CalipersNode extends Node {
     this.transparentRectangle = transparentRectangle;
     this.labelText = labelText;
     this.backgroundNode = backgroundNode;
+    this.labelPosition = options.labelPosition;
 
     this.setMeasuredWidth( options.measuredWidth );
   }
@@ -143,8 +153,14 @@ class CalipersNode extends Node {
    * @private
    */
   updateLabelPosition() {
-    this.backgroundNode.centerX = this.beamAndJawsNode.centerX;
-    this.backgroundNode.bottom = this.beamAndJawsNode.top - 2;
+    if ( this.labelPosition === 'above' ) {
+      this.backgroundNode.centerX = this.beamAndJawsNode.centerX;
+      this.backgroundNode.bottom = this.beamAndJawsNode.top - 2;
+    }
+    else {
+      this.backgroundNode.right = this.beamAndJawsNode.left - 5;
+      this.backgroundNode.centerY = this.beamAndJawsNode.centerY;
+    }
   }
 }
 
