@@ -58,7 +58,6 @@ class AxisDescription {
     return ( this.range.getCenter() === 0 );
   }
 
-  //TODO This seems wrong. Don't we want to find the AxisDescription that best encloses range?
   /**
    * Gets AxisDescription that is the best-fit for a specified axis range.
    * This is the first entry in axisDescriptions such that range.max >= axisDescription.range.max.
