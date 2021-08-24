@@ -272,7 +272,7 @@ const CUSTOM = new WaveformValue( {
 /**
  * Take an array of base points that describe an 'infinite harmonics' waveform, map it to a data set that is
  * appropriate for a specified domain, seriesType, etc.
- * @param {Vector2[]} basePoints
+ * @param {Vector2[]} basePoints - one of the arrays in INFINITE_HARMONICS_BASE_POINTS
  * @param {Domain} domain
  * @param {SeriesType} seriesType - sine or cosine
  * @param {number} t - the current time
