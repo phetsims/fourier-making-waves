@@ -1,6 +1,5 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
-//TODO delete constants that are no longer used
 /**
  * FMWConstants defines constants used throughout this simulation.
  *
@@ -48,10 +47,6 @@ const FMWConstants = {
 
   SCREEN_VIEW_X_MARGIN: 15,
   SCREEN_VIEW_Y_MARGIN: 15,
-  SCREEN_VIEW_X_SPACING: 10,
-  SCREEN_VIEW_Y_SPACING: 10,
-
-  CONTROL_PANEL_WIDTH: 250,
 
   EXPAND_COLLAPSE_BUTTON_OPTIONS: {
     sideLength: 16
@@ -115,7 +110,6 @@ const FMWConstants = {
 
   // Fonts
   TITLE_FONT: new PhetFont( { size: 14, weight: 'bold' } ),
-  SUBTITLE_FONT: new PhetFont( { size: 12, weight: 'bold' } ),
   DIALOG_TITLE_FONT: new PhetFont( { size: 18, weight: 'bold' } ),
   CONTROL_FONT: CONTROL_FONT,
   MATH_CONTROL_FONT: new PhetFont( CONTROL_FONT.numericSize + 1 ), // use a larger font for math symbols, see https://github.com/phetsims/fourier-making-waves/issues/99
@@ -148,18 +142,6 @@ const FMWConstants = {
   X_AXIS_LABEL_MAX_WIDTH: 38,
   X_AXIS_LABEL_SPACING: 6, // horizontal space between chart rectangle and x-axis label
   Y_AXIS_LABEL_SPACING: 36,  // horizontal space between chart rectangle and y-axis label
-  AXIS_LINE_OPTIONS: {
-    stroke: FMWColors.axisStrokeProperty,
-    lineWidth: 1
-  },
-  GRID_LINE_OPTIONS: {
-    stroke: FMWColors.chartGridLinesStrokeProperty,
-    lineWidth: 0.5
-  },
-  TICK_MARK_OPTIONS: {
-    edge: 'min',
-    extent: 6
-  },
   SECONDARY_WAVEFORM_LINE_WIDTH: 4
 };
 
