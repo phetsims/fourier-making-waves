@@ -1,15 +1,32 @@
 TODO.txt for fourier-making-waves
 
+-------------
+CLEANUP
+
 Replace xAxisDescriptionProperty and yAxisDescriptionProperty with AxisHandler
 * handle axis scaling
 * 4 different strategies (fix, zoom, auto-scale to description, auto-scale to peak
 
 Make WavePacketAmplitudesChart extend DomainChart, WavePacketAmplitudesChartNode extend DomainChartNode?
 
-WavePacketAmplitudesChartNode: use AxisDescription for the y axis? Is it OK to override setYAxis?
-
-WavePacketComponentsChart and WavePacketSumPlot do not use AxisDescription for y-axis, but yAxisDescriptionProperty
-  is required by their superclass DomainChart.
+WavePacketComponentsChart does not use AxisDescription for y-axis, but yAxisDescriptionProperty is required by superclass DomainChart.
 
 create CanvasBarPlot and CanvasAreaPlot, for use in WavePacketAmplitudesChartNode
 
+-------------
+TODOs
+
+DomainChartNode:
+// NOTE: this.chartTransform.setModelYRange is handled via yAxisRangeProperty. TODO is this accurate?
+
+WavePacketAxisDescriptions:
+// TODO this is not used because the Components chart auto-scales
+
+WavePacketModel:
+//TODO componentsYAxisDescriptionProperty is not used!
+
+WavePacketAmplitudesChartNode:
+* @override TODO do not override scaleYAxis, FMWChartNode defines the implementation used by Components and Sum charts
+//TODO use AxisDescription and amplitudesChart.yAxisDescriptionProperty
+
+-------------
