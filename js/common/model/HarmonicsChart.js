@@ -7,8 +7,8 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Range from '../../../../dot/js/Range.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import AxisDescription from './AxisDescription.js';
@@ -46,12 +46,7 @@ class HarmonicsChart extends DomainChart {
     this.emphasizedHarmonics = emphasizedHarmonics;
 
     // @public fixed y-axis
-    this.yAxisDescription = new AxisDescription( {
-      range: new Range( -FMWConstants.MAX_AMPLITUDE, FMWConstants.MAX_AMPLITUDE ),
-      gridLineSpacing: 0.5,
-      tickMarkSpacing: 0.5,
-      tickLabelSpacing: 0.5
-    } );
+    this.yAxisDescription = DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION;
 
     // @public {DerivedProperty.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order.
     // Points are ordered by increasing x value.
