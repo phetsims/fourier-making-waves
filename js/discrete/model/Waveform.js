@@ -1,7 +1,5 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
-//TODO rename to WaveformPreset, and rename related Properties?
-//TODO convert to a set of static instances, instead of an enum?
 /**
  * Waveform is a rich enumeration for the preset waveforms that appear in the 'Discrete' screen.
  * These preset waveforms are all based on a peak amplitude of 1.
@@ -15,7 +13,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
-import FMWConstants from '../../common/FMWConstants.js';
+import required from '../../../../phet-core/js/required.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -23,8 +21,10 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 // constants
 const PI = Math.PI; // to improve readability
 
-//TODO Document INFINITE_HARMONICS_BASE_POINTS, x coordinates are coefficients, why we need more points than x range
-// to accommodate shiftX, etc.  ... or create functions to produce INFINITE_HARMONICS_BASE_POINTS
+// These are coefficients for the waveform presets that support getInfiniteHarmonicsDataSet. They are multiplied
+// by L (wavelength) or T (period), depending on Domain, to produce a data set that will plot the actual waveform.
+// These hard-coded values support both sine and cosine, but for a limited x-axis range. Elements in the arrays
+// must be ordered by ascending x-coordinate value.
 const INFINITE_HARMONICS_BASE_POINTS = {
 
   // Ported from Preset.java SINE_TRIANGLE_POINTS
@@ -94,18 +94,27 @@ const INFINITE_HARMONICS_BASE_POINTS = {
   ]
 };
 
-// An empty array, used so that we can rely on value comparison in Property, and not trigger notifications when
-// the value changes from one [] to another [].  This is a performance optimization.
-const NO_AMPLITUDES = Object.freeze( [] );
+/**
+ * Determines if an array of Vector2 is ordered by ascending x coordinate.
+ * @param {Vector2[]} array
+ * @returns {boolean}
+ */
+function isOrderedByAscendingX( array ) {
+  return _.every( array, ( vector, index, array ) => ( index === 0 || array[ index - 1 ].x <= vector.x ) );
+}
+
+assert && assert( isOrderedByAscendingX( INFINITE_HARMONICS_BASE_POINTS.TRIANGLE ) );
+assert && assert( isOrderedByAscendingX( INFINITE_HARMONICS_BASE_POINTS.SQUARE ) );
+assert && assert( isOrderedByAscendingX( INFINITE_HARMONICS_BASE_POINTS.SAWTOOTH ) );
 
 class WaveformValue {
 
   /**
-   * @param {Object} [options]
+   * @param {Object} config
    */
-  constructor( options ) {
+  constructor( config ) {
 
-    options = merge( {
+    config = merge( {
 
       /**
        * {function} Gets the amplitudes for the harmonics that approximate the waveform.
@@ -113,7 +122,7 @@ class WaveformValue {
        * @param {SeriesType} seriesType - sin or cos
        * @returns {number[]} ordered by increasing harmonic order
        */
-      getAmplitudes: ( numberOfHarmonics, seriesType ) => NO_AMPLITUDES,
+      getAmplitudes: required( config.getAmplitudes ),
 
       /**
        * {function} Gets the data set that can be used to plot the actual waveform, as if the waveform were
@@ -125,12 +134,12 @@ class WaveformValue {
        * @param {number} T - period of the fundamental harmonic, in milliseconds
        * @returns {Vector2[]}
        */
-      getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => FMWConstants.EMPTY_DATA_SET
-    }, options );
+      getInfiniteHarmonicsDataSet: required( config.getInfiniteHarmonicsDataSet )
+    }, config );
 
     // @public (read-only)
-    this.getAmplitudes = options.getAmplitudes;
-    this.getInfiniteHarmonicsDataSet = options.getInfiniteHarmonicsDataSet;
+    this.getAmplitudes = config.getAmplitudes;
+    this.getInfiniteHarmonicsDataSet = config.getInfiniteHarmonicsDataSet;
   }
 }
 
@@ -144,9 +153,11 @@ const SINUSOID = new WaveformValue( {
       amplitudes.push( n === 1 ? 1 : 0 );
     }
     return amplitudes;
-  }
+  },
 
-  // getInfiniteHarmonicsDataSet is not needed. The sum is an exact approximation, and we'll reuse its data set.
+  getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
+    throw new Error( 'getInfiniteHarmonicsDataSet is not supported. Use the sum data set for SINUSOID.' );
+  }
 } );
 
 const TRIANGLE = new WaveformValue( {
@@ -240,14 +251,22 @@ const WAVE_PACKET = new WaveformValue( {
       [ 0.079560, 0.216255, 0.457833, 0.754840, 0.969233, 0.969233, 0.754840, 0.457833, 0.216255, 0.079560 ],
       [ 0.075574, 0.191495, 0.394652, 0.661515, 0.901851, 1.000000, 0.901851, 0.661515, 0.394652, 0.191495, 0.075574 ]
     ][ numberOfHarmonics - 1 ];
-  }
+  },
 
-  // getInfiniteHarmonicsDataSet is not supported
+  getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
+    throw new Error( 'getInfiniteHarmonicsDataSet is not supported for WAVE_PACKET.' );
+  }
 } );
 
 const CUSTOM = new WaveformValue( {
-  // getAmplitudes is not supported
-  // getInfiniteHarmonicsDataSet is not supported
+
+  getAmplitudes: ( domain, seriesType, t, L, T ) => {
+    throw new Error( 'getAmplitudes is not supported for CUSTOM.' );
+  },
+
+  getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
+    throw new Error( 'getInfiniteHarmonicsDataSet is not supported for CUSTOM.' );
+  }
 } );
 
 /**
