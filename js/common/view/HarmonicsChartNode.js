@@ -8,6 +8,7 @@
 
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Shape from '../../../../kite/js/Shape.js';
+import merge from '../../../../phet-core/js/merge.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import HarmonicPlot from '../../discrete/view/HarmonicPlot.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -34,6 +35,16 @@ class HarmonicsChartNode extends DomainChartNode {
     const harmonics = harmonicsChart.fourierSeries.harmonics;
     const harmonicDataSetProperties = harmonicsChart.harmonicDataSetProperties;
     const emphasizedHarmonics = harmonicsChart.emphasizedHarmonics;
+    const yAxisDescription = harmonicsChart.yAxisDescription;
+
+    options = merge( {
+      chartTransformOptions: {
+        modelYRange: yAxisDescription.range
+      },
+      yGridLineSpacing: yAxisDescription.gridLineSpacing,
+      yTickMarkSpacing: yAxisDescription.tickMarkSpacing,
+      yTickLabelSpacing: yAxisDescription.tickLabelSpacing
+    }, options );
 
     super( harmonicsChart, options );
 

@@ -13,8 +13,8 @@ import FMWConstants from '../../common/FMWConstants.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-// For charts that support a dynamic x-axis scale (via zoom buttons) this is the default x-axis description.
-// For charts that have a fixed x-axis scale (no zoom buttons), this is the x-axis description.
+// In the Discrete screen, this is the initial x-axis description for the Harmonics and Sum charts.
+// In the Wave Game screen, this is the fixed scale for the Harmonics and Sum charts.
 const DEFAULT_X_AXIS_DESCRIPTION = new AxisDescription( {
   range: new Range( -1 / 2, 1 / 2 ),
   gridLineSpacing: 1 / 8,
@@ -22,8 +22,8 @@ const DEFAULT_X_AXIS_DESCRIPTION = new AxisDescription( {
   tickLabelSpacing: 1 / 4
 } );
 
-// For charts that support a dynamic y-axis scale (via auto-scale) this is the default y-axis description.
-// For charts that have a fixed y-axis scale (no auto-scaling), this is the y-axis description.
+// For the Harmonics chart, this is the fixed y-axis description.
+// For the Sum chart, this is the initial y-axis description.
 const DEFAULT_Y_AXIS_DESCRIPTION = new AxisDescription( {
   range: new Range( -FMWConstants.MAX_AMPLITUDE, FMWConstants.MAX_AMPLITUDE ),
   gridLineSpacing: 0.5,
@@ -67,7 +67,7 @@ const DiscreteAxisDescriptions = {
     DEFAULT_X_AXIS_DESCRIPTION
   ],
 
-  // {AxisDescription[]}
+  // {AxisDescription[]} y-axis descriptions contain the actual values that will be used.
   Y_AXIS_DESCRIPTIONS: [
     new AxisDescription( {
       range: new Range( -5, 5 ),
@@ -110,6 +110,8 @@ assert && assert( _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDes
 assert && assert( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS[ 0 ].range.max === 2,
   'Hardcoded points for Waveform.WAVE_PACKET assume that the maximum x-axis multiplier is 2. ' +
   'Did you modify X_AXIS_DESCRIPTIONS?' );
+assert && assert( DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION.range.max === FMWConstants.MAX_AMPLITUDE,
+  'Expected DEFAULT_Y_AXIS_DESCRIPTION range to match maximum amplitude.' );
 
 fourierMakingWaves.register( 'DiscreteAxisDescriptions', DiscreteAxisDescriptions );
 export default DiscreteAxisDescriptions;

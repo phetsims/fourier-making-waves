@@ -42,7 +42,6 @@ class WaveGameHarmonicsChart extends HarmonicsChart {
       new EnumerationProperty( SeriesType, seriesType, { validValues: [ seriesType ] } ),
       new NumberProperty( t, { validValues: [ t ] } ),
       new Property( xAxisDescription, { validValues: [ xAxisDescription ] } ),
-      new Property( yAxisDescription, { validValues: [ yAxisDescription ] } ),
 
       options
     );

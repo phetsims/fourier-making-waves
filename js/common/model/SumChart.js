@@ -38,7 +38,10 @@ class SumChart extends DomainChart {
     assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
     assert && assert( yAxisDescriptionProperty.validValues );
 
-    super( domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, fourierSeries.L, fourierSeries.T, options );
+    super( domainProperty, xAxisDescriptionProperty, fourierSeries.L, fourierSeries.T, options );
+
+    // @public
+    this.yAxisDescriptionProperty = yAxisDescriptionProperty;
 
     // {DerivedProperty.<Vector2[]>} The data set for the sum. Points are ordered by increasing x value.
     const sumDataSetProperty = new DerivedProperty(

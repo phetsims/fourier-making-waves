@@ -55,12 +55,6 @@ class WavePacketModel {
       validValues: WavePacketAxisDescriptions.X_AXIS_DESCRIPTIONS
     } );
 
-    //TODO componentsYAxisDescriptionProperty is not used!
-    // {Property.<AxisDescription>} the y-axis description for the Components chart
-    const componentsYAxisDescriptionProperty = new Property( WavePacketAxisDescriptions.COMPONENT_Y_AXIS_DESCRIPTIONS[ 0 ], {
-      validValues: WavePacketAxisDescriptions.COMPONENT_Y_AXIS_DESCRIPTIONS
-    } );
-
     // {Property.<AxisDescription>} the y-axis description for the Sum chart. This chart has a fixed y-axis scale,
     // so we use validValues to make this essentially a constant.
     const sumYAxisDescriptionProperty = new Property( WavePacketAxisDescriptions.SUM_Y_AXIS_DESCRIPTION, {
@@ -74,10 +68,9 @@ class WavePacketModel {
       tandem: chartsTandem.createTandem( 'amplitudesChart' )
     } );
 
-    const componentsChart = new WavePacketComponentsChart( wavePacket, domainProperty, seriesTypeProperty,
-      xAxisDescriptionProperty, componentsYAxisDescriptionProperty, {
-        tandem: chartsTandem.createTandem( 'componentsChart' )
-      } );
+    const componentsChart = new WavePacketComponentsChart( wavePacket, domainProperty, seriesTypeProperty, xAxisDescriptionProperty, {
+      tandem: chartsTandem.createTandem( 'componentsChart' )
+    } );
 
     const sumChart = new WavePacketSumChart( componentsChart.componentDataSetsProperty,
       wavePacket, domainProperty, seriesTypeProperty, xAxisDescriptionProperty,
@@ -93,7 +86,6 @@ class WavePacketModel {
       seriesTypeProperty.reset();
       widthIndicatorsVisibleProperty.reset();
       xAxisDescriptionProperty.reset();
-      componentsYAxisDescriptionProperty.reset();
       sumYAxisDescriptionProperty.reset();
 
       // sub-models

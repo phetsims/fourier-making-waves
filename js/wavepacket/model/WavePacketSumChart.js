@@ -20,6 +20,7 @@ import DomainChart from '../../common/model/DomainChart.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
+import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
 import WavePacketComponentsChart from './WavePacketComponentsChart.js';
 
 // constants
@@ -50,11 +51,12 @@ class WavePacketSumChart extends DomainChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, wavePacket.L, wavePacket.T, options );
+    super( domainProperty, xAxisDescriptionProperty, wavePacket.L, wavePacket.T, options );
 
     // @public
     this.wavePacket = wavePacket;
     this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
+    this.yAxisDescription = WavePacketAxisDescriptions.SUM_Y_AXIS_DESCRIPTION;
 
     // @public whether the envelope of the sum waveform is visible
     this.waveformEnvelopeVisibleProperty = new BooleanProperty( true, {

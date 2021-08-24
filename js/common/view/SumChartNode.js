@@ -29,13 +29,21 @@ class SumChartNode extends DomainChartNode {
 
       // SumChartNode options
       sumPlotStrokeProperty: FMWColors.sumPlotStrokeProperty,
-      sumPlotLineWidth: 1
+      sumPlotLineWidth: 1,
+
+      // FMWChartNode options
+      chartTransformOptions: {
+        // modelXRange is handled by superclass DomainChartNode
+        modelYRange: sumChart.yAxisDescriptionProperty.value.range
+      }
+
     }, options );
 
     // Fields of interest in sumChart, to improve readability
     const fourierSeries = sumChart.fourierSeries;
     const sumDataSetProperty = sumChart.sumDataSetProperty;
     const yAxisRangeProperty = sumChart.yAxisRangeProperty;
+    const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
 
     super( sumChart, options );
 
@@ -70,6 +78,14 @@ class SumChartNode extends DomainChartNode {
 
     // Update the y-axis range.
     yAxisRangeProperty.link( range => this.chartTransform.setModelYRange( range ) );
+
+    // Update the y-axis.
+    yAxisDescriptionProperty.link( yAxisDescription => {
+      // NOTE: this.chartTransform.setModelYRange is handled via yAxisRangeProperty listener, above.
+      this.yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
+      this.yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
+      this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
+    } );
 
     // @protected
     this.chartCanvasNode = chartCanvasNode;

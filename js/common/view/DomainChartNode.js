@@ -42,15 +42,13 @@ class DomainChartNode extends FMWChartNode {
     // Fields of interest in chart, to improve readability
     const domainProperty = chart.domainProperty;
     const xAxisDescriptionProperty = chart.xAxisDescriptionProperty;
-    const yAxisDescriptionProperty = chart.yAxisDescriptionProperty;
     const L = chart.L;
     const T = chart.T;
 
     options = merge( {
 
       chartTransformOptions: {
-        modelXRange: xAxisDescriptionProperty.value.createRangeForDomain( domainProperty.value, L, T ),
-        modelYRange: yAxisDescriptionProperty.value.range
+        modelXRange: xAxisDescriptionProperty.value.createRangeForDomain( domainProperty.value, L, T )
       },
 
       // phet-io options
@@ -72,14 +70,6 @@ class DomainChartNode extends FMWChartNode {
         this.xTickLabels.setSpacing( xAxisDescription.tickLabelSpacing * value );
         this.xTickLabels.invalidateLabelSet();
       } );
-
-    // Update the y-axis.
-    yAxisDescriptionProperty.link( yAxisDescription => {
-      // NOTE: this.chartTransform.setModelYRange is handled via yAxisRangeProperty. TODO is this accurate?
-      this.yGridLines.setSpacing( yAxisDescription.gridLineSpacing );
-      this.yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
-      this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
-    } );
 
     // Set the x-axis label based on domain.
     domainProperty.link( domain => {

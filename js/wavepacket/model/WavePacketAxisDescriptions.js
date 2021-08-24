@@ -12,6 +12,7 @@ import Range from '../../../../dot/js/Range.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
+// The initial x-axis scale for the Components and Sum charts
 const DEFAULT_X_AXIS_DESCRIPTION = new AxisDescription( {
   range: new Range( -2, 2 ),
   gridLineSpacing: 0.5,
@@ -52,16 +53,8 @@ const WavePacketAxisDescriptions = {
     } )
   ],
 
-  // {AxisDescription} y-axis descriptions for the Sum chart
-  // TODO this is not used because the Components chart auto-scales
-  COMPONENT_Y_AXIS_DESCRIPTIONS: [
-    new AxisDescription( {
-      range: new Range( -1, 1 ),
-      gridLineSpacing: 1,
-      tickMarkSpacing: 1,
-      tickLabelSpacing: 1
-    } )
-  ],
+  // The Components chart has no y-axis descriptions because it automatically scales to the peak amplitude,
+  // and simply puts a tick mark and grid line at that peak amplitude.
 
   // The fixed y-axis for the Sum chart, see https://github.com/phetsims/fourier-making-waves/issues/159
   SUM_Y_AXIS_DESCRIPTION: new AxisDescription( {
@@ -77,12 +70,8 @@ assert && assert( WavePacketAxisDescriptions.X_AXIS_DESCRIPTIONS.includes( WaveP
   'X_AXIS_DESCRIPTIONS must include DEFAULT_X_AXIS_DESCRIPTION' );
 assert && assert( AxisDescription.isSortedDescending( WavePacketAxisDescriptions.X_AXIS_DESCRIPTIONS ),
   'X_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
-assert && assert( AxisDescription.isSortedDescending( WavePacketAxisDescriptions.COMPONENT_Y_AXIS_DESCRIPTIONS ),
-  'COMPONENT_Y_AXIS_DESCRIPTIONS must be sorted by descending max value, from most zoomed-out to most zoomed-in' );
 assert && assert( _.every( WavePacketAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
   'range must be symmetric for X_AXIS_DESCRIPTIONS' );
-assert && assert( _.every( WavePacketAxisDescriptions.COMPONENT_Y_AXIS_DESCRIPTIONS, axisDescription => axisDescription.hasSymmetricRange() ),
-  'range must be symmetric for COMPONENT_Y_AXIS_DESCRIPTIONS' );
 assert && assert( WavePacketAxisDescriptions.SUM_Y_AXIS_DESCRIPTION.hasSymmetricRange(),
   'range must be symmetric for SUM_Y_AXIS_DESCRIPTION' );
 

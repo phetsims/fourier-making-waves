@@ -7,16 +7,16 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
+import Range from '../../../../dot/js/Range.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
+import DomainChart from './DomainChart.js';
 import EmphasizedHarmonics from './EmphasizedHarmonics.js';
 import FourierSeries from './FourierSeries.js';
 import SeriesType from './SeriesType.js';
-import DomainChart from './DomainChart.js';
 
 class HarmonicsChart extends DomainChart {
 
@@ -27,11 +27,10 @@ class HarmonicsChart extends DomainChart {
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
-               xAxisDescriptionProperty, yAxisDescriptionProperty, options ) {
+               xAxisDescriptionProperty, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
@@ -39,19 +38,20 @@ class HarmonicsChart extends DomainChart {
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
-    assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
 
-    options = merge( {
-
-      // HarmonicsChart options
-      yAxisDescriptionIndex: 0
-    }, options );
-
-    super( domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, fourierSeries.L, fourierSeries.T, options );
+    super( domainProperty, xAxisDescriptionProperty, fourierSeries.L, fourierSeries.T, options );
 
     // @public
     this.fourierSeries = fourierSeries;
     this.emphasizedHarmonics = emphasizedHarmonics;
+
+    // @public fixed y-axis
+    this.yAxisDescription = new AxisDescription( {
+      range: new Range( -FMWConstants.MAX_AMPLITUDE, FMWConstants.MAX_AMPLITUDE ),
+      gridLineSpacing: 0.5,
+      tickMarkSpacing: 0.5,
+      tickLabelSpacing: 0.5
+    } );
 
     // @public {DerivedProperty.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order.
     // Points are ordered by increasing x value.

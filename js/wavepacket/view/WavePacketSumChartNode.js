@@ -45,15 +45,26 @@ class WavePacketSumChartNode extends DomainChartNode {
     const widthIndicatorsVisibleProperty = sumChart.widthIndicatorsVisibleProperty;
     const sumDataSetProperty = sumChart.sumDataSetProperty;
     const waveformEnvelopeDataSetProperty = sumChart.waveformEnvelopeDataSetProperty;
+    const yAxisDescription = sumChart.yAxisDescription;
 
     options = merge( {
+
+      // x axis with dynamic scale and zoom buttons
       xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),
       xLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, X_TICK_LABEL_DECIMALS )
       },
       yLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
-      }
+      },
+
+      // y axis with fixed scale
+      chartTransformOptions: {
+        modelYRange: yAxisDescription.range
+      },
+      yGridLineSpacing: yAxisDescription.gridLineSpacing,
+      yTickMarkSpacing: yAxisDescription.tickMarkSpacing,
+      yTickLabelSpacing: yAxisDescription.tickLabelSpacing
     }, options );
 
     super( sumChart, options );

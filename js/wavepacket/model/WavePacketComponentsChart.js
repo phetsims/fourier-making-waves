@@ -34,11 +34,9 @@ class WavePacketComponentsChart extends DomainChart {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
-  constructor( wavePacket, domainProperty, seriesTypeProperty, xAxisDescriptionProperty,
-               yAxisDescriptionProperty, options ) {
+  constructor( wavePacket, domainProperty, seriesTypeProperty, xAxisDescriptionProperty, options ) {
     assert && assert( wavePacket instanceof WavePacket );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
 
@@ -48,7 +46,7 @@ class WavePacketComponentsChart extends DomainChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, wavePacket.L, wavePacket.T, options );
+    super( domainProperty, xAxisDescriptionProperty, wavePacket.L, wavePacket.T, options );
 
     // @public
     this.wavePacket = wavePacket;

@@ -15,7 +15,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
@@ -36,14 +35,6 @@ const TIME_SCALE = 0.001;
 
 // How much to step the simulation when the Step button is pressed, in milliseconds, determined empirically.
 const STEP_DT = 50;
-
-// descriptions for the axes
-const Y_AXIS_DESCRIPTIONS = DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS;
-
-// {AxisDescription} default description for the y axis
-const DEFAULT_Y_AXIS_DESCRIPTION = Y_AXIS_DESCRIPTIONS[ Y_AXIS_DESCRIPTIONS.length - 1 ];
-assert && assert( DEFAULT_Y_AXIS_DESCRIPTION.range.max === FMWConstants.MAX_AMPLITUDE,
-  'Expected DEFAULT_Y_AXIS_DESCRIPTION range to match maximum amplitude. Did you modify Y_AXIS_DESCRIPTIONS?' );
 
 class DiscreteModel {
 
@@ -136,16 +127,9 @@ class DiscreteModel {
       tandem: chartsTandem.createTandem( 'amplitudesChart' )
     } );
 
-    // {Property.<AxisDescription>} The Harmonics chart has a fixed y-axis scale, but its superclass requires a
-    // Property. We use validValues to make this Property effectively be a constant.
-    const harmonicsYAxisDescriptionProperty = new Property( DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION, {
-      validValues: [ DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION ]
-    } );
-
     // @public
     this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, emphasizedHarmonics, this.domainProperty,
-      this.seriesTypeProperty, this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
-      harmonicsYAxisDescriptionProperty, {
+      this.seriesTypeProperty, this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, {
         tandem: chartsTandem.createTandem( 'harmonicsChart' )
       } );
 

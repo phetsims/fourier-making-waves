@@ -22,16 +22,13 @@ class DiscreteHarmonicsChart extends HarmonicsChart {
    * @param {Property.<number>} tProperty
    * @param {DerivedProperty.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
-               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, yAxisDescriptionProperty,
-               options ) {
+               xAxisTickLabelFormatProperty, xAxisDescriptionProperty, options ) {
     assert && assert( xAxisTickLabelFormatProperty instanceof DerivedProperty );
 
-    super( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
-      xAxisDescriptionProperty, yAxisDescriptionProperty, options );
+    super( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, options );
 
     // @public
     this.xAxisTickLabelFormatProperty = xAxisTickLabelFormatProperty;

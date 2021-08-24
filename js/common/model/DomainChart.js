@@ -2,7 +2,8 @@
 
 /**
  * DomainChart is the base class for charts that need to modify their x-axis presentation to match a domain -
- * space, time, or space-&-time.
+ * space, time, or space-&-time. Note that this class has no responsibility for the y axis, since domain affects
+ * only the x axis.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -18,23 +19,20 @@ class DomainChart {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty - domain of the x axis
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty - describes the x axis
-   * @param {Property.<AxisDescription>} yAxisDescriptionProperty - describes the y axis
    * @param {number} L - wavelength of the fundamental harmonic, in meters
    * @param {number} T - period of the fundamental harmonic, in milliseconds
    * @param {Object} [options]
    */
-  constructor( domainProperty, xAxisDescriptionProperty, yAxisDescriptionProperty, L, T, options ) {
+  constructor( domainProperty, xAxisDescriptionProperty, L, T, options ) {
 
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
-    assert && AssertUtils.assertPropertyOf( yAxisDescriptionProperty, AxisDescription );
     assert && AssertUtils.assertPositiveNumber( L );
     assert && AssertUtils.assertPositiveNumber( T );
 
     // @public (read-only) params
     this.domainProperty = domainProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
-    this.yAxisDescriptionProperty = yAxisDescriptionProperty;
     this.L = L;
     this.T = T;
 
