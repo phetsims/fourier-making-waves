@@ -8,17 +8,7 @@ Make WavePacketAmplitudesChart extend DomainChart, WavePacketAmplitudesChartNode
 -------------
 TODOs
 
-DomainChartNode:
-// NOTE: this.chartTransform.setModelYRange is handled via yAxisRangeProperty. TODO is this accurate?
-
-WavePacketAxisDescriptions:
-// TODO this is not used because the Components chart auto-scales
-
-WavePacketModel:
-//TODO componentsYAxisDescriptionProperty is not used!
-
 WavePacketAmplitudesChartNode:
-* @override TODO do not override scaleYAxis, FMWChartNode defines the implementation used by Components and Sum charts
 //TODO use AxisDescription and amplitudesChart.yAxisDescriptionProperty
 
 -------------
