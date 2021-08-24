@@ -8,6 +8,7 @@
 
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
+import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -141,8 +142,12 @@ class WavePacketComponentsChartNode extends DomainChartNode {
         // will wash out the chart, reducing the contrast.
         chartCanvasNode.painters.reverse();
 
-        // Scale the y axis.
-        this.scaleYAxis( peakAmplitude );
+        // Scale the y axis, with a little padding above/below the peak.
+        const maxY = 1.1 * peakAmplitude;
+        this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
+        this.yGridLines.setSpacing( peakAmplitude );
+        this.yTickMarks.setSpacing( peakAmplitude );
+        this.yTickLabels.setSpacing( peakAmplitude );
 
         // Clip to the range [-peakAmplitude,peakAmplitude], to trim rendering anomalies that occur when zoomed out.
         // See https://github.com/phetsims/fourier-making-waves/issues/121

@@ -205,25 +205,6 @@ class FMWChartNode extends Node {
   }
 
   /**
-   * Scales the y-axis to fit a given peak amplitude, with a bit of padding above/below.
-   * See https://github.com/phetsims/fourier-making-waves/issues/117 for decisions about ticks and grid lines.
-   * @param {number} peakAmplitude
-   * @param {number} paddingFactor - multiplier for peakAmplitude to determine y-axis scale
-   * @public
-   */
-  scaleYAxis( peakAmplitude, paddingFactor = 1.1 ) {
-
-    assert && assert( typeof peakAmplitude === 'number' && peakAmplitude > 0 );
-    assert && assert( typeof paddingFactor === 'number' && paddingFactor >= 1 );
-
-    const maxY = peakAmplitude * paddingFactor;
-    this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
-    this.yGridLines.setSpacing( peakAmplitude );
-    this.yTickMarks.setSpacing( peakAmplitude );
-    this.yTickLabels.setSpacing( peakAmplitude );
-  }
-
-  /**
    * Computes the clipArea that will trim any data that is outside of a given amplitude range.
    * This is used to trim anomalies that occur when the x-axis is zoomed way out.
    * See https://github.com/phetsims/fourier-making-waves/issues/121
