@@ -68,8 +68,8 @@ class WavePacketAmplitudesChart {
         return dataSet;
       } );
 
-    // @public {DerivedProperty.<Vector2[]>} Data set for a continuous waveform.
-    // This must always be created, because it determines the maxAmplitude of the chart.
+    // @public {DerivedProperty.<Vector2[]>} Data set for a continuous waveform. This must always be created,
+    // because it determines the peak amplitude of the chart, and thus its y-axis scale.
     this.continuousWaveformDataSetProperty = new DerivedProperty(
       [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
       ( componentSpacing, center, standardDeviation ) => createContinuousWaveformDataSet( wavePacket )
@@ -88,8 +88,8 @@ class WavePacketAmplitudesChart {
         return dataSet;
       } );
 
-    // @public {DerivedProperty.<number>} the maximum amplitude, used to scale the chart's y axis.
-    this.maxAmplitudeProperty = new DerivedProperty(
+    // @public {DerivedProperty.<number>} the peak amplitude, used to scale the chart's y axis.
+    this.peakAmplitudeProperty = new DerivedProperty(
       [ this.continuousWaveformDataSetProperty ],
       continuousWaveformDataSet => _.maxBy( continuousWaveformDataSet, point => point.y ).y
     );

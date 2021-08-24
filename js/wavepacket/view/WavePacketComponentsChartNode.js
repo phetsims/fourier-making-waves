@@ -93,8 +93,8 @@ class WavePacketComponentsChartNode extends DomainChartNode {
         const plots = chartCanvasNode.painters;
         const numberOfPlots = plots.length;
 
-        // The maximum amplitude, for scaling the y axis.
-        let maxAmplitude = 0;
+        // The peak amplitude, for scaling the y axis.
+        let peakAmplitude = 0;
 
         const numberOfComponents = componentDataSets.length;
         for ( let i = 0; i < numberOfComponents; i++ ) {
@@ -102,8 +102,8 @@ class WavePacketComponentsChartNode extends DomainChartNode {
           const dataSet = componentDataSets[ i ];
           assert && assert( dataSet.length > 0 );
 
-          // Inspect this component for maximum amplitude.
-          maxAmplitude = Math.max( maxAmplitude, _.maxBy( dataSet, point => point.y ).y );
+          // Inspect this component for peak amplitude.
+          peakAmplitude = Math.max( peakAmplitude, _.maxBy( dataSet, point => point.y ).y );
 
           // Gray to be used to stroke this component
           const rgb = GRAY_RANGE.constrainValue( GRAY_RANGE.min + GRAY_RANGE.getLength() * i / numberOfComponents );
@@ -142,11 +142,11 @@ class WavePacketComponentsChartNode extends DomainChartNode {
         chartCanvasNode.painters.reverse();
 
         // Scale the y axis.
-        this.scaleYAxis( maxAmplitude );
+        this.scaleYAxis( peakAmplitude );
 
-        // Clip to the range [-maxAmplitude,maxAmplitude], to trim rendering anomalies that occur when zoomed out.
+        // Clip to the range [-peakAmplitude,peakAmplitude], to trim rendering anomalies that occur when zoomed out.
         // See https://github.com/phetsims/fourier-making-waves/issues/121
-        chartCanvasNode.clipArea = this.computeClipAreaForAmplitudeRange( -maxAmplitude, maxAmplitude );
+        chartCanvasNode.clipArea = this.computeClipAreaForAmplitudeRange( -peakAmplitude, peakAmplitude );
 
         // Redraw the plots.
         chartCanvasNode.update();

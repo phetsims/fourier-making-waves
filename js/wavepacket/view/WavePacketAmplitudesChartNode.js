@@ -55,7 +55,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     const widthIndicatorWidthProperty = amplitudesChart.widthIndicatorWidthProperty;
     const widthIndicatorPositionProperty = amplitudesChart.widthIndicatorPositionProperty;
     const widthIndicatorsVisibleProperty = amplitudesChart.widthIndicatorsVisibleProperty;
-    const maxAmplitudeProperty = amplitudesChart.maxAmplitudeProperty;
+    const peakAmplitudeProperty = amplitudesChart.peakAmplitudeProperty;
 
     options = merge( {
       xTickMarkSpacing: Math.PI,
@@ -146,7 +146,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
       } );
 
     // Scale the y axis.
-    maxAmplitudeProperty.link( maxAmplitude => this.scaleYAxis( maxAmplitude ) );
+    peakAmplitudeProperty.link( peakAmplitude => this.scaleYAxis( peakAmplitude ) );
   }
 
   /**
@@ -160,38 +160,38 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
 
   /**
    * Scales the y axis.
-   * @param {number} maxAmplitude
+   * @param {number} peakAmplitude
    * @public
    * @override TODO FMWChartNode defines the implementation used by Components and Sum charts
    */
-  scaleYAxis( maxAmplitude ) {
-    assert && assert( typeof maxAmplitude === 'number' && maxAmplitude > 0 );
+  scaleYAxis( peakAmplitude ) {
+    assert && assert( typeof peakAmplitude === 'number' && peakAmplitude > 0 );
 
-    // Extend the y-axis range, so there's some space above maxAmplitude.
-    this.chartTransform.setModelYRange( new Range( 0, 1.05 * maxAmplitude ) );
+    // Extend the y-axis range, so there's some space above peakAmplitude.
+    this.chartTransform.setModelYRange( new Range( 0, 1.05 * peakAmplitude ) );
 
     // Adjust ticks and gridlines.
     // This logic and values were taken from D2CAmplitudesChart.java, in the Java version.
     //TODO use AxisDescription and amplitudesChart.yAxisDescriptionProperty
     let tickLabelSpacing;
     let tickMarkSpacing;
-    if ( maxAmplitude > 1 ) {
+    if ( peakAmplitude > 1 ) {
       tickLabelSpacing = 1.0;
       tickMarkSpacing = 0.5;
     }
-    else if ( maxAmplitude > 0.5 ) {
+    else if ( peakAmplitude > 0.5 ) {
       tickLabelSpacing = 0.2;
       tickMarkSpacing = 0.1;
     }
-    else if ( maxAmplitude > 0.2 ) {
+    else if ( peakAmplitude > 0.2 ) {
       tickLabelSpacing = 0.1;
       tickMarkSpacing = 0.05;
     }
-    else if ( maxAmplitude > 0.05 ) {
+    else if ( peakAmplitude > 0.05 ) {
       tickLabelSpacing = 0.05;
       tickMarkSpacing = 0.01;
     }
-    else if ( maxAmplitude > 0.02 ) {
+    else if ( peakAmplitude > 0.02 ) {
       tickLabelSpacing = 0.01;
       tickMarkSpacing = 0.005;
     }
