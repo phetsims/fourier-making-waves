@@ -233,7 +233,6 @@ function createWavePacketDataSet( center, conjugateStandardDeviation, seriesType
 
   const dataSet = [];
   const numberOfPoints = FMWConstants.MAX_POINTS_PER_DATA_SET + 1;
-  //TODO assert && assert( numberOfPoints > 0 );
   const dx = xRange.getLength() / numberOfPoints;
 
   for ( let i = 0; i < numberOfPoints; i++ ) {
