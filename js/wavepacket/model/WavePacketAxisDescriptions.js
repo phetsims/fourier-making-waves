@@ -53,7 +53,7 @@ const WavePacketAxisDescriptions = {
   ],
 
   // {AxisDescription} y-axis descriptions for the Sum chart
-  // TODO this is not used because of the Components chart auto-scales
+  // TODO this is not used because the Components chart auto-scales
   COMPONENT_Y_AXIS_DESCRIPTIONS: [
     new AxisDescription( {
       range: new Range( -1, 1 ),

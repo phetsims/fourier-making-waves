@@ -99,8 +99,6 @@ class WavePacketComponentsChart extends DomainChart {
 
     for ( let order = 1; order <= components.length; order++ ) {
       const amplitude = components[ order - 1 ].amplitude;
-
-      //TODO https://github.com/phetsims/fourier-making-waves/issues/61 createDataSetStatic uses pooling
       dataSets.push( Harmonic.createDataSetStatic( order, amplitude, POINTS_PER_DATA_SET, L, T, xRange, domain, seriesType, t ) );
     }
     return dataSets;
