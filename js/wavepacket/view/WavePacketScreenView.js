@@ -188,7 +188,6 @@ class WavePacketScreenView extends ScreenView {
 
     const controlPanel = new WavePacketControlPanel( model, componentSpacingToolVisibleProperty,
       lengthToolVisibleProperty, popupParent, {
-        maxWidth: 230, // as a fallback, in case some subcomponent is misbehaving
         tandem: options.tandem.createTandem( 'controlPanel' )
       } );
 
@@ -232,13 +231,17 @@ class WavePacketScreenView extends ScreenView {
     waveformEnvelopeCheckbox.right = sumChartRectangleLocalBounds.right - 5;
     waveformEnvelopeCheckbox.top = sumChartNode.bottom + 8;
 
-    // Control panel centered in the space to the right of the charts
-    controlPanel.centerX = componentsChartNode.right + ( this.layoutBounds.right - componentsChartNode.right ) / 2;
-    controlPanel.top = this.layoutBounds.top + 5;
-
     // Reset All button at bottom right
     resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;
     resetAllButton.bottom = this.layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN;
+
+    // Control panel centered in the space to the right of the charts.
+    // Constrain dimensions of the control panel as a fallback, so that sim is still usable if something unforeseen
+    // happens - e.g. font size differences on platforms, or a subcomponent misbehaving.
+    controlPanel.centerX = componentsChartNode.right + ( this.layoutBounds.right - componentsChartNode.right ) / 2;
+    controlPanel.top = this.layoutBounds.top + 10; // a bit less than SCREEN_VIEW_X_MARGIN, to gain some height
+    controlPanel.maxWidth = this.layoutBounds.right - controlPanel.width - FMWConstants.SCREEN_VIEW_X_MARGIN;
+    controlPanel.maxHeight = resetAllButton.top - controlPanel.top - 5;
 
     //------------------------------------------------------------------------------------------------------------------
     // Rendering order
