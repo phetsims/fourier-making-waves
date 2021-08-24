@@ -53,7 +53,7 @@ const WavePacketAxisDescriptions = {
     } )
   ],
 
-  // {AxisDescription} y-axis descriptions for the Amplitudes chart
+  // {AxisDescription} y-axis descriptions for the Amplitudes chart. These values came from D2CAmplitudesChart.java.
   AMPLITUDES_Y_AXIS_DESCRIPTIONS: [
     new AxisDescription( {
       range: new Range( 0, 1 ),
