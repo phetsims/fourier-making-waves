@@ -34,12 +34,11 @@ class WavePacketSumChart extends DomainChart {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<Domain>} seriesTypeProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {Property.<AxisDescription>} yAxisDescriptionProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Object} [options]
    */
   constructor( componentDataSetsProperty, wavePacket, domainProperty, seriesTypeProperty,
-               xAxisDescriptionProperty, yAxisDescriptionProperty, widthIndicatorsVisibleProperty, options ) {
+               xAxisDescriptionProperty, widthIndicatorsVisibleProperty, options ) {
     assert && assert( componentDataSetsProperty instanceof DerivedProperty );
     assert && assert( wavePacket instanceof WavePacket );
     assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
