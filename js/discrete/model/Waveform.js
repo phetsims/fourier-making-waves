@@ -14,6 +14,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -254,7 +255,7 @@ const WAVE_PACKET = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
-    throw new Error( 'getInfiniteHarmonicsDataSet is not supported for WAVE_PACKET.' );
+    return FMWConstants.EMPTY_DATA_SET;
   }
 } );
 
@@ -265,7 +266,7 @@ const CUSTOM = new WaveformValue( {
   },
 
   getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
-    throw new Error( 'getInfiniteHarmonicsDataSet is not supported for CUSTOM.' );
+    return FMWConstants.EMPTY_DATA_SET;
   }
 } );
 
