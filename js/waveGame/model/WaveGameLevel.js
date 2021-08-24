@@ -207,7 +207,11 @@ class WaveGameLevel extends PhetioObject {
     this.isSolvedProperty.reset();
     // Not necessary to reset this.numberOfAmplitudeControlsProperty
     this.emphasizedHarmonics.reset();
-    this.newWaveform(); //TODO PhET-iO Is it OK that we're not resetting to the original answer?
+
+    // If reset was not called as the result of setting state, start with a new challenge.
+    if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+      this.newWaveform();
+    }
   }
 
   /**
