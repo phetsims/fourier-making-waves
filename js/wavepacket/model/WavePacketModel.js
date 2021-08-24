@@ -85,9 +85,6 @@ class WavePacketModel {
         tandem: chartsTandem.createTandem( 'sumChart' )
       } );
 
-    // @public (read-only)
-    this.maxAmplitude = 0.21; //TODO ??
-
     // @private
     this.resetWavePacketModel = () => {
 
