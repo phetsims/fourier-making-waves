@@ -297,8 +297,6 @@ class WavePacketScreenView extends ScreenView {
     // Measurement Tools
     //------------------------------------------------------------------------------------------------------------------
 
-    //TODO https://github.com/phetsims/fourier-making-waves/issues/133 clean up this section of code, it's gotten complicated
-
     // Create measurement tools after layout of charts, because their initial positions and drag bounds depend on
     // final positions and bounds of ChartRectangles.
 
@@ -341,6 +339,8 @@ class WavePacketScreenView extends ScreenView {
         ),
         tandem: measurementToolsTandem.createTandem( 'lengthToolNode' )
       } );
+
+    // Not added to one of a chart parentNode because lengthToolNode is applicable to both Components and Sum charts.
     this.addChild( lengthToolNode );
 
     const resetMeasurementTools = () => {
