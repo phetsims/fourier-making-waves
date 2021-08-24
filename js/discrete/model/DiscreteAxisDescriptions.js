@@ -113,8 +113,6 @@ assert && assert( _.every( DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS, axisDes
 assert && assert( _.every( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS, axisDescription => axisDescription.range.getLength() >= 0.5 ),
   'The implementation of y-axis scaling requires that at least 1/2 of the wavelength is always visible, in order to. ' +
   'find the peak amplitude of one full wavelength of the waveform. Zooming in on the x-axis violates that requirement.' );
-
-//TODO https://github.com/phetsims/fourier-making-waves/issues/18 delete this if we switch to an equation for Waveform.WAVE_PACKET?
 assert && assert( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS[ 0 ].range.max === 2,
   'Hardcoded points for Waveform.WAVE_PACKET assume that the maximum x-axis multiplier is 2. ' +
   'Did you modify X_AXIS_DESCRIPTIONS?' );
