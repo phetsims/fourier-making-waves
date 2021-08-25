@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WavePacketSumChart is the 'Sum' chart on the 'Wave Packet' screen.
+ * WavePacketSumChart is the model for the 'Sum' chart in the 'Wave Packet' screen.
  * Optimized to update only the data sets that will actually be visible.
  *
  * @author Chris Malley (PixelZoom, Inc.)

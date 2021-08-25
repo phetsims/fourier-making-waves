@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WavePacketComponentsChartNode is the 'Components' chart on the 'Wave Packet' screen.
+ * WavePacketComponentsChartNode is the view for the 'Fourier Components' chart in the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

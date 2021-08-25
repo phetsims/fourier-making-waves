@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WavePacketAmplitudesChartNode is the 'Amplitudes' chart on the 'Wave Packet' screen.
+ * WavePacketAmplitudesChartNode is the view for the 'Amplitudes of Fourier Components' chart in the 'Wave Packet' screen.
  *
  * Note that we do not need to handle visibility of plots in this class.
  * The model is optimized to return FMWConstants.EMPTY_DATA_SET when nothing needs to be displayed.

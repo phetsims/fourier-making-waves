@@ -1,8 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WavePacketAmplitudesChart is the 'Amplitudes' chart on the 'Wave Packet' screen.
- * Optimized to update only the data sets that will actually be visible.
+ * WavePacketAmplitudesChartNode is the model for the 'Amplitudes of Fourier Components' chart in the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

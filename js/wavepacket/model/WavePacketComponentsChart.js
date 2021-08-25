@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WavePacketComponentsChart is the 'Components' chart on the 'Wave Packet' screen.
+ * WavePacketComponentsChart is the model for the 'Components' chart in the 'Wave Packet' screen.
  * Optimized to update only the data sets that will actually be visible.
  *
  * @author Chris Malley (PixelZoom, Inc.)
