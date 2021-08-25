@@ -26,7 +26,7 @@ class SumChartNode extends DomainChartNode {
     assert && assert( sumChart instanceof SumChart );
 
     // Fields of interest in sumChart, to improve readability
-    const fourierSeries = sumChart.fourierSeries;
+    const amplitudesProperty = sumChart.fourierSeries.amplitudesProperty;
     const sumDataSetProperty = sumChart.sumDataSetProperty;
     const yAxisRangeProperty = sumChart.yAxisRangeProperty;
     const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
@@ -72,7 +72,7 @@ class SumChartNode extends DomainChartNode {
     } );
 
     // Hide the plot when the sum is zero (all amplitudes are zero)
-    fourierSeries.amplitudesProperty.link( amplitudes => {
+    amplitudesProperty.link( amplitudes => {
       sumPlot.visible = _.some( amplitudes, amplitude => amplitude !== 0 );
     } );
 

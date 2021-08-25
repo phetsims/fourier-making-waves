@@ -38,8 +38,11 @@ class SumChart extends DomainChart {
 
     super( domainProperty, xAxisDescriptionProperty, fourierSeries.L, fourierSeries.T, options );
 
-    // {DerivedProperty.<Vector2[]>} The data set for the sum. Points are ordered by increasing x value.
-    const sumDataSetProperty = new DerivedProperty(
+    // @public (read-only)
+    this.fourierSeries = fourierSeries;
+
+    // @public {DerivedProperty.<Vector2[]>} The data set for the sum. Points are ordered by increasing x value.
+    this.sumDataSetProperty = new DerivedProperty(
       [ fourierSeries.amplitudesProperty, xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
       ( amplitudes, xAxisDescription, domain, seriesType, t ) =>
         fourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t )
@@ -47,7 +50,7 @@ class SumChart extends DomainChart {
 
     // @public {null|DerivedProperty.<Range>} range of the y axis, fitted to the sum's peak amplitude
     this.yAxisRangeProperty = new DerivedProperty(
-      [ sumDataSetProperty ],
+      [ this.sumDataSetProperty ],
       sumDataSet => {
 
         const peakAmplitude = _.maxBy( sumDataSet, point => point.y ).y;
@@ -63,10 +66,6 @@ class SumChart extends DomainChart {
       yAxisRange => AxisDescription.getBestFit( yAxisRange, DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS ), {
         validValues: DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS
       } );
-
-    // @public
-    this.fourierSeries = fourierSeries;
-    this.sumDataSetProperty = sumDataSetProperty;
   }
 
   /**
