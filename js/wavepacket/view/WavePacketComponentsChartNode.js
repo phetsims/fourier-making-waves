@@ -39,6 +39,7 @@ class WavePacketComponentsChartNode extends DomainChartNode {
 
     // Fields of interest in componentsChart, to improve readability
     const xAxisDescriptionProperty = componentsChart.xAxisDescriptionProperty;
+    const componentDataSetsProperty = componentsChart.componentDataSetsProperty;
 
     options = merge( {
       xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),
@@ -68,7 +69,7 @@ class WavePacketComponentsChartNode extends DomainChartNode {
     } );
     this.addChild( messageNode );
 
-    componentsChart.componentDataSetsProperty.link( componentDataSets => {
+    componentDataSetsProperty.link( componentDataSets => {
 
       // When we have infinite components, componentDataSets cannot be populated and will be [].
       const hasInfiniteComponents = ( componentDataSets.length === 0 );
