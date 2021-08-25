@@ -1,7 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WavePacketAmplitudesChartNode is the model for the 'Amplitudes of Fourier Components' chart in the 'Wave Packet' screen.
+ * AmplitudesOfFourierComponentsChart is the model for the 'Amplitudes of Fourier Components' chart in
+ * the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -23,7 +24,7 @@ import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
 // constants
 const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 
-class WavePacketAmplitudesChart {
+class AmplitudesOfFourierComponentsChart {
 
   /**
    * @param {WavePacket} wavePacket
@@ -166,5 +167,5 @@ function createContinuousWaveformDataSet( wavePacket ) {
   return dataSet;
 }
 
-fourierMakingWaves.register( 'WavePacketAmplitudesChart', WavePacketAmplitudesChart );
-export default WavePacketAmplitudesChart;
+fourierMakingWaves.register( 'AmplitudesOfFourierComponentsChart', AmplitudesOfFourierComponentsChart );
+export default AmplitudesOfFourierComponentsChart;

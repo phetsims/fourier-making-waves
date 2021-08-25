@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WavePacketComponentsChartNode is the view for the 'Fourier Components' chart in the 'Wave Packet' screen.
+ * FourierComponentsChartNode is the view for the 'Fourier Components' chart in the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,22 +20,22 @@ import DomainChartNode from '../../common/view/DomainChartNode.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
-import WavePacketComponentsChart from '../model/WavePacketComponentsChart.js';
+import FourierComponentsChart from '../model/FourierComponentsChart.js';
 
 // constants
 const X_TICK_LABEL_DECIMALS = 1;
 const Y_TICK_LABEL_DECIMALS = 2;
 const GRAY_RANGE = FMWColors.FOURIER_COMPONENT_GRAY_RANGE;
 
-class WavePacketComponentsChartNode extends DomainChartNode {
+class FourierComponentsChartNode extends DomainChartNode {
 
   /**
-   * @param {WavePacketComponentsChart} componentsChart
+   * @param {FourierComponentsChart} componentsChart
    * @param {Object} [options]
    */
   constructor( componentsChart, options ) {
 
-    assert && assert( componentsChart instanceof WavePacketComponentsChart );
+    assert && assert( componentsChart instanceof FourierComponentsChart );
 
     // Fields of interest in componentsChart, to improve readability
     const xAxisDescriptionProperty = componentsChart.xAxisDescriptionProperty;
@@ -170,5 +170,5 @@ class WavePacketComponentsChartNode extends DomainChartNode {
   }
 }
 
-fourierMakingWaves.register( 'WavePacketComponentsChartNode', WavePacketComponentsChartNode );
-export default WavePacketComponentsChartNode;
+fourierMakingWaves.register( 'FourierComponentsChartNode', FourierComponentsChartNode );
+export default FourierComponentsChartNode;

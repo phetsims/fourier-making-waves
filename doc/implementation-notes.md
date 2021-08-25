@@ -85,7 +85,7 @@ AmplitudesChart
     ↳ DiscreteAmplitudesChart
     ↳ WaveGameAmplitudesChart
 
-WavePacketAmplitudesChart
+AmplitudesOfFourierComponentsChart
 
 DomainChart
     ↳ HarmonicsChart
@@ -94,7 +94,7 @@ DomainChart
     ↳ SumChart
         ↳ DiscreteSumChart
         ↳ WaveGameSumChart
-    ↳ WavePacketComponentsChart
+    ↳ FourierComponentsChart
     ↳ WavePacketSumChart
 ```
 
@@ -113,9 +113,9 @@ Node
             ↳ SumChartNode
                 ↳ DiscreteSumChartNode
                 ↳ WaveGameSumChartNode
-            ↳ WavePacketComponentsChartNode
+            ↳ FourierComponentsChartNode
             ↳ WavePacketSumChartNode
-        ↳ WavePacketAmplitudesChartNode
+        ↳ AmplitudesOfFourierComponentsChartNode
 
 ```
 

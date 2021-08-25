@@ -26,8 +26,8 @@ import ComponentsEquationNode from './ComponentsEquationNode.js';
 import ComponentSpacingToolNode from './ComponentSpacingToolNode.js';
 import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
 import WaveformEnvelopeCheckbox from './WaveformEnvelopeCheckbox.js';
-import WavePacketAmplitudesChartNode from './WavePacketAmplitudesChartNode.js';
-import WavePacketComponentsChartNode from './WavePacketComponentsChartNode.js';
+import AmplitudesOfFourierComponentsChartNode from './AmplitudesOfFourierComponentsChartNode.js';
+import FourierComponentsChartNode from './FourierComponentsChartNode.js';
 import WavePacketControlPanel from './WavePacketControlPanel.js';
 import WavePacketLengthToolNode from './WavePacketLengthToolNode.js';
 import WavePacketSumChartNode from './WavePacketSumChartNode.js';
@@ -83,8 +83,8 @@ class WavePacketScreenView extends ScreenView {
         tandem: amplitudesTandem.createTandem( 'amplitudesExpandCollapseButton' )
       } );
 
-    // Amplitudes chart
-    const amplitudesChartNode = new WavePacketAmplitudesChartNode( model.amplitudesChart, {
+    // 'Amplitudes of Fourier Components' chart
+    const amplitudesChartNode = new AmplitudesOfFourierComponentsChartNode( model.amplitudesChart, {
       chartTransformOptions: {
         modelXRange: model.wavePacket.waveNumberRange
         // modelYRange will automatically scale to fit the data set
@@ -93,10 +93,10 @@ class WavePacketScreenView extends ScreenView {
     } );
 
     // Equation above the Amplitudes chart
-    const amplitudeEquationNode = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
+    const amplitudesEquationNode = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
       font: FMWConstants.EQUATION_FONT,
       maxWidth: 100,
-      tandem: amplitudesTandem.createTandem( 'amplitudeEquationNode' )
+      tandem: amplitudesTandem.createTandem( 'amplitudesEquationNode' )
     } );
 
     const continuousWaveformCheckbox = new ContinuousWaveformCheckbox(
@@ -108,7 +108,7 @@ class WavePacketScreenView extends ScreenView {
     // That can be done using amplitudesExpandCollapseButton, or by changing amplitudesChart.chartExpandedProperty via PhET-iO.
     const amplitudesParentNode = new Node( {
       visibleProperty: model.amplitudesChart.chartExpandedProperty,
-      children: [ amplitudesChartNode, amplitudeEquationNode, continuousWaveformCheckbox ]
+      children: [ amplitudesChartNode, amplitudesEquationNode, continuousWaveformCheckbox ]
     } );
 
     //------------------------------------------------------------------------------------------------------------------
@@ -125,7 +125,7 @@ class WavePacketScreenView extends ScreenView {
       } );
 
     // Components chart
-    const componentsChartNode = new WavePacketComponentsChartNode( model.componentsChart, {
+    const componentsChartNode = new FourierComponentsChartNode( model.componentsChart, {
       tandem: componentsTandem.createTandem( 'componentsChartNode' )
     } );
 
@@ -211,8 +211,8 @@ class WavePacketScreenView extends ScreenView {
     amplitudesExpandCollapseButton.top = this.layoutBounds.top + 10;
     amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
     amplitudesChartNode.y = amplitudesExpandCollapseButton.bottom + chartTitleBottomSpacing;
-    const amplitudeChartRectangleLocalBounds = amplitudesChartNode.chartRectangle.boundsTo( this );
-    continuousWaveformCheckbox.right = amplitudeChartRectangleLocalBounds.right - 5;
+    const amplitudesChartRectangleLocalBounds = amplitudesChartNode.chartRectangle.boundsTo( this );
+    continuousWaveformCheckbox.right = amplitudesChartRectangleLocalBounds.right - 5;
     continuousWaveformCheckbox.top = amplitudesChartNode.bottom + 8;
 
     // Components chart below the Amplitudes chart
@@ -281,9 +281,9 @@ class WavePacketScreenView extends ScreenView {
     // Space between top of the ChartRectangle and bottom of the equation
     const equationYSpacing = 3;
 
-    amplitudeEquationNode.boundsProperty.link( () => {
-      amplitudeEquationNode.centerX = amplitudeChartRectangleLocalBounds.centerX;
-      amplitudeEquationNode.bottom = amplitudeChartRectangleLocalBounds.top - equationYSpacing;
+    amplitudesEquationNode.boundsProperty.link( () => {
+      amplitudesEquationNode.centerX = amplitudesChartRectangleLocalBounds.centerX;
+      amplitudesEquationNode.bottom = amplitudesChartRectangleLocalBounds.top - equationYSpacing;
     } );
 
     componentsEquationNode.boundsProperty.link( () => {
@@ -309,8 +309,8 @@ class WavePacketScreenView extends ScreenView {
     // Component Spacing (k1 or omega1) measurement tool
     const componentSpacingToolNode = new ComponentSpacingToolNode( model.wavePacket.componentSpacingProperty,
       amplitudesChartNode.chartTransform, model.domainProperty, {
-        position: new Vector2( amplitudeChartRectangleLocalBounds.right - 80, amplitudeChartRectangleLocalBounds.top + 50 ),
-        dragBounds: amplitudeChartRectangleLocalBounds.withOffsets( 0, 10, 25, 0 ),
+        position: new Vector2( amplitudesChartRectangleLocalBounds.right - 80, amplitudesChartRectangleLocalBounds.top + 50 ),
+        dragBounds: amplitudesChartRectangleLocalBounds.withOffsets( 0, 10, 25, 0 ),
         visibleProperty: componentSpacingToolVisibleProperty,
         tandem: measurementToolsTandem.createTandem( 'componentSpacingToolNode' )
       } );

@@ -1,7 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WavePacketAmplitudesChartNode is the view for the 'Amplitudes of Fourier Components' chart in the 'Wave Packet' screen.
+ * AmplitudesOfFourierComponentsChartNode is the view for the 'Amplitudes of Fourier Components' chart in
+ * the 'Wave Packet' screen.
  *
  * Note that we do not need to handle visibility of plots in this class.
  * The model is optimized to return FMWConstants.EMPTY_DATA_SET when nothing needs to be displayed.
@@ -26,7 +27,7 @@ import Domain from '../../common/model/Domain.js';
 import FMWChartNode from '../../common/view/FMWChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WavePacketAmplitudesChart from '../model/WavePacketAmplitudesChart.js';
+import AmplitudesOfFourierComponentsChart from '../model/AmplitudesOfFourierComponentsChart.js';
 import GaussianAreaPlot from './GaussianAreaPlot.js';
 import WidthIndicatorPlot from './WidthIndicatorPlot.js';
 
@@ -35,15 +36,15 @@ const X_TICK_LABEL_DECIMALS = 0;
 const Y_TICK_LABEL_DECIMALS = 2;
 const GRAY_RANGE = FMWColors.FOURIER_COMPONENT_GRAY_RANGE;
 
-class WavePacketAmplitudesChartNode extends FMWChartNode {
+class AmplitudesOfFourierComponentsChartNode extends FMWChartNode {
 
   /**
-   * @param {WavePacketAmplitudesChart} amplitudesChart
+   * @param {AmplitudesOfFourierComponentsChart} amplitudesChart
    * @param {Object} [options]
    */
   constructor( amplitudesChart, options ) {
 
-    assert && assert( amplitudesChart instanceof WavePacketAmplitudesChart );
+    assert && assert( amplitudesChart instanceof AmplitudesOfFourierComponentsChart );
 
     // Fields of interest in amplitudesChart, to improve readability
     const domainProperty = amplitudesChart.domainProperty;
@@ -170,5 +171,5 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
   }
 }
 
-fourierMakingWaves.register( 'WavePacketAmplitudesChartNode', WavePacketAmplitudesChartNode );
-export default WavePacketAmplitudesChartNode;
+fourierMakingWaves.register( 'AmplitudesOfFourierComponentsChartNode', AmplitudesOfFourierComponentsChartNode );
+export default AmplitudesOfFourierComponentsChartNode;

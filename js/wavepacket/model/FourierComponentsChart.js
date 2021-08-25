@@ -1,8 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WavePacketComponentsChart is the model for the 'Components' chart in the 'Wave Packet' screen.
- * Optimized to update only the data sets that will actually be visible.
+ * FourierComponentsChart is the model for the 'Fourier Components' chart in the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -27,7 +26,7 @@ import WavePacket from './WavePacket.js';
 const POINTS_PER_DATA_SET = FMWConstants.MAX_POINTS_PER_DATA_SET;
 const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 
-class WavePacketComponentsChart extends DomainChart {
+class FourierComponentsChart extends DomainChart {
 
   /**
    * @param {WavePacket} wavePacket
@@ -57,7 +56,7 @@ class WavePacketComponentsChart extends DomainChart {
       ( components, domain, seriesType, xAxisDescription ) => {
         let dataSets = EMPTY_DATA_SET;
         if ( components.length > 0 ) {
-          dataSets = WavePacketComponentsChart.createComponentsDataSets( components,
+          dataSets = FourierComponentsChart.createComponentsDataSets( components,
             wavePacket.componentSpacingProperty.value, domain, seriesType, xAxisDescription.range );
         }
         return dataSets;
@@ -100,5 +99,5 @@ class WavePacketComponentsChart extends DomainChart {
   }
 }
 
-fourierMakingWaves.register( 'WavePacketComponentsChart', WavePacketComponentsChart );
-export default WavePacketComponentsChart;
+fourierMakingWaves.register( 'FourierComponentsChart', FourierComponentsChart );
+export default FourierComponentsChart;

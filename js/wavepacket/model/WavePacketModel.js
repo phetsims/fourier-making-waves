@@ -15,9 +15,9 @@ import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
-import WavePacketAmplitudesChart from './WavePacketAmplitudesChart.js';
+import AmplitudesOfFourierComponentsChart from './AmplitudesOfFourierComponentsChart.js';
 import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
-import WavePacketComponentsChart from './WavePacketComponentsChart.js';
+import FourierComponentsChart from './FourierComponentsChart.js';
 import WavePacketSumChart from './WavePacketSumChart.js';
 
 class WavePacketModel {
@@ -58,13 +58,15 @@ class WavePacketModel {
     // Parent tandem for all charts
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
-    const amplitudesChart = new WavePacketAmplitudesChart( wavePacket, domainProperty, widthIndicatorsVisibleProperty, {
-      tandem: chartsTandem.createTandem( 'amplitudesChart' )
-    } );
+    const amplitudesChart = new AmplitudesOfFourierComponentsChart( wavePacket, domainProperty,
+      widthIndicatorsVisibleProperty, {
+        tandem: chartsTandem.createTandem( 'amplitudesChart' )
+      } );
 
-    const componentsChart = new WavePacketComponentsChart( wavePacket, domainProperty, seriesTypeProperty, xAxisDescriptionProperty, {
-      tandem: chartsTandem.createTandem( 'componentsChart' )
-    } );
+    const componentsChart = new FourierComponentsChart( wavePacket, domainProperty, seriesTypeProperty,
+      xAxisDescriptionProperty, {
+        tandem: chartsTandem.createTandem( 'componentsChart' )
+      } );
 
     const sumChart = new WavePacketSumChart( componentsChart.componentDataSetsProperty,
       wavePacket, domainProperty, seriesTypeProperty, xAxisDescriptionProperty, widthIndicatorsVisibleProperty, {
