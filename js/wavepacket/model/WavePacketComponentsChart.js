@@ -66,7 +66,7 @@ class WavePacketComponentsChart extends DomainChart {
         return dataSets;
       } );
 
-    // NOTE: This chart does not have a maxYProperty because its more efficient for the view to determine
+    // NOTE: This chart does not have a peakAmplitudeProperty because its more efficient for the view to determine
     // the y-axis range while iterating over componentDataSetsProperty.
   }
 
