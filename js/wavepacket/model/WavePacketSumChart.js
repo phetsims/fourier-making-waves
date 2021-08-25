@@ -53,7 +53,6 @@ class WavePacketSumChart extends DomainChart {
     super( domainProperty, xAxisDescriptionProperty, wavePacket.L, wavePacket.T, options );
 
     // @public
-    this.wavePacket = wavePacket;
     this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
     this.yAxisDescription = WavePacketAxisDescriptions.SUM_Y_AXIS_DESCRIPTION;
 

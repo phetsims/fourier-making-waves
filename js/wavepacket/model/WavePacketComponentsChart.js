@@ -14,9 +14,9 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
+import DomainChart from '../../common/model/DomainChart.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import DomainChart from '../../common/model/DomainChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierComponent from './FourierComponent.js';
 import WavePacket from './WavePacket.js';
@@ -47,9 +47,6 @@ class WavePacketComponentsChart extends DomainChart {
     }, options );
 
     super( domainProperty, xAxisDescriptionProperty, wavePacket.L, wavePacket.T, options );
-
-    // @public
-    this.wavePacket = wavePacket;
 
     // @public {DerivedProperty<Array.<Array.<Vector2>>}
     // A data set for each Fourier component's waveform, EMPTY_DATA_SET when the number of components is infinite.
