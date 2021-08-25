@@ -44,7 +44,7 @@ class WavePacketAmplitudesChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // @public
+    // @public (read-only)
     this.waveNumberRange = wavePacket.waveNumberRange;
     this.domainProperty = domainProperty;
     this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;

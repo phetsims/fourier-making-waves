@@ -41,11 +41,11 @@ class HarmonicsChart extends DomainChart {
 
     super( domainProperty, xAxisDescriptionProperty, fourierSeries.L, fourierSeries.T, options );
 
-    // @public
+    // @public (read-only)
     this.fourierSeries = fourierSeries;
     this.emphasizedHarmonics = emphasizedHarmonics;
 
-    // @public fixed y-axis
+    // @public (read-only) fixed y-axis
     this.yAxisDescription = DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION;
 
     // @public {DerivedProperty.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order.
