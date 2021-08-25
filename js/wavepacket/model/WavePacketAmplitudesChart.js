@@ -45,7 +45,7 @@ class WavePacketAmplitudesChart {
     }, options );
 
     // @public
-    this.wavePacket = wavePacket;
+    this.waveNumberRange = wavePacket.waveNumberRange;
     this.domainProperty = domainProperty;
     this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
 

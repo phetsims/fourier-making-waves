@@ -51,7 +51,7 @@ class WavePacketAmplitudesChartNode extends FMWChartNode {
     const infiniteComponentsDataSetProperty = amplitudesChart.infiniteComponentsDataSetProperty;
     const continuousWaveformDataSetProperty = amplitudesChart.continuousWaveformDataSetProperty;
     const continuousWaveformVisibleProperty = amplitudesChart.continuousWaveformVisibleProperty;
-    const waveNumberRange = amplitudesChart.wavePacket.waveNumberRange;
+    const waveNumberRange = amplitudesChart.waveNumberRange;
     const widthIndicatorWidthProperty = amplitudesChart.widthIndicatorWidthProperty;
     const widthIndicatorPositionProperty = amplitudesChart.widthIndicatorPositionProperty;
     const widthIndicatorsVisibleProperty = amplitudesChart.widthIndicatorsVisibleProperty;
