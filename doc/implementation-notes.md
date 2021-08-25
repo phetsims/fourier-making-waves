@@ -73,19 +73,25 @@ dispose()
 
 # Charts
 
-Charts follow the MVC pattern. The view is implemented using components from the bamboo repository.
+Charts follow the MVC design pattern, and are built on the bamboo framework. The model is responsible for creating data
+sets, while the view is responsible for rendering those data sets.
 
-`FMWChartNode` is the base class used by all 3 screens. There is additional code-sharing between the _Discrete_ and
-_Wave Game_ screens.
+All 3 screens share a core set of base classes:
+`DomainChart`, `DomainChartNode`, and `FMWChartNode`.
+
+The _Discrete_ and _Wave Game_ screens share additional base classes, some of which are subclasses of the core base
+classes:
+`AmplitudesChart`, `HarmonicsChart`, `SumChart`,
+`AmplitudesChartNode`, `HarmonicsChartNode`, and `SumChartNode`.
 
 The model class hierarchy is:
 
 ```
+// Discrete and Wave Game screens
+
 AmplitudesChart
     ↳ DiscreteAmplitudesChart
     ↳ WaveGameAmplitudesChart
-
-AmplitudesOfFourierComponentsChart
 
 DomainChart
     ↳ HarmonicsChart
@@ -94,6 +100,12 @@ DomainChart
     ↳ SumChart
         ↳ DiscreteSumChart
         ↳ WaveGameSumChart
+    
+// Wave Packet screen
+
+AmplitudesOfFourierComponentsChart
+
+DomainChart
     ↳ FourierComponentsChart
     ↳ WavePacketSumChart
 ```
@@ -101,6 +113,8 @@ DomainChart
 The view class hierarchy is:
 
 ```
+// Discrete and Wave Game screens
+
 Node
     ↳ AmplitudesChartNode
         ↳ DiscreteAmplitudesChartNode
@@ -113,10 +127,15 @@ Node
             ↳ SumChartNode
                 ↳ DiscreteSumChartNode
                 ↳ WaveGameSumChartNode
+
+// Wave Packet screen
+
+Node
+    ↳ FMWChartNode
+        ↳ AmplitudesOfFourierComponentsChartNode
+        ↳ DomainChartNode
             ↳ FourierComponentsChartNode
             ↳ WavePacketSumChartNode
-        ↳ AmplitudesOfFourierComponentsChartNode
-
 ```
 
 # PhET-iO
