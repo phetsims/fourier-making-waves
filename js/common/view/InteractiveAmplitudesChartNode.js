@@ -6,6 +6,9 @@
  * the y axis is amplitude. Amplitudes are displayed as an interactive bar chart, where each bar is a slider.
  * Amplitude can be adjusted using the slider, or by using a Keypad that opens when a NumberDisplay is pressed.
  *
+ * This class is not used in the 'Wave Packet' screen, where the Amplitudes chart is not interactive, and uses
+ * a much different underlying model.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 

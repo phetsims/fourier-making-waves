@@ -4,6 +4,9 @@
  * InteractiveAmplitudesChart is the model base class model for the 'Amplitudes' chart in the 'Discrete' and
  * 'Wave Game' screens, where amplitudes can be interactively adjusted using a set of bar-like sliders.
  *
+ * This class is not used in the 'Wave Packet' screen, where the Amplitudes chart is not interactive, and uses
+ * a much different underlying model.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
