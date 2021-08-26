@@ -141,7 +141,7 @@ class FMWChartNode extends Node {
     const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, options.yTickMarkSpacing, options.tickMarkSetOptions );
     const yTickLabels = new TickLabelSet( chartTransform, Orientation.VERTICAL, options.yTickLabelSpacing, options.yTickLabelSetOptions );
 
-    // Optional zoom buttons
+    // Optional x-axis zoom buttons
     let xZoomButtonGroup;
     if ( options.xZoomLevelProperty ) {
       xZoomButtonGroup = new PlusMinusZoomButtonGroup( options.xZoomLevelProperty, {
