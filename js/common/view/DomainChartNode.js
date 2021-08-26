@@ -61,8 +61,8 @@ class DomainChartNode extends FMWChartNode {
 
     // Update the x axis.
     Property.multilink(
-      [ xAxisDescriptionProperty, domainProperty ],
-      ( xAxisDescription, domain ) => {
+      [ domainProperty, xAxisDescriptionProperty ],
+      ( domain, xAxisDescription ) => {
         const value = ( domain === Domain.TIME ) ? T : L;
         const xMin = value * xAxisDescription.range.min;
         const xMax = value * xAxisDescription.range.max;
