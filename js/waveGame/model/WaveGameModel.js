@@ -43,8 +43,8 @@ class WaveGameModel {
       // Level 1
       new WaveGameLevel( 1, {
         defaultNumberOfAmplitudeControls: 2,
-        statusBarMessage: fourierMakingWavesStrings.statusOneHarmonic,
-        infoDialogDescription: fourierMakingWavesStrings.infoOneHarmonic,
+        statusBarMessage: fourierMakingWavesStrings.matchUsing1Harmonic,
+        infoDialogDescription: fourierMakingWavesStrings.info1Harmonic,
         tandem: options.tandem.createTandem( 'level1' )
       } ),
 
@@ -71,11 +71,11 @@ class WaveGameModel {
         rewardScore: this.rewardScore,
         getNumberOfNonZeroHarmonics: () => dotRandom.nextIntBetween( 5, FMWConstants.MAX_HARMONICS ),
         defaultNumberOfAmplitudeControls: FMWConstants.MAX_HARMONICS,
-        statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.statusNumberOrMoreHarmonics, {
+        statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.matchUsingNOrMoreHarmonics, {
           levelNumber: 5,
           numberOfHarmonics: 5
         } ),
-        infoDialogDescription: StringUtils.fillIn( fourierMakingWavesStrings.infoNumberOrMoreHarmonics, {
+        infoDialogDescription: StringUtils.fillIn( fourierMakingWavesStrings.infoNOrMoreHarmonics, {
           levelNumber: 5,
           numberOfHarmonics: 5
         } ),

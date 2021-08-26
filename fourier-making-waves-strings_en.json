@@ -185,22 +185,22 @@
   "chooseYourLevel": {
     "value": "Choose Your Level"
   },
-  "statusOneHarmonic": {
+  "matchUsing1Harmonic": {
     "value": "<b>Level 1</b>: Match the pink waveform using <b>1</b> harmonic."
   },
-  "statusNumberHarmonics": {
+  "matchUsingNHarmonics": {
     "value": "<b>Level {{levelNumber}}</b>: Match the pink waveform using <b>{{numberOfHarmonics}}</b> harmonics."
   },
-  "statusNumberOrMoreHarmonics": {
+  "matchUsingNOrMoreHarmonics": {
     "value": "<b>Level {{levelNumber}}</b>: Match the pink waveform using <u><b>{{numberOfHarmonics}} or more</b></u> harmonics."
   },
-  "infoOneHarmonic": {
+  "info1Harmonic": {
     "value": "<b>Level 1</b>: 1 harmonic"
   },
-  "infoNumberHarmonics": {
+  "infoNHarmonics": {
     "value": "<b>Level {{levelNumber}}</b>: {{numberOfHarmonics}} harmonics"
   },
-  "infoNumberOrMoreHarmonics": {
+  "infoNOrMoreHarmonics": {
     "value": "<b>Level {{levelNumber}}</b>: {{numberOfHarmonics}} <u>or more</u> harmonics"
   },
   "checkAnswer": {

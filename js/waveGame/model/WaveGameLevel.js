@@ -65,13 +65,13 @@ class WaveGameLevel extends PhetioObject {
       getNumberOfNonZeroHarmonics: () => levelNumber,
 
       // {string} message shown in the status bar that appears at the top of the Wave Game screen
-      statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.statusNumberHarmonics, {
+      statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.matchUsingNHarmonics, {
         levelNumber: levelNumber,
         numberOfHarmonics: levelNumber
       } ),
 
       // {string} shown in the info dialog that describes the game levels
-      infoDialogDescription: StringUtils.fillIn( fourierMakingWavesStrings.infoNumberHarmonics, {
+      infoDialogDescription: StringUtils.fillIn( fourierMakingWavesStrings.infoNHarmonics, {
         levelNumber: levelNumber,
         numberOfHarmonics: levelNumber
       } ),
