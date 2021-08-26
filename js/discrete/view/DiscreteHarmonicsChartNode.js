@@ -32,12 +32,12 @@ class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
 
       // DomainChartNode options
       xZoomLevelProperty: new ZoomLevelProperty( harmonicsChart.xAxisDescriptionProperty ),
-      xLabelSetOptions: {
+      xTickLabelSetOptions: {
         createLabel: value =>
           TickLabelUtils.createTickLabelForDomain( value, X_TICK_LABEL_DECIMALS, harmonicsChart.xAxisTickLabelFormatProperty.value,
             harmonicsChart.domainProperty.value, harmonicsChart.fourierSeries.L, harmonicsChart.fourierSeries.T )
       },
-      yLabelSetOptions: {
+      yTickLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
       }
     }, options );
@@ -48,7 +48,7 @@ class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
     this.visibleProperty.link( () => this.interruptSubtreeInput() );
 
     // x-axis tick labels are specific to domain and format (numeric vs symbolic).
-    // This causes options.xLabelSetOptions.createLabels to be called.
+    // This causes options.xTickLabelSetOptions.createLabels to be called.
     Property.multilink( [ harmonicsChart.domainProperty, harmonicsChart.xAxisTickLabelFormatProperty ],
       () => this.xTickLabels.invalidateTickLabelSet()
     );

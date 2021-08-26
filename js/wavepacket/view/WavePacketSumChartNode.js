@@ -51,10 +51,10 @@ class WavePacketSumChartNode extends DomainChartNode {
 
       // x axis with dynamic scale and zoom buttons
       xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),
-      xLabelSetOptions: {
+      xTickLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, X_TICK_LABEL_DECIMALS )
       },
-      yLabelSetOptions: {
+      yTickLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
       },
 

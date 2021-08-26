@@ -38,12 +38,12 @@ class DiscreteSumChartNode extends SumChartNode {
 
       // DomainChartNode options
       xZoomLevelProperty: new ZoomLevelProperty( sumChart.xAxisDescriptionProperty ),
-      xLabelSetOptions: {
+      xTickLabelSetOptions: {
         createLabel: value =>
           TickLabelUtils.createTickLabelForDomain( value, X_TICK_LABEL_DECIMALS, sumChart.xAxisTickLabelFormatProperty.value,
             sumChart.domainProperty.value, sumChart.fourierSeries.L, sumChart.fourierSeries.T )
       },
-      yLabelSetOptions: {
+      yTickLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
       }
     }, options );
@@ -67,7 +67,7 @@ class DiscreteSumChartNode extends SumChartNode {
     this.visibleProperty.link( () => this.interruptSubtreeInput() );
 
     // x-axis tick labels are specific to domain and format (numeric vs symbolic).
-    // This causes options.xLabelSetOptions.createLabels to be called.
+    // This causes options.xTickLabelSetOptions.createLabels to be called.
     Property.multilink( [ sumChart.domainProperty, sumChart.xAxisTickLabelFormatProperty ],
       () => this.xTickLabels.invalidateTickLabelSet()
     );

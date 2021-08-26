@@ -62,10 +62,10 @@ class AmplitudesOfFourierComponentsChartNode extends FMWChartNode {
     options = merge( {
       xTickMarkSpacing: Math.PI,
       xTickLabelSpacing: 2 * Math.PI,
-      xLabelSetOptions: {
+      xTickLabelSetOptions: {
         createLabel: value => TickLabelUtils.createPiTickLabel( value, X_TICK_LABEL_DECIMALS )
       },
-      yLabelSetOptions: {
+      yTickLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
       }
     }, options );

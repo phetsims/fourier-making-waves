@@ -43,10 +43,10 @@ class FourierComponentsChartNode extends DomainChartNode {
 
     options = merge( {
       xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),
-      xLabelSetOptions: {
+      xTickLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, X_TICK_LABEL_DECIMALS )
       },
-      yLabelSetOptions: {
+      yTickLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
       }
     }, options );
