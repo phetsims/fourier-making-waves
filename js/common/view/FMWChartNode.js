@@ -56,7 +56,6 @@ class FMWChartNode extends Node {
       yGridLineSpacing: 1,
       yTickMarkSpacing: 1,
       yTickLabelSpacing: 1,
-      yZoomLevelProperty: null, // {NumberProperty|null} adds optional zoom buttons
 
       chartTransformOptions: {
         modelXRange: new Range( 0, 1 ),
