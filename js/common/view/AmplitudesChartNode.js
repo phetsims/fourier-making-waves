@@ -12,7 +12,7 @@
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
-import LabelSet from '../../../../bamboo/js/LabelSet.js';
+import TickLabelSet from '../../../../bamboo/js/TickLabelSet.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -136,7 +136,7 @@ class AmplitudesChartNode extends Node {
       lineWidth: 0.5
     } );
 
-    const yLabelSet = new LabelSet( chartTransform, Orientation.VERTICAL, Y_TICK_SPACING, {
+    const yLabelSet = new TickLabelSet( chartTransform, Orientation.VERTICAL, Y_TICK_SPACING, {
       edge: 'min',
 
       // Create tick labels. Using toFixedNumber removes trailing zeros.
