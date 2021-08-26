@@ -7,9 +7,6 @@
  *
  * Units for the fields in an AxisDescription are specific to the axis.
  *
- * For the x axis, AxisDescription contains coefficients to be applied to L or T, depending on which domain is
- * being plotted. Use createXAxisRange to multiply that description by L or T, depending on domain (space or time).
- *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 

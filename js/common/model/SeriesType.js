@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * SeriesType indicates the type of Fourier series, whether the waveform is being approximated using sines or cosines.
+ * SeriesType indicates the form of Fourier series, whether the waveform is being approximated using sines or cosines.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

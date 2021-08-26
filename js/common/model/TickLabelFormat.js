@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * TickLabelFormat specifies the format of tick mark labels on a chart axis.
+ * TickLabelFormat specifies the format of tick labels on a chart's axis.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

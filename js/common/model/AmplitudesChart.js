@@ -26,7 +26,7 @@ class AmplitudesChart {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // @public
+    // @public (read-only)
     this.fourierSeries = fourierSeries;
     this.emphasizedHarmonics = emphasizedHarmonics;
 
