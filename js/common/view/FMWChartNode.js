@@ -1,12 +1,12 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * FMWChartNode is the base class for most of the charts in this simulation.
- * It's main responsibility is assembling all of the bamboo components that are needed.
- * Subclasses are responsible for customizing those components.
+ * FMWChartNode is the base class for all of the charts in this simulation, with the exception of the Amplitudes
+ * chart in the Discrete and Wave Game screens. It's main responsibility is assembling all of the bamboo components
+ * that are needed. Subclasses are responsible for customizing those components.
  *
  * All of these charts have x and y axes, grid lines, tick marks, and tick labels.
- * Optional features include zoom buttons for the x-axis.
+ * Zoom buttons for the x-axis are optional.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
