@@ -50,7 +50,7 @@ class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
     // x-axis tick labels are specific to domain and format (numeric vs symbolic).
     // This causes options.xLabelSetOptions.createLabels to be called.
     Property.multilink( [ harmonicsChart.domainProperty, harmonicsChart.xAxisTickLabelFormatProperty ],
-      () => this.xTickLabels.invalidateLabelSet()
+      () => this.xTickLabels.invalidateTickLabelSet()
     );
   }
 }

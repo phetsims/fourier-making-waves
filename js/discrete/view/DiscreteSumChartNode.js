@@ -69,7 +69,7 @@ class DiscreteSumChartNode extends SumChartNode {
     // x-axis tick labels are specific to domain and format (numeric vs symbolic).
     // This causes options.xLabelSetOptions.createLabels to be called.
     Property.multilink( [ sumChart.domainProperty, sumChart.xAxisTickLabelFormatProperty ],
-      () => this.xTickLabels.invalidateLabelSet()
+      () => this.xTickLabels.invalidateTickLabelSet()
     );
   }
 }

@@ -74,7 +74,7 @@ class DomainChartNode extends FMWChartNode {
         this.xGridLines.setSpacing( xAxisDescription.gridLineSpacing * value );
         this.xTickMarks.setSpacing( xAxisDescription.tickMarkSpacing * value );
         this.xTickLabels.setSpacing( xAxisDescription.tickLabelSpacing * value );
-        this.xTickLabels.invalidateLabelSet();
+        this.xTickLabels.invalidateTickLabelSet();
       } );
   }
 
