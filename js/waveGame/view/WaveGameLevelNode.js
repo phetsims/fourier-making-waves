@@ -62,6 +62,7 @@ class WaveGameLevelNode extends Node {
    * @param {GameAudioPlayer} gameAudioPlayer
    * @param {WaveGameRewardNode} rewardNode
    * @param {RewardDialog} rewardDialog
+   * @param {number} rewardScore
    * @param {Object} [options]
    */
   constructor( level, levelProperty, layoutBounds, visibleBoundsProperty, gameAudioPlayer, rewardNode, rewardDialog,
