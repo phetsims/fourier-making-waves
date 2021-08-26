@@ -95,13 +95,13 @@ class FMWChartNode extends Node {
       },
 
       // GridLineSet options for both axes
-      gridLineOptions: {
+      gridLineSetOptions: {
         stroke: FMWColors.chartGridLinesStrokeProperty,
         lineWidth: 0.5
       },
 
       // TickMarkSet options for both axes
-      tickMarkOptions: {
+      tickMarkSetOptions: {
         edge: DEFAULT_EDGE,
         extent: 6
       },
@@ -130,15 +130,15 @@ class FMWChartNode extends Node {
     // x axis
     const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, options.axisLineOptions );
     const xAxisLabel = new RichText( options.xAxisString, options.xAxisLabelOptions );
-    const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, options.xGridLineSpacing, options.gridLineOptions );
-    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, options.xTickMarkSpacing, options.tickMarkOptions );
+    const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, options.xGridLineSpacing, options.gridLineSetOptions );
+    const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, options.xTickMarkSpacing, options.tickMarkSetOptions );
     const xTickLabels = new TickLabelSet( chartTransform, Orientation.HORIZONTAL, options.xTickLabelSpacing, options.xTickLabelSetOptions );
 
     // y axis
     const yAxis = new AxisLine( chartTransform, Orientation.VERTICAL, options.axisLineOptions );
     const yAxisLabel = new RichText( options.yAxisString, options.yAxisLabelOptions );
-    const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, options.yGridLineSpacing, options.gridLineOptions );
-    const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, options.yTickMarkSpacing, options.tickMarkOptions );
+    const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, options.yGridLineSpacing, options.gridLineSetOptions );
+    const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, options.yTickMarkSpacing, options.tickMarkSetOptions );
     const yTickLabels = new TickLabelSet( chartTransform, Orientation.VERTICAL, options.yTickLabelSpacing, options.yTickLabelSetOptions );
 
     // Optional zoom buttons
