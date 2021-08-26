@@ -59,7 +59,12 @@ class DomainChartNode extends FMWChartNode {
 
     super( options );
 
-    // Update the x axis.
+    // Set the x-axis label based on domain.
+    domainProperty.link( domain => {
+      this.xAxisLabel.text = ( domain === Domain.TIME ) ? X_TIME_LABEL : X_SPACE_LABEL;
+    } );
+
+    // Update the x-axis range and decorations.
     Property.multilink(
       [ domainProperty, xAxisDescriptionProperty ],
       ( domain, xAxisDescription ) => {
@@ -72,11 +77,6 @@ class DomainChartNode extends FMWChartNode {
         this.xTickLabels.setSpacing( xAxisDescription.tickLabelSpacing * value );
         this.xTickLabels.invalidateLabelSet();
       } );
-
-    // Set the x-axis label based on domain.
-    domainProperty.link( domain => {
-      this.xAxisLabel.text = ( domain === Domain.TIME ) ? X_TIME_LABEL : X_SPACE_LABEL;
-    } );
   }
 
   /**
