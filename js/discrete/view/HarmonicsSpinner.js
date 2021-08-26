@@ -1,7 +1,8 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * HarmonicsSpinner is the spinner used to set the number of harmonics in the Fourier series.
+ * HarmonicsSpinner is the spinner used to set the number of harmonics in the Fourier series. It appears in the
+ * 'Discrete' screen's control panel.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

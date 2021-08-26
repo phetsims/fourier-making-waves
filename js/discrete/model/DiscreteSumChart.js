@@ -3,8 +3,8 @@
 /**
  * DiscreteSumChart is the model for the 'Sum' chart in the 'Discrete' screen.
  * It adds the following the base class:
- * - a plot for preset waveforms that shows what the waveform would look like if approximated by a Fourier Series with
- *   an infinite number of harmonics
+ * - a data set for preset waveforms that shows what the waveform would look like if approximated by a Fourier Series
+ *   with an infinite number of harmonics
  * - x-axis formatting that depends on domain
  *
  * @author Chris Malley (PixelZoom, Inc.)

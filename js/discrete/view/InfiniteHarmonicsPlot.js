@@ -2,7 +2,8 @@
 
 /**
  * InfiniteHarmonicsPlot shows what some of the preset waveforms would look like if they were approximated with
- * an infinite number of harmonics. This is supported for a subset of the Waveform enumeration.
+ * an infinite number of harmonics. This is supported for a subset of the Waveform enumeration.  It is specific
+ * to the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

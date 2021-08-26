@@ -1,7 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * DiscreteHarmonicsChartNode displays the 'Harmonics' chart in the 'Discrete' screen.
+ * DiscreteHarmonicsChartNode displays the 'Harmonics' chart in the 'Discrete' screen. It extends HarmonicsChartNode
+ * by handling the view responsibilities for things that were added to DiscreteHarmonicsChart.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

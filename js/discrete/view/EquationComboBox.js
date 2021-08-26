@@ -2,6 +2,7 @@
 
 /**
  * EquationComboBox is the combo box for choosing the equation form that is displayed in the 'Discrete' screen.
+ * See also EquationForm enumeration.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

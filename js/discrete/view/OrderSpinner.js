@@ -2,7 +2,7 @@
 
 /**
  * OrderSpinner is a spinner for selecting harmonic order.
- * It's used to select wavelength and period for the measurement tools.
+ * It's used to select wavelength and period for the measurement tools on the 'Discrete' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

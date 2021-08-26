@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * PeriodCalipersNode is the tool used to measure a harmonic's period in the 'time' domain.
+ * PeriodCalipersNode is the tool used to measure a harmonic's period in the 'time' domain on the 'Discrete' screen.
  * Origin is at the tip of the caliper's left jaw.
  *
  * @author Chris Malley (PixelZoom, Inc.)
