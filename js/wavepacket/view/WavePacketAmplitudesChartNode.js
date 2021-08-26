@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * AmplitudesOfFourierComponentsChartNode is the view for the 'Amplitudes of Fourier Components' chart in
+ * WavePacketAmplitudesChartNode is the view for the 'Amplitudes of Fourier Components' chart in
  * the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -23,7 +23,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import DomainChartNode from '../../common/view/DomainChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import AmplitudesOfFourierComponentsChart from '../model/AmplitudesOfFourierComponentsChart.js';
+import WavePacketAmplitudesChart from '../model/WavePacketAmplitudesChart.js';
 import GaussianAreaPlot from './GaussianAreaPlot.js';
 import WidthIndicatorPlot from './WidthIndicatorPlot.js';
 
@@ -32,15 +32,15 @@ const X_TICK_LABEL_DECIMALS = 0;
 const Y_TICK_LABEL_DECIMALS = 2;
 const GRAY_RANGE = FMWColors.FOURIER_COMPONENT_GRAY_RANGE;
 
-class AmplitudesOfFourierComponentsChartNode extends DomainChartNode {
+class WavePacketAmplitudesChartNode extends DomainChartNode {
 
   /**
-   * @param {AmplitudesOfFourierComponentsChart} amplitudesChart
+   * @param {WavePacketAmplitudesChart} amplitudesChart
    * @param {Object} [options]
    */
   constructor( amplitudesChart, options ) {
 
-    assert && assert( amplitudesChart instanceof AmplitudesOfFourierComponentsChart );
+    assert && assert( amplitudesChart instanceof WavePacketAmplitudesChart );
 
     // Fields of interest in amplitudesChart, to improve readability
     const domainProperty = amplitudesChart.domainProperty;
@@ -167,5 +167,5 @@ class AmplitudesOfFourierComponentsChartNode extends DomainChartNode {
   }
 }
 
-fourierMakingWaves.register( 'AmplitudesOfFourierComponentsChartNode', AmplitudesOfFourierComponentsChartNode );
-export default AmplitudesOfFourierComponentsChartNode;
+fourierMakingWaves.register( 'WavePacketAmplitudesChartNode', WavePacketAmplitudesChartNode );
+export default WavePacketAmplitudesChartNode;

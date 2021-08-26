@@ -98,8 +98,8 @@ DomainChart
     ↳ SumChart
         ↳ DiscreteSumChart
         ↳ WaveGameSumChart
-    ↳ AmplitudesOfFourierComponentsChart
-    ↳ FourierComponentsChart
+    ↳ WavePacketAmplitudesChart
+    ↳ WavePacketComponentsChart
     ↳ WavePacketSumChart
 ```
 
@@ -117,8 +117,8 @@ Node
         ↳ SumChartNode
             ↳ DiscreteSumChartNode
             ↳ WaveGameSumChartNode
-        ↳ AmplitudesOfFourierComponentsChartNode
-        ↳ FourierComponentsChartNode
+        ↳ WavePacketAmplitudesChartNode
+        ↳ WavePacketComponentsChartNode
         ↳ WavePacketSumChartNode
 ```
 

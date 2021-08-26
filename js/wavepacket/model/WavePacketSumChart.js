@@ -20,7 +20,7 @@ import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
 import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
-import FourierComponentsChart from './FourierComponentsChart.js';
+import WavePacketComponentsChart from './WavePacketComponentsChart.js';
 
 // constants
 const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
@@ -112,7 +112,7 @@ class WavePacketSumChart extends DomainChart {
           // either sine or cosine. Compute the other data set by creating component data sets using the other
           // SeriesType, then summing those data sets.
           const seriesType = ( seriesTypeProperty.value === SeriesType.SINE ) ? SeriesType.COSINE : SeriesType.SINE;
-          const otherComponentDataSets = FourierComponentsChart.createComponentsDataSets(
+          const otherComponentDataSets = WavePacketComponentsChart.createComponentsDataSets(
             wavePacket.componentsProperty.value, wavePacket.componentSpacingProperty.value, domainProperty.value,
             seriesType, xAxisDescriptionProperty.value.range
           );

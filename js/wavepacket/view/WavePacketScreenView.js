@@ -26,8 +26,8 @@ import ComponentsEquationNode from './ComponentsEquationNode.js';
 import ComponentSpacingToolNode from './ComponentSpacingToolNode.js';
 import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
 import WaveformEnvelopeCheckbox from './WaveformEnvelopeCheckbox.js';
-import AmplitudesOfFourierComponentsChartNode from './AmplitudesOfFourierComponentsChartNode.js';
-import FourierComponentsChartNode from './FourierComponentsChartNode.js';
+import WavePacketAmplitudesChartNode from './WavePacketAmplitudesChartNode.js';
+import WavePacketComponentsChartNode from './WavePacketComponentsChartNode.js';
 import WavePacketControlPanel from './WavePacketControlPanel.js';
 import WavePacketLengthToolNode from './WavePacketLengthToolNode.js';
 import WavePacketSumChartNode from './WavePacketSumChartNode.js';
@@ -84,7 +84,7 @@ class WavePacketScreenView extends ScreenView {
       } );
 
     // 'Amplitudes of Fourier Components' chart
-    const amplitudesChartNode = new AmplitudesOfFourierComponentsChartNode( model.amplitudesChart, {
+    const amplitudesChartNode = new WavePacketAmplitudesChartNode( model.amplitudesChart, {
       chartTransformOptions: {
         modelXRange: model.wavePacket.waveNumberRange
         // modelYRange will automatically scale to fit the data set
@@ -125,7 +125,7 @@ class WavePacketScreenView extends ScreenView {
       } );
 
     // Components chart
-    const componentsChartNode = new FourierComponentsChartNode( model.componentsChart, {
+    const componentsChartNode = new WavePacketComponentsChartNode( model.componentsChart, {
       tandem: componentsTandem.createTandem( 'componentsChartNode' )
     } );
 
