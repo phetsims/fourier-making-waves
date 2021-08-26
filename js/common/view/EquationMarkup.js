@@ -82,7 +82,7 @@ const EquationMarkup = {
   },
 
   /**
-   * Gets the markup for 'F(...)', where the '...' depends on the domain.
+   * Gets the markup for 'F(...)', where the '...' depends on the Domain.
    * @param {Domain} domain
    * @returns {string}
    * @public
@@ -110,7 +110,7 @@ const EquationMarkup = {
 };
 
 /**
- * Gets the RichText markup for an equation in the space domain.
+ * Gets the RichText markup for an equation in the space Domain.
  * @param {SeriesType} seriesType
  * @param {EquationForm} equationForm
  * @param {string|number} order - {string} for general form (e.g. 'n') or number for a specific harmonic
@@ -146,7 +146,7 @@ function getSpaceMarkup( seriesType, equationForm, order, amplitude ) {
 }
 
 /**
- * Gets the RichText markup for an equation in the time domain.
+ * Gets the RichText markup for an equation in the time Domain.
  * @param {SeriesType} seriesType
  * @param {EquationForm} equationForm
  * @param {string|number} order - {string} for general form (e.g. 'n') or number for a specific harmonic
@@ -185,7 +185,7 @@ function getTimeMarkup( seriesType, equationForm, order, amplitude ) {
 }
 
 /**
- * Gets the RichText markup for an equation in the space & time domain.
+ * Gets the RichText markup for an equation in the space & time Domain.
  * @param {SeriesType} seriesType
  * @param {EquationForm} equationForm
  * @param {string|number} order - {string} for general form (e.g. 'n') or number for a specific harmonic

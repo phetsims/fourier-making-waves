@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * PeriodClockNode is the tool for measuring a harmonic's period in the 'space & time' domain. It looks like a clock,
+ * PeriodClockNode is the tool for measuring a harmonic's period in the 'space & time' Domain. It looks like a clock,
  * with a portion of the clock face filled in with the harmonic's color.  The portion filled in represents the portion
  * of the harmonic's period that has elapsed.  The origin is at the center of the clock face.
  *

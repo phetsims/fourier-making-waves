@@ -397,7 +397,7 @@ class DiscreteScreenView extends ScreenView {
       controlPanel.left, this.layoutBounds.maxY
     ).erodedXY( 20, 20 );
 
-    // For measuring a harmonic's wavelength in the 'space' and 'space & time' domains.
+    // For measuring a harmonic's wavelength in the 'space' and 'space & time' Domains.
     const wavelengthCalipersNode = new WavelengthCalipersNode( model, harmonicsChartNode.chartTransform, {
       position: harmonicsChartRectangleLocalBounds.leftCenter,
       dragBounds: measurementToolsDragBounds,
@@ -405,7 +405,7 @@ class DiscreteScreenView extends ScreenView {
     } );
     measurementToolsParent.addChild( wavelengthCalipersNode );
 
-    // For measuring a harmonic's period in the 'time' domain.
+    // For measuring a harmonic's period in the time Domain.
     const periodCalipersNode = new PeriodCalipersNode( model, harmonicsChartNode.chartTransform, {
       position: harmonicsChartRectangleLocalBounds.leftCenter,
       dragBounds: measurementToolsDragBounds,
@@ -413,7 +413,7 @@ class DiscreteScreenView extends ScreenView {
     } );
     measurementToolsParent.addChild( periodCalipersNode );
 
-    // For measuring a harmonic's period in the 'space & time' domain.
+    // For measuring a harmonic's period in the 'space & time' Domain.
     const periodClockNode = new PeriodClockNode( model, {
       position: new Vector2(
         harmonicsChartRectangleLocalBounds.right,

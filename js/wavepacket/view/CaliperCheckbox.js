@@ -2,7 +2,7 @@
 
 /**
  * CaliperCheckbox is a checkbox for changing the visibility of measurement tools that look like calipers.
- * It shows a small calipers icon, and a label changes dynamically to match the domain.
+ * It shows a small calipers icon, and a label changes dynamically to match the Domain.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

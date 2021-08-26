@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * getAmplitudeFunction returns a function that can be used to compute amplitude for a specific domain (space, time,
+ * getAmplitudeFunction returns a function that can be used to compute amplitude for a specific Domain (space, time,
  * space & time) and series type (sin, cos).  All of these functions have identical signature, as documented below.
  *
  * @author Chris Malley (PixelZoom, Inc.)

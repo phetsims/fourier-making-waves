@@ -128,7 +128,7 @@ class WaveformValue {
       /**
        * {function} Gets the data set that can be used to plot the actual waveform, as if the waveform were
        * approximated using a Fourier series with an infinite number of harmonics. Ordered by increasing x coordinate.
-       * @param {Domain} domain - domain of the x axis
+       * @param {Domain} domain - Domain of the x axis
        * @param {SeriesType} seriesType - sin or cos
        * @param {number} t - time, in milliseconds
        * @param {number} L - wavelength of the fundamental harmonic, in meters
@@ -272,7 +272,7 @@ const CUSTOM = new WaveformValue( {
 
 /**
  * Take an array of base points that describe an 'infinite harmonics' waveform, map it to a data set that is
- * appropriate for a specified domain, seriesType, etc.
+ * appropriate for a specified Domain, SeriesType, etc.
  * @param {Vector2[]} basePoints - one of the arrays in INFINITE_HARMONICS_BASE_POINTS
  * @param {Domain} domain
  * @param {SeriesType} seriesType - sine or cosine
@@ -283,7 +283,7 @@ const CUSTOM = new WaveformValue( {
  */
 function mapBasePointsToDataSet( basePoints, domain, seriesType, t, L, T ) {
 
-  // Get the quantity to use for the x axis, based on domain.
+  // Get the quantity to use for the x axis, based on Domain.
   const x = ( domain === Domain.TIME ) ? T : L;
 
   // cosine shifts the waveform left by 1/4 of the wavelength or period.

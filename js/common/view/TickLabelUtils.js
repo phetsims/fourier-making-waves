@@ -96,7 +96,7 @@ const TickLabelUtils = {
   },
 
   /**
-   * Creates a tick label for a specific domain, in the correct format (numeric or symbolic).
+   * Creates a tick label for a specific Domain, in the correct format (numeric or symbolic).
    * @param {number} value
    * @param {number} decimalPlaces
    * @param {TickLabelFormat} tickLabelFormat

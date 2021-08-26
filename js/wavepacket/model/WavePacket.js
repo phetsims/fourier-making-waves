@@ -3,11 +3,11 @@
 /**
  * WavePacket is the model of a Gaussian wave packet.
  *
- * Note that many of the Properties herein have values that are the same for both the space and time domain.
+ * Note that many of the Properties herein have values that are the same for both the space and time Domain.
  * We can make this simplification (which originated in the Java version) because we assume that the values of L
  * (wavelength of the fundamental harmonic) and T (period of the fundamental harmonic) are the same. That is,
- * L=1 meter and T=1 millisecond. The units for these Properties are therefore dependent on the domain, and changing
- * the domain simply changes the symbols and units that appear in the user interface.  This also means that we can't
+ * L=1 meter and T=1 millisecond. The units for these Properties are therefore dependent on the Domain, and changing
+ * the Domain simply changes the symbols and units that appear in the user interface.  This also means that we can't
  * use Property's units option, so we describe the units in phetioDocumentation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -204,8 +204,8 @@ class WavePacket {
    * A(k,k0,dk) = exp[ -((k-k0)^2) / (2 * (dk^2) )  ] / (dk * sqrt( 2pi ))
    * where k = wave number, k0 = wave packet center, dk = standard deviation of width
    *
-   * Note that symbol k used in the formula above is specific to the space domain, and is in rad/m.
-   * But this method can also be used for the time domain (omega, in rad/ms), because L === T === 1.
+   * Note that symbol k used in the formula above is specific to the space Domain, and is in rad/m.
+   * But this method can also be used for the time Domain (omega, in rad/ms), because L === T === 1.
    *
    * This was ported from the getAmplitude method in GaussianWavePacket.java.
    *

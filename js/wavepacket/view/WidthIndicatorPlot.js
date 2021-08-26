@@ -26,9 +26,9 @@ class WidthIndicatorPlot extends Node {
    * @param {ChartTransform} chartTransform - transform for the chart that renders this plot
    * @param {Property.<number>} widthProperty - width of the indicator, in model coordinates
    * @param {Property.<Vector2>} positionProperty - position of the indicator, in model coordinates
-   * @param {EnumerationProperty.<Domain>} domainProperty - the domain, space or time
-   * @param {string} spaceSymbol - symbol for the space domain
-   * @param {string} timeSymbol - symbol for the time domain
+   * @param {EnumerationProperty.<Domain>} domainProperty - the Domain, space or time
+   * @param {string} spaceSymbol - symbol for the space Domain
+   * @param {string} timeSymbol - symbol for the time Domain
    * @param {Object} [options]
    */
   constructor( chartTransform, widthProperty, positionProperty, domainProperty, spaceSymbol, timeSymbol, options ) {
@@ -91,7 +91,7 @@ class WidthIndicatorPlot extends Node {
     widthProperty.link( updateDimensionalArrows );
     positionProperty.link( updateDimensionalArrows );
 
-    // Update the label to match the domain
+    // Update the label to match the Domain
     domainProperty.link( domain => {
       const waveNumberSymbol = ( domain === Domain.SPACE ) ? spaceSymbol : timeSymbol;
       labelNode.text = `2${FMWSymbols.sigma}<sub>${waveNumberSymbol}</sub>`;

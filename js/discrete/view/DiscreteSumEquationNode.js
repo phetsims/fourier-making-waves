@@ -68,7 +68,7 @@ class DiscreteSumEquationNode extends Node {
 
     super( options );
 
-    // Update the equation to match the domain and math form.
+    // Update the equation to match the Domain and math form.
     const multilink = new Multilink(
       [ domainProperty, seriesTypeProperty, equationFormProperty ],
       ( domain, seriesType, equationForm ) => {

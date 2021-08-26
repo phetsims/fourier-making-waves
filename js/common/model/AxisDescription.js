@@ -87,8 +87,8 @@ class AxisDescription {
   }
 
   /**
-   * Creates a range for a specified domain. This is used wherever the AxisDescriptions for the x axis contain
-   * coefficients to be applied to some constant (L, T, PI), depending on which domain (space or time) is being plotted.
+   * Creates a range for a specified Domain. This is used wherever the AxisDescriptions for the x axis contain
+   * coefficients to be applied to some constant (L, T, PI), depending on which Domain (space or time) is being plotted.
    * @param {Domain} domain
    * @param {number} spaceMultiplier
    * @param {number} timeMultiplier

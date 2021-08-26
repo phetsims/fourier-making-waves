@@ -66,7 +66,7 @@ class WavePacketSumEquationNode extends Node {
       [ domainProperty, seriesTypeProperty, componentSpacingProperty ],
       ( domain, seriesType, componentSpacing ) => {
 
-        // Update the left side of the equation to match the domain.
+        // Update the left side of the equation to match the Domain.
         leftNode.text = `${EquationMarkup.getFunctionOfMarkup( domain )} ${MathSymbols.EQUAL_TO}`; // F(...) =
 
         const hasInfiniteComponents = ( componentSpacing === 0 );

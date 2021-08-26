@@ -210,7 +210,7 @@ class DomainChartNode extends Node {
       yAxisLabel.centerY = chartRectangle.centerY;
     } );
 
-    // Set the x-axis label based on domain.
+    // Set the x-axis label based on Domain.
     domainProperty.link( domain => {
       xAxisLabel.text = ( domain === Domain.TIME ) ? options.xTimeLabel : options.xSpaceLabel;
     } );

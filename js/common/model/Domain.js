@@ -2,7 +2,7 @@
 
 /**
  * Domain identifies the independent variables in the function that describes the Fourier series.
- * In the view, the domain determines the presentation of the x axis for charts.
+ * In the view, the Domain determines the presentation of the x axis for charts.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

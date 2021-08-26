@@ -37,7 +37,7 @@ const DiscreteAxisDescriptions = {
   DEFAULT_Y_AXIS_DESCRIPTION: DEFAULT_Y_AXIS_DESCRIPTION,
 
   // {AxisDescription[]}
-  // Values for the x-axis AxisDescriptions are coefficients (multipliers) for L or T, depending on which domain is
+  // Values for the x-axis AxisDescriptions are coefficients (multipliers) for L or T, depending on which Domain is
   // plotted. Use AxisDescription.createRangeForDomain to create a numeric range suitable for use with a chart.
   X_AXIS_DESCRIPTIONS: [
     new AxisDescription( {

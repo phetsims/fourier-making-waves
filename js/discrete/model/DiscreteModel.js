@@ -30,7 +30,7 @@ import DiscreteSumChart from './DiscreteSumChart.js';
 import EquationForm from './EquationForm.js';
 import Waveform from './Waveform.js';
 
-// This factor slows down time for the 'space & time' domain, determined empirically.
+// This factor slows down time for the 'space & time' Domain, determined empirically.
 const TIME_SCALE = 0.001;
 
 // How much to step the simulation when the Step button is pressed, in milliseconds, determined empirically.
@@ -56,7 +56,7 @@ class DiscreteModel {
 
     // @public time (t), updated only when domainProperty is Domain.SPACE_AND_TIME
     // While the units are in milliseconds, the value is scaled so that it's practical to show high-frequency
-    // phenomena in the sim, specifically in the 'space & time' domain.
+    // phenomena in the sim, specifically in the 'space & time' Domain.
     this.tProperty = new NumberProperty( 0, {
       phetioDocumentation: 'time in millisecond, relevant only for function of space & time',
       phetioReadOnly: true,
@@ -157,7 +157,7 @@ class DiscreteModel {
       () => this.tProperty.reset()
     );
 
-    // Ensure that the math form is appropriate for the domain. EquationForm.MODE is supported for all Domain values.
+    // Ensure that the math form is appropriate for the Domain. EquationForm.MODE is supported for all Domain values.
     this.domainProperty.link( () => {
       if ( this.equationFormProperty.value !== EquationForm.MODE ) {
         this.equationFormProperty.value = EquationForm.HIDDEN;

@@ -88,7 +88,7 @@ class FourierComponentsChart extends DomainChart {
 
     const dataSets = []; // {Array.<Array.<Vector2>>}
     const L = 2 * Math.PI / componentSpacing;
-    const T = L; // because the WavePacket model is independent of domain, and assumes that L === T
+    const T = L; // because the WavePacket model is independent of Domain, and assumes that L === T
     const t = 0; // there is no animation in this screen, so time is always 0
 
     for ( let order = 1; order <= components.length; order++ ) {

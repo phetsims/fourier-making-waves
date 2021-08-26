@@ -2,7 +2,7 @@
 
 /**
  * WavePacketNumberControl is the base class for NumberControls in the Wave Packet screen.
- * It adds interactive tick labels, isPressedProperty, and synchronizes its display with the domain.
+ * It adds interactive tick labels, isPressedProperty, and synchronizes its display with the Domain.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
