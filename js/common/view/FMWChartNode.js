@@ -57,6 +57,7 @@ class FMWChartNode extends Node {
       yTickMarkSpacing: 1,
       yTickLabelSpacing: 1,
 
+      // ChartTransform options
       chartTransformOptions: {
         modelXRange: new Range( 0, 1 ),
         modelYRange: new Range( 0, 1 ),
@@ -64,6 +65,7 @@ class FMWChartNode extends Node {
         viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
       },
 
+      // ChartRectangle options
       chartRectangleOptions: {
 
         // Use the same color as the grid lines. If use a different color (e.g. 'black') then we'll occasionally
@@ -73,36 +75,43 @@ class FMWChartNode extends Node {
         fill: 'white'
       },
 
+      // RichText options for the x-axis label
       xAxisLabelOptions: {
         font: FMWConstants.AXIS_LABEL_FONT,
         maxWidth: FMWConstants.X_AXIS_LABEL_MAX_WIDTH
       },
 
+      // RichText options for the x-axis label
       yAxisLabelOptions: {
         font: FMWConstants.AXIS_LABEL_FONT,
         maxWidth: 0.85 * FMWConstants.CHART_RECTANGLE_SIZE.height,
         rotation: -Math.PI / 2
       },
 
+      // AxisLine options for both axes
       axisLineOptions: {
         stroke: FMWColors.axisStrokeProperty,
         lineWidth: 1
       },
 
+      // GridLineSet options for both axes
       gridLineOptions: {
         stroke: FMWColors.chartGridLinesStrokeProperty,
         lineWidth: 0.5
       },
 
+      // TickMarkSet options for both axes
       tickMarkOptions: {
         edge: DEFAULT_EDGE,
         extent: 6
       },
 
+      // LabelSet options for the x-axis tick labels
       xLabelSetOptions: {
         edge: DEFAULT_EDGE
       },
 
+      // LabelSet options for the x-axis tick labels
       yLabelSetOptions: {
         edge: DEFAULT_EDGE
       },
