@@ -2,6 +2,8 @@
 
 /**
  * LevelSelectionNode is the user interface for level selection and other game settings in the 'Wave Game' screen.
+ * It displays a set of level-selection buttons, an Info button for opening a dialog that describes the levels,
+ * and a ResetAllButton.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
