@@ -106,12 +106,12 @@ class FMWChartNode extends Node {
         extent: 6
       },
 
-      // LabelSet options for the x-axis tick labels
+      // TickLabelSet options for the x-axis tick labels
       xTickLabelSetOptions: {
         edge: DEFAULT_EDGE
       },
 
-      // LabelSet options for the x-axis tick labels
+      // TickLabelSet options for the x-axis tick labels
       yTickLabelSetOptions: {
         edge: DEFAULT_EDGE
       },
