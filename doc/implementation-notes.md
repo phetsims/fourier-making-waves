@@ -87,8 +87,6 @@ classes:
 The model class hierarchy is:
 
 ```
-// Discrete and Wave Game screens
-
 AmplitudesChart
     ↳ DiscreteAmplitudesChart
     ↳ WaveGameAmplitudesChart
@@ -100,10 +98,6 @@ DomainChart
     ↳ SumChart
         ↳ DiscreteSumChart
         ↳ WaveGameSumChart
-    
-// Wave Packet screen
-
-DomainChart
     ↳ AmplitudesOfFourierComponentsChart
     ↳ FourierComponentsChart
     ↳ WavePacketSumChart
@@ -112,29 +106,20 @@ DomainChart
 The view class hierarchy is:
 
 ```
-// Discrete and Wave Game screens
-
 Node
     ↳ AmplitudesChartNode
         ↳ DiscreteAmplitudesChartNode
         ↳ WaveGameAmplitudesChartNode
-    ↳ FMWChartNode
-        ↳ DomainChartNode
-            ↳ HarmonicsChartNode
-                ↳ DiscreteHarmonicsChartNode
-                ↳ WaveGameHarmonicsChartNode
-            ↳ SumChartNode
-                ↳ DiscreteSumChartNode
-                ↳ WaveGameSumChartNode
-
-// Wave Packet screen
-
-Node
-    ↳ FMWChartNode
-        ↳ DomainChartNode
-            ↳ AmplitudesOfFourierComponentsChartNode
-            ↳ FourierComponentsChartNode
-            ↳ WavePacketSumChartNode
+    ↳ DomainChartNode
+        ↳ HarmonicsChartNode
+            ↳ DiscreteHarmonicsChartNode
+            ↳ WaveGameHarmonicsChartNode
+        ↳ SumChartNode
+            ↳ DiscreteSumChartNode
+            ↳ WaveGameSumChartNode
+        ↳ AmplitudesOfFourierComponentsChartNode
+        ↳ FourierComponentsChartNode
+        ↳ WavePacketSumChartNode
 ```
 
 # PhET-iO

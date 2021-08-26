@@ -1,11 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * DomainChart is the base class for charts that need to modify their x-axis presentation to match a Domain -
- * space, time, or space-&-time. Note that this class has no responsibility for the y axis, since Domain affects
- * only the x axis.
- *
- * This serves as the base class for all charts except the Amplitudes chart in the 'Discrete' and 'Wave Game' screens.
+ * DomainChart is the base class for all charts except the Amplitudes chart in the 'Discrete' and 'Wave Game' screens.
+ * It is primarily responsive for the x (Domain) axis, hence the name.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -21,7 +18,7 @@ class DomainChart {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty - domain of the x axis
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty - describes the x axis
-   * @param {number} spaceMultiplier - multiplier for x values in the space or space-&-time Domains
+   * @param {number} spaceMultiplier - multiplier for x values in the space and space-&-time Domains
    * @param {number} timeMultiplier - multiplier for x values in the time Domain
    * @param {Object} [options]
    */
