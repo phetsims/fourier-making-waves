@@ -4,6 +4,8 @@
  * DomainChartNode is the base class for charts that need to modify their presentation to match a domain -
  * space, time, or space-&-time.  This affects the axis labels, tick labels, spacing of grid lines and tick marks, etc.
  *
+ * This serves as the base class for the bottom 2 charts (Harmonics/Components and Sum) in all screens.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 

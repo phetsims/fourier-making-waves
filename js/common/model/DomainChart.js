@@ -5,6 +5,8 @@
  * space, time, or space-&-time. Note that this class has no responsibility for the y axis, since domain affects
  * only the x axis.
  *
+ * This serves as the base class for the bottom 2 charts (Harmonics/Components and Sum) in all screens.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
