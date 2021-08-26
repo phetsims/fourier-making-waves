@@ -2,6 +2,10 @@
 
 /**
  * WaveGameAmplitudesChart is the model of the Amplitudes chart for the 'Wave Game' screen.
+ * It add a Fourier series for the game challenge answer.
+ * The Fourier series provided by the base class is treated as the user's guess.
+ * It also adds the ability to control the number of amplitude controls (sliders and NumberDisplays)
+ * that are shown on the Amplitudes chart.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
