@@ -1,8 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * DomainChart is the base class for all charts except the Amplitudes chart in the 'Discrete' and 'Wave Game' screens.
- * It is primarily responsive for the x (Domain) axis, hence the name.
+ * DomainChart is the base class model for all charts except the Amplitudes chart in the 'Discrete' and 'Wave Game'
+ * screens. It is primarily responsive for the x (Domain) axis, hence the name.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

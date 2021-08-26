@@ -6,8 +6,8 @@
  *
  * Responsibilities:
  * - assembles all of the necessary bamboo components
- * - adjusts the x-axis range and decorations (grid lines, tick marks, labels) to match the Domain
- * - optionally adds x-axis zoom buttons
+ * - all things related to updating the x (Domain) axis, hence its name. Includes adjusting the x-axis range and
+ *   decorations (grid lines, tick marks, labels) to match the Domain.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
