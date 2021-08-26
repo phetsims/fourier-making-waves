@@ -2,6 +2,7 @@
 
 /**
  * SumChartNode is the view base class for the 'Sum' chart in the 'Discrete' and 'Wave Game' screens.
+ * It creates and manages the plot for the sum of harmonics in a Fourier series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

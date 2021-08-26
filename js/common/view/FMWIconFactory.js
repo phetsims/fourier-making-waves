@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * FMWIconFactory contains factory methods for creating the icons needed throughout the user interface.
+ * FMWIconFactory contains factory methods for creating the icons needed throughout this sim's user interface.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

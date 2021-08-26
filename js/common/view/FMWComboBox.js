@@ -1,8 +1,9 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * FMWComboBox creates a combo box using a set of value/string choices, used to generate the standard set of
- * {ComboBoxItem[]} items needed by a ComboBox.
+ * FMWComboBox is a specialization of ComboBox that provides an API for specifying combo box items that is more
+ * suited to this simulation. Items are specified as a set of value/string choices, and FMWComboBox generates
+ * the {ComboBoxItem[]} items needed by ComboBox.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

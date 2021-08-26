@@ -1,7 +1,8 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * AmplitudeSlider is a slider for changing the amplitude of a harmonic.
+ * AmplitudeSlider is a slider for changing the amplitude of a harmonic. It is a specialization of sun.Slider
+ * that is skinned to look like an interactive bar, for display on a bar chart.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

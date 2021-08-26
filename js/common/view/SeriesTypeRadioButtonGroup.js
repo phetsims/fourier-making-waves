@@ -1,7 +1,7 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * SeriesTypeRadioButtonGroup is used to switch the type of the Fourier series between sine and cosine.
+ * SeriesTypeRadioButtonGroup is used to switch between sine series and cosine series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

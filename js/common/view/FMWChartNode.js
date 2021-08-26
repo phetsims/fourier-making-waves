@@ -3,7 +3,8 @@
 /**
  * FMWChartNode is the base class for all of the charts in this simulation, with the exception of the Amplitudes
  * chart in the Discrete and Wave Game screens. It's main responsibility is assembling all of the bamboo components
- * that are needed. Subclasses are responsible for customizing those components.
+ * that are needed. By design, it has very little knowledge of things that are specific to this simulation, and does
+ * not observe Properties. Subclasses are responsible for customizing those components.
  *
  * All of these charts have x and y axes, grid lines, tick marks, and tick labels.
  * Zoom buttons for the x-axis are optional.

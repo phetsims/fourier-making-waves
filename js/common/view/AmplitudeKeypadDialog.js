@@ -2,6 +2,7 @@
 
 /**
  * AmplitudeKeypadDialog is a Dialog that provides a keypad for entering an amplitude value.
+ * Pressing the Enter button calls options.enterCallback, provided by the client.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

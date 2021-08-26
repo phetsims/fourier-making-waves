@@ -2,8 +2,7 @@
 
 /**
  * DiscreteHarmonicsChart is the model for the 'Harmonics' chart in the 'Discrete' screen.
- * It adds no additional functionality to the superclass, and is provided for symmetry of the class hierarchy,
- * so that each screen has its own subclass.
+ * It adds x-axis formatting that depends on Domain.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

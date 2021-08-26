@@ -2,7 +2,7 @@
 
 /**
  * DiscreteCalipersNode is the base class for tools used to measure a horizontal dimension of a harmonic in
- * the 'Discrete' screen. Origin is at the tip of the caliper's left jaw.
+ * the 'Discrete' screen. DiscreteCalipersNode's origin is at the tip of the caliper's left jaw.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

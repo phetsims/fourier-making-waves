@@ -2,8 +2,8 @@
 
 /**
  * CalipersNode is a tool used to measure a horizontal dimension. It consists of a horizontal "beam" with a pair of
- * "jaws" at the ends of the beam. The horizontal distance between the jaws is the measured dimension.
- * Origin is at the tip of the left jaw.
+ * "jaws" at the ends of the beam. The horizontal distance between the jaws is the measured dimension. It also has
+ * a label whose position is (somewhat) customizable. The origin of CalipersNode is at the tip of the left jaw.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

@@ -2,6 +2,7 @@
 
 /**
  * DomainComboBox is the combo box for choosing a domain in the 'Discrete' screen.
+ * See also the Domain enumeration.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

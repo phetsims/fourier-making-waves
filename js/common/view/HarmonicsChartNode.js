@@ -2,6 +2,7 @@
 
 /**
  * HarmonicsChartNode is the view base class for the 'Harmonics' chart in the 'Discrete' and 'Wave Game' screens.
+ * It creates and manages a plot for each harmonic in a Fourier series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

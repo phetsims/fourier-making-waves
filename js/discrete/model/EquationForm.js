@@ -1,7 +1,8 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * EquationForm enumerates the forms of the equations shown in the 'Discrete' screen.
+ * EquationForm enumerates the forms of the equations shown in the 'Discrete' screen.  These values are chosen
+ * using EquationComboBox, and equations are displayed above the Harmonics and Sum charts.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
