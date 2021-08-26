@@ -37,7 +37,8 @@ class WaveGameModel {
 
     // @public {WaveGameLevel[]}
     // There's some duplication of level number constants here. But the specification for levels changed SO many times,
-    // that this brute force initialization ended up being easier to change and maintain.
+    // that this brute force initialization ended up being easier to change and maintain.  So I'm willing to make a
+    // trade-off here, sacrificing some duplication for a more straightforward implementation.
     this.levels = [
 
       // Level 1
