@@ -76,9 +76,10 @@ class WavePacket {
                            'In the time domain, this is \u03c3<sub>\u03c9</sub> in rad/ms.'
     } );
 
-    // @public
-    // See https://github.com/phetsims/fourier-making-waves/issues/105#issuecomment-889386852 for decision about
-    // name and units. This is sometimes referred to as a delta (dx, dt) in literature and in code comments.
+    // @public This is the conjugate (different form) of standardDeviationProperty. Using 'conjugate' here is
+    // PhET-specific terminology, not something that you'll find in the literature. It is sometimes referred to
+    // as a delta (dx, dt) in literature and in code comments. For decisions about name and units, see
+    // https://github.com/phetsims/fourier-making-waves/issues/105#issuecomment-889386852
     this.conjugateStandardDeviationProperty = new NumberProperty( 1 / this.standardDeviationProperty.value, {
       range: new Range( 1 / this.standardDeviationProperty.range.max, 1 / this.standardDeviationProperty.range.min ),
       tandem: options.tandem.createTandem( 'conjugateStandardDeviationProperty' ),
