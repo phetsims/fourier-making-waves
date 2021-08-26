@@ -9,6 +9,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -17,6 +18,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
+import DomainChart from '../../common/model/DomainChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
 import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
@@ -24,7 +26,10 @@ import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
 // constants
 const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 
-class AmplitudesOfFourierComponentsChart {
+// AxisDescription for the x-axis contains coefficients of PI, and it's the same for space and time Domains.
+const X_AXIS_MULTIPLIER = Math.PI;
+
+class AmplitudesOfFourierComponentsChart extends DomainChart {
 
   /**
    * @param {WavePacket} wavePacket
@@ -44,15 +49,16 @@ class AmplitudesOfFourierComponentsChart {
       tandem: Tandem.REQUIRED
     }, options );
 
+    // The x axis has a fixed scale. Use validValues to make this Property essentially a constant.
+    const xAxisDescriptionProperty = new Property( WavePacketAxisDescriptions.AMPLITUDES_X_AXIS_DESCRIPTION, {
+      validValues: [ WavePacketAxisDescriptions.AMPLITUDES_X_AXIS_DESCRIPTION ]
+    } );
+
+    super( domainProperty, xAxisDescriptionProperty, X_AXIS_MULTIPLIER, X_AXIS_MULTIPLIER, options );
+
     // @public (read-only)
     this.waveNumberRange = wavePacket.waveNumberRange;
-    this.domainProperty = domainProperty;
     this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
-
-    // @public whether this chart is expanded
-    this.chartExpandedProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'chartExpandedProperty' )
-    } );
 
     // @public
     this.continuousWaveformVisibleProperty = new BooleanProperty( true, {
@@ -135,7 +141,6 @@ class AmplitudesOfFourierComponentsChart {
    * @public
    */
   reset() {
-    this.chartExpandedProperty.reset();
     this.continuousWaveformVisibleProperty.reset();
   }
 }

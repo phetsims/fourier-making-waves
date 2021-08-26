@@ -103,9 +103,8 @@ DomainChart
     
 // Wave Packet screen
 
-AmplitudesOfFourierComponentsChart
-
 DomainChart
+    ↳ AmplitudesOfFourierComponentsChart
     ↳ FourierComponentsChart
     ↳ WavePacketSumChart
 ```
@@ -132,8 +131,8 @@ Node
 
 Node
     ↳ FMWChartNode
-        ↳ AmplitudesOfFourierComponentsChartNode
         ↳ DomainChartNode
+            ↳ AmplitudesOfFourierComponentsChartNode
             ↳ FourierComponentsChartNode
             ↳ WavePacketSumChartNode
 ```

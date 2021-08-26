@@ -87,21 +87,21 @@ class AxisDescription {
   }
 
   /**
-   * Creates a range for a specified domain. This is used for the Discrete and Wave Game screens, where the AxisDescriptions
-   * for the x axis contain coefficients to be applied to L or T, depending on which domain (space or time) is being plotted.
+   * Creates a range for a specified domain. This is used wherever the AxisDescriptions for the x axis contain
+   * coefficients to be applied to some constant (L, T, PI), depending on which domain (space or time) is being plotted.
    * @param {Domain} domain
-   * @param {number} L - wavelength of the fundamental harmonic, in m
-   * @param {number} T - period of the fundamental harmonic, in
+   * @param {number} spaceMultiplier
+   * @param {number} timeMultiplier
    * @returns {Range}
    * @public
    */
-  createRangeForDomain( domain, L, T ) {
+  createRangeForDomain( domain, spaceMultiplier, timeMultiplier ) {
 
     assert && assert( Domain.includes( domain ) );
-    assert && AssertUtils.assertPositiveNumber( L );
-    assert && AssertUtils.assertPositiveNumber( T );
+    assert && AssertUtils.assertPositiveNumber( spaceMultiplier );
+    assert && AssertUtils.assertPositiveNumber( timeMultiplier );
 
-    const value = ( domain === Domain.TIME ) ? T : L;
+    const value = ( domain === Domain.TIME ) ? timeMultiplier : spaceMultiplier;
     const xMin = value * this.range.min;
     const xMax = value * this.range.max;
     return new Range( xMin, xMax );

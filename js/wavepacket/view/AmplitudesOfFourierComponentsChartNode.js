@@ -20,8 +20,7 @@ import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
-import Domain from '../../common/model/Domain.js';
-import FMWChartNode from '../../common/view/FMWChartNode.js';
+import DomainChartNode from '../../common/view/DomainChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AmplitudesOfFourierComponentsChart from '../model/AmplitudesOfFourierComponentsChart.js';
@@ -33,7 +32,7 @@ const X_TICK_LABEL_DECIMALS = 0;
 const Y_TICK_LABEL_DECIMALS = 2;
 const GRAY_RANGE = FMWColors.FOURIER_COMPONENT_GRAY_RANGE;
 
-class AmplitudesOfFourierComponentsChartNode extends FMWChartNode {
+class AmplitudesOfFourierComponentsChartNode extends DomainChartNode {
 
   /**
    * @param {AmplitudesOfFourierComponentsChart} amplitudesChart
@@ -57,6 +56,14 @@ class AmplitudesOfFourierComponentsChartNode extends FMWChartNode {
     const yAxisDescriptionProperty = amplitudesChart.yAxisDescriptionProperty;
 
     options = merge( {
+
+      // DomainChartNode options
+      // Units for the x-axis labels are omitted by request, due to space constraints.
+      // See https://github.com/phetsims/fourier-making-waves/issues/137.
+      xSpaceLabel: FMWSymbols.k,
+      xTimeLabel: FMWSymbols.omega,
+
+      // FMWChartNode options
       xTickMarkSpacing: Math.PI,
       xTickLabelSpacing: 2 * Math.PI,
       xTickLabelSetOptions: {
@@ -67,7 +74,7 @@ class AmplitudesOfFourierComponentsChartNode extends FMWChartNode {
       }
     }, options );
 
-    super( options );
+    super( amplitudesChart, options );
 
     // No x-axis grid lines for this chart.
     this.xGridLines.visible = false;
@@ -124,14 +131,6 @@ class AmplitudesOfFourierComponentsChartNode extends FMWChartNode {
       children: [ infiniteComponentsPlot, chartCanvasNode, finiteComponentsPlot, widthIndicatorPlot ]
     } );
     this.addChild( clipNode );
-
-    // Adjust the x-axis label to match the domain.
-    domainProperty.link( domain => {
-
-      // Update the label. Units are omitted by request, due to space constraints.
-      // See https://github.com/phetsims/fourier-making-waves/issues/137.
-      this.xAxisLabel.text = ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega;
-    } );
 
     // Update plots when their data sets change.
     finiteComponentsDataSetProperty.link( dataSet => finiteComponentsPlot.setDataSet( dataSet ) );

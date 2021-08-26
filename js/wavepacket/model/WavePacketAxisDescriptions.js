@@ -21,6 +21,14 @@ const DEFAULT_X_AXIS_DESCRIPTION = new AxisDescription( {
 
 const WavePacketAxisDescriptions = {
 
+  // Fixed x-axis description for the Amplitudes chart. These are coefficients of PI.
+  AMPLITUDES_X_AXIS_DESCRIPTION: new AxisDescription( {
+    range: new Range( 0, 24 ),
+    gridLineSpacing: 24,
+    tickMarkSpacing: 1,
+    tickLabelSpacing: 2
+  } ),
+
   DEFAULT_X_AXIS_DESCRIPTION: DEFAULT_X_AXIS_DESCRIPTION,
 
   // {AxisDescription} x-axis descriptions shared by the Components and Sum charts
