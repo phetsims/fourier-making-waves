@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WidthIndicatorPlot plots width on a chart, using dimensional arrows.
+ * WidthIndicatorPlot plots a general width on a chart, using dimensional arrows.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
