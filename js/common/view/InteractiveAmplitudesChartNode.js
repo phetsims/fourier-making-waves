@@ -1,10 +1,10 @@
 // Copyright 2020-2021, University of Colorado Boulder
 
 /**
- * AmplitudesChartNode is the base class for the Amplitudes charts in the 'Discrete' and 'Wave Game' screens.
- * The x axis is harmonic order (1-N), the y axis is amplitude. Amplitudes are displayed as an interactive bar chart,
- * where each bar is a slider. Amplitude can be adjusted using the slider, or by using a Keypad that opens when a
- * NumberDisplay is pressed.
+ * InteractiveAmplitudesChartNode is the base class for the Amplitudes charts in the 'Discrete' and 'Wave Game' screens,
+ * where amplitudes can be interactively adjusted using a set of bar-like sliders. The x axis is harmonic order (1-N),
+ * the y axis is amplitude. Amplitudes are displayed as an interactive bar chart, where each bar is a slider.
+ * Amplitude can be adjusted using the slider, or by using a Keypad that opens when a NumberDisplay is pressed.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -26,7 +26,7 @@ import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FMWColors from '../FMWColors.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
-import AmplitudesChart from '../model/AmplitudesChart.js';
+import InteractiveAmplitudesChart from '../model/InteractiveAmplitudesChart.js';
 import AmplitudeKeypadDialog from './AmplitudeKeypadDialog.js';
 import AmplitudeNumberDisplay from './AmplitudeNumberDisplay.js';
 import AmplitudeSlider from './AmplitudeSlider.js';
@@ -36,21 +36,21 @@ const X_MARGIN = 0.5; // x-axis margins, in model coordinates
 const Y_TICK_SPACING = 0.5; // spacing of y-axis tick marks, in model coordinates
 const Y_TICK_LABEL_DECIMAL_PLACES = 1;
 
-class AmplitudesChartNode extends Node {
+class InteractiveAmplitudesChartNode extends Node {
 
   /**
-   * @param {AmplitudesChart} amplitudesChart
+   * @param {InteractiveAmplitudesChart} amplitudesChart
    * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
    * @param {Object} [options]
    */
   constructor( amplitudesChart, amplitudeKeypadDialog, options ) {
 
-    assert && assert( amplitudesChart instanceof AmplitudesChart );
+    assert && assert( amplitudesChart instanceof InteractiveAmplitudesChart );
     assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog );
 
     options = merge( {
 
-      // AmplitudesChartNode options
+      // InteractiveAmplitudesChartNode options
       // {function} called when the user starts editing any amplitude value
       onEdit: _.noop,
 
@@ -69,8 +69,8 @@ class AmplitudesChartNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    assert && assert( !options.chartTransformOptions.modelXRange, 'AmplitudesChartNode sets modelXRange' );
-    assert && assert( !options.chartTransformOptions.modelYRange, 'AmplitudesChartNode sets modelYRange' );
+    assert && assert( !options.chartTransformOptions.modelXRange, 'InteractiveAmplitudesChartNode sets modelXRange' );
+    assert && assert( !options.chartTransformOptions.modelYRange, 'InteractiveAmplitudesChartNode sets modelYRange' );
 
     // Fields of interest in amplitudesChart, to improve readability
     const fourierSeries = amplitudesChart.fourierSeries;
@@ -158,7 +158,7 @@ class AmplitudesChartNode extends Node {
       ]
     } );
 
-    assert && assert( !options.children, 'AmplitudesChartNode sets children' );
+    assert && assert( !options.children, 'InteractiveAmplitudesChartNode sets children' );
     options.children = [
       chartPiecesNode,
       slidersParent,
@@ -186,5 +186,5 @@ class AmplitudesChartNode extends Node {
   }
 }
 
-fourierMakingWaves.register( 'AmplitudesChartNode', AmplitudesChartNode );
-export default AmplitudesChartNode;
+fourierMakingWaves.register( 'InteractiveAmplitudesChartNode', InteractiveAmplitudesChartNode );
+export default InteractiveAmplitudesChartNode;

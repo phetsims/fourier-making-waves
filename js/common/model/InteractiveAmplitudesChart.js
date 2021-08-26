@@ -1,7 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * AmplitudesChart is the model base class model for the 'Amplitudes' chart in the 'Discrete' and 'Wave Game' screens.
+ * InteractiveAmplitudesChart is the model base class model for the 'Amplitudes' chart in the 'Discrete' and
+ * 'Wave Game' screens, where amplitudes can be interactively adjusted using a set of bar-like sliders.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class AmplitudesChart {
+class InteractiveAmplitudesChart {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -44,5 +45,5 @@ class AmplitudesChart {
   }
 }
 
-fourierMakingWaves.register( 'AmplitudesChart', AmplitudesChart );
-export default AmplitudesChart;
+fourierMakingWaves.register( 'InteractiveAmplitudesChart', InteractiveAmplitudesChart );
+export default InteractiveAmplitudesChart;

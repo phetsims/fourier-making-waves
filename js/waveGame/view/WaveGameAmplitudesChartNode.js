@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WaveGameAmplitudesChartNode is a specialization of AmplitudesChartNode that allows the client to
+ * WaveGameAmplitudesChartNode is a specialization of InteractiveAmplitudesChartNode that allows the client to
  * show and hide the amplitude controls for each harmonic.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -11,11 +11,11 @@ import dotRandom from '../../../../dot/js/dotRandom.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
+import InteractiveAmplitudesChartNode from '../../common/view/InteractiveAmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameAmplitudesChart from '../model/WaveGameAmplitudesChart.js';
 
-class WaveGameAmplitudesChartNode extends AmplitudesChartNode {
+class WaveGameAmplitudesChartNode extends InteractiveAmplitudesChartNode {
 
   /**
    * @param {WaveGameAmplitudesChart} amplitudesChart

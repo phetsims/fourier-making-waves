@@ -81,13 +81,13 @@ All 3 screens share a core set of base classes:
 
 The _Discrete_ and _Wave Game_ screens share additional base classes, some of which are subclasses of the core base
 classes:
-`AmplitudesChart`, `HarmonicsChart`, `SumChart`,
-`AmplitudesChartNode`, `HarmonicsChartNode`, and `SumChartNode`.
+`InteractiveAmplitudesChart`, `HarmonicsChart`, `SumChart`,
+`InteractiveAmplitudesChartNode`, `HarmonicsChartNode`, and `SumChartNode`.
 
 The model class hierarchy is:
 
 ```
-AmplitudesChart
+InteractiveAmplitudesChart
     ↳ DiscreteAmplitudesChart
     ↳ WaveGameAmplitudesChart
 
@@ -107,7 +107,7 @@ The view class hierarchy is:
 
 ```
 Node
-    ↳ AmplitudesChartNode
+    ↳ InteractiveAmplitudesChartNode
         ↳ DiscreteAmplitudesChartNode
         ↳ WaveGameAmplitudesChartNode
     ↳ DomainChartNode

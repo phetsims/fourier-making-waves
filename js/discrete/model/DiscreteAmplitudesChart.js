@@ -8,10 +8,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import AmplitudesChart from '../../common/model/AmplitudesChart.js';
+import InteractiveAmplitudesChart from '../../common/model/InteractiveAmplitudesChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class DiscreteAmplitudesChart extends AmplitudesChart {
+class DiscreteAmplitudesChart extends InteractiveAmplitudesChart {
 
   /**
    * @param {FourierSeries} fourierSeries

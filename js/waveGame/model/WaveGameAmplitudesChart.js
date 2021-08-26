@@ -11,10 +11,10 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import AmplitudesChart from '../../common/model/AmplitudesChart.js';
+import InteractiveAmplitudesChart from '../../common/model/InteractiveAmplitudesChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class WaveGameAmplitudesChart extends AmplitudesChart {
+class WaveGameAmplitudesChart extends InteractiveAmplitudesChart {
 
   /**
    * @param {FourierSeries} answerSeries

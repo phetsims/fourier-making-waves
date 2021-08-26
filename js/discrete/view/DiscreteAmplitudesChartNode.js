@@ -1,17 +1,17 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * DiscreteAmplitudesChartNode is a specialization of AmplitudesChartNode for the 'Discrete' screen.
+ * DiscreteAmplitudesChartNode is a specialization of InteractiveAmplitudesChartNode for the 'Discrete' screen.
  * It shows sliders for the relevant harmonics in a Fourier series.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import AmplitudesChartNode from '../../common/view/AmplitudesChartNode.js';
+import InteractiveAmplitudesChartNode from '../../common/view/InteractiveAmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteAmplitudesChart from '../model/DiscreteAmplitudesChart.js';
 
-class DiscreteAmplitudesChartNode extends AmplitudesChartNode {
+class DiscreteAmplitudesChartNode extends InteractiveAmplitudesChartNode {
 
   /**
    * @param {DiscreteAmplitudesChart} amplitudesChart
