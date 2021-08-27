@@ -34,8 +34,8 @@ A summary of the symbols used in this simulation:
 
 ## Terminology
 
-A _Fourier series_ decomposes a periodic function into a set of sines or cosines. The
-_series type_ refers to whether the Fouriers series uses sines (a _sine series_) or cosines (a _cosine_ series).
+A _Fourier Series_ decomposes a periodic function into a set of sines or cosines. The
+_series type_ refers to whether the Fouriers Series uses sines (a _sine series_) or cosines (a _cosine_ series).
 
 The sines or cosines are referred to as _harmonics_. In this context, a harmonic may also be referred to as a
 _component_ of the series. The **Discrete** and **Wave Game** screens refer to _harmonics_ while the **Wave Packet**
@@ -69,7 +69,7 @@ specific to that preset. (Wave packet is an exception:
 we use a set of hard-coded amplitudes.)
 See [Waveform.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/discrete/model/Waveform.js)
 for the equations used. For square, sawtooth, and triangle, that Waveform.js also contains the points used to plot exact
-versions of those waveforms, for comparison with the Fourier series approximation.
+versions of those waveforms, for comparison with the Fourier Series approximation.
 
 The **Discrete** screen also offers a choice of equation forms, selectable via the
 'Equation' combo box. This selection only affects which equation is displayed. Because all equations yield equivalent
@@ -108,7 +108,7 @@ challenges, the student gets a reward.
 The **Wave Packet** screen is quite different from the other screens, but is still built on the same underlying
 mathematics.
 
-The Fourier series can be varied by changing 'Component Spacing', which in turn changes the number of components. The
+The Fourier Series can be varied by changing 'Component Spacing', which in turn changes the number of components. The
 wave packet can also be adjusted by changing its center and width. The underlying equations for computing the component
 waveforms are the same as those used in the others screens, found
 in [getAmplitudeFunction.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/getAmplitudeFunction.js)
