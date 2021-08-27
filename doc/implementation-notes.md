@@ -10,16 +10,25 @@ to provide a high-level overview, and to supplement the internal documentation
 Before reading this document, please read:
 * [model.md](https://github.com/phetsims/fourier-making-waves/blob/master/doc/model.md), a high-level description of the simulation model
 
-In addition to this document, you are encouraged to read: 
-* [PhET Development Overview](https://github.com/phetsims/phet-info/blob/master/doc/phet-development-overview.md)  
+In addition to this document, you are encouraged to read:
+
+* [PhET Development Overview](https://github.com/phetsims/phet-info/blob/master/doc/phet-development-overview.md)
 * [PhET Software Design Patterns](https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md)
-* [Fourier: Making Waves HTML5](https://docs.google.com/document/d/1tOpstoF6xiMcBJEvG1rJ4mVRzsO6UWzek_ntau4rbWc), the design document (which may be out of date)
+* [Fourier: Making Waves HTML5](https://docs.google.com/document/d/1tOpstoF6xiMcBJEvG1rJ4mVRzsO6UWzek_ntau4rbWc), the
+  design document (which may be out of date)
 
-## Terminology
+## Terminology & Symbols
 
-The domain terminology that you'll need to navigate the implementation is found in [model.md](https://github.com/phetsims/fourier-making-waves/blob/master/doc/model.md). 
+The domain terminology and math symbols that you'll need to navigate the implementation can be found
+in [model.md](https://github.com/phetsims/fourier-making-waves/blob/master/doc/model.md).
 
-Additional terms used in the implementation:
+Some of the charts in this simulation are not labeled, and some of them have verbose titles. So rather than refer to
+charts by their exact titles, we use these names:
+
+* Amplitudes chart - the top chart in all 3 screens
+* Harmonics chart - the middle chart in the **Discrete** and **Wave Game** screens
+* Components chart - the middle chart in the **Wave Packet** screen
+* Sum chart - the bottom chart in all 3 screens
 
 ## General Consideration
 
