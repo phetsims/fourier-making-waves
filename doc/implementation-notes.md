@@ -26,7 +26,7 @@ _Domain_ refers to the independent variables in the equations that drive the mod
 space', 'time', and 'space & time'. See
 also [Domain.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Domain.js).
 
-_Series type_ refers to where we have a _sine series_ or a _cosine series_. See
+_Series type_ refers to whether the Fourier series is a _sine series_ or a _cosine series_. See
 also [SeriesType.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/SeriesType.js).
 
 In the **Wave Game** screen, the user is attempting to solved _challenges_. Each challenge has 2 Fourier series:
