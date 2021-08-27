@@ -36,17 +36,21 @@ This section describes how this sim addresses implementation considerations that
 
 **Model-View Transform**
 
-TODO
+Every chart in this simulation has a model-view transform, implement using bamboo's
+[ChartTransform](https://github.com/phetsims/bamboo/blob/master/js/ChartTransform.js).
+
+The more typical ModelViewTransform that is found in most PhET simulations is not used in this simulation.
 
 **Query Parameters**
 
 Query parameters are used to enable sim-specific features. Sim-specific query parameters are documented in
-[FourierMakingWavesQueryParameters](https://github.com/phetsims/natural-selection/blob/master/js/common/FourierMakingWavesQueryParameters.js). 
+[FMWQueryParameters](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/FMWQueryParameters.js).
 
 **Assertions**
 
-The sim makes heavy use of `assert` and [AssertUtils](https://github.com/phetsims/phetcommon/blob/master/js/AssertUtils.js) 
-to verify pre/post assumptions and perform type checking. This sim performs type-checking for almost all function 
+The sim makes heavy use of `assert`
+and [AssertUtils](https://github.com/phetsims/phetcommon/blob/master/js/AssertUtils.js)
+to verify pre/post assumptions and perform type checking. This sim performs type-checking for almost all function
 arguments via `assert` (but it's not a requirement that type-checking is done everywhere). If you are making 
 modifications to this sim, do so with assertions enabled via the `ea` query parameter.
 
@@ -55,14 +59,14 @@ modifications to this sim, do so with assertions enabled via the `ea` query para
 The sim makes heavy use of logging via `phet.log`. If you are making modifications to this sim, or trying to understand 
 its behavior, do so with logging enabled via the `log` query parameter.
 
-**Memory Management** 
+**Memory Management**
 
 * **Dynamic allocation**: Most things in this sim are allocated at startup, and exist for the lifetime of the
-  simulation. The exceptions to that are: Vector2, FourierComponent
+  simulation. The exceptions to that are: `Vector2`
+  and [FourierComponent](https://github.com/phetsims/fourier-making-waves/blob/master/js/wavepacket/model/FourierComponent.js)
+  .
 
-* **Pooling**: TODO describe Vector2 pooling
-
-* **Listeners**: Unless otherwise noted in the code, all used of `link`, `addListener`, etc. do not need a corresponding
+* **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a corresponding
   `unlink`, `removeListener`, etc.
 
 * **dispose:** All classes have a `dispose` method. Sim-specific classes whose instances exist for the lifetime of the
@@ -82,18 +86,38 @@ dispose()
 
 # Charts
 
+The most complicate part of this implementation is the charts. This section provides a high-level roadmap for
+understanding how to navigate the implementations. See source-code documentation for more details.
+
 Charts follow the MVC design pattern, and are built on the bamboo framework. The model is responsible for creating data
-sets, while the view is responsible for rendering those data sets.
+sets (arrays of Vector2), while the view is responsible for rendering those data sets. A bamboo
+[ChartTransform](https://github.com/phetsims/bamboo/blob/master/js/ChartTransform.js) handles the tranform between model
+and view coordinate frames.
 
-All 3 screens share a core set of base classes:
-`DomainChart`, `DomainChartNode`, and `FMWChartNode`.
+With the exception of the Amplitudes chart in the **Discrete** and **Wave Game** screen, all charts share the same "
+core" base
+classes: [DomainChart](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/DomainChart.js)
+(model)
+and [DomainChartNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/DomainChartNode.js)
+(view).
 
-The _Discrete_ and _Wave Game_ screens share additional base classes, some of which are subclasses of the core base
-classes:
-`InteractiveAmplitudesChart`, `HarmonicsChart`, `SumChart`,
-`InteractiveAmplitudesChartNode`, `HarmonicsChartNode`, and `SumChartNode`.
+The **Discrete** and **Wave Game** screens share additional (model and view) subclasses:
 
-The model class hierarchy is:
+* [InteractiveAmplitudesChart](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/InteractiveAmplitudesChart.js)
+  and
+  [InteractiveAmplitudesChartNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/InteractiveAmplitudesChartNode.js)
+* [HarmonicsChart](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/HarmonicsChart.js) and
+  [HarmonicsChartNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/HarmonicsChartNode.js)
+* [SumChart](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/SumChart.js) and
+  [SumChartNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/SumChartNode.js)
+
+The **Wave Packet** screen is quite different from the other screens. It shares the core base classes with the other
+screens, but does not use the above subclasses.
+
+For each concrete chart class, the class name is prefixed with the screen name. For example `DiscreteAmplitudeChart`
+, `WaveGameHarmonicsChart`, `WavePacketSumChart`.
+
+To summarize, the model class hierarchy is:
 
 ```
 InteractiveAmplitudesChart
@@ -133,4 +157,26 @@ Node
 
 # PhET-iO
 
-We chose a "static elements" approach, see GitHub issue [#6](https://github.com/phetsims/fourier-making-waves/issues/6).
+While version 1.0 of this simulation was not released with PhET-iO support, the implementation does have a significant
+amount of PhET-iO instrumentation. More importantly, the future needs of PhET-iO heavily influenced the implementation.
+Most significantly, we tried to have as little
+"dynamic instantiation" as possible, and instead chose a "static elements" approach. See GitHub
+issue [#6](https://github.com/phetsims/fourier-making-waves/issues/6) for more details.
+
+# A11y
+
+This simulation implements some aspects of a11y.
+
+Keyboard navigation is implemented, and there are a couple of things to look for:
+
+* option `pdomOrder` specifies traversal order, the order that UI elements are visited as you press the Tab key.
+* `KeyboardDragListener`, along with options `tagName` and `focusable`, adds keyboard-based dragging to sim-specific UI
+  elements like the measurement tools.
+* If all else fails, search for `// pdom`, which generally appears before code that is specific to a11y.
+
+User-interface sounds are implemented, and most of that sound comes from common-code components. As of this writing, the
+amplitude sliders have temporary sound support (see
+[AudibleSlider.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/AudibleSlider.js)), but
+other Sliders do not support sound.
+
+Voicing and screen reader support are not implemented as of this writing.
