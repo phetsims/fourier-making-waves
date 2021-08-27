@@ -108,12 +108,12 @@ relevant have their amplitudes set to zero, and are ignored.
 Some useful code references:
 
 * [getAmplitudeFunction.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/getAmplitudeFunction.js)
-  - the equations for computing amplitude values
+  , the equations for computing amplitude values
 * [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Harmonic.js) `createDataSetStatic`
-  - creates a data set for plotting a harmonic
+  , creates a data set for plotting a harmonic
 * [FourierSeries](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/FourierSeries.js) `createSumDataSet`
-  - create a data set for the sum of the harmonics
-* [Waveform.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/discrete/model/Waveform.js) -
+  , create a data set for the sum of the harmonics
+* [Waveform.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/discrete/model/Waveform.js),
   approximations and actual waveforms for presets
 
 A quick walkthrough of the control panel:
