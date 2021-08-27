@@ -34,8 +34,8 @@ In the **Wave Game** screen, the user is attempting to solved _challenges_. Each
 * _answer series_ or _answer_ - the pink waveform, the Fourier series that the user is trying to match
 * _guess series_ or _guess_ - the Fourier series for the user's guess
 
-Some of the charts in this simulation are not labeled, and some of them have verbose titles. So rather than refer to
-charts by their exact titles, we use these names:
+Some of the charts in this simulation are not labeled, and some have verbose titles. So rather than refer to charts by
+their exact titles, we use these names:
 
 * Amplitudes chart - the top chart in all 3 screens
 * Harmonics chart - the middle chart in the **Discrete** and **Wave Game** screens
@@ -48,10 +48,10 @@ This section describes how this sim addresses implementation considerations that
 
 **Model-View Transform**
 
-Every chart in this simulation has a model-view transform, implement using bamboo's
-[ChartTransform](https://github.com/phetsims/bamboo/blob/master/js/ChartTransform.js).
+Every chart in this simulation has a model-view transform, implemented using bamboo's
+[ChartTransform.js](https://github.com/phetsims/bamboo/blob/master/js/ChartTransform.js).
 
-The more typical ModelViewTransform that is found in most PhET simulations is not used in this simulation.
+The typical ModelViewTransform2 that is found in most PhET simulations is not used in this simulation.
 
 **Query Parameters**
 
@@ -101,7 +101,7 @@ dispose()
 The main model elements of this screen are
 [FourierSeries](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/FourierSeries.js)
 and [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Harmonic.js). To avoid
-PhET-iO issues related to creating dynamic elements, a single `FourierSeries` is created with the maximum (11) number
+PhET-iO issues related to creating dynamic elements, a single `FourierSeries` is created with the maximum number (11)
 of `Harmonic` instances. The "Harmonics" spinner determines how many of the Harmonics are relevant. Those that are not
 relevant have their amplitudes set to zero, and are ignored.
 
