@@ -68,7 +68,7 @@ packet. When you select one of these presets, amplitudes for the harmonics are c
 specific to that preset. (Wave packet is an exception:
 we use a set of hard-coded amplitudes.)
 See [Waveform.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/discrete/model/Waveform.js)
-for the equations used. For square, sawtooth, and triangle, that Waveform.js also contains the points used to plot exact
+for the equations used. For square, sawtooth, and triangle, Waveform.js also contains the points used to plot exact
 versions of those waveforms, for comparison with the Fourier Series approximation.
 
 The **Discrete** screen also offers a choice of equation forms, selectable via the
