@@ -100,7 +100,21 @@ dispose()
 
 The main model elements of this screen are
 [FourierSeries](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/FourierSeries.js)
-and [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Harmonic.js).
+and [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Harmonic.js). To avoid
+PhET-iO issues related to creating dynamic elements, a single `FourierSeries` is created with the maximum (11) number
+of `Harmonic` instances. The "Harmonics" spinner determines how many of the Harmonics are relevant. Those that are not
+relevant have their amplitudes set to zero, and are ignored.
+
+Some useful code references:
+
+* [getAmplitudeFunction.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/getAmplitudeFunction.js)
+  - the equations for computing amplitude values
+* [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Harmonic.js) `createDataSetStatic`
+  - creates a data set for plotting a harmonic
+* [FourierSeries](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/FourierSeries.js) `createSumDataSet`
+  - create a data set for the sum of the harmonics
+* [Waveform.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/discrete/model/Waveform.js) -
+  approximations and actual waveforms for presets
 
 A quick walkthrough of the control panel:
 
@@ -163,6 +177,21 @@ Pressing the "New Waveform" button moves to a new challenge.
 
 ## Wave Packet screen
 
+At it's core, the model for the **Wave Packet** screen relies on the same code used by the other screens to compute
+component (harmonic) waveforms: `Harmonic.createDataSetStatic`.
+
+But this screen has performance issues not found in the other 2 screens. In the worst case (with Component Spacing set
+to π/4) there are 97 Fourier components. So this screen needed a lightweight model, not the richer model
+of `FourierSeries` and `Harmonic`
+used in the other screens.
+
+The main model elements in this screen are:
+
+* [FourierComponent](https://github.com/phetsims/fourier-making-waves/blob/master/js/wavepacket/model/FourierComponent.js)
+  , a lightweight data structure that describes each component's wave number and amplitude (similar to Vector2)
+* [Wave Packet](https://github.com/phetsims/fourier-making-waves/blob/master/js/wavepacket/model/WavePacket.js) - has
+  Properties that correspond to what you see in the control panel, and an associated array of `FourierComponent`
+
 ## Charts
 
 The most complicate part of this implementation is the charts. This section provides a high-level roadmap for
@@ -172,6 +201,11 @@ Charts follow the MVC design pattern, and are built on the bamboo framework. The
 sets (arrays of Vector2), while the view is responsible for rendering those data sets. A bamboo
 [ChartTransform](https://github.com/phetsims/bamboo/blob/master/js/ChartTransform.js) handles the tranform between model
 and view coordinate frames.
+
+Each chart has a model class, and a corresponding view class. The model class contains all information that is needed by
+the view class. For each concrete class, the class name is prefixed with the screen name. For
+example `DiscreteAmplitudeChart` , `WaveGameHarmonicsChart`,
+`WavePacketSumChart`.
 
 With the exception of the Amplitudes chart in the **Discrete** and **Wave Game** screen, all charts share the same "
 core" base
@@ -192,9 +226,6 @@ The **Discrete** and **Wave Game** screens share additional (model and view) sub
 
 The **Wave Packet** screen is quite different from the other screens. It shares the core base classes with the other
 screens, but does not use the above subclasses.
-
-For each concrete chart class, the class name is prefixed with the screen name. For example `DiscreteAmplitudeChart`
-, `WaveGameHarmonicsChart`, `WavePacketSumChart`.
 
 To summarize, the model class hierarchy is:
 
@@ -238,9 +269,8 @@ Node
 
 While version 1.0 of this simulation was not released with PhET-iO support, the implementation does have a significant
 amount of PhET-iO instrumentation. More importantly, the future needs of PhET-iO heavily influenced the implementation.
-Most significantly, we tried to have as little
-"dynamic instantiation" as possible, and instead chose a "static elements" approach. See GitHub
-issue [#6](https://github.com/phetsims/fourier-making-waves/issues/6) for more details.
+Most significantly, we avoided "dynamic elements" where possible, and instead favored a "static elements"
+approach. See GitHub issue [#6](https://github.com/phetsims/fourier-making-waves/issues/6) for more details.
 
 ## A11y
 
@@ -251,6 +281,8 @@ Keyboard navigation is implemented, and there are a couple of things to look for
 * option `pdomOrder` specifies traversal order, the order that UI elements are visited as you press the Tab key.
 * `KeyboardDragListener`, along with options `tagName` and `focusable`, adds keyboard-based dragging to sim-specific UI
   elements like the measurement tools.
+* Classes with "KeyboardHelpContent" in their name implement keyboard-help control, displayed by pressing the keyboard
+  button in the navigation bar.
 * If all else fails, search for `// pdom`, which generally appears before code that is specific to a11y.
 
 User-interface sounds are implemented, and most of that sound comes from common-code components. As of this writing, the
