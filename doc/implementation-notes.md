@@ -287,13 +287,13 @@ Keyboard navigation is implemented, and here's how to identify related code:
 * option `pdomOrder` specifies traversal order, the order that UI elements are visited as you press the Tab key.
 * `KeyboardDragListener`, along with options `tagName` and `focusable`, adds keyboard-based dragging to sim-specific UI
   elements like the measurement tools.
-* Classes with "KeyboardHelpContent" in their name implement keyboard-help control, displayed by pressing the keyboard
-  button in the navigation bar.
+* Classes with "KeyboardHelpContent" in their name implement the information in keyboard-help dialogs, displayed by
+  pressing the keyboard button in the navigation bar.
 * If all else fails, search for `// pdom`, which generally appears before code that is specific to a11y.
 
-User-interface sounds are implemented, and most of that sound comes from common-code components. As of this writing, the
+User-interface sounds are implemented, and most of the sounds come from common-code components. As of this writing, the
 amplitude sliders have temporary sound support (see
 [AudibleSlider.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/AudibleSlider.js)), but
-other Sliders do not support sound.
+other sliders do not support sound, due to lack of support in Slider.js.
 
 Voicing and screen reader support are not implemented as of this writing.
