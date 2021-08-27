@@ -194,11 +194,12 @@ The main model elements in this screen are:
 
 ## Charts
 
-The most complicate part of this implementation is the charts. This section provides a high-level roadmap for
+The most complicated part of this implementation is the charts. This section provides a high-level roadmap for
 understanding how to navigate the implementations. See source-code documentation for more details.
 
-Charts follow the MVC design pattern, and are built on the bamboo framework. The model is responsible for creating data
-sets (arrays of Vector2), while the view is responsible for rendering those data sets. A bamboo
+Charts follow the MVC (Model-View-Controller) design pattern, and are built on the bamboo framework. The model is
+responsible for creating data sets (arrays of Vector2), while the view is responsible for rendering those data sets. A
+bamboo
 [ChartTransform](https://github.com/phetsims/bamboo/blob/master/js/ChartTransform.js) handles the tranform between model
 and view coordinate frames.
 
