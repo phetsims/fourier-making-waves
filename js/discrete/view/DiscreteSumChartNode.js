@@ -9,13 +9,11 @@
 
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import SumChartNode from '../../common/view/SumChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteSumChart from '../model/DiscreteSumChart.js';
-import Waveform from '../model/Waveform.js';
 import InfiniteHarmonicsPlot from './InfiniteHarmonicsPlot.js';
 
 // constants
@@ -26,13 +24,11 @@ class DiscreteSumChartNode extends SumChartNode {
 
   /**
    * @param {DiscreteSumChart} sumChart
-   * @param {EnumerationProperty.<Waveform>} waveformProperty
    * @param {Object} [options]
    */
-  constructor( sumChart, waveformProperty, options ) {
+  constructor( sumChart, options ) {
 
     assert && assert( sumChart instanceof DiscreteSumChart );
-    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
 
     options = merge( {
 

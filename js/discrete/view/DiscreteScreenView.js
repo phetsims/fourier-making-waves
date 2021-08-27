@@ -163,7 +163,7 @@ class DiscreteScreenView extends ScreenView {
       } );
 
     // Sum chart
-    const sumChartNode = new DiscreteSumChartNode( model.sumChart, model.waveformProperty, {
+    const sumChartNode = new DiscreteSumChartNode( model.sumChart, {
       tandem: sumTandem.createTandem( 'sumChartNode' )
     } );
 
