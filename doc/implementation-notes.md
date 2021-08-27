@@ -84,7 +84,7 @@ dispose()
 }
 ```
 
-# Charts
+## Charts
 
 The most complicate part of this implementation is the charts. This section provides a high-level roadmap for
 understanding how to navigate the implementations. See source-code documentation for more details.
@@ -155,7 +155,7 @@ Node
         ↳ WavePacketSumChartNode
 ```
 
-# PhET-iO
+## PhET-iO
 
 While version 1.0 of this simulation was not released with PhET-iO support, the implementation does have a significant
 amount of PhET-iO instrumentation. More importantly, the future needs of PhET-iO heavily influenced the implementation.
@@ -163,7 +163,7 @@ Most significantly, we tried to have as little
 "dynamic instantiation" as possible, and instead chose a "static elements" approach. See GitHub
 issue [#6](https://github.com/phetsims/fourier-making-waves/issues/6) for more details.
 
-# A11y
+## A11y
 
 This simulation implements some aspects of a11y.
 
