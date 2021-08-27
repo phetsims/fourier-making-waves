@@ -19,8 +19,20 @@ In addition to this document, you are encouraged to read:
 
 ## Terminology & Symbols
 
-The domain terminology and math symbols that you'll need to navigate the implementation can be found
+The terminology and math symbols that you'll need to navigate the implementation can be found
 in [model.md](https://github.com/phetsims/fourier-making-waves/blob/master/doc/model.md).
+
+_Domain_ refers to the independent variables in the equations that drive the model. The domains in this sim are '
+space', 'time', and 'space & time'. See
+also [Domain.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Domain.js).
+
+_Series type_ refers to where we have a _sine series_ or a _cosine series_. See
+also [SeriesType.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/SeriesType.js).
+
+In the **Wave Game** screen, the user is attempting to solved _challenges_. Each challenge has 2 Fourier series:
+
+* _answer series_ or _answer_ - the pink waveform, the Fourier series that the user is trying to match
+* _guess series_ or _guess_ - the Fourier series for the user's guess
 
 Some of the charts in this simulation are not labeled, and some of them have verbose titles. So rather than refer to
 charts by their exact titles, we use these names:
@@ -83,6 +95,73 @@ dispose()
   super.dispose();
 }
 ```
+
+## Discrete screen
+
+The main model elements of this screen are
+[FourierSeries](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/FourierSeries.js)
+and [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Harmonic.js).
+
+A quick walkthrough of the control panel:
+
+The combo box labeled "Waveform:" selects a preset waveform, which corresponds to a Fourier series whose harmonics have
+amplitudes that match that waveform. Changing any amplitude while a preset is selected results in the combo box
+selection changing to "custom". Note that the
+"Infinite Harmonics" feature is not available for the "wave packet" selection, so its checkbox is disabled below the Sum
+chart.
+
+Changing the "Harmonics" spinner in the control panel changes the number of harmonics in the Fourier series. More
+harmonics results in a better approximation of the desired waveform (or a preset waveform, if one is selected).
+
+The **Fourier Series** section of the control panel also has controls (checkbox and slider) for the sound that is
+associated with the Fourier series. While this control is on, other sounds in this screen will be "ducked" - their
+perceived volume will be reduced by ~50%. If you switch to another screen while this control is on, the Fourier series
+sound will stop; it will resume when you switch back to this screen. This entire control will be disabled when sound is
+turned off in the navigation bar. The sound generator can be found in
+[FourierSoundGenerator.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/discrete/view/FourierSoundGenerator.js)
+.
+
+The combo box labeled "Function of:" selects the domain. The **Discrete** screen is the only screen that supports the '
+space & time' domain, which results in animation of waveforms.
+
+The radio button group labeled "Series:" selects the series type, which determines whether the underlying model
+equations use `sin` or `cos`.
+
+In the **Measurement Tools** section of the control panel, controls are enabled/disabled in relation to the selected
+domain. Wavelength is relevant for 'space' and 'space & time', while Period is relevant for 'time' and 'space & time'.
+
+## Wave Game screen
+
+The **Wave Game** screen is built on the same model and view components as the **Discrete**
+screen.
+
+Some differences include:
+
+* It adds an additional FourierSeries to the model, for the user's guess (the "guess series").
+* Domain is fixed at 'space'.
+* The x-axis scale is fixed; there are no x-axis zoom buttons.
+
+The UI for selecting a level is implemented in
+[WaveGameLevelSelectionNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/waveGame/view/WaveGameLevelSelectionNode.js)
+.
+
+Each game level
+has [WaveGameLevel](https://github.com/phetsims/fourier-making-waves/blob/master/js/waveGame/model/WaveGameLevel.js)
+and [WaveGameLevelNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/waveGame/view/WaveGameLevelNode.js)
+.
+
+A challenge is a set of harmonic amplitudes that describe a waveform. Amplitudes for a challenge are randomly generated
+by [AmplitudesGenerator](https://github.com/phetsims/fourier-making-waves/blob/master/js/waveGame/model/AmplitudesGenerator.js)
+. These amplitudes are then used to populate the Harmonic amplitudes in the answer series. The amplitudes in the guess
+series are set to zero. As the user changes amplitude sliders, they are changing the guess series. If they press the "
+Check Answer" while the amplitudes of the answer and guess are the same, they will have solved the challenge.
+
+After a challenge has been solved (or the "Show Answer" button has been pressed), the user can continue to experiment
+with the challenge. Whenever the guess matches the answer, a smiley face will be shown.
+
+Pressing the "New Waveform" button moves to a new challenge.
+
+## Wave Packet screen
 
 ## Charts
 
