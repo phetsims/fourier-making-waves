@@ -2,32 +2,121 @@
 
 @author Chris Malley (PixelZoom, Inc.)
 
-This document is a high-level description of the model used in PhET's _Fourier: Making Waves_ simulation. It's assumed
-that the reader is familiar with Fourier Series and wave packets.
+This document is a high-level description of the model used in PhET's _Fourier: Making Waves_ simulation.
 
-## Mathematical symbols:
+## Prerequisites
+
+It's assumed that the reader is familiar with Fourier Series, harmonics, and wave packets.
+
+## Symbols
+
+A summary of the symbols used in this simulation:
 
 * A = amplitude
 * A<sub>n</sub> = amplitude of the n<sup>th</sup> harmonic
 * f = frequency, in Hz = 1 / T
 * F = function of
-* λ = wavelength, in m = L
+* λ = wavelength, in m (used interchangeably with L)
 * k = spatial wave number, in rad/m = 2π / λ
 * k<sub>0</sub> = the mean wave number, which defines the wave packet's center
-* L = string length, if this were a plucked string, in m = λ
+* L = string length, if this were a plucked string, in m (used interchangeably with λ)
 * n = harmonic number, order, or mode
 * π = pi
-* σ = Gaussian wave packet width, in rad/m
-* σ<sub>k</sub> = the standard deviation of k
-* σ<sub>t</sub> = the standard deviation of t
-* σ<sub>x</sub> = the standard deviation of x
-* σ<sub>ω</sub> = the standard deviation of ω
+* σ<sub>k</sub> = the standard deviation of k, a measure of wave-packet width
+* σ<sub>t</sub> = the standard deviation of t, a measure of wave-packet width
+* σ<sub>x</sub> = the standard deviation of x, a measure of wave-packet width
+* σ<sub>ω</sub> = the standard deviation of ω, a measure of wave-packet width
 * t = time, in ms
 * T = period, in ms = 1 / f
 * ω = angular wave number, in rad/ms = 2π / T
-* ω<sub>0</sub> = the mean angular frequency, which defines the wave packet's center
+* ω<sub>0</sub> = the mean angular wave number, which defines the wave packet's center
 * x = position in space along L, in m
 
 ## Terminology
 
-* harmonic order, or order
+A _Fourier series_ decomposes a periodic function into a set of sines or cosines. The
+_series type_ refers to whether the Fouriers series uses sines (a _sine series_) or cosines (a _cosine_ series).
+
+The sines or cosines are referred to as _harmonics_. In this context, a harmonic may also be referred to as a _
+component_ of the series. The **Discrete* and **Wave Game** screens refer to _harmonics_ while the **Wave Packet**
+screen refers to _components_.
+
+Each harmonic has an _order_ or _harmonic number_, numbered starting from 1. The
+_fundamental harmonic_ (or simply _fundamental_) is the lowest frequency of the periodic function, and its order is 1.
+
+We don't refer to the charts by their (sometimes) verbose titles. And some of the charts aren't labeled. So we typically
+use these names:
+
+* Amplitude chart - the top chart in all 3 screens
+* Harmonics chart - the middle chart in the **Discrete** and **Wave Game** screens
+* Components chart - the middle chart in the **Wave Packet** screen
+* Sum chart - the bottom chart in all 3 screens
+
+## Discrete screen
+
+The **Discrete** screen models a
+single [FourierSeries](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/FourierSeries.js)
+with a variable number (1...11) of Harmonics.
+Each [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Harmonic.js)
+has an amplitude with variable range [-1.5,1.5]. The sum is computed by sampling the amplitude of each harmonic at
+points in space or time, and summing their corresponding amplitudes.
+
+The method of computing a Harmonic's amplitude depends on the x-axis domain (space, time, or space and time) and whether
+we have a sine series or a cosine series. The set of 6 equations for computing an amplitude at a point can be found in
+[getAmplitudeFunction.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/getAmplitudeFunction.js)
+These function correspond to the mode (_n_) equation forms, selectable from the
+'Equation' combobox.
+
+Preset waveforms are selected via the 'Waveform' combobox, including sinusoid, square, sawtooth, triangle, and wave
+packet. When you select one of these presets, amplitudes for the harmonics are computed using an equation that is
+specific to that preset. (Wave packet is an exception:
+we use a set of hard-coded amplitudes.)
+See [Waveform.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/discrete/model/Waveform.js)
+for the equations used. For square, sawtooth, and triangle, that Waveform.js also contains the points used to plot exact
+versions of those waveforms, for comparison with the Fourier series approximation.
+
+The **Discrete** screen also offers a choice of equation forms, selectable via the
+'Equation' combobox. This selection affects only the equations shown in the view; the model always uses the mode (_n_)
+equation form.
+
+## Wave Game screen
+
+The **Wave Packet** screen builds on the **Discrete** screen, and presents the user with challenges to be solved. There
+are 2 FourierSeries in this screen: the "answer series" is the answer to a challenge, while the "guess series" is the
+user's guess. When guess series matches the answer series, the user has solved the challenge. The Amplitudes (top) chart
+allows the user to set amplitudes for the guess series. The Harmonics (middle) chart plots each harmonic. And the Sum (
+bottom) chart shows the guess series plotted (in black) or top of the answer series
+(in hot pink).
+
+Each level of the game has a different number of non-zero harmonics in the challenge, and a slider is provided in the
+Amplitudes (top) chart for each non-zero harmonic. Each challenge also includes some sliders for zero-amplitude
+harmonics, to make the challenge a bit more difficult.
+
+Here is a summary of each game level:
+
+Level | non-zero harmonics | number of sliders |
+--- | --- | --- |
+1 | 1 | 2 |
+2 | 2 | 3 |
+3 | 3 | 5 |
+4 | 4 | 6 | 
+5+ | 5 or more | 5 to 11 |
+
+Challenges are generated randomly, and the game is open-ended - you could play forever!
+One point (one star) is rewarded for each challenge that is successfully completed. After successfully completing 5
+challenges, the student gets a reward.
+
+## Wave Packet screen
+
+The **Wave Packet** screen is quite different from the other screens, but is still built on the same underlying
+mathematics.
+
+The Fourier series can be varied by changing 'Component Spacing', which in turn changes the number of components. The
+wave packet can also be adjusted by changing its center and width. The underlying equations for computing the harmonic
+waveforms are the same as those used in the first 2 screens, found
+in [getAmplitudeFunction.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/getAmplitudeFunction.js)
+.
+
+A simplifying assumption in this screen's model is that λ (wavelength) and T (period) are both 1 unit. This allows us to
+change representations in the view to match the domain (space or time)
+while not having to recompute values.
