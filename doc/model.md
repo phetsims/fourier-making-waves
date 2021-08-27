@@ -62,13 +62,16 @@ Each [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/master/js/
 has an amplitude with variable range [-1.5,1.5]. The sum is computed by sampling the amplitude of each harmonic at
 points in space or time, and summing their corresponding amplitudes.
 
+The fundamental harmonic has a wavelength of 1 m. It's frequency is 440 Hz, chosen to match the tuning standard for the
+musical note of A above middle C.
+
 The method of computing a Harmonic's amplitude depends on the x-axis domain (space, time, or space and time) and whether
-we have a sine series or a cosine series. The set of 6 equations for computing an amplitude at a point can be found in
+we have a sine series or a cosine series. The set of 6 equations for computing amplitude can be found in
 [getAmplitudeFunction.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/getAmplitudeFunction.js)
 These function correspond to the mode (_n_) equation forms, selectable from the
-'Equation' combobox.
+'Equation' combo box.
 
-Preset waveforms are selected via the 'Waveform' combobox, including sinusoid, square, sawtooth, triangle, and wave
+Preset waveforms are selected via the 'Waveform' combo box, including sinusoid, square, sawtooth, triangle, and wave
 packet. When you select one of these presets, amplitudes for the harmonics are computed using an equation that is
 specific to that preset. (Wave packet is an exception:
 we use a set of hard-coded amplitudes.)
@@ -77,33 +80,34 @@ for the equations used. For square, sawtooth, and triangle, that Waveform.js als
 versions of those waveforms, for comparison with the Fourier series approximation.
 
 The **Discrete** screen also offers a choice of equation forms, selectable via the
-'Equation' combobox. This selection affects only the equations shown in the view; the model always uses the mode (_n_)
-equation form.
+'Equation' combo box. This selection only affects which equation is displayed. Because all equations yield equivalent
+results, the model always uses the mode (_n_) equation form.
 
 ## Wave Game screen
 
 The **Wave Packet** screen builds on the **Discrete** screen, and presents the user with challenges to be solved. There
 are 2 FourierSeries in this screen: the "answer series" is the answer to a challenge, while the "guess series" is the
-user's guess. When guess series matches the answer series, the user has solved the challenge. The Amplitudes (top) chart
-allows the user to set amplitudes for the guess series. The Harmonics (middle) chart plots each harmonic. And the Sum (
-bottom) chart shows the guess series plotted (in black) or top of the answer series
-(in hot pink).
+user's guess. When the guess series matches the answer series, the user has solved the challenge. The Amplitudes (top)
+chart allows the user to set amplitudes for the guess series. The Harmonics (middle) chart plots each harmonic. And the
+Sum (
+bottom) chart shows the guess series (in black) superimposed on top of the answer series (in hot pink).
 
-Each level of the game has a different number of non-zero harmonics in the challenge, and a slider is provided in the
-Amplitudes (top) chart for each non-zero harmonic. Each challenge also includes some sliders for zero-amplitude
-harmonics, to make the challenge a bit more difficult.
+Each level of the game has a different number of non-zero harmonics in the challenge, and a different number of '
+Amplitude Controls' (sliders and keypads) for setting amplitudes. Each challenge includes some controls for
+zero-amplitude harmonics, to make the challenges a bit more difficult. The student can increase the number of
+zero-amplitude sliders using the 'Amplitude Controls' spinner, but each level has a minimum number of controls.
 
 Here is a summary of each game level:
 
-Level | non-zero harmonics | number of sliders |
+Level | non-zero harmonics | 'Amplitude Controls' minimum |
 --- | --- | --- |
 1 | 1 | 2 |
 2 | 2 | 3 |
 3 | 3 | 5 |
 4 | 4 | 6 | 
-5+ | 5 or more | 5 to 11 |
+5+ | 5 or more | 5 to 11, depending on challenge |
 
-Challenges are generated randomly, and the game is open-ended - you could play forever!
+Challenges are generated randomly, and the game is open-ended - you can play forever!
 One point (one star) is rewarded for each challenge that is successfully completed. After successfully completing 5
 challenges, the student gets a reward.
 
@@ -113,11 +117,11 @@ The **Wave Packet** screen is quite different from the other screens, but is sti
 mathematics.
 
 The Fourier series can be varied by changing 'Component Spacing', which in turn changes the number of components. The
-wave packet can also be adjusted by changing its center and width. The underlying equations for computing the harmonic
-waveforms are the same as those used in the first 2 screens, found
+wave packet can also be adjusted by changing its center and width. The underlying equations for computing the component
+waveforms are the same as those used in the others screens, found
 in [getAmplitudeFunction.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/getAmplitudeFunction.js)
 .
 
-A simplifying assumption in this screen's model is that λ (wavelength) and T (period) are both 1 unit. This allows us to
-change representations in the view to match the domain (space or time)
-while not having to recompute values.
+A simplifying assumption in this screen's model is that λ (wavelength) and T (period) are both 1 unit. This is a
+performance optimization that allows us to change representations in the view to match the domain
+(space or time) while not needing to recompute values.
