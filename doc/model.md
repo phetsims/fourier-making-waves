@@ -78,16 +78,16 @@ results, the model always uses the mode (_n_) equation form.
 ## Wave Game screen
 
 The **Wave Packet** screen builds on the **Discrete** screen, and presents the user with challenges to be solved. There
-are 2 FourierSeries in this screen: the "answer series" is the answer to a challenge, while the "guess series" is the
+are 2 Fourier Series in this screen: the "answer series" is the answer to a challenge, while the "guess series" is the
 user's guess. When the guess series matches the answer series, the user has solved the challenge. The Amplitudes (top)
-chart allows the user to set amplitudes for the guess series. The Harmonics (middle) chart plots each harmonic. And the
-Sum (
-bottom) chart shows the guess series (in black) superimposed on top of the answer series (in hot pink).
+chart allows the user to set amplitudes for the guess series. The Harmonics (middle) chart plots each harmonic in the
+guess series. And the Sum ( bottom) chart shows the guess series (in black) superimposed on top of the answer series (in
+hot pink).
 
 Each level of the game has a different number of non-zero harmonics in the challenge, and a different number of '
 Amplitude Controls' (sliders and keypads) for setting amplitudes. Each challenge includes some controls for
 zero-amplitude harmonics, to make the challenges a bit more difficult. The student can increase the number of
-zero-amplitude sliders using the 'Amplitude Controls' spinner, but each level has a minimum number of controls.
+zero-amplitude controls using the 'Amplitude Controls' spinner, but each level has a minimum number of controls.
 
 Here is a summary of each game level:
 
