@@ -45,14 +45,6 @@ function can be approximated.
 Each harmonic has an _order_ or _harmonic number_, numbered starting from 1. The
 _fundamental harmonic_ (or simply _fundamental_) is the lowest frequency of the periodic function, and its order is 1.
 
-Some of the charts in this simulation are not labeled, and some of them have verbose titles. So we typically refer to
-the charts using these names:
-
-* Amplitudes chart - the top chart in all 3 screens
-* Harmonics chart - the middle chart in the **Discrete** and **Wave Game** screens
-* Components chart - the middle chart in the **Wave Packet** screen
-* Sum chart - the bottom chart in all 3 screens
-
 ## Discrete screen
 
 The **Discrete** screen models a
