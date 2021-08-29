@@ -215,8 +215,7 @@ All charts automatically adjust their y-axis scale to fit the peak amplitude tha
 The exception to this is the Sum chart in the the **Wave Game** screen; that chart adjusts its y-axis scale to match the
 answer (pink waveform) but ignores the user's guess (black waveform).
 
-With the exception of the Amplitudes chart in the **Discrete** and **Wave Game** screen, all charts share the same "
-core" base
+With the exception of the Amplitudes chart in the **Discrete** and **Wave Game** screen, all charts share the same "core" base
 classes: [DomainChart](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/DomainChart.js)
 (model)
 and [DomainChartNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/DomainChartNode.js)
