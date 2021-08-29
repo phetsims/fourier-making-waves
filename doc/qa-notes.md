@@ -15,8 +15,8 @@ It is _highly recommended_ that you skim these 2 documents before testing the si
 
 Optionally, skim
 the [Fourier: Making Waves HTML5 design document](https://docs.google.com/document/d/1tOpstoF6xiMcBJEvG1rJ4mVRzsO6UWzek_ntau4rbWc)
-. It may clarify features and behavior. Note that the design document may not be completely up-to-date. The section for
-the _Wave Packet_ screen is especially lacking.
+. It may clarify features and behavior. Note that the design document may not be completely up-to-date. (The section for
+the _Wave Packet_ screen is especially lacking.)
 
 ## General notes
 
