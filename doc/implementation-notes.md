@@ -64,14 +64,14 @@ to the browser console.
 
 **Assertions**
 
-The sim makes heavy use of `assert` to verify assumptions and perform type checking. 
+This sim makes heavy use of `assert` to verify assumptions and perform type checking. 
 Most function arguments are type-checked, but it's not a requirement that _all_ arguments are verified.
 Where `assert` is used for type-checking, there is typically no assertion message, unless it was needed during development.
 If you are making modifications to this sim, do so with assertions enabled via the `ea` query parameter.
 
 **Logging**
 
-The sim makes heavy use of logging via `phet.log`. If you are making modifications to this sim, or trying to understand 
+This sim makes heavy use of logging via `phet.log`. If you are making modifications to this sim, or trying to understand 
 its behavior, do so with logging enabled via the `log` query parameter.
 
 **Memory Management**
