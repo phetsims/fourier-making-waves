@@ -170,11 +170,11 @@ and [WaveGameLevelNode](https://github.com/phetsims/fourier-making-waves/blob/ma
 A challenge is a set of harmonic amplitudes that describe a waveform. Amplitudes for a challenge are randomly generated
 by [AmplitudesGenerator](https://github.com/phetsims/fourier-making-waves/blob/master/js/waveGame/model/AmplitudesGenerator.js)
 . These amplitudes are then used to populate the Harmonic amplitudes in the answer series. The amplitudes in the guess
-series are set to zero. As the user changes amplitude sliders, they are changing the guess series. If they press the "
-Check Answer" while the amplitudes of the answer and guess are the same, they will have solved the challenge.
+series are set to zero. As the user changes amplitude sliders, they are changing the guess series. If they press the 
+"Check Answer" button while the amplitudes of the answer and guess are the same, they will have solved the challenge.
 
 After a challenge has been solved (or the "Show Answer" button has been pressed), the user can continue to experiment
-with the challenge. Whenever the guess matches the answer, a smiley face will be shown.
+with the challenge. Whenever the guess matches the answer, a smiley face will be displayed.
 
 Pressing the "New Waveform" button moves to a new challenge.
 
