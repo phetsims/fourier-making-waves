@@ -206,8 +206,8 @@ The model is responsible for creating data sets (arrays of `Vector2`), while the
 and view coordinate frames.
 
 Each chart has a model class, and a corresponding view class. The model class contains all information that is needed by
-the view class. For each concrete class, the class name is prefixed with the screen name. For
-example `DiscreteAmplitudeChart` , `WaveGameHarmonicsChart`,
+the view class. For each concrete class, the class name is prefixed with the screen name, for
+example: `DiscreteAmplitudeChart` , `WaveGameHarmonicsChart`,
 `WavePacketSumChart`.
 
 All charts automatically adjust their y-axis scale to fit the peak amplitude that is displayed.
