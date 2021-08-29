@@ -76,7 +76,7 @@ its behavior, do so with logging enabled via the `log` query parameter.
 
 **Memory Management**
 
-* **Dynamic allocation**: Most things in this sim are allocated at startup, and exist for the lifetime of the
+* **Dynamic allocation**: Most objects in this sim are allocated at startup, and exist for the lifetime of the
   simulation. The exceptions to that are: `Vector2`
   and [FourierComponent](https://github.com/phetsims/fourier-making-waves/blob/master/js/wavepacket/model/FourierComponent.js)
   .
