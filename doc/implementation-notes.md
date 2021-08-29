@@ -128,7 +128,7 @@ selection changing to "custom". Note that the
 chart.
 
 Changing the "Harmonics" spinner in the control panel changes the number of harmonics in the Fourier Series. More
-harmonics results in a better approximation of the desired waveform (or a preset waveform, if one is selected).
+harmonics results in a better approximation of the desired waveform (or of a preset waveform, if one is selected).
 
 The **Fourier Series** section of the control panel also has controls (checkbox and slider) for the sound that is
 associated with the Fourier Series. While this control is on, other sounds in this screen will be "ducked" - their
