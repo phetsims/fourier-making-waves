@@ -1,5 +1,5 @@
 {
-  "comment": "# fourier-making-waves 1.0.0-dev.46 Thu Aug 26 2021 15:06:48 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# fourier-making-waves 1.0.0-dev.47 Sun Aug 29 2021 13:30:01 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "master"
@@ -9,7 +9,7 @@
     "branch": "master"
   },
   "bamboo": {
-    "sha": "35de5ec592c1bf6ff6837de2a38746b99a5a2009",
+    "sha": "5b89e6a764f9f66e0606e7d61d1f2262f5dd4bc6",
     "branch": "master"
   },
   "brand": {
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "fourier-making-waves": {
-    "sha": "f74eebaafb3c951fe1aad33cc39658e1a8a5c4bd",
+    "sha": "d308dc8cccaea4db318c1ea06325eca9cb3ae02c",
     "branch": "master"
   },
   "joist": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "perennial-alias": {
-    "sha": "49f70e18493322e32d5b36865cfb646c64c05188",
+    "sha": "71e098e342e0060de73a4d8b2ab838087f07ee2c",
     "branch": "master"
   },
   "phet-core": {
