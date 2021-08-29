@@ -4,7 +4,7 @@
 
 This document contains notes that may be useful to the PhET QA team when testing this simulation.
 
-## References
+## Prerequisites
 
 It is _highly recommended_ that you skim these 2 documents before testing the sim:
 
