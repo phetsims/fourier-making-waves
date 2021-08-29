@@ -64,11 +64,10 @@ to the browser console.
 
 **Assertions**
 
-The sim makes heavy use of `assert`
-and [AssertUtils](https://github.com/phetsims/phetcommon/blob/master/js/AssertUtils.js)
-to verify pre/post assumptions and perform type checking. This sim performs type-checking for almost all function
-arguments via `assert` (but it's not a requirement that type-checking is done everywhere). If you are making 
-modifications to this sim, do so with assertions enabled via the `ea` query parameter.
+The sim makes heavy use of `assert` to verify pre/post assumptions and perform type checking. 
+Most function arguments are type-checked, but it's not a requirement that _all_ arguments are verified.
+Where `assert` is used for type-checking, there is typically no assertion message, unless it was needed during development.
+If you are making modifications to this sim, do so with assertions enabled via the `ea` query parameter.
 
 **Logging**
 
