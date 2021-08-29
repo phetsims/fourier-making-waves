@@ -32,9 +32,6 @@ console, grouped as follows:
 * `phet.preloads.phetio.queryParameters` for PhET-iO (`null` unless `?brand=phet-io`)
 * `phet.fourierMakingWaves.FMWQueryParameters` are sim-specific
 
-All of the sliders in this simulation have interactive tick labels. If you want to quickly (and precisely) move the
-slider to one of the tick-label values, click on the label.
-
 ## Discrete screen
 
 The only animation in the sim occurs when the "Function of" combo box is set to "space & time". Use this setting to test
@@ -52,3 +49,6 @@ see [phetTeamMember.md](https://github.com/phetsims/special-ops/blob/master/doc/
 This screen is much more performance-intensive that the other screens, due to the number of Fourier components that it
 must plot in the Components (middle) chart. The worst-case scenario is when "Component Spacing" is set to π/4, which
 results in 97 components. Use this setting to test the performance and responsiveness of this screen.
+
+Sliders in this screen have interactive tick labels. If you want to quickly (and precisely) move the slider to one of
+the tick-label values, click on the label.
