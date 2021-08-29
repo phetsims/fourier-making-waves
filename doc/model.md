@@ -83,7 +83,7 @@ are 2 Fourier Series in this screen: the "answer series" is the answer to a chal
 user's guess. When the amplitudes of the guess series match the amplitudes of the answer series, the user has solved the challenge. 
 
 The Amplitudes (top) chart allows the user to set amplitudes for the guess series. The Harmonics (middle) chart plots each harmonic in the
-guess series. And the Sum ( bottom) chart shows the guess series (in black) superimposed on top of the answer series (in
+guess series. The Sum ( bottom) chart shows the guess series (in black) superimposed on top of the answer series (in
 hot pink).
 
 Each level of the game has a different number of non-zero harmonics in the challenge, and a different number of '
