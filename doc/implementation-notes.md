@@ -293,9 +293,9 @@ Keyboard navigation is implemented. Look for these "markers" to identify related
   pressing the keyboard button in the navigation bar.
 * If all else fails, search for `// pdom`, which generally appears before code that is specific to a11y.
 
-User-interface sounds are implemented, and most of the sounds come from common-code components. As of this writing, the
-amplitude sliders have temporary sound support (see
-[AudibleSlider.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/AudibleSlider.js)), but
-other sliders do not support sound, due to lack of support in Slider.js.
+User-interface sounds are implemented, and most of the sounds are provided by common-code UI components. 
+As of this writing, the amplitude sliders in the **Discrete** screen have temporary sound support (see
+[AudibleSlider.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/AudibleSlider.js)).
+Other sliders in the sim do not support sound, due to lack of support in Slider.js.
 
 Voicing and screen reader support are not implemented as of this writing.
