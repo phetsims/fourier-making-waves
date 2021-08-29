@@ -19,8 +19,10 @@ In addition to this document, you are encouraged to read:
 
 ## Terminology & Symbols
 
-The terminology and math symbols that you'll need to navigate the implementation can be found
+Most of the terminology and math symbols that you'll need to navigate the implementation can be found
 in [model.md](https://github.com/phetsims/fourier-making-waves/blob/master/doc/model.md).
+
+Additional terminology:
 
 _Domain_ refers to the independent variables in the equations that drive the model. The domains in this sim are '
 space', 'time', and 'space & time'. See
