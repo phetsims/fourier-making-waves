@@ -217,7 +217,7 @@ answer (pink waveform) but ignores the user's guess (black waveform).
 
 All charts share the same "core" base classes: [DomainChart](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/DomainChart.js)
 (model) and [DomainChartNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/DomainChartNode.js) (view).
-There is one exception to this: the Amplitudes chart in the **Discrete** and **Wave Game** screen is a very different type 
+There is one exception to this: the Amplitudes chart in the **Discrete** and **Wave Game** screen is a very different kind 
 of chart, and has its own implementation (model and view) that is not shared.
 
 The **Discrete** and **Wave Game** screens share additional (model and view) subclasses:
