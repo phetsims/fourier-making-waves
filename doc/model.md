@@ -35,7 +35,7 @@ A summary of the symbols used in this simulation:
 ## Terminology
 
 A _Fourier Series_ decomposes a periodic function into a set of sines or cosines. The
-_series type_ refers to whether the Fouriers Series uses sines (a _sine series_) or cosines (a _cosine_ series).
+_series type_ refers to whether the Fouriers Series uses sines (a _sine series_) or cosines (a _cosine series_[](url)).
 
 The sines or cosines are referred to as _harmonics_. In this context, a harmonic may also be referred to as a
 _component_ of the series. The **Discrete** and **Wave Game** screens refer to _harmonics_ while the **Wave Packet**
