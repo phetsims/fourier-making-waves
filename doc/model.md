@@ -37,10 +37,10 @@ A summary of the symbols used in this simulation:
 A _Fourier Series_ decomposes a periodic function into a set of sines or cosines. The
 _series type_ refers to whether the Fouriers Series uses sines (a _sine series_) or cosines (a _cosine series_[](url)).
 
-The sines or cosines are referred to as _harmonics_. In this context, a harmonic may also be referred to as a
-_component_ of the series. The **Discrete** and **Wave Game** screens refer to _harmonics_ while the **Wave Packet**
-screen refers to _components_. The more harmonics that are used in a Fourier Series, the more accurately a periodic
-function can be approximated.
+The sines or cosines are referred to as _harmonics_ or _components_, terms that you can feel free to
+use interchangeably.  For pedagogical reasons, the **Discrete** and **Wave Game** screens refer to _harmonics_ 
+while the **Wave Packet** screen refers to _components_. The more harmonics that are used in a Fourier Series, 
+the more accurately a periodic function can be approximated.
 
 Each harmonic has an _order_ or _harmonic number_, numbered starting from 1. The
 _fundamental harmonic_ (or simply _fundamental_) is the lowest frequency of the periodic function, and its order is 1.
