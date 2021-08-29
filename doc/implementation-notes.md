@@ -101,7 +101,7 @@ dispose()
 
 ## Discrete screen
 
-The main model elements of this screen are
+The main model elements for the **Discrete** screen are
 [FourierSeries](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/FourierSeries.js)
 and [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Harmonic.js). To avoid
 PhET-iO issues related to creating dynamic elements, a single `FourierSeries` is created with the maximum number (11)
