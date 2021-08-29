@@ -59,6 +59,8 @@ The typical ModelViewTransform2 that is found in most PhET simulations is not us
 
 Query parameters are used to enable sim-specific features. Sim-specific query parameters are documented in
 [FMWQueryParameters](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/FMWQueryParameters.js).
+Running with `?log` will print the complete set of query parameters (common-code, PhET-iO, and sim-specific)
+to the browser console.
 
 **Assertions**
 
