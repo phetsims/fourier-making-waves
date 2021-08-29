@@ -24,7 +24,7 @@ in [model.md](https://github.com/phetsims/fourier-making-waves/blob/master/doc/m
 
 Additional terminology:
 
-_Domain_ refers to the independent variables in the equations that drive the model. The domains in this sim are '
+_Domain_ refers to the independent variable(s) in the equations that drive the model. The domains in this sim are '
 space', 'time', and 'space & time'. See
 also [Domain.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Domain.js).
 
