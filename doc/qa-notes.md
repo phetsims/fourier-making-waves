@@ -6,19 +6,29 @@ This document contains notes that may be useful to the PhET QA team when testing
 
 Read or skim the following documents before testing the sim:
 
-* [Fourier: Making Waves HTML5](https://docs.google.com/document/d/1tOpstoF6xiMcBJEvG1rJ4mVRzsO6UWzek_ntau4rbWc), the
-  design document (may be out of date)
 * [model.md](https://github.com/phetsims/fourier-making-waves/blob/master/doc/model.md), a high-level description of the
   model
 * [implementation-notes.md](https://github.com/phetsims/fourier-making-waves/blob/master/doc/implementation-notes.md),
   notes about implementation
+* [Fourier: Making Waves HTML5](https://docs.google.com/document/d/1tOpstoF6xiMcBJEvG1rJ4mVRzsO6UWzek_ntau4rbWc), the
+  design document (may be out of date)
 
-## General
+## General notes
 
 Sim-specific query parameters (and their documentation) can be found in
 [FMWQueryParameters](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/FMWQueryParameters.js). The
 query parameters defined as `public: true` are public-facing, and should be tested. The other query parameters are for
-internal used, and you should skim them to see if any may be helpful in testing.
+internal use, and you should skim them to see if any may be helpful in testing.
+
+Running the simulation with `?log` will print the complete list of query parameters (and their values) to the browser
+console, grouped as follows:
+
+* `phet.chipper.queryParmeters` for common-code
+* `phet.preloads.phetio.queryParameters` for PhET-iO (`null` unless `?brand=phet-io`)
+* `phet.fourierMakingWaves.FMWQueryParameters` are sim-specific
+
+All of the sliders in this simulation have interactive tick labels. If you want to quickly (and precisely) move the
+slider to one of the tick-label values, click on the label.
 
 ## Discrete screen
 
@@ -27,8 +37,9 @@ the performance and responsiveness of this screen.
 
 ## Wave Game screen
 
-When run with `?showAnswers`, the correct amplitude values for each challenge will be displayed in red under their
-associated sliders. `showAnswers` is a private feature and required special steps to use it;
+Using the `showAnswers` query parameter will make it easier to test the game. When run with `?showAnswers`, the correct
+amplitude values for each challenge will be displayed in red under their associated sliders. Note that `showAnswers` is
+a private feature and requires special steps to use it;
 see [phetTeamMember.md](https://github.com/phetsims/special-ops/blob/master/doc/phetTeamMember.md).
 
 ## Wave Packet screen
