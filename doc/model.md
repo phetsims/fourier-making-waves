@@ -61,7 +61,7 @@ musical note of A above middle C.
 The method of computing a Harmonic's amplitude depends on the x-axis domain (space, time, or space and time) and whether
 we have a sine series or a cosine series. The set of 6 equations for computing amplitude can be found in
 [getAmplitudeFunction.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/getAmplitudeFunction.js)
-These function correspond to the mode (_n_) equation forms, selectable from the
+These functions correspond to the mode (_n_) equation forms, selectable from the
 'Equation' combo box.
 
 Preset waveforms are selected via the 'Waveform' combo box, including sinusoid, square, sawtooth, triangle, and wave
