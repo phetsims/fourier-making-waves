@@ -273,8 +273,10 @@ Node
 
 ## PhET-iO
 
-While version 1.0 of this simulation was not released with PhET-iO support, the implementation does have a significant
-amount of PhET-iO instrumentation. The future needs of PhET-iO heavily influenced the implementation. Most
+While version 1.0 of this simulation was not released with PhET-iO support, the implementation does include a significant
+amount of PhET-iO instrumentation.
+
+Many implementation decisions were influenced by the (predicted) future needs of PhET-iO. Most
 significantly, we avoided "dynamic elements" where possible, and instead favored a "static elements"
 approach. See GitHub issue [#6](https://github.com/phetsims/fourier-making-waves/issues/6) for more details.
 
@@ -282,7 +284,7 @@ approach. See GitHub issue [#6](https://github.com/phetsims/fourier-making-waves
 
 This simulation implements some aspects of a11y.
 
-Keyboard navigation is implemented, and here's how to identify related code:
+Keyboard navigation is implemented. Look for these "markers" to identify related code:
 
 * option `pdomOrder` specifies traversal order, the order that UI elements are visited as you press the Tab key.
 * `KeyboardDragListener`, along with options `tagName` and `focusable`, adds keyboard-based dragging to sim-specific UI
