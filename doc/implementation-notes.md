@@ -211,7 +211,7 @@ example: `DiscreteAmplitudeChart` , `WaveGameHarmonicsChart`,
 `WavePacketSumChart`.
 
 All charts automatically adjust their y-axis scale to fit the peak amplitude that is displayed.
-(PhET typically refers to this as _auto-scaling_.)
+(PhET typically refers to this behavior as _auto-scaling_.)
 The exception to this is the Sum chart in the the **Wave Game** screen; that chart adjusts its y-axis scale to match the
 answer (pink waveform) but ignores the user's guess (black waveform).
 
