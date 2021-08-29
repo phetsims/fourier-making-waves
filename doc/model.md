@@ -43,7 +43,8 @@ while the **Wave Packet** screen refers to _components_. The more harmonics that
 the more accurately a periodic function can be approximated.
 
 Each harmonic has an _order_ or _harmonic number_, numbered starting from 1. The
-_fundamental harmonic_ (or simply _fundamental_) is the lowest frequency of the periodic function, and its order is 1.
+_fundamental harmonic_ (or simply _fundamental_) is the lowest frequency of the periodic function, its order is 1,
+and its amplitude is A<sub>1</sub>.
 
 ## Discrete screen
 
