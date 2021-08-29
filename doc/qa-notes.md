@@ -21,9 +21,9 @@ the _Wave Packet_ screen is especially lacking.)
 ## General notes
 
 Sim-specific query parameters (and their documentation) can be found in
-[FMWQueryParameters](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/FMWQueryParameters.js). The
-query parameters defined as `public: true` are public-facing, and should be tested. The other query parameters are for
-internal use, and you should skim them to see if any may be helpful in testing.
+[FMWQueryParameters](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/FMWQueryParameters.js).
+Those query parameters defined as `public: true` are public-facing, and should be tested. The other query parameters are
+for internal use, and you should skim them to see if any may be helpful in testing.
 
 Running the simulation with `?log` will print the complete list of query parameters (and their values) to the browser
 console, grouped as follows:
