@@ -183,7 +183,7 @@ Pressing the "New Waveform" button moves to a new challenge.
 At it's core, the model for the **Wave Packet** screen relies on the same code used by the other screens to compute
 component (harmonic) waveforms: `Harmonic.createDataSetStatic`.
 
-But this screen has performance issues not found in the other 2 screens. In the worst case (with Component Spacing set
+But this screen has performance issues not found in the other 2 screens. In the worst case (with "Component Spacing" set
 to π/4) there are 97 Fourier components. So this screen needed a lightweight model, not the richer model
 of `FourierSeries` and `Harmonic`
 used in the other screens.
