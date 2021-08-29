@@ -2,16 +2,21 @@
 
 @author Chris Malley (PixelZoom, Inc.)
 
-This document contains notes that may be useful to the PhET QA team when testing this simulations.
+This document contains notes that may be useful to the PhET QA team when testing this simulation.
 
-Read or skim the following documents before testing the sim:
+## References
+
+It is _highly recommended_ that you skim these 2 documents before testing the sim:
 
 * [model.md](https://github.com/phetsims/fourier-making-waves/blob/master/doc/model.md), a high-level description of the
   model
 * [implementation-notes.md](https://github.com/phetsims/fourier-making-waves/blob/master/doc/implementation-notes.md),
-  notes about implementation
-* [Fourier: Making Waves HTML5](https://docs.google.com/document/d/1tOpstoF6xiMcBJEvG1rJ4mVRzsO6UWzek_ntau4rbWc), the
-  design document (may be out of date)
+  notes about the implementation, and how some things are expected to behave
+
+Optionally, skim
+the [Fourier: Making Waves HTML5 design document](https://docs.google.com/document/d/1tOpstoF6xiMcBJEvG1rJ4mVRzsO6UWzek_ntau4rbWc)
+. It may describe motivation for features and behavior. Note that this document may not be completely up-to-date. The
+section for the _Wave Packet_ screen is especially lacking.
 
 ## General notes
 
