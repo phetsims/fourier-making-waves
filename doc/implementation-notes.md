@@ -28,13 +28,13 @@ _Domain_ refers to the independent variable(s) in the equations that drive the m
 space', 'time', and 'space & time'. See
 also [Domain.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Domain.js).
 
-_Series type_ refers to whether the Fourier series is a _sine series_ or a _cosine series_. See
+_Series type_ refers to whether the Fourier Series is a _sine series_ or a _cosine series_. See
 also [SeriesType.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/SeriesType.js).
 
 In the **Wave Game** screen, the user is attempting to solved _challenges_. Each challenge has 2 Fourier series:
 
-* _answer series_ or _answer_ - the pink waveform, the Fourier series that the user is trying to match
-* _guess series_ or _guess_ - the Fourier series for the user's guess
+* _answer series_ or _answer_ - the pink waveform, the Fourier Series that the user is trying to match
+* _guess series_ or _guess_ - the Fourier Series for the user's guess
 
 Some of the charts in this simulation are not labeled, and some have verbose titles. So rather than refer to charts by
 their exact titles, we use these names:
@@ -120,18 +120,18 @@ Some useful code references:
 
 A quick walkthrough of the control panel:
 
-The combo box labeled "Waveform:" selects a preset waveform, which corresponds to a Fourier series whose harmonics have
+The combo box labeled "Waveform:" selects a preset waveform, which corresponds to a Fourier Series whose harmonics have
 amplitudes that match that waveform. Changing any amplitude while a preset is selected results in the combo box
 selection changing to "custom". Note that the
 "Infinite Harmonics" feature is not available for the "wave packet" selection, so its checkbox is disabled below the Sum
 chart.
 
-Changing the "Harmonics" spinner in the control panel changes the number of harmonics in the Fourier series. More
+Changing the "Harmonics" spinner in the control panel changes the number of harmonics in the Fourier Series. More
 harmonics results in a better approximation of the desired waveform (or a preset waveform, if one is selected).
 
 The **Fourier Series** section of the control panel also has controls (checkbox and slider) for the sound that is
-associated with the Fourier series. While this control is on, other sounds in this screen will be "ducked" - their
-perceived volume will be reduced by ~50%. If you switch to another screen while this control is on, the Fourier series
+associated with the Fourier Series. While this control is on, other sounds in this screen will be "ducked" - their
+perceived volume will be reduced by ~50%. If you switch to another screen while this control is on, the Fourier Series
 sound will stop; it will resume when you switch back to this screen. This entire control will be disabled when sound is
 turned off in the navigation bar. The sound generator can be found in
 [FourierSoundGenerator.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/discrete/view/FourierSoundGenerator.js)
