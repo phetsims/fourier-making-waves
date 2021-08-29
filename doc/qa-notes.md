@@ -50,5 +50,5 @@ see [phetTeamMember.md](https://github.com/phetsims/special-ops/blob/master/doc/
 ## Wave Packet screen
 
 This screen is much more performance-intensive that the other screens, due to the number of Fourier components that it
-must plot in the Components (middle) chart. The worst-case scenario is when Component Spacing is set to π/4, which
+must plot in the Components (middle) chart. The worst-case scenario is when "Component Spacing" is set to π/4, which
 results in 97 components. Use this setting to test the performance and responsiveness of this screen.
