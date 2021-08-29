@@ -93,13 +93,13 @@ zero-amplitude controls using the 'Amplitude Controls' spinner, but each level h
 
 Here is a summary of each game level:
 
-Level | non-zero harmonics | 'Amplitude Controls' minimum |
+Level | non-zero harmonics | Amplitude Controls |
 --- | --- | --- |
 1 | 1 | 2 |
 2 | 2 | 3 |
 3 | 3 | 5 |
 4 | 4 | 6 | 
-5+ | 5 or more | 5 to 11, depending on challenge |
+5+ | 5 or more | 11 |
 
 Challenges are generated randomly, and the game is open-ended - you can play forever!
 One point (one star) is rewarded for each challenge that is successfully completed. After successfully completing 5
