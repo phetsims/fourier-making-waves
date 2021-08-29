@@ -252,7 +252,7 @@ DomainChart
     ↳ WavePacketSumChart
 ```
 
-The view class hierarchy is:
+The structure of the view class hierarchy is similar, and looks like this:
 
 ```
 Node
