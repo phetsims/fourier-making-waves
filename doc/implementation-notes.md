@@ -286,7 +286,7 @@ This simulation implements some aspects of a11y.
 
 Keyboard navigation is implemented. Look for these "markers" to identify related code:
 
-* option `pdomOrder` specifies traversal order, the order that UI elements are visited as you press the Tab key.
+* Option `pdomOrder` specifies traversal order, the order that UI elements are visited as you press the Tab key.
 * `KeyboardDragListener`, along with options `tagName` and `focusable`, adds keyboard-based dragging to sim-specific UI
   elements like the measurement tools.
 * Classes with "KeyboardHelpContent" in their name implement the information in keyboard-help dialogs, displayed by
