@@ -79,7 +79,7 @@ class AmplitudesGenerator {
 
 /**
  * Determines whether 2 sets of amplitudes are similar. This is used to prevent consecutive challenges from being
- * similar during game play. The definition of 'similar' was moving target during development, so consult
+ * similar during game play. The definition of 'similar' was a moving target during development, so consult
  * the implementation of this method for the ground truth.
  * @param {number[]} amplitudes1
  * @param {number[]} amplitudes2
