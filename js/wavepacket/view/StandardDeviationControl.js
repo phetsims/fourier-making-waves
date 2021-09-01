@@ -59,6 +59,7 @@ class StandardDeviationControl extends WavePacketNumberControl {
 
         // pdom options
         keyboardStep: Math.PI / 4,
+        // shiftKeyboardStep is set to options.delta by NumberControl
         pageKeyboardStep: Math.PI / 2
       }
     }, options );

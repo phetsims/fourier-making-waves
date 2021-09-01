@@ -63,6 +63,7 @@ class ComponentSpacingControl extends WavePacketNumberControl {
 
         // pdom options
         keyboardStep: 1, // This is selecting an index, not the actual value.
+        // shiftKeyboardStep is set to options.delta by NumberControl
         pageKeyboardStep: 1
       },
 
