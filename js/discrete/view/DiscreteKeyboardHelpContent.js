@@ -7,10 +7,13 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import SliderAndGeneralKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/SliderAndGeneralKeyboardHelpContent.js';
+import GeneralKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/GeneralKeyboardHelpSection.js';
+import SliderKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderKeyboardHelpSection.js';
+import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
+import MeasurementToolsKeyboardHelpSection from '../../common/view/MeasurementToolsKeyboardHelpSection.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class DiscreteKeyboardHelpContent extends SliderAndGeneralKeyboardHelpContent {
+class DiscreteKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
   /**
    * @param {Object} [options]
@@ -24,7 +27,11 @@ class DiscreteKeyboardHelpContent extends SliderAndGeneralKeyboardHelpContent {
       }
     }, options );
 
-    super( options );
+    const measurementToolsHelpSection = new MeasurementToolsKeyboardHelpSection();
+    const sliderHelpSection = new SliderKeyboardHelpSection( options.sliderSectionOptions );
+    const generalNavigationHelpSection = new GeneralKeyboardHelpSection( options.generalSectionOptions );
+
+    super( [ measurementToolsHelpSection, sliderHelpSection ], [ generalNavigationHelpSection ], options );
   }
 }
 
