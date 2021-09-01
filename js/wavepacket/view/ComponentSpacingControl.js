@@ -62,7 +62,8 @@ class ComponentSpacingControl extends WavePacketNumberControl {
         ],
 
         // pdom options
-        keyboardStep: 1 // This is selecting an index, not the actual value.
+        keyboardStep: 1, // This is selecting an index, not the actual value.
+        pageKeyboardStep: 1
       },
 
       // phet-io options
