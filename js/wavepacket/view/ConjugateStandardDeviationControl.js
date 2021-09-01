@@ -58,8 +58,9 @@ class ConjugateStandardDeviationControl extends WavePacketNumberControl {
         ],
 
         // pdom options
-        keyboardStep: 0.01
+        keyboardStep: 0.01,
         // shiftKeyboardStep is set to options.delta by NumberControl
+        pageKeyboardStep: 0.02
       }
     }, options );
 
