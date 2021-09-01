@@ -58,7 +58,8 @@ class CenterControl extends WavePacketNumberControl {
         minorTickSpacing: Math.PI,
 
         // pdom options
-        keyboardStep: Math.PI,
+        keyboardStep: Math.PI / 2,
+        // shiftKeyboardStep is set to options.delta by NumberControl
         pageKeyboardStep: Math.PI
       }
     }, options );
