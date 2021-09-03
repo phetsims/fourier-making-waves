@@ -113,6 +113,7 @@ class AmplitudeSlider extends AudibleSlider {
 
     // Custom track
     const trackNode = new BarTrack( harmonic, amplitudeRange, {
+      constrainValue: options.constrainValue,
       size: trackSize,
       tandem: options.tandem.createTandem( Slider.TRACK_NODE_TANDEM_NAME )
     } );
