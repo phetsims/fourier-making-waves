@@ -59,15 +59,23 @@ class FourierComponent {
       amplitude: this.amplitude
     };
   }
+
+  /**
+   * Returns a map of state keys and their associated IOTypes, see IOType.fromCoreType for details.
+   * @returns {Object.<string,IOType>}
+   * @public
+   */
+  static get STATE_SCHEMA() {
+    return {
+      waveNumber: NumberIO,
+      amplitude: NumberIO
+    };
+  }
 }
 
 // FourierComponentIO is adapted from Vector2.Vector2IO.
 FourierComponent.FourierComponentIO = IOType.fromCoreType( 'FourierComponentIO', FourierComponent, {
-  documentation: 'Component of a Fourier series',
-  stateSchema: {
-    waveNumber: NumberIO,
-    amplitude: NumberIO
-  }
+  documentation: 'Component of a Fourier series'
 } );
 
 fourierMakingWaves.register( 'FourierComponent', FourierComponent );
