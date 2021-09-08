@@ -52,7 +52,7 @@ class AxisDescription {
    * @public
    */
   hasSymmetricRange() {
-    return ( this.range.getCenter() === 0 );
+    return this.range.getCenter() === 0;
   }
 
   /**
