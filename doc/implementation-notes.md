@@ -210,15 +210,18 @@ the view class. For each concrete class, the class name is prefixed with the scr
 example: `DiscreteAmplitudeChart` , `WaveGameHarmonicsChart`,
 `WavePacketSumChart`.
 
-All charts automatically adjust their y-axis scale to fit the peak amplitude that is displayed.
-(PhET typically refers to this behavior as _auto-scaling_.)
-The exception to this is the Sum chart in the the **Wave Game** screen; that chart adjusts its y-axis scale to match the
-answer (pink waveform) but ignores the user's guess (black waveform).
+Many of the charts automatically scale their y-axis to fit the peak amplitude, with a bit of "padding"
+added to the peak. PhET typically refers to this behavior as _auto-scaling_. In the **Discrete** screen, the Sum chart
+auto-scales, with a minimum range of [-1.5,1.5]. In the **Wave Game** screen, the Sum chart auto-scales to fit the
+answer (pink waveform), again with a minimum range of [-1.5,1.5]. In the **Wave Packet** screen, all three charts
+auto-scale.
 
-All charts share the same "core" base classes: [DomainChart](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/DomainChart.js)
-(model) and [DomainChartNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/DomainChartNode.js) (view).
-There is one exception to this: the Amplitudes chart in the **Discrete** and **Wave Game** screen is a very different kind 
-of chart, and has its own implementation (model and view) that is not shared.
+All charts share the same "core" base
+classes: [DomainChart](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/DomainChart.js)
+(model)
+and [DomainChartNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/DomainChartNode.js) (
+view). There is one exception to this: the Amplitudes chart in the **Discrete** and **Wave Game** screen is a very
+different kind of chart, and has its own implementation (model and view) that is not shared.
 
 The **Discrete** and **Wave Game** screens share additional (model and view) subclasses:
 
