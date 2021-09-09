@@ -214,7 +214,7 @@ Many of the charts automatically scale their y-axis to fit the peak amplitude, w
 added to the peak. PhET typically refers to this behavior as _auto-scaling_. In the **Discrete** screen, the Sum chart
 auto-scales, with a minimum range of [-1.5,1.5]. In the **Wave Game** screen, the Sum chart auto-scales to fit the
 answer (pink waveform), again with a minimum range of [-1.5,1.5]. In the **Wave Packet** screen, all three charts
-auto-scale.
+auto-scale, with no minimum range.
 
 All charts share the same "core" base
 classes: [DomainChart](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/DomainChart.js)
