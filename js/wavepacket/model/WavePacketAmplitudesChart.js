@@ -139,8 +139,10 @@ class WavePacketAmplitudesChart extends DomainChart {
 
   /**
    * @public
+   * @override
    */
   reset() {
+    super.reset();
     this.continuousWaveformVisibleProperty.reset();
   }
 }

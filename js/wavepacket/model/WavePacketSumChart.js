@@ -180,8 +180,10 @@ class WavePacketSumChart extends DomainChart {
 
   /**
    * @public
+   * @override
    */
   reset() {
+    super.reset();
     this.waveformEnvelopeVisibleProperty.reset();
   }
 }
