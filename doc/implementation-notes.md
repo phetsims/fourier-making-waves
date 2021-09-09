@@ -210,9 +210,9 @@ the view class. For each concrete class, the class name is prefixed with the scr
 example: `DiscreteAmplitudeChart` , `WaveGameHarmonicsChart`,
 `WavePacketSumChart`.
 
-Many of the charts automatically scale their y-axis to fit the peak amplitude, with a bit of "padding"
+Some of the charts automatically scale their y-axis to fit the peak amplitude, with a bit of "padding"
 added to the peak. PhET typically refers to this behavior as _auto-scaling_. In the **Discrete** screen, the Sum chart
-auto-scales, with a minimum range of [-1.5,1.5]. In the **Wave Game** screen, the _Sum_ chart auto-scales to fit the
+auto-scales, with a minimum range of [-1.5,1.5]. In the **Wave Game** screen, the Sum chart auto-scales to fit the
 answer (pink waveform), again with a minimum range of [-1.5,1.5]. In the **Wave Packet** screen, the Amplitudes and
 Components charts auto-scale, with no minimum range.
 
