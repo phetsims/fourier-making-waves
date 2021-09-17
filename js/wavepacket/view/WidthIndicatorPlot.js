@@ -18,7 +18,7 @@ import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import HorizontalDimensionalArrowsNode from './HorizontalDimensionalArrowNode.js';
+import HorizontalDimensionalArrowsNode from './HorizontalDimensionalArrowNode.js'; //REVIEW: Import name mismatch (Arrow/Arrows)
 
 class WidthIndicatorPlot extends Node {
 

@@ -158,6 +158,7 @@ class WaveGameLevel extends PhetioObject {
     // @private The harmonics to be emphasized in the Harmonics chart, as the result of UI interactions.
     // These are harmonics in guessSeries.
     this.emphasizedHarmonics = new EmphasizedHarmonics( {
+      //REVIEW: No options available in EmphasizedHarmonics
       tandem: config.tandem.createTandem( 'emphasizedHarmonics' )
     } );
 

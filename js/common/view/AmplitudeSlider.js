@@ -33,6 +33,7 @@ const TRACK_WIDTH = 40; // track height specified in constructor options
 const THUMB_WIDTH = TRACK_WIDTH - 15;
 const THUMB_HEIGHT = 8;
 
+//REVIEW: Very unfortunate. Do we need an issue for this? Also using orientation'ed Slider instead of VSlider technically?
 // Dimension2 instances must be swapped, because VSlider rotates its thumb and track -90 degrees.
 // So we'll specify the dimensions of our custom thumb and track in vertical orientation, create
 // our custom thumb and track in horizontal orientation, and Slider will rotate them into vertical orientation.
@@ -180,7 +181,7 @@ class GrippyThumb extends Node {
     const rectangle = new Rectangle( 0, 0, thumbSize.width, thumbSize.height, {
       fill: Color.grayColor( 200 ),
       stroke: 'black',
-      lineWidth: 1,
+      lineWidth: 1, //REVIEW: lineWidth:1 is the default, can probably drop this?
       cornerRadius: 2
     } );
 
@@ -255,7 +256,7 @@ class BarTrack extends SliderTrack {
     const visibleTrackNode = new Rectangle( 0, 0, width, height, {
       fill: harmonic.colorProperty,
       stroke: 'black',
-      lineWidth: 1
+      lineWidth: 1 //REVIEW: lineWidth:1 is the default, can probably drop this?
     } );
 
     const trackNode = new Node( {
@@ -283,6 +284,7 @@ class BarTrack extends SliderTrack {
     harmonic.amplitudeProperty.link( amplitudeListener );
 
     const visibleTrackPressListener = new PressListener( {
+      //REVIEW: Not sure I understand what this is doing at all. `pickable:true` seems equivalent?
       attach: false // so that the DragListener for the track isn't ignored
     } );
     visibleTrackNode.addInputListener( visibleTrackPressListener );

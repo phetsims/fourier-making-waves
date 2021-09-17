@@ -35,6 +35,8 @@ class WavePacket {
    */
   constructor( options ) {
 
+    //REVIEW: options.tandem looks required, acceptable to do a merge with an opt-out tandem here?
+
     // @public
     this.L = 1; // wavelength when component spacing is 2 * Math.PI, in m
     this.T = 1; // period when component spacing is 2 * Math.PI, in ms

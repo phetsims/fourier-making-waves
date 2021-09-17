@@ -20,7 +20,8 @@ import Domain from './Domain.js';
 class AxisDescription {
 
   /**
-   * @param config - See doc of fields below. All values are in model coordinates, with units specific to the axis.
+   * @param {Object} config - See doc of fields below. All values are in model coordinates, with units specific to the
+   * axis.
    */
   constructor( config ) {
 

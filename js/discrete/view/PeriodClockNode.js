@@ -117,7 +117,7 @@ class ClockFaceNode extends Node {
   /**
    * @param {Property.<Harmonic>} harmonicProperty
    * @param {Property.<number>} tProperty
-   * @param [options]
+   * @param {Object} [options]
    */
   constructor( harmonicProperty, tProperty, options ) {
 

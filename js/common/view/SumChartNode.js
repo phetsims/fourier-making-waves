@@ -34,6 +34,7 @@ class SumChartNode extends DomainChartNode {
 
     options = merge( {
 
+      //REVIEW: Consider sumPlotOptions: { ... }?
       // SumChartNode options
       sumPlotStrokeProperty: FMWColors.sumPlotStrokeProperty,
       sumPlotLineWidth: 1,
@@ -67,6 +68,7 @@ class SumChartNode extends DomainChartNode {
     } );
 
     // Display the data set.
+    //REVIEW: This seems to be a common pattern with Data set Properties, any way to factor it out?
     sumDataSetProperty.lazyLink( dataSet => {
       sumPlot.setDataSet( dataSet );
       chartCanvasNode.update();

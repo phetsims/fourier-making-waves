@@ -76,7 +76,7 @@ class WaveGameScreenView extends ScreenView {
         tandem: options.tandem.createTandem( `level${level.levelNumber}Node` )
       } ) );
 
-    // Handles the animated 'slide' transition between levelSelectionNode and a level.
+    // @private Handles the animated 'slide' transition between levelSelectionNode and a level.
     this.transitionNode = new TransitionNode( this.visibleBoundsProperty, {
       content: levelSelectionNode,
       cachedNodes: [ levelSelectionNode, ...this.levelNodes ]

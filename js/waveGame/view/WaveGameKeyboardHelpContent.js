@@ -40,6 +40,9 @@ class WaveGameKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
  * Hotkeys related to the game.
  */
 class GameControlsHelpSection extends KeyboardHelpSection {
+  /**
+   * @param {Object} [options]
+   */
   constructor( options ) {
 
     const rowOptions = { labelOptions: { lineWrap: 200 } };

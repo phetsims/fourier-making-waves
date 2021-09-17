@@ -21,7 +21,7 @@ import FMWConstants from '../FMWConstants.js';
 class FMWComboBox extends ComboBox {
 
   /**
-   * @param {value:*, string:string, [textOptions:Object], [tandemName:string]} choices
+   * @param {{value:*, string:string, [textOptions:Object], [tandemName:string]}[]} choices
    * @param {Property} property
    * @param {Node} listboxParent
    * @param {Object} [options]
@@ -44,6 +44,7 @@ class FMWComboBox extends ComboBox {
       yMargin: 5
     }, options );
 
+    //REVIEW: const items = choices.map( ... )?
     const items = []; // {ComboBoxItem[]}
     choices.forEach( choice => {
       assert && assert( typeof choice.string === 'string', `invalid choice.string: ${choice.string}` );

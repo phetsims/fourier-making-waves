@@ -20,7 +20,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import wavePacketHomeScreenIcon_png from '../../../images/wavePacketHomeScreenIcon_png.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import PointsAwardedNode from '../../waveGame/view/PointsAwardedNode.js';
-import HorizontalDimensionalArrowsNode from '../../wavepacket/view/HorizontalDimensionalArrowNode.js';
+import HorizontalDimensionalArrowsNode from '../../wavepacket/view/HorizontalDimensionalArrowNode.js'; //REVIEW: used name doesn't match import name (Arrow/Arrows)
 import FMWColors from '../FMWColors.js';
 import FMWConstants from '../FMWConstants.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';

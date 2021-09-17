@@ -22,7 +22,7 @@ class FMWCheckbox extends Checkbox {
 
     options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
 
-      // pointer area dilation
+      // pointer area dilation REVIEW: Is this dilation not desired in CHECKBOX_OPTIONS?
       touchAreaXDilation: 6,
       touchAreaYDilation: 6,
       mouseAreaXDilation: 1,

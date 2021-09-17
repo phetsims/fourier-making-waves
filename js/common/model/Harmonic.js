@@ -63,7 +63,7 @@ class Harmonic extends PhetioObject {
     this.colorProperty = config.colorProperty;
     this.amplitudeRange = config.amplitudeRange;
 
-    // public (read-only) period of the harmonic, in milliseconds
+    // @public (read-only) period of the harmonic, in milliseconds
     this.period = 1000 / this.frequency;
 
     // @public amplitude of the harmonic, no units

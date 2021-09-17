@@ -51,6 +51,7 @@ class HarmonicsChart extends DomainChart {
     // @public {DerivedProperty.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order.
     // Points are ordered by increasing x value.
     this.harmonicDataSetProperties = [];
+    //REVIEW: this.harmonicDataSetProperties = fourierSeries.harmonics.map( harmonic => { ... } ) perhaps?
     for ( let i = 0; i < fourierSeries.harmonics.length; i++ ) {
 
       const harmonic = fourierSeries.harmonics[ i ];

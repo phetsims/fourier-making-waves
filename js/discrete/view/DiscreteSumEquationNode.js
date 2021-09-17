@@ -55,7 +55,7 @@ class DiscreteSumEquationNode extends Node {
 
     // Capital sigma, summation symbol
     const summationNode = new SumSymbolNode( n, 1, numberOfHarmonicsProperty, {
-      font: options.font
+      font: options.font //REVIEW: I don't see a `font` option in SumSymbolNode, should we be pulling out fontSize?
     } );
 
     // Everything to the right of the summation symbol, set in multilink below

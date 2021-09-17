@@ -97,6 +97,7 @@ const EquationMarkup = {
    * @param {Domain} domain
    * @param {SeriesType} seriesType
    * @returns {string}
+   * @public
    */
   getComponentsEquationMarkup( domain, seriesType ) {
     assert && assert( domain === Domain.SPACE || domain === Domain.TIME );

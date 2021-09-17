@@ -59,6 +59,7 @@ class LabeledExpandCollapseButton extends HBox {
     super( options );
 
     // Clicking on the label toggles expandedProperty
+    //REVIEW: FireListener recommended here. A "press on it, then move off and release" still triggers this
     labelNode.addInputListener( new PressListener( {
       release: () => {
         expandedProperty.value = !expandedProperty.value;

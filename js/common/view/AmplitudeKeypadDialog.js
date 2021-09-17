@@ -132,7 +132,7 @@ class AmplitudeKeypadDialog extends Dialog {
     // @private
     this.keypad = keypad;
     this.titleNode = titleNode;
-    this.order = null; // { number|null} number when showing, null when hidden
+    this.order = null; // {number|null} number when showing, null when hidden
 
     // @private {function(amplitude:number)|null} called when the Enter button fires
     this.enterCallback = null;
