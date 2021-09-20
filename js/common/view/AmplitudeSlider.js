@@ -181,7 +181,6 @@ class GrippyThumb extends Node {
     const rectangle = new Rectangle( 0, 0, thumbSize.width, thumbSize.height, {
       fill: Color.grayColor( 200 ),
       stroke: 'black',
-      lineWidth: 1, //REVIEW: lineWidth:1 is the default, can probably drop this?
       cornerRadius: 2
     } );
 
@@ -255,8 +254,7 @@ class BarTrack extends SliderTrack {
 
     const visibleTrackNode = new Rectangle( 0, 0, width, height, {
       fill: harmonic.colorProperty,
-      stroke: 'black',
-      lineWidth: 1 //REVIEW: lineWidth:1 is the default, can probably drop this?
+      stroke: 'black'
     } );
 
     const trackNode = new Node( {
