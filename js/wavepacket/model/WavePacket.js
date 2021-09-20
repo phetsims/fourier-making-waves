@@ -16,6 +16,8 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -35,7 +37,9 @@ class WavePacket {
    */
   constructor( options ) {
 
-    //REVIEW: options.tandem looks required, acceptable to do a merge with an opt-out tandem here?
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, options );
 
     // @public
     this.L = 1; // wavelength when component spacing is 2 * Math.PI, in m
