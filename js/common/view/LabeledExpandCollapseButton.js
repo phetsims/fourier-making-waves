@@ -7,7 +7,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import PressListener from '../../../../scenery/js/listeners/PressListener.js';
+import FireListener from '../../../../scenery/js/listeners/FireListener.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ExpandCollapseButton from '../../../../sun/js/ExpandCollapseButton.js';
@@ -59,9 +59,8 @@ class LabeledExpandCollapseButton extends HBox {
     super( options );
 
     // Clicking on the label toggles expandedProperty
-    //REVIEW: FireListener recommended here. A "press on it, then move off and release" still triggers this
-    labelNode.addInputListener( new PressListener( {
-      release: () => {
+    labelNode.addInputListener( new FireListener( {
+      fire: () => {
         expandedProperty.value = !expandedProperty.value;
       }
     } ) );
