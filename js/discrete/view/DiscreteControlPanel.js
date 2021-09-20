@@ -30,7 +30,6 @@ import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';
-import FWMConstants from '../../common/FMWConstants.js'; //REVIEW: Double-import here, FMWConstants twice
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
@@ -100,7 +99,7 @@ class DiscreteControlPanel extends Panel {
       }
     }
 
-    const vBox = new VBox( merge( {}, FWMConstants.VBOX_OPTIONS, {
+    const vBox = new VBox( merge( {}, FMWConstants.VBOX_OPTIONS, {
       children: children
     } ) );
 
