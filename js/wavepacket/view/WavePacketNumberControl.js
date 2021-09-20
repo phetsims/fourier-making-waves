@@ -64,8 +64,9 @@ class WavePacketNumberControl extends NumberControl {
       [ this.slider.thumbDragListener.isPressedProperty, this.slider.trackDragListener.isPressedProperty ],
       ( thumbIsPressed, trackIsPressed ) => ( thumbIsPressed || trackIsPressed ) );
 
-    // Update the displayed value.
-    //REVIEW: I don't see other dependence on this directly, I presume subtypes do?
+    // Subclasses generally provide options.numberDisplayOptions.numberFormatter which tailors the value display to
+    // the domain. So when the domain changes, this will cause NumberControl tell its NumberDisplay to call
+    // that numberFormatter.
     domainProperty.link( () => this.redrawNumberDisplay() );
   }
 }
