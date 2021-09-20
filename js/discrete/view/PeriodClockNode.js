@@ -97,10 +97,7 @@ class PeriodClockNode extends DiscreteMeasurementToolNode {
       options );
 
     // Synchronize visibility of the clock face, so we can short-circuit updates while it's invisible.
-    this.visibleProperty.link( visible => {
-      //REVIEW: can we just pass our visibleProperty in to be the clockFaceNode's visibleProperty?
-      clockFaceNode.visible = visible;
-    } );
+    clockFaceNode.setVisibleProperty( this.visibleProperty );
 
     // Pointer areas
     this.localBoundsProperty.link( localBounds => {
