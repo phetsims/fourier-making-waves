@@ -220,11 +220,10 @@ function createSumDataSet( dataSets ) {
 /**
  * Creates a data set for a wave packet approximated using an infinite number of Fourier components.
  * This is based on the updateDataSet method in GaussianWavePacketPlot.java.
- * REVIEW: type docs here probably (although they're pretty guessable)
- * @param center - the wave packet's center
- * @param conjugateStandardDeviation - the wave packet's conjugate standard deviation, a measure of width
- * @param xRange - range of the Sum chart's x axis
- * @param seriesType - sine or cosine
+ * @param {number} center - the wave packet's center
+ * @param {number} conjugateStandardDeviation - the wave packet's conjugate standard deviation, a measure of width
+ * @param {SeriesType} seriesType - sine or cosine
+ * @param {Range} xRange - range of the Sum chart's x axis
  * @returns {Vector2[]}
  */
 function createWavePacketDataSet( center, conjugateStandardDeviation, seriesType, xRange ) {
