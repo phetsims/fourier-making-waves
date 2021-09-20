@@ -48,8 +48,7 @@ class SumChart extends DomainChart {
         fourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t )
     );
 
-    //REVIEW: When could this be null?
-    // @public {null|DerivedProperty.<Range>} range of the y axis, fitted to the sum's peak amplitude
+    // @public {DerivedProperty.<Range>} range of the y axis, fitted to the sum's peak amplitude
     this.yAxisRangeProperty = new DerivedProperty(
       [ this.sumDataSetProperty ],
       sumDataSet => {
