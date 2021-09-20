@@ -44,18 +44,17 @@ class FMWComboBox extends ComboBox {
       yMargin: 5
     }, options );
 
-    //REVIEW: const items = choices.map( ... )?
-    const items = []; // {ComboBoxItem[]}
-    choices.forEach( choice => {
+    // {ComboBoxItem[]}
+    const items = choices.map( choice => {
       assert && assert( typeof choice.string === 'string', `invalid choice.string: ${choice.string}` );
 
       // The majority of strings in this sim contain RichText markup, used to display symbols in MathSymbolFont.
       // And there is negligible performance impact for using RichText for the strings that don't contain markup.
       const node = new RichText( choice.string, choice.textOptions || options.textOptions );
 
-      items.push( new ComboBoxItem( node, choice.value, {
+      return new ComboBoxItem( node, choice.value, {
         tandemName: choice.tandemName || null
-      } ) );
+      } );
     } );
 
     super( items, property, listboxParent, options );
