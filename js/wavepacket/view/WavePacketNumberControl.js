@@ -35,8 +35,8 @@ class WavePacketNumberControl extends NumberControl {
       tandem: Tandem.REQUIRED
     }, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, options );
 
-    //REVIEW: Looks like the layoutFunction doesn't use the title, is that why the empty-string is passed here?
-    super( '' /* title */, numberProperty, numberProperty.range, options );
+    // The layoutFunction doesn't use the title, so provide empty string.
+    super( '', numberProperty, numberProperty.range, options );
 
     // Make tick label interactive, so that pressing on a tick label sets the Property to that value.
     if ( options.sliderOptions && options.sliderOptions.majorTicks ) {
