@@ -34,8 +34,9 @@ class SumChartNode extends DomainChartNode {
 
     options = merge( {
 
-      // SumChartNode options.
-      // Not using nested options for sumPlot here because CanvasLinePlot does not support Property for stroke.
+      // This would be a logical place to use nested sumPlotOptions. But CanvasLinePlot does not support Property for
+      // stroke, so the only thing nestable is lineWidth.  That doesn't seem like a big win, so I chose to use flat
+      // options.
       sumPlotStrokeProperty: FMWColors.sumPlotStrokeProperty,
       sumPlotLineWidth: 1,
 
