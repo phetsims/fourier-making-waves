@@ -50,7 +50,6 @@ class HarmonicsChartNode extends DomainChartNode {
     super( harmonicsChart, options );
 
     // {HarmonicPlot[]} a plot for each harmonic in the Fourier series, in harmonic order, rendered using Canvas
-    //REVIEW: plots = harmonics.map( ... )?
     const plots = [];
     assert && assert( harmonics.length === harmonicDataSetProperties.length, 'a data set is required for each harmonic' );
     for ( let i = 0; i < harmonics.length; i++ ) {
