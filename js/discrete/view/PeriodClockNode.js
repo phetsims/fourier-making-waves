@@ -83,6 +83,7 @@ class PeriodClockNode extends DiscreteMeasurementToolNode {
       labelNode.centerY = clockFaceNode.centerY;
 
       // Resize the background to fit the label, and keep label centered in background.
+      //REVIEW: backgroundNode.setRectBounds( labelNode.bounds.dilatedXY( ... ) ) possibly?
       backgroundNode.setRect( 0, 0, labelNode.width + 2 * BACKGROUND_X_MARGIN, labelNode.height + 2 * BACKGROUND_Y_MARGIN );
       backgroundNode.center = labelNode.center;
     }
@@ -97,6 +98,7 @@ class PeriodClockNode extends DiscreteMeasurementToolNode {
 
     // Synchronize visibility of the clock face, so we can short-circuit updates while it's invisible.
     this.visibleProperty.link( visible => {
+      //REVIEW: can we just pass our visibleProperty in to be the clockFaceNode's visibleProperty?
       clockFaceNode.visible = visible;
     } );
 

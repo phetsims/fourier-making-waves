@@ -42,7 +42,7 @@ class FourierSoundGenerator extends SoundGenerator {
     );
 
     // {OscillatorSoundGenerator[]} Create an oscillator for each harmonic.
-    const oscillatorSoundGenerators = [];
+    const oscillatorSoundGenerators = []; //REVIEW: = fourierSeries.harmonics.map( harmonic => ... )?
     for ( let i = 0; i < fourierSeries.harmonics.length; i++ ) {
       const harmonic = fourierSeries.harmonics[ i ];
       const oscillatorSoundGenerator = new OscillatorSoundGenerator( {
