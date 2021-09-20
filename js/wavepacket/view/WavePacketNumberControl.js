@@ -12,11 +12,11 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
-import PressListener from '../../../../scenery/js/listeners/PressListener.js';
+import FireListener from '../../../../scenery/js/listeners/FireListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import FMWConstants from '../../common/FMWConstants.js';
 
 class WavePacketNumberControl extends NumberControl {
 
@@ -47,8 +47,8 @@ class WavePacketNumberControl extends NumberControl {
           const label = majorTick.label;
 
           // Pressing on a tick's label sets the Property to the value of that tick.
-          label.addInputListener( new PressListener( {
-            press: () => { numberProperty.value = value; }
+          label.addInputListener( new FireListener( {
+            fire: () => { numberProperty.value = value; }
           } ) );
 
           //TODO https://github.com/phetsims/sun/issues/712 workaround to support interactive tick labels
