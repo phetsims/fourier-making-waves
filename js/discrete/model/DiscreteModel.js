@@ -90,10 +90,7 @@ class DiscreteModel {
     } );
 
     // the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
-    const emphasizedHarmonics = new EmphasizedHarmonics( {
-      //REVIEW: EmphasizedHarmonics doesn't take any parameters
-      tandem: options.tandem.createTandem( 'emphasizedHarmonics' )
-    } );
+    const emphasizedHarmonics = new EmphasizedHarmonics();
 
     // Group elements related to measurement tools under this tandem.
     const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
