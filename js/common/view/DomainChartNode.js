@@ -114,7 +114,7 @@ class DomainChartNode extends Node {
       // AxisLine options for both axes
       axisLineOptions: {
         stroke: FMWColors.axisStrokeProperty,
-        lineWidth: 1 //REVIEW: lineWidth:1 is the default, can probably drop this?
+        lineWidth: 1
       },
 
       // GridLineSet options for both axes
