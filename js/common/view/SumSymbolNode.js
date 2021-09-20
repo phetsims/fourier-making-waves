@@ -35,7 +35,7 @@ class SumSymbolNode extends Node {
       // SumSymbolNode options
       integration: false, // true=integration, false=summation
       fontSize: 30,
-      indexFontSize: 12
+      indexFontSize: 15
     }, options );
 
     // The symbol for the type of sum.
