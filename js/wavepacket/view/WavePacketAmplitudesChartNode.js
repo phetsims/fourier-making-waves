@@ -103,10 +103,7 @@ class WavePacketAmplitudesChartNode extends DomainChartNode {
 
     // Displays the continuous waveform
     const continuousWaveformPlot = new CanvasLinePlot( this.chartTransform, [], {
-      lineWidth: FMWConstants.SECONDARY_WAVEFORM_LINE_WIDTH,
-      //REVIEW: Below notes say "CanvasLinePlot does not support visibleProperty", but I see a usage here
-      //REVIEW: Should this line be removed?
-      visibleProperty: continuousWaveformVisibleProperty
+      lineWidth: FMWConstants.SECONDARY_WAVEFORM_LINE_WIDTH
     } );
 
     // Render the plots using Canvas.
