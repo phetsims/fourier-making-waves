@@ -56,6 +56,7 @@ class WavePacketInfoDialog extends Dialog {
     ];
 
     // RichText markup with one symbol's key per line
+    //REVIEW: const text = strings.join( '<br>' )
     let text = '';
     for ( let i = 0; i < strings.length; i++ ) {
       text += strings[ i ];

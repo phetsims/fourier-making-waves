@@ -21,7 +21,6 @@ class ComponentsEquationNode extends RichText {
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   *
    * @param {Object} [options]
    */
   constructor( domainProperty, seriesTypeProperty, options ) {

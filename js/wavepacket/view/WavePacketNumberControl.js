@@ -35,6 +35,7 @@ class WavePacketNumberControl extends NumberControl {
       tandem: Tandem.REQUIRED
     }, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, options );
 
+    //REVIEW: Looks like the layoutFunction doesn't use the title, is that why the empty-string is passed here?
     super( '' /* title */, numberProperty, numberProperty.range, options );
 
     // Make tick label interactive, so that pressing on a tick label sets the Property to that value.
@@ -64,6 +65,7 @@ class WavePacketNumberControl extends NumberControl {
       ( thumbIsPressed, trackIsPressed ) => ( thumbIsPressed || trackIsPressed ) );
 
     // Update the displayed value.
+    //REVIEW: I don't see other dependence on this directly, I presume subtypes do?
     domainProperty.link( () => this.redrawNumberDisplay() );
   }
 }
