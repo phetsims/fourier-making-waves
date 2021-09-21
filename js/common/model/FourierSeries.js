@@ -238,7 +238,7 @@ class FourierSeries extends PhetioObject {
    * @public
    */
   getZeroHarmonics() {
-    return _.filter( this.harmonics, harmonic => harmonic.amplitudeProperty.value === 0 );
+    return this.harmonics.filter( harmonic => harmonic.amplitudeProperty.value === 0 );
   }
 
   /**
@@ -247,7 +247,7 @@ class FourierSeries extends PhetioObject {
    * @public
    */
   getNonZeroHarmonics() {
-    return _.filter( this.harmonics, harmonic => harmonic.amplitudeProperty.value !== 0 );
+    return this.harmonics.filter( harmonic => harmonic.amplitudeProperty.value !== 0 );
   }
 
   /**
