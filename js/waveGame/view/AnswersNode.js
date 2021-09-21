@@ -47,14 +47,12 @@ class AnswersNode extends Node {
     options = merge( {}, options );
 
     // Add a NumberDisplay for each harmonic's amplitudeProperty, horizontally centered under its associated slider.
-    const numberDisplays = [];
-    for ( let i = 0; i < answerSeries.harmonics.length; i++ ) {
-      const numberDisplay = new NumberDisplay( answerSeries.harmonics[ i ].amplitudeProperty, answerSeries.amplitudeRange,
+    const numberDisplays = answerSeries.harmonics.map( ( harmonic, index ) =>
+      new NumberDisplay( harmonic.amplitudeProperty, answerSeries.amplitudeRange,
         merge( {
-          centerX: chartTransform.modelToViewX( i + 1 )
-        }, NUMBER_DISPLAY_OPTIONS ) );
-      numberDisplays.push( numberDisplay );
-    }
+          centerX: chartTransform.modelToViewX( index + 1 )
+        }, NUMBER_DISPLAY_OPTIONS ) )
+    );
 
     assert && assert( !options.children, 'AnswersNode sets children' );
     options.children = numberDisplays;

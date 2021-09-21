@@ -95,13 +95,7 @@ class FourierSeries extends PhetioObject {
     // This was requested for PhET-iO, but has proven to be generally useful.
     this.amplitudesProperty = new DerivedProperty(
       this.harmonics.map( harmonic => harmonic.amplitudeProperty ),
-      () => {
-        const amplitudes = [];
-        for ( let i = 0; i < this.harmonics.length; i++ ) {
-          amplitudes.push( this.harmonics[ i ].amplitudeProperty.value );
-        }
-        return amplitudes;
-      }, {
+      () => this.harmonics.map( harmonic => harmonic.amplitudeProperty.value ), {
         phetioDocumentation: 'the amplitudes of all harmonics',
         phetioType: DerivedProperty.DerivedPropertyIO( ArrayIO( NumberIO ) ),
         tandem: options.tandem.createTandem( 'amplitudesProperty' )
@@ -176,9 +170,9 @@ class FourierSeries extends PhetioObject {
     assert && assert( typeof amplitude === 'number' );
 
     this.amplitudesProperty.setDeferred( true );
-    for ( let i = 0; i < this.harmonics.length; i++ ) {
-      this.harmonics[ i ].amplitudeProperty.value = amplitude;
-    }
+    this.harmonics.forEach( harmonic => {
+      harmonic.amplitudeProperty.value = amplitude;
+    } );
     const notifyListeners = this.amplitudesProperty.setDeferred( false );
     notifyListeners && notifyListeners();
   }
@@ -209,22 +203,18 @@ class FourierSeries extends PhetioObject {
     const sumDataSet = []; // {Vector2[]}
 
     const xRange = xAxisDescription.createRangeForDomain( domain, this.L, this.T );
-    const numberOfHarmonics = this.harmonics.length;
     const dx = xRange.getLength() / FMWConstants.MAX_POINTS_PER_DATA_SET;
     const amplitudeFunction = getAmplitudeFunction( domain, seriesType );
 
     let x = xRange.min;
-    let y;
-    let amplitude;
-
     while ( x <= xRange.max ) {
-      y = 0;
-      for ( let j = 0; j < numberOfHarmonics; j++ ) {
-        amplitude = this.harmonics[ j ].amplitudeProperty.value;
+      let y = 0;
+      this.harmonics.forEach( harmonic => {
+        const amplitude = harmonic.amplitudeProperty.value;
         if ( amplitude !== 0 ) {
-          y += amplitudeFunction( amplitude, this.harmonics[ j ].order, x, t, this.L, this.T );
+          y += amplitudeFunction( amplitude, harmonic.order, x, t, this.L, this.T );
         }
-      }
+      } );
       sumDataSet.push( new Vector2( x, y ) );
       x += dx;
     }

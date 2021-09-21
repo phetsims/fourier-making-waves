@@ -144,18 +144,15 @@ function createSlidersIcon( amplitudes, amplitudeRange, options ) {
   assert && assert( _.every( amplitudes, amplitude => amplitudeRange.contains( amplitude ) ) );
 
   // Create harmonics
-  const harmonics = [];
-  for ( let order = 1; order <= amplitudes.length; order++ ) {
-    harmonics.push( new Harmonic( {
-      order: order,
-      frequency: 1,
-      wavelength: 1,
-      amplitudeRange: amplitudeRange,
-      amplitude: amplitudes[ order - 1 ],
-      colorProperty: FMWColors.HARMONIC_COLOR_PROPERTIES[ order - 1 ],
-      tandem: Tandem.OPT_OUT
-    } ) );
-  }
+  const harmonics = amplitudes.map( ( amplitude, index ) => new Harmonic( {
+    order: index + 1,
+    frequency: 1,
+    wavelength: 1,
+    amplitudeRange: amplitudeRange,
+    amplitude: amplitude,
+    colorProperty: FMWColors.HARMONIC_COLOR_PROPERTIES[ index ],
+    tandem: Tandem.OPT_OUT
+  } ) );
 
   // Create sliders
   const emphasizedHarmonics = new EmphasizedHarmonics();

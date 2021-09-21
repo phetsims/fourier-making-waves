@@ -55,6 +55,7 @@ class WavePacketInfoDialog extends Dialog {
       StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.x, { x: FMWSymbols.x } )
     ];
 
+    // RichText with one symbol's key per line
     const richText = new RichText( strings.join( '<br>' ), {
       font: FMWConstants.EQUATION_FONT,
       leading: 11

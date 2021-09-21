@@ -56,16 +56,8 @@ class DiscreteInfoDialog extends Dialog {
       StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.x, { x: FMWSymbols.x } )
     ];
 
-    // RichText markup with one symbol's key per line
-    let text = '';
-    for ( let i = 0; i < strings.length; i++ ) {
-      text += strings[ i ];
-      if ( i < strings.length - 1 ) {
-        text += '<br>';
-      }
-    }
-
-    const richText = new RichText( text, {
+    // RichText with one symbol's key per line
+    const richText = new RichText( strings.join( '<br>' ), {
       font: FMWConstants.EQUATION_FONT,
       leading: 11
     } );
