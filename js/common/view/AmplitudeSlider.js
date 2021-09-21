@@ -30,12 +30,7 @@ import AudibleSlider from './AudibleSlider.js';
 
 // constants
 const TRACK_WIDTH = 40; // track height specified in constructor options
-const THUMB_WIDTH = TRACK_WIDTH - 15;
-const THUMB_HEIGHT = 8;
-
-// Dimensions in the vertical orientation.
-const THUMB_TOUCH_AREA_DILATION = new Dimension2( 10, 4 );
-const THUMB_MOUSE_AREA_DILATION = new Dimension2( 10, 4 );
+const THUMB_SIZE = new Dimension2( TRACK_WIDTH - 15, 8 );
 
 class AmplitudeSlider extends AudibleSlider {
 
@@ -99,15 +94,15 @@ class AmplitudeSlider extends AudibleSlider {
     // This is because Slider rotates the thumb and track -90 degrees when orientation is vertical.
     // So we'll create our custom thumb and track in horizontal orientation, and Slider will rotate
     // them into vertical orientation. Pretty gross, eh?
-    const thumbSize = new Dimension2( THUMB_WIDTH, THUMB_HEIGHT ).swapped();
     const trackSize = new Dimension2( TRACK_WIDTH, options.trackHeight ).swapped();
 
     // Custom thumb
-    const thumbNode = new GrippyThumb( thumbSize, harmonic, {
+    const thumbNode = new GrippyThumb( THUMB_SIZE, harmonic, {
+      rotation: Math.PI / 2, // because Slider will rotate by -Math.PI/2, see https://github.com/phetsims/sun/issues/717
       tandem: options.tandem.createTandem( Slider.THUMB_NODE_TANDEM_NAME )
     } );
-    thumbNode.touchArea = thumbNode.localBounds.dilatedXY( THUMB_TOUCH_AREA_DILATION.width, THUMB_TOUCH_AREA_DILATION.height );
-    thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( THUMB_MOUSE_AREA_DILATION.width, THUMB_MOUSE_AREA_DILATION.height );
+    thumbNode.touchArea = thumbNode.localBounds.dilatedXY( 10, 4 );
+    thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( 10, 4 );
     assert && assert( !options.thumbNode, 'AmplitudeSlider sets thumbNode' );
     options.thumbNode = thumbNode;
 
@@ -158,8 +153,8 @@ class AmplitudeSlider extends AudibleSlider {
 }
 
 /**
- * GrippyThumb is a custom thumb for AmplitudeSlider. It has grippy dots on it that are color-coded to the harmonic.
- * Created in horizontal orientation because VSlider will rotate it -90 degrees to vertical orientation.
+ * GrippyThumb is a custom thumb for AmplitudeSlider. It has a row of grippy dots on it that are color-coded to
+ * the harmonic. It it specified in the vertical orientation.
  */
 class GrippyThumb extends Node {
 
@@ -184,17 +179,16 @@ class GrippyThumb extends Node {
     } );
 
     // A row of dots, color-coded to the harmonic
-    // Note that this code is actually drawing a column of dots, because VSlider rotates its thumb -90 degrees.
     const numberOfDots = 3;
-    const xMargin = 2.5;
-    const ySpacing = rectangle.height / ( numberOfDots + 1 );
-    const dotRadius = ( rectangle.width - 2 * xMargin ) / 2;
+    const xSpacing = rectangle.width / ( numberOfDots + 1 );
+    const yMargin = 2.5;
+    const dotRadius = ( rectangle.height - 2 * yMargin ) / 2;
     assert && assert( dotRadius > 0, `invalid dotRadius: ${dotRadius}` );
     const dotsShape = new Shape();
     for ( let i = 0; i < numberOfDots; i++ ) {
-      const y = i * ySpacing;
-      dotsShape.moveTo( dotRadius, y );
-      dotsShape.arc( 0, y, dotRadius, 0, 2 * Math.PI );
+      const x = i * xSpacing;
+      dotsShape.moveTo( x, dotRadius );
+      dotsShape.arc( x, 0, dotRadius, 0, 2 * Math.PI );
     }
     const dotsNode = new Path( dotsShape, {
       fill: harmonic.colorProperty,
