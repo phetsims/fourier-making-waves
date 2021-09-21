@@ -47,7 +47,7 @@ class PointsAwardedNode extends HBox {
     super( options );
 
     // @private
-    this.pointsNode = pointsNode;
+    this.pointsNode = pointsNode; // {Text}
   }
 
   /**

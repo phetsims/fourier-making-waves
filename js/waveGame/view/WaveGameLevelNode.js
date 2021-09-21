@@ -476,15 +476,15 @@ class WaveGameLevelNode extends Node {
     //------------------------------------------------------------------------------------------------------------------
 
     // @public
-    this.level = level;
+    this.level = level; // {WaveGameLevel}
 
     // @private
-    this.layoutBounds = layoutBounds;
-    this.gameAudioPlayer = gameAudioPlayer;
-    this.harmonicsChartRectangleLocalBounds = harmonicsChartRectangleLocalBounds;
-    this.pointsAwardedNode = pointsAwardedNode;
+    this.layoutBounds = layoutBounds; // {Bounds2}
+    this.gameAudioPlayer = gameAudioPlayer; // {GameAudioPlayer}
+    this.harmonicsChartRectangleLocalBounds = harmonicsChartRectangleLocalBounds; // {Bounds2}
+    this.pointsAwardedNode = pointsAwardedNode; // {PointsAwardedNode}
     this.pointsAwardedAnimation = null; // {Animation|null}
-    this.frownyFaceNode = frownyFaceNode;
+    this.frownyFaceNode = frownyFaceNode; // {FaceNode}
     this.frownyFaceAnimation = null; // {Animation|null}
   }
 

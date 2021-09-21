@@ -45,7 +45,7 @@ class WaveGameLevelSelectionButton extends LevelSelectionButton {
     super( icon, level.scoreProperty, options );
 
     // @public
-    this.level = level;
+    this.level = level; // {WaveGameLevel}
   }
 }
 

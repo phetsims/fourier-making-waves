@@ -33,9 +33,9 @@ class AmplitudesGenerator {
     }, options );
 
     // @private
-    this.numberOfHarmonics = options.numberOfHarmonics;
-    this.maxAmplitude = options.maxAmplitude;
-    this.getNumberOfNonZeroHarmonics = options.getNumberOfNonZeroHarmonics;
+    this.numberOfHarmonics = options.numberOfHarmonics; // {number}
+    this.maxAmplitude = options.maxAmplitude; // {number}
+    this.getNumberOfNonZeroHarmonics = options.getNumberOfNonZeroHarmonics; // {function():number}
   }
 
   /**

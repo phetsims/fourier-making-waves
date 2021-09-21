@@ -90,12 +90,12 @@ class WaveGameLevel extends PhetioObject {
     super( config );
 
     // @public (read-only)
-    this.levelNumber = levelNumber;
-    this.statusBarMessage = config.statusBarMessage;
-    this.infoDialogDescription = config.infoDialogDescription;
+    this.levelNumber = levelNumber; // {number}
+    this.statusBarMessage = config.statusBarMessage; // {string}
+    this.infoDialogDescription = config.infoDialogDescription; // {string}
 
     // @private
-    this.defaultNumberOfAmplitudeControls = config.defaultNumberOfAmplitudeControls;
+    this.defaultNumberOfAmplitudeControls = config.defaultNumberOfAmplitudeControls; // {number}
 
     // @public The score is the total number of points that have been awarded for this level.
     this.scoreProperty = new NumberProperty( 0, {
