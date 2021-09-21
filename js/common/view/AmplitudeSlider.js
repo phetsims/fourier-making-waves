@@ -281,14 +281,16 @@ class BarTrack extends SliderTrack {
     };
     harmonic.amplitudeProperty.link( amplitudeListener );
 
+    // When the cursor is over the visible part of the track, it is considered highlighted.
     const visibleTrackPressListener = new PressListener( {
-      //REVIEW: Not sure I understand what this is doing at all. `pickable:true` seems equivalent?
       attach: false // so that the DragListener for the track isn't ignored
     } );
     visibleTrackNode.addInputListener( visibleTrackPressListener );
 
     // @public This tells us when the track should be considered highlighted. We can't simply look at
     // this.dragListener.isHighlightedProperty, because that will include the invisible portion of the track.
+    // This is used to emphasize the associated harmonic's plot in the Harmonics chart. See isEmphasizedProperty
+    // in AmplitudeSlider above.
     this.isHighlightedProperty = new DerivedProperty(
       [ this.dragListener.isPressedProperty, visibleTrackPressListener.isOverProperty ],
       ( isPressed, isOverVisible ) => ( isPressed || isOverVisible )
