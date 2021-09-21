@@ -10,14 +10,14 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import Checkbox from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import FMWCheckbox from '../../common/view/FMWCheckbox.js';
 import FMWIconFactory from '../../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-class WidthIndicatorsCheckbox extends FMWCheckbox {
+class WidthIndicatorsCheckbox extends Checkbox {
 
   /**
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
@@ -27,7 +27,7 @@ class WidthIndicatorsCheckbox extends FMWCheckbox {
 
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
 
-    options = merge( {
+    options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
       tandem: Tandem.REQUIRED
     }, options );
 

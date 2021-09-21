@@ -10,13 +10,14 @@
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import Checkbox from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import CalipersNode from '../../common/view/CalipersNode.js';
-import FMWCheckbox from '../../common/view/FMWCheckbox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class CaliperCheckbox extends FMWCheckbox {
+class CaliperCheckbox extends Checkbox {
 
   /**
    * @param {Property.<boolean>} visibleProperty
@@ -32,7 +33,7 @@ class CaliperCheckbox extends FMWCheckbox {
     assert && assert( typeof spaceSymbol === 'string' );
     assert && assert( typeof timeSymbol === 'string' );
 
-    options = merge( {
+    options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
       calipersNodeOptions: {
         measuredWidth: 65,
         labelPosition: 'left', // put label to left of caliper, to minimize vertical space

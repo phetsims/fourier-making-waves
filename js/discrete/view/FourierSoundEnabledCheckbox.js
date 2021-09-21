@@ -6,18 +6,22 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import merge from '../../../../phet-core/js/merge.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import musicSolidShape from '../../../../sherpa/js/fontawesome-5/musicSolidShape.js';
-import FMWCheckbox from '../../common/view/FMWCheckbox.js';
+import Checkbox from '../../../../sun/js/Checkbox.js';
+import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class FourierSoundEnabledCheckbox extends FMWCheckbox {
+class FourierSoundEnabledCheckbox extends Checkbox {
 
   /**
    * @param {Property.<boolean>} soundEnabledProperty
    * @param {Object} [options]
    */
   constructor( soundEnabledProperty, options ) {
+
+    options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, options );
 
     // Font Awesome music-note icon
     const icon = new Path( musicSolidShape, {

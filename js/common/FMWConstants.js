@@ -64,7 +64,11 @@ const FMWConstants = {
   },
 
   CHECKBOX_OPTIONS: {
-    boxWidth: 15
+    boxWidth: 15,
+    touchAreaXDilation: 6,
+    touchAreaYDilation: 6,
+    mouseAreaXDilation: 1,
+    mouseAreaYDilation: 1
   },
 
   VBOX_OPTIONS: {
