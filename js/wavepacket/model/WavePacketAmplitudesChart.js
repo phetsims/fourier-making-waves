@@ -72,7 +72,7 @@ class WavePacketAmplitudesChart extends DomainChart {
       components => {
         let dataSet = EMPTY_DATA_SET;
         if ( components.length > 0 ) {
-          dataSet = _.map( components, component => new Vector2( component.waveNumber, component.amplitude ) );
+          dataSet = components.map( component => new Vector2( component.waveNumber, component.amplitude ) );
         }
         return dataSet;
       } );

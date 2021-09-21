@@ -161,7 +161,7 @@ function createSlidersIcon( amplitudes, amplitudeRange, options ) {
   const emphasizedHarmonics = new EmphasizedHarmonics();
   const sliders = new HBox( {
     spacing: 10,
-    children: _.map( harmonics, harmonic => new AmplitudeSlider( harmonic, emphasizedHarmonics ), {
+    children: harmonics.map( harmonic => new AmplitudeSlider( harmonic, emphasizedHarmonics ), {
       tandem: Tandem.OPT_OUT
     } )
   } );

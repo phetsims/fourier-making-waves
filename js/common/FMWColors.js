@@ -114,7 +114,7 @@ const HARMONIC_COLORS = [
   new Color( 186, 85, 211 ),
   new Color( 255, 105, 180 )
 ];
-FMWColors.HARMONIC_COLOR_PROPERTIES = _.map( HARMONIC_COLORS,
+FMWColors.HARMONIC_COLOR_PROPERTIES = HARMONIC_COLORS.map(
   ( color, index ) => new ProfileColorProperty( fourierMakingWaves, `harmonic${index + 1}Color`, {
     default: HARMONIC_COLORS[ index ]
   } ) );

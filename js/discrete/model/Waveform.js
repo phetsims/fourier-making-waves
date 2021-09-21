@@ -297,7 +297,7 @@ function mapBasePointsToDataSet( basePoints, domain, seriesType, t, L, T ) {
   }
 
   // Apply x and shiftX to the base points.
-  return _.map( basePoints, point => new Vector2( ( x * point.x ) + shiftX, point.y ) );
+  return basePoints.map( point => new Vector2( ( x * point.x ) + shiftX, point.y ) );
 }
 
 const Waveform = Enumeration.byMap( {

@@ -98,7 +98,7 @@ class InteractiveAmplitudesChartNode extends Node {
     } );
 
     // Create a slider for each harmonic's amplitude
-    const sliders = _.map( fourierSeries.harmonics, harmonic =>
+    const sliders = fourierSeries.harmonics.map( harmonic =>
       new AmplitudeSlider( harmonic, emphasizedHarmonics, merge( {
         press: options.onEdit,
         trackHeight: options.chartTransformOptions.viewHeight,
@@ -111,7 +111,7 @@ class InteractiveAmplitudesChartNode extends Node {
     } );
 
     // Create a number display for each harmonic's amplitude
-    const numberDisplays = _.map( fourierSeries.harmonics, harmonic =>
+    const numberDisplays = fourierSeries.harmonics.map( harmonic =>
       new AmplitudeNumberDisplay( harmonic, emphasizedHarmonics, amplitudeKeypadDialog, merge( {
         press: options.onEdit,
         centerX: chartTransform.modelToViewX( harmonic.order ),

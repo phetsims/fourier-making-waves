@@ -65,7 +65,7 @@ class WaveGameLevelSelectionNode extends Node {
     } );
 
     // {WaveGameLevelSelectionButton[]} a level-selection button for each level
-    const levelSelectionButtons = _.map( model.levels,
+    const levelSelectionButtons = model.levels.map(
       level => new WaveGameLevelSelectionButton( level, model.levels.length, model.levelProperty, {
         soundPlayerIndex: level.levelNumber - 1,
         tandem: options.tandem.createTandem( `level${level.levelNumber}SelectionButton` )

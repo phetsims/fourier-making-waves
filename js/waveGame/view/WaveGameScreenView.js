@@ -71,7 +71,7 @@ class WaveGameScreenView extends ScreenView {
     } );
 
     // @private {SolveItSceneNode[]} a Node for each level of the game
-    this.levelNodes = _.map( model.levels, level => new WaveGameLevelNode( level, model.levelProperty,
+    this.levelNodes = model.levels.map( level => new WaveGameLevelNode( level, model.levelProperty,
       layoutBounds, this.visibleBoundsProperty, gameAudioPlayer, this.rewardNode, rewardDialog, model.rewardScore, {
         tandem: options.tandem.createTandem( `level${level.levelNumber}Node` )
       } ) );

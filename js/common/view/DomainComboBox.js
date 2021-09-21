@@ -11,9 +11,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import FMWSymbols from '../FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
 import FMWComboBox from './FMWComboBox.js';
 
@@ -67,7 +67,7 @@ class DomainComboBox extends FMWComboBox {
     }, options );
 
     // Cherry-pick the choices that match the valid values for domainProperty
-    const choices = _.map( domainProperty.validValues,
+    const choices = domainProperty.validValues.map(
       value => _.find( CHOICES, choice => choice.value === value )
     );
 
