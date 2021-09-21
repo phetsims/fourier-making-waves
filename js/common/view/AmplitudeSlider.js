@@ -150,7 +150,7 @@ class AmplitudeSlider extends AudibleSlider {
 
 /**
  * GrippyThumb is a custom thumb for AmplitudeSlider. It has a row of grippy dots on it that are color-coded to
- * the harmonic. It it specified in the vertical orientation.
+ * the harmonic. It is implemented in the vertical orientation.
  */
 class GrippyThumb extends Node {
 
