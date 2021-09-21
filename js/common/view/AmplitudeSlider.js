@@ -233,16 +233,16 @@ class BarTrack extends SliderTrack {
     }, options );
 
     // To improve readability
-    const width = options.size.width;
-    const height = options.size.height;
+    const trackWidth = options.size.width;
+    const trackHeight = options.size.height;
 
-    const invisibleTrackNode = new Rectangle( 0, 0, width, height, {
+    const invisibleTrackNode = new Rectangle( 0, 0, trackWidth, trackHeight, {
       fill: 'transparent',
       stroke: phet.chipper.queryParameters.dev ? 'red' : null,
       lineWidth: 0.25
     } );
 
-    const visibleTrackNode = new Rectangle( 0, 0, width, height, {
+    const visibleTrackNode = new Rectangle( 0, 0, trackWidth, trackHeight, {
       fill: harmonic.colorProperty,
       stroke: 'black'
     } );
@@ -262,12 +262,12 @@ class BarTrack extends SliderTrack {
         visibleTrackNode.setRect( 0, 0, 1, 1 );
       }
       else if ( amplitude > 0 ) {
-        const trackWidth = ( width / 2 ) * amplitude / amplitudeRange.max;
-        visibleTrackNode.setRect( width / 2, 0, trackWidth, height );
+        const barWidth = ( trackWidth / 2 ) * amplitude / amplitudeRange.max;
+        visibleTrackNode.setRect( trackWidth / 2, 0, barWidth, trackHeight );
       }
       else {
-        const trackWidth = ( width / 2 ) * amplitude / amplitudeRange.min;
-        visibleTrackNode.setRect( ( width / 2 ) - trackWidth, 0, trackWidth, height );
+        const barWidth = ( trackWidth / 2 ) * amplitude / amplitudeRange.min;
+        visibleTrackNode.setRect( ( trackWidth / 2 ) - barWidth, 0, barWidth, trackHeight );
       }
     };
     harmonic.amplitudeProperty.link( amplitudeListener );
