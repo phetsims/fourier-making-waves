@@ -98,7 +98,7 @@ class AmplitudeSlider extends AudibleSlider {
 
     // Custom thumb
     const thumbNode = new GrippyThumb( THUMB_SIZE, harmonic, {
-      rotation: Math.PI / 2, // because Slider will rotate by -Math.PI/2, see https://github.com/phetsims/sun/issues/717
+      rotation: Math.PI / 2, // because Slider will rotate by -Math.PI/2, see https://github.com/phetsims/fourier-making-waves/issues/175
       tandem: options.tandem.createTandem( Slider.THUMB_NODE_TANDEM_NAME )
     } );
     thumbNode.touchArea = thumbNode.localBounds.dilatedXY( 10, 4 );
