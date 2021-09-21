@@ -33,13 +33,9 @@ const TRACK_WIDTH = 40; // track height specified in constructor options
 const THUMB_WIDTH = TRACK_WIDTH - 15;
 const THUMB_HEIGHT = 8;
 
-//REVIEW: Very unfortunate. Do we need an issue for this? Also using orientation'ed Slider instead of VSlider technically?
-// Dimension2 instances must be swapped, because VSlider rotates its thumb and track -90 degrees.
-// So we'll specify the dimensions of our custom thumb and track in vertical orientation, create
-// our custom thumb and track in horizontal orientation, and Slider will rotate them into vertical orientation.
-// Pretty gross, eh?
-const THUMB_TOUCH_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
-const THUMB_MOUSE_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
+// Dimensions in the vertical orientation.
+const THUMB_TOUCH_AREA_DILATION = new Dimension2( 10, 4 );
+const THUMB_MOUSE_AREA_DILATION = new Dimension2( 10, 4 );
 
 class AmplitudeSlider extends AudibleSlider {
 
@@ -99,7 +95,10 @@ class AmplitudeSlider extends AudibleSlider {
       Utils.toFixedNumber( harmonic.amplitudeProperty.range.max, options.decimalPlaces )
     );
 
-    // See note above about why swapped is necessary.
+    // Here we specify our thumb and track dimensions in the vertical orientation, then swap them.
+    // This is because Slider rotates the thumb and track -90 degrees when orientation is vertical.
+    // So we'll create our custom thumb and track in horizontal orientation, and Slider will rotate
+    // them into vertical orientation. Pretty gross, eh?
     const thumbSize = new Dimension2( THUMB_WIDTH, THUMB_HEIGHT ).swapped();
     const trackSize = new Dimension2( TRACK_WIDTH, options.trackHeight ).swapped();
 
