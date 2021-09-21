@@ -90,13 +90,13 @@ class WavePacketModel {
     };
 
     // @public
-    this.domainProperty = domainProperty;
-    this.seriesTypeProperty = seriesTypeProperty;
-    this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
-    this.wavePacket = wavePacket;
-    this.amplitudesChart = amplitudesChart;
-    this.componentsChart = componentsChart;
-    this.sumChart = sumChart;
+    this.domainProperty = domainProperty; // {EnumerationProperty.<Domain>}
+    this.seriesTypeProperty = seriesTypeProperty; // {EnumerationProperty.<SeriesType>}
+    this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty; // {Property.<boolean>}
+    this.wavePacket = wavePacket; // {WavePacket}
+    this.amplitudesChart = amplitudesChart; // {WavePacketAmplitudesChart}
+    this.componentsChart = componentsChart; // {WavePacketComponentsChart}
+    this.sumChart = sumChart; // {WavePacketSumChart}
   }
 
   /**

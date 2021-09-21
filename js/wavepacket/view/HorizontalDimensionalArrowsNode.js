@@ -98,7 +98,7 @@ class HorizontalDimensionalArrowsNode extends Node {
     } );
 
     // @private
-    this.horizontalLine = horizontalLine;
+    this.horizontalLine = horizontalLine; // {Line}
   }
 
   /**

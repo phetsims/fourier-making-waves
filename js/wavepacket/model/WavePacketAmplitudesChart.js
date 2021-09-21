@@ -49,6 +49,7 @@ class WavePacketAmplitudesChart extends DomainChart {
       tandem: Tandem.REQUIRED
     }, options );
 
+    // {Property.<AxisDescription>}
     // The x axis has a fixed scale. Use validValues to make this Property essentially a constant.
     const xAxisDescriptionProperty = new Property( WavePacketAxisDescriptions.AMPLITUDES_X_AXIS_DESCRIPTION, {
       validValues: [ WavePacketAxisDescriptions.AMPLITUDES_X_AXIS_DESCRIPTION ]

@@ -117,7 +117,7 @@ class WavePacket {
       }
     } );
 
-    // @public
+    // @public {DerivedProperty.<number>}
     this.widthProperty = new DerivedProperty(
       [ this.standardDeviationProperty ],
       standardDeviation => 2 * standardDeviation, {

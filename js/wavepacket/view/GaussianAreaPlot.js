@@ -35,10 +35,10 @@ class GaussianAreaPlot extends Path {
 
     super( null, options );
 
-    // @private
+    // @private {ChartTransform}
     this.chartTransform = chartTransform;
 
-    // @public if you change this directly, you are responsible for calling update
+    // @public {Vector2[]} if you change this directly, you are responsible for calling update
     this.dataSet = dataSet;
 
     // Initialize

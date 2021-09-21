@@ -145,7 +145,7 @@ class WavePacketMeasurementToolNode extends Node {
     this.addInputListener( keyboardDragListener );
 
     // @private
-    this.positionProperty = positionProperty;
+    this.positionProperty = positionProperty; // {Property.<Vector2>}
   }
 
   /**
