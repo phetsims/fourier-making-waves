@@ -228,8 +228,8 @@ class DiscreteModel {
    */
   updateAmplitudes() {
 
-    const waveform = this.waveformProperty.value;
-    const seriesType = this.seriesTypeProperty.value;
+    const waveform = this.waveformProperty.value; // {Waveform}
+    const seriesType = this.seriesTypeProperty.value; // {SeriesType}
 
     if ( waveform === Waveform.SAWTOOTH && seriesType === SeriesType.COSINE ) {
       phet.log && phet.log( 'not possible to make a sawtooth out of cosines, switching to sine' );

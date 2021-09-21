@@ -97,7 +97,7 @@ class DiscreteMeasurementToolNode extends Node {
       this.translation = position;
     } );
 
-    // This is a fixed value, but DragListener requires a Property.
+    // {Property.<Bounds2>} This is a fixed value, but DragListener requires a Property.
     const dragBoundsProperty = new Property( options.dragBounds, {
       validValues: [ options.dragBounds ]
     } );
@@ -143,7 +143,7 @@ class DiscreteMeasurementToolNode extends Node {
     this.addInputListener( keyboardDragListener );
 
     // @public
-    this.positionProperty = positionProperty;
+    this.positionProperty = positionProperty; // {Property.<Vector2>}
   }
 
   /**

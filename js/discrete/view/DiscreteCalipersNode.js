@@ -45,7 +45,7 @@ class DiscreteCalipersNode extends DiscreteMeasurementToolNode {
     // Use CalipersNode via composition.
     const calipersNode = new CalipersNode();
 
-    // The harmonic associated with this tool.
+    // {DerivedProperty.<Harmonic>} The harmonic associated with this tool.
     const harmonicProperty = new DerivedProperty( [ tool.orderProperty ], order => harmonics[ order - 1 ] );
 
     assert && assert( !options.children, 'DiscreteCalipersNode sets children' );
