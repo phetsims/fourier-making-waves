@@ -28,9 +28,15 @@ import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
 import AudibleSlider from './AudibleSlider.js';
 
-// constants
-const TRACK_WIDTH = 40; // track height specified in constructor options
-const THUMB_SIZE = new Dimension2( TRACK_WIDTH - 15, 8 );
+const TRACK_WIDTH = 40; // track height is specified in constructor options
+
+// Dimension2 instances must be swapped, because VSlider rotates its thumb and track -90 degrees.
+// So we'll specify the dimensions of our custom thumb and track in vertical orientation, create
+// our custom thumb and track in horizontal orientation, and Slider will rotate them into vertical orientation.
+// Pretty gross, eh? See https://github.com/phetsims/fourier-making-waves/issues/175
+const THUMB_SIZE = new Dimension2( TRACK_WIDTH - 15, 8 ).swapped();
+const THUMB_TOUCH_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
+const THUMB_MOUSE_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
 
 class AmplitudeSlider extends AudibleSlider {
 
@@ -92,20 +98,19 @@ class AmplitudeSlider extends AudibleSlider {
 
     // Custom thumb
     const thumbNode = new GrippyThumb( THUMB_SIZE, harmonic, {
-      // because Slider will rotate by -Math.PI/2, see https://github.com/phetsims/fourier-making-waves/issues/175
-      rotation: Math.PI / 2,
       tandem: options.tandem.createTandem( Slider.THUMB_NODE_TANDEM_NAME )
     } );
-    thumbNode.touchArea = thumbNode.localBounds.dilatedXY( 10, 4 );
-    thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( 10, 4 );
+    thumbNode.touchArea = thumbNode.localBounds.dilatedXY( THUMB_TOUCH_AREA_DILATION.width, THUMB_TOUCH_AREA_DILATION.height );
+    thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( THUMB_MOUSE_AREA_DILATION.width, THUMB_MOUSE_AREA_DILATION.height );
     assert && assert( !options.thumbNode, 'AmplitudeSlider sets thumbNode' );
     options.thumbNode = thumbNode;
 
     // Custom track
     const trackNode = new BarTrack( harmonic, amplitudeRange, {
-      constrainValue: options.constrainValue,
-      // because Slider will rotate by -Math.PI/2, see https://github.com/phetsims/fourier-making-waves/issues/175
+
+      // See note above about why swapped is necessary.
       size: new Dimension2( TRACK_WIDTH, options.trackHeight ).swapped(),
+      constrainValue: options.constrainValue,
       tandem: options.tandem.createTandem( Slider.TRACK_NODE_TANDEM_NAME )
     } );
     assert && assert( !options.trackNode, 'AmplitudeSlider sets trackNode' );
@@ -149,8 +154,8 @@ class AmplitudeSlider extends AudibleSlider {
 }
 
 /**
- * GrippyThumb is a custom thumb for AmplitudeSlider. It has a row of grippy dots on it that are color-coded to
- * the harmonic. It is implemented in the vertical orientation.
+ * GrippyThumb is a custom thumb for AmplitudeSlider. It has grippy dots on it that are color-coded to the harmonic.
+ * Created in horizontal orientation because VSlider will rotate it -90 degrees to vertical orientation.
  */
 class GrippyThumb extends Node {
 
@@ -175,16 +180,17 @@ class GrippyThumb extends Node {
     } );
 
     // A row of dots, color-coded to the harmonic
+    // Note that this code is actually drawing a column of dots, because VSlider rotates its thumb -90 degrees.
     const numberOfDots = 3;
-    const xSpacing = rectangle.width / ( numberOfDots + 1 );
-    const yMargin = 2.5;
-    const dotRadius = ( rectangle.height - 2 * yMargin ) / 2;
+    const xMargin = 2.5;
+    const ySpacing = rectangle.height / ( numberOfDots + 1 );
+    const dotRadius = ( rectangle.width - 2 * xMargin ) / 2;
     assert && assert( dotRadius > 0, `invalid dotRadius: ${dotRadius}` );
     const dotsShape = new Shape();
     for ( let i = 0; i < numberOfDots; i++ ) {
-      const x = i * xSpacing;
-      dotsShape.moveTo( x, dotRadius );
-      dotsShape.arc( x, 0, dotRadius, 0, 2 * Math.PI );
+      const y = i * ySpacing;
+      dotsShape.moveTo( dotRadius, y );
+      dotsShape.arc( 0, y, dotRadius, 0, 2 * Math.PI );
     }
     const dotsNode = new Path( dotsShape, {
       fill: harmonic.colorProperty,
@@ -210,9 +216,9 @@ class GrippyThumb extends Node {
 }
 
 /**
- * BarTrack is a custom track for AmplitudeSlider.  It fills a colored bar that grows up and down from the center of
- * the track. Created in horizontal orientation because VSlider will rotate it -90 degrees to vertical orientation.
- * See https://github.com/phetsims/fourier-making-waves/issues/175.
+ * BarTrack is a custom track for AmplitudeSlider.
+ * It fills a colored bar that grows up and down from the center of the track.
+ * Created in horizontal orientation because VSlider will rotate it -90 degrees to vertical orientation.
  */
 class BarTrack extends SliderTrack {
 
@@ -255,7 +261,6 @@ class BarTrack extends SliderTrack {
 
     // When the amplitude changes, redraw the track to make it look like a bar extends up or down from amplitude = 0.
     // Note that this code is actually extending left or right, because VSlider rotates its track -90 degrees.
-    // See https://github.com/phetsims/fourier-making-waves/issues/175
     const amplitudeListener = amplitude => {
       visibleTrackNode.visible = ( amplitude !== 0 );
       if ( amplitude === 0 ) {
