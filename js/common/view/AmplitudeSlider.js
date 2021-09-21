@@ -212,6 +212,7 @@ class GrippyThumb extends Node {
 /**
  * BarTrack is a custom track for AmplitudeSlider.  It fills a colored bar that grows up and down from the center of
  * the track. Created in horizontal orientation because VSlider will rotate it -90 degrees to vertical orientation.
+ * See https://github.com/phetsims/fourier-making-waves/issues/175.
  */
 class BarTrack extends SliderTrack {
 
@@ -254,6 +255,7 @@ class BarTrack extends SliderTrack {
 
     // When the amplitude changes, redraw the track to make it look like a bar extends up or down from amplitude = 0.
     // Note that this code is actually extending left or right, because VSlider rotates its track -90 degrees.
+    // See https://github.com/phetsims/fourier-making-waves/issues/175
     const amplitudeListener = amplitude => {
       visibleTrackNode.visible = ( amplitude !== 0 );
       if ( amplitude === 0 ) {
