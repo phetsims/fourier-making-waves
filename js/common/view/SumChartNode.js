@@ -69,7 +69,6 @@ class SumChartNode extends DomainChartNode {
     } );
 
     // Display the data set.
-    //REVIEW: This seems to be a common pattern with Data set Properties, any way to factor it out?
     sumDataSetProperty.lazyLink( dataSet => {
       sumPlot.setDataSet( dataSet );
       chartCanvasNode.update();
