@@ -130,8 +130,8 @@ class AmplitudeKeypadDialog extends Dialog {
     super( content, options );
 
     // @private
-    this.keypad = keypad;
-    this.titleNode = titleNode;
+    this.keypad = keypad; // {KeyPad}
+    this.titleNode = titleNode; // {RichText}
     this.order = null; // {number|null} number when showing, null when hidden
 
     // @private {function(amplitude:number)|null} called when the Enter button fires
@@ -277,7 +277,7 @@ class KeypadStringDisplay extends Node {
     } );
 
     // @private
-    this.textNode = textNode;
+    this.textNode = textNode; // {RichText}
 
     // @private
     this.disposeStringDisplay = () => {

@@ -91,8 +91,8 @@ class SumChartNode extends DomainChartNode {
     } );
 
     // @protected
-    this.chartCanvasNode = chartCanvasNode;
-    this.sumPlot = sumPlot;
+    this.chartCanvasNode = chartCanvasNode; // {ChartCanvasNode}
+    this.sumPlot = sumPlot; // {CanvasLinePlot}
   }
 }
 

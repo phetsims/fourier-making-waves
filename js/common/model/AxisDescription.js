@@ -41,10 +41,10 @@ class AxisDescription {
     }, config );
 
     // @public (read-only)
-    this.range = config.range;
-    this.gridLineSpacing = config.gridLineSpacing;
-    this.tickMarkSpacing = config.tickMarkSpacing;
-    this.tickLabelSpacing = config.tickLabelSpacing;
+    this.range = config.range; // {Range}
+    this.gridLineSpacing = config.gridLineSpacing; // {number}
+    this.tickMarkSpacing = config.tickMarkSpacing; // {number}
+    this.tickLabelSpacing = config.tickLabelSpacing; // {number}
   }
 
   /**

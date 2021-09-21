@@ -93,11 +93,11 @@ class CalipersNode extends Node {
     super( options );
 
     // @private
-    this.beamAndJawsNode = beamAndJawsNode;
-    this.transparentRectangle = transparentRectangle;
-    this.labelText = labelText;
-    this.backgroundNode = backgroundNode;
-    this.labelPosition = options.labelPosition;
+    this.beamAndJawsNode = beamAndJawsNode; // {Path}
+    this.transparentRectangle = transparentRectangle; // {Rectangle}
+    this.labelText = labelText; // {RichText}
+    this.backgroundNode = backgroundNode; // {BackgroundNode}
+    this.labelPosition = options.labelPosition; // {string}
 
     this.setMeasuredWidth( options.measuredWidth );
   }

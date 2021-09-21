@@ -123,6 +123,7 @@ class AmplitudeSlider extends AudibleSlider {
       press: options.press
     } ) );
 
+    // {DerivedProperty.<boolean>}
     // The associated harmonic is emphasized if we're interacting with either the thumb or the visible part of the track.
     const isEmphasizedProperty = new DerivedProperty(
       [ this.thumbDragListener.isHighlightedProperty, trackNode.isHighlightedProperty ],
@@ -283,7 +284,8 @@ class BarTrack extends SliderTrack {
     } );
     visibleTrackNode.addInputListener( visibleTrackPressListener );
 
-    // @public This tells us when the track should be considered highlighted. We can't simply look at
+    // @public {DerivedProperty.<boolean>}
+    // This tells us when the track should be considered highlighted. We can't simply look at
     // this.dragListener.isHighlightedProperty, because that will include the invisible portion of the track.
     // This is used to emphasize the associated harmonic's plot in the Harmonics chart. See isEmphasizedProperty
     // in AmplitudeSlider above.

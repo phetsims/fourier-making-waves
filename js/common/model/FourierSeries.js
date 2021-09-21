@@ -69,7 +69,7 @@ class FourierSeries extends PhetioObject {
     this.L = this.fundamentalWavelength;
     this.T = this.fundamentalPeriod;
 
-    // @public (read-only) the range of all harmonic amplitudes
+    // @public (read-only) {Range} the range of all harmonic amplitudes
     this.amplitudeRange = options.amplitudeRange;
 
     // Parent tandem for harmonics
@@ -204,7 +204,7 @@ class FourierSeries extends PhetioObject {
 
     const xRange = xAxisDescription.createRangeForDomain( domain, this.L, this.T );
     const dx = xRange.getLength() / FMWConstants.MAX_POINTS_PER_DATA_SET;
-    const amplitudeFunction = getAmplitudeFunction( domain, seriesType );
+    const amplitudeFunction = getAmplitudeFunction( domain, seriesType ); // {function}
 
     let x = xRange.min;
     while ( x <= xRange.max ) {

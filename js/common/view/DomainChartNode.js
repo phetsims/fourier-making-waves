@@ -236,17 +236,17 @@ class DomainChartNode extends Node {
     this.pdomOrder = pdomOrder;
 
     // @protected x-axis fields, for use by subclasses
-    this.xGridLines = xGridLines;
-    this.xTickLabels = xTickLabels;
+    this.xGridLines = xGridLines; // {GridLineSet}
+    this.xTickLabels = xTickLabels; // {TickLabelSet}
 
     // @protected y-axis fields, for use by subclasses
-    this.yGridLines = yGridLines;
-    this.yTickMarks = yTickMarks;
-    this.yTickLabels = yTickLabels;
+    this.yGridLines = yGridLines; // {GridLineSet}
+    this.yTickMarks = yTickMarks; // {TickMarkSet}
+    this.yTickLabels = yTickLabels; // {TickLabelSet}
 
     // @public
-    this.chartTransform = chartTransform;
-    this.chartRectangle = chartRectangle;
+    this.chartTransform = chartTransform; // {ChartTransform}
+    this.chartRectangle = chartRectangle; // {ChartRectangle}
   }
 
   /**

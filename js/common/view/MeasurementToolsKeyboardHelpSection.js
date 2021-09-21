@@ -21,14 +21,14 @@ class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSection {
    */
   constructor( options ) {
 
-    // First row, for normal motion
+    // {HelpSectionRow} First row, for normal motion
     const normalRow = KeyboardHelpSection.labelWithIcon(
       fourierMakingWavesStrings.keyboardHelpDialog.moveTool,
       KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon(),
       fourierMakingWavesStrings.a11y.keyboardHelpDialog.moveToolSlowerDescription
     );
 
-    // Second row, for slower motion
+    // {HelpSectionRow} Second row, for slower motion
     const slowerRow = KeyboardHelpSection.labelWithIconList(
       fourierMakingWavesStrings.keyboardHelpDialog.moveToolSlower,
       [

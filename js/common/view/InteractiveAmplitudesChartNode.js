@@ -97,7 +97,7 @@ class InteractiveAmplitudesChartNode extends Node {
       tandem: options.tandem.createTandem( 'xAxisLabel' )
     } );
 
-    // Create a slider for each harmonic's amplitude
+    // {AmplitudeSlider[]} Create a slider for each harmonic's amplitude
     const sliders = fourierSeries.harmonics.map( harmonic =>
       new AmplitudeSlider( harmonic, emphasizedHarmonics, merge( {
         press: options.onEdit,
@@ -110,7 +110,7 @@ class InteractiveAmplitudesChartNode extends Node {
       children: sliders
     } );
 
-    // Create a number display for each harmonic's amplitude
+    // {AmplitudeNumberDisplay[]} Create a number display for each harmonic's amplitude
     const numberDisplays = fourierSeries.harmonics.map( harmonic =>
       new AmplitudeNumberDisplay( harmonic, emphasizedHarmonics, amplitudeKeypadDialog, merge( {
         press: options.onEdit,
@@ -171,13 +171,13 @@ class InteractiveAmplitudesChartNode extends Node {
     super( options );
 
     // @protected
-    this.sliders = sliders;
-    this.slidersParent = slidersParent;
-    this.numberDisplays = numberDisplays;
+    this.sliders = sliders; // {AmplitudeSlider[]}
+    this.slidersParent = slidersParent; // {Node}
+    this.numberDisplays = numberDisplays; // {AmplitudeNumberDisplay[]}
 
     // @public
-    this.chartTransform = chartTransform;
-    this.chartRectangle = chartRectangle;
+    this.chartTransform = chartTransform; // {ChartTransform}
+    this.chartRectangle = chartRectangle; // {ChartRectangle}
   }
 
   /**
