@@ -90,15 +90,10 @@ class AmplitudeSlider extends AudibleSlider {
       Utils.toFixedNumber( harmonic.amplitudeProperty.range.max, options.decimalPlaces )
     );
 
-    // Here we specify our thumb and track dimensions in the vertical orientation, then swap them.
-    // This is because Slider rotates the thumb and track -90 degrees when orientation is vertical.
-    // So we'll create our custom thumb and track in horizontal orientation, and Slider will rotate
-    // them into vertical orientation. Pretty gross, eh?
-    const trackSize = new Dimension2( TRACK_WIDTH, options.trackHeight ).swapped();
-
     // Custom thumb
     const thumbNode = new GrippyThumb( THUMB_SIZE, harmonic, {
-      rotation: Math.PI / 2, // because Slider will rotate by -Math.PI/2, see https://github.com/phetsims/fourier-making-waves/issues/175
+      // because Slider will rotate by -Math.PI/2, see https://github.com/phetsims/fourier-making-waves/issues/175
+      rotation: Math.PI / 2,
       tandem: options.tandem.createTandem( Slider.THUMB_NODE_TANDEM_NAME )
     } );
     thumbNode.touchArea = thumbNode.localBounds.dilatedXY( 10, 4 );
@@ -109,7 +104,8 @@ class AmplitudeSlider extends AudibleSlider {
     // Custom track
     const trackNode = new BarTrack( harmonic, amplitudeRange, {
       constrainValue: options.constrainValue,
-      size: trackSize,
+      // because Slider will rotate by -Math.PI/2, see https://github.com/phetsims/fourier-making-waves/issues/175
+      size: new Dimension2( TRACK_WIDTH, options.trackHeight ).swapped(),
       tandem: options.tandem.createTandem( Slider.TRACK_NODE_TANDEM_NAME )
     } );
     assert && assert( !options.trackNode, 'AmplitudeSlider sets trackNode' );
