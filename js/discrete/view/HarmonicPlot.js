@@ -40,7 +40,6 @@ class HarmonicPlot extends CanvasLinePlot {
 
     // @public (read-only) fires when the plot needs to be redrawn
     this.changedEmitter = new Emitter();
-    //REVIEW: Would HarmonicPlot/InfiniteHarmonicsPlot benefit from a supertype (dataSetProperty and colorProperty + emitter)?
 
     // Keep synchronized with the data set.
     dataSetProperty.lazyLink( dataSet => {
