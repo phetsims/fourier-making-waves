@@ -44,7 +44,7 @@ their exact titles, we use these names:
 * _Components_ chart - the middle chart in the **Wave Packet** screen
 * _Sum_ chart - the bottom chart in all 3 screens
 
-## General Consideration
+## General Considerations
 
 This section describes how this sim addresses implementation considerations that are typically encountered in PhET sims.
 
