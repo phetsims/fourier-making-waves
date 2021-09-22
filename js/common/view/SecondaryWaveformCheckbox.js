@@ -39,7 +39,7 @@ class SecondaryWaveformCheckbox extends Checkbox {
     } ) );
 
     const icon = new Line( 0, 0, 20, 0, {
-      stroke: FMWColors.secondardWaveformStrokeProperty,
+      stroke: FMWColors.secondaryWaveformStrokeProperty,
       lineWidth: FMWConstants.SECONDARY_WAVEFORM_LINE_WIDTH
     } );
 

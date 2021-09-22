@@ -103,6 +103,7 @@ class WavePacketAmplitudesChartNode extends DomainChartNode {
 
     // Displays the continuous waveform
     const continuousWaveformPlot = new CanvasLinePlot( this.chartTransform, [], {
+      stroke: FMWColors.secondaryWaveformStrokeProperty.value,
       lineWidth: FMWConstants.SECONDARY_WAVEFORM_LINE_WIDTH
     } );
 
@@ -113,7 +114,7 @@ class WavePacketAmplitudesChartNode extends DomainChartNode {
     } );
 
     // CanvasLinePlot stroke does not support Property, so handle updates here.
-    FMWColors.secondardWaveformStrokeProperty.link( stroke => {
+    FMWColors.secondaryWaveformStrokeProperty.lazyLink( stroke => {
       continuousWaveformPlot.setStroke( stroke );
       chartCanvasNode.update();
     } );

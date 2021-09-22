@@ -63,8 +63,8 @@ class SumChartNode extends DomainChartNode {
     this.addChild( chartCanvasNode );
 
     // CanvasLinePlot does not allow stroke to be a Property, so we have to manage changes ourselves.
-    options.sumPlotStrokeProperty.link( stroke => {
-      sumPlot.stroke = stroke;
+    options.sumPlotStrokeProperty.lazyLink( stroke => {
+      sumPlot.setStroke( stroke );
       chartCanvasNode.update();
     } );
 

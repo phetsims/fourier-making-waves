@@ -115,6 +115,7 @@ class WavePacketComponentsChartNode extends DomainChartNode {
 
             // Reuse an existing plot.
             const plot = plots[ i ];
+            assert && assert( plot instanceof CanvasLinePlot );
             plot.setDataSet( dataSet );
             plot.setStroke( stroke );
           }

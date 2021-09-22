@@ -79,7 +79,7 @@ class WavePacketSumChartNode extends DomainChartNode {
     const sumChartCanvasNode = new ChartCanvasNode( this.chartTransform, [ sumPlot ] );
 
     // CanvasLinePlot stroke does not support Property, so handle updates here.
-    FMWColors.sumPlotStrokeProperty.link( stroke => {
+    FMWColors.sumPlotStrokeProperty.lazyLink( stroke => {
       sumPlot.setStroke( stroke );
       sumChartCanvasNode.update();
     } );
@@ -88,6 +88,7 @@ class WavePacketSumChartNode extends DomainChartNode {
     // data set will be empty when it's not a visible - a performance optimization in the model.  CanvasLinePlot
     // also does not support visibleProperty.
     const waveformEnvelopePlot = new CanvasLinePlot( this.chartTransform, [], {
+      stroke: FMWColors.secondaryWaveformStrokeProperty.value,
       lineWidth: FMWConstants.SECONDARY_WAVEFORM_LINE_WIDTH
     } );
 
@@ -95,7 +96,7 @@ class WavePacketSumChartNode extends DomainChartNode {
     const waveformEnvelopeChartCanvasNode = new ChartCanvasNode( this.chartTransform, [ waveformEnvelopePlot ] );
 
     // CanvasLinePlot stroke does not support Property, so handle updates here.
-    FMWColors.secondardWaveformStrokeProperty.link( stroke => {
+    FMWColors.secondaryWaveformStrokeProperty.lazyLink( stroke => {
       waveformEnvelopePlot.setStroke( stroke );
       waveformEnvelopeChartCanvasNode.update();
     } );

@@ -44,8 +44,8 @@ class WaveGameSumChartNode extends SumChartNode {
     } );
 
     // CanvasLinePlot does not allow stroke to be a Property, so we have to manage changes ourselves.
-    FMWColors.guessSumPlotStrokeProperty.link( stroke => {
-      guessPlot.stroke = stroke;
+    FMWColors.guessSumPlotStrokeProperty.lazyLink( stroke => {
+      guessPlot.setStroke( stroke );
       this.chartCanvasNode.update();
     } );
 

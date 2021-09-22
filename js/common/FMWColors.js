@@ -71,7 +71,7 @@ const FMWColors = {
   } ),
 
   // Stroke used to plot secondary waveforms: Infinite Harmonics, Continuous Waveform, Waveform Envelope
-  secondardWaveformStrokeProperty: new ProfileColorProperty( fourierMakingWaves, 'secondardWaveformStroke', {
+  secondaryWaveformStrokeProperty: new ProfileColorProperty( fourierMakingWaves, 'secondaryWaveformStroke', {
     default: Color.grayColor( 189 )
   } ),
 
