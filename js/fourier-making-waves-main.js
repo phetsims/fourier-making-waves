@@ -23,10 +23,7 @@ const simOptions = {
     leadDesign: 'Amy Rouinfar, Sam McKagan',
     softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
     team: 'Wendy Adams, Mike Dubson, Danielle Harlow, Ariel Paul, Kathy Perkins, Carl Weiman',
-    qualityAssurance: '',
-    graphicArts: '',
-    soundDesign: '',
-    thanks: ''
+    qualityAssurance: 'Emily Miller, Nancy Salpepi, Kathryn Woessner'
   },
   hasKeyboardHelpContent: true
 };
