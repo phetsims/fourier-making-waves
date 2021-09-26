@@ -260,9 +260,9 @@ class WavePacketScreenView extends ScreenView {
         componentsParentNode,
         sumExpandCollapseButton,
         sumParentNode,
+        measurementToolsParent,
         controlPanel,
         resetAllButton,
-        measurementToolsParent,
 
         // parent for popups on top
         popupParent
@@ -311,12 +311,13 @@ class WavePacketScreenView extends ScreenView {
       amplitudesChartNode.chartTransform, model.domainProperty, {
         position: new Vector2( amplitudesChartRectangleLocalBounds.right - 80, amplitudesChartRectangleLocalBounds.top + 50 ),
         dragBounds: amplitudesChartRectangleLocalBounds.withOffsets( 0, 10, 25, 0 ),
-        visibleProperty: componentSpacingToolVisibleProperty,
+        visibleProperty: new DerivedProperty(
+          [ componentSpacingToolVisibleProperty, amplitudesParentNode.visibleProperty ],
+          ( componentSpacingToolVisible, amplitudesParentVisible ) => ( componentSpacingToolVisible && amplitudesParentVisible )
+        ),
         tandem: measurementToolsTandem.createTandem( 'componentSpacingToolNode' )
       } );
-
-    // So that this tool will change visibility with the other Amplitudes chart elements.
-    amplitudesParentNode.addChild( componentSpacingToolNode );
+    measurementToolsParent.addChild( componentSpacingToolNode );
 
     // lengthToolNode can be dragged around on the Components and Sum charts.
     const lengthToolDragBounds = new Bounds2(
@@ -342,9 +343,7 @@ class WavePacketScreenView extends ScreenView {
         ),
         tandem: measurementToolsTandem.createTandem( 'lengthToolNode' )
       } );
-
-    // Not added to one of a chart parentNode because lengthToolNode is applicable to both Components and Sum charts.
-    this.addChild( lengthToolNode );
+    measurementToolsParent.addChild( lengthToolNode );
 
     const resetMeasurementTools = () => {
       componentSpacingToolVisibleProperty.reset();

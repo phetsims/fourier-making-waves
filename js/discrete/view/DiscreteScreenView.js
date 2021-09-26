@@ -329,12 +329,10 @@ class DiscreteScreenView extends ScreenView {
         harmonicsParentNode,
         sumExpandCollapseButton,
         sumParentNode,
+        measurementToolsParent,
         controlPanel,
         timeControlNode,
         resetAllButton,
-
-        // Measurement Tools on top
-        measurementToolsParent,
 
         // parent for popups on top
         popupParent
@@ -382,7 +380,7 @@ class DiscreteScreenView extends ScreenView {
     } );
 
     //------------------------------------------------------------------------------------------------------------------
-    // Measurement tool positions
+    // Measurement tools
     //------------------------------------------------------------------------------------------------------------------
 
     // Create measurement tools after layout of charts, because their initial positions and drag bounds depend on
