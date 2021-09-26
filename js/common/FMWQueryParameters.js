@@ -75,6 +75,7 @@ const SCHEMA = {
   },
 
   // Shows the origin (as a red dot) and the drag bounds (as a red rectangle) for measurement tools.
+  // For internal use only, not public facing.
   debugTools: {
     type: 'flag'
   }
