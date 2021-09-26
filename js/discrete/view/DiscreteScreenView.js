@@ -391,9 +391,9 @@ class DiscreteScreenView extends ScreenView {
 
     // Drag bounds for all measurement tools.
     const measurementToolsDragBounds = new Bounds2(
-      this.layoutBounds.minX, this.layoutBounds.minY,
-      controlPanel.left, this.layoutBounds.maxY
-    ).erodedXY( 20, 20 );
+      this.layoutBounds.left + 20, amplitudesChartRectangleLocalBounds.bottom,
+      harmonicsChartRectangleLocalBounds.right, this.layoutBounds.bottom - 20
+    );
 
     // For measuring a harmonic's wavelength in the 'space' and 'space & time' Domains.
     const wavelengthCalipersNode = new WavelengthCalipersNode( model, harmonicsChartNode.chartTransform, {

@@ -305,11 +305,19 @@ class WavePacketScreenView extends ScreenView {
     // Parent tandem for all measurement tools
     const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
 
+    // Keep tool in the vicinity of the Amplitudes chart, and keep its label visible.
+    const componentSpacingToolDragBounds = new Bounds2(
+      amplitudesChartRectangleLocalBounds.left,
+      amplitudesChartRectangleLocalBounds.top + 10,
+      amplitudesChartRectangleLocalBounds.right + 15,
+      amplitudesChartRectangleLocalBounds.bottom
+    );
+
     // Component Spacing (k1 or omega1) measurement tool
     const componentSpacingToolNode = new ComponentSpacingToolNode( model.wavePacket.componentSpacingProperty,
       amplitudesChartNode.chartTransform, model.domainProperty, {
         position: new Vector2( amplitudesChartRectangleLocalBounds.right - 80, amplitudesChartRectangleLocalBounds.top + 50 ),
-        dragBounds: amplitudesChartRectangleLocalBounds.withOffsets( 0, 10, 25, 0 ),
+        dragBounds: componentSpacingToolDragBounds,
         visibleProperty: componentSpacingToolVisibleProperty,
         tandem: measurementToolsTandem.createTandem( 'componentSpacingToolNode' )
       } );
@@ -317,10 +325,10 @@ class WavePacketScreenView extends ScreenView {
 
     // lengthToolNode can be dragged around on the Components and Sum charts.
     const lengthToolDragBounds = new Bounds2(
-      this.layoutBounds.left + 15,
+      this.layoutBounds.left + 20,
       componentsChartRectangleLocalBounds.top,
       componentsChartRectangleLocalBounds.right + 25,
-      this.layoutBounds.bottom - 5
+      this.layoutBounds.bottom - 20
     );
 
     // Wavelength (lamda1) or period (T1) tool
