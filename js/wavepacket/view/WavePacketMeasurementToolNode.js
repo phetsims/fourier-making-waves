@@ -16,6 +16,7 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
+import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -83,6 +84,11 @@ class WavePacketMeasurementToolNode extends Node {
 
     assert && assert( !options.children );
     options.children = [ infinityBackgroundNode, calipersNode ];
+
+    // Show a red dot at the tool's origin.
+    if ( phet.chipper.queryParameters.dev ) {
+      options.children.push( new Circle( 2, { fill: 'red' } ) );
+    }
 
     super( options );
 
