@@ -72,6 +72,11 @@ const SCHEMA = {
         ( Utils.numberOfDecimalPlaces( amplitude ) <= FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES )
     },
     defaultValue: null
+  },
+
+  // Shows the drag bounds for measurement tools, as a red rectangle.
+  showDragBounds: {
+    type: 'flag'
   }
 };
 

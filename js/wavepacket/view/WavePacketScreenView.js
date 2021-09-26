@@ -13,9 +13,11 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapseButton.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -327,7 +329,7 @@ class WavePacketScreenView extends ScreenView {
     const lengthToolDragBounds = new Bounds2(
       this.layoutBounds.left + 20,
       componentsChartRectangleLocalBounds.top,
-      componentsChartRectangleLocalBounds.right + 25,
+      componentsChartRectangleLocalBounds.right + 20,
       this.layoutBounds.bottom - 20
     );
 
@@ -342,6 +344,16 @@ class WavePacketScreenView extends ScreenView {
         tandem: measurementToolsTandem.createTandem( 'lengthToolNode' )
       } );
     measurementToolsParent.addChild( lengthToolNode );
+
+    // Show drag bounds for the measurement tools.
+    if ( FMWQueryParameters.showDragBounds ) {
+      measurementToolsParent.addChild( new Rectangle( componentSpacingToolDragBounds, {
+        stroke: 'red'
+      } ) );
+      measurementToolsParent.addChild( new Rectangle( lengthToolDragBounds, {
+        stroke: 'red'
+      } ) );
+    }
 
     const resetMeasurementTools = () => {
       componentSpacingToolVisibleProperty.reset();

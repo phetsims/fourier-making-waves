@@ -16,9 +16,11 @@ import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.j
 import OopsDialog from '../../../../scenery-phet/js/OopsDialog.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import Domain from '../../common/model/Domain.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapseButton.js';
@@ -391,8 +393,10 @@ class DiscreteScreenView extends ScreenView {
 
     // Drag bounds for all measurement tools.
     const measurementToolsDragBounds = new Bounds2(
-      this.layoutBounds.left + 20, amplitudesChartRectangleLocalBounds.bottom,
-      harmonicsChartRectangleLocalBounds.right, this.layoutBounds.bottom - 20
+      this.layoutBounds.left + 20,
+      amplitudesChartRectangleLocalBounds.bottom,
+      harmonicsChartRectangleLocalBounds.right + 20,
+      this.layoutBounds.bottom - 20
     );
 
     // For measuring a harmonic's wavelength in the 'space' and 'space & time' Domains.
@@ -421,6 +425,13 @@ class DiscreteScreenView extends ScreenView {
       tandem: measurementToolsTandem.createTandem( 'periodClockNode' )
     } );
     measurementToolsParent.addChild( periodClockNode );
+
+    // Show drag bounds for the measurement tools.
+    if ( FMWQueryParameters.showDragBounds ) {
+      measurementToolsParent.addChild( new Rectangle( measurementToolsDragBounds, {
+        stroke: 'red'
+      } ) );
+    }
 
     const resetMeasurementTools = () => {
       wavelengthCalipersNode.reset();
