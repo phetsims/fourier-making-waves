@@ -21,6 +21,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import CalipersNode from '../../common/view/CalipersNode.js';
@@ -86,7 +87,7 @@ class WavePacketMeasurementToolNode extends Node {
     options.children = [ infinityBackgroundNode, calipersNode ];
 
     // Show a red dot at the tool's origin.
-    if ( phet.chipper.queryParameters.dev ) {
+    if ( FMWQueryParameters.debugTools ) {
       options.children.push( new Circle( 2, { fill: 'red' } ) );
     }
 

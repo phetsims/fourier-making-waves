@@ -346,7 +346,7 @@ class WavePacketScreenView extends ScreenView {
     measurementToolsParent.addChild( lengthToolNode );
 
     // Show drag bounds for the measurement tools.
-    if ( FMWQueryParameters.showDragBounds ) {
+    if ( FMWQueryParameters.debugTools ) {
       measurementToolsParent.addChild( new Rectangle( componentSpacingToolDragBounds, {
         stroke: 'red'
       } ) );

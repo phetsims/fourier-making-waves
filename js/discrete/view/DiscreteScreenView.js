@@ -427,7 +427,7 @@ class DiscreteScreenView extends ScreenView {
     measurementToolsParent.addChild( periodClockNode );
 
     // Show drag bounds for the measurement tools.
-    if ( FMWQueryParameters.showDragBounds ) {
+    if ( FMWQueryParameters.debugTools ) {
       measurementToolsParent.addChild( new Rectangle( measurementToolsDragBounds, {
         stroke: 'red'
       } ) );

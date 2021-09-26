@@ -74,8 +74,8 @@ const SCHEMA = {
     defaultValue: null
   },
 
-  // Shows the drag bounds for measurement tools, as a red rectangle.
-  showDragBounds: {
+  // Shows the origin (as a red dot) and the drag bounds (as a red rectangle) for measurement tools.
+  debugTools: {
     type: 'flag'
   }
 };
