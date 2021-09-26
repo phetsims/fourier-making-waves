@@ -7,7 +7,6 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
@@ -311,10 +310,7 @@ class WavePacketScreenView extends ScreenView {
       amplitudesChartNode.chartTransform, model.domainProperty, {
         position: new Vector2( amplitudesChartRectangleLocalBounds.right - 80, amplitudesChartRectangleLocalBounds.top + 50 ),
         dragBounds: amplitudesChartRectangleLocalBounds.withOffsets( 0, 10, 25, 0 ),
-        visibleProperty: new DerivedProperty(
-          [ componentSpacingToolVisibleProperty, amplitudesParentNode.visibleProperty ],
-          ( componentSpacingToolVisible, amplitudesParentVisible ) => ( componentSpacingToolVisible && amplitudesParentVisible )
-        ),
+        visibleProperty: componentSpacingToolVisibleProperty,
         tandem: measurementToolsTandem.createTandem( 'componentSpacingToolNode' )
       } );
     measurementToolsParent.addChild( componentSpacingToolNode );
@@ -334,13 +330,7 @@ class WavePacketScreenView extends ScreenView {
         // See https://github.com/phetsims/fourier-making-waves/issues/134 for position.
         position: sumChartRectangleLocalBounds.centerBottom,
         dragBounds: lengthToolDragBounds,
-
-        // Visible if either the Components or Sum chart is visible.
-        visibleProperty: new DerivedProperty(
-          [ lengthToolVisibleProperty, model.componentsChart.chartExpandedProperty, model.sumChart.chartExpandedProperty ],
-          ( lengthToolVisible, componentsChartExpanded, sumChartExpanded ) =>
-            lengthToolVisible && ( componentsChartExpanded || sumChartExpanded )
-        ),
+        visibleProperty: lengthToolVisibleProperty,
         tandem: measurementToolsTandem.createTandem( 'lengthToolNode' )
       } );
     measurementToolsParent.addChild( lengthToolNode );
