@@ -1,5 +1,5 @@
 {
-  "comment": "# fourier-making-waves 1.0.0-dev.48 Wed Sep 22 2021 19:44:05 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# fourier-making-waves 1.0.0-dev.49 Mon Sep 27 2021 11:58:28 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "767b2f345518ceca5144a152ecf40cd4f9206136",
     "branch": "master"
@@ -17,7 +17,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "c1e79432292a5bf2ee77d246c0006f6669923d47",
+    "sha": "5793006e6a4f7e9d6df9ccbd11c3687806fb7401",
     "branch": "master"
   },
   "dot": {
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "fourier-making-waves": {
-    "sha": "082daf2384a2957d678cfd1076f6156089e23d96",
+    "sha": "25b7491c705c96e1ea966c8dd25be32b4d7b3863",
     "branch": "master"
   },
   "joist": {
@@ -45,7 +45,7 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "dc6aa22d7020f02f67fde8612b49b84eda7b2109",
+    "sha": "c7e85d8cb5f07b73cd1e6fd43e91c1140309075e",
     "branch": "master"
   },
   "phet-io-client-guides": {
@@ -69,15 +69,15 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "d73d6fc643306e149c3eede8706e6d107c978397",
+    "sha": "ccf8431dcdfe1a48bc3002097714372cd40a6e46",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "12c1d0605a25203ff8c2922b20e38971cacc0b72",
+    "sha": "9102a93151eb021c5c24a146cfa10c3af2bd06e6",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "d4971ed0788344b7ad2d78b169228f3e70103da0",
+    "sha": "cff1a3bd47ae6de4402113c83e22043daaf0671a",
     "branch": "master"
   },
   "studio": {
@@ -85,15 +85,15 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "53706aa5fef79d0805840dbd7e4a04b3a555ef9e",
+    "sha": "a5aa6c1e50506877135b75ccb97d8f66c70ee03a",
     "branch": "master"
   },
   "tambo": {
-    "sha": "099510590da295e3ac3a3522b4be7a8cd989b219",
+    "sha": "176f9875414c29310834471086c753e08728a3b7",
     "branch": "master"
   },
   "tandem": {
-    "sha": "ed081637a36521cf514727c0998b2aff2e1ec216",
+    "sha": "939d55adeff7f0020471c7ef7ea884ca41e3ff52",
     "branch": "master"
   },
   "twixt": {
@@ -101,7 +101,7 @@
     "branch": "master"
   },
   "utterance-queue": {
-    "sha": "4e12d8eb721ca00514c4c63240a87e0eef6e13fa",
+    "sha": "b4b721dd6d9092afe37b4fca937bf0dc3d396f42",
     "branch": "master"
   },
   "vegas": {
