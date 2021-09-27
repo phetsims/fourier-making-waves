@@ -21,13 +21,15 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Slider from '../../../../sun/js/Slider.js';
 import SliderTrack from '../../../../sun/js/SliderTrack.js';
+import generalBoundaryBoopSoundPlayer from '../../../../tambo/js/shared-sound-players/generalBoundaryBoopSoundPlayer.js';
+import generalSoftClickSoundPlayer from '../../../../tambo/js/shared-sound-players/generalSoftClickSoundPlayer.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
-import AudibleSlider from './AudibleSlider.js';
 
+// constants
 const TRACK_WIDTH = 40; // track height is specified in constructor options
 
 // Dimension2 instances must be swapped, because VSlider rotates its thumb and track -90 degrees.
@@ -38,7 +40,13 @@ const THUMB_SIZE = new Dimension2( TRACK_WIDTH - 15, 8 ).swapped();
 const THUMB_TOUCH_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
 const THUMB_MOUSE_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
 
-class AmplitudeSlider extends AudibleSlider {
+// sound
+const MIN_MAX_SOUND = generalBoundaryBoopSoundPlayer;
+const IN_BETWEEN_SOUND = generalSoftClickSoundPlayer;
+const IN_BETWEEN_SOUND_DURATION = 25; // determined empirically
+const IN_BETWEEN_SOUND_MIN_SILENCE = 15; // minimum silence between in-between sounds, in milliseconds
+
+class AmplitudeSlider extends Slider {
 
   /**
    * @param {Harmonic} harmonic
@@ -90,6 +98,45 @@ class AmplitudeSlider extends AudibleSlider {
       return amplitude;
     };
 
+    // Keep track of the previous value on slider drag for playing sounds
+    let previousValue = harmonic.amplitudeProperty.value;
+
+    // The time at which the most recent sound started playing, in milliseconds.
+    let tPlay = 0;
+
+    //TODO https://github.com/phetsims/fourier-making-waves/issues/56 delete options.drag when Slider sound API is available
+    assert && assert( !options.drag, 'AudibleSlider defines drag' );
+    options.drag = event => {
+
+      // options.drag is called after the Property is set, so this is the current value.
+      const currentValue = harmonic.amplitudeProperty.value;
+
+      const dtPlay = Date.now() - tPlay;
+
+      if ( currentValue !== previousValue ) {
+
+        IN_BETWEEN_SOUND.isPlaying && IN_BETWEEN_SOUND.stop();
+        MIN_MAX_SOUND.isPlaying && MIN_MAX_SOUND.stop();
+
+        const range = harmonic.amplitudeProperty.range;
+        if ( currentValue === range.min || currentValue === range.max ) {
+
+          // Play min/max sound regardless of time since previous sound, otherwise we will sometime not hear them.
+          MIN_MAX_SOUND.play();
+        }
+        else if ( dtPlay >= IN_BETWEEN_SOUND_DURATION + IN_BETWEEN_SOUND_MIN_SILENCE ) {
+
+          // Play in-between sound at some minimum interval, so that moving the slider doesn't create a bunch of sounds
+          // playing on top of each other, which sounds like an out-of-control popcorn machine.
+          IN_BETWEEN_SOUND.play();
+        }
+
+        tPlay = Date.now();
+      }
+
+      previousValue = currentValue;
+    };
+
     // Constrain the range to the desired number of decimal places.
     const amplitudeRange = new Range(
       Utils.toFixedNumber( harmonic.amplitudeProperty.range.min, options.decimalPlaces ),
@@ -107,6 +154,9 @@ class AmplitudeSlider extends AudibleSlider {
 
     // Custom track
     const trackNode = new BarTrack( harmonic, amplitudeRange, {
+
+      // So that there is sound support for the track, see https://github.com/phetsims/fourier-making-waves/issues/179
+      drag: options.drag,
 
       // See note above about why swapped is necessary.
       size: new Dimension2( TRACK_WIDTH, options.trackHeight ).swapped(),
