@@ -18,6 +18,10 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWSymbols from '../FMWSymbols.js';
 
+// constants
+const DEFAULT_SYMBOL_FONT = new PhetFont( 30 );
+const DEFAULT_INDEX_FONT = new PhetFont( 12 );
+
 // This extends Node instead of VBox so that the origin will be at the origin of symbolNode, useful for
 // layout with other text.
 class SumSymbolNode extends Node {
@@ -34,16 +38,18 @@ class SumSymbolNode extends Node {
 
       // SumSymbolNode options
       integration: false, // true=integration, false=summation
-      fontSize: 30,
-      indexFontSize: 15
+      symbolFont: DEFAULT_SYMBOL_FONT,
+      indexFont: DEFAULT_INDEX_FONT
     }, options );
 
     // The symbol for the type of sum.
     const symbolNode = new RichText( '', {
-      font: new PhetFont( options.fontSize )
+      font: options.symbolFont
     } );
 
-    const minMaxOptions = { font: new PhetFont( options.indexFontSize ) };
+    const minMaxOptions = {
+      font: options.indexFont
+    };
 
     // Index and min (starting) value, which appears below the sum symbol. E.g. 'n = 0'
     const minNode = new RichText( '', minMaxOptions );

@@ -11,6 +11,7 @@ import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -48,7 +49,7 @@ class WavePacketSumEquationNode extends Node {
 
     // Capital sigma, summation symbol
     const sumSymbolNode = new SumSymbolNode( FMWSymbols.n, -Infinity, new NumberProperty( Infinity ), {
-      indexFontSize: 15
+      indexFont: new PhetFont( 15 )
     } );
 
     // Everything to the right of the summation symbol, same as the equation above the Components chart.
