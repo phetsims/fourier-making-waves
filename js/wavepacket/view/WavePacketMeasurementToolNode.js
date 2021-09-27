@@ -118,8 +118,9 @@ class WavePacketMeasurementToolNode extends Node {
         }
       }
 
-      // Keep infinity centered on calipers.
-      infinityBackgroundNode.center = calipersNode.center;
+      // Locate infinity display at the capliper's origin.
+      infinityBackgroundNode.centerX = calipersNode.x;
+      infinityBackgroundNode.bottom = calipersNode.y;
     };
 
     chartTransform.changedEmitter.addListener( () => update( property.value, domainProperty.value ) );

@@ -327,7 +327,7 @@ class WavePacketScreenView extends ScreenView {
 
     // lengthToolNode can be dragged around on the Components and Sum charts.
     const lengthToolDragBounds = new Bounds2(
-      this.layoutBounds.left + 20,
+      componentsChartRectangleLocalBounds.left - 15,
       componentsChartRectangleLocalBounds.top,
       componentsChartRectangleLocalBounds.right + 20,
       this.layoutBounds.bottom - 20
