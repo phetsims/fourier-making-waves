@@ -206,7 +206,7 @@ class DiscreteScreenView extends ScreenView {
     // Disable infiniteHarmonicsCheckbox for custom and wave-packet waveforms.
     model.waveformProperty.link( waveform => {
       infiniteHarmonicsCheckbox.interruptSubtreeInput();
-      infiniteHarmonicsCheckbox.enabled = ( waveform !== Waveform.CUSTOM && waveform !== Waveform.WAVE_PACKET );
+      infiniteHarmonicsCheckbox.enabled = waveform.supportsInfiniteHarmonics;
     } );
 
     // All of the elements that should be hidden when chartExpandedProperty is set to false.

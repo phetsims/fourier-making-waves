@@ -14,7 +14,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
-import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -126,8 +125,9 @@ class WaveformValue {
       getAmplitudes: required( config.getAmplitudes ),
 
       /**
-       * {function} Gets the data set that can be used to plot the actual waveform, as if the waveform were
+       * {function|null} Gets the data set that can be used to plot the actual waveform, as if the waveform were
        * approximated using a Fourier series with an infinite number of harmonics. Ordered by increasing x coordinate.
+       * If this function is null, it means that the waveform does not support the 'Infinite Harmonics' feature.
        * @param {Domain} domain - Domain of the x axis
        * @param {SeriesType} seriesType - sin or cos
        * @param {number} t - time, in milliseconds
@@ -141,6 +141,7 @@ class WaveformValue {
     // @public (read-only)
     this.getAmplitudes = config.getAmplitudes;
     this.getInfiniteHarmonicsDataSet = config.getInfiniteHarmonicsDataSet;
+    this.supportsInfiniteHarmonics = !!config.getInfiniteHarmonicsDataSet;
   }
 }
 
@@ -156,9 +157,8 @@ const SINUSOID = new WaveformValue( {
     return amplitudes;
   },
 
-  getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
-    throw new Error( 'getInfiniteHarmonicsDataSet is not supported. Use the sum data set for SINUSOID.' );
-  }
+  // Infinite Harmonics is not supported for sinusoid.
+  getInfiniteHarmonicsDataSet: null
 } );
 
 const TRIANGLE = new WaveformValue( {
@@ -254,9 +254,8 @@ const WAVE_PACKET = new WaveformValue( {
     ][ numberOfHarmonics - 1 ];
   },
 
-  getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
-    return FMWConstants.EMPTY_DATA_SET;
-  }
+  // Infinite Harmonics is not supported for wave packet.
+  getInfiniteHarmonicsDataSet: null
 } );
 
 const CUSTOM = new WaveformValue( {
@@ -265,9 +264,8 @@ const CUSTOM = new WaveformValue( {
     throw new Error( 'getAmplitudes is not supported for CUSTOM.' );
   },
 
-  getInfiniteHarmonicsDataSet: ( domain, seriesType, t, L, T ) => {
-    return FMWConstants.EMPTY_DATA_SET;
-  }
+  // Infinite Harmonics is not supported for custom.
+  getInfiniteHarmonicsDataSet: null
 } );
 
 /**
