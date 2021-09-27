@@ -8,6 +8,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -39,12 +40,6 @@ const TRACK_WIDTH = 40; // track height is specified in constructor options
 const THUMB_SIZE = new Dimension2( TRACK_WIDTH - 15, 8 ).swapped();
 const THUMB_TOUCH_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
 const THUMB_MOUSE_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
-
-// sound
-const MIN_MAX_SOUND = generalBoundaryBoopSoundPlayer;
-const IN_BETWEEN_SOUND = generalSoftClickSoundPlayer;
-const IN_BETWEEN_SOUND_DURATION = 25; // determined empirically
-const IN_BETWEEN_SOUND_MIN_SILENCE = 15; // minimum silence between in-between sounds, in milliseconds
 
 class AmplitudeSlider extends Slider {
 
@@ -98,44 +93,10 @@ class AmplitudeSlider extends Slider {
       return amplitude;
     };
 
-    // Keep track of the previous value on slider drag for playing sounds
-    let previousValue = harmonic.amplitudeProperty.value;
-
-    // The time at which the most recent sound started playing, in milliseconds.
-    let tPlay = 0;
-
-    //TODO https://github.com/phetsims/fourier-making-waves/issues/56 delete options.drag when Slider sound API is available
+    // Adhoc sound support
+    const soundDragHandler = new SoundDragHandler( harmonic.amplitudeProperty );
     assert && assert( !options.drag, 'AudibleSlider defines drag' );
-    options.drag = event => {
-
-      // options.drag is called after the Property is set, so this is the current value.
-      const currentValue = harmonic.amplitudeProperty.value;
-
-      const dtPlay = Date.now() - tPlay;
-
-      if ( currentValue !== previousValue ) {
-
-        IN_BETWEEN_SOUND.isPlaying && IN_BETWEEN_SOUND.stop();
-        MIN_MAX_SOUND.isPlaying && MIN_MAX_SOUND.stop();
-
-        const range = harmonic.amplitudeProperty.range;
-        if ( currentValue === range.min || currentValue === range.max ) {
-
-          // Play min/max sound regardless of time since previous sound, otherwise we will sometime not hear them.
-          MIN_MAX_SOUND.play();
-        }
-        else if ( dtPlay >= IN_BETWEEN_SOUND_DURATION + IN_BETWEEN_SOUND_MIN_SILENCE ) {
-
-          // Play in-between sound at some minimum interval, so that moving the slider doesn't create a bunch of sounds
-          // playing on top of each other, which sounds like an out-of-control popcorn machine.
-          IN_BETWEEN_SOUND.play();
-        }
-
-        tPlay = Date.now();
-      }
-
-      previousValue = currentValue;
-    };
+    options.drag = event => soundDragHandler.drag( event );
 
     // Constrain the range to the desired number of decimal places.
     const amplitudeRange = new Range(
@@ -155,8 +116,8 @@ class AmplitudeSlider extends Slider {
     // Custom track
     const trackNode = new BarTrack( harmonic, amplitudeRange, {
 
-      // So that there is sound support for the track, see https://github.com/phetsims/fourier-making-waves/issues/179
-      drag: options.drag,
+      // Add adhoc sound support to the track, see https://github.com/phetsims/fourier-making-waves/issues/179
+      drag: event => soundDragHandler.drag( event ),
 
       // See note above about why swapped is necessary.
       size: new Dimension2( TRACK_WIDTH, options.trackHeight ).swapped(),
@@ -352,6 +313,75 @@ class BarTrack extends SliderTrack {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+}
+
+//TODO https://github.com/phetsims/fourier-making-waves/issues/56 delete SoundDragHandler when Slider sound API is available
+/**
+ * Handles sound while dragging the thumb or track.
+ */
+class SoundDragHandler {
+
+  /**
+   * @param {NumberProperty} property
+   */
+  constructor( property ) {
+    assert && assert( property instanceof NumberProperty );
+    assert && assert( property.range );
+
+    // @private 
+    this.property = property;
+    this.range = property.range;
+
+    // @private sounds and related intervals
+    // sound
+    this.minMaxSound = generalBoundaryBoopSoundPlayer;
+    this.inBetweenSound = generalSoftClickSoundPlayer;
+    this.inBetweenSoundDuration = 25; // determined empirically
+    this.inBetweenSoundMinSilence = 15; // minimum silence between in-between sounds, in milliseconds
+
+
+    // @private Keep track of the previous value on slider drag for playing sounds
+    this.previousValue = property.value;
+
+    // @private The time at which the most recent sound started playing, in milliseconds.
+    this.tPlay = 0;
+  }
+
+  /**
+   * Provides sound related to a drag event.
+   * @param {Event} event
+   * @public
+   */
+  drag( event ) {
+
+    // options.drag is called after the Property is set, so this is the current value.
+    const currentValue = this.property.value;
+
+    const dtPlay = Date.now() - this.tPlay;
+
+    if ( currentValue !== this.previousValue ) {
+
+      this.inBetweenSound.isPlaying && this.inBetweenSound.stop();
+      this.minMaxSound.isPlaying && this.minMaxSound.stop();
+
+      const range = this.property.range;
+      if ( currentValue === range.min || currentValue === range.max ) {
+
+        // Play min/max sound regardless of time since previous sound, otherwise we will sometime not hear them.
+        this.minMaxSound.play();
+      }
+      else if ( dtPlay >= this.inBetweenSoundDuration + this.inBetweenSoundMinSilence ) {
+
+        // Play in-between sound at some minimum interval, so that moving the slider doesn't create a bunch of sounds
+        // playing on top of each other, which sounds like an out-of-control popcorn machine.
+        this.inBetweenSound.play();
+      }
+
+      this.tPlay = Date.now();
+    }
+
+    this.previousValue = currentValue;
   }
 }
 
