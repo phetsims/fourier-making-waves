@@ -341,7 +341,6 @@ class SoundDragHandler {
     this.inBetweenSoundDuration = 25; // determined empirically
     this.inBetweenSoundMinSilence = 15; // minimum silence between in-between sounds, in milliseconds
 
-
     // @private Keep track of the previous value on slider drag for playing sounds
     this.previousValue = property.value;
 
