@@ -348,7 +348,7 @@ class SoundDragHandler {
     // @private Keep track of the previous value.
     this.previousValue = property.value;
 
-    // @private the time at which the most-recent sound started playing, in milliseconds.
+    // @private the time at which the most-recent sound started playing, in milliseconds
     this.tPlay = 0;
   }
 
