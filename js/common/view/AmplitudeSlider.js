@@ -320,6 +320,9 @@ class BarTrack extends SliderTrack {
 /**
  * SoundDragHandler handles sound while dragging the thumb or track.
  * This must be used by both Slider and BarTrack in their options.drag.
+ *
+ * At the time of this implementation Slider had no sound API.
+ * This is a temporary/adhoc implementation that is loosely based on WaveInterferenceSlider.js.
  */
 class SoundDragHandler {
 
