@@ -318,8 +318,8 @@ class BarTrack extends SliderTrack {
 
 //TODO https://github.com/phetsims/fourier-making-waves/issues/56 delete SoundDragHandler when Slider sound API is available
 /**
- * Handles sound while dragging the thumb or track.
- * This must be passed to both Slider and BarTrack via their options.drag.
+ * SoundDragHandler handles sound while dragging the thumb or track.
+ * This must be used by both Slider and BarTrack in their options.drag.
  */
 class SoundDragHandler {
 
