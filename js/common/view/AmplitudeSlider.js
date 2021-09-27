@@ -340,16 +340,15 @@ class SoundDragHandler {
     this.range = property.range;
 
     // @private sounds and related intervals
-    // sound
     this.minMaxSound = generalBoundaryBoopSoundPlayer;
     this.inBetweenSound = generalSoftClickSoundPlayer;
     this.inBetweenSoundDuration = 25; // determined empirically
     this.inBetweenSoundMinSilence = 15; // minimum silence between in-between sounds, in milliseconds
 
-    // @private Keep track of the previous value on slider drag for playing sounds
+    // @private Keep track of the previous value.
     this.previousValue = property.value;
 
-    // @private The time at which the most recent sound started playing, in milliseconds.
+    // @private the time at which the most-recent sound started playing, in milliseconds.
     this.tPlay = 0;
   }
 
