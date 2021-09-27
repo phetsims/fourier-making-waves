@@ -455,6 +455,7 @@ class DiscreteScreenView extends ScreenView {
       harmonicsExpandCollapseButton,
       harmonicsChartNode,
       sumExpandCollapseButton,
+      expandedFormButton,
       sumChartNode,
       infiniteHarmonicsCheckbox,
       timeControlNode,
