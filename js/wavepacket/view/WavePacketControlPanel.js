@@ -130,7 +130,6 @@ class WavePacketControlPanel extends Panel {
       touchAreaDilation: 15,
       tandem: options.tandem.createTandem( 'infoButton' )
     } );
-    infoDialog.setFocusOnCloseNode( infoButton );
 
     const content = new Node( {
       children: [ vBox, infoButton ]
