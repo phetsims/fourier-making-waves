@@ -49,7 +49,8 @@ const TickLabelUtils = {
   createSymbolicTickLabel( value, symbol, symbolValue, coefficientDecimals, options ) {
 
     options = merge( {
-      font: FMWConstants.TICK_LABEL_FONT
+      font: FMWConstants.TICK_LABEL_FONT,
+      maxWidth: 25
     }, options );
 
     let text;
