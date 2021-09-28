@@ -60,6 +60,9 @@ class WaveGameLevelSelectionNode extends Node {
       maxHeight: 40, // determined empirically
       listener: () => {
         infoDialog.show();
+        if ( infoButton.isPDOMClicking() ) {
+          infoDialog.focusCloseButton();
+        }
       },
       tandem: options.tandem.createTandem( 'infoButton' )
     } );
