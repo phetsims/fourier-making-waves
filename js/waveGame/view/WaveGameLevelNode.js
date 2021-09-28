@@ -444,6 +444,7 @@ class WaveGameLevelNode extends Node {
         // The score has reached the magic number where a reward is display.
         gameAudioPlayer.gameOverPerfectScore();
         rewardDialog.show();
+        rewardDialog.focusCloseButton();
       }
       else {
 

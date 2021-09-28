@@ -272,7 +272,10 @@ class DiscreteScreenView extends ScreenView {
       visiblePropertyOptions: { phetioReadOnly: true },
       tandem: options.tandem.createTandem( 'oopsSawtoothWithCosinesDialog' )
     } );
-    model.oopsSawtoothWithCosinesEmitter.addListener( () => oopsSawtoothWithCosinesDialog.show() );
+    model.oopsSawtoothWithCosinesEmitter.addListener( () => {
+      oopsSawtoothWithCosinesDialog.show();
+      oopsSawtoothWithCosinesDialog.focusCloseButton();
+    } );
 
     //------------------------------------------------------------------------------------------------------------------
     // Layout
