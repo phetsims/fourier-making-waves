@@ -101,6 +101,7 @@ class AmplitudeNumberDisplay extends VBox {
             }
           }
         );
+        amplitudeKeypadDialog.focusCloseButton();
       },
       tandem: options.tandem.createTandem( 'pressListener' ),
       phetioEnabledPropertyInstrumented: true
