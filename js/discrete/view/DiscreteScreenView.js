@@ -189,9 +189,7 @@ class DiscreteScreenView extends ScreenView {
       scale: 0.45,
       listener: () => {
         expandedFormDialog.show();
-        if ( expandedFormButton.isPDOMClicking() ) {
-          expandedFormDialog.focusCloseButton();
-        }
+        expandedFormDialog.focusCloseButton();
       },
 
       // Make this button appear to be a child of sumEquationNode.
