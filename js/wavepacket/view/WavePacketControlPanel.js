@@ -121,9 +121,7 @@ class WavePacketControlPanel extends Panel {
     const infoButton = new InfoButton( {
       listener: () => {
         infoDialog.show();
-        if ( infoButton.isPDOMClicking() ) {
-          infoDialog.focusCloseButton();
-        }
+        infoDialog.focusCloseButton();
       },
       iconFill: 'rgb( 50, 145, 184 )',
       scale: 0.4,
