@@ -184,6 +184,14 @@ class ComponentSpacingSubpanel extends VBox {
     } );
 
     const componentSpacingControl = new ComponentSpacingControl( componentSpacingProperty, domainProperty, {
+      sliderOptions: {
+
+        // Default pointer areas for slider and checkboxes overlap. We can't eliminate this overlap because we can't
+        // afford to add vertical space. So do our best to mitigate the issue by shrinking the slider's touchArea.
+        // It would be nicer if we could shift the slider's touchArea up, but that isn't supported by the Slider API.
+        // See https://github.com/phetsims/fourier-making-waves/issues/196
+        thumbTouchAreaYDilation: 5
+      },
       tandem: options.tandem.createTandem( 'componentSpacingControl' )
     } );
 
@@ -196,6 +204,12 @@ class ComponentSpacingSubpanel extends VBox {
     const lengthToolCheckbox = new LengthToolCheckbox( lengthToolVisibleProperty, domainProperty, {
       tandem: options.tandem.createTandem( 'lengthToolCheckbox' )
     } );
+
+    // Default point areas for the slider and checkboxes overlap. We can't eliminate this overlap because we can't
+    // afford to add vertical space. So do our best to mitigate the issue by shifting checkbox touchAreas down.
+    // See https://github.com/phetsims/fourier-making-waves/issues/196
+    lengthToolCheckbox.touchArea = lengthToolCheckbox.localBounds.dilatedXY( 6, 4 ).shiftedY( 2 );
+    componentSpacingToolCheckbox.touchArea = componentSpacingToolCheckbox.localBounds.dilatedXY( 6, 4 ).shiftedY( 2 );
 
     assert && assert( !options.children, 'ComponentSpacingSubpanel sets children' );
     options.children = [
