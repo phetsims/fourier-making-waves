@@ -12,6 +12,7 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -20,7 +21,8 @@ import FMWSymbols from '../FMWSymbols.js';
 
 // constants
 const DEFAULT_SYMBOL_FONT = new PhetFont( 30 );
-const DEFAULT_INDEX_FONT = new PhetFont( 12 );
+const DEFAULT_N_EQUALS_FONT = new PhetFont( 14 );
+const DEFAULT_MIN_MAX_FONT = new PhetFont( 12 );
 
 // This extends Node instead of VBox so that the origin will be at the origin of symbolNode, useful for
 // layout with other text.
@@ -39,7 +41,8 @@ class SumSymbolNode extends Node {
       // SumSymbolNode options
       integration: false, // true=integration, false=summation
       symbolFont: DEFAULT_SYMBOL_FONT,
-      indexFont: DEFAULT_INDEX_FONT
+      nEqualsFont: DEFAULT_N_EQUALS_FONT, // font for 'n ='
+      minMaxFont: DEFAULT_MIN_MAX_FONT
     }, options );
 
     // The symbol for the type of sum.
@@ -47,18 +50,27 @@ class SumSymbolNode extends Node {
       font: options.symbolFont
     } );
 
-    const minMaxOptions = {
-      font: options.indexFont
-    };
-
     // Index and min (starting) value, which appears below the sum symbol. E.g. 'n = 0'
-    const minNode = new RichText( '', minMaxOptions );
+    // The 'n =' and '0' are separate Nodes so that we can tweak their font sizes separately.
+    // See https://github.com/phetsims/fourier-making-waves/issues/186
+    const nEqualsNode = new RichText( `${indexSymbol} ${MathSymbols.EQUAL_TO}&nbsp`, {
+      font: options.nEqualsFont
+    } );
+    const minValueNode = new RichText( '', {
+      font: options.minMaxFont
+    } );
+    const minNode = new HBox( {
+      spacing: 0,
+      children: [ nEqualsNode, minValueNode ]
+    } );
 
     // Max (stopping) value, which appears above the sum symbol
-    const maxNode = new Text( '', minMaxOptions );
+    const maxValueNode = new Text( '', {
+      font: options.minMaxFont
+    } );
 
     assert && assert( !options.children, 'SumSymbolNode sets children' );
-    options.children = [ maxNode, symbolNode, minNode ];
+    options.children = [ maxValueNode, symbolNode, minNode ];
 
     super( options );
 
@@ -74,27 +86,29 @@ class SumSymbolNode extends Node {
         // update text
         if ( integration ) {
           symbolNode.text = FMWSymbols.integral;
-          minNode.text = indexToString( indexMin );
+          minValueNode.text = indexToString( indexMin );
         }
         else {
           symbolNode.text = FMWSymbols.SIGMA;
-          minNode.text = `${indexSymbol} ${MathSymbols.EQUAL_TO} ${indexToString( indexMin )}`;
+          minValueNode.text = indexToString( indexMin );
         }
-        maxNode.text = indexToString( indexMax );
+        maxValueNode.text = indexToString( indexMax );
 
         // update layout
         // WARNING - magic numbers herein were arrived at empirically, tuned because RichText bounds are inaccurate
         if ( integration ) {
+          nEqualsNode.visible = false;
           minNode.left = symbolNode.right;
           minNode.bottom = symbolNode.bottom;
-          maxNode.left = symbolNode.right + 3;
-          maxNode.top = symbolNode.top - 5;
+          maxValueNode.left = symbolNode.right + 3;
+          maxValueNode.top = symbolNode.top - 5;
         }
         else {
+          nEqualsNode.visible = true;
           minNode.centerX = symbolNode.centerX;
           minNode.top = symbolNode.bottom - 3;
-          maxNode.centerX = symbolNode.centerX;
-          maxNode.bottom = symbolNode.top + 5;
+          maxValueNode.centerX = symbolNode.centerX;
+          maxValueNode.bottom = symbolNode.top + 5;
         }
       } );
 

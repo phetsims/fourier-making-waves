@@ -49,7 +49,7 @@ class WavePacketSumEquationNode extends Node {
 
     // Capital sigma, summation symbol
     const sumSymbolNode = new SumSymbolNode( FMWSymbols.n, -Infinity, new NumberProperty( Infinity ), {
-      indexFont: new PhetFont( 15 )
+      minMaxFont: new PhetFont( 16 )
     } );
 
     // Everything to the right of the summation symbol, same as the equation above the Components chart.
