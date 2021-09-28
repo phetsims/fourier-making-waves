@@ -187,12 +187,18 @@ class DiscreteScreenView extends ScreenView {
     // Push button that opens the 'Expanded Form' dialog
     const expandedFormButton = new ExpandedFormButton( {
       scale: 0.45,
-      listener: () => expandedFormDialog.show(),
+      listener: () => {
+        expandedFormDialog.show();
+        if ( expandedFormButton.isPDOMClicking() ) {
+          expandedFormDialog.focusCloseButton();
+        }
+      },
 
       // Make this button appear to be a child of sumEquationNode.
       tandem: sumEquationNodeTandem.createTandem( 'expandedFormButton' ),
       phetioDocumentation: 'Pressing this button opens a dialog that shows the expanded form of the Sum equation.'
     } );
+    expandedFormDialog.setFocusOnCloseNode( expandedFormButton );
 
     const sumEquationParentNode = new Node( {
       children: [ sumEquationNode, expandedFormButton ]

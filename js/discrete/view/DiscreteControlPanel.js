@@ -110,12 +110,18 @@ class DiscreteControlPanel extends Panel {
 
     // Button to open the dialog
     const infoButton = new InfoButton( {
-      listener: () => infoDialog.show(),
+      listener: () => {
+        infoDialog.show();
+        if ( infoButton.isPDOMClicking() ) {
+          infoDialog.focusCloseButton();
+        }
+      },
       iconFill: 'rgb( 50, 145, 184 )',
       scale: 0.4,
       touchAreaDilation: 15,
       tandem: options.tandem.createTandem( 'infoButton' )
     } );
+    infoDialog.setFocusOnCloseNode( infoButton );
 
     const content = new Node( {
       children: [ vBox, infoButton ]
