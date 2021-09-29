@@ -50,7 +50,8 @@ class WidthIndicatorPlot extends Node {
       // RichText options
       richTextOptions: {
         font: new PhetFont( 16 ),
-        stroke: FMWColors.widthIndicatorsColorProperty
+        stroke: FMWColors.widthIndicatorsColorProperty,
+        maxWidth: 150
       }
     }, options );
 
