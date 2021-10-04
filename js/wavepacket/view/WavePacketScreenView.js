@@ -338,7 +338,7 @@ class WavePacketScreenView extends ScreenView {
       componentsChartNode.chartTransform, model.domainProperty, {
 
         // See https://github.com/phetsims/fourier-making-waves/issues/134 for position.
-        position: sumChartRectangleLocalBounds.centerBottom,
+        position: sumChartRectangleLocalBounds.center,
         dragBounds: lengthToolDragBounds,
         visibleProperty: lengthToolVisibleProperty,
         tandem: measurementToolsTandem.createTandem( 'lengthToolNode' )
