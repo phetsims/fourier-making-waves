@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
@@ -123,11 +124,17 @@ class AmplitudeSlider extends Slider {
 
     super( harmonic.amplitudeProperty, amplitudeRange, options );
 
+    // Whether this slider has keyboard focus.
+    const hasFocusProperty = new BooleanProperty( this.focused );
+    this.addInputListener( {
+      focus: () => { hasFocusProperty.value = true; },
+      blur: () => { hasFocusProperty.value = false; }
+    } );
+
     // {DerivedProperty.<boolean>}
-    // The associated harmonic is emphasized if we're interacting with either the thumb or the visible part of the track.
-    const isEmphasizedProperty = new DerivedProperty(
-      [ this.thumbDragListener.isHighlightedProperty, trackNode.isHighlightedProperty ],
-      ( thumbIsHighlighted, trackIsHighlighted ) => ( thumbIsHighlighted || trackIsHighlighted )
+    // The associated harmonic is emphasized if we're interacting with the slider in some way.
+    const isEmphasizedProperty = DerivedProperty.or(
+      [ this.thumbDragListener.isHighlightedProperty, trackNode.isHighlightedProperty, hasFocusProperty ]
     );
 
     // Emphasize the associated harmonic.

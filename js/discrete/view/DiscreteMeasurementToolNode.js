@@ -14,6 +14,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -113,11 +114,22 @@ class DiscreteMeasurementToolNode extends Node {
     } );
     this.addInputListener( dragListener );
 
+    // Whether this slider has keyboard focus.
+    const hasFocusProperty = new BooleanProperty( this.focused );
+    this.addInputListener( {
+      focus: () => { hasFocusProperty.value = true; },
+      blur: () => { hasFocusProperty.value = false; }
+    } );
+
+    // {DerivedProperty.<boolean>}
+    // The associated harmonic is emphasized if we're interacting with the tool in some way.
+    const isEmphasizedProperty = DerivedProperty.or( [ dragListener.isHighlightedProperty, hasFocusProperty ] );
+
     // Emphasize the associated harmonic while interacting with this tool.
-    dragListener.isHighlightedProperty.lazyLink( isHighlighted => {
+    isEmphasizedProperty.lazyLink( isEmphasized => {
       const harmonic = harmonicProperty.value;
-      phet.log && phet.log( `${options.debugName} isHighlighted=${isHighlighted} n=${harmonic.order}` );
-      if ( isHighlighted ) {
+      phet.log && phet.log( `${options.debugName} isEmphasized=${isEmphasized} n=${harmonic.order}` );
+      if ( isEmphasized ) {
         emphasizedHarmonics.push( this, harmonic );
       }
       else if ( emphasizedHarmonics.includesNode( this ) ) {
