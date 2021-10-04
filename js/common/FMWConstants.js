@@ -7,6 +7,7 @@
  */
 
 import Dimension2 from '../../../dot/js/Dimension2.js';
+import Utils from '../../../dot/js/Utils.js';
 import AssertUtils from '../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import VBox from '../../../scenery/js/nodes/VBox.js';
@@ -153,6 +154,20 @@ const FMWConstants = {
 // Verify some of the above constants
 assert && AssertUtils.assertPositiveInteger( FMWConstants.MAX_HARMONICS );
 assert && AssertUtils.assertPositiveNumber( FMWConstants.MAX_AMPLITUDE );
+
+// Verify that all steps are valid for the number of amplitude decimal places in the Discrete screen.
+assert && assert( Utils.numberOfDecimalPlaces( FMWConstants.MAX_AMPLITUDE ) <= FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES );
+assert && assert( Utils.numberOfDecimalPlaces( FMWConstants.DISCRETE_AMPLITUDE_STEP ) <= FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES );
+assert && assert( Utils.numberOfDecimalPlaces( FMWConstants.DISCRETE_AMPLITUDE_KEYBOARD_STEP ) <= FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES );
+assert && assert( Utils.numberOfDecimalPlaces( FMWConstants.DISCRETE_AMPLITUDE_SHIFT_KEYBOARD_STEP ) <= FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES );
+assert && assert( Utils.numberOfDecimalPlaces( FMWConstants.DISCRETE_AMPLITUDE_PAGE_KEYBOARD_STEP ) <= FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES );
+
+// Verify that all steps are valid for the number of amplitude decimal places in the Wave Game screen.
+assert && assert( Utils.numberOfDecimalPlaces( FMWConstants.MAX_AMPLITUDE ) <= FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES );
+assert && assert( Utils.numberOfDecimalPlaces( FMWConstants.WAVE_GAME_AMPLITUDE_STEP ) <= FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES );
+assert && assert( Utils.numberOfDecimalPlaces( FMWConstants.WAVE_GAME_AMPLITUDE_KEYBOARD_STEP ) <= FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES );
+assert && assert( Utils.numberOfDecimalPlaces( FMWConstants.WAVE_GAME_AMPLITUDE_SHIFT_KEYBOARD_STEP ) <= FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES );
+assert && assert( Utils.numberOfDecimalPlaces( FMWConstants.WAVE_GAME_AMPLITUDE_PAGE_KEYBOARD_STEP ) <= FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES );
 
 fourierMakingWaves.register( 'FMWConstants', FMWConstants );
 export default FMWConstants;

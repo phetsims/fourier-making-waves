@@ -31,7 +31,6 @@ class WaveGameAmplitudesChartNode extends InteractiveAmplitudesChartNode {
       // decimals places for the amplitude sliders and keypad.
       // See https://github.com/phetsims/fourier-making-waves/issues/97
       amplitudeSliderOptions: {
-        decimalPlaces: FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES,
         mouseTouchStep: FMWConstants.WAVE_GAME_AMPLITUDE_STEP,
         keyboardStep: FMWConstants.WAVE_GAME_AMPLITUDE_KEYBOARD_STEP,
         shiftKeyboardStep: FMWConstants.WAVE_GAME_AMPLITUDE_SHIFT_KEYBOARD_STEP,

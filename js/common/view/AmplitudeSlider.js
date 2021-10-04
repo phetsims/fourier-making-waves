@@ -55,20 +55,16 @@ class AmplitudeSlider extends Slider {
 
     options = merge( {
 
-      // AmplitudeSlider options
-      // {function} called when there's a press anywhere on this Node
-      press: _.noop,
-
       // {number} height of the track
       trackHeight: 120,
 
-      // AudibleSlider options
-      orientation: Orientation.VERTICAL,
-
-      decimalPlaces: FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES,
-
       // {number} snap to this interval when using mouse/touch, unless the value is min or max
       mouseTouchStep: FMWConstants.DISCRETE_AMPLITUDE_STEP,
+
+      // Slider options
+      startDrag: _.noop,
+      endDrag: _.noop,
+      orientation: Orientation.VERTICAL,
 
       // pdom options
       // slider steps, see https://github.com/phetsims/fourier-making-waves/issues/53
@@ -85,6 +81,8 @@ class AmplitudeSlider extends Slider {
     assert && assert( options.keyboardStep >= options.mouseTouchStep, 'see https://github.com/phetsims/sun/issues/698' );
     assert && assert( options.pageKeyboardStep >= options.mouseTouchStep, 'see https://github.com/phetsims/sun/issues/698' );
 
+    const amplitudeRange = harmonic.amplitudeProperty.range;
+
     assert && assert( !options.constrainValue, 'AmplitudeSlider sets constrainValue' );
     options.constrainValue = amplitude => {
       if ( amplitude !== amplitudeRange.min && amplitude !== amplitudeRange.max ) {
@@ -95,14 +93,8 @@ class AmplitudeSlider extends Slider {
 
     // Adhoc sound support
     const soundDragHandler = new SoundDragHandler( harmonic.amplitudeProperty );
-    assert && assert( !options.drag, 'AudibleSlider defines drag' );
+    assert && assert( !options.drag, 'AmplitudeSlider defines drag' );
     options.drag = event => soundDragHandler.drag( event );
-
-    // Constrain the range to the desired number of decimal places.
-    const amplitudeRange = new Range(
-      Utils.toFixedNumber( harmonic.amplitudeProperty.range.min, options.decimalPlaces ),
-      Utils.toFixedNumber( harmonic.amplitudeProperty.range.max, options.decimalPlaces )
-    );
 
     // Custom thumb
     const thumbNode = new GrippyThumb( THUMB_SIZE, harmonic, {
@@ -116,23 +108,20 @@ class AmplitudeSlider extends Slider {
     // Custom track
     const trackNode = new BarTrack( harmonic, amplitudeRange, {
 
-      // Add adhoc sound support to the track, see https://github.com/phetsims/fourier-making-waves/issues/179
-      drag: event => soundDragHandler.drag( event ),
+      // Propagate drag behavior to our custom track
+      startDrag: options.startDrag,
+      drag: options.drag,
+      endDrag: options.endDrag,
+      constrainValue: options.constrainValue,
 
       // See note above about why swapped is necessary.
       size: new Dimension2( TRACK_WIDTH, options.trackHeight ).swapped(),
-      constrainValue: options.constrainValue,
       tandem: options.tandem.createTandem( Slider.TRACK_NODE_TANDEM_NAME )
     } );
     assert && assert( !options.trackNode, 'AmplitudeSlider sets trackNode' );
     options.trackNode = trackNode;
 
     super( harmonic.amplitudeProperty, amplitudeRange, options );
-
-    this.addInputListener( new PressListener( {
-      attach: false,
-      press: options.press
-    } ) );
 
     // {DerivedProperty.<boolean>}
     // The associated harmonic is emphasized if we're interacting with either the thumb or the visible part of the track.
