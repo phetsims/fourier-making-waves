@@ -78,6 +78,11 @@ const SCHEMA = {
   // For internal use only, not public facing.
   debugTools: {
     type: 'flag'
+  },
+
+  // Adds keyboard navigation support for AmplitudeNumberDisplay, the readouts above the amplitude sliders.
+  focusableAmplitudeNumberDisplay: {
+    type: 'flag'
   }
 };
 

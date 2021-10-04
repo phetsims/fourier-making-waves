@@ -170,6 +170,9 @@ class InteractiveAmplitudesChartNode extends Node {
 
     super( options );
 
+    // pdom - traversal order
+    this.pdomOrder = [ ...sliders, ...numberDisplays ];
+
     // @protected
     this.sliders = sliders; // {AmplitudeSlider[]}
     this.slidersParent = slidersParent; // {Node}
