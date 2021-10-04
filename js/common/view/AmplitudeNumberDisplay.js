@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
@@ -16,6 +17,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
+import FMWQueryParameters from '../FMWQueryParameters.js';
 import FMWSymbols from '../FMWSymbols.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
@@ -56,7 +58,11 @@ class AmplitudeNumberDisplay extends VBox {
         textOptions: {
           font: DEFAULT_FONT
         }
-      }
+      },
+
+      // pdom
+      tagName: 'button', // must be an HTML5 tagName that supports click events
+      focusable: FMWQueryParameters.focusableAmplitudeNumberDisplay
     }, options );
 
     const numberDisplay = new NumberDisplay( harmonic.amplitudeProperty, harmonic.amplitudeProperty.range,
@@ -108,9 +114,12 @@ class AmplitudeNumberDisplay extends VBox {
     } );
     this.addInputListener( pressListener );
 
+    // Whether this associated harmonic is emphasized.
+    const isEmphasizedProperty = DerivedProperty.or( [ pressListener.isHighlightedProperty, pressListener.isFocusedProperty ] );
+
     // Emphasize the associated harmonic.
-    pressListener.isHighlightedProperty.link( isHighlighted => {
-      if ( isHighlighted ) {
+    isEmphasizedProperty.link( isEmphasized => {
+      if ( isEmphasized ) {
         emphasizedHarmonics.push( this, harmonic );
       }
       else if ( emphasizedHarmonics.includesNode( this ) ) {
