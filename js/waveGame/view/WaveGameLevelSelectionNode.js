@@ -58,10 +58,7 @@ class WaveGameLevelSelectionNode extends Node {
     const infoButton = new InfoButton( {
       iconFill: 'rgb( 41, 106, 163 )',
       maxHeight: 40, // determined empirically
-      listener: () => {
-        infoDialog.show();
-        infoDialog.focusCloseButton();
-      },
+      listener: () => infoDialog.show(),
       tandem: options.tandem.createTandem( 'infoButton' )
     } );
 
