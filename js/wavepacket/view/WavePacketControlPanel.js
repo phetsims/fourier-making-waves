@@ -119,10 +119,7 @@ class WavePacketControlPanel extends Panel {
 
     // Button to open the dialog.
     const infoButton = new InfoButton( {
-      listener: () => {
-        infoDialog.show();
-        infoDialog.focusCloseButton();
-      },
+      listener: () => infoDialog.show(),
       iconFill: 'rgb( 50, 145, 184 )',
       scale: 0.4,
       touchAreaDilation: 15,

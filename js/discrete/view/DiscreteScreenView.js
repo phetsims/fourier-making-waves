@@ -187,10 +187,7 @@ class DiscreteScreenView extends ScreenView {
     // Push button that opens the 'Expanded Form' dialog
     const expandedFormButton = new ExpandedFormButton( {
       scale: 0.45,
-      listener: () => {
-        expandedFormDialog.show();
-        expandedFormDialog.focusCloseButton();
-      },
+      listener: () => expandedFormDialog.show(),
 
       // Make this button appear to be a child of sumEquationNode.
       tandem: sumEquationNodeTandem.createTandem( 'expandedFormButton' ),
@@ -272,10 +269,7 @@ class DiscreteScreenView extends ScreenView {
       visiblePropertyOptions: { phetioReadOnly: true },
       tandem: options.tandem.createTandem( 'oopsSawtoothWithCosinesDialog' )
     } );
-    model.oopsSawtoothWithCosinesEmitter.addListener( () => {
-      oopsSawtoothWithCosinesDialog.show();
-      oopsSawtoothWithCosinesDialog.focusCloseButton();
-    } );
+    model.oopsSawtoothWithCosinesEmitter.addListener( () => oopsSawtoothWithCosinesDialog.show() );
 
     //------------------------------------------------------------------------------------------------------------------
     // Layout
