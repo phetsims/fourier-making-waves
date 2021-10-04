@@ -100,7 +100,7 @@ class InteractiveAmplitudesChartNode extends Node {
     // {AmplitudeSlider[]} Create a slider for each harmonic's amplitude
     const sliders = fourierSeries.harmonics.map( harmonic =>
       new AmplitudeSlider( harmonic, emphasizedHarmonics, merge( {
-        press: options.onEdit,
+        startDrag: options.onEdit,
         trackHeight: options.chartTransformOptions.viewHeight,
         center: chartTransform.modelToViewXY( harmonic.order, 0 ),
         tandem: options.tandem.createTandem( `amplitude${harmonic.order}Slider` )
