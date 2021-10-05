@@ -81,6 +81,7 @@ const SCHEMA = {
   },
 
   // Adds keyboard navigation support for AmplitudeNumberDisplay, the readouts above the amplitude sliders.
+  // See https://github.com/phetsims/fourier-making-waves/issues/206
   focusableAmplitudeNumberDisplay: {
     type: 'flag'
   }
