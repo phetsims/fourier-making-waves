@@ -17,13 +17,11 @@ import WavePacketScreen from './wavepacket/WavePacketScreen.js';
 const fourierMakingWavesTitleString = fourierMakingWavesStrings[ 'fourier-making-waves' ].title;
 
 const simOptions = {
-
-  //TODO https://github.com/phetsims/fourier-making-waves/issues/2 complete credits
   credits: {
     leadDesign: 'Amy Rouinfar, Sam McKagan',
     softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
     team: 'Wendy Adams, Mike Dubson, Danielle Harlow, Ariel Paul, Kathy Perkins, Carl Weiman',
-    qualityAssurance: 'Emily Miller, Nancy Salpepi, Kathryn Woessner'
+    qualityAssurance: 'Logan Bray, Clifford Hardin, Brooklyn Lash, Emily Miller, Nancy Salpepi, Kathryn Woessner'
   },
   hasKeyboardHelpContent: true
 };
