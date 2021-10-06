@@ -29,7 +29,7 @@
     "branch": "1.0"
   },
   "joist": {
-    "sha": "f27b68a346c96d3ab2f8c190011cc506d871d423",
+    "sha": "8681c481b866c02fc4ac441f4d9fff47fc7adb2f",
     "branch": "HEAD"
   },
   "kite": {
@@ -73,7 +73,7 @@
     "branch": "HEAD"
   },
   "scenery-phet": {
-    "sha": "b761664280104a824ac0e010c04f3e5118c625fb",
+    "sha": "b7e523eea0115fe3562ceeb42771e97186da2e1c",
     "branch": "HEAD"
   },
   "sherpa": {
@@ -89,7 +89,7 @@
     "branch": "HEAD"
   },
   "tambo": {
-    "sha": "176f9875414c29310834471086c753e08728a3b7",
+    "sha": "a967463a0aa2012d12d8b9ef6400f7dc121ed4b7",
     "branch": "HEAD"
   },
   "tandem": {
@@ -105,7 +105,7 @@
     "branch": "HEAD"
   },
   "vegas": {
-    "sha": "fcbee20d7b148dda4f74f4ff2f8b8bb0fba6576a",
+    "sha": "b3aaa2644581c48c07e7ec98448e8968a6c637ae",
     "branch": "fourier-making-waves-1.0"
   }
 }
