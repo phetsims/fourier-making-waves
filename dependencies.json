@@ -1,5 +1,5 @@
 {
-  "comment": "# fourier-making-waves 1.0.0-rc.1 Mon Oct 04 2021 17:59:30 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# fourier-making-waves 1.0.0-rc.1 Thu Oct 07 2021 12:39:38 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "767b2f345518ceca5144a152ecf40cd4f9206136",
     "branch": "HEAD"
@@ -25,12 +25,12 @@
     "branch": "HEAD"
   },
   "fourier-making-waves": {
-    "sha": "4a66a93d8eb6b84f6269d69ce24cca9b9e42b52c",
+    "sha": "e716acd7b79431a7e23ffc80c06c5fc417a6d0fe",
     "branch": "1.0"
   },
   "joist": {
-    "sha": "8681c481b866c02fc4ac441f4d9fff47fc7adb2f",
-    "branch": "HEAD"
+    "sha": "d01363b6468b629ba45b1408661558c15aadc021",
+    "branch": "fourier-making-waves-1.0"
   },
   "kite": {
     "sha": "c41bc13e3d3a043b33e3db63a8426afb6529c480",
@@ -85,8 +85,8 @@
     "branch": "HEAD"
   },
   "sun": {
-    "sha": "2d1126887eafdf03a2028dcda7c5a39d60e106b5",
-    "branch": "HEAD"
+    "sha": "a8fdd54b542d74ec3c315377a8c355e5b38a8f45",
+    "branch": "fourier-making-waves-1.0"
   },
   "tambo": {
     "sha": "a967463a0aa2012d12d8b9ef6400f7dc121ed4b7",
@@ -106,6 +106,6 @@
   },
   "vegas": {
     "sha": "b3aaa2644581c48c07e7ec98448e8968a6c637ae",
-    "branch": "fourier-making-waves-1.0"
+    "branch": "HEAD"
   }
 }
