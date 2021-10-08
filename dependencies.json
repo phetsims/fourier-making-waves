@@ -29,7 +29,7 @@
     "branch": "1.0"
   },
   "joist": {
-    "sha": "d01363b6468b629ba45b1408661558c15aadc021",
+    "sha": "1ece92256a6a8d07f7306fbe4575ee6d0c4496d7",
     "branch": "HEAD"
   },
   "kite": {
@@ -73,7 +73,7 @@
     "branch": "HEAD"
   },
   "scenery-phet": {
-    "sha": "b7e523eea0115fe3562ceeb42771e97186da2e1c",
+    "sha": "cc90ce23c44c02852405334e47b2cae24c0fedb5",
     "branch": "HEAD"
   },
   "sherpa": {
@@ -89,7 +89,7 @@
     "branch": "HEAD"
   },
   "tambo": {
-    "sha": "a967463a0aa2012d12d8b9ef6400f7dc121ed4b7",
+    "sha": "7e4d3048d4e1edb86ff932f10f3be1b8717e1949",
     "branch": "HEAD"
   },
   "tandem": {
@@ -105,7 +105,7 @@
     "branch": "HEAD"
   },
   "vegas": {
-    "sha": "b3aaa2644581c48c07e7ec98448e8968a6c637ae",
+    "sha": "2d5e179c05ade7eac1c477d0280bfe0eb2485f40",
     "branch": "HEAD"
   }
 }
