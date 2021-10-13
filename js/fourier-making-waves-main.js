@@ -20,7 +20,7 @@ const simOptions = {
   credits: {
     leadDesign: 'Amy Rouinfar, Sam McKagan',
     softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
-    team: 'Wendy Adams, Mike Dubson, Danielle Harlow, Ariel Paul, Kathy Perkins, Carl Weiman',
+    team: 'Wendy Adams, Mike Dubson, Danielle Harlow, Ariel Paul, Kathy Perkins, Carl Wieman',
     qualityAssurance: 'Logan Bray, Clifford Hardin, Brooklyn Lash, Emily Miller, Nancy Salpepi, Kathryn Woessner'
   },
   hasKeyboardHelpContent: true
