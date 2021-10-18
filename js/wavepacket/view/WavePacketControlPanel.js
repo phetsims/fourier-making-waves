@@ -176,7 +176,7 @@ class ComponentSpacingSubpanel extends VBox {
     // Title for this subpanel
     const componentSpacingText = new Text( fourierMakingWavesStrings.componentSpacing, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 180, // determined empirically
+      maxWidth: 160, // determined empirically
       tandem: options.tandem.createTandem( 'componentSpacingText' )
     } );
 
