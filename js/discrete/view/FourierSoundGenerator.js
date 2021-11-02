@@ -49,7 +49,7 @@ class FourierSoundGenerator extends SoundGenerator {
       const harmonic = fourierSeries.harmonics[ i ];
       const oscillatorSoundGenerator = new OscillatorSoundGenerator( {
         initialFrequency: harmonic.frequency,
-        initialOutputLevel: amplitudeToOutputLevel( harmonic.amplitudeProperty.value )
+        initialOutputLevel: amplitudeToOutputLevel.evaluate( harmonic.amplitudeProperty.value )
       } );
       oscillatorSoundGenerator.connect( this.masterGainNode );
       oscillatorSoundGenerators.push( oscillatorSoundGenerator );
@@ -66,7 +66,7 @@ class FourierSoundGenerator extends SoundGenerator {
 
       // Set amplitudes for the harmonics.
       for ( let i = 0; i < amplitudes.length; i++ ) {
-        oscillatorSoundGenerators[ i ].setOutputLevel( amplitudeToOutputLevel( amplitudes[ i ] ), timeConstant );
+        oscillatorSoundGenerators[ i ].setOutputLevel( amplitudeToOutputLevel.evaluate( amplitudes[ i ] ), timeConstant );
       }
     } );
 
