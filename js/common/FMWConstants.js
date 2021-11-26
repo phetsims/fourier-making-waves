@@ -10,7 +10,7 @@ import Dimension2 from '../../../dot/js/Dimension2.js';
 import Utils from '../../../dot/js/Utils.js';
 import AssertUtils from '../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import VBox from '../../../scenery/js/nodes/VBox.js';
+import { VBox } from '../../../scenery/js/imports.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWColors from './FMWColors.js';
 

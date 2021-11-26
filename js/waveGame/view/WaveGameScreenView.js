@@ -8,7 +8,7 @@
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
-import PDOMUtils from '../../../../scenery/js/accessibility/pdom/PDOMUtils.js';
+import { PDOMUtils } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Easing from '../../../../twixt/js/Easing.js';
 import TransitionNode from '../../../../twixt/js/TransitionNode.js';

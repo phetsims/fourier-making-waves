@@ -12,7 +12,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
-import FireListener from '../../../../scenery/js/listeners/FireListener.js';
+import { FireListener } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';

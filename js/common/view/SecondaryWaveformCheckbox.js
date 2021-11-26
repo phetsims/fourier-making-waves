@@ -7,9 +7,9 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import HBox from '../../../../scenery/js/nodes/HBox.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
+import { HBox } from '../../../../scenery/js/imports.js';
+import { Line } from '../../../../scenery/js/imports.js';
+import { Text } from '../../../../scenery/js/imports.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';

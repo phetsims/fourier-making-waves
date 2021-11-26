@@ -7,7 +7,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
+import { Path } from '../../../../scenery/js/imports.js';
 import musicSolidShape from '../../../../sherpa/js/fontawesome-5/musicSolidShape.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import FMWConstants from '../../common/FMWConstants.js';

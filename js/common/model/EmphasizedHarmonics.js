@@ -16,7 +16,7 @@
  */
 
 import createObservableArray from '../../../../axon/js/createObservableArray.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Harmonic from './Harmonic.js';
 

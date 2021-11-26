@@ -9,7 +9,7 @@
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
+import { RichText } from '../../../../scenery/js/imports.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';

@@ -11,8 +11,8 @@
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { RichText } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
