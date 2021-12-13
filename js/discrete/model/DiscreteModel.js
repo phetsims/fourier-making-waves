@@ -64,8 +64,9 @@ class DiscreteModel {
     } );
 
     // @public
-    this.waveformProperty = new EnumerationProperty( Waveform, Waveform.SINUSOID, {
-      tandem: options.tandem.createTandem( 'waveformProperty' )
+    this.waveformProperty = new Property( Waveform.SINUSOID, {
+      tandem: options.tandem.createTandem( 'waveformProperty' ),
+      phetioType: Property.PropertyIO( Waveform.WaveformIO )
     } );
 
     // @public

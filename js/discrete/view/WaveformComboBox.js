@@ -23,18 +23,17 @@ const CHOICES = [
   { value: Waveform.WAVE_PACKET, string: fourierMakingWavesStrings.wavePacket, tandemName: 'wavePacketItem' },
   { value: Waveform.CUSTOM, string: fourierMakingWavesStrings.custom, tandemName: 'customItem' }
 ];
-assert && assert( _.every( CHOICES, choice => Waveform.includes( choice.value ) ) );
 
 class WaveformComboBox extends FMWComboBox {
 
   /**
-   * @param {EnumerationProperty.<Waveform>} waveformProperty
+   * @param {Property.<Waveform>} waveformProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
   constructor( waveformProperty, popupParent, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
+    assert && AssertUtils.assertPropertyOf( waveformProperty, Waveform );
     assert && assert( popupParent instanceof Node );
 
     options = merge( {

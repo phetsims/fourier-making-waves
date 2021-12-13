@@ -152,14 +152,14 @@ class FourierSeriesSubpanel extends VBox {
 
   /**
    * @param {FourierSeries} fourierSeries
-   * @param {EnumerationProperty.<Waveform>} waveformProperty
+   * @param {Property.<Waveform>} waveformProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
   constructor( fourierSeries, waveformProperty, popupParent, options ) {
 
     assert && assert( fourierSeries instanceof FourierSeries );
-    assert && AssertUtils.assertEnumerationPropertyOf( waveformProperty, Waveform );
+    assert && AssertUtils.assertPropertyOf( waveformProperty, Waveform );
     assert && assert( popupParent instanceof Node );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
