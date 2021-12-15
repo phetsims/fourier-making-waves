@@ -14,10 +14,10 @@ import fourierMakingWaves from '../fourierMakingWaves.js';
 const FMWColors = {
 
   // Background colors for screens.
-  discreteScreenBackgroundColorProperty: new ProfileColorProperty( fourierMakingWaves, 'discreteScreenBackgroundColorProperty', {
+  discreteScreenBackgroundColorProperty: new ProfileColorProperty( fourierMakingWaves, 'discreteScreenBackgroundColor', {
     default: new Color( 236, 255, 255 )
   } ),
-  waveGameScreenBackgroundColorProperty: new ProfileColorProperty( fourierMakingWaves, 'waveGameScreenBackgroundColorProperty', {
+  waveGameScreenBackgroundColorProperty: new ProfileColorProperty( fourierMakingWaves, 'waveGameScreenBackgroundColor', {
     default: new Color( 236, 255, 255 )
   } ),
   wavePacketScreenBackgroundColorProperty: new ProfileColorProperty( fourierMakingWaves, 'wavePacketScreenBackgroundColor', {
