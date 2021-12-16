@@ -150,7 +150,7 @@ class WavePacketMeasurementToolNode extends Node {
     // pdom - dragging using the keyboard
     const keyboardDragListener = new KeyboardDragListener( {
       positionProperty: positionProperty,
-      dragBounds: dragBoundsProperty.value,
+      dragBoundsProperty: dragBoundsProperty,
       dragVelocity: 100, // velocity - change in position per second
       shiftDragVelocity: 20 // finer-grained
     } );
