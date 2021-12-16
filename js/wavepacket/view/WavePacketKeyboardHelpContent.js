@@ -7,7 +7,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import GeneralKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/GeneralKeyboardHelpSection.js';
+import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import SliderKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import MeasurementToolsKeyboardHelpSection from '../../common/view/MeasurementToolsKeyboardHelpSection.js';
@@ -29,9 +29,9 @@ class WavePacketKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
     const measurementToolsHelpSection = new MeasurementToolsKeyboardHelpSection();
     const sliderHelpSection = new SliderKeyboardHelpSection( options.sliderSectionOptions );
-    const generalNavigationHelpSection = new GeneralKeyboardHelpSection( options.generalSectionOptions );
+    const basicActionsHelpSection = new BasicActionsKeyboardHelpSection( options.generalSectionOptions );
 
-    super( [ measurementToolsHelpSection, sliderHelpSection ], [ generalNavigationHelpSection ], options );
+    super( [ measurementToolsHelpSection, sliderHelpSection ], [ basicActionsHelpSection ], options );
   }
 }
 
