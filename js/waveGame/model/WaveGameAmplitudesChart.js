@@ -31,6 +31,7 @@ class WaveGameAmplitudesChart extends InteractiveAmplitudesChart {
 
     // @public
     this.answerSeries = answerSeries;
+    this.guessSeries = guessSeries; // same as this.fourierSeries, provided for clarity
     this.numberOfAmplitudeControlsProperty = numberOfAmplitudeControlsProperty;
   }
 }
