@@ -47,6 +47,7 @@ class WaveGameAmplitudesChartNode extends InteractiveAmplitudesChartNode {
 
     // Fields of interest in amplitudesChart
     const answerSeries = amplitudesChart.answerSeries;
+    const guessSeries = amplitudesChart.guessSeries;
     const numberOfAmplitudeControlsProperty = amplitudesChart.numberOfAmplitudeControlsProperty;
 
     // @private
@@ -64,6 +65,11 @@ class WaveGameAmplitudesChartNode extends InteractiveAmplitudesChartNode {
         const harmonic = harmonics[ i ];
         const visible = ( i < numberOfAmplitudeControls );
         this.setAmplitudeVisible( harmonic.order, visible );
+
+        // If a harmonic's slider is not visible, its amplitude must be zero in the guess.
+        if ( !visible ) {
+          guessSeries.harmonics[ harmonic.order - 1 ].amplitudeProperty.value = 0;
+        }
       }
     };
 
