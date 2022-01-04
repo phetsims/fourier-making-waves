@@ -112,13 +112,6 @@ type StringsType = {
     'measurementTools': string,
     'moveTool': string,
     'moveToolSlower': string
-  },
-  'a11y': {
-    'keyboardHelpDialog': {
-      'checkYourAnswerDescription': string,
-      'moveToolDescription': string,
-      'moveToolSlowerDescription': string
-    }
   }
 };
 

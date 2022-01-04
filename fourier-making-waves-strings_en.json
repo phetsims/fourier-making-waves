@@ -277,18 +277,5 @@
   },
   "keyboardHelpDialog.moveToolSlower": {
     "value": "Move slower"
-  },
-  "a11y": {
-    "keyboardHelpDialog": {
-      "checkYourAnswerDescription": {
-        "value": "Check your answer to the game with Alt key plus C."
-      },
-      "moveToolDescription": {
-        "value": "Move a measurement tool."
-      },
-      "moveToolSlowerDescription": {
-        "value": "Move a measurement tool slower."
-      }
-    }
   }
 }
