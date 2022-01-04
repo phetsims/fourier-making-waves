@@ -34,9 +34,9 @@ class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSection {
       [
         KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() ),
         KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() )
-      ],
-      fourierMakingWavesStrings.a11y.keyboardHelpDialog.moveToolDescription
-    );
+      ], {
+        labelInnerContent: fourierMakingWavesStrings.a11y.keyboardHelpDialog.moveToolDescription
+      } );
 
     super( fourierMakingWavesStrings.keyboardHelpDialog.measurementTools, [ normalRow, slowerRow ], options );
   }
