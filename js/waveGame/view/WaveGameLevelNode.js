@@ -258,9 +258,9 @@ class WaveGameLevelNode extends Node {
       tandem: buttonsTandem.createTandem( 'checkAnswerButton' )
     } );
 
-    // Hotkey support for 'Check Answer'. globalKeyStateTracker listeners always fire, so its our responsibility
-    // to short-circuit this listener if the checkAnswerButton is not in the PDOM, and not enabled.
-    globalKeyStateTracker.keyupEmitter.addListener( event => {
+    // Alt+C hotkey support for 'Check Answer'. globalKeyStateTracker listeners always fire, so it's our
+    // responsibility to short-circuit this listener if the checkAnswerButton is not in the PDOM, and not enabled.
+    globalKeyStateTracker.keydownEmitter.addListener( event => {
       if (
         checkAnswerButton.pdomDisplayed &&
         checkAnswerButton.enabledProperty.value &&
