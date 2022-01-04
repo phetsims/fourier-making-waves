@@ -24,9 +24,9 @@ class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSection {
     // {HelpSectionRow} First row, for normal motion
     const normalRow = KeyboardHelpSection.labelWithIcon(
       fourierMakingWavesStrings.keyboardHelpDialog.moveTool,
-      KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon(),
-      fourierMakingWavesStrings.a11y.keyboardHelpDialog.moveToolSlowerDescription
-    );
+      KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon(), {
+        labelInnerContent: fourierMakingWavesStrings.a11y.keyboardHelpDialog.moveToolSlowerDescription
+      } );
 
     // {HelpSectionRow} Second row, for slower motion
     const slowerRow = KeyboardHelpSection.labelWithIconList(

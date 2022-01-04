@@ -47,9 +47,9 @@ class GameControlsHelpSection extends KeyboardHelpSection {
 
     const checkAnswerRow = KeyboardHelpSection.createGlobalHotkeyRow(
       fourierMakingWavesStrings.keyboardHelpDialog.checkYourAnswer,
-      fourierMakingWavesStrings.a11y.keyboardHelpDialog.checkYourAnswerDescription,
-      new LetterKeyNode( 'C' )
-    );
+      new LetterKeyNode( 'C' ), {
+        labelInnerContent: fourierMakingWavesStrings.a11y.keyboardHelpDialog.checkYourAnswerDescription
+      } );
 
     super( fourierMakingWavesStrings.keyboardHelpDialog.gameControls, [ checkAnswerRow ], options );
   }
