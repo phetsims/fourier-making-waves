@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * WaveGameKeyboardHelpContent is the content for the keyboard-help dialog in the 'Wave Game' screen.
