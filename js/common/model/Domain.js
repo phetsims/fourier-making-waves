@@ -7,10 +7,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-const Domain = Enumeration.byKeys( [
+const Domain = EnumerationDeprecated.byKeys( [
   'SPACE',         // F(x)
   'TIME',          // F(t)
   'SPACE_AND_TIME' // F(x,t)

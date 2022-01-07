@@ -7,10 +7,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-const EquationForm = Enumeration.byKeys( [
+const EquationForm = EnumerationDeprecated.byKeys( [
 
   // appropriate for all Domain values
   'HIDDEN', // equations are not shown, and tick labels are numeric values

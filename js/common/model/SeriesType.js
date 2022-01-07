@@ -8,10 +8,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-const SeriesType = Enumeration.byKeys( [ 'SINE', 'COSINE' ] );
+const SeriesType = EnumerationDeprecated.byKeys( [ 'SINE', 'COSINE' ] );
 
 fourierMakingWaves.register( 'SeriesType', SeriesType );
 export default SeriesType;
