@@ -1,4 +1,4 @@
-// Copyright 2020-2021, University of Colorado Boulder
+// Copyright 2020-2022, University of Colorado Boulder
 
 /**
  * SeriesType indicates the type of the Fourier series. There are 2 types of Fourier series, referred to in the

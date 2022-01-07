@@ -1,4 +1,4 @@
-// Copyright 2020-2021, University of Colorado Boulder
+// Copyright 2020-2022, University of Colorado Boulder
 
 /**
  * Domain identifies the independent variables in the function that describes the Fourier series.
