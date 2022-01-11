@@ -22,7 +22,7 @@ class WavePacketNumberControl extends NumberControl {
 
   /**
    * @param {NumberProperty} numberProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( numberProperty, domainProperty, options ) {

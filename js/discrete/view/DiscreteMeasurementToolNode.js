@@ -40,7 +40,7 @@ class DiscreteMeasurementToolNode extends Node {
    * @param {DiscreteMeasurementTool} tool
    * @param {Property.<Harmonic>} harmonicProperty
    * @param {EmphasizedHarmonics} emphasizedHarmonics
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Domain[]} relevantDomains - the Domain values that are relevant for this tool
    * @param {function} updateNodes - updates this tool's child Nodes to match the selected harmonic
    * @param {Object} [options]

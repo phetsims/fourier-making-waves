@@ -25,8 +25,8 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class WavePacketSumEquationNode extends Node {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} componentSpacingProperty
    * @param {Object} [options]
    */

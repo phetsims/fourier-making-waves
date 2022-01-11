@@ -23,8 +23,8 @@ class HarmonicsChart extends DomainChart {
   /**
    * @param {FourierSeries} fourierSeries
    * @param {EmphasizedHarmonics} emphasizedHarmonics
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]

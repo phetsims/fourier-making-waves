@@ -30,8 +30,8 @@ class WavePacketComponentsChart extends DomainChart {
 
   /**
    * @param {WavePacket} wavePacket
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */

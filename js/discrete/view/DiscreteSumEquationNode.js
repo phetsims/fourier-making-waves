@@ -30,9 +30,9 @@ class DiscreteSumEquationNode extends Node {
 
   /**
    * @param {NumberProperty} numberOfHarmonicsProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationDeprecatedProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
   constructor( numberOfHarmonicsProperty, domainProperty, seriesTypeProperty, equationFormProperty, options ) {

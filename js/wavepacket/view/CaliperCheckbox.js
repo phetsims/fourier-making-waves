@@ -21,7 +21,7 @@ class CaliperCheckbox extends Checkbox {
 
   /**
    * @param {Property.<boolean>} visibleProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {string} spaceSymbol
    * @param {string} timeSymbol
    * @param {Object} [options]

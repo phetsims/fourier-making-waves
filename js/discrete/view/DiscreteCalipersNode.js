@@ -25,7 +25,7 @@ class DiscreteCalipersNode extends DiscreteMeasurementToolNode {
    * @param {Harmonic[]} harmonics
    * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {ChartTransform} chartTransform - transform for the Harmonics chart
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Domain[]} relevantDomains - the Domain values that are relevant for this tool
    * @param {function(harmonic:Harmonic):number} getModelValue - gets the quantity of the harmonic that is being measured
    * @param {Object} [options]

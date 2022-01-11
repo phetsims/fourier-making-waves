@@ -28,7 +28,7 @@ class StandardDeviationControl extends WavePacketNumberControl {
 
   /**
    * @param {NumberProperty} standardDeviationProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( standardDeviationProperty, domainProperty, options ) {

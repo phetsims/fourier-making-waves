@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
@@ -38,8 +38,8 @@ class WaveGameHarmonicsChart extends HarmonicsChart {
 
       // These aspects are constant in the Wave Game screen, but the superclass supports dynamic Properties.
       // We use validValues to constrain these Properties to a single value, effectively making them constants.
-      new EnumerationProperty( Domain, domain, { validValues: [ domain ] } ),
-      new EnumerationProperty( SeriesType, seriesType, { validValues: [ seriesType ] } ),
+      new EnumerationDeprecatedProperty( Domain, domain, { validValues: [ domain ] } ),
+      new EnumerationDeprecatedProperty( SeriesType, seriesType, { validValues: [ seriesType ] } ),
       new NumberProperty( t, { validValues: [ t ] } ),
       new Property( xAxisDescription, { validValues: [ xAxisDescription ] } ),
 

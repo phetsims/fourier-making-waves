@@ -18,7 +18,7 @@ class WavePacketLengthToolNode extends WavePacketMeasurementToolNode {
   /**
    * @param {Property.<number>} lengthProperty
    * @param {ChartTransform} chartTransform
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( lengthProperty, chartTransform, domainProperty, options ) {

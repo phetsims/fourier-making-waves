@@ -19,8 +19,8 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class ComponentsEquationNode extends RichText {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
    * @param {Object} [options]
    */
   constructor( domainProperty, seriesTypeProperty, options ) {

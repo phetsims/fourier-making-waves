@@ -7,7 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -33,12 +33,12 @@ class WavePacketModel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const domainProperty = new EnumerationProperty( Domain, Domain.SPACE, {
+    const domainProperty = new EnumerationDeprecatedProperty( Domain, Domain.SPACE, {
       validValues: [ Domain.SPACE, Domain.TIME ], // Domain SPACE_AND_TIME is not supported in this screen
       tandem: options.tandem.createTandem( 'domainProperty' )
     } );
 
-    const seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE, {
+    const seriesTypeProperty = new EnumerationDeprecatedProperty( SeriesType, SeriesType.SINE, {
       tandem: options.tandem.createTandem( 'seriesTypeProperty' )
     } );
 
@@ -90,8 +90,8 @@ class WavePacketModel {
     };
 
     // @public
-    this.domainProperty = domainProperty; // {EnumerationProperty.<Domain>}
-    this.seriesTypeProperty = seriesTypeProperty; // {EnumerationProperty.<SeriesType>}
+    this.domainProperty = domainProperty; // {EnumerationDeprecatedProperty.<Domain>}
+    this.seriesTypeProperty = seriesTypeProperty; // {EnumerationDeprecatedProperty.<SeriesType>}
     this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty; // {Property.<boolean>}
     this.wavePacket = wavePacket; // {WavePacket}
     this.amplitudesChart = amplitudesChart; // {WavePacketAmplitudesChart}

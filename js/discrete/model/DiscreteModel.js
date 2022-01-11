@@ -10,7 +10,7 @@ import animationFrameTimer from '../../../../axon/js/animationFrameTimer.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -70,18 +70,18 @@ class DiscreteModel {
     } );
 
     // @public
-    this.seriesTypeProperty = new EnumerationProperty( SeriesType, SeriesType.SINE, {
+    this.seriesTypeProperty = new EnumerationDeprecatedProperty( SeriesType, SeriesType.SINE, {
       tandem: options.tandem.createTandem( 'seriesTypeProperty' )
     } );
 
     // @public
-    this.domainProperty = new EnumerationProperty( Domain, Domain.SPACE, {
+    this.domainProperty = new EnumerationDeprecatedProperty( Domain, Domain.SPACE, {
       validValues: Domain.VALUES, // all Domain values are supported
       tandem: options.tandem.createTandem( 'domainProperty' )
     } );
 
     // @public
-    this.equationFormProperty = new EnumerationProperty( EquationForm, EquationForm.HIDDEN, {
+    this.equationFormProperty = new EnumerationDeprecatedProperty( EquationForm, EquationForm.HIDDEN, {
       tandem: options.tandem.createTandem( 'equationFormProperty' )
     } );
 

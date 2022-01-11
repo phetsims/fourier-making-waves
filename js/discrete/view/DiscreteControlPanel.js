@@ -251,9 +251,9 @@ class FourierSeriesSubpanel extends VBox {
 class GraphControlsSubpanel extends VBox {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationDeprecatedProperty.<EquationForm>} equationFormProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
@@ -361,7 +361,7 @@ class MeasurementToolsSubpanel extends VBox {
   /**
    * @param {DiscreteMeasurementTool} wavelengthTool
    * @param {DiscreteMeasurementTool} periodTool
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( wavelengthTool, periodTool, domainProperty, options ) {

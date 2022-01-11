@@ -32,7 +32,7 @@ class WavePacketMeasurementToolNode extends Node {
   /**
    * @param {Property.<number>} property - the Property of the wave packet that we're measuring
    * @param {ChartTransform} chartTransform
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {string} spaceSymbol
    * @param {string} timeSymbol
    * @param {Object} [options]

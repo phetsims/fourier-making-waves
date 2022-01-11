@@ -93,8 +93,8 @@ assert && assert( _.every( CHOICES, choice => choice.tandemName ) );
 class EquationComboBox extends FMWComboBox {
 
   /**
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<EquationForm>} equationFormProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */

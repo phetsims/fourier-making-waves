@@ -151,7 +151,7 @@ class WavePacketControlPanel extends Panel {
 class ComponentSpacingSubpanel extends VBox {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Property} componentSpacingProperty
    * @param {Property.<boolean>} componentSpacingToolVisibleProperty
    * @param {Property.<boolean>} lengthToolVisibleProperty
@@ -240,7 +240,7 @@ class ComponentSpacingSubpanel extends VBox {
 class WavePacketCenterSubpanel extends VBox {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {NumberProperty} centerProperty
    * @param {Object} [options]
    */
@@ -291,7 +291,7 @@ class WavePacketCenterSubpanel extends VBox {
 class WavePacketWidthSubpanel extends VBox {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {NumberProperty} standardDeviationProperty
    * @param {NumberProperty} conjugateStandardDeviationProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
@@ -380,8 +380,8 @@ class WavePacketWidthSubpanel extends VBox {
 class GraphControlsSubpanel extends VBox {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */

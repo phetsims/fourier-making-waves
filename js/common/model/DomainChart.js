@@ -16,7 +16,7 @@ import Domain from './Domain.js';
 class DomainChart {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty - domain of the x axis
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty - domain of the x axis
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty - describes the x axis
    * @param {number} spaceMultiplier - multiplier for x values in the space and space-&-time Domains
    * @param {number} timeMultiplier - multiplier for x values in the time Domain

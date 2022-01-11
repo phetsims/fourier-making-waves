@@ -30,8 +30,8 @@ class WavePacketSumChart extends DomainChart {
   /**
    * @param {DerivedProperty.<Array.<Array.<Vector2>>>} componentDataSetsProperty
    * @param {WavePacket} wavePacket
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<Domain>} seriesTypeProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} seriesTypeProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Object} [options]

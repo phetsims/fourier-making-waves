@@ -29,7 +29,7 @@ class ComponentSpacingControl extends WavePacketNumberControl {
 
   /**
    * @param {NumberProperty} componentSpacingProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( componentSpacingProperty, domainProperty, options ) {

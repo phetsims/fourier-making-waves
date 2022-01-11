@@ -19,7 +19,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
 
   /**
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
    * @param {Object} [options]
    */
   constructor( seriesTypeProperty, options ) {

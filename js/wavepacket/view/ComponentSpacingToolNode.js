@@ -18,7 +18,7 @@ class ComponentSpacingToolNode extends WavePacketMeasurementToolNode {
   /**
    * @param {Property.<number>} componentSpacingProperty
    * @param {ChartTransform} chartTransform
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( componentSpacingProperty, chartTransform, domainProperty, options ) {

@@ -28,7 +28,7 @@ class CenterControl extends WavePacketNumberControl {
 
   /**
    * @param {NumberProperty} centerProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( centerProperty, domainProperty, options ) {

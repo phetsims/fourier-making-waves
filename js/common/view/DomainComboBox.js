@@ -48,7 +48,7 @@ assert && assert( _.every( CHOICES, choice => choice.tandemName ) );
 class DomainComboBox extends FMWComboBox {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */

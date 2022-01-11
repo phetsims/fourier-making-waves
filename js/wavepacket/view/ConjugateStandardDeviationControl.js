@@ -28,7 +28,7 @@ class ConjugateStandardDeviationControl extends WavePacketNumberControl {
 
   /**
    * @param {NumberProperty} conjugateStandardDeviationProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( conjugateStandardDeviationProperty, domainProperty, options ) {

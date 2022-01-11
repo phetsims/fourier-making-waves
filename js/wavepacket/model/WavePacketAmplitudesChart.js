@@ -33,7 +33,7 @@ class WavePacketAmplitudesChart extends DomainChart {
 
   /**
    * @param {WavePacket} wavePacket
-   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Object} [options]
    */

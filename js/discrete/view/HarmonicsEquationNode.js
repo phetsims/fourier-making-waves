@@ -21,9 +21,9 @@ import EquationMarkup from '../../common/view/EquationMarkup.js';
 class HarmonicsEquationNode extends Node {
 
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationDeprecatedProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
   constructor( domainProperty, seriesTypeProperty, equationFormProperty, options ) {
