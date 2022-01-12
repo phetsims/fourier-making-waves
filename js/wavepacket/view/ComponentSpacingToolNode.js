@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * ComponentSpacingToolNode is the tool for measuring component spacing in the 'Wave Packet' screen.

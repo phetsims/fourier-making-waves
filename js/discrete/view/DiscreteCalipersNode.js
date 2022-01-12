@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * DiscreteCalipersNode is the base class for tools used to measure a horizontal dimension of a harmonic in
