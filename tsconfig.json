@@ -2,7 +2,7 @@
   "extends": "../chipper/tsconfig-core.json",
   "references": [
     {
-      "path": "../bamboo"
+      "path": "../bamboo/tsconfig-module.json"
     },
     {
       "path": "../twixt/tsconfig-module.json"
