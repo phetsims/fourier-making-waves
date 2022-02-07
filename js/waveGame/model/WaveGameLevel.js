@@ -145,6 +145,7 @@ class WaveGameLevel extends PhetioObject {
 
     // @public the number of amplitude controls (sliders) to show in the Amplitudes chart
     this.numberOfAmplitudeControlsProperty = new NumberProperty( config.defaultNumberOfAmplitudeControls, {
+      numberType: 'Integer',
       range: new Range( this.answerSeries.getNumberOfNonZeroHarmonics(), this.answerSeries.harmonics.length ),
       rangePropertyOptions: {
         phetioDocumentation: 'Determines the range of the Amplitude Controls spinner',
