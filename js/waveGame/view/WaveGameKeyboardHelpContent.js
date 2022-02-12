@@ -48,7 +48,7 @@ class GameControlsHelpSection extends KeyboardHelpSection {
     // Alt+C
     const checkAnswerRow = KeyboardHelpSection.createGlobalHotkeyRow(
       fourierMakingWavesStrings.keyboardHelpDialog.checkYourAnswer,
-      new LetterKeyNode( 'C' ) );
+      'C' );
 
     super( fourierMakingWavesStrings.keyboardHelpDialog.gameControls, [ checkAnswerRow ], options );
   }
