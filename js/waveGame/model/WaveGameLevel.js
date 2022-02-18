@@ -149,8 +149,7 @@ class WaveGameLevel extends PhetioObject {
       range: new Range( this.answerSeries.getNumberOfNonZeroHarmonics(), this.answerSeries.harmonics.length ),
       rangePropertyOptions: {
         phetioDocumentation: 'Determines the range of the Amplitude Controls spinner',
-        phetioType: Property.PropertyIO( Range.RangeIO ),
-        phetioReadOnly: false
+        phetioType: Property.PropertyIO( Range.RangeIO )
       },
       tandem: config.tandem.createTandem( 'numberOfAmplitudeControlsProperty' )
     } );
