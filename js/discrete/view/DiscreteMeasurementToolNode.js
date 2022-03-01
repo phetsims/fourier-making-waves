@@ -151,7 +151,8 @@ class DiscreteMeasurementToolNode extends Node {
       positionProperty: positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       dragVelocity: 100, // velocity - change in position per second
-      shiftDragVelocity: 20 // finer-grained
+      shiftDragVelocity: 20, // finer-grained
+      tandem: options.tandem.createTandem( 'keyboardDragListener' )
     } );
     this.addInputListener( keyboardDragListener );
 
