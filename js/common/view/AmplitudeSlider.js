@@ -16,15 +16,12 @@ import Utils from '../../../../dot/js/Utils.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
-import { PressListener } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
-import { Color } from '../../../../scenery/js/imports.js';
+import { Color, Node, Path, PressListener, Rectangle } from '../../../../scenery/js/imports.js';
 import Slider from '../../../../sun/js/Slider.js';
 import SliderTrack from '../../../../sun/js/SliderTrack.js';
 import generalBoundaryBoopSoundPlayer from '../../../../tambo/js/shared-sound-players/generalBoundaryBoopSoundPlayer.js';
 import generalSoftClickSoundPlayer from '../../../../tambo/js/shared-sound-players/generalSoftClickSoundPlayer.js';
+import ValueChangeSoundGenerator from '../../../../tambo/js/sound-generators/ValueChangeSoundGenerator.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
@@ -66,6 +63,7 @@ class AmplitudeSlider extends Slider {
       startDrag: _.noop,
       endDrag: _.noop,
       orientation: Orientation.VERTICAL,
+      soundGenerator: ValueChangeSoundGenerator.NO_SOUND,
 
       // pdom options
       // slider steps, see https://github.com/phetsims/fourier-making-waves/issues/53
