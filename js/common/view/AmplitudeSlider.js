@@ -9,7 +9,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -19,9 +18,6 @@ import Orientation from '../../../../phet-core/js/Orientation.js';
 import { Color, Node, Path, PressListener, Rectangle } from '../../../../scenery/js/imports.js';
 import Slider from '../../../../sun/js/Slider.js';
 import SliderTrack from '../../../../sun/js/SliderTrack.js';
-import generalBoundaryBoopSoundPlayer from '../../../../tambo/js/shared-sound-players/generalBoundaryBoopSoundPlayer.js';
-import generalSoftClickSoundPlayer from '../../../../tambo/js/shared-sound-players/generalSoftClickSoundPlayer.js';
-import ValueChangeSoundGenerator from '../../../../tambo/js/sound-generators/ValueChangeSoundGenerator.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
@@ -50,6 +46,7 @@ class AmplitudeSlider extends Slider {
 
     assert && assert( harmonic instanceof Harmonic );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
+    assert && assert( harmonic.amplitudeProperty.range );
 
     options = merge( {
 
@@ -63,7 +60,9 @@ class AmplitudeSlider extends Slider {
       startDrag: _.noop,
       endDrag: _.noop,
       orientation: Orientation.VERTICAL,
-      soundGenerator: ValueChangeSoundGenerator.NO_SOUND,
+      soundGeneratorOptions: {
+        numberOfMiddleThresholds: ( harmonic.amplitudeProperty.range.getLength() / FMWConstants.DISCRETE_AMPLITUDE_STEP ) - 1
+      },
 
       // pdom options
       // slider steps, see https://github.com/phetsims/fourier-making-waves/issues/53
@@ -89,11 +88,6 @@ class AmplitudeSlider extends Slider {
       }
       return amplitude;
     };
-
-    // Adhoc sound support
-    const soundDragHandler = new SoundDragHandler( harmonic.amplitudeProperty );
-    assert && assert( !options.drag, 'AmplitudeSlider defines drag' );
-    options.drag = event => soundDragHandler.drag( event );
 
     // Custom thumb
     const thumbNode = new GrippyThumb( THUMB_SIZE, harmonic, {
@@ -307,79 +301,6 @@ class BarTrack extends SliderTrack {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
-  }
-}
-
-//TODO https://github.com/phetsims/fourier-making-waves/issues/56 delete SoundDragHandler when Slider sound API is available
-/**
- * SoundDragHandler handles sound while dragging the thumb or track.
- * This must be used by both Slider and BarTrack in their options.drag, like this:
- *
- *   drag: event => soundDragHandler.drag( event )
- *
- * At the time of this implementation Slider had no sound API.
- * This is a temporary/adhoc implementation that is loosely based on WaveInterferenceSlider.js.
- */
-class SoundDragHandler {
-
-  /**
-   * @param {NumberProperty} property
-   */
-  constructor( property ) {
-    assert && assert( property instanceof NumberProperty );
-    assert && assert( property.range );
-
-    // @private 
-    this.property = property;
-    this.range = property.range;
-
-    // @private sounds and related intervals
-    this.minMaxSound = generalBoundaryBoopSoundPlayer;
-    this.inBetweenSound = generalSoftClickSoundPlayer;
-    this.inBetweenSoundDuration = 25; // determined empirically
-    this.inBetweenSoundMinSilence = 15; // minimum silence between in-between sounds, in milliseconds
-
-    // @private Keep track of the previous value.
-    this.previousValue = property.value;
-
-    // @private the time at which the most-recent sound started playing, in milliseconds
-    this.tPlay = 0;
-  }
-
-  /**
-   * Provides sound related to a drag event.
-   * @param {Event} event
-   * @public
-   */
-  drag( event ) {
-
-    // options.drag is called after the Property is set, so this is the current value.
-    const currentValue = this.property.value;
-
-    const dtPlay = Date.now() - this.tPlay;
-
-    if ( currentValue !== this.previousValue ) {
-
-      this.inBetweenSound.isPlaying && this.inBetweenSound.stop();
-      this.minMaxSound.isPlaying && this.minMaxSound.stop();
-
-      const range = this.property.range;
-      if ( currentValue === range.min || currentValue === range.max ) {
-
-        // Play min/max sound regardless of time since previous sound, otherwise we will sometime not hear them.
-        this.minMaxSound.play();
-      }
-      else if ( dtPlay >= this.inBetweenSoundDuration + this.inBetweenSoundMinSilence ) {
-
-        // Play in-between sound at some minimum interval, so that moving the slider doesn't create a bunch of sounds
-        // playing on top of each other, which sounds like an out-of-control popcorn machine.
-        this.inBetweenSound.play();
-      }
-
-      this.tPlay = Date.now();
-    }
-
-    this.previousValue = currentValue;
   }
 }
 
