@@ -103,7 +103,6 @@ class AmplitudeSlider extends Slider {
 
       // Propagate drag behavior to our custom track
       startDrag: options.startDrag,
-      drag: options.drag,
       endDrag: options.endDrag,
       constrainValue: options.constrainValue,
 
