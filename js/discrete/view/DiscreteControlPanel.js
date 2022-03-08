@@ -513,6 +513,7 @@ class SoundLayoutBox extends HBox {
       thumbSize: new Dimension2( 10, 20 ),
       trackSize: new Dimension2( 100, 3 ),
       trackStroke: Color.grayColor( 160 ),
+      soundGenerator: null,
       tandem: options.tandem.createTandem( 'outputLevelSlider' )
     } );
 
