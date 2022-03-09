@@ -158,7 +158,11 @@ function createSlidersIcon( amplitudes, amplitudeRange, options ) {
   const emphasizedHarmonics = new EmphasizedHarmonics();
   const sliders = new HBox( {
     spacing: 10,
-    children: harmonics.map( harmonic => new AmplitudeSlider( harmonic, emphasizedHarmonics ), {
+    children: harmonics.map( harmonic => new AmplitudeSlider( harmonic, emphasizedHarmonics, {
+
+      // Remove the PDOM content after creation to keep these input sliders out of the PDOM entirely, see https://github.com/phetsims/ratio-and-proportion/issues/444
+      tagName: null
+    } ), {
       tandem: Tandem.OPT_OUT
     } )
   } );
@@ -173,8 +177,7 @@ function createSlidersIcon( amplitudes, amplitudeRange, options ) {
   // Note that we could use node.rasterized( { resolution: 2 } ) to avoid memory, phet-io, and pdom issues
   // associated with all of the above elements. But the quality of the rendering is not as good.
   return new Node( merge( {}, {
-    children: [ xAxis, sliders ],
-    pdomVisible: false // so that focus traversal does not visit subcomponents of this icon
+    children: [ xAxis, sliders ]
   }, options ) );
 }
 
