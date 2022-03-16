@@ -60,7 +60,7 @@ class AmplitudeSlider extends Slider {
       startDrag: _.noop,
       endDrag: _.noop,
       orientation: Orientation.VERTICAL,
-      soundGeneratorOptions: {
+      valueChangeSoundGeneratorOptions: {
         numberOfMiddleThresholds: ( harmonic.amplitudeProperty.range.getLength() / FMWConstants.DISCRETE_AMPLITUDE_STEP ) - 1
       },
 
