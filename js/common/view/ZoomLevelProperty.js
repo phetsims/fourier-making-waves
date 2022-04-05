@@ -25,14 +25,13 @@ class ZoomLevelProperty extends NumberProperty {
    */
   constructor( axisDescriptionProperty, options ) {
     assert && AssertUtils.assertPropertyOf( axisDescriptionProperty, AxisDescription );
-    assert && assert( axisDescriptionProperty.validValues );
 
     const axisDescriptions = axisDescriptionProperty.validValues;
     assert && assert( axisDescriptions, 'axisDescriptionProperty should have been defined with validValues option' );
 
     super( axisDescriptions.indexOf( axisDescriptionProperty.value ), {
-      range: new Range( 0, axisDescriptions.length - 1 ),
-      isValidValue: value => value >= 0 && value < axisDescriptions.length
+      numberType: 'Integer',
+      range: new Range( 0, axisDescriptions.length - 1 )
     } );
 
     // Keep axisDescriptionProperty and zoomLevelProperty in sync, while avoiding reentrant behavior.

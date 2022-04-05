@@ -36,13 +36,16 @@ class WavePacketComponentsChartNode extends DomainChartNode {
   constructor( componentsChart, options ) {
 
     assert && assert( componentsChart instanceof WavePacketComponentsChart );
+    assert && assert( options && options.tandem );
 
     // Fields of interest in componentsChart, to improve readability
     const xAxisDescriptionProperty = componentsChart.xAxisDescriptionProperty;
     const componentDataSetsProperty = componentsChart.componentDataSetsProperty;
 
     options = merge( {
-      xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),
+      xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty, {
+        tandem: options.tandem.createTandem( 'xZoomLevelProperty' )
+      } ),
       xTickLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, X_TICK_LABEL_DECIMALS )
       },

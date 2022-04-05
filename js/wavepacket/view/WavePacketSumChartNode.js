@@ -33,6 +33,7 @@ class WavePacketSumChartNode extends DomainChartNode {
   constructor( sumChart, options ) {
 
     assert && assert( sumChart instanceof WavePacketSumChart );
+    assert && assert( options && options.tandem );
 
     // Fields of interest in sumChart, to improve readability
     const domainProperty = sumChart.domainProperty;
@@ -47,7 +48,9 @@ class WavePacketSumChartNode extends DomainChartNode {
     options = merge( {
 
       // x axis with dynamic scale and zoom buttons
-      xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty ),
+      xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty, {
+        tandem: options.tandem.createTandem( 'xZoomLevelProperty' )
+      } ),
       xTickLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, X_TICK_LABEL_DECIMALS )
       },

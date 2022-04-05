@@ -29,11 +29,14 @@ class DiscreteSumChartNode extends SumChartNode {
   constructor( sumChart, options ) {
 
     assert && assert( sumChart instanceof DiscreteSumChart );
+    assert && assert( options && options.tandem );
 
     options = merge( {
 
       // DomainChartNode options
-      xZoomLevelProperty: new ZoomLevelProperty( sumChart.xAxisDescriptionProperty ),
+      xZoomLevelProperty: new ZoomLevelProperty( sumChart.xAxisDescriptionProperty, {
+        tandem: options.tandem.createTandem( 'xZoomLevelProperty' )
+      } ),
       xTickLabelSetOptions: {
         createLabel: value =>
           TickLabelUtils.createTickLabelForDomain( value, X_TICK_LABEL_DECIMALS, sumChart.xAxisTickLabelFormatProperty.value,
