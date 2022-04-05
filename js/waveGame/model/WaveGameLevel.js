@@ -39,7 +39,7 @@ import WaveGameSumChart from './WaveGameSumChart.js';
 
 // Chart properties that are fixed in the Wave Game, and shared by the Harmonics and Sum charts.
 const DOMAIN = Domain.SPACE;
-const SERIES_TYPE = SeriesType.SINE;
+const SERIES_TYPE = SeriesType.SIN;
 const t = 0; // lowercase t (time) to distinguish from uppercase T (period)
 
 // A guess amplitude must be at least this close to an answer amplitude,

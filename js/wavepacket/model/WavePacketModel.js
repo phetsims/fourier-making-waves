@@ -38,7 +38,7 @@ class WavePacketModel {
       tandem: options.tandem.createTandem( 'domainProperty' )
     } );
 
-    const seriesTypeProperty = new EnumerationDeprecatedProperty( SeriesType, SeriesType.SINE, {
+    const seriesTypeProperty = new EnumerationDeprecatedProperty( SeriesType, SeriesType.SIN, {
       tandem: options.tandem.createTandem( 'seriesTypeProperty' )
     } );
 

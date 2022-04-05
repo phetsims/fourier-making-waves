@@ -111,7 +111,7 @@ class WavePacketSumChart extends DomainChart {
           // We'll be using finiteSumDataSet as one of the data sets. It was computed for either a SeriesType,
           // either sine or cosine. Compute the other data set by creating component data sets using the other
           // SeriesType, then summing those data sets.
-          const seriesType = ( seriesTypeProperty.value === SeriesType.SINE ) ? SeriesType.COSINE : SeriesType.SINE;
+          const seriesType = ( seriesTypeProperty.value === SeriesType.SIN ) ? SeriesType.COS : SeriesType.SIN;
           const otherComponentDataSets = WavePacketComponentsChart.createComponentsDataSets(
             wavePacket.componentsProperty.value, wavePacket.componentSpacingProperty.value, domainProperty.value,
             seriesType, xAxisDescriptionProperty.value.range
@@ -136,8 +136,8 @@ class WavePacketSumChart extends DomainChart {
         if ( waveformEnvelopeVisible && componentSpacing === 0 ) {
 
           // Compute data sets for the same wave packet, using sin and cos.
-          const sinDataSet = createWavePacketDataSet( center, conjugateStandardDeviation, SeriesType.SINE, xAxisDescription.range );
-          const cosDataSet = createWavePacketDataSet( center, conjugateStandardDeviation, SeriesType.COSINE, xAxisDescription.range );
+          const sinDataSet = createWavePacketDataSet( center, conjugateStandardDeviation, SeriesType.SIN, xAxisDescription.range );
+          const cosDataSet = createWavePacketDataSet( center, conjugateStandardDeviation, SeriesType.COS, xAxisDescription.range );
           assert && assert( sinDataSet.length === cosDataSet.length );
 
           // Combine the 2 data sets to create the envelope.
@@ -242,7 +242,7 @@ function createWavePacketDataSet( center, conjugateStandardDeviation, seriesType
     const x = xRange.min + ( i * dx );
 
     // y = F(x) = exp( -(x^2) / (2 * (dx^2)) ) * sin(k0*x)
-    const sinCosTerm = ( seriesType === SeriesType.SINE ) ? Math.sin( center * x ) : Math.cos( center * x );
+    const sinCosTerm = ( seriesType === SeriesType.SIN ) ? Math.sin( center * x ) : Math.cos( center * x );
     const y = Math.exp( -( x * x ) / ( 2 * ( conjugateStandardDeviation * conjugateStandardDeviation ) ) ) * sinCosTerm;
 
     dataSet.push( new Vector2( x, y ) );

@@ -25,13 +25,13 @@ function getAmplitudeFunction( domain, seriesType ) {
 
   let f;
   if ( domain === Domain.SPACE ) {
-    f = ( seriesType === SeriesType.SINE ) ? getAmplitudeSpaceSine : getAmplitudeSpaceCosine;
+    f = ( seriesType === SeriesType.SIN ) ? getAmplitudeSpaceSine : getAmplitudeSpaceCosine;
   }
   else if ( domain === Domain.TIME ) {
-    f = ( seriesType === SeriesType.SINE ) ? getAmplitudeTimeSine : getAmplitudeTimeCosine;
+    f = ( seriesType === SeriesType.SIN ) ? getAmplitudeTimeSine : getAmplitudeTimeCosine;
   }
   else if ( Domain.SPACE_AND_TIME ) {
-    f = ( seriesType === SeriesType.SINE ) ? getAmplitudeSpaceAndTimeSine : getAmplitudeSpaceAndTimeCosine;
+    f = ( seriesType === SeriesType.SIN ) ? getAmplitudeSpaceAndTimeSine : getAmplitudeSpaceAndTimeCosine;
   }
   else {
     throw new Error( `unsupported domain: ${domain}` );
@@ -51,32 +51,32 @@ function getAmplitudeFunction( domain, seriesType ) {
  * @private
  */
 
-// Domain.SPACE, SeriesType.SINE
+// Domain.SPACE, SeriesType.SIN
 function getAmplitudeSpaceSine( A, n, x, t, L, T ) {
   return A * Math.sin( 2 * Math.PI * n * x / L );
 }
 
-// Domain.SPACE, SeriesType.COSINE
+// Domain.SPACE, SeriesType.COS
 function getAmplitudeSpaceCosine( A, n, x, t, L, T ) {
   return A * Math.cos( 2 * Math.PI * n * x / L );
 }
 
-// Domain.TIME, SeriesType.SINE
+// Domain.TIME, SeriesType.SIN
 function getAmplitudeTimeSine( A, n, x, t, L, T ) {
   return A * Math.sin( 2 * Math.PI * n * x / T );
 }
 
-// Domain.TIME, SeriesType.COSINE
+// Domain.TIME, SeriesType.COS
 function getAmplitudeTimeCosine( A, n, x, t, L, T ) {
   return A * Math.cos( 2 * Math.PI * n * x / T );
 }
 
-// Domain.SPACE_AND_TIME, SeriesType.SINE
+// Domain.SPACE_AND_TIME, SeriesType.SIN
 function getAmplitudeSpaceAndTimeSine( A, n, x, t, L, T ) {
   return A * Math.sin( 2 * Math.PI * n * ( x / L - t / T ) );
 }
 
-// Domain.SPACE_AND_TIME, SeriesType.COSINE
+// Domain.SPACE_AND_TIME, SeriesType.COS
 function getAmplitudeSpaceAndTimeCosine( A, n, x, t, L, T ) {
   return A * Math.cos( 2 * Math.PI * n * ( x / L - t / T ) );
 }

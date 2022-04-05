@@ -173,7 +173,7 @@ function mapBasePointsToDataSet( basePoints, domain, seriesType, t, L, T ) {
   const x = ( domain === Domain.TIME ) ? T : L;
 
   // cosine shifts the waveform left by 1/4 of the wavelength or period.
-  let shiftX = ( seriesType === SeriesType.SINE ) ? 0 : ( -0.25 * x );
+  let shiftX = ( seriesType === SeriesType.SIN ) ? 0 : ( -0.25 * x );
 
   // space & time shifts the waveform by a portion of the wavelength.
   // This computation is similar to what's used in getAmplitudeSpaceAndTimeSine, in getAmplitudeFunction.js.
@@ -218,7 +218,7 @@ Waveform.TRIANGLE = new Waveform( {
   getAmplitudes: ( numberOfHarmonics, seriesType ) => {
     const amplitudes = [];
     for ( let n = 1; n <= numberOfHarmonics; n++ ) {
-      if ( seriesType === SeriesType.SINE ) {
+      if ( seriesType === SeriesType.SIN ) {
 
         // 8/(1*PI^2), 0, -8/(9*PI^2), 0, 8/(25*PI^2), 0, -8/(49*PI^2), 0, 8/(81*PI^2), 0, -8/(121*PI^2), ...
         amplitudes.push( n % 2 === 0 ? 0 : Math.pow( -1, ( n - 1 ) / 2 ) * ( 8 / ( n * n * PI * PI ) ) );
@@ -245,7 +245,7 @@ Waveform.SQUARE = new Waveform( {
   getAmplitudes: ( numberOfHarmonics, seriesType ) => {
     const amplitudes = [];
     for ( let n = 1; n <= numberOfHarmonics; n++ ) {
-      if ( seriesType === SeriesType.SINE ) {
+      if ( seriesType === SeriesType.SIN ) {
 
         // 4/(1*PI), 0, 4/(3*PI), 0, 4/(5*PI), 0, 4/(7*PI), 0, 4/(9*PI), 0, 4/(11*PI), ...
         amplitudes.push( n % 2 === 0 ? 0 : ( 4 / ( n * PI ) ) );
@@ -271,7 +271,7 @@ Waveform.SAWTOOTH = new Waveform( {
   // See https://mathworld.wolfram.com/FourierSeriesSawtoothWave.html
   getAmplitudes: ( numberOfHarmonics, seriesType ) => {
 
-    assert && assert( seriesType !== SeriesType.COSINE, 'cannot make a sawtooth wave out of cosines' );
+    assert && assert( seriesType !== SeriesType.COS, 'cannot make a sawtooth wave out of cosines' );
 
     const amplitudes = [];
     for ( let n = 1; n <= numberOfHarmonics; n++ ) {

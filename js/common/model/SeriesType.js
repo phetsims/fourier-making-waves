@@ -11,7 +11,8 @@
 import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-const SeriesType = EnumerationDeprecated.byKeys( [ 'SINE', 'COSINE' ] );
+// 'SIN' and 'COS' are used to correspond to 'sin' and 'cos' used for radio-button labels.
+const SeriesType = EnumerationDeprecated.byKeys( [ 'SIN', 'COS' ] );
 
 fourierMakingWaves.register( 'SeriesType', SeriesType );
 export default SeriesType;

@@ -104,7 +104,7 @@ const EquationMarkup = {
 
     const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t;
     const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega;
-    const seriesTypeString = ( seriesType === SeriesType.SINE ) ? FMWSymbols.sin : FMWSymbols.cos;
+    const seriesTypeString = ( seriesType === SeriesType.SIN ) ? FMWSymbols.sin : FMWSymbols.cos;
     return `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub> ` +
            `${seriesTypeString}( ${componentSymbol}<sub>${FMWSymbols.n}</sub>${domainSymbol} )`;
   }
@@ -229,7 +229,7 @@ function getSpaceAndTimeMarkup( seriesType, equationForm, order, amplitude ) {
  */
 function seriesTypeToMarkup( seriesType ) {
   assert && assert( SeriesType.includes( seriesType ) );
-  return ( seriesType === SeriesType.SINE ) ? FMWSymbols.sin : FMWSymbols.cos;
+  return ( seriesType === SeriesType.SIN ) ? FMWSymbols.sin : FMWSymbols.cos;
 }
 
 fourierMakingWaves.register( 'EquationMarkup', EquationMarkup );

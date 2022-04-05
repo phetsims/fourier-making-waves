@@ -70,7 +70,7 @@ class DiscreteModel {
     } );
 
     // @public
-    this.seriesTypeProperty = new EnumerationDeprecatedProperty( SeriesType, SeriesType.SINE, {
+    this.seriesTypeProperty = new EnumerationDeprecatedProperty( SeriesType, SeriesType.SIN, {
       tandem: options.tandem.createTandem( 'seriesTypeProperty' )
     } );
 
@@ -232,7 +232,7 @@ class DiscreteModel {
     const waveform = this.waveformProperty.value; // {Waveform}
     const seriesType = this.seriesTypeProperty.value; // {SeriesType}
 
-    if ( waveform === Waveform.SAWTOOTH && seriesType === SeriesType.COSINE ) {
+    if ( waveform === Waveform.SAWTOOTH && seriesType === SeriesType.COS ) {
       phet.log && phet.log( 'not possible to make a sawtooth out of cosines, switching to sine' );
       this.oopsSawtoothWithCosinesEmitter.emit();
 
@@ -244,7 +244,7 @@ class DiscreteModel {
       // We'd prefer not to set seriesTypeProperty to reentrant: true. And AquaRadioButton seems to have a
       // problem setting its state correctly when its associated Property is reentered in the same frame.
       animationFrameTimer.runOnNextTick( () => {
-        this.seriesTypeProperty.value = SeriesType.SINE;
+        this.seriesTypeProperty.value = SeriesType.SIN;
       } );
     }
     else if ( waveform !== Waveform.CUSTOM ) {
