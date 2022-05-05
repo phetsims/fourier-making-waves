@@ -12,11 +12,13 @@ import { RichText } from '../../../../scenery/js/imports.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import { VBox } from '../../../../scenery/js/imports.js';
 import Dialog from '../../../../sun/js/Dialog.js';
+import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
 // constants
 const MAX_CONTENT_WIDTH = 600;
+const LEVEL_INFO_FONT = new PhetFont( 24 );
 
 class WaveGameInfoDialog extends Dialog {
 
@@ -42,12 +44,15 @@ class WaveGameInfoDialog extends Dialog {
       maxWidth: 0.75 * MAX_CONTENT_WIDTH
     } );
 
-    const children = [];
-    levels.forEach( level =>
-      children.push( new RichText( level.infoDialogDescription, {
-        font: new PhetFont( 24 )
-      } ) )
-    );
+    const children = levels.map( level => new LevelInfoText( level.levelNumber, level.infoDialogDescription ) );
+
+    // Hide info for levels that are not included in gameLevels query parameter.
+    // We must still create these Nodes so that we don't risk changing the PhET-iO API.
+    if ( FMWQueryParameters.gameLevels ) {
+      children.forEach( node => {
+        node.visible = FMWQueryParameters.gameLevels.includes( node.levelNumber );
+      } );
+    }
 
     const content = new VBox( {
       align: 'left',
@@ -57,6 +62,15 @@ class WaveGameInfoDialog extends Dialog {
     } );
 
     super( content, options );
+  }
+}
+
+class LevelInfoText extends RichText {
+  constructor( levelNumber, description ) {
+    super( description, {
+      font: LEVEL_INFO_FONT
+    } );
+    this.levelNumber = levelNumber; // @public
   }
 }
 
