@@ -65,7 +65,13 @@ class WaveGameInfoDialog extends Dialog {
   }
 }
 
+// The info description for a level
 class LevelInfoText extends RichText {
+  
+  /**
+   * @param {number} levelNumber
+   * @param {string} description
+   */
   constructor( levelNumber, description ) {
     super( description, {
       font: LEVEL_INFO_FONT
