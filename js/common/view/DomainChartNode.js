@@ -12,7 +12,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import AxisLine from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
@@ -216,7 +216,7 @@ class DomainChartNode extends Node {
     } );
 
     // Update the x-axis range and decorations.
-    Property.multilink(
+    Multilink.multilink(
       [ domainProperty, xAxisDescriptionProperty ],
       ( domain, xAxisDescription ) => {
         const value = ( domain === Domain.TIME ) ? timeMultiplier : spaceMultiplier;

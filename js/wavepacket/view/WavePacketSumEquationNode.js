@@ -7,7 +7,7 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
@@ -62,7 +62,7 @@ class WavePacketSumEquationNode extends Node {
 
     super( options );
 
-    Property.multilink(
+    Multilink.multilink(
       [ domainProperty, seriesTypeProperty, componentSpacingProperty ],
       ( domain, seriesType, componentSpacing ) => {
 
@@ -93,7 +93,7 @@ class WavePacketSumEquationNode extends Node {
     );
 
     // Layout
-    Property.multilink(
+    Multilink.multilink(
       [ leftNode.boundsProperty, sumSymbolNode.boundsProperty, rightNode.boundsProperty ],
       () => {
         sumSymbolNode.left = leftNode.right + 2;

@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import BarPlot from '../../../../bamboo/js/BarPlot.js';
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
@@ -137,7 +137,7 @@ class WavePacketAmplitudesChartNode extends DomainChartNode {
     infiniteComponentsDataSetProperty.link( dataSet => infiniteComponentsPlot.setDataSet( dataSet ) );
 
     // CanvasLinePlot does not support visibleProperty, so handle it here by clearing the data set when invisible.
-    Property.multilink( [ continuousWaveformVisibleProperty, continuousWaveformDataSetProperty ],
+    Multilink.multilink( [ continuousWaveformVisibleProperty, continuousWaveformDataSetProperty ],
       ( visible, dataSet ) => {
         continuousWaveformPlot.setDataSet( visible ? dataSet : FMWConstants.EMPTY_DATA_SET );
         chartCanvasNode.update();

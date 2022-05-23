@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Range from '../../../../dot/js/Range.js';
 import OscillatorSoundGenerator from '../../../../tambo/js/sound-generators/OscillatorSoundGenerator.js';
@@ -91,7 +91,7 @@ class FourierSoundGenerator extends SoundGenerator {
 
     // When the FourierSoundGenerator is producing audible sound, duck all user-interface sounds.
     const userInterfaceDefaultOutputLevel = soundManager.getOutputLevelForCategory( 'user-interface' );
-    Property.multilink(
+    Multilink.multilink(
       [ this.fullyEnabledProperty, fourierSeries.soundEnabledProperty ],
       ( soundGeneratorFullyEnabled, enabled ) => {
         const soundIsAudible = ( soundGeneratorFullyEnabled && enabled );

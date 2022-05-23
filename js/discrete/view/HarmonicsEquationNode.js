@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import { Node } from '../../../../scenery/js/imports.js';
@@ -46,7 +46,7 @@ class HarmonicsEquationNode extends Node {
 
     super( options );
 
-    Property.multilink(
+    Multilink.multilink(
       [ domainProperty, seriesTypeProperty, equationFormProperty ],
       ( domain, seriesType, equationForm ) => {
         richText.text = EquationMarkup.getGeneralFormMarkup( domain, seriesType, equationForm );

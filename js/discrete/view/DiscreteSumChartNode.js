@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import SumChartNode from '../../common/view/SumChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
@@ -67,7 +67,7 @@ class DiscreteSumChartNode extends SumChartNode {
 
     // x-axis tick labels are specific to Domain and format (numeric vs symbolic).
     // This causes options.xTickLabelSetOptions.createLabels to be called.
-    Property.multilink( [ sumChart.domainProperty, sumChart.xAxisTickLabelFormatProperty ],
+    Multilink.multilink( [ sumChart.domainProperty, sumChart.xAxisTickLabelFormatProperty ],
       () => this.xTickLabels.invalidateTickLabelSet()
     );
   }

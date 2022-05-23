@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -129,7 +129,7 @@ class WaveGameLevelSelectionNode extends Node {
     super( options );
 
     // InfoButton to the right of title. This is handled dynamically in case the title is changed via PhET-iO.
-    Property.multilink(
+    Multilink.multilink(
       [ titleAndButtonsBox.boundsProperty, chooseYourLevelText.boundsProperty ],
       () => {
         const localBounds = chooseYourLevelText.boundsTo( this );

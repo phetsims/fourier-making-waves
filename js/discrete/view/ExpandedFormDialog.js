@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -84,7 +84,7 @@ class ExpandedFormDialog extends Dialog {
       font: FMWConstants.EQUATION_FONT,
       leading: 11
     } );
-    Property.multilink(
+    Multilink.multilink(
       [ fourierSeries.numberOfHarmonicsProperty, fourierSeries.amplitudesProperty, domainProperty, seriesTypeProperty, equationFormProperty ],
       ( numberOfHarmonics, amplitudes, domain, seriesType, equationForm ) => {
         let expandedSumMarkup = '';

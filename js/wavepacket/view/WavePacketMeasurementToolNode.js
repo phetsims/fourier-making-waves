@@ -8,6 +8,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -124,7 +125,7 @@ class WavePacketMeasurementToolNode extends Node {
     };
 
     chartTransform.changedEmitter.addListener( () => update( property.value, domainProperty.value ) );
-    Property.multilink( [ property, domainProperty ], update );
+    Multilink.multilink( [ property, domainProperty ], update );
 
     const positionProperty = new Vector2Property( options.position, {
       tandem: options.tandem.createTandem( 'positionProperty' ),

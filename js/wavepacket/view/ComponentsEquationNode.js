@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import { RichText } from '../../../../scenery/js/imports.js';
@@ -34,7 +34,7 @@ class ComponentsEquationNode extends RichText {
 
     super( '', options );
 
-    Property.multilink(
+    Multilink.multilink(
       [ domainProperty, seriesTypeProperty ],
       ( domain, seriesType ) => {
         this.text = EquationMarkup.getComponentsEquationMarkup( domain, seriesType );

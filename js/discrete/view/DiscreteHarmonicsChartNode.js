@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import HarmonicsChartNode from '../../common/view/HarmonicsChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
@@ -53,7 +53,7 @@ class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
 
     // x-axis tick labels are specific to Domain and format (numeric vs symbolic).
     // This causes options.xTickLabelSetOptions.createLabels to be called.
-    Property.multilink( [ harmonicsChart.domainProperty, harmonicsChart.xAxisTickLabelFormatProperty ],
+    Multilink.multilink( [ harmonicsChart.domainProperty, harmonicsChart.xAxisTickLabelFormatProperty ],
       () => this.xTickLabels.invalidateTickLabelSet()
     );
   }

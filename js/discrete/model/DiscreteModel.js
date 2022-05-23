@@ -8,6 +8,7 @@
 
 import animationFrameTimer from '../../../../axon/js/animationFrameTimer.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
@@ -145,13 +146,13 @@ class DiscreteModel {
     } );
 
     // Update the amplitudes
-    Property.multilink(
+    Multilink.multilink(
       [ this.fourierSeries.numberOfHarmonicsProperty, this.waveformProperty, this.seriesTypeProperty ],
       () => this.updateAmplitudes()
     );
 
     // Changing these things resets time (t).
-    Property.multilink(
+    Multilink.multilink(
       [ this.waveformProperty, this.domainProperty ],
       () => this.tProperty.reset()
     );
