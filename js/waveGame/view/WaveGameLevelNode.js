@@ -17,13 +17,9 @@ import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { globalKeyStateTracker } from '../../../../scenery/js/imports.js';
-import { KeyboardUtils } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { RichText } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import { VBox } from '../../../../scenery/js/imports.js';
+import { globalKeyStateTracker, KeyboardUtils, Node, RichText, Text, VBox } from '../../../../scenery/js/imports.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
+import nullSoundPlayer from '../../../../tambo/js/shared-sound-players/nullSoundPlayer.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Animation from '../../../../twixt/js/Animation.js';
 import Easing from '../../../../twixt/js/Easing.js';
@@ -254,6 +250,7 @@ class WaveGameLevelNode extends Node {
       } ),
       baseColor: PhetColorScheme.BUTTON_YELLOW,
       listener: checkAnswerListener,
+      soundPlayer: nullSoundPlayer,
       enabledProperty: checkAnswerButtonEnabledProperty,
       tandem: buttonsTandem.createTandem( 'checkAnswerButton' )
     } );
