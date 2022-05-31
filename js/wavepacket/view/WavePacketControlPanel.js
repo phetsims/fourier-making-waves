@@ -95,7 +95,7 @@ class WavePacketControlPanel extends Panel {
 
     // Put a separator between each logical section.
     // Use a uniform separator width, sized to fit the widest section
-    const separatorWidth = _.maxBy( sectionNodes, layoutBox => layoutBox.width ).width;
+    const separatorWidth = _.maxBy( sectionNodes, node => node.width ).width;
     const separatorOptions = {
       stroke: FMWColors.separatorStrokeProperty
     };
