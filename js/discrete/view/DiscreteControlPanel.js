@@ -70,13 +70,13 @@ class DiscreteControlPanel extends Panel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const fourierSeriesLayoutBox = new FourierSeriesSubpanel( model.fourierSeries, model.waveformProperty, popupParent, {
+    const fourierSeriesSubpanel = new FourierSeriesSubpanel( model.fourierSeries, model.waveformProperty, popupParent, {
       tandem: options.tandem.createTandem( 'fourierSeriesSubpanel' )
     } );
 
     // {Node[]} logical sections of the control panel
     const sectionNodes = [
-      fourierSeriesLayoutBox,
+      fourierSeriesSubpanel,
       new GraphControlsSubpanel( model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, popupParent, {
         tandem: options.tandem.createTandem( 'graphControlsSubpanel' )
       } ),
@@ -87,7 +87,7 @@ class DiscreteControlPanel extends Panel {
 
     // Put a separator between each logical section.
     // Use a uniform separator width, sized to fit the widest section
-    const separatorWidth = _.maxBy( sectionNodes, layoutBox => layoutBox.width ).width;
+    const separatorWidth = _.maxBy( sectionNodes, node => node.width ).width;
     const separatorOptions = {
       stroke: FMWColors.separatorStrokeProperty
     };
@@ -123,7 +123,7 @@ class DiscreteControlPanel extends Panel {
 
     // InfoButton at upper-right of control panel, vertically centered on title.
     infoButton.right = vBox.right;
-    infoButton.centerY = fourierSeriesLayoutBox.fourierSeriesText.boundsTo( vBox ).centerY;
+    infoButton.centerY = fourierSeriesSubpanel.fourierSeriesText.boundsTo( vBox ).centerY;
 
     super( content, options );
 
