@@ -217,8 +217,8 @@ class FourierSeriesSubpanel extends VBox {
     } );
 
     // Sound checkbox and slider
-    const soundLayoutBox = new SoundLayoutBox( fourierSeries.soundEnabledProperty, fourierSeries.soundOutputLevelProperty, {
-      tandem: options.tandem.createTandem( 'soundLayoutBox' )
+    const soundBox = new SoundBox( fourierSeries.soundEnabledProperty, fourierSeries.soundOutputLevelProperty, {
+      tandem: options.tandem.createTandem( 'soundBox' )
     } );
 
     assert && assert( !options.children, 'FourierSeriesSubpanel sets children' );
@@ -226,7 +226,7 @@ class FourierSeriesSubpanel extends VBox {
       fourierSeriesText,
       waveformBox,
       harmonicsBox,
-      soundLayoutBox
+      soundBox
     ];
 
     super( options );
@@ -477,10 +477,10 @@ class MeasurementToolsSubpanel extends VBox {
 }
 
 /**
- * SoundLayoutBox contains controls for enabling sound and adjusting output level. It's used to control the sound
+ * SoundBox contains controls for enabling sound and adjusting output level. It's used to control the sound
  * associated with the Fourier series.
  */
-class SoundLayoutBox extends HBox {
+class SoundBox extends HBox {
 
   /**
    * @param {Property.<boolean>} soundEnabledProperty
@@ -530,7 +530,7 @@ class SoundLayoutBox extends HBox {
       spacing: 5
     } );
 
-    assert && assert( !options.children, 'SoundLayoutBox sets children' );
+    assert && assert( !options.children, 'SoundBox sets children' );
     options.children = [ soundEnabledCheckbox, sliderBox ];
 
     super( options );
