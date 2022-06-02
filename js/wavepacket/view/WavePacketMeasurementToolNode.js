@@ -31,7 +31,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class WavePacketMeasurementToolNode extends Node {
 
   /**
-   * @param {Property.<number>} property - the Property of the wave packet that we're measuring
+   * @param {AbstractProperty.<number>} property - the Property of the wave packet that we're measuring
    * @param {ChartTransform} chartTransform
    * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {string} spaceSymbol
@@ -40,7 +40,7 @@ class WavePacketMeasurementToolNode extends Node {
    */
   constructor( property, chartTransform, domainProperty, spaceSymbol, timeSymbol, options ) {
 
-    assert && AssertUtils.assertPropertyOf( property, 'number' );
+    assert && AssertUtils.assertAbstractPropertyOf( property, 'number' );
     assert && assert( chartTransform instanceof ChartTransform );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( typeof spaceSymbol === 'string' );

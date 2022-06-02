@@ -24,8 +24,8 @@ class WidthIndicatorPlot extends Node {
 
   /**
    * @param {ChartTransform} chartTransform - transform for the chart that renders this plot
-   * @param {Property.<number>} widthProperty - width of the indicator, in model coordinates
-   * @param {Property.<Vector2>} positionProperty - position of the indicator, in model coordinates
+   * @param {AbstractProperty.<number>} widthProperty - width of the indicator, in model coordinates
+   * @param {AbstractProperty.<Vector2>} positionProperty - position of the indicator, in model coordinates
    * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty - the Domain, space or time
    * @param {string} spaceSymbol - symbol for the space Domain
    * @param {string} timeSymbol - symbol for the time Domain
@@ -34,8 +34,8 @@ class WidthIndicatorPlot extends Node {
   constructor( chartTransform, widthProperty, positionProperty, domainProperty, spaceSymbol, timeSymbol, options ) {
 
     assert && assert( chartTransform instanceof ChartTransform );
-    assert && AssertUtils.assertPropertyOf( widthProperty, 'number' );
-    assert && AssertUtils.assertPropertyOf( positionProperty, Vector2 );
+    assert && AssertUtils.assertAbstractPropertyOf( widthProperty, 'number' );
+    assert && AssertUtils.assertAbstractPropertyOf( positionProperty, Vector2 );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( typeof spaceSymbol === 'string' );
     assert && assert( typeof timeSymbol === 'string' );

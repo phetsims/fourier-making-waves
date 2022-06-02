@@ -19,14 +19,14 @@ class HarmonicPlot extends CanvasLinePlot {
   /**
    * @param {ChartTransform} chartTransform
    * @param {Harmonic} harmonic
-   * @param {Property.<Vector2[]>} dataSetProperty
+   * @param {AbstractProperty.<Vector2[]>} dataSetProperty
    * @param {Object} [options]
    */
   constructor( chartTransform, harmonic, dataSetProperty, options ) {
 
     assert && assert( chartTransform instanceof ChartTransform );
     assert && assert( harmonic instanceof Harmonic );
-    assert && AssertUtils.assertPropertyOf( dataSetProperty, Array );
+    assert && AssertUtils.assertAbstractPropertyOf( dataSetProperty, Array );
 
     options = merge( {}, options );
 

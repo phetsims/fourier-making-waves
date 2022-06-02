@@ -113,13 +113,13 @@ class PeriodClockNode extends DiscreteMeasurementToolNode {
 class ClockFaceNode extends Node {
 
   /**
-   * @param {Property.<Harmonic>} harmonicProperty
+   * @param {AbstractProperty.<Harmonic>} harmonicProperty
    * @param {Property.<number>} tProperty
    * @param {Object} [options]
    */
   constructor( harmonicProperty, tProperty, options ) {
 
-    assert && AssertUtils.assertPropertyOf( harmonicProperty, Harmonic );
+    assert && AssertUtils.assertAbstractPropertyOf( harmonicProperty, Harmonic );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
 
     options = merge( {

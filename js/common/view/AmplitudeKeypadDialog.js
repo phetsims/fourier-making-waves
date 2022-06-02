@@ -222,12 +222,12 @@ class AmplitudeKeypadDialog extends Dialog {
 class KeypadStringDisplay extends Node {
 
   /**
-   * @param {Property.<string>} stringProperty
+   * @param {AbstractProperty.<string>} stringProperty
    * @param {Object} [options]
    */
   constructor( stringProperty, options ) {
 
-    assert && AssertUtils.assertPropertyOf( stringProperty, 'string' );
+    assert && AssertUtils.assertAbstractPropertyOf( stringProperty, 'string' );
 
     options = merge( {
 

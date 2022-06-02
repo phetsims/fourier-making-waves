@@ -38,7 +38,7 @@ class DiscreteMeasurementToolNode extends Node {
 
   /**
    * @param {DiscreteMeasurementTool} tool
-   * @param {Property.<Harmonic>} harmonicProperty
+   * @param {AbstractProperty.<Harmonic>} harmonicProperty
    * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Domain[]} relevantDomains - the Domain values that are relevant for this tool
@@ -48,7 +48,7 @@ class DiscreteMeasurementToolNode extends Node {
   constructor( tool, harmonicProperty, emphasizedHarmonics, domainProperty, relevantDomains, updateNodes, options ) {
 
     assert && assert( tool instanceof DiscreteMeasurementTool );
-    assert && AssertUtils.assertPropertyOf( harmonicProperty, Harmonic );
+    assert && AssertUtils.assertAbstractPropertyOf( harmonicProperty, Harmonic );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( Array.isArray( relevantDomains ) );
