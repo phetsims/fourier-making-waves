@@ -19,7 +19,7 @@ class HarmonicPlot extends CanvasLinePlot {
   /**
    * @param {ChartTransform} chartTransform
    * @param {Harmonic} harmonic
-   * @param {AbstractProperty.<Vector2[]>} dataSetProperty
+   * @param {ReadOnlyProperty.<Vector2[]>} dataSetProperty
    * @param {Object} [options]
    */
   constructor( chartTransform, harmonic, dataSetProperty, options ) {

@@ -24,8 +24,8 @@ class WidthIndicatorPlot extends Node {
 
   /**
    * @param {ChartTransform} chartTransform - transform for the chart that renders this plot
-   * @param {AbstractProperty.<number>} widthProperty - width of the indicator, in model coordinates
-   * @param {AbstractProperty.<Vector2>} positionProperty - position of the indicator, in model coordinates
+   * @param {ReadOnlyProperty.<number>} widthProperty - width of the indicator, in model coordinates
+   * @param {ReadOnlyProperty.<Vector2>} positionProperty - position of the indicator, in model coordinates
    * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty - the Domain, space or time
    * @param {string} spaceSymbol - symbol for the space Domain
    * @param {string} timeSymbol - symbol for the time Domain

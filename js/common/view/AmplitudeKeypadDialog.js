@@ -222,7 +222,7 @@ class AmplitudeKeypadDialog extends Dialog {
 class KeypadStringDisplay extends Node {
 
   /**
-   * @param {AbstractProperty.<string>} stringProperty
+   * @param {ReadOnlyProperty.<string>} stringProperty
    * @param {Object} [options]
    */
   constructor( stringProperty, options ) {

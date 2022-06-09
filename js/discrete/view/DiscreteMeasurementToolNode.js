@@ -38,7 +38,7 @@ class DiscreteMeasurementToolNode extends Node {
 
   /**
    * @param {DiscreteMeasurementTool} tool
-   * @param {AbstractProperty.<Harmonic>} harmonicProperty
+   * @param {ReadOnlyProperty.<Harmonic>} harmonicProperty
    * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Domain[]} relevantDomains - the Domain values that are relevant for this tool

@@ -31,7 +31,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class WavePacketMeasurementToolNode extends Node {
 
   /**
-   * @param {AbstractProperty.<number>} property - the Property of the wave packet that we're measuring
+   * @param {ReadOnlyProperty.<number>} property - the Property of the wave packet that we're measuring
    * @param {ChartTransform} chartTransform
    * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {string} spaceSymbol

@@ -113,7 +113,7 @@ class PeriodClockNode extends DiscreteMeasurementToolNode {
 class ClockFaceNode extends Node {
 
   /**
-   * @param {AbstractProperty.<Harmonic>} harmonicProperty
+   * @param {ReadOnlyProperty.<Harmonic>} harmonicProperty
    * @param {Property.<number>} tProperty
    * @param {Object} [options]
    */
