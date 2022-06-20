@@ -33,7 +33,7 @@ class WaveGameLevelSelectionButton extends LevelSelectionButton {
     options = merge( {
 
       // LevelSelectionButton options
-      scoreDisplayConstructor: ScoreDisplayNumberAndStar,
+      createScoreDisplay: scoreProperty => new ScoreDisplayNumberAndStar( scoreProperty ),
       baseColor: FMWColors.levelSelectionButtonFillProperty,
       listener: () => {
         levelProperty.value = level;
