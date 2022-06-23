@@ -35,7 +35,7 @@ class PeriodCheckbox extends Checkbox {
       tandem: options.tandem.createTandem( 'periodText' )
     } );
 
-    super( periodText, isSelectedProperty, options );
+    super( isSelectedProperty, periodText, options );
   }
 }
 

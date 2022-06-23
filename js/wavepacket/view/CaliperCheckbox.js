@@ -53,7 +53,7 @@ class CaliperCheckbox extends Checkbox {
       caliperNode.setLabel( ( domain === Domain.SPACE ) ? spaceSymbol : timeSymbol );
     } );
 
-    super( caliperNode, visibleProperty, options );
+    super( visibleProperty, caliperNode, options );
   }
 }
 

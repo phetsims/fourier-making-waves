@@ -19,11 +19,11 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class SecondaryWaveformCheckbox extends Checkbox {
 
   /**
-   * @param {string} title
    * @param {Property.<boolean>} visibleProperty
+   * @param {string} title
    * @param {Object} [options]
    */
-  constructor( title, visibleProperty, options ) {
+  constructor( visibleProperty, title, options ) {
 
     options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
       textOptions: {
@@ -48,7 +48,7 @@ class SecondaryWaveformCheckbox extends Checkbox {
       spacing: 6
     } );
 
-    super( hBox, visibleProperty, options );
+    super( visibleProperty, hBox, options );
   }
 }
 

@@ -44,7 +44,7 @@ class WidthIndicatorsCheckbox extends Checkbox {
       spacing: 10
     } );
 
-    super( content, widthIndicatorsVisibleProperty, options );
+    super( widthIndicatorsVisibleProperty, content, options );
   }
 }
 

@@ -29,7 +29,7 @@ class FourierSoundEnabledCheckbox extends Checkbox {
       fill: 'black'
     } );
 
-    super( icon, soundEnabledProperty, options );
+    super( soundEnabledProperty, icon, options );
   }
 }
 

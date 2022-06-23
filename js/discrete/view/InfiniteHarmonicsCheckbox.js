@@ -17,7 +17,7 @@ class InfiniteHarmonicsCheckbox extends SecondaryWaveformCheckbox {
    * @param {Object} [options]
    */
   constructor( infiniteHarmonicsVisibleProperty, options ) {
-    super( fourierMakingWavesStrings.infiniteHarmonics, infiniteHarmonicsVisibleProperty, options );
+    super( infiniteHarmonicsVisibleProperty, fourierMakingWavesStrings.infiniteHarmonics, options );
   }
 }
 

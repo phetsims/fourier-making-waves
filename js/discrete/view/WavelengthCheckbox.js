@@ -35,7 +35,7 @@ class WavelengthCheckbox extends Checkbox {
       tandem: options.tandem.createTandem( 'wavelengthText' )
     } );
 
-    super( wavelengthText, isSelectedProperty, options );
+    super( isSelectedProperty, wavelengthText, options );
   }
 }
 
