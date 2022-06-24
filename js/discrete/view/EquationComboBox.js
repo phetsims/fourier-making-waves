@@ -112,7 +112,7 @@ class EquationComboBox extends FMWComboBox {
       }
     }, options );
 
-    super( CHOICES, equationFormProperty, popupParent, options );
+    super( equationFormProperty, CHOICES, popupParent, options );
 
     // Show only the choices that are appropriate for the selected Domain.
     domainProperty.link( domain => {

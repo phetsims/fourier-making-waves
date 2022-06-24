@@ -44,7 +44,7 @@ class WaveformComboBox extends FMWComboBox {
       }
     }, options );
 
-    super( CHOICES, waveformProperty, popupParent, options );
+    super( waveformProperty, CHOICES, popupParent, options );
   }
 }
 

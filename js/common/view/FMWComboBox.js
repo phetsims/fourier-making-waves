@@ -21,12 +21,12 @@ import FMWConstants from '../FMWConstants.js';
 class FMWComboBox extends ComboBox {
 
   /**
-   * @param {{value:*, string:string, [textOptions:Object], [tandemName:string]}[]} choices
    * @param {Property} property
+   * @param {{value:*, string:string, [textOptions:Object], [tandemName:string]}[]} choices
    * @param {Node} listboxParent
    * @param {Object} [options]
    */
-  constructor( choices, property, listboxParent, options ) {
+  constructor( property, choices, listboxParent, options ) {
 
     assert && AssertUtils.assertArray( choices );
     assert && assert( property instanceof Property );
@@ -57,7 +57,7 @@ class FMWComboBox extends ComboBox {
       } );
     } );
 
-    super( items, property, listboxParent, options );
+    super( property, items, listboxParent, options );
   }
 }
 

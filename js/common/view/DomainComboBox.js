@@ -71,7 +71,7 @@ class DomainComboBox extends FMWComboBox {
       value => _.find( CHOICES, choice => choice.value === value )
     );
 
-    super( choices, domainProperty, popupParent, options );
+    super( domainProperty, choices, popupParent, options );
   }
 }
 
