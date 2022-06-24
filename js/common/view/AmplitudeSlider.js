@@ -256,7 +256,7 @@ class BarTrack extends SliderTrack {
       children: [ invisibleTrackNode, visibleTrackNode ]
     } );
 
-    super( trackNode, harmonic.amplitudeProperty, amplitudeRange, options );
+    super( harmonic.amplitudeProperty, trackNode, amplitudeRange, options );
 
     // When the amplitude changes, redraw the track to make it look like a bar extends up or down from amplitude = 0.
     // Note that this code is actually extending left or right, because VSlider rotates its track -90 degrees.
