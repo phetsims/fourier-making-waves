@@ -1,26 +1,23 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * WaveGameInfoDialog is the Info dialog that describes the game levels.
+ * WaveGameInfoDialog describes the game levels in the 'Wave Game' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { RichText } from '../../../../scenery/js/imports.js';
 import { Text } from '../../../../scenery/js/imports.js';
-import { VBox } from '../../../../scenery/js/imports.js';
-import Dialog from '../../../../sun/js/Dialog.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import GameInfoDialog from '../../../../vegas/js/GameInfoDialog.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-// constants
 const MAX_CONTENT_WIDTH = 600;
-const LEVEL_INFO_FONT = new PhetFont( 24 );
 
-class WaveGameInfoDialog extends Dialog {
+class WaveGameInfoDialog extends GameInfoDialog {
 
   /**
    * @param {WaveGameLevel[]} levels
@@ -30,53 +27,32 @@ class WaveGameInfoDialog extends Dialog {
 
     options = merge( {
 
-      // Dialog options
+      // GameInfoDialogOptions
+      gameLevels: FMWQueryParameters.gameLevels,
+      descriptionTextOptions: {
+        font: new PhetFont( 24 )
+      },
+      vBoxOptions: {
+        align: 'left',
+        spacing: 20,
+        maxWidth: MAX_CONTENT_WIDTH // scale all descriptions uniformly
+      },
       ySpacing: 20,
       bottomMargin: 20,
 
       // phet-io
+      tandem: Tandem.REQUIRED,
       phetioReadOnly: true
     }, options );
 
     assert && assert( !options.title, 'WaveGameInfoDialog sets title' );
     options.title = new Text( fourierMakingWavesStrings.levels, {
       font: new PhetFont( 32 ),
-      maxWidth: 0.75 * MAX_CONTENT_WIDTH
+      maxWidth: 0.75 * MAX_CONTENT_WIDTH,
+      tandem: options.tandem.createTandem( 'titleText' )
     } );
 
-    const children = levels.map( level => new LevelInfoText( level.levelNumber, level.infoDialogDescription ) );
-
-    // Hide info for levels that are not included in gameLevels query parameter.
-    // We must still create these Nodes so that we don't risk changing the PhET-iO API.
-    if ( FMWQueryParameters.gameLevels ) {
-      children.forEach( node => {
-        node.visible = FMWQueryParameters.gameLevels.includes( node.levelNumber );
-      } );
-    }
-
-    const content = new VBox( {
-      align: 'left',
-      spacing: 20,
-      children: children,
-      maxWidth: MAX_CONTENT_WIDTH // scale all of the descriptions uniformly
-    } );
-
-    super( content, options );
-  }
-}
-
-// The info description for a level
-class LevelInfoText extends RichText {
-  
-  /**
-   * @param {number} levelNumber
-   * @param {string} description
-   */
-  constructor( levelNumber, description ) {
-    super( description, {
-      font: LEVEL_INFO_FONT
-    } );
-    this.levelNumber = levelNumber; // @public
+    super( levels.map( level => level.infoDialogDescription ), options );
   }
 }
 
