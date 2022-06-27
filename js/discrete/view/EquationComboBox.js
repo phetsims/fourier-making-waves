@@ -11,6 +11,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { Node } from '../../../../scenery/js/imports.js';
+import ComboBox from '../../../../sun/js/ComboBox.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
@@ -29,37 +30,37 @@ const CHOICES = [
   {
     value: EquationForm.HIDDEN,
     string: fourierMakingWavesStrings.hidden,
-    tandemName: 'hiddenItem'
+    tandemName: `hidden${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.WAVELENGTH,
     string: FMWSymbols.lambda,
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: 'wavelengthItem'
+    tandemName: `wavelength${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.SPATIAL_WAVE_NUMBER,
     string: FMWSymbols.k,
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: 'spatialWaveNumberItem'
+    tandemName: `spatialWaveNumber${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.FREQUENCY,
     string: FMWSymbols.f,
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: 'frequencyItem'
+    tandemName: `frequency${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.PERIOD,
     string: FMWSymbols.T,
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: 'periodItem'
+    tandemName: `period${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.ANGULAR_WAVE_NUMBER,
     string: FMWSymbols.omega,
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: 'angularWaveNumberItem'
+    tandemName: `angularWaveNumber${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.WAVELENGTH_AND_PERIOD,
@@ -68,7 +69,7 @@ const CHOICES = [
       symbol2: FMWSymbols.T
     } ),
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: 'wavelengthAndPeriodItem'
+    tandemName: `wavelengthAndPeriod${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER,
@@ -77,13 +78,13 @@ const CHOICES = [
       symbol2: FMWSymbols.omega
     } ),
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: 'spatialWaveNumberAndAngularWaveNumberItem'
+    tandemName: `spatialWaveNumberAndAngularWaveNumber${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.MODE,
     string: FMWSymbols.n,
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: 'modeItem'
+    tandemName: `mode${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   }
 ];
 assert && assert( _.every( CHOICES, choice => EquationForm.includes( choice.value ) ) );

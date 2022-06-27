@@ -9,6 +9,7 @@
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import { Node } from '../../../../scenery/js/imports.js';
+import ComboBox from '../../../../sun/js/ComboBox.js';
 import FMWComboBox from '../../common/view/FMWComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -16,12 +17,12 @@ import Waveform from '../model/Waveform.js';
 
 // This format is specific to FMWComboBox.
 const CHOICES = [
-  { value: Waveform.SINUSOID, string: fourierMakingWavesStrings.sinusoid, tandemName: 'sinusoidItem' },
-  { value: Waveform.TRIANGLE, string: fourierMakingWavesStrings.triangle, tandemName: 'triangleItem' },
-  { value: Waveform.SQUARE, string: fourierMakingWavesStrings.square, tandemName: 'squareItem' },
-  { value: Waveform.SAWTOOTH, string: fourierMakingWavesStrings.sawtooth, tandemName: 'sawtoothItem' },
-  { value: Waveform.WAVE_PACKET, string: fourierMakingWavesStrings.wavePacket, tandemName: 'wavePacketItem' },
-  { value: Waveform.CUSTOM, string: fourierMakingWavesStrings.custom, tandemName: 'customItem' }
+  { value: Waveform.SINUSOID, string: fourierMakingWavesStrings.sinusoid, tandemName: `sinusoid${ComboBox.ITEM_TANDEM_NAME_SUFFIX}` },
+  { value: Waveform.TRIANGLE, string: fourierMakingWavesStrings.triangle, tandemName: `triangle${ComboBox.ITEM_TANDEM_NAME_SUFFIX}` },
+  { value: Waveform.SQUARE, string: fourierMakingWavesStrings.square, tandemName: `square${ComboBox.ITEM_TANDEM_NAME_SUFFIX}` },
+  { value: Waveform.SAWTOOTH, string: fourierMakingWavesStrings.sawtooth, tandemName: `sawtooth${ComboBox.ITEM_TANDEM_NAME_SUFFIX}` },
+  { value: Waveform.WAVE_PACKET, string: fourierMakingWavesStrings.wavePacket, tandemName: `wavePacket${ComboBox.ITEM_TANDEM_NAME_SUFFIX}` },
+  { value: Waveform.CUSTOM, string: fourierMakingWavesStrings.custom, tandemName: `custom${ComboBox.ITEM_TANDEM_NAME_SUFFIX}` }
 ];
 
 class WaveformComboBox extends FMWComboBox {

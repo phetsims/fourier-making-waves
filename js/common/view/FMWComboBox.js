@@ -11,10 +11,8 @@
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { RichText } from '../../../../scenery/js/imports.js';
+import { Node, RichText } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
-import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 
@@ -52,9 +50,11 @@ class FMWComboBox extends ComboBox {
       // And there is negligible performance impact for using RichText for the strings that don't contain markup.
       const node = new RichText( choice.string, choice.textOptions || options.textOptions );
 
-      return new ComboBoxItem( node, choice.value, {
+      return {
+        value: choice.value,
+        node: node,
         tandemName: choice.tandemName || null
-      } );
+      };
     } );
 
     super( property, items, listboxParent, options );

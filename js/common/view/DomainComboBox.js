@@ -10,6 +10,7 @@
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import ComboBox from '../../../../sun/js/ComboBox.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
@@ -24,14 +25,14 @@ const CHOICES = [
     string: StringUtils.fillIn( fourierMakingWavesStrings.spaceSymbol, {
       symbol: FMWSymbols.x
     } ),
-    tandemName: 'spaceItem'
+    tandemName: `spaceItem${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: Domain.TIME,
     string: StringUtils.fillIn( fourierMakingWavesStrings.timeSymbol, {
       symbol: FMWSymbols.t
     } ),
-    tandemName: 'timeItem'
+    tandemName: `time${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: Domain.SPACE_AND_TIME,
@@ -39,7 +40,7 @@ const CHOICES = [
       spaceSymbol: FMWSymbols.x,
       timeSymbol: FMWSymbols.t
     } ),
-    tandemName: 'spaceAndTimeItem'
+    tandemName: `spaceAndTime${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   }
 ];
 assert && assert( _.every( CHOICES, choice => Domain.includes( choice.value ) ) );
