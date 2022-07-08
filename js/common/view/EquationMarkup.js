@@ -1,4 +1,4 @@
-// Copyright 2020-2021, University of Colorado Boulder
+// Copyright 2020-2022, University of Colorado Boulder
 
 /**
  * EquationMarkup is a set of utility functions for creating RichText markup, used to render equations that are

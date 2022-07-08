@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * ZoomLevelProperty is a NumberProperty that synchronizes itself with a Property.<AxisDescription>.

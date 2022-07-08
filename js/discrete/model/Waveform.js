@@ -1,4 +1,4 @@
-// Copyright 2020-2021, University of Colorado Boulder
+// Copyright 2020-2022, University of Colorado Boulder
 
 /**
  * Waveform is a set of static instances for the preset waveforms that appear in the 'Discrete' screen.

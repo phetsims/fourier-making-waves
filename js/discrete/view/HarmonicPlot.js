@@ -1,4 +1,4 @@
-// Copyright 2020-2021, University of Colorado Boulder
+// Copyright 2020-2022, University of Colorado Boulder
 
 /**
  * HarmonicPlot is a specialization of CanvasLinePlot that keeps the plot synchronized with a Harmonic.

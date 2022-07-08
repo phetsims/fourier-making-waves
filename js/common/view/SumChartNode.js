@@ -1,4 +1,4 @@
-// Copyright 2020-2021, University of Colorado Boulder
+// Copyright 2020-2022, University of Colorado Boulder
 
 /**
  * SumChartNode is the view base class for the 'Sum' chart in the 'Discrete' and 'Wave Game' screens.

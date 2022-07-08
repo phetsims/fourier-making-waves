@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * ContinuousWaveformCheckbox is the checkbox that is used to show the wave packet's waveform.

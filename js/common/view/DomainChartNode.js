@@ -1,4 +1,4 @@
-// Copyright 2020-2021, University of Colorado Boulder
+// Copyright 2020-2022, University of Colorado Boulder
 
 /**
  * DomainChartNode is the base class for all of the charts in this simulation, with the exception of the Amplitudes
