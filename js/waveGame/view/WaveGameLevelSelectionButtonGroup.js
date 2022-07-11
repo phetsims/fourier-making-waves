@@ -30,12 +30,10 @@ class WaveGameLevelSelectionButtonGroup extends LevelSelectionButtonGroup {
       flowBoxOptions: {
         orientation: 'horizontal',
         spacing: 20, // horizontal spacing
+        lineSpacing: 20, // vertical spacing
         preferredWidth: 500, // set empirically, to provide a maximum of 3 buttons per row
         wrap: true, // start a new row when preferredWidth is reached
-
-        //TODO https://github.com/phetsims/vegas/issues/108 workaround: no way to set FlowBoxConstraints.lineSpacing or FlowBoxConstraints.justify via options
-        lineSpacing: 20, // vertical spacing
-        justify: 'center'
+        justify: 'center' // horizontal justification
       },
       gameLevels: FMWQueryParameters.gameLevels,
       tandem: Tandem.REQUIRED
