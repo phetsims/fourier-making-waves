@@ -30,7 +30,6 @@ class WaveGameLevelSelectionButtonGroup extends LevelSelectionButtonGroup {
 
       // A maximum of 3 buttons per row, dynamically adapting to the number of visible buttons
       flowBoxOptions: {
-        orientation: 'horizontal',
         spacing: 20, // horizontal spacing
         lineSpacing: 20, // vertical spacing
         preferredWidth: 500, // set empirically, to provide a maximum of 3 buttons per row
