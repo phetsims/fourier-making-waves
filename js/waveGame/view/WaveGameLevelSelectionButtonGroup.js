@@ -27,6 +27,8 @@ class WaveGameLevelSelectionButtonGroup extends LevelSelectionButtonGroup {
       levelSelectionButtonOptions: {
         baseColor: FMWColors.levelSelectionButtonFillProperty
       },
+
+      // A maximum of 3 buttons per row, dynamically adapting to the number of visible buttons
       flowBoxOptions: {
         orientation: 'horizontal',
         spacing: 20, // horizontal spacing
