@@ -27,16 +27,15 @@ class WaveGameLevelSelectionButtonGroup extends LevelSelectionButtonGroup {
       levelSelectionButtonOptions: {
         baseColor: FMWColors.levelSelectionButtonFillProperty
       },
-
-      //TODO https://github.com/phetsims/vegas/issues/108 no way to call setLineSpacing or set FlowBoxConstraints.lineSpacing via options
-      //TODO https://github.com/phetsims/vegas/issues/108 no way to call setJustify or set FlowBoxConstraints.justify via options
-      //TODO https://github.com/phetsims/vegas/issues/108 how are the semantics of spacing vs lineSpacing related to orientation?
-      //TODO https://github.com/phetsims/vegas/issues/108 options.spacing and setLineSpacing (or even options.constraintsOptions.lineSpacing) is a clunky API
       flowBoxOptions: {
         orientation: 'horizontal',
         spacing: 20, // horizontal spacing
         preferredWidth: 500, // set empirically, to provide a maximum of 3 buttons per row
-        wrap: true // start a new row when preferredWidth is reached
+        wrap: true, // start a new row when preferredWidth is reached
+
+        //TODO https://github.com/phetsims/vegas/issues/108 workaround: no way to set FlowBoxConstraints.lineSpacing or FlowBoxConstraints.justify via options
+        lineSpacing: 20, // vertical spacing
+        justify: 'center'
       },
       gameLevels: FMWQueryParameters.gameLevels,
       tandem: Tandem.REQUIRED
