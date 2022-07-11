@@ -115,7 +115,7 @@ class WaveGameScreenView extends ScreenView {
         // See specification at https://github.com/phetsims/vegas/issues/90#issuecomment-854034816
         const transitionEndedListener = () => {
           assert && assert( this.transitionNode.hasChild( levelSelectionNode ) && levelSelectionNode.visible );
-          levelSelectionNode.getButtonForLevel( previousLevel ).focus();
+          levelSelectionNode.focusLevelSelectionButton( previousLevel );
           transition.endedEmitter.removeListener( transitionEndedListener );
         };
         transition.endedEmitter.addListener( transitionEndedListener );

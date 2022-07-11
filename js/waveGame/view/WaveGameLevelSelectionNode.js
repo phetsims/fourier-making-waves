@@ -13,18 +13,14 @@ import merge from '../../../../phet-core/js/merge.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import { VBox } from '../../../../scenery/js/imports.js';
+import { Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
 import WaveGameInfoDialog from './WaveGameInfoDialog.js';
-import WaveGameLevelSelectionButton from './WaveGameLevelSelectionButton.js';
+import WaveGameLevelSelectionButtonGroup from './WaveGameLevelSelectionButtonGroup.js';
 
 class WaveGameLevelSelectionNode extends Node {
 
@@ -62,47 +58,12 @@ class WaveGameLevelSelectionNode extends Node {
       tandem: options.tandem.createTandem( 'infoButton' )
     } );
 
-    // {WaveGameLevelSelectionButton[]} a level-selection button for each level
-    const levelSelectionButtons = model.levels.map(
-      level => new WaveGameLevelSelectionButton( level, model.levels.length, model.levelProperty, {
-        soundPlayerIndex: level.levelNumber - 1,
-        tandem: options.tandem.createTandem( `level${level.levelNumber}SelectionButton` )
-      } )
-    );
-
-    // Hide buttons for levels that are not included in gameLevels query parameter.
-    // We must still create these buttons so that we don't change the PhET-iO API.
-    if ( FMWQueryParameters.gameLevels ) {
-      levelSelectionButtons.forEach( button => {
-        button.visible = FMWQueryParameters.gameLevels.includes( button.level.levelNumber );
-      } );
-    }
-
-    // Lay out the level-selection buttons in a grid.
-    const BUTTONS_PER_ROW = 3;
-    const rows = [];
-    let i = 0;
-    while ( i < levelSelectionButtons.length ) {
-
-      // Create a row of buttons.
-      const hBoxChildren = [];
-      for ( let j = 0; j < BUTTONS_PER_ROW && i < levelSelectionButtons.length; j++ ) {
-        hBoxChildren.push( levelSelectionButtons[ i ] );
-        i++;
-      }
-      rows.push( new HBox( {
-        children: hBoxChildren,
-        spacing: 40
-      } ) );
-    }
-    const buttonsBox = new VBox( {
-      children: rows,
-      align: 'center',
-      spacing: 30
+    const levelSelectionButtonGroup = new WaveGameLevelSelectionButtonGroup( model.levelProperty, model.levels, {
+      tandem: options.tandem.createTandem( 'levelSelectionButtonGroup' )
     } );
 
     const titleAndButtonsBox = new VBox( {
-      children: [ chooseYourLevelText, buttonsBox ],
+      children: [ chooseYourLevelText, levelSelectionButtonGroup ],
       spacing: 50,
       excludeInvisibleChildrenFromBounds: false
     } );
@@ -138,22 +99,21 @@ class WaveGameLevelSelectionNode extends Node {
       } );
 
     // @private
-    this.levelSelectionButtons = levelSelectionButtons;
+    this.levelSelectionButtonGroup = levelSelectionButtonGroup;
 
     // pdom - traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53
-    this.pdomOrder = [ buttonsBox, infoButton, resetAllButton ];
+    this.pdomOrder = [ levelSelectionButtonGroup, infoButton, resetAllButton ];
   }
 
   /**
-   * Gets the button associated with a specified level.
+   * Sets focus to the level-selection button associated with the specified level.
    * @param {WaveGameLevel} level
-   * @returns {WaveGameLevelSelectionButton}
    * @public
    */
-  getButtonForLevel( level ) {
+  focusLevelSelectionButton( level ) {
     assert && assert( level instanceof WaveGameLevel );
-    return _.find( this.levelSelectionButtons, button => button.level === level );
+    this.levelSelectionButtonGroup.focusLevelSelectionButton( level.levelNumber );
   }
 }
 
