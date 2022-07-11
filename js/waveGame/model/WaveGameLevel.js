@@ -49,12 +49,12 @@ const AMPLITUDE_THRESHOLD = 0;
 class WaveGameLevel extends PhetioObject {
 
   /**
-   * @param {number} levelNumber
+   * @param {number} levelNumber - numbered starting from 1
    * @param {Object} config
    */
   constructor( levelNumber, config ) {
 
-    assert && AssertUtils.assertPositiveInteger( levelNumber ); // Level numbering starts from 1.
+    assert && AssertUtils.assertPositiveInteger( levelNumber ); // numbered starting from 1
 
     config = merge( {
 
@@ -90,7 +90,7 @@ class WaveGameLevel extends PhetioObject {
     super( config );
 
     // @public (read-only)
-    this.levelNumber = levelNumber; // {number}
+    this.levelNumber = levelNumber; // {number} numbered starting from 1
     this.statusBarMessage = config.statusBarMessage; // {string}
     this.infoDialogDescription = config.infoDialogDescription; // {string}
 
