@@ -14,6 +14,14 @@ import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import FMWIconFactory from '../../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
+const BUTTON_WIDTH = 150;
+const BUTTON_HEIGHT = 150;
+
+// Layout of buttons
+const X_SPACING = 40;
+const Y_SPACING = 30;
+const BUTTONS_PER_ROW = 3;
+
 class WaveGameLevelSelectionButtonGroup extends LevelSelectionButtonGroup {
 
   /**
@@ -25,14 +33,16 @@ class WaveGameLevelSelectionButtonGroup extends LevelSelectionButtonGroup {
 
     options = merge( {
       levelSelectionButtonOptions: {
-        baseColor: FMWColors.levelSelectionButtonFillProperty
+        baseColor: FMWColors.levelSelectionButtonFillProperty,
+        buttonWidth: BUTTON_WIDTH,
+        buttonHeight: BUTTON_HEIGHT
       },
 
-      // A maximum of 3 buttons per row, dynamically adapting to the number of visible buttons
+      // A maximum number of buttons per row, wrapping to a new row
       flowBoxOptions: {
-        spacing: 20, // horizontal spacing
-        lineSpacing: 20, // vertical spacing
-        preferredWidth: 500, // set empirically, to provide a maximum of 3 buttons per row
+        spacing: X_SPACING, // horizontal spacing
+        lineSpacing: Y_SPACING, // vertical spacing
+        preferredWidth: BUTTONS_PER_ROW * ( BUTTON_WIDTH + X_SPACING ),
         wrap: true, // start a new row when preferredWidth is reached
         justify: 'center' // horizontal justification
       },
