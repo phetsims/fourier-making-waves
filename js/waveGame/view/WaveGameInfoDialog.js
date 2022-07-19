@@ -15,8 +15,6 @@ import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
-const MAX_CONTENT_WIDTH = 600;
-
 class WaveGameInfoDialog extends GameInfoDialog {
 
   /**
@@ -26,13 +24,10 @@ class WaveGameInfoDialog extends GameInfoDialog {
   constructor( levels, options ) {
 
     options = merge( {
-
-      // GameInfoDialogOptions
       gameLevels: FMWQueryParameters.gameLevels,
       vBoxOptions: {
         align: 'left',
-        spacing: 20,
-        maxWidth: MAX_CONTENT_WIDTH // scale all descriptions uniformly
+        spacing: 20
       },
       ySpacing: 20,
       bottomMargin: 20,
@@ -45,11 +40,12 @@ class WaveGameInfoDialog extends GameInfoDialog {
     assert && assert( !options.title, 'WaveGameInfoDialog sets title' );
     options.title = new Text( fourierMakingWavesStrings.levels, {
       font: new PhetFont( 32 ),
-      maxWidth: 0.75 * MAX_CONTENT_WIDTH,
       tandem: options.tandem.createTandem( 'titleText' )
     } );
 
-    super( levels.map( level => level.infoDialogDescription ), options );
+    const descriptions = levels.map( level => level.infoDialogDescription );
+
+    super( descriptions, options );
   }
 }
 
