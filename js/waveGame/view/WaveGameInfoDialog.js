@@ -29,9 +29,6 @@ class WaveGameInfoDialog extends GameInfoDialog {
 
       // GameInfoDialogOptions
       gameLevels: FMWQueryParameters.gameLevels,
-      descriptionTextOptions: {
-        font: new PhetFont( 24 )
-      },
       vBoxOptions: {
         align: 'left',
         spacing: 20,
