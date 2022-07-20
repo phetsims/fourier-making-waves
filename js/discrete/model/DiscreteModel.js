@@ -8,10 +8,10 @@
 
 import animationFrameTimer from '../../../../axon/js/animationFrameTimer.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';

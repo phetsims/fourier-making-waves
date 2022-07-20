@@ -7,9 +7,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { FireListener } from '../../../../scenery/js/imports.js';
-import { HBox } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
+import { FireListener, HBox, Text } from '../../../../scenery/js/imports.js';
 import ExpandCollapseButton from '../../../../sun/js/ExpandCollapseButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';

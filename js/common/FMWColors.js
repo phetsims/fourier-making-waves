@@ -7,8 +7,7 @@
  */
 
 import Range from '../../../dot/js/Range.js';
-import { Color } from '../../../scenery/js/imports.js';
-import { ProfileColorProperty } from '../../../scenery/js/imports.js';
+import { Color, ProfileColorProperty } from '../../../scenery/js/imports.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 
 const FMWColors = {

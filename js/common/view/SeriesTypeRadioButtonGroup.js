@@ -11,10 +11,10 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { RichText } from '../../../../scenery/js/imports.js';
 import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import SeriesType from '../model/SeriesType.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
 

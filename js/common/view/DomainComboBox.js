@@ -10,8 +10,8 @@
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import ComboBox from '../../../../sun/js/ComboBox.js';
 import { Node } from '../../../../scenery/js/imports.js';
+import ComboBox from '../../../../sun/js/ComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 import FMWSymbols from '../FMWSymbols.js';

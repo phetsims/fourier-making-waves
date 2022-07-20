@@ -8,10 +8,10 @@
  */
 
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import FMWSymbols from '../FMWSymbols.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
-import Domain from '../model/Domain.js';
 import EquationForm from '../../discrete/model/EquationForm.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
+import FMWSymbols from '../FMWSymbols.js';
+import Domain from '../model/Domain.js';
 import SeriesType from '../model/SeriesType.js';
 
 // constants

@@ -11,16 +11,15 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { RichText } from '../../../../scenery/js/imports.js';
+import { Node, RichText } from '../../../../scenery/js/imports.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../../common/model/Domain.js';
-import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import SumSymbolNode from '../../common/view/SumSymbolNode.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
+import EquationForm from '../model/EquationForm.js';
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
 const EQUAL_TO = MathSymbols.EQUAL_TO;

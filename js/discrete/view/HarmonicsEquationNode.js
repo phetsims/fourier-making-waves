@@ -9,14 +9,13 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { RichText } from '../../../../scenery/js/imports.js';
+import { Node, RichText } from '../../../../scenery/js/imports.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../../common/model/Domain.js';
-import EquationForm from '../model/EquationForm.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
+import EquationForm from '../model/EquationForm.js';
 
 class HarmonicsEquationNode extends Node {
 
