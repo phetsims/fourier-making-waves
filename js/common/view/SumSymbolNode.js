@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * SumSymbolNode displays a symbol that indicates a sum of quantities. It can use either the summation symbol

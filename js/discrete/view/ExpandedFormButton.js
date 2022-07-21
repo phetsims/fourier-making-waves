@@ -1,4 +1,4 @@
-// Copyright 2020-2021, University of Colorado Boulder
+// Copyright 2020-2022, University of Colorado Boulder
 
 /**
  * ExpandedFormButton is the push button used to open the 'Expanded Form' dialog. It appear next to the equation
