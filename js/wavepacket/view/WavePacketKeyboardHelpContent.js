@@ -21,7 +21,7 @@ class WavePacketKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
   constructor( options ) {
 
     options = merge( {
-      labelMaxWidth: 250,
+      textMaxWidth: 250,
       generalSectionOptions: {
         withCheckboxContent: true
       }

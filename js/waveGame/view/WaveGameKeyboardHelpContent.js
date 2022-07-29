@@ -22,11 +22,11 @@ class WaveGameKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
   constructor( options ) {
 
     options = merge( {
-      labelMaxWidth: 250
+      textMaxWidth: 250
     }, options );
 
     const gameControlsHelpSection = new GameControlsHelpSection( {
-      labelMaxWidth: options.labelMaxWidth
+      textMaxWidth: options.textMaxWidth
     } );
     const sliderHelpSection = new SliderControlsKeyboardHelpSection( options.sliderSectionOptions );
     const basicActionsHelpSection = new BasicActionsKeyboardHelpSection( options.generalSectionOptions );
