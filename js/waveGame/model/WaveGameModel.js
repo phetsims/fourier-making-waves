@@ -89,7 +89,7 @@ class WaveGameModel {
     // null means 'no selection' and causes the view to return to the level-selection UI
     this.levelProperty = new Property( null, {
       validValues: [ null, ...this.levels ],
-      phetioType: Property.PropertyIO( NullableIO( WaveGameLevel.WaveGameLevelIO ) ),
+      phetioValueType: NullableIO( WaveGameLevel.WaveGameLevelIO ),
       tandem: options.tandem.createTandem( 'levelProperty' ),
       phetioDocumentation: 'The level currently selected in the Wave Game, null if no level is selected.'
     } );

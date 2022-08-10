@@ -97,7 +97,7 @@ class FourierSeries extends PhetioObject {
       this.harmonics.map( harmonic => harmonic.amplitudeProperty ),
       () => this.harmonics.map( harmonic => harmonic.amplitudeProperty.value ), {
         phetioDocumentation: 'the amplitudes of all harmonics',
-        phetioType: DerivedProperty.DerivedPropertyIO( ArrayIO( NumberIO ) ),
+        phetioValueType: ArrayIO( NumberIO ),
         tandem: options.tandem.createTandem( 'amplitudesProperty' )
       } );
 

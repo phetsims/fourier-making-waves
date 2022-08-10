@@ -122,7 +122,7 @@ class WavePacket {
       [ this.standardDeviationProperty ],
       standardDeviation => 2 * standardDeviation, {
         tandem: options.tandem.createTandem( 'widthProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioValueType: NumberIO,
         phetioDocumentation: 'The width of the wave packet, derived from standardDeviationProperty. ' +
                              'In the space domain, width is in rad/m. ' +
                              'In the time domain, width is in rad/ms.'
@@ -139,7 +139,7 @@ class WavePacket {
         return period;
       }, {
         tandem: options.tandem.createTandem( 'lengthProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioValueType: NumberIO,
         phetioDocumentation: 'A measure of the wave packet length. ' +
                              'In the space domain, wavelength \u03bb<sub>1</sub> in m. ' +
                              'In the time domain, period T<sub>1</sub> in ms.'
@@ -163,7 +163,7 @@ class WavePacket {
         return dataSet;
       }, {
         tandem: options.tandem.createTandem( 'componentsProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( ArrayIO( FourierComponent.FourierComponentIO ) ),
+        phetioValueType: ArrayIO( FourierComponent.FourierComponentIO ),
         phetioDocumentation: 'The set of Fourier components used to approximate the wave packet. ' +
                              'Each component has a wave number and an amplitude. ' +
                              'For the space domain, k is the spatial wave number in rad/m. ' +

@@ -74,7 +74,7 @@ class DiscreteMeasurementToolNode extends Node {
     options.visibleProperty = new DerivedProperty( [ tool.isSelectedProperty, domainProperty ],
       ( isSelected, domain ) => ( isSelected && relevantDomains.includes( domain ) ), {
         tandem: options.tandem.createTandem( 'visibleProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+        phetioValueType: BooleanIO
       } );
 
     super( options );
