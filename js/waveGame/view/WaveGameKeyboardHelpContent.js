@@ -9,6 +9,7 @@
 import merge from '../../../../phet-core/js/merge.js';
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
+import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -45,7 +46,7 @@ class GameControlsHelpSection extends KeyboardHelpSection {
   constructor( options ) {
 
     // Alt+C
-    const checkAnswerRow = KeyboardHelpSection.createGlobalHotkeyRow(
+    const checkAnswerRow = KeyboardHelpSectionRow.createGlobalHotkeyRow(
       fourierMakingWavesStrings.keyboardHelpDialog.checkYourAnswer,
       'C' );
 

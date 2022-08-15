@@ -11,6 +11,7 @@
 
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
+import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
 
@@ -22,12 +23,12 @@ class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSection {
   constructor( options ) {
 
     // arrows or WASD
-    const normalRow = KeyboardHelpSection.labelWithIcon(
+    const normalRow = KeyboardHelpSectionRow.labelWithIcon(
       fourierMakingWavesStrings.keyboardHelpDialog.moveTool,
       KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon() );
 
     // Shift+arrows or Shift+WASD
-    const slowerRow = KeyboardHelpSection.labelWithIconList(
+    const slowerRow = KeyboardHelpSectionRow.labelWithIconList(
       fourierMakingWavesStrings.keyboardHelpDialog.moveToolSlower,
       [
         KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() ),
