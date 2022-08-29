@@ -25,10 +25,6 @@ class WaveGameInfoDialog extends GameInfoDialog {
 
     options = merge( {
       gameLevels: FMWQueryParameters.gameLevels,
-      vBoxOptions: {
-        align: 'left',
-        spacing: 20
-      },
       ySpacing: 20,
       bottomMargin: 20,
 
