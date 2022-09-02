@@ -14,7 +14,7 @@ import fourierMakingWavesStrings from './fourierMakingWavesStrings.js';
 import WaveGameScreen from './waveGame/WaveGameScreen.js';
 import WavePacketScreen from './wavepacket/WavePacketScreen.js';
 
-const fourierMakingWavesTitleString = fourierMakingWavesStrings[ 'fourier-making-waves' ].title;
+const fourierMakingWavesTitleStringProperty = fourierMakingWavesStrings[ 'fourier-making-waves' ].titleStringProperty;
 
 const simOptions = {
   credits: {
@@ -30,7 +30,7 @@ const simOptions = {
 };
 
 simLauncher.launch( () => {
-  const sim = new Sim( fourierMakingWavesTitleString, [
+  const sim = new Sim( fourierMakingWavesTitleStringProperty, [
     new DiscreteScreen( { tandem: Tandem.ROOT.createTandem( 'discreteScreen' ) } ),
     new WaveGameScreen( { tandem: Tandem.ROOT.createTandem( 'waveGameScreen' ) } ),
     new WavePacketScreen( { tandem: Tandem.ROOT.createTandem( 'wavePacketScreen' ) } )
