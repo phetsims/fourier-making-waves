@@ -13,7 +13,7 @@ import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/K
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSection {
 
@@ -24,18 +24,18 @@ class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSection {
 
     // arrows or WASD
     const normalRow = KeyboardHelpSectionRow.labelWithIcon(
-      fourierMakingWavesStrings.keyboardHelpDialog.moveTool,
+      FourierMakingWavesStrings.keyboardHelpDialog.moveTool,
       KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon() );
 
     // Shift+arrows or Shift+WASD
     const slowerRow = KeyboardHelpSectionRow.labelWithIconList(
-      fourierMakingWavesStrings.keyboardHelpDialog.moveToolSlower,
+      FourierMakingWavesStrings.keyboardHelpDialog.moveToolSlower,
       [
         KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() ),
         KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() )
       ] );
 
-    super( fourierMakingWavesStrings.keyboardHelpDialog.measurementTools, [ normalRow, slowerRow ], options );
+    super( FourierMakingWavesStrings.keyboardHelpDialog.measurementTools, [ normalRow, slowerRow ], options );
   }
 }
 

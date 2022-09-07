@@ -209,8 +209,8 @@ type StringsType = {
   }
 };
 
-const fourierMakingWavesStrings = getStringModule( 'FOURIER_MAKING_WAVES' ) as StringsType;
+const FourierMakingWavesStrings = getStringModule( 'FOURIER_MAKING_WAVES' ) as StringsType;
 
-fourierMakingWaves.register( 'fourierMakingWavesStrings', fourierMakingWavesStrings );
+fourierMakingWaves.register( 'FourierMakingWavesStrings', FourierMakingWavesStrings );
 
-export default fourierMakingWavesStrings;
+export default FourierMakingWavesStrings;

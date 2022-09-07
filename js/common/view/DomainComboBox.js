@@ -13,7 +13,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
 import FMWComboBox from './FMWComboBox.js';
@@ -22,21 +22,21 @@ import FMWComboBox from './FMWComboBox.js';
 const CHOICES = [
   {
     value: Domain.SPACE,
-    string: StringUtils.fillIn( fourierMakingWavesStrings.spaceSymbol, {
+    string: StringUtils.fillIn( FourierMakingWavesStrings.spaceSymbol, {
       symbol: FMWSymbols.x
     } ),
     tandemName: `spaceItem${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: Domain.TIME,
-    string: StringUtils.fillIn( fourierMakingWavesStrings.timeSymbol, {
+    string: StringUtils.fillIn( FourierMakingWavesStrings.timeSymbol, {
       symbol: FMWSymbols.t
     } ),
     tandemName: `time${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: Domain.SPACE_AND_TIME,
-    string: StringUtils.fillIn( fourierMakingWavesStrings.spaceAndTimeSymbols, {
+    string: StringUtils.fillIn( FourierMakingWavesStrings.spaceAndTimeSymbols, {
       spaceSymbol: FMWSymbols.x,
       timeSymbol: FMWSymbols.t
     } ),

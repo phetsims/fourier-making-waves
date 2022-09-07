@@ -10,11 +10,11 @@ import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import DiscreteScreen from './discrete/DiscreteScreen.js';
-import fourierMakingWavesStrings from './fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from './FourierMakingWavesStrings.js';
 import WaveGameScreen from './waveGame/WaveGameScreen.js';
 import WavePacketScreen from './wavepacket/WavePacketScreen.js';
 
-const fourierMakingWavesTitleStringProperty = fourierMakingWavesStrings[ 'fourier-making-waves' ].titleStringProperty;
+const fourierMakingWavesTitleStringProperty = FourierMakingWavesStrings[ 'fourier-making-waves' ].titleStringProperty;
 
 const simOptions = {
   credits: {

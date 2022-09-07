@@ -13,7 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import GameInfoDialog from '../../../../vegas/js/GameInfoDialog.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 class WaveGameInfoDialog extends GameInfoDialog {
 
@@ -34,7 +34,7 @@ class WaveGameInfoDialog extends GameInfoDialog {
     }, options );
 
     assert && assert( !options.title, 'WaveGameInfoDialog sets title' );
-    options.title = new Text( fourierMakingWavesStrings.levels, {
+    options.title = new Text( FourierMakingWavesStrings.levels, {
       font: new PhetFont( 32 ),
       tandem: options.tandem.createTandem( 'titleText' )
     } );

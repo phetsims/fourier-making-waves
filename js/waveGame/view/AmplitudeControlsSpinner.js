@@ -12,7 +12,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Text, VBox } from '../../../../scenery/js/imports.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 class AmplitudeControlsSpinner extends VBox {
 
@@ -52,7 +52,7 @@ class AmplitudeControlsSpinner extends VBox {
       spacing: 10
     }, options );
 
-    const amplitudeControlsText = new Text( fourierMakingWavesStrings.amplitudeControls,
+    const amplitudeControlsText = new Text( FourierMakingWavesStrings.amplitudeControls,
       merge( {
         tandem: options.tandem.createTandem( 'amplitudeControlsText' )
       }, options.textOptions ) );

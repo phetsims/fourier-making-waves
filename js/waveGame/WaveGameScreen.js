@@ -12,7 +12,7 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import FMWColors from '../common/FMWColors.js';
 import FMWIconFactory from '../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../FourierMakingWavesStrings.js';
 import WaveGameModel from './model/WaveGameModel.js';
 import WaveGameKeyboardHelpContent from './view/WaveGameKeyboardHelpContent.js';
 import WaveGameScreenView from './view/WaveGameScreenView.js';
@@ -27,7 +27,7 @@ class WaveGameScreen extends Screen {
     options = merge( {
 
       // Screen options
-      name: fourierMakingWavesStrings.screen.waveGame,
+      name: FourierMakingWavesStrings.screen.waveGame,
       backgroundColorProperty: FMWColors.waveGameScreenBackgroundColorProperty,
       homeScreenIcon: FMWIconFactory.createWaveGameHomeScreenIcon(),
 

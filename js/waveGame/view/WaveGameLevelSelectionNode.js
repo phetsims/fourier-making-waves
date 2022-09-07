@@ -17,7 +17,7 @@ import { Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
 import WaveGameInfoDialog from './WaveGameInfoDialog.js';
 import WaveGameLevelSelectionButtonGroup from './WaveGameLevelSelectionButtonGroup.js';
@@ -40,7 +40,7 @@ class WaveGameLevelSelectionNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const chooseYourLevelText = new Text( fourierMakingWavesStrings.chooseYourLevel, {
+    const chooseYourLevelText = new Text( FourierMakingWavesStrings.chooseYourLevel, {
       font: new PhetFont( 50 ),
       maxWidth: 0.65 * layoutBounds.width,
       tandem: options.tandem.createTandem( 'chooseYourLevelText' )

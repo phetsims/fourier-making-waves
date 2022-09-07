@@ -23,7 +23,7 @@ import Orientation from '../../../../phet-core/js/Orientation.js';
 import { Node, RichText, Text } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import FMWColors from '../FMWColors.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
@@ -123,7 +123,7 @@ class InteractiveAmplitudesChartNode extends Node {
 
     // y axis ---------------------------------------------------------
 
-    const yAxisLabel = new RichText( fourierMakingWavesStrings.amplitude, {
+    const yAxisLabel = new RichText( FourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
       right: -FMWConstants.Y_AXIS_LABEL_SPACING,

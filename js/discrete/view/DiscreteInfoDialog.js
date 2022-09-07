@@ -13,7 +13,7 @@ import Dialog from '../../../../sun/js/Dialog.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 // constants
 const MAX_WIDTH = 800; // determined empirically
@@ -36,23 +36,23 @@ class DiscreteInfoDialog extends Dialog {
     }, options );
 
     assert && assert( !options.title, 'DiscreteInfoDialog sets children' );
-    options.title = new Text( fourierMakingWavesStrings.symbolsDialog.title, {
+    options.title = new Text( FourierMakingWavesStrings.symbolsDialog.title, {
       font: FMWConstants.DIALOG_TITLE_FONT,
       maxWidth: MAX_WIDTH
     } );
 
     // For each translated string describing a symbol, fill in the symbol.
     const strings = [
-      StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.A, { A: FMWSymbols.A } ),
-      StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.f, { f: FMWSymbols.f } ),
-      StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.lambda, { lambda: FMWSymbols.lambda } ),
-      StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.k, { k: FMWSymbols.k } ),
-      StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.L, { L: FMWSymbols.L } ),
-      StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.n, { n: FMWSymbols.n } ),
-      StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.t, { t: FMWSymbols.t } ),
-      StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.T, { T: FMWSymbols.T } ),
-      StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.omega, { omega: FMWSymbols.omega } ),
-      StringUtils.fillIn( fourierMakingWavesStrings.symbolsDialog.x, { x: FMWSymbols.x } )
+      StringUtils.fillIn( FourierMakingWavesStrings.symbolsDialog.A, { A: FMWSymbols.A } ),
+      StringUtils.fillIn( FourierMakingWavesStrings.symbolsDialog.f, { f: FMWSymbols.f } ),
+      StringUtils.fillIn( FourierMakingWavesStrings.symbolsDialog.lambda, { lambda: FMWSymbols.lambda } ),
+      StringUtils.fillIn( FourierMakingWavesStrings.symbolsDialog.k, { k: FMWSymbols.k } ),
+      StringUtils.fillIn( FourierMakingWavesStrings.symbolsDialog.L, { L: FMWSymbols.L } ),
+      StringUtils.fillIn( FourierMakingWavesStrings.symbolsDialog.n, { n: FMWSymbols.n } ),
+      StringUtils.fillIn( FourierMakingWavesStrings.symbolsDialog.t, { t: FMWSymbols.t } ),
+      StringUtils.fillIn( FourierMakingWavesStrings.symbolsDialog.T, { T: FMWSymbols.T } ),
+      StringUtils.fillIn( FourierMakingWavesStrings.symbolsDialog.omega, { omega: FMWSymbols.omega } ),
+      StringUtils.fillIn( FourierMakingWavesStrings.symbolsDialog.x, { x: FMWSymbols.x } )
     ];
 
     // RichText with one symbol's key per line

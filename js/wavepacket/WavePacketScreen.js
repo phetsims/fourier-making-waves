@@ -12,7 +12,7 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import FMWColors from '../common/FMWColors.js';
 import FMWIconFactory from '../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../FourierMakingWavesStrings.js';
 import WavePacketModel from './model/WavePacketModel.js';
 import WavePacketKeyboardHelpContent from './view/WavePacketKeyboardHelpContent.js';
 import WavePacketScreenView from './view/WavePacketScreenView.js';
@@ -27,7 +27,7 @@ class WavePacketScreen extends Screen {
     options = merge( {
 
       // Screen options
-      name: fourierMakingWavesStrings.screen.wavePacket,
+      name: FourierMakingWavesStrings.screen.wavePacket,
       backgroundColorProperty: FMWColors.wavePacketScreenBackgroundColorProperty,
       homeScreenIcon: FMWIconFactory.createWavePacketHomeScreenIcon(),
 

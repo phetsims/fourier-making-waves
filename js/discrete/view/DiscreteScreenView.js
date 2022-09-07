@@ -24,7 +24,7 @@ import Domain from '../../common/model/Domain.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapseButton.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import EquationForm from '../model/EquationForm.js';
 import Waveform from '../model/Waveform.js';
@@ -126,7 +126,7 @@ class DiscreteScreenView extends ScreenView {
 
     // Button to show/hide the Harmonics chart and its related UI element
     const harmonicsExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.harmonicsChart, model.harmonicsChart.chartExpandedProperty, {
+      FourierMakingWavesStrings.harmonicsChart, model.harmonicsChart.chartExpandedProperty, {
         tandem: harmonicsTandem.createTandem( 'harmonicsExpandCollapseButton' )
       } );
 
@@ -159,7 +159,7 @@ class DiscreteScreenView extends ScreenView {
 
     // Button to show/hide the Sum chart and its related UI element
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.sum, model.sumChart.chartExpandedProperty, {
+      FourierMakingWavesStrings.sum, model.sumChart.chartExpandedProperty, {
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
       } );
 
@@ -263,7 +263,7 @@ class DiscreteScreenView extends ScreenView {
     // Creating a sawtooth wave using cosines is impossible because it is asymmetric. Display a dialog if the user
     // attempts this.  The model is responsible for other adjustments. This dialog is created eagerly because it's
     // highly likely that this situation will be encountered.
-    const oopsSawtoothWithCosinesDialog = new OopsDialog( fourierMakingWavesStrings.sawtoothWithCosines, {
+    const oopsSawtoothWithCosinesDialog = new OopsDialog( FourierMakingWavesStrings.sawtoothWithCosines, {
       phetioReadOnly: true,
       visiblePropertyOptions: { phetioReadOnly: true },
       tandem: options.tandem.createTandem( 'oopsSawtoothWithCosinesDialog' )

@@ -8,7 +8,7 @@
 
 import SecondaryWaveformCheckbox from '../../common/view/SecondaryWaveformCheckbox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 class WaveformEnvelopeCheckbox extends SecondaryWaveformCheckbox {
 
@@ -17,7 +17,7 @@ class WaveformEnvelopeCheckbox extends SecondaryWaveformCheckbox {
    * @param {Object} [options]
    */
   constructor( waveformEnvelopeVisibleProperty, options ) {
-    super( waveformEnvelopeVisibleProperty, fourierMakingWavesStrings.waveformEnvelope, options );
+    super( waveformEnvelopeVisibleProperty, FourierMakingWavesStrings.waveformEnvelope, options );
   }
 }
 

@@ -17,7 +17,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import FMWComboBox from '../../common/view/FMWComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import EquationForm from '../model/EquationForm.js';
 
 const MATH_TEXT_OPTIONS = {
@@ -29,7 +29,7 @@ const MATH_TEXT_OPTIONS = {
 const CHOICES = [
   {
     value: EquationForm.HIDDEN,
-    string: fourierMakingWavesStrings.hidden,
+    string: FourierMakingWavesStrings.hidden,
     tandemName: `hidden${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
@@ -64,7 +64,7 @@ const CHOICES = [
   },
   {
     value: EquationForm.WAVELENGTH_AND_PERIOD,
-    string: StringUtils.fillIn( fourierMakingWavesStrings.symbolAndSymbol, {
+    string: StringUtils.fillIn( FourierMakingWavesStrings.symbolAndSymbol, {
       symbol1: FMWSymbols.lambda,
       symbol2: FMWSymbols.T
     } ),
@@ -73,7 +73,7 @@ const CHOICES = [
   },
   {
     value: EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER,
-    string: StringUtils.fillIn( fourierMakingWavesStrings.symbolAndSymbol, {
+    string: StringUtils.fillIn( FourierMakingWavesStrings.symbolAndSymbol, {
       symbol1: FMWSymbols.k,
       symbol2: FMWSymbols.omega
     } ),

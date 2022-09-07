@@ -18,7 +18,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WavePacketNumberControl from './WavePacketNumberControl.js';
 
 // constants
@@ -121,10 +121,10 @@ function numberFormatter( componentSpacing, domain ) {
   const value = Utils.toFixedNumber( componentSpacing, DECIMALS );
 
   const units = ( domain === Domain.SPACE ) ?
-                fourierMakingWavesStrings.units.radiansPerMeter :
-                fourierMakingWavesStrings.units.radiansPerMillisecond;
+                FourierMakingWavesStrings.units.radiansPerMeter :
+                FourierMakingWavesStrings.units.radiansPerMillisecond;
 
-  return StringUtils.fillIn( fourierMakingWavesStrings.symbolValueUnits, {
+  return StringUtils.fillIn( FourierMakingWavesStrings.symbolValueUnits, {
     symbol: symbol,
     value: value,
     units: units

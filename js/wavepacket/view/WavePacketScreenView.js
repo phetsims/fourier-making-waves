@@ -19,7 +19,7 @@ import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapseButton.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
 import ComponentsEquationNode from './ComponentsEquationNode.js';
 import ComponentSpacingToolNode from './ComponentSpacingToolNode.js';
@@ -77,7 +77,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Button to show/hide the Amplitudes chart and its related UI element
     const amplitudesExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.amplitudesOfFourierComponents, model.amplitudesChart.chartExpandedProperty, {
+      FourierMakingWavesStrings.amplitudesOfFourierComponents, model.amplitudesChart.chartExpandedProperty, {
         textOptions: { maxWidth: 300 },
         tandem: amplitudesTandem.createTandem( 'amplitudesExpandCollapseButton' )
       } );
@@ -119,7 +119,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Button to show/hide the Components chart and its related UI element
     const componentsExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.fourierComponents, model.componentsChart.chartExpandedProperty, {
+      FourierMakingWavesStrings.fourierComponents, model.componentsChart.chartExpandedProperty, {
         tandem: componentsTandem.createTandem( 'componentsExpandCollapseButton' )
       } );
 
@@ -150,7 +150,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Button to show/hide the Sum chart and its related UI element
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
-      fourierMakingWavesStrings.sum, model.sumChart.chartExpandedProperty, {
+      FourierMakingWavesStrings.sum, model.sumChart.chartExpandedProperty, {
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
       } );
 

@@ -14,7 +14,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWIconFactory from '../../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 class WidthIndicatorsCheckbox extends Checkbox {
 
@@ -30,7 +30,7 @@ class WidthIndicatorsCheckbox extends Checkbox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const widthIndicatorsText = new Text( fourierMakingWavesStrings.widthIndicators, {
+    const widthIndicatorsText = new Text( FourierMakingWavesStrings.widthIndicators, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 100,
       tandem: options.tandem.createTandem( 'widthIndicatorsText' )

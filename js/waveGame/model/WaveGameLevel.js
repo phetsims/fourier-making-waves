@@ -28,7 +28,7 @@ import FourierSeries from '../../common/model/FourierSeries.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import AmplitudesGenerator from './AmplitudesGenerator.js';
 import WaveGameAmplitudesChart from './WaveGameAmplitudesChart.js';
 import WaveGameHarmonicsChart from './WaveGameHarmonicsChart.js';
@@ -64,13 +64,13 @@ class WaveGameLevel extends PhetioObject {
       getNumberOfNonZeroHarmonics: () => levelNumber,
 
       // {string} message shown in the status bar that appears at the top of the Wave Game screen
-      statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.matchUsingNHarmonics, {
+      statusBarMessage: StringUtils.fillIn( FourierMakingWavesStrings.matchUsingNHarmonics, {
         levelNumber: levelNumber,
         numberOfHarmonics: levelNumber
       } ),
 
       // {string} shown in the info dialog that describes the game levels
-      infoDialogDescription: StringUtils.fillIn( fourierMakingWavesStrings.infoNHarmonics, {
+      infoDialogDescription: StringUtils.fillIn( FourierMakingWavesStrings.infoNHarmonics, {
         levelNumber: levelNumber,
         numberOfHarmonics: levelNumber
       } ),

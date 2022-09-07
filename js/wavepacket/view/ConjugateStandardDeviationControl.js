@@ -16,7 +16,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WavePacketNumberControl from './WavePacketNumberControl.js';
 
 // constants
@@ -105,10 +105,10 @@ function numberFormatter( conjugateStandardDeviation, domain ) {
   const value = Utils.toFixedNumber( conjugateStandardDeviation, DECIMALS );
 
   const units = ( domain === Domain.SPACE ) ?
-                fourierMakingWavesStrings.units.meters :
-                fourierMakingWavesStrings.units.milliseconds;
+                FourierMakingWavesStrings.units.meters :
+                FourierMakingWavesStrings.units.milliseconds;
 
-  return StringUtils.fillIn( fourierMakingWavesStrings.symbolSymbolValueUnits, {
+  return StringUtils.fillIn( FourierMakingWavesStrings.symbolSymbolValueUnits, {
     symbol1: symbol1,
     symbol2: symbol2,
     value: value,

@@ -20,7 +20,7 @@ import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import DiscreteFourierSeries from '../model/DiscreteFourierSeries.js';
 import EquationForm from '../model/EquationForm.js';
 import DiscreteSumEquationNode from './DiscreteSumEquationNode.js';
@@ -55,7 +55,7 @@ class ExpandedFormDialog extends Dialog {
     }, options );
 
     assert && assert( !options.title, 'ExpandedFormDialog sets children' );
-    options.title = new Text( fourierMakingWavesStrings.expandedForm, {
+    options.title = new Text( FourierMakingWavesStrings.expandedForm, {
       font: FMWConstants.DIALOG_TITLE_FONT,
       maxWidth: MAX_WIDTH
     } );

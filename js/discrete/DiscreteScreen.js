@@ -12,7 +12,7 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import FMWColors from '../common/FMWColors.js';
 import FMWIconFactory from '../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../FourierMakingWavesStrings.js';
 import DiscreteModel from './model/DiscreteModel.js';
 import DiscreteKeyboardHelpContent from './view/DiscreteKeyboardHelpContent.js';
 import DiscreteScreenView from './view/DiscreteScreenView.js';
@@ -27,7 +27,7 @@ class DiscreteScreen extends Screen {
     options = merge( {
 
       // Screen options
-      name: fourierMakingWavesStrings.screen.discrete,
+      name: FourierMakingWavesStrings.screen.discrete,
       backgroundColorProperty: FMWColors.discreteScreenBackgroundColorProperty,
       homeScreenIcon: FMWIconFactory.createDiscreteHomeScreenIcon(),
 

@@ -13,7 +13,7 @@ import Checkbox from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 class PeriodCheckbox extends Checkbox {
 
@@ -29,7 +29,7 @@ class PeriodCheckbox extends Checkbox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const periodText = new Text( fourierMakingWavesStrings.period, {
+    const periodText = new Text( FourierMakingWavesStrings.period, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 80, // determined empirically
       tandem: options.tandem.createTandem( 'periodText' )

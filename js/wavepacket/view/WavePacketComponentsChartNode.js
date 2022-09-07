@@ -18,7 +18,7 @@ import DomainChartNode from '../../common/view/DomainChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WavePacketComponentsChart from '../model/WavePacketComponentsChart.js';
 
 // constants
@@ -61,7 +61,7 @@ class WavePacketComponentsChartNode extends DomainChartNode {
     this.addChild( chartCanvasNode );
 
     // Message shown when we have an infinite number of components.
-    const messageNode = new BackgroundNode( new Text( fourierMakingWavesStrings.infiniteComponentsCannotBePlotted, {
+    const messageNode = new BackgroundNode( new Text( FourierMakingWavesStrings.infiniteComponentsCannotBePlotted, {
       font: new PhetFont( 18 ),
       maxWidth: 0.75 * this.chartRectangle.width
     } ), {

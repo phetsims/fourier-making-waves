@@ -30,7 +30,7 @@ import SeriesType from '../../common/model/SeriesType.js';
 import DomainComboBox from '../../common/view/DomainComboBox.js';
 import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import EquationForm from '../model/EquationForm.js';
@@ -169,14 +169,14 @@ class FourierSeriesSubpanel extends VBox {
     };
 
     // Title for this subpanel
-    const fourierSeriesText = new Text( fourierMakingWavesStrings.fourierSeries, {
+    const fourierSeriesText = new Text( FourierMakingWavesStrings.fourierSeries, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 180, // determined empirically
       tandem: options.tandem.createTandem( 'fourierSeriesText' )
     } );
 
     // Waveform combo box
-    const waveformText = new Text( fourierMakingWavesStrings.waveform, {
+    const waveformText = new Text( FourierMakingWavesStrings.waveform, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 70, // determined empirically
       tandem: options.tandem.createTandem( 'waveformText' )
@@ -193,7 +193,7 @@ class FourierSeriesSubpanel extends VBox {
     } );
 
     // Harmonics spinner
-    const harmonicsText = new Text( fourierMakingWavesStrings.harmonics, {
+    const harmonicsText = new Text( FourierMakingWavesStrings.harmonics, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 70,  // determined empirically
       tandem: options.tandem.createTandem( 'harmonicsText' )
@@ -271,13 +271,13 @@ class GraphControlsSubpanel extends VBox {
     };
 
     // Title for this subpanel
-    const graphControlsText = new Text( fourierMakingWavesStrings.graphControls, {
+    const graphControlsText = new Text( FourierMakingWavesStrings.graphControls, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 200, // determined empirically
       tandem: options.tandem.createTandem( 'graphControlsText' )
     } );
 
-    const functionOfText = new Text( fourierMakingWavesStrings.functionOf, {
+    const functionOfText = new Text( FourierMakingWavesStrings.functionOf, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 70, // determined empirically
       tandem: options.tandem.createTandem( 'functionOfText' )
@@ -293,7 +293,7 @@ class GraphControlsSubpanel extends VBox {
       children: [ new AlignBox( functionOfText, labelsAlignBoxOptions ), domainComboBox ]
     } );
 
-    const seriesText = new Text( fourierMakingWavesStrings.series, {
+    const seriesText = new Text( FourierMakingWavesStrings.series, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 70, // determined empirically
       tandem: options.tandem.createTandem( 'seriesText' )
@@ -308,7 +308,7 @@ class GraphControlsSubpanel extends VBox {
       children: [ new AlignBox( seriesText, labelsAlignBoxOptions ), seriesTypeRadioButtonGroup ]
     } );
 
-    const equationText = new Text( fourierMakingWavesStrings.equation, {
+    const equationText = new Text( FourierMakingWavesStrings.equation, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 70, // determined empirically
       tandem: options.tandem.createTandem( 'equationText' )
@@ -369,7 +369,7 @@ class MeasurementToolsSubpanel extends VBox {
     }, options );
 
     // Title for this subpanel
-    const measurementToolsText = new Text( fourierMakingWavesStrings.measurementTools, {
+    const measurementToolsText = new Text( FourierMakingWavesStrings.measurementTools, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 200, // determined empirically
       tandem: options.tandem.createTandem( 'measurementToolsText' )

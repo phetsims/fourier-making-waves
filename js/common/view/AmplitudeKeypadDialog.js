@@ -19,7 +19,7 @@ import { Node, Rectangle, RichText, Text, VBox } from '../../../../scenery/js/im
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 
@@ -86,7 +86,7 @@ class AmplitudeKeypadDialog extends Dialog {
     } );
 
     // Range of valid values is shown
-    const rangeNode = new Text( StringUtils.fillIn( fourierMakingWavesStrings.minToMax, {
+    const rangeNode = new Text( StringUtils.fillIn( FourierMakingWavesStrings.minToMax, {
       min: Utils.toFixedNumber( amplitudeRange.min, options.decimalPlaces ),
       max: Utils.toFixedNumber( amplitudeRange.max, options.decimalPlaces )
     } ), {
@@ -110,7 +110,7 @@ class AmplitudeKeypadDialog extends Dialog {
     // Enter button, processes what has been entered on the keypad
     const enterButton = new RectangularPushButton( {
       baseColor: PhetColorScheme.BUTTON_YELLOW,
-      content: new Text( fourierMakingWavesStrings.enter, {
+      content: new Text( FourierMakingWavesStrings.enter, {
         font: BUTTON_FONT,
         maxWidth: keypad.width
       } )

@@ -8,7 +8,7 @@
 
 import SecondaryWaveformCheckbox from '../../common/view/SecondaryWaveformCheckbox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 class InfiniteHarmonicsCheckbox extends SecondaryWaveformCheckbox {
 
@@ -17,7 +17,7 @@ class InfiniteHarmonicsCheckbox extends SecondaryWaveformCheckbox {
    * @param {Object} [options]
    */
   constructor( infiniteHarmonicsVisibleProperty, options ) {
-    super( infiniteHarmonicsVisibleProperty, fourierMakingWavesStrings.infiniteHarmonics, options );
+    super( infiniteHarmonicsVisibleProperty, FourierMakingWavesStrings.infiniteHarmonics, options );
   }
 }
 

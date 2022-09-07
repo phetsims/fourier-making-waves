@@ -31,7 +31,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
 import AmplitudeControlsSpinner from './AmplitudeControlsSpinner.js';
 import AnswersNode from './AnswersNode.js';
@@ -162,7 +162,7 @@ class WaveGameLevelNode extends Node {
     // Parent tandem for all elements related to the Harmonics chart
     const harmonicsTandem = chartsTandem.createTandem( 'harmonics' );
 
-    const harmonicsTitleNode = new Text( fourierMakingWavesStrings.harmonicsChart, {
+    const harmonicsTitleNode = new Text( FourierMakingWavesStrings.harmonicsChart, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 150,
       tandem: harmonicsTandem.createTandem( 'harmonicsTitleNode' )
@@ -186,7 +186,7 @@ class WaveGameLevelNode extends Node {
     // Parent tandem for all components related to the Sum chart
     const sumTandem = chartsTandem.createTandem( 'sum' );
 
-    const sumTitleNode = new Text( fourierMakingWavesStrings.sum, {
+    const sumTitleNode = new Text( FourierMakingWavesStrings.sum, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: FMWConstants.CHART_TITLE_MAX_WIDTH,
       tandem: sumTandem.createTandem( 'harmonicsTitleNode' )
@@ -244,7 +244,7 @@ class WaveGameLevelNode extends Node {
     };
 
     const checkAnswerButton = new RectangularPushButton( {
-      content: new Text( fourierMakingWavesStrings.checkAnswer, {
+      content: new Text( FourierMakingWavesStrings.checkAnswer, {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
@@ -283,7 +283,7 @@ class WaveGameLevelNode extends Node {
 
     // Show Answer button shows the answer to the challenge. Points will NOT be awarded after pressing this button.
     const showAnswerButton = new RectangularPushButton( {
-      content: new Text( fourierMakingWavesStrings.showAnswer, {
+      content: new Text( FourierMakingWavesStrings.showAnswer, {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
@@ -305,7 +305,7 @@ class WaveGameLevelNode extends Node {
     // New Waveform button loads a new challenge.
     const newWaveformButton = new RectangularPushButton( {
       listener: newWaveform,
-      content: new Text( fourierMakingWavesStrings.newWaveform, {
+      content: new Text( FourierMakingWavesStrings.newWaveform, {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),

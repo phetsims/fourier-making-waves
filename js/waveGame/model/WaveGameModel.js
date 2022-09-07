@@ -15,7 +15,7 @@ import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WaveGameLevel from './WaveGameLevel.js';
 
 class WaveGameModel {
@@ -44,8 +44,8 @@ class WaveGameModel {
       // Level 1
       new WaveGameLevel( 1, {
         defaultNumberOfAmplitudeControls: 2,
-        statusBarMessage: fourierMakingWavesStrings.matchUsing1Harmonic,
-        infoDialogDescription: fourierMakingWavesStrings.info1Harmonic,
+        statusBarMessage: FourierMakingWavesStrings.matchUsing1Harmonic,
+        infoDialogDescription: FourierMakingWavesStrings.info1Harmonic,
         tandem: options.tandem.createTandem( 'level1' )
       } ),
 
@@ -72,11 +72,11 @@ class WaveGameModel {
         rewardScore: this.rewardScore,
         getNumberOfNonZeroHarmonics: () => dotRandom.nextIntBetween( 5, FMWConstants.MAX_HARMONICS ),
         defaultNumberOfAmplitudeControls: FMWConstants.MAX_HARMONICS,
-        statusBarMessage: StringUtils.fillIn( fourierMakingWavesStrings.matchUsingNOrMoreHarmonics, {
+        statusBarMessage: StringUtils.fillIn( FourierMakingWavesStrings.matchUsingNOrMoreHarmonics, {
           levelNumber: 5,
           numberOfHarmonics: 5
         } ),
-        infoDialogDescription: StringUtils.fillIn( fourierMakingWavesStrings.infoNOrMoreHarmonics, {
+        infoDialogDescription: StringUtils.fillIn( FourierMakingWavesStrings.infoNOrMoreHarmonics, {
           levelNumber: 5,
           numberOfHarmonics: 5
         } ),

@@ -29,7 +29,7 @@ import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomB
 import { Node, RichText } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import fourierMakingWavesStrings from '../../fourierMakingWavesStrings.js';
+import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import FMWColors from '../FMWColors.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
@@ -37,13 +37,13 @@ import Domain from '../model/Domain.js';
 import DomainChart from '../model/DomainChart.js';
 
 // constants
-const DEFAULT_X_SPACE_LABEL = StringUtils.fillIn( fourierMakingWavesStrings.symbolUnits, {
+const DEFAULT_X_SPACE_LABEL = StringUtils.fillIn( FourierMakingWavesStrings.symbolUnits, {
   symbol: FMWSymbols.x,
-  units: fourierMakingWavesStrings.units.meters
+  units: FourierMakingWavesStrings.units.meters
 } );
-const DEFAULT_X_TIME_LABEL = StringUtils.fillIn( fourierMakingWavesStrings.symbolUnits, {
+const DEFAULT_X_TIME_LABEL = StringUtils.fillIn( FourierMakingWavesStrings.symbolUnits, {
   symbol: FMWSymbols.t,
-  units: fourierMakingWavesStrings.units.milliseconds
+  units: FourierMakingWavesStrings.units.milliseconds
 } );
 const DEFAULT_EDGE = 'min';
 
@@ -74,7 +74,7 @@ class DomainChartNode extends Node {
       xZoomLevelProperty: null, // {NumberProperty|null} adds optional zoom buttons
 
       // y axis
-      yAxisString: fourierMakingWavesStrings.amplitude,
+      yAxisString: FourierMakingWavesStrings.amplitude,
       yGridLineSpacing: 1,
       yTickMarkSpacing: 1,
       yTickLabelSpacing: 1,
