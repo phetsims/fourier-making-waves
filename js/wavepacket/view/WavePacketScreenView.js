@@ -92,10 +92,10 @@ class WavePacketScreenView extends ScreenView {
     } );
 
     // Equation above the Amplitudes chart
-    const amplitudesEquationNode = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
+    const amplitudesEquationText = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
       font: FMWConstants.EQUATION_FONT,
       maxWidth: 100,
-      tandem: amplitudesTandem.createTandem( 'amplitudesEquationNode' )
+      tandem: amplitudesTandem.createTandem( 'amplitudesEquationText' )
     } );
 
     const continuousWaveformCheckbox = new ContinuousWaveformCheckbox(
@@ -107,7 +107,7 @@ class WavePacketScreenView extends ScreenView {
     // That can be done using amplitudesExpandCollapseButton, or by changing amplitudesChart.chartExpandedProperty via PhET-iO.
     const amplitudesParentNode = new Node( {
       visibleProperty: model.amplitudesChart.chartExpandedProperty,
-      children: [ amplitudesChartNode, amplitudesEquationNode, continuousWaveformCheckbox ]
+      children: [ amplitudesChartNode, amplitudesEquationText, continuousWaveformCheckbox ]
     } );
 
     //------------------------------------------------------------------------------------------------------------------
@@ -129,16 +129,16 @@ class WavePacketScreenView extends ScreenView {
     } );
 
     // Equation above the Components chart
-    const componentsEquationNode = new ComponentsEquationNode( model.domainProperty, model.seriesTypeProperty, {
+    const componentsEquationText = new ComponentsEquationNode( model.domainProperty, model.seriesTypeProperty, {
       maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
-      tandem: componentsTandem.createTandem( 'componentsEquationNode' )
+      tandem: componentsTandem.createTandem( 'componentsEquationText' )
     } );
 
     // All of the elements that should be hidden when chartExpandedProperty is set to false.
     // That can be done using harmonicsExpandCollapseButton, or by changing harmonicsChart.chartExpandedProperty via PhET-iO.
     const componentsParentNode = new Node( {
       visibleProperty: model.componentsChart.chartExpandedProperty,
-      children: [ componentsChartNode, componentsEquationNode ]
+      children: [ componentsChartNode, componentsEquationText ]
     } );
 
     //------------------------------------------------------------------------------------------------------------------
@@ -280,14 +280,14 @@ class WavePacketScreenView extends ScreenView {
     // Space between top of the ChartRectangle and bottom of the equation
     const equationYSpacing = 3;
 
-    amplitudesEquationNode.boundsProperty.link( () => {
-      amplitudesEquationNode.centerX = amplitudesChartRectangleLocalBounds.centerX;
-      amplitudesEquationNode.bottom = amplitudesChartRectangleLocalBounds.top - equationYSpacing;
+    amplitudesEquationText.boundsProperty.link( () => {
+      amplitudesEquationText.centerX = amplitudesChartRectangleLocalBounds.centerX;
+      amplitudesEquationText.bottom = amplitudesChartRectangleLocalBounds.top - equationYSpacing;
     } );
 
-    componentsEquationNode.boundsProperty.link( () => {
-      componentsEquationNode.centerX = componentsChartRectangleLocalBounds.centerX;
-      componentsEquationNode.bottom = componentsChartRectangleLocalBounds.top - equationYSpacing;
+    componentsEquationText.boundsProperty.link( () => {
+      componentsEquationText.centerX = componentsChartRectangleLocalBounds.centerX;
+      componentsEquationText.bottom = componentsChartRectangleLocalBounds.top - equationYSpacing;
     } );
 
     sumEquationNode.boundsProperty.link( () => {

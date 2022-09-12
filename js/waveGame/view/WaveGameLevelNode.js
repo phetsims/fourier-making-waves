@@ -162,10 +162,10 @@ class WaveGameLevelNode extends Node {
     // Parent tandem for all elements related to the Harmonics chart
     const harmonicsTandem = chartsTandem.createTandem( 'harmonics' );
 
-    const harmonicsTitleNode = new Text( FourierMakingWavesStrings.harmonicsChart, {
+    const harmonicsTitleText = new Text( FourierMakingWavesStrings.harmonicsChart, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 150,
-      tandem: harmonicsTandem.createTandem( 'harmonicsTitleNode' )
+      tandem: harmonicsTandem.createTandem( 'harmonicsTitleText' )
     } );
 
     const harmonicsChartNode = new WaveGameHarmonicsChartNode( level.harmonicsChart, {
@@ -176,7 +176,7 @@ class WaveGameLevelNode extends Node {
     // In this screen, harmonicsChart.chartExpandedProperty can only be changed via PhET-iO.
     const harmonicsParentNode = new Node( {
       visibleProperty: level.harmonicsChart.chartExpandedProperty,
-      children: [ harmonicsTitleNode, harmonicsChartNode ]
+      children: [ harmonicsTitleText, harmonicsChartNode ]
     } );
 
     //------------------------------------------------------------------------------------------------------------------
@@ -189,7 +189,7 @@ class WaveGameLevelNode extends Node {
     const sumTitleNode = new Text( FourierMakingWavesStrings.sum, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: FMWConstants.CHART_TITLE_MAX_WIDTH,
-      tandem: sumTandem.createTandem( 'harmonicsTitleNode' )
+      tandem: sumTandem.createTandem( 'harmonicsTitleText' )
     } );
 
     const sumChartNode = new WaveGameSumChartNode( level.sumChart, {
@@ -377,13 +377,13 @@ class WaveGameLevelNode extends Node {
     amplitudesChartNode.top = statusBar.bottom + 5;
     const amplitudesChartRectangleLocalBounds = amplitudesChartNode.chartRectangle.boundsTo( this );
 
-    harmonicsTitleNode.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-    harmonicsTitleNode.top = amplitudesChartNode.bottom + TITLE_TOP_SPACING;
+    harmonicsTitleText.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+    harmonicsTitleText.top = amplitudesChartNode.bottom + TITLE_TOP_SPACING;
     harmonicsChartNode.x = amplitudesChartNode.x;
-    harmonicsChartNode.y = harmonicsTitleNode.bottom + TITLE_BOTTOM_SPACING;
+    harmonicsChartNode.y = harmonicsTitleText.bottom + TITLE_BOTTOM_SPACING;
     const harmonicsChartRectangleLocalBounds = harmonicsChartNode.chartRectangle.boundsTo( this );
 
-    sumTitleNode.left = harmonicsTitleNode.left;
+    sumTitleNode.left = harmonicsTitleText.left;
     sumTitleNode.top = harmonicsChartNode.bottom + TITLE_TOP_SPACING;
     sumChartNode.x = amplitudesChartNode.x;
     sumChartNode.y = sumTitleNode.bottom + TITLE_BOTTOM_SPACING;

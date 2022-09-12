@@ -87,12 +87,12 @@ class InteractiveAmplitudesChartNode extends Node {
 
     // x axis ---------------------------------------------------------
 
-    const xAxisLabel = new RichText( FMWSymbols.n, {
+    const xAxisLabelText = new RichText( FMWSymbols.n, {
       font: FMWConstants.AXIS_LABEL_FONT,
       left: chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING,
       centerY: chartRectangle.centerY,
       maxWidth: FMWConstants.X_AXIS_LABEL_MAX_WIDTH,
-      tandem: options.tandem.createTandem( 'xAxisLabel' )
+      tandem: options.tandem.createTandem( 'xAxisLabelText' )
     } );
 
     // {AmplitudeSlider[]} Create a slider for each harmonic's amplitude
@@ -123,13 +123,13 @@ class InteractiveAmplitudesChartNode extends Node {
 
     // y axis ---------------------------------------------------------
 
-    const yAxisLabel = new RichText( FourierMakingWavesStrings.amplitude, {
+    const yAxisLabelText = new RichText( FourierMakingWavesStrings.amplitude, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
       right: -FMWConstants.Y_AXIS_LABEL_SPACING,
       centerY: chartRectangle.centerY,
       maxWidth: 0.85 * chartRectangle.height,
-      tandem: options.tandem.createTandem( 'yAxisLabel' )
+      tandem: options.tandem.createTandem( 'yAxisLabelText' )
     } );
 
     const yGridLineSet = new GridLineSet( chartTransform, Orientation.VERTICAL, Y_TICK_SPACING, {
@@ -154,8 +154,8 @@ class InteractiveAmplitudesChartNode extends Node {
       pickable: false,
       children: [
         chartRectangle,
-        xAxisLabel,
-        yAxisLabel, yGridLineSet, yLabelSet
+        xAxisLabelText,
+        yAxisLabelText, yGridLineSet, yLabelSet
       ]
     } );
 
