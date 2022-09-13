@@ -11,7 +11,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import { HBox, Node, Text, VBox } from '../../../../scenery/js/imports.js';
-import HSeparator from '../../../../sun/js/HSeparator.js';
+import HSeparatorDeprecated from '../../../../sun/js/HSeparatorDeprecated.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';
@@ -100,7 +100,7 @@ class WavePacketControlPanel extends Panel {
     for ( let i = 0; i < sectionNodes.length; i++ ) {
       children.push( sectionNodes[ i ] );
       if ( i < sectionNodes.length - 1 ) {
-        children.push( new HSeparator( separatorWidth, separatorOptions ) );
+        children.push( new HSeparatorDeprecated( separatorWidth, separatorOptions ) );
       }
     }
 

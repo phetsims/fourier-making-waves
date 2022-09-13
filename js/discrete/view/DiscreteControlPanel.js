@@ -17,7 +17,7 @@ import { AlignBox, AlignGroup, Color, HBox, Node, Path, SceneryConstants, Text, 
 import volumeDownSolidShape from '../../../../sherpa/js/fontawesome-5/volumeDownSolidShape.js';
 import volumeOffSolidShape from '../../../../sherpa/js/fontawesome-5/volumeOffSolidShape.js';
 import volumeUpSolidShape from '../../../../sherpa/js/fontawesome-5/volumeUpSolidShape.js';
-import HSeparator from '../../../../sun/js/HSeparator.js';
+import HSeparatorDeprecated from '../../../../sun/js/HSeparatorDeprecated.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -87,7 +87,7 @@ class DiscreteControlPanel extends Panel {
     for ( let i = 0; i < sectionNodes.length; i++ ) {
       children.push( sectionNodes[ i ] );
       if ( i < sectionNodes.length - 1 ) {
-        children.push( new HSeparator( separatorWidth, separatorOptions ) );
+        children.push( new HSeparatorDeprecated( separatorWidth, separatorOptions ) );
       }
     }
 
