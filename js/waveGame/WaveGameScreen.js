@@ -27,7 +27,7 @@ class WaveGameScreen extends Screen {
     options = merge( {
 
       // Screen options
-      name: FourierMakingWavesStrings.screen.waveGame,
+      name: FourierMakingWavesStrings.screen.waveGameStringProperty,
       backgroundColorProperty: FMWColors.waveGameScreenBackgroundColorProperty,
       homeScreenIcon: FMWIconFactory.createWaveGameHomeScreenIcon(),
 

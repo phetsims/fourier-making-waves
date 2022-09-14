@@ -27,7 +27,7 @@ class DiscreteScreen extends Screen {
     options = merge( {
 
       // Screen options
-      name: FourierMakingWavesStrings.screen.discrete,
+      name: FourierMakingWavesStrings.screen.discreteStringProperty,
       backgroundColorProperty: FMWColors.discreteScreenBackgroundColorProperty,
       homeScreenIcon: FMWIconFactory.createDiscreteHomeScreenIcon(),
 

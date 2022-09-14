@@ -27,7 +27,7 @@ class WavePacketScreen extends Screen {
     options = merge( {
 
       // Screen options
-      name: FourierMakingWavesStrings.screen.wavePacket,
+      name: FourierMakingWavesStrings.screen.wavePacketStringProperty,
       backgroundColorProperty: FMWColors.wavePacketScreenBackgroundColorProperty,
       homeScreenIcon: FMWIconFactory.createWavePacketHomeScreenIcon(),
 
