@@ -21,7 +21,7 @@ import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapse
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
-import ComponentsEquationNode from './ComponentsEquationNode.js';
+import ComponentsEquationText from './ComponentsEquationText.js';
 import ComponentSpacingToolNode from './ComponentSpacingToolNode.js';
 import ContinuousWaveformCheckbox from './ContinuousWaveformCheckbox.js';
 import WaveformEnvelopeCheckbox from './WaveformEnvelopeCheckbox.js';
@@ -129,7 +129,7 @@ class WavePacketScreenView extends ScreenView {
     } );
 
     // Equation above the Components chart
-    const componentsEquationText = new ComponentsEquationNode( model.domainProperty, model.seriesTypeProperty, {
+    const componentsEquationText = new ComponentsEquationText( model.domainProperty, model.seriesTypeProperty, {
       maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
       tandem: componentsTandem.createTandem( 'componentsEquationText' )
     } );

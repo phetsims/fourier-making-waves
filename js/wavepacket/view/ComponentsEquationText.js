@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * ComponentsEquationNode is the equation that appears above the 'Fourier Components' chart in the 'Wave Packet' screen.
+ * ComponentsEquationText is the equation that appears above the 'Fourier Components' chart in the 'Wave Packet' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,7 +16,7 @@ import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class ComponentsEquationNode extends RichText {
+class ComponentsEquationText extends RichText {
 
   /**
    * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
@@ -51,5 +51,5 @@ class ComponentsEquationNode extends RichText {
   }
 }
 
-fourierMakingWaves.register( 'ComponentsEquationNode', ComponentsEquationNode );
-export default ComponentsEquationNode;
+fourierMakingWaves.register( 'ComponentsEquationText', ComponentsEquationText );
+export default ComponentsEquationText;
