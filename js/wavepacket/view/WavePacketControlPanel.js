@@ -350,7 +350,7 @@ class WavePacketWidthSubpanel extends VBox {
     // See https://github.com/phetsims/fourier-making-waves/issues/124#issuecomment-897229707
     widthIndicatorsCheckbox.touchArea = widthIndicatorsCheckbox.localBounds.dilatedXY( 6, 4 ).shiftedY( 2 );
 
-    assert && assert( !options.children, 'WavePacketLayoutBox sets children' );
+    assert && assert( !options.children, 'WavePacketControlPanel sets children' );
     options.children = [
       wavePacketWidthText,
       standardDeviationControl,
