@@ -32,50 +32,23 @@ class FourierComponent {
     this.waveNumber = waveNumber;
     this.amplitude = amplitude;
   }
-
-  //--------------------------------------------------------------------------------------------------------------------
-  // Below here are methods used by FourierComponentIO to serialize PhET-iO state.
-  //--------------------------------------------------------------------------------------------------------------------
-
-  /**
-   * Constructs a FourierComponent from a duck-typed object, for use with tandem/phet-io deserialization.
-   * @param {{waveNumber:number, amplitude:number}} stateObject
-   * @returns {FourierComponent}
-   * @public
-   * @static
-   */
-  static fromStateObject( stateObject ) {
-    return new FourierComponent( stateObject.waveNumber, stateObject.amplitude );
-  }
-
-  /**
-   * Returns a duck-typed object meant for use with tandem/phet-io serialization.
-   * @returns {{waveNumber:number, amplitude:number}}
-   * @public
-   */
-  toStateObject() {
-    return {
-      waveNumber: this.waveNumber,
-      amplitude: this.amplitude
-    };
-  }
-
-  /**
-   * Returns a map of state keys and their associated IOTypes, see IOType.fromCoreType for details.
-   * @returns {Object.<string,IOType>}
-   * @public
-   */
-  static get STATE_SCHEMA() {
-    return {
-      waveNumber: NumberIO,
-      amplitude: NumberIO
-    };
-  }
 }
 
 // FourierComponentIO is adapted from Vector2.Vector2IO.
-FourierComponent.FourierComponentIO = IOType.fromCoreType( 'FourierComponentIO', FourierComponent, {
-  documentation: 'Component of a Fourier series'
+FourierComponent.FourierComponentIO = new IOType( 'FourierComponentIO', {
+  valueType: FourierComponent,
+  documentation: 'Component of a Fourier series',
+  stateSchema: {
+    waveNumber: NumberIO,
+    amplitude: NumberIO
+  },
+  toStateObject: fourierComponent => {
+    return {
+      waveNumber: fourierComponent.waveNumber,
+      amplitude: fourierComponent.amplitude
+    };
+  },
+  fromStateObject: stateObject => new FourierComponent( stateObject.waveNumber, stateObject.amplitude )
 } );
 
 fourierMakingWaves.register( 'FourierComponent', FourierComponent );
