@@ -12,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { PressListener, RichText, VBox } from '../../../../scenery/js/imports.js';
+import { InteractiveHighlighting, PressListener, RichText, VBox } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWQueryParameters from '../FMWQueryParameters.js';
@@ -24,7 +24,7 @@ import AmplitudeKeypadDialog from './AmplitudeKeypadDialog.js';
 // constants
 const DEFAULT_FONT = new PhetFont( 14 );
 
-class AmplitudeNumberDisplay extends VBox {
+class AmplitudeNumberDisplay extends InteractiveHighlighting( VBox ) {
 
   /**
    * @param {Harmonic} harmonic
