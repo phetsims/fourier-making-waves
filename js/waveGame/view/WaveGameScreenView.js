@@ -70,7 +70,7 @@ class WaveGameScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'rewardDialog' )
     } );
 
-    // @private {SolveItSceneNode[]} a Node for each level of the game
+    // @private {SolveItLevelNode[]} a Node for each level of the game
     this.levelNodes = model.levels.map( level => new WaveGameLevelNode( level, model.levelProperty,
       layoutBounds, this.visibleBoundsProperty, gameAudioPlayer, this.rewardNode, rewardDialog, model.rewardScore, {
         tandem: options.tandem.createTandem( `level${level.levelNumber}Node` )
