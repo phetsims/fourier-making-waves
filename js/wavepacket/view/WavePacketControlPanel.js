@@ -10,8 +10,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
-import { HBox, Node, Text, VBox } from '../../../../scenery/js/imports.js';
-import HSeparatorDeprecated from '../../../../sun/js/HSeparatorDeprecated.js';
+import { HBox, HSeparator, Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';
@@ -91,16 +90,13 @@ class WavePacketControlPanel extends Panel {
     ];
 
     // Put a separator between each logical section.
-    // Use a uniform separator width, sized to fit the widest section
-    const separatorWidth = _.maxBy( sectionNodes, node => node.width ).width;
-    const separatorOptions = {
-      stroke: FMWColors.separatorStrokeProperty
-    };
     const children = [];
     for ( let i = 0; i < sectionNodes.length; i++ ) {
       children.push( sectionNodes[ i ] );
       if ( i < sectionNodes.length - 1 ) {
-        children.push( new HSeparatorDeprecated( separatorWidth, separatorOptions ) );
+        children.push( new HSeparator( {
+          stroke: FMWColors.separatorStrokeProperty
+        } ) );
       }
     }
 
