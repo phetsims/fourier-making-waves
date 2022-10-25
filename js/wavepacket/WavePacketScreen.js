@@ -32,7 +32,7 @@ class WavePacketScreen extends Screen {
       homeScreenIcon: FMWIconFactory.createWavePacketHomeScreenIcon(),
 
       // pdom options
-      keyboardHelpNode: new WavePacketKeyboardHelpContent(),
+      createKeyboardHelpNode: () => new WavePacketKeyboardHelpContent(),
 
       // phet-io options
       tandem: Tandem.REQUIRED

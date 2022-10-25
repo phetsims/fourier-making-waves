@@ -32,7 +32,7 @@ class WaveGameScreen extends Screen {
       homeScreenIcon: FMWIconFactory.createWaveGameHomeScreenIcon(),
 
       // pdom options
-      keyboardHelpNode: new WaveGameKeyboardHelpContent(),
+      createKeyboardHelpNode: () => new WaveGameKeyboardHelpContent(),
 
       // phet-io options
       tandem: Tandem.REQUIRED

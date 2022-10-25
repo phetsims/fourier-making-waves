@@ -32,7 +32,7 @@ class DiscreteScreen extends Screen {
       homeScreenIcon: FMWIconFactory.createDiscreteHomeScreenIcon(),
 
       // pdom options
-      keyboardHelpNode: new DiscreteKeyboardHelpContent(),
+      createKeyboardHelpNode: () => new DiscreteKeyboardHelpContent(),
 
       // phet-io options
       tandem: Tandem.REQUIRED
