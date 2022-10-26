@@ -25,8 +25,7 @@ const simOptions = {
     thanks: 'We gratefully acknowledge support from STROBE NSF Science & Technology Center Grant DMR-1548924. ' +
             'Any opinions, findings, and conclusions or recommendations expressed in this material are those of ' +
             'the author(s) and do not necessarily reflect the views of the National Science Foundation.'
-  },
-  hasKeyboardHelpContent: true
+  }
 };
 
 simLauncher.launch( () => {
