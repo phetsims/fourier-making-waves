@@ -37,7 +37,7 @@ class ComponentsEquationText extends RichText {
     Multilink.multilink(
       [ domainProperty, seriesTypeProperty ],
       ( domain, seriesType ) => {
-        this.text = EquationMarkup.getComponentsEquationMarkup( domain, seriesType );
+        this.string = EquationMarkup.getComponentsEquationMarkup( domain, seriesType );
       } );
   }
 

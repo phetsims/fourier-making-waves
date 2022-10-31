@@ -94,7 +94,7 @@ class WidthIndicatorPlot extends Node {
     // Update the label to match the Domain
     domainProperty.link( domain => {
       const waveNumberSymbol = ( domain === Domain.SPACE ) ? spaceSymbol : timeSymbol;
-      labelNode.text = `2${FMWSymbols.sigma}<sub>${waveNumberSymbol}</sub>`;
+      labelNode.string = `2${FMWSymbols.sigma}<sub>${waveNumberSymbol}</sub>`;
       updateLabelPosition();
     } );
   }

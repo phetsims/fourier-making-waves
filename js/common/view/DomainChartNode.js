@@ -211,7 +211,7 @@ class DomainChartNode extends Node {
 
     // Set the x-axis label based on Domain.
     domainProperty.link( domain => {
-      xAxisLabel.text = ( domain === Domain.TIME ) ? options.xTimeLabel : options.xSpaceLabel;
+      xAxisLabel.string = ( domain === Domain.TIME ) ? options.xTimeLabel : options.xSpaceLabel;
     } );
 
     // Update the x-axis range and decorations.

@@ -71,12 +71,12 @@ class DiscreteSumEquationNode extends Node {
       ( domain, seriesType, equationForm ) => {
 
         // F(...) =
-        leftNode.text = `${EquationMarkup.getFunctionOfMarkup( domain )} ${EQUAL_TO}`;
+        leftNode.string = `${EquationMarkup.getFunctionOfMarkup( domain )} ${EQUAL_TO}`;
 
         summationNode.left = leftNode.right + 2;
         summationNode.y = leftNode.y + 5; // lower summation a bit, determined empirically
 
-        rightNode.text = EquationMarkup.getGeneralFormMarkup( domain, seriesType, equationForm );
+        rightNode.string = EquationMarkup.getGeneralFormMarkup( domain, seriesType, equationForm );
         rightNode.left = summationNode.right + 2;
         rightNode.y = leftNode.y;
       } );

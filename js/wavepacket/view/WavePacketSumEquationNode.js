@@ -66,7 +66,7 @@ class WavePacketSumEquationNode extends Node {
       ( domain, seriesType, componentSpacing ) => {
 
         // Update the left side of the equation to match the Domain.
-        leftNode.text = `${EquationMarkup.getFunctionOfMarkup( domain )} ${MathSymbols.EQUAL_TO}`; // F(...) =
+        leftNode.string = `${EquationMarkup.getFunctionOfMarkup( domain )} ${MathSymbols.EQUAL_TO}`; // F(...) =
 
         const hasInfiniteComponents = ( componentSpacing === 0 );
 
@@ -80,13 +80,13 @@ class WavePacketSumEquationNode extends Node {
           const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t;
           const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega;
           const seriesTypeString = ( seriesType === SeriesType.SIN ) ? FMWSymbols.sin : FMWSymbols.cos;
-          rightNode.text = `${FMWSymbols.A}(${componentSymbol}) ` +
+          rightNode.string = `${FMWSymbols.A}(${componentSymbol}) ` +
                            `${seriesTypeString}( ${componentSymbol}${domainSymbol} ) ${FMWSymbols.d}${componentSymbol}`;
         }
         else {
 
           // Finite number of components, use same equation as above the Components chart.
-          rightNode.text = EquationMarkup.getComponentsEquationMarkup( domain, seriesType );
+          rightNode.string = EquationMarkup.getComponentsEquationMarkup( domain, seriesType );
         }
       }
     );

@@ -177,7 +177,7 @@ class AmplitudeKeypadDialog extends Dialog {
     assert && assert( typeof enterCallback === 'function' );
     assert && assert( typeof closeCallback === 'function' );
 
-    this.titleNode.text = `${FMWSymbols.A}<sub>${order}</sub>`;
+    this.titleNode.string = `${FMWSymbols.A}<sub>${order}</sub>`;
     this.order = order;
     this.enterCallback = enterCallback;
     this.closeCallback = closeCallback;
@@ -264,7 +264,7 @@ class KeypadStringDisplay extends Node {
     super( options );
 
     // Display the string value. unlink is required on dispose.
-    const stringListener = string => { textNode.text = options.stringFormat( string ); };
+    const stringListener = string => { textNode.string = options.stringFormat( string ); };
     stringProperty.link( stringListener );
 
     // Keep the text centered in the background. unlink is not required.

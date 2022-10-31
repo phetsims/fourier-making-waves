@@ -74,7 +74,7 @@ class ExpandedFormDialog extends Dialog {
       font: FMWConstants.EQUATION_FONT
     } );
     domainProperty.link( domain => {
-      functionEqualToNode.text = `<span style='color: transparent'>${EquationMarkup.getFunctionOfMarkup( domain )}</span> ${MathSymbols.EQUAL_TO}`;
+      functionEqualToNode.string = `<span style='color: transparent'>${EquationMarkup.getFunctionOfMarkup( domain )}</span> ${MathSymbols.EQUAL_TO}`;
     } );
 
     const expandedSumNode = new RichText( '', {
@@ -99,7 +99,7 @@ class ExpandedFormDialog extends Dialog {
             expandedSumMarkup += '<br>';
           }
         }
-        expandedSumNode.text = expandedSumMarkup;
+        expandedSumNode.string = expandedSumMarkup;
       } );
 
     const expandedSumHBox = new HBox( {

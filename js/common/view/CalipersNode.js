@@ -141,7 +141,7 @@ class CalipersNode extends Node {
    * @public
    */
   setLabel( text ) {
-    this.labelText.text = text;
+    this.labelText.string = text;
     this.updateLabelPosition();
   }
 

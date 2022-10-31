@@ -82,12 +82,12 @@ class SumSymbolNode extends Node {
 
         // update text
         if ( integration ) {
-          symbolNode.text = FMWSymbols.integral;
-          minValueNode.text = indexToString( indexMin );
+          symbolNode.string = FMWSymbols.integral;
+          minValueNode.string = indexToString( indexMin );
         }
         else {
-          symbolNode.text = FMWSymbols.SIGMA;
-          minValueNode.text = indexToString( indexMin );
+          symbolNode.string = FMWSymbols.SIGMA;
+          minValueNode.string = indexToString( indexMin );
         }
         maxValueNode.text = indexToString( indexMax );
 

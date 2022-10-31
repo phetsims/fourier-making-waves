@@ -48,7 +48,7 @@ class HarmonicsEquationNode extends Node {
     Multilink.multilink(
       [ domainProperty, seriesTypeProperty, equationFormProperty ],
       ( domain, seriesType, equationForm ) => {
-        richText.text = EquationMarkup.getGeneralFormMarkup( domain, seriesType, equationForm );
+        richText.string = EquationMarkup.getGeneralFormMarkup( domain, seriesType, equationForm );
       }
     );
   }

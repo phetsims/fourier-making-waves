@@ -73,7 +73,7 @@ class PeriodClockNode extends DiscreteMeasurementToolNode {
       const order = harmonicProperty.value.order;
 
       // Change the label
-      labelNode.text = `${FMWSymbols.T}<sub>${order}</sub>`;
+      labelNode.string = `${FMWSymbols.T}<sub>${order}</sub>`;
       labelNode.left = clockFaceNode.right + BACKGROUND_X_MARGIN + 2;
       labelNode.centerY = clockFaceNode.centerY;
 
