@@ -99,9 +99,11 @@ class ComponentSpacingControl extends WavePacketNumberControl {
         FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty,
         FourierMakingWavesStrings.symbolValueUnitsStringProperty
       ],
-      ( domain, k, omega, radiansPerMeter, radiansPerMillisecond, pattern ) => {
+      ( domain, k, omega, radiansPerMeter, radiansPerMillisecond, symbolValueUnits ) => {
         assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
+
         this.setNumberFormatter( componentSpacingIndex => {
+
           const componentSpacing = componentSpacingProperty.validValues[ componentSpacingIndex ];
 
           const symbol = StringUtils.fillIn( '{{symbol}}<sub>1</sub>', {
@@ -113,7 +115,7 @@ class ComponentSpacingControl extends WavePacketNumberControl {
 
           const units = ( domain === Domain.SPACE ) ? radiansPerMeter : radiansPerMillisecond;
 
-          return StringUtils.fillIn( pattern, {
+          return StringUtils.fillIn( symbolValueUnits, {
             symbol: symbol,
             value: value,
             units: units

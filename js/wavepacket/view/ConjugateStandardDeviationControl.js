@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -42,8 +43,7 @@ class ConjugateStandardDeviationControl extends WavePacketNumberControl {
       // NumberDisplay options
       delta: DELTA,
       numberDisplayOptions: {
-        minBackgroundWidth: 140,
-        numberFormatter: conjugateStandardDeviation => numberFormatter( conjugateStandardDeviation, domainProperty.value )
+        minBackgroundWidth: 140
       },
 
       // Slider options
@@ -72,6 +72,43 @@ class ConjugateStandardDeviationControl extends WavePacketNumberControl {
       'last tick must be range.max' );
 
     super( conjugateStandardDeviationProperty, domainProperty, options );
+
+    Multilink.multilink( [
+      domainProperty,
+      FMWSymbols.sigmaStringProperty,
+      FMWSymbols.xStringProperty,
+      FMWSymbols.tStringProperty,
+      FMWSymbols.kStringProperty,
+      FMWSymbols.omegaStringProperty,
+      FourierMakingWavesStrings.units.metersStringProperty,
+      FourierMakingWavesStrings.units.millisecondsStringProperty,
+      FourierMakingWavesStrings.symbolSymbolValueUnitsStringProperty
+    ], ( domain, sigma, x, t, k, omega, meters, milliseconds, symbolSymbolValueUnits ) => {
+      assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
+
+      this.setNumberFormatter( conjugateStandardDeviation => {
+
+        const pattern = `${sigma}<sub>{{subscript}}</sub>`;
+        const symbol1 = StringUtils.fillIn( pattern, {
+          subscript: ( domain === Domain.SPACE ) ? x : t
+        } );
+        const symbol2 = StringUtils.fillIn( pattern, {
+          subscript: ( domain === Domain.SPACE ) ? k : omega
+        } );
+
+        // Using toFixedNumber removes trailing zeros.
+        const value = Utils.toFixedNumber( conjugateStandardDeviation, DECIMALS );
+
+        const units = ( domain === Domain.SPACE ) ? meters : milliseconds;
+
+        return StringUtils.fillIn( symbolSymbolValueUnits, {
+          symbol1: symbol1,
+          symbol2: symbol2,
+          value: value,
+          units: units
+        } );
+      } );
+    } );
   }
 
   /**
@@ -82,38 +119,6 @@ class ConjugateStandardDeviationControl extends WavePacketNumberControl {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
-}
-
-/**
- * Formats the number for display by NumberDisplay, invoked when this.redrawNumberDisplay is called.
- * @param {number} conjugateStandardDeviation
- * @param {Domain} domain
- * @returns {string}
- */
-function numberFormatter( conjugateStandardDeviation, domain ) {
-  assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
-
-  const pattern = `${FMWSymbols.sigmaStringProperty.value}<sub>{{subscript}}</sub>`;
-  const symbol1 = StringUtils.fillIn( pattern, {
-    subscript: ( domain === Domain.SPACE ) ? FMWSymbols.xStringProperty.value : FMWSymbols.tStringProperty.value
-  } );
-  const symbol2 = StringUtils.fillIn( pattern, {
-    subscript: ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value
-  } );
-
-  // Using toFixedNumber removes trailing zeros.
-  const value = Utils.toFixedNumber( conjugateStandardDeviation, DECIMALS );
-
-  const units = ( domain === Domain.SPACE ) ?
-                FourierMakingWavesStrings.units.metersStringProperty.value :
-                FourierMakingWavesStrings.units.millisecondsStringProperty.value;
-
-  return StringUtils.fillIn( FourierMakingWavesStrings.symbolSymbolValueUnitsStringProperty.value, {
-    symbol1: symbol1,
-    symbol2: symbol2,
-    value: value,
-    units: units
-  } );
 }
 
 fourierMakingWaves.register( 'ConjugateStandardDeviationControl', ConjugateStandardDeviationControl );

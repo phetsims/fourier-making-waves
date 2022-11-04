@@ -71,8 +71,9 @@ class CenterControl extends WavePacketNumberControl {
         FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty,
         FourierMakingWavesStrings.symbolValueUnitsStringProperty
       ],
-      ( domain, k, omega, radiansPerMeter, radiansPerMillisecond, pattern ) => {
+      ( domain, k, omega, radiansPerMeter, radiansPerMillisecond, symbolValueUnits ) => {
         assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
+
         this.setNumberFormatter( center => {
 
           const symbol = StringUtils.fillIn( '{{symbol}}<sub>0</sub>', {
@@ -84,7 +85,7 @@ class CenterControl extends WavePacketNumberControl {
 
           const units = ( domain === Domain.SPACE ) ? radiansPerMeter : radiansPerMillisecond;
 
-          return StringUtils.fillIn( pattern, {
+          return StringUtils.fillIn( symbolValueUnits, {
             symbol: symbol,
             value: value,
             units: units
