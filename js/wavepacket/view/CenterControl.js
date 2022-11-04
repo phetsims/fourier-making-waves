@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -41,11 +42,6 @@ class CenterControl extends WavePacketNumberControl {
 
       delta: DELTA,
 
-      // NumberDisplay options
-      numberDisplayOptions: {
-        numberFormatter: center => numberFormatter( center, domainProperty.value )
-      },
-
       // Slider options
       sliderOptions: {
 
@@ -65,6 +61,34 @@ class CenterControl extends WavePacketNumberControl {
     }, options );
 
     super( centerProperty, domainProperty, options );
+
+    // Set the numberFormatter for this control's NumberDisplay.
+    Multilink.multilink( [
+      domainProperty,
+      FMWSymbols.kStringProperty,
+      FMWSymbols.omegaStringProperty,
+      FourierMakingWavesStrings.units.radiansPerMeterStringProperty,
+      FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty,
+      FourierMakingWavesStrings.symbolValueUnitsStringProperty
+    ], ( domain, k, omega, radiansPerMeter, radiansPerMillisecond, pattern ) =>
+      this.setNumberFormatter( center => {
+        assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
+
+        const symbol = StringUtils.fillIn( '{{symbol}}<sub>0</sub>', {
+          symbol: ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value
+        } );
+
+        // Using toFixedNumber removes trailing zeros.
+        const value = Utils.toFixedNumber( center, DECIMALS );
+
+        const units = ( domain === Domain.SPACE ) ? radiansPerMeter : radiansPerMillisecond;
+
+        return StringUtils.fillIn( pattern, {
+          symbol: symbol,
+          value: value,
+          units: units
+        } );
+      } ) );
   }
 
   /**
@@ -75,33 +99,6 @@ class CenterControl extends WavePacketNumberControl {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
-}
-
-/**
- * Formats the number for display by NumberDisplay, invoked when this.redrawNumberDisplay is called.
- * @param {number} center
- * @param {Domain} domain
- * @returns {string}
- */
-function numberFormatter( center, domain ) {
-  assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
-
-  const symbol = StringUtils.fillIn( '{{symbol}}<sub>0</sub>', {
-    symbol: ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value
-  } );
-
-  // Using toFixedNumber removes trailing zeros.
-  const value = Utils.toFixedNumber( center, DECIMALS );
-
-  const units = ( domain === Domain.SPACE ) ?
-                FourierMakingWavesStrings.units.radiansPerMeterStringProperty.value :
-                FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty.value;
-
-  return StringUtils.fillIn( FourierMakingWavesStrings.symbolValueUnitsStringProperty.value, {
-    symbol: symbol,
-    value: value,
-    units: units
-  } );
 }
 
 fourierMakingWaves.register( 'CenterControl', CenterControl );
