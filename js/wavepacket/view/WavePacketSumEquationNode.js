@@ -61,9 +61,12 @@ class WavePacketSumEquationNode extends Node {
 
     super( options );
 
-    Multilink.multilink(
-      [ domainProperty, seriesTypeProperty, componentSpacingProperty ],
-      ( domain, seriesType, componentSpacing ) => {
+    Multilink.multilink( [
+        domainProperty, seriesTypeProperty, componentSpacingProperty,
+        FMWSymbols.xStringProperty, FMWSymbols.tStringProperty, FMWSymbols.kStringProperty, FMWSymbols.omegaStringProperty,
+        FMWSymbols.sinStringProperty, FMWSymbols.cosStringProperty, FMWSymbols.AStringProperty, FMWSymbols.dStringProperty
+      ],
+      ( domain, seriesType, componentSpacing, x, t, k, omega, sin, cos, A, d ) => {
 
         // Update the left side of the equation to match the Domain.
         leftNode.string = `${EquationMarkup.getFunctionOfMarkup( domain )} ${MathSymbols.EQUAL_TO}`; // F(...) =
@@ -77,11 +80,10 @@ class WavePacketSumEquationNode extends Node {
         if ( hasInfiniteComponents ) {
 
           // Infinite number of components
-          const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.xStringProperty.value : FMWSymbols.tStringProperty.value;
-          const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value;
-          const seriesTypeString = ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinStringProperty.value : FMWSymbols.cosStringProperty.value;
-          rightNode.string = `${FMWSymbols.AStringProperty.value}(${componentSymbol}) ` +
-                           `${seriesTypeString}( ${componentSymbol}${domainSymbol} ) ${FMWSymbols.dStringProperty.value}${componentSymbol}`;
+          const domainSymbol = ( domain === Domain.SPACE ) ? x : t;
+          const componentSymbol = ( domain === Domain.SPACE ) ? k : omega;
+          const seriesTypeString = ( seriesType === SeriesType.SIN ) ? sin : cos;
+          rightNode.string = `${A}(${componentSymbol}) ${seriesTypeString}( ${componentSymbol}${domainSymbol} ) ${d}${componentSymbol}`;
         }
         else {
 
