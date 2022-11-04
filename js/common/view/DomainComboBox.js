@@ -8,8 +8,8 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -22,21 +22,21 @@ import FMWComboBox from './FMWComboBox.js';
 const CHOICES = [
   {
     value: Domain.SPACE,
-    string: StringUtils.fillIn( FourierMakingWavesStrings.spaceSymbol, {
+    stringProperty: new PatternStringProperty( FourierMakingWavesStrings.spaceSymbolStringProperty, {
       symbol: FMWSymbols.x
     } ),
     tandemName: `spaceItem${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: Domain.TIME,
-    string: StringUtils.fillIn( FourierMakingWavesStrings.timeSymbol, {
+    stringProperty: new PatternStringProperty( FourierMakingWavesStrings.timeSymbolStringProperty, {
       symbol: FMWSymbols.t
     } ),
     tandemName: `time${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: Domain.SPACE_AND_TIME,
-    string: StringUtils.fillIn( FourierMakingWavesStrings.spaceAndTimeSymbols, {
+    stringProperty: new PatternStringProperty( FourierMakingWavesStrings.spaceAndTimeSymbolsStringProperty, {
       spaceSymbol: FMWSymbols.x,
       timeSymbol: FMWSymbols.t
     } ),

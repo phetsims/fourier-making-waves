@@ -7,9 +7,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -29,42 +29,42 @@ const MATH_TEXT_OPTIONS = {
 const CHOICES = [
   {
     value: EquationForm.HIDDEN,
-    string: FourierMakingWavesStrings.hidden,
+    stringProperty: FourierMakingWavesStrings.hiddenStringProperty,
     tandemName: `hidden${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.WAVELENGTH,
-    string: FMWSymbols.lambda,
+    stringProperty: FMWSymbols.lambda,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `wavelength${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.SPATIAL_WAVE_NUMBER,
-    string: FMWSymbols.k,
+    stringProperty: FMWSymbols.k,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `spatialWaveNumber${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.FREQUENCY,
-    string: FMWSymbols.f,
+    stringProperty: FMWSymbols.f,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `frequency${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.PERIOD,
-    string: FMWSymbols.T,
+    stringProperty: FMWSymbols.T,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `period${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.ANGULAR_WAVE_NUMBER,
-    string: FMWSymbols.omega,
+    stringProperty: FMWSymbols.omega,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `angularWaveNumber${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.WAVELENGTH_AND_PERIOD,
-    string: StringUtils.fillIn( FourierMakingWavesStrings.symbolAndSymbol, {
+    stringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolAndSymbolStringProperty, {
       symbol1: FMWSymbols.lambda,
       symbol2: FMWSymbols.T
     } ),
@@ -73,7 +73,7 @@ const CHOICES = [
   },
   {
     value: EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER,
-    string: StringUtils.fillIn( FourierMakingWavesStrings.symbolAndSymbol, {
+    stringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolAndSymbolStringProperty, {
       symbol1: FMWSymbols.k,
       symbol2: FMWSymbols.omega
     } ),
@@ -82,7 +82,7 @@ const CHOICES = [
   },
   {
     value: EquationForm.MODE,
-    string: FMWSymbols.n,
+    stringProperty: FMWSymbols.n,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `mode${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   }

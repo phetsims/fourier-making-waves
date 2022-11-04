@@ -17,12 +17,36 @@ import Waveform from '../model/Waveform.js';
 
 // This format is specific to FMWComboBox.
 const CHOICES = [
-  { value: Waveform.SINUSOID, string: FourierMakingWavesStrings.sinusoid, tandemName: `sinusoid${ComboBox.ITEM_TANDEM_NAME_SUFFIX}` },
-  { value: Waveform.TRIANGLE, string: FourierMakingWavesStrings.triangle, tandemName: `triangle${ComboBox.ITEM_TANDEM_NAME_SUFFIX}` },
-  { value: Waveform.SQUARE, string: FourierMakingWavesStrings.square, tandemName: `square${ComboBox.ITEM_TANDEM_NAME_SUFFIX}` },
-  { value: Waveform.SAWTOOTH, string: FourierMakingWavesStrings.sawtooth, tandemName: `sawtooth${ComboBox.ITEM_TANDEM_NAME_SUFFIX}` },
-  { value: Waveform.WAVE_PACKET, string: FourierMakingWavesStrings.wavePacket, tandemName: `wavePacket${ComboBox.ITEM_TANDEM_NAME_SUFFIX}` },
-  { value: Waveform.CUSTOM, string: FourierMakingWavesStrings.custom, tandemName: `custom${ComboBox.ITEM_TANDEM_NAME_SUFFIX}` }
+  {
+    value: Waveform.SINUSOID,
+    stringProperty: FourierMakingWavesStrings.sinusoidStringProperty,
+    tandemName: `sinusoid${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+  },
+  {
+    value: Waveform.TRIANGLE,
+    stringProperty: FourierMakingWavesStrings.triangleStringProperty,
+    tandemName: `triangle${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+  },
+  {
+    value: Waveform.SQUARE,
+    stringProperty: FourierMakingWavesStrings.squareStringProperty,
+    tandemName: `square${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+  },
+  {
+    value: Waveform.SAWTOOTH,
+    stringProperty: FourierMakingWavesStrings.sawtoothStringProperty,
+    tandemName: `sawtooth${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+  },
+  {
+    value: Waveform.WAVE_PACKET,
+    stringProperty: FourierMakingWavesStrings.wavePacketStringProperty,
+    tandemName: `wavePacket${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+  },
+  {
+    value: Waveform.CUSTOM,
+    stringProperty: FourierMakingWavesStrings.customStringProperty,
+    tandemName: `custom${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+  }
 ];
 
 class WaveformComboBox extends FMWComboBox {
