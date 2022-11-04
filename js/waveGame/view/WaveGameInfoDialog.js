@@ -34,12 +34,12 @@ class WaveGameInfoDialog extends GameInfoDialog {
     }, options );
 
     assert && assert( !options.title, 'WaveGameInfoDialog sets title' );
-    options.title = new Text( FourierMakingWavesStrings.levels, {
+    options.title = new Text( FourierMakingWavesStrings.levelsStringProperty, {
       font: new PhetFont( 32 ),
       tandem: options.tandem.createTandem( 'titleText' )
     } );
 
-    const descriptions = levels.map( level => level.infoDialogDescription );
+    const descriptions = levels.map( level => level.infoDialogDescriptionProperty );
 
     super( descriptions, options );
   }

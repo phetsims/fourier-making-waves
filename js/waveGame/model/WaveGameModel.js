@@ -7,6 +7,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
@@ -45,7 +46,7 @@ class WaveGameModel {
       new WaveGameLevel( 1, {
         defaultNumberOfAmplitudeControls: 2,
         statusBarMessage: FourierMakingWavesStrings.matchUsing1Harmonic,
-        infoDialogDescription: FourierMakingWavesStrings.info1Harmonic,
+        infoDialogDescriptionProperty: FourierMakingWavesStrings.info1HarmonicStringProperty,
         tandem: options.tandem.createTandem( 'level1' )
       } ),
 
@@ -76,7 +77,7 @@ class WaveGameModel {
           levelNumber: 5,
           numberOfHarmonics: 5
         } ),
-        infoDialogDescription: StringUtils.fillIn( FourierMakingWavesStrings.infoNOrMoreHarmonics, {
+        infoDialogDescription: new PatternStringProperty( FourierMakingWavesStrings.infoNOrMoreHarmonicsStringProperty, {
           levelNumber: 5,
           numberOfHarmonics: 5
         } ),

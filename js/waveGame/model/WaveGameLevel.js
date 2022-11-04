@@ -10,6 +10,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
@@ -69,8 +70,8 @@ class WaveGameLevel extends PhetioObject {
         numberOfHarmonics: levelNumber
       } ),
 
-      // {string} shown in the info dialog that describes the game levels
-      infoDialogDescription: StringUtils.fillIn( FourierMakingWavesStrings.infoNHarmonics, {
+      // {string} shown in the info dialog that describes the game levels, default will be set below
+      infoDialogDescriptionProperty: new PatternStringProperty( FourierMakingWavesStrings.infoNHarmonicsStringProperty, {
         levelNumber: levelNumber,
         numberOfHarmonics: levelNumber
       } ),
@@ -84,14 +85,13 @@ class WaveGameLevel extends PhetioObject {
     assert && AssertUtils.assertNonNegativeInteger( config.defaultNumberOfAmplitudeControls );
     assert && assert( config.defaultNumberOfAmplitudeControls >= levelNumber && config.defaultNumberOfAmplitudeControls <= FMWConstants.MAX_HARMONICS );
     assert && assert( typeof config.statusBarMessage === 'string' );
-    assert && assert( typeof config.infoDialogDescription === 'string' );
 
     super( config );
 
     // @public (read-only)
     this.levelNumber = levelNumber; // {number} numbered starting from 1
     this.statusBarMessage = config.statusBarMessage; // {string}
-    this.infoDialogDescription = config.infoDialogDescription; // {string}
+    this.infoDialogDescriptionProperty = config.infoDialogDescriptionProperty; // {string}
 
     // @private
     this.defaultNumberOfAmplitudeControls = config.defaultNumberOfAmplitudeControls; // {number}
