@@ -30,7 +30,7 @@ class WidthIndicatorsCheckbox extends Checkbox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const widthIndicatorsText = new Text( FourierMakingWavesStrings.widthIndicators, {
+    const widthIndicatorsText = new Text( FourierMakingWavesStrings.widthIndicatorsStringProperty, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 100,
       tandem: options.tandem.createTandem( 'widthIndicatorsText' )
