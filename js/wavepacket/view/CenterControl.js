@@ -78,7 +78,7 @@ class CenterControl extends WavePacketNumberControl {
         this.setNumberFormatter( center => {
 
           const symbol = StringUtils.fillIn( '{{symbol}}<sub>0</sub>', {
-            symbol: ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value
+            symbol: ( domain === Domain.SPACE ) ? k : omega
           } );
 
           // Using toFixedNumber removes trailing zeros.
