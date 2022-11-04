@@ -119,7 +119,7 @@ class WavePacketAmplitudesChartNode extends DomainChartNode {
 
     // Width indicator, labeled dimensional arrows
     const widthIndicatorPlot = new WidthIndicatorPlot( this.chartTransform, widthIndicatorWidthProperty,
-      widthIndicatorPositionProperty, domainProperty, FMWSymbols.kStringProperty.value, FMWSymbols.omegaStringProperty.value, {
+      widthIndicatorPositionProperty, domainProperty, FMWSymbols.kStringProperty, FMWSymbols.omegaStringProperty, {
         visibleProperty: widthIndicatorsVisibleProperty
       } );
 

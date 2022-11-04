@@ -106,7 +106,7 @@ class WavePacketSumChartNode extends DomainChartNode {
 
     // Width indicator, labeled dimensional arrows
     const widthIndicatorPlot = new WidthIndicatorPlot( this.chartTransform, widthIndicatorWidthProperty,
-      widthIndicatorPositionProperty, domainProperty, FMWSymbols.xStringProperty.value, FMWSymbols.tStringProperty.value, {
+      widthIndicatorPositionProperty, domainProperty, FMWSymbols.xStringProperty, FMWSymbols.tStringProperty, {
         visibleProperty: widthIndicatorsVisibleProperty
       } );
 

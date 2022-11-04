@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -26,18 +27,17 @@ class WidthIndicatorPlot extends Node {
    * @param {ReadOnlyProperty.<number>} widthProperty - width of the indicator, in model coordinates
    * @param {ReadOnlyProperty.<Vector2>} positionProperty - position of the indicator, in model coordinates
    * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty - the Domain, space or time
-   * @param {string} spaceSymbol - symbol for the space Domain
-   * @param {string} timeSymbol - symbol for the time Domain
+   * @param {TReadOnlyProperty.<string>} spaceSymbolStringProperty - symbol for the space Domain
+   * @param {TReadOnlyProperty.<string>} timeSymbolStringProperty - symbol for the time Domain
    * @param {Object} [options]
    */
-  constructor( chartTransform, widthProperty, positionProperty, domainProperty, spaceSymbol, timeSymbol, options ) {
+  constructor( chartTransform, widthProperty, positionProperty, domainProperty,
+               spaceSymbolStringProperty, timeSymbolStringProperty, options ) {
 
     assert && assert( chartTransform instanceof ChartTransform );
     assert && AssertUtils.assertAbstractPropertyOf( widthProperty, 'number' );
     assert && AssertUtils.assertAbstractPropertyOf( positionProperty, Vector2 );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( typeof spaceSymbol === 'string' );
-    assert && assert( typeof timeSymbol === 'string' );
 
     options = merge( {
 
@@ -57,8 +57,15 @@ class WidthIndicatorPlot extends Node {
     // Dimensional arrows
     const dimensionalArrowsNode = new HorizontalDimensionalArrowsNode( options.dimensionalArrowsNodeOptions );
 
+    const labelStringProperty = new DerivedProperty(
+      [ domainProperty, FMWSymbols.sigmaStringProperty, spaceSymbolStringProperty, timeSymbolStringProperty ],
+      ( domain, sigma, spaceSymbol, timeSymbol ) => {
+        const waveNumberSymbol = ( domain === Domain.SPACE ) ? spaceSymbol : timeSymbol;
+        return `2${sigma}<sub>${waveNumberSymbol}</sub>`;
+      } );
+
     // Label on a translucent background that resizes to fit the label.
-    const labelNode = new RichText( '', options.richTextOptions );
+    const labelNode = new RichText( labelStringProperty, options.richTextOptions );
     const backgroundNode = new BackgroundNode( labelNode, {
       xMargin: 5,
       rectangleOptions: {
@@ -79,6 +86,8 @@ class WidthIndicatorPlot extends Node {
       backgroundNode.top = dimensionalArrowsNode.bottom;
     }
 
+    backgroundNode.boundsProperty.link( bounds => updateLabelPosition() );
+
     // Resize the dimensional arrows, and center them on the position.
     function updateDimensionalArrows() {
       const viewWidth = chartTransform.modelToViewDeltaX( widthProperty.value );
@@ -90,13 +99,6 @@ class WidthIndicatorPlot extends Node {
     chartTransform.changedEmitter.addListener( updateDimensionalArrows );
     widthProperty.link( updateDimensionalArrows );
     positionProperty.link( updateDimensionalArrows );
-
-    // Update the label to match the Domain
-    domainProperty.link( domain => {
-      const waveNumberSymbol = ( domain === Domain.SPACE ) ? spaceSymbol : timeSymbol;
-      labelNode.string = `2${FMWSymbols.sigmaStringProperty.value}<sub>${waveNumberSymbol}</sub>`;
-      updateLabelPosition();
-    } );
   }
 }
 
