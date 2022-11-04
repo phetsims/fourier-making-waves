@@ -8,6 +8,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -42,19 +43,20 @@ class DiscreteCalipersNode extends DiscreteMeasurementToolNode {
 
     options = merge( {}, options );
 
-    // Use CalipersNode via composition.
-    const calipersNode = new CalipersNode();
-
     // {DerivedProperty.<Harmonic>} The harmonic associated with this tool.
     const harmonicProperty = new DerivedProperty( [ tool.orderProperty ], order => harmonics[ order - 1 ] );
+
+    // Use CalipersNode via composition.
+    const calipersNode = new CalipersNode();
+    Multilink.multilink( [ tool.symbolStringProperty, harmonicProperty ],
+      ( symbol, harmonic ) => calipersNode.setLabel( `${symbol}<sub>${harmonic.order}</sub>` ) );
 
     assert && assert( !options.children, 'DiscreteCalipersNode sets children' );
     options.children = [ calipersNode ];
 
-    // Update to match the selected harmonic.
-    function updateNodes() {
+    super( tool, harmonicProperty, emphasizedHarmonics, domainProperty, relevantDomains, options );
 
-      const harmonic = harmonicProperty.value;
+    const update = harmonic => {
 
       // Compute the value in view coordinates
       const modelValue = getModelValue( harmonic );
@@ -62,19 +64,16 @@ class DiscreteCalipersNode extends DiscreteMeasurementToolNode {
 
       calipersNode.setMeasuredWidth( viewValue );
       calipersNode.setBeamAndJawsFill( harmonic.colorProperty );
-      calipersNode.setLabel( `${tool.symbolStringProperty.value}<sub>${harmonic.order}</sub>` );
 
       // Do not adjust position. We want the left jaw of the caliper to remain where it was, since that is
       // the jaw that the user should be positioning in order to measure the width of something.
-    }
+    };
 
-    // Initialize child Nodes before deriving drag bounds and calling super
-    updateNodes();
-
-    super( tool, harmonicProperty, emphasizedHarmonics, domainProperty, relevantDomains, updateNodes, options );
+    // Update to match the selected harmonic.
+    harmonicProperty.link( harmonic => update( harmonic ) );
 
     // Update when the range of the associated axis changes.
-    chartTransform.changedEmitter.addListener( updateNodes );
+    chartTransform.changedEmitter.addListener( () => update( harmonicProperty.value ) );
   }
 }
 

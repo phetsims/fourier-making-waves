@@ -53,7 +53,10 @@ class PeriodClockNode extends DiscreteMeasurementToolNode {
 
     const clockFaceNode = new ClockFaceNode( harmonicProperty, tProperty );
 
-    const labelNode = new RichText( '', {
+    const labelStringProperty = new DerivedProperty( [ FMWSymbols.TStringProperty, harmonicProperty ],
+      ( T, harmonic ) => `${T}<sub>${harmonic.order}</sub>` );
+
+    const labelNode = new RichText( labelStringProperty, {
       font: FMWConstants.TOOL_LABEL_FONT,
       maxWidth: 50
     } );
@@ -66,32 +69,23 @@ class PeriodClockNode extends DiscreteMeasurementToolNode {
     assert && assert( !options.children, 'PeriodClockNode sets children' );
     options.children = [ clockFaceNode, backgroundNode, labelNode ];
 
-    /**
-     * Updates this tool's child Nodes to match the selected harmonic
-     */
-    function updateNodes() {
-      const order = harmonicProperty.value.order;
+    const relevantDomains = [ Domain.SPACE_AND_TIME ];
 
-      // Change the label
-      labelNode.string = `${FMWSymbols.TStringProperty.value}<sub>${order}</sub>`;
-      labelNode.left = clockFaceNode.right + BACKGROUND_X_MARGIN + 2;
-      labelNode.centerY = clockFaceNode.centerY;
-
-      // Resize the background to fit the label, and keep label centered in background.
-      backgroundNode.setRect( 0, 0, labelNode.width + 2 * BACKGROUND_X_MARGIN, labelNode.height + 2 * BACKGROUND_Y_MARGIN );
-      backgroundNode.center = labelNode.center;
-    }
-
-    // Initialize child Nodes before calling super
-    updateNodes();
-
-    super( tool, harmonicProperty, emphasizedHarmonics, domainProperty,
-      [ Domain.SPACE_AND_TIME ], // relevant Domains
-      updateNodes,
-      options );
+    super( tool, harmonicProperty, emphasizedHarmonics, domainProperty, relevantDomains, options );
 
     // Synchronize visibility of the clock face, so we can short-circuit updates while it's invisible.
     clockFaceNode.setVisibleProperty( this.visibleProperty );
+
+    labelNode.boundsProperty.link( bounds => {
+
+      // Center the label in the clock face.
+      labelNode.left = clockFaceNode.right + BACKGROUND_X_MARGIN + 2;
+      labelNode.centerY = clockFaceNode.centerY;
+
+      // Resize the background to fit the label, and keep the label centered in the background.
+      backgroundNode.setRect( 0, 0, labelNode.width + 2 * BACKGROUND_X_MARGIN, labelNode.height + 2 * BACKGROUND_Y_MARGIN );
+      backgroundNode.center = labelNode.center;
+    } );
 
     // Pointer areas
     this.localBoundsProperty.link( localBounds => {

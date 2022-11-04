@@ -39,17 +39,15 @@ class DiscreteMeasurementToolNode extends Node {
    * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Domain[]} relevantDomains - the Domain values that are relevant for this tool
-   * @param {function} updateNodes - updates this tool's child Nodes to match the selected harmonic
    * @param {Object} [options]
    */
-  constructor( tool, harmonicProperty, emphasizedHarmonics, domainProperty, relevantDomains, updateNodes, options ) {
+  constructor( tool, harmonicProperty, emphasizedHarmonics, domainProperty, relevantDomains, options ) {
 
     assert && assert( tool instanceof DiscreteMeasurementTool );
     assert && AssertUtils.assertAbstractPropertyOf( harmonicProperty, Harmonic );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
     assert && assert( Array.isArray( relevantDomains ) );
-    assert && assert( typeof updateNodes === 'function' );
 
     options = merge( {
 
@@ -134,14 +132,9 @@ class DiscreteMeasurementToolNode extends Node {
       }
     } );
 
-    // Update the tool to match the selected harmonic.
-    harmonicProperty.lazyLink( () => {
-      this.interruptSubtreeInput();
-      updateNodes();
-    } );
-
-    // Interrupt interaction when visibility changes.
-    this.visibleProperty.link( () => this.interruptSubtreeInput() );
+    // Interrupt interaction
+    harmonicProperty.lazyLink( () => this.interruptSubtreeInput() );
+    this.visibleProperty.lazyLink( () => this.interruptSubtreeInput() );
 
     // pdom - dragging using the keyboard
     const keyboardDragListener = new KeyboardDragListener( {
