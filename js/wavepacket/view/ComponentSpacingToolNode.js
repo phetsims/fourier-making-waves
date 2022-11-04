@@ -8,6 +8,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -31,10 +32,13 @@ class ComponentSpacingToolNode extends WavePacketMeasurementToolNode {
       }
     }, options );
 
-    const spaceSymbol = `${FMWSymbols.kStringProperty.value}<sub>1</sub>`;
-    const timeSymbol = `${FMWSymbols.omegaStringProperty.value}<sub>1</sub>`;
+    const spaceSymbolStringProperty = new DerivedProperty( [ FMWSymbols.kStringProperty ],
+        k => `${k}<sub>1</sub>` );
 
-    super( componentSpacingProperty, chartTransform, domainProperty, spaceSymbol, timeSymbol, options );
+    const timeSymbolStringProperty = new DerivedProperty( [ FMWSymbols.omegaStringProperty ],
+      omega => `${omega}<sub>1</sub>` );
+
+    super( componentSpacingProperty, chartTransform, domainProperty, spaceSymbolStringProperty, timeSymbolStringProperty, options );
   }
 }
 

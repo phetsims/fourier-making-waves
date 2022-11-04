@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
@@ -31,10 +32,13 @@ class WavePacketLengthToolNode extends WavePacketMeasurementToolNode {
       }
     }, options );
 
-    const spaceSymbol = `${FMWSymbols.lambdaStringProperty.value}<sub>1</sub>`;
-    const timeSymbol = `${FMWSymbols.TStringProperty.value}<sub>1</sub>`;
+    const spaceSymbolStringProperty = new DerivedProperty( [ FMWSymbols.lambdaStringProperty ],
+      lambda => `${lambda}<sub>1</sub>` );
 
-    super( lengthProperty, chartTransform, domainProperty, spaceSymbol, timeSymbol, options );
+    const timeSymbolStringProperty = new DerivedProperty( [ FMWSymbols.TStringProperty ],
+      T => `${T}<sub>1</sub>` );
+
+    super( lengthProperty, chartTransform, domainProperty, spaceSymbolStringProperty, timeSymbolStringProperty, options );
   }
 }
 

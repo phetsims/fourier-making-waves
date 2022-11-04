@@ -30,17 +30,15 @@ class WavePacketMeasurementToolNode extends Node {
    * @param {ReadOnlyProperty.<number>} property - the Property of the wave packet that we're measuring
    * @param {ChartTransform} chartTransform
    * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
-   * @param {string} spaceSymbol
-   * @param {string} timeSymbol
+   * @param {TReadOnlyProperty.<string>} spaceSymbolStringProperty
+   * @param {TReadOnlyProperty.<string>} timeSymbolStringProperty
    * @param {Object} [options]
    */
-  constructor( property, chartTransform, domainProperty, spaceSymbol, timeSymbol, options ) {
+  constructor( property, chartTransform, domainProperty, spaceSymbolStringProperty, timeSymbolStringProperty, options ) {
 
     assert && AssertUtils.assertAbstractPropertyOf( property, 'number' );
     assert && assert( chartTransform instanceof ChartTransform );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( typeof spaceSymbol === 'string' );
-    assert && assert( typeof timeSymbol === 'string' );
 
     options = merge( {
       position: new Vector2( 0, 0 ),
@@ -90,11 +88,11 @@ class WavePacketMeasurementToolNode extends Node {
 
     super( options );
 
-    const update = ( value, domain ) => {
+    const update = () => {
 
-      const symbol = ( domain === Domain.SPACE ) ? spaceSymbol : timeSymbol;
+      const symbol = ( domainProperty.value === Domain.SPACE ) ? spaceSymbolStringProperty.value : timeSymbolStringProperty.value;
 
-      if ( value === Infinity ) {
+      if ( property.value === Infinity ) {
 
         // Make the calipers invisible, and as small as possible,
         // see https://github.com/phetsims/fourier-making-waves/issues/181
@@ -105,9 +103,9 @@ class WavePacketMeasurementToolNode extends Node {
       }
       else {
         calipersNode.visible = true;
-        calipersNode.setMeasuredWidth( chartTransform.modelToViewDeltaX( value ) );
+        calipersNode.setMeasuredWidth( chartTransform.modelToViewDeltaX( property.value ) );
         infinityBackgroundNode.visible = false;
-        if ( value === 0 ) {
+        if ( property.value === 0 ) {
           calipersNode.setLabel( `${symbol} = 0` ); // ... so there is no question that the caliper jaws are fully closed.
         }
         else {
@@ -120,8 +118,8 @@ class WavePacketMeasurementToolNode extends Node {
       infinityBackgroundNode.bottom = calipersNode.y;
     };
 
-    chartTransform.changedEmitter.addListener( () => update( property.value, domainProperty.value ) );
-    Multilink.multilink( [ property, domainProperty ], update );
+    chartTransform.changedEmitter.addListener( () => update() );
+    Multilink.multilink( [ property, domainProperty, spaceSymbolStringProperty, timeSymbolStringProperty ], () => update() );
 
     const positionProperty = new Vector2Property( options.position, {
       tandem: options.tandem.createTandem( 'positionProperty' ),
