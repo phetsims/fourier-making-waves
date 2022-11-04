@@ -21,25 +21,68 @@ import fourierMakingWaves from '../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../FourierMakingWavesStrings.js';
 
 const FMWSymbols = {
-  A: MathSymbolFont.getRichTextMarkup( FourierMakingWavesStrings.symbol.A, 'normal' ), // amplitude
-  cos: MathSymbolFont.getRichTextMarkup( FourierMakingWavesStrings.symbol.cos, 'normal' ), // cosine
-  d: MathSymbolFont.getRichTextMarkup( FourierMakingWavesStrings.symbol.d ), // differential, like dx
-  F: MathSymbolFont.getRichTextMarkup( FourierMakingWavesStrings.symbol.F, 'normal' ), // function of frequency
-  f: MathSymbolFont.getRichTextMarkup( FourierMakingWavesStrings.symbol.f ), // frequency
+
+  //-----------------------------------------------------------------------------------------------------------
+  // Symbols that are translated
+
+  // amplitude
+  AStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.AStringProperty, 'normal' ),
+
+  // cosine
+  cosStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.cosStringProperty, 'normal' ),
+
+  // differential, like dx
+  d: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.dStringProperty ).value,
+
+  // function of frequency
+  F: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.FStringProperty, 'normal' ).value,
+
+  // frequency
+  f: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.fStringProperty ).value,
+
+  // wave number
+  k: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.kStringProperty ).value,
+
+  // string length, if this were a plucked string
+  L: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.LStringProperty, 'normal' ).value,
+
+  // wavelength
+  lambda: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.lambdaStringProperty, 'normal' ).value,
+
+  // mode, order, or harmonic number
+  n: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.nStringProperty ).value,
+
+  // angular frequency
+  omega: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.omegaStringProperty, 'normal' ).value,
+
+  // width of the Gaussian wave packet (dx)
+  sigma: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sigmaStringProperty, 'normal' ).value,
+
+  // sine
+  sinStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sinStringProperty, 'normal' ),
+
+  // sampling period, or period of the 1st harmonic
+  T: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.TStringProperty, 'normal' ).value,
+
+  // time
+  t: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.tStringProperty ).value,
+
+  // position in space along L
+  x: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.xStringProperty ).value,
+
+  //-----------------------------------------------------------------------------------------------------------
+  // Symbols that are not translated
+
   infinity: MathSymbolFont.getRichTextMarkup( '\u221e', 'normal' ),
-  integral: MathSymbolFont.getRichTextMarkup( '\u222B', 'normal' ), // integration symbol
-  k: MathSymbolFont.getRichTextMarkup( FourierMakingWavesStrings.symbol.k ), // wave number
-  L: MathSymbolFont.getRichTextMarkup( FourierMakingWavesStrings.symbol.L, 'normal' ), // string length, if this were a plucked string
-  lambda: MathSymbolFont.getRichTextMarkup( FourierMakingWavesStrings.symbol.lambda, 'normal' ), // wavelength
-  n: MathSymbolFont.getRichTextMarkup( FourierMakingWavesStrings.symbol.n ), // mode, order, or harmonic number
-  omega: MathSymbolFont.getRichTextMarkup( FourierMakingWavesStrings.symbol.omega, 'normal' ), // angular frequency
-  pi: MathSymbolFont.getRichTextMarkup( '\u03c0', 'normal' ), // pi
-  SIGMA: MathSymbolFont.getRichTextMarkup( '\u03a3', 'normal' ), // summation symbol
-  sigma: MathSymbolFont.getRichTextMarkup( FourierMakingWavesStrings.symbol.sigma, 'normal' ), // width of the Gaussian wave packet (dx)
-  sin: MathSymbolFont.getRichTextMarkup( FourierMakingWavesStrings.symbol.sin, 'normal' ), // sine
-  T: MathSymbolFont.getRichTextMarkup( FourierMakingWavesStrings.symbol.T, 'normal' ), // sampling period, or period of the 1st harmonic
-  t: MathSymbolFont.getRichTextMarkup( FourierMakingWavesStrings.symbol.t ), // time
-  x: MathSymbolFont.getRichTextMarkup( FourierMakingWavesStrings.symbol.x ) // position in space along L
+
+  // integration symbol
+  integral: MathSymbolFont.getRichTextMarkup( '\u222B', 'normal' ),
+
+  // pi
+  pi: MathSymbolFont.getRichTextMarkup( '\u03c0', 'normal' ),
+
+  // summation symbol
+  SIGMA: MathSymbolFont.getRichTextMarkup( '\u03a3', 'normal' )
 };
 
 fourierMakingWaves.register( 'FMWSymbols', FMWSymbols );

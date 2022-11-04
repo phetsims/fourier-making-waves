@@ -18,7 +18,7 @@ import SeriesType from '../model/SeriesType.js';
 const HIDDEN_STRING = ''; // string for EquationForm.HIDDEN
 
 // To improve readability of markup creation. Each of these is a string that may also include markup, added by FMWSymbols.
-const A = FMWSymbols.A;
+const A = FMWSymbols.AStringProperty.value;
 const F = FMWSymbols.F;
 const f = FMWSymbols.f;
 const k = FMWSymbols.k;
@@ -104,8 +104,8 @@ const EquationMarkup = {
 
     const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t;
     const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega;
-    const seriesTypeString = ( seriesType === SeriesType.SIN ) ? FMWSymbols.sin : FMWSymbols.cos;
-    return `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub> ` +
+    const seriesTypeString = ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinStringProperty.value : FMWSymbols.cosStringProperty.value;
+    return `${FMWSymbols.AStringProperty.value}<sub>${FMWSymbols.n}</sub> ` +
            `${seriesTypeString}( ${componentSymbol}<sub>${FMWSymbols.n}</sub>${domainSymbol} )`;
   }
 };
@@ -229,7 +229,7 @@ function getSpaceAndTimeMarkup( seriesType, equationForm, order, amplitude ) {
  */
 function seriesTypeToMarkup( seriesType ) {
   assert && assert( SeriesType.includes( seriesType ) );
-  return ( seriesType === SeriesType.SIN ) ? FMWSymbols.sin : FMWSymbols.cos;
+  return ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinStringProperty.value : FMWSymbols.cosStringProperty.value;
 }
 
 fourierMakingWaves.register( 'EquationMarkup', EquationMarkup );

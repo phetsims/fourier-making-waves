@@ -7,6 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
@@ -92,8 +93,12 @@ class WavePacketScreenView extends ScreenView {
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
     } );
 
+    const amplitudesEquationStringProperty = new DerivedProperty( [ FMWSymbols.AStringProperty ],
+      ( A, n ) => `${A}<sub>${FMWSymbols.n}</sub>`
+    );
+
     // Equation above the Amplitudes chart
-    const amplitudesEquationText = new RichText( `${FMWSymbols.A}<sub>${FMWSymbols.n}</sub>`, {
+    const amplitudesEquationText = new RichText( amplitudesEquationStringProperty, {
       font: FMWConstants.EQUATION_FONT,
       maxWidth: 100,
       tandem: amplitudesTandem.createTandem( 'amplitudesEquationText' )

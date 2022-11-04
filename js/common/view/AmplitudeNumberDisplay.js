@@ -66,7 +66,10 @@ class AmplitudeNumberDisplay extends InteractiveHighlighting( VBox ) {
     const numberDisplay = new NumberDisplay( harmonic.amplitudeProperty, harmonic.amplitudeProperty.range,
       options.numberDisplayOptions );
 
-    const labelNode = new RichText( `${FMWSymbols.A}<sub>${harmonic.order}</sub>`, {
+    const labelString = new DerivedProperty( [ FMWSymbols.AStringProperty ],
+      A => `${A}<sub>${harmonic.order}</sub>` );
+
+    const labelNode = new RichText( labelString, {
       font: DEFAULT_FONT,
       maxWidth: numberDisplay.width
     } );

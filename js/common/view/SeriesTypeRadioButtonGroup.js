@@ -44,8 +44,16 @@ class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
     };
 
     const items = [
-      { value: SeriesType.SIN, createNode: tandem => new RichText( FMWSymbols.sin, textOptions ), tandemName: 'sinRadioButton' },
-      { value: SeriesType.COS, createNode: tandem => new RichText( FMWSymbols.cos, textOptions ), tandemName: 'cosRadioButton' }
+      {
+        value: SeriesType.SIN,
+        createNode: tandem => new RichText( FMWSymbols.sinStringProperty, textOptions ),
+        tandemName: 'sinRadioButton'
+      },
+      {
+        value: SeriesType.COS,
+        createNode: tandem => new RichText( FMWSymbols.cosStringProperty, textOptions ),
+        tandemName: 'cosRadioButton'
+      }
     ];
 
     super( seriesTypeProperty, items, options );

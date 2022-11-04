@@ -178,7 +178,7 @@ class AmplitudeKeypadDialog extends Dialog {
     assert && assert( typeof enterCallback === 'function' );
     assert && assert( typeof closeCallback === 'function' );
 
-    this.titleNode.string = `${FMWSymbols.A}<sub>${order}</sub>`;
+    this.titleNode.string = `${FMWSymbols.AStringProperty.value}<sub>${order}</sub>`;
     this.order = order;
     this.enterCallback = enterCallback;
     this.closeCallback = closeCallback;

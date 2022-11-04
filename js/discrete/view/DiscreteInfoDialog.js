@@ -45,7 +45,7 @@ class DiscreteInfoDialog extends Dialog {
     // For each translated string describing a symbol, fill in the symbol.
     const stringProperties = [
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.AStringProperty, {
-        A: FMWSymbols.A
+        A: FMWSymbols.AStringProperty
       } ),
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.fStringProperty, {
         f: FMWSymbols.f
