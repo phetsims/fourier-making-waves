@@ -74,7 +74,7 @@ class DomainChartNode extends Node {
       xZoomLevelProperty: null, // {NumberProperty|null} adds optional zoom buttons
 
       // y axis
-      yAxisString: FourierMakingWavesStrings.amplitude,
+      yAxisStringProperty: FourierMakingWavesStrings.amplitudeStringProperty,
       yGridLineSpacing: 1,
       yTickMarkSpacing: 1,
       yTickLabelSpacing: 1,
@@ -157,7 +157,7 @@ class DomainChartNode extends Node {
 
     // y axis
     const yAxis = new AxisLine( chartTransform, Orientation.VERTICAL, options.axisLineOptions );
-    const yAxisLabel = new RichText( options.yAxisString, options.yAxisLabelOptions );
+    const yAxisLabel = new RichText( options.yAxisStringProperty, options.yAxisLabelOptions );
     const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, options.yGridLineSpacing, options.gridLineSetOptions );
     const yTickMarks = new TickMarkSet( chartTransform, Orientation.VERTICAL, options.yTickMarkSpacing, options.tickMarkSetOptions );
     const yTickLabels = new TickLabelSet( chartTransform, Orientation.VERTICAL, options.yTickLabelSpacing, options.yTickLabelSetOptions );

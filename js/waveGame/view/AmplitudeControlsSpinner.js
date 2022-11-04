@@ -52,7 +52,7 @@ class AmplitudeControlsSpinner extends VBox {
       spacing: 10
     }, options );
 
-    const amplitudeControlsText = new Text( FourierMakingWavesStrings.amplitudeControls,
+    const amplitudeControlsText = new Text( FourierMakingWavesStrings.amplitudeControlsStringProperty,
       merge( {
         tandem: options.tandem.createTandem( 'amplitudeControlsText' )
       }, options.textOptions ) );

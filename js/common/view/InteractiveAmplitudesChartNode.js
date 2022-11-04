@@ -123,13 +123,15 @@ class InteractiveAmplitudesChartNode extends Node {
 
     // y axis ---------------------------------------------------------
 
-    const yAxisLabelText = new RichText( FourierMakingWavesStrings.amplitude, {
+    const yAxisLabelText = new RichText( FourierMakingWavesStrings.amplitudeStringProperty, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
-      right: -FMWConstants.Y_AXIS_LABEL_SPACING,
-      centerY: chartRectangle.centerY,
       maxWidth: 0.85 * chartRectangle.height,
       tandem: options.tandem.createTandem( 'yAxisLabelText' )
+    } );
+    yAxisLabelText.boundsProperty.link( bounds => {
+      yAxisLabelText.right = -FMWConstants.Y_AXIS_LABEL_SPACING;
+      yAxisLabelText.centerY = chartRectangle.centerY;
     } );
 
     const yGridLineSet = new GridLineSet( chartTransform, Orientation.VERTICAL, Y_TICK_SPACING, {

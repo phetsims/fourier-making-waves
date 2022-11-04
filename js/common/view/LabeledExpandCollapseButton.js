@@ -16,11 +16,11 @@ import FMWConstants from '../FMWConstants.js';
 class LabeledExpandCollapseButton extends HBox {
 
   /**
-   * @param {string} labelString
+   * @param {TReadOnlyProperty.<string>} labelStringProperty
    * @param {Property.<boolean>} expandedProperty
    * @param {Object} [options]
    */
-  constructor( labelString, expandedProperty, options ) {
+  constructor( labelStringProperty, expandedProperty, options ) {
 
     options = merge( {
 
@@ -40,7 +40,7 @@ class LabeledExpandCollapseButton extends HBox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const labelText = new Text( labelString, merge( {
+    const labelText = new Text( labelStringProperty, merge( {
       cursor: 'pointer',
       tandem: options.tandem.createTandem( 'labelText' )
     }, options.textOptions ) );

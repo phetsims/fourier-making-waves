@@ -162,7 +162,7 @@ class WaveGameLevelNode extends Node {
     // Parent tandem for all elements related to the Harmonics chart
     const harmonicsTandem = chartsTandem.createTandem( 'harmonics' );
 
-    const harmonicsTitleText = new Text( FourierMakingWavesStrings.harmonicsChart, {
+    const harmonicsTitleText = new Text( FourierMakingWavesStrings.harmonicsChartStringProperty, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 150,
       tandem: harmonicsTandem.createTandem( 'harmonicsTitleText' )
@@ -186,7 +186,7 @@ class WaveGameLevelNode extends Node {
     // Parent tandem for all components related to the Sum chart
     const sumTandem = chartsTandem.createTandem( 'sum' );
 
-    const sumTitleNode = new Text( FourierMakingWavesStrings.sum, {
+    const sumTitleNode = new Text( FourierMakingWavesStrings.sumStringProperty, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: FMWConstants.CHART_TITLE_MAX_WIDTH,
       tandem: sumTandem.createTandem( 'harmonicsTitleText' )
@@ -244,7 +244,7 @@ class WaveGameLevelNode extends Node {
     };
 
     const checkAnswerButton = new RectangularPushButton( {
-      content: new Text( FourierMakingWavesStrings.checkAnswer, {
+      content: new Text( FourierMakingWavesStrings.checkAnswerStringProperty, {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
@@ -283,7 +283,7 @@ class WaveGameLevelNode extends Node {
 
     // Show Answer button shows the answer to the challenge. Points will NOT be awarded after pressing this button.
     const showAnswerButton = new RectangularPushButton( {
-      content: new Text( FourierMakingWavesStrings.showAnswer, {
+      content: new Text( FourierMakingWavesStrings.showAnswerStringProperty, {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
@@ -305,7 +305,7 @@ class WaveGameLevelNode extends Node {
     // New Waveform button loads a new challenge.
     const newWaveformButton = new RectangularPushButton( {
       listener: newWaveform,
-      content: new Text( FourierMakingWavesStrings.newWaveform, {
+      content: new Text( FourierMakingWavesStrings.newWaveformStringProperty, {
         font: DEFAULT_FONT,
         maxWidth: BUTTON_TEXT_MAX_WIDTH
       } ),
@@ -377,14 +377,20 @@ class WaveGameLevelNode extends Node {
     amplitudesChartNode.top = statusBar.bottom + 5;
     const amplitudesChartRectangleLocalBounds = amplitudesChartNode.chartRectangle.boundsTo( this );
 
-    harmonicsTitleText.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
-    harmonicsTitleText.top = amplitudesChartNode.bottom + TITLE_TOP_SPACING;
+    harmonicsTitleText.boundsProperty.link( bounds => {
+      harmonicsTitleText.left = layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
+      harmonicsTitleText.top = amplitudesChartNode.bottom + TITLE_TOP_SPACING;
+    } );
+
     harmonicsChartNode.x = amplitudesChartNode.x;
     harmonicsChartNode.y = harmonicsTitleText.bottom + TITLE_BOTTOM_SPACING;
     const harmonicsChartRectangleLocalBounds = harmonicsChartNode.chartRectangle.boundsTo( this );
 
-    sumTitleNode.left = harmonicsTitleText.left;
-    sumTitleNode.top = harmonicsChartNode.bottom + TITLE_TOP_SPACING;
+    sumTitleNode.boundsProperty.link( bounds => {
+      sumTitleNode.left = harmonicsTitleText.left;
+      sumTitleNode.top = harmonicsChartNode.bottom + TITLE_TOP_SPACING;
+    } );
+
     sumChartNode.x = amplitudesChartNode.x;
     sumChartNode.y = sumTitleNode.bottom + TITLE_BOTTOM_SPACING;
     const sumChartRectangleLocalBounds = sumChartNode.chartRectangle.boundsTo( this );
@@ -406,12 +412,16 @@ class WaveGameLevelNode extends Node {
     const controlsCenterX = amplitudesChartNode.right + ( layoutBounds.right - amplitudesChartNode.right ) / 2;
 
     // centered on the Amplitudes chart
-    amplitudeControlsSpinner.centerX = controlsCenterX;
-    amplitudeControlsSpinner.centerY = amplitudesChartRectangleLocalBounds.centerY;
+    amplitudeControlsSpinner.boundsProperty.link( bounds => {
+      amplitudeControlsSpinner.centerX = controlsCenterX;
+      amplitudeControlsSpinner.centerY = amplitudesChartRectangleLocalBounds.centerY;
+    } );
 
     // buttons centered on Harmonics chart
-    buttonsBox.centerX = controlsCenterX;
-    buttonsBox.centerY = harmonicsChartRectangleLocalBounds.centerY;
+    buttonsBox.boundsProperty.link( bounds => {
+      buttonsBox.centerX = controlsCenterX;
+      buttonsBox.centerY = harmonicsChartRectangleLocalBounds.centerY;
+    } );
 
     // centered on the Sum chart
     smileyFaceNode.centerX = controlsCenterX;

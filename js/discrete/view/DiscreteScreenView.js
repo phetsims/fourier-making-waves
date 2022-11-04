@@ -126,7 +126,7 @@ class DiscreteScreenView extends ScreenView {
 
     // Button to show/hide the Harmonics chart and its related UI element
     const harmonicsExpandCollapseButton = new LabeledExpandCollapseButton(
-      FourierMakingWavesStrings.harmonicsChart, model.harmonicsChart.chartExpandedProperty, {
+      FourierMakingWavesStrings.harmonicsChartStringProperty, model.harmonicsChart.chartExpandedProperty, {
         tandem: harmonicsTandem.createTandem( 'harmonicsExpandCollapseButton' )
       } );
 
@@ -159,7 +159,7 @@ class DiscreteScreenView extends ScreenView {
 
     // Button to show/hide the Sum chart and its related UI element
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
-      FourierMakingWavesStrings.sum, model.sumChart.chartExpandedProperty, {
+      FourierMakingWavesStrings.sumStringProperty, model.sumChart.chartExpandedProperty, {
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
       } );
 

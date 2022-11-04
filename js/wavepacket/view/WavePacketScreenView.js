@@ -77,7 +77,8 @@ class WavePacketScreenView extends ScreenView {
 
     // Button to show/hide the Amplitudes chart and its related UI element
     const amplitudesExpandCollapseButton = new LabeledExpandCollapseButton(
-      FourierMakingWavesStrings.amplitudesOfFourierComponents, model.amplitudesChart.chartExpandedProperty, {
+      FourierMakingWavesStrings.amplitudesOfFourierComponentsStringProperty,
+      model.amplitudesChart.chartExpandedProperty, {
         textOptions: { maxWidth: 300 },
         tandem: amplitudesTandem.createTandem( 'amplitudesExpandCollapseButton' )
       } );
@@ -119,7 +120,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Button to show/hide the Components chart and its related UI element
     const componentsExpandCollapseButton = new LabeledExpandCollapseButton(
-      FourierMakingWavesStrings.fourierComponents, model.componentsChart.chartExpandedProperty, {
+      FourierMakingWavesStrings.fourierComponentsStringProperty, model.componentsChart.chartExpandedProperty, {
         tandem: componentsTandem.createTandem( 'componentsExpandCollapseButton' )
       } );
 
@@ -150,7 +151,7 @@ class WavePacketScreenView extends ScreenView {
 
     // Button to show/hide the Sum chart and its related UI element
     const sumExpandCollapseButton = new LabeledExpandCollapseButton(
-      FourierMakingWavesStrings.sum, model.sumChart.chartExpandedProperty, {
+      FourierMakingWavesStrings.sumStringProperty, model.sumChart.chartExpandedProperty, {
         tandem: sumTandem.createTandem( 'sumExpandCollapseButton' )
       } );
 

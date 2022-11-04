@@ -7,11 +7,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Keypad from '../../../../scenery-phet/js/keypad/Keypad.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -86,10 +86,11 @@ class AmplitudeKeypadDialog extends Dialog {
     } );
 
     // Range of valid values is shown
-    const rangeNode = new Text( StringUtils.fillIn( FourierMakingWavesStrings.minToMax, {
+    const rangeStringProperty = new PatternStringProperty( FourierMakingWavesStrings.minToMaxStringProperty, {
       min: Utils.toFixedNumber( amplitudeRange.min, options.decimalPlaces ),
       max: Utils.toFixedNumber( amplitudeRange.max, options.decimalPlaces )
-    } ), {
+    } );
+    const rangeNode = new Text( rangeStringProperty, {
       font: VALUE_FONT,
       maxWidth: keypad.width
     } );
@@ -110,7 +111,7 @@ class AmplitudeKeypadDialog extends Dialog {
     // Enter button, processes what has been entered on the keypad
     const enterButton = new RectangularPushButton( {
       baseColor: PhetColorScheme.BUTTON_YELLOW,
-      content: new Text( FourierMakingWavesStrings.enter, {
+      content: new Text( FourierMakingWavesStrings.enterStringProperty, {
         font: BUTTON_FONT,
         maxWidth: keypad.width
       } )
