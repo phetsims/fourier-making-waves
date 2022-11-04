@@ -87,7 +87,7 @@ class WaveGameLevelNode extends Node {
     const statusBarTandem = options.tandem.createTandem( 'statusBar' );
 
     // Level description, displayed in the status bar
-    const levelDescriptionText = new RichText( level.statusBarMessage, {
+    const levelDescriptionText = new RichText( level.statusBarMessageProperty, {
       font: DEFAULT_FONT,
       maxWidth: 650, // determined empirically
       tandem: statusBarTandem.createTandem( 'levelDescriptionText' )

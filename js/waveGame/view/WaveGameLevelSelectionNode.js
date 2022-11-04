@@ -40,7 +40,7 @@ class WaveGameLevelSelectionNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const chooseYourLevelText = new Text( FourierMakingWavesStrings.chooseYourLevel, {
+    const chooseYourLevelText = new Text( FourierMakingWavesStrings.chooseYourLevelStringProperty, {
       font: new PhetFont( 50 ),
       maxWidth: 0.65 * layoutBounds.width,
       tandem: options.tandem.createTandem( 'chooseYourLevelText' )

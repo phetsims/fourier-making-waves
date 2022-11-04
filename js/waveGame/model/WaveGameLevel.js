@@ -15,7 +15,6 @@ import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
@@ -65,7 +64,7 @@ class WaveGameLevel extends PhetioObject {
       getNumberOfNonZeroHarmonics: () => levelNumber,
 
       // {string} message shown in the status bar that appears at the top of the Wave Game screen
-      statusBarMessage: StringUtils.fillIn( FourierMakingWavesStrings.matchUsingNHarmonics, {
+      statusBarMessageProperty: new PatternStringProperty( FourierMakingWavesStrings.matchUsingNHarmonicsStringProperty, {
         levelNumber: levelNumber,
         numberOfHarmonics: levelNumber
       } ),
@@ -84,13 +83,12 @@ class WaveGameLevel extends PhetioObject {
     assert && assert( typeof config.getNumberOfNonZeroHarmonics === 'function' );
     assert && AssertUtils.assertNonNegativeInteger( config.defaultNumberOfAmplitudeControls );
     assert && assert( config.defaultNumberOfAmplitudeControls >= levelNumber && config.defaultNumberOfAmplitudeControls <= FMWConstants.MAX_HARMONICS );
-    assert && assert( typeof config.statusBarMessage === 'string' );
 
     super( config );
 
     // @public (read-only)
     this.levelNumber = levelNumber; // {number} numbered starting from 1
-    this.statusBarMessage = config.statusBarMessage; // {string}
+    this.statusBarMessageProperty = config.statusBarMessageProperty;
     this.infoDialogDescriptionProperty = config.infoDialogDescriptionProperty; // {string}
 
     // @private

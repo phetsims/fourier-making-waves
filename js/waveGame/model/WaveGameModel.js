@@ -6,11 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
-import Property from '../../../../axon/js/Property.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import merge from '../../../../phet-core/js/merge.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -45,7 +44,7 @@ class WaveGameModel {
       // Level 1
       new WaveGameLevel( 1, {
         defaultNumberOfAmplitudeControls: 2,
-        statusBarMessage: FourierMakingWavesStrings.matchUsing1Harmonic,
+        statusBarMessageProperty: FourierMakingWavesStrings.matchUsing1HarmonicStringProperty,
         infoDialogDescriptionProperty: FourierMakingWavesStrings.info1HarmonicStringProperty,
         tandem: options.tandem.createTandem( 'level1' )
       } ),
@@ -73,7 +72,7 @@ class WaveGameModel {
         rewardScore: this.rewardScore,
         getNumberOfNonZeroHarmonics: () => dotRandom.nextIntBetween( 5, FMWConstants.MAX_HARMONICS ),
         defaultNumberOfAmplitudeControls: FMWConstants.MAX_HARMONICS,
-        statusBarMessage: StringUtils.fillIn( FourierMakingWavesStrings.matchUsingNOrMoreHarmonics, {
+        statusBarMessageProperty: new PatternStringProperty( FourierMakingWavesStrings.matchUsingNOrMoreHarmonicsStringProperty, {
           levelNumber: 5,
           numberOfHarmonics: 5
         } ),
