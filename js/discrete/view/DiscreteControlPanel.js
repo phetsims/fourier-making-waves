@@ -396,7 +396,7 @@ class MeasurementToolsSubpanel extends VBox {
       ),
       tandem: options.tandem.createTandem( 'wavelengthCheckbox' )
     } );
-    const wavelengthSpinner = new OrderSpinner( FMWSymbols.lambda, wavelengthTool.orderProperty, {
+    const wavelengthSpinner = new OrderSpinner( FMWSymbols.lambdaStringProperty.value, wavelengthTool.orderProperty, {
       enabledProperty: new DerivedProperty(
         [ wavelengthTool.isSelectedProperty, domainProperty ],
         ( isSelected, domain ) =>

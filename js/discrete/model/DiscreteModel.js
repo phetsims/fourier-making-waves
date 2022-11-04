@@ -98,7 +98,7 @@ class DiscreteModel {
     const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
 
     // @public the wavelength measurement tool
-    this.wavelengthTool = new DiscreteMeasurementTool( FMWSymbols.lambda, this.fourierSeries.numberOfHarmonicsProperty, {
+    this.wavelengthTool = new DiscreteMeasurementTool( FMWSymbols.lambdaStringProperty.value, this.fourierSeries.numberOfHarmonicsProperty, {
       tandem: measurementToolsTandem.createTandem( 'wavelengthTool' )
     } );
 

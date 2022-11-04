@@ -48,7 +48,7 @@ class WavePacketInfoDialog extends Dialog {
         A: FMWSymbols.AStringProperty
       } ),
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.lambdaStringProperty, {
-        lambda: FMWSymbols.lambda
+        lambda: FMWSymbols.lambdaStringProperty
       } ),
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.kStringProperty, {
         k: FMWSymbols.kStringProperty

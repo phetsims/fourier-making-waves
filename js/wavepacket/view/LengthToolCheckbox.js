@@ -30,7 +30,7 @@ class LengthToolCheckbox extends CaliperCheckbox {
       }
     }, options );
 
-    const spaceSymbol = `${FMWSymbols.lambda}<sub>1</sub>`;
+    const spaceSymbol = `${FMWSymbols.lambdaStringProperty.value}<sub>1</sub>`;
     const timeSymbol = `${FMWSymbols.TStringProperty.value}<sub>1</sub>`;
 
     super( visibleProperty, domainProperty, spaceSymbol, timeSymbol, options );

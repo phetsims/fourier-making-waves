@@ -34,7 +34,7 @@ const CHOICES = [
   },
   {
     value: EquationForm.WAVELENGTH,
-    stringProperty: FMWSymbols.lambda,
+    stringProperty: FMWSymbols.lambdaStringProperty,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `wavelength${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
@@ -65,7 +65,7 @@ const CHOICES = [
   {
     value: EquationForm.WAVELENGTH_AND_PERIOD,
     stringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolAndSymbolStringProperty, {
-      symbol1: FMWSymbols.lambda,
+      symbol1: FMWSymbols.lambdaStringProperty,
       symbol2: FMWSymbols.TStringProperty
     } ),
     textOptions: MATH_TEXT_OPTIONS,
