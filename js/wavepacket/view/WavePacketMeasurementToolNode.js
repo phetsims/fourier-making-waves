@@ -90,6 +90,7 @@ class WavePacketMeasurementToolNode extends Node {
 
     const update = () => {
 
+      // Doing StringProperty.value is OK here, because we're observing these StringProperties via Multilink below.
       const symbol = ( domainProperty.value === Domain.SPACE ) ? spaceSymbolStringProperty.value : timeSymbolStringProperty.value;
 
       if ( property.value === Infinity ) {
