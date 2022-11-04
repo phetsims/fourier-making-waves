@@ -62,7 +62,7 @@ class DiscreteCalipersNode extends DiscreteMeasurementToolNode {
 
       calipersNode.setMeasuredWidth( viewValue );
       calipersNode.setBeamAndJawsFill( harmonic.colorProperty );
-      calipersNode.setLabel( `${tool.symbol}<sub>${harmonic.order}</sub>` );
+      calipersNode.setLabel( `${tool.symbolStringProperty.value}<sub>${harmonic.order}</sub>` );
 
       // Do not adjust position. We want the left jaw of the caliper to remain where it was, since that is
       // the jaw that the user should be positioning in order to measure the width of something.

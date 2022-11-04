@@ -16,11 +16,11 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class DiscreteMeasurementTool {
 
   /**
-   * @param {string} symbol
+   * @param {TReadOnlyProperty.<string>} symbolStringProperty
    * @param {NumberProperty} numberOfHarmonicsProperty - number of relevant harmonics in the Fourier series
    * @param {Object} [options]
    */
-  constructor( symbol, numberOfHarmonicsProperty, options ) {
+  constructor( symbolStringProperty, numberOfHarmonicsProperty, options ) {
 
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty );
 
@@ -31,7 +31,7 @@ class DiscreteMeasurementTool {
     }, options );
 
     // @public (read-only)
-    this.symbol = symbol;
+    this.symbolStringProperty = symbolStringProperty;
 
     // @public whether the Wavelength tool is selected
     this.isSelectedProperty = new BooleanProperty( false, {
