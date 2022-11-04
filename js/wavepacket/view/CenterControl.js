@@ -87,7 +87,7 @@ function numberFormatter( center, domain ) {
   assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
 
   const symbol = StringUtils.fillIn( '{{symbol}}<sub>0</sub>', {
-    symbol: ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega
+    symbol: ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omega
   } );
 
   // Using toFixedNumber removes trailing zeros.

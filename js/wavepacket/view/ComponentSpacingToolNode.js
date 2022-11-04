@@ -31,7 +31,7 @@ class ComponentSpacingToolNode extends WavePacketMeasurementToolNode {
       }
     }, options );
 
-    const spaceSymbol = `${FMWSymbols.k}<sub>1</sub>`;
+    const spaceSymbol = `${FMWSymbols.kStringProperty.value}<sub>1</sub>`;
     const timeSymbol = `${FMWSymbols.omega}<sub>1</sub>`;
 
     super( componentSpacingProperty, chartTransform, domainProperty, spaceSymbol, timeSymbol, options );

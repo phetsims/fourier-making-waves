@@ -19,9 +19,9 @@ const HIDDEN_STRING = ''; // string for EquationForm.HIDDEN
 
 // To improve readability of markup creation. Each of these is a string that may also include markup, added by FMWSymbols.
 const A = FMWSymbols.AStringProperty.value;
-const F = FMWSymbols.F;
-const f = FMWSymbols.f;
-const k = FMWSymbols.k;
+const F = FMWSymbols.FStringProperty.value;
+const f = FMWSymbols.fStringProperty.value;
+const k = FMWSymbols.kStringProperty.value;
 const L = FMWSymbols.L;
 const lambda = FMWSymbols.lambda;
 const MINUS = MathSymbols.MINUS;
@@ -103,7 +103,7 @@ const EquationMarkup = {
     assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
 
     const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t;
-    const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.k : FMWSymbols.omega;
+    const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omega;
     const seriesTypeString = ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinStringProperty.value : FMWSymbols.cosStringProperty.value;
     return `${FMWSymbols.AStringProperty.value}<sub>${FMWSymbols.n}</sub> ` +
            `${seriesTypeString}( ${componentSymbol}<sub>${FMWSymbols.n}</sub>${domainSymbol} )`;

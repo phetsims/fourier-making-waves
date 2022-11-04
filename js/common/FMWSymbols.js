@@ -32,16 +32,16 @@ const FMWSymbols = {
   cosStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.cosStringProperty, 'normal' ),
 
   // differential, like dx
-  d: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.dStringProperty ).value,
+  dStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.dStringProperty ),
 
   // function of frequency
-  F: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.FStringProperty, 'normal' ).value,
+  FStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.FStringProperty, 'normal' ),
 
   // frequency
-  f: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.fStringProperty ).value,
+  fStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.fStringProperty ),
 
   // wave number
-  k: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.kStringProperty ).value,
+  kStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.kStringProperty ),
 
   // string length, if this were a plucked string
   L: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.LStringProperty, 'normal' ).value,
