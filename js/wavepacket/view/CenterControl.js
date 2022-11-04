@@ -64,31 +64,33 @@ class CenterControl extends WavePacketNumberControl {
 
     // Set the numberFormatter for this control's NumberDisplay.
     Multilink.multilink( [
-      domainProperty,
-      FMWSymbols.kStringProperty,
-      FMWSymbols.omegaStringProperty,
-      FourierMakingWavesStrings.units.radiansPerMeterStringProperty,
-      FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty,
-      FourierMakingWavesStrings.symbolValueUnitsStringProperty
-    ], ( domain, k, omega, radiansPerMeter, radiansPerMillisecond, pattern ) =>
-      this.setNumberFormatter( center => {
+        domainProperty,
+        FMWSymbols.kStringProperty,
+        FMWSymbols.omegaStringProperty,
+        FourierMakingWavesStrings.units.radiansPerMeterStringProperty,
+        FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty,
+        FourierMakingWavesStrings.symbolValueUnitsStringProperty
+      ],
+      ( domain, k, omega, radiansPerMeter, radiansPerMillisecond, pattern ) => {
         assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
+        this.setNumberFormatter( center => {
 
-        const symbol = StringUtils.fillIn( '{{symbol}}<sub>0</sub>', {
-          symbol: ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value
+          const symbol = StringUtils.fillIn( '{{symbol}}<sub>0</sub>', {
+            symbol: ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value
+          } );
+
+          // Using toFixedNumber removes trailing zeros.
+          const value = Utils.toFixedNumber( center, DECIMALS );
+
+          const units = ( domain === Domain.SPACE ) ? radiansPerMeter : radiansPerMillisecond;
+
+          return StringUtils.fillIn( pattern, {
+            symbol: symbol,
+            value: value,
+            units: units
+          } );
         } );
-
-        // Using toFixedNumber removes trailing zeros.
-        const value = Utils.toFixedNumber( center, DECIMALS );
-
-        const units = ( domain === Domain.SPACE ) ? radiansPerMeter : radiansPerMillisecond;
-
-        return StringUtils.fillIn( pattern, {
-          symbol: symbol,
-          value: value,
-          units: units
-        } );
-      } ) );
+      } );
   }
 
   /**
