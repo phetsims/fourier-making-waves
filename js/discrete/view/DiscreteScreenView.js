@@ -263,7 +263,7 @@ class DiscreteScreenView extends ScreenView {
     // Creating a sawtooth wave using cosines is impossible because it is asymmetric. Display a dialog if the user
     // attempts this.  The model is responsible for other adjustments. This dialog is created eagerly because it's
     // highly likely that this situation will be encountered.
-    const oopsSawtoothWithCosinesDialog = new OopsDialog( FourierMakingWavesStrings.sawtoothWithCosines, {
+    const oopsSawtoothWithCosinesDialog = new OopsDialog( FourierMakingWavesStrings.sawtoothWithCosinesStringProperty, {
       phetioReadOnly: true,
       visiblePropertyOptions: { phetioReadOnly: true },
       tandem: options.tandem.createTandem( 'oopsSawtoothWithCosinesDialog' )

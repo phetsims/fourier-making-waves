@@ -29,7 +29,7 @@ class PeriodCheckbox extends Checkbox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const periodText = new Text( FourierMakingWavesStrings.period, {
+    const periodText = new Text( FourierMakingWavesStrings.periodStringProperty, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 80, // determined empirically
       tandem: options.tandem.createTandem( 'periodText' )

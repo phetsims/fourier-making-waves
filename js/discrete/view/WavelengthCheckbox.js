@@ -29,7 +29,7 @@ class WavelengthCheckbox extends Checkbox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const wavelengthText = new Text( FourierMakingWavesStrings.wavelength, {
+    const wavelengthText = new Text( FourierMakingWavesStrings.wavelengthStringProperty, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 80, // determined empirically
       tandem: options.tandem.createTandem( 'wavelengthText' )
