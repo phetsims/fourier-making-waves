@@ -10,6 +10,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { RichText } from '../../../../scenery/js/imports.js';
+import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
 import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
@@ -47,12 +48,12 @@ class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
       {
         value: SeriesType.SIN,
         createNode: tandem => new RichText( FMWSymbols.sinStringProperty, textOptions ),
-        tandemName: 'sinRadioButton'
+        tandemName: `sin${AquaRadioButton.TANDEM_NAME_SUFFIX}`
       },
       {
         value: SeriesType.COS,
         createNode: tandem => new RichText( FMWSymbols.cosStringProperty, textOptions ),
-        tandemName: 'cosRadioButton'
+        tandemName: `cos${AquaRadioButton.TANDEM_NAME_SUFFIX}`
       }
     ];
 
