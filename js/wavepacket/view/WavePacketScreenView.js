@@ -212,8 +212,11 @@ class WavePacketScreenView extends ScreenView {
     amplitudesChartNode.x = FMWConstants.X_CHART_RECTANGLES;
     amplitudesChartNode.y = amplitudesExpandCollapseButton.bottom + chartTitleBottomSpacing;
     const amplitudesChartRectangleLocalBounds = amplitudesChartNode.chartRectangle.boundsTo( this );
-    continuousWaveformCheckbox.right = amplitudesChartRectangleLocalBounds.right - 5;
-    continuousWaveformCheckbox.top = amplitudesChartNode.bottom + 8;
+
+    continuousWaveformCheckbox.boundsProperty.link( bounds => {
+      continuousWaveformCheckbox.right = amplitudesChartRectangleLocalBounds.right - 5;
+      continuousWaveformCheckbox.top = amplitudesChartNode.bottom + 8;
+    } );
 
     // Components chart below the Amplitudes chart
     componentsExpandCollapseButton.left = this.layoutBounds.left + FMWConstants.SCREEN_VIEW_X_MARGIN;
@@ -228,8 +231,11 @@ class WavePacketScreenView extends ScreenView {
     sumChartNode.x = componentsChartNode.x;
     sumChartNode.y = sumExpandCollapseButton.bottom + chartTitleBottomSpacing;
     const sumChartRectangleLocalBounds = sumChartNode.chartRectangle.boundsTo( this );
-    waveformEnvelopeCheckbox.right = sumChartRectangleLocalBounds.right - 5;
-    waveformEnvelopeCheckbox.top = sumChartNode.bottom + 8;
+
+    waveformEnvelopeCheckbox.boundsProperty.link( bounds => {
+      waveformEnvelopeCheckbox.right = sumChartRectangleLocalBounds.right - 5;
+      waveformEnvelopeCheckbox.top = sumChartNode.bottom + 8;
+    } );
 
     // Reset All button at bottom right
     resetAllButton.right = this.layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN;

@@ -18,10 +18,10 @@ class SecondaryWaveformCheckbox extends Checkbox {
 
   /**
    * @param {Property.<boolean>} visibleProperty
-   * @param {string} title
+   * @param {TReadOnlyProperty.<string>} titleStringProperty
    * @param {Object} [options]
    */
-  constructor( visibleProperty, title, options ) {
+  constructor( visibleProperty, titleStringProperty, options ) {
 
     options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
       textOptions: {
@@ -31,7 +31,7 @@ class SecondaryWaveformCheckbox extends Checkbox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const infiniteHarmonicsText = new Text( title, merge( {}, options.textOptions, {
+    const infiniteHarmonicsText = new Text( titleStringProperty, merge( {}, options.textOptions, {
       tandem: options.tandem.createTandem( 'infiniteHarmonicsText' ),
       visiblePropertyOptions: { phetioReadOnly: true }
     } ) );

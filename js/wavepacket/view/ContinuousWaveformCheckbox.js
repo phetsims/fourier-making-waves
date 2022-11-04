@@ -17,7 +17,7 @@ class ContinuousWaveformCheckbox extends SecondaryWaveformCheckbox {
    * @param {Object} [options]
    */
   constructor( continuousWaveformVisibleProperty, options ) {
-    super( continuousWaveformVisibleProperty, FourierMakingWavesStrings.continuousWaveform, options );
+    super( continuousWaveformVisibleProperty, FourierMakingWavesStrings.continuousWaveformStringProperty, options );
   }
 }
 

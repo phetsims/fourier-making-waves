@@ -17,7 +17,7 @@ class WaveformEnvelopeCheckbox extends SecondaryWaveformCheckbox {
    * @param {Object} [options]
    */
   constructor( waveformEnvelopeVisibleProperty, options ) {
-    super( waveformEnvelopeVisibleProperty, FourierMakingWavesStrings.waveformEnvelope, options );
+    super( waveformEnvelopeVisibleProperty, FourierMakingWavesStrings.waveformEnvelopeStringProperty, options );
   }
 }
 

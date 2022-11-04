@@ -61,15 +61,18 @@ class WavePacketComponentsChartNode extends DomainChartNode {
     this.addChild( chartCanvasNode );
 
     // Message shown when we have an infinite number of components.
-    const messageNode = new BackgroundNode( new Text( FourierMakingWavesStrings.infiniteComponentsCannotBePlotted, {
-      font: new PhetFont( 18 ),
-      maxWidth: 0.75 * this.chartRectangle.width
-    } ), {
-      xMargin: 12,
-      yMargin: 6,
-      center: this.chartRectangle.center
-    } );
+    const messageNode = new BackgroundNode(
+      new Text( FourierMakingWavesStrings.infiniteComponentsCannotBePlottedStringProperty, {
+        font: new PhetFont( 18 ),
+        maxWidth: 0.75 * this.chartRectangle.width
+      } ), {
+        xMargin: 12,
+        yMargin: 6
+      } );
     this.addChild( messageNode );
+    messageNode.boundsProperty.link( bounds => {
+      messageNode.enter = this.chartRectangle.center;
+    } );
 
     componentDataSetsProperty.link( componentDataSets => {
 

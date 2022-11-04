@@ -299,8 +299,11 @@ class DiscreteScreenView extends ScreenView {
     sumChartNode.x = FMWConstants.X_CHART_RECTANGLES;
     sumChartNode.y = sumExpandCollapseButton.bottom + chartTitleBottomSpacing;
     const sumChartRectangleLocalBounds = sumChartNode.chartRectangle.boundsTo( this );
-    infiniteHarmonicsCheckbox.right = sumChartRectangleLocalBounds.right - 5;
-    infiniteHarmonicsCheckbox.top = sumChartNode.bottom + 8;
+
+    infiniteHarmonicsCheckbox.boundsProperty.link( bounds => {
+      infiniteHarmonicsCheckbox.right = sumChartRectangleLocalBounds.right - 5;
+      infiniteHarmonicsCheckbox.top = sumChartNode.bottom + 8;
+    } );
 
     // Control panel to the right of the charts
     controlPanel.right = this.layoutBounds.right - FMWConstants.SCREEN_VIEW_X_MARGIN;
