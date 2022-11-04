@@ -6,6 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Fraction from '../../../../phetcommon/js/model/Fraction.js';
@@ -38,7 +40,7 @@ const TickLabelUtils = {
   /**
    * Creates a symbolic tick label, by converting a value to a symbol and a fraction.
    * @param {number} value
-   * @param {string} symbol
+   * @param {string | TReadOnlyProperty.<string>} symbol
    * @param {number} symbolValue
    * @param {number} coefficientDecimals
    * @param {Object} [options]
@@ -52,9 +54,9 @@ const TickLabelUtils = {
       maxWidth: 25
     }, options );
 
-    let text;
+    let richTextArgument;
     if ( value === 0 ) {
-      text = '0';
+      richTextArgument = '0';
     }
     else {
 
@@ -67,20 +69,25 @@ const TickLabelUtils = {
       const numerator = Math.abs( Utils.toFixedNumber( fraction.numerator, 0 ) );
       const denominator = Math.abs( Utils.toFixedNumber( fraction.denominator, 0 ) );
 
-      text = '';
-      if ( sign === -1 ) {
-        text += MathSymbols.UNARY_MINUS;
-      }
-      if ( numerator !== 1 ) {
-        text += numerator;
-      }
-      text += symbol;
-      if ( denominator !== 1 ) {
-        text += `/${denominator}`;
-      }
+      const symbolStringProperty = ( typeof symbol === 'string' ) ? new StringProperty( symbol ) : symbol;
+
+      richTextArgument = new DerivedProperty( [ symbolStringProperty ], symbol => {
+        let text = '';
+        if ( sign === -1 ) {
+          text += MathSymbols.UNARY_MINUS;
+        }
+        if ( numerator !== 1 ) {
+          text += numerator;
+        }
+        text += symbol;
+        if ( denominator !== 1 ) {
+          text += `/${denominator}`;
+        }
+        return text;
+      } );
     }
 
-    return new RichText( text, options );
+    return new RichText( richTextArgument, options );
   },
 
   /**
@@ -111,9 +118,9 @@ const TickLabelUtils = {
       return TickLabelUtils.createNumericTickLabel( value, decimalPlaces );
     }
     else {
-      const symbol = ( domain === Domain.TIME ) ? FMWSymbols.TStringProperty.value : FMWSymbols.LStringProperty.value;
+      const symbolStringProperty = ( domain === Domain.TIME ) ? FMWSymbols.TStringProperty : FMWSymbols.LStringProperty;
       const symbolValue = ( domain === Domain.TIME ) ? T : L;
-      return TickLabelUtils.createSymbolicTickLabel( value, symbol, symbolValue, decimalPlaces );
+      return TickLabelUtils.createSymbolicTickLabel( value, symbolStringProperty, symbolValue, decimalPlaces );
     }
   }
 };
