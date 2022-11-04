@@ -38,11 +38,11 @@ import DomainChart from '../model/DomainChart.js';
 
 // constants
 const DEFAULT_X_SPACE_LABEL = StringUtils.fillIn( FourierMakingWavesStrings.symbolUnits, {
-  symbol: FMWSymbols.x,
+  symbol: FMWSymbols.xStringProperty.value,
   units: FourierMakingWavesStrings.units.meters
 } );
 const DEFAULT_X_TIME_LABEL = StringUtils.fillIn( FourierMakingWavesStrings.symbolUnits, {
-  symbol: FMWSymbols.t,
+  symbol: FMWSymbols.tStringProperty.value,
   units: FourierMakingWavesStrings.units.milliseconds
 } );
 const DEFAULT_EDGE = 'min';

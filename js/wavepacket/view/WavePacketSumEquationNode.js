@@ -77,7 +77,7 @@ class WavePacketSumEquationNode extends Node {
         if ( hasInfiniteComponents ) {
 
           // Infinite number of components
-          const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t;
+          const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.xStringProperty.value : FMWSymbols.tStringProperty.value;
           const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value;
           const seriesTypeString = ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinStringProperty.value : FMWSymbols.cosStringProperty.value;
           rightNode.string = `${FMWSymbols.AStringProperty.value}(${componentSymbol}) ` +

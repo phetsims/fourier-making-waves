@@ -95,7 +95,7 @@ function numberFormatter( conjugateStandardDeviation, domain ) {
 
   const pattern = `${FMWSymbols.sigmaStringProperty.value}<sub>{{subscript}}</sub>`;
   const symbol1 = StringUtils.fillIn( pattern, {
-    subscript: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t
+    subscript: ( domain === Domain.SPACE ) ? FMWSymbols.xStringProperty.value : FMWSymbols.tStringProperty.value
   } );
   const symbol2 = StringUtils.fillIn( pattern, {
     subscript: ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value

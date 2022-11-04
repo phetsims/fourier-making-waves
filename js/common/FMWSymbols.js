@@ -65,10 +65,10 @@ const FMWSymbols = {
   TStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.TStringProperty, 'normal' ),
 
   // time
-  t: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.tStringProperty ).value,
+  tStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.tStringProperty ),
 
   // position in space along L
-  x: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.xStringProperty ).value,
+  xStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.xStringProperty ),
 
   //-----------------------------------------------------------------------------------------------------------
   // Symbols that are not translated

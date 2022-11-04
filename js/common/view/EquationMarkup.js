@@ -18,7 +18,7 @@ import SeriesType from '../model/SeriesType.js';
 const HIDDEN_STRING = ''; // string for EquationForm.HIDDEN
 
 // To improve readability of markup creation. Each of these is a string that may also include markup, added by FMWSymbols.
-const A = FMWSymbols.AStringProperty.value;
+const An = `${FMWSymbols.AStringProperty.value}<sub>${FMWSymbols.nStringProperty.value}</sub>`;
 const F = FMWSymbols.FStringProperty.value;
 const f = FMWSymbols.fStringProperty.value;
 const k = FMWSymbols.kStringProperty.value;
@@ -29,9 +29,8 @@ const n = FMWSymbols.nStringProperty.value;
 const omega = FMWSymbols.omegaStringProperty.value;
 const pi = FMWSymbols.pi;
 const T = FMWSymbols.TStringProperty.value;
-const t = FMWSymbols.t;
-const x = FMWSymbols.x;
-const An = `${A}<sub>${n}</sub>`;
+const t = FMWSymbols.tStringProperty.value;
+const x = FMWSymbols.xStringProperty.value;
 
 const EquationMarkup = {
 
@@ -102,7 +101,7 @@ const EquationMarkup = {
   getComponentsEquationMarkup( domain, seriesType ) {
     assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
 
-    const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t;
+    const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.xStringProperty.value : FMWSymbols.tStringProperty.value;
     const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value;
     const seriesTypeString = ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinStringProperty.value : FMWSymbols.cosStringProperty.value;
     return `${FMWSymbols.AStringProperty.value}<sub>${FMWSymbols.nStringProperty.value}</sub> ` +

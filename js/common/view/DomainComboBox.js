@@ -23,22 +23,22 @@ const CHOICES = [
   {
     value: Domain.SPACE,
     stringProperty: new PatternStringProperty( FourierMakingWavesStrings.spaceSymbolStringProperty, {
-      symbol: FMWSymbols.x
+      symbol: FMWSymbols.xStringProperty
     } ),
     tandemName: `spaceItem${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: Domain.TIME,
     stringProperty: new PatternStringProperty( FourierMakingWavesStrings.timeSymbolStringProperty, {
-      symbol: FMWSymbols.t
+      symbol: FMWSymbols.tStringProperty
     } ),
     tandemName: `time${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: Domain.SPACE_AND_TIME,
     stringProperty: new PatternStringProperty( FourierMakingWavesStrings.spaceAndTimeSymbolsStringProperty, {
-      spaceSymbol: FMWSymbols.x,
-      timeSymbol: FMWSymbols.t
+      spaceSymbol: FMWSymbols.xStringProperty,
+      timeSymbol: FMWSymbols.tStringProperty
     } ),
     tandemName: `spaceAndTime${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   }
