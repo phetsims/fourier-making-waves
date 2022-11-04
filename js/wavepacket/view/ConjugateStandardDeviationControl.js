@@ -98,7 +98,7 @@ function numberFormatter( conjugateStandardDeviation, domain ) {
     subscript: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t
   } );
   const symbol2 = StringUtils.fillIn( pattern, {
-    subscript: ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omega
+    subscript: ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value
   } );
 
   // Using toFixedNumber removes trailing zeros.

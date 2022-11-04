@@ -53,7 +53,7 @@ const FMWSymbols = {
   nStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.nStringProperty ),
 
   // angular frequency
-  omega: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.omegaStringProperty, 'normal' ).value,
+  omegaStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.omegaStringProperty, 'normal' ),
 
   // width of the Gaussian wave packet (dx)
   sigma: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sigmaStringProperty, 'normal' ).value,

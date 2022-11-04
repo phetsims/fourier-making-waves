@@ -58,7 +58,7 @@ const CHOICES = [
   },
   {
     value: EquationForm.ANGULAR_WAVE_NUMBER,
-    stringProperty: FMWSymbols.omega,
+    stringProperty: FMWSymbols.omegaStringProperty,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `angularWaveNumber${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
@@ -75,7 +75,7 @@ const CHOICES = [
     value: EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER,
     stringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolAndSymbolStringProperty, {
       symbol1: FMWSymbols.kStringProperty,
-      symbol2: FMWSymbols.omega
+      symbol2: FMWSymbols.omegaStringProperty
     } ),
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `spatialWaveNumberAndAngularWaveNumber${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`

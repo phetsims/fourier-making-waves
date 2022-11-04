@@ -26,7 +26,7 @@ const L = FMWSymbols.LStringProperty.value;
 const lambda = FMWSymbols.lambda;
 const MINUS = MathSymbols.MINUS;
 const n = FMWSymbols.nStringProperty.value;
-const omega = FMWSymbols.omega;
+const omega = FMWSymbols.omegaStringProperty.value;
 const pi = FMWSymbols.pi;
 const T = FMWSymbols.T;
 const t = FMWSymbols.t;
@@ -103,7 +103,7 @@ const EquationMarkup = {
     assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
 
     const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t;
-    const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omega;
+    const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value;
     const seriesTypeString = ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinStringProperty.value : FMWSymbols.cosStringProperty.value;
     return `${FMWSymbols.AStringProperty.value}<sub>${FMWSymbols.nStringProperty.value}</sub> ` +
            `${seriesTypeString}( ${componentSymbol}<sub>${FMWSymbols.nStringProperty.value}</sub>${domainSymbol} )`;
