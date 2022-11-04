@@ -24,18 +24,18 @@ class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSection {
 
     // arrows or WASD
     const normalRow = KeyboardHelpSectionRow.labelWithIcon(
-      FourierMakingWavesStrings.keyboardHelpDialog.moveTool,
+      FourierMakingWavesStrings.keyboardHelpDialog.moveToolStringProperty,
       KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon() );
 
     // Shift+arrows or Shift+WASD
     const slowerRow = KeyboardHelpSectionRow.labelWithIconList(
-      FourierMakingWavesStrings.keyboardHelpDialog.moveToolSlower,
+      FourierMakingWavesStrings.keyboardHelpDialog.moveToolSlowerStringProperty,
       [
         KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() ),
         KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() )
       ] );
 
-    super( FourierMakingWavesStrings.keyboardHelpDialog.measurementTools, [ normalRow, slowerRow ], options );
+    super( FourierMakingWavesStrings.keyboardHelpDialog.measurementToolsStringProperty, [ normalRow, slowerRow ], options );
   }
 }
 
