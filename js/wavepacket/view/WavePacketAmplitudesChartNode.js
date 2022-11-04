@@ -58,8 +58,8 @@ class WavePacketAmplitudesChartNode extends DomainChartNode {
       // DomainChartNode options
       // Units for the x-axis labels are omitted by request, due to space constraints.
       // See https://github.com/phetsims/fourier-making-waves/issues/137.
-      xSpaceLabel: FMWSymbols.kStringProperty.value,
-      xTimeLabel: FMWSymbols.omegaStringProperty.value,
+      xSpaceLabelProperty: FMWSymbols.kStringProperty,
+      xTimeLabelProperty: FMWSymbols.omegaStringProperty,
 
       // FMWChartNode options
       xTickMarkSpacing: Math.PI,

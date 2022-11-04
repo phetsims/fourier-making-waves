@@ -12,7 +12,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import AxisLine from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
@@ -24,7 +26,6 @@ import Range from '../../../../dot/js/Range.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import { Node, RichText } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -37,13 +38,13 @@ import Domain from '../model/Domain.js';
 import DomainChart from '../model/DomainChart.js';
 
 // constants
-const DEFAULT_X_SPACE_LABEL = StringUtils.fillIn( FourierMakingWavesStrings.symbolUnitsStringProperty.value, {
-  symbol: FMWSymbols.xStringProperty.value,
-  units: FourierMakingWavesStrings.units.metersStringProperty.value
+const DEFAULT_X_SPACE_LABEL_PROPERTY = new PatternStringProperty( FourierMakingWavesStrings.symbolUnitsStringProperty, {
+  symbol: FMWSymbols.xStringProperty,
+  units: FourierMakingWavesStrings.units.metersStringProperty
 } );
-const DEFAULT_X_TIME_LABEL = StringUtils.fillIn( FourierMakingWavesStrings.symbolUnitsStringProperty.value, {
-  symbol: FMWSymbols.tStringProperty.value,
-  units: FourierMakingWavesStrings.units.millisecondsStringProperty.value
+const DEFAULT_X_TIME_LABEL_PROPERTY = new PatternStringProperty( FourierMakingWavesStrings.symbolUnitsStringProperty, {
+  symbol: FMWSymbols.tStringProperty,
+  units: FourierMakingWavesStrings.units.millisecondsStringProperty
 } );
 const DEFAULT_EDGE = 'min';
 
@@ -66,8 +67,8 @@ class DomainChartNode extends Node {
     options = merge( {
 
       // x axis
-      xSpaceLabel: DEFAULT_X_SPACE_LABEL,
-      xTimeLabel: DEFAULT_X_TIME_LABEL,
+      xSpaceLabelProperty: DEFAULT_X_SPACE_LABEL_PROPERTY,
+      xTimeLabelProperty: DEFAULT_X_TIME_LABEL_PROPERTY,
       xGridLineSpacing: 1,
       xTickMarkSpacing: 1,
       xTickLabelSpacing: 1,
@@ -148,9 +149,14 @@ class DomainChartNode extends Node {
     // the chart's background rectangle
     const chartRectangle = new ChartRectangle( chartTransform, options.chartRectangleOptions );
 
+    const xAxisLabelStringProperty = new DerivedProperty(
+      [ domainProperty, options.xTimeLabelProperty, options.xSpaceLabelProperty ],
+      ( domain, xTimeLabel, xSpaceLabel ) => ( domain === Domain.TIME ) ? xTimeLabel : xSpaceLabel
+    );
+
     // x axis
     const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, options.axisLineOptions );
-    const xAxisLabel = new RichText( '', options.xAxisLabelOptions ); // set based on Domain below
+    const xAxisLabel = new RichText( xAxisLabelStringProperty, options.xAxisLabelOptions ); // set based on Domain below
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, options.xGridLineSpacing, options.gridLineSetOptions );
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, options.xTickMarkSpacing, options.tickMarkSetOptions );
     const xTickLabels = new TickLabelSet( chartTransform, Orientation.HORIZONTAL, options.xTickLabelSpacing, options.xTickLabelSetOptions );
@@ -207,11 +213,6 @@ class DomainChartNode extends Node {
     yAxisLabel.boundsProperty.link( bounds => {
       yAxisLabel.right = chartRectangle.left - FMWConstants.Y_AXIS_LABEL_SPACING;
       yAxisLabel.centerY = chartRectangle.centerY;
-    } );
-
-    // Set the x-axis label based on Domain.
-    domainProperty.link( domain => {
-      xAxisLabel.string = ( domain === Domain.TIME ) ? options.xTimeLabel : options.xSpaceLabel;
     } );
 
     // Update the x-axis range and decorations.
