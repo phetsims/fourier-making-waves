@@ -63,6 +63,7 @@ class CenterControl extends WavePacketNumberControl {
     super( centerProperty, domainProperty, options );
 
     // Set the numberFormatter for this control's NumberDisplay.
+    // In addition to the domain, this is dependent on a number of localized string Properties.
     Multilink.multilink( [
         domainProperty,
         FMWSymbols.kStringProperty,

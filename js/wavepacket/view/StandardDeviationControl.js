@@ -7,6 +7,7 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -41,9 +42,6 @@ class StandardDeviationControl extends WavePacketNumberControl {
 
       // NumberDisplay options
       delta: DELTA,
-      numberDisplayOptions: {
-        numberFormatter: standardDeviation => numberFormatter( standardDeviation, domainProperty.value )
-      },
 
       // Slider options
       sliderOptions: {
@@ -72,6 +70,40 @@ class StandardDeviationControl extends WavePacketNumberControl {
       'last tick must be range.max' );
 
     super( standardDeviationProperty, domainProperty, options );
+
+    // Set the numberFormatter for this control's NumberDisplay.
+    // In addition to the domain, this is dependent on a number of localized string Properties.
+    Multilink.multilink( [
+        domainProperty,
+        FMWSymbols.sigmaStringProperty,
+        FMWSymbols.kStringProperty,
+        FMWSymbols.omegaStringProperty,
+        FourierMakingWavesStrings.units.radiansPerMeterStringProperty,
+        FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty,
+        FourierMakingWavesStrings.symbolValueUnitsStringProperty
+      ],
+      ( domain, sigma, k, omega, radiansPerMeter, radiansPerMillisecond, symbolValueUnits ) => {
+        assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
+
+        this.setNumberFormatter( standardDeviation => {
+
+          const symbol = StringUtils.fillIn( '{{symbol}}<sub>{{subscript}}</sub>', {
+            symbol: sigma,
+            subscript: ( domain === Domain.SPACE ) ? k : omega
+          } );
+
+          // Using toFixedNumber removes trailing zeros.
+          const value = Utils.toFixedNumber( standardDeviation, DECIMALS );
+
+          const units = ( domain === Domain.SPACE ) ? radiansPerMeter : radiansPerMillisecond;
+
+          return StringUtils.fillIn( symbolValueUnits, {
+            symbol: symbol,
+            value: value,
+            units: units
+          } );
+        } );
+      } );
   }
 
   /**
@@ -82,34 +114,6 @@ class StandardDeviationControl extends WavePacketNumberControl {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
-}
-
-/**
- * Formats the number for display by NumberDisplay, invoked when this.redrawNumberDisplay is called.
- * @param {number} standardDeviation
- * @param {Domain} domain
- * @returns {string}
- */
-function numberFormatter( standardDeviation, domain ) {
-  assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
-
-  const symbol = StringUtils.fillIn( '{{symbol}}<sub>{{subscript}}</sub>', {
-    symbol: FMWSymbols.sigmaStringProperty.value,
-    subscript: ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value
-  } );
-
-  // Using toFixedNumber removes trailing zeros.
-  const value = Utils.toFixedNumber( standardDeviation, DECIMALS );
-
-  const units = ( domain === Domain.SPACE ) ?
-                FourierMakingWavesStrings.units.radiansPerMeterStringProperty.value :
-                FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty.value;
-
-  return StringUtils.fillIn( FourierMakingWavesStrings.symbolValueUnitsStringProperty.value, {
-    symbol: symbol,
-    value: value,
-    units: units
-  } );
 }
 
 fourierMakingWaves.register( 'StandardDeviationControl', StandardDeviationControl );
