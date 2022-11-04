@@ -37,7 +37,7 @@ class WavePacketInfoDialog extends Dialog {
     }, options );
 
     assert && assert( !options.title, 'WavePacketInfoDialog sets children' );
-    options.title = new Text( FourierMakingWavesStrings.symbolsDialog.title, {
+    options.title = new Text( FourierMakingWavesStrings.symbolsDialog.titleStringProperty, {
       font: FMWConstants.DIALOG_TITLE_FONT,
       maxWidth: MAX_WIDTH
     } );

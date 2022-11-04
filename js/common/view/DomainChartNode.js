@@ -37,13 +37,13 @@ import Domain from '../model/Domain.js';
 import DomainChart from '../model/DomainChart.js';
 
 // constants
-const DEFAULT_X_SPACE_LABEL = StringUtils.fillIn( FourierMakingWavesStrings.symbolUnits, {
+const DEFAULT_X_SPACE_LABEL = StringUtils.fillIn( FourierMakingWavesStrings.symbolUnitsStringProperty.value, {
   symbol: FMWSymbols.xStringProperty.value,
-  units: FourierMakingWavesStrings.units.meters
+  units: FourierMakingWavesStrings.units.metersStringProperty.value
 } );
-const DEFAULT_X_TIME_LABEL = StringUtils.fillIn( FourierMakingWavesStrings.symbolUnits, {
+const DEFAULT_X_TIME_LABEL = StringUtils.fillIn( FourierMakingWavesStrings.symbolUnitsStringProperty.value, {
   symbol: FMWSymbols.tStringProperty.value,
-  units: FourierMakingWavesStrings.units.milliseconds
+  units: FourierMakingWavesStrings.units.millisecondsStringProperty.value
 } );
 const DEFAULT_EDGE = 'min';
 

@@ -105,10 +105,10 @@ function numberFormatter( conjugateStandardDeviation, domain ) {
   const value = Utils.toFixedNumber( conjugateStandardDeviation, DECIMALS );
 
   const units = ( domain === Domain.SPACE ) ?
-                FourierMakingWavesStrings.units.meters :
-                FourierMakingWavesStrings.units.milliseconds;
+                FourierMakingWavesStrings.units.metersStringProperty.value :
+                FourierMakingWavesStrings.units.millisecondsStringProperty.value;
 
-  return StringUtils.fillIn( FourierMakingWavesStrings.symbolSymbolValueUnits, {
+  return StringUtils.fillIn( FourierMakingWavesStrings.symbolSymbolValueUnitsStringProperty.value, {
     symbol1: symbol1,
     symbol2: symbol2,
     value: value,

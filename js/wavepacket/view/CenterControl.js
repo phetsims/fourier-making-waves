@@ -94,10 +94,10 @@ function numberFormatter( center, domain ) {
   const value = Utils.toFixedNumber( center, DECIMALS );
 
   const units = ( domain === Domain.SPACE ) ?
-                FourierMakingWavesStrings.units.radiansPerMeter :
-                FourierMakingWavesStrings.units.radiansPerMillisecond;
+                FourierMakingWavesStrings.units.radiansPerMeterStringProperty.value :
+                FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty.value;
 
-  return StringUtils.fillIn( FourierMakingWavesStrings.symbolValueUnits, {
+  return StringUtils.fillIn( FourierMakingWavesStrings.symbolValueUnitsStringProperty.value, {
     symbol: symbol,
     value: value,
     units: units
