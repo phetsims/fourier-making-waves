@@ -16,13 +16,12 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class OrderSpinner extends NumberSpinner {
 
   /**
-   * @param {string} symbol - order is displayed as the subscript of this symbol
+   * @param {TReadOnlyProperty.<string>} symbolStringProperty - order is displayed as the subscript of this symbol
    * @param {NumberProperty} orderProperty - the order of the associated harmonic
    * @param {Object} [options]
    */
-  constructor( symbol, orderProperty, options ) {
+  constructor( symbolStringProperty, orderProperty, options ) {
 
-    assert && assert( typeof symbol === 'string' );
     assert && assert( orderProperty instanceof NumberProperty );
 
     options = merge( {
@@ -33,7 +32,7 @@ class OrderSpinner extends NumberSpinner {
       touchAreaYDilation: 10,
       numberDisplayOptions: {
         useRichText: true,
-        numberFormatter: order => `${symbol}<sub>${order}</sub>`,
+        numberFormatter: order => `${symbolStringProperty.value}<sub>${order}</sub>`,
         align: 'center',
         cornerRadius: 3,
         xMargin: 8,
