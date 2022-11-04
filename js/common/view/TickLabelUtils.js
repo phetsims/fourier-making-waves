@@ -111,7 +111,7 @@ const TickLabelUtils = {
       return TickLabelUtils.createNumericTickLabel( value, decimalPlaces );
     }
     else {
-      const symbol = ( domain === Domain.TIME ) ? FMWSymbols.T : FMWSymbols.L;
+      const symbol = ( domain === Domain.TIME ) ? FMWSymbols.T : FMWSymbols.LStringProperty.value;
       const symbolValue = ( domain === Domain.TIME ) ? T : L;
       return TickLabelUtils.createSymbolicTickLabel( value, symbol, symbolValue, decimalPlaces );
     }

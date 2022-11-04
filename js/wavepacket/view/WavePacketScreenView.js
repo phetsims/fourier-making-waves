@@ -93,8 +93,9 @@ class WavePacketScreenView extends ScreenView {
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
     } );
 
-    const amplitudesEquationStringProperty = new DerivedProperty( [ FMWSymbols.AStringProperty ],
-      ( A, n ) => `${A}<sub>${FMWSymbols.n}</sub>`
+    const amplitudesEquationStringProperty = new DerivedProperty(
+      [ FMWSymbols.AStringProperty, FMWSymbols.nStringProperty ],
+      ( A, n ) => `${A}<sub>${n}</sub>`
     );
 
     // Equation above the Amplitudes chart

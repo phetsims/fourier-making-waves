@@ -44,13 +44,13 @@ const FMWSymbols = {
   kStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.kStringProperty ),
 
   // string length, if this were a plucked string
-  L: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.LStringProperty, 'normal' ).value,
+  LStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.LStringProperty, 'normal' ),
 
   // wavelength
   lambda: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.lambdaStringProperty, 'normal' ).value,
 
   // mode, order, or harmonic number
-  n: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.nStringProperty ).value,
+  nStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.nStringProperty ),
 
   // angular frequency
   omega: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.omegaStringProperty, 'normal' ).value,

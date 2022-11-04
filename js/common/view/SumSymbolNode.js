@@ -8,6 +8,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
@@ -26,12 +27,12 @@ const DEFAULT_MIN_MAX_FONT = new PhetFont( 12 );
 class SumSymbolNode extends Node {
 
   /**
-   * @param {string} indexSymbol - symbol for the index of summation
+   * @param {TReadOnlyProperty.<string>} indexSymbolProperty - symbol for the index of summation
    * @param {number} indexMin - index min value
    * @param {Property.<number>} indexMaxProperty - index max value
    * @param {Object} [options]
    */
-  constructor( indexSymbol, indexMin, indexMaxProperty, options ) {
+  constructor( indexSymbolProperty, indexMin, indexMaxProperty, options ) {
 
     options = merge( {
 
@@ -47,10 +48,13 @@ class SumSymbolNode extends Node {
       font: options.symbolFont
     } );
 
+    const nEqualsStringProperty = new DerivedProperty( [ indexSymbolProperty ],
+      indexSymbol => `${indexSymbol} ${MathSymbols.EQUAL_TO}&nbsp` );
+
     // Index and min (starting) value, which appears below the sum symbol. E.g. 'n = 0'
     // The 'n =' and '0' are separate Nodes so that we can tweak their font sizes separately.
     // See https://github.com/phetsims/fourier-making-waves/issues/186
-    const nEqualsNode = new RichText( `${indexSymbol} ${MathSymbols.EQUAL_TO}&nbsp`, {
+    const nEqualsNode = new RichText( nEqualsStringProperty, {
       font: options.nEqualsFont
     } );
     const minValueNode = new RichText( '', {
@@ -77,8 +81,8 @@ class SumSymbolNode extends Node {
 
     // Update the equation form and layout. dispose is required.
     const multilink = new Multilink(
-      [ this.integrationProperty, indexMaxProperty ],
-      ( integration, indexMax ) => {
+      [ this.integrationProperty, indexMaxProperty, nEqualsNode.boundsProperty ],
+      ( integration, indexMax, nEqualsBounds ) => {
 
         // update text
         if ( integration ) {

@@ -82,7 +82,7 @@ const CHOICES = [
   },
   {
     value: EquationForm.MODE,
-    stringProperty: FMWSymbols.n,
+    stringProperty: FMWSymbols.nStringProperty,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `mode${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   }

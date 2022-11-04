@@ -22,10 +22,10 @@ const A = FMWSymbols.AStringProperty.value;
 const F = FMWSymbols.FStringProperty.value;
 const f = FMWSymbols.fStringProperty.value;
 const k = FMWSymbols.kStringProperty.value;
-const L = FMWSymbols.L;
+const L = FMWSymbols.LStringProperty.value;
 const lambda = FMWSymbols.lambda;
 const MINUS = MathSymbols.MINUS;
-const n = FMWSymbols.n;
+const n = FMWSymbols.nStringProperty.value;
 const omega = FMWSymbols.omega;
 const pi = FMWSymbols.pi;
 const T = FMWSymbols.T;
@@ -105,8 +105,8 @@ const EquationMarkup = {
     const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t;
     const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omega;
     const seriesTypeString = ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinStringProperty.value : FMWSymbols.cosStringProperty.value;
-    return `${FMWSymbols.AStringProperty.value}<sub>${FMWSymbols.n}</sub> ` +
-           `${seriesTypeString}( ${componentSymbol}<sub>${FMWSymbols.n}</sub>${domainSymbol} )`;
+    return `${FMWSymbols.AStringProperty.value}<sub>${FMWSymbols.nStringProperty.value}</sub> ` +
+           `${seriesTypeString}( ${componentSymbol}<sub>${FMWSymbols.nStringProperty.value}</sub>${domainSymbol} )`;
   }
 };
 

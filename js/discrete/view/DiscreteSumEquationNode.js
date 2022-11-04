@@ -23,7 +23,6 @@ import EquationForm from '../model/EquationForm.js';
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
 const EQUAL_TO = MathSymbols.EQUAL_TO;
-const n = FMWSymbols.n;
 
 class DiscreteSumEquationNode extends Node {
 
@@ -53,7 +52,7 @@ class DiscreteSumEquationNode extends Node {
     } );
 
     // Capital sigma, summation symbol
-    const summationNode = new SumSymbolNode( n, 1, numberOfHarmonicsProperty );
+    const summationNode = new SumSymbolNode( FMWSymbols.nStringProperty, 1, numberOfHarmonicsProperty );
 
     // Everything to the right of the summation symbol, set in multilink below
     const rightNode = new RichText( '', {
