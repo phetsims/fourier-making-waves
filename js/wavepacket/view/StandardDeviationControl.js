@@ -94,7 +94,7 @@ function numberFormatter( standardDeviation, domain ) {
   assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
 
   const symbol = StringUtils.fillIn( '{{symbol}}<sub>{{subscript}}</sub>', {
-    symbol: FMWSymbols.sigma,
+    symbol: FMWSymbols.sigmaStringProperty.value,
     subscript: ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value
   } );
 

@@ -93,7 +93,7 @@ class ConjugateStandardDeviationControl extends WavePacketNumberControl {
 function numberFormatter( conjugateStandardDeviation, domain ) {
   assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
 
-  const pattern = `${FMWSymbols.sigma}<sub>{{subscript}}</sub>`;
+  const pattern = `${FMWSymbols.sigmaStringProperty.value}<sub>{{subscript}}</sub>`;
   const symbol1 = StringUtils.fillIn( pattern, {
     subscript: ( domain === Domain.SPACE ) ? FMWSymbols.x : FMWSymbols.t
   } );

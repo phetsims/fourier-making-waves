@@ -56,7 +56,7 @@ const FMWSymbols = {
   omegaStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.omegaStringProperty, 'normal' ),
 
   // width of the Gaussian wave packet (dx)
-  sigma: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sigmaStringProperty, 'normal' ).value,
+  sigmaStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sigmaStringProperty, 'normal' ),
 
   // sine
   sinStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sinStringProperty, 'normal' ),
