@@ -7,6 +7,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -78,9 +80,15 @@ class AmplitudeKeypadDialog extends Dialog {
       buttonFont: BUTTON_FONT
     } );
 
+    const orderProperty = new NumberProperty( 1, {
+      numberType: 'Integer',
+      isValidValue: value => ( value > 0 )
+    } );
+
     // Title indicates which amplitude we're editing, e.g. A<sub>2</sub>.
-    // titleNode.text is set when the dialog is opened.
-    const titleNode = new RichText( '', {
+    const titleStringProperty = new DerivedProperty( [ FMWSymbols.AStringProperty, orderProperty ],
+      ( A, order ) => `${A}<sub>${order}</sub>` );
+    const titleNode = new RichText( titleStringProperty, {
       font: TITLE_FONT,
       maxWidth: keypad.width
     } );
@@ -129,7 +137,7 @@ class AmplitudeKeypadDialog extends Dialog {
     // @private
     this.keypad = keypad; // {KeyPad}
     this.titleNode = titleNode; // {RichText}
-    this.order = null; // {number|null} number when showing, null when hidden
+    this.orderProperty = orderProperty;
 
     // @private {function(amplitude:number)|null} called when the Enter button fires
     this.enterCallback = null;
@@ -178,8 +186,7 @@ class AmplitudeKeypadDialog extends Dialog {
     assert && assert( typeof enterCallback === 'function' );
     assert && assert( typeof closeCallback === 'function' );
 
-    this.titleNode.string = `${FMWSymbols.AStringProperty.value}<sub>${order}</sub>`;
-    this.order = order;
+    this.orderProperty.value = order; // causes titleNode to update
     this.enterCallback = enterCallback;
     this.closeCallback = closeCallback;
     this.keypad.clear();
@@ -197,7 +204,6 @@ class AmplitudeKeypadDialog extends Dialog {
 
     this.interruptSubtreeInput();
     this.closeCallback();
-    this.order = null;
     this.enterCallback = null;
     this.closeCallback = null;
     this.keypad.clear();
