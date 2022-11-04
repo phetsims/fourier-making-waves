@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
@@ -17,7 +18,7 @@ class ComponentSpacingToolCheckbox extends CaliperCheckbox {
 
   /**
    * @param {Property.<boolean>} visibleProperty
-   * @param {Property.<Domain>} domainProperty
+   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( visibleProperty, domainProperty, options ) {
@@ -30,10 +31,13 @@ class ComponentSpacingToolCheckbox extends CaliperCheckbox {
       }
     }, options );
 
-    const spaceSymbol = `${FMWSymbols.kStringProperty.value}<sub>1</sub>`;
-    const timeSymbol = `${FMWSymbols.omegaStringProperty.value}<sub>1</sub>`;
+    const spaceSymbolStringProperty = new DerivedProperty( [ FMWSymbols.kStringProperty ],
+      k => `${k}<sub>1</sub>` );
 
-    super( visibleProperty, domainProperty, spaceSymbol, timeSymbol, options );
+    const timeSymbolStringProperty = new DerivedProperty( [ FMWSymbols.omegaStringProperty ],
+      omega => `${omega}<sub>1</sub>` );
+
+    super( visibleProperty, domainProperty, spaceSymbolStringProperty, timeSymbolStringProperty, options );
   }
 }
 

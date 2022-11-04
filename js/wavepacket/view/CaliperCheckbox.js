@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -22,16 +23,14 @@ class CaliperCheckbox extends Checkbox {
   /**
    * @param {Property.<boolean>} visibleProperty
    * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
-   * @param {string} spaceSymbol
-   * @param {string} timeSymbol
+   * @param {TReadOnlyProperty.<string>} spaceSymbolStringProperty
+   * @param {TReadOnlyProperty.<string>} timeSymbolStringProperty
    * @param {Object} [options]
    */
-  constructor( visibleProperty, domainProperty, spaceSymbol, timeSymbol, options ) {
+  constructor( visibleProperty, domainProperty, spaceSymbolStringProperty, timeSymbolStringProperty, options ) {
 
     assert && AssertUtils.assertPropertyOf( visibleProperty, 'boolean' );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && assert( typeof spaceSymbol === 'string' );
-    assert && assert( typeof timeSymbol === 'string' );
 
     options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
       calipersNodeOptions: {
@@ -49,9 +48,11 @@ class CaliperCheckbox extends Checkbox {
 
     const caliperNode = new CalipersNode( options.calipersNodeOptions );
 
-    domainProperty.link( domain => {
-      caliperNode.setLabel( ( domain === Domain.SPACE ) ? spaceSymbol : timeSymbol );
-    } );
+    Multilink.multilink(
+      [ domainProperty, spaceSymbolStringProperty, timeSymbolStringProperty ],
+      ( domain, spaceSymbol, timeSymbol ) =>
+        caliperNode.setLabel( ( domain === Domain.SPACE ) ? spaceSymbol : timeSymbol )
+    );
 
     super( visibleProperty, caliperNode, options );
   }
