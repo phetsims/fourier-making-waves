@@ -420,7 +420,7 @@ class MeasurementToolsSubpanel extends VBox {
       ),
       tandem: options.tandem.createTandem( 'periodCheckbox' )
     } );
-    const periodSpinner = new OrderSpinner( FMWSymbols.T, periodTool.orderProperty, {
+    const periodSpinner = new OrderSpinner( FMWSymbols.TStringProperty.value, periodTool.orderProperty, {
       enabledProperty: new DerivedProperty(
         [ periodTool.isSelectedProperty, domainProperty ],
         ( isSelected, domain ) =>

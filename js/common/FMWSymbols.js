@@ -62,7 +62,7 @@ const FMWSymbols = {
   sinStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sinStringProperty, 'normal' ),
 
   // sampling period, or period of the 1st harmonic
-  T: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.TStringProperty, 'normal' ).value,
+  TStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.TStringProperty, 'normal' ),
 
   // time
   t: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.tStringProperty ).value,

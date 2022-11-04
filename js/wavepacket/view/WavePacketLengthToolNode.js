@@ -32,7 +32,7 @@ class WavePacketLengthToolNode extends WavePacketMeasurementToolNode {
     }, options );
 
     const spaceSymbol = `${FMWSymbols.lambda}<sub>1</sub>`;
-    const timeSymbol = `${FMWSymbols.T}<sub>1</sub>`;
+    const timeSymbol = `${FMWSymbols.TStringProperty.value}<sub>1</sub>`;
 
     super( lengthProperty, chartTransform, domainProperty, spaceSymbol, timeSymbol, options );
   }

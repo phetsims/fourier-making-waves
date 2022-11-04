@@ -66,7 +66,7 @@ class DiscreteInfoDialog extends Dialog {
         t: FMWSymbols.t
       } ),
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.TStringProperty, {
-        T: FMWSymbols.T
+        T: FMWSymbols.TStringProperty
       } ),
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.omegaStringProperty, {
         omega: FMWSymbols.omegaStringProperty

@@ -103,7 +103,7 @@ class DiscreteModel {
     } );
 
     // @public the period measurement tool
-    this.periodTool = new DiscreteMeasurementTool( FMWSymbols.T, this.fourierSeries.numberOfHarmonicsProperty, {
+    this.periodTool = new DiscreteMeasurementTool( FMWSymbols.TStringProperty.value, this.fourierSeries.numberOfHarmonicsProperty, {
       tandem: measurementToolsTandem.createTandem( 'periodTool' )
     } );
 
