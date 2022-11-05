@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * LengthToolCheckbox is the checkbox for changing visibility of the Component Spacing tool in the
