@@ -34,6 +34,12 @@ class WaveGameKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
     super( [ gameControlsHelpSection, sliderHelpSection ], [ basicActionsHelpSection ], options );
   }
+
+  // @public
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 /**
@@ -51,6 +57,12 @@ class GameControlsHelpSection extends KeyboardHelpSection {
       'C' );
 
     super( FourierMakingWavesStrings.keyboardHelpDialog.gameControlsStringProperty, [ checkAnswerRow ], options );
+  }
+
+  // @public
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
   }
 }
 
