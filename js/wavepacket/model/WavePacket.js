@@ -19,6 +19,7 @@ import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
+import InfiniteNumberIO from '../../../../tandem/js/types/InfiniteNumberIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierComponent from './FourierComponent.js';
@@ -139,7 +140,7 @@ class WavePacket {
         return period;
       }, {
         tandem: options.tandem.createTandem( 'lengthProperty' ),
-        phetioValueType: NumberIO,
+        phetioValueType: InfiniteNumberIO,
         phetioDocumentation: 'A measure of the wave packet length. ' +
                              'In the space domain, wavelength \u03bb<sub>1</sub> in m. ' +
                              'In the time domain, period T<sub>1</sub> in ms.'
