@@ -35,7 +35,6 @@ class CenterControl extends WavePacketNumberControl {
   constructor( centerProperty, domainProperty, options ) {
 
     assert && assert( centerProperty instanceof NumberProperty );
-    assert && assert( centerProperty.range );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     options = merge( {

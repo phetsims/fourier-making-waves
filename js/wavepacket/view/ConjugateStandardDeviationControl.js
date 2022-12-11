@@ -35,7 +35,6 @@ class ConjugateStandardDeviationControl extends WavePacketNumberControl {
   constructor( conjugateStandardDeviationProperty, domainProperty, options ) {
 
     assert && assert( conjugateStandardDeviationProperty instanceof NumberProperty );
-    assert && assert( conjugateStandardDeviationProperty.range );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     options = merge( {

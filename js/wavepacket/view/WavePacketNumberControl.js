@@ -27,7 +27,6 @@ class WavePacketNumberControl extends NumberControl {
    */
   constructor( numberProperty, domainProperty, options ) {
     assert && assert( numberProperty instanceof NumberProperty );
-    assert && assert( numberProperty.range );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 
     //TODO https://github.com/phetsims/fourier-making-waves/issues/56 add Slider sound

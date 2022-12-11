@@ -36,7 +36,6 @@ class ComponentSpacingControl extends WavePacketNumberControl {
   constructor( componentSpacingProperty, domainProperty, options ) {
 
     assert && assert( componentSpacingProperty instanceof NumberProperty );
-    assert && assert( componentSpacingProperty.range );
     assert && assert( componentSpacingProperty.validValues );
     assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
 

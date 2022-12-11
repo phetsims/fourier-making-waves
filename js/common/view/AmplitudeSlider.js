@@ -46,7 +46,6 @@ class AmplitudeSlider extends Slider {
 
     assert && assert( harmonic instanceof Harmonic );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
-    assert && assert( harmonic.amplitudeProperty.range );
 
     options = merge( {
 
