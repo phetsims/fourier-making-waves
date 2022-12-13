@@ -34,7 +34,7 @@ class FourierComponent {
   }
 }
 
-// FourierComponentIO is adapted from Vector2.Vector2IO.
+// FourierComponentIO is patterned after Vector2IO.
 FourierComponent.FourierComponentIO = new IOType( 'FourierComponentIO', {
   valueType: FourierComponent,
   documentation: 'Component of a Fourier series',
