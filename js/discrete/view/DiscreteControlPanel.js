@@ -179,7 +179,6 @@ class FourierSeriesSubpanel extends VBox {
     } );
 
     const waveformComboBox = new WaveformComboBox( waveformProperty, popupParent, {
-      maxWidth: 135,
       tandem: options.tandem.createTandem( 'waveformComboBox' )
     } );
 
@@ -280,7 +279,6 @@ class GraphControlsSubpanel extends VBox {
     } );
 
     const domainComboBox = new DomainComboBox( domainProperty, popupParent, {
-      maxWidth: 135,
       tandem: options.tandem.createTandem( 'functionOfComboBox' ) // tandem name differs by request
     } );
 
@@ -311,7 +309,6 @@ class GraphControlsSubpanel extends VBox {
     } );
 
     const equationComboBox = new EquationComboBox( equationFormProperty, domainProperty, popupParent, {
-      maxWidth: 135,
       tandem: options.tandem.createTandem( 'equationComboBox' )
     } );
 
