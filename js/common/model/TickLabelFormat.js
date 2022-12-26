@@ -1,5 +1,6 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * TickLabelFormat specifies the format of tick labels on a chart's axis.
  *

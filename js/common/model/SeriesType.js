@@ -1,5 +1,6 @@
 // Copyright 2020-2022, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * SeriesType indicates the type of the Fourier series. There are 2 types of Fourier series, referred to in the
  * literature as 'sine series' and 'cosine series', depending on whether the waveform is being approximated using

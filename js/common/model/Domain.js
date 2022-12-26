@@ -1,5 +1,6 @@
 // Copyright 2020-2022, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Domain identifies the independent variables in the function that describes the Fourier series.
  * In the view, the Domain determines the presentation of the x axis for charts.
