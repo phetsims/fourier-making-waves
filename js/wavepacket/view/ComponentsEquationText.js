@@ -6,27 +6,25 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import { RichText } from '../../../../scenery/js/imports.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import Domain from '../../common/model/Domain.js';
-import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class ComponentsEquationText extends RichText {
 
   /**
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
-   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Object} [options]
    */
   constructor( domainProperty, seriesTypeProperty, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
+    assert && assert( domainProperty instanceof EnumerationProperty );
+    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
 
     options = merge( {
       font: FMWConstants.EQUATION_FONT

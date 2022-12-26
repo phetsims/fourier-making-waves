@@ -9,6 +9,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -17,7 +18,6 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
-import Domain from '../../common/model/Domain.js';
 import DomainChart from '../../common/model/DomainChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
@@ -33,14 +33,14 @@ class WavePacketAmplitudesChart extends DomainChart {
 
   /**
    * @param {WavePacket} wavePacket
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Object} [options]
    */
   constructor( wavePacket, domainProperty, widthIndicatorsVisibleProperty, options ) {
 
     assert && assert( wavePacket instanceof WavePacket );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( domainProperty instanceof EnumerationProperty );
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
 
     options = merge( {

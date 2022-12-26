@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
@@ -29,7 +30,7 @@ class WavePacketMeasurementToolNode extends Node {
   /**
    * @param {ReadOnlyProperty.<number>} property - the Property of the wave packet that we're measuring
    * @param {ChartTransform} chartTransform
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {TReadOnlyProperty.<string>} spaceSymbolStringProperty
    * @param {TReadOnlyProperty.<string>} timeSymbolStringProperty
    * @param {Object} [options]
@@ -38,7 +39,7 @@ class WavePacketMeasurementToolNode extends Node {
 
     assert && AssertUtils.assertAbstractPropertyOf( property, 'number' );
     assert && assert( chartTransform instanceof ChartTransform );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( domainProperty instanceof EnumerationProperty );
 
     options = merge( {
       position: new Vector2( 0, 0 ),

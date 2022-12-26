@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -26,7 +27,7 @@ class WidthIndicatorPlot extends Node {
    * @param {ChartTransform} chartTransform - transform for the chart that renders this plot
    * @param {ReadOnlyProperty.<number>} widthProperty - width of the indicator, in model coordinates
    * @param {ReadOnlyProperty.<Vector2>} positionProperty - position of the indicator, in model coordinates
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty - the Domain, space or time
+   * @param {EnumerationProperty.<Domain>} domainProperty - the Domain, space or time
    * @param {TReadOnlyProperty.<string>} spaceSymbolStringProperty - symbol for the space Domain
    * @param {TReadOnlyProperty.<string>} timeSymbolStringProperty - symbol for the time Domain
    * @param {Object} [options]
@@ -37,7 +38,7 @@ class WidthIndicatorPlot extends Node {
     assert && assert( chartTransform instanceof ChartTransform );
     assert && AssertUtils.assertAbstractPropertyOf( widthProperty, 'number' );
     assert && AssertUtils.assertAbstractPropertyOf( positionProperty, Vector2 );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( domainProperty instanceof EnumerationProperty );
 
     options = merge( {
 

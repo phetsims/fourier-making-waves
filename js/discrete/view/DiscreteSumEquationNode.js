@@ -6,20 +6,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { Node, RichText } from '../../../../scenery/js/imports.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
-import Domain from '../../common/model/Domain.js';
-import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import SumSymbolNode from '../../common/view/SumSymbolNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import EquationForm from '../model/EquationForm.js';
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
 const EQUAL_TO = MathSymbols.EQUAL_TO;
@@ -28,17 +25,17 @@ class DiscreteSumEquationNode extends Node {
 
   /**
    * @param {NumberProperty} numberOfHarmonicsProperty
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
-   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationDeprecatedProperty.<EquationForm>} equationFormProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
   constructor( numberOfHarmonicsProperty, domainProperty, seriesTypeProperty, equationFormProperty, options ) {
 
     assert && assert( numberOfHarmonicsProperty instanceof NumberProperty );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
-    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
+    assert && assert( domainProperty instanceof EnumerationProperty );
+    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
+    assert && assert( equationFormProperty instanceof EnumerationProperty );
 
     options = merge( {
 

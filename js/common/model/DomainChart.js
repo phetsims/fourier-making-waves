@@ -8,15 +8,15 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
-import Domain from './Domain.js';
 
 class DomainChart {
 
   /**
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty - domain of the x axis
+   * @param {EnumerationProperty.<Domain>} domainProperty - domain of the x axis
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty - describes the x axis
    * @param {number} spaceMultiplier - multiplier for x values in the space and space-&-time Domains
    * @param {number} timeMultiplier - multiplier for x values in the time Domain
@@ -24,7 +24,7 @@ class DomainChart {
    */
   constructor( domainProperty, xAxisDescriptionProperty, spaceMultiplier, timeMultiplier, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( domainProperty instanceof EnumerationProperty );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
     assert && AssertUtils.assertPositiveNumber( spaceMultiplier );
     assert && AssertUtils.assertPositiveNumber( timeMultiplier );

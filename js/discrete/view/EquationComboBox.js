@@ -7,9 +7,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -87,22 +87,22 @@ const CHOICES = [
     tandemName: `mode${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   }
 ];
-assert && assert( _.every( CHOICES, choice => EquationForm.includes( choice.value ) ) );
+assert && assert( _.every( CHOICES, choice => EquationForm.enumeration.includes( choice.value ) ) );
 assert && assert( _.every( CHOICES, choice => choice.tandemName ) );
 
 
 class EquationComboBox extends FMWComboBox {
 
   /**
-   * @param {EnumerationDeprecatedProperty.<EquationForm>} equationFormProperty
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
   constructor( equationFormProperty, domainProperty, popupParent, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( equationFormProperty instanceof EnumerationProperty );
+    assert && assert( domainProperty instanceof EnumerationProperty );
     assert && assert( popupParent instanceof Node );
 
     options = merge( {
@@ -117,7 +117,7 @@ class EquationComboBox extends FMWComboBox {
 
     // Show only the choices that are appropriate for the selected Domain.
     domainProperty.link( domain => {
-      assert && assert( Domain.includes( domain ) );
+      assert && assert( Domain.enumeration.includes( domain ) );
 
       // No need to adjust EquationForm.HIDDEN or EquationForm.MODE. They are appropriate for all Domain values.
 

@@ -8,26 +8,25 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import { FireListener } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 class WavePacketNumberControl extends NumberControl {
 
   /**
    * @param {NumberProperty} numberProperty
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( numberProperty, domainProperty, options ) {
     assert && assert( numberProperty instanceof NumberProperty );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( domainProperty instanceof EnumerationProperty );
 
     //TODO https://github.com/phetsims/fourier-making-waves/issues/56 add Slider sound
     options = merge( {

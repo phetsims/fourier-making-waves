@@ -7,9 +7,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import merge from '../../../../phet-core/js/merge.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -43,19 +43,19 @@ const CHOICES = [
     tandemName: `spaceAndTime${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   }
 ];
-assert && assert( _.every( CHOICES, choice => Domain.includes( choice.value ) ) );
+assert && assert( _.every( CHOICES, choice => Domain.enumeration.includes( choice.value ) ) );
 assert && assert( _.every( CHOICES, choice => choice.tandemName ) );
 
 class DomainComboBox extends FMWComboBox {
 
   /**
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
   constructor( domainProperty, popupParent, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( domainProperty instanceof EnumerationProperty );
     assert && assert( domainProperty.validValues );
     assert && assert( popupParent instanceof Node );
 

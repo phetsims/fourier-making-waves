@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -24,15 +25,15 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 class WavePacketSumEquationNode extends Node {
 
   /**
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
-   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} componentSpacingProperty
    * @param {Object} [options]
    */
   constructor( domainProperty, seriesTypeProperty, componentSpacingProperty, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
+    assert && assert( domainProperty instanceof EnumerationProperty );
+    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
     assert && AssertUtils.assertPropertyOf( componentSpacingProperty, 'number' );
 
     options = merge( {

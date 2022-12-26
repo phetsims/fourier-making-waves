@@ -6,11 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { RichText } from '../../../../scenery/js/imports.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -29,13 +29,13 @@ class StandardDeviationControl extends WavePacketNumberControl {
 
   /**
    * @param {NumberProperty} standardDeviationProperty
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( standardDeviationProperty, domainProperty, options ) {
 
     assert && assert( standardDeviationProperty instanceof NumberProperty );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( domainProperty instanceof EnumerationProperty );
 
     options = merge( {
 

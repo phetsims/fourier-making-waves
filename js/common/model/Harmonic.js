@@ -132,8 +132,8 @@ class Harmonic extends PhetioObject {
     assert && AssertUtils.assertPositiveNumber( L );
     assert && AssertUtils.assertPositiveNumber( T );
     assert && assert( xRange instanceof Range );
-    assert && assert( Domain.includes( domain ) );
-    assert && assert( SeriesType.includes( seriesType ) );
+    assert && assert( Domain.enumeration.includes( domain ) );
+    assert && assert( SeriesType.enumeration.includes( seriesType ) );
     assert && AssertUtils.assertNonNegativeNumber( t );
 
     const dataSet = [];

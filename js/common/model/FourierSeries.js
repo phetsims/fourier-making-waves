@@ -196,8 +196,8 @@ class FourierSeries extends PhetioObject {
   createSumDataSet( xAxisDescription, domain, seriesType, t ) {
 
     assert && assert( xAxisDescription instanceof AxisDescription );
-    assert && assert( Domain.includes( domain ) );
-    assert && assert( SeriesType.includes( seriesType ) );
+    assert && assert( Domain.enumeration.includes( domain ) );
+    assert && assert( SeriesType.enumeration.includes( seriesType ) );
     assert && AssertUtils.assertNonNegativeNumber( t );
 
     const sumDataSet = []; // {Vector2[]}

@@ -18,7 +18,7 @@ class LengthToolCheckbox extends CaliperCheckbox {
 
   /**
    * @param {Property.<boolean>} visibleProperty
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( visibleProperty, domainProperty, options ) {

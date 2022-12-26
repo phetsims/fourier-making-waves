@@ -8,11 +8,10 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import CalipersNode from '../../common/view/CalipersNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -26,7 +25,7 @@ class DiscreteCalipersNode extends DiscreteMeasurementToolNode {
    * @param {Harmonic[]} harmonics
    * @param {EmphasizedHarmonics} emphasizedHarmonics
    * @param {ChartTransform} chartTransform - transform for the Harmonics chart
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Domain[]} relevantDomains - the Domain values that are relevant for this tool
    * @param {function(harmonic:Harmonic):number} getModelValue - gets the quantity of the harmonic that is being measured
    * @param {Object} [options]
@@ -37,7 +36,7 @@ class DiscreteCalipersNode extends DiscreteMeasurementToolNode {
     assert && assert( Array.isArray( harmonics ) );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
     assert && assert( chartTransform instanceof ChartTransform );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( domainProperty instanceof EnumerationProperty );
     assert && assert( Array.isArray( relevantDomains ) );
     assert && assert( typeof getModelValue === 'function' );
 

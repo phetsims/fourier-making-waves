@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -15,8 +16,6 @@ import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import Domain from '../../common/model/Domain.js';
-import SeriesType from '../../common/model/SeriesType.js';
 import DomainComboBox from '../../common/view/DomainComboBox.js';
 import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -144,7 +143,7 @@ class WavePacketControlPanel extends Panel {
 class ComponentSpacingSubpanel extends VBox {
 
   /**
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property} componentSpacingProperty
    * @param {Property.<boolean>} componentSpacingToolVisibleProperty
    * @param {Property.<boolean>} lengthToolVisibleProperty
@@ -152,7 +151,7 @@ class ComponentSpacingSubpanel extends VBox {
    */
   constructor( domainProperty, componentSpacingProperty, componentSpacingToolVisibleProperty, lengthToolVisibleProperty, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( domainProperty instanceof EnumerationProperty );
     assert && AssertUtils.assertPropertyOf( componentSpacingProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( componentSpacingToolVisibleProperty, 'boolean' );
     assert && AssertUtils.assertPropertyOf( lengthToolVisibleProperty, 'boolean' );
@@ -233,13 +232,13 @@ class ComponentSpacingSubpanel extends VBox {
 class WavePacketCenterSubpanel extends VBox {
 
   /**
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {NumberProperty} centerProperty
    * @param {Object} [options]
    */
   constructor( domainProperty, centerProperty, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( domainProperty instanceof EnumerationProperty );
     assert && assert( centerProperty instanceof NumberProperty );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
@@ -284,7 +283,7 @@ class WavePacketCenterSubpanel extends VBox {
 class WavePacketWidthSubpanel extends VBox {
 
   /**
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {NumberProperty} standardDeviationProperty
    * @param {NumberProperty} conjugateStandardDeviationProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
@@ -292,7 +291,7 @@ class WavePacketWidthSubpanel extends VBox {
    */
   constructor( domainProperty, standardDeviationProperty, conjugateStandardDeviationProperty, widthIndicatorsVisibleProperty, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( domainProperty instanceof EnumerationProperty );
     assert && assert( standardDeviationProperty instanceof NumberProperty );
     assert && assert( conjugateStandardDeviationProperty instanceof NumberProperty );
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
@@ -373,15 +372,15 @@ class WavePacketWidthSubpanel extends VBox {
 class GraphControlsSubpanel extends VBox {
 
   /**
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
   constructor( domainProperty, seriesTypeProperty, popupParent, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
+    assert && assert( domainProperty instanceof EnumerationProperty );
+    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
     assert && assert( popupParent instanceof Node );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {

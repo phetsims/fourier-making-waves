@@ -6,8 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { RichText } from '../../../../scenery/js/imports.js';
 import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
@@ -20,7 +20,7 @@ import SeriesType from '../model/SeriesType.js';
 class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
 
   /**
-   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Object} [options]
    */
   constructor( seriesTypeProperty, options ) {
@@ -35,7 +35,7 @@ class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
       }
     }, options );
 
-    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
+    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
 
     const textOptions = {
 

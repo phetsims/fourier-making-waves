@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -30,14 +31,14 @@ class WavePacketComponentsChart extends DomainChart {
 
   /**
    * @param {WavePacket} wavePacket
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
-   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
    */
   constructor( wavePacket, domainProperty, seriesTypeProperty, xAxisDescriptionProperty, options ) {
     assert && assert( wavePacket instanceof WavePacket );
-    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
+    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
 
     options = merge( {
 
@@ -82,8 +83,8 @@ class WavePacketComponentsChart extends DomainChart {
     assert && AssertUtils.assertArrayOf( components, FourierComponent );
     assert && assert( components.length > 0 );
     assert && AssertUtils.assertNonNegativeNumber( componentSpacing );
-    assert && assert( Domain.includes( domain ) );
-    assert && assert( SeriesType.includes( seriesType ) );
+    assert && assert( Domain.enumeration.includes( domain ) );
+    assert && assert( SeriesType.enumeration.includes( seriesType ) );
     assert && assert( xRange instanceof Range );
 
     const dataSets = []; // {Array.<Array.<Vector2>>}

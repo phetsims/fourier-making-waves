@@ -98,7 +98,7 @@ class AxisDescription {
    */
   createRangeForDomain( domain, spaceMultiplier, timeMultiplier ) {
 
-    assert && assert( Domain.includes( domain ) );
+    assert && assert( Domain.enumeration.includes( domain ) );
     assert && AssertUtils.assertPositiveNumber( spaceMultiplier );
     assert && AssertUtils.assertPositiveNumber( timeMultiplier );
 

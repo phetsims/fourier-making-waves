@@ -8,21 +8,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { HBox, RichText, Text, VBox } from '../../../../scenery/js/imports.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import Domain from '../../common/model/Domain.js';
-import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import DiscreteFourierSeries from '../model/DiscreteFourierSeries.js';
-import EquationForm from '../model/EquationForm.js';
 import DiscreteSumEquationNode from './DiscreteSumEquationNode.js';
 
 // Maximum number of terms per line in the expanded form
@@ -33,17 +30,17 @@ class ExpandedFormDialog extends Dialog {
 
   /**
    * @param {DiscreteFourierSeries} fourierSeries
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
-   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationDeprecatedProperty.<EquationForm>} equationFormProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Object} [options]
    */
   constructor( fourierSeries, domainProperty, seriesTypeProperty, equationFormProperty, options ) {
 
     assert && assert( fourierSeries instanceof DiscreteFourierSeries );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
-    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
+    assert && assert( domainProperty instanceof EnumerationProperty );
+    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
+    assert && assert( equationFormProperty instanceof EnumerationProperty );
 
     options = merge( {
 

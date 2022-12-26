@@ -16,6 +16,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -25,7 +26,6 @@ import { Circle, DragListener, KeyboardDragListener, Node } from '../../../../sc
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
-import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -37,7 +37,7 @@ class DiscreteMeasurementToolNode extends Node {
    * @param {DiscreteMeasurementTool} tool
    * @param {ReadOnlyProperty.<Harmonic>} harmonicProperty
    * @param {EmphasizedHarmonics} emphasizedHarmonics
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Domain[]} relevantDomains - the Domain values that are relevant for this tool
    * @param {Object} [options]
    */
@@ -46,7 +46,7 @@ class DiscreteMeasurementToolNode extends Node {
     assert && assert( tool instanceof DiscreteMeasurementTool );
     assert && AssertUtils.assertAbstractPropertyOf( harmonicProperty, Harmonic );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( domainProperty instanceof EnumerationProperty );
     assert && assert( Array.isArray( relevantDomains ) );
 
     options = merge( {

@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
@@ -22,7 +23,7 @@ class CaliperCheckbox extends Checkbox {
 
   /**
    * @param {Property.<boolean>} visibleProperty
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {TReadOnlyProperty.<string>} spaceSymbolStringProperty
    * @param {TReadOnlyProperty.<string>} timeSymbolStringProperty
    * @param {Object} [options]
@@ -30,7 +31,7 @@ class CaliperCheckbox extends Checkbox {
   constructor( visibleProperty, domainProperty, spaceSymbolStringProperty, timeSymbolStringProperty, options ) {
 
     assert && AssertUtils.assertPropertyOf( visibleProperty, 'boolean' );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( domainProperty instanceof EnumerationProperty );
 
     options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
       calipersNodeOptions: {

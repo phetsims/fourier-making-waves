@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import audioManager from '../../../../joist/js/audioManager.js';
@@ -25,14 +26,12 @@ import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
-import SeriesType from '../../common/model/SeriesType.js';
 import DomainComboBox from '../../common/view/DomainComboBox.js';
 import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import EquationForm from '../model/EquationForm.js';
 import Waveform from '../model/Waveform.js';
 import DiscreteInfoDialog from './DiscreteInfoDialog.js';
 import EquationComboBox from './EquationComboBox.js';
@@ -238,17 +237,17 @@ class FourierSeriesSubpanel extends VBox {
 class GraphControlsSubpanel extends VBox {
 
   /**
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
-   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationDeprecatedProperty.<EquationForm>} equationFormProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Node} popupParent
    * @param {Object} [options]
    */
   constructor( domainProperty, seriesTypeProperty, equationFormProperty, popupParent, options ) {
 
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
-    assert && AssertUtils.assertEnumerationPropertyOf( equationFormProperty, EquationForm );
+    assert && assert( domainProperty instanceof EnumerationProperty );
+    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
+    assert && assert( equationFormProperty instanceof EnumerationProperty );
     assert && assert( popupParent instanceof Node );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
@@ -346,14 +345,14 @@ class MeasurementToolsSubpanel extends VBox {
   /**
    * @param {DiscreteMeasurementTool} wavelengthTool
    * @param {DiscreteMeasurementTool} periodTool
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Object} [options]
    */
   constructor( wavelengthTool, periodTool, domainProperty, options ) {
 
     assert && assert( wavelengthTool instanceof DiscreteMeasurementTool );
     assert && assert( periodTool instanceof DiscreteMeasurementTool );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
+    assert && assert( domainProperty instanceof EnumerationProperty );
 
     options = merge( {}, FMWConstants.VBOX_OPTIONS, {
 

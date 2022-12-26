@@ -7,24 +7,23 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import AxisDescription from './AxisDescription.js';
-import Domain from './Domain.js';
 import DomainChart from './DomainChart.js';
 import EmphasizedHarmonics from './EmphasizedHarmonics.js';
 import FourierSeries from './FourierSeries.js';
-import SeriesType from './SeriesType.js';
 
 class HarmonicsChart extends DomainChart {
 
   /**
    * @param {FourierSeries} fourierSeries
    * @param {EmphasizedHarmonics} emphasizedHarmonics
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
-   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Object} [options]
@@ -34,8 +33,8 @@ class HarmonicsChart extends DomainChart {
 
     assert && assert( fourierSeries instanceof FourierSeries );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
-    assert && AssertUtils.assertEnumerationPropertyOf( domainProperty, Domain );
-    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
+    assert && assert( domainProperty instanceof EnumerationProperty );
+    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
 

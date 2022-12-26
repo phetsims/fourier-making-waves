@@ -58,9 +58,9 @@ const EquationMarkup = {
    */
   getSpecificFormMarkup( domain, seriesType, equationForm, order, amplitude ) {
 
-    assert && assert( Domain.includes( domain ) );
-    assert && assert( SeriesType.includes( seriesType ) );
-    assert && assert( EquationForm.includes( equationForm ) );
+    assert && assert( Domain.enumeration.includes( domain ) );
+    assert && assert( SeriesType.enumeration.includes( seriesType ) );
+    assert && assert( EquationForm.enumeration.includes( equationForm ) );
     assert && assert( typeof order === 'string' || typeof order === 'number' );
     assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number' );
 
@@ -118,7 +118,7 @@ const EquationMarkup = {
  * @returns {string}
  */
 function getSpaceMarkup( seriesType, equationForm, order, amplitude ) {
-  assert && assert( SeriesType.includes( seriesType ) );
+  assert && assert( SeriesType.enumeration.includes( seriesType ) );
   assert && assert( [ EquationForm.HIDDEN, EquationForm.WAVELENGTH, EquationForm.SPATIAL_WAVE_NUMBER, EquationForm.MODE ].includes( equationForm ),
     `unsupported equationForm: ${equationForm}` );
   assert && assert( typeof order === 'string' || typeof order === 'number' );
@@ -154,7 +154,7 @@ function getSpaceMarkup( seriesType, equationForm, order, amplitude ) {
  * @returns {string}
  */
 function getTimeMarkup( seriesType, equationForm, order, amplitude ) {
-  assert && assert( SeriesType.includes( seriesType ) );
+  assert && assert( SeriesType.enumeration.includes( seriesType ) );
   assert && assert( [ EquationForm.HIDDEN, EquationForm.FREQUENCY, EquationForm.PERIOD, EquationForm.ANGULAR_WAVE_NUMBER, EquationForm.MODE ].includes( equationForm ),
     `unsupported equationForm: ${equationForm}` );
   assert && assert( typeof order === 'string' || typeof order === 'number' );
@@ -193,7 +193,7 @@ function getTimeMarkup( seriesType, equationForm, order, amplitude ) {
  * @returns {string}
  */
 function getSpaceAndTimeMarkup( seriesType, equationForm, order, amplitude ) {
-  assert && assert( SeriesType.includes( seriesType ) );
+  assert && assert( SeriesType.enumeration.includes( seriesType ) );
   assert && assert( [ EquationForm.HIDDEN, EquationForm.WAVELENGTH_AND_PERIOD,
       EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER, EquationForm.MODE ].includes( equationForm ),
     `unsupported equationForm: ${equationForm}` );
@@ -227,7 +227,7 @@ function getSpaceAndTimeMarkup( seriesType, equationForm, order, amplitude ) {
  * @returns {string}
  */
 function seriesTypeToMarkup( seriesType ) {
-  assert && assert( SeriesType.includes( seriesType ) );
+  assert && assert( SeriesType.enumeration.includes( seriesType ) );
   return ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinStringProperty.value : FMWSymbols.cosStringProperty.value;
 }
 

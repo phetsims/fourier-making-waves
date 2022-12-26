@@ -8,6 +8,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -30,8 +31,8 @@ class WavePacketSumChart extends DomainChart {
   /**
    * @param {DerivedProperty.<Array.<Array.<Vector2>>>} componentDataSetsProperty
    * @param {WavePacket} wavePacket
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
-   * @param {EnumerationDeprecatedProperty.<Domain>} seriesTypeProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<Domain>} seriesTypeProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
    * @param {Object} [options]
@@ -40,7 +41,7 @@ class WavePacketSumChart extends DomainChart {
                xAxisDescriptionProperty, widthIndicatorsVisibleProperty, options ) {
     assert && assert( componentDataSetsProperty instanceof DerivedProperty );
     assert && assert( wavePacket instanceof WavePacket );
-    assert && AssertUtils.assertEnumerationPropertyOf( seriesTypeProperty, SeriesType );
+    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
 
     options = merge( {
@@ -229,7 +230,7 @@ function createSumDataSet( dataSets ) {
 function createWavePacketDataSet( center, conjugateStandardDeviation, seriesType, xRange ) {
   assert && AssertUtils.assertPositiveNumber( center );
   assert && AssertUtils.assertPositiveNumber( conjugateStandardDeviation );
-  assert && assert( SeriesType.includes( seriesType ) );
+  assert && assert( SeriesType.enumeration.includes( seriesType ) );
   assert && assert( xRange instanceof Range );
 
   const dataSet = [];

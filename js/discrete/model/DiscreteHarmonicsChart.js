@@ -16,8 +16,8 @@ class DiscreteHarmonicsChart extends HarmonicsChart {
   /**
    * @param {FourierSeries} fourierSeries
    * @param {EmphasizedHarmonics} emphasizedHarmonics
-   * @param {EnumerationDeprecatedProperty.<Domain>} domainProperty
-   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
+   * @param {EnumerationProperty.<Domain>} domainProperty
+   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
    * @param {DerivedProperty.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
