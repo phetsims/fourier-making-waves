@@ -21,7 +21,7 @@ import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import HorizontalDimensionalArrowsNode from './HorizontalDimensionalArrowsNode.js';
 
-class WidthIndicatorPlot extends Node {
+export default class WidthIndicatorPlot extends Node {
 
   /**
    * @param {ChartTransform} chartTransform - transform for the chart that renders this plot
@@ -104,4 +104,3 @@ class WidthIndicatorPlot extends Node {
 }
 
 fourierMakingWaves.register( 'WidthIndicatorPlot', WidthIndicatorPlot );
-export default WidthIndicatorPlot;

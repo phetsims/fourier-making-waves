@@ -48,7 +48,7 @@ const CHECK_ANSWER_PRESSES = 1; // number of 'Check Answer' button presses requi
 const TITLE_TOP_SPACING = 10; // space above the title of a chart
 const TITLE_BOTTOM_SPACING = 10; // space below the title of a chart
 
-class WaveGameLevelNode extends Node {
+export default class WaveGameLevelNode extends Node {
 
   /**
    * @param {WaveGameLevel} level
@@ -575,4 +575,3 @@ class WaveGameLevelNode extends Node {
 }
 
 fourierMakingWaves.register( 'WaveGameLevelNode', WaveGameLevelNode );
-export default WaveGameLevelNode;

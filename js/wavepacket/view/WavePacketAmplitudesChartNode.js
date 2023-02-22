@@ -30,7 +30,7 @@ const X_TICK_LABEL_DECIMALS = 0;
 const Y_TICK_LABEL_DECIMALS = 2;
 const GRAY_RANGE = FMWColors.FOURIER_COMPONENT_GRAY_RANGE;
 
-class WavePacketAmplitudesChartNode extends DomainChartNode {
+export default class WavePacketAmplitudesChartNode extends DomainChartNode {
 
   /**
    * @param {WavePacketAmplitudesChart} amplitudesChart
@@ -166,4 +166,3 @@ class WavePacketAmplitudesChartNode extends DomainChartNode {
 }
 
 fourierMakingWaves.register( 'WavePacketAmplitudesChartNode', WavePacketAmplitudesChartNode );
-export default WavePacketAmplitudesChartNode;

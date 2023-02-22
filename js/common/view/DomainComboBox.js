@@ -46,7 +46,7 @@ const CHOICES = [
 assert && assert( _.every( CHOICES, choice => Domain.enumeration.includes( choice.value ) ) );
 assert && assert( _.every( CHOICES, choice => choice.tandemName ) );
 
-class DomainComboBox extends FMWComboBox {
+export default class DomainComboBox extends FMWComboBox {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -77,4 +77,3 @@ class DomainComboBox extends FMWComboBox {
 }
 
 fourierMakingWaves.register( 'DomainComboBox', DomainComboBox );
-export default DomainComboBox;

@@ -22,7 +22,7 @@ const X_SPACING = 40;
 const Y_SPACING = 30;
 const BUTTONS_PER_ROW = 3;
 
-class WaveGameLevelSelectionButtonGroup extends LevelSelectionButtonGroup {
+export default class WaveGameLevelSelectionButtonGroup extends LevelSelectionButtonGroup {
 
   /**
    * @param {Property.<WaveGameLevel|null} levelProperty
@@ -68,4 +68,3 @@ class WaveGameLevelSelectionButtonGroup extends LevelSelectionButtonGroup {
 }
 
 fourierMakingWaves.register( 'WaveGameLevelSelectionButtonGroup', WaveGameLevelSelectionButtonGroup );
-export default WaveGameLevelSelectionButtonGroup;

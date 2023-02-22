@@ -20,7 +20,7 @@ import InfiniteHarmonicsPlot from './InfiniteHarmonicsPlot.js';
 const X_TICK_LABEL_DECIMALS = 2;
 const Y_TICK_LABEL_DECIMALS = 1;
 
-class DiscreteSumChartNode extends SumChartNode {
+export default class DiscreteSumChartNode extends SumChartNode {
 
   /**
    * @param {DiscreteSumChart} sumChart
@@ -74,4 +74,3 @@ class DiscreteSumChartNode extends SumChartNode {
 }
 
 fourierMakingWaves.register( 'DiscreteSumChartNode', DiscreteSumChartNode );
-export default DiscreteSumChartNode;

@@ -27,7 +27,7 @@ const VALID_LABEL_POSITIONS = [
   'left' // used for icons in control panels, where we need to conserve vertical space
 ];
 
-class CalipersNode extends Node {
+export default class CalipersNode extends Node {
 
   /**
    * @param {Object} [options]
@@ -162,4 +162,3 @@ class CalipersNode extends Node {
 }
 
 fourierMakingWaves.register( 'CalipersNode', CalipersNode );
-export default CalipersNode;

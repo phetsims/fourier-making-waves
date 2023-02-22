@@ -49,7 +49,7 @@ const CHOICES = [
   }
 ];
 
-class WaveformComboBox extends FMWComboBox {
+export default class WaveformComboBox extends FMWComboBox {
 
   /**
    * @param {Property.<Waveform>} waveformProperty
@@ -74,4 +74,3 @@ class WaveformComboBox extends FMWComboBox {
 }
 
 fourierMakingWaves.register( 'WaveformComboBox', WaveformComboBox );
-export default WaveformComboBox;

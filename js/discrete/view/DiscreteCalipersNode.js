@@ -18,7 +18,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
 import DiscreteMeasurementToolNode from './DiscreteMeasurementToolNode.js';
 
-class DiscreteCalipersNode extends DiscreteMeasurementToolNode {
+export default class DiscreteCalipersNode extends DiscreteMeasurementToolNode {
 
   /**
    * @param {DiscreteMeasurementTool} tool
@@ -77,4 +77,3 @@ class DiscreteCalipersNode extends DiscreteMeasurementToolNode {
 }
 
 fourierMakingWaves.register( 'DiscreteCalipersNode', DiscreteCalipersNode );
-export default DiscreteCalipersNode;

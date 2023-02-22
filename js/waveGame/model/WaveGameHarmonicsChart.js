@@ -13,7 +13,7 @@ import AxisDescription from '../../common/model/AxisDescription.js';
 import HarmonicsChart from '../../common/model/HarmonicsChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class WaveGameHarmonicsChart extends HarmonicsChart {
+export default class WaveGameHarmonicsChart extends HarmonicsChart {
 
   /**
    * @param {FourierSeries} guessSeries
@@ -47,4 +47,3 @@ class WaveGameHarmonicsChart extends HarmonicsChart {
 }
 
 fourierMakingWaves.register( 'WaveGameHarmonicsChart', WaveGameHarmonicsChart );
-export default WaveGameHarmonicsChart;

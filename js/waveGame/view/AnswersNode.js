@@ -33,7 +33,7 @@ const NUMBER_DISPLAY_OPTIONS = {
     ( amplitude === 0 ) ? '' : Utils.toFixed( amplitude, FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES )
 };
 
-class AnswersNode extends Node {
+export default class AnswersNode extends Node {
 
   /**
    * @param {ChartTransform} chartTransform - transform for the Amplitudes chart
@@ -62,4 +62,3 @@ class AnswersNode extends Node {
 }
 
 fourierMakingWaves.register( 'AnswersNode', AnswersNode );
-export default AnswersNode;

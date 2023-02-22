@@ -15,7 +15,7 @@ import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
-class WaveGameInfoDialog extends GameInfoDialog {
+export default class WaveGameInfoDialog extends GameInfoDialog {
 
   /**
    * @param {WaveGameLevel[]} levels
@@ -46,4 +46,3 @@ class WaveGameInfoDialog extends GameInfoDialog {
 }
 
 fourierMakingWaves.register( 'WaveGameInfoDialog', WaveGameInfoDialog );
-export default WaveGameInfoDialog;

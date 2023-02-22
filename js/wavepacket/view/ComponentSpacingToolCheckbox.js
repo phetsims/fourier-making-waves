@@ -14,7 +14,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import CaliperCheckbox from './CaliperCheckbox.js';
 
-class ComponentSpacingToolCheckbox extends CaliperCheckbox {
+export default class ComponentSpacingToolCheckbox extends CaliperCheckbox {
 
   /**
    * @param {Property.<boolean>} visibleProperty
@@ -42,4 +42,3 @@ class ComponentSpacingToolCheckbox extends CaliperCheckbox {
 }
 
 fourierMakingWaves.register( 'ComponentSpacingToolCheckbox', ComponentSpacingToolCheckbox );
-export default ComponentSpacingToolCheckbox;

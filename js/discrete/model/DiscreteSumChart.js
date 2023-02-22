@@ -23,7 +23,7 @@ import Waveform from './Waveform.js';
 // constants
 const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 
-class DiscreteSumChart extends SumChart {
+export default class DiscreteSumChart extends SumChart {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -84,4 +84,3 @@ class DiscreteSumChart extends SumChart {
 }
 
 fourierMakingWaves.register( 'DiscreteSumChart', DiscreteSumChart );
-export default DiscreteSumChart;

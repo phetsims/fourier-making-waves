@@ -18,7 +18,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WaveGameLevel from './WaveGameLevel.js';
 
-class WaveGameModel {
+export default class WaveGameModel {
 
   /**
    * @param {Object} [options]
@@ -112,4 +112,3 @@ class WaveGameModel {
 }
 
 fourierMakingWaves.register( 'WaveGameModel', WaveGameModel );
-export default WaveGameModel;

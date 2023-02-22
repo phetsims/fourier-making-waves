@@ -26,7 +26,7 @@ import WavePacketNumberControl from './WavePacketNumberControl.js';
 const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 const DECIMALS = 2;
 
-class ComponentSpacingControl extends WavePacketNumberControl {
+export default class ComponentSpacingControl extends WavePacketNumberControl {
 
   /**
    * @param {NumberProperty} componentSpacingProperty
@@ -135,4 +135,3 @@ class ComponentSpacingControl extends WavePacketNumberControl {
 }
 
 fourierMakingWaves.register( 'ComponentSpacingControl', ComponentSpacingControl );
-export default ComponentSpacingControl;

@@ -13,7 +13,7 @@ import StarNode from '../../../../scenery-phet/js/StarNode.js';
 import { HBox, Text } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class PointsAwardedNode extends HBox {
+export default class PointsAwardedNode extends HBox {
 
   /**
    * @param {Object} [options]
@@ -61,4 +61,3 @@ class PointsAwardedNode extends HBox {
 }
 
 fourierMakingWaves.register( 'PointsAwardedNode', PointsAwardedNode );
-export default PointsAwardedNode;

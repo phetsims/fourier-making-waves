@@ -31,7 +31,7 @@ import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
 
-class DiscreteMeasurementToolNode extends Node {
+export default class DiscreteMeasurementToolNode extends Node {
 
   /**
    * @param {DiscreteMeasurementTool} tool
@@ -168,4 +168,3 @@ class DiscreteMeasurementToolNode extends Node {
 }
 
 fourierMakingWaves.register( 'DiscreteMeasurementToolNode', DiscreteMeasurementToolNode );
-export default DiscreteMeasurementToolNode;

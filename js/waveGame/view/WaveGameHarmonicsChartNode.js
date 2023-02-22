@@ -11,7 +11,7 @@
 import HarmonicsChartNode from '../../common/view/HarmonicsChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class WaveGameHarmonicsChartNode extends HarmonicsChartNode {
+export default class WaveGameHarmonicsChartNode extends HarmonicsChartNode {
 
   /**
    * @param {WaveGameHarmonicsChart} harmonicsChart
@@ -23,4 +23,3 @@ class WaveGameHarmonicsChartNode extends HarmonicsChartNode {
 }
 
 fourierMakingWaves.register( 'WaveGameHarmonicsChartNode', WaveGameHarmonicsChartNode );
-export default WaveGameHarmonicsChartNode;

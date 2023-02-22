@@ -17,7 +17,7 @@ import DomainChart from './DomainChart.js';
 import EmphasizedHarmonics from './EmphasizedHarmonics.js';
 import FourierSeries from './FourierSeries.js';
 
-class HarmonicsChart extends DomainChart {
+export default class HarmonicsChart extends DomainChart {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -76,4 +76,3 @@ class HarmonicsChart extends DomainChart {
 }
 
 fourierMakingWaves.register( 'HarmonicsChart', HarmonicsChart );
-export default HarmonicsChart;

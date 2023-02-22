@@ -42,7 +42,7 @@ import PeriodCalipersNode from './PeriodCalipersNode.js';
 import PeriodClockNode from './PeriodClockNode.js';
 import WavelengthCalipersNode from './WavelengthCalipersNode.js';
 
-class DiscreteScreenView extends ScreenView {
+export default class DiscreteScreenView extends ScreenView {
 
   /**
    * @param {DiscreteModel} model
@@ -476,4 +476,3 @@ class DiscreteScreenView extends ScreenView {
 }
 
 fourierMakingWaves.register( 'DiscreteScreenView', DiscreteScreenView );
-export default DiscreteScreenView;

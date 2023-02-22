@@ -13,7 +13,7 @@ import eyeSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSolidShape.js'
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class ExpandedFormButton extends RoundPushButton {
+export default class ExpandedFormButton extends RoundPushButton {
 
   /**
    * @param {Object} [options]
@@ -43,4 +43,3 @@ class ExpandedFormButton extends RoundPushButton {
 }
 
 fourierMakingWaves.register( 'ExpandedFormButton', ExpandedFormButton );
-export default ExpandedFormButton;

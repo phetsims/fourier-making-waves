@@ -14,7 +14,7 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class AmplitudesGenerator {
+export default class AmplitudesGenerator {
 
   /**
    * @param {Object} [options]
@@ -144,4 +144,3 @@ function generateRandomAmplitudes( numberOfAmplitudes, numberOfNonZeroHarmonics,
 }
 
 fourierMakingWaves.register( 'AmplitudesGenerator', AmplitudesGenerator );
-export default AmplitudesGenerator;

@@ -22,7 +22,7 @@ import EquationMarkup from '../../common/view/EquationMarkup.js';
 import SumSymbolNode from '../../common/view/SumSymbolNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class WavePacketSumEquationNode extends Node {
+export default class WavePacketSumEquationNode extends Node {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -116,4 +116,3 @@ class WavePacketSumEquationNode extends Node {
 }
 
 fourierMakingWaves.register( 'WavePacketSumEquationNode', WavePacketSumEquationNode );
-export default WavePacketSumEquationNode;

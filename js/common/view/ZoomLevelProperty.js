@@ -17,7 +17,7 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from '../model/AxisDescription.js';
 
-class ZoomLevelProperty extends NumberProperty {
+export default class ZoomLevelProperty extends NumberProperty {
 
   /**
    * @param {Property.<AxisDescription>} axisDescriptionProperty
@@ -54,4 +54,3 @@ class ZoomLevelProperty extends NumberProperty {
 }
 
 fourierMakingWaves.register( 'ZoomLevelProperty', ZoomLevelProperty );
-export default ZoomLevelProperty;

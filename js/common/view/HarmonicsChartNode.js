@@ -22,7 +22,7 @@ const EMPHASIZED_LINE_WIDTH = 2;
 const DE_EMPHASIZED_LINE_WIDTH = 0.5;
 const DE_EMPHASIZED_STROKE = Color.grayColor( 150 );
 
-class HarmonicsChartNode extends DomainChartNode {
+export default class HarmonicsChartNode extends DomainChartNode {
 
   /**
    * @param {HarmonicsChart} harmonicsChart
@@ -97,4 +97,3 @@ class HarmonicsChartNode extends DomainChartNode {
 }
 
 fourierMakingWaves.register( 'HarmonicsChartNode', HarmonicsChartNode );
-export default HarmonicsChartNode;

@@ -27,7 +27,7 @@ import WavePacket from './WavePacket.js';
 const POINTS_PER_DATA_SET = FMWConstants.MAX_POINTS_PER_DATA_SET;
 const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 
-class WavePacketComponentsChart extends DomainChart {
+export default class WavePacketComponentsChart extends DomainChart {
 
   /**
    * @param {WavePacket} wavePacket
@@ -101,4 +101,3 @@ class WavePacketComponentsChart extends DomainChart {
 }
 
 fourierMakingWaves.register( 'WavePacketComponentsChart', WavePacketComponentsChart );
-export default WavePacketComponentsChart;

@@ -13,7 +13,7 @@ import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/h
 import MeasurementToolsKeyboardHelpSection from '../../common/view/MeasurementToolsKeyboardHelpSection.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class WavePacketKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
+export default class WavePacketKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
   /**
    * @param {Object} [options]
@@ -42,4 +42,3 @@ class WavePacketKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 }
 
 fourierMakingWaves.register( 'WavePacketKeyboardHelpContent', WavePacketKeyboardHelpContent );
-export default WavePacketKeyboardHelpContent;

@@ -18,7 +18,7 @@ import SeriesType from './SeriesType.js';
  * @returns {function(x:number, t:number, L:number, T:number, order:number, amplitude:number):number}
  * @public
  */
-function getAmplitudeFunction( domain, seriesType ) {
+export default function getAmplitudeFunction( domain, seriesType ) {
 
   assert && assert( Domain.enumeration.includes( domain ) );
   assert && assert( SeriesType.enumeration.includes( seriesType ) );
@@ -82,4 +82,3 @@ function getAmplitudeSpaceAndTimeCosine( A, n, x, t, L, T ) {
 }
 
 fourierMakingWaves.register( 'getAmplitudeFunction', getAmplitudeFunction );
-export default getAmplitudeFunction;

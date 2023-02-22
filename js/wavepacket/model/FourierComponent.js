@@ -18,7 +18,7 @@ import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class FourierComponent {
+export default class FourierComponent {
 
   /**
    * @param {number} waveNumber - k is spatial wave number in rad/m, omega is angular wave number in rad/ms
@@ -52,4 +52,3 @@ FourierComponent.FourierComponentIO = new IOType( 'FourierComponentIO', {
 } );
 
 fourierMakingWaves.register( 'FourierComponent', FourierComponent );
-export default FourierComponent;

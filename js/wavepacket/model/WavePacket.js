@@ -31,7 +31,7 @@ assert && assert(
   'COMPONENT_SPACING_VALUES must be unique and sorted in ascending order'
 );
 
-class WavePacket {
+export default class WavePacket {
 
   /**
    * @param {Object} [options]
@@ -230,4 +230,3 @@ class WavePacket {
 }
 
 fourierMakingWaves.register( 'WavePacket', WavePacket );
-export default WavePacket;

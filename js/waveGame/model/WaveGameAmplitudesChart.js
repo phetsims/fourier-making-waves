@@ -14,7 +14,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import InteractiveAmplitudesChart from '../../common/model/InteractiveAmplitudesChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class WaveGameAmplitudesChart extends InteractiveAmplitudesChart {
+export default class WaveGameAmplitudesChart extends InteractiveAmplitudesChart {
 
   /**
    * @param {FourierSeries} answerSeries
@@ -37,4 +37,3 @@ class WaveGameAmplitudesChart extends InteractiveAmplitudesChart {
 }
 
 fourierMakingWaves.register( 'WaveGameAmplitudesChart', WaveGameAmplitudesChart );
-export default WaveGameAmplitudesChart;

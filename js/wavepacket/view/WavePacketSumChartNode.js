@@ -24,7 +24,7 @@ import WidthIndicatorPlot from './WidthIndicatorPlot.js';
 const X_TICK_LABEL_DECIMALS = 1;
 const Y_TICK_LABEL_DECIMALS = 2;
 
-class WavePacketSumChartNode extends DomainChartNode {
+export default class WavePacketSumChartNode extends DomainChartNode {
 
   /**
    * @param {WavePacketSumChart} sumChart
@@ -140,4 +140,3 @@ class WavePacketSumChartNode extends DomainChartNode {
 }
 
 fourierMakingWaves.register( 'WavePacketSumChartNode', WavePacketSumChartNode );
-export default WavePacketSumChartNode;

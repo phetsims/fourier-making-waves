@@ -15,7 +15,7 @@ import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/h
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
-class WaveGameKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
+export default class WaveGameKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
   /**
    * @param {Object} [options]
@@ -67,4 +67,3 @@ class GameControlsHelpSection extends KeyboardHelpSection {
 }
 
 fourierMakingWaves.register( 'WaveGameKeyboardHelpContent', WaveGameKeyboardHelpContent );
-export default WaveGameKeyboardHelpContent;

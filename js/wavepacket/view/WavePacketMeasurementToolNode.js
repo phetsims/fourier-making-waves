@@ -25,7 +25,7 @@ import Domain from '../../common/model/Domain.js';
 import CalipersNode from '../../common/view/CalipersNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class WavePacketMeasurementToolNode extends Node {
+export default class WavePacketMeasurementToolNode extends Node {
 
   /**
    * @param {ReadOnlyProperty.<number>} property - the Property of the wave packet that we're measuring
@@ -176,4 +176,3 @@ class WavePacketMeasurementToolNode extends Node {
 }
 
 fourierMakingWaves.register( 'WavePacketMeasurementToolNode', WavePacketMeasurementToolNode );
-export default WavePacketMeasurementToolNode;

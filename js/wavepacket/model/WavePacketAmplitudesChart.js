@@ -29,7 +29,7 @@ const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 // AxisDescription for the x-axis contains coefficients of PI, and it's the same for space and time Domains.
 const X_AXIS_MULTIPLIER = Math.PI;
 
-class WavePacketAmplitudesChart extends DomainChart {
+export default class WavePacketAmplitudesChart extends DomainChart {
 
   /**
    * @param {WavePacket} wavePacket
@@ -176,4 +176,3 @@ function createContinuousWaveformDataSet( wavePacket ) {
 }
 
 fourierMakingWaves.register( 'WavePacketAmplitudesChart', WavePacketAmplitudesChart );
-export default WavePacketAmplitudesChart;

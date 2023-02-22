@@ -23,7 +23,7 @@ import Domain from './Domain.js';
 import getAmplitudeFunction from './getAmplitudeFunction.js';
 import SeriesType from './SeriesType.js';
 
-class Harmonic extends PhetioObject {
+export default class Harmonic extends PhetioObject {
 
   /**
    * @param {Object} config
@@ -156,4 +156,3 @@ class Harmonic extends PhetioObject {
 }
 
 fourierMakingWaves.register( 'Harmonic', Harmonic );
-export default Harmonic;

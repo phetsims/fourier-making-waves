@@ -13,7 +13,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class DiscreteMeasurementTool {
+export default class DiscreteMeasurementTool {
 
   /**
    * @param {TReadOnlyProperty.<string>} symbolStringProperty
@@ -81,4 +81,3 @@ class DiscreteMeasurementTool {
 }
 
 fourierMakingWaves.register( 'DiscreteMeasurementTool', DiscreteMeasurementTool );
-export default DiscreteMeasurementTool;

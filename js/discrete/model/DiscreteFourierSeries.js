@@ -16,7 +16,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class DiscreteFourierSeries extends FourierSeries {
+export default class DiscreteFourierSeries extends FourierSeries {
 
   /**
    * @param {Object} [options]
@@ -55,4 +55,3 @@ class DiscreteFourierSeries extends FourierSeries {
 }
 
 fourierMakingWaves.register( 'DiscreteFourierSeries', DiscreteFourierSeries );
-export default DiscreteFourierSeries;

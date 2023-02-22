@@ -16,7 +16,7 @@ import FMWIconFactory from '../../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
-class WidthIndicatorsCheckbox extends Checkbox {
+export default class WidthIndicatorsCheckbox extends Checkbox {
 
   /**
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
@@ -48,4 +48,3 @@ class WidthIndicatorsCheckbox extends Checkbox {
 }
 
 fourierMakingWaves.register( 'WidthIndicatorsCheckbox', WidthIndicatorsCheckbox );
-export default WidthIndicatorsCheckbox;

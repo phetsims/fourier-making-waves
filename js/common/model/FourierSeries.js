@@ -32,7 +32,7 @@ import SeriesType from './SeriesType.js';
 const DEFAULT_AMPLITUDES = Array( FMWConstants.MAX_HARMONICS ).fill( 0 );
 const DEFAULT_AMPLITUDE_RANGE = new Range( -FMWConstants.MAX_AMPLITUDE, FMWConstants.MAX_AMPLITUDE );
 
-class FourierSeries extends PhetioObject {
+export default class FourierSeries extends PhetioObject {
 
   /**
    * @param {Object} [options]
@@ -259,4 +259,3 @@ class FourierSeries extends PhetioObject {
 }
 
 fourierMakingWaves.register( 'FourierSeries', FourierSeries );
-export default FourierSeries;

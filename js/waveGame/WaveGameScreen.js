@@ -17,7 +17,7 @@ import WaveGameModel from './model/WaveGameModel.js';
 import WaveGameKeyboardHelpContent from './view/WaveGameKeyboardHelpContent.js';
 import WaveGameScreenView from './view/WaveGameScreenView.js';
 
-class WaveGameScreen extends Screen {
+export default class WaveGameScreen extends Screen {
 
   /**
    * @param {Object} [options]
@@ -56,4 +56,3 @@ class WaveGameScreen extends Screen {
 }
 
 fourierMakingWaves.register( 'WaveGameScreen', WaveGameScreen );
-export default WaveGameScreen;

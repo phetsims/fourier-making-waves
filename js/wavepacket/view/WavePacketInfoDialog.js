@@ -19,7 +19,7 @@ import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 // constants
 const MAX_WIDTH = 800; // determined empirically
 
-class WavePacketInfoDialog extends Dialog {
+export default class WavePacketInfoDialog extends Dialog {
 
   /**
    * @param {Object} [options]
@@ -88,4 +88,3 @@ class WavePacketInfoDialog extends Dialog {
 }
 
 fourierMakingWaves.register( 'WavePacketInfoDialog', WavePacketInfoDialog );
-export default WavePacketInfoDialog;

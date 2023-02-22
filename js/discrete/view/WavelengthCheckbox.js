@@ -15,7 +15,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
-class WavelengthCheckbox extends Checkbox {
+export default class WavelengthCheckbox extends Checkbox {
 
   /**
    * @param {Property.<boolean>} isSelectedProperty
@@ -40,4 +40,3 @@ class WavelengthCheckbox extends Checkbox {
 }
 
 fourierMakingWaves.register( 'WavelengthCheckbox', WavelengthCheckbox );
-export default WavelengthCheckbox;

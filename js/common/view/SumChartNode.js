@@ -16,7 +16,7 @@ import FMWColors from '../FMWColors.js';
 import SumChart from '../model/SumChart.js';
 import DomainChartNode from './DomainChartNode.js';
 
-class SumChartNode extends DomainChartNode {
+export default class SumChartNode extends DomainChartNode {
 
   /**
    * @param {SumChart} sumChart
@@ -97,4 +97,3 @@ class SumChartNode extends DomainChartNode {
 }
 
 fourierMakingWaves.register( 'SumChartNode', SumChartNode );
-export default SumChartNode;

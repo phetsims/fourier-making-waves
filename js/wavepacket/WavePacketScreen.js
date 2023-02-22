@@ -17,7 +17,7 @@ import WavePacketModel from './model/WavePacketModel.js';
 import WavePacketKeyboardHelpContent from './view/WavePacketKeyboardHelpContent.js';
 import WavePacketScreenView from './view/WavePacketScreenView.js';
 
-class WavePacketScreen extends Screen {
+export default class WavePacketScreen extends Screen {
 
   /**
    * @param {Object} [options]
@@ -56,4 +56,3 @@ class WavePacketScreen extends Screen {
 }
 
 fourierMakingWaves.register( 'WavePacketScreen', WavePacketScreen );
-export default WavePacketScreen;

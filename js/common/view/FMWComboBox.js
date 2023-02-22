@@ -16,7 +16,7 @@ import ComboBox from '../../../../sun/js/ComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 
-class FMWComboBox extends ComboBox {
+export default class FMWComboBox extends ComboBox {
 
   /**
    * @param {Property} property
@@ -61,4 +61,3 @@ class FMWComboBox extends ComboBox {
 }
 
 fourierMakingWaves.register( 'FMWComboBox', FMWComboBox );
-export default FMWComboBox;

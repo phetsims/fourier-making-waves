@@ -14,7 +14,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import DiscreteCalipersNode from './DiscreteCalipersNode.js';
 
-class PeriodCalipersNode extends DiscreteCalipersNode {
+export default class PeriodCalipersNode extends DiscreteCalipersNode {
 
   /**
    * @param {DiscreteModel} model
@@ -46,4 +46,3 @@ class PeriodCalipersNode extends DiscreteCalipersNode {
 }
 
 fourierMakingWaves.register( 'PeriodCalipersNode', PeriodCalipersNode );
-export default PeriodCalipersNode;

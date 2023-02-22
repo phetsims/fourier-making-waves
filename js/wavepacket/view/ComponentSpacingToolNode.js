@@ -14,7 +14,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketMeasurementToolNode from './WavePacketMeasurementToolNode.js';
 
-class ComponentSpacingToolNode extends WavePacketMeasurementToolNode {
+export default class ComponentSpacingToolNode extends WavePacketMeasurementToolNode {
 
   /**
    * @param {Property.<number>} componentSpacingProperty
@@ -43,4 +43,3 @@ class ComponentSpacingToolNode extends WavePacketMeasurementToolNode {
 }
 
 fourierMakingWaves.register( 'ComponentSpacingToolNode', ComponentSpacingToolNode );
-export default ComponentSpacingToolNode;

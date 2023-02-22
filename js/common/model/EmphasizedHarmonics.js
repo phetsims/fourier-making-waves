@@ -20,7 +20,7 @@ import { Node } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Harmonic from './Harmonic.js';
 
-class EmphasizedHarmonics {
+export default class EmphasizedHarmonics {
 
   constructor() {
 
@@ -118,4 +118,3 @@ class EmphasizedHarmonics {
 }
 
 fourierMakingWaves.register( 'EmphasizedHarmonics', EmphasizedHarmonics );
-export default EmphasizedHarmonics;

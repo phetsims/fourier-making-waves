@@ -17,7 +17,7 @@ import DiscreteModel from './model/DiscreteModel.js';
 import DiscreteKeyboardHelpContent from './view/DiscreteKeyboardHelpContent.js';
 import DiscreteScreenView from './view/DiscreteScreenView.js';
 
-class DiscreteScreen extends Screen {
+export default class DiscreteScreen extends Screen {
 
   /**
    * @param {Object} [options]
@@ -56,4 +56,3 @@ class DiscreteScreen extends Screen {
 }
 
 fourierMakingWaves.register( 'DiscreteScreen', DiscreteScreen );
-export default DiscreteScreen;

@@ -19,7 +19,7 @@ import Domain from '../../common/model/Domain.js';
 import CalipersNode from '../../common/view/CalipersNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class CaliperCheckbox extends Checkbox {
+export default class CaliperCheckbox extends Checkbox {
 
   /**
    * @param {Property.<boolean>} visibleProperty
@@ -60,4 +60,3 @@ class CaliperCheckbox extends Checkbox {
 }
 
 fourierMakingWaves.register( 'CaliperCheckbox', CaliperCheckbox );
-export default CaliperCheckbox;

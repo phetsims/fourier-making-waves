@@ -17,7 +17,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class WavePacketNumberControl extends NumberControl {
+export default class WavePacketNumberControl extends NumberControl {
 
   /**
    * @param {NumberProperty} numberProperty
@@ -70,4 +70,3 @@ class WavePacketNumberControl extends NumberControl {
 }
 
 fourierMakingWaves.register( 'WavePacketNumberControl', WavePacketNumberControl );
-export default WavePacketNumberControl;

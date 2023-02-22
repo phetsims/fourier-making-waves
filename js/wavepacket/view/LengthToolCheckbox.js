@@ -14,7 +14,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import CaliperCheckbox from './CaliperCheckbox.js';
 
-class LengthToolCheckbox extends CaliperCheckbox {
+export default class LengthToolCheckbox extends CaliperCheckbox {
 
   /**
    * @param {Property.<boolean>} visibleProperty
@@ -42,4 +42,3 @@ class LengthToolCheckbox extends CaliperCheckbox {
 }
 
 fourierMakingWaves.register( 'LengthToolCheckbox', LengthToolCheckbox );
-export default LengthToolCheckbox;

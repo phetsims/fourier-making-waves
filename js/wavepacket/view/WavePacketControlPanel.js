@@ -449,4 +449,3 @@ class GraphControlsSubpanel extends VBox {
 }
 
 fourierMakingWaves.register( 'WavePacketControlPanel', WavePacketControlPanel );
-export default WavePacketControlPanel;

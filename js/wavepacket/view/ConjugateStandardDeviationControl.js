@@ -25,7 +25,7 @@ const DELTA = 0.001;
 const DECIMALS = Utils.numberOfDecimalPlaces( DELTA );
 const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 
-class ConjugateStandardDeviationControl extends WavePacketNumberControl {
+export default class ConjugateStandardDeviationControl extends WavePacketNumberControl {
 
   /**
    * @param {NumberProperty} conjugateStandardDeviationProperty
@@ -123,4 +123,3 @@ class ConjugateStandardDeviationControl extends WavePacketNumberControl {
 }
 
 fourierMakingWaves.register( 'ConjugateStandardDeviationControl', ConjugateStandardDeviationControl );
-export default ConjugateStandardDeviationControl;

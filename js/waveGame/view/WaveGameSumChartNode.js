@@ -15,7 +15,7 @@ import SumChartNode from '../../common/view/SumChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameSumChart from '../model/WaveGameSumChart.js';
 
-class WaveGameSumChartNode extends SumChartNode {
+export default class WaveGameSumChartNode extends SumChartNode {
 
   /**
    * @param {WaveGameSumChart} sumChart
@@ -65,4 +65,3 @@ class WaveGameSumChartNode extends SumChartNode {
 }
 
 fourierMakingWaves.register( 'WaveGameSumChartNode', WaveGameSumChartNode );
-export default WaveGameSumChartNode;

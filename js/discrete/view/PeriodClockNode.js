@@ -25,7 +25,7 @@ import DiscreteMeasurementToolNode from './DiscreteMeasurementToolNode.js';
 const BACKGROUND_X_MARGIN = 2;
 const BACKGROUND_Y_MARGIN = 2;
 
-class PeriodClockNode extends DiscreteMeasurementToolNode {
+export default class PeriodClockNode extends DiscreteMeasurementToolNode {
 
   /**
    * @param {DiscreteModel} model
@@ -189,4 +189,3 @@ function createElapsedTimeShape( harmonic, t, radius ) {
 }
 
 fourierMakingWaves.register( 'PeriodClockNode', PeriodClockNode );
-export default PeriodClockNode;

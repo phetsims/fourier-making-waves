@@ -14,7 +14,7 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class HarmonicPlot extends CanvasLinePlot {
+export default class HarmonicPlot extends CanvasLinePlot {
 
   /**
    * @param {ChartTransform} chartTransform
@@ -63,4 +63,3 @@ class HarmonicPlot extends CanvasLinePlot {
 }
 
 fourierMakingWaves.register( 'HarmonicPlot', HarmonicPlot );
-export default HarmonicPlot;

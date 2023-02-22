@@ -15,7 +15,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class InteractiveAmplitudesChart {
+export default class InteractiveAmplitudesChart {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -49,4 +49,3 @@ class InteractiveAmplitudesChart {
 }
 
 fourierMakingWaves.register( 'InteractiveAmplitudesChart', InteractiveAmplitudesChart );
-export default InteractiveAmplitudesChart;

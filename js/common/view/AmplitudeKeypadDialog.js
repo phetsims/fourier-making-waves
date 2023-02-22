@@ -34,7 +34,7 @@ const INVALID_VALUE_FILL = 'red';
 const KEYPAD_DISPLAY_FONT = new PhetFont( 12 );
 const ALIGN_VALUE_VALUES = [ 'left', 'center', 'right' ];
 
-class AmplitudeKeypadDialog extends Dialog {
+export default class AmplitudeKeypadDialog extends Dialog {
 
   /**
    * @param {Range} amplitudeRange
@@ -308,4 +308,3 @@ class KeypadStringDisplay extends Node {
 }
 
 fourierMakingWaves.register( 'AmplitudeKeypadDialog', AmplitudeKeypadDialog );
-export default AmplitudeKeypadDialog;

@@ -11,7 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import HarmonicsChart from '../../common/model/HarmonicsChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class DiscreteHarmonicsChart extends HarmonicsChart {
+export default class DiscreteHarmonicsChart extends HarmonicsChart {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -35,4 +35,3 @@ class DiscreteHarmonicsChart extends HarmonicsChart {
 }
 
 fourierMakingWaves.register( 'DiscreteHarmonicsChart', DiscreteHarmonicsChart );
-export default DiscreteHarmonicsChart;

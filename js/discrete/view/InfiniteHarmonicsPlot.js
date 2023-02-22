@@ -15,7 +15,7 @@ import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class InfiniteHarmonicsPlot extends CanvasLinePlot {
+export default class InfiniteHarmonicsPlot extends CanvasLinePlot {
 
   /**
    * @param {ChartTransform} chartTransform
@@ -57,4 +57,3 @@ class InfiniteHarmonicsPlot extends CanvasLinePlot {
 }
 
 fourierMakingWaves.register( 'InfiniteHarmonicsPlot', InfiniteHarmonicsPlot );
-export default InfiniteHarmonicsPlot;

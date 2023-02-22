@@ -13,7 +13,7 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 
-class DomainChart {
+export default class DomainChart {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty - domain of the x axis
@@ -50,4 +50,3 @@ class DomainChart {
 }
 
 fourierMakingWaves.register( 'DomainChart', DomainChart );
-export default DomainChart;

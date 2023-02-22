@@ -16,7 +16,7 @@ import AxisDescription from './AxisDescription.js';
 import DomainChart from './DomainChart.js';
 import FourierSeries from './FourierSeries.js';
 
-class SumChart extends DomainChart {
+export default class SumChart extends DomainChart {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -77,4 +77,3 @@ class SumChart extends DomainChart {
 }
 
 fourierMakingWaves.register( 'SumChart', SumChart );
-export default SumChart;

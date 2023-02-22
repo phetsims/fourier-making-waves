@@ -25,7 +25,7 @@ const DELTA = Math.PI / 4;
 const DECIMALS = 1;
 const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 
-class CenterControl extends WavePacketNumberControl {
+export default class CenterControl extends WavePacketNumberControl {
 
   /**
    * @param {NumberProperty} centerProperty
@@ -105,4 +105,3 @@ class CenterControl extends WavePacketNumberControl {
 }
 
 fourierMakingWaves.register( 'CenterControl', CenterControl );
-export default CenterControl;

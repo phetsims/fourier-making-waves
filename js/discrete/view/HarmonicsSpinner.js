@@ -13,7 +13,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class HarmonicsSpinner extends NumberSpinner {
+export default class HarmonicsSpinner extends NumberSpinner {
 
   /**
    * @param {NumberProperty} numberOfHarmonicsProperty
@@ -47,4 +47,3 @@ class HarmonicsSpinner extends NumberSpinner {
 }
 
 fourierMakingWaves.register( 'HarmonicsSpinner', HarmonicsSpinner );
-export default HarmonicsSpinner;

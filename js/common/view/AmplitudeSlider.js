@@ -35,7 +35,7 @@ const THUMB_SIZE = new Dimension2( TRACK_WIDTH - 15, 8 ).swapped();
 const THUMB_TOUCH_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
 const THUMB_MOUSE_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
 
-class AmplitudeSlider extends Slider {
+export default class AmplitudeSlider extends Slider {
 
   /**
    * @param {Harmonic} harmonic
@@ -303,4 +303,3 @@ class BarTrack extends SliderTrack {
 }
 
 fourierMakingWaves.register( 'AmplitudeSlider', AmplitudeSlider );
-export default AmplitudeSlider;

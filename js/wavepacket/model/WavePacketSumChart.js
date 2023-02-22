@@ -26,7 +26,7 @@ import WavePacketComponentsChart from './WavePacketComponentsChart.js';
 // constants
 const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 
-class WavePacketSumChart extends DomainChart {
+export default class WavePacketSumChart extends DomainChart {
 
   /**
    * @param {DerivedProperty.<Array.<Array.<Vector2>>>} componentDataSetsProperty
@@ -283,4 +283,3 @@ function createEnvelopeDataSet( dataSet1, dataSet2 ) {
 }
 
 fourierMakingWaves.register( 'WavePacketSumChart', WavePacketSumChart );
-export default WavePacketSumChart;

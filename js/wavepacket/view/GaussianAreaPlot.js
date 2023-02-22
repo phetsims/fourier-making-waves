@@ -18,7 +18,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import { Path } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class GaussianAreaPlot extends Path {
+export default class GaussianAreaPlot extends Path {
 
   /**
    * @param {ChartTransform} chartTransform
@@ -125,4 +125,3 @@ class GaussianAreaPlot extends Path {
 }
 
 fourierMakingWaves.register( 'GaussianAreaPlot', GaussianAreaPlot );
-export default GaussianAreaPlot;

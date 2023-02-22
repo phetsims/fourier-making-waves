@@ -37,7 +37,7 @@ const TIME_SCALE = 0.001;
 // How much to step the simulation when the Step button is pressed, in milliseconds, determined empirically.
 const STEP_DT = 50;
 
-class DiscreteModel {
+export default class DiscreteModel {
 
   /**
    * @param {Object} [options]
@@ -262,4 +262,3 @@ class DiscreteModel {
 }
 
 fourierMakingWaves.register( 'DiscreteModel', DiscreteModel );
-export default DiscreteModel;

@@ -17,7 +17,7 @@ import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import SeriesType from '../model/SeriesType.js';
 
-class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
+export default class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
 
   /**
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
@@ -62,4 +62,3 @@ class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
 }
 
 fourierMakingWaves.register( 'SeriesTypeRadioButtonGroup', SeriesTypeRadioButtonGroup );
-export default SeriesTypeRadioButtonGroup;

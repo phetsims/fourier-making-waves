@@ -24,7 +24,7 @@ import AmplitudeKeypadDialog from './AmplitudeKeypadDialog.js';
 // constants
 const DEFAULT_FONT = new PhetFont( 14 );
 
-class AmplitudeNumberDisplay extends InteractiveHighlighting( VBox ) {
+export default class AmplitudeNumberDisplay extends InteractiveHighlighting( VBox ) {
 
   /**
    * @param {Harmonic} harmonic
@@ -139,4 +139,3 @@ class AmplitudeNumberDisplay extends InteractiveHighlighting( VBox ) {
 }
 
 fourierMakingWaves.register( 'AmplitudeNumberDisplay', AmplitudeNumberDisplay );
-export default AmplitudeNumberDisplay;

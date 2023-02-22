@@ -45,7 +45,7 @@ const t = 0; // lowercase t (time) to distinguish from uppercase T (period)
 // see https://github.com/phetsims/fourier-making-waves/issues/97
 const AMPLITUDE_THRESHOLD = 0;
 
-class WaveGameLevel extends PhetioObject {
+export default class WaveGameLevel extends PhetioObject {
 
   /**
    * @param {number} levelNumber - numbered starting from 1
@@ -289,4 +289,3 @@ WaveGameLevel.WaveGameLevelIO = new IOType( 'WaveGameLevelIO', {
 } );
 
 fourierMakingWaves.register( 'WaveGameLevel', WaveGameLevel );
-export default WaveGameLevel;

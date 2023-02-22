@@ -14,7 +14,7 @@ import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
-class AmplitudeControlsSpinner extends VBox {
+export default class AmplitudeControlsSpinner extends VBox {
 
   /**
    * @param {NumberProperty} numberOfAmplitudeControlsProperty
@@ -70,4 +70,3 @@ class AmplitudeControlsSpinner extends VBox {
 }
 
 fourierMakingWaves.register( 'AmplitudeControlsSpinner', AmplitudeControlsSpinner );
-export default AmplitudeControlsSpinner;

@@ -16,7 +16,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import { Line, Node, Path } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class HorizontalDimensionalArrowsNode extends Node {
+export default class HorizontalDimensionalArrowsNode extends Node {
 
   /**
    * @param {Object} [options]
@@ -111,4 +111,3 @@ class HorizontalDimensionalArrowsNode extends Node {
 }
 
 fourierMakingWaves.register( 'HorizontalDimensionalArrowsNode', HorizontalDimensionalArrowsNode );
-export default HorizontalDimensionalArrowsNode;

@@ -20,7 +20,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 // See https://github.com/phetsims/fourier-making-waves/issues/45
 const HARMONIC_OUTPUT_LEVEL_RANGE = new Range( -1 / FMWConstants.MAX_HARMONICS, 1 / FMWConstants.MAX_HARMONICS );
 
-class FourierSoundGenerator extends SoundGenerator {
+export default class FourierSoundGenerator extends SoundGenerator {
 
   /**
    * @param {FourierSeries} fourierSeries
@@ -112,4 +112,3 @@ class FourierSoundGenerator extends SoundGenerator {
 }
 
 fourierMakingWaves.register( 'FourierSoundGenerator', FourierSoundGenerator );
-export default FourierSoundGenerator;

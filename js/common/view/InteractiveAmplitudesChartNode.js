@@ -37,7 +37,7 @@ const X_MARGIN = 0.5; // x-axis margins, in model coordinates
 const Y_TICK_SPACING = 0.5; // spacing of y-axis tick marks, in model coordinates
 const Y_TICK_LABEL_DECIMAL_PLACES = 1;
 
-class InteractiveAmplitudesChartNode extends Node {
+export default class InteractiveAmplitudesChartNode extends Node {
 
   /**
    * @param {InteractiveAmplitudesChart} amplitudesChart
@@ -193,4 +193,3 @@ class InteractiveAmplitudesChartNode extends Node {
 }
 
 fourierMakingWaves.register( 'InteractiveAmplitudesChartNode', InteractiveAmplitudesChartNode );
-export default InteractiveAmplitudesChartNode;

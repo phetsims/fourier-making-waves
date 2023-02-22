@@ -24,7 +24,7 @@ const DEFAULT_MIN_MAX_FONT = new PhetFont( 12 );
 
 // This extends Node instead of VBox so that the origin will be at the origin of symbolNode, useful for
 // layout with other text.
-class SumSymbolNode extends Node {
+export default class SumSymbolNode extends Node {
 
   /**
    * @param {TReadOnlyProperty.<string>} indexSymbolProperty - symbol for the index of summation
@@ -148,4 +148,3 @@ function indexToString( index ) {
 }
 
 fourierMakingWaves.register( 'SumSymbolNode', SumSymbolNode );
-export default SumSymbolNode;

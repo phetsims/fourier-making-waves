@@ -33,7 +33,7 @@ import WavePacketLengthToolNode from './WavePacketLengthToolNode.js';
 import WavePacketSumChartNode from './WavePacketSumChartNode.js';
 import WavePacketSumEquationNode from './WavePacketSumEquationNode.js';
 
-class WavePacketScreenView extends ScreenView {
+export default class WavePacketScreenView extends ScreenView {
 
   /**
    * @param {WavePacketModel} model
@@ -405,4 +405,3 @@ class WavePacketScreenView extends ScreenView {
 }
 
 fourierMakingWaves.register( 'WavePacketScreenView', WavePacketScreenView );
-export default WavePacketScreenView;

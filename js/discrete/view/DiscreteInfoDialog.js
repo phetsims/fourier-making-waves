@@ -19,7 +19,7 @@ import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 // constants
 const MAX_WIDTH = 800; // determined empirically
 
-class DiscreteInfoDialog extends Dialog {
+export default class DiscreteInfoDialog extends Dialog {
 
   /**
    * @param {Object} [options]
@@ -91,4 +91,3 @@ class DiscreteInfoDialog extends Dialog {
 }
 
 fourierMakingWaves.register( 'DiscreteInfoDialog', DiscreteInfoDialog );
-export default DiscreteInfoDialog;

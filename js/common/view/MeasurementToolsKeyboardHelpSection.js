@@ -15,7 +15,7 @@ import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/Ke
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
-class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSection {
+export default class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSection {
 
   /**
    * @param {Object} [options]
@@ -40,4 +40,3 @@ class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSection {
 }
 
 fourierMakingWaves.register( 'MeasurementToolsKeyboardHelpSection', MeasurementToolsKeyboardHelpSection );
-export default MeasurementToolsKeyboardHelpSection;

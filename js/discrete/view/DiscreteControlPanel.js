@@ -42,7 +42,7 @@ import PeriodCheckbox from './PeriodCheckbox.js';
 import WaveformComboBox from './WaveformComboBox.js';
 import WavelengthCheckbox from './WavelengthCheckbox.js';
 
-class DiscreteControlPanel extends Panel {
+export default class DiscreteControlPanel extends Panel {
 
   /**
    * @param {DiscreteModel} model
@@ -540,4 +540,3 @@ class SoundBox extends HBox {
 }
 
 fourierMakingWaves.register( 'DiscreteControlPanel', DiscreteControlPanel );
-export default DiscreteControlPanel;

@@ -28,7 +28,7 @@ const TRANSITION_OPTIONS = {
   }
 };
 
-class WaveGameScreenView extends ScreenView {
+export default class WaveGameScreenView extends ScreenView {
 
   /**
    * @param {WaveGameModel} model
@@ -156,4 +156,3 @@ class WaveGameScreenView extends ScreenView {
 }
 
 fourierMakingWaves.register( 'WaveGameScreenView', WaveGameScreenView );
-export default WaveGameScreenView;

@@ -330,4 +330,3 @@ Waveform.CUSTOM = new Waveform( {
 } );
 
 fourierMakingWaves.register( 'Waveform', Waveform );
-export default Waveform;

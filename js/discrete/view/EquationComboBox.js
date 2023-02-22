@@ -91,7 +91,7 @@ assert && assert( _.every( CHOICES, choice => EquationForm.enumeration.includes(
 assert && assert( _.every( CHOICES, choice => choice.tandemName ) );
 
 
-class EquationComboBox extends FMWComboBox {
+export default class EquationComboBox extends FMWComboBox {
 
   /**
    * @param {EnumerationProperty.<EquationForm>} equationFormProperty
@@ -150,4 +150,3 @@ class EquationComboBox extends FMWComboBox {
 }
 
 fourierMakingWaves.register( 'EquationComboBox', EquationComboBox );
-export default EquationComboBox;

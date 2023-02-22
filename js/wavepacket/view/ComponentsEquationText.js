@@ -14,7 +14,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class ComponentsEquationText extends RichText {
+export default class ComponentsEquationText extends RichText {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -50,4 +50,3 @@ class ComponentsEquationText extends RichText {
 }
 
 fourierMakingWaves.register( 'ComponentsEquationText', ComponentsEquationText );
-export default ComponentsEquationText;

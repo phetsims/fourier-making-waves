@@ -14,7 +14,7 @@ import FMWConstants from '../../common/FMWConstants.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class HarmonicsEquationNode extends Node {
+export default class HarmonicsEquationNode extends Node {
 
   /**
    * @param {EnumerationProperty.<Domain>} domainProperty
@@ -61,4 +61,3 @@ class HarmonicsEquationNode extends Node {
 }
 
 fourierMakingWaves.register( 'HarmonicsEquationNode', HarmonicsEquationNode );
-export default HarmonicsEquationNode;

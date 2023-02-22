@@ -22,7 +22,7 @@ import WaveGameLevel from '../model/WaveGameLevel.js';
 import WaveGameInfoDialog from './WaveGameInfoDialog.js';
 import WaveGameLevelSelectionButtonGroup from './WaveGameLevelSelectionButtonGroup.js';
 
-class WaveGameLevelSelectionNode extends Node {
+export default class WaveGameLevelSelectionNode extends Node {
 
   /**
    * @param {WaveGameModel} model
@@ -118,4 +118,3 @@ class WaveGameLevelSelectionNode extends Node {
 }
 
 fourierMakingWaves.register( 'WaveGameLevelSelectionNode', WaveGameLevelSelectionNode );
-export default WaveGameLevelSelectionNode;

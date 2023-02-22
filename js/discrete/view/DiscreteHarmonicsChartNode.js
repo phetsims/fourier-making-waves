@@ -19,7 +19,7 @@ import DiscreteHarmonicsChart from '../model/DiscreteHarmonicsChart.js';
 const X_TICK_LABEL_DECIMALS = 2;
 const Y_TICK_LABEL_DECIMALS = 1;
 
-class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
+export default class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
 
   /**
    * @param {DiscreteHarmonicsChart} harmonicsChart
@@ -60,4 +60,3 @@ class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
 }
 
 fourierMakingWaves.register( 'DiscreteHarmonicsChartNode', DiscreteHarmonicsChartNode );
-export default DiscreteHarmonicsChartNode;

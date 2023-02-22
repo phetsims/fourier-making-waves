@@ -14,7 +14,7 @@ import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class SecondaryWaveformCheckbox extends Checkbox {
+export default class SecondaryWaveformCheckbox extends Checkbox {
 
   /**
    * @param {Property.<boolean>} visibleProperty
@@ -51,4 +51,3 @@ class SecondaryWaveformCheckbox extends Checkbox {
 }
 
 fourierMakingWaves.register( 'SecondaryWaveformCheckbox', SecondaryWaveformCheckbox );
-export default SecondaryWaveformCheckbox;

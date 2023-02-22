@@ -14,7 +14,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketMeasurementToolNode from './WavePacketMeasurementToolNode.js';
 
-class WavePacketLengthToolNode extends WavePacketMeasurementToolNode {
+export default class WavePacketLengthToolNode extends WavePacketMeasurementToolNode {
 
   /**
    * @param {Property.<number>} lengthProperty
@@ -43,4 +43,3 @@ class WavePacketLengthToolNode extends WavePacketMeasurementToolNode {
 }
 
 fourierMakingWaves.register( 'WavePacketLengthToolNode', WavePacketLengthToolNode );
-export default WavePacketLengthToolNode;

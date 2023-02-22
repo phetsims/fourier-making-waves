@@ -26,7 +26,7 @@ import DiscreteSumEquationNode from './DiscreteSumEquationNode.js';
 const TERMS_PER_LINE = 3;
 const MAX_WIDTH = 800; // determined empirically
 
-class ExpandedFormDialog extends Dialog {
+export default class ExpandedFormDialog extends Dialog {
 
   /**
    * @param {DiscreteFourierSeries} fourierSeries
@@ -126,4 +126,3 @@ class ExpandedFormDialog extends Dialog {
 }
 
 fourierMakingWaves.register( 'ExpandedFormDialog', ExpandedFormDialog );
-export default ExpandedFormDialog;

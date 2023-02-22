@@ -11,7 +11,7 @@ import InteractiveAmplitudesChartNode from '../../common/view/InteractiveAmplitu
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteAmplitudesChart from '../model/DiscreteAmplitudesChart.js';
 
-class DiscreteAmplitudesChartNode extends InteractiveAmplitudesChartNode {
+export default class DiscreteAmplitudesChartNode extends InteractiveAmplitudesChartNode {
 
   /**
    * @param {DiscreteAmplitudesChart} amplitudesChart
@@ -40,4 +40,3 @@ class DiscreteAmplitudesChartNode extends InteractiveAmplitudesChartNode {
 }
 
 fourierMakingWaves.register( 'DiscreteAmplitudesChartNode', DiscreteAmplitudesChartNode );
-export default DiscreteAmplitudesChartNode;

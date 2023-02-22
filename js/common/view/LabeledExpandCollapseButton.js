@@ -13,7 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 
-class LabeledExpandCollapseButton extends HBox {
+export default class LabeledExpandCollapseButton extends HBox {
 
   /**
    * @param {TReadOnlyProperty.<string>} labelStringProperty
@@ -66,4 +66,3 @@ class LabeledExpandCollapseButton extends HBox {
 }
 
 fourierMakingWaves.register( 'LabeledExpandCollapseButton', LabeledExpandCollapseButton );
-export default LabeledExpandCollapseButton;

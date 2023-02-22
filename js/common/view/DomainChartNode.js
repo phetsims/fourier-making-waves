@@ -48,7 +48,7 @@ const DEFAULT_X_TIME_LABEL_PROPERTY = new PatternStringProperty( FourierMakingWa
 } );
 const DEFAULT_EDGE = 'min';
 
-class DomainChartNode extends Node {
+export default class DomainChartNode extends Node {
 
   /**
    * @param {DomainChart} chart
@@ -285,4 +285,3 @@ class DomainChartNode extends Node {
 }
 
 fourierMakingWaves.register( 'DomainChartNode', DomainChartNode );
-export default DomainChartNode;

@@ -17,7 +17,7 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from './Domain.js';
 
-class AxisDescription {
+export default class AxisDescription {
 
   /**
    * @param {Object} config - See doc of fields below. All values are in model coordinates, with units specific to the
@@ -110,4 +110,3 @@ class AxisDescription {
 }
 
 fourierMakingWaves.register( 'AxisDescription', AxisDescription );
-export default AxisDescription;

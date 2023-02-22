@@ -15,7 +15,7 @@ import InteractiveAmplitudesChartNode from '../../common/view/InteractiveAmplitu
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameAmplitudesChart from '../model/WaveGameAmplitudesChart.js';
 
-class WaveGameAmplitudesChartNode extends InteractiveAmplitudesChartNode {
+export default class WaveGameAmplitudesChartNode extends InteractiveAmplitudesChartNode {
 
   /**
    * @param {WaveGameAmplitudesChart} amplitudesChart
@@ -118,4 +118,3 @@ class WaveGameAmplitudesChartNode extends InteractiveAmplitudesChartNode {
 }
 
 fourierMakingWaves.register( 'WaveGameAmplitudesChartNode', WaveGameAmplitudesChartNode );
-export default WaveGameAmplitudesChartNode;

@@ -10,7 +10,7 @@ import SecondaryWaveformCheckbox from '../../common/view/SecondaryWaveformCheckb
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
-class InfiniteHarmonicsCheckbox extends SecondaryWaveformCheckbox {
+export default class InfiniteHarmonicsCheckbox extends SecondaryWaveformCheckbox {
 
   /**
    * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
@@ -22,4 +22,3 @@ class InfiniteHarmonicsCheckbox extends SecondaryWaveformCheckbox {
 }
 
 fourierMakingWaves.register( 'InfiniteHarmonicsCheckbox', InfiniteHarmonicsCheckbox );
-export default InfiniteHarmonicsCheckbox;

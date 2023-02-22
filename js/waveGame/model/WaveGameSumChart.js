@@ -18,7 +18,7 @@ import AxisDescription from '../../common/model/AxisDescription.js';
 import SumChart from '../../common/model/SumChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class WaveGameSumChart extends SumChart {
+export default class WaveGameSumChart extends SumChart {
 
   /**
    * @param {FourierSeries} answerSeries
@@ -73,4 +73,3 @@ class WaveGameSumChart extends SumChart {
 }
 
 fourierMakingWaves.register( 'WaveGameSumChart', WaveGameSumChart );
-export default WaveGameSumChart;

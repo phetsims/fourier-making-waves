@@ -22,7 +22,7 @@ const NODES = [
   new StarNode()
 ];
 
-class WaveGameRewardNode extends RewardNode {
+export default class WaveGameRewardNode extends RewardNode {
 
   /**
    * @param {Object} [options]
@@ -39,4 +39,3 @@ class WaveGameRewardNode extends RewardNode {
 }
 
 fourierMakingWaves.register( 'WaveGameRewardNode', WaveGameRewardNode );
-export default WaveGameRewardNode;

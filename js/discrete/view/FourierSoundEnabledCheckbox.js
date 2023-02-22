@@ -13,7 +13,7 @@ import Checkbox from '../../../../sun/js/Checkbox.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class FourierSoundEnabledCheckbox extends Checkbox {
+export default class FourierSoundEnabledCheckbox extends Checkbox {
 
   /**
    * @param {Property.<boolean>} soundEnabledProperty
@@ -34,4 +34,3 @@ class FourierSoundEnabledCheckbox extends Checkbox {
 }
 
 fourierMakingWaves.register( 'FourierSoundEnabledCheckbox', FourierSoundEnabledCheckbox );
-export default FourierSoundEnabledCheckbox;

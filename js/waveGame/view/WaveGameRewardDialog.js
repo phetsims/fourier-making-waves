@@ -14,7 +14,7 @@ import RewardDialog from '../../../../vegas/js/RewardDialog.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameRewardNode from './WaveGameRewardNode.js';
 
-class WaveGameRewardDialog extends RewardDialog {
+export default class WaveGameRewardDialog extends RewardDialog {
 
   /**
    * @param {Property.<null|WaveGameLevel>} levelProperty
@@ -60,4 +60,3 @@ class WaveGameRewardDialog extends RewardDialog {
 }
 
 fourierMakingWaves.register( 'WaveGameRewardDialog', WaveGameRewardDialog );
-export default WaveGameRewardDialog;

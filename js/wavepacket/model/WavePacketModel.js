@@ -20,7 +20,7 @@ import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
 import WavePacketComponentsChart from './WavePacketComponentsChart.js';
 import WavePacketSumChart from './WavePacketSumChart.js';
 
-class WavePacketModel {
+export default class WavePacketModel {
 
   /**
    * @param {Object} [options]
@@ -115,4 +115,3 @@ class WavePacketModel {
 }
 
 fourierMakingWaves.register( 'WavePacketModel', WavePacketModel );
-export default WavePacketModel;

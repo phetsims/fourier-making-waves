@@ -13,7 +13,7 @@ import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
-class OrderSpinner extends NumberSpinner {
+export default class OrderSpinner extends NumberSpinner {
 
   /**
    * @param {TReadOnlyProperty.<string>} symbolStringProperty - order is displayed as the subscript of this symbol
@@ -50,4 +50,3 @@ class OrderSpinner extends NumberSpinner {
 }
 
 fourierMakingWaves.register( 'OrderSpinner', OrderSpinner );
-export default OrderSpinner;

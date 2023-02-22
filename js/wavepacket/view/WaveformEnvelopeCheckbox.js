@@ -10,7 +10,7 @@ import SecondaryWaveformCheckbox from '../../common/view/SecondaryWaveformCheckb
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
-class WaveformEnvelopeCheckbox extends SecondaryWaveformCheckbox {
+export default class WaveformEnvelopeCheckbox extends SecondaryWaveformCheckbox {
 
   /**
    * @param {Property.<boolean>} waveformEnvelopeVisibleProperty
@@ -22,4 +22,3 @@ class WaveformEnvelopeCheckbox extends SecondaryWaveformCheckbox {
 }
 
 fourierMakingWaves.register( 'WaveformEnvelopeCheckbox', WaveformEnvelopeCheckbox );
-export default WaveformEnvelopeCheckbox;

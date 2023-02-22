@@ -21,7 +21,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 // To improve readability of markup creation. Each of these is a string than may also include markup.
 const EQUAL_TO = MathSymbols.EQUAL_TO;
 
-class DiscreteSumEquationNode extends Node {
+export default class DiscreteSumEquationNode extends Node {
 
   /**
    * @param {NumberProperty} numberOfHarmonicsProperty
@@ -97,4 +97,3 @@ class DiscreteSumEquationNode extends Node {
 }
 
 fourierMakingWaves.register( 'DiscreteSumEquationNode', DiscreteSumEquationNode );
-export default DiscreteSumEquationNode;
