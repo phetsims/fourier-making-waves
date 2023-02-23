@@ -1,4 +1,4 @@
-// Copyright 2020-2022, University of Colorado Boulder
+// Copyright 2020-2023, University of Colorado Boulder
 
 /**
  * AxisDescription is a data structure used to describe the range, grid lines, and ticks for an axis.

@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2021-2023, University of Colorado Boulder
 
 /**
  * SumChart is the model base class for the 'Sum' chart in the 'Discrete' and 'Wave Game' screens.

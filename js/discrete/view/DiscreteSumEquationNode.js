@@ -1,4 +1,4 @@
-// Copyright 2020-2022, University of Colorado Boulder
+// Copyright 2020-2023, University of Colorado Boulder
 
 /**
  * DiscreteSumEquationNode is the equation that appears above the 'Sum' chart in the 'Discrete' screen.

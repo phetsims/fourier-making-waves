@@ -1,4 +1,4 @@
-// Copyright 2020-2022, University of Colorado Boulder
+// Copyright 2020-2023, University of Colorado Boulder
 
 /**
  * DomainComboBox is the combo box for choosing a Domain in the 'Discrete' screen.

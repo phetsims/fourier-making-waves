@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2023, University of Colorado Boulder
 
 /**
  * DiscreteFourierSeries is a specialization of FourierSeries that determines how many of the harmonics are 'relevant'.

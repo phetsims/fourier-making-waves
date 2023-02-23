@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2023, University of Colorado Boulder
 
 /**
  * WaveGameRewardNode is the reward that's shown behind the RewardDialog when the user reaches the score

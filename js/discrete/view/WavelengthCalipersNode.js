@@ -1,4 +1,4 @@
-// Copyright 2020-2021, University of Colorado Boulder
+// Copyright 2020-2023, University of Colorado Boulder
 
 /**
  * WavelengthCalipersNode is the tool used to measure a harmonic's wavelength in the 'space' and 'space & time' Domains.
