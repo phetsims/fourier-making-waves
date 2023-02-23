@@ -110,7 +110,7 @@ assert && assert( isOrderedByAscendingX( INFINITE_HARMONICS_BASE_POINTS.TRIANGLE
 assert && assert( isOrderedByAscendingX( INFINITE_HARMONICS_BASE_POINTS.SQUARE ) );
 assert && assert( isOrderedByAscendingX( INFINITE_HARMONICS_BASE_POINTS.SAWTOOTH ) );
 
-class Waveform extends PhetioObject {
+export default class Waveform extends PhetioObject {
 
   /**
    * @param {Object} config

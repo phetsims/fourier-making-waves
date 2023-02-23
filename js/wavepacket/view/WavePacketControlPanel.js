@@ -33,7 +33,7 @@ import WidthIndicatorsCheckbox from './WidthIndicatorsCheckbox.js';
 // constants
 const VERTICAL_SPACING = 7;
 
-class WavePacketControlPanel extends Panel {
+export default class WavePacketControlPanel extends Panel {
 
   /**
    * @param {WavePacketModel} model
