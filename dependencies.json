@@ -1,5 +1,5 @@
 {
-  "comment": "# fourier-making-waves 1.0.12-rc.1 Thu Feb 23 2023 18:38:40 GMT-0700 (Mountain Standard Time)",
+  "comment": "# fourier-making-waves 1.0.12 Fri Feb 24 2023 18:29:45 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "767b2f345518ceca5144a152ecf40cd4f9206136",
     "branch": "HEAD"
@@ -25,7 +25,7 @@
     "branch": "HEAD"
   },
   "fourier-making-waves": {
-    "sha": "70c9d0d401408a992ba5f10e6c49f6e2668fa4e5",
+    "sha": "997f51d0ef3486d00df7f2631e0a226e0f0f55e4",
     "branch": "1.0"
   },
   "joist": {
