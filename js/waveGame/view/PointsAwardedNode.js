@@ -56,7 +56,7 @@ export default class PointsAwardedNode extends HBox {
    */
   setPoints( points ) {
     assert && AssertUtils.assertPositiveInteger( points );
-    this.pointsNode.text = `+${points}`;
+    this.pointsNode.string = `+${points}`;
   }
 }
 

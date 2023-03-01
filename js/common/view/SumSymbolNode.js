@@ -93,7 +93,7 @@ export default class SumSymbolNode extends Node {
           symbolNode.string = FMWSymbols.SIGMA;
           minValueNode.string = indexToString( indexMin );
         }
-        maxValueNode.text = indexToString( indexMax );
+        maxValueNode.string = indexToString( indexMax );
 
         // update layout
         // WARNING - magic numbers herein were arrived at empirically, tuned because RichText bounds are inaccurate
