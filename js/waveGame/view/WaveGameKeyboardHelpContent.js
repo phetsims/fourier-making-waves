@@ -12,6 +12,7 @@ import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/Keybo
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
+import SceneryPhetStrings from '../../../../scenery-phet/js/SceneryPhetStrings.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
@@ -54,7 +55,7 @@ class GameControlsHelpSection extends KeyboardHelpSection {
     // Alt+C
     const checkAnswerRow = KeyboardHelpSectionRow.createGlobalHotkeyRow(
       FourierMakingWavesStrings.keyboardHelpDialog.checkYourAnswerStringProperty,
-      'C' );
+      SceneryPhetStrings.key.cStringProperty );
 
     super( FourierMakingWavesStrings.keyboardHelpDialog.gameControlsStringProperty, [ checkAnswerRow ], options );
   }
