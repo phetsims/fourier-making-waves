@@ -56,7 +56,7 @@ export default class WavePacketNumberControl extends NumberControl {
     }
 
     // @public {DerivedProperty.<boolean>} Whether the user is interacting with this control.
-    // This is used to ensure ensure that some controls are mutually exclusive. For example,
+    // This is used to ensure that some controls are mutually exclusive. For example,
     // StandardDeviationControl and ConjugateStandardDeviationControl cannot be used at the same time.
     this.isPressedProperty = new DerivedProperty(
       [ this.slider.thumbDragListener.isPressedProperty, this.slider.trackDragListener.isPressedProperty ],
