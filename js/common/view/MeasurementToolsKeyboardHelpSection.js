@@ -23,19 +23,32 @@ export default class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSec
   constructor( options ) {
 
     // arrows or WASD
+    const arrowOrWASDKeysRowIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
     const normalRow = KeyboardHelpSectionRow.labelWithIcon(
       FourierMakingWavesStrings.keyboardHelpDialog.moveToolStringProperty,
-      KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon() );
+      arrowOrWASDKeysRowIcon );
 
     // Shift+arrows or Shift+WASD
+    const arrowKeysIcon = KeyboardHelpIconFactory.arrowKeysRowIcon();
+    const wasdKeysIcon = KeyboardHelpIconFactory.wasdRowIcon();
+    const shiftPlusArrowsIcon = KeyboardHelpIconFactory.shiftPlusIcon( arrowKeysIcon );
+    const shiftPlusWASDsIcon = KeyboardHelpIconFactory.shiftPlusIcon( wasdKeysIcon );
     const slowerRow = KeyboardHelpSectionRow.labelWithIconList(
       FourierMakingWavesStrings.keyboardHelpDialog.moveToolSlowerStringProperty,
       [
-        KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() ),
-        KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() )
+        shiftPlusArrowsIcon,
+        shiftPlusWASDsIcon
       ] );
 
     super( FourierMakingWavesStrings.keyboardHelpDialog.measurementToolsStringProperty, [ normalRow, slowerRow ], options );
+
+    this.disposeEmitter.addListener( () => {
+      shiftPlusArrowsIcon.dispose();
+      shiftPlusWASDsIcon.dispose();
+      arrowKeysIcon.dispose();
+      wasdKeysIcon.dispose();
+      arrowOrWASDKeysRowIcon.dispose();
+    } );
   }
 }
 
