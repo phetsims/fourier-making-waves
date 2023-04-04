@@ -43,6 +43,8 @@ export default class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSec
     super( FourierMakingWavesStrings.keyboardHelpDialog.measurementToolsStringProperty, [ normalRow, slowerRow ], options );
 
     this.disposeEmitter.addListener( () => {
+      normalRow.dispose();
+      slowerRow.dispose();
       shiftPlusArrowsIcon.dispose();
       shiftPlusWASDsIcon.dispose();
       arrowKeysIcon.dispose();
