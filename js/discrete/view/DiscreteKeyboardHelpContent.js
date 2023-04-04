@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
@@ -15,28 +14,30 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class DiscreteKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  constructor() {
 
-    options = merge( {
-      textMaxWidth: 250,
-      generalSectionOptions: {
+    const leftSections = [
+      new MeasurementToolsKeyboardHelpSection(),
+      new SliderControlsKeyboardHelpSection()
+    ];
+
+    const rightSections = [
+      new BasicActionsKeyboardHelpSection( {
         withCheckboxContent: true
-      }
-    }, options );
+      } )
+    ];
 
-    const measurementToolsHelpSection = new MeasurementToolsKeyboardHelpSection();
-    const sliderHelpSection = new SliderControlsKeyboardHelpSection( options.sliderSectionOptions );
-    const basicActionsHelpSection = new BasicActionsKeyboardHelpSection( options.generalSectionOptions );
+    super( leftSections, rightSections );
 
-    super( [ measurementToolsHelpSection, sliderHelpSection ], [ basicActionsHelpSection ], options );
+    this.disposeDiscreteKeyboardHelpContent = () => {
+      leftSections.forEach( section => section.dispose() );
+      rightSections.forEach( section => section.dispose() );
+    };
   }
 
-  // @public
+  // @public @override
   dispose() {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    this.disposeDiscreteKeyboardHelpContent();
     super.dispose();
   }
 }

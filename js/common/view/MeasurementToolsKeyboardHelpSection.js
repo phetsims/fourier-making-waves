@@ -17,40 +17,42 @@ import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 export default class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSection {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  constructor() {
 
-    // arrows or WASD
-    const arrowOrWASDKeysRowIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
-    const normalRow = KeyboardHelpSectionRow.labelWithIcon(
-      FourierMakingWavesStrings.keyboardHelpDialog.moveToolStringProperty,
-      arrowOrWASDKeysRowIcon );
-
-    // Shift+arrows or Shift+WASD
+    // Icons, which need to be disposed
     const arrowKeysIcon = KeyboardHelpIconFactory.arrowKeysRowIcon();
     const wasdKeysIcon = KeyboardHelpIconFactory.wasdRowIcon();
     const shiftPlusArrowsIcon = KeyboardHelpIconFactory.shiftPlusIcon( arrowKeysIcon );
     const shiftPlusWASDsIcon = KeyboardHelpIconFactory.shiftPlusIcon( wasdKeysIcon );
-    const slowerRow = KeyboardHelpSectionRow.labelWithIconList(
-      FourierMakingWavesStrings.keyboardHelpDialog.moveToolSlowerStringProperty,
-      [
-        shiftPlusArrowsIcon,
-        shiftPlusWASDsIcon
-      ] );
+    const arrowOrWASDKeysRowIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
+    const icons = [ arrowKeysIcon, wasdKeysIcon, shiftPlusArrowsIcon, shiftPlusWASDsIcon, arrowOrWASDKeysRowIcon ];
 
-    super( FourierMakingWavesStrings.keyboardHelpDialog.measurementToolsStringProperty, [ normalRow, slowerRow ], options );
+    // KeyboardHelpSectionRows, which need to be disposed
+    const rows = [
 
-    this.disposeEmitter.addListener( () => {
-      normalRow.dispose();
-      slowerRow.dispose();
-      shiftPlusArrowsIcon.dispose();
-      shiftPlusWASDsIcon.dispose();
-      arrowKeysIcon.dispose();
-      wasdKeysIcon.dispose();
-      arrowOrWASDKeysRowIcon.dispose();
-    } );
+      // arrows or WASD, for moving at normal speed
+      KeyboardHelpSectionRow.labelWithIcon(
+        FourierMakingWavesStrings.keyboardHelpDialog.moveToolStringProperty,
+        arrowOrWASDKeysRowIcon ),
+
+      // Shift+arrows or Shift+WASD, for moving at slower speed
+      KeyboardHelpSectionRow.labelWithIconList(
+        FourierMakingWavesStrings.keyboardHelpDialog.moveToolSlowerStringProperty,
+        [ shiftPlusArrowsIcon, shiftPlusWASDsIcon ] )
+    ];
+
+    super( FourierMakingWavesStrings.keyboardHelpDialog.measurementToolsStringProperty, rows );
+
+    this.disposeMeasurementToolsKeyboardHelpSection = () => {
+      icons.forEach( icon => icon.dispose() );
+      rows.forEach( row => row.dispose() );
+    };
+  }
+
+  // @public @override
+  dispose() {
+    this.disposeMeasurementToolsKeyboardHelpSection();
+    super.dispose();
   }
 }
 

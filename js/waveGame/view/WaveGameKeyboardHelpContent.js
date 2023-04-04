@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
@@ -18,27 +17,30 @@ import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 export default class WaveGameKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
-  /**
-   * @param {Object} [options]
-   */
   constructor( options ) {
 
-    options = merge( {
-      textMaxWidth: 250
-    }, options );
+    const leftSections = [
+      new GameControlsHelpSection( {
+        textMaxWidth: 250
+      } ),
+      new SliderControlsKeyboardHelpSection()
+    ];
 
-    const gameControlsHelpSection = new GameControlsHelpSection( {
-      textMaxWidth: options.textMaxWidth
-    } );
-    const sliderHelpSection = new SliderControlsKeyboardHelpSection( options.sliderSectionOptions );
-    const basicActionsHelpSection = new BasicActionsKeyboardHelpSection( options.generalSectionOptions );
+    const rightSections = [
+      new BasicActionsKeyboardHelpSection()
+    ];
 
-    super( [ gameControlsHelpSection, sliderHelpSection ], [ basicActionsHelpSection ], options );
+    super( leftSections, rightSections );
+
+    this.disposeWaveGameKeyboardHelpContent = () => {
+      leftSections.forEach( section => section.dispose() );
+      rightSections.forEach( section => section.dispose() );
+    };
   }
 
-  // @public
+  // @public @override
   dispose() {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    this.disposeWaveGameKeyboardHelpContent();
     super.dispose();
   }
 }
@@ -47,6 +49,7 @@ export default class WaveGameKeyboardHelpContent extends TwoColumnKeyboardHelpCo
  * Hotkeys related to the game.
  */
 class GameControlsHelpSection extends KeyboardHelpSection {
+
   /**
    * @param {Object} [options]
    */
@@ -58,11 +61,15 @@ class GameControlsHelpSection extends KeyboardHelpSection {
       SceneryPhetStrings.key.cStringProperty );
 
     super( FourierMakingWavesStrings.keyboardHelpDialog.gameControlsStringProperty, [ checkAnswerRow ], options );
+
+    this.disposeGameControlsHelpSection = () => {
+      checkAnswerRow.dispose();
+    };
   }
 
-  // @public
+  // @public @override
   dispose() {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    this.disposeGameControlsHelpSection();
     super.dispose();
   }
 }
