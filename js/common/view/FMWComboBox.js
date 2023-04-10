@@ -44,15 +44,15 @@ export default class FMWComboBox extends ComboBox {
 
     // {ComboBoxItem[]}
     const items = choices.map( choice => {
-
-      // The majority of strings in this sim contain RichText markup, used to display symbols in MathSymbolFont.
-      // And there is negligible performance impact for using RichText for the strings that don't contain markup.
-      const node = new RichText( choice.stringProperty, choice.textOptions || options.textOptions );
-
       return {
         value: choice.value,
-        node: node,
-        tandemName: choice.tandemName || null
+        tandemName: choice.tandemName || null,
+        createNode: () => {
+
+          // The majority of strings in this sim contain RichText markup, used to display symbols in MathSymbolFont.
+          // And there is negligible performance impact for using RichText for the strings that don't contain markup.
+          return new RichText( choice.stringProperty, choice.textOptions || options.textOptions );
+        }
       };
     } );
 
