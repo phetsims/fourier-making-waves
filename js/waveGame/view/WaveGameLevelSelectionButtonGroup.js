@@ -9,6 +9,7 @@
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import LevelSelectionButtonGroup from '../../../../vegas/js/LevelSelectionButtonGroup.js';
+import ScoreDisplayNumberAndStar from '../../../../vegas/js/ScoreDisplayNumberAndStar.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import FMWIconFactory from '../../common/view/FMWIconFactory.js';
@@ -58,7 +59,8 @@ export default class WaveGameLevelSelectionButtonGroup extends LevelSelectionBut
           soundPlayerIndex: level.levelNumber - 1,
           listener: () => {
             levelProperty.value = level;
-          }
+          },
+          createScoreDisplay: () => new ScoreDisplayNumberAndStar( level.scoreProperty )
         }
       };
     } );
