@@ -35,6 +35,25 @@
     "published": true
   },
   "eslintConfig": {
-    "extends": "../chipper/eslint/sim_eslintrc.js"
+    "extends": "../chipper/eslint/sim_eslintrc.js",
+    "overrides": [
+      {
+        "files": [
+          "**/*.ts"
+        ],
+        "rules": {
+          "@typescript-eslint/no-explicit-any": "error",
+          "@typescript-eslint/ban-ts-comment": [
+            "error",
+            {
+              "ts-expect-error": true,
+              "ts-ignore": true,
+              "ts-check": true,
+              "ts-nocheck": true
+            }
+          ]
+        }
+      }
+    ]
   }
 }
