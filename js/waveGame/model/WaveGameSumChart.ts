@@ -16,22 +16,19 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
 import SumChart from '../../common/model/SumChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import Domain from '../../common/model/Domain.js';
+import SeriesType from '../../common/model/SeriesType.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
 
 export default class WaveGameSumChart extends SumChart {
 
-  /**
-   * @param {FourierSeries} answerSeries
-   * @param {FourierSeries} guessSeries
-   * @param {Domain} domain
-   * @param {SeriesType} seriesType
-   * @param {number} t
-   * @param {AxisDescription} xAxisDescription
-   * @param {Tandem} tandem
-   */
-  constructor( answerSeries, guessSeries, domain, seriesType, t, xAxisDescription, tandem ) {
+  public readonly guessSeries: FourierSeries;
 
-    assert && assert( xAxisDescription instanceof AxisDescription );
-    assert && assert( tandem instanceof Tandem );
+  // Data set that displays the waveform for the user's guess. Points are ordered by increasing x value.
+  public readonly guessDataSetProperty: Property<Vector2[]>;
+
+  public constructor( answerSeries: FourierSeries, guessSeries: FourierSeries, domain: Domain, seriesType: SeriesType,
+                      t: number, xAxisDescription: AxisDescription, tandem: Tandem ) {
 
     super(
       // Superclass will render the sum for the challenge answer.
@@ -46,14 +43,11 @@ export default class WaveGameSumChart extends SumChart {
       tandem
     );
 
-    // @public (read-only)
     this.guessSeries = guessSeries;
 
     // {Property.<Vector2[]>}
     const createGuessDataSet = () => guessSeries.createSumDataSet( xAxisDescription, domain, seriesType, t );
 
-    // @public {Property.<Vector2[]>}
-    // Data set that displays the waveform for the user's guess. Points are ordered by increasing x value.
     this.guessDataSetProperty = new Property( createGuessDataSet(), {
       isValidValue: array => Array.isArray( array ) && _.every( array, element => element instanceof Vector2 )
     } );

@@ -13,24 +13,16 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
 import HarmonicsChart from '../../common/model/HarmonicsChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
+import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
+import SeriesType from '../../common/model/SeriesType.js';
+import Domain from '../../common/model/Domain.js';
 
 export default class WaveGameHarmonicsChart extends HarmonicsChart {
 
-  /**
-   * @param {FourierSeries} guessSeries
-   * @param {EmphasizedHarmonics} emphasizedHarmonics
-   * @param {Domain} domain
-   * @param {SeriesType} seriesType
-   * @param {number} t
-   * @param {AxisDescription} xAxisDescription
-   * @param {AxisDescription} yAxisDescription
-   * @param {Tandem} tandem
-   */
-  constructor( guessSeries, emphasizedHarmonics, domain, seriesType, t, xAxisDescription, yAxisDescription, tandem ) {
-
-    assert && assert( xAxisDescription instanceof AxisDescription );
-    assert && assert( yAxisDescription instanceof AxisDescription );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( guessSeries: FourierSeries, emphasizedHarmonics: EmphasizedHarmonics, domain: Domain,
+                      seriesType: SeriesType, t: number, xAxisDescription: AxisDescription,
+                      yAxisDescription: AxisDescription, tandem: Tandem ) {
 
     super(
       guessSeries,
