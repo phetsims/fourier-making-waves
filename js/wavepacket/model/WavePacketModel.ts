@@ -9,6 +9,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import TModel from '../../../../joist/js/TModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
@@ -19,25 +20,34 @@ import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
 import WavePacketComponentsChart from './WavePacketComponentsChart.js';
 import WavePacketSumChart from './WavePacketSumChart.js';
 
-export default class WavePacketModel {
+export default class WavePacketModel implements TModel {
 
-  constructor( tandem ) {
-    assert && assert( tandem instanceof Tandem );
+  public readonly domainProperty: EnumerationProperty<Domain>;
+  public readonly seriesTypeProperty: EnumerationProperty<SeriesType>;
+  public readonly widthIndicatorsVisibleProperty: Property<boolean>;
+  public readonly wavePacket: WavePacket;
+  public readonly amplitudesChart: WavePacketAmplitudesChart;
+  public readonly componentsChart: WavePacketComponentsChart;
+  public readonly sumChart: WavePacketSumChart;
 
-    const domainProperty = new EnumerationProperty( Domain.SPACE, {
+  private readonly resetWavePacketModel: () => void;
+
+  public constructor( tandem: Tandem ) {
+
+    this.domainProperty = new EnumerationProperty( Domain.SPACE, {
       validValues: [ Domain.SPACE, Domain.TIME ], // Domain SPACE_AND_TIME is not supported in this screen
       tandem: tandem.createTandem( 'domainProperty' )
     } );
 
-    const seriesTypeProperty = new EnumerationProperty( SeriesType.SIN, {
+    this.seriesTypeProperty = new EnumerationProperty( SeriesType.SIN, {
       tandem: tandem.createTandem( 'seriesTypeProperty' )
     } );
 
-    const widthIndicatorsVisibleProperty = new BooleanProperty( false, {
+    this.widthIndicatorsVisibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'widthIndicatorsVisibleProperty' )
     } );
 
-    const wavePacket = new WavePacket( tandem.createTandem( 'wavePacket' ) );
+    this.wavePacket = new WavePacket( tandem.createTandem( 'wavePacket' ) );
 
     // {Property.<AxisDescription>} the x-axis description shared by the Components and Sum charts
     const xAxisDescriptionProperty = new Property( WavePacketAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION, {
@@ -47,53 +57,37 @@ export default class WavePacketModel {
     // Parent tandem for all charts
     const chartsTandem = tandem.createTandem( 'charts' );
 
-    const amplitudesChart = new WavePacketAmplitudesChart( wavePacket, domainProperty,
-      widthIndicatorsVisibleProperty, chartsTandem.createTandem( 'amplitudesChart' ) );
+    this.amplitudesChart = new WavePacketAmplitudesChart( this.wavePacket, this.domainProperty,
+      this.widthIndicatorsVisibleProperty, chartsTandem.createTandem( 'amplitudesChart' ) );
 
-    const componentsChart = new WavePacketComponentsChart( wavePacket, domainProperty, seriesTypeProperty,
+    this.componentsChart = new WavePacketComponentsChart( this.wavePacket, this.domainProperty, this.seriesTypeProperty,
       xAxisDescriptionProperty, chartsTandem.createTandem( 'componentsChart' ) );
 
-    const sumChart = new WavePacketSumChart( componentsChart.componentDataSetsProperty,
-      wavePacket, domainProperty, seriesTypeProperty, xAxisDescriptionProperty, widthIndicatorsVisibleProperty,
-      chartsTandem.createTandem( 'sumChart' ) );
+    this.sumChart = new WavePacketSumChart( this.componentsChart.componentDataSetsProperty,
+      this.wavePacket, this.domainProperty, this.seriesTypeProperty, xAxisDescriptionProperty,
+      this.widthIndicatorsVisibleProperty, chartsTandem.createTandem( 'sumChart' ) );
 
-    // @private
     this.resetWavePacketModel = () => {
 
       // Properties
-      domainProperty.reset();
-      seriesTypeProperty.reset();
-      widthIndicatorsVisibleProperty.reset();
+      this.domainProperty.reset();
+      this.seriesTypeProperty.reset();
+      this.widthIndicatorsVisibleProperty.reset();
       xAxisDescriptionProperty.reset();
 
       // sub-models
-      wavePacket.reset();
-      amplitudesChart.reset();
-      componentsChart.reset();
-      sumChart.reset();
+      this.wavePacket.reset();
+      this.amplitudesChart.reset();
+      this.componentsChart.reset();
+      this.sumChart.reset();
     };
-
-    // @public
-    this.domainProperty = domainProperty; // {EnumerationProperty.<Domain>}
-    this.seriesTypeProperty = seriesTypeProperty; // {EnumerationProperty.<SeriesType>}
-    this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty; // {Property.<boolean>}
-    this.wavePacket = wavePacket; // {WavePacket}
-    this.amplitudesChart = amplitudesChart; // {WavePacketAmplitudesChart}
-    this.componentsChart = componentsChart; // {WavePacketComponentsChart}
-    this.sumChart = sumChart; // {WavePacketSumChart}
   }
 
-  /**
-   * @public
-   */
-  reset() {
+  public reset(): void {
     this.resetWavePacketModel();
   }
 
-  /**
-   * @public
-   */
-  dispose() {
+  public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
 }
