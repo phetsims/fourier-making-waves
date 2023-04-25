@@ -7,8 +7,6 @@
  */
 
 import Screen from '../../../joist/js/Screen.js';
-import merge from '../../../phet-core/js/merge.js';
-import Tandem from '../../../tandem/js/Tandem.js';
 import FMWColors from '../common/FMWColors.js';
 import FMWIconFactory from '../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
@@ -19,12 +17,9 @@ import DiscreteScreenView from './view/DiscreteScreenView.js';
 
 export default class DiscreteScreen extends Screen {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  constructor( tandem ) {
 
-    options = merge( {
+    const options = {
 
       // Screen options
       name: FourierMakingWavesStrings.screen.discreteStringProperty,
@@ -35,8 +30,8 @@ export default class DiscreteScreen extends Screen {
       createKeyboardHelpNode: () => new DiscreteKeyboardHelpContent(),
 
       // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+      tandem: tandem
+    };
 
     super(
       () => new DiscreteModel( options.tandem.createTandem( 'model' ) ),

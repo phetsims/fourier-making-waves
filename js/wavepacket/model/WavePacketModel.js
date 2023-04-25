@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
@@ -22,32 +21,24 @@ import WavePacketSumChart from './WavePacketSumChart.js';
 
 export default class WavePacketModel {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
-
-    options = merge( {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+  constructor( tandem ) {
+    assert && assert( tandem instanceof Tandem );
 
     const domainProperty = new EnumerationProperty( Domain.SPACE, {
       validValues: [ Domain.SPACE, Domain.TIME ], // Domain SPACE_AND_TIME is not supported in this screen
-      tandem: options.tandem.createTandem( 'domainProperty' )
+      tandem: tandem.createTandem( 'domainProperty' )
     } );
 
     const seriesTypeProperty = new EnumerationProperty( SeriesType.SIN, {
-      tandem: options.tandem.createTandem( 'seriesTypeProperty' )
+      tandem: tandem.createTandem( 'seriesTypeProperty' )
     } );
 
     const widthIndicatorsVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'widthIndicatorsVisibleProperty' )
+      tandem: tandem.createTandem( 'widthIndicatorsVisibleProperty' )
     } );
 
     const wavePacket = new WavePacket( {
-      tandem: options.tandem.createTandem( 'wavePacket' )
+      tandem: tandem.createTandem( 'wavePacket' )
     } );
 
     // {Property.<AxisDescription>} the x-axis description shared by the Components and Sum charts
@@ -56,7 +47,7 @@ export default class WavePacketModel {
     } );
 
     // Parent tandem for all charts
-    const chartsTandem = options.tandem.createTandem( 'charts' );
+    const chartsTandem = tandem.createTandem( 'charts' );
 
     const amplitudesChart = new WavePacketAmplitudesChart( wavePacket, domainProperty,
       widthIndicatorsVisibleProperty, chartsTandem.createTandem( 'amplitudesChart' ) );

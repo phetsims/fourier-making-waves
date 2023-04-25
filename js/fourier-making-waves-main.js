@@ -30,9 +30,9 @@ const simOptions = {
 
 simLauncher.launch( () => {
   const sim = new Sim( fourierMakingWavesTitleStringProperty, [
-    new DiscreteScreen( { tandem: Tandem.ROOT.createTandem( 'discreteScreen' ) } ),
-    new WaveGameScreen( { tandem: Tandem.ROOT.createTandem( 'waveGameScreen' ) } ),
-    new WavePacketScreen( { tandem: Tandem.ROOT.createTandem( 'wavePacketScreen' ) } )
+    new DiscreteScreen( Tandem.ROOT.createTandem( 'discreteScreen' ) ),
+    new WaveGameScreen( Tandem.ROOT.createTandem( 'waveGameScreen' ) ),
+    new WavePacketScreen( Tandem.ROOT.createTandem( 'wavePacketScreen' ) )
   ], simOptions );
   sim.start();
 } );

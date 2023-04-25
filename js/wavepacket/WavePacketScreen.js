@@ -7,8 +7,6 @@
  */
 
 import Screen from '../../../joist/js/Screen.js';
-import merge from '../../../phet-core/js/merge.js';
-import Tandem from '../../../tandem/js/Tandem.js';
 import FMWColors from '../common/FMWColors.js';
 import FMWIconFactory from '../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
@@ -19,12 +17,9 @@ import WavePacketScreenView from './view/WavePacketScreenView.js';
 
 export default class WavePacketScreen extends Screen {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  constructor( tandem ) {
 
-    options = merge( {
+    const options = {
 
       // Screen options
       name: FourierMakingWavesStrings.screen.wavePacketStringProperty,
@@ -35,12 +30,12 @@ export default class WavePacketScreen extends Screen {
       createKeyboardHelpNode: () => new WavePacketKeyboardHelpContent(),
 
       // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+      tandem: tandem
+    };
 
     super(
-      () => new WavePacketModel( { tandem: options.tandem.createTandem( 'model' ) } ),
-      model => new WavePacketScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
+      () => new WavePacketModel( options.tandem.createTandem( 'model' ) ),
+      model => new WavePacketScreenView( model, options.tandem.createTandem( 'view' ) ),
       options
     );
   }

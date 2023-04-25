@@ -7,7 +7,6 @@
  */
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { PDOMUtils } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Easing from '../../../../twixt/js/Easing.js';
@@ -32,18 +31,15 @@ export default class WaveGameScreenView extends ScreenView {
 
   /**
    * @param {WaveGameModel} model
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( model, options ) {
+  constructor( model, tandem ) {
     assert && assert( model instanceof WaveGameModel );
+    assert && assert( tandem instanceof Tandem );
 
-    options = merge( {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
-
-    super( options );
+    super( {
+      tandem: tandem
+    } );
 
     // To improve readability
     const layoutBounds = this.layoutBounds;
@@ -55,25 +51,25 @@ export default class WaveGameScreenView extends ScreenView {
       resetCallback: () => {
         model.reset();
       },
-      tandem: options.tandem.createTandem( 'levelSelectionNode' )
+      tandem: tandem.createTandem( 'levelSelectionNode' )
     } );
 
     // @private The reward shown while rewardDialog is open.
     this.rewardNode = new WaveGameRewardNode( {
       visible: false,
-      tandem: options.tandem.createTandem( 'rewardNode' ),
+      tandem: tandem.createTandem( 'rewardNode' ),
       phetioReadOnly: true
     } );
 
     // Dialog that is displayed when the score reaches the reward value.
     const rewardDialog = new WaveGameRewardDialog( model.levelProperty, this.rewardNode, model.rewardScore, {
-      tandem: options.tandem.createTandem( 'rewardDialog' )
+      tandem: tandem.createTandem( 'rewardDialog' )
     } );
 
     // @private {SolveItLevelNode[]} a Node for each level of the game
     this.levelNodes = model.levels.map( level => new WaveGameLevelNode( level, model.levelProperty,
       layoutBounds, this.visibleBoundsProperty, gameAudioPlayer, this.rewardNode, rewardDialog, model.rewardScore, {
-        tandem: options.tandem.createTandem( `level${level.levelNumber}Node` )
+        tandem: tandem.createTandem( `level${level.levelNumber}Node` )
       } ) );
 
     // @private Handles the animated 'slide' transition between levelSelectionNode and a level.

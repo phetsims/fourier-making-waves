@@ -9,7 +9,6 @@
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -20,17 +19,8 @@ import WaveGameLevel from './WaveGameLevel.js';
 
 export default class WaveGameModel {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
-
-    options = merge( {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
-
+  constructor( tandem ) {
+    assert && assert( tandem instanceof Tandem );
 
     // @public (read-only) reaching this number of points results in a reward
     this.rewardScore = FMWQueryParameters.rewardScore;
@@ -46,25 +36,25 @@ export default class WaveGameModel {
         defaultNumberOfAmplitudeControls: 2,
         statusBarMessageProperty: FourierMakingWavesStrings.matchUsing1HarmonicStringProperty,
         infoDialogDescriptionProperty: FourierMakingWavesStrings.info1HarmonicStringProperty,
-        tandem: options.tandem.createTandem( 'level1' )
+        tandem: tandem.createTandem( 'level1' )
       } ),
 
       // Level 2
       new WaveGameLevel( 2, {
         defaultNumberOfAmplitudeControls: 3,
-        tandem: options.tandem.createTandem( 'level2' )
+        tandem: tandem.createTandem( 'level2' )
       } ),
 
       // Level 3
       new WaveGameLevel( 3, {
         defaultNumberOfAmplitudeControls: 5,
-        tandem: options.tandem.createTandem( 'level3' )
+        tandem: tandem.createTandem( 'level3' )
       } ),
 
       // Level 4
       new WaveGameLevel( 4, {
         defaultNumberOfAmplitudeControls: 6,
-        tandem: options.tandem.createTandem( 'level4' )
+        tandem: tandem.createTandem( 'level4' )
       } ),
 
       // Level 5
@@ -80,7 +70,7 @@ export default class WaveGameModel {
           levelNumber: 5,
           numberOfHarmonics: 5
         } ),
-        tandem: options.tandem.createTandem( 'level5' )
+        tandem: tandem.createTandem( 'level5' )
       } )
     ];
     assert && assert( this.levels.length === FMWConstants.NUMBER_OF_GAME_LEVELS );
@@ -90,7 +80,7 @@ export default class WaveGameModel {
     this.levelProperty = new Property( null, {
       validValues: [ null, ...this.levels ],
       phetioValueType: NullableIO( WaveGameLevel.WaveGameLevelIO ),
-      tandem: options.tandem.createTandem( 'levelProperty' ),
+      tandem: tandem.createTandem( 'levelProperty' ),
       phetioDocumentation: 'The level currently selected in the Wave Game, null if no level is selected.'
     } );
   }

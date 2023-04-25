@@ -11,7 +11,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import { Node, Rectangle, RichText } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -37,25 +36,22 @@ export default class WavePacketScreenView extends ScreenView {
 
   /**
    * @param {WavePacketModel} model
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( model, options ) {
+  constructor( model, tandem ) {
     assert && assert( model instanceof WavePacketModel );
+    assert && assert( tandem instanceof Tandem );
 
-    options = merge( {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
-
-    super( options );
+    super( {
+      tandem: tandem
+    } );
 
     //------------------------------------------------------------------------------------------------------------------
     // View Properties
     //------------------------------------------------------------------------------------------------------------------
 
     // Parent tandem for all charts
-    const viewPropertiesTandem = options.tandem.createTandem( 'viewProperties' );
+    const viewPropertiesTandem = tandem.createTandem( 'viewProperties' );
 
     // View Properties
     const componentSpacingToolVisibleProperty = new BooleanProperty( false, {
@@ -71,7 +67,7 @@ export default class WavePacketScreenView extends ScreenView {
     //------------------------------------------------------------------------------------------------------------------
 
     // Parent tandem for all charts
-    const chartsTandem = options.tandem.createTandem( 'charts' );
+    const chartsTandem = tandem.createTandem( 'charts' );
 
     // Parent tandem for all elements related to the Amplitudes chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
@@ -194,7 +190,7 @@ export default class WavePacketScreenView extends ScreenView {
 
     const controlPanel = new WavePacketControlPanel( model, componentSpacingToolVisibleProperty,
       lengthToolVisibleProperty, popupParent, {
-        tandem: options.tandem.createTandem( 'controlPanel' )
+        tandem: tandem.createTandem( 'controlPanel' )
       } );
 
     const resetAllButton = new ResetAllButton( {
@@ -203,7 +199,7 @@ export default class WavePacketScreenView extends ScreenView {
         model.reset();
         resetMeasurementTools();
       },
-      tandem: options.tandem.createTandem( 'resetAllButton' )
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
     //------------------------------------------------------------------------------------------------------------------
@@ -316,7 +312,7 @@ export default class WavePacketScreenView extends ScreenView {
     // final positions and bounds of ChartRectangles.
 
     // Parent tandem for all measurement tools
-    const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
+    const measurementToolsTandem = tandem.createTandem( 'measurementTools' );
 
     // Keep tool in the vicinity of the Amplitudes chart, and keep its label visible.
     const componentSpacingToolDragBounds = new Bounds2(
