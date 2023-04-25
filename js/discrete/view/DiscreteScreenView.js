@@ -46,18 +46,15 @@ export default class DiscreteScreenView extends ScreenView {
 
   /**
    * @param {DiscreteModel} model
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( model, options ) {
+  constructor( model, tandem ) {
     assert && assert( model instanceof DiscreteModel );
+    assert && assert( tandem instanceof Tandem );
 
-    options = merge( {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
-
-    super( options );
+    super( {
+      tandem: tandem
+    } );
 
     //------------------------------------------------------------------------------------------------------------------
     // Sound
@@ -74,7 +71,7 @@ export default class DiscreteScreenView extends ScreenView {
     //------------------------------------------------------------------------------------------------------------------
 
     // Parent tandem for all charts
-    const chartsTandem = options.tandem.createTandem( 'charts' );
+    const chartsTandem = tandem.createTandem( 'charts' );
 
     // Parent tandem for all elements related to the Amplitudes chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
@@ -225,7 +222,7 @@ export default class DiscreteScreenView extends ScreenView {
     // Control panel
     const controlPanel = new DiscreteControlPanel( model, popupParent, {
       maxWidth: 258, // as a fallback, in case some subcomponent is misbehaving
-      tandem: options.tandem.createTandem( 'controlPanel' )
+      tandem: tandem.createTandem( 'controlPanel' )
     } );
 
     // Time controls
@@ -243,7 +240,7 @@ export default class DiscreteScreenView extends ScreenView {
           }
         }
       },
-      tandem: options.tandem.createTandem( 'timeControlNode' )
+      tandem: tandem.createTandem( 'timeControlNode' )
     } );
 
     // Enable time controls only when there is the possibility of animation.
@@ -257,7 +254,7 @@ export default class DiscreteScreenView extends ScreenView {
         model.reset();
         resetMeasurementTools();
       },
-      tandem: options.tandem.createTandem( 'resetAllButton' )
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
     // Creating a sawtooth wave using cosines is impossible because it is asymmetric. Display a dialog if the user
@@ -266,7 +263,7 @@ export default class DiscreteScreenView extends ScreenView {
     const oopsSawtoothWithCosinesDialog = new OopsDialog( FourierMakingWavesStrings.sawtoothWithCosinesStringProperty, {
       phetioReadOnly: true,
       visiblePropertyOptions: { phetioReadOnly: true },
-      tandem: options.tandem.createTandem( 'oopsSawtoothWithCosinesDialog' )
+      tandem: tandem.createTandem( 'oopsSawtoothWithCosinesDialog' )
     } );
     model.oopsSawtoothWithCosinesEmitter.addListener( () => oopsSawtoothWithCosinesDialog.show() );
 
@@ -391,7 +388,7 @@ export default class DiscreteScreenView extends ScreenView {
     // final positions and bounds of ChartRectangles.
 
     // Parent tandem for all measurement tools
-    const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
+    const measurementToolsTandem = tandem.createTandem( 'measurementTools' );
 
     // Drag bounds for all measurement tools.
     const measurementToolsDragBounds = new Bounds2(

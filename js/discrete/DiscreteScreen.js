@@ -40,7 +40,7 @@ export default class DiscreteScreen extends Screen {
 
     super(
       () => new DiscreteModel( options.tandem.createTandem( 'model' ) ),
-      model => new DiscreteScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
+      model => new DiscreteScreenView( model, options.tandem.createTandem( 'view' ) ),
       options
     );
   }
