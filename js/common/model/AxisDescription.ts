@@ -11,76 +11,54 @@
  */
 
 import Range from '../../../../dot/js/Range.js';
-import merge from '../../../../phet-core/js/merge.js';
-import required from '../../../../phet-core/js/required.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from './Domain.js';
 
+type SelfOptions = {
+  range: Range; // range of the axis
+  gridLineSpacing: number; // spacing between grid lines
+  tickMarkSpacing: number; // spacing between tick marks
+  tickLabelSpacing: number; // spacing between tick labels
+};
+
+type AxisDescriptionOptions = SelfOptions;
+
 export default class AxisDescription {
 
-  /**
-   * @param {Object} config - See doc of fields below. All values are in model coordinates, with units specific to the
-   * axis.
-   */
-  constructor( config ) {
+  public readonly range: Range;
+  public readonly gridLineSpacing: number;
+  public readonly tickMarkSpacing: number;
+  public readonly tickLabelSpacing: number;
 
-    config = merge( {
-
-      // {Range} range of the axis
-      range: required( config.range ),
-
-      // {number} spacing between grid lines
-      gridLineSpacing: required( config.gridLineSpacing ),
-
-      // {number} spacing between tick marks
-      tickMarkSpacing: required( config.tickMarkSpacing ),
-
-      // {number} spacing between tick labels
-      tickLabelSpacing: required( config.tickLabelSpacing )
-    }, config );
-
-    // @public (read-only)
-    this.range = config.range; // {Range}
-    this.gridLineSpacing = config.gridLineSpacing; // {number}
-    this.tickMarkSpacing = config.tickMarkSpacing; // {number}
-    this.tickLabelSpacing = config.tickLabelSpacing; // {number}
+  public constructor( providedOptions: AxisDescriptionOptions ) {
+    this.range = providedOptions.range;
+    this.gridLineSpacing = providedOptions.gridLineSpacing;
+    this.tickMarkSpacing = providedOptions.tickMarkSpacing;
+    this.tickLabelSpacing = providedOptions.tickLabelSpacing;
   }
 
   /**
    * Determines whether the range is symmetric about zero. This is a requirement for many of the axes in this sim.
-   * @returns {boolean}
-   * @public
    */
-  hasSymmetricRange() {
+  public hasSymmetricRange(): boolean {
     return this.range.getCenter() === 0;
   }
 
   /**
    * Gets AxisDescription that is the best-fit for a specified axis range.
    * This is the first entry in axisDescriptions such that range.max >= axisDescription.range.max.
-   * @param {Range} range
-   * @param {AxisDescription[]} axisDescriptions
-   * @returns {AxisDescription}
-   * @public
    */
-  static getBestFit( range, axisDescriptions ) {
-    assert && assert( range instanceof Range );
-    assert && AssertUtils.assertArrayOf( axisDescriptions, AxisDescription );
-
+  public static getBestFit( range: Range, axisDescriptions: AxisDescription[] ): AxisDescription {
     const axisDescription = _.find( axisDescriptions, axisDescription => range.max >= axisDescription.range.max );
     assert && assert( axisDescription );
-    return axisDescription;
+    return axisDescription!;
   }
 
   /**
    * Determines whether an array of AxisDescription is sorted by descending range length, from most 'zoomed out' to
    * most 'zoomed in'.
-   * @param {AxisDescription[]} axisDescriptions
-   * @returns {boolean}
-   * @public
    */
-  static isSortedDescending( axisDescriptions ) {
+  public static isSortedDescending( axisDescriptions: AxisDescription[] ): boolean {
     return _.every( axisDescriptions,
       ( axisDescription, index, axisDescriptions ) =>
         ( index === 0 || axisDescriptions[ index - 1 ].range.getLength() > axisDescription.range.getLength() )
@@ -88,20 +66,10 @@ export default class AxisDescription {
   }
 
   /**
-   * Creates a range for a specified Domain. This is used wherever the AxisDescriptions for the x axis contain
+   * Creates a range for a specified Domain. This is used wherever the AxisDescriptions for the x-axis contain
    * coefficients to be applied to some constant (L, T, PI), depending on which Domain (space or time) is being plotted.
-   * @param {Domain} domain
-   * @param {number} spaceMultiplier
-   * @param {number} timeMultiplier
-   * @returns {Range}
-   * @public
    */
-  createRangeForDomain( domain, spaceMultiplier, timeMultiplier ) {
-
-    assert && assert( Domain.enumeration.includes( domain ) );
-    assert && AssertUtils.assertPositiveNumber( spaceMultiplier );
-    assert && AssertUtils.assertPositiveNumber( timeMultiplier );
-
+  public createRangeForDomain( domain: Domain, spaceMultiplier: number, timeMultiplier: number ): Range {
     const value = ( domain === Domain.TIME ) ? timeMultiplier : spaceMultiplier;
     const xMin = value * this.range.min;
     const xMax = value * this.range.max;
