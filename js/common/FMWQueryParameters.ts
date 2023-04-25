@@ -13,7 +13,7 @@ import getGameLevelsSchema from '../../../vegas/js/getGameLevelsSchema.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWConstants from './FMWConstants.js';
 
-const SCHEMA = {
+const FMWQueryParameters = QueryStringMachine.getAll( {
 
   //------------------------------------------------------------------------------------------------------------------
   // Public-facing query parameters
@@ -24,7 +24,7 @@ const SCHEMA = {
     public: true,
     type: 'number',
     defaultValue: 5,
-    isValidValue: value => ( value > 0 ) && Number.isInteger( value )
+    isValidValue: ( value: number ) => ( value > 0 ) && Number.isInteger( value )
   },
 
   // The levels to show in the Wave Game screen.
@@ -44,10 +44,10 @@ const SCHEMA = {
   // For internal use only, not public facing.
   answer5: {
     type: 'array',
-    isValidValue: array => ( array === null ) || ( array.length === FMWConstants.MAX_HARMONICS ),
+    isValidValue: ( array: number[] ) => ( array === null ) || ( array.length === FMWConstants.MAX_HARMONICS ),
     elementSchema: {
       type: 'number',
-      isValidValue: amplitude =>
+      isValidValue: ( amplitude: number ) =>
         ( amplitude >= -FMWConstants.MAX_AMPLITUDE && amplitude <= FMWConstants.MAX_AMPLITUDE ) &&
         ( Utils.numberOfDecimalPlaces( amplitude ) <= FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES )
     },
@@ -65,9 +65,7 @@ const SCHEMA = {
   focusableAmplitudeNumberDisplay: {
     type: 'flag'
   }
-};
-
-const FMWQueryParameters = QueryStringMachine.getAll( SCHEMA );
+} );
 
 fourierMakingWaves.register( 'FMWQueryParameters', FMWQueryParameters );
 
