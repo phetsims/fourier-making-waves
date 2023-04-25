@@ -12,42 +12,50 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import SumChart from '../../common/model/SumChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Waveform from './Waveform.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
+import Domain from '../../common/model/Domain.js';
+import SeriesType from '../../common/model/SeriesType.js';
+import TickLabelFormat from '../../common/model/TickLabelFormat.js';
+import AxisDescription from '../../common/model/AxisDescription.js';
 
 // constants
 const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 
 export default class DiscreteSumChart extends SumChart {
 
-  /**
-   * @param {FourierSeries} fourierSeries
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {Property.<number>} tProperty
-   * @param {DerivedProperty.<TickLabelFormat>} xAxisTickLabelFormatProperty
-   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {Property.<Waveform>} waveformProperty
-   * @param {Tandem} tandem
-   */
-  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisTickLabelFormatProperty,
-               xAxisDescriptionProperty, waveformProperty, tandem ) {
+  public readonly xAxisTickLabelFormatProperty: TReadOnlyProperty<TickLabelFormat>;
+  public readonly waveformProperty: Property<Waveform>;
 
-    assert && assert( xAxisTickLabelFormatProperty instanceof DerivedProperty );
-    assert && AssertUtils.assertPropertyOf( waveformProperty, Waveform );
-    assert && assert( tandem instanceof Tandem );
+  // whether the Sum chart shows what the waveform looks like for an infinite Fourier series
+  public readonly infiniteHarmonicsVisibleProperty: Property<boolean>;
+
+  // Data set that corresponds to a waveform preset, as if it were approximated using a Fourier series with an
+  // infinite number of harmonics. If the preset is not visible, then returns EMPTY_DATA_SET.
+  public readonly infiniteHarmonicsDataSetProperty: TReadOnlyProperty<Vector2[]>;
+
+  public constructor( fourierSeries: FourierSeries,
+                      domainProperty: EnumerationProperty<Domain>,
+                      seriesTypeProperty: EnumerationProperty<SeriesType>,
+                      tProperty: TReadOnlyProperty<number>,
+                      xAxisTickLabelFormatProperty: TReadOnlyProperty<TickLabelFormat>,
+                      xAxisDescriptionProperty: Property<AxisDescription>,
+                      waveformProperty: Property<Waveform>,
+                      tandem: Tandem ) {
 
     super( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, tandem );
 
-    // @public
     this.xAxisTickLabelFormatProperty = xAxisTickLabelFormatProperty;
     this.waveformProperty = waveformProperty;
 
-    // @public whether the Sum chart shows what the waveform looks like for an infinite Fourier series
     this.infiniteHarmonicsVisibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'infiniteHarmonicsVisibleProperty' )
     } );
@@ -56,9 +64,6 @@ export default class DiscreteSumChart extends SumChart {
     const L = fourierSeries.L;
     const T = fourierSeries.T;
 
-    // @public {DerivedProperty.<Vector2>} Data set that corresponds to a waveform preset, as if it were approximated
-    // using a Fourier series with an infinite number of harmonics. If the preset is not visible, then returns
-    // EMPTY_DATA_SET.
     this.infiniteHarmonicsDataSetProperty = new DerivedProperty(
       [ this.infiniteHarmonicsVisibleProperty, this.sumDataSetProperty, waveformProperty, domainProperty, seriesTypeProperty, tProperty ],
       ( infiniteHarmonicsVisible, sumDataSet, waveform, domain, seriesType, t ) =>
@@ -67,11 +72,7 @@ export default class DiscreteSumChart extends SumChart {
     );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.infiniteHarmonicsVisibleProperty.reset();
   }
