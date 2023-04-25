@@ -14,7 +14,7 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
+import TModel from '../../../../joist/js/TModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
@@ -37,71 +37,77 @@ const TIME_SCALE = 0.001;
 // How much to step the simulation when the Step button is pressed, in milliseconds, determined empirically.
 const STEP_DT = 50;
 
-export default class DiscreteModel {
+export default class DiscreteModel implements TModel {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  public readonly isPlayingProperty: Property<boolean>;
 
-    options = merge( {
+  // time (t), updated only when domainProperty is Domain.SPACE_AND_TIME
+  // While the units are in milliseconds, the value is scaled so that it's practical to show high-frequency
+  // phenomena in the sim, specifically in the 'space & time' Domain.
+  public readonly tProperty: NumberProperty;
 
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+  public readonly waveformProperty: Property<Waveform>;
+  public readonly seriesTypeProperty: EnumerationProperty<SeriesType>;
+  public readonly domainProperty: EnumerationProperty<Domain>;
+  public readonly equationFormProperty: EnumerationProperty<EquationForm>;
 
-    // @public
+  public readonly fourierSeries: DiscreteFourierSeries;
+
+  public readonly wavelengthTool: DiscreteMeasurementTool; // the wavelength measurement tool
+  public readonly periodTool: DiscreteMeasurementTool; // the period measurement tool
+
+  public readonly amplitudesChart: DiscreteAmplitudesChart;
+  public readonly harmonicsChart: DiscreteHarmonicsChart;
+  public readonly sumChart: DiscreteSumChart;
+
+  // emits if you try to make a sawtooth wave with cosines
+  public readonly oopsSawtoothWithCosinesEmitter: Emitter;
+
+  private readonly resetDiscreteModel: () => void;
+
+  public constructor( tandem: Tandem ) {
+
     this.isPlayingProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'isPlayingProperty' )
+      tandem: tandem.createTandem( 'isPlayingProperty' )
     } );
 
-    // @public time (t), updated only when domainProperty is Domain.SPACE_AND_TIME
-    // While the units are in milliseconds, the value is scaled so that it's practical to show high-frequency
-    // phenomena in the sim, specifically in the 'space & time' Domain.
     this.tProperty = new NumberProperty( 0, {
       phetioDocumentation: 'time in millisecond, relevant only for function of space & time',
       phetioReadOnly: true,
-      tandem: options.tandem.createTandem( 'tProperty' )
+      tandem: tandem.createTandem( 'tProperty' )
     } );
 
-    // @public
     this.waveformProperty = new Property( Waveform.SINUSOID, {
-      tandem: options.tandem.createTandem( 'waveformProperty' ),
+      tandem: tandem.createTandem( 'waveformProperty' ),
       phetioValueType: Waveform.WaveformIO
     } );
 
-    // @public
     this.seriesTypeProperty = new EnumerationProperty( SeriesType.SIN, {
-      tandem: options.tandem.createTandem( 'seriesTypeProperty' )
+      tandem: tandem.createTandem( 'seriesTypeProperty' )
     } );
 
-    // @public
     this.domainProperty = new EnumerationProperty( Domain.SPACE, {
-      validValues: Domain.VALUES, // all Domain values are supported
-      tandem: options.tandem.createTandem( 'domainProperty' )
+      validValues: Domain.enumeration.values, // all Domain values are supported
+      tandem: tandem.createTandem( 'domainProperty' )
     } );
 
-    // @public
     this.equationFormProperty = new EnumerationProperty( EquationForm.HIDDEN, {
-      tandem: options.tandem.createTandem( 'equationFormProperty' )
+      tandem: tandem.createTandem( 'equationFormProperty' )
     } );
 
-    // @public
     this.fourierSeries = new DiscreteFourierSeries( {
-      tandem: options.tandem.createTandem( 'fourierSeries' )
+      tandem: tandem.createTandem( 'fourierSeries' )
     } );
 
     // the harmonics to be emphasized in the Harmonics chart, as the result of UI interactions
     const emphasizedHarmonics = new EmphasizedHarmonics();
 
     // Group elements related to measurement tools under this tandem.
-    const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
+    const measurementToolsTandem = tandem.createTandem( 'measurementTools' );
 
-    // @public the wavelength measurement tool
     this.wavelengthTool = new DiscreteMeasurementTool( FMWSymbols.lambdaStringProperty,
       this.fourierSeries.numberOfHarmonicsProperty, measurementToolsTandem.createTandem( 'wavelengthTool' ) );
 
-    // @public the period measurement tool
     this.periodTool = new DiscreteMeasurementTool( FMWSymbols.TStringProperty,
       this.fourierSeries.numberOfHarmonicsProperty, measurementToolsTandem.createTandem( 'periodTool' ) );
 
@@ -118,25 +124,21 @@ export default class DiscreteModel {
     } );
 
     // Parent tandem for all charts
-    const chartsTandem = options.tandem.createTandem( 'charts' );
+    const chartsTandem = tandem.createTandem( 'charts' );
 
-    // @public
     this.amplitudesChart = new DiscreteAmplitudesChart( this.fourierSeries, emphasizedHarmonics,
       chartsTandem.createTandem( 'amplitudesChart' ) );
 
-    // @public
     this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, emphasizedHarmonics, this.domainProperty,
       this.seriesTypeProperty, this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
       chartsTandem.createTandem( 'harmonicsChart' ) );
 
-    // @public
     this.sumChart = new DiscreteSumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
       this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, this.waveformProperty,
       chartsTandem.createTandem( 'sumChart' ) );
 
-    // @public emits if you try to make a sawtooth wave with cosines
     this.oopsSawtoothWithCosinesEmitter = new Emitter( {
-      tandem: options.tandem.createTandem( 'oopsSawtoothWithCosinesEmitter' )
+      tandem: tandem.createTandem( 'oopsSawtoothWithCosinesEmitter' )
     } );
 
     // Update the amplitudes
@@ -158,7 +160,6 @@ export default class DiscreteModel {
       }
     } );
 
-    // @private
     this.resetDiscreteModel = () => {
 
       // Reset Properties
@@ -183,27 +184,19 @@ export default class DiscreteModel {
     };
   }
 
-  /**
-   * Resets the model.
-   * @public
-   */
-  reset() {
+  public reset(): void {
     this.resetDiscreteModel();
   }
 
-  /**
-   * @public
-   */
-  dispose() {
+  public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
 
   /**
    * Steps the model.
-   * @param {number} dt - time step, in seconds
-   * @public
+   * @param dt - time step, in seconds
    */
-  step( dt ) {
+  public step( dt: number ): void {
     if ( this.isPlayingProperty.value && ( this.domainProperty.value === Domain.SPACE_AND_TIME ) ) {
       const milliseconds = dt * 1000;
       this.tProperty.value += ( milliseconds * TIME_SCALE );
@@ -212,17 +205,15 @@ export default class DiscreteModel {
 
   /**
    * Steps the model once step. This is called when the Step button is pressed.
-   * @public
    */
-  stepOnce() {
+  public stepOnce(): void {
     this.tProperty.value += ( STEP_DT * TIME_SCALE );
   }
 
   /**
    * Updates amplitudes to match a pre-defined waveform.
-   * @private
    */
-  updateAmplitudes() {
+  private updateAmplitudes(): void {
 
     const waveform = this.waveformProperty.value; // {Waveform}
     const seriesType = this.seriesTypeProperty.value; // {SeriesType}
