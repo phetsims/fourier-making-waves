@@ -98,14 +98,12 @@ export default class DiscreteModel {
     const measurementToolsTandem = options.tandem.createTandem( 'measurementTools' );
 
     // @public the wavelength measurement tool
-    this.wavelengthTool = new DiscreteMeasurementTool( FMWSymbols.lambdaStringProperty, this.fourierSeries.numberOfHarmonicsProperty, {
-      tandem: measurementToolsTandem.createTandem( 'wavelengthTool' )
-    } );
+    this.wavelengthTool = new DiscreteMeasurementTool( FMWSymbols.lambdaStringProperty,
+      this.fourierSeries.numberOfHarmonicsProperty, measurementToolsTandem.createTandem( 'wavelengthTool' ) );
 
     // @public the period measurement tool
-    this.periodTool = new DiscreteMeasurementTool( FMWSymbols.TStringProperty, this.fourierSeries.numberOfHarmonicsProperty, {
-      tandem: measurementToolsTandem.createTandem( 'periodTool' )
-    } );
+    this.periodTool = new DiscreteMeasurementTool( FMWSymbols.TStringProperty,
+      this.fourierSeries.numberOfHarmonicsProperty, measurementToolsTandem.createTandem( 'periodTool' ) );
 
     // {DerivedProperty.<TickLabelFormat>}
     // Determines the format of the x-axis tick labels, shared by the Harmonics and Sum charts.
