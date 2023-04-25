@@ -8,73 +8,67 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 import DomainChart from './DomainChart.js';
 import FourierSeries from './FourierSeries.js';
+import Domain from './Domain.js';
+import SeriesType from './SeriesType.js';
 
 export default class SumChart extends DomainChart {
 
-  /**
-   * @param {FourierSeries} fourierSeries
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {Property.<number>} tProperty
-   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {Tandem} tandem
-   */
-  constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
-               xAxisDescriptionProperty, tandem ) {
+  public readonly fourierSeries: FourierSeries;
 
-    assert && assert( fourierSeries instanceof FourierSeries );
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
-    assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
-    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
-    assert && assert( tandem instanceof Tandem );
+  // The data set for the sum. Points are ordered by increasing x value.
+  public readonly sumDataSetProperty: TReadOnlyProperty<Vector2[]>;
+
+  // range of the y-axis, fitted to the sum's peak amplitude
+  public readonly yAxisRangeProperty: TReadOnlyProperty<Range>;
+
+  // y-axis description that is the best-fit for yAxisRangeProperty
+  public readonly yAxisDescriptionProperty: TReadOnlyProperty<AxisDescription>;
+
+  protected constructor( fourierSeries: FourierSeries,
+                         domainProperty: EnumerationProperty<Domain>,
+                         seriesTypeProperty: EnumerationProperty<SeriesType>,
+                         tProperty: TReadOnlyProperty<number>,
+                         xAxisDescriptionProperty: Property<AxisDescription>,
+                         tandem: Tandem ) {
 
     super( domainProperty, xAxisDescriptionProperty, fourierSeries.L, fourierSeries.T, tandem );
 
-    // @public (read-only)
     this.fourierSeries = fourierSeries;
 
-    // @public {DerivedProperty.<Vector2[]>} The data set for the sum. Points are ordered by increasing x value.
     this.sumDataSetProperty = new DerivedProperty(
       [ fourierSeries.amplitudesProperty, xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
       ( amplitudes, xAxisDescription, domain, seriesType, t ) =>
         fourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t )
     );
 
-    // @public {DerivedProperty.<Range>} range of the y axis, fitted to the sum's peak amplitude
     this.yAxisRangeProperty = new DerivedProperty(
       [ this.sumDataSetProperty ],
       sumDataSet => {
 
-        const peakAmplitude = _.maxBy( sumDataSet, point => point.y ).y;
+        const peakPoint = _.maxBy( sumDataSet, point => point.y );
+        assert && assert( peakPoint );
+        const peakAmplitude = peakPoint!.y;
 
         // no smaller than the max amplitude of one harmonic, with a bit of padding added at top and bottom
         const maxY = Math.max( fourierSeries.amplitudeRange.max, peakAmplitude * 1.05 );
         return new Range( -maxY, maxY );
       } );
 
-    // @public {DerivedProperty.<AxisDescription>} y-axis description that is the best-fit for yAxisRangeProperty
     this.yAxisDescriptionProperty = new DerivedProperty(
       [ this.yAxisRangeProperty ],
       yAxisRange => AxisDescription.getBestFit( yAxisRange, DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS ), {
         validValues: DiscreteAxisDescriptions.Y_AXIS_DESCRIPTIONS
       } );
-  }
-
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
 }
 

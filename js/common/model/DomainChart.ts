@@ -51,6 +51,10 @@ export default class DomainChart {
   public reset(): void {
     this.chartExpandedProperty.reset();
   }
+
+  public dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+  }
 }
 
 fourierMakingWaves.register( 'DomainChart', DomainChart );

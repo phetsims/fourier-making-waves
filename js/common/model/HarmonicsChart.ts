@@ -8,7 +8,9 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -17,40 +19,32 @@ import AxisDescription from './AxisDescription.js';
 import DomainChart from './DomainChart.js';
 import EmphasizedHarmonics from './EmphasizedHarmonics.js';
 import FourierSeries from './FourierSeries.js';
+import Domain from './Domain.js';
+import SeriesType from './SeriesType.js';
 
 export default class HarmonicsChart extends DomainChart {
 
-  /**
-   * @param {FourierSeries} fourierSeries
-   * @param {EmphasizedHarmonics} emphasizedHarmonics
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {Property.<number>} tProperty
-   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {Tandem} tandem
-   */
-  constructor( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
-               xAxisDescriptionProperty, tandem ) {
+  public readonly fourierSeries: FourierSeries;
+  public readonly emphasizedHarmonics: EmphasizedHarmonics;
+  public readonly yAxisDescription: AxisDescription; // fixed y-axis
 
-    assert && assert( fourierSeries instanceof FourierSeries );
-    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
-    assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
-    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
-    assert && assert( tandem instanceof Tandem );
+  // A data set for each harmonic, indexed in harmonic order. Points are ordered by increasing x value.
+  public readonly harmonicDataSetProperties: TReadOnlyProperty<Vector2[]>[];
+
+  protected constructor( fourierSeries: FourierSeries,
+                         emphasizedHarmonics: EmphasizedHarmonics,
+                         domainProperty: EnumerationProperty<Domain>,
+                         seriesTypeProperty: EnumerationProperty<SeriesType>,
+                         tProperty: TReadOnlyProperty<number>,
+                         xAxisDescriptionProperty: Property<AxisDescription>,
+                         tandem: Tandem ) {
 
     super( domainProperty, xAxisDescriptionProperty, fourierSeries.L, fourierSeries.T, tandem );
 
-    // @public (read-only)
     this.fourierSeries = fourierSeries;
     this.emphasizedHarmonics = emphasizedHarmonics;
-
-    // @public (read-only) {AxisDescription} fixed y-axis
     this.yAxisDescription = DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION;
 
-    // @public {DerivedProperty.<Vector2[]>[]} a data set for each harmonic, indexed in harmonic order.
-    // Points are ordered by increasing x value.
     this.harmonicDataSetProperties = fourierSeries.harmonics.map( harmonic => {
 
       // The number of points for each harmonic plot is a function of order, because higher-frequency harmonics require
@@ -58,7 +52,7 @@ export default class HarmonicsChart extends DomainChart {
       const numberOfPoints = Math.ceil( FMWConstants.MAX_POINTS_PER_DATA_SET *
                                         harmonic.order / fourierSeries.harmonics.length );
 
-      // {Property.<Vector2[]>} the data set for this harmonic
+      // the derived data set for this harmonic
       return new DerivedProperty(
         [ harmonic.amplitudeProperty, xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
         ( amplitude, xAxisDescription, domain, seriesType, t ) => {
@@ -66,14 +60,6 @@ export default class HarmonicsChart extends DomainChart {
             domain, seriesType, t );
         } );
     } );
-  }
-
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
 }
 
