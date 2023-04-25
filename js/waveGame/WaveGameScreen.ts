@@ -7,6 +7,7 @@
  */
 
 import Screen from '../../../joist/js/Screen.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 import FMWColors from '../common/FMWColors.js';
 import FMWIconFactory from '../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
@@ -15,21 +16,15 @@ import WaveGameModel from './model/WaveGameModel.js';
 import WaveGameKeyboardHelpContent from './view/WaveGameKeyboardHelpContent.js';
 import WaveGameScreenView from './view/WaveGameScreenView.js';
 
-export default class WaveGameScreen extends Screen {
+export default class WaveGameScreen extends Screen<WaveGameModel, WaveGameScreenView> {
 
-  constructor( tandem ) {
+  public constructor( tandem: Tandem ) {
 
     const options = {
-
-      // Screen options
       name: FourierMakingWavesStrings.screen.waveGameStringProperty,
       backgroundColorProperty: FMWColors.waveGameScreenBackgroundColorProperty,
       homeScreenIcon: FMWIconFactory.createWaveGameHomeScreenIcon(),
-
-      // pdom options
       createKeyboardHelpNode: () => new WaveGameKeyboardHelpContent(),
-
-      // phet-io options
       tandem: tandem
     };
 
@@ -40,11 +35,7 @@ export default class WaveGameScreen extends Screen {
     );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
