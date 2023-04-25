@@ -11,12 +11,13 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import merge from '../../../../phet-core/js/merge.js';
-import required from '../../../../phet-core/js/required.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
@@ -45,91 +46,137 @@ const t = 0; // lowercase t (time) to distinguish from uppercase T (period)
 // see https://github.com/phetsims/fourier-making-waves/issues/97
 const AMPLITUDE_THRESHOLD = 0;
 
+type SelfOptions = {
+
+  // default number of amplitude controls to show for a challenge
+  defaultNumberOfAmplitudeControls: number;
+
+  // the number of non-zero harmonics is each challenge, by default same as level number
+  getNumberOfNonZeroHarmonics?: () => number;
+
+  // message shown in the status bar that appears at the top of the Wave Game screen
+  statusBarMessageProperty?: TReadOnlyProperty<string>;
+
+  // shown in the info dialog that describes the game levels, default will be set below
+  infoDialogDescriptionProperty?: TReadOnlyProperty<string>;
+};
+
+type WaveGameLevelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+
 export default class WaveGameLevel extends PhetioObject {
 
+  public readonly levelNumber: number; // numbered starting from 1
+  public readonly statusBarMessageProperty: TReadOnlyProperty<string>;
+  public readonly infoDialogDescriptionProperty: TReadOnlyProperty<string>;
+
+  private readonly defaultNumberOfAmplitudeControls: number;
+
+  // The score is the total number of points that have been awarded for this level.
+  public readonly scoreProperty: NumberProperty;
+
+  // Whether the current challenge has been solved. A challenge is considered solved when the user has
+  // correctly guessed the answer, or when the user has pressed the 'Show Answer' button.
+  public readonly isSolvedProperty: Property<boolean>;
+
+  // Generates amplitudes for answerSeries
+  private readonly amplitudesGenerator: AmplitudesGenerator;
+
+  // Answer for the challenge, the waveform that the user is attempting to match
+  private readonly answerSeries: FourierSeries;
+
+  // The Fourier series that corresponds to the user's guess
+  private readonly guessSeries: FourierSeries;
+
+  // Does the guess currently match the answer, within some threshold?
+  public readonly isMatchedProperty: TReadOnlyProperty<boolean>;
+
+  // the number of amplitude controls (sliders) to show in the Amplitudes chart
+  public readonly numberOfAmplitudeControlsProperty: NumberProperty;
+
+  // The harmonics (in guessSeries) to be emphasized in the Harmonics chart, as the result of UI interactions.
+  private readonly emphasizedHarmonics: EmphasizedHarmonics;
+
+  // charts
+  public readonly amplitudesChart: WaveGameAmplitudesChart;
+  public readonly harmonicsChart: WaveGameHarmonicsChart;
+  public readonly sumChart: WaveGameSumChart;
+
+  // Fires when a new waveform has been fully initialized, see method newWaveform.
+  public readonly newWaveformEmitter: Emitter;
+
+  // Fires when the guess is checked and found to be correct. The argument is the number of points awarded.
+  public readonly correctEmitter: Emitter<[number]>;
+
+  // Fires when the guess is checked and found to be incorrect.
+  public readonly incorrectEmitter: Emitter;
+
   /**
-   * @param {number} levelNumber - numbered starting from 1
-   * @param {Object} config
+   * @param levelNumber - numbered starting from 1
+   * @param providedOptions
    */
-  constructor( levelNumber, config ) {
+  public constructor( levelNumber: number, providedOptions: WaveGameLevelOptions ) {
 
     assert && AssertUtils.assertPositiveInteger( levelNumber ); // numbered starting from 1
 
-    config = merge( {
+    const options = optionize<WaveGameLevelOptions, SelfOptions, PhetioObjectOptions>()( {
 
-      // {number} default number of amplitude controls to show for a challenge
-      defaultNumberOfAmplitudeControls: required( config.defaultNumberOfAmplitudeControls ),
-
-      // {function():number} the number of non-zero harmonics is each challenge, by default same as level number
+      // SelfOptions
       getNumberOfNonZeroHarmonics: () => levelNumber,
 
-      // {string} message shown in the status bar that appears at the top of the Wave Game screen
       statusBarMessageProperty: new PatternStringProperty( FourierMakingWavesStrings.matchUsingNHarmonicsStringProperty, {
         levelNumber: levelNumber,
         numberOfHarmonics: levelNumber
       } ),
 
-      // {string} shown in the info dialog that describes the game levels, default will be set below
       infoDialogDescriptionProperty: new PatternStringProperty( FourierMakingWavesStrings.infoNHarmonicsStringProperty, {
         levelNumber: levelNumber,
         numberOfHarmonics: levelNumber
       } ),
 
-      tandem: Tandem.REQUIRED,
       phetioType: WaveGameLevel.WaveGameLevelIO,
       phetioState: false
-    }, config );
+    }, providedOptions );
 
-    assert && assert( typeof config.getNumberOfNonZeroHarmonics === 'function' );
-    assert && AssertUtils.assertNonNegativeInteger( config.defaultNumberOfAmplitudeControls );
-    assert && assert( config.defaultNumberOfAmplitudeControls >= levelNumber && config.defaultNumberOfAmplitudeControls <= FMWConstants.MAX_HARMONICS );
+    assert && assert( Number.isInteger( options.defaultNumberOfAmplitudeControls ) && options.defaultNumberOfAmplitudeControls >= 0 );
+    assert && assert( options.defaultNumberOfAmplitudeControls >= levelNumber && options.defaultNumberOfAmplitudeControls <= FMWConstants.MAX_HARMONICS );
 
-    super( config );
+    super( options );
 
-    // @public (read-only)
-    this.levelNumber = levelNumber; // {number} numbered starting from 1
-    this.statusBarMessageProperty = config.statusBarMessageProperty;
-    this.infoDialogDescriptionProperty = config.infoDialogDescriptionProperty; // {string}
+    this.levelNumber = levelNumber;
+    this.statusBarMessageProperty = options.statusBarMessageProperty;
+    this.infoDialogDescriptionProperty = options.infoDialogDescriptionProperty;
 
-    // @private
-    this.defaultNumberOfAmplitudeControls = config.defaultNumberOfAmplitudeControls; // {number}
+    this.defaultNumberOfAmplitudeControls = options.defaultNumberOfAmplitudeControls;
 
-    // @public The score is the total number of points that have been awarded for this level.
     this.scoreProperty = new NumberProperty( 0, {
       numberType: 'Integer',
       isValidValue: value => ( value >= 0 ),
       phetioReadOnly: true,
-      tandem: config.tandem.createTandem( 'scoreProperty' )
+      tandem: options.tandem.createTandem( 'scoreProperty' )
     } );
 
-    // @public Whether the current challenge has been solved. A challenge is considered solved when the user has
-    // correctly guessed the answer, or when the user has pressed the 'Show Answer' button.
     this.isSolvedProperty = new BooleanProperty( false, {
-      tandem: config.tandem.createTandem( 'isSolvedProperty' ),
+      tandem: options.tandem.createTandem( 'isSolvedProperty' ),
       phetioReadOnly: true
     } );
 
-    // @private Generates amplitudes for answerSeries
     this.amplitudesGenerator = new AmplitudesGenerator( {
-      getNumberOfNonZeroHarmonics: config.getNumberOfNonZeroHarmonics
+      getNumberOfNonZeroHarmonics: options.getNumberOfNonZeroHarmonics
     } );
 
     const firstAnswer = ( this.levelNumber === 5 && FMWQueryParameters.answer5 ) ?
                         FMWQueryParameters.answer5 :
                         this.amplitudesGenerator.createAmplitudes();
 
-    // @private answer for the challenge, the waveform that the user is attempting to match
     this.answerSeries = new FourierSeries( {
       amplitudes: firstAnswer,
-      tandem: config.tandem.createTandem( 'answerSeries' )
+      tandem: options.tandem.createTandem( 'answerSeries' )
     } );
 
-    // @private the Fourier series that corresponds to the user's guess
     this.guessSeries = new FourierSeries( {
-      tandem: config.tandem.createTandem( 'guessSeries' )
+      tandem: options.tandem.createTandem( 'guessSeries' )
     } );
 
-    // @public (read-only) Does the guess currently match the answer, within some threshold?
     this.isMatchedProperty = new DerivedProperty(
       [ this.guessSeries.amplitudesProperty, this.answerSeries.amplitudesProperty ],
       ( guessAmplitudes, answerAmplitudes ) => {
@@ -140,58 +187,46 @@ export default class WaveGameLevel extends PhetioObject {
         return isMatched;
       } );
 
-    // @public the number of amplitude controls (sliders) to show in the Amplitudes chart
-    this.numberOfAmplitudeControlsProperty = new NumberProperty( config.defaultNumberOfAmplitudeControls, {
+    this.numberOfAmplitudeControlsProperty = new NumberProperty( options.defaultNumberOfAmplitudeControls, {
       numberType: 'Integer',
       range: new Range( this.answerSeries.getNumberOfNonZeroHarmonics(), this.answerSeries.harmonics.length ),
       rangePropertyOptions: {
         phetioDocumentation: 'Determines the range of the Amplitude Controls spinner',
         phetioValueType: Range.RangeIO
       },
-      tandem: config.tandem.createTandem( 'numberOfAmplitudeControlsProperty' )
+      tandem: options.tandem.createTandem( 'numberOfAmplitudeControlsProperty' )
     } );
 
-    // @private The harmonics to be emphasized in the Harmonics chart, as the result of UI interactions.
-    // These are harmonics in guessSeries.
     this.emphasizedHarmonics = new EmphasizedHarmonics();
 
     // Parent tandem for all charts
-    const chartsTandem = config.tandem.createTandem( 'charts' );
+    const chartsTandem = options.tandem.createTandem( 'charts' );
 
-    // @public
     this.amplitudesChart = new WaveGameAmplitudesChart( this.answerSeries, this.guessSeries, this.emphasizedHarmonics,
       this.numberOfAmplitudeControlsProperty, chartsTandem.createTandem( 'amplitudesChart' ) );
 
-    // @public
     this.harmonicsChart = new WaveGameHarmonicsChart( this.guessSeries, this.emphasizedHarmonics, DOMAIN, SERIES_TYPE, t,
       DiscreteAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION, DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION,
       chartsTandem.createTandem( 'harmonicsChart' ) );
 
-    // @public
     this.sumChart = new WaveGameSumChart( this.answerSeries, this.guessSeries, DOMAIN, SERIES_TYPE, t,
       DiscreteAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION, chartsTandem.createTandem( 'sumChart' ) );
 
-    // @public Fires when a new waveform has been fully initialized, see method newWaveform.
     this.newWaveformEmitter = new Emitter();
 
-    // @public Fires when the guess is checked and found to be correct.
     this.correctEmitter = new Emitter( {
-      tandem: config.tandem.createTandem( 'correctEmitter' ),
+      tandem: options.tandem.createTandem( 'correctEmitter' ),
       parameters: [
         { name: 'pointsAwarded', phetioType: NumberIO }
       ]
     } );
 
-    // @public Fires when the guess is checked and found to be incorrect.
     this.incorrectEmitter = new Emitter( {
-      tandem: config.tandem.createTandem( 'incorrectEmitter' )
+      tandem: options.tandem.createTandem( 'incorrectEmitter' )
     } );
   }
 
-  /**
-   * @public
-   */
-  reset() {
+  public reset(): void {
     this.scoreProperty.reset();
     this.isSolvedProperty.reset();
     // Not necessary to reset this.numberOfAmplitudeControlsProperty
@@ -206,18 +241,16 @@ export default class WaveGameLevel extends PhetioObject {
   /**
    * Sets all amplitudes to zero for the guess.
    * This method is called when the eraser button is pressed.
-   * @public
    */
-  eraseAmplitudes() {
+  public eraseAmplitudes(): void {
     this.guessSeries.setAllAmplitudes( 0 );
   }
 
   /**
    * Checks the user's guess, awards points if appropriate, and notifies listeners of the result.
    * This method is called when the 'Check Answer' button is pressed.
-   * @public
    */
-  checkAnswer() {
+  public checkAnswer(): void {
     assert && assert( !this.isSolvedProperty.value );
     if ( this.isMatchedProperty.value ) {
       const pointAwarded = FMWConstants.POINTS_PER_CHALLENGE;
@@ -233,9 +266,8 @@ export default class WaveGameLevel extends PhetioObject {
   /**
    * Shows the answer for the challenge.
    * This method is called when the 'Show Answer' button is pressed.
-   * @public
    */
-  showAnswer() {
+  public showAnswer(): void {
     this.isSolvedProperty.value = true;
     this.guessSeries.setAmplitudes( this.answerSeries.amplitudesProperty.value );
   }
@@ -243,9 +275,8 @@ export default class WaveGameLevel extends PhetioObject {
   /**
    * Creates a new challenge, by settings all guess amplitudes to zero, and creating a new set of answer amplitudes.
    * This method is called when the 'New Waveform' button is pressed.
-   * @public
    */
-  newWaveform() {
+  public newWaveform(): void {
 
     // Set the guess amplitudes to zero.
     this.guessSeries.setAllAmplitudes( 0 );
@@ -271,16 +302,16 @@ export default class WaveGameLevel extends PhetioObject {
     // Notify listeners that the new waveform is fully initialized
     this.newWaveformEmitter.emit();
   }
-}
 
-/**
- * WaveGameLevelIO handles PhET-iO serialization of WaveGameLevel. Since all WaveGameLevels are instantiated at
- * startup, it implements 'Reference type serialization', as described in the Serialization section of
- * https://github.com/phetsims/phet-io/blob/master/doc/phet-io-instrumentation-technical-guide.md#serialization
- */
-WaveGameLevel.WaveGameLevelIO = new IOType( 'WaveGameLevelIO', {
-  valueType: WaveGameLevel,
-  supertype: ReferenceIO( IOType.ObjectIO )
-} );
+  /**
+   * WaveGameLevelIO handles PhET-iO serialization of WaveGameLevel. Since all WaveGameLevels are instantiated at
+   * startup, it implements 'Reference type serialization', as described in the Serialization section of
+   * https://github.com/phetsims/phet-io/blob/master/doc/phet-io-instrumentation-technical-guide.md#serialization
+   */
+  public static readonly WaveGameLevelIO = new IOType( 'WaveGameLevelIO', {
+    valueType: WaveGameLevel,
+    supertype: ReferenceIO( IOType.ObjectIO )
+  } );
+}
 
 fourierMakingWaves.register( 'WaveGameLevel', WaveGameLevel );

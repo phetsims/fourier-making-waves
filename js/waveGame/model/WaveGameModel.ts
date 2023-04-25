@@ -66,14 +66,13 @@ export default class WaveGameModel implements TModel {
 
       // Level 5
       new WaveGameLevel( 5, {
-        rewardScore: this.rewardScore,
         getNumberOfNonZeroHarmonics: () => dotRandom.nextIntBetween( 5, FMWConstants.MAX_HARMONICS ),
         defaultNumberOfAmplitudeControls: FMWConstants.MAX_HARMONICS,
         statusBarMessageProperty: new PatternStringProperty( FourierMakingWavesStrings.matchUsingNOrMoreHarmonicsStringProperty, {
           levelNumber: 5,
           numberOfHarmonics: 5
         } ),
-        infoDialogDescription: new PatternStringProperty( FourierMakingWavesStrings.infoNOrMoreHarmonicsStringProperty, {
+        infoDialogDescriptionProperty: new PatternStringProperty( FourierMakingWavesStrings.infoNOrMoreHarmonicsStringProperty, {
           levelNumber: 5,
           numberOfHarmonics: 5
         } ),
