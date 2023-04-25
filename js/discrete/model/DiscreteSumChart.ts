@@ -66,9 +66,15 @@ export default class DiscreteSumChart extends SumChart {
 
     this.infiniteHarmonicsDataSetProperty = new DerivedProperty(
       [ this.infiniteHarmonicsVisibleProperty, this.sumDataSetProperty, waveformProperty, domainProperty, seriesTypeProperty, tProperty ],
-      ( infiniteHarmonicsVisible, sumDataSet, waveform, domain, seriesType, t ) =>
-        ( infiniteHarmonicsVisible && waveform.supportsInfiniteHarmonics ) ?
-        waveform.getInfiniteHarmonicsDataSet( domain, seriesType, t, L, T ) : EMPTY_DATA_SET
+      ( infiniteHarmonicsVisible, sumDataSet, waveform, domain, seriesType, t ) => {
+        if ( infiniteHarmonicsVisible && waveform.supportsInfiniteHarmonics ) {
+          assert && assert( waveform.getInfiniteHarmonicsDataSet );
+          return waveform.getInfiniteHarmonicsDataSet!( domain, seriesType, t, L, T );
+        }
+        else {
+          return EMPTY_DATA_SET;
+        }
+      }
     );
   }
 
