@@ -14,15 +14,17 @@ import FourierMakingWavesStrings from './FourierMakingWavesStrings.js';
 import WaveGameScreen from './waveGame/WaveGameScreen.js';
 import WavePacketScreen from './wavepacket/WavePacketScreen.js';
 
-const fourierMakingWavesTitleStringProperty = FourierMakingWavesStrings[ 'fourier-making-waves' ].titleStringProperty;
+const titleStringProperty = FourierMakingWavesStrings[ 'fourier-making-waves' ].titleStringProperty;
 
 simLauncher.launch( () => {
 
-  const sim = new Sim( fourierMakingWavesTitleStringProperty, [
+  const screens = [
     new DiscreteScreen( Tandem.ROOT.createTandem( 'discreteScreen' ) ),
     new WaveGameScreen( Tandem.ROOT.createTandem( 'waveGameScreen' ) ),
     new WavePacketScreen( Tandem.ROOT.createTandem( 'wavePacketScreen' ) )
-  ], {
+  ];
+
+  const sim = new Sim( titleStringProperty, screens, {
     credits: {
       leadDesign: 'Amy Rouinfar, Sam McKagan',
       softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
