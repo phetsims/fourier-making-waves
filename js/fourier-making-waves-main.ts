@@ -16,23 +16,23 @@ import WavePacketScreen from './wavepacket/WavePacketScreen.js';
 
 const fourierMakingWavesTitleStringProperty = FourierMakingWavesStrings[ 'fourier-making-waves' ].titleStringProperty;
 
-const simOptions = {
-  credits: {
-    leadDesign: 'Amy Rouinfar, Sam McKagan',
-    softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
-    team: 'Wendy Adams, Mike Dubson, Danielle Harlow, Ariel Paul, Kathy Perkins, Carl Wieman',
-    qualityAssurance: 'Logan Bray, Clifford Hardin, Brooklyn Lash, Emily Miller, Nancy Salpepi, Kathryn Woessner',
-    thanks: 'We gratefully acknowledge support from STROBE NSF Science & Technology Center Grant DMR-1548924. ' +
-            'Any opinions, findings, and conclusions or recommendations expressed in this material are those of ' +
-            'the author(s) and do not necessarily reflect the views of the National Science Foundation.'
-  }
-};
-
 simLauncher.launch( () => {
+
   const sim = new Sim( fourierMakingWavesTitleStringProperty, [
     new DiscreteScreen( Tandem.ROOT.createTandem( 'discreteScreen' ) ),
     new WaveGameScreen( Tandem.ROOT.createTandem( 'waveGameScreen' ) ),
     new WavePacketScreen( Tandem.ROOT.createTandem( 'wavePacketScreen' ) )
-  ], simOptions );
+  ], {
+    credits: {
+      leadDesign: 'Amy Rouinfar, Sam McKagan',
+      softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
+      team: 'Wendy Adams, Mike Dubson, Danielle Harlow, Ariel Paul, Kathy Perkins, Carl Wieman',
+      qualityAssurance: 'Logan Bray, Clifford Hardin, Brooklyn Lash, Emily Miller, Nancy Salpepi, Kathryn Woessner',
+      thanks: 'We gratefully acknowledge support from STROBE NSF Science & Technology Center Grant DMR-1548924. ' +
+              'Any opinions, findings, and conclusions or recommendations expressed in this material are those of ' +
+              'the author(s) and do not necessarily reflect the views of the National Science Foundation.'
+    }
+  } );
+
   sim.start();
 } );
