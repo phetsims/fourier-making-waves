@@ -12,24 +12,28 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import FourierSeries from '../../common/model/FourierSeries.js';
+import FourierSeries, { FourierSeriesOptions } from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type DiscreteFourierSeriesOptions = SelfOptions & FourierSeriesOptions;
 
 export default class DiscreteFourierSeries extends FourierSeries {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  // the number of harmonics that are relevant in this series
+  public readonly numberOfHarmonicsProperty: NumberProperty;
 
-    super( options );
+  public constructor( providedOptions: DiscreteFourierSeriesOptions ) {
 
-    // @public the number of harmonics that are relevant in this series
+    super( providedOptions );
+
     this.numberOfHarmonicsProperty = new NumberProperty( FMWConstants.MAX_HARMONICS, {
       numberType: 'Integer',
       range: new Range( 1, FMWConstants.MAX_HARMONICS ),
-      tandem: options.tandem.createTandem( 'numberOfHarmonicsProperty' )
+      tandem: providedOptions.tandem.createTandem( 'numberOfHarmonicsProperty' )
     } );
 
     // Zero out amplitudes that are not relevant. Since this causes amplitudesProperty to go through intermediate
@@ -44,11 +48,7 @@ export default class DiscreteFourierSeries extends FourierSeries {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.numberOfHarmonicsProperty.reset();
   }

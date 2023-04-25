@@ -38,7 +38,7 @@ type SelfOptions = {
   amplitudes?: number[]; // initial amplitudes for the harmonics
 };
 
-type FourierSeriesOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+export type FourierSeriesOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class FourierSeries extends PhetioObject {
 
