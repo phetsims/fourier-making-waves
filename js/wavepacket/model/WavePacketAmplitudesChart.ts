@@ -11,9 +11,9 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
@@ -21,6 +21,7 @@ import DomainChart from '../../common/model/DomainChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
 import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
+import Domain from '../../common/model/Domain.js';
 
 // constants
 const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
@@ -30,18 +31,38 @@ const X_AXIS_MULTIPLIER = Math.PI;
 
 export default class WavePacketAmplitudesChart extends DomainChart {
 
-  /**
-   * @param {WavePacket} wavePacket
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property.<boolean>} widthIndicatorsVisibleProperty
-   * @param {Tandem} tandem
-   */
-  constructor( wavePacket, domainProperty, widthIndicatorsVisibleProperty, tandem ) {
+  public readonly waveNumberRange: Range;
+  public readonly widthIndicatorsVisibleProperty: Property<boolean>;
+  public readonly continuousWaveformVisibleProperty: Property<boolean>;
 
-    assert && assert( wavePacket instanceof WavePacket );
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
-    assert && assert( tandem instanceof Tandem );
+  // Data set for a finite number of Fourier components, EMPTY_DATA_SET if the number of components is infinite.
+  // x = wave number, y = amplitude. Points are ordered by increasing x value.
+  public readonly finiteComponentsDataSetProperty: TReadOnlyProperty<Vector2[]>;
+
+  // Data set for a continuous waveform. This must always be created, because it determines the peak amplitude of
+  // the chart, and thus its y-axis scale.
+  public readonly continuousWaveformDataSetProperty: TReadOnlyProperty<Vector2[]>;
+
+  // Data set for a continuous waveform, displayed when the number of components is infinite, otherwise [].
+  // When components are infinite, this is the same data set as that's used for Continuous Waveform, but will be
+  // plotted differently.
+  public readonly infiniteComponentsDataSetProperty: TReadOnlyProperty<Vector2[]>;
+
+  // the peak amplitude, used to scale the chart's y-axis.
+  public readonly peakAmplitudeProperty: TReadOnlyProperty<number>;
+
+  // y-axis description that is the best-fit for peakAmplitudeProperty
+  public readonly yAxisDescriptionProperty: TReadOnlyProperty<AxisDescription>;
+
+  // Width that is displayed by the width indicator.  This is identical to the wave packet's width, but we are
+  // deriving a Property named widthIndicatorWidthProperty so that all charts have a similar API for width indicators.
+  public readonly widthIndicatorWidthProperty: TReadOnlyProperty<number>;
+
+  // Position of the width indicator. This is loosely based on the getModelLocation method in WavePacketKWidthPlot.java.
+  public readonly widthIndicatorPositionProperty: TReadOnlyProperty<Vector2>;
+
+  public constructor( wavePacket: WavePacket, domainProperty: EnumerationProperty<Domain>,
+                      widthIndicatorsVisibleProperty: Property<boolean>, tandem: Tandem ) {
 
     // {Property.<AxisDescription>}
     // The x-axis has a fixed scale. Use validValues to make this Property essentially a constant.
@@ -51,54 +72,43 @@ export default class WavePacketAmplitudesChart extends DomainChart {
 
     super( domainProperty, xAxisDescriptionProperty, X_AXIS_MULTIPLIER, X_AXIS_MULTIPLIER, tandem );
 
-    // @public (read-only)
     this.waveNumberRange = wavePacket.waveNumberRange;
     this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
 
-    // @public
     this.continuousWaveformVisibleProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'continuousWaveformVisibleProperty' )
     } );
 
-    // @public {DerivedProperty.<Vector2[]>} data set for a finite number of Fourier components, EMPTY_DATA_SET if the
-    // number of components is infinite. x = wave number, y = amplitude. Points are ordered by increasing x value.
     this.finiteComponentsDataSetProperty = new DerivedProperty(
       [ wavePacket.componentsProperty ],
       components => {
-        let dataSet = EMPTY_DATA_SET;
+        let dataSet: Vector2[] = EMPTY_DATA_SET;
         if ( components.length > 0 ) {
           dataSet = components.map( component => new Vector2( component.waveNumber, component.amplitude ) );
         }
         return dataSet;
       } );
 
-    // @public {DerivedProperty.<Vector2[]>} Data set for a continuous waveform. This must always be created,
-    // because it determines the peak amplitude of the chart, and thus its y-axis scale.
     this.continuousWaveformDataSetProperty = new DerivedProperty(
       [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
       ( componentSpacing, center, standardDeviation ) => createContinuousWaveformDataSet( wavePacket )
     );
 
-    // @public {DerivedProperty.<Vector2[]>} Data set for a continuous waveform, displayed when the number of
-    // components is infinite, otherwise [].  When components are infinite, this is the same data set as that's
-    // used for Continuous Waveform, but will be plotted differently.
     this.infiniteComponentsDataSetProperty = new DerivedProperty(
       [ wavePacket.componentSpacingProperty, this.continuousWaveformDataSetProperty ],
       ( componentSpacing, continuousWaveformDataSet ) => {
-        let dataSet = EMPTY_DATA_SET;
+        let dataSet: Vector2[] = EMPTY_DATA_SET;
         if ( componentSpacing === 0 ) {
           dataSet = continuousWaveformDataSet;
         }
         return dataSet;
       } );
 
-    // @public {DerivedProperty.<number>} the peak amplitude, used to scale the chart's y axis.
     this.peakAmplitudeProperty = new DerivedProperty(
       [ this.continuousWaveformDataSetProperty ],
-      continuousWaveformDataSet => _.maxBy( continuousWaveformDataSet, point => point.y ).y
+      continuousWaveformDataSet => _.maxBy( continuousWaveformDataSet, point => point.y )!.y
     );
 
-    // @public {DerivedProperty.<AxisDescription>} y-axis description that is the best-fit for peakAmplitudeProperty
     this.yAxisDescriptionProperty = new DerivedProperty(
       [ this.peakAmplitudeProperty ],
       peakAmplitude =>
@@ -106,13 +116,8 @@ export default class WavePacketAmplitudesChart extends DomainChart {
         validValues: WavePacketAxisDescriptions.AMPLITUDES_Y_AXIS_DESCRIPTIONS
       } );
 
-    // @public {DerivedProperty.<Vector2>} width that is displayed by the width indicator
-    // This is identical to the wave packet's width, but we are deriving a Property named widthIndicatorWidthProperty
-    // so that all charts have a similar API for width indicators.
     this.widthIndicatorWidthProperty = new DerivedProperty( [ wavePacket.widthProperty ], width => width );
 
-    // @public {DerivedProperty.<Vector2>} position of the width indicator
-    // This is loosely based on the getModelLocation method in WavePacketKWidthPlot.java.
     this.widthIndicatorPositionProperty = new DerivedProperty(
       [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.standardDeviationProperty ],
       ( componentSpacing, center, standardDeviation ) => {
@@ -125,18 +130,7 @@ export default class WavePacketAmplitudesChart extends DomainChart {
       } );
   }
 
-  /**
-   * @public
-   */
-  dispose() {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-  }
-
-  /**
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.continuousWaveformVisibleProperty.reset();
   }
@@ -145,12 +139,10 @@ export default class WavePacketAmplitudesChart extends DomainChart {
 /**
  * Creates the data set that approximates a continuous waveform. Ordered by increasing wave number.
  * This is loosely based on the updateEnvelope method in D2CAmplitudesView.java.
- * @param {WavePacket} wavePacket
- * @returns {Vector2[]} - x is wave number, y is amplitude
- * @private
+ * @param wavePacket
+ * @returns a Vector2, where x is wave number, y is amplitude
  */
-function createContinuousWaveformDataSet( wavePacket ) {
-  assert && assert( wavePacket instanceof WavePacket );
+function createContinuousWaveformDataSet( wavePacket: WavePacket ): Vector2[] {
 
   const componentSpacing = wavePacket.componentSpacingProperty.value;
   const step = Math.PI / 10; // chosen empirically, so that the plot looks smooth

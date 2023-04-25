@@ -8,8 +8,10 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
@@ -19,6 +21,7 @@ import SeriesType from '../../common/model/SeriesType.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierComponent from './FourierComponent.js';
 import WavePacket from './WavePacket.js';
+import AxisDescription from '../../common/model/AxisDescription.js';
 
 // We could use different numbers of points for different Fourier components, because lower-order components have a
 // longer period, and therefore require fewer points to make them look smooth. But computing the same number of points
@@ -28,28 +31,22 @@ const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 
 export default class WavePacketComponentsChart extends DomainChart {
 
-  /**
-   * @param {WavePacket} wavePacket
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {Tandem} tandem
-   */
-  constructor( wavePacket, domainProperty, seriesTypeProperty, xAxisDescriptionProperty, tandem ) {
-    assert && assert( wavePacket instanceof WavePacket );
-    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
-    assert && assert( tandem instanceof Tandem );
+  // A data set for each Fourier component's waveform, EMPTY_DATA_SET when the number of components is infinite.
+  // Ordered by increasing order of Fourier component, i.e. the fundamental component has index=0.
+  // This is loosely based on the update method in D2CComponentsView.java.
+  public readonly componentDataSetsProperty: TReadOnlyProperty<Vector2[][]>;
+
+  public constructor( wavePacket: WavePacket, domainProperty: EnumerationProperty<Domain>,
+                      seriesTypeProperty: EnumerationProperty<SeriesType>,
+                      xAxisDescriptionProperty: Property<AxisDescription>,
+                      tandem: Tandem ) {
 
     super( domainProperty, xAxisDescriptionProperty, wavePacket.L, wavePacket.T, tandem );
 
-    // @public {DerivedProperty<Array.<Array.<Vector2>>}
-    // A data set for each Fourier component's waveform, EMPTY_DATA_SET when the number of components is infinite.
-    // Ordered by increasing order of Fourier component, i.e. the fundamental component has index=0.
-    // This is loosely based on the update method in D2CComponentsView.java.
     this.componentDataSetsProperty = new DerivedProperty(
       [ wavePacket.componentsProperty, domainProperty, seriesTypeProperty, xAxisDescriptionProperty ],
       ( components, domain, seriesType, xAxisDescription ) => {
-        let dataSets = EMPTY_DATA_SET;
+        let dataSets: Vector2[][] = EMPTY_DATA_SET;
         if ( components.length > 0 ) {
           dataSets = WavePacketComponentsChart.createComponentsDataSets( components,
             wavePacket.componentSpacingProperty.value, domain, seriesType, xAxisDescription.range );
@@ -63,25 +60,13 @@ export default class WavePacketComponentsChart extends DomainChart {
 
   /**
    * Creates data sets for the waveforms that correspond to a set of Fourier components.
-   * @param {FourierComponent[]} components
-   * @param {number} componentSpacing
-   * @param {Domain} domain
-   * @param {SeriesType} seriesType
-   * @param {Range} xRange
-   * @returns {Array.<Array.<Vector2>}
-   * @public
-   * @static
    */
-  static createComponentsDataSets( components, componentSpacing, domain, seriesType, xRange ) {
+  public static createComponentsDataSets( components: FourierComponent[], componentSpacing: number, domain: Domain,
+                                          seriesType: SeriesType, xRange: Range ): Vector2[][] {
 
-    assert && AssertUtils.assertArrayOf( components, FourierComponent );
-    assert && assert( components.length > 0 );
-    assert && AssertUtils.assertNonNegativeNumber( componentSpacing );
-    assert && assert( Domain.enumeration.includes( domain ) );
-    assert && assert( SeriesType.enumeration.includes( seriesType ) );
-    assert && assert( xRange instanceof Range );
+    assert && assert( components.length > 0 && componentSpacing >= 0 );
 
-    const dataSets = []; // {Array.<Array.<Vector2>>}
+    const dataSets: Vector2[][] = [];
     const L = 2 * Math.PI / componentSpacing;
     const T = L; // because the WavePacket model is independent of Domain, and assumes that L === T
     const t = 0; // there is no animation in this screen, so time is always 0

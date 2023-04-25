@@ -40,7 +40,7 @@ const FMWConstants = {
   // A data set (in bamboo) is typically an array of Vector2. This is an empty data set, used so that we can rely on
   // value comparison in Property, and not trigger notifications when the value changes from one [] to another [].
   // This is a performance optimization.
-  EMPTY_DATA_SET: Object.freeze( [] ),
+  EMPTY_DATA_SET: [],
 
   // Number of levels in the Wave Game
   NUMBER_OF_GAME_LEVELS: 5,

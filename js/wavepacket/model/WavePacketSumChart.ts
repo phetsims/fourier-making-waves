@@ -9,10 +9,11 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import DomainChart from '../../common/model/DomainChart.js';
@@ -21,78 +22,84 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
 import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
 import WavePacketComponentsChart from './WavePacketComponentsChart.js';
+import Domain from '../../common/model/Domain.js';
+import AxisDescription from '../../common/model/AxisDescription.js';
 
 // constants
 const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;
 
 export default class WavePacketSumChart extends DomainChart {
 
-  /**
-   * @param {DerivedProperty.<Array.<Array.<Vector2>>>} componentDataSetsProperty
-   * @param {WavePacket} wavePacket
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<Domain>} seriesTypeProperty
-   * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {Property.<boolean>} widthIndicatorsVisibleProperty
-   * @param {Tandem} tandem
-   */
-  constructor( componentDataSetsProperty, wavePacket, domainProperty, seriesTypeProperty,
-               xAxisDescriptionProperty, widthIndicatorsVisibleProperty, tandem ) {
-    assert && assert( componentDataSetsProperty instanceof DerivedProperty );
-    assert && assert( wavePacket instanceof WavePacket );
-    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
-    assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
-    assert && assert( tandem instanceof Tandem );
+  public readonly widthIndicatorsVisibleProperty: Property<boolean>;
+  public readonly yAxisDescription: AxisDescription;
+
+  // whether the envelope of the sum waveform is visible
+  public readonly waveformEnvelopeVisibleProperty: Property<boolean>;
+
+  // Data set for the sum. One of these dependencies will be EMPTY_DATA_SET and the other will contain points,
+  // depending on whether the number of Fourier components is finite or infinite.
+  public readonly sumDataSetProperty: TReadOnlyProperty<Vector2[]>;
+
+  // Data set for the waveform envelope. One of these dependencies will be EMPTY_DATA_SET and the other will
+  // contain points, depending on whether the number of Fourier components is finite or infinite.
+  public readonly waveformEnvelopeDataSetProperty: TReadOnlyProperty<Vector2[]>;
+
+  // Width displayed by the width indicator. This is loosely based on the getModelWidth method in WavePacketXWidthPlot.java.
+  public readonly widthIndicatorWidthProperty: TReadOnlyProperty<number>;
+
+  // Position of the width indicator. This is effectively a constant, see below.
+  public readonly widthIndicatorPositionProperty: TReadOnlyProperty<Vector2>;
+
+  public constructor( componentDataSetsProperty: TReadOnlyProperty<Vector2[][]>,
+                      wavePacket: WavePacket,
+                      domainProperty: EnumerationProperty<Domain>,
+                      seriesTypeProperty: EnumerationProperty<SeriesType>,
+                      xAxisDescriptionProperty: Property<AxisDescription>,
+                      widthIndicatorsVisibleProperty: Property<boolean>,
+                      tandem: Tandem ) {
 
     super( domainProperty, xAxisDescriptionProperty, wavePacket.L, wavePacket.T, tandem );
 
-    // @public (read-only)
     this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
     this.yAxisDescription = WavePacketAxisDescriptions.SUM_Y_AXIS_DESCRIPTION;
 
-    // @public whether the envelope of the sum waveform is visible
     this.waveformEnvelopeVisibleProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'waveformEnvelopeVisibleProperty' )
     } );
 
-    // {DerivedProperty.<Array.<Vector2>>}
     // Data set for the sum of a finite number of components, EMPTY_DATA_SET when the number of components is infinite.
     // This simply takes the data sets for components, and sums the y values (amplitudes) of corresponding x values.
     // Points are ordered by increasing x value.
     const finiteSumDataSetProperty = new DerivedProperty(
       [ componentDataSetsProperty ],
       componentDataSets => {
-        let dataSet = EMPTY_DATA_SET;
+        let dataSet: Vector2[] = EMPTY_DATA_SET;
         if ( componentDataSets.length > 0 ) {
           dataSet = createSumDataSet( componentDataSets );
         }
         return dataSet;
       } );
 
-    // {DerivedProperty.<Array.<Vector2>>}
     // Data set for the sum of an infinite number of components, EMPTY_DATA_SET when the number of components is finite.
     // Points are ordered by increasing x value.
     const infiniteSumDataSetProperty = new DerivedProperty(
       [ wavePacket.componentSpacingProperty, wavePacket.centerProperty, wavePacket.conjugateStandardDeviationProperty,
         seriesTypeProperty, xAxisDescriptionProperty ],
       ( componentSpacing, center, conjugateStandardDeviation, seriesType, xAxisDescription ) => {
-        let dataSet = EMPTY_DATA_SET;
+        let dataSet: Vector2[] = EMPTY_DATA_SET;
         if ( componentSpacing === 0 ) {
           dataSet = createWavePacketDataSet( center, conjugateStandardDeviation, seriesType, xAxisDescription.range );
         }
         return dataSet;
       } );
 
-    // @public {DerivedProperty.<Array.<Vector2>>} data set for the sum.
-    // One of these dependencies will be EMPTY_DATA_SET and the other will contain points, depending on whether the
-    // number of Fourier components is finite or infinite.
     this.sumDataSetProperty = new DerivedProperty(
       [ finiteSumDataSetProperty, infiniteSumDataSetProperty ],
       ( finiteDataSet, infiniteDataSet ) =>
         ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet
     );
 
-    // {DerivedProperty.<Vector2[]>} data set for the waveform envelope of a wave packet with infinite
+    // {DerivedProperty.<Vector2[]>} Data set for the waveform envelope of a wave packet with infinite
     // components, EMPTY_DATA_SET when the number of components is finite or the envelope is not visible.
     // This is computed using 2 wave packet waveforms USING THE FOURIER COMPONENTS - one for sine, one for cosine -
     // then combining y values. Points are ordered by increasing x value.
@@ -100,7 +107,7 @@ export default class WavePacketSumChart extends DomainChart {
     const finiteWaveformEnvelopeDataSetProperty = new DerivedProperty(
       [ this.waveformEnvelopeVisibleProperty, finiteSumDataSetProperty ],
       ( waveformEnvelopeVisible, finiteSumDataSet ) => {
-        let dataSet = EMPTY_DATA_SET;
+        let dataSet: Vector2[] = EMPTY_DATA_SET;
         if ( waveformEnvelopeVisible && finiteSumDataSet.length > 0 ) {
 
           // We'll be using finiteSumDataSet as one of the data sets. It was computed for either a SeriesType,
@@ -119,7 +126,7 @@ export default class WavePacketSumChart extends DomainChart {
         return dataSet;
       } );
 
-    // {DerivedProperty.<Vector2[]>} data set for the waveform envelope of a wave packet with infinite
+    // {DerivedProperty.<Vector2[]>} Data set for the waveform envelope of a wave packet with infinite
     // components, EMPTY_DATA_SET when the number of components is finite or the envelope is not visible.
     // This is computed using 2 wave packet waveforms - one for sine, one for cosine - then combining y values.
     // Points are ordered by increasing x value.
@@ -127,7 +134,7 @@ export default class WavePacketSumChart extends DomainChart {
       [ this.waveformEnvelopeVisibleProperty, wavePacket.componentSpacingProperty, wavePacket.centerProperty,
         wavePacket.conjugateStandardDeviationProperty, seriesTypeProperty, xAxisDescriptionProperty ],
       ( waveformEnvelopeVisible, componentSpacing, center, conjugateStandardDeviation, seriesType, xAxisDescription ) => {
-        let dataSet = EMPTY_DATA_SET;
+        let dataSet: Vector2[] = EMPTY_DATA_SET;
         if ( waveformEnvelopeVisible && componentSpacing === 0 ) {
 
           // Compute data sets for the same wave packet, using sin and cos.
@@ -141,23 +148,17 @@ export default class WavePacketSumChart extends DomainChart {
         return dataSet;
       } );
 
-    // @public {DerivedProperty.<Array.<Vector2>>} data set for the waveform envelope.
-    // One of these dependencies will be EMPTY_DATA_SET and the other will contain points, depending on whether the
-    // number of Fourier components is finite or infinite.
     this.waveformEnvelopeDataSetProperty = new DerivedProperty(
       [ finiteWaveformEnvelopeDataSetProperty, infiniteWaveformEnvelopeDataSetProperty ],
       ( finiteDataSet, infiniteDataSet ) =>
         ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet
     );
 
-    // @public {Vector2} width displayed by the width indicator
-    // This is loosely based on the getModelWidth method in WavePacketXWidthPlot.java.
     this.widthIndicatorWidthProperty = new DerivedProperty(
       [ wavePacket.conjugateStandardDeviationProperty ],
       conjugateStandardDeviation => 2 * conjugateStandardDeviation
     );
 
-    // @public {Vector2} position of the width indicator
     // This is a constant, but the view requires a Property. We use validValues to constrain it to 1 value.
     // This is based on the getModelLocation method in WavePacketXWidthPlot.java.
     const widthIndicatorPosition = new Vector2( 0, 1 / Math.sqrt( Math.E ) );
@@ -166,18 +167,7 @@ export default class WavePacketSumChart extends DomainChart {
     } );
   }
 
-  /**
-   * @public
-   */
-  dispose() {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-  }
-
-  /**
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.waveformEnvelopeVisibleProperty.reset();
   }
@@ -186,13 +176,9 @@ export default class WavePacketSumChart extends DomainChart {
 /**
  * Create a new data set by summing the y components of data sets. The provided data sets must have the same number
  * of points, and points with the same index must have the same x value.
- * @param {Vector2[][]} dataSets
- * @returns {Vector2[]}
  */
-function createSumDataSet( dataSets ) {
-  assert && assert( Array.isArray( dataSets ) );
+function createSumDataSet( dataSets: Vector2[][] ): Vector2[] {
   assert && assert( dataSets.length > 0 );
-  assert && assert( _.every( dataSets, dataSet => Array.isArray( dataSet ) ) );
 
   const pointsPerDataSet = dataSets[ 0 ].length;
   assert && assert( pointsPerDataSet > 0, 'Data sets must contain points.' );
@@ -215,17 +201,14 @@ function createSumDataSet( dataSets ) {
 /**
  * Creates a data set for a wave packet approximated using an infinite number of Fourier components.
  * This is based on the updateDataSet method in GaussianWavePacketPlot.java.
- * @param {number} center - the wave packet's center
- * @param {number} conjugateStandardDeviation - the wave packet's conjugate standard deviation, a measure of width
- * @param {SeriesType} seriesType - sine or cosine
- * @param {Range} xRange - range of the Sum chart's x axis
- * @returns {Vector2[]}
+ * @param center - the wave packet's center
+ * @param conjugateStandardDeviation - the wave packet's conjugate standard deviation, a measure of width
+ * @param seriesType - sine or cosine
+ * @param xRange - range of the Sum chart's x-axis
  */
-function createWavePacketDataSet( center, conjugateStandardDeviation, seriesType, xRange ) {
-  assert && AssertUtils.assertPositiveNumber( center );
-  assert && AssertUtils.assertPositiveNumber( conjugateStandardDeviation );
-  assert && assert( SeriesType.enumeration.includes( seriesType ) );
-  assert && assert( xRange instanceof Range );
+function createWavePacketDataSet( center: number, conjugateStandardDeviation: number, seriesType: SeriesType, xRange: Range ): Vector2[] {
+  assert && assert( center > 0 );
+  assert && assert( conjugateStandardDeviation > 0 );
 
   const dataSet = [];
   const numberOfPoints = FMWConstants.MAX_POINTS_PER_DATA_SET + 1;
@@ -250,13 +233,10 @@ function createWavePacketDataSet( center, conjugateStandardDeviation, seriesType
  * one computed using sine, the other computed using cosine. They must have the same number of points,
  * and points with the same index must have the same x value.
  * This is based on the updateEnvelope method in D2CSumView.js.
- * @param {Vector2[]} dataSet1
- * @param {Vector2[]} dataSet2
- * @returns {Vector2[]}
  */
-function createEnvelopeDataSet( dataSet1, dataSet2 ) {
-  assert && assert( Array.isArray( dataSet1 ) && dataSet1.length > 0 );
-  assert && assert( Array.isArray( dataSet2 ) && dataSet2.length > 0 );
+function createEnvelopeDataSet( dataSet1: Vector2[], dataSet2: Vector2[] ): Vector2[] {
+  assert && assert( dataSet1.length > 0 );
+  assert && assert( dataSet2.length > 0 );
   assert && assert( dataSet1.length === dataSet2.length );
 
   const dataSet = [];
