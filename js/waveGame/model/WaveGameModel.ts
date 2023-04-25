@@ -9,6 +9,7 @@
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
+import TModel from '../../../../joist/js/TModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -17,15 +18,21 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WaveGameLevel from './WaveGameLevel.js';
 
-export default class WaveGameModel {
+export default class WaveGameModel implements TModel {
 
-  constructor( tandem ) {
-    assert && assert( tandem instanceof Tandem );
+  // reaching this number of points results in a reward
+  public readonly rewardScore: number;
 
-    // @public (read-only) reaching this number of points results in a reward
+  // game levels, ordered by increasing level number
+  public readonly levels: WaveGameLevel[];
+
+  // the selected game level. null means 'no selection' and causes the view to return to the level-selection UI.
+  public readonly levelProperty: Property<WaveGameLevel | null>;
+
+  public constructor( tandem: Tandem ) {
+
     this.rewardScore = FMWQueryParameters.rewardScore;
 
-    // @public {WaveGameLevel[]}
     // There's some duplication of level number constants here. But the specification for levels changed SO many times,
     // that this brute force initialization ended up being easier to change and maintain.  So I'm willing to make a
     // trade-off here, sacrificing some duplication for a more straightforward implementation.
@@ -75,8 +82,6 @@ export default class WaveGameModel {
     ];
     assert && assert( this.levels.length === FMWConstants.NUMBER_OF_GAME_LEVELS );
 
-    // @public {Property.<null|WaveGameLevel>} the selected game level
-    // null means 'no selection' and causes the view to return to the level-selection UI
     this.levelProperty = new Property( null, {
       validValues: [ null, ...this.levels ],
       phetioValueType: NullableIO( WaveGameLevel.WaveGameLevelIO ),
@@ -85,18 +90,12 @@ export default class WaveGameModel {
     } );
   }
 
-  /**
-   * @public
-   */
-  reset() {
+  public reset(): void {
     this.levels.forEach( level => level.reset() );
     this.levelProperty.reset();
   }
 
-  /**
-   * @public
-   */
-  dispose() {
+  public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
 }
