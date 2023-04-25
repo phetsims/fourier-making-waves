@@ -10,6 +10,20 @@ import Range from '../../../dot/js/Range.js';
 import { Color, ProfileColorProperty } from '../../../scenery/js/imports.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 
+const HARMONIC_COLORS = [
+  new Color( 255, 0, 0 ),
+  new Color( 255, 128, 0 ),
+  new Color( 255, 210, 0 ),
+  new Color( 0, 255, 0 ),
+  new Color( 0, 201, 87 ),
+  new Color( 100, 149, 237 ),
+  new Color( 0, 0, 255 ),
+  new Color( 0, 0, 128 ),
+  new Color( 145, 33, 158 ),
+  new Color( 186, 85, 211 ),
+  new Color( 255, 105, 180 )
+];
+
 const FMWColors = {
 
   // Background colors for screens.
@@ -95,28 +109,15 @@ const FMWColors = {
   } ),
 
   // The range of gray colors that are assigned to Fourier components in Wave Packet screen
-  FOURIER_COMPONENT_GRAY_RANGE: new Range( 0, 230 )
-};
+  FOURIER_COMPONENT_GRAY_RANGE: new Range( 0, 230 ),
 
-// Create a ProfileColorProperty for each harmonic. Colors are listed by increasing harmonic order.
-// Given a harmonic order, the harmonic's ProfileColorProperty is FMWColors.HARMONIC_COLOR_PROPERTIES[order - 1].
-const HARMONIC_COLORS = [
-  new Color( 255, 0, 0 ),
-  new Color( 255, 128, 0 ),
-  new Color( 255, 210, 0 ),
-  new Color( 0, 255, 0 ),
-  new Color( 0, 201, 87 ),
-  new Color( 100, 149, 237 ),
-  new Color( 0, 0, 255 ),
-  new Color( 0, 0, 128 ),
-  new Color( 145, 33, 158 ),
-  new Color( 186, 85, 211 ),
-  new Color( 255, 105, 180 )
-];
-FMWColors.HARMONIC_COLOR_PROPERTIES = HARMONIC_COLORS.map(
-  ( color, index ) => new ProfileColorProperty( fourierMakingWaves, `harmonic${index + 1}Color`, {
-    default: HARMONIC_COLORS[ index ]
-  } ) );
+  // A ProfileColorProperty for each harmonic. Colors are listed by increasing harmonic order.
+  // Given a harmonic order, the harmonic's ProfileColorProperty is FMWColors.HARMONIC_COLOR_PROPERTIES[order - 1].
+  HARMONIC_COLOR_PROPERTIES: HARMONIC_COLORS.map(
+    ( color, index ) => new ProfileColorProperty( fourierMakingWaves, `harmonic${index + 1}Color`, {
+      default: HARMONIC_COLORS[ index ]
+    } ) )
+};
 
 fourierMakingWaves.register( 'FMWColors', FMWColors );
 export default FMWColors;
