@@ -15,6 +15,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
@@ -32,21 +33,48 @@ assert && assert(
 
 export default class WavePacket {
 
-  constructor( tandem ) {
-    assert && assert( tandem instanceof Tandem );
+  public readonly L: number; // wavelength when component spacing is 2 * Math.PI, in m
+  public readonly T: number; // period when component spacing is 2 * Math.PI, in ms
 
-    // @public
-    this.L = 1; // wavelength when component spacing is 2 * Math.PI, in m
-    this.T = 1; // period when component spacing is 2 * Math.PI, in ms
+  // Range of the wave number for Fourier components.
+  // k (rad/m) is spatial wave number, or omega (rad/ms) is angular wave number
+  public readonly waveNumberRange: Range;
+
+  // See phetioDocumentation. The spacing between Fourier components, k1 (rad/m) or omega (rad/ms)
+  public readonly componentSpacingProperty: NumberProperty;
+
+  // See phetioDocumentation
+  public readonly centerProperty: NumberProperty;
+
+  // See phetioDocumentation.
+  // See https://github.com/phetsims/fourier-making-waves/issues/105#issuecomment-889386852 for name decision.
+  // This is sometimes referred to as a delta (dk, d<sub>omega</sub>) in literature and in code comments.
+  public readonly standardDeviationProperty: NumberProperty;
+
+  // See phetioDocumentation.
+  // This is the conjugate (different form) of standardDeviationProperty. Using 'conjugate' here is
+  // PhET-specific terminology, not something that you'll find in the literature. It is sometimes referred to
+  // as a delta (dx, dt) in literature and in code comments. For decisions about name and units, see
+  // https://github.com/phetsims/fourier-making-waves/issues/105#issuecomment-889386852
+  public readonly conjugateStandardDeviationProperty: NumberProperty;
+
+  public readonly widthProperty: TReadOnlyProperty<number>;
+  public readonly lengthProperty: TReadOnlyProperty<number>;
+
+  // The Fourier components used to approximate the wave packet. Ordered by increasing wave number.
+  // This is loosely based on the addGeneralPathPlot method in D2CAmplitudesView.java.
+  public readonly componentsProperty: TReadOnlyProperty<FourierComponent[]>;
+
+  public constructor( tandem: Tandem ) {
+
+    this.L = 1;
+    this.T = 1;
     assert && assert( this.L === this.T && this.L === 1 && this.T === 1,
       'Many things in this implementation assume that L === T === 1, inherited from Java version.' );
 
-    // @public (read-only) range of the wave number for Fourier components
-    // k (rad/m) is spatial wave number, or omega (rad/ms) is angular wave number
     this.waveNumberRange = new Range( 0, 24 * Math.PI );
     assert && assert( this.waveNumberRange.min === 0 );
 
-    // @public the spacing between Fourier components, k1 (rad/m) or omega (rad/ms)
     this.componentSpacingProperty = new NumberProperty( COMPONENT_SPACING_VALUES[ 3 ], {
       validValues: COMPONENT_SPACING_VALUES,
       range: new Range( COMPONENT_SPACING_VALUES[ 0 ], COMPONENT_SPACING_VALUES[ COMPONENT_SPACING_VALUES.length - 1 ] ),
@@ -56,7 +84,6 @@ export default class WavePacket {
                            'In the time domain, this is \u03c9<sub>1</sub> in rad/ms.'
     } );
 
-    // @public
     this.centerProperty = new NumberProperty( 12 * Math.PI, {
       range: new Range( 9 * Math.PI, 15 * Math.PI ),
       tandem: tandem.createTandem( 'centerProperty' ),
@@ -65,9 +92,6 @@ export default class WavePacket {
                            'In the time domain, this is \u03c9<sub>0</sub> in rad/ms.'
     } );
 
-    // @public
-    // See https://github.com/phetsims/fourier-making-waves/issues/105#issuecomment-889386852 for name decision.
-    // This is sometimes referred to as a delta (dk, d<sub>omega</sub>) in literature and in code comments.
     this.standardDeviationProperty = new NumberProperty( 3 * Math.PI, {
       range: new Range( Math.PI, 4 * Math.PI ),
       tandem: tandem.createTandem( 'standardDeviationProperty' ),
@@ -76,10 +100,6 @@ export default class WavePacket {
                            'In the time domain, this is \u03c3<sub>\u03c9</sub> in rad/ms.'
     } );
 
-    // @public This is the conjugate (different form) of standardDeviationProperty. Using 'conjugate' here is
-    // PhET-specific terminology, not something that you'll find in the literature. It is sometimes referred to
-    // as a delta (dx, dt) in literature and in code comments. For decisions about name and units, see
-    // https://github.com/phetsims/fourier-making-waves/issues/105#issuecomment-889386852
     this.conjugateStandardDeviationProperty = new NumberProperty( 1 / this.standardDeviationProperty.value, {
       range: new Range( 1 / this.standardDeviationProperty.range.max, 1 / this.standardDeviationProperty.range.min ),
       tandem: tandem.createTandem( 'conjugateStandardDeviationProperty' ),
@@ -111,7 +131,6 @@ export default class WavePacket {
       }
     } );
 
-    // @public {DerivedProperty.<number>}
     this.widthProperty = new DerivedProperty(
       [ this.standardDeviationProperty ],
       standardDeviation => 2 * standardDeviation, {
@@ -122,7 +141,6 @@ export default class WavePacket {
                              'In the time domain, width is in rad/ms.'
       } );
 
-    // @public {DerivedProperty.<number>}
     this.lengthProperty = new DerivedProperty(
       [ this.componentSpacingProperty ],
       componentSpacing => {
@@ -139,9 +157,6 @@ export default class WavePacket {
                              'In the time domain, period T<sub>1</sub> in ms.'
       } );
 
-    // @public {DerivedProperty.<FourierComponent[]>} the Fourier components used to approximate the wave packet.
-    // Ordered by increasing wave number.
-    // This is loosely based on the addGeneralPathPlot method in D2CAmplitudesView.java.
     this.componentsProperty = new DerivedProperty(
       [ this.componentSpacingProperty, this.centerProperty, this.standardDeviationProperty ],
       ( componentSpacing, center, standardDeviation ) => {
@@ -166,17 +181,11 @@ export default class WavePacket {
       } );
   }
 
-  /**
-   * @public
-   */
-  dispose() {
+  public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
 
-  /**
-   * @public
-   */
-  reset() {
+  public reset(): void {
     this.componentSpacingProperty.reset();
     this.centerProperty.reset();
     this.standardDeviationProperty.reset();
@@ -185,10 +194,8 @@ export default class WavePacket {
 
   /**
    * Gets the number of components in the Fourier series.
-   * @returns {number}
-   * @public
    */
-  getNumberOfComponents() {
+  public getNumberOfComponents(): number {
     const componentSpacing = this.componentSpacingProperty.value;
     if ( componentSpacing === 0 ) {
       return Infinity;
@@ -208,13 +215,8 @@ export default class WavePacket {
    * But this method can also be used for the time Domain (omega, in rad/ms), because L === T === 1.
    *
    * This was ported from the getAmplitude method in GaussianWavePacket.java.
-   *
-   * @param {number} waveNumber
-   * @returns {number}
-   * @public
    */
-  getComponentAmplitude( waveNumber ) {
-    assert && assert( typeof waveNumber === 'number' );
+  public getComponentAmplitude( waveNumber: number ): number {
     const center = this.centerProperty.value;
     const sigma = this.standardDeviationProperty.value;
     return Math.exp( -( ( waveNumber - center ) * ( waveNumber - center ) ) / ( 2 * sigma * sigma ) ) /
