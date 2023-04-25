@@ -9,99 +9,94 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
-import required from '../../../../phet-core/js/required.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import { Color } from '../../../../scenery/js/imports.js';
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { TColor } from '../../../../scenery/js/imports.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
 import getAmplitudeFunction from './getAmplitudeFunction.js';
 import SeriesType from './SeriesType.js';
 
+type SelfOptions = {
+
+  // required
+  order: number; // the order of the harmonic, numbered from 1
+  frequency: number; // frequency, in Hz
+  wavelength: number; // wavelength, in meters
+  amplitudeRange: Range; // range of amplitude, no units
+  colorProperty: TReadOnlyProperty<TColor>; // the color used to visualize the harmonic
+
+  // optional
+  amplitude?: number; // initial amplitude of the harmonic, no units
+};
+
+type HarmonicOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+
 export default class Harmonic extends PhetioObject {
 
-  /**
-   * @param {Object} config
-   */
-  constructor( config ) {
+  // See SelfOptions
+  public readonly order: number;
+  public readonly frequency: number;
+  public readonly wavelength: number;
+  public readonly amplitudeRange: Range;
+  public readonly colorProperty: TReadOnlyProperty<TColor>;
 
-    config = merge( {
+  // period of the harmonic, in milliseconds
+  public readonly period: number;
 
-      // Harmonic, required
-      order: required( config.order ), // {number} the order of the harmonic, numbered from 1
-      frequency: required( config.frequency ), // {number} frequency, in Hz
-      wavelength: required( config.wavelength ), // {number} wavelength, in meters
-      amplitudeRange: required( config.amplitudeRange ), // {Range} range of amplitude, no units
-      colorProperty: required( config.colorProperty ), // {Property.<Color>} the color used to visualize the harmonic
+  // amplitude of the harmonic, no units
+  public readonly amplitudeProperty: NumberProperty;
 
-      // Harmonic, optional
+  public constructor( providedOptions: HarmonicOptions ) {
+
+    const options = optionize<HarmonicOptions, SelfOptions, PhetioObjectOptions>()( {
+
+      // HarmonicOptions
       amplitude: 0,
 
-      // phet-io options
-      tandem: Tandem.REQUIRED,
+      // PhetioObjectOptions
       phetioState: false
-    }, config );
+    }, providedOptions );
 
-    assert && AssertUtils.assertPositiveInteger( config.order );
-    assert && AssertUtils.assertPositiveNumber( config.frequency );
-    assert && AssertUtils.assertPositiveNumber( config.wavelength );
-    assert && assert( config.amplitudeRange instanceof Range );
-    assert && AssertUtils.assertPropertyOf( config.colorProperty, Color );
-    assert && assert( typeof config.amplitude === 'number' );
+    assert && assert( Number.isInteger( options.order ) && options.order > 0 );
+    assert && assert( options.frequency > 0 );
+    assert && assert( options.wavelength > 0 );
 
-    super( config );
+    super( options );
 
-    // @public (read-only)
-    this.order = config.order;
-    this.frequency = config.frequency;
-    this.wavelength = config.wavelength;
-    this.colorProperty = config.colorProperty;
-    this.amplitudeRange = config.amplitudeRange;
-
-    // @public (read-only) period of the harmonic, in milliseconds
+    this.order = options.order;
+    this.frequency = options.frequency;
+    this.wavelength = options.wavelength;
+    this.amplitudeRange = options.amplitudeRange;
+    this.colorProperty = options.colorProperty;
     this.period = 1000 / this.frequency;
 
-    // @public amplitude of the harmonic, no units
-    this.amplitudeProperty = new NumberProperty( config.amplitude, {
+    this.amplitudeProperty = new NumberProperty( options.amplitude, {
       range: this.amplitudeRange,
       phetioDocumentation: 'the amplitude of this harmonic',
-      tandem: config.tandem.createTandem( 'amplitudeProperty' )
+      tandem: options.tandem.createTandem( 'amplitudeProperty' )
     } );
   }
 
-  /**
-   * @public
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
   }
 
-  /**
-   * @public
-   */
-  reset() {
+  public reset(): void {
     this.amplitudeProperty.reset();
   }
 
   /**
-   * Create a data set of this harmonic.
-   * @param {number} numberOfPoints
-   * @param {number} L
-   * @param {number} T
-   * @param {AxisDescription} xAxisDescription
-   * @param {Domain} domain
-   * @param {SeriesType} seriesType
-   * @param {number} t
-   * @returns {Vector2[]}
-   * @public
+   * Create a data set to approximate this harmonic.
    */
-  createDataSet( numberOfPoints, L, T, xAxisDescription, domain, seriesType, t ) {
-    assert && assert( xAxisDescription instanceof AxisDescription );
+  public createDataSet( numberOfPoints: number, L: number, T: number, xAxisDescription: AxisDescription,
+                        domain: Domain, seriesType: SeriesType, t: number ): Vector2[] {
     const order = this.order;
     const amplitude = this.amplitudeProperty.value;
     const xRange = xAxisDescription.createRangeForDomain( domain, L, T );
@@ -111,30 +106,15 @@ export default class Harmonic extends PhetioObject {
   /**
    * Creates a data set for any harmonic. This is used in the Wave Packet screen, which does not create Harmonic
    * instances due to the large number of Fourier components involved.
-   * @param {number} order
-   * @param {number} amplitude
-   * @param {number} numberOfPoints
-   * @param {number} L
-   * @param {number} T
-   * @param {Range} xRange
-   * @param {Domain} domain
-   * @param {SeriesType} seriesType
-   * @param {number} t
-   * @returns {Vector2[]}
-   * @public
-   * @static
    */
-  static createDataSetStatic( order, amplitude, numberOfPoints, L, T, xRange, domain, seriesType, t ) {
+  public static createDataSetStatic( order: number, amplitude: number, numberOfPoints: number, L: number, T: number,
+                                     xRange: Range, domain: Domain, seriesType: SeriesType, t: number ): Vector2[] {
 
-    assert && AssertUtils.assertPositiveInteger( order );
-    assert && assert( typeof amplitude === 'number' );
-    assert && AssertUtils.assertPositiveInteger( numberOfPoints );
-    assert && AssertUtils.assertPositiveNumber( L );
-    assert && AssertUtils.assertPositiveNumber( T );
-    assert && assert( xRange instanceof Range );
-    assert && assert( Domain.enumeration.includes( domain ) );
-    assert && assert( SeriesType.enumeration.includes( seriesType ) );
-    assert && AssertUtils.assertNonNegativeNumber( t );
+    assert && assert( Number.isInteger( order ) && order > 0 );
+    assert && assert( Number.isInteger( numberOfPoints ) && numberOfPoints > 0 );
+    assert && assert( L > 0 );
+    assert && assert( T > 0 );
+    assert && assert( t >= 0 );
 
     const dataSet = [];
     const amplitudeFunction = getAmplitudeFunction( domain, seriesType );
