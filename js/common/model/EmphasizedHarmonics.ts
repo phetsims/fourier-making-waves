@@ -15,49 +15,41 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import createObservableArray from '../../../../axon/js/createObservableArray.js';
+import createObservableArray, { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Harmonic from './Harmonic.js';
 
+// Each element identifies an interactive Node and the harmonic that it is manipulating.
+type ArrayElement = {
+  node: Node;
+  harmonic: Harmonic;
+};
+
 export default class EmphasizedHarmonics {
 
-  constructor() {
+  private readonly observableArray: ObservableArray<ArrayElement>;
 
-    // @private {ObservableArrayDef.<{node:Node, harmonic: Harmonic}>}
-    // Each element identifies an interactive Node and the harmonic that it is manipulating.
+  public constructor() {
     this.observableArray = createObservableArray();
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
   }
 
   /**
    * Adds a node/harmonic pair to the set. Enforces uniqueness of the node key.
-   * @param {Node} node
-   * @param {Harmonic} harmonic
-   * @public
    */
-  push( node, harmonic ) {
-    assert && assert( harmonic instanceof Harmonic );
-    assert && assert( node instanceof Node );
+  public push( node: Node, harmonic: Harmonic ): void {
     assert && assert( !this.includesNode( node ), 'node is already in the set' );
     this.observableArray.push( { node: node, harmonic: harmonic } );
   }
 
   /**
    * Removes the element that corresponds to node, which is a unique key.
-   * @param {Node} node
-   * @public
    */
-  remove( node ) {
-    assert && assert( node instanceof Node );
+  public remove( node: Node ): void {
     const element = _.find( this.observableArray, element => element.node === node );
     assert && assert( element, 'no element in set' );
     element && this.observableArray.remove( element );
@@ -65,53 +57,39 @@ export default class EmphasizedHarmonics {
 
   /**
    * Does the set include an element related to a specified node?
-   * @param {Node} node
-   * @returns {boolean}
-   * @public
    */
-  includesNode( node ) {
-    assert && assert( node instanceof Node );
+  public includesNode( node: Node ): boolean {
     return _.some( this.observableArray, element => element.node === node );
   }
 
   /**
    * Does the set include an element related to a specified harmonic?
-   * @param {Harmonic} harmonic
-   * @returns {boolean}
-   * @public
    */
-  includesHarmonic( harmonic ) {
-    assert && assert( harmonic instanceof Harmonic );
+  public includesHarmonic( harmonic: Harmonic ): boolean {
     return _.some( this.observableArray, element => element.harmonic === harmonic );
   }
 
   /**
    * Resets (clears) the set.
-   * @public
    */
-  reset() {
+  public reset(): void {
     this.observableArray.clear();
   }
 
   /**
    * Gets the number of elements in the set.
-   * @returns {number}
-   * @public
    */
-  getLength() {
+  public getLength(): number {
     return this.observableArray.length;
   }
 
-  get length() { return this.getLength(); }
+  public get length(): number { return this.getLength(); }
 
   /**
    * Adds a listener that is called when the set changes.
    * There is no removeChangedListener method because listeners do not need to be removed in this sim.
-   * @param {function} listener - no parameters, no return value
-   * @public
    */
-  addChangedListener( listener ) {
-    assert && assert( typeof listener === 'function' );
+  public addChangedListener( listener: () => void ): void {
     assert && assert( !this.observableArray.lengthProperty.hasListener( listener ) );
     this.observableArray.lengthProperty.lazyLink( () => listener() );
   }
