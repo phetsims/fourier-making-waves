@@ -9,43 +9,49 @@
 
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
+type SelfOptions = {
+  numberOfHarmonics?: number;
+  maxAmplitude?: number;
+
+  // gets the number of non-zero harmonics in the waveform
+  getNumberOfNonZeroHarmonics?: () => number;
+};
+
+type AmplitudesGeneratorOptions = SelfOptions;
+
 export default class AmplitudesGenerator {
 
-  /**
-   * @param {Object} [options]
-   * @abstract
-   */
-  constructor( options ) {
+  // See SelfOptions
+  private readonly numberOfHarmonics: number;
+  private readonly maxAmplitude: number;
+  private readonly getNumberOfNonZeroHarmonics: () => number;
 
-    options = merge( {
+  public constructor( providedOptions?: AmplitudesGeneratorOptions ) {
 
-      // AmplitudesGenerator options
+    const options = optionize<AmplitudesGeneratorOptions, SelfOptions>()( {
+
+      // SelfOptions
       numberOfHarmonics: FMWConstants.MAX_HARMONICS,
       maxAmplitude: FMWConstants.MAX_AMPLITUDE,
-
-      // {function():number} gets the number of non-zero harmonics in the waveform
       getNumberOfNonZeroHarmonics: () => 1
-    }, options );
+    }, providedOptions );
 
-    // @private
-    this.numberOfHarmonics = options.numberOfHarmonics; // {number}
-    this.maxAmplitude = options.maxAmplitude; // {number}
-    this.getNumberOfNonZeroHarmonics = options.getNumberOfNonZeroHarmonics; // {function():number}
+    this.numberOfHarmonics = options.numberOfHarmonics;
+    this.maxAmplitude = options.maxAmplitude;
+    this.getNumberOfNonZeroHarmonics = options.getNumberOfNonZeroHarmonics;
   }
 
   /**
    * Creates a set of amplitudes for the harmonics in a Fourier series.
    * Attempts to prevent consecutive sets of amplitudes from being similar.
-   * @param {number[]} [previousAmplitudes] - optional previous amplitudes
-   * @returns {number[]}
-   * @public
+   * @param [previousAmplitudes] - optional previous amplitudes
    */
-  createAmplitudes( previousAmplitudes ) {
+  public createAmplitudes( previousAmplitudes?: number[] ): number[] {
     assert && assert( !previousAmplitudes || previousAmplitudes.length === this.numberOfHarmonics );
 
     let amplitudes;
@@ -81,14 +87,8 @@ export default class AmplitudesGenerator {
  * Determines whether 2 sets of amplitudes are similar. This is used to prevent consecutive challenges from being
  * similar during game play. The definition of 'similar' was a moving target during development, so consult
  * the implementation of this method for the ground truth.
- * @param {number[]} amplitudes1
- * @param {number[]} amplitudes2
- * @returns {boolean}
- * @public
  */
-function isSimilar( amplitudes1, amplitudes2 ) {
-  assert && AssertUtils.assertArrayOf( amplitudes1, 'number' );
-  assert && AssertUtils.assertArrayOf( amplitudes2, 'number' );
+function isSimilar( amplitudes1: number[], amplitudes2: number[] ): boolean {
   assert && assert( amplitudes1.length === amplitudes2.length );
 
   // Similar series have answers with identical amplitude values.
@@ -97,16 +97,15 @@ function isSimilar( amplitudes1, amplitudes2 ) {
 
 /**
  * Generates a set of random amplitudes.
- * @param {number} numberOfAmplitudes - total number of amplitudes
- * @param {number} numberOfNonZeroHarmonics - number of non-zero amplitudes
- * @param {number} maxAmplitude - maximum amplitude of a harmonic
- * @returns {number[]}
+ * @param numberOfAmplitudes - total number of amplitudes
+ * @param numberOfNonZeroHarmonics - number of non-zero amplitudes
+ * @param maxAmplitude - maximum amplitude of a harmonic
  */
-function generateRandomAmplitudes( numberOfAmplitudes, numberOfNonZeroHarmonics, maxAmplitude ) {
-  assert && AssertUtils.assertPositiveInteger( numberOfAmplitudes );
-  assert && AssertUtils.assertPositiveInteger( numberOfNonZeroHarmonics );
+function generateRandomAmplitudes( numberOfAmplitudes: number, numberOfNonZeroHarmonics: number, maxAmplitude: number ): number[] {
+  assert && assert( Number.isInteger( numberOfAmplitudes ) && numberOfAmplitudes > 0 );
+  assert && assert( Number.isInteger( numberOfNonZeroHarmonics ) && numberOfNonZeroHarmonics > 0 );
   assert && assert( numberOfAmplitudes >= numberOfNonZeroHarmonics, 'requested too many numberOfNonZeroHarmonics' );
-  assert && AssertUtils.assertPositiveNumber( maxAmplitude );
+  assert && assert( maxAmplitude > 0 );
 
   // Indices for the amplitudes. We'll choose randomly from this set.
   const amplitudesIndices = [];
