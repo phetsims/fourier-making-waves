@@ -37,9 +37,7 @@ export default class WavePacketModel {
       tandem: tandem.createTandem( 'widthIndicatorsVisibleProperty' )
     } );
 
-    const wavePacket = new WavePacket( {
-      tandem: tandem.createTandem( 'wavePacket' )
-    } );
+    const wavePacket = new WavePacket( tandem.createTandem( 'wavePacket' ) );
 
     // {Property.<AxisDescription>} the x-axis description shared by the Components and Sum charts
     const xAxisDescriptionProperty = new Property( WavePacketAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION, {

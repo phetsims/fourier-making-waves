@@ -16,7 +16,6 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import InfiniteNumberIO from '../../../../tandem/js/types/InfiniteNumberIO.js';
@@ -33,14 +32,8 @@ assert && assert(
 
 export default class WavePacket {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
-
-    options = merge( {
-      tandem: Tandem.REQUIRED
-    }, options );
+  constructor( tandem ) {
+    assert && assert( tandem instanceof Tandem );
 
     // @public
     this.L = 1; // wavelength when component spacing is 2 * Math.PI, in m
@@ -57,7 +50,7 @@ export default class WavePacket {
     this.componentSpacingProperty = new NumberProperty( COMPONENT_SPACING_VALUES[ 3 ], {
       validValues: COMPONENT_SPACING_VALUES,
       range: new Range( COMPONENT_SPACING_VALUES[ 0 ], COMPONENT_SPACING_VALUES[ COMPONENT_SPACING_VALUES.length - 1 ] ),
-      tandem: options.tandem.createTandem( 'componentSpacingProperty' ),
+      tandem: tandem.createTandem( 'componentSpacingProperty' ),
       phetioDocumentation: 'The spacing of components in the Fourier series that is used to approximate the wave packet. ' +
                            'In the space domain, this is k<sub>1</sub> in rad/m. ' +
                            'In the time domain, this is \u03c9<sub>1</sub> in rad/ms.'
@@ -66,7 +59,7 @@ export default class WavePacket {
     // @public
     this.centerProperty = new NumberProperty( 12 * Math.PI, {
       range: new Range( 9 * Math.PI, 15 * Math.PI ),
-      tandem: options.tandem.createTandem( 'centerProperty' ),
+      tandem: tandem.createTandem( 'centerProperty' ),
       phetioDocumentation: 'The center of the wave packet. ' +
                            'In the space domain, this is k<sub>0</sub> in rad/m. ' +
                            'In the time domain, this is \u03c9<sub>0</sub> in rad/ms.'
@@ -77,7 +70,7 @@ export default class WavePacket {
     // This is sometimes referred to as a delta (dk, d<sub>omega</sub>) in literature and in code comments.
     this.standardDeviationProperty = new NumberProperty( 3 * Math.PI, {
       range: new Range( Math.PI, 4 * Math.PI ),
-      tandem: options.tandem.createTandem( 'standardDeviationProperty' ),
+      tandem: tandem.createTandem( 'standardDeviationProperty' ),
       phetioDocumentation: 'Standard deviation, a measure of the wave packet width. ' +
                            'In the space domain, this is \u03c3<sub>k</sub> in rad/m. ' +
                            'In the time domain, this is \u03c3<sub>\u03c9</sub> in rad/ms.'
@@ -89,7 +82,7 @@ export default class WavePacket {
     // https://github.com/phetsims/fourier-making-waves/issues/105#issuecomment-889386852
     this.conjugateStandardDeviationProperty = new NumberProperty( 1 / this.standardDeviationProperty.value, {
       range: new Range( 1 / this.standardDeviationProperty.range.max, 1 / this.standardDeviationProperty.range.min ),
-      tandem: options.tandem.createTandem( 'conjugateStandardDeviationProperty' ),
+      tandem: tandem.createTandem( 'conjugateStandardDeviationProperty' ),
       phetioDocumentation: 'This Property and standardDeviationProperty are a conjugate pair, ' +
                            'where conjugateStandardDeviation = 1 / standardDeviation.' +
                            'They are both measures of the wave packet width. ' +
@@ -122,7 +115,7 @@ export default class WavePacket {
     this.widthProperty = new DerivedProperty(
       [ this.standardDeviationProperty ],
       standardDeviation => 2 * standardDeviation, {
-        tandem: options.tandem.createTandem( 'widthProperty' ),
+        tandem: tandem.createTandem( 'widthProperty' ),
         phetioValueType: NumberIO,
         phetioDocumentation: 'The width of the wave packet, derived from standardDeviationProperty. ' +
                              'In the space domain, width is in rad/m. ' +
@@ -139,7 +132,7 @@ export default class WavePacket {
         }
         return period;
       }, {
-        tandem: options.tandem.createTandem( 'lengthProperty' ),
+        tandem: tandem.createTandem( 'lengthProperty' ),
         phetioValueType: InfiniteNumberIO,
         phetioDocumentation: 'A measure of the wave packet length. ' +
                              'In the space domain, wavelength \u03bb<sub>1</sub> in m. ' +
@@ -163,7 +156,7 @@ export default class WavePacket {
         }
         return dataSet;
       }, {
-        tandem: options.tandem.createTandem( 'componentsProperty' ),
+        tandem: tandem.createTandem( 'componentsProperty' ),
         phetioValueType: ArrayIO( FourierComponent.FourierComponentIO ),
         phetioDocumentation: 'The set of Fourier components used to approximate the wave packet. ' +
                              'Each component has a wave number and an amplitude. ' +
