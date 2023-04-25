@@ -176,7 +176,7 @@ function mapBasePointsToDataSet( basePoints, domain, seriesType, t, L, T ) {
   let shiftX = ( seriesType === SeriesType.SIN ) ? 0 : ( -0.25 * x );
 
   // space & time shifts the waveform by a portion of the wavelength.
-  // This computation is similar to what's used in getAmplitudeSpaceAndTimeSine, in getAmplitudeFunction.js.
+  // This computation is similar to what's used in getAmplitudeSpaceAndTimeSine, in getAmplitudeFunction.ts.
   if ( domain === Domain.SPACE_AND_TIME ) {
     const remainder = ( t / T - x / L ) % 1;
     shiftX += ( remainder * x );

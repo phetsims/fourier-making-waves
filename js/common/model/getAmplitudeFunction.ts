@@ -12,17 +12,20 @@ import Domain from './Domain.js';
 import SeriesType from './SeriesType.js';
 
 /**
- * Gets the function that computes amplitude at an x value.
- * @param {Domain} domain
- * @param {SeriesType} seriesType
- * @returns {function(x:number, t:number, L:number, T:number, order:number, amplitude:number):number}
- * @public
+ * @param A - the harmonic's amplitude, unitless
+ * @param n - the harmonic's order
+ * @param x - x-axis coordinate, whose semantics depend on the domain of the function
+ * @param t - the current time, in milliseconds
+ * @param L - the harmonic's wavelength, in meters
+ * @param T - the harmonic's period, in milliseconds
+ * @returns y value (amplitude) at x
  */
-export default function getAmplitudeFunction( domain, seriesType ) {
+type AmplitudeFunction = ( A: number, n: number, x: number, t: number, L: number, T: number ) => number;
 
-  assert && assert( Domain.enumeration.includes( domain ) );
-  assert && assert( SeriesType.enumeration.includes( seriesType ) );
-
+/**
+ * Gets the function that computes amplitude at an x value.
+ */
+export default function getAmplitudeFunction( domain: Domain, seriesType: SeriesType ): AmplitudeFunction {
   let f;
   if ( domain === Domain.SPACE ) {
     f = ( seriesType === SeriesType.SIN ) ? getAmplitudeSpaceSine : getAmplitudeSpaceCosine;
@@ -39,45 +42,33 @@ export default function getAmplitudeFunction( domain, seriesType ) {
   return f;
 }
 
-/**
- * These 6 functions all have the same signature, and use the equation that corresponds to EquationForm.MODE.
- * @param {number} A - the harmonic's amplitude, unitless
- * @param {number} n - the harmonic's order
- * @param {number} x - x-axis coordinate, whose semantics depend on the domain of the function
- * @param {number} t - the current time, in milliseconds
- * @param {number} L - the harmonic's wavelength, in meters
- * @param {number} T - the harmonic's period, in milliseconds
- * @returns {number} y value (amplitude) at x
- * @private
- */
-
 // Domain.SPACE, SeriesType.SIN
-function getAmplitudeSpaceSine( A, n, x, t, L, T ) {
+function getAmplitudeSpaceSine( A: number, n: number, x: number, t: number, L: number, T: number ): number {
   return A * Math.sin( 2 * Math.PI * n * x / L );
 }
 
 // Domain.SPACE, SeriesType.COS
-function getAmplitudeSpaceCosine( A, n, x, t, L, T ) {
+function getAmplitudeSpaceCosine( A: number, n: number, x: number, t: number, L: number, T: number ): number {
   return A * Math.cos( 2 * Math.PI * n * x / L );
 }
 
 // Domain.TIME, SeriesType.SIN
-function getAmplitudeTimeSine( A, n, x, t, L, T ) {
+function getAmplitudeTimeSine( A: number, n: number, x: number, t: number, L: number, T: number ): number {
   return A * Math.sin( 2 * Math.PI * n * x / T );
 }
 
 // Domain.TIME, SeriesType.COS
-function getAmplitudeTimeCosine( A, n, x, t, L, T ) {
+function getAmplitudeTimeCosine( A: number, n: number, x: number, t: number, L: number, T: number ): number {
   return A * Math.cos( 2 * Math.PI * n * x / T );
 }
 
 // Domain.SPACE_AND_TIME, SeriesType.SIN
-function getAmplitudeSpaceAndTimeSine( A, n, x, t, L, T ) {
+function getAmplitudeSpaceAndTimeSine( A: number, n: number, x: number, t: number, L: number, T: number ): number {
   return A * Math.sin( 2 * Math.PI * n * ( x / L - t / T ) );
 }
 
 // Domain.SPACE_AND_TIME, SeriesType.COS
-function getAmplitudeSpaceAndTimeCosine( A, n, x, t, L, T ) {
+function getAmplitudeSpaceAndTimeCosine( A: number, n: number, x: number, t: number, L: number, T: number ): number {
   return A * Math.cos( 2 * Math.PI * n * ( x / L - t / T ) );
 }
 
