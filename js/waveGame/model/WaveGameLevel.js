@@ -160,9 +160,7 @@ export default class WaveGameLevel extends PhetioObject {
 
     // @public
     this.amplitudesChart = new WaveGameAmplitudesChart( this.answerSeries, this.guessSeries, this.emphasizedHarmonics,
-      this.numberOfAmplitudeControlsProperty, {
-        tandem: chartsTandem.createTandem( 'amplitudesChart' )
-      } );
+      this.numberOfAmplitudeControlsProperty, chartsTandem.createTandem( 'amplitudesChart' ) );
 
     // @public
     this.harmonicsChart = new WaveGameHarmonicsChart( this.guessSeries, this.emphasizedHarmonics, DOMAIN, SERIES_TYPE, t,

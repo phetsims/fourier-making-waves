@@ -8,19 +8,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Tandem from '../../../../tandem/js/Tandem.js';
 import InteractiveAmplitudesChart from '../../common/model/InteractiveAmplitudesChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
+import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 
 export default class DiscreteAmplitudesChart extends InteractiveAmplitudesChart {
 
-  /**
-   * @param {FourierSeries} fourierSeries
-   * @param {EmphasizedHarmonics} emphasizedHarmonics
-   * @param {Object} [options]
-   */
-  constructor( fourierSeries, emphasizedHarmonics, options ) {
-
-    super( fourierSeries, emphasizedHarmonics, options );
+  public constructor( fourierSeries: FourierSeries, emphasizedHarmonics: EmphasizedHarmonics, tandem: Tandem ) {
+    super( fourierSeries, emphasizedHarmonics, tandem );
   }
 }
 

@@ -11,39 +11,31 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
+import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import FourierSeries from './FourierSeries.js';
+import EmphasizedHarmonics from './EmphasizedHarmonics.js';
 
 export default class InteractiveAmplitudesChart {
 
-  /**
-   * @param {FourierSeries} fourierSeries
-   * @param {EmphasizedHarmonics} emphasizedHarmonics
-   * @param {Object} [options]
-   */
-  constructor( fourierSeries, emphasizedHarmonics, options ) {
+  public readonly fourierSeries: FourierSeries;
+  public readonly emphasizedHarmonics: EmphasizedHarmonics;
 
-    options = merge( {
+  // whether this chart is expanded
+  public readonly chartExpandedProperty: Property<boolean>;
 
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+  protected constructor( fourierSeries: FourierSeries, emphasizedHarmonics: EmphasizedHarmonics, tandem: Tandem ) {
 
-    // @public (read-only)
     this.fourierSeries = fourierSeries;
     this.emphasizedHarmonics = emphasizedHarmonics;
 
-    // @public whether this chart is expanded
     this.chartExpandedProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'chartExpandedProperty' )
+      tandem: tandem.createTandem( 'chartExpandedProperty' )
     } );
   }
 
-  /**
-   * @public
-   */
-  reset() {
+  public reset(): void {
     this.chartExpandedProperty.reset();
   }
 }

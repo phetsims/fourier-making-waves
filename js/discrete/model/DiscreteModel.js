@@ -123,9 +123,8 @@ export default class DiscreteModel {
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
     // @public
-    this.amplitudesChart = new DiscreteAmplitudesChart( this.fourierSeries, emphasizedHarmonics, {
-      tandem: chartsTandem.createTandem( 'amplitudesChart' )
-    } );
+    this.amplitudesChart = new DiscreteAmplitudesChart( this.fourierSeries, emphasizedHarmonics,
+      chartsTandem.createTandem( 'amplitudesChart' ) );
 
     // @public
     this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, emphasizedHarmonics, this.domainProperty,
