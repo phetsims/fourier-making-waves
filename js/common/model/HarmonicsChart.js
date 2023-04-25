@@ -9,6 +9,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
@@ -26,10 +27,10 @@ export default class HarmonicsChart extends DomainChart {
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
   constructor( fourierSeries, emphasizedHarmonics, domainProperty, seriesTypeProperty, tProperty,
-               xAxisDescriptionProperty, options ) {
+               xAxisDescriptionProperty, tandem ) {
 
     assert && assert( fourierSeries instanceof FourierSeries );
     assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
@@ -37,8 +38,9 @@ export default class HarmonicsChart extends DomainChart {
     assert && assert( seriesTypeProperty instanceof EnumerationProperty );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
+    assert && assert( tandem instanceof Tandem );
 
-    super( domainProperty, xAxisDescriptionProperty, fourierSeries.L, fourierSeries.T, options );
+    super( domainProperty, xAxisDescriptionProperty, fourierSeries.L, fourierSeries.T, tandem );
 
     // @public (read-only)
     this.fourierSeries = fourierSeries;

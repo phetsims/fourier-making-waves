@@ -13,7 +13,6 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -35,27 +34,22 @@ export default class WavePacketAmplitudesChart extends DomainChart {
    * @param {WavePacket} wavePacket
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( wavePacket, domainProperty, widthIndicatorsVisibleProperty, options ) {
+  constructor( wavePacket, domainProperty, widthIndicatorsVisibleProperty, tandem ) {
 
     assert && assert( wavePacket instanceof WavePacket );
     assert && assert( domainProperty instanceof EnumerationProperty );
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
-
-    options = merge( {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+    assert && assert( tandem instanceof Tandem );
 
     // {Property.<AxisDescription>}
-    // The x axis has a fixed scale. Use validValues to make this Property essentially a constant.
+    // The x-axis has a fixed scale. Use validValues to make this Property essentially a constant.
     const xAxisDescriptionProperty = new Property( WavePacketAxisDescriptions.AMPLITUDES_X_AXIS_DESCRIPTION, {
       validValues: [ WavePacketAxisDescriptions.AMPLITUDES_X_AXIS_DESCRIPTION ]
     } );
 
-    super( domainProperty, xAxisDescriptionProperty, X_AXIS_MULTIPLIER, X_AXIS_MULTIPLIER, options );
+    super( domainProperty, xAxisDescriptionProperty, X_AXIS_MULTIPLIER, X_AXIS_MULTIPLIER, tandem );
 
     // @public (read-only)
     this.waveNumberRange = wavePacket.waveNumberRange;
@@ -63,7 +57,7 @@ export default class WavePacketAmplitudesChart extends DomainChart {
 
     // @public
     this.continuousWaveformVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'continuousWaveformVisibleProperty' )
+      tandem: tandem.createTandem( 'continuousWaveformVisibleProperty' )
     } );
 
     // @public {DerivedProperty.<Vector2[]>} data set for a finite number of Fourier components, EMPTY_DATA_SET if the

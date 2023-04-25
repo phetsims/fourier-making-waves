@@ -10,6 +10,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
@@ -24,18 +25,19 @@ export default class SumChart extends DomainChart {
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<number>} tProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
   constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty,
-               xAxisDescriptionProperty, options ) {
+               xAxisDescriptionProperty, tandem ) {
 
     assert && assert( fourierSeries instanceof FourierSeries );
     assert && assert( domainProperty instanceof EnumerationProperty );
     assert && assert( seriesTypeProperty instanceof EnumerationProperty );
     assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
     assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
+    assert && assert( tandem instanceof Tandem );
 
-    super( domainProperty, xAxisDescriptionProperty, fourierSeries.L, fourierSeries.T, options );
+    super( domainProperty, xAxisDescriptionProperty, fourierSeries.L, fourierSeries.T, tandem );
 
     // @public (read-only)
     this.fourierSeries = fourierSeries;

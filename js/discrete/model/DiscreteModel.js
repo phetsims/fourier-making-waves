@@ -129,16 +129,13 @@ export default class DiscreteModel {
 
     // @public
     this.harmonicsChart = new DiscreteHarmonicsChart( this.fourierSeries, emphasizedHarmonics, this.domainProperty,
-      this.seriesTypeProperty, this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, {
-        tandem: chartsTandem.createTandem( 'harmonicsChart' )
-      } );
+      this.seriesTypeProperty, this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
+      chartsTandem.createTandem( 'harmonicsChart' ) );
 
     // @public
     this.sumChart = new DiscreteSumChart( this.fourierSeries, this.domainProperty, this.seriesTypeProperty,
-      this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty,
-      this.waveformProperty, {
-        tandem: chartsTandem.createTandem( 'sumChart' )
-      } );
+      this.tProperty, xAxisTickLabelFormatProperty, xAxisDescriptionProperty, this.waveformProperty,
+      chartsTandem.createTandem( 'sumChart' ) );
 
     // @public emits if you try to make a sawtooth wave with cosines
     this.oopsSawtoothWithCosinesEmitter = new Emitter( {

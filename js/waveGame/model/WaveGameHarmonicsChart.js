@@ -9,6 +9,7 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
 import HarmonicsChart from '../../common/model/HarmonicsChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -23,12 +24,13 @@ export default class WaveGameHarmonicsChart extends HarmonicsChart {
    * @param {number} t
    * @param {AxisDescription} xAxisDescription
    * @param {AxisDescription} yAxisDescription
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( guessSeries, emphasizedHarmonics, domain, seriesType, t, xAxisDescription, yAxisDescription, options ) {
+  constructor( guessSeries, emphasizedHarmonics, domain, seriesType, t, xAxisDescription, yAxisDescription, tandem ) {
 
     assert && assert( xAxisDescription instanceof AxisDescription );
     assert && assert( yAxisDescription instanceof AxisDescription );
+    assert && assert( tandem instanceof Tandem );
 
     super(
       guessSeries,
@@ -40,8 +42,7 @@ export default class WaveGameHarmonicsChart extends HarmonicsChart {
       new EnumerationProperty( seriesType, { validValues: [ seriesType ] } ),
       new NumberProperty( t, { validValues: [ t ] } ),
       new Property( xAxisDescription, { validValues: [ xAxisDescription ] } ),
-
-      options
+      tandem
     );
   }
 }

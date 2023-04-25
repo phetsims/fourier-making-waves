@@ -166,15 +166,12 @@ export default class WaveGameLevel extends PhetioObject {
 
     // @public
     this.harmonicsChart = new WaveGameHarmonicsChart( this.guessSeries, this.emphasizedHarmonics, DOMAIN, SERIES_TYPE, t,
-      DiscreteAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION, DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION, {
-        tandem: chartsTandem.createTandem( 'harmonicsChart' )
-      } );
+      DiscreteAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION, DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION,
+      chartsTandem.createTandem( 'harmonicsChart' ) );
 
     // @public
     this.sumChart = new WaveGameSumChart( this.answerSeries, this.guessSeries, DOMAIN, SERIES_TYPE, t,
-      DiscreteAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION, {
-        tandem: chartsTandem.createTandem( 'sumChart' )
-      } );
+      DiscreteAxisDescriptions.DEFAULT_X_AXIS_DESCRIPTION, chartsTandem.createTandem( 'sumChart' ) );
 
     // @public Fires when a new waveform has been fully initialized, see method newWaveform.
     this.newWaveformEmitter = new Emitter();

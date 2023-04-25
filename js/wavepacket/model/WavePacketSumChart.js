@@ -12,7 +12,6 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -35,22 +34,17 @@ export default class WavePacketSumChart extends DomainChart {
    * @param {EnumerationProperty.<Domain>} seriesTypeProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<boolean>} widthIndicatorsVisibleProperty
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
   constructor( componentDataSetsProperty, wavePacket, domainProperty, seriesTypeProperty,
-               xAxisDescriptionProperty, widthIndicatorsVisibleProperty, options ) {
+               xAxisDescriptionProperty, widthIndicatorsVisibleProperty, tandem ) {
     assert && assert( componentDataSetsProperty instanceof DerivedProperty );
     assert && assert( wavePacket instanceof WavePacket );
     assert && assert( seriesTypeProperty instanceof EnumerationProperty );
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
+    assert && assert( tandem instanceof Tandem );
 
-    options = merge( {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
-
-    super( domainProperty, xAxisDescriptionProperty, wavePacket.L, wavePacket.T, options );
+    super( domainProperty, xAxisDescriptionProperty, wavePacket.L, wavePacket.T, tandem );
 
     // @public (read-only)
     this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
@@ -58,7 +52,7 @@ export default class WavePacketSumChart extends DomainChart {
 
     // @public whether the envelope of the sum waveform is visible
     this.waveformEnvelopeVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'waveformEnvelopeVisibleProperty' )
+      tandem: tandem.createTandem( 'waveformEnvelopeVisibleProperty' )
     } );
 
     // {DerivedProperty.<Array.<Vector2>>}

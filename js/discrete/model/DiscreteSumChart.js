@@ -12,7 +12,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -33,21 +32,16 @@ export default class DiscreteSumChart extends SumChart {
    * @param {DerivedProperty.<TickLabelFormat>} xAxisTickLabelFormatProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
    * @param {Property.<Waveform>} waveformProperty
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
   constructor( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisTickLabelFormatProperty,
-               xAxisDescriptionProperty, waveformProperty, options ) {
+               xAxisDescriptionProperty, waveformProperty, tandem ) {
 
     assert && assert( xAxisTickLabelFormatProperty instanceof DerivedProperty );
     assert && AssertUtils.assertPropertyOf( waveformProperty, Waveform );
+    assert && assert( tandem instanceof Tandem );
 
-    options = merge( {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
-
-    super( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, options );
+    super( fourierSeries, domainProperty, seriesTypeProperty, tProperty, xAxisDescriptionProperty, tandem );
 
     // @public
     this.xAxisTickLabelFormatProperty = xAxisTickLabelFormatProperty;
@@ -55,7 +49,7 @@ export default class DiscreteSumChart extends SumChart {
 
     // @public whether the Sum chart shows what the waveform looks like for an infinite Fourier series
     this.infiniteHarmonicsVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'infiniteHarmonicsVisibleProperty' )
+      tandem: tandem.createTandem( 'infiniteHarmonicsVisibleProperty' )
     } );
 
     // To improve readability

@@ -59,19 +59,14 @@ export default class WavePacketModel {
     const chartsTandem = options.tandem.createTandem( 'charts' );
 
     const amplitudesChart = new WavePacketAmplitudesChart( wavePacket, domainProperty,
-      widthIndicatorsVisibleProperty, {
-        tandem: chartsTandem.createTandem( 'amplitudesChart' )
-      } );
+      widthIndicatorsVisibleProperty, chartsTandem.createTandem( 'amplitudesChart' ) );
 
     const componentsChart = new WavePacketComponentsChart( wavePacket, domainProperty, seriesTypeProperty,
-      xAxisDescriptionProperty, {
-        tandem: chartsTandem.createTandem( 'componentsChart' )
-      } );
+      xAxisDescriptionProperty, chartsTandem.createTandem( 'componentsChart' ) );
 
     const sumChart = new WavePacketSumChart( componentsChart.componentDataSetsProperty,
-      wavePacket, domainProperty, seriesTypeProperty, xAxisDescriptionProperty, widthIndicatorsVisibleProperty, {
-        tandem: chartsTandem.createTandem( 'sumChart' )
-      } );
+      wavePacket, domainProperty, seriesTypeProperty, xAxisDescriptionProperty, widthIndicatorsVisibleProperty,
+      chartsTandem.createTandem( 'sumChart' ) );
 
     // @private
     this.resetWavePacketModel = () => {

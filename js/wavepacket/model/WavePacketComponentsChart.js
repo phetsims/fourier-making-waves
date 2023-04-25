@@ -9,7 +9,6 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -34,19 +33,14 @@ export default class WavePacketComponentsChart extends DomainChart {
    * @param {EnumerationProperty.<Domain>} domainProperty
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {Property.<AxisDescription>} xAxisDescriptionProperty
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( wavePacket, domainProperty, seriesTypeProperty, xAxisDescriptionProperty, options ) {
+  constructor( wavePacket, domainProperty, seriesTypeProperty, xAxisDescriptionProperty, tandem ) {
     assert && assert( wavePacket instanceof WavePacket );
     assert && assert( seriesTypeProperty instanceof EnumerationProperty );
+    assert && assert( tandem instanceof Tandem );
 
-    options = merge( {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
-
-    super( domainProperty, xAxisDescriptionProperty, wavePacket.L, wavePacket.T, options );
+    super( domainProperty, xAxisDescriptionProperty, wavePacket.L, wavePacket.T, tandem );
 
     // @public {DerivedProperty<Array.<Array.<Vector2>>}
     // A data set for each Fourier component's waveform, EMPTY_DATA_SET when the number of components is infinite.

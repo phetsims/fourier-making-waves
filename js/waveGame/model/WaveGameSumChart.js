@@ -12,7 +12,6 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
 import SumChart from '../../common/model/SumChart.js';
@@ -27,17 +26,12 @@ export default class WaveGameSumChart extends SumChart {
    * @param {SeriesType} seriesType
    * @param {number} t
    * @param {AxisDescription} xAxisDescription
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( answerSeries, guessSeries, domain, seriesType, t, xAxisDescription, options ) {
+  constructor( answerSeries, guessSeries, domain, seriesType, t, xAxisDescription, tandem ) {
 
     assert && assert( xAxisDescription instanceof AxisDescription );
-
-    options = merge( {
-
-      // phet-io
-      tandem: Tandem.REQUIRED
-    }, options );
+    assert && assert( tandem instanceof Tandem );
 
     super(
       // Superclass will render the sum for the challenge answer.
@@ -49,8 +43,7 @@ export default class WaveGameSumChart extends SumChart {
       new EnumerationProperty( seriesType, { validValues: [ seriesType ] } ),
       new NumberProperty( t, { validValues: [ t ] } ),
       new Property( xAxisDescription, { validValues: [ xAxisDescription ] } ),
-
-      options
+      tandem
     );
 
     // @public (read-only)

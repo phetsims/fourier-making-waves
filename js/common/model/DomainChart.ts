@@ -9,42 +9,46 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Property from '../../../../axon/js/Property.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
+import Domain from './Domain.js';
 
 export default class DomainChart {
 
+  public readonly domainProperty: EnumerationProperty<Domain>;
+  public readonly xAxisDescriptionProperty: Property<AxisDescription>;
+  public readonly spaceMultiplier: number;
+  public readonly timeMultiplier: number;
+
+  // whether this chart is expanded
+  public readonly chartExpandedProperty: Property<boolean>;
+
   /**
-   * @param {EnumerationProperty.<Domain>} domainProperty - domain of the x axis
-   * @param {Property.<AxisDescription>} xAxisDescriptionProperty - describes the x axis
-   * @param {number} spaceMultiplier - multiplier for x values in the space and space-&-time Domains
-   * @param {number} timeMultiplier - multiplier for x values in the time Domain
-   * @param {Object} [options]
+   * @param domainProperty - domain of the x-axis
+   * @param xAxisDescriptionProperty - describes the x-axis
+   * @param spaceMultiplier - multiplier for x values in the space and space-&-time Domains
+   * @param timeMultiplier - multiplier for x values in the time Domain
+   * @param tandem
    */
-  constructor( domainProperty, xAxisDescriptionProperty, spaceMultiplier, timeMultiplier, options ) {
+  protected constructor( domainProperty: EnumerationProperty<Domain>,
+                         xAxisDescriptionProperty: Property<AxisDescription>,
+                         spaceMultiplier: number,
+                         timeMultiplier: number,
+                         tandem: Tandem ) {
 
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && AssertUtils.assertPropertyOf( xAxisDescriptionProperty, AxisDescription );
-    assert && AssertUtils.assertPositiveNumber( spaceMultiplier );
-    assert && AssertUtils.assertPositiveNumber( timeMultiplier );
-
-    // @public (read-only) params
     this.domainProperty = domainProperty;
     this.xAxisDescriptionProperty = xAxisDescriptionProperty;
     this.spaceMultiplier = spaceMultiplier;
     this.timeMultiplier = timeMultiplier;
 
-    // @public whether this chart is expanded
     this.chartExpandedProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'chartExpandedProperty' )
+      tandem: tandem.createTandem( 'chartExpandedProperty' )
     } );
   }
 
-  /**
-   * @public
-   */
-  reset() {
+  public reset(): void {
     this.chartExpandedProperty.reset();
   }
 }
