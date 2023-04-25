@@ -13,42 +13,43 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class FourierComponent {
 
-  /**
-   * @param {number} waveNumber - k is spatial wave number in rad/m, omega is angular wave number in rad/ms
-   * @param {number} amplitude - unitless
-   */
-  constructor( waveNumber, amplitude ) {
-    assert && AssertUtils.assertNonNegativeNumber( waveNumber );
-    assert && AssertUtils.assertNonNegativeNumber( amplitude );
+  public readonly waveNumber: number;
+  public readonly amplitude: number;
 
-    // @public (read-only)
+  /**
+   * @param waveNumber - k is spatial wave number in rad/m, omega is angular wave number in rad/ms
+   * @param amplitude - unitless
+   */
+  public constructor( waveNumber: number, amplitude: number ) {
+    assert && assert( waveNumber >= 0 );
+    assert && assert( amplitude >= 0 );
+
     this.waveNumber = waveNumber;
     this.amplitude = amplitude;
   }
-}
 
-// FourierComponentIO is patterned after Vector2IO.
-FourierComponent.FourierComponentIO = new IOType( 'FourierComponentIO', {
-  valueType: FourierComponent,
-  documentation: 'Component of a Fourier series',
-  stateSchema: {
-    waveNumber: NumberIO,
-    amplitude: NumberIO
-  },
-  toStateObject: fourierComponent => {
-    return {
-      waveNumber: fourierComponent.waveNumber,
-      amplitude: fourierComponent.amplitude
-    };
-  },
-  fromStateObject: stateObject => new FourierComponent( stateObject.waveNumber, stateObject.amplitude )
-} );
+  // FourierComponentIO is patterned after Vector2IO.
+  public static readonly FourierComponentIO = new IOType( 'FourierComponentIO', {
+    valueType: FourierComponent,
+    documentation: 'Component of a Fourier series',
+    stateSchema: {
+      waveNumber: NumberIO,
+      amplitude: NumberIO
+    },
+    toStateObject: fourierComponent => {
+      return {
+        waveNumber: fourierComponent.waveNumber,
+        amplitude: fourierComponent.amplitude
+      };
+    },
+    fromStateObject: stateObject => new FourierComponent( stateObject.waveNumber, stateObject.amplitude )
+  } );
+}
 
 fourierMakingWaves.register( 'FourierComponent', FourierComponent );
