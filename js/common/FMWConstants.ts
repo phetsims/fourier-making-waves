@@ -8,15 +8,84 @@
 
 import Dimension2 from '../../../dot/js/Dimension2.js';
 import Utils from '../../../dot/js/Utils.js';
+import { EraserButtonOptions } from '../../../scenery-phet/js/buttons/EraserButton.js';
+import { NumberControlOptions } from '../../../scenery-phet/js/NumberControl.js';
+import NumberDisplay from '../../../scenery-phet/js/NumberDisplay.js';
+import ArrowButton from '../../../sun/js/buttons/ArrowButton.js';
+import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
+import { ExpandCollapseButtonOptions } from '../../../sun/js/ExpandCollapseButton.js';
+import { PanelOptions } from '../../../sun/js/Panel.js';
+import Slider from '../../../sun/js/Slider.js';
 import AssertUtils from '../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import { VBox } from '../../../scenery/js/imports.js';
+import { Node, VBox, VBoxOptions } from '../../../scenery/js/imports.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWColors from './FMWColors.js';
 
 // constants - view
 const PANEL_CORNER_RADIUS = 5;
 const CONTROL_FONT = new PhetFont( 12 );
+
+const CHECKBOX_OPTIONS: CheckboxOptions = {
+  boxWidth: 15,
+  touchAreaXDilation: 6,
+  touchAreaYDilation: 6,
+  mouseAreaXDilation: 1,
+  mouseAreaYDilation: 1
+};
+
+const ERASER_BUTTON_OPTIONS: EraserButtonOptions = {
+  scale: 0.85,
+  touchAreaXDilation: 5,
+  touchAreaYDilation: 5
+};
+
+const EXPAND_COLLAPSE_BUTTON_OPTIONS: ExpandCollapseButtonOptions = {
+  sideLength: 16
+};
+
+const PANEL_OPTIONS: PanelOptions = {
+  cornerRadius: PANEL_CORNER_RADIUS,
+  xMargin: 15,
+  yMargin: 15,
+  fill: FMWColors.panelFillProperty,
+  stroke: FMWColors.panelStrokeProperty
+};
+
+const VBOX_OPTIONS: VBoxOptions = {
+  align: 'left',
+  spacing: 18
+};
+
+const WAVE_PACKET_NUMBER_CONTROL_OPTIONS: NumberControlOptions = {
+
+  // NumberControl options
+  includeArrowButtons: false,
+  layoutFunction: ( titleNode: Node, numberDisplay: NumberDisplay, slider: Slider, leftArrowButton: ArrowButton | null, rightArrowButton: ArrowButton | null ): Node => new VBox( {
+    spacing: 5,
+    align: 'left',
+    children: [ numberDisplay, slider ]
+  } ),
+
+  // NumberDisplay options
+  numberDisplayOptions: {
+    useRichText: true,
+    align: 'left',
+    minBackgroundWidth: 110,
+    textOptions: {
+      font: CONTROL_FONT,
+      maxWidth: 175
+    }
+  },
+
+  // Slider options
+  sliderOptions: {
+    trackSize: new Dimension2( 175, 3 ),
+    thumbSize: new Dimension2( 12, 20 ),
+    majorTickLength: 10,
+    tickLabelSpacing: 4
+  }
+};
 
 const FMWConstants = {
 
@@ -50,69 +119,17 @@ const FMWConstants = {
   SCREEN_VIEW_X_MARGIN: 15,
   SCREEN_VIEW_Y_MARGIN: 15,
 
-  EXPAND_COLLAPSE_BUTTON_OPTIONS: {
-    sideLength: 16
-  },
-
   PANEL_CORNER_RADIUS: PANEL_CORNER_RADIUS,
 
-  PANEL_OPTIONS: {
-    cornerRadius: PANEL_CORNER_RADIUS,
-    xMargin: 15,
-    yMargin: 15,
-    fill: FMWColors.panelFillProperty,
-    stroke: FMWColors.panelStrokeProperty
-  },
-
-  CHECKBOX_OPTIONS: {
-    boxWidth: 15,
-    touchAreaXDilation: 6,
-    touchAreaYDilation: 6,
-    mouseAreaXDilation: 1,
-    mouseAreaYDilation: 1
-  },
-
-  VBOX_OPTIONS: {
-    align: 'left',
-    spacing: 18
-  },
-
-  ERASER_BUTTON_OPTIONS: {
-    scale: 0.85,
-    touchAreaXDilation: 5,
-    touchAreaYDilation: 5
-  },
+  // UI components options
+  CHECKBOX_OPTIONS: CHECKBOX_OPTIONS,
+  ERASER_BUTTON_OPTIONS: ERASER_BUTTON_OPTIONS,
+  EXPAND_COLLAPSE_BUTTON_OPTIONS: EXPAND_COLLAPSE_BUTTON_OPTIONS,
+  PANEL_OPTIONS: PANEL_OPTIONS,
+  VBOX_OPTIONS: VBOX_OPTIONS,
 
   // WavePacketNumberControl options
-  WAVE_PACKET_NUMBER_CONTROL_OPTIONS: {
-
-    // NumberControl options
-    includeArrowButtons: false,
-    layoutFunction: ( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) => new VBox( {
-      spacing: 5,
-      align: 'left',
-      children: [ numberDisplay, slider ]
-    } ),
-
-    // NumberDisplay options
-    numberDisplayOptions: {
-      font: CONTROL_FONT,
-      useRichText: true,
-      align: 'left',
-      minBackgroundWidth: 110,
-      textOptions: {
-        maxWidth: 175
-      }
-    },
-
-    // Slider options
-    sliderOptions: {
-      trackSize: new Dimension2( 175, 3 ),
-      thumbSize: new Dimension2( 12, 20 ),
-      majorTickLength: 10,
-      tickLabelSpacing: 4
-    }
-  },
+  WAVE_PACKET_NUMBER_CONTROL_OPTIONS: WAVE_PACKET_NUMBER_CONTROL_OPTIONS,
 
   // Fonts
   TITLE_FONT: new PhetFont( { size: 14, weight: 'bold' } ),
