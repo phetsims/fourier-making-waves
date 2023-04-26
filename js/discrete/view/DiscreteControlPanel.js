@@ -177,9 +177,8 @@ class FourierSeriesSubpanel extends VBox {
       tandem: options.tandem.createTandem( 'waveformText' )
     } );
 
-    const waveformComboBox = new WaveformComboBox( waveformProperty, popupParent, {
-      tandem: options.tandem.createTandem( 'waveformComboBox' )
-    } );
+    const waveformComboBox = new WaveformComboBox( waveformProperty, popupParent,
+      options.tandem.createTandem( 'waveformComboBox' ) );
 
     const waveformBox = new HBox( {
       spacing: 3,
@@ -277,9 +276,9 @@ class GraphControlsSubpanel extends VBox {
       tandem: options.tandem.createTandem( 'functionOfText' )
     } );
 
-    const domainComboBox = new DomainComboBox( domainProperty, popupParent, {
-      tandem: options.tandem.createTandem( 'functionOfComboBox' ) // tandem name differs by request
-    } );
+    const domainComboBox = new DomainComboBox( domainProperty, popupParent,
+      options.tandem.createTandem( 'functionOfComboBox' ) // tandem name differs by request
+    );
 
     const functionOfBox = new HBox( {
       spacing: 5,
@@ -307,9 +306,8 @@ class GraphControlsSubpanel extends VBox {
       tandem: options.tandem.createTandem( 'equationText' )
     } );
 
-    const equationComboBox = new EquationComboBox( equationFormProperty, domainProperty, popupParent, {
-      tandem: options.tandem.createTandem( 'equationComboBox' )
-    } );
+    const equationComboBox = new EquationComboBox( equationFormProperty, domainProperty, popupParent,
+      options.tandem.createTandem( 'equationComboBox' ) );
 
     const equationBox = new HBox( {
       spacing: 5,

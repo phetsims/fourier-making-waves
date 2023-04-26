@@ -403,9 +403,9 @@ class GraphControlsSubpanel extends VBox {
       tandem: options.tandem.createTandem( 'functionOfText' )
     } );
 
-    const domainComboBox = new DomainComboBox( domainProperty, popupParent, {
-      tandem: options.tandem.createTandem( 'functionOfComboBox' ) // tandem name differs by request
-    } );
+    const domainComboBox = new DomainComboBox( domainProperty, popupParent,
+      options.tandem.createTandem( 'functionOfComboBox' ) // tandem name differs by request
+    );
 
     const functionOfBox = new HBox( {
       spacing: 5,

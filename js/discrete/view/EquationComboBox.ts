@@ -9,16 +9,16 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
-import FMWComboBox from '../../common/view/FMWComboBox.js';
+import FMWComboBox, { FMWComboBoxChoice } from '../../common/view/FMWComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import EquationForm from '../model/EquationForm.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 const MATH_TEXT_OPTIONS = {
   font: FMWConstants.MATH_CONTROL_FONT,
@@ -26,10 +26,11 @@ const MATH_TEXT_OPTIONS = {
 };
 
 // This format is specific to FMWComboBox.
-const CHOICES = [
+const CHOICES: FMWComboBoxChoice<EquationForm>[] = [
   {
     value: EquationForm.HIDDEN,
     stringProperty: FourierMakingWavesStrings.hiddenStringProperty,
+    // This is the only choice that does not have textOptions: MATH_TEXT_OPTIONS, because it's not an equation.
     tandemName: `hidden${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
@@ -87,33 +88,20 @@ const CHOICES = [
     tandemName: `mode${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   }
 ];
-assert && assert( _.every( CHOICES, choice => EquationForm.enumeration.includes( choice.value ) ) );
-assert && assert( _.every( CHOICES, choice => choice.tandemName ) );
 
+export default class EquationComboBox extends FMWComboBox<EquationForm> {
 
-export default class EquationComboBox extends FMWComboBox {
+  public constructor( equationFormProperty: EnumerationProperty<EquationForm>,
+                      domainProperty: EnumerationProperty<Domain>,
+                      popupParent: Node,
+                      tandem: Tandem ) {
 
-  /**
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Node} popupParent
-   * @param {Object} [options]
-   */
-  constructor( equationFormProperty, domainProperty, popupParent, options ) {
-
-    assert && assert( equationFormProperty instanceof EnumerationProperty );
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( popupParent instanceof Node );
-
-    options = merge( {
-
-      // FMWComboBox options
+    super( equationFormProperty, CHOICES, popupParent, {
       textOptions: {
         maxWidth: 100 // determined empirically
-      }
-    }, options );
-
-    super( equationFormProperty, CHOICES, popupParent, options );
+      },
+      tandem: tandem
+    } );
 
     // Show only the choices that are appropriate for the selected Domain.
     domainProperty.link( domain => {
@@ -139,11 +127,7 @@ export default class EquationComboBox extends FMWComboBox {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }

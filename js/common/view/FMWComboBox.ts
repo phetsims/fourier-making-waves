@@ -23,7 +23,7 @@ type SelfOptions = {
 
 type FMWComboBoxOptions = SelfOptions & ComboBoxOptions & PickRequired<ComboBoxOptions, 'tandem'>;
 
-type Choice<T> = {
+export type FMWComboBoxChoice<T> = {
   value: T;
   stringProperty: TReadOnlyProperty<string>; // string label for the choice
   textOptions?: RichTextOptions;
@@ -32,7 +32,7 @@ type Choice<T> = {
 
 export default class FMWComboBox<T> extends ComboBox<T> {
 
-  protected constructor( property: Property<T>, choices: Choice<T>[], listboxParent: Node, providedOptions: FMWComboBoxOptions ) {
+  protected constructor( property: Property<T>, choices: FMWComboBoxChoice<T>[], listboxParent: Node, providedOptions: FMWComboBoxOptions ) {
 
     const options = optionize<FMWComboBoxOptions, SelfOptions, ComboBoxOptions>()( {
 
