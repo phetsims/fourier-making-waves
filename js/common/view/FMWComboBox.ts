@@ -3,56 +3,57 @@
 /**
  * FMWComboBox is a specialization of ComboBox that provides an API for specifying combo box items that is more
  * suited to this simulation. Items are specified as a set of value/string choices, and FMWComboBox generates
- * the {ComboBoxItem[]} items needed by ComboBox.
+ * the ComboBoxItems needed by ComboBox.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import { Node, RichText } from '../../../../scenery/js/imports.js';
-import ComboBox from '../../../../sun/js/ComboBox.js';
+import { Node, RichText, RichTextOptions } from '../../../../scenery/js/imports.js';
+import ComboBox, { ComboBoxItem, ComboBoxOptions } from '../../../../sun/js/ComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
-export default class FMWComboBox extends ComboBox {
+type SelfOptions = {
+  textOptions?: RichTextOptions;
+};
 
-  /**
-   * @param {Property} property
-   * @param {{value:*, stringProperty:TReadOnlyProperty.<string> | string, [textOptions:Object], [tandemName:string]}[]} choices
-   * @param {Node} listboxParent
-   * @param {Object} [options]
-   */
-  constructor( property, choices, listboxParent, options ) {
+type FMWComboBoxOptions = SelfOptions & ComboBoxOptions & PickRequired<ComboBoxOptions, 'tandem'>;
 
-    assert && AssertUtils.assertArray( choices );
-    assert && assert( property instanceof Property );
-    assert && assert( listboxParent instanceof Node );
+type Choice<T> = {
+  value: T;
+  stringProperty: TReadOnlyProperty<string>; // string label for the choice
+  textOptions?: RichTextOptions;
+  tandemName: string;
+};
 
-    options = merge( {
+export default class FMWComboBox<T> extends ComboBox<T> {
 
-      // RichText options
+  protected constructor( property: Property<T>, choices: Choice<T>[], listboxParent: Node, providedOptions: FMWComboBoxOptions ) {
+
+    const options = optionize<FMWComboBoxOptions, SelfOptions, ComboBoxOptions>()( {
+
+      // SelfOptions
       textOptions: {
         font: FMWConstants.CONTROL_FONT
       },
 
-      // ComboBox options
+      // ComboBoxOptions
       xMargin: 12,
       yMargin: 5
-    }, options );
+    }, providedOptions );
 
-    // {ComboBoxItem[]}
-    const items = choices.map( choice => {
+    const items: ComboBoxItem<T>[] = choices.map( choice => {
       return {
         value: choice.value,
-        tandemName: choice.tandemName || null,
-        createNode: () => {
+        tandemName: choice.tandemName,
 
-          // The majority of strings in this sim contain RichText markup, used to display symbols in MathSymbolFont.
-          // And there is negligible performance impact for using RichText for the strings that don't contain markup.
-          return new RichText( choice.stringProperty, choice.textOptions || options.textOptions );
-        }
+        // The majority of strings in this sim contain RichText markup, used to display symbols in MathSymbolFont.
+        // And there is negligible performance impact for using RichText for the strings that don't contain markup.
+        createNode: () => new RichText( choice.stringProperty, choice.textOptions || options.textOptions )
       };
     } );
 
