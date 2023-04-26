@@ -13,25 +13,22 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from '../model/AxisDescription.js';
+import Property from '../../../../axon/js/Property.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class ZoomLevelProperty extends NumberProperty {
 
-  /**
-   * @param {Property.<AxisDescription>} axisDescriptionProperty
-   * @param {Object} [options]
-   */
-  constructor( axisDescriptionProperty, options ) {
-    assert && AssertUtils.assertPropertyOf( axisDescriptionProperty, AxisDescription );
+  public constructor( axisDescriptionProperty: Property<AxisDescription>, tandem: Tandem ) {
 
-    const axisDescriptions = axisDescriptionProperty.validValues;
+    const axisDescriptions = axisDescriptionProperty.validValues!;
     assert && assert( axisDescriptions, 'axisDescriptionProperty should have been defined with validValues option' );
 
     super( axisDescriptions.indexOf( axisDescriptionProperty.value ), {
       numberType: 'Integer',
-      range: new Range( 0, axisDescriptions.length - 1 )
+      range: new Range( 0, axisDescriptions.length - 1 ),
+      tandem: tandem
     } );
 
     // Keep axisDescriptionProperty and zoomLevelProperty in sync, while avoiding reentrant behavior.

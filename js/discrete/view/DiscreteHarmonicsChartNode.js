@@ -33,9 +33,7 @@ export default class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
     options = merge( {
 
       // DomainChartNode options
-      xZoomLevelProperty: new ZoomLevelProperty( harmonicsChart.xAxisDescriptionProperty, {
-        tandem: options.tandem.createTandem( 'xZoomLevelProperty' )
-      } ),
+      xZoomLevelProperty: new ZoomLevelProperty( harmonicsChart.xAxisDescriptionProperty, options.tandem.createTandem( 'xZoomLevelProperty' ) ),
       xTickLabelSetOptions: {
         createLabel: value =>
           TickLabelUtils.createTickLabelForDomain( value, X_TICK_LABEL_DECIMALS, harmonicsChart.xAxisTickLabelFormatProperty.value,

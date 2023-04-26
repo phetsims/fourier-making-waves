@@ -42,9 +42,7 @@ export default class WavePacketComponentsChartNode extends DomainChartNode {
     const componentDataSetsProperty = componentsChart.componentDataSetsProperty;
 
     options = merge( {
-      xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty, {
-        tandem: options.tandem.createTandem( 'xZoomLevelProperty' )
-      } ),
+      xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty, options.tandem.createTandem( 'xZoomLevelProperty' ) ),
       xTickLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, X_TICK_LABEL_DECIMALS )
       },
