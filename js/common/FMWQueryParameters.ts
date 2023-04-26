@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2023, University of Colorado Boulder
 
 /**
  * FMWQueryParameters defines query parameters that are specific to this simulation.

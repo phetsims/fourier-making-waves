@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2023, University of Colorado Boulder
 
 /**
  * WavePacketAxisDescriptions is the set of descriptions for the axes of the charts in the 'Wave Packet' screen.
