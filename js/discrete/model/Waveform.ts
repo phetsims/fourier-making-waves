@@ -154,7 +154,7 @@ export default class Waveform extends PhetioObject {
       phetioState: false
     }, providedOptions );
 
-    super( providedOptions );
+    super( options );
 
     this.getAmplitudes = options.getAmplitudes;
     this.getInfiniteHarmonicsDataSet = options.getInfiniteHarmonicsDataSet;
