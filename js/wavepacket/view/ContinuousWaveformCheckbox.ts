@@ -9,10 +9,12 @@
 import SecondaryWaveformCheckbox from '../../common/view/SecondaryWaveformCheckbox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
+import Property from '../../../../axon/js/Property.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class ContinuousWaveformCheckbox extends SecondaryWaveformCheckbox {
 
-  constructor( continuousWaveformVisibleProperty, tandem ) {
+  public constructor( continuousWaveformVisibleProperty: Property<boolean>, tandem: Tandem ) {
     super( continuousWaveformVisibleProperty, FourierMakingWavesStrings.continuousWaveformStringProperty, tandem );
   }
 }
