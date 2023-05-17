@@ -9,50 +9,40 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Fraction from '../../../../phetcommon/js/model/Fraction.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import { RichText, Text } from '../../../../scenery/js/imports.js';
+import { Node, RichText, RichTextOptions, Text, TextOptions } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
 import TickLabelFormat from '../model/TickLabelFormat.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 const TickLabelUtils = {
 
   /**
    * Creates a numeric tick label.
-   * @param {number} value
-   * @param {number} decimals
-   * @param {Object} [options]
-   * @returns {Node}
-   * @public
    */
-  createNumericTickLabel: ( value, decimals, options ) => {
+  createNumericTickLabel( value: number, decimals: number, providedOptions?: TextOptions ): Node {
 
     // Using toFixedNumber removes trailing zeros.
-    return new Text( Utils.toFixedNumber( value, decimals ), merge( {
+    return new Text( Utils.toFixedNumber( value, decimals ), combineOptions<TextOptions>( {
       font: FMWConstants.TICK_LABEL_FONT
-    }, options ) );
+    }, providedOptions ) );
   },
 
   /**
    * Creates a symbolic tick label, by converting a value to a symbol and a fraction.
-   * @param {number} value
-   * @param {string | TReadOnlyProperty.<string>} symbol
-   * @param {number} symbolValue
-   * @param {number} coefficientDecimals
-   * @param {Object} [options]
-   * @returns {Node}
-   * @public
    */
-  createSymbolicTickLabel( value, symbol, symbolValue, coefficientDecimals, options ) {
+  createSymbolicTickLabel( value: number, symbol: string | TReadOnlyProperty<string>, symbolValue: number,
+                           coefficientDecimals: number, providedOptions?: RichTextOptions ): Node {
 
-    options = merge( {
+    const options = combineOptions<RichTextOptions>( {
       font: FMWConstants.TICK_LABEL_FONT,
       maxWidth: 25
-    }, options );
+    }, providedOptions );
 
     let richTextArgument;
     if ( value === 0 ) {
@@ -92,28 +82,22 @@ const TickLabelUtils = {
 
   /**
    * Creates a tick label for multiples of PI, by converting a value to a coefficient followed by the PI symbol.
-   * @param {number} value
-   * @param {number} coefficientDecimals
-   * @param {Object} [options]
-   * @returns {Node}
-   * @public
    */
-  createPiTickLabel: ( value, coefficientDecimals, options ) => {
+  createPiTickLabel( value: number, coefficientDecimals: number, options?: RichTextOptions ): Node {
     return TickLabelUtils.createSymbolicTickLabel( value, FMWSymbols.pi, Math.PI, coefficientDecimals, options );
   },
 
   /**
    * Creates a tick label for a specific Domain, in the correct format (numeric or symbolic).
-   * @param {number} value
-   * @param {number} decimalPlaces
-   * @param {TickLabelFormat} tickLabelFormat
-   * @param {Domain} domain
-   * @param {number} L - the wavelength of the fundamental harmonic, in meters
-   * @param {number} T - the period of the fundamental harmonic, in milliseconds
-   * @returns {Node}
-   * @public
+   * @param value
+   * @param decimalPlaces
+   * @param tickLabelFormat
+   * @param domain
+   * @param L - the wavelength of the fundamental harmonic, in meters
+   * @param T - the period of the fundamental harmonic, in milliseconds
    */
-  createTickLabelForDomain: ( value, decimalPlaces, tickLabelFormat, domain, L, T ) => {
+  createTickLabelForDomain( value: number, decimalPlaces: number, tickLabelFormat: TickLabelFormat, domain: Domain,
+                            L: number, T: number ): Node {
     if ( tickLabelFormat === TickLabelFormat.NUMERIC ) {
       return TickLabelUtils.createNumericTickLabel( value, decimalPlaces );
     }
