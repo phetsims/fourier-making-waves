@@ -9,32 +9,49 @@
  */
 
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
-import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
-import { Node, Path, Rectangle, RichText } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import BackgroundNode, { BackgroundNodeOptions } from '../../../../scenery-phet/js/BackgroundNode.js';
+import { Node, NodeOptions, Path, PathOptions, Rectangle, RichText, RichTextOptions, TPaint } from '../../../../scenery/js/imports.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // These constants determine the shape of the beam and jaws.
 const BEAM_THICKNESS = 5;
 const JAWS_THICKNESS = 5;
 const JAWS_LENGTH = 20;
 
-// Positions for the label, relative to the calipers.
-const VALID_LABEL_POSITIONS = [
-  'above', // used for the interactive tools
-  'left' // used for icons in control panels, where we need to conserve vertical space
-];
+// 'above' is used for the interactive tools.
+// 'left' is used for icons in control panels, where we need to conserve vertical space
+type LabelPosition = 'above' | 'left';
+
+type SelfOptions = {
+  measuredWidth?: number;
+  labelPosition?: LabelPosition;
+
+  // Path options, for the beamNode subcomponent
+  pathOptions?: StrictOmit<PathOptions, 'tandem'>;
+
+  // RichText options
+  richTextOptions?: StrictOmit<RichTextOptions, 'tandem'>;
+
+  // BackgroundNode options
+  backgroundNodeOptions?: StrictOmit<BackgroundNodeOptions, 'tandem'>;
+};
+
+type CalipersNodeOptions = SelfOptions;
 
 export default class CalipersNode extends Node {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  private readonly beamAndJawsNode: Path;
+  private readonly transparentRectangle: Rectangle;
+  private readonly labelText: RichText;
+  private readonly backgroundNode: BackgroundNode;
+  private readonly labelPosition: LabelPosition;
 
-    options = merge( {
+  public constructor( providedOptions: CalipersNodeOptions ) {
+
+    const options = optionize<CalipersNodeOptions, SelfOptions, NodeOptions>()( {
 
       measuredWidth: 100,
       labelPosition: 'above',
@@ -55,13 +72,8 @@ export default class CalipersNode extends Node {
       backgroundNodeOptions: {
         xMargin: 2,
         yMargin: 2
-      },
-
-      // phet-io options
-      tandem: Tandem.OPTIONAL
-    }, options );
-
-    assert && assert( VALID_LABEL_POSITIONS.includes( options.labelPosition ) );
+      }
+    }, providedOptions );
 
     // Beam, with jaws at ends.
     const beamAndJawsNode = new Path( null, options.pathOptions );
@@ -73,9 +85,7 @@ export default class CalipersNode extends Node {
     } );
 
     // Label above the beam
-    const labelText = new RichText( '', merge( {
-      tandem: options.tandem.createTandem( 'labelText' )
-    }, options.richTextOptions ) );
+    const labelText = new RichText( '', options.richTextOptions );
 
     // Translucent background for the label
     const backgroundNode = new BackgroundNode( labelText, options.backgroundNodeOptions );
@@ -84,27 +94,24 @@ export default class CalipersNode extends Node {
       children: [ transparentRectangle, beamAndJawsNode, backgroundNode ]
     } );
 
-    assert && assert( !options.children, 'CalipersNode sets children' );
     options.children = [ parentNode ];
 
     super( options );
 
-    // @private
-    this.beamAndJawsNode = beamAndJawsNode; // {Path}
-    this.transparentRectangle = transparentRectangle; // {Rectangle}
-    this.labelText = labelText; // {RichText}
-    this.backgroundNode = backgroundNode; // {BackgroundNode}
-    this.labelPosition = options.labelPosition; // {string}
+    this.beamAndJawsNode = beamAndJawsNode;
+    this.transparentRectangle = transparentRectangle;
+    this.labelText = labelText;
+    this.backgroundNode = backgroundNode;
+    this.labelPosition = options.labelPosition;
 
     this.setMeasuredWidth( options.measuredWidth );
   }
 
   /**
    * Sets width being measured by the calipers, the horizontal space between the left and right tips of the calipers.
-   * @param {number} measuredWidth - in view coordinates
-   * @public
+   * @param measuredWidth - in view coordinates
    */
-  setMeasuredWidth( measuredWidth ) {
+  public setMeasuredWidth( measuredWidth: number ): void {
 
     // The horizontal beam has ends that are caliper-like.
     // The Shape is described clockwise from the origin (the tip of the left caliper).
@@ -128,28 +135,23 @@ export default class CalipersNode extends Node {
 
   /**
    * Sets the fill for the beam and jaws.
-   * @param {ColorDef} fill
-   * @public
    */
-  setBeamAndJawsFill( fill ) {
+  public setBeamAndJawsFill( fill: TPaint ): void {
     this.beamAndJawsNode.fill = fill;
   }
 
   /**
    * Sets the text for the label.
-   * @param {string} text - string for RichText
-   * @public
    */
-  setLabel( text ) {
+  public setLabel( text: string ): void {
     this.labelText.string = text;
     this.updateLabelPosition();
   }
 
   /**
    * Centers the label on the horizontal beam.
-   * @private
    */
-  updateLabelPosition() {
+  private updateLabelPosition(): void {
     if ( this.labelPosition === 'above' ) {
       this.backgroundNode.centerX = this.beamAndJawsNode.centerX;
       this.backgroundNode.bottom = this.beamAndJawsNode.top - 2;
