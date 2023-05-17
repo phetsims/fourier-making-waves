@@ -12,12 +12,8 @@ import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 export default class WaveformEnvelopeCheckbox extends SecondaryWaveformCheckbox {
 
-  /**
-   * @param {Property.<boolean>} waveformEnvelopeVisibleProperty
-   * @param {Object} [options]
-   */
-  constructor( waveformEnvelopeVisibleProperty, options ) {
-    super( waveformEnvelopeVisibleProperty, FourierMakingWavesStrings.waveformEnvelopeStringProperty, options );
+  constructor( waveformEnvelopeVisibleProperty, tandem ) {
+    super( waveformEnvelopeVisibleProperty, FourierMakingWavesStrings.waveformEnvelopeStringProperty, tandem );
   }
 }
 

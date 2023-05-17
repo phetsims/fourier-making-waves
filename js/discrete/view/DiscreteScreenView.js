@@ -195,9 +195,8 @@ export default class DiscreteScreenView extends ScreenView {
     } );
 
     // Shows the wave that the Fourier series is attempting to approximate
-    const infiniteHarmonicsCheckbox = new InfiniteHarmonicsCheckbox( model.sumChart.infiniteHarmonicsVisibleProperty, {
-      tandem: sumTandem.createTandem( 'infiniteHarmonicsCheckbox' )
-    } );
+    const infiniteHarmonicsCheckbox = new InfiniteHarmonicsCheckbox( model.sumChart.infiniteHarmonicsVisibleProperty,
+      sumTandem.createTandem( 'infiniteHarmonicsCheckbox' ) );
 
     // Disable infiniteHarmonicsCheckbox for custom and wave-packet waveforms.
     model.waveformProperty.link( waveform => {

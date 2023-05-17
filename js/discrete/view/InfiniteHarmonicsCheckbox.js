@@ -12,12 +12,8 @@ import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 export default class InfiniteHarmonicsCheckbox extends SecondaryWaveformCheckbox {
 
-  /**
-   * @param {Property.<boolean>} infiniteHarmonicsVisibleProperty
-   * @param {Object} [options]
-   */
-  constructor( infiniteHarmonicsVisibleProperty, options ) {
-    super( infiniteHarmonicsVisibleProperty, FourierMakingWavesStrings.infiniteHarmonicsStringProperty, options );
+  constructor( infiniteHarmonicsVisibleProperty, tandem ) {
+    super( infiniteHarmonicsVisibleProperty, FourierMakingWavesStrings.infiniteHarmonicsStringProperty, tandem );
   }
 }
 

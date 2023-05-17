@@ -102,11 +102,10 @@ export default class WavePacketScreenView extends ScreenView {
     } );
 
     const continuousWaveformCheckbox = new ContinuousWaveformCheckbox(
-      model.amplitudesChart.continuousWaveformVisibleProperty, {
-        tandem: amplitudesTandem.createTandem( 'continuousWaveformCheckbox' )
-      } );
+      model.amplitudesChart.continuousWaveformVisibleProperty,
+      amplitudesTandem.createTandem( 'continuousWaveformCheckbox' ) );
 
-    // All of the elements that should be hidden when chartExpandedProperty is set to false.
+    // All the elements that should be hidden when chartExpandedProperty is set to false.
     // That can be done using amplitudesExpandCollapseButton, or by changing amplitudesChart.chartExpandedProperty via PhET-iO.
     const amplitudesParentNode = new Node( {
       visibleProperty: model.amplitudesChart.chartExpandedProperty,
@@ -170,9 +169,8 @@ export default class WavePacketScreenView extends ScreenView {
       } );
 
     // Waveform Envelope checkbox
-    const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( model.sumChart.waveformEnvelopeVisibleProperty, {
-      tandem: sumTandem.createTandem( 'waveformEnvelopeCheckbox' )
-    } );
+    const waveformEnvelopeCheckbox = new WaveformEnvelopeCheckbox( model.sumChart.waveformEnvelopeVisibleProperty,
+      sumTandem.createTandem( 'waveformEnvelopeCheckbox' ) );
 
     // All of the elements that should be hidden when chartExpandedProperty is set to false.
     // That can be done using sumExpandCollapseButton, or by changing sumChart.chartExpandedProperty via PhET-iO.

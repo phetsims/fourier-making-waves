@@ -6,35 +6,26 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import { HBox, Line, Text } from '../../../../scenery/js/imports.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class SecondaryWaveformCheckbox extends Checkbox {
 
-  /**
-   * @param {Property.<boolean>} visibleProperty
-   * @param {TReadOnlyProperty.<string>} titleStringProperty
-   * @param {Object} [options]
-   */
-  constructor( visibleProperty, titleStringProperty, options ) {
+  public constructor( visibleProperty: Property<boolean>, titleStringProperty: TReadOnlyProperty<string>, tandem: Tandem ) {
 
-    options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
-      textOptions: {
-        font: FMWConstants.CONTROL_FONT,
-        maxWidth: 200
-      },
-      tandem: Tandem.REQUIRED
-    }, options );
-
-    const infiniteHarmonicsText = new Text( titleStringProperty, merge( {}, options.textOptions, {
-      tandem: options.tandem.createTandem( 'infiniteHarmonicsText' ),
-      visiblePropertyOptions: { phetioReadOnly: true }
-    } ) );
+    const infiniteHarmonicsText = new Text( titleStringProperty, {
+      font: FMWConstants.CONTROL_FONT,
+      maxWidth: 200,
+      visiblePropertyOptions: { phetioReadOnly: true },
+      tandem: tandem.createTandem( 'infiniteHarmonicsText' )
+    } );
 
     const icon = new Line( 0, 0, 20, 0, {
       stroke: FMWColors.secondaryWaveformStrokeProperty,
@@ -46,7 +37,9 @@ export default class SecondaryWaveformCheckbox extends Checkbox {
       spacing: 6
     } );
 
-    super( visibleProperty, hBox, options );
+    super( visibleProperty, hBox, combineOptions<CheckboxOptions>( {}, FMWConstants.CHECKBOX_OPTIONS, {
+      tandem: tandem
+    } ) );
   }
 }
 

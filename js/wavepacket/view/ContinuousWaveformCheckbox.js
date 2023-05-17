@@ -12,12 +12,8 @@ import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 export default class ContinuousWaveformCheckbox extends SecondaryWaveformCheckbox {
 
-  /**
-   * @param {Property.<boolean>} continuousWaveformVisibleProperty
-   * @param {Object} [options]
-   */
-  constructor( continuousWaveformVisibleProperty, options ) {
-    super( continuousWaveformVisibleProperty, FourierMakingWavesStrings.continuousWaveformStringProperty, options );
+  constructor( continuousWaveformVisibleProperty, tandem ) {
+    super( continuousWaveformVisibleProperty, FourierMakingWavesStrings.continuousWaveformStringProperty, tandem );
   }
 }
 
