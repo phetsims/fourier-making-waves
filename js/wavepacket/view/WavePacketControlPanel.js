@@ -185,14 +185,11 @@ class ComponentSpacingSubpanel extends VBox {
     } );
 
     const componentSpacingToolCheckbox = new ComponentSpacingToolCheckbox( componentSpacingToolVisibleProperty,
-      domainProperty, {
-        tandem: options.tandem.createTandem( 'componentSpacingToolCheckbox' )
-      } );
+      domainProperty, options.tandem.createTandem( 'componentSpacingToolCheckbox' ) );
 
     // Checkbox for Length tool
-    const lengthToolCheckbox = new LengthToolCheckbox( lengthToolVisibleProperty, domainProperty, {
-      tandem: options.tandem.createTandem( 'lengthToolCheckbox' )
-    } );
+    const lengthToolCheckbox = new LengthToolCheckbox( lengthToolVisibleProperty, domainProperty,
+      options.tandem.createTandem( 'lengthToolCheckbox' ) );
 
     // Default point areas for the slider and checkboxes overlap. We can't eliminate this overlap because we can't
     // afford to add vertical space. So do our best to mitigate the issue by shifting checkbox touchAreas down.

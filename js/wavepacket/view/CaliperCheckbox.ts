@@ -9,43 +9,42 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
-import CalipersNode from '../../common/view/CalipersNode.js';
+import CalipersNode, { CalipersNodeOptions } from '../../common/view/CalipersNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { optionize4 } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+
+type SelfOptions = {
+  calipersNodeOptions?: CalipersNodeOptions;
+};
+
+type CaliperCheckboxOptions = SelfOptions & PickRequired<CheckboxOptions, 'tandem'>;
 
 export default class CaliperCheckbox extends Checkbox {
 
-  /**
-   * @param {Property.<boolean>} visibleProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {TReadOnlyProperty.<string>} spaceSymbolStringProperty
-   * @param {TReadOnlyProperty.<string>} timeSymbolStringProperty
-   * @param {Object} [options]
-   */
-  constructor( visibleProperty, domainProperty, spaceSymbolStringProperty, timeSymbolStringProperty, options ) {
+  public constructor( visibleProperty: Property<boolean>,
+                      domainProperty: EnumerationProperty<Domain>,
+                      spaceSymbolStringProperty: TReadOnlyProperty<string>,
+                      timeSymbolStringProperty: TReadOnlyProperty<string>,
+                      providedOptions: CaliperCheckboxOptions ) {
 
-    assert && AssertUtils.assertPropertyOf( visibleProperty, 'boolean' );
-    assert && assert( domainProperty instanceof EnumerationProperty );
-
-    options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
-      calipersNodeOptions: {
-        measuredWidth: 65,
-        labelPosition: 'left', // put label to left of caliper, to minimize vertical space
-        scale: 0.5,
-        richTextOptions: {
-          font: new PhetFont( 25 )
+    const options = optionize4<CaliperCheckboxOptions, SelfOptions, CheckboxOptions>()(
+      {}, FMWConstants.CHECKBOX_OPTIONS, {
+        calipersNodeOptions: {
+          measuredWidth: 65,
+          labelPosition: 'left', // put label to left of caliper, to minimize vertical space
+          scale: 0.5,
+          richTextOptions: {
+            font: new PhetFont( 25 )
+          }
         }
-      },
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+      }, providedOptions );
 
     const caliperNode = new CalipersNode( options.calipersNodeOptions );
 

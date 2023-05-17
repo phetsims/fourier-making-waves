@@ -28,6 +28,7 @@ type LabelPosition = 'above' | 'left';
 type SelfOptions = {
   measuredWidth?: number;
   labelPosition?: LabelPosition;
+  scale?: number;
 
   // Path options, for the beamNode subcomponent
   pathOptions?: StrictOmit<PathOptions, 'tandem'>;
@@ -39,7 +40,7 @@ type SelfOptions = {
   backgroundNodeOptions?: StrictOmit<BackgroundNodeOptions, 'tandem'>;
 };
 
-type CalipersNodeOptions = SelfOptions;
+export type CalipersNodeOptions = SelfOptions;
 
 export default class CalipersNode extends Node {
 
@@ -49,12 +50,13 @@ export default class CalipersNode extends Node {
   private readonly backgroundNode: BackgroundNode;
   private readonly labelPosition: LabelPosition;
 
-  public constructor( providedOptions: CalipersNodeOptions ) {
+  public constructor( providedOptions?: CalipersNodeOptions ) {
 
     const options = optionize<CalipersNodeOptions, SelfOptions, NodeOptions>()( {
 
       measuredWidth: 100,
       labelPosition: 'above',
+      scale: 1,
 
       // Path options, for the beamNode subcomponent
       pathOptions: {
