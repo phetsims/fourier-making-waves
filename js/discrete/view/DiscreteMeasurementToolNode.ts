@@ -20,53 +20,52 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
-import { Circle, DragListener, KeyboardDragListener, Node } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { Circle, DragListener, KeyboardDragListener, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Domain from '../../common/model/Domain.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+  position?: Vector2;
+  dragBounds?: Bounds2 | null;
+  debugName?: string;
+};
+
+export type DiscreteMeasurementToolNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class DiscreteMeasurementToolNode extends Node {
 
-  /**
-   * @param {DiscreteMeasurementTool} tool
-   * @param {ReadOnlyProperty.<Harmonic>} harmonicProperty
-   * @param {EmphasizedHarmonics} emphasizedHarmonics
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Domain[]} relevantDomains - the Domain values that are relevant for this tool
-   * @param {Object} [options]
-   */
-  constructor( tool, harmonicProperty, emphasizedHarmonics, domainProperty, relevantDomains, options ) {
+  private readonly harmonicProperty: TReadOnlyProperty<Harmonic>;
+  private readonly emphasizedHarmonics: EmphasizedHarmonics;
+  public readonly positionProperty: Vector2Property;
 
-    assert && assert( tool instanceof DiscreteMeasurementTool );
-    assert && AssertUtils.assertAbstractPropertyOf( harmonicProperty, Harmonic );
-    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( Array.isArray( relevantDomains ) );
+  public constructor( tool: DiscreteMeasurementTool,
+                      harmonicProperty: TReadOnlyProperty<Harmonic>,
+                      emphasizedHarmonics: EmphasizedHarmonics,
+                      domainProperty: EnumerationProperty<Domain>,
+                      relevantDomains: Domain[],
+                      providedOptions: DiscreteMeasurementToolNodeOptions ) {
 
-    options = merge( {
+    const options = optionize<DiscreteMeasurementToolNodeOptions, SelfOptions, NodeOptions>()( {
 
+      // SelfOptions
       position: new Vector2( 0, 0 ),
-      dragBounds: null, // {Bounds2|null}
-
-      // For debugging
+      dragBounds: null,
       debugName: 'tool',
 
-      // Node options
+      // NodeOptions
       cursor: 'pointer',
-
-      // pdom
       tagName: 'div',
-      focusable: true,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+      focusable: true
+    }, providedOptions );
 
     assert && assert( !options.visibleProperty, 'DiscreteMeasurementToolNode sets visibleProperty' );
     options.visibleProperty = new DerivedProperty( [ tool.isSelectedProperty, domainProperty ],
@@ -77,7 +76,6 @@ export default class DiscreteMeasurementToolNode extends Node {
 
     super( options );
 
-    // @private
     this.harmonicProperty = harmonicProperty;
     this.emphasizedHarmonics = emphasizedHarmonics;
 
@@ -146,23 +144,15 @@ export default class DiscreteMeasurementToolNode extends Node {
     } );
     this.addInputListener( keyboardDragListener );
 
-    // @public
-    this.positionProperty = positionProperty; // {Property.<Vector2>}
+    this.positionProperty = positionProperty;
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 
-  /**
-   * @public
-   */
-  reset() {
+  public reset(): void {
     this.positionProperty.reset();
   }
 }
