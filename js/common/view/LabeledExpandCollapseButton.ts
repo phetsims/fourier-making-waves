@@ -7,51 +7,51 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { FireListener, HBox, Text } from '../../../../scenery/js/imports.js';
-import ExpandCollapseButton from '../../../../sun/js/ExpandCollapseButton.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { FireListener, HBox, HBoxOptions, Text, TextOptions } from '../../../../scenery/js/imports.js';
+import ExpandCollapseButton, { ExpandCollapseButtonOptions } from '../../../../sun/js/ExpandCollapseButton.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+
+type SelfOptions = {
+  textOptions?: StrictOmit<TextOptions, 'tandem'>;
+};
+
+type LabeledExpandCollapseButtonOptions = SelfOptions & PickRequired<HBoxOptions, 'tandem'>;
 
 export default class LabeledExpandCollapseButton extends HBox {
 
-  /**
-   * @param {TReadOnlyProperty.<string>} labelStringProperty
-   * @param {Property.<boolean>} expandedProperty
-   * @param {Object} [options]
-   */
-  constructor( labelStringProperty, expandedProperty, options ) {
+  public constructor( labelStringProperty: TReadOnlyProperty<string>, expandedProperty: Property<boolean>,
+                      providedOptions: LabeledExpandCollapseButtonOptions ) {
 
-    options = merge( {
+    const options = optionize<LabeledExpandCollapseButtonOptions, SelfOptions, HBoxOptions>()( {
 
-      // HBox options
-      spacing: 6,
-
-      // ExpandCollapseButton options
-      expandCollapseButtonOptions: FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS,
-
-      // Text options
+      // SelfOptions
       textOptions: {
         font: FMWConstants.TITLE_FONT,
         maxWidth: FMWConstants.CHART_TITLE_MAX_WIDTH
       },
 
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+      // HBoxOptions
+      spacing: 6
+    }, providedOptions );
 
     const labelText = new Text( labelStringProperty, merge( {
       cursor: 'pointer',
       tandem: options.tandem.createTandem( 'labelText' )
     }, options.textOptions ) );
 
-    const expandCollapseButton = new ExpandCollapseButton( expandedProperty, merge( {
-      touchAreaXDilation: 6,
-      touchAreaYDilation: 6,
-      tandem: options.tandem.createTandem( 'expandCollapseButton' )
-    }, options.expandCollapseButtonOptions ) );
+    const expandCollapseButton = new ExpandCollapseButton( expandedProperty,
+      combineOptions<ExpandCollapseButtonOptions>( {}, FMWConstants.EXPAND_COLLAPSE_BUTTON_OPTIONS, {
+        touchAreaXDilation: 6,
+        touchAreaYDilation: 6,
+        tandem: options.tandem.createTandem( 'expandCollapseButton' )
+      } ) );
 
-    assert && assert( !options.children, 'LabeledExpandCollapseButton sets children' );
     options.children = [ expandCollapseButton, labelText ];
 
     super( options );
