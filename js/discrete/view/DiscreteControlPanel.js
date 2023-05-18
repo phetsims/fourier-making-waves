@@ -91,9 +91,7 @@ export default class DiscreteControlPanel extends Panel {
     } ) );
 
     // Dialog that displays a key for math symbols. Created eagerly and reused for PhET-iO.
-    const infoDialog = new DiscreteInfoDialog( {
-      tandem: options.tandem.createTandem( 'infoDialog' )
-    } );
+    const infoDialog = new DiscreteInfoDialog( options.tandem.createTandem( 'infoDialog' ) );
 
     // Button to open the dialog
     const infoButton = new InfoButton( {

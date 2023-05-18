@@ -11,7 +11,6 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { HBox, RichText, Text, VBox } from '../../../../scenery/js/imports.js';
 import Dialog from '../../../../sun/js/Dialog.js';
@@ -21,6 +20,10 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import DiscreteFourierSeries from '../model/DiscreteFourierSeries.js';
 import DiscreteSumEquationNode from './DiscreteSumEquationNode.js';
+import SeriesType from '../../common/model/SeriesType.js';
+import EquationForm from '../model/EquationForm.js';
+import Domain from '../../common/model/Domain.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // Maximum number of terms per line in the expanded form
 const TERMS_PER_LINE = 3;
@@ -28,31 +31,13 @@ const MAX_WIDTH = 800; // determined empirically
 
 export default class ExpandedFormDialog extends Dialog {
 
-  /**
-   * @param {DiscreteFourierSeries} fourierSeries
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
-   * @param {Object} [options]
-   */
-  constructor( fourierSeries, domainProperty, seriesTypeProperty, equationFormProperty, options ) {
+  public constructor( fourierSeries: DiscreteFourierSeries,
+                      domainProperty: EnumerationProperty<Domain>,
+                      seriesTypeProperty: EnumerationProperty<SeriesType>,
+                      equationFormProperty: EnumerationProperty<EquationForm>,
+                      tandem: Tandem ) {
 
-    assert && assert( fourierSeries instanceof DiscreteFourierSeries );
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
-    assert && assert( equationFormProperty instanceof EnumerationProperty );
-
-    options = merge( {
-
-      // Dialog options
-      xSpacing: 30,
-
-      // phet-io
-      phetioReadOnly: true
-    }, options );
-
-    assert && assert( !options.title, 'ExpandedFormDialog sets children' );
-    options.title = new Text( FourierMakingWavesStrings.expandedFormStringProperty, {
+    const titleText = new Text( FourierMakingWavesStrings.expandedFormStringProperty, {
       font: FMWConstants.DIALOG_TITLE_FONT,
       maxWidth: MAX_WIDTH
     } );
@@ -112,14 +97,18 @@ export default class ExpandedFormDialog extends Dialog {
       maxWidth: MAX_WIDTH
     } );
 
-    super( content, options );
+    super( content, {
+
+      // DialogOptions
+      title: titleText,
+      xSpacing: 30,
+      tandem: tandem,
+      phetioReadOnly: true,
+      phetioDocumentation: 'This dialog shows the expanded form of the Sum equation.'
+    } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }

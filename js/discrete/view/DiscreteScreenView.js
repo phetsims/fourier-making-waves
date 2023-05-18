@@ -167,11 +167,8 @@ export default class DiscreteScreenView extends ScreenView {
         visiblePropertyOptions: { phetioReadOnly: true }
       } );
 
-    const expandedFormDialog = new ExpandedFormDialog(
-      model.fourierSeries, model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, {
-        tandem: sumEquationNodeTandem.createTandem( 'expandedFormDialog' ),
-        phetioDocumentation: 'This dialog shows the expanded form of the Sum equation.'
-      } );
+    const expandedFormDialog = new ExpandedFormDialog( model.fourierSeries, model.domainProperty,
+      model.seriesTypeProperty, model.equationFormProperty, sumEquationNodeTandem.createTandem( 'expandedFormDialog' ) );
 
     // Push button that opens the 'Expanded Form' dialog.
     // Make this button appear to be a child of sumEquationNode in the Studio tree.

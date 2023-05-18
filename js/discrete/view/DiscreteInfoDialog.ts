@@ -8,36 +8,22 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { RichText, Text } from '../../../../scenery/js/imports.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const MAX_WIDTH = 800; // determined empirically
 
 export default class DiscreteInfoDialog extends Dialog {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  public constructor( tandem: Tandem ) {
 
-    options = merge( {
-
-      // Dialog options
-      xSpacing: 30,
-      cornerRadius: FMWConstants.PANEL_CORNER_RADIUS,
-
-      // phet-io
-      phetioReadOnly: true
-    }, options );
-
-    assert && assert( !options.title, 'DiscreteInfoDialog sets children' );
-    options.title = new Text( FourierMakingWavesStrings.symbolsDialog.titleStringProperty, {
+    const titleText = new Text( FourierMakingWavesStrings.symbolsDialog.titleStringProperty, {
       font: FMWConstants.DIALOG_TITLE_FONT,
       maxWidth: MAX_WIDTH
     } );
@@ -86,7 +72,15 @@ export default class DiscreteInfoDialog extends Dialog {
       leading: 11
     } );
 
-    super( richText, options );
+    super( richText, {
+
+      // DialogOptions
+      title: titleText,
+      xSpacing: 30,
+      cornerRadius: FMWConstants.PANEL_CORNER_RADIUS,
+      tandem: tandem,
+      phetioReadOnly: true
+    } );
   }
 }
 
