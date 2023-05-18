@@ -13,17 +13,21 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Keypad from '../../../../scenery-phet/js/keypad/Keypad.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, Rectangle, RichText, Text, VBox } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, Rectangle, RectangleOptions, RichText, RichTextOptions, Text, TPaint, VBox } from '../../../../scenery/js/imports.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
-import Dialog from '../../../../sun/js/Dialog.js';
+import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 // constants
 const TITLE_FONT = new PhetFont( 18 );
@@ -32,37 +36,51 @@ const VALUE_FONT = new PhetFont( 14 );
 const VALID_VALUE_FILL = 'black';
 const INVALID_VALUE_FILL = 'red';
 const KEYPAD_DISPLAY_FONT = new PhetFont( 12 );
-const ALIGN_VALUE_VALUES = [ 'left', 'center', 'right' ];
+
+type SelfOptions = {
+  decimalPlaces?: number; // Number of decimal places that can be entered for values, a non-negative integer.
+};
+
+type AmplitudeKeypadDialogOptions = SelfOptions & PickRequired<DialogOptions, 'tandem'>;
+
+type EnterCallback = ( amplitude: number ) => void;
+type CloseCallback = () => void;
 
 export default class AmplitudeKeypadDialog extends Dialog {
 
-  /**
-   * @param {Range} amplitudeRange
-   * @param {Object} [options]
-   */
-  constructor( amplitudeRange, options ) {
+  private readonly keypad: Keypad;
+  private readonly titleNode: RichText;
+  private readonly orderProperty: NumberProperty;
 
-    assert && assert( amplitudeRange instanceof Range );
+  // called when the Enter button fires
+  private enterCallback: EnterCallback | null;
 
-    options = merge( {
+  // called when the dialog has been closed
+  private closeCallback: CloseCallback | null;
 
-      // Number of decimal places that can be entered for values.
+  public constructor( amplitudeRange: Range, providedOptions: AmplitudeKeypadDialogOptions ) {
+
+    const options = optionize<AmplitudeKeypadDialogOptions, SelfOptions, DialogOptions>()( {
+
+      // SelfOptions
       decimalPlaces: FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES,
 
-      // Dialog options
+      // DialogOptions
       closeButtonLength: 12,
       cornerRadius: FMWConstants.PANEL_CORNER_RADIUS,
-      layoutStrategy: ( dialog, simBounds, screenBounds, scale ) => {
-        assert && assert( dialog.layoutBounds );
+      layoutStrategy: ( dialog: Dialog, simBounds: Bounds2, screenBounds: Bounds2, scale: number ) => {
+        const layoutBounds = dialog.layoutBounds!;
+        assert && assert( layoutBounds );
 
         // a little below center, so that it does not overlap the Amplitudes chart
-        dialog.centerX = dialog.layoutBounds.centerX;
-        dialog.centerY = dialog.layoutBounds.centerY + 50;
+        dialog.centerX = layoutBounds.centerX;
+        dialog.centerY = layoutBounds.centerY + 50;
       },
-
-      // phet-io
       phetioReadOnly: true
-    }, options );
+    }, providedOptions );
+
+    assert && assert( Number.isInteger( options.decimalPlaces ) && options.decimalPlaces >= 0,
+      `decimal places must be a non-negative integer: ${options.decimalPlaces}` );
 
     // Compute the maximum number of digits that can be entered on the keypad.
     const maxDigits = Math.max(
@@ -134,15 +152,10 @@ export default class AmplitudeKeypadDialog extends Dialog {
 
     super( content, options );
 
-    // @private
-    this.keypad = keypad; // {KeyPad}
-    this.titleNode = titleNode; // {RichText}
+    this.keypad = keypad;
+    this.titleNode = titleNode;
     this.orderProperty = orderProperty;
-
-    // @private {function(amplitude:number)|null} called when the Enter button fires
     this.enterCallback = null;
-
-    // @private {function|null} called when the dialog has been closed
     this.closeCallback = null;
 
     // When the Enter button fires...
@@ -155,7 +168,7 @@ export default class AmplitudeKeypadDialog extends Dialog {
       else if ( amplitudeRange.contains( value ) ) {
 
         // A valid value was entered. Provide the value to the client and close the dialog.
-        this.enterCallback( value );
+        this.enterCallback && this.enterCallback( value );
         this.hide();
       }
       else {
@@ -175,16 +188,12 @@ export default class AmplitudeKeypadDialog extends Dialog {
 
   /**
    * Shows the dialog.
-   * @param {number} order - the order of the harmonic
-   * @param {function(amplitude:number)} enterCallback - called when the Enter button fires
-   * @param {function} closeCallback - called when the dialog has been closed
-   * @public
-   * @override
+   * @param order - the order of the harmonic
+   * @param enterCallback - called when the Enter button fires
+   * @param closeCallback - called when the dialog has been closed
    */
-  show( order, enterCallback, closeCallback ) {
-    assert && AssertUtils.assertPositiveInteger( order );
-    assert && assert( typeof enterCallback === 'function' );
-    assert && assert( typeof closeCallback === 'function' );
+  public showAmplitudeKeypadDialog( order: number, enterCallback: EnterCallback, closeCallback: CloseCallback ): void {
+    assert && assert( Number.isInteger( order ) && order > 0 );
 
     this.orderProperty.value = order; // causes titleNode to update
     this.enterCallback = enterCallback;
@@ -196,67 +205,64 @@ export default class AmplitudeKeypadDialog extends Dialog {
 
   /**
    * Hides the dialog.
-   * @public
-   * @override
    */
-  hide() {
+  public override hide(): void {
     super.hide();
 
     this.interruptSubtreeInput();
-    this.closeCallback();
+    this.closeCallback && this.closeCallback();
     this.enterCallback = null;
     this.closeCallback = null;
     this.keypad.clear();
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 }
 
 /**
- * Displays a Keypad's stringProperty value, showing what keys the user has 'typed'.
+ * KeypadStringDisplay displays a Keypad's stringProperty value, showing what keys the user has 'typed'.
  */
+
+type KeypadStringDisplaySelfOptions = {
+  width?: number;
+  height?: number;
+  xMargin?: number;
+  yMargin?: number;
+  stringFormat?: ( value: string ) => string;
+  rectangleOptions?: StrictOmit<RectangleOptions, 'tandem'>;
+  textOptions?: StrictOmit<RichTextOptions, 'tandem'>;
+};
+
+type KeypadStringDisplayOptions = KeypadStringDisplaySelfOptions;
+
 class KeypadStringDisplay extends Node {
 
-  /**
-   * @param {ReadOnlyProperty.<string>} stringProperty
-   * @param {Object} [options]
-   */
-  constructor( stringProperty, options ) {
+  private readonly textNode: RichText;
+  private readonly disposeStringDisplay: () => void;
 
-    assert && AssertUtils.assertAbstractPropertyOf( stringProperty, 'string' );
+  public constructor( stringProperty: TReadOnlyProperty<string>, providedOptions?: KeypadStringDisplayOptions ) {
 
-    options = merge( {
+    const options = optionize<KeypadStringDisplayOptions, KeypadStringDisplaySelfOptions, NodeOptions>()( {
 
-      // StringDisplay options
-      align: 'center',
+      // SelfOptions
       width: 100,
       height: 50,
       xMargin: 0,
       yMargin: 0,
-      stringFormat: string => string,
-
-      // Rectangle options
+      stringFormat: ( value: string ) => value,
       rectangleOptions: {
         cornerRadius: 0,
         fill: 'white',
         stroke: 'black'
       },
-
-      // Text options
       textOptions: {
         fill: 'black',
         font: KEYPAD_DISPLAY_FONT
       }
-    }, options );
-
-    assert && assert( ALIGN_VALUE_VALUES.includes( options.align ), `invalid align: ${options.align}` );
+    }, providedOptions );
 
     const rectangle = new Rectangle( 0, 0, options.width, options.height, options.rectangleOptions );
 
@@ -265,13 +271,14 @@ class KeypadStringDisplay extends Node {
       maxHeight: rectangle.height - 2 * options.yMargin
     }, options.textOptions ) );
 
-    assert && assert( !options.children, 'StringDisplay sets children' );
     options.children = [ rectangle, textNode ];
 
     super( options );
 
     // Display the string value. unlink is required on dispose.
-    const stringListener = string => { textNode.string = options.stringFormat( string ); };
+    const stringListener = ( string: string ) => {
+      textNode.string = options.stringFormat( string );
+    };
     stringProperty.link( stringListener );
 
     // Keep the text centered in the background. unlink is not required.
@@ -279,30 +286,22 @@ class KeypadStringDisplay extends Node {
       textNode.center = rectangle.center;
     } );
 
-    // @private
-    this.textNode = textNode; // {RichText}
+    this.textNode = textNode;
 
-    // @private
     this.disposeStringDisplay = () => {
       stringProperty.unlink( stringListener );
     };
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     this.disposeStringDisplay();
     super.dispose();
   }
 
   /**
    * Sets the fill for the text.
-   * @param {string} fill
-   * @public
    */
-  setTextFill( fill ) {
+  public setTextFill( fill: TPaint ): void {
     this.textNode.fill = fill;
   }
 }

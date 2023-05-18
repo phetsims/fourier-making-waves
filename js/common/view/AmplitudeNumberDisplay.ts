@@ -80,7 +80,7 @@ export default class AmplitudeNumberDisplay extends InteractiveHighlighting( VBo
         emphasizedHarmonics.push( amplitudeKeypadDialog, harmonic );
 
         // Open the keypad dialog.
-        amplitudeKeypadDialog.show( harmonic.order,
+        amplitudeKeypadDialog.showAmplitudeKeypadDialog( harmonic.order,
 
           // enterCallback, called when the keypad's Enter key fires.
           amplitude => { harmonic.amplitudeProperty.value = amplitude; },
