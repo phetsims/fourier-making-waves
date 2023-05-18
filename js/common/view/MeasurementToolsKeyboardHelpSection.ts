@@ -17,7 +17,9 @@ import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 export default class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSection {
 
-  constructor() {
+  private readonly disposeMeasurementToolsKeyboardHelpSection: () => void;
+
+  public constructor() {
 
     // Icons, which need to be disposed
     const arrowKeysIcon = KeyboardHelpIconFactory.arrowKeysRowIcon();
@@ -49,8 +51,7 @@ export default class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSec
     };
   }
 
-  // @public @override
-  dispose() {
+  public override dispose(): void {
     this.disposeMeasurementToolsKeyboardHelpSection();
     super.dispose();
   }
