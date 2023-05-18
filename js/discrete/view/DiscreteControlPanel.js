@@ -382,14 +382,8 @@ class MeasurementToolsSubpanel extends VBox {
     };
 
     // Wavelength
-    const wavelengthCheckbox = new WavelengthCheckbox( wavelengthTool.isSelectedProperty, {
-      maxWidth: 90,
-      enabledProperty: new DerivedProperty(
-        [ domainProperty ],
-        domain => ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME )
-      ),
-      tandem: options.tandem.createTandem( 'wavelengthCheckbox' )
-    } );
+    const wavelengthCheckbox = new WavelengthCheckbox( wavelengthTool.isSelectedProperty, domainProperty,
+      options.tandem.createTandem( 'wavelengthCheckbox' ) );
     const wavelengthSpinner = new OrderSpinner( FMWSymbols.lambdaStringProperty, wavelengthTool.orderProperty, {
       enabledProperty: new DerivedProperty(
         [ wavelengthTool.isSelectedProperty, domainProperty ],
@@ -406,14 +400,8 @@ class MeasurementToolsSubpanel extends VBox {
     } ) );
 
     // Period
-    const periodCheckbox = new PeriodCheckbox( periodTool.isSelectedProperty, {
-      maxWidth: 90,
-      enabledProperty: new DerivedProperty(
-        [ domainProperty ],
-        domain => ( domain === Domain.TIME || domain === Domain.SPACE_AND_TIME )
-      ),
-      tandem: options.tandem.createTandem( 'periodCheckbox' )
-    } );
+    const periodCheckbox = new PeriodCheckbox( periodTool.isSelectedProperty, domainProperty,
+      options.tandem.createTandem( 'periodCheckbox' ) );
     const periodSpinner = new OrderSpinner( FMWSymbols.TStringProperty, periodTool.orderProperty, {
       enabledProperty: new DerivedProperty(
         [ periodTool.isSelectedProperty, domainProperty ],
@@ -485,9 +473,8 @@ class SoundBox extends HBox {
     }, options );
 
     // Checkbox with music icon
-    const soundEnabledCheckbox = new FourierSoundEnabledCheckbox( soundEnabledProperty, {
-      tandem: options.tandem.createTandem( 'soundEnabledCheckbox' )
-    } );
+    const soundEnabledCheckbox = new FourierSoundEnabledCheckbox( soundEnabledProperty,
+      options.tandem.createTandem( 'soundEnabledCheckbox' ) );
 
     // Slider for controlling output level
     const outputLevelSlider = new HSlider( soundOutputLevelProperty, soundOutputLevelProperty.range, {
