@@ -17,12 +17,12 @@ import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 export default class WaveGameKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
-  constructor( options ) {
+  private readonly disposeWaveGameKeyboardHelpContent: () => void;
+
+  public constructor() {
 
     const leftSections = [
-      new GameControlsHelpSection( {
-        textMaxWidth: 250
-      } ),
+      new GameControlsHelpSection(),
       new SliderControlsKeyboardHelpSection()
     ];
 
@@ -38,8 +38,7 @@ export default class WaveGameKeyboardHelpContent extends TwoColumnKeyboardHelpCo
     };
   }
 
-  // @public @override
-  dispose() {
+  public override dispose(): void {
     this.disposeWaveGameKeyboardHelpContent();
     super.dispose();
   }
@@ -50,25 +49,25 @@ export default class WaveGameKeyboardHelpContent extends TwoColumnKeyboardHelpCo
  */
 class GameControlsHelpSection extends KeyboardHelpSection {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  private readonly disposeGameControlsHelpSection: () => void;
+
+  public constructor() {
 
     // Alt+C
     const checkAnswerRow = KeyboardHelpSectionRow.createGlobalHotkeyRow(
       FourierMakingWavesStrings.keyboardHelpDialog.checkYourAnswerStringProperty,
       SceneryPhetStrings.key.cStringProperty );
 
-    super( FourierMakingWavesStrings.keyboardHelpDialog.gameControlsStringProperty, [ checkAnswerRow ], options );
+    super( FourierMakingWavesStrings.keyboardHelpDialog.gameControlsStringProperty, [ checkAnswerRow ], {
+      textMaxWidth: 250
+    } );
 
     this.disposeGameControlsHelpSection = () => {
       checkAnswerRow.dispose();
     };
   }
 
-  // @public @override
-  dispose() {
+  public override dispose(): void {
     this.disposeGameControlsHelpSection();
     super.dispose();
   }

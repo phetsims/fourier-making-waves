@@ -14,7 +14,9 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class DiscreteKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
-  constructor() {
+  private readonly disposeDiscreteKeyboardHelpContent: () => void;
+
+  public constructor() {
 
     const leftSections = [
       new MeasurementToolsKeyboardHelpSection(),
@@ -35,8 +37,7 @@ export default class DiscreteKeyboardHelpContent extends TwoColumnKeyboardHelpCo
     };
   }
 
-  // @public @override
-  dispose() {
+  public override dispose(): void {
     this.disposeDiscreteKeyboardHelpContent();
     super.dispose();
   }
