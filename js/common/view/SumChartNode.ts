@@ -10,21 +10,31 @@
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColors from '../FMWColors.js';
 import SumChart from '../model/SumChart.js';
-import DomainChartNode from './DomainChartNode.js';
+import DomainChartNode, { DomainChartNodeOptions } from './DomainChartNode.js';
+import { ProfileColorProperty } from '../../../../scenery/js/imports.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+
+  // This would be a logical place to use nested sumPlotOptions. But CanvasLinePlot does not support Property for
+  // stroke, so the only thing nestable is lineWidth.  That doesn't seem like a big win, so I chose to use flat
+  // options.
+  sumPlotStrokeProperty?: ProfileColorProperty;
+  sumPlotLineWidth?: number;
+};
+
+export type SumChartNodeOptions = SelfOptions & PickRequired<DomainChartNodeOptions, 'tandem'>;
 
 export default class SumChartNode extends DomainChartNode {
 
-  /**
-   * @param {SumChart} sumChart
-   * @param {Object} [options]
-   */
-  constructor( sumChart, options ) {
+  protected readonly chartCanvasNode: ChartCanvasNode;
+  protected readonly sumPlot: CanvasLinePlot;
 
-    assert && assert( sumChart instanceof SumChart );
+  public constructor( sumChart: SumChart, providedOptions: SumChartNodeOptions ) {
 
     // Fields of interest in sumChart, to improve readability
     const amplitudesProperty = sumChart.fourierSeries.amplitudesProperty;
@@ -32,21 +42,18 @@ export default class SumChartNode extends DomainChartNode {
     const yAxisRangeProperty = sumChart.yAxisRangeProperty;
     const yAxisDescriptionProperty = sumChart.yAxisDescriptionProperty;
 
-    options = merge( {
+    const options = optionize<SumChartNodeOptions, SelfOptions, DomainChartNodeOptions>()( {
 
-      // This would be a logical place to use nested sumPlotOptions. But CanvasLinePlot does not support Property for
-      // stroke, so the only thing nestable is lineWidth.  That doesn't seem like a big win, so I chose to use flat
-      // options.
+      // SelfOptions
       sumPlotStrokeProperty: FMWColors.sumPlotStrokeProperty,
       sumPlotLineWidth: 1,
 
-      // FMWChartNode options
+      // DomainChartNodeOptions
       chartTransformOptions: {
         // modelXRange is handled by superclass DomainChartNode
         modelYRange: yAxisDescriptionProperty.value.range
       }
-
-    }, options );
+    }, providedOptions );
 
     super( sumChart, options );
 
@@ -90,7 +97,6 @@ export default class SumChartNode extends DomainChartNode {
       this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
     } );
 
-    // @protected
     this.chartCanvasNode = chartCanvasNode; // {ChartCanvasNode}
     this.sumPlot = sumPlot; // {CanvasLinePlot}
   }

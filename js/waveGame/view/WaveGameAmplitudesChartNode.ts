@@ -8,24 +8,21 @@
  */
 
 import dotRandom from '../../../../dot/js/dotRandom.js';
-import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import InteractiveAmplitudesChartNode from '../../common/view/InteractiveAmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameAmplitudesChart from '../model/WaveGameAmplitudesChart.js';
+import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import Harmonic from '../../common/model/Harmonic.js';
 
 export default class WaveGameAmplitudesChartNode extends InteractiveAmplitudesChartNode {
 
-  /**
-   * @param {WaveGameAmplitudesChart} amplitudesChart
-   * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
-   * @param {Object} [options]
-   */
-  constructor( amplitudesChart, amplitudeKeypadDialog, options ) {
-    assert && assert( amplitudesChart instanceof WaveGameAmplitudesChart );
+  private readonly amplitudeKeypadDialog: AmplitudeKeypadDialog;
 
-    options = merge( {
+  public constructor( amplitudesChart: WaveGameAmplitudesChart, amplitudeKeypadDialog: AmplitudeKeypadDialog, tandem: Tandem ) {
+
+    super( amplitudesChart, amplitudeKeypadDialog, {
 
       // For the Wave Game, we make it easier to match the pink waveform by using a larger interval and fewer
       // decimals places for the amplitude sliders and keypad.
@@ -40,27 +37,25 @@ export default class WaveGameAmplitudesChartNode extends InteractiveAmplitudesCh
         numberDisplayOptions: {
           decimalPlaces: FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES
         }
-      }
-    }, options );
-
-    super( amplitudesChart, amplitudeKeypadDialog, options );
+      },
+      tandem: tandem
+    } );
 
     // Fields of interest in amplitudesChart
     const answerSeries = amplitudesChart.answerSeries;
     const guessSeries = amplitudesChart.guessSeries;
     const numberOfAmplitudeControlsProperty = amplitudesChart.numberOfAmplitudeControlsProperty;
 
-    // @private
     this.amplitudeKeypadDialog = amplitudeKeypadDialog;
 
     // {Harmonic[]} harmonics with non-zero amplitude are first, followed by randomly-ordered harmonics with
     // zero amplitude. This makes amplitude controls appear and disappear in the same order as
     // numberOfAmplitudeControlsProperty changes.  If numberOfAmplitudeControlsProperty.value is N, then
     // the first N harmonics in this array will have their amplitude control made visible.
-    let harmonics;
+    let harmonics: Harmonic[];
 
     // Update the visibility of amplitude controls.
-    const updateAmplitudeControlsVisibility = numberOfAmplitudeControls => {
+    const updateAmplitudeControlsVisibility = ( numberOfAmplitudeControls: number ) => {
       for ( let i = 0; i < harmonics.length; i++ ) {
         const harmonic = harmonics[ i ];
         const visible = ( i < numberOfAmplitudeControls );
@@ -89,14 +84,12 @@ export default class WaveGameAmplitudesChartNode extends InteractiveAmplitudesCh
 
   /**
    * Sets the visibility of an amplitude slider and its associated NumberDisplay.
-   * @param {number} order - order of the harmonic associated with the amplitude
-   * @param {boolean} visible
-   * @public
+   * @param order - order of the harmonic associated with the amplitude
+   * @param visible
    */
-  setAmplitudeVisible( order, visible ) {
-    assert && AssertUtils.assertPositiveNumber( order );
+  public setAmplitudeVisible( order: number, visible: boolean ): void {
+    assert && assert( Number.isInteger( order ) && order > 0 );
     assert && assert( order <= this.sliders.length, `invalid order: ${order}` );
-    assert && assert( typeof visible === 'boolean' );
 
     const index = order - 1;
 
@@ -110,8 +103,8 @@ export default class WaveGameAmplitudesChartNode extends InteractiveAmplitudesCh
     numberDisplay.interruptSubtreeInput();
     numberDisplay.visible = visible;
 
-    // If the keypad associated with the NumberDisplay is visible, hide it.
-    if ( this.amplitudeKeypadDialog.isShowingProperty.value && this.amplitudeKeypadDialog.order === order ) {
+    // If the keypad is visible, hide it.
+    if ( this.amplitudeKeypadDialog.isShowingProperty.value ) {
       this.amplitudeKeypadDialog.hide();
     }
   }

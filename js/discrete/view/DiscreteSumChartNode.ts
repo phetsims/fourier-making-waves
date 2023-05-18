@@ -8,13 +8,13 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
-import merge from '../../../../phet-core/js/merge.js';
 import SumChartNode from '../../common/view/SumChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteSumChart from '../model/DiscreteSumChart.js';
 import InfiniteHarmonicsPlot from './InfiniteHarmonicsPlot.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const X_TICK_LABEL_DECIMALS = 2;
@@ -22,28 +22,22 @@ const Y_TICK_LABEL_DECIMALS = 1;
 
 export default class DiscreteSumChartNode extends SumChartNode {
 
-  /**
-   * @param {DiscreteSumChart} sumChart
-   * @param {Object} [options]
-   */
-  constructor( sumChart, options ) {
+  public constructor( sumChart: DiscreteSumChart, tandem: Tandem ) {
 
-    assert && assert( sumChart instanceof DiscreteSumChart );
-    assert && assert( options && options.tandem );
+    const options = {
 
-    options = merge( {
-
-      // DomainChartNode options
-      xZoomLevelProperty: new ZoomLevelProperty( sumChart.xAxisDescriptionProperty, options.tandem.createTandem( 'xZoomLevelProperty' ) ),
+      // SumChartNodeOptions
+      xZoomLevelProperty: new ZoomLevelProperty( sumChart.xAxisDescriptionProperty, tandem.createTandem( 'xZoomLevelProperty' ) ),
       xTickLabelSetOptions: {
-        createLabel: value =>
+        createLabel: ( value: number ) =>
           TickLabelUtils.createTickLabelForDomain( value, X_TICK_LABEL_DECIMALS, sumChart.xAxisTickLabelFormatProperty.value,
             sumChart.domainProperty.value, sumChart.fourierSeries.L, sumChart.fourierSeries.T )
       },
       yTickLabelSetOptions: {
-        createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
-      }
-    }, options );
+        createLabel: ( value: number ) => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
+      },
+      tandem: tandem
+    };
 
     super( sumChart, options );
 

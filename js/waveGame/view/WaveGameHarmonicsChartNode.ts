@@ -10,15 +10,17 @@
 
 import HarmonicsChartNode from '../../common/view/HarmonicsChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import WaveGameHarmonicsChart from '../model/WaveGameHarmonicsChart.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class WaveGameHarmonicsChartNode extends HarmonicsChartNode {
 
-  /**
-   * @param {WaveGameHarmonicsChart} harmonicsChart
-   * @param {Object} [options]
-   */
-  constructor( harmonicsChart, options ) {
-    super( harmonicsChart, options );
+  public constructor( harmonicsChart: WaveGameHarmonicsChart, tandem: Tandem ) {
+    super( harmonicsChart, {
+
+      // HarmonicsChartNodeOptions
+      tandem: tandem
+    } );
   }
 }
 

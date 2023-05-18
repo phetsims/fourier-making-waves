@@ -122,9 +122,8 @@ export default class WaveGameLevelNode extends Node {
       tandem: amplitudesTandem.createTandem( 'amplitudeKeypadDialog' )
     } );
 
-    const amplitudesChartNode = new WaveGameAmplitudesChartNode( level.amplitudesChart, amplitudeKeypadDialog, {
-      tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
-    } );
+    const amplitudesChartNode = new WaveGameAmplitudesChartNode( level.amplitudesChart, amplitudeKeypadDialog,
+      amplitudesTandem.createTandem( 'amplitudesChartNode' ) );
 
     // Enabled when any amplitude is non-zero.
     const eraserButtonEnabledProperty = new DerivedProperty(
@@ -168,11 +167,10 @@ export default class WaveGameLevelNode extends Node {
       tandem: harmonicsTandem.createTandem( 'harmonicsTitleText' )
     } );
 
-    const harmonicsChartNode = new WaveGameHarmonicsChartNode( level.harmonicsChart, {
-      tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
-    } );
+    const harmonicsChartNode = new WaveGameHarmonicsChartNode( level.harmonicsChart,
+      harmonicsTandem.createTandem( 'harmonicsChartNode' ) );
 
-    // All of the elements that should be hidden when chartExpandedProperty is set to false.
+    // All the elements that should be hidden when chartExpandedProperty is set to false.
     // In this screen, harmonicsChart.chartExpandedProperty can only be changed via PhET-iO.
     const harmonicsParentNode = new Node( {
       visibleProperty: level.harmonicsChart.chartExpandedProperty,
@@ -192,9 +190,7 @@ export default class WaveGameLevelNode extends Node {
       tandem: sumTandem.createTandem( 'harmonicsTitleText' )
     } );
 
-    const sumChartNode = new WaveGameSumChartNode( level.sumChart, {
-      tandem: sumTandem.createTandem( 'sumChartNode' )
-    } );
+    const sumChartNode = new WaveGameSumChartNode( level.sumChart, sumTandem.createTandem( 'sumChartNode' ) );
 
     // All of the elements that should be hidden when chartExpandedProperty is set to false.
     // In this screen, sumChart.chartExpandedProperty can only be changed via PhET-iO.

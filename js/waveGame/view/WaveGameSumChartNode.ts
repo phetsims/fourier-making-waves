@@ -9,27 +9,23 @@
  */
 
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
-import merge from '../../../../phet-core/js/merge.js';
 import FMWColors from '../../common/FMWColors.js';
 import SumChartNode from '../../common/view/SumChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameSumChart from '../model/WaveGameSumChart.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class WaveGameSumChartNode extends SumChartNode {
 
-  /**
-   * @param {WaveGameSumChart} sumChart
-   * @param {Object} [options]
-   */
-  constructor( sumChart, options ) {
-    assert && assert( sumChart instanceof WaveGameSumChart );
+  public constructor( sumChart: WaveGameSumChart, tandem: Tandem ) {
 
-    options = merge( {
+    const options = {
 
-      // SumChartNode options
+      // SumChartNodeOptions
       sumPlotStrokeProperty: FMWColors.answerSumPlotStrokeProperty,
-      sumPlotLineWidth: 3
-    }, options );
+      sumPlotLineWidth: 3,
+      tandem: tandem
+    };
 
     super( sumChart, options );
 

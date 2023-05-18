@@ -8,7 +8,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
+import NumberDisplay, { NumberDisplayOptions } from '../../../../scenery-phet/js/NumberDisplay.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { InteractiveHighlighting, NodeTranslationOptions, PressListener, RichText, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
@@ -21,15 +21,17 @@ import Harmonic from '../model/Harmonic.js';
 import AmplitudeKeypadDialog from './AmplitudeKeypadDialog.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 // constants
 const DEFAULT_FONT = new PhetFont( 14 );
 
 type SelfOptions = {
-  press: () => void; // called when there's a press anywhere on this Node
+  press?: () => void; // called when there's a press anywhere on this Node
+  numberDisplayOptions?: StrictOmit<NumberDisplayOptions, 'tandem'>;
 };
 
-type AmplitudeNumberDisplayOptions = SelfOptions & NodeTranslationOptions & PickRequired<VBoxOptions, 'tandem'>;
+export type AmplitudeNumberDisplayOptions = SelfOptions & NodeTranslationOptions & PickRequired<VBoxOptions, 'tandem'>;
 
 export default class AmplitudeNumberDisplay extends InteractiveHighlighting( VBox ) {
 
@@ -37,6 +39,16 @@ export default class AmplitudeNumberDisplay extends InteractiveHighlighting( VBo
                       amplitudeKeypadDialog: AmplitudeKeypadDialog, providedOptions: AmplitudeNumberDisplayOptions ) {
 
     const options = optionize<AmplitudeNumberDisplayOptions, SelfOptions, VBoxOptions>()( {
+
+      // SelfOptions
+      press: _.noop,
+      numberDisplayOptions: {
+        align: 'center',
+        decimalPlaces: FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES,
+        textOptions: {
+          font: DEFAULT_FONT
+        }
+      },
 
       // VBoxOptions
       cursor: 'pointer',
@@ -46,13 +58,8 @@ export default class AmplitudeNumberDisplay extends InteractiveHighlighting( VBo
       focusable: FMWQueryParameters.focusableAmplitudeNumberDisplay
     }, providedOptions );
 
-    const numberDisplay = new NumberDisplay( harmonic.amplitudeProperty, harmonic.amplitudeProperty.range, {
-      align: 'center',
-      decimalPlaces: FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES,
-      textOptions: {
-        font: DEFAULT_FONT
-      }
-    } );
+    const numberDisplay = new NumberDisplay( harmonic.amplitudeProperty, harmonic.amplitudeProperty.range,
+      options.numberDisplayOptions );
 
     const labelStringProperty = new DerivedProperty( [ FMWSymbols.AStringProperty ],
       A => `${A}<sub>${harmonic.order}</sub>` );

@@ -9,7 +9,6 @@
 
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { Color } from '../../../../scenery/js/imports.js';
 import HarmonicPlot from '../../discrete/view/HarmonicPlot.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';

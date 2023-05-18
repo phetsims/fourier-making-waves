@@ -10,23 +10,26 @@
 import InteractiveAmplitudesChartNode from '../../common/view/InteractiveAmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteAmplitudesChart from '../model/DiscreteAmplitudesChart.js';
+import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
+import Waveform from '../model/Waveform.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import Property from '../../../../axon/js/Property.js';
 
 export default class DiscreteAmplitudesChartNode extends InteractiveAmplitudesChartNode {
 
-  /**
-   * @param {DiscreteAmplitudesChart} amplitudesChart
-   * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
-   * @param {Object} [options]
-   */
-  constructor( amplitudesChart, amplitudeKeypadDialog, options ) {
+  public constructor( amplitudesChart: DiscreteAmplitudesChart, waveformProperty: Property<Waveform>,
+                      amplitudeKeypadDialog: AmplitudeKeypadDialog, tandem: Tandem ) {
 
-    assert && assert( amplitudesChart instanceof DiscreteAmplitudesChart );
+    super( amplitudesChart, amplitudeKeypadDialog, {
 
-    super( amplitudesChart, amplitudeKeypadDialog, options );
+      // Changing any amplitude switches the waveform to 'custom'.
+      onEdit: () => { waveformProperty.value = Waveform.CUSTOM; },
+      tandem: tandem
+    } );
 
     // Hide sliders and number displays that are not part of the series.
     // Note that it's the model's responsibility to set the amplitude for hidden harmonics to zero.
-    amplitudesChart.fourierSeries.numberOfHarmonicsProperty.link( numberOfHarmonics => {
+    amplitudesChart.numberOfHarmonicsProperty.link( numberOfHarmonics => {
       assert && assert( numberOfHarmonics > 0 && numberOfHarmonics <= this.sliders.length,
         `unsupported numberOfHarmonics: ${numberOfHarmonics}` );
 

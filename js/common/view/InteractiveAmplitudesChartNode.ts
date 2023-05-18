@@ -13,15 +13,14 @@
  */
 
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
-import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import ChartTransform, { ChartTransformOptions } from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import TickLabelSet from '../../../../bamboo/js/TickLabelSet.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
-import { Node, RichText, Text } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { Node, NodeOptions, RichText, Text } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import FMWColors from '../FMWColors.js';
@@ -29,46 +28,53 @@ import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import InteractiveAmplitudesChart from '../model/InteractiveAmplitudesChart.js';
 import AmplitudeKeypadDialog from './AmplitudeKeypadDialog.js';
-import AmplitudeNumberDisplay from './AmplitudeNumberDisplay.js';
-import AmplitudeSlider from './AmplitudeSlider.js';
+import AmplitudeNumberDisplay, { AmplitudeNumberDisplayOptions } from './AmplitudeNumberDisplay.js';
+import AmplitudeSlider, { AmplitudeSliderOptions } from './AmplitudeSlider.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // constants
 const X_MARGIN = 0.5; // x-axis margins, in model coordinates
 const Y_TICK_SPACING = 0.5; // spacing of y-axis tick marks, in model coordinates
 const Y_TICK_LABEL_DECIMAL_PLACES = 1;
 
+type SelfOptions = {
+
+  // called when the user starts editing any amplitude value
+  onEdit?: () => void;
+
+  // nested options
+  amplitudeSliderOptions?: StrictOmit<AmplitudeSliderOptions, 'tandem'>;
+  amplitudeNumberDisplayOptions?: StrictOmit<AmplitudeNumberDisplayOptions, 'tandem'>;
+  chartTransformOptions?: ChartTransformOptions;
+};
+
+export type InteractiveAmplitudesChartNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
+
 export default class InteractiveAmplitudesChartNode extends Node {
 
-  /**
-   * @param {InteractiveAmplitudesChart} amplitudesChart
-   * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog - keypad for editing amplitude values
-   * @param {Object} [options]
-   */
-  constructor( amplitudesChart, amplitudeKeypadDialog, options ) {
+  public readonly chartTransform: ChartTransform;
+  public readonly chartRectangle: ChartRectangle;
 
-    assert && assert( amplitudesChart instanceof InteractiveAmplitudesChart );
-    assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog );
+  protected readonly sliders: AmplitudeSlider[];
+  protected readonly slidersParent: Node;
+  protected readonly numberDisplays: AmplitudeNumberDisplay[];
 
-    options = merge( {
+  public constructor( amplitudesChart: InteractiveAmplitudesChart, amplitudeKeypadDialog: AmplitudeKeypadDialog,
+                      providedOptions: InteractiveAmplitudesChartNodeOptions ) {
 
-      // InteractiveAmplitudesChartNode options
-      // {function} called when the user starts editing any amplitude value
+    const options = optionize<InteractiveAmplitudesChartNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // InteractiveAmplitudesChartNodeOptions
       onEdit: _.noop,
-
-      // AmplitudeSlider options
-      amplitudeSliderOptions: null,
-
-      // AmplitudeNumberDisplay options
-      amplitudeNumberDisplayOptions: null,
-
+      amplitudeSliderOptions: {},
+      amplitudeNumberDisplayOptions: {},
       chartTransformOptions: {
         viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
         viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
-      },
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+      }
+    }, providedOptions );
 
     assert && assert( !options.chartTransformOptions.modelXRange, 'InteractiveAmplitudesChartNode sets modelXRange' );
     assert && assert( !options.chartTransformOptions.modelYRange, 'InteractiveAmplitudesChartNode sets modelYRange' );
@@ -150,7 +156,7 @@ export default class InteractiveAmplitudesChartNode extends Node {
 
     // ---------------------------------------------------------------
 
-    // Group all of the non-interactive pieces, so that we can easily keep track of how many times
+    // Group all the non-interactive pieces, so that we can easily keep track of how many times
     // the user presses on the interactive pieces.
     const chartPiecesNode = new Node( {
       pickable: false,
@@ -173,20 +179,14 @@ export default class InteractiveAmplitudesChartNode extends Node {
     // pdom - traversal order
     this.pdomOrder = [ ...sliders, ...numberDisplays ];
 
-    // @protected
-    this.sliders = sliders; // {AmplitudeSlider[]}
-    this.slidersParent = slidersParent; // {Node}
-    this.numberDisplays = numberDisplays; // {AmplitudeNumberDisplay[]}
-
-    // @public
-    this.chartTransform = chartTransform; // {ChartTransform}
-    this.chartRectangle = chartRectangle; // {ChartRectangle}
+    this.chartTransform = chartTransform;
+    this.chartRectangle = chartRectangle;
+    this.sliders = sliders;
+    this.slidersParent = slidersParent;
+    this.numberDisplays = numberDisplays;
   }
 
-  /**
-   * @public
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }

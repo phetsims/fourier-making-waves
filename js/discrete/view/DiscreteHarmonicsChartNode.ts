@@ -8,12 +8,12 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
-import merge from '../../../../phet-core/js/merge.js';
 import HarmonicsChartNode from '../../common/view/HarmonicsChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteHarmonicsChart from '../model/DiscreteHarmonicsChart.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const X_TICK_LABEL_DECIMALS = 2;
@@ -21,19 +21,12 @@ const Y_TICK_LABEL_DECIMALS = 1;
 
 export default class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
 
-  /**
-   * @param {DiscreteHarmonicsChart} harmonicsChart
-   * @param {Object} [options]
-   */
-  constructor( harmonicsChart, options ) {
+  public constructor( harmonicsChart: DiscreteHarmonicsChart, tandem: Tandem ) {
 
-    assert && assert( harmonicsChart instanceof DiscreteHarmonicsChart );
-    assert && assert( options && options.tandem );
+    super( harmonicsChart, {
 
-    options = merge( {
-
-      // DomainChartNode options
-      xZoomLevelProperty: new ZoomLevelProperty( harmonicsChart.xAxisDescriptionProperty, options.tandem.createTandem( 'xZoomLevelProperty' ) ),
+      // HarmonicsChartNodeOptions
+      xZoomLevelProperty: new ZoomLevelProperty( harmonicsChart.xAxisDescriptionProperty, tandem.createTandem( 'xZoomLevelProperty' ) ),
       xTickLabelSetOptions: {
         createLabel: value =>
           TickLabelUtils.createTickLabelForDomain( value, X_TICK_LABEL_DECIMALS, harmonicsChart.xAxisTickLabelFormatProperty.value,
@@ -41,10 +34,9 @@ export default class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
       },
       yTickLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
-      }
-    }, options );
-
-    super( harmonicsChart, options );
+      },
+      tandem: tandem
+    } );
 
     // Interrupt interaction when visibility changes.
     this.visibleProperty.link( () => this.interruptSubtreeInput() );

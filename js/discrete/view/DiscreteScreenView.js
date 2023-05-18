@@ -84,12 +84,8 @@ export default class DiscreteScreenView extends ScreenView {
     } );
 
     // Amplitudes chart
-    const amplitudesChartNode = new DiscreteAmplitudesChartNode( model.amplitudesChart, amplitudeKeypadDialog, {
-
-      // Changing any amplitude switches the waveform to 'custom'.
-      onEdit: () => { model.waveformProperty.value = Waveform.CUSTOM; },
-      tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
-    } );
+    const amplitudesChartNode = new DiscreteAmplitudesChartNode( model.amplitudesChart, model.waveformProperty,
+      amplitudeKeypadDialog, amplitudesTandem.createTandem( 'amplitudesChartNode' ) );
 
     // Disable the eraser button when all amplitudes are zero.
     const eraserButtonEnabledProperty = new DerivedProperty(
@@ -128,9 +124,8 @@ export default class DiscreteScreenView extends ScreenView {
       } );
 
     // Harmonics chart
-    const harmonicsChartNode = new DiscreteHarmonicsChartNode( model.harmonicsChart, {
-      tandem: harmonicsTandem.createTandem( 'harmonicsChartNode' )
-    } );
+    const harmonicsChartNode = new DiscreteHarmonicsChartNode( model.harmonicsChart,
+      harmonicsTandem.createTandem( 'harmonicsChartNode' ) );
 
     // Equation that appears above the Harmonics chart, with wrapper Node to handle centering
     const harmonicsEquationNode = new HarmonicsEquationNode(
@@ -161,9 +156,7 @@ export default class DiscreteScreenView extends ScreenView {
       } );
 
     // Sum chart
-    const sumChartNode = new DiscreteSumChartNode( model.sumChart, {
-      tandem: sumTandem.createTandem( 'sumChartNode' )
-    } );
+    const sumChartNode = new DiscreteSumChartNode( model.sumChart, sumTandem.createTandem( 'sumChartNode' ) );
 
     // Equation that appears above the Sum chart, with wrapper Node to handle centering
     const sumEquationNodeTandem = sumTandem.createTandem( 'sumEquationNode' );

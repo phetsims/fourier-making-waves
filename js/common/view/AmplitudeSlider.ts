@@ -25,6 +25,7 @@ import Harmonic from '../model/Harmonic.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 // constants
 const TRACK_WIDTH = 40; // track height is specified in constructor options
@@ -42,7 +43,9 @@ type SelfOptions = {
   mouseTouchStep?: number; // snap to this interval when using mouse/touch, unless the value is min or max
 };
 
-type AmplitudeSliderOptions = SelfOptions & PickRequired<SliderOptions, 'tandem'>;
+export type AmplitudeSliderOptions = SelfOptions &
+  PickOptional<SliderOptions, 'keyboardStep' | 'shiftKeyboardStep' | 'pageKeyboardStep'> &
+  PickRequired<SliderOptions, 'tandem'>;
 
 export default class AmplitudeSlider extends Slider {
 
