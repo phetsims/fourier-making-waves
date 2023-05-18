@@ -9,36 +9,23 @@
 import Emitter from '../../../../axon/js/Emitter.js';
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 export default class HarmonicPlot extends CanvasLinePlot {
 
-  /**
-   * @param {ChartTransform} chartTransform
-   * @param {Harmonic} harmonic
-   * @param {ReadOnlyProperty.<Vector2[]>} dataSetProperty
-   * @param {Object} [options]
-   */
-  constructor( chartTransform, harmonic, dataSetProperty, options ) {
+  public readonly harmonic: Harmonic; // the Harmonic associated with this plot
+  public readonly changedEmitter: Emitter; // fires when the plot needs to be redrawn
 
-    assert && assert( chartTransform instanceof ChartTransform );
-    assert && assert( harmonic instanceof Harmonic );
-    assert && AssertUtils.assertAbstractPropertyOf( dataSetProperty, Array );
+  public constructor( chartTransform: ChartTransform, harmonic: Harmonic, dataSetProperty: TReadOnlyProperty<Vector2[]> ) {
 
-    options = merge( {}, options );
+    super( chartTransform, dataSetProperty.value, {
+      stroke: harmonic.colorProperty.value // CanvasLinePlot does not support Property<Color>
+    } );
 
-    assert && assert( !options.stroke, 'HarmonicPlot sets stroke' );
-    options.stroke = harmonic.colorProperty.value; // CanvasLinePlot does not support Property.<Color>
-
-    super( chartTransform, dataSetProperty.value, options );
-
-    // @public (read-only)
     this.harmonic = harmonic;
-
-    // @public (read-only) fires when the plot needs to be redrawn
     this.changedEmitter = new Emitter();
 
     // Keep synchronized with the data set.
