@@ -22,6 +22,8 @@ export default class HarmonicPlot extends CanvasLinePlot {
   public constructor( chartTransform: ChartTransform, harmonic: Harmonic, dataSetProperty: TReadOnlyProperty<Vector2[]> ) {
 
     super( chartTransform, dataSetProperty.value, {
+
+      // CanvasLinePlotOptions
       stroke: harmonic.colorProperty.value // CanvasLinePlot does not support Property<Color>
     } );
 
