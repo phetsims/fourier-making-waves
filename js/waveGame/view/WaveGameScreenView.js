@@ -47,12 +47,7 @@ export default class WaveGameScreenView extends ScreenView {
     const gameAudioPlayer = new GameAudioPlayer();
 
     // UI for level selection and other game settings
-    const levelSelectionNode = new WaveGameLevelSelectionNode( model, layoutBounds, {
-      resetCallback: () => {
-        model.reset();
-      },
-      tandem: tandem.createTandem( 'levelSelectionNode' )
-    } );
+    const levelSelectionNode = new WaveGameLevelSelectionNode( model, layoutBounds, tandem.createTandem( 'levelSelectionNode' ) );
 
     // @private The reward shown while rewardDialog is open.
     this.rewardNode = new WaveGameRewardNode( {

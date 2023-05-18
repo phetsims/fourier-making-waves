@@ -9,7 +9,6 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
-import merge from '../../../../phet-core/js/merge.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -21,43 +20,33 @@ import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
 import WaveGameInfoDialog from './WaveGameInfoDialog.js';
 import WaveGameLevelSelectionButtonGroup from './WaveGameLevelSelectionButtonGroup.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import WaveGameModel from '../model/WaveGameModel.js';
 
 export default class WaveGameLevelSelectionNode extends Node {
 
-  /**
-   * @param {WaveGameModel} model
-   * @param {Bounds2} layoutBounds
-   * @param {Object} [options]
-   */
-  constructor( model, layoutBounds, options ) {
+  private readonly levelSelectionButtonGroup: WaveGameLevelSelectionButtonGroup;
 
-    options = merge( {
-
-      // WaveGameLevelSelectionNode options
-      resetCallback: null, // {function|null}
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+  public constructor( model: WaveGameModel, layoutBounds: Bounds2, tandem: Tandem ) {
 
     const chooseYourLevelText = new Text( FourierMakingWavesStrings.chooseYourLevelStringProperty, {
       font: new PhetFont( 50 ),
       maxWidth: 0.65 * layoutBounds.width,
-      tandem: options.tandem.createTandem( 'chooseYourLevelText' )
+      tandem: tandem.createTandem( 'chooseYourLevelText' )
     } );
 
     // Displays info about the levels. Created eagerly and reused for PhET-iO.
-    const infoDialog = new WaveGameInfoDialog( model.levels, options.tandem.createTandem( 'infoDialog' ) );
+    const infoDialog = new WaveGameInfoDialog( model.levels, tandem.createTandem( 'infoDialog' ) );
 
     const infoButton = new InfoButton( {
       iconFill: 'rgb( 41, 106, 163 )',
       maxHeight: 40, // determined empirically
       listener: () => infoDialog.show(),
-      tandem: options.tandem.createTandem( 'infoButton' )
+      tandem: tandem.createTandem( 'infoButton' )
     } );
 
     const levelSelectionButtonGroup = new WaveGameLevelSelectionButtonGroup( model.levelProperty, model.levels,
-      options.tandem.createTandem( 'levelSelectionButtonGroup' ) );
+      tandem.createTandem( 'levelSelectionButtonGroup' ) );
 
     const titleAndButtonsBox = new VBox( {
       children: [ chooseYourLevelText, levelSelectionButtonGroup ],
@@ -72,19 +61,16 @@ export default class WaveGameLevelSelectionNode extends Node {
 
     // Reset All button, at lower right
     const resetAllButton = new ResetAllButton( {
-      listener: () => {
-        phet.log && phet.log( 'ResetAllButton pressed' );
-        options.resetCallback && options.resetCallback();
-      },
+      listener: () => model.reset(),
       right: layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN,
       bottom: layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN,
-      tandem: options.tandem.createTandem( 'resetAllButton' )
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
-    assert && assert( !options.children, 'LevelSelectionNode sets children' );
-    options.children = [ titleAndButtonsBox, resetAllButton, infoButton ];
-
-    super( options );
+    super( {
+      children: [ titleAndButtonsBox, resetAllButton, infoButton ],
+      tandem: tandem
+    } );
 
     // InfoButton to the right of title. This is handled dynamically in case the title is changed via PhET-iO.
     Multilink.multilink(
@@ -95,7 +81,6 @@ export default class WaveGameLevelSelectionNode extends Node {
         infoButton.centerY = localBounds.centerY;
       } );
 
-    // @private
     this.levelSelectionButtonGroup = levelSelectionButtonGroup;
 
     // pdom - traversal order
@@ -105,11 +90,8 @@ export default class WaveGameLevelSelectionNode extends Node {
 
   /**
    * Sets focus to the level-selection button associated with the specified level.
-   * @param {WaveGameLevel} level
-   * @public
    */
-  focusLevelSelectionButton( level ) {
-    assert && assert( level instanceof WaveGameLevel );
+  public focusLevelSelectionButton( level: WaveGameLevel ): void {
     this.levelSelectionButtonGroup.focusLevelSelectionButton( level.levelNumber );
   }
 }
