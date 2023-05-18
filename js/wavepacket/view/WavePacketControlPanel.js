@@ -332,9 +332,8 @@ class WavePacketWidthSubpanel extends VBox {
       isPressed && standardDeviationControl.interruptSubtreeInput();
     } );
 
-    const widthIndicatorsCheckbox = new WidthIndicatorsCheckbox( widthIndicatorsVisibleProperty, {
-      tandem: options.tandem.createTandem( 'widthIndicatorsCheckbox' )
-    } );
+    const widthIndicatorsCheckbox = new WidthIndicatorsCheckbox( widthIndicatorsVisibleProperty,
+      options.tandem.createTandem( 'widthIndicatorsCheckbox' ) );
 
     // Default pointer areas for widthIndicatorsCheckbox and standardDeviationControl.slider overlap. We can't
     // eliminate this overlap because we can't afford to add vertical space. So do our best to mitigate the issue

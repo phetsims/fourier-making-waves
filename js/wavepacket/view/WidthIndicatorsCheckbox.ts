@@ -6,34 +6,24 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import { HBox, Text } from '../../../../scenery/js/imports.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
+import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWIconFactory from '../../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
+import Property from '../../../../axon/js/Property.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 export default class WidthIndicatorsCheckbox extends Checkbox {
 
-  /**
-   * @param {Property.<boolean>} widthIndicatorsVisibleProperty
-   * @param {Object} [options]
-   */
-  constructor( widthIndicatorsVisibleProperty, options ) {
-
-    assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
-
-    options = merge( {}, FMWConstants.CHECKBOX_OPTIONS, {
-      tandem: Tandem.REQUIRED
-    }, options );
+  public constructor( widthIndicatorsVisibleProperty: Property<boolean>, tandem: Tandem ) {
 
     const widthIndicatorsText = new Text( FourierMakingWavesStrings.widthIndicatorsStringProperty, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 100,
-      tandem: options.tandem.createTandem( 'widthIndicatorsText' )
+      tandem: tandem.createTandem( 'widthIndicatorsText' )
     } );
 
     const iconNode = FMWIconFactory.createWidthIndicatorsIcon();
@@ -43,7 +33,9 @@ export default class WidthIndicatorsCheckbox extends Checkbox {
       spacing: 10
     } );
 
-    super( widthIndicatorsVisibleProperty, content, options );
+    super( widthIndicatorsVisibleProperty, content, combineOptions<CheckboxOptions>( {}, FMWConstants.CHECKBOX_OPTIONS, {
+      tandem: tandem
+    } ) );
   }
 }
 
