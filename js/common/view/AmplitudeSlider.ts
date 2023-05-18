@@ -148,7 +148,7 @@ export default class AmplitudeSlider extends Slider {
       tandem: Tandem.OPT_OUT
     } );
 
-    // Remove from the PDOM, since this is an icon.
+    // Remove from the PDOM, since this is an icon. Note that tagName is an ES5 setter with side-effects.
     // See https://github.com/phetsims/ratio-and-proportion/issues/444
     slider.tagName = null;
 
