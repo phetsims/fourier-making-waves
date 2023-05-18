@@ -32,39 +32,26 @@ const T = FMWSymbols.TStringProperty.value;
 const t = FMWSymbols.tStringProperty.value;
 const x = FMWSymbols.xStringProperty.value;
 
+// {string} for general form (e.g. 'n') or {number} for a specific harmonic
+type Order = string | number;
+
+// {string} for general form (e.g. 'An') or {number} for a specific amplitude
+type Amplitude = string | number;
+
 const EquationMarkup = {
 
   /**
    * Gets the RichText markup for the general form that describes a Fourier series.
-   * @param {Domain} domain
-   * @param {SeriesType} seriesType
-   * @param {EquationForm} equationForm
-   * @returns {string}
-   * @public
    */
-  getGeneralFormMarkup( domain, seriesType, equationForm ) {
+  getGeneralFormMarkup( domain: Domain, seriesType: SeriesType, equationForm: EquationForm ): string {
     return EquationMarkup.getSpecificFormMarkup( domain, seriesType, equationForm, n, An );
   },
 
   /**
    * Gets the RichText markup for a specific form that describes a Fourier series.
-   * @param {Domain} domain
-   * @param {SeriesType} seriesType
-   * @param {EquationForm} equationForm
-   * @param {string|number} order - {string} for general form (e.g. 'n') or {number} for a specific harmonic
-   * @param {string|number} amplitude - {string} for general form (e.g. 'An') or {number} for a specific amplitude
-   * @returns {string}
-   * @public
    */
-  getSpecificFormMarkup( domain, seriesType, equationForm, order, amplitude ) {
-
-    assert && assert( Domain.enumeration.includes( domain ) );
-    assert && assert( SeriesType.enumeration.includes( seriesType ) );
-    assert && assert( EquationForm.enumeration.includes( equationForm ) );
-    assert && assert( typeof order === 'string' || typeof order === 'number' );
-    assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number' );
-
-    let markup;
+  getSpecificFormMarkup( domain: Domain, seriesType: SeriesType, equationForm: EquationForm, order: Order, amplitude: Amplitude ): string {
+    let markup = '';
     if ( domain === Domain.SPACE ) {
       markup = getSpaceMarkup( seriesType, equationForm, order, amplitude );
     }
@@ -81,25 +68,18 @@ const EquationMarkup = {
   },
 
   /**
-   * Gets the markup for 'F(...)', where the '...' depends on the Domain.
-   * @param {Domain} domain
-   * @returns {string}
-   * @public
+   * Gets the RichText markup for 'F(...)', where the '...' depends on the Domain.
    */
-  getFunctionOfMarkup( domain ) {
+  getFunctionOfMarkup( domain: Domain ): string {
     const variables = ( domain === Domain.SPACE ) ? x : ( ( domain === Domain.TIME ) ? t : `${x},${t}` );
     return `${F}(${variables})`;
   },
 
   /**
-   * Gets the markup used for the equation above the Components graph in the Wave Packet screen.
-   * @param {Domain} domain
-   * @param {SeriesType} seriesType
-   * @returns {string}
-   * @public
+   * Gets the RichText markup used for the equation above the Components graph in the Wave Packet screen.
    */
-  getComponentsEquationMarkup( domain, seriesType ) {
-    assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
+  getComponentsEquationMarkup( domain: Domain, seriesType: SeriesType ): string {
+    assert && assert( domain === Domain.SPACE || domain === Domain.TIME, `unsupported domain: ${domain}` );
 
     const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.xStringProperty.value : FMWSymbols.tStringProperty.value;
     const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value;
@@ -111,22 +91,14 @@ const EquationMarkup = {
 
 /**
  * Gets the RichText markup for an equation in the space Domain.
- * @param {SeriesType} seriesType
- * @param {EquationForm} equationForm
- * @param {string|number} order - {string} for general form (e.g. 'n') or number for a specific harmonic
- * @param {string|number} amplitude - {string} for general form (e.g. 'An') or {number} for a specific amplitude
- * @returns {string}
  */
-function getSpaceMarkup( seriesType, equationForm, order, amplitude ) {
-  assert && assert( SeriesType.enumeration.includes( seriesType ) );
+function getSpaceMarkup( seriesType: SeriesType, equationForm: EquationForm, order: Order, amplitude: Amplitude ): string {
   assert && assert( [ EquationForm.HIDDEN, EquationForm.WAVELENGTH, EquationForm.SPATIAL_WAVE_NUMBER, EquationForm.MODE ].includes( equationForm ),
     `unsupported equationForm: ${equationForm}` );
-  assert && assert( typeof order === 'string' || typeof order === 'number' );
-  assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number' );
 
   const seriesTypeMarkup = seriesTypeToMarkup( seriesType );
 
-  let markup;
+  let markup = '';
   if ( equationForm === EquationForm.HIDDEN ) {
     markup = HIDDEN_STRING;
   }
@@ -147,22 +119,14 @@ function getSpaceMarkup( seriesType, equationForm, order, amplitude ) {
 
 /**
  * Gets the RichText markup for an equation in the time Domain.
- * @param {SeriesType} seriesType
- * @param {EquationForm} equationForm
- * @param {string|number} order - {string} for general form (e.g. 'n') or number for a specific harmonic
- * @param {string|number} amplitude - {string} for general form (e.g. 'An') or {number} for a specific amplitude
- * @returns {string}
  */
-function getTimeMarkup( seriesType, equationForm, order, amplitude ) {
-  assert && assert( SeriesType.enumeration.includes( seriesType ) );
+function getTimeMarkup( seriesType: SeriesType, equationForm: EquationForm, order: Order, amplitude: Amplitude ): string {
   assert && assert( [ EquationForm.HIDDEN, EquationForm.FREQUENCY, EquationForm.PERIOD, EquationForm.ANGULAR_WAVE_NUMBER, EquationForm.MODE ].includes( equationForm ),
     `unsupported equationForm: ${equationForm}` );
-  assert && assert( typeof order === 'string' || typeof order === 'number' );
-  assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number' );
 
   const seriesTypeMarkup = seriesTypeToMarkup( seriesType );
 
-  let markup;
+  let markup = '';
   if ( equationForm === EquationForm.HIDDEN ) {
     markup = HIDDEN_STRING;
   }
@@ -186,23 +150,14 @@ function getTimeMarkup( seriesType, equationForm, order, amplitude ) {
 
 /**
  * Gets the RichText markup for an equation in the space & time Domain.
- * @param {SeriesType} seriesType
- * @param {EquationForm} equationForm
- * @param {string|number} order - {string} for general form (e.g. 'n') or number for a specific harmonic
- * @param {string|number} amplitude - {string} for general form (e.g. 'An') or {number} for a specific amplitude
- * @returns {string}
  */
-function getSpaceAndTimeMarkup( seriesType, equationForm, order, amplitude ) {
-  assert && assert( SeriesType.enumeration.includes( seriesType ) );
-  assert && assert( [ EquationForm.HIDDEN, EquationForm.WAVELENGTH_AND_PERIOD,
-      EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER, EquationForm.MODE ].includes( equationForm ),
+function getSpaceAndTimeMarkup( seriesType: SeriesType, equationForm: EquationForm, order: Order, amplitude: Amplitude ): string {
+  assert && assert( [ EquationForm.HIDDEN, EquationForm.WAVELENGTH_AND_PERIOD, EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER, EquationForm.MODE ].includes( equationForm ),
     `unsupported equationForm: ${equationForm}` );
-  assert && assert( typeof order === 'string' || typeof order === 'number' );
-  assert && assert( typeof amplitude === 'string' || typeof amplitude === 'number' );
 
   const seriesTypeMarkup = seriesTypeToMarkup( seriesType );
 
-  let markup;
+  let markup = '';
   if ( equationForm === EquationForm.HIDDEN ) {
     markup = HIDDEN_STRING;
   }
@@ -223,11 +178,8 @@ function getSpaceAndTimeMarkup( seriesType, equationForm, order, amplitude ) {
 
 /**
  * Converts a SeriesType to markup.
- * @param {SeriesType} seriesType
- * @returns {string}
  */
-function seriesTypeToMarkup( seriesType ) {
-  assert && assert( SeriesType.enumeration.includes( seriesType ) );
+function seriesTypeToMarkup( seriesType: SeriesType ): string {
   return ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinStringProperty.value : FMWSymbols.cosStringProperty.value;
 }
 
