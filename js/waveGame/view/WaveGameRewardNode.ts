@@ -8,11 +8,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import StarNode from '../../../../scenery-phet/js/StarNode.js';
-import RewardNode from '../../../../vegas/js/RewardNode.js';
+import RewardNode, { RewardNodeOptions } from '../../../../vegas/js/RewardNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // constants
 const NUMBER_OF_NODES = 100;
@@ -22,17 +23,20 @@ const NODES = [
   new StarNode()
 ];
 
+type SelfOptions = EmptySelfOptions;
+
+type WaveGameRewardNodeOptions = SelfOptions & PickRequired<RewardNodeOptions, 'tandem' | 'visible'>;
+
 export default class WaveGameRewardNode extends RewardNode {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  public constructor( providedOptions: WaveGameRewardNodeOptions ) {
 
-    options = merge( {}, options );
+    const options = optionize<WaveGameRewardNodeOptions, SelfOptions, RewardNodeOptions>()( {
 
-    assert && assert( !options.children, 'WaveGameRewardNode sets nodes' );
-    options.nodes = RewardNode.createRandomNodes( NODES, NUMBER_OF_NODES );
+      // RewardNodeOptions
+      nodes: RewardNode.createRandomNodes( NODES, NUMBER_OF_NODES ),
+      phetioReadOnly: true
+    }, providedOptions );
 
     super( options );
   }

@@ -57,8 +57,7 @@ export default class WaveGameScreenView extends ScreenView {
     // @private The reward shown while rewardDialog is open.
     this.rewardNode = new WaveGameRewardNode( {
       visible: false,
-      tandem: tandem.createTandem( 'rewardNode' ),
-      phetioReadOnly: true
+      tandem: tandem.createTandem( 'rewardNode' )
     } );
 
     // Dialog that is displayed when the score reaches the reward value.
