@@ -13,7 +13,6 @@ import { NumberControlOptions } from '../../../scenery-phet/js/NumberControl.js'
 import NumberDisplay from '../../../scenery-phet/js/NumberDisplay.js';
 import ArrowButton from '../../../sun/js/buttons/ArrowButton.js';
 import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
-import { ExpandCollapseButtonOptions } from '../../../sun/js/ExpandCollapseButton.js';
 import { PanelOptions } from '../../../sun/js/Panel.js';
 import Slider from '../../../sun/js/Slider.js';
 import AssertUtils from '../../../phetcommon/js/AssertUtils.js';
@@ -38,10 +37,6 @@ const ERASER_BUTTON_OPTIONS: EraserButtonOptions = {
   scale: 0.85,
   touchAreaXDilation: 5,
   touchAreaYDilation: 5
-};
-
-const EXPAND_COLLAPSE_BUTTON_OPTIONS: ExpandCollapseButtonOptions = {
-  sideLength: 16
 };
 
 const PANEL_OPTIONS: PanelOptions = {
@@ -119,7 +114,6 @@ const FMWConstants = {
   // UI components options
   CHECKBOX_OPTIONS: CHECKBOX_OPTIONS,
   ERASER_BUTTON_OPTIONS: ERASER_BUTTON_OPTIONS,
-  EXPAND_COLLAPSE_BUTTON_OPTIONS: EXPAND_COLLAPSE_BUTTON_OPTIONS,
   PANEL_OPTIONS: PANEL_OPTIONS,
   VBOX_SPACING: 18,
 
