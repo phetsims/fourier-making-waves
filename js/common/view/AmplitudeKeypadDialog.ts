@@ -41,7 +41,7 @@ type SelfOptions = {
   decimalPlaces?: number; // Number of decimal places that can be entered for values, a non-negative integer.
 };
 
-type AmplitudeKeypadDialogOptions = SelfOptions & PickRequired<DialogOptions, 'tandem'>;
+type AmplitudeKeypadDialogOptions = SelfOptions & PickRequired<DialogOptions, 'tandem' | 'layoutBounds'>;
 
 type EnterCallback = ( amplitude: number ) => void;
 type CloseCallback = () => void;

@@ -44,13 +44,7 @@ import WavelengthCalipersNode from './WavelengthCalipersNode.js';
 
 export default class DiscreteScreenView extends ScreenView {
 
-  /**
-   * @param {DiscreteModel} model
-   * @param {Tandem} tandem
-   */
-  constructor( model, tandem ) {
-    assert && assert( model instanceof DiscreteModel );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( model: DiscreteModel, tandem: Tandem ) {
 
     super( {
       tandem: tandem
@@ -103,7 +97,7 @@ export default class DiscreteScreenView extends ScreenView {
       tandem: amplitudesTandem.createTandem( 'eraserButton' )
     } ) );
 
-    // All of the elements that should be hidden when chartExpandedProperty is set to false.
+    // Elements that should be hidden when chartExpandedProperty is set to false.
     // In this screen, amplitudesChart.chartExpandedProperty can only be changed via PhET-iO.
     const amplitudesParentNode = new Node( {
       visibleProperty: model.amplitudesChart.chartExpandedProperty,
@@ -135,7 +129,7 @@ export default class DiscreteScreenView extends ScreenView {
         visiblePropertyOptions: { phetioReadOnly: true }
       } );
 
-    // All of the elements that should be hidden when chartExpandedProperty is set to false.
+    // Elements that should be hidden when chartExpandedProperty is set to false.
     // That can be done using harmonicsExpandCollapseButton, or by changing harmonicsChart.chartExpandedProperty via PhET-iO.
     const harmonicsParentNode = new Node( {
       visibleProperty: model.harmonicsChart.chartExpandedProperty,
@@ -188,7 +182,7 @@ export default class DiscreteScreenView extends ScreenView {
       infiniteHarmonicsCheckbox.enabled = waveform.supportsInfiniteHarmonics;
     } );
 
-    // All of the elements that should be hidden when chartExpandedProperty is set to false.
+    // Elements that should be hidden when chartExpandedProperty is set to false.
     // That can be done using sumExpandCollapseButton, or by changing sumChart.chartExpandedProperty via PhET-iO.
     const sumParentNode = new Node( {
       visibleProperty: model.sumChart.chartExpandedProperty,
@@ -442,11 +436,7 @@ export default class DiscreteScreenView extends ScreenView {
     ];
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
