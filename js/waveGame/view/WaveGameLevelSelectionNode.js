@@ -56,9 +56,8 @@ export default class WaveGameLevelSelectionNode extends Node {
       tandem: options.tandem.createTandem( 'infoButton' )
     } );
 
-    const levelSelectionButtonGroup = new WaveGameLevelSelectionButtonGroup( model.levelProperty, model.levels, {
-      tandem: options.tandem.createTandem( 'levelSelectionButtonGroup' )
-    } );
+    const levelSelectionButtonGroup = new WaveGameLevelSelectionButtonGroup( model.levelProperty, model.levels,
+      options.tandem.createTandem( 'levelSelectionButtonGroup' ) );
 
     const titleAndButtonsBox = new VBox( {
       children: [ chooseYourLevelText, levelSelectionButtonGroup ],
