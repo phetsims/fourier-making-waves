@@ -14,7 +14,8 @@ import { Color } from '../../../../scenery/js/imports.js';
 import HarmonicPlot from '../../discrete/view/HarmonicPlot.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import HarmonicsChart from '../model/HarmonicsChart.js';
-import DomainChartNode from './DomainChartNode.js';
+import DomainChartNode, { DomainChartNodeOptions } from './DomainChartNode.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const NORMAL_LINE_WIDTH = 1;
@@ -22,15 +23,13 @@ const EMPHASIZED_LINE_WIDTH = 2;
 const DE_EMPHASIZED_LINE_WIDTH = 0.5;
 const DE_EMPHASIZED_STROKE = Color.grayColor( 150 );
 
+type SelfOptions = EmptySelfOptions;
+
+export type HarmonicsChartNodeOptions = SelfOptions & DomainChartNodeOptions;
+
 export default class HarmonicsChartNode extends DomainChartNode {
 
-  /**
-   * @param {HarmonicsChart} harmonicsChart
-   * @param {Object} [options]
-   */
-  constructor( harmonicsChart, options ) {
-
-    assert && assert( harmonicsChart instanceof HarmonicsChart );
+  public constructor( harmonicsChart: HarmonicsChart, providedOptions: HarmonicsChartNodeOptions ) {
 
     // Fields of interest in harmonicsChart, to improve readability
     const harmonics = harmonicsChart.fourierSeries.harmonics;
@@ -38,19 +37,21 @@ export default class HarmonicsChartNode extends DomainChartNode {
     const emphasizedHarmonics = harmonicsChart.emphasizedHarmonics;
     const yAxisDescription = harmonicsChart.yAxisDescription;
 
-    options = merge( {
+    const options = optionize<HarmonicsChartNodeOptions, SelfOptions, DomainChartNodeOptions>()( {
+
+      // DomainChartNodeOptions
       chartTransformOptions: {
         modelYRange: yAxisDescription.range
       },
       yGridLineSpacing: yAxisDescription.gridLineSpacing,
       yTickMarkSpacing: yAxisDescription.tickMarkSpacing,
       yTickLabelSpacing: yAxisDescription.tickLabelSpacing
-    }, options );
+    }, providedOptions );
 
     super( harmonicsChart, options );
 
-    // {HarmonicPlot[]} a plot for each harmonic in the Fourier series, in harmonic order, rendered using Canvas
-    const plots = [];
+    // a plot for each harmonic in the Fourier series, in harmonic order, rendered using Canvas
+    const plots: HarmonicPlot[] = [];
     assert && assert( harmonics.length === harmonicDataSetProperties.length, 'a data set is required for each harmonic' );
     for ( let i = 0; i < harmonics.length; i++ ) {
       plots.push( new HarmonicPlot( this.chartTransform, harmonics[ i ], harmonicDataSetProperties[ i ] ) );
