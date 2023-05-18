@@ -7,7 +7,6 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { RichText } from '../../../../scenery/js/imports.js';
 import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
@@ -16,26 +15,12 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import SeriesType from '../model/SeriesType.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 
-export default class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup {
+export default class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButtonGroup<SeriesType> {
 
-  /**
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {Object} [options]
-   */
-  constructor( seriesTypeProperty, options ) {
-
-    options = merge( {
-
-      // HorizontalAquaRadioButtonGroup options
-      spacing: 12,
-      touchAreaYDilation: 6,
-      radioButtonOptions: {
-        xSpacing: 6
-      }
-    }, options );
-
-    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
+  public constructor( seriesTypeProperty: EnumerationProperty<SeriesType>, tandem: Tandem ) {
 
     const textOptions = {
 
@@ -44,7 +29,7 @@ export default class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButto
       maxWidth: 40 // determined empirically
     };
 
-    const items = [
+    const items: AquaRadioButtonGroupItem<SeriesType>[] = [
       {
         value: SeriesType.SIN,
         createNode: () => new RichText( FMWSymbols.sinStringProperty, textOptions ),
@@ -57,7 +42,14 @@ export default class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButto
       }
     ];
 
-    super( seriesTypeProperty, items, options );
+    super( seriesTypeProperty, items, {
+      spacing: 12,
+      touchAreaYDilation: 6,
+      radioButtonOptions: {
+        xSpacing: 6
+      },
+      tandem: tandem
+    } );
   }
 }
 

@@ -416,9 +416,9 @@ class GraphControlsSubpanel extends VBox {
       tandem: options.tandem.createTandem( 'seriesText' )
     } );
 
-    const seriesTypeRadioButtonGroup = new SeriesTypeRadioButtonGroup( seriesTypeProperty, {
-      tandem: options.tandem.createTandem( 'seriesRadioButtonGroup' ) // tandem name differs by request
-    } );
+    const seriesTypeRadioButtonGroup = new SeriesTypeRadioButtonGroup( seriesTypeProperty,
+      options.tandem.createTandem( 'seriesRadioButtonGroup' ) // tandem name differs by request
+    );
 
     const seriesBox = new HBox( {
       spacing: 10,
