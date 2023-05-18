@@ -10,38 +10,53 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import merge from '../../../../phet-core/js/merge.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox, Node, RichText, Text } from '../../../../scenery/js/imports.js';
+import { HBox, Node, NodeOptions, RichText, Text } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWSymbols from '../FMWSymbols.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // constants
 const DEFAULT_SYMBOL_FONT = new PhetFont( 30 );
 const DEFAULT_N_EQUALS_FONT = new PhetFont( 14 );
 const DEFAULT_MIN_MAX_FONT = new PhetFont( 12 );
 
+type SelfOptions = {
+  integration?: boolean; // true=integration, false=summation
+  symbolFont?: PhetFont;
+  nEqualsFont?: PhetFont; // font for 'n ='
+  minMaxFont?: PhetFont;
+};
+
+type SumSymbolNodeOptions = SelfOptions;
+
 // This extends Node instead of VBox so that the origin will be at the origin of symbolNode, useful for
 // layout with other text.
 export default class SumSymbolNode extends Node {
 
-  /**
-   * @param {TReadOnlyProperty.<string>} indexSymbolProperty - symbol for the index of summation
-   * @param {number} indexMin - index min value
-   * @param {Property.<number>} indexMaxProperty - index max value
-   * @param {Object} [options]
-   */
-  constructor( indexSymbolProperty, indexMin, indexMaxProperty, options ) {
+  public readonly integrationProperty: Property<boolean>; // true=integration, false=summation
+  private readonly disposeSummationSymbolNode: () => void;
 
-    options = merge( {
+  /**
+   * @param indexSymbolProperty - symbol for the index of summation
+   * @param indexMin - index min value
+   * @param indexMaxProperty - index max value
+   * @param [providedOptions]
+   */
+  public constructor( indexSymbolProperty: TReadOnlyProperty<string>, indexMin: number,
+                      indexMaxProperty: Property<number>, providedOptions?: SumSymbolNodeOptions ) {
+
+    const options = optionize<SumSymbolNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SumSymbolNode options
       integration: false, // true=integration, false=summation
       symbolFont: DEFAULT_SYMBOL_FONT,
       nEqualsFont: DEFAULT_N_EQUALS_FONT, // font for 'n ='
       minMaxFont: DEFAULT_MIN_MAX_FONT
-    }, options );
+    }, providedOptions );
 
     // The symbol for the type of sum.
     const symbolNode = new RichText( '', {
@@ -70,13 +85,10 @@ export default class SumSymbolNode extends Node {
       font: options.minMaxFont
     } );
 
-    assert && assert( !options.children, 'SumSymbolNode sets children' );
     options.children = [ maxValueNode, symbolNode, minNode ];
 
     super( options );
 
-    // @public true=integration, false=summation
-    // dispose is required.
     this.integrationProperty = new BooleanProperty( options.integration );
 
     // Update the equation form and layout. dispose is required.
@@ -113,18 +125,13 @@ export default class SumSymbolNode extends Node {
         }
       } );
 
-    // @private
     this.disposeSummationSymbolNode = () => {
       this.integrationProperty.dispose();
       multilink.dispose();
     };
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     this.disposeSummationSymbolNode();
     super.dispose();
   }
@@ -132,10 +139,8 @@ export default class SumSymbolNode extends Node {
 
 /**
  * Converts a summation index to a string.
- * @param {number} index
- * @returns {string}
  */
-function indexToString( index ) {
+function indexToString( index: number ): string {
   if ( index === Infinity ) {
     return `${MathSymbols.INFINITY}`;
   }
