@@ -47,7 +47,7 @@ export default class SumSymbolNode extends Node {
    * @param [providedOptions]
    */
   public constructor( indexSymbolProperty: TReadOnlyProperty<string>, indexMin: number,
-                      indexMaxProperty: Property<number>, providedOptions?: SumSymbolNodeOptions ) {
+                      indexMaxProperty: TReadOnlyProperty<number>, providedOptions?: SumSymbolNodeOptions ) {
 
     const options = optionize<SumSymbolNodeOptions, SelfOptions, NodeOptions>()( {
 

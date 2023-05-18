@@ -44,7 +44,7 @@ export default class ExpandedFormDialog extends Dialog {
 
     const sumEquationNode = new DiscreteSumEquationNode( fourierSeries.numberOfHarmonicsProperty, domainProperty,
       seriesTypeProperty, equationFormProperty, {
-        font: FMWConstants.EQUATION_FONT
+        tandem: Tandem.OPT_OUT
       } );
 
     // F(...) =

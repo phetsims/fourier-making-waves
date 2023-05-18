@@ -122,12 +122,8 @@ export default class DiscreteScreenView extends ScreenView {
       harmonicsTandem.createTandem( 'harmonicsChartNode' ) );
 
     // Equation that appears above the Harmonics chart, with wrapper Node to handle centering
-    const harmonicsEquationNode = new HarmonicsEquationNode(
-      model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, {
-        maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
-        tandem: harmonicsTandem.createTandem( 'harmonicsEquationNode' ),
-        visiblePropertyOptions: { phetioReadOnly: true }
-      } );
+    const harmonicsEquationNode = new HarmonicsEquationNode( model.domainProperty, model.seriesTypeProperty,
+      model.equationFormProperty, harmonicsTandem.createTandem( 'harmonicsEquationNode' ) );
 
     // Elements that should be hidden when chartExpandedProperty is set to false.
     // That can be done using harmonicsExpandCollapseButton, or by changing harmonicsChart.chartExpandedProperty via PhET-iO.

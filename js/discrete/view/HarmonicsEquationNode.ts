@@ -8,39 +8,33 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { Node, RichText } from '../../../../scenery/js/imports.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import Domain from '../../common/model/Domain.js';
+import SeriesType from '../../common/model/SeriesType.js';
+import EquationForm from '../model/EquationForm.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class HarmonicsEquationNode extends Node {
 
-  /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
-   * @param {Object} [options]
-   */
-  constructor( domainProperty, seriesTypeProperty, equationFormProperty, options ) {
-
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
-    assert && assert( equationFormProperty instanceof EnumerationProperty );
-
-    options = merge( {
-      textOptions: {
-        font: FMWConstants.EQUATION_FONT
-      }
-    }, options );
+  public constructor( domainProperty: EnumerationProperty<Domain>,
+                      seriesTypeProperty: EnumerationProperty<SeriesType>,
+                      equationFormProperty: EnumerationProperty<EquationForm>,
+                      tandem: Tandem ) {
 
     // text is set in multilink below
-    const richText = new RichText( '', options.textOptions );
+    const richText = new RichText( '', {
+      font: FMWConstants.EQUATION_FONT
+    } );
 
-    assert && assert( !options.children, 'HarmonicsEquationNode sets children' );
-    options.children = [ richText ];
-
-    super( options );
+    super( {
+      children: [ richText ],
+      maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
+      visiblePropertyOptions: { phetioReadOnly: true },
+      tandem: tandem
+    } );
 
     Multilink.multilink(
       [ domainProperty, seriesTypeProperty, equationFormProperty ],
@@ -50,11 +44,7 @@ export default class HarmonicsEquationNode extends Node {
     );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
