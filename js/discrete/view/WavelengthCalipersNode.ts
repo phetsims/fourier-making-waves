@@ -8,29 +8,26 @@
  */
 
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import DiscreteCalipersNode from './DiscreteCalipersNode.js';
+import DiscreteCalipersNode, { DiscreteCalipersNodeOptions } from './DiscreteCalipersNode.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type WavelengthCalipersNodeOptions = SelfOptions & PickRequired<DiscreteCalipersNodeOptions, 'position' | 'dragBounds' | 'tandem'>;
 
 export default class WavelengthCalipersNode extends DiscreteCalipersNode {
 
-  /**
-   * @param {DiscreteModel} model
-   * @param {ChartTransform} chartTransform - transform for the Harmonics chart
-   * @param {Object} [options]
-   */
-  constructor( model, chartTransform, options ) {
+  public constructor( model: DiscreteModel, chartTransform: ChartTransform, providedOptions: WavelengthCalipersNodeOptions ) {
 
-    assert && assert( model instanceof DiscreteModel );
-    assert && assert( chartTransform instanceof ChartTransform );
-
-    options = merge( {
+    const options = optionize<WavelengthCalipersNodeOptions, SelfOptions, DiscreteCalipersNodeOptions>()( {
 
       // DiscreteCalipersNode options
       debugName: 'wavelengthCalipers'
-    }, options );
+    }, providedOptions );
 
     super(
       model.wavelengthTool,
