@@ -7,28 +7,20 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RewardDialog from '../../../../vegas/js/RewardDialog.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameRewardNode from './WaveGameRewardNode.js';
+import WaveGameLevel from '../model/WaveGameLevel.js';
 
 export default class WaveGameRewardDialog extends RewardDialog {
 
-  /**
-   * @param {Property.<null|WaveGameLevel>} levelProperty
-   * @param {WaveGameRewardNode} rewardNode
-   * @param {number} rewardScore
-   * @param {Object} [options]
-   */
-  constructor( levelProperty, rewardNode, rewardScore, options ) {
+  public constructor( levelProperty: Property<WaveGameLevel | null>, rewardNode: WaveGameRewardNode,
+                      rewardScore: number, tandem: Tandem ) {
 
-    assert && assert( levelProperty instanceof Property );
-    assert && assert( rewardNode instanceof WaveGameRewardNode );
-    assert && AssertUtils.assertPositiveInteger( rewardScore );
+    assert && assert( Number.isInteger( rewardScore ) && rewardScore > 0 );
 
-    options = merge( {
+    super( rewardScore, {
 
       // 'Keep Going' hides the dialog, but doesn't change the current challenge.
       keepGoingButtonListener: () => this.hide(),
@@ -36,7 +28,9 @@ export default class WaveGameRewardDialog extends RewardDialog {
       // 'New Level' pre-loads a new challenge for the current level, then takes us back to the level-selection interface.
       newLevelButtonListener: () => {
         this.hide();
-        levelProperty.value.newWaveform();
+        const level = levelProperty.value!;
+        assert && assert( level );
+        level.newWaveform();
         levelProperty.value = null; // back to the level-selection UI
       },
 
@@ -51,11 +45,9 @@ export default class WaveGameRewardDialog extends RewardDialog {
       },
 
       // phet-io options
-      tandem: Tandem.REQUIRED,
+      tandem: tandem,
       phetioReadOnly: true
-    }, options );
-
-    super( rewardScore, options );
+    } );
   }
 }
 

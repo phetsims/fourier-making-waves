@@ -62,9 +62,8 @@ export default class WaveGameScreenView extends ScreenView {
     } );
 
     // Dialog that is displayed when the score reaches the reward value.
-    const rewardDialog = new WaveGameRewardDialog( model.levelProperty, this.rewardNode, model.rewardScore, {
-      tandem: tandem.createTandem( 'rewardDialog' )
-    } );
+    const rewardDialog = new WaveGameRewardDialog( model.levelProperty, this.rewardNode, model.rewardScore,
+      tandem.createTandem( 'rewardDialog' ) );
 
     // @private {SolveItLevelNode[]} a Node for each level of the game
     this.levelNodes = model.levels.map( level => new WaveGameLevelNode( level, model.levelProperty,
