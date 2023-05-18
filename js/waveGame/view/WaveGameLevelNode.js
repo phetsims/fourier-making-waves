@@ -143,9 +143,7 @@ export default class WaveGameLevelNode extends Node {
 
     // When the ?showAnswers query parameter is present, show the answer to the current challenge.
     // This Node has very low overhead. So it is added to the scenegraph in all cases so that it gets tested.
-    const answersNode = new AnswersNode( amplitudesChartNode.chartTransform, level.answerSeries, {
-      visible: phet.chipper.queryParameters.showAnswers
-    } );
+    const answersNode = new AnswersNode( amplitudesChartNode.chartTransform, level.answerSeries );
 
     // All of the elements that should be hidden when chartExpandedProperty is set to false.
     // In this screen, amplitudesChart.chartExpandedProperty can only be changed via PhET-iO.
