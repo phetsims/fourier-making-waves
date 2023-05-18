@@ -8,11 +8,10 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { InteractiveHighlighting, PressListener, RichText, VBox } from '../../../../scenery/js/imports.js';
+import { InteractiveHighlighting, NodeTranslationOptions, PressListener, RichText, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWQueryParameters from '../FMWQueryParameters.js';
@@ -20,61 +19,49 @@ import FMWSymbols from '../FMWSymbols.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
 import AmplitudeKeypadDialog from './AmplitudeKeypadDialog.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // constants
 const DEFAULT_FONT = new PhetFont( 14 );
 
+type SelfOptions = {
+  press: () => void; // called when there's a press anywhere on this Node
+};
+
+type AmplitudeNumberDisplayOptions = SelfOptions & NodeTranslationOptions & PickRequired<VBoxOptions, 'tandem'>;
+
 export default class AmplitudeNumberDisplay extends InteractiveHighlighting( VBox ) {
 
-  /**
-   * @param {Harmonic} harmonic
-   * @param {EmphasizedHarmonics} emphasizedHarmonics
-   * @param {AmplitudeKeypadDialog} amplitudeKeypadDialog
-   * @param {Object} [options]
-   */
-  constructor( harmonic, emphasizedHarmonics, amplitudeKeypadDialog, options ) {
+  public constructor( harmonic: Harmonic, emphasizedHarmonics: EmphasizedHarmonics,
+                      amplitudeKeypadDialog: AmplitudeKeypadDialog, providedOptions: AmplitudeNumberDisplayOptions ) {
 
-    assert && assert( harmonic instanceof Harmonic );
-    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
-    assert && assert( amplitudeKeypadDialog instanceof AmplitudeKeypadDialog );
+    const options = optionize<AmplitudeNumberDisplayOptions, SelfOptions, VBoxOptions>()( {
 
-    options = merge( {
-
-      // AmplitudeNumberDisplay options
-      // {function} called when there's a press anywhere on this Node
-      press: _.noop,
-
-      // VBox options
+      // VBoxOptions
       cursor: 'pointer',
       spacing: 2,
       align: 'center',
-
-      // NumberDisplay options
-      numberDisplayOptions: {
-        align: 'center',
-        decimalPlaces: FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES,
-        textOptions: {
-          font: DEFAULT_FONT
-        }
-      },
-
-      // pdom
       tagName: 'button', // must be an HTML5 tagName that supports click events
       focusable: FMWQueryParameters.focusableAmplitudeNumberDisplay
-    }, options );
+    }, providedOptions );
 
-    const numberDisplay = new NumberDisplay( harmonic.amplitudeProperty, harmonic.amplitudeProperty.range,
-      options.numberDisplayOptions );
+    const numberDisplay = new NumberDisplay( harmonic.amplitudeProperty, harmonic.amplitudeProperty.range, {
+      align: 'center',
+      decimalPlaces: FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES,
+      textOptions: {
+        font: DEFAULT_FONT
+      }
+    } );
 
-    const labelString = new DerivedProperty( [ FMWSymbols.AStringProperty ],
+    const labelStringProperty = new DerivedProperty( [ FMWSymbols.AStringProperty ],
       A => `${A}<sub>${harmonic.order}</sub>` );
 
-    const labelNode = new RichText( labelString, {
+    const labelNode = new RichText( labelStringProperty, {
       font: DEFAULT_FONT,
       maxWidth: numberDisplay.width
     } );
 
-    assert && assert( !options.children, 'NAME sets children' );
     options.children = [ labelNode, numberDisplay ];
 
     super( options );
@@ -128,11 +115,7 @@ export default class AmplitudeNumberDisplay extends InteractiveHighlighting( VBo
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
