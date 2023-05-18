@@ -61,8 +61,8 @@ export default class InteractiveAmplitudesChartNode extends Node {
   protected readonly slidersParent: Node;
   protected readonly numberDisplays: AmplitudeNumberDisplay[];
 
-  public constructor( amplitudesChart: InteractiveAmplitudesChart, amplitudeKeypadDialog: AmplitudeKeypadDialog,
-                      providedOptions: InteractiveAmplitudesChartNodeOptions ) {
+  protected constructor( amplitudesChart: InteractiveAmplitudesChart, amplitudeKeypadDialog: AmplitudeKeypadDialog,
+                         providedOptions: InteractiveAmplitudesChartNodeOptions ) {
 
     const options = optionize<InteractiveAmplitudesChartNodeOptions, SelfOptions, NodeOptions>()( {
 

@@ -28,7 +28,7 @@ export type HarmonicsChartNodeOptions = SelfOptions & DomainChartNodeOptions;
 
 export default class HarmonicsChartNode extends DomainChartNode {
 
-  public constructor( harmonicsChart: HarmonicsChart, providedOptions: HarmonicsChartNodeOptions ) {
+  protected constructor( harmonicsChart: HarmonicsChart, providedOptions: HarmonicsChartNodeOptions ) {
 
     // Fields of interest in harmonicsChart, to improve readability
     const harmonics = harmonicsChart.fourierSeries.harmonics;

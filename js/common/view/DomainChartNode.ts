@@ -95,7 +95,7 @@ export default class DomainChartNode extends Node {
   public readonly chartTransform: ChartTransform;
   public readonly chartRectangle: ChartRectangle;
 
-  public constructor( chart: DomainChart, providedOptions: DomainChartNodeOptions ) {
+  protected constructor( chart: DomainChart, providedOptions: DomainChartNodeOptions ) {
 
     // Fields of interest in chart, to improve readability
     const domainProperty = chart.domainProperty;

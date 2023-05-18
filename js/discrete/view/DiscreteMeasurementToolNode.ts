@@ -50,12 +50,12 @@ export default class DiscreteMeasurementToolNode extends Node {
   private readonly emphasizedHarmonics: EmphasizedHarmonics;
   public readonly positionProperty: Vector2Property;
 
-  public constructor( tool: DiscreteMeasurementTool,
-                      harmonicProperty: TReadOnlyProperty<Harmonic>,
-                      emphasizedHarmonics: EmphasizedHarmonics,
-                      domainProperty: EnumerationProperty<Domain>,
-                      relevantDomains: Domain[],
-                      providedOptions: DiscreteMeasurementToolNodeOptions ) {
+  protected constructor( tool: DiscreteMeasurementTool,
+                         harmonicProperty: TReadOnlyProperty<Harmonic>,
+                         emphasizedHarmonics: EmphasizedHarmonics,
+                         domainProperty: EnumerationProperty<Domain>,
+                         relevantDomains: Domain[],
+                         providedOptions: DiscreteMeasurementToolNodeOptions ) {
 
     const options = optionize<DiscreteMeasurementToolNodeOptions, SelfOptions, NodeOptions>()( {
 

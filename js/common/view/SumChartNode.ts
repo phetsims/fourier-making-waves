@@ -34,7 +34,7 @@ export default class SumChartNode extends DomainChartNode {
   protected readonly chartCanvasNode: ChartCanvasNode;
   protected readonly sumPlot: CanvasLinePlot;
 
-  public constructor( sumChart: SumChart, providedOptions: SumChartNodeOptions ) {
+  protected constructor( sumChart: SumChart, providedOptions: SumChartNodeOptions ) {
 
     // Fields of interest in sumChart, to improve readability
     const amplitudesProperty = sumChart.fourierSeries.amplitudesProperty;
