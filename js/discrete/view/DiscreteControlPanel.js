@@ -47,32 +47,24 @@ export default class DiscreteControlPanel extends Panel {
   /**
    * @param {DiscreteModel} model
    * @param {Node} popupParent
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( model, popupParent, options ) {
+  constructor( model, popupParent, tandem ) {
 
     assert && assert( model instanceof DiscreteModel );
     assert && assert( popupParent instanceof Node );
+    assert && assert( tandem instanceof Tandem );
 
-    options = merge( {}, FMWConstants.PANEL_OPTIONS, {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
-
-    const fourierSeriesSubpanel = new FourierSeriesSubpanel( model.fourierSeries, model.waveformProperty, popupParent, {
-      tandem: options.tandem.createTandem( 'fourierSeriesSubpanel' )
-    } );
+    const fourierSeriesSubpanel = new FourierSeriesSubpanel( model.fourierSeries, model.waveformProperty, popupParent,
+      tandem.createTandem( 'fourierSeriesSubpanel' ) );
 
     // {Node[]} logical sections of the control panel
     const sectionNodes = [
       fourierSeriesSubpanel,
-      new GraphControlsSubpanel( model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, popupParent, {
-        tandem: options.tandem.createTandem( 'graphControlsSubpanel' )
-      } ),
-      new MeasurementToolsSubpanel( model.wavelengthTool, model.periodTool, model.domainProperty, {
-        tandem: options.tandem.createTandem( 'measurementToolsSubpanel' )
-      } )
+      new GraphControlsSubpanel( model.domainProperty, model.seriesTypeProperty, model.equationFormProperty, popupParent,
+        tandem.createTandem( 'graphControlsSubpanel' ) ),
+      new MeasurementToolsSubpanel( model.wavelengthTool, model.periodTool, model.domainProperty,
+        tandem.createTandem( 'measurementToolsSubpanel' ) )
     ];
 
     // Put a separator between each logical section.
@@ -91,7 +83,7 @@ export default class DiscreteControlPanel extends Panel {
     } ) );
 
     // Dialog that displays a key for math symbols. Created eagerly and reused for PhET-iO.
-    const infoDialog = new DiscreteInfoDialog( options.tandem.createTandem( 'infoDialog' ) );
+    const infoDialog = new DiscreteInfoDialog( tandem.createTandem( 'infoDialog' ) );
 
     // Button to open the dialog
     const infoButton = new InfoButton( {
@@ -99,7 +91,7 @@ export default class DiscreteControlPanel extends Panel {
       iconFill: 'rgb( 50, 145, 184 )',
       scale: 0.4,
       touchAreaDilation: 15,
-      tandem: options.tandem.createTandem( 'infoButton' )
+      tandem: tandem.createTandem( 'infoButton' )
     } );
 
     const content = new Node( {
@@ -110,7 +102,12 @@ export default class DiscreteControlPanel extends Panel {
     infoButton.right = vBox.right;
     infoButton.centerY = fourierSeriesSubpanel.fourierSeriesText.boundsTo( vBox ).centerY;
 
-    super( content, options );
+    super( content, merge( {}, FMWConstants.PANEL_OPTIONS, {
+      maxWidth: 258, // as a fallback, in case some subcomponent is misbehaving
+
+      // phet-io options
+      tandem: tandem
+    } ) );
 
     // pdom - traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53
@@ -139,19 +136,14 @@ class FourierSeriesSubpanel extends VBox {
    * @param {FourierSeries} fourierSeries
    * @param {Property.<Waveform>} waveformProperty
    * @param {Node} popupParent
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( fourierSeries, waveformProperty, popupParent, options ) {
+  constructor( fourierSeries, waveformProperty, popupParent, tandem ) {
 
     assert && assert( fourierSeries instanceof FourierSeries );
     assert && AssertUtils.assertPropertyOf( waveformProperty, Waveform );
     assert && assert( popupParent instanceof Node );
-
-    options = merge( {}, FMWConstants.VBOX_OPTIONS, {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+    assert && assert( tandem instanceof Tandem );
 
     // To make all labels have the same effective width
     const labelsAlignBoxOptions = {
@@ -165,18 +157,18 @@ class FourierSeriesSubpanel extends VBox {
     const fourierSeriesText = new Text( FourierMakingWavesStrings.fourierSeriesStringProperty, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 180, // determined empirically
-      tandem: options.tandem.createTandem( 'fourierSeriesText' )
+      tandem: tandem.createTandem( 'fourierSeriesText' )
     } );
 
     // Waveform combo box
     const waveformText = new Text( FourierMakingWavesStrings.waveformStringProperty, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 70, // determined empirically
-      tandem: options.tandem.createTandem( 'waveformText' )
+      tandem: tandem.createTandem( 'waveformText' )
     } );
 
     const waveformComboBox = new WaveformComboBox( waveformProperty, popupParent,
-      options.tandem.createTandem( 'waveformComboBox' ) );
+      tandem.createTandem( 'waveformComboBox' ) );
 
     const waveformBox = new HBox( {
       spacing: 3,
@@ -187,11 +179,11 @@ class FourierSeriesSubpanel extends VBox {
     const harmonicsText = new Text( FourierMakingWavesStrings.harmonicsStringProperty, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 70,  // determined empirically
-      tandem: options.tandem.createTandem( 'harmonicsText' )
+      tandem: tandem.createTandem( 'harmonicsText' )
     } );
 
     const harmonicsSpinner = new HarmonicsSpinner( fourierSeries.numberOfHarmonicsProperty,
-      options.tandem.createTandem( 'harmonicsSpinner' ) );
+      tandem.createTandem( 'harmonicsSpinner' ) );
 
     const harmonicsBox = new HBox( {
       spacing: 5,
@@ -199,19 +191,20 @@ class FourierSeriesSubpanel extends VBox {
     } );
 
     // Sound checkbox and slider
-    const soundBox = new SoundBox( fourierSeries.soundEnabledProperty, fourierSeries.soundOutputLevelProperty, {
-      tandem: options.tandem.createTandem( 'soundBox' )
-    } );
+    const soundBox = new SoundBox( fourierSeries.soundEnabledProperty, fourierSeries.soundOutputLevelProperty,
+      tandem.createTandem( 'soundBox' ) );
 
-    assert && assert( !options.children, 'FourierSeriesSubpanel sets children' );
-    options.children = [
-      fourierSeriesText,
-      waveformBox,
-      harmonicsBox,
-      soundBox
-    ];
+    super( merge( {}, FMWConstants.VBOX_OPTIONS, {
+      children: [
+        fourierSeriesText,
+        waveformBox,
+        harmonicsBox,
+        soundBox
+      ],
 
-    super( options );
+      // phet-io options
+      tandem: tandem
+    } ) );
 
     // @public for layout
     this.fourierSeriesText = fourierSeriesText;
@@ -237,20 +230,15 @@ class GraphControlsSubpanel extends VBox {
    * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
    * @param {EnumerationProperty.<EquationForm>} equationFormProperty
    * @param {Node} popupParent
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( domainProperty, seriesTypeProperty, equationFormProperty, popupParent, options ) {
+  constructor( domainProperty, seriesTypeProperty, equationFormProperty, popupParent, tandem ) {
 
     assert && assert( domainProperty instanceof EnumerationProperty );
     assert && assert( seriesTypeProperty instanceof EnumerationProperty );
     assert && assert( equationFormProperty instanceof EnumerationProperty );
     assert && assert( popupParent instanceof Node );
-
-    options = merge( {}, FMWConstants.VBOX_OPTIONS, {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+    assert && assert( tandem instanceof Tandem );
 
     // To make all labels have the same effective width
     const labelsAlignBoxOptions = {
@@ -264,17 +252,17 @@ class GraphControlsSubpanel extends VBox {
     const graphControlsText = new Text( FourierMakingWavesStrings.graphControlsStringProperty, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 200, // determined empirically
-      tandem: options.tandem.createTandem( 'graphControlsText' )
+      tandem: tandem.createTandem( 'graphControlsText' )
     } );
 
     const functionOfText = new Text( FourierMakingWavesStrings.functionOfStringProperty, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 70, // determined empirically
-      tandem: options.tandem.createTandem( 'functionOfText' )
+      tandem: tandem.createTandem( 'functionOfText' )
     } );
 
     const domainComboBox = new DomainComboBox( domainProperty, popupParent,
-      options.tandem.createTandem( 'functionOfComboBox' ) // tandem name differs by request
+      tandem.createTandem( 'functionOfComboBox' ) // tandem name differs by request
     );
 
     const functionOfBox = new HBox( {
@@ -285,11 +273,11 @@ class GraphControlsSubpanel extends VBox {
     const seriesText = new Text( FourierMakingWavesStrings.seriesStringProperty, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 70, // determined empirically
-      tandem: options.tandem.createTandem( 'seriesText' )
+      tandem: tandem.createTandem( 'seriesText' )
     } );
 
     const seriesTypeRadioButtonGroup = new SeriesTypeRadioButtonGroup( seriesTypeProperty,
-      options.tandem.createTandem( 'seriesRadioButtonGroup' ) // tandem name differs by request
+      tandem.createTandem( 'seriesRadioButtonGroup' ) // tandem name differs by request
     );
 
     const seriesBox = new HBox( {
@@ -300,26 +288,28 @@ class GraphControlsSubpanel extends VBox {
     const equationText = new Text( FourierMakingWavesStrings.equationStringProperty, {
       font: FMWConstants.CONTROL_FONT,
       maxWidth: 70, // determined empirically
-      tandem: options.tandem.createTandem( 'equationText' )
+      tandem: tandem.createTandem( 'equationText' )
     } );
 
     const equationComboBox = new EquationComboBox( equationFormProperty, domainProperty, popupParent,
-      options.tandem.createTandem( 'equationComboBox' ) );
+      tandem.createTandem( 'equationComboBox' ) );
 
     const equationBox = new HBox( {
       spacing: 5,
       children: [ new AlignBox( equationText, labelsAlignBoxOptions ), equationComboBox ]
     } );
 
-    assert && assert( !options.children, 'DiscreteGraphControlsSubpanel sets children' );
-    options.children = [
-      graphControlsText,
-      functionOfBox,
-      seriesBox,
-      equationBox
-    ];
+    super( merge( {}, FMWConstants.VBOX_OPTIONS, {
+      children: [
+        graphControlsText,
+        functionOfBox,
+        seriesBox,
+        equationBox
+      ],
 
-    super( options );
+      // phet-io options
+      tandem: tandem
+    } ) );
   }
 
   /**
@@ -341,25 +331,20 @@ class MeasurementToolsSubpanel extends VBox {
    * @param {DiscreteMeasurementTool} wavelengthTool
    * @param {DiscreteMeasurementTool} periodTool
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( wavelengthTool, periodTool, domainProperty, options ) {
+  constructor( wavelengthTool, periodTool, domainProperty, tandem ) {
 
     assert && assert( wavelengthTool instanceof DiscreteMeasurementTool );
     assert && assert( periodTool instanceof DiscreteMeasurementTool );
     assert && assert( domainProperty instanceof EnumerationProperty );
-
-    options = merge( {}, FMWConstants.VBOX_OPTIONS, {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+    assert && assert( tandem instanceof Tandem );
 
     // Title for this subpanel
     const measurementToolsText = new Text( FourierMakingWavesStrings.measurementToolsStringProperty, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 200, // determined empirically
-      tandem: options.tandem.createTandem( 'measurementToolsText' )
+      tandem: tandem.createTandem( 'measurementToolsText' )
     } );
 
     // To make checkboxes have the same effective width
@@ -380,14 +365,14 @@ class MeasurementToolsSubpanel extends VBox {
 
     // Wavelength
     const wavelengthCheckbox = new WavelengthCheckbox( wavelengthTool.isSelectedProperty, domainProperty,
-      options.tandem.createTandem( 'wavelengthCheckbox' ) );
+      tandem.createTandem( 'wavelengthCheckbox' ) );
     const wavelengthSpinner = new OrderSpinner( FMWSymbols.lambdaStringProperty, wavelengthTool.orderProperty, {
       enabledProperty: new DerivedProperty(
         [ wavelengthTool.isSelectedProperty, domainProperty ],
         ( isSelected, domain ) =>
           isSelected && ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME )
       ),
-      tandem: options.tandem.createTandem( 'wavelengthSpinner' )
+      tandem: tandem.createTandem( 'wavelengthSpinner' )
     } );
     const wavelengthBox = new HBox( merge( {}, hBoxOptions, {
       children: [
@@ -398,14 +383,14 @@ class MeasurementToolsSubpanel extends VBox {
 
     // Period
     const periodCheckbox = new PeriodCheckbox( periodTool.isSelectedProperty, domainProperty,
-      options.tandem.createTandem( 'periodCheckbox' ) );
+      tandem.createTandem( 'periodCheckbox' ) );
     const periodSpinner = new OrderSpinner( FMWSymbols.TStringProperty, periodTool.orderProperty, {
       enabledProperty: new DerivedProperty(
         [ periodTool.isSelectedProperty, domainProperty ],
         ( isSelected, domain ) =>
           isSelected && ( domain === Domain.TIME || domain === Domain.SPACE_AND_TIME )
       ),
-      tandem: options.tandem.createTandem( 'periodSpinner' )
+      tandem: tandem.createTandem( 'periodSpinner' )
     } );
     const periodBox = new HBox( merge( {}, hBoxOptions, {
       children: [
@@ -414,14 +399,16 @@ class MeasurementToolsSubpanel extends VBox {
       ]
     } ) );
 
-    assert && assert( !options.children, 'MeasurementToolsSubpanel sets children' );
-    options.children = [
-      measurementToolsText,
-      wavelengthBox,
-      periodBox
-    ];
+    super( merge( {}, FMWConstants.VBOX_OPTIONS, {
+      children: [
+        measurementToolsText,
+        wavelengthBox,
+        periodBox
+      ],
 
-    super( options );
+      // phet-io options
+      tandem: tandem
+    } ) );
 
     wavelengthTool.isSelectedProperty.link( () => wavelengthSpinner.interruptSubtreeInput() );
     periodTool.isSelectedProperty.link( () => periodSpinner.interruptSubtreeInput() );
@@ -452,26 +439,18 @@ class SoundBox extends HBox {
   /**
    * @param {Property.<boolean>} soundEnabledProperty
    * @param {NumberProperty} soundOutputLevelProperty
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( soundEnabledProperty, soundOutputLevelProperty, options ) {
+  constructor( soundEnabledProperty, soundOutputLevelProperty, tandem ) {
 
     assert && AssertUtils.assertPropertyOf( soundEnabledProperty, 'boolean' );
     assert && assert( soundOutputLevelProperty instanceof NumberProperty );
     assert && assert( soundOutputLevelProperty.range, 'soundOutputLevelProperty.range required' );
-
-    options = merge( {
-
-      // HBox options
-      spacing: 20,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+    assert && assert( tandem instanceof Tandem );
 
     // Checkbox with music icon
     const soundEnabledCheckbox = new FourierSoundEnabledCheckbox( soundEnabledProperty,
-      options.tandem.createTandem( 'soundEnabledCheckbox' ) );
+      tandem.createTandem( 'soundEnabledCheckbox' ) );
 
     // Slider for controlling output level
     const outputLevelSlider = new HSlider( soundOutputLevelProperty, soundOutputLevelProperty.range, {
@@ -479,7 +458,7 @@ class SoundBox extends HBox {
       trackSize: new Dimension2( 100, 3 ),
       trackStroke: Color.grayColor( 160 ),
       soundGenerator: null,
-      tandem: options.tandem.createTandem( 'outputLevelSlider' )
+      tandem: tandem.createTandem( 'outputLevelSlider' )
     } );
 
     // Icons at the extremes of the slider
@@ -496,10 +475,13 @@ class SoundBox extends HBox {
       spacing: 5
     } );
 
-    assert && assert( !options.children, 'SoundBox sets children' );
-    options.children = [ soundEnabledCheckbox, sliderBox ];
+    super( {
 
-    super( options );
+      // HBoxOptions
+      children: [ soundEnabledCheckbox, sliderBox ],
+      spacing: 20,
+      tandem: tandem
+    } );
 
     // Disable this control when UI sounds are not being produced.
     audioManager.audioAndSoundEnabledProperty.link( audioAndSoundEnabled => {

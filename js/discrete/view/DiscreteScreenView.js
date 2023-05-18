@@ -203,10 +203,7 @@ export default class DiscreteScreenView extends ScreenView {
     const popupParent = new Node();
 
     // Control panel
-    const controlPanel = new DiscreteControlPanel( model, popupParent, {
-      maxWidth: 258, // as a fallback, in case some subcomponent is misbehaving
-      tandem: tandem.createTandem( 'controlPanel' )
-    } );
+    const controlPanel = new DiscreteControlPanel( model, popupParent, tandem.createTandem( 'controlPanel' ) );
 
     // Time controls
     const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
