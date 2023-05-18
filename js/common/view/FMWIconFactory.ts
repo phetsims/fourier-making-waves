@@ -44,7 +44,9 @@ const FMWIconFactory = {
    * Creates the Home screen icon for the 'Wave Game' screen.
    */
   createWaveGameHomeScreenIcon(): ScreenIcon {
-    const iconNode = new PointsAwardedNode();
+    const iconNode = new PointsAwardedNode( {
+      tandem: Tandem.OPT_OUT
+    } );
     return new ScreenIcon( iconNode, {
       fill: FMWColors.waveGameScreenBackgroundColorProperty
     } );

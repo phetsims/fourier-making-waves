@@ -6,31 +6,40 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import StarNode from '../../../../scenery-phet/js/StarNode.js';
-import { HBox, Text } from '../../../../scenery/js/imports.js';
+import { HBox, HBoxOptions, Text } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+
+type SelfOptions = {
+  points?: number;
+};
+
+type PointsAwardedNodeOptions = SelfOptions &
+  PickOptional<HBoxOptions, 'phetioReadOnly' | 'visible'> &
+  PickRequired<HBoxOptions, 'tandem'>;
 
 export default class PointsAwardedNode extends HBox {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  private readonly pointsText: Text;
 
-    options = merge( {
+  public constructor( providedOptions: PointsAwardedNodeOptions ) {
 
-      // PointsAwardedNode options
+    const options = optionize<PointsAwardedNodeOptions, SelfOptions, HBoxOptions>()( {
+
+      // SelfOptions
       points: 1,
 
-      // HBox options
+      // HBoxOptions
       spacing: 25
-    }, options );
-    assert && AssertUtils.assertPositiveInteger( options.points );
+    }, providedOptions );
 
-    const pointsNode = new Text( `+${options.points}`, {
+    assert && assert( Number.isInteger( options.points ) && options.points > 0 );
+
+    const pointsText = new Text( `+${options.points}`, {
       font: new PhetFont( 200 ),
       fill: 'black'
     } );
@@ -40,23 +49,19 @@ export default class PointsAwardedNode extends HBox {
       scale: 6
     } );
 
-    assert && assert( !options.children, 'PointsAwardedNode sets children' );
-    options.children = [ pointsNode, starNode ];
+    options.children = [ pointsText, starNode ];
 
     super( options );
 
-    // @private
-    this.pointsNode = pointsNode; // {Text}
+    this.pointsText = pointsText;
   }
 
   /**
    * Sets the number of points displayed.
-   * @param {number} points
-   * @public
    */
-  setPoints( points ) {
-    assert && AssertUtils.assertPositiveInteger( points );
-    this.pointsNode.string = `+${points}`;
+  public setPoints( points: number ): void {
+    assert && assert( Number.isInteger( points ) && points > 0 );
+    this.pointsText.string = `+${points}`;
   }
 }
 
