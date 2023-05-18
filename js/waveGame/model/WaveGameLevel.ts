@@ -82,10 +82,10 @@ export default class WaveGameLevel extends PhetioObject {
   private readonly amplitudesGenerator: AmplitudesGenerator;
 
   // Answer for the challenge, the waveform that the user is attempting to match
-  private readonly answerSeries: FourierSeries;
+  public readonly answerSeries: FourierSeries;
 
   // The Fourier series that corresponds to the user's guess
-  private readonly guessSeries: FourierSeries;
+  public readonly guessSeries: FourierSeries;
 
   // Does the guess currently match the answer, within some threshold?
   public readonly isMatchedProperty: TReadOnlyProperty<boolean>;

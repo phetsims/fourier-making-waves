@@ -12,7 +12,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
@@ -40,6 +39,7 @@ import WaveGameAmplitudesChartNode from './WaveGameAmplitudesChartNode.js';
 import WaveGameHarmonicsChartNode from './WaveGameHarmonicsChartNode.js';
 import WaveGameRewardNode from './WaveGameRewardNode.js';
 import WaveGameSumChartNode from './WaveGameSumChartNode.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // constants
 const DEFAULT_FONT = new PhetFont( 16 );
@@ -50,41 +50,25 @@ const TITLE_BOTTOM_SPACING = 10; // space below the title of a chart
 
 export default class WaveGameLevelNode extends Node {
 
-  /**
-   * @param {WaveGameLevel} level
-   * @param {Property.<WaveGameLevel>} levelProperty
-   * @param {Bounds2} layoutBounds
-   * @param {Property.<Bounds2>} visibleBoundsProperty
-   * @param {GameAudioPlayer} gameAudioPlayer
-   * @param {WaveGameRewardNode} rewardNode
-   * @param {RewardDialog} rewardDialog
-   * @param {number} rewardScore
-   * @param {Object} [options]
-   */
-  constructor( level, levelProperty, layoutBounds, visibleBoundsProperty, gameAudioPlayer, rewardNode, rewardDialog,
-               rewardScore, options ) {
+  public readonly level: WaveGameLevel;
+  private readonly layoutBounds: Bounds2;
+  private readonly gameAudioPlayer: GameAudioPlayer;
+  private readonly harmonicsChartRectangleLocalBounds: Bounds2;
+  private readonly pointsAwardedNode: PointsAwardedNode;
+  private readonly frownyFaceNode: FaceNode;
+  private frownyFaceAnimation: Animation | null;
+  private pointsAwardedAnimation: Animation | null;
 
-    assert && assert( level instanceof WaveGameLevel );
-    assert && assert( levelProperty instanceof Property );
-    assert && assert( layoutBounds instanceof Bounds2 );
-    assert && AssertUtils.assertPropertyOf( visibleBoundsProperty, Bounds2 );
-    assert && assert( gameAudioPlayer instanceof GameAudioPlayer );
-    assert && assert( rewardNode instanceof WaveGameRewardNode );
-    assert && assert( rewardDialog instanceof RewardDialog );
-    assert && AssertUtils.assertPositiveInteger( rewardScore );
-
-    options = merge( {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED,
-      visiblePropertyOptions: { phetioReadOnly: true }
-    }, options );
+  public constructor( level: WaveGameLevel, levelProperty: Property<WaveGameLevel | null>, layoutBounds: Bounds2,
+                      visibleBoundsProperty: TReadOnlyProperty<Bounds2>, gameAudioPlayer: GameAudioPlayer,
+                      rewardNode: WaveGameRewardNode, rewardDialog: RewardDialog, rewardScore: number,
+                      tandem: Tandem ) {
 
     //------------------------------------------------------------------------------------------------------------------
     // Status Bar
     //------------------------------------------------------------------------------------------------------------------
 
-    const statusBarTandem = options.tandem.createTandem( 'statusBar' );
+    const statusBarTandem = tandem.createTandem( 'statusBar' );
 
     // Level description, displayed in the status bar
     const levelDescriptionText = new RichText( level.statusBarMessageProperty, {
@@ -110,7 +94,7 @@ export default class WaveGameLevelNode extends Node {
     //------------------------------------------------------------------------------------------------------------------
 
     // Parent tandem for all charts
-    const chartsTandem = options.tandem.createTandem( 'charts' );
+    const chartsTandem = tandem.createTandem( 'charts' );
 
     // Parent tandem for all elements related to the Amplitudes chart
     const amplitudesTandem = chartsTandem.createTandem( 'amplitudes' );
@@ -145,7 +129,7 @@ export default class WaveGameLevelNode extends Node {
     // This Node has very low overhead. So it is added to the scenegraph in all cases so that it gets tested.
     const answersNode = new AnswersNode( amplitudesChartNode.chartTransform, level.answerSeries );
 
-    // All of the elements that should be hidden when chartExpandedProperty is set to false.
+    // Elements that should be hidden when chartExpandedProperty is set to false.
     // In this screen, amplitudesChart.chartExpandedProperty can only be changed via PhET-iO.
     const amplitudesParentNode = new Node( {
       visibleProperty: level.amplitudesChart.chartExpandedProperty,
@@ -206,11 +190,11 @@ export default class WaveGameLevelNode extends Node {
       textOptions: {
         font: DEFAULT_FONT
       },
-      tandem: options.tandem.createTandem( 'amplitudeControlsSpinner' )
+      tandem: tandem.createTandem( 'amplitudeControlsSpinner' )
     } );
 
     // Parent tandem for all buttons
-    const buttonsTandem = options.tandem.createTandem( 'buttons' );
+    const buttonsTandem = tandem.createTandem( 'buttons' );
 
     // Whether the user has changed the guess since the last time that 'Check Answer' button was pressed.
     const guessChangedProperty = new BooleanProperty( false );
@@ -321,7 +305,7 @@ export default class WaveGameLevelNode extends Node {
     // Transient UI elements that provide game feedback
     //------------------------------------------------------------------------------------------------------------------
 
-    const feedbackTandem = options.tandem.createTandem( 'feedback' );
+    const feedbackTandem = tandem.createTandem( 'feedback' );
 
     const smileyFaceNode = new FaceNode( 125 /* headDiameter */, {
       visibleProperty: faceVisibleProperty,
@@ -348,20 +332,21 @@ export default class WaveGameLevelNode extends Node {
     // Rendering order
     //------------------------------------------------------------------------------------------------------------------
 
-    assert && assert( !options.children, 'WaveGameLevelNode sets children' );
-    options.children = [
-      statusBar,
-      amplitudesParentNode,
-      harmonicsParentNode,
-      sumParentNode,
-      amplitudeControlsSpinner,
-      buttonsBox,
-      smileyFaceNode,
-      pointsAwardedNode,
-      frownyFaceNode
-    ];
-
-    super( options );
+    super( {
+      children: [
+        statusBar,
+        amplitudesParentNode,
+        harmonicsParentNode,
+        sumParentNode,
+        amplitudeControlsSpinner,
+        buttonsBox,
+        smileyFaceNode,
+        pointsAwardedNode,
+        frownyFaceNode
+      ],
+      tandem: tandem,
+      visiblePropertyOptions: { phetioReadOnly: true }
+    } );
 
     //------------------------------------------------------------------------------------------------------------------
     // Layout
@@ -462,7 +447,7 @@ export default class WaveGameLevelNode extends Node {
 
     // pdom - traversal order
     // See https://github.com/phetsims/fourier-making-waves/issues/53
-    this.pDomOrder = [
+    this.pdomOrder = [
       statusBar,
       amplitudesChartNode,
       eraserButton,
@@ -476,10 +461,8 @@ export default class WaveGameLevelNode extends Node {
     // Class fields
     //------------------------------------------------------------------------------------------------------------------
 
-    // @public
-    this.level = level; // {WaveGameLevel}
+    this.level = level;
 
-    // @private
     this.layoutBounds = layoutBounds; // {Bounds2}
     this.gameAudioPlayer = gameAudioPlayer; // {GameAudioPlayer}
     this.harmonicsChartRectangleLocalBounds = harmonicsChartRectangleLocalBounds; // {Bounds2}
@@ -490,21 +473,18 @@ export default class WaveGameLevelNode extends Node {
   }
 
   /**
-   * @param {number} dt - elapsed time, in seconds
-   * @public
+   * @param dt - elapsed time, in seconds
    */
-  step( dt ) {
+  public step( dt: number ): void {
     this.pointsAwardedAnimation && this.pointsAwardedAnimation.step( dt );
     this.frownyFaceAnimation && this.frownyFaceAnimation.step( dt );
   }
 
   /**
    * Provides feedback when the user has made a correct guess.
-   * @param {number} pointsAwarded
-   * @private
    */
-  correctFeedback( pointsAwarded ) {
-    assert && AssertUtils.assertPositiveNumber( pointsAwarded );
+  private correctFeedback( pointsAwarded: number ): void {
+    assert && assert( Number.isInteger( pointsAwarded ) && pointsAwarded > 0 );
 
     // Audio feedback
     this.gameAudioPlayer.correctAnswer();
@@ -538,9 +518,8 @@ export default class WaveGameLevelNode extends Node {
 
   /**
    * Provides feedback when the user has made an incorrect guess.
-   * @private
    */
-  incorrectFeedback() {
+  private incorrectFeedback(): void {
 
     // Audio feedback
     this.gameAudioPlayer.wrongAnswer();

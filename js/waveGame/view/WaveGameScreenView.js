@@ -66,9 +66,8 @@ export default class WaveGameScreenView extends ScreenView {
 
     // @private {SolveItLevelNode[]} a Node for each level of the game
     this.levelNodes = model.levels.map( level => new WaveGameLevelNode( level, model.levelProperty,
-      layoutBounds, this.visibleBoundsProperty, gameAudioPlayer, this.rewardNode, rewardDialog, model.rewardScore, {
-        tandem: tandem.createTandem( `level${level.levelNumber}Node` )
-      } ) );
+      layoutBounds, this.visibleBoundsProperty, gameAudioPlayer, this.rewardNode, rewardDialog, model.rewardScore,
+      tandem.createTandem( `level${level.levelNumber}Node` ) ) );
 
     // @private Handles the animated 'slide' transition between levelSelectionNode and a level.
     this.transitionNode = new TransitionNode( this.visibleBoundsProperty, {
