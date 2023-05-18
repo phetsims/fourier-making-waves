@@ -8,9 +8,8 @@
 
 import Range from '../../../../dot/js/Range.js';
 import ScreenIcon from '../../../../joist/js/ScreenIcon.js';
-import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox, Image, Line, Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import { HBox, Image, Line, Node, NodeOptions, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import wavePacketHomeScreenIcon_png from '../../../images/wavePacketHomeScreenIcon_png.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -21,16 +20,17 @@ import FMWConstants from '../FMWConstants.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
 import AmplitudeSlider from './AmplitudeSlider.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 const FMWIconFactory = {
 
   /**
    * Creates the Home screen icon for the 'Discrete' screen.
-   * @returns {ScreenIcon}
-   * @public
    */
-  createDiscreteHomeScreenIcon() {
-    // AmplitudeSlider requires the range to be symmetric. So we're using a mixture of positive and negative
+  createDiscreteHomeScreenIcon(): ScreenIcon {
+
+    // AmplitudeSlider requires the range to be symmetric. So use a mixture of positive and negative
     // amplitudes to fill the vertical space.
     const amplitudes = [ 1, -0.85, 0.65, 0.3 ];
     const amplitudeRange = new Range( -1, 1 );
@@ -42,10 +42,8 @@ const FMWIconFactory = {
 
   /**
    * Creates the Home screen icon for the 'Wave Game' screen.
-   * @returns {ScreenIcon}
-   * @public
    */
-  createWaveGameHomeScreenIcon() {
+  createWaveGameHomeScreenIcon(): ScreenIcon {
     const iconNode = new PointsAwardedNode();
     return new ScreenIcon( iconNode, {
       fill: FMWColors.waveGameScreenBackgroundColorProperty
@@ -54,10 +52,8 @@ const FMWIconFactory = {
 
   /**
    * Creates the Home screen icon for the 'Wave Packet' screen.
-   * @returns {ScreenIcon}
-   * @public
    */
-  createWavePacketHomeScreenIcon() {
+  createWavePacketHomeScreenIcon(): ScreenIcon {
     const iconNode = new Image( wavePacketHomeScreenIcon_png );
     return new ScreenIcon( iconNode, {
       fill: FMWColors.wavePacketScreenBackgroundColorProperty
@@ -65,17 +61,13 @@ const FMWIconFactory = {
   },
 
   /**
-   * Creates the icon that appears on a level-selection button in Wave Game.
+   * Creates the icon that appears on a level-selection button in the Wave Game screen.
    * It shows amplitude sliders, where the number of sliders equals the level number.
-   * @param {number} levelNumber
-   * @param {number} numberOfLevels
-   * @returns {Node}
-   * @public
    */
-  createLevelSelectionButtonIcon( levelNumber, numberOfLevels ) {
+  createLevelSelectionButtonIcon( levelNumber: number, numberOfLevels: number ): Node {
 
-    // AmplitudeSlider requires the range to be symmetric. We're only going to use positive amplitudes here,
-    // so that the level number can be centered in the space below the x axis.
+    // AmplitudeSlider requires the range to be symmetric. We use only positive amplitudes here,
+    // so that the level number can be centered in the space below the x-axis.
     const possibleAmplitudes = [ 1, 0.5, 0.75, 1, 0.85 ];
     assert && assert( numberOfLevels <= possibleAmplitudes.length );
     assert && assert( _.every( possibleAmplitudes, amplitude => amplitude > 0 ) );
@@ -115,10 +107,8 @@ const FMWIconFactory = {
 
   /**
    * Creates the icon for the 'Width Indicators' checkbox
-   * @returns {Node}
-   * @public
    */
-  createWidthIndicatorsIcon() {
+  createWidthIndicatorsIcon(): Node {
     return new HorizontalDimensionalArrowsNode( {
       x1: 0,
       x2: 45,
@@ -128,12 +118,9 @@ const FMWIconFactory = {
 };
 
 /**
- * Creates an icon that contains one or more amplitude spinners, with an x axis.
- * @param {number[]} amplitudes
- * @param {Range} amplitudeRange
- * @param {Object} [options]
+ * Creates an icon that contains one or more amplitude spinners, with an x-axis.
  */
-function createSlidersIcon( amplitudes, amplitudeRange, options ) {
+function createSlidersIcon( amplitudes: number[], amplitudeRange: Range, options?: StrictOmit<NodeOptions, 'children'> ): Node {
 
   assert && assert( amplitudes.length < FMWConstants.MAX_HARMONICS );
   assert && assert( _.every( amplitudes, amplitude => amplitudeRange.contains( amplitude ) ) );
@@ -162,7 +149,7 @@ function createSlidersIcon( amplitudes, amplitudeRange, options ) {
     } )
   } );
 
-  // x axis
+  // x-axis
   const xMargin = 10;
   const xAxis = new Line( -xMargin, sliders.height / 2, sliders.width + xMargin, sliders.height / 2, {
     stroke: FMWColors.axisStrokeProperty,
@@ -171,7 +158,7 @@ function createSlidersIcon( amplitudes, amplitudeRange, options ) {
 
   // Note that we could use node.rasterized( { resolution: 2 } ) to avoid memory, phet-io, and pdom issues
   // associated with all of the above elements. But the quality of the rendering is not as good.
-  return new Node( merge( {}, {
+  return new Node( combineOptions<NodeOptions>( {}, {
     children: [ xAxis, sliders ]
   }, options ) );
 }
