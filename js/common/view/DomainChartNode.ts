@@ -1,11 +1,11 @@
 // Copyright 2020-2023, University of Colorado Boulder
 
 /**
- * DomainChartNode is the base class for all of the charts in this simulation, with the exception of the Amplitudes
+ * DomainChartNode is the base class for all the charts in this simulation, except the Amplitudes
  * chart in the 'Discrete' and 'Wave Game' screens.
  *
  * Responsibilities:
- * - assembles all of the necessary bamboo components
+ * - assembles all the necessary bamboo components
  * - all things related to updating the x (Domain) axis, hence its name. Includes adjusting the x-axis range and
  *   decorations (grid lines, tick marks, labels) to match the Domain.
  *
@@ -15,20 +15,18 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import AxisLine from '../../../../bamboo/js/AxisLine.js';
-import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
-import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
-import TickLabelSet from '../../../../bamboo/js/TickLabelSet.js';
-import TickMarkSet from '../../../../bamboo/js/TickMarkSet.js';
+import AxisLine, { AxisLineOptions } from '../../../../bamboo/js/AxisLine.js';
+import ChartRectangle, { ChartRectangleOptions } from '../../../../bamboo/js/ChartRectangle.js';
+import ChartTransform, { ChartTransformOptions } from '../../../../bamboo/js/ChartTransform.js';
+import GridLineSet, { GridLineSetOptions } from '../../../../bamboo/js/GridLineSet.js';
+import TickLabelSet, { TickLabelSetOptions } from '../../../../bamboo/js/TickLabelSet.js';
+import TickMarkSet, { TickMarkSetOptions } from '../../../../bamboo/js/TickMarkSet.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
-import { Node, RichText } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { Node, NodeOptions, RichText, RichTextOptions } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import FMWColors from '../FMWColors.js';
@@ -36,6 +34,11 @@ import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
 import DomainChart from '../model/DomainChart.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // constants
 const DEFAULT_X_SPACE_LABEL_PROPERTY = new PatternStringProperty( FourierMakingWavesStrings.symbolUnitsStringProperty, {
@@ -48,15 +51,51 @@ const DEFAULT_X_TIME_LABEL_PROPERTY = new PatternStringProperty( FourierMakingWa
 } );
 const DEFAULT_EDGE = 'min';
 
+type SelfOptions = {
+
+  // x-axis
+  xSpaceLabelProperty?: TReadOnlyProperty<string>;
+  xTimeLabelProperty?: TReadOnlyProperty<string>;
+  xGridLineSpacing?: number;
+  xTickMarkSpacing?: number;
+  xTickLabelSpacing?: number;
+  xZoomLevelProperty?: NumberProperty | null; // adds optional zoom buttons
+  xAxisLabelOptions?: StrictOmit<RichTextOptions, 'tandem'>;
+
+  // y-axis
+  yAxisStringProperty?: TReadOnlyProperty<string>;
+  yGridLineSpacing?: number;
+  yTickMarkSpacing?: number;
+  yTickLabelSpacing?: number;
+  yAxisLabelOptions?: StrictOmit<RichTextOptions, 'tandem'>;
+
+  // nested options for bamboo subcomponents
+  chartTransformOptions?: ChartTransformOptions;
+  chartRectangleOptions?: StrictOmit<ChartRectangleOptions, 'tandem'>;
+  axisLineOptions?: StrictOmit<AxisLineOptions, 'tandem'>; // for both axes
+  gridLineSetOptions?: StrictOmit<GridLineSetOptions, 'tandem'>; // for both axes
+  tickMarkSetOptions?: StrictOmit<TickMarkSetOptions, 'tandem'>; // for both axes
+  xTickLabelSetOptions?: StrictOmit<TickLabelSetOptions, 'tandem'>; // x-axis tick labels
+  yTickLabelSetOptions?: StrictOmit<TickLabelSetOptions, 'tandem'>; // y-axis tick labels
+};
+
+export type DomainChartNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
+
 export default class DomainChartNode extends Node {
 
-  /**
-   * @param {DomainChart} chart
-   * @param {Object} [options]
-   */
-  constructor( chart, options ) {
+  // x-axis fields, for use by subclasses
+  protected readonly xGridLines: GridLineSet;
+  protected readonly xTickLabels: TickLabelSet;
 
-    assert && assert( chart instanceof DomainChart );
+  // y-axis fields, for use by subclasses
+  protected readonly yGridLines: GridLineSet;
+  protected readonly yTickMarks: TickMarkSet;
+  protected readonly yTickLabels: TickLabelSet;
+
+  public readonly chartTransform: ChartTransform;
+  public readonly chartRectangle: ChartRectangle;
+
+  public constructor( chart: DomainChart, providedOptions: DomainChartNodeOptions ) {
 
     // Fields of interest in chart, to improve readability
     const domainProperty = chart.domainProperty;
@@ -64,31 +103,38 @@ export default class DomainChartNode extends Node {
     const spaceMultiplier = chart.spaceMultiplier;
     const timeMultiplier = chart.timeMultiplier;
 
-    options = merge( {
+    const options = optionize<DomainChartNodeOptions, SelfOptions, NodeOptions>()( {
 
-      // x axis
+      // x-axis
       xSpaceLabelProperty: DEFAULT_X_SPACE_LABEL_PROPERTY,
       xTimeLabelProperty: DEFAULT_X_TIME_LABEL_PROPERTY,
       xGridLineSpacing: 1,
       xTickMarkSpacing: 1,
       xTickLabelSpacing: 1,
-      xZoomLevelProperty: null, // {NumberProperty|null} adds optional zoom buttons
+      xZoomLevelProperty: null,
+      xAxisLabelOptions: {
+        font: FMWConstants.AXIS_LABEL_FONT,
+        maxWidth: FMWConstants.X_AXIS_LABEL_MAX_WIDTH
+      },
 
-      // y axis
+      // y-axis
       yAxisStringProperty: FourierMakingWavesStrings.amplitudeStringProperty,
       yGridLineSpacing: 1,
       yTickMarkSpacing: 1,
       yTickLabelSpacing: 1,
+      yAxisLabelOptions: {
+        font: FMWConstants.AXIS_LABEL_FONT,
+        maxWidth: 0.85 * FMWConstants.CHART_RECTANGLE_SIZE.height,
+        rotation: -Math.PI / 2
+      },
 
-      // ChartTransform options
+      // bamboo subcomponents
       chartTransformOptions: {
         modelXRange: xAxisDescriptionProperty.value.createRangeForDomain( domainProperty.value, spaceMultiplier, timeMultiplier ),
         modelYRange: new Range( 0, 1 ), // expected to be set by subclasses
         viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
         viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
       },
-
-      // ChartRectangle options
       chartRectangleOptions: {
 
         // Use the same color as the grid lines. If use a different color (e.g. 'black') then we'll occasionally
@@ -97,51 +143,25 @@ export default class DomainChartNode extends Node {
         stroke: FMWColors.chartGridLinesStrokeProperty,
         fill: 'white'
       },
-
-      // RichText options for the x-axis label
-      xAxisLabelOptions: {
-        font: FMWConstants.AXIS_LABEL_FONT,
-        maxWidth: FMWConstants.X_AXIS_LABEL_MAX_WIDTH
-      },
-
-      // RichText options for the x-axis label
-      yAxisLabelOptions: {
-        font: FMWConstants.AXIS_LABEL_FONT,
-        maxWidth: 0.85 * FMWConstants.CHART_RECTANGLE_SIZE.height,
-        rotation: -Math.PI / 2
-      },
-
-      // AxisLine options for both axes
       axisLineOptions: {
         stroke: FMWColors.axisStrokeProperty,
         lineWidth: 1
       },
-
-      // GridLineSet options for both axes
       gridLineSetOptions: {
         stroke: FMWColors.chartGridLinesStrokeProperty,
         lineWidth: 0.5
       },
-
-      // TickMarkSet options for both axes
       tickMarkSetOptions: {
         edge: DEFAULT_EDGE,
         extent: 6
       },
-
-      // TickLabelSet options for the x-axis tick labels
       xTickLabelSetOptions: {
         edge: DEFAULT_EDGE
       },
-
-      // TickLabelSet options for the x-axis tick labels
       yTickLabelSetOptions: {
         edge: DEFAULT_EDGE
-      },
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+      }
+    }, providedOptions );
 
     // the transform between model and view coordinate frames
     const chartTransform = new ChartTransform( options.chartTransformOptions );
@@ -154,14 +174,14 @@ export default class DomainChartNode extends Node {
       ( domain, xTimeLabel, xSpaceLabel ) => ( domain === Domain.TIME ) ? xTimeLabel : xSpaceLabel
     );
 
-    // x axis
+    // x-axis
     const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, options.axisLineOptions );
     const xAxisLabel = new RichText( xAxisLabelStringProperty, options.xAxisLabelOptions ); // set based on Domain below
     const xGridLines = new GridLineSet( chartTransform, Orientation.HORIZONTAL, options.xGridLineSpacing, options.gridLineSetOptions );
     const xTickMarks = new TickMarkSet( chartTransform, Orientation.HORIZONTAL, options.xTickMarkSpacing, options.tickMarkSetOptions );
     const xTickLabels = new TickLabelSet( chartTransform, Orientation.HORIZONTAL, options.xTickLabelSpacing, options.xTickLabelSetOptions );
 
-    // y axis
+    // y-axis
     const yAxis = new AxisLine( chartTransform, Orientation.VERTICAL, options.axisLineOptions );
     const yAxisLabel = new RichText( options.yAxisStringProperty, options.yAxisLabelOptions );
     const yGridLines = new GridLineSet( chartTransform, Orientation.VERTICAL, options.yGridLineSpacing, options.gridLineSetOptions );
@@ -185,7 +205,6 @@ export default class DomainChartNode extends Node {
       } );
     }
 
-    assert && assert( !options.children );
     options.children = [
       xTickMarks, yTickMarks, // ticks behind chartRectangle, so we don't see how they extend into chart's interior
       chartRectangle,
@@ -235,25 +254,16 @@ export default class DomainChartNode extends Node {
     xZoomButtonGroup && pdomOrder.push( xZoomButtonGroup );
     this.pdomOrder = pdomOrder;
 
-    // @protected x-axis fields, for use by subclasses
-    this.xGridLines = xGridLines; // {GridLineSet}
-    this.xTickLabels = xTickLabels; // {TickLabelSet}
-
-    // @protected y-axis fields, for use by subclasses
-    this.yGridLines = yGridLines; // {GridLineSet}
-    this.yTickMarks = yTickMarks; // {TickMarkSet}
-    this.yTickLabels = yTickLabels; // {TickLabelSet}
-
-    // @public
-    this.chartTransform = chartTransform; // {ChartTransform}
-    this.chartRectangle = chartRectangle; // {ChartRectangle}
+    this.xGridLines = xGridLines;
+    this.xTickLabels = xTickLabels;
+    this.yGridLines = yGridLines;
+    this.yTickMarks = yTickMarks;
+    this.yTickLabels = yTickLabels;
+    this.chartTransform = chartTransform;
+    this.chartRectangle = chartRectangle;
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
@@ -262,15 +272,9 @@ export default class DomainChartNode extends Node {
    * Computes the clipArea that will trim any data that is outside of a given amplitude range.
    * This is used to trim anomalies that occur when the x-axis is zoomed way out.
    * See https://github.com/phetsims/fourier-making-waves/issues/121
-   * @param {number} minAmplitude
-   * @param {number} maxAmplitude
-   * @returns {Shape}
-   * @protected
    */
-  computeClipAreaForAmplitudeRange( minAmplitude, maxAmplitude ) {
+  protected computeClipAreaForAmplitudeRange( minAmplitude: number, maxAmplitude: number ): Shape {
 
-    assert && assert( typeof minAmplitude === 'number' );
-    assert && assert( typeof maxAmplitude === 'number' );
     assert && assert( minAmplitude < maxAmplitude );
 
     const chartRectangleBounds = this.chartRectangle.bounds;
