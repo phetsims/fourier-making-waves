@@ -22,12 +22,7 @@ const HARMONIC_OUTPUT_LEVEL_RANGE = new Range( -1 / FMWConstants.MAX_HARMONICS, 
 
 export default class FourierSoundGenerator extends SoundGenerator {
 
-  /**
-   * @param {FourierSeries} fourierSeries
-   */
-  constructor( fourierSeries ) {
-
-    assert && assert( fourierSeries instanceof FourierSeries );
+  public constructor( fourierSeries: FourierSeries ) {
 
     super( {
 
@@ -44,7 +39,7 @@ export default class FourierSoundGenerator extends SoundGenerator {
     // {OscillatorSoundGenerator[]} Create an oscillator for each harmonic.
     // Using for loop here instead of map, because we need to connect each OscillatorSoundGenerator to the
     // masterGainNode, and map should not have side-effects.
-    const oscillatorSoundGenerators = [];
+    const oscillatorSoundGenerators: OscillatorSoundGenerator[] = [];
     for ( let i = 0; i < fourierSeries.harmonics.length; i++ ) {
       const harmonic = fourierSeries.harmonics[ i ];
       const oscillatorSoundGenerator = new OscillatorSoundGenerator( {
@@ -101,11 +96,7 @@ export default class FourierSoundGenerator extends SoundGenerator {
     );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
