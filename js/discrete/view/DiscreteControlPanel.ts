@@ -11,21 +11,18 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import audioManager from '../../../../joist/js/audioManager.js';
-import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
-import { AlignBox, AlignGroup, Color, HBox, HSeparator, Node, Path, SceneryConstants, Text, VBox } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignBoxOptions, AlignGroup, Color, HBox, HBoxOptions, HSeparator, Node, Path, SceneryConstants, Text, VBox } from '../../../../scenery/js/imports.js';
 import volumeDownSolidShape from '../../../../sherpa/js/fontawesome-5/volumeDownSolidShape.js';
 import volumeOffSolidShape from '../../../../sherpa/js/fontawesome-5/volumeOffSolidShape.js';
 import volumeUpSolidShape from '../../../../sherpa/js/fontawesome-5/volumeUpSolidShape.js';
 import HSlider from '../../../../sun/js/HSlider.js';
-import Panel from '../../../../sun/js/Panel.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
-import FourierSeries from '../../common/model/FourierSeries.js';
 import DomainComboBox from '../../common/view/DomainComboBox.js';
 import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -41,19 +38,15 @@ import OrderSpinner from './OrderSpinner.js';
 import PeriodCheckbox from './PeriodCheckbox.js';
 import WaveformComboBox from './WaveformComboBox.js';
 import WavelengthCheckbox from './WavelengthCheckbox.js';
+import DiscreteFourierSeries from '../model/DiscreteFourierSeries.js';
+import Property from '../../../../axon/js/Property.js';
+import SeriesType from '../../common/model/SeriesType.js';
+import EquationForm from '../model/EquationForm.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 export default class DiscreteControlPanel extends Panel {
 
-  /**
-   * @param {DiscreteModel} model
-   * @param {Node} popupParent
-   * @param {Tandem} tandem
-   */
-  constructor( model, popupParent, tandem ) {
-
-    assert && assert( model instanceof DiscreteModel );
-    assert && assert( popupParent instanceof Node );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( model: DiscreteModel, popupParent: Node, tandem: Tandem ) {
 
     const fourierSeriesSubpanel = new FourierSeriesSubpanel( model.fourierSeries, model.waveformProperty, popupParent,
       tandem.createTandem( 'fourierSeriesSubpanel' ) );
@@ -104,7 +97,7 @@ export default class DiscreteControlPanel extends Panel {
     infoButton.right = vBox.right;
     infoButton.centerY = fourierSeriesSubpanel.fourierSeriesText.boundsTo( vBox ).centerY;
 
-    super( content, merge( {}, FMWConstants.PANEL_OPTIONS, {
+    super( content, combineOptions<PanelOptions>( {}, FMWConstants.PANEL_OPTIONS, {
 
       // PanelOptions
       maxWidth: 258, // as a fallback, in case some subcomponent is misbehaving
@@ -119,11 +112,7 @@ export default class DiscreteControlPanel extends Panel {
     ];
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
@@ -134,21 +123,13 @@ export default class DiscreteControlPanel extends Panel {
  */
 class FourierSeriesSubpanel extends VBox {
 
-  /**
-   * @param {FourierSeries} fourierSeries
-   * @param {Property.<Waveform>} waveformProperty
-   * @param {Node} popupParent
-   * @param {Tandem} tandem
-   */
-  constructor( fourierSeries, waveformProperty, popupParent, tandem ) {
+  public readonly fourierSeriesText: Text;
 
-    assert && assert( fourierSeries instanceof FourierSeries );
-    assert && AssertUtils.assertPropertyOf( waveformProperty, Waveform );
-    assert && assert( popupParent instanceof Node );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( fourierSeries: DiscreteFourierSeries, waveformProperty: Property<Waveform>,
+                      popupParent: Node, tandem: Tandem ) {
 
     // To make all labels have the same effective width
-    const labelsAlignBoxOptions = {
+    const labelsAlignBoxOptions: AlignBoxOptions = {
       xAlign: 'left',
       group: new AlignGroup( {
         matchVertical: false
@@ -210,15 +191,10 @@ class FourierSeriesSubpanel extends VBox {
       tandem: tandem
     } );
 
-    // @public for layout
     this.fourierSeriesText = fourierSeriesText;
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
@@ -229,23 +205,14 @@ class FourierSeriesSubpanel extends VBox {
  */
 class GraphControlsSubpanel extends VBox {
 
-  /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {EnumerationProperty.<EquationForm>} equationFormProperty
-   * @param {Node} popupParent
-   * @param {Tandem} tandem
-   */
-  constructor( domainProperty, seriesTypeProperty, equationFormProperty, popupParent, tandem ) {
-
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
-    assert && assert( equationFormProperty instanceof EnumerationProperty );
-    assert && assert( popupParent instanceof Node );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( domainProperty: EnumerationProperty<Domain>,
+                      seriesTypeProperty: EnumerationProperty<SeriesType>,
+                      equationFormProperty: EnumerationProperty<EquationForm>,
+                      popupParent: Node,
+                      tandem: Tandem ) {
 
     // To make all labels have the same effective width
-    const labelsAlignBoxOptions = {
+    const labelsAlignBoxOptions: AlignBoxOptions = {
       xAlign: 'left',
       group: new AlignGroup( {
         matchVertical: false
@@ -318,11 +285,7 @@ class GraphControlsSubpanel extends VBox {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
@@ -333,18 +296,8 @@ class GraphControlsSubpanel extends VBox {
  */
 class MeasurementToolsSubpanel extends VBox {
 
-  /**
-   * @param {DiscreteMeasurementTool} wavelengthTool
-   * @param {DiscreteMeasurementTool} periodTool
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Tandem} tandem
-   */
-  constructor( wavelengthTool, periodTool, domainProperty, tandem ) {
-
-    assert && assert( wavelengthTool instanceof DiscreteMeasurementTool );
-    assert && assert( periodTool instanceof DiscreteMeasurementTool );
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( wavelengthTool: DiscreteMeasurementTool, periodTool: DiscreteMeasurementTool,
+                      domainProperty: EnumerationProperty<Domain>, tandem: Tandem ) {
 
     // Title for this subpanel
     const measurementToolsText = new Text( FourierMakingWavesStrings.measurementToolsStringProperty, {
@@ -354,13 +307,13 @@ class MeasurementToolsSubpanel extends VBox {
     } );
 
     // To make checkboxes have the same effective width
-    const checkboxAlignBoxOptions = {
+    const checkboxAlignBoxOptions: AlignBoxOptions = {
       group: new AlignGroup( { matchVertical: false } ),
       xAlign: 'left'
     };
 
     // To make spinners have the same effective width
-    const spinnerAlignBoxOptions = {
+    const spinnerAlignBoxOptions: AlignBoxOptions = {
       group: new AlignGroup( { matchVertical: false } ),
       xAlign: 'center'
     };
@@ -375,12 +328,11 @@ class MeasurementToolsSubpanel extends VBox {
     const wavelengthSpinner = new OrderSpinner( FMWSymbols.lambdaStringProperty, wavelengthTool.orderProperty, {
       enabledProperty: new DerivedProperty(
         [ wavelengthTool.isSelectedProperty, domainProperty ],
-        ( isSelected, domain ) =>
-          isSelected && ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME )
+        ( isSelected, domain ) => isSelected && ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME )
       ),
       tandem: tandem.createTandem( 'wavelengthSpinner' )
     } );
-    const wavelengthBox = new HBox( merge( {}, hBoxOptions, {
+    const wavelengthBox = new HBox( combineOptions<HBoxOptions>( {}, hBoxOptions, {
       children: [
         new AlignBox( wavelengthCheckbox, checkboxAlignBoxOptions ),
         new AlignBox( wavelengthSpinner, spinnerAlignBoxOptions )
@@ -393,12 +345,11 @@ class MeasurementToolsSubpanel extends VBox {
     const periodSpinner = new OrderSpinner( FMWSymbols.TStringProperty, periodTool.orderProperty, {
       enabledProperty: new DerivedProperty(
         [ periodTool.isSelectedProperty, domainProperty ],
-        ( isSelected, domain ) =>
-          isSelected && ( domain === Domain.TIME || domain === Domain.SPACE_AND_TIME )
+        ( isSelected, domain ) => isSelected && ( domain === Domain.TIME || domain === Domain.SPACE_AND_TIME )
       ),
       tandem: tandem.createTandem( 'periodSpinner' )
     } );
-    const periodBox = new HBox( merge( {}, hBoxOptions, {
+    const periodBox = new HBox( combineOptions<HBoxOptions>( {}, hBoxOptions, {
       children: [
         new AlignBox( periodCheckbox, checkboxAlignBoxOptions ),
         new AlignBox( periodSpinner, spinnerAlignBoxOptions )
@@ -428,11 +379,7 @@ class MeasurementToolsSubpanel extends VBox {
     periodSpinner.enabledProperty.link( () => periodSpinner.interruptSubtreeInput() );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
@@ -444,17 +391,7 @@ class MeasurementToolsSubpanel extends VBox {
  */
 class SoundBox extends HBox {
 
-  /**
-   * @param {Property.<boolean>} soundEnabledProperty
-   * @param {NumberProperty} soundOutputLevelProperty
-   * @param {Tandem} tandem
-   */
-  constructor( soundEnabledProperty, soundOutputLevelProperty, tandem ) {
-
-    assert && AssertUtils.assertPropertyOf( soundEnabledProperty, 'boolean' );
-    assert && assert( soundOutputLevelProperty instanceof NumberProperty );
-    assert && assert( soundOutputLevelProperty.range, 'soundOutputLevelProperty.range required' );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( soundEnabledProperty: Property<boolean>, soundOutputLevelProperty: NumberProperty, tandem: Tandem ) {
 
     // Checkbox with music icon
     const soundEnabledCheckbox = new FourierSoundEnabledCheckbox( soundEnabledProperty,
@@ -501,11 +438,7 @@ class SoundBox extends HBox {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }

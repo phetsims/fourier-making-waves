@@ -17,7 +17,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type OrderSpinnerOptions = SelfOptions & PickRequired<NumberSpinner, 'enabledProperty' | 'tandem'>;
+type OrderSpinnerOptions = SelfOptions & PickRequired<NumberSpinnerOptions, 'enabledProperty' | 'tandem'>;
 
 export default class OrderSpinner extends NumberSpinner {
 
