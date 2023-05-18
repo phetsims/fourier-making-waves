@@ -8,22 +8,16 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class HarmonicsSpinner extends NumberSpinner {
 
-  /**
-   * @param {NumberProperty} numberOfHarmonicsProperty
-   * @param {Object} [options]
-   */
-  constructor( numberOfHarmonicsProperty, options ) {
+  public constructor( numberOfHarmonicsProperty: NumberProperty, tandem: Tandem ) {
 
-    assert && assert( numberOfHarmonicsProperty instanceof NumberProperty );
-
-    options = merge( {
+    super( numberOfHarmonicsProperty, numberOfHarmonicsProperty.rangeProperty, {
 
       // NumberSpinner options
       arrowsPosition: 'leftRight',
@@ -39,10 +33,9 @@ export default class HarmonicsSpinner extends NumberSpinner {
       touchAreaXDilation: 25,
       touchAreaYDilation: 12,
       mouseAreaXDilation: 5,
-      mouseAreaYDilation: 5
-    }, options );
-
-    super( numberOfHarmonicsProperty, numberOfHarmonicsProperty.rangeProperty, options );
+      mouseAreaYDilation: 5,
+      tandem: tandem
+    } );
   }
 }
 

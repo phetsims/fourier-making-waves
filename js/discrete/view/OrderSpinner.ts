@@ -8,25 +8,29 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
-import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
+import NumberSpinner, { NumberSpinnerOptions } from '../../../../sun/js/NumberSpinner.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type OrderSpinnerOptions = SelfOptions & PickRequired<NumberSpinner, 'enabledProperty' | 'tandem'>;
 
 export default class OrderSpinner extends NumberSpinner {
 
   /**
-   * @param {TReadOnlyProperty.<string>} symbolStringProperty - order is displayed as the subscript of this symbol
-   * @param {NumberProperty} orderProperty - the order of the associated harmonic
-   * @param {Object} [options]
+   * @param symbolStringProperty - order is displayed as the subscript of this symbol
+   * @param orderProperty - the order of the associated harmonic
+   * @param [providedOptions]
    */
-  constructor( symbolStringProperty, orderProperty, options ) {
+  public constructor( symbolStringProperty: TReadOnlyProperty<string>, orderProperty: NumberProperty, providedOptions: OrderSpinnerOptions ) {
 
-    assert && assert( orderProperty instanceof NumberProperty );
+    const options = optionize<OrderSpinnerOptions, SelfOptions, NumberSpinnerOptions>()( {
 
-    options = merge( {
-
-      // NumberSpinner options
+      // NumberSpinnerOptions
       arrowsPosition: 'leftRight',
       touchAreaXDilation: 10,
       touchAreaYDilation: 10,
@@ -41,7 +45,7 @@ export default class OrderSpinner extends NumberSpinner {
           maxWidth: 50 // determined empirically
         }
       }
-    }, options );
+    }, providedOptions );
 
     super( orderProperty, orderProperty.rangeProperty, options );
 

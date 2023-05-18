@@ -192,9 +192,8 @@ class FourierSeriesSubpanel extends VBox {
       tandem: options.tandem.createTandem( 'harmonicsText' )
     } );
 
-    const harmonicsSpinner = new HarmonicsSpinner( fourierSeries.numberOfHarmonicsProperty, {
-      tandem: options.tandem.createTandem( 'harmonicsSpinner' )
-    } );
+    const harmonicsSpinner = new HarmonicsSpinner( fourierSeries.numberOfHarmonicsProperty,
+      options.tandem.createTandem( 'harmonicsSpinner' ) );
 
     const harmonicsBox = new HBox( {
       spacing: 5,
