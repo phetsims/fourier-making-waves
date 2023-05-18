@@ -10,8 +10,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import { Circle, Color, Node, Path, Rectangle, RichText } from '../../../../scenery/js/imports.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
@@ -19,27 +17,25 @@ import Domain from '../../common/model/Domain.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
-import DiscreteMeasurementToolNode from './DiscreteMeasurementToolNode.js';
+import DiscreteMeasurementToolNode, { DiscreteMeasurementToolNodeOptions } from './DiscreteMeasurementToolNode.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // Margins for the translucent background behind the label
 const BACKGROUND_X_MARGIN = 2;
 const BACKGROUND_Y_MARGIN = 2;
 
+const CLOCK_FACE_RADIUS = 15;
+
+type SelfOptions = EmptySelfOptions;
+
+type PeriodClockNodeOptions = SelfOptions &
+  PickRequired<DiscreteMeasurementToolNodeOptions, 'position' | 'dragBounds' | 'tandem'>;
+
 export default class PeriodClockNode extends DiscreteMeasurementToolNode {
 
-  /**
-   * @param {DiscreteModel} model
-   * @param {Object} [options]
-   */
-  constructor( model, options ) {
-
-    assert && assert( model instanceof DiscreteModel );
-
-    options = merge( {
-
-      // DiscreteMeasurementToolNode options
-      debugName: 'periodClock'
-    }, options );
+  public constructor( model: DiscreteModel, providedOptions: PeriodClockNodeOptions ) {
 
     // Model properties that we'll be using.
     const tool = model.periodTool;
@@ -66,10 +62,14 @@ export default class PeriodClockNode extends DiscreteMeasurementToolNode {
       fill: Color.grayColor( 255, 0.75 )
     } );
 
-    assert && assert( !options.children, 'PeriodClockNode sets children' );
-    options.children = [ clockFaceNode, backgroundNode, labelNode ];
-
     const relevantDomains = [ Domain.SPACE_AND_TIME ];
+
+    const options = optionize<PeriodClockNodeOptions, SelfOptions, DiscreteMeasurementToolNodeOptions>()( {
+
+      // DiscreteMeasurementToolNodeOptions
+      debugName: 'periodClock',
+      children: [ clockFaceNode, backgroundNode, labelNode ]
+    }, providedOptions );
 
     super( tool, harmonicProperty, emphasizedHarmonics, domainProperty, relevantDomains, options );
 
@@ -101,22 +101,10 @@ export default class PeriodClockNode extends DiscreteMeasurementToolNode {
  */
 class ClockFaceNode extends Node {
 
-  /**
-   * @param {ReadOnlyProperty.<Harmonic>} harmonicProperty
-   * @param {Property.<number>} tProperty
-   * @param {Object} [options]
-   */
-  constructor( harmonicProperty, tProperty, options ) {
-
-    assert && AssertUtils.assertAbstractPropertyOf( harmonicProperty, Harmonic );
-    assert && AssertUtils.assertPropertyOf( tProperty, 'number' );
-
-    options = merge( {
-      radius: 15
-    }, options );
+  public constructor( harmonicProperty: TReadOnlyProperty<Harmonic>, tProperty: TReadOnlyProperty<number> ) {
 
     // White background circle
-    const backgroundNode = new Circle( options.radius, {
+    const backgroundNode = new Circle( CLOCK_FACE_RADIUS, {
       fill: 'white'
     } );
 
@@ -128,22 +116,21 @@ class ClockFaceNode extends Node {
     } );
 
     // Black rim in the foreground, to hide any seams
-    const rimNode = new Circle( options.radius, {
+    const rimNode = new Circle( CLOCK_FACE_RADIUS, {
       stroke: 'black',
       lineWidth: 2
     } );
 
-    assert && assert( !options.children, 'ClockFaceNode sets children' );
-    options.children = [ backgroundNode, elapsedTimeNode, rimNode ];
-
-    super( options );
+    super( {
+      children: [ backgroundNode, elapsedTimeNode, rimNode ]
+    } );
 
     // When the harmonic changes, update the color used to fill in the elapsed time, and
     // update the elapsed time to correspond to the new harmonic's period at the current time t.
     harmonicProperty.link( harmonic => {
       elapsedTimeNode.fill = harmonic.colorProperty;
       if ( this.visible ) {
-        elapsedTimeNode.shape = createElapsedTimeShape( harmonic, tProperty.value, options.radius );
+        elapsedTimeNode.shape = createElapsedTimeShape( harmonic, tProperty.value, CLOCK_FACE_RADIUS );
       }
     } );
 
@@ -151,16 +138,12 @@ class ClockFaceNode extends Node {
     // at the current time t.
     tProperty.link( t => {
       if ( this.visible ) {
-        elapsedTimeNode.shape = createElapsedTimeShape( harmonicProperty.value, t, options.radius );
+        elapsedTimeNode.shape = createElapsedTimeShape( harmonicProperty.value, t, CLOCK_FACE_RADIUS );
       }
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
@@ -168,16 +151,8 @@ class ClockFaceNode extends Node {
 
 /**
  * Creates a partially filled clock face, which represents the portion of a harmonic's period that has elapsed.
- * @param {Harmonic} harmonic
- * @param {number} t
- * @param {number} radius
- * @returns {Shape}
  */
-function createElapsedTimeShape( harmonic, t, radius ) {
-
-  assert && assert( harmonic instanceof Harmonic );
-  assert && AssertUtils.assertNonNegativeNumber( t );
-  assert && AssertUtils.assertPositiveNumber( radius );
+function createElapsedTimeShape( harmonic: Harmonic, t: number, radius: number ): Shape {
 
   const percentTime = ( t % harmonic.period ) / harmonic.period;
   const startAngle = -Math.PI / 2; // 12:00

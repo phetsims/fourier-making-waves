@@ -32,6 +32,7 @@ import Domain from '../../common/model/Domain.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
   position?: Vector2;
@@ -39,7 +40,9 @@ type SelfOptions = {
   debugName?: string;
 };
 
-export type DiscreteMeasurementToolNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
+export type DiscreteMeasurementToolNodeOptions = SelfOptions &
+  PickOptional<NodeOptions, 'children'> &
+  PickRequired<NodeOptions, 'tandem'>;
 
 export default class DiscreteMeasurementToolNode extends Node {
 
