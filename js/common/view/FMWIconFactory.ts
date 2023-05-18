@@ -138,20 +138,17 @@ function createSlidersIcon( amplitudes: number[], amplitudeRange: Range, options
 
   // Create sliders
   const emphasizedHarmonics = new EmphasizedHarmonics();
-  const sliders = new HBox( {
-    spacing: 10,
-    children: harmonics.map( harmonic => new AmplitudeSlider( harmonic, emphasizedHarmonics, {
+  const sliders = harmonics.map( harmonic => AmplitudeSlider.createIcon( harmonic, emphasizedHarmonics ) );
 
-      // Remove the PDOM content after creation to keep these input sliders out of the PDOM entirely, see https://github.com/phetsims/ratio-and-proportion/issues/444
-      tagName: null
-    } ), {
-      tandem: Tandem.OPT_OUT
-    } )
+  // Layout sliders horizontally
+  const hBox = new HBox( {
+    spacing: 10,
+    children: sliders
   } );
 
   // x-axis
   const xMargin = 10;
-  const xAxis = new Line( -xMargin, sliders.height / 2, sliders.width + xMargin, sliders.height / 2, {
+  const xAxis = new Line( -xMargin, hBox.height / 2, hBox.width + xMargin, hBox.height / 2, {
     stroke: FMWColors.axisStrokeProperty,
     lineWidth: 2
   } );
@@ -159,7 +156,7 @@ function createSlidersIcon( amplitudes: number[], amplitudeRange: Range, options
   // Note that we could use node.rasterized( { resolution: 2 } ) to avoid memory, phet-io, and pdom issues
   // associated with all of the above elements. But the quality of the rendering is not as good.
   return new Node( combineOptions<NodeOptions>( {}, {
-    children: [ xAxis, sliders ]
+    children: [ xAxis, hBox ]
   }, options ) );
 }
 

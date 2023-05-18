@@ -13,16 +13,18 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import { Color, Node, Path, PressListener, Rectangle } from '../../../../scenery/js/imports.js';
-import Slider from '../../../../sun/js/Slider.js';
-import SliderTrack from '../../../../sun/js/SliderTrack.js';
+import Slider, { SliderOptions } from '../../../../sun/js/Slider.js';
+import SliderTrack, { SliderTrackOptions } from '../../../../sun/js/SliderTrack.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // constants
 const TRACK_WIDTH = 40; // track height is specified in constructor options
@@ -35,27 +37,24 @@ const THUMB_SIZE = new Dimension2( TRACK_WIDTH - 15, 8 ).swapped();
 const THUMB_TOUCH_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
 const THUMB_MOUSE_AREA_DILATION = new Dimension2( 10, 4 ).swapped();
 
+type SelfOptions = {
+  trackHeight?: number; // height of the slider track
+  mouseTouchStep?: number; // snap to this interval when using mouse/touch, unless the value is min or max
+};
+
+type AmplitudeSliderOptions = SelfOptions & PickRequired<SliderOptions, 'tandem'>;
+
 export default class AmplitudeSlider extends Slider {
 
-  /**
-   * @param {Harmonic} harmonic
-   * @param {EmphasizedHarmonics} emphasizedHarmonics
-   * @param {Object} [options]
-   */
-  constructor( harmonic, emphasizedHarmonics, options ) {
+  public constructor( harmonic: Harmonic, emphasizedHarmonics: EmphasizedHarmonics, providedOptions: AmplitudeSliderOptions ) {
 
-    assert && assert( harmonic instanceof Harmonic );
-    assert && assert( emphasizedHarmonics instanceof EmphasizedHarmonics );
+    const options = optionize<AmplitudeSliderOptions, SelfOptions, SliderOptions>()( {
 
-    options = merge( {
-
-      // {number} height of the track
+      // SelfOptions
       trackHeight: 120,
-
-      // {number} snap to this interval when using mouse/touch, unless the value is min or max
       mouseTouchStep: FMWConstants.DISCRETE_AMPLITUDE_STEP,
 
-      // Slider options
+      // SliderOptions
       startDrag: _.noop,
       endDrag: _.noop,
       orientation: Orientation.VERTICAL,
@@ -67,11 +66,8 @@ export default class AmplitudeSlider extends Slider {
       // slider steps, see https://github.com/phetsims/fourier-making-waves/issues/53
       keyboardStep: FMWConstants.DISCRETE_AMPLITUDE_KEYBOARD_STEP, // used by all alternative-input devices
       shiftKeyboardStep: FMWConstants.DISCRETE_AMPLITUDE_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
-      pageKeyboardStep: FMWConstants.DISCRETE_AMPLITUDE_PAGE_KEYBOARD_STEP, // coarser grain, used by keyboard only
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+      pageKeyboardStep: FMWConstants.DISCRETE_AMPLITUDE_PAGE_KEYBOARD_STEP // coarser grain, used by keyboard only
+    }, providedOptions );
 
     assert && assert( options.shiftKeyboardStep <= options.keyboardStep );
     assert && assert( options.pageKeyboardStep >= options.keyboardStep );
@@ -89,9 +85,7 @@ export default class AmplitudeSlider extends Slider {
     };
 
     // Custom thumb
-    const thumbNode = new GrippyThumb( THUMB_SIZE, harmonic, {
-      tandem: options.tandem.createTandem( Slider.THUMB_NODE_TANDEM_NAME )
-    } );
+    const thumbNode = new GrippyThumb( THUMB_SIZE, harmonic, options.tandem.createTandem( Slider.THUMB_NODE_TANDEM_NAME ) );
     thumbNode.touchArea = thumbNode.localBounds.dilatedXY( THUMB_TOUCH_AREA_DILATION.width, THUMB_TOUCH_AREA_DILATION.height );
     thumbNode.mouseArea = thumbNode.localBounds.dilatedXY( THUMB_MOUSE_AREA_DILATION.width, THUMB_MOUSE_AREA_DILATION.height );
     assert && assert( !options.thumbNode, 'AmplitudeSlider sets thumbNode' );
@@ -141,13 +135,24 @@ export default class AmplitudeSlider extends Slider {
     this.visibleProperty.link( () => this.interruptSubtreeInput() );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+
+  /**
+   * Creates a non-interactive icon for an AmplitudeSlider.
+   */
+  public static createIcon( harmonic: Harmonic, emphasizedHarmonics: EmphasizedHarmonics ): Node {
+    const slider = new AmplitudeSlider( harmonic, emphasizedHarmonics, {
+      tandem: Tandem.OPT_OUT
+    } );
+
+    // Remove from the PDOM, since this is an icon.
+    // See https://github.com/phetsims/ratio-and-proportion/issues/444
+    slider.tagName = null;
+
+    return slider;
   }
 }
 
@@ -157,19 +162,7 @@ export default class AmplitudeSlider extends Slider {
  */
 class GrippyThumb extends Node {
 
-  /**
-   * @param {Dimension2} thumbSize
-   * @param {Harmonic} harmonic
-   * @param {Object} [options]
-   */
-  constructor( thumbSize, harmonic, options ) {
-
-    assert && assert( thumbSize instanceof Dimension2 );
-    assert && assert( harmonic instanceof Harmonic );
-
-    options = merge( {
-      tandem: Tandem.REQUIRED
-    }, options );
+  public constructor( thumbSize: Dimension2, harmonic: Harmonic, tandem: Tandem ) {
 
     const rectangle = new Rectangle( 0, 0, thumbSize.width, thumbSize.height, {
       fill: Color.grayColor( 200 ),
@@ -197,17 +190,13 @@ class GrippyThumb extends Node {
       center: rectangle.center
     } );
 
-    assert && assert( !options.children, 'GrippyThumb sets children' );
-    options.children = [ rectangle, dotsNode ];
-
-    super( options );
+    super( {
+      children: [ rectangle, dotsNode ],
+      tandem: tandem
+    } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
@@ -218,23 +207,28 @@ class GrippyThumb extends Node {
  * It fills a colored bar that grows up and down from the center of the track.
  * Created in horizontal orientation because VSlider will rotate it -90 degrees to vertical orientation.
  */
+
+type BarTrackSelfOptions = EmptySelfOptions;
+
+type BarTrackOptions = SelfOptions & SliderTrackOptions & PickRequired<SliderTrackOptions, 'tandem'>;
+
 class BarTrack extends SliderTrack {
 
-  /**
-   * @param {Harmonic} harmonic
-   * @param {Range} amplitudeRange
-   * @param {Object} [options]
-   */
-  constructor( harmonic, amplitudeRange, options ) {
+  // This tells us when the track should be considered highlighted. We can't simply look at
+  // this.dragListener.isHighlightedProperty, because that will include the invisible portion of the track.
+  // This is used to emphasize the associated harmonic's plot in the Harmonics chart. See isEmphasizedProperty
+  // in AmplitudeSlider above.
+  public readonly isHighlightedProperty: TReadOnlyProperty<boolean>;
 
-    assert && assert( harmonic instanceof Harmonic );
-    assert && assert( amplitudeRange instanceof Range );
+  public constructor( harmonic: Harmonic, amplitudeRange: Range, providedOptions: BarTrackOptions ) {
+
     assert && assert( amplitudeRange.getCenter() === 0, 'implementation assumes that range is symmetric' );
 
-    options = merge( {
-      size: new Dimension2( 10, 10 ),
-      tandem: Tandem.REQUIRED
-    }, options );
+    const options = optionize<BarTrackOptions, BarTrackSelfOptions, SliderTrackOptions>()( {
+
+      // SliderTrackOptions
+      size: new Dimension2( 10, 10 )
+    }, providedOptions );
 
     // To improve readability
     const trackWidth = options.size.width;
@@ -259,7 +253,7 @@ class BarTrack extends SliderTrack {
 
     // When the amplitude changes, redraw the track to make it look like a bar extends up or down from amplitude = 0.
     // Note that this code is actually extending left or right, because VSlider rotates its track -90 degrees.
-    const amplitudeListener = amplitude => {
+    const amplitudeListener = ( amplitude: number ) => {
       visibleTrackNode.visible = ( amplitude !== 0 );
       if ( amplitude === 0 ) {
         visibleTrackNode.setRect( 0, 0, 1, 1 );
@@ -281,22 +275,13 @@ class BarTrack extends SliderTrack {
     } );
     visibleTrackNode.addInputListener( visibleTrackPressListener );
 
-    // @public {DerivedProperty.<boolean>}
-    // This tells us when the track should be considered highlighted. We can't simply look at
-    // this.dragListener.isHighlightedProperty, because that will include the invisible portion of the track.
-    // This is used to emphasize the associated harmonic's plot in the Harmonics chart. See isEmphasizedProperty
-    // in AmplitudeSlider above.
     this.isHighlightedProperty = new DerivedProperty(
       [ this.dragListener.isPressedProperty, visibleTrackPressListener.isOverProperty ],
       ( isPressed, isOverVisible ) => ( isPressed || isOverVisible )
     );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }

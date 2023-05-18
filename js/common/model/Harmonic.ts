@@ -14,7 +14,7 @@ import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { TColor } from '../../../../scenery/js/imports.js';
+import { Color } from '../../../../scenery/js/imports.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
@@ -29,7 +29,7 @@ type SelfOptions = {
   frequency: number; // frequency, in Hz
   wavelength: number; // wavelength, in meters
   amplitudeRange: Range; // range of amplitude, no units
-  colorProperty: TReadOnlyProperty<TColor>; // the color used to visualize the harmonic
+  colorProperty: TReadOnlyProperty<Color>; // the color used to visualize the harmonic
 
   // optional
   amplitude?: number; // initial amplitude of the harmonic, no units
@@ -44,7 +44,7 @@ export default class Harmonic extends PhetioObject {
   public readonly frequency: number;
   public readonly wavelength: number;
   public readonly amplitudeRange: Range;
-  public readonly colorProperty: TReadOnlyProperty<TColor>;
+  public readonly colorProperty: TReadOnlyProperty<Color | string>;
 
   // period of the harmonic, in milliseconds
   public readonly period: number;
