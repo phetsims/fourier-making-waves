@@ -29,13 +29,16 @@ const TRANSITION_OPTIONS = {
 
 export default class WaveGameScreenView extends ScreenView {
 
-  /**
-   * @param {WaveGameModel} model
-   * @param {Tandem} tandem
-   */
-  constructor( model, tandem ) {
-    assert && assert( model instanceof WaveGameModel );
-    assert && assert( tandem instanceof Tandem );
+  // The reward shown while rewardDialog is open.
+  private readonly rewardNode: WaveGameRewardNode;
+
+  // a Node for each level of the game
+  private readonly levelNodes: WaveGameLevelNode[];
+
+  // Handles the animated 'slide' transition between levelSelectionNode and a level.
+  private readonly transitionNode: TransitionNode;
+
+  public constructor( model: WaveGameModel, tandem: Tandem ) {
 
     super( {
       tandem: tandem
@@ -49,7 +52,6 @@ export default class WaveGameScreenView extends ScreenView {
     // UI for level selection and other game settings
     const levelSelectionNode = new WaveGameLevelSelectionNode( model, layoutBounds, tandem.createTandem( 'levelSelectionNode' ) );
 
-    // @private The reward shown while rewardDialog is open.
     this.rewardNode = new WaveGameRewardNode( {
       visible: false,
       tandem: tandem.createTandem( 'rewardNode' )
@@ -59,12 +61,10 @@ export default class WaveGameScreenView extends ScreenView {
     const rewardDialog = new WaveGameRewardDialog( model.levelProperty, this.rewardNode, model.rewardScore,
       tandem.createTandem( 'rewardDialog' ) );
 
-    // @private {SolveItLevelNode[]} a Node for each level of the game
     this.levelNodes = model.levels.map( level => new WaveGameLevelNode( level, model.levelProperty,
       layoutBounds, this.visibleBoundsProperty, gameAudioPlayer, this.rewardNode, rewardDialog, model.rewardScore,
       tandem.createTandem( `level${level.levelNumber}Node` ) ) );
 
-    // @private Handles the animated 'slide' transition between levelSelectionNode and a level.
     this.transitionNode = new TransitionNode( this.visibleBoundsProperty, {
       content: levelSelectionNode,
       cachedNodes: [ levelSelectionNode, ...this.levelNodes ]
@@ -79,7 +79,8 @@ export default class WaveGameScreenView extends ScreenView {
       if ( level ) {
 
         // Transition to the selected level.
-        const selectedLevelNode = _.find( this.levelNodes, levelNode => ( levelNode.level === level ) );
+        const selectedLevelNode = _.find( this.levelNodes, levelNode => ( levelNode.level === level ) )!;
+        assert && assert( selectedLevelNode );
         const transition = this.transitionNode.slideLeftTo( selectedLevelNode, TRANSITION_OPTIONS );
 
         // Set focus to the first focusable element in selectedLevelNode.
@@ -103,7 +104,8 @@ export default class WaveGameScreenView extends ScreenView {
         // See specification at https://github.com/phetsims/vegas/issues/90#issuecomment-854034816
         const transitionEndedListener = () => {
           assert && assert( this.transitionNode.hasChild( levelSelectionNode ) && levelSelectionNode.visible );
-          levelSelectionNode.focusLevelSelectionButton( previousLevel );
+          assert && assert( previousLevel );
+          levelSelectionNode.focusLevelSelectionButton( previousLevel! );
           transition.endedEmitter.removeListener( transitionEndedListener );
         };
         transition.endedEmitter.addListener( transitionEndedListener );
@@ -114,21 +116,16 @@ export default class WaveGameScreenView extends ScreenView {
     this.addChild( this.rewardNode );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 
   /**
    * Steps the view.
-   * @param {number} dt - time step, in seconds
-   * @public
+   * @param dt - time step, in seconds
    */
-  step( dt ) {
+  public override step( dt: number ): void {
 
     this.rewardNode.visible && this.rewardNode.step( dt );
 
@@ -140,6 +137,8 @@ export default class WaveGameScreenView extends ScreenView {
         break;
       }
     }
+
+    super.step( dt );
   }
 }
 
