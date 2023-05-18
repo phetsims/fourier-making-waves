@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -14,34 +13,29 @@ import GameInfoDialog from '../../../../vegas/js/GameInfoDialog.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
+import WaveGameLevel from '../model/WaveGameLevel.js';
 
 export default class WaveGameInfoDialog extends GameInfoDialog {
 
-  /**
-   * @param {WaveGameLevel[]} levels
-   * @param {Object} [options]
-   */
-  constructor( levels, options ) {
+  public constructor( levels: WaveGameLevel[], tandem: Tandem ) {
 
-    options = merge( {
-      gameLevels: FMWQueryParameters.gameLevels,
-      ySpacing: 20,
-      bottomMargin: 20,
-
-      // phet-io
-      tandem: Tandem.REQUIRED,
-      phetioReadOnly: true
-    }, options );
-
-    assert && assert( !options.title, 'WaveGameInfoDialog sets title' );
-    options.title = new Text( FourierMakingWavesStrings.levelsStringProperty, {
+    const titleText = new Text( FourierMakingWavesStrings.levelsStringProperty, {
       font: new PhetFont( 32 ),
-      tandem: options.tandem.createTandem( 'titleText' )
+      tandem: tandem.createTandem( 'titleText' )
     } );
 
     const descriptions = levels.map( level => level.infoDialogDescriptionProperty );
 
-    super( descriptions, options );
+    super( descriptions, {
+
+      // GameInfoDialogOptions
+      title: titleText,
+      gameLevels: FMWQueryParameters.gameLevels,
+      ySpacing: 20,
+      bottomMargin: 20,
+      tandem: tandem,
+      phetioReadOnly: true
+    } );
   }
 }
 
