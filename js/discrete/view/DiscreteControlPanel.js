@@ -78,9 +78,11 @@ export default class DiscreteControlPanel extends Panel {
       }
     }
 
-    const vBox = new VBox( merge( {}, FMWConstants.VBOX_OPTIONS, {
-      children: children
-    } ) );
+    const vBox = new VBox( {
+      children: children,
+      align: 'left',
+      spacing: FMWConstants.VBOX_SPACING
+    } );
 
     // Dialog that displays a key for math symbols. Created eagerly and reused for PhET-iO.
     const infoDialog = new DiscreteInfoDialog( tandem.createTandem( 'infoDialog' ) );
@@ -103,9 +105,9 @@ export default class DiscreteControlPanel extends Panel {
     infoButton.centerY = fourierSeriesSubpanel.fourierSeriesText.boundsTo( vBox ).centerY;
 
     super( content, merge( {}, FMWConstants.PANEL_OPTIONS, {
-      maxWidth: 258, // as a fallback, in case some subcomponent is misbehaving
 
-      // phet-io options
+      // PanelOptions
+      maxWidth: 258, // as a fallback, in case some subcomponent is misbehaving
       tandem: tandem
     } ) );
 
@@ -194,17 +196,19 @@ class FourierSeriesSubpanel extends VBox {
     const soundBox = new SoundBox( fourierSeries.soundEnabledProperty, fourierSeries.soundOutputLevelProperty,
       tandem.createTandem( 'soundBox' ) );
 
-    super( merge( {}, FMWConstants.VBOX_OPTIONS, {
+    super( {
+
+      // VBoxOptions
       children: [
         fourierSeriesText,
         waveformBox,
         harmonicsBox,
         soundBox
       ],
-
-      // phet-io options
+      align: 'left',
+      spacing: FMWConstants.VBOX_SPACING,
       tandem: tandem
-    } ) );
+    } );
 
     // @public for layout
     this.fourierSeriesText = fourierSeriesText;
@@ -299,17 +303,19 @@ class GraphControlsSubpanel extends VBox {
       children: [ new AlignBox( equationText, labelsAlignBoxOptions ), equationComboBox ]
     } );
 
-    super( merge( {}, FMWConstants.VBOX_OPTIONS, {
+    super( {
+
+      // VBoxOptions
       children: [
         graphControlsText,
         functionOfBox,
         seriesBox,
         equationBox
       ],
-
-      // phet-io options
+      align: 'left',
+      spacing: FMWConstants.VBOX_SPACING,
       tandem: tandem
-    } ) );
+    } );
   }
 
   /**
@@ -399,16 +405,18 @@ class MeasurementToolsSubpanel extends VBox {
       ]
     } ) );
 
-    super( merge( {}, FMWConstants.VBOX_OPTIONS, {
+    super( {
+
+      // VBoxOptions
       children: [
         measurementToolsText,
         wavelengthBox,
         periodBox
       ],
-
-      // phet-io options
+      align: 'left',
+      spacing: FMWConstants.VBOX_SPACING,
       tandem: tandem
-    } ) );
+    } );
 
     wavelengthTool.isSelectedProperty.link( () => wavelengthSpinner.interruptSubtreeInput() );
     periodTool.isSelectedProperty.link( () => periodSpinner.interruptSubtreeInput() );

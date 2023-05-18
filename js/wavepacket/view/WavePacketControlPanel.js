@@ -99,10 +99,11 @@ export default class WavePacketControlPanel extends Panel {
       }
     }
 
-    const vBox = new VBox( merge( {}, FMWConstants.VBOX_OPTIONS, {
+    const vBox = new VBox( {
       children: children,
+      align: 'left',
       spacing: 10
-    } ) );
+    } );
 
     // Dialog that displays a key for math symbols. Created eagerly and reused for PhET-iO.
     const infoDialog = new WavePacketInfoDialog( {
@@ -156,12 +157,11 @@ class ComponentSpacingSubpanel extends VBox {
     assert && AssertUtils.assertPropertyOf( componentSpacingToolVisibleProperty, 'boolean' );
     assert && AssertUtils.assertPropertyOf( lengthToolVisibleProperty, 'boolean' );
 
-    options = merge( {}, FMWConstants.VBOX_OPTIONS, {
+    options = merge( {
 
-      // VBox options
+      // VBoxOptions
+      align: 'left',
       spacing: 8,
-
-      // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 
@@ -238,9 +238,11 @@ class WavePacketCenterSubpanel extends VBox {
     assert && assert( domainProperty instanceof EnumerationProperty );
     assert && assert( centerProperty instanceof NumberProperty );
 
-    options = merge( {}, FMWConstants.VBOX_OPTIONS, {
+    options = merge( {
 
-      // phet-io options
+      // VBoxOptions
+      align: 'left',
+      spacing: FMWConstants.VBOX_SPACING,
       tandem: Tandem.REQUIRED
     }, options );
 
@@ -293,9 +295,11 @@ class WavePacketWidthSubpanel extends VBox {
     assert && assert( conjugateStandardDeviationProperty instanceof NumberProperty );
     assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
 
-    options = merge( {}, FMWConstants.VBOX_OPTIONS, {
+    options = merge( {
 
-      // phet-io options
+      // VBoxOptions
+      align: 'left',
+      spacing: FMWConstants.VBOX_SPACING,
       tandem: Tandem.REQUIRED
     }, options );
 
@@ -379,9 +383,11 @@ class GraphControlsSubpanel extends VBox {
     assert && assert( seriesTypeProperty instanceof EnumerationProperty );
     assert && assert( popupParent instanceof Node );
 
-    options = merge( {}, FMWConstants.VBOX_OPTIONS, {
+    options = merge( {
 
-      // phet-io options
+      // VBoxOptions
+      align: 'left',
+      spacing: FMWConstants.VBOX_SPACING,
       tandem: Tandem.REQUIRED
     }, options );
 

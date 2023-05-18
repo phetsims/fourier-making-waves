@@ -18,7 +18,7 @@ import { PanelOptions } from '../../../sun/js/Panel.js';
 import Slider from '../../../sun/js/Slider.js';
 import AssertUtils from '../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import { Node, VBox, VBoxOptions } from '../../../scenery/js/imports.js';
+import { Node, VBox } from '../../../scenery/js/imports.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWColors from './FMWColors.js';
 
@@ -50,11 +50,6 @@ const PANEL_OPTIONS: PanelOptions = {
   yMargin: 15,
   fill: FMWColors.panelFillProperty,
   stroke: FMWColors.panelStrokeProperty
-};
-
-const VBOX_OPTIONS: VBoxOptions = {
-  align: 'left',
-  spacing: 18
 };
 
 const WAVE_PACKET_NUMBER_CONTROL_OPTIONS: NumberControlOptions = {
@@ -126,7 +121,7 @@ const FMWConstants = {
   ERASER_BUTTON_OPTIONS: ERASER_BUTTON_OPTIONS,
   EXPAND_COLLAPSE_BUTTON_OPTIONS: EXPAND_COLLAPSE_BUTTON_OPTIONS,
   PANEL_OPTIONS: PANEL_OPTIONS,
-  VBOX_OPTIONS: VBOX_OPTIONS,
+  VBOX_SPACING: 18,
 
   // WavePacketNumberControl options
   WAVE_PACKET_NUMBER_CONTROL_OPTIONS: WAVE_PACKET_NUMBER_CONTROL_OPTIONS,
