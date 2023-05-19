@@ -10,9 +10,9 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { RichText } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
@@ -30,14 +30,15 @@ export default class CenterControl extends WavePacketNumberControl {
   /**
    * @param {NumberProperty} centerProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( centerProperty, domainProperty, options ) {
+  constructor( centerProperty, domainProperty, tandem ) {
 
     assert && assert( centerProperty instanceof NumberProperty );
     assert && assert( domainProperty instanceof EnumerationProperty );
+    assert && assert( tandem instanceof Tandem );
 
-    options = merge( {
+    super( centerProperty, domainProperty, {
 
       delta: DELTA,
 
@@ -56,10 +57,11 @@ export default class CenterControl extends WavePacketNumberControl {
         keyboardStep: Math.PI / 2,
         // shiftKeyboardStep is set to options.delta by NumberControl
         pageKeyboardStep: Math.PI
-      }
-    }, options );
+      },
 
-    super( centerProperty, domainProperty, options );
+      // phet-io
+      tandem: tandem
+    } );
 
     // Set the numberFormatter for this control's NumberDisplay.
     // In addition to the domain, this is dependent on a number of localized string Properties.

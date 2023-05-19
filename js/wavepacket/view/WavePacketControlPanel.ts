@@ -201,9 +201,7 @@ class WavePacketCenterSubpanel extends VBox {
       tandem: tandem.createTandem( 'wavePacketCenterText' )
     } );
 
-    const centerControl = new CenterControl( centerProperty, domainProperty, {
-      tandem: tandem.createTandem( 'centerControl' )
-    } );
+    const centerControl = new CenterControl( centerProperty, domainProperty, tandem.createTandem( 'centerControl' ) );
 
     super( {
 
