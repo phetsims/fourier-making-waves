@@ -10,9 +10,9 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { RichText } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
@@ -30,14 +30,15 @@ export default class StandardDeviationControl extends WavePacketNumberControl {
   /**
    * @param {NumberProperty} standardDeviationProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( standardDeviationProperty, domainProperty, options ) {
+  constructor( standardDeviationProperty, domainProperty, tandem ) {
 
     assert && assert( standardDeviationProperty instanceof NumberProperty );
     assert && assert( domainProperty instanceof EnumerationProperty );
+    assert && assert( tandem instanceof Tandem );
 
-    options = merge( {
+    const options = {
 
       // NumberDisplay options
       delta: DELTA,
@@ -58,8 +59,11 @@ export default class StandardDeviationControl extends WavePacketNumberControl {
         keyboardStep: Math.PI / 4,
         // shiftKeyboardStep is set to options.delta by NumberControl
         pageKeyboardStep: Math.PI / 2
-      }
-    }, options );
+      },
+
+      // phet-io
+      tandem: tandem
+    };
 
     assert && assert( _.every( options.sliderOptions.majorTicks, tick => standardDeviationProperty.range.contains( tick.value ) ),
       'a tick mark is out of range' );

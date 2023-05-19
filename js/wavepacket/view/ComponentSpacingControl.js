@@ -11,7 +11,6 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { RichText } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -31,15 +30,16 @@ export default class ComponentSpacingControl extends WavePacketNumberControl {
   /**
    * @param {NumberProperty} componentSpacingProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( componentSpacingProperty, domainProperty, options ) {
+  constructor( componentSpacingProperty, domainProperty, tandem ) {
 
     assert && assert( componentSpacingProperty instanceof NumberProperty );
     assert && assert( componentSpacingProperty.validValues );
     assert && assert( domainProperty instanceof EnumerationProperty );
+    assert && assert( tandem instanceof Tandem );
 
-    options = merge( {
+    const options = {
 
       // NumberDisplay options
       delta: 1, // because the control is setting an index
@@ -47,6 +47,12 @@ export default class ComponentSpacingControl extends WavePacketNumberControl {
       // Slider options
       sliderOptions: {
         constrainValue: value => Utils.roundSymmetric( value ),
+
+        // Default pointer areas for slider overlaps with checkboxes below it. We can't eliminate this overlap because
+        // we can't afford to add vertical space. So do our best to mitigate the issue by shrinking the slider's touchArea.
+        // It would be nicer if we could shift the slider's touchArea up, but that isn't supported by the Slider API.
+        // See https://github.com/phetsims/fourier-making-waves/issues/196
+        thumbTouchAreaYDilation: 5,
 
         // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
         // It was easy to change during development, and is supported by assertions below.
@@ -64,8 +70,8 @@ export default class ComponentSpacingControl extends WavePacketNumberControl {
       },
 
       // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+      tandem: tandem
+    };
 
     // componentSpacingProperty has a small set of valid values. Only those values are to be settable via this Slider,
     // and they are to be distributed at equally-space tick marks on the Slider. So we create an index into this set

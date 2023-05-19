@@ -10,9 +10,9 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { RichText } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
@@ -30,14 +30,15 @@ export default class ConjugateStandardDeviationControl extends WavePacketNumberC
   /**
    * @param {NumberProperty} conjugateStandardDeviationProperty
    * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( conjugateStandardDeviationProperty, domainProperty, options ) {
+  constructor( conjugateStandardDeviationProperty, domainProperty, tandem ) {
 
     assert && assert( conjugateStandardDeviationProperty instanceof NumberProperty );
     assert && assert( domainProperty instanceof EnumerationProperty );
+    assert && assert( tandem instanceof Tandem );
 
-    options = merge( {
+    const options = {
 
       // NumberDisplay options
       delta: DELTA,
@@ -47,6 +48,13 @@ export default class ConjugateStandardDeviationControl extends WavePacketNumberC
 
       // Slider options
       sliderOptions: {
+
+        // Default pointer area for slider overlaps WidthIndicatorsCheckbox.
+        // We can't eliminate this overlap because we can't afford to add vertical space. So do our best to mitigate
+        // the issue by shrinking the slider's touchArea. It would be nicer if we could shift the slider's touchArea
+        // up, but that isn't supported by the Slider API.
+        // See https://github.com/phetsims/fourier-making-waves/issues/124#issuecomment-897229707
+        thumbTouchAreaYDilation: 5,
 
         // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
         // It was easy to change during development, and is supported by the assertions below.
@@ -60,8 +68,11 @@ export default class ConjugateStandardDeviationControl extends WavePacketNumberC
         keyboardStep: 0.01,
         // shiftKeyboardStep is set to options.delta by NumberControl
         pageKeyboardStep: 0.02
-      }
-    }, options );
+      },
+
+      // phet-io
+      tandem: tandem
+    };
 
     assert && assert( _.every( options.sliderOptions.majorTicks, tick => conjugateStandardDeviationProperty.range.contains( tick.value ) ),
       'a tick mark is out of range' );

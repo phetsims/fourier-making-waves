@@ -137,17 +137,8 @@ class ComponentSpacingSubpanel extends VBox {
       tandem: tandem.createTandem( 'componentSpacingText' )
     } );
 
-    const componentSpacingControl = new ComponentSpacingControl( componentSpacingProperty, domainProperty, {
-      sliderOptions: {
-
-        // Default pointer areas for slider and checkboxes overlap. We can't eliminate this overlap because we can't
-        // afford to add vertical space. So do our best to mitigate the issue by shrinking the slider's touchArea.
-        // It would be nicer if we could shift the slider's touchArea up, but that isn't supported by the Slider API.
-        // See https://github.com/phetsims/fourier-making-waves/issues/196
-        thumbTouchAreaYDilation: 5
-      },
-      tandem: tandem.createTandem( 'componentSpacingControl' )
-    } );
+    const componentSpacingControl = new ComponentSpacingControl( componentSpacingProperty, domainProperty,
+      tandem.createTandem( 'componentSpacingControl' ) );
 
     const componentSpacingToolCheckbox = new ComponentSpacingToolCheckbox( componentSpacingToolVisibleProperty,
       domainProperty, tandem.createTandem( 'componentSpacingToolCheckbox' ) );
@@ -240,23 +231,11 @@ class WavePacketWidthSubpanel extends VBox {
       tandem: tandem.createTandem( 'wavePacketWidthText' )
     } );
 
-    const standardDeviationControl = new StandardDeviationControl( standardDeviationProperty, domainProperty, {
-      tandem: tandem.createTandem( 'standardDeviationControl' )
-    } );
+    const standardDeviationControl = new StandardDeviationControl( standardDeviationProperty, domainProperty,
+      tandem.createTandem( 'standardDeviationControl' ) );
 
-    const conjugateStandardDeviationControl =
-      new ConjugateStandardDeviationControl( conjugateStandardDeviationProperty, domainProperty, {
-        sliderOptions: {
-
-          // Default pointer areas for widthIndicatorsCheckbox and standardDeviationControl.slider overlap.
-          // We can't eliminate this overlap because we can't afford to add vertical space. So do our best to mitigate
-          // the issue by shrinking the slider's touchArea. It would be nicer if we could shift the slider's touchArea
-          // up, but that isn't supported by the Slider API.
-          // See https://github.com/phetsims/fourier-making-waves/issues/124#issuecomment-897229707
-          thumbTouchAreaYDilation: 5
-        },
-        tandem: tandem.createTandem( 'conjugateStandardDeviationControl' )
-      } );
+    const conjugateStandardDeviationControl = new ConjugateStandardDeviationControl( conjugateStandardDeviationProperty,
+      domainProperty, tandem.createTandem( 'conjugateStandardDeviationControl' ) );
 
     // Interaction with these 2 controls is mutually-exclusive, because they both change standardDeviation.
     standardDeviationControl.isPressedProperty.link( isPressed => {
