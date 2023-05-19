@@ -7,8 +7,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import merge from '../../../../phet-core/js/merge.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -25,20 +25,14 @@ export default class ComponentSpacingToolNode extends WavePacketMeasurementToolN
   constructor( componentSpacingProperty, chartTransform, domainProperty, options ) {
 
     options = merge( {
-      calipersNodeOptions: {
-        pathOptions: {
-          fill: FMWColors.componentSpacingToolFillProperty
-        }
-      }
+      fill: FMWColors.componentSpacingToolFillProperty,
+      spaceSymbolStringProperty: new DerivedProperty( [ FMWSymbols.kStringProperty ],
+        k => `${k}<sub>1</sub>` ),
+      timeSymbolStringProperty: new DerivedProperty( [ FMWSymbols.omegaStringProperty ],
+        omega => `${omega}<sub>1</sub>` )
     }, options );
 
-    const spaceSymbolStringProperty = new DerivedProperty( [ FMWSymbols.kStringProperty ],
-        k => `${k}<sub>1</sub>` );
-
-    const timeSymbolStringProperty = new DerivedProperty( [ FMWSymbols.omegaStringProperty ],
-      omega => `${omega}<sub>1</sub>` );
-
-    super( componentSpacingProperty, chartTransform, domainProperty, spaceSymbolStringProperty, timeSymbolStringProperty, options );
+    super( componentSpacingProperty, chartTransform, domainProperty, options );
   }
 }
 

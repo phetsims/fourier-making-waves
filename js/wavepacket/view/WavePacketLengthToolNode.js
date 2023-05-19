@@ -25,20 +25,14 @@ export default class WavePacketLengthToolNode extends WavePacketMeasurementToolN
   constructor( lengthProperty, chartTransform, domainProperty, options ) {
 
     options = merge( {
-      calipersNodeOptions: {
-        pathOptions: {
-          fill: FMWColors.wavePacketLengthToolFillProperty
-        }
-      }
+      fill: FMWColors.wavePacketLengthToolFillProperty,
+      spaceSymbolStringProperty: new DerivedProperty( [ FMWSymbols.lambdaStringProperty ],
+        lambda => `${lambda}<sub>1</sub>` ),
+      timeSymbolStringProperty: new DerivedProperty( [ FMWSymbols.TStringProperty ],
+        T => `${T}<sub>1</sub>` )
     }, options );
 
-    const spaceSymbolStringProperty = new DerivedProperty( [ FMWSymbols.lambdaStringProperty ],
-      lambda => `${lambda}<sub>1</sub>` );
-
-    const timeSymbolStringProperty = new DerivedProperty( [ FMWSymbols.TStringProperty ],
-      T => `${T}<sub>1</sub>` );
-
-    super( lengthProperty, chartTransform, domainProperty, spaceSymbolStringProperty, timeSymbolStringProperty, options );
+    super( lengthProperty, chartTransform, domainProperty, options );
   }
 }
 
