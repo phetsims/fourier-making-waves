@@ -26,14 +26,7 @@ const Y_TICK_LABEL_DECIMALS = 2;
 
 export default class WavePacketSumChartNode extends DomainChartNode {
 
-  /**
-   * @param {WavePacketSumChart} sumChart
-   * @param {Tandem} tandem
-   */
-  constructor( sumChart, tandem ) {
-
-    assert && assert( sumChart instanceof WavePacketSumChart );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( sumChart: WavePacketSumChart, tandem: Tandem ) {
 
     // Fields of interest in sumChart, to improve readability
     const domainProperty = sumChart.domainProperty;
@@ -130,11 +123,7 @@ export default class WavePacketSumChartNode extends DomainChartNode {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
