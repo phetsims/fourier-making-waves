@@ -106,9 +106,7 @@ export default class WavePacketControlPanel extends Panel {
     } );
 
     // Dialog that displays a key for math symbols. Created eagerly and reused for PhET-iO.
-    const infoDialog = new WavePacketInfoDialog( {
-      tandem: options.tandem.createTandem( 'infoDialog' )
-    } );
+    const infoDialog = new WavePacketInfoDialog( options.tandem.createTandem( 'infoDialog' ) );
 
     // Button to open the dialog.
     const infoButton = new InfoButton( {
