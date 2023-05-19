@@ -9,7 +9,6 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import { HBox, HSeparator, Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
@@ -29,26 +28,20 @@ import LengthToolCheckbox from './LengthToolCheckbox.js';
 import StandardDeviationControl from './StandardDeviationControl.js';
 import WavePacketInfoDialog from './WavePacketInfoDialog.js';
 import WidthIndicatorsCheckbox from './WidthIndicatorsCheckbox.js';
+import Property from '../../../../axon/js/Property.js';
+import Domain from '../../common/model/Domain.js';
+import SeriesType from '../../common/model/SeriesType.js';
 
 // constants
 const VERTICAL_SPACING = 7;
 
 export default class WavePacketControlPanel extends Panel {
 
-  /**
-   * @param {WavePacketModel} model
-   * @param {Property.<boolean>} componentSpacingToolVisibleProperty
-   * @param {Property.<boolean>} lengthToolVisibleProperty
-   * @param {Node} popupParent
-   * @param {Tandem} tandem
-   */
-  constructor( model, componentSpacingToolVisibleProperty, lengthToolVisibleProperty, popupParent, tandem ) {
-
-    assert && assert( model instanceof WavePacketModel );
-    assert && AssertUtils.assertPropertyOf( componentSpacingToolVisibleProperty, 'boolean' );
-    assert && AssertUtils.assertPropertyOf( lengthToolVisibleProperty, 'boolean' );
-    assert && assert( popupParent instanceof Node );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( model: WavePacketModel,
+                      componentSpacingToolVisibleProperty: Property<boolean>,
+                      lengthToolVisibleProperty: Property<boolean>,
+                      popupParent: Node,
+                      tandem: Tandem ) {
 
     const componentSpacingSubpanel = new ComponentSpacingSubpanel( model.domainProperty,
       model.wavePacket.componentSpacingProperty, componentSpacingToolVisibleProperty, lengthToolVisibleProperty,
@@ -129,20 +122,13 @@ export default class WavePacketControlPanel extends Panel {
  */
 class ComponentSpacingSubpanel extends VBox {
 
-  /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Property} componentSpacingProperty
-   * @param {Property.<boolean>} componentSpacingToolVisibleProperty
-   * @param {Property.<boolean>} lengthToolVisibleProperty
-   * @param {Tandem} tandem
-   */
-  constructor( domainProperty, componentSpacingProperty, componentSpacingToolVisibleProperty, lengthToolVisibleProperty, tandem ) {
+  public readonly componentSpacingText: Node; // for layout
 
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && AssertUtils.assertPropertyOf( componentSpacingProperty, 'number' );
-    assert && AssertUtils.assertPropertyOf( componentSpacingToolVisibleProperty, 'boolean' );
-    assert && AssertUtils.assertPropertyOf( lengthToolVisibleProperty, 'boolean' );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( domainProperty: EnumerationProperty<Domain>,
+                      componentSpacingProperty: NumberProperty,
+                      componentSpacingToolVisibleProperty: Property<boolean>,
+                      lengthToolVisibleProperty: Property<boolean>,
+                      tandem: Tandem ) {
 
     // Title for this subpanel
     const componentSpacingText = new Text( FourierMakingWavesStrings.componentSpacingStringProperty, {
@@ -192,15 +178,10 @@ class ComponentSpacingSubpanel extends VBox {
       tandem: Tandem.REQUIRED
     } );
 
-    // @public for layout
     this.componentSpacingText = componentSpacingText;
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
@@ -211,18 +192,9 @@ class ComponentSpacingSubpanel extends VBox {
  */
 class WavePacketCenterSubpanel extends VBox {
 
-  /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} centerProperty
-   * @param {Tandem} tandem
-   */
-  constructor( domainProperty, centerProperty, tandem ) {
+  public constructor( domainProperty: EnumerationProperty<Domain>, centerProperty: NumberProperty, tandem: Tandem ) {
 
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( centerProperty instanceof NumberProperty );
-    assert && assert( tandem instanceof Tandem );
-
-    /// Title for this subpanel
+    // Title for this subpanel
     const wavePacketCenterText = new Text( FourierMakingWavesStrings.wavePacketCenterStringProperty, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 180, // determined empirically
@@ -246,11 +218,7 @@ class WavePacketCenterSubpanel extends VBox {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
@@ -261,20 +229,11 @@ class WavePacketCenterSubpanel extends VBox {
  */
 class WavePacketWidthSubpanel extends VBox {
 
-  /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {NumberProperty} standardDeviationProperty
-   * @param {NumberProperty} conjugateStandardDeviationProperty
-   * @param {Property.<boolean>} widthIndicatorsVisibleProperty
-   * @param {Tandem} tandem
-   */
-  constructor( domainProperty, standardDeviationProperty, conjugateStandardDeviationProperty, widthIndicatorsVisibleProperty, tandem ) {
-
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( standardDeviationProperty instanceof NumberProperty );
-    assert && assert( conjugateStandardDeviationProperty instanceof NumberProperty );
-    assert && AssertUtils.assertPropertyOf( widthIndicatorsVisibleProperty, 'boolean' );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( domainProperty: EnumerationProperty<Domain>,
+                      standardDeviationProperty: NumberProperty,
+                      conjugateStandardDeviationProperty: NumberProperty,
+                      widthIndicatorsVisibleProperty: Property<boolean>,
+                      tandem: Tandem ) {
 
     // Title for this subpanel
     const wavePacketWidthText = new Text( FourierMakingWavesStrings.wavePacketWidthStringProperty, {
@@ -333,11 +292,7 @@ class WavePacketWidthSubpanel extends VBox {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
@@ -348,18 +303,10 @@ class WavePacketWidthSubpanel extends VBox {
  */
 class GraphControlsSubpanel extends VBox {
 
-  /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationDeprecatedProperty.<SeriesType>} seriesTypeProperty
-   * @param {Node} popupParent
-   * @param {Tandem} tandem
-   */
-  constructor( domainProperty, seriesTypeProperty, popupParent, tandem ) {
-
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
-    assert && assert( popupParent instanceof Node );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( domainProperty: EnumerationProperty<Domain>,
+                      seriesTypeProperty: EnumerationProperty<SeriesType>,
+                      popupParent: Node,
+                      tandem: Tandem ) {
 
     // Title for this subpanel
     const graphControlsText = new Text( FourierMakingWavesStrings.graphControlsStringProperty, {
@@ -414,11 +361,7 @@ class GraphControlsSubpanel extends VBox {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
