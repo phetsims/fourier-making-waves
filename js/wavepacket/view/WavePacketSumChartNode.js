@@ -8,8 +8,8 @@
 
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { Node } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
@@ -28,12 +28,12 @@ export default class WavePacketSumChartNode extends DomainChartNode {
 
   /**
    * @param {WavePacketSumChart} sumChart
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( sumChart, options ) {
+  constructor( sumChart, tandem ) {
 
     assert && assert( sumChart instanceof WavePacketSumChart );
-    assert && assert( options && options.tandem );
+    assert && assert( tandem instanceof Tandem );
 
     // Fields of interest in sumChart, to improve readability
     const domainProperty = sumChart.domainProperty;
@@ -45,10 +45,10 @@ export default class WavePacketSumChartNode extends DomainChartNode {
     const waveformEnvelopeDataSetProperty = sumChart.waveformEnvelopeDataSetProperty;
     const yAxisDescription = sumChart.yAxisDescription;
 
-    options = merge( {
+    super( sumChart, {
 
       // x-axis with dynamic scale and zoom buttons
-      xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty, options.tandem.createTandem( 'xZoomLevelProperty' ) ),
+      xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty, tandem.createTandem( 'xZoomLevelProperty' ) ),
       xTickLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, X_TICK_LABEL_DECIMALS )
       },
@@ -56,16 +56,17 @@ export default class WavePacketSumChartNode extends DomainChartNode {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
       },
 
-      // y axis with fixed scale
+      // y-axis with fixed scale
       chartTransformOptions: {
         modelYRange: yAxisDescription.range
       },
       yGridLineSpacing: yAxisDescription.gridLineSpacing,
       yTickMarkSpacing: yAxisDescription.tickMarkSpacing,
-      yTickLabelSpacing: yAxisDescription.tickLabelSpacing
-    }, options );
+      yTickLabelSpacing: yAxisDescription.tickLabelSpacing,
 
-    super( sumChart, options );
+      // phet-io
+      tandem: tandem
+    } );
 
     // NOTE: CanvasLinePlot dataSets are initialized to [] because the listeners to their data set Properties
     // also handle y-axis scaling.

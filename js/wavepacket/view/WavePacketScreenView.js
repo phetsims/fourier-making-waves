@@ -157,9 +157,7 @@ export default class WavePacketScreenView extends ScreenView {
       } );
 
     // Sum chart
-    const sumChartNode = new WavePacketSumChartNode( model.sumChart, {
-      tandem: sumTandem.createTandem( 'sumChartNode' )
-    } );
+    const sumChartNode = new WavePacketSumChartNode( model.sumChart, sumTandem.createTandem( 'sumChartNode' ) );
 
     // Equation above the Sum chart
     const sumEquationNode = new WavePacketSumEquationNode( model.domainProperty, model.seriesTypeProperty,
