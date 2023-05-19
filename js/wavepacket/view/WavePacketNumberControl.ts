@@ -10,28 +10,34 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
-import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
+import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import { FireListener } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import Domain from '../../common/model/Domain.js';
+import { EmptySelfOptions, optionize3 } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+
+type SelfOptions = EmptySelfOptions;
+
+export type WavePacketNumberControlOptions = SelfOptions & NumberControlOptions &
+  PickRequired<NumberControlOptions, 'tandem'>;
 
 export default class WavePacketNumberControl extends NumberControl {
 
-  /**
-   * @param {NumberProperty} numberProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Object} [options]
-   */
-  constructor( numberProperty, domainProperty, options ) {
-    assert && assert( numberProperty instanceof NumberProperty );
-    assert && assert( domainProperty instanceof EnumerationProperty );
+  // Whether the user is interacting with this control.
+  // This is used to ensure that some controls are mutually exclusive. For example,
+  // StandardDeviationControl and ConjugateStandardDeviationControl cannot be used at the same time.
+  public readonly isPressedProperty: TReadOnlyProperty<boolean>;
+
+  protected constructor( numberProperty: NumberProperty,
+                         domainProperty: EnumerationProperty<Domain>,
+                         providedOptions: WavePacketNumberControlOptions ) {
 
     //TODO https://github.com/phetsims/fourier-making-waves/issues/56 add Slider sound
-    options = merge( {
-      tandem: Tandem.REQUIRED
-    }, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, options );
+    const options = optionize3<WavePacketNumberControlOptions, SelfOptions, NumberControlOptions>()(
+      {}, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, providedOptions );
 
     // The layoutFunction doesn't use the title, so provide empty string.
     super( '', numberProperty, numberProperty.range, options );
@@ -55,9 +61,6 @@ export default class WavePacketNumberControl extends NumberControl {
       } );
     }
 
-    // @public {DerivedProperty.<boolean>} Whether the user is interacting with this control.
-    // This is used to ensure that some controls are mutually exclusive. For example,
-    // StandardDeviationControl and ConjugateStandardDeviationControl cannot be used at the same time.
     this.isPressedProperty = new DerivedProperty(
       [ this.slider.thumbDragListener.isPressedProperty, this.slider.trackDragListener.isPressedProperty ],
       ( thumbIsPressed, trackIsPressed ) => ( thumbIsPressed || trackIsPressed ) );
