@@ -10,63 +10,60 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, RichText } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, RichText } from '../../../../scenery/js/imports.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import HorizontalDimensionalArrowsNode from './HorizontalDimensionalArrowsNode.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+
+type SelfOptions = {
+  spaceSymbolStringProperty: TReadOnlyProperty<string>; // symbol for the space Domain
+  timeSymbolStringProperty: TReadOnlyProperty<string>; // symbol for the time Domain
+};
+
+type WidthIndicatorPlotOptions = SelfOptions & PickRequired<NodeOptions, 'visibleProperty'>;
 
 export default class WidthIndicatorPlot extends Node {
 
   /**
-   * @param {ChartTransform} chartTransform - transform for the chart that renders this plot
-   * @param {ReadOnlyProperty.<number>} widthProperty - width of the indicator, in model coordinates
-   * @param {ReadOnlyProperty.<Vector2>} positionProperty - position of the indicator, in model coordinates
-   * @param {EnumerationProperty.<Domain>} domainProperty - the Domain, space or time
-   * @param {TReadOnlyProperty.<string>} spaceSymbolStringProperty - symbol for the space Domain
-   * @param {TReadOnlyProperty.<string>} timeSymbolStringProperty - symbol for the time Domain
-   * @param {Object} [options]
+   * @param chartTransform - transform for the chart that renders this plot
+   * @param widthProperty - width of the indicator, in model coordinates
+   * @param positionProperty - position of the indicator, in model coordinates
+   * @param domainProperty - the Domain, space or time
+   * @param providedOptions
    */
-  constructor( chartTransform, widthProperty, positionProperty, domainProperty,
-               spaceSymbolStringProperty, timeSymbolStringProperty, options ) {
+  public constructor( chartTransform: ChartTransform,
+                      widthProperty: TReadOnlyProperty<number>,
+                      positionProperty: TReadOnlyProperty<Vector2>,
+                      domainProperty: EnumerationProperty<Domain>,
+                      providedOptions: WidthIndicatorPlotOptions ) {
 
-    assert && assert( chartTransform instanceof ChartTransform );
-    assert && AssertUtils.assertAbstractPropertyOf( widthProperty, 'number' );
-    assert && AssertUtils.assertAbstractPropertyOf( positionProperty, Vector2 );
-    assert && assert( domainProperty instanceof EnumerationProperty );
-
-    options = merge( {
-
-      // HorizontalDimensionalArrowsNode options
-      dimensionalArrowsNodeOptions: {
-        color: FMWColors.widthIndicatorsColorProperty
-      },
-
-      // RichText options
-      richTextOptions: {
-        font: new PhetFont( 16 ),
-        stroke: FMWColors.widthIndicatorsColorProperty,
-        maxWidth: 150
-      }
-    }, options );
+    const options = optionize<WidthIndicatorPlotOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
 
     // Dimensional arrows
-    const dimensionalArrowsNode = new HorizontalDimensionalArrowsNode( options.dimensionalArrowsNodeOptions );
+    const dimensionalArrowsNode = new HorizontalDimensionalArrowsNode( {
+      color: FMWColors.widthIndicatorsColorProperty
+    } );
 
     const labelStringProperty = new DerivedProperty(
-      [ domainProperty, FMWSymbols.sigmaStringProperty, spaceSymbolStringProperty, timeSymbolStringProperty ],
+      [ domainProperty, FMWSymbols.sigmaStringProperty, options.spaceSymbolStringProperty, options.timeSymbolStringProperty ],
       ( domain, sigma, spaceSymbol, timeSymbol ) => {
         const waveNumberSymbol = ( domain === Domain.SPACE ) ? spaceSymbol : timeSymbol;
         return `2${sigma}<sub>${waveNumberSymbol}</sub>`;
       } );
 
     // Label on a translucent background that resizes to fit the label.
-    const labelNode = new RichText( labelStringProperty, options.richTextOptions );
+    const labelNode = new RichText( labelStringProperty, {
+      font: new PhetFont( 16 ),
+      stroke: FMWColors.widthIndicatorsColorProperty,
+      maxWidth: 150
+    } );
     const backgroundNode = new BackgroundNode( labelNode, {
       xMargin: 5,
       rectangleOptions: {
@@ -74,15 +71,12 @@ export default class WidthIndicatorPlot extends Node {
       }
     } );
 
-    assert && assert( !options.children, 'DimensionalArrowsNode sets children' );
-    options = merge( {
-      children: [ dimensionalArrowsNode, backgroundNode ]
-    }, options );
+    options.children = [ dimensionalArrowsNode, backgroundNode ];
 
     super( options );
 
     // Center the label BELOW the dimensional arrows, so that it doesn't get clipped by the charts.
-    function updateLabelPosition() {
+    function updateLabelPosition(): void {
       backgroundNode.centerX = dimensionalArrowsNode.centerX;
       backgroundNode.top = dimensionalArrowsNode.bottom;
     }
@@ -90,7 +84,7 @@ export default class WidthIndicatorPlot extends Node {
     backgroundNode.boundsProperty.link( bounds => updateLabelPosition() );
 
     // Resize the dimensional arrows, and center them on the position.
-    function updateDimensionalArrows() {
+    function updateDimensionalArrows(): void {
       const viewWidth = chartTransform.modelToViewDeltaX( widthProperty.value );
       dimensionalArrowsNode.setLine( 0, viewWidth );
       dimensionalArrowsNode.center = chartTransform.modelToViewPosition( positionProperty.value );
