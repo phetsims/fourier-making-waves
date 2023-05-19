@@ -12,7 +12,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Keypad from '../../../../scenery-phet/js/keypad/Keypad.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -24,7 +23,7 @@ import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
@@ -266,7 +265,7 @@ class KeypadStringDisplay extends Node {
 
     const rectangle = new Rectangle( 0, 0, options.width, options.height, options.rectangleOptions );
 
-    const textNode = new RichText( '', merge( {
+    const textNode = new RichText( '', combineOptions<RichTextOptions>( {
       maxWidth: rectangle.width - 2 * options.xMargin,
       maxHeight: rectangle.height - 2 * options.yMargin
     }, options.textOptions ) );

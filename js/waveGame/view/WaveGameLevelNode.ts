@@ -11,8 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import merge from '../../../../phet-core/js/merge.js';
-import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
+import EraserButton, { EraserButtonOptions } from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -40,6 +39,7 @@ import WaveGameHarmonicsChartNode from './WaveGameHarmonicsChartNode.js';
 import WaveGameRewardNode from './WaveGameRewardNode.js';
 import WaveGameSumChartNode from './WaveGameSumChartNode.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const DEFAULT_FONT = new PhetFont( 16 );
@@ -115,8 +115,8 @@ export default class WaveGameLevelNode extends Node {
       amplitudes => !!_.find( amplitudes, amplitude => ( amplitude !== 0 ) )
     );
 
-    // Eraser button sets all of the amplitudes in the guess to zero.
-    const eraserButton = new EraserButton( merge( {}, FMWConstants.ERASER_BUTTON_OPTIONS, {
+    // Eraser button sets all amplitudes in the guess to zero.
+    const eraserButton = new EraserButton( combineOptions<EraserButtonOptions>( {}, FMWConstants.ERASER_BUTTON_OPTIONS, {
       listener: () => {
         this.interruptSubtreeInput();
         level.eraseAmplitudes();

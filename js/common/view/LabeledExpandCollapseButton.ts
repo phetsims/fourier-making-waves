@@ -6,12 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import { FireListener, HBox, HBoxOptions, Text, TextOptions } from '../../../../scenery/js/imports.js';
 import ExpandCollapseButton from '../../../../sun/js/ExpandCollapseButton.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -40,7 +39,7 @@ export default class LabeledExpandCollapseButton extends HBox {
       spacing: 6
     }, providedOptions );
 
-    const labelText = new Text( labelStringProperty, merge( {
+    const labelText = new Text( labelStringProperty, combineOptions<TextOptions>( {
       cursor: 'pointer',
       tandem: options.tandem.createTandem( 'labelText' )
     }, options.textOptions ) );

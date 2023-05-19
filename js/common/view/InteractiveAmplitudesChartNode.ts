@@ -18,7 +18,6 @@ import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import TickLabelSet from '../../../../bamboo/js/TickLabelSet.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
 import { Node, NodeOptions, RichText, Text } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -32,7 +31,7 @@ import AmplitudeNumberDisplay, { AmplitudeNumberDisplayOptions } from './Amplitu
 import AmplitudeSlider, { AmplitudeSliderOptions } from './AmplitudeSlider.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const X_MARGIN = 0.5; // x-axis margins, in model coordinates
@@ -84,7 +83,7 @@ export default class InteractiveAmplitudesChartNode extends Node {
     const emphasizedHarmonics = amplitudesChart.emphasizedHarmonics;
 
     // the transform from model to view coordinates
-    const chartTransform = new ChartTransform( merge( {
+    const chartTransform = new ChartTransform( combineOptions<ChartTransformOptions>( {
       modelXRange: new Range( 1 - X_MARGIN, fourierSeries.harmonics.length + X_MARGIN ),
       modelYRange: fourierSeries.amplitudeRange
     }, options.chartTransformOptions ) );
@@ -103,7 +102,7 @@ export default class InteractiveAmplitudesChartNode extends Node {
 
     // {AmplitudeSlider[]} Create a slider for each harmonic's amplitude
     const sliders = fourierSeries.harmonics.map( harmonic =>
-      new AmplitudeSlider( harmonic, emphasizedHarmonics, merge( {
+      new AmplitudeSlider( harmonic, emphasizedHarmonics, combineOptions<AmplitudeSliderOptions>( {
         startDrag: options.onEdit,
         trackHeight: options.chartTransformOptions.viewHeight,
         center: chartTransform.modelToViewXY( harmonic.order, 0 ),
@@ -116,12 +115,13 @@ export default class InteractiveAmplitudesChartNode extends Node {
 
     // {AmplitudeNumberDisplay[]} Create a number display for each harmonic's amplitude
     const numberDisplays = fourierSeries.harmonics.map( harmonic =>
-      new AmplitudeNumberDisplay( harmonic, emphasizedHarmonics, amplitudeKeypadDialog, merge( {
-        press: options.onEdit,
-        centerX: chartTransform.modelToViewX( harmonic.order ),
-        bottom: chartRectangle.top - 10,
-        tandem: options.tandem.createTandem( `amplitude${harmonic.order}NumberDisplay` )
-      }, options.amplitudeNumberDisplayOptions ) )
+      new AmplitudeNumberDisplay( harmonic, emphasizedHarmonics, amplitudeKeypadDialog,
+        combineOptions<AmplitudeNumberDisplayOptions>( {
+          press: options.onEdit,
+          centerX: chartTransform.modelToViewX( harmonic.order ),
+          bottom: chartRectangle.top - 10,
+          tandem: options.tandem.createTandem( `amplitude${harmonic.order}NumberDisplay` )
+        }, options.amplitudeNumberDisplayOptions ) )
     );
     const numberDisplaysParent = new Node( {
       children: numberDisplays

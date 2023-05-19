@@ -14,7 +14,7 @@ import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
-import { Color, Node, Path, PressListener, Rectangle } from '../../../../scenery/js/imports.js';
+import { Color, Node, NodeTranslationOptions, Path, PressListener, Rectangle } from '../../../../scenery/js/imports.js';
 import Slider, { SliderOptions } from '../../../../sun/js/Slider.js';
 import SliderTrack, { SliderTrackOptions } from '../../../../sun/js/SliderTrack.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -43,8 +43,8 @@ type SelfOptions = {
   mouseTouchStep?: number; // snap to this interval when using mouse/touch, unless the value is min or max
 };
 
-export type AmplitudeSliderOptions = SelfOptions &
-  PickOptional<SliderOptions, 'keyboardStep' | 'shiftKeyboardStep' | 'pageKeyboardStep'> &
+export type AmplitudeSliderOptions = SelfOptions & NodeTranslationOptions &
+  PickOptional<SliderOptions, 'startDrag' | 'keyboardStep' | 'shiftKeyboardStep' | 'pageKeyboardStep'> &
   PickRequired<SliderOptions, 'tandem'>;
 
 export default class AmplitudeSlider extends Slider {

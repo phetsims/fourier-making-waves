@@ -158,7 +158,7 @@ const FMWConstants = {
 
 // Verify some of the above constants
 assert && assert( Number.isInteger( FMWConstants.MAX_HARMONICS ) && FMWConstants.MAX_HARMONICS > 0 );
-assert && assert( Number.isInteger( FMWConstants.MAX_AMPLITUDE ) && FMWConstants.MAX_HARMONICS > 0 );
+assert && assert( FMWConstants.MAX_AMPLITUDE > 0 );
 
 // Verify that all steps are valid for the number of amplitude decimal places in the Discrete screen.
 assert && assert( Utils.numberOfDecimalPlaces( FMWConstants.MAX_AMPLITUDE ) <= FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES );
