@@ -13,19 +13,14 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import SeriesType from '../../common/model/SeriesType.js';
+import Domain from '../../common/model/Domain.js';
 
 export default class ComponentsEquationText extends RichText {
 
-  /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {Tandem} tandem
-   */
-  constructor( domainProperty, seriesTypeProperty, tandem ) {
-
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( domainProperty: EnumerationProperty<Domain>,
+                      seriesTypeProperty: EnumerationProperty<SeriesType>,
+                      tandem: Tandem ) {
 
     super( '', {
       font: FMWConstants.EQUATION_FONT,
@@ -40,11 +35,7 @@ export default class ComponentsEquationText extends RichText {
       } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
