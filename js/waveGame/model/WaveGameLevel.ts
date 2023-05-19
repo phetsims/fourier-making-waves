@@ -16,7 +16,6 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
@@ -116,7 +115,7 @@ export default class WaveGameLevel extends PhetioObject {
    */
   public constructor( levelNumber: number, providedOptions: WaveGameLevelOptions ) {
 
-    assert && AssertUtils.assertPositiveInteger( levelNumber ); // numbered starting from 1
+    assert && assert( Number.isInteger( levelNumber ) && levelNumber > 0 ); // numbered starting from 1
 
     const options = optionize<WaveGameLevelOptions, SelfOptions, PhetioObjectOptions>()( {
 

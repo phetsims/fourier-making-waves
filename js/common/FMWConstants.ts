@@ -15,7 +15,6 @@ import ArrowButton from '../../../sun/js/buttons/ArrowButton.js';
 import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
 import { PanelOptions } from '../../../sun/js/Panel.js';
 import Slider from '../../../sun/js/Slider.js';
-import AssertUtils from '../../../phetcommon/js/AssertUtils.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import { Node, VBox } from '../../../scenery/js/imports.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
@@ -158,8 +157,8 @@ const FMWConstants = {
 };
 
 // Verify some of the above constants
-assert && AssertUtils.assertPositiveInteger( FMWConstants.MAX_HARMONICS );
-assert && AssertUtils.assertPositiveNumber( FMWConstants.MAX_AMPLITUDE );
+assert && assert( Number.isInteger( FMWConstants.MAX_HARMONICS ) && FMWConstants.MAX_HARMONICS > 0 );
+assert && assert( Number.isInteger( FMWConstants.MAX_AMPLITUDE ) && FMWConstants.MAX_HARMONICS > 0 );
 
 // Verify that all steps are valid for the number of amplitude decimal places in the Discrete screen.
 assert && assert( Utils.numberOfDecimalPlaces( FMWConstants.MAX_AMPLITUDE ) <= FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES );

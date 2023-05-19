@@ -10,7 +10,6 @@
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import Utils from '../../../../dot/js/Utils.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
@@ -77,7 +76,6 @@ export default class AmplitudesGenerator {
       phet.log && phet.log( `WARNING: Similar amplitudes were generated ${attempts} times in a row.` );
     }
 
-    assert && AssertUtils.assertArrayOf( amplitudes, 'number' );
     assert && assert( amplitudes.length === this.numberOfHarmonics );
     return amplitudes;
   }
