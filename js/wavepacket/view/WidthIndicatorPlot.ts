@@ -47,9 +47,7 @@ export default class WidthIndicatorPlot extends Node {
     const options = optionize<WidthIndicatorPlotOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
 
     // Dimensional arrows
-    const dimensionalArrowsNode = new HorizontalDimensionalArrowsNode( {
-      color: FMWColors.widthIndicatorsColorProperty
-    } );
+    const dimensionalArrowsNode = new HorizontalDimensionalArrowsNode( FMWColors.widthIndicatorsColorProperty );
 
     const labelStringProperty = new DerivedProperty(
       [ domainProperty, FMWSymbols.sigmaStringProperty, options.spaceSymbolStringProperty, options.timeSymbolStringProperty ],

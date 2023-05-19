@@ -111,11 +111,9 @@ const FMWIconFactory = {
    * Creates the icon for the 'Width Indicators' checkbox
    */
   createWidthIndicatorsIcon(): Node {
-    return new HorizontalDimensionalArrowsNode( {
-      x1: 0,
-      x2: 45,
-      color: FMWColors.widthIndicatorsColorProperty
-    } );
+    const icon = new HorizontalDimensionalArrowsNode( FMWColors.widthIndicatorsColorProperty );
+    icon.setLine( 0, 45 );
+    return icon;
   }
 };
 

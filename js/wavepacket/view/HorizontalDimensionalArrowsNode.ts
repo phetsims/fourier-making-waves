@@ -3,8 +3,6 @@
 /**
  * HorizontalDimensionalArrowsNode draws horizontal dimensions arrows, like this: |<---->|
  *
- * Note that we cannot use ArrowNode because it does not support lineDash.
- *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
@@ -12,70 +10,59 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
-import { Line, Node, Path } from '../../../../scenery/js/imports.js';
+import { Line, Node, Path, TColor } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+
+const HORIZONTAL_LINE_WIDTH = 2;
+const VERTICAL_LINE_WIDTH = 2;
+const VERTICAL_LINE_LENGTH = 14;
+const ARROW_HEAD_DIMENSIONS = new Dimension2( 8, 8 );
 
 export default class HorizontalDimensionalArrowsNode extends Node {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  private readonly horizontalLine: Line;
 
-    options = merge( {
-      x1: 0,
-      x2: 100,
-      color: 'black',
-      horizontalLineWidth: 2,
-      verticalLineWidth: 2,
-      verticalLineLength: 14,
-      arrowHeadDimensions: new Dimension2( 8, 8 )
-    }, options );
+  public constructor( color: TColor ) {
 
-    // horizontal dashed line in center
-    const horizontalLine = new Line( options.x1, 0, options.x2, 0, {
-      stroke: options.color,
-      lineWidth: options.horizontalLineWidth,
-      lineDash: options.horizontalLineDash
+    // horizontal dashed line in center, arbitrary initial coordinates
+    const horizontalLine = new Line( 0, 0, 1, 0, {
+      stroke: color,
+      lineWidth: HORIZONTAL_LINE_WIDTH
     } );
 
     // vertical solid line at left end
-    const leftVerticalLine = new Line( 0, 0, 0, options.verticalLineLength, {
-      stroke: options.color,
-      lineWidth: options.verticalLineWidth
+    const leftVerticalLine = new Line( 0, 0, 0, VERTICAL_LINE_LENGTH, {
+      stroke: color,
+      lineWidth: VERTICAL_LINE_WIDTH
     } );
 
     // vertical solid line at right end
-    const rightVerticalLine = new Line( 0, 0, 0, options.verticalLineLength, {
-      stroke: options.color,
-      lineWidth: options.verticalLineWidth
+    const rightVerticalLine = new Line( 0, 0, 0, VERTICAL_LINE_LENGTH, {
+      stroke: color,
+      lineWidth: VERTICAL_LINE_WIDTH
     } );
 
     // arrow head that points left
     const leftArrowHeadShape = new Shape().polygon( [
       new Vector2( 0, 0 ),
-      new Vector2( options.arrowHeadDimensions.width, -options.arrowHeadDimensions.height / 2 ),
-      new Vector2( options.arrowHeadDimensions.width, options.arrowHeadDimensions.height / 2 )
+      new Vector2( ARROW_HEAD_DIMENSIONS.width, -ARROW_HEAD_DIMENSIONS.height / 2 ),
+      new Vector2( ARROW_HEAD_DIMENSIONS.width, ARROW_HEAD_DIMENSIONS.height / 2 )
     ] );
     const leftArrowHead = new Path( leftArrowHeadShape, {
-      fill: options.color
+      fill: color
     } );
 
     // arrow head that points right
     const rightArrowHeadShape = leftArrowHeadShape.transformed( Matrix3.scaling( -1, 1 ) );
     const rightArrowHead = new Path( rightArrowHeadShape, {
-      fill: options.color
+      fill: color
     } );
 
-    assert && assert( !options.children, 'HorizontalDimensionalArrowsNode sets children' );
-    options = merge( {
+    super( {
       children: [ horizontalLine, leftVerticalLine, rightVerticalLine, leftArrowHead, rightArrowHead ]
-    }, options );
+    } );
 
-    super( options );
-
-    // Position all of the subcomponents relative to the horizontalLine, since it's the component that changes.
+    // Position all subcomponents relative to the horizontalLine, since it's the subcomponent that changes.
     horizontalLine.boundsProperty.link( bounds => {
 
       // If the arrow heads overlap, place them on the outside (pointing in) and hide the horizontal line.
@@ -95,17 +82,13 @@ export default class HorizontalDimensionalArrowsNode extends Node {
       rightArrowHead.centerY = bounds.centerY;
     } );
 
-    // @private
-    this.horizontalLine = horizontalLine; // {Line}
+    this.horizontalLine = horizontalLine;
   }
 
   /**
    * Sets the line coordinates.
-   * @param {number} x1
-   * @param {number} x2
-   * @public
    */
-  setLine( x1, x2 ) {
+  public setLine( x1: number, x2: number ): void {
     this.horizontalLine.setLine( x1, 0, x2, 0 );
   }
 }
