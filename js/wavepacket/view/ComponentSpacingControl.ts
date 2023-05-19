@@ -27,17 +27,12 @@ const DECIMALS = 2;
 
 export default class ComponentSpacingControl extends WavePacketNumberControl {
 
-  /**
-   * @param {NumberProperty} componentSpacingProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Tandem} tandem
-   */
-  constructor( componentSpacingProperty, domainProperty, tandem ) {
+  public constructor( componentSpacingProperty: NumberProperty,
+                      domainProperty: EnumerationProperty<Domain>,
+                      tandem: Tandem ) {
 
-    assert && assert( componentSpacingProperty instanceof NumberProperty );
-    assert && assert( componentSpacingProperty.validValues );
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( tandem instanceof Tandem );
+    const validValues = componentSpacingProperty.validValues!;
+    assert && assert( validValues );
 
     const options = {
 
@@ -46,7 +41,7 @@ export default class ComponentSpacingControl extends WavePacketNumberControl {
 
       // Slider options
       sliderOptions: {
-        constrainValue: value => Utils.roundSymmetric( value ),
+        constrainValue: ( value: number ) => Utils.roundSymmetric( value ),
 
         // Default pointer areas for slider overlaps with checkboxes below it. We can't eliminate this overlap because
         // we can't afford to add vertical space. So do our best to mitigate the issue by shrinking the slider's touchArea.
@@ -76,7 +71,6 @@ export default class ComponentSpacingControl extends WavePacketNumberControl {
     // componentSpacingProperty has a small set of valid values. Only those values are to be settable via this Slider,
     // and they are to be distributed at equally-space tick marks on the Slider. So we create an index into this set
     // of values, and control that index with the Slider.
-    const validValues = componentSpacingProperty.validValues;
     const defaultIndex = validValues.indexOf( componentSpacingProperty.value );
     const componentSpacingIndexProperty = new NumberProperty( defaultIndex, {
       numberType: 'Integer',
@@ -110,7 +104,7 @@ export default class ComponentSpacingControl extends WavePacketNumberControl {
 
         this.setNumberFormatter( componentSpacingIndex => {
 
-          const componentSpacing = componentSpacingProperty.validValues[ componentSpacingIndex ];
+          const componentSpacing = validValues[ componentSpacingIndex ];
 
           const symbol = StringUtils.fillIn( '{{symbol}}<sub>1</sub>', {
             symbol: ( domain === Domain.SPACE ) ? k : omega
@@ -130,11 +124,7 @@ export default class ComponentSpacingControl extends WavePacketNumberControl {
       } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }

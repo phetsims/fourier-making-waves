@@ -27,16 +27,9 @@ const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 
 export default class StandardDeviationControl extends WavePacketNumberControl {
 
-  /**
-   * @param {NumberProperty} standardDeviationProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Tandem} tandem
-   */
-  constructor( standardDeviationProperty, domainProperty, tandem ) {
-
-    assert && assert( standardDeviationProperty instanceof NumberProperty );
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( standardDeviationProperty: NumberProperty,
+                      domainProperty: EnumerationProperty<Domain>,
+                      tandem: Tandem ) {
 
     const options = {
 
@@ -109,11 +102,7 @@ export default class StandardDeviationControl extends WavePacketNumberControl {
       } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
