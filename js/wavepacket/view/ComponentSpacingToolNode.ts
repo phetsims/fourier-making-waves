@@ -8,29 +8,38 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WavePacketMeasurementToolNode from './WavePacketMeasurementToolNode.js';
+import WavePacketMeasurementToolNode, { WavePacketMeasurementToolNodeOptions } from './WavePacketMeasurementToolNode.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Domain from '../../common/model/Domain.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type ComponentSpacingToolNodeOptions = SelfOptions &
+  PickRequired<WavePacketMeasurementToolNodeOptions, 'position' | 'dragBounds' | 'visibleProperty' | 'tandem'>;
 
 export default class ComponentSpacingToolNode extends WavePacketMeasurementToolNode {
 
-  /**
-   * @param {Property.<number>} componentSpacingProperty
-   * @param {ChartTransform} chartTransform
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Object} [options]
-   */
-  constructor( componentSpacingProperty, chartTransform, domainProperty, options ) {
+  public constructor( componentSpacingProperty: TReadOnlyProperty<number>,
+                      chartTransform: ChartTransform,
+                      domainProperty: EnumerationProperty<Domain>,
+                      providedOptions: ComponentSpacingToolNodeOptions ) {
 
-    options = merge( {
+    const options = optionize<ComponentSpacingToolNodeOptions, SelfOptions, WavePacketMeasurementToolNodeOptions>()( {
+
+      // WavePacketMeasurementToolNodeOptions
       fill: FMWColors.componentSpacingToolFillProperty,
       spaceSymbolStringProperty: new DerivedProperty( [ FMWSymbols.kStringProperty ],
         k => `${k}<sub>1</sub>` ),
       timeSymbolStringProperty: new DerivedProperty( [ FMWSymbols.omegaStringProperty ],
         omega => `${omega}<sub>1</sub>` )
-    }, options );
+    }, providedOptions );
 
     super( componentSpacingProperty, chartTransform, domainProperty, options );
   }

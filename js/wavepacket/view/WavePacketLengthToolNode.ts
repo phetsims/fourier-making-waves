@@ -8,29 +8,38 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WavePacketMeasurementToolNode from './WavePacketMeasurementToolNode.js';
+import WavePacketMeasurementToolNode, { WavePacketMeasurementToolNodeOptions } from './WavePacketMeasurementToolNode.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Domain from '../../common/model/Domain.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type WavePacketLengthToolNodeOptions = SelfOptions &
+  PickRequired<WavePacketMeasurementToolNodeOptions, 'position' | 'dragBounds' | 'visibleProperty' | 'tandem'>;
 
 export default class WavePacketLengthToolNode extends WavePacketMeasurementToolNode {
 
-  /**
-   * @param {Property.<number>} lengthProperty
-   * @param {ChartTransform} chartTransform
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Object} [options]
-   */
-  constructor( lengthProperty, chartTransform, domainProperty, options ) {
+  public constructor( lengthProperty: TReadOnlyProperty<number>,
+                      chartTransform: ChartTransform,
+                      domainProperty: EnumerationProperty<Domain>,
+                      providedOptions: WavePacketLengthToolNodeOptions ) {
 
-    options = merge( {
+    const options = optionize<WavePacketLengthToolNodeOptions, SelfOptions, WavePacketMeasurementToolNodeOptions>()( {
+
+      // WavePacketMeasurementToolNodeOptions
       fill: FMWColors.wavePacketLengthToolFillProperty,
       spaceSymbolStringProperty: new DerivedProperty( [ FMWSymbols.lambdaStringProperty ],
         lambda => `${lambda}<sub>1</sub>` ),
       timeSymbolStringProperty: new DerivedProperty( [ FMWSymbols.TStringProperty ],
         T => `${T}<sub>1</sub>` )
-    }, options );
+    }, providedOptions );
 
     super( lengthProperty, chartTransform, domainProperty, options );
   }
