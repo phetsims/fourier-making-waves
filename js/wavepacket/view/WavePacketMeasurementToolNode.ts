@@ -45,10 +45,10 @@ export default class WavePacketMeasurementToolNode extends Node {
 
   private readonly positionProperty: Property<Vector2>;
 
-  public constructor( property: TReadOnlyProperty<number>,
-                      chartTransform: ChartTransform,
-                      domainProperty: EnumerationProperty<Domain>,
-                      providedOptions: WavePacketMeasurementToolNodeOptions ) {
+  protected constructor( property: TReadOnlyProperty<number>,
+                         chartTransform: ChartTransform,
+                         domainProperty: EnumerationProperty<Domain>,
+                         providedOptions: WavePacketMeasurementToolNodeOptions ) {
 
     const options = optionize<WavePacketMeasurementToolNodeOptions, SelfOptions, NodeOptions>()( {
 
