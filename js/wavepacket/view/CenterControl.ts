@@ -27,16 +27,7 @@ const TEXT_OPTIONS = { font: FMWConstants.TICK_LABEL_FONT };
 
 export default class CenterControl extends WavePacketNumberControl {
 
-  /**
-   * @param {NumberProperty} centerProperty
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {Tandem} tandem
-   */
-  constructor( centerProperty, domainProperty, tandem ) {
-
-    assert && assert( centerProperty instanceof NumberProperty );
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( centerProperty: NumberProperty, domainProperty: EnumerationProperty<Domain>, tandem: Tandem ) {
 
     super( centerProperty, domainProperty, {
 
@@ -96,11 +87,7 @@ export default class CenterControl extends WavePacketNumberControl {
       } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
