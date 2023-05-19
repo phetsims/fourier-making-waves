@@ -9,10 +9,10 @@
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
-import merge from '../../../../phet-core/js/merge.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Color, Text } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';
 import DomainChartNode from '../../common/view/DomainChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
@@ -30,28 +30,27 @@ export default class WavePacketComponentsChartNode extends DomainChartNode {
 
   /**
    * @param {WavePacketComponentsChart} componentsChart
-   * @param {Object} [options]
+   * @param {Tandem} tandem
    */
-  constructor( componentsChart, options ) {
+  constructor( componentsChart, tandem ) {
 
     assert && assert( componentsChart instanceof WavePacketComponentsChart );
-    assert && assert( options && options.tandem );
+    assert && assert( tandem instanceof Tandem );
 
     // Fields of interest in componentsChart, to improve readability
     const xAxisDescriptionProperty = componentsChart.xAxisDescriptionProperty;
     const componentDataSetsProperty = componentsChart.componentDataSetsProperty;
 
-    options = merge( {
-      xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty, options.tandem.createTandem( 'xZoomLevelProperty' ) ),
+    super( componentsChart, {
+      xZoomLevelProperty: new ZoomLevelProperty( xAxisDescriptionProperty, tandem.createTandem( 'xZoomLevelProperty' ) ),
       xTickLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, X_TICK_LABEL_DECIMALS )
       },
       yTickLabelSetOptions: {
         createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
-      }
-    }, options );
-
-    super( componentsChart, options );
+      },
+      tandem: tandem
+    } );
 
     // Render the plots using Canvas.
     // Remember! When any of the associated plots is updated, you must call update().

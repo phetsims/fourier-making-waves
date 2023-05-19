@@ -126,17 +126,14 @@ export default class WavePacketScreenView extends ScreenView {
       } );
 
     // Components chart
-    const componentsChartNode = new WavePacketComponentsChartNode( model.componentsChart, {
-      tandem: componentsTandem.createTandem( 'componentsChartNode' )
-    } );
+    const componentsChartNode = new WavePacketComponentsChartNode( model.componentsChart,
+      componentsTandem.createTandem( 'componentsChartNode' ) );
 
     // Equation above the Components chart
-    const componentsEquationText = new ComponentsEquationText( model.domainProperty, model.seriesTypeProperty, {
-      maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
-      tandem: componentsTandem.createTandem( 'componentsEquationText' )
-    } );
+    const componentsEquationText = new ComponentsEquationText( model.domainProperty, model.seriesTypeProperty,
+      componentsTandem.createTandem( 'componentsEquationText' ) );
 
-    // All of the elements that should be hidden when chartExpandedProperty is set to false.
+    // Elements that should be hidden when chartExpandedProperty is set to false.
     // That can be done using harmonicsExpandCollapseButton, or by changing harmonicsChart.chartExpandedProperty via PhET-iO.
     const componentsParentNode = new Node( {
       visibleProperty: model.componentsChart.chartExpandedProperty,
@@ -182,9 +179,7 @@ export default class WavePacketScreenView extends ScreenView {
     const popupParent = new Node();
 
     const controlPanel = new WavePacketControlPanel( model, componentSpacingToolVisibleProperty,
-      lengthToolVisibleProperty, popupParent, {
-        tandem: tandem.createTandem( 'controlPanel' )
-      } );
+      lengthToolVisibleProperty, popupParent, tandem.createTandem( 'controlPanel' ) );
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {
