@@ -9,8 +9,6 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, RichText } from '../../../../scenery/js/imports.js';
@@ -21,30 +19,19 @@ import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import SumSymbolNode from '../../common/view/SumSymbolNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class WavePacketSumEquationNode extends Node {
 
-  /**
-   * @param {EnumerationProperty.<Domain>} domainProperty
-   * @param {EnumerationProperty.<SeriesType>} seriesTypeProperty
-   * @param {Property.<number>} componentSpacingProperty
-   * @param {Object} [options]
-   */
-  constructor( domainProperty, seriesTypeProperty, componentSpacingProperty, options ) {
-
-    assert && assert( domainProperty instanceof EnumerationProperty );
-    assert && assert( seriesTypeProperty instanceof EnumerationProperty );
-    assert && AssertUtils.assertPropertyOf( componentSpacingProperty, 'number' );
-
-    options = merge( {
-
-      // WavePacketSumEquationNode options
-      font: FMWConstants.EQUATION_FONT
-    }, options );
+  public constructor( domainProperty: EnumerationProperty<Domain>,
+                      seriesTypeProperty: EnumerationProperty<SeriesType>,
+                      componentSpacingProperty: TReadOnlyProperty<number>,
+                      tandem: Tandem ) {
 
     // Everything to the left of the summation symbol, set in domainProperty listener below.
     const leftNode = new RichText( '', {
-      font: options.font
+      font: FMWConstants.EQUATION_FONT
     } );
 
     // Capital sigma, summation symbol
@@ -54,13 +41,14 @@ export default class WavePacketSumEquationNode extends Node {
 
     // Everything to the right of the summation symbol, same as the equation above the Components chart.
     const rightNode = new RichText( '', {
-      font: options.font
+      font: FMWConstants.EQUATION_FONT
     } );
 
-    assert && assert( !options.children, 'WavePacketSumEquationNode sets children' );
-    options.children = [ leftNode, sumSymbolNode, rightNode ];
-
-    super( options );
+    super( {
+      children: [ leftNode, sumSymbolNode, rightNode ],
+      maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
+      tandem: tandem
+    } );
 
     Multilink.multilink( [
         domainProperty, seriesTypeProperty, componentSpacingProperty,
@@ -105,11 +93,7 @@ export default class WavePacketSumEquationNode extends Node {
       } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
