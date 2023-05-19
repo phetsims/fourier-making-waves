@@ -14,31 +14,35 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
-import { Path } from '../../../../scenery/js/imports.js';
+import { Path, PathOptions } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type GaussianAreaPlotOptions = SelfOptions & PickOptional<PathOptions, 'fill'>;
 
 export default class GaussianAreaPlot extends Path {
 
-  /**
-   * @param {ChartTransform} chartTransform
-   * @param {Vector2[]} dataSet
-   * @param {Object} [options]
-   */
-  constructor( chartTransform, dataSet, options ) {
+  public dataSet: Vector2[];
+  private readonly chartTransform: ChartTransform;
+  private readonly disposeLinePlot: () => void;
 
-    options = merge( {
+  public constructor( chartTransform: ChartTransform, dataSet: Vector2[], providedOptions?: GaussianAreaPlotOptions ) {
 
-      // Path options
+    const options = optionize<GaussianAreaPlotOptions, SelfOptions, PathOptions>()( {
+
+      // PathOptions
       fill: 'black'
-    }, options );
+    }, providedOptions );
 
     super( null, options );
 
-    // @private {ChartTransform}
     this.chartTransform = chartTransform;
 
-    // @public {Vector2[]} if you change this directly, you are responsible for calling update
+    // if you change this directly, you are responsible for calling update
     this.dataSet = dataSet;
 
     // Initialize
@@ -48,26 +52,22 @@ export default class GaussianAreaPlot extends Path {
     const changedListener = () => this.update();
     chartTransform.changedEmitter.addListener( changedListener );
 
-    // @private
     this.disposeLinePlot = () => chartTransform.changedEmitter.removeListener( changedListener );
   }
 
   /**
    * Sets the dataSet and redraws the plot.
    * If the dataSet is mutated directly, it is the client's responsibility to call update.
-   * @param {Vector2[]} dataSet
-   * @public
    */
-  setDataSet( dataSet ) {
+  public setDataSet( dataSet: Vector2[] ): void {
     this.dataSet = dataSet;
     this.update();
   }
 
   /**
    * Recomputes the rendered Shape.
-   * @public
    */
-  update() {
+  public update(): void {
     assert && assert( _.every( this.dataSet, ( point, index, dataSet ) =>
     ( point !== null ) // null values (gaps) are not supported
     && ( point.isFinite() ) // all points must be finite
@@ -114,11 +114,7 @@ export default class GaussianAreaPlot extends Path {
     this.shape = shape;
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     this.disposeLinePlot();
     super.dispose();
   }
