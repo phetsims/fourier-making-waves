@@ -13,32 +13,31 @@ import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { Color, LinearGradient, Node } from '../../../../scenery/js/imports.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
-import DomainChartNode from '../../common/view/DomainChartNode.js';
+import DomainChartNode, { DomainChartNodeOptions } from '../../common/view/DomainChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketAmplitudesChart from '../model/WavePacketAmplitudesChart.js';
 import GaussianAreaPlot from './GaussianAreaPlot.js';
 import WidthIndicatorPlot from './WidthIndicatorPlot.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // constants
 const X_TICK_LABEL_DECIMALS = 0;
 const Y_TICK_LABEL_DECIMALS = 2;
 const GRAY_RANGE = FMWColors.FOURIER_COMPONENT_GRAY_RANGE;
 
+type SelfOptions = EmptySelfOptions;
+
+type WavePacketAmplitudesChartNodeOptions = SelfOptions & PickRequired<DomainChartNodeOptions, 'tandem' | 'chartTransformOptions'>;
+
 export default class WavePacketAmplitudesChartNode extends DomainChartNode {
 
-  /**
-   * @param {WavePacketAmplitudesChart} amplitudesChart
-   * @param {Object} [options]
-   */
-  constructor( amplitudesChart, options ) {
-
-    assert && assert( amplitudesChart instanceof WavePacketAmplitudesChart );
+  public constructor( amplitudesChart: WavePacketAmplitudesChart, providedOptions: WavePacketAmplitudesChartNodeOptions ) {
 
     // Fields of interest in amplitudesChart, to improve readability
     const domainProperty = amplitudesChart.domainProperty;
@@ -53,7 +52,7 @@ export default class WavePacketAmplitudesChartNode extends DomainChartNode {
     const peakAmplitudeProperty = amplitudesChart.peakAmplitudeProperty;
     const yAxisDescriptionProperty = amplitudesChart.yAxisDescriptionProperty;
 
-    options = merge( {
+    const options = optionize<WavePacketAmplitudesChartNodeOptions, SelfOptions, DomainChartNodeOptions>()( {
 
       // DomainChartNode options
       // Units for the x-axis labels are omitted by request, due to space constraints.
@@ -65,12 +64,12 @@ export default class WavePacketAmplitudesChartNode extends DomainChartNode {
       xTickMarkSpacing: Math.PI,
       xTickLabelSpacing: 2 * Math.PI,
       xTickLabelSetOptions: {
-        createLabel: value => TickLabelUtils.createPiTickLabel( value, X_TICK_LABEL_DECIMALS )
+        createLabel: ( value: number ) => TickLabelUtils.createPiTickLabel( value, X_TICK_LABEL_DECIMALS )
       },
       yTickLabelSetOptions: {
-        createLabel: value => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
+        createLabel: ( value: number ) => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
       }
-    }, options );
+    }, providedOptions );
 
     super( amplitudesChart, options );
 
@@ -157,11 +156,7 @@ export default class WavePacketAmplitudesChartNode extends DomainChartNode {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
