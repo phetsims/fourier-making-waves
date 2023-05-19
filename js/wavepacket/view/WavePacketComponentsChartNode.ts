@@ -28,14 +28,7 @@ const GRAY_RANGE = FMWColors.FOURIER_COMPONENT_GRAY_RANGE;
 
 export default class WavePacketComponentsChartNode extends DomainChartNode {
 
-  /**
-   * @param {WavePacketComponentsChart} componentsChart
-   * @param {Tandem} tandem
-   */
-  constructor( componentsChart, tandem ) {
-
-    assert && assert( componentsChart instanceof WavePacketComponentsChart );
-    assert && assert( tandem instanceof Tandem );
+  public constructor( componentsChart: WavePacketComponentsChart, tandem: Tandem ) {
 
     // Fields of interest in componentsChart, to improve readability
     const xAxisDescriptionProperty = componentsChart.xAxisDescriptionProperty;
@@ -68,7 +61,7 @@ export default class WavePacketComponentsChartNode extends DomainChartNode {
       } );
     this.addChild( messageNode );
     messageNode.boundsProperty.link( bounds => {
-      messageNode.enter = this.chartRectangle.center;
+      messageNode.center = this.chartRectangle.center;
     } );
 
     componentDataSetsProperty.link( componentDataSets => {
@@ -97,7 +90,7 @@ export default class WavePacketComponentsChartNode extends DomainChartNode {
         const plots = chartCanvasNode.painters;
         const numberOfPlots = plots.length;
 
-        // The peak amplitude, for scaling the y axis.
+        // The peak amplitude, for scaling the y-axis.
         let peakAmplitude = 0;
 
         const numberOfComponents = componentDataSets.length;
@@ -107,7 +100,7 @@ export default class WavePacketComponentsChartNode extends DomainChartNode {
           assert && assert( dataSet.length > 0 );
 
           // Inspect this component for peak amplitude.
-          peakAmplitude = Math.max( peakAmplitude, _.maxBy( dataSet, point => point.y ).y );
+          peakAmplitude = Math.max( peakAmplitude, _.maxBy( dataSet, point => point.y )!.y );
 
           // Gray to be used to stroke this component
           const rgb = GRAY_RANGE.constrainValue( GRAY_RANGE.min + GRAY_RANGE.getLength() * i / numberOfComponents );
@@ -116,8 +109,8 @@ export default class WavePacketComponentsChartNode extends DomainChartNode {
           if ( i < numberOfPlots ) {
 
             // Reuse an existing plot.
-            const plot = plots[ i ];
-            assert && assert( plot instanceof CanvasLinePlot );
+            const plot = plots[ i ] as CanvasLinePlot;
+            assert && assert( plot instanceof CanvasLinePlot ); // eslint-disable-line no-simple-type-checking-assertions
             plot.setDataSet( dataSet );
             plot.setStroke( stroke );
           }
@@ -134,7 +127,8 @@ export default class WavePacketComponentsChartNode extends DomainChartNode {
         // Any unused plots get an empty data set, so that they draw nothing.
         if ( numberOfComponents < numberOfPlots ) {
           for ( let i = numberOfComponents; i < numberOfPlots; i++ ) {
-            const plot = plots[ i ];
+            const plot = plots[ i ] as CanvasLinePlot;
+            assert && assert( plot instanceof CanvasLinePlot ); // eslint-disable-line no-simple-type-checking-assertions
             if ( plot.dataSet.length > 0 ) {
               plot.setDataSet( [] );
             }
@@ -146,7 +140,7 @@ export default class WavePacketComponentsChartNode extends DomainChartNode {
         // will wash out the chart, reducing the contrast.
         chartCanvasNode.painters.reverse();
 
-        // Scale the y axis, with a little padding above/below the peak.
+        // Scale the y-axis, with a little padding above/below the peak.
         const maxY = 1.1 * peakAmplitude;
         this.chartTransform.setModelYRange( new Range( -maxY, maxY ) );
         this.yGridLines.setSpacing( peakAmplitude );
@@ -163,11 +157,7 @@ export default class WavePacketComponentsChartNode extends DomainChartNode {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
