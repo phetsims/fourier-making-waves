@@ -70,6 +70,8 @@ export default class AxisDescription {
    * coefficients to be applied to some constant (L, T, PI), depending on which Domain (space or time) is being plotted.
    */
   public createRangeForDomain( domain: Domain, spaceMultiplier: number, timeMultiplier: number ): Range {
+    assert && assert( spaceMultiplier > 0 );
+    assert && assert( timeMultiplier > 0 );
     const value = ( domain === Domain.TIME ) ? timeMultiplier : spaceMultiplier;
     const xMin = value * this.range.min;
     const xMax = value * this.range.max;
