@@ -59,8 +59,6 @@ export default class WavePacketAmplitudesChartNode extends DomainChartNode {
       // See https://github.com/phetsims/fourier-making-waves/issues/137.
       xSpaceLabelProperty: FMWSymbols.kStringProperty,
       xTimeLabelProperty: FMWSymbols.omegaStringProperty,
-
-      // FMWChartNode options
       xTickMarkSpacing: Math.PI,
       xTickLabelSpacing: 2 * Math.PI,
       xTickLabelSetOptions: {
@@ -70,6 +68,12 @@ export default class WavePacketAmplitudesChartNode extends DomainChartNode {
         createLabel: ( value: number ) => TickLabelUtils.createNumericTickLabel( value, Y_TICK_LABEL_DECIMALS )
       }
     }, providedOptions );
+
+    // Start with modelYRange.min === zero, so that super will position the x-axis label at the bottom of the chart.
+    // Correct modelYRange will be set by positionProperty listener below.
+    // See https://github.com/phetsims/fourier-making-waves/issues/233
+    assert && assert( !options.chartTransformOptions.modelYRange );
+    options.chartTransformOptions.modelYRange = new Range( 0, 1 );
 
     super( amplitudesChart, options );
 

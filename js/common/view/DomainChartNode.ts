@@ -131,7 +131,7 @@ export default class DomainChartNode extends Node {
       // bamboo subcomponents
       chartTransformOptions: {
         modelXRange: xAxisDescriptionProperty.value.createRangeForDomain( domainProperty.value, spaceMultiplier, timeMultiplier ),
-        modelYRange: new Range( 0, 1 ), // expected to be set by subclasses
+        modelYRange: new Range( -1, 1 ), // expected to be set by subclass, but default to symmetrical for most charts
         viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
         viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
       },
