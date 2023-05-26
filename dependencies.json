@@ -1,5 +1,5 @@
 {
-  "comment": "# fourier-making-waves 1.0.14 Fri May 26 2023 12:18:13 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# fourier-making-waves 1.0.15-rc.1 Fri May 26 2023 12:25:52 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "767b2f345518ceca5144a152ecf40cd4f9206136",
     "branch": "HEAD"
@@ -25,7 +25,7 @@
     "branch": "HEAD"
   },
   "fourier-making-waves": {
-    "sha": "1b4c41328205453a3fc871ef3b1ab57950374ad4",
+    "sha": "67cf4886df430b6d92bda52a07a4b8f281608abf",
     "branch": "1.0"
   },
   "joist": {
@@ -70,7 +70,7 @@
   },
   "scenery": {
     "sha": "fddb9288c8de68c84b856ebd73ddac61fbfaf2c0",
-    "branch": "fourier-making-waves-1.0"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "cc90ce23c44c02852405334e47b2cae24c0fedb5",
