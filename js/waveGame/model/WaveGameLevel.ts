@@ -33,6 +33,7 @@ import AmplitudesGenerator from './AmplitudesGenerator.js';
 import WaveGameAmplitudesChart from './WaveGameAmplitudesChart.js';
 import WaveGameHarmonicsChart from './WaveGameHarmonicsChart.js';
 import WaveGameSumChart from './WaveGameSumChart.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 // constants
 
@@ -232,7 +233,7 @@ export default class WaveGameLevel extends PhetioObject {
     this.emphasizedHarmonics.reset();
 
     // If reset was not called as the result of setting state, start with a new challenge.
-    if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+    if ( !isSettingPhetioStateProperty.value ) {
       this.newWaveform();
     }
   }
