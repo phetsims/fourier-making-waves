@@ -39,16 +39,17 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const DEFAULT_X_SPACE_LABEL_PROPERTY = new PatternStringProperty( FourierMakingWavesStrings.symbolUnitsStringProperty, {
   symbol: FMWSymbols.xStringProperty,
   units: FourierMakingWavesStrings.units.metersStringProperty
-} );
+}, { tandem: Tandem.OPT_OUT } );
 const DEFAULT_X_TIME_LABEL_PROPERTY = new PatternStringProperty( FourierMakingWavesStrings.symbolUnitsStringProperty, {
   symbol: FMWSymbols.tStringProperty,
   units: FourierMakingWavesStrings.units.millisecondsStringProperty
-} );
+}, { tandem: Tandem.OPT_OUT } );
 const DEFAULT_EDGE = 'min';
 
 type SelfOptions = {

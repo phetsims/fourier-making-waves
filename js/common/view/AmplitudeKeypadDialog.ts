@@ -27,6 +27,7 @@ import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const TITLE_FONT = new PhetFont( 18 );
@@ -114,7 +115,7 @@ export default class AmplitudeKeypadDialog extends Dialog {
     const rangeStringProperty = new PatternStringProperty( FourierMakingWavesStrings.minToMaxStringProperty, {
       min: Utils.toFixedNumber( amplitudeRange.min, options.decimalPlaces ),
       max: Utils.toFixedNumber( amplitudeRange.max, options.decimalPlaces )
-    } );
+    }, { tandem: Tandem.OPT_OUT } );
     const rangeNode = new Text( rangeStringProperty, {
       font: VALUE_FONT,
       maxWidth: keypad.width

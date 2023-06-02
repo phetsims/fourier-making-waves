@@ -24,14 +24,14 @@ const CHOICES: FMWComboBoxChoice<Domain>[] = [
     value: Domain.SPACE,
     stringProperty: new PatternStringProperty( FourierMakingWavesStrings.spaceSymbolStringProperty, {
       symbol: FMWSymbols.xStringProperty
-    } ),
+    }, { tandem: Tandem.OPT_OUT } ),
     tandemName: `spaceItem${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: Domain.TIME,
     stringProperty: new PatternStringProperty( FourierMakingWavesStrings.timeSymbolStringProperty, {
       symbol: FMWSymbols.tStringProperty
-    } ),
+    }, { tandem: Tandem.OPT_OUT } ),
     tandemName: `time${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
@@ -39,7 +39,7 @@ const CHOICES: FMWComboBoxChoice<Domain>[] = [
     stringProperty: new PatternStringProperty( FourierMakingWavesStrings.spaceAndTimeSymbolsStringProperty, {
       spaceSymbol: FMWSymbols.xStringProperty,
       timeSymbol: FMWSymbols.tStringProperty
-    } ),
+    }, { tandem: Tandem.OPT_OUT } ),
     tandemName: `spaceAndTime${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   }
 ];

@@ -32,34 +32,34 @@ export default class DiscreteInfoDialog extends Dialog {
     const stringProperties = [
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.AStringProperty, {
         A: FMWSymbols.AStringProperty
-      } ),
+      }, { tandem: Tandem.OPT_OUT } ),
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.fStringProperty, {
         f: FMWSymbols.fStringProperty
-      } ),
+      }, { tandem: Tandem.OPT_OUT } ),
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.lambdaStringProperty, {
         lambda: FMWSymbols.lambdaStringProperty
-      } ),
+      }, { tandem: Tandem.OPT_OUT } ),
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.kStringProperty, {
         k: FMWSymbols.kStringProperty
-      } ),
+      }, { tandem: Tandem.OPT_OUT } ),
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.LStringProperty, {
         L: FMWSymbols.LStringProperty
-      } ),
+      }, { tandem: Tandem.OPT_OUT } ),
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.nStringProperty, {
         n: FMWSymbols.nStringProperty
-      } ),
+      }, { tandem: Tandem.OPT_OUT } ),
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.tStringProperty, {
         t: FMWSymbols.tStringProperty
-      } ),
+      }, { tandem: Tandem.OPT_OUT } ),
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.TStringProperty, {
         T: FMWSymbols.TStringProperty
-      } ),
+      }, { tandem: Tandem.OPT_OUT } ),
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.omegaStringProperty, {
         omega: FMWSymbols.omegaStringProperty
-      } ),
+      }, { tandem: Tandem.OPT_OUT } ),
       new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.xStringProperty, {
         x: FMWSymbols.xStringProperty
-      } )
+      }, { tandem: Tandem.OPT_OUT } )
     ];
 
     // Put a line break between each of the above strings.

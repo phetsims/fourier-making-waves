@@ -34,6 +34,7 @@ import WaveGameAmplitudesChart from './WaveGameAmplitudesChart.js';
 import WaveGameHarmonicsChart from './WaveGameHarmonicsChart.js';
 import WaveGameSumChart from './WaveGameSumChart.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 
@@ -105,7 +106,7 @@ export default class WaveGameLevel extends PhetioObject {
   public readonly newWaveformEmitter: Emitter;
 
   // Fires when the guess is checked and found to be correct. The argument is the number of points awarded.
-  public readonly correctEmitter: Emitter<[number]>;
+  public readonly correctEmitter: Emitter<[ number ]>;
 
   // Fires when the guess is checked and found to be incorrect.
   public readonly incorrectEmitter: Emitter;
@@ -126,12 +127,12 @@ export default class WaveGameLevel extends PhetioObject {
       statusBarMessageProperty: new PatternStringProperty( FourierMakingWavesStrings.matchUsingNHarmonicsStringProperty, {
         levelNumber: levelNumber,
         numberOfHarmonics: levelNumber
-      } ),
+      }, { tandem: Tandem.OPT_OUT } ),
 
       infoDialogDescriptionProperty: new PatternStringProperty( FourierMakingWavesStrings.infoNHarmonicsStringProperty, {
         levelNumber: levelNumber,
         numberOfHarmonics: levelNumber
-      } ),
+      }, { tandem: Tandem.OPT_OUT } ),
 
       phetioType: WaveGameLevel.WaveGameLevelIO,
       phetioState: false

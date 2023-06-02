@@ -71,11 +71,11 @@ export default class WaveGameModel implements TModel {
         statusBarMessageProperty: new PatternStringProperty( FourierMakingWavesStrings.matchUsingNOrMoreHarmonicsStringProperty, {
           levelNumber: 5,
           numberOfHarmonics: 5
-        } ),
+        }, { tandem: Tandem.OPT_OUT } ),
         infoDialogDescriptionProperty: new PatternStringProperty( FourierMakingWavesStrings.infoNOrMoreHarmonicsStringProperty, {
           levelNumber: 5,
           numberOfHarmonics: 5
-        } ),
+        }, { tandem: Tandem.OPT_OUT } ),
         tandem: tandem.createTandem( 'level5' )
       } )
     ];

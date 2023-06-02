@@ -68,7 +68,7 @@ const CHOICES: FMWComboBoxChoice<EquationForm>[] = [
     stringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolAndSymbolStringProperty, {
       symbol1: FMWSymbols.lambdaStringProperty,
       symbol2: FMWSymbols.TStringProperty
-    } ),
+    }, { tandem: Tandem.OPT_OUT } ),
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `wavelengthAndPeriod${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
@@ -77,7 +77,7 @@ const CHOICES: FMWComboBoxChoice<EquationForm>[] = [
     stringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolAndSymbolStringProperty, {
       symbol1: FMWSymbols.kStringProperty,
       symbol2: FMWSymbols.omegaStringProperty
-    } ),
+    }, { tandem: Tandem.OPT_OUT } ),
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `spatialWaveNumberAndAngularWaveNumber${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
