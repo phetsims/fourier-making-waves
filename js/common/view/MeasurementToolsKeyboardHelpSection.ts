@@ -17,8 +17,6 @@ import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 export default class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSection {
 
-  private readonly disposeMeasurementToolsKeyboardHelpSection: () => void;
-
   public constructor() {
 
     // Icons, which need to be disposed
@@ -27,7 +25,6 @@ export default class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSec
     const shiftPlusArrowsIcon = KeyboardHelpIconFactory.shiftPlusIcon( arrowKeysIcon );
     const shiftPlusWASDsIcon = KeyboardHelpIconFactory.shiftPlusIcon( wasdKeysIcon );
     const arrowOrWASDKeysRowIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
-    const icons = [ arrowKeysIcon, wasdKeysIcon, shiftPlusArrowsIcon, shiftPlusWASDsIcon, arrowOrWASDKeysRowIcon ];
 
     // KeyboardHelpSectionRows, which need to be disposed
     const rows = [
@@ -44,15 +41,11 @@ export default class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSec
     ];
 
     super( FourierMakingWavesStrings.keyboardHelpDialog.measurementToolsStringProperty, rows );
-
-    this.disposeMeasurementToolsKeyboardHelpSection = () => {
-      icons.forEach( icon => icon.dispose() );
-      rows.forEach( row => row.dispose() );
-    };
   }
 
+  // See https://github.com/phetsims/fourier-making-waves/issues/236
   public override dispose(): void {
-    this.disposeMeasurementToolsKeyboardHelpSection();
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 }

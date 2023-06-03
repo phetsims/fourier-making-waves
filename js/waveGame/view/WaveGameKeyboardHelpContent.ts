@@ -17,8 +17,6 @@ import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 export default class WaveGameKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
-  private readonly disposeWaveGameKeyboardHelpContent: () => void;
-
   public constructor() {
 
     const leftSections = [
@@ -31,15 +29,11 @@ export default class WaveGameKeyboardHelpContent extends TwoColumnKeyboardHelpCo
     ];
 
     super( leftSections, rightSections );
-
-    this.disposeWaveGameKeyboardHelpContent = () => {
-      leftSections.forEach( section => section.dispose() );
-      rightSections.forEach( section => section.dispose() );
-    };
   }
 
+  // See https://github.com/phetsims/fourier-making-waves/issues/236
   public override dispose(): void {
-    this.disposeWaveGameKeyboardHelpContent();
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 }
@@ -48,8 +42,6 @@ export default class WaveGameKeyboardHelpContent extends TwoColumnKeyboardHelpCo
  * Hotkeys related to the game.
  */
 class GameControlsHelpSection extends KeyboardHelpSection {
-
-  private readonly disposeGameControlsHelpSection: () => void;
 
   public constructor() {
 
@@ -61,14 +53,11 @@ class GameControlsHelpSection extends KeyboardHelpSection {
     super( FourierMakingWavesStrings.keyboardHelpDialog.gameControlsStringProperty, [ checkAnswerRow ], {
       textMaxWidth: 250
     } );
-
-    this.disposeGameControlsHelpSection = () => {
-      checkAnswerRow.dispose();
-    };
   }
 
+  // See https://github.com/phetsims/fourier-making-waves/issues/236
   public override dispose(): void {
-    this.disposeGameControlsHelpSection();
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 }

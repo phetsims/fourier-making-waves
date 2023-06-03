@@ -14,8 +14,6 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class DiscreteKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
-  private readonly disposeDiscreteKeyboardHelpContent: () => void;
-
   public constructor() {
 
     const leftSections = [
@@ -30,15 +28,11 @@ export default class DiscreteKeyboardHelpContent extends TwoColumnKeyboardHelpCo
     ];
 
     super( leftSections, rightSections );
-
-    this.disposeDiscreteKeyboardHelpContent = () => {
-      leftSections.forEach( section => section.dispose() );
-      rightSections.forEach( section => section.dispose() );
-    };
   }
 
+  // See https://github.com/phetsims/fourier-making-waves/issues/236
   public override dispose(): void {
-    this.disposeDiscreteKeyboardHelpContent();
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 }
