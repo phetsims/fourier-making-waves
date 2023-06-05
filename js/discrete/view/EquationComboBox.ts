@@ -35,31 +35,31 @@ const CHOICES: FMWComboBoxChoice<EquationForm>[] = [
   },
   {
     value: EquationForm.WAVELENGTH,
-    stringProperty: FMWSymbols.lambdaStringProperty,
+    stringProperty: FMWSymbols.lambdaSymbolProperty,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `wavelength${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.SPATIAL_WAVE_NUMBER,
-    stringProperty: FMWSymbols.kStringProperty,
+    stringProperty: FMWSymbols.kSymbolProperty,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `spatialWaveNumber${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.FREQUENCY,
-    stringProperty: FMWSymbols.fStringProperty,
+    stringProperty: FMWSymbols.fSymbolProperty,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `frequency${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.PERIOD,
-    stringProperty: FMWSymbols.TStringProperty,
+    stringProperty: FMWSymbols.TSymbolProperty,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `period${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.ANGULAR_WAVE_NUMBER,
-    stringProperty: FMWSymbols.omegaStringProperty,
+    stringProperty: FMWSymbols.omegaSymbolProperty,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `angularWaveNumber${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
@@ -77,7 +77,7 @@ const CHOICES: FMWComboBoxChoice<EquationForm>[] = [
   },
   {
     value: EquationForm.MODE,
-    stringProperty: FMWSymbols.nStringProperty,
+    stringProperty: FMWSymbols.nSymbolProperty,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `mode${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   }

@@ -80,11 +80,11 @@ export default class ConjugateStandardDeviationControl extends WavePacketNumberC
     // In addition to the domain, this is dependent on a number of localized string Properties.
     Multilink.multilink( [
       domainProperty,
-      FMWSymbols.sigmaStringProperty,
-      FMWSymbols.xStringProperty,
-      FMWSymbols.tStringProperty,
-      FMWSymbols.kStringProperty,
-      FMWSymbols.omegaStringProperty,
+      FMWSymbols.sigmaSymbolProperty,
+      FMWSymbols.xSymbolProperty,
+      FMWSymbols.tSymbolProperty,
+      FMWSymbols.kSymbolProperty,
+      FMWSymbols.omegaSymbolProperty,
       FourierMakingWavesStrings.units.metersStringProperty,
       FourierMakingWavesStrings.units.millisecondsStringProperty,
       FourierMakingWavesStrings.symbolSymbolValueUnitsStringProperty

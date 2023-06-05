@@ -71,9 +71,9 @@ export default class StandardDeviationControl extends WavePacketNumberControl {
     // In addition to the domain, this is dependent on a number of localized string Properties.
     Multilink.multilink( [
         domainProperty,
-        FMWSymbols.sigmaStringProperty,
-        FMWSymbols.kStringProperty,
-        FMWSymbols.omegaStringProperty,
+        FMWSymbols.sigmaSymbolProperty,
+        FMWSymbols.kSymbolProperty,
+        FMWSymbols.omegaSymbolProperty,
         FourierMakingWavesStrings.units.radiansPerMeterStringProperty,
         FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty,
         FourierMakingWavesStrings.symbolValueUnitsStringProperty

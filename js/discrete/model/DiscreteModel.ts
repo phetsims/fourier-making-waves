@@ -105,10 +105,10 @@ export default class DiscreteModel implements TModel {
     // Group elements related to measurement tools under this tandem.
     const measurementToolsTandem = tandem.createTandem( 'measurementTools' );
 
-    this.wavelengthTool = new DiscreteMeasurementTool( FMWSymbols.lambdaStringProperty,
+    this.wavelengthTool = new DiscreteMeasurementTool( FMWSymbols.lambdaSymbolProperty,
       this.fourierSeries.numberOfHarmonicsProperty, measurementToolsTandem.createTandem( 'wavelengthTool' ) );
 
-    this.periodTool = new DiscreteMeasurementTool( FMWSymbols.TStringProperty,
+    this.periodTool = new DiscreteMeasurementTool( FMWSymbols.TSymbolProperty,
       this.fourierSeries.numberOfHarmonicsProperty, measurementToolsTandem.createTandem( 'periodTool' ) );
 
     // {DerivedProperty.<TickLabelFormat>}

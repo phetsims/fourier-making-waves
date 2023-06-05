@@ -35,7 +35,7 @@ export default class WavePacketSumEquationNode extends Node {
     } );
 
     // Capital sigma, summation symbol
-    const sumSymbolNode = new SumSymbolNode( FMWSymbols.nStringProperty, -Infinity, new NumberProperty( Infinity ), {
+    const sumSymbolNode = new SumSymbolNode( FMWSymbols.nSymbolProperty, -Infinity, new NumberProperty( Infinity ), {
       minMaxFont: new PhetFont( 16 )
     } );
 
@@ -52,8 +52,8 @@ export default class WavePacketSumEquationNode extends Node {
 
     Multilink.multilink( [
         domainProperty, seriesTypeProperty, componentSpacingProperty,
-        FMWSymbols.xStringProperty, FMWSymbols.tStringProperty, FMWSymbols.kStringProperty, FMWSymbols.omegaStringProperty,
-        FMWSymbols.sinStringProperty, FMWSymbols.cosStringProperty, FMWSymbols.AStringProperty, FMWSymbols.dStringProperty
+        FMWSymbols.xSymbolProperty, FMWSymbols.tSymbolProperty, FMWSymbols.kSymbolProperty, FMWSymbols.omegaSymbolProperty,
+        FMWSymbols.sinSymbolProperty, FMWSymbols.cosSymbolProperty, FMWSymbols.ASymbolProperty, FMWSymbols.dSymbolProperty
       ],
       ( domain, seriesType, componentSpacing, x, t, k, omega, sin, cos, A, d ) => {
 

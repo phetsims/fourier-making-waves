@@ -103,7 +103,7 @@ const TickLabelUtils = {
       return TickLabelUtils.createNumericTickLabel( value, decimalPlaces );
     }
     else {
-      const symbolStringProperty = ( domain === Domain.TIME ) ? FMWSymbols.TStringProperty : FMWSymbols.LStringProperty;
+      const symbolStringProperty = ( domain === Domain.TIME ) ? FMWSymbols.TSymbolProperty : FMWSymbols.LSymbolProperty;
       const symbolValue = ( domain === Domain.TIME ) ? T : L;
       return TickLabelUtils.createSymbolicTickLabel( value, symbolStringProperty, symbolValue, decimalPlaces );
     }

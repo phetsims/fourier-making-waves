@@ -317,7 +317,7 @@ class MeasurementToolsSubpanel extends VBox {
     // Wavelength
     const wavelengthCheckbox = new WavelengthCheckbox( wavelengthTool.isSelectedProperty, domainProperty,
       tandem.createTandem( 'wavelengthCheckbox' ) );
-    const wavelengthSpinner = new OrderSpinner( FMWSymbols.lambdaStringProperty, wavelengthTool.orderProperty, {
+    const wavelengthSpinner = new OrderSpinner( FMWSymbols.lambdaSymbolProperty, wavelengthTool.orderProperty, {
       enabledProperty: new DerivedProperty(
         [ wavelengthTool.isSelectedProperty, domainProperty ],
         ( isSelected, domain ) => isSelected && ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME )
@@ -334,7 +334,7 @@ class MeasurementToolsSubpanel extends VBox {
     // Period
     const periodCheckbox = new PeriodCheckbox( periodTool.isSelectedProperty, domainProperty,
       tandem.createTandem( 'periodCheckbox' ) );
-    const periodSpinner = new OrderSpinner( FMWSymbols.TStringProperty, periodTool.orderProperty, {
+    const periodSpinner = new OrderSpinner( FMWSymbols.TSymbolProperty, periodTool.orderProperty, {
       enabledProperty: new DerivedProperty(
         [ periodTool.isSelectedProperty, domainProperty ],
         ( isSelected, domain ) => isSelected && ( domain === Domain.TIME || domain === Domain.SPACE_AND_TIME )

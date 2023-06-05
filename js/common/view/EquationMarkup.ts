@@ -18,19 +18,19 @@ import SeriesType from '../model/SeriesType.js';
 const HIDDEN_STRING = ''; // string for EquationForm.HIDDEN
 
 // To improve readability of markup creation. Each of these is a string that may also include markup, added by FMWSymbols.
-const An = `${FMWSymbols.AStringProperty.value}<sub>${FMWSymbols.nStringProperty.value}</sub>`;
-const F = FMWSymbols.FStringProperty.value;
-const f = FMWSymbols.fStringProperty.value;
-const k = FMWSymbols.kStringProperty.value;
-const L = FMWSymbols.LStringProperty.value;
-const lambda = FMWSymbols.lambdaStringProperty.value;
+const An = `${FMWSymbols.ASymbolProperty.value}<sub>${FMWSymbols.nSymbolProperty.value}</sub>`;
+const F = FMWSymbols.FSymbolProperty.value;
+const f = FMWSymbols.fSymbolProperty.value;
+const k = FMWSymbols.kSymbolProperty.value;
+const L = FMWSymbols.LSymbolProperty.value;
+const lambda = FMWSymbols.lambdaSymbolProperty.value;
 const MINUS = MathSymbols.MINUS;
-const n = FMWSymbols.nStringProperty.value;
-const omega = FMWSymbols.omegaStringProperty.value;
+const n = FMWSymbols.nSymbolProperty.value;
+const omega = FMWSymbols.omegaSymbolProperty.value;
 const pi = FMWSymbols.pi;
-const T = FMWSymbols.TStringProperty.value;
-const t = FMWSymbols.tStringProperty.value;
-const x = FMWSymbols.xStringProperty.value;
+const T = FMWSymbols.TSymbolProperty.value;
+const t = FMWSymbols.tSymbolProperty.value;
+const x = FMWSymbols.xSymbolProperty.value;
 
 // {string} for general form (e.g. 'n') or {number} for a specific harmonic
 type Order = string | number;
@@ -81,11 +81,11 @@ const EquationMarkup = {
   getComponentsEquationMarkup( domain: Domain, seriesType: SeriesType ): string {
     assert && assert( domain === Domain.SPACE || domain === Domain.TIME, `unsupported domain: ${domain}` );
 
-    const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.xStringProperty.value : FMWSymbols.tStringProperty.value;
-    const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.kStringProperty.value : FMWSymbols.omegaStringProperty.value;
-    const seriesTypeString = ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinStringProperty.value : FMWSymbols.cosStringProperty.value;
-    return `${FMWSymbols.AStringProperty.value}<sub>${FMWSymbols.nStringProperty.value}</sub> ` +
-           `${seriesTypeString}( ${componentSymbol}<sub>${FMWSymbols.nStringProperty.value}</sub>${domainSymbol} )`;
+    const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.xSymbolProperty.value : FMWSymbols.tSymbolProperty.value;
+    const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.kSymbolProperty.value : FMWSymbols.omegaSymbolProperty.value;
+    const seriesTypeString = ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinSymbolProperty.value : FMWSymbols.cosSymbolProperty.value;
+    return `${FMWSymbols.ASymbolProperty.value}<sub>${FMWSymbols.nSymbolProperty.value}</sub> ` +
+           `${seriesTypeString}( ${componentSymbol}<sub>${FMWSymbols.nSymbolProperty.value}</sub>${domainSymbol} )`;
   }
 };
 
@@ -180,7 +180,7 @@ function getSpaceAndTimeMarkup( seriesType: SeriesType, equationForm: EquationFo
  * Converts a SeriesType to markup.
  */
 function seriesTypeToMarkup( seriesType: SeriesType ): string {
-  return ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinStringProperty.value : FMWSymbols.cosStringProperty.value;
+  return ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinSymbolProperty.value : FMWSymbols.cosSymbolProperty.value;
 }
 
 fourierMakingWaves.register( 'EquationMarkup', EquationMarkup );

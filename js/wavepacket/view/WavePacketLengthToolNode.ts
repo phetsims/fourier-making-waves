@@ -35,9 +35,9 @@ export default class WavePacketLengthToolNode extends WavePacketMeasurementToolN
 
       // WavePacketMeasurementToolNodeOptions
       fill: FMWColors.wavePacketLengthToolFillProperty,
-      spaceSymbolStringProperty: new DerivedProperty( [ FMWSymbols.lambdaStringProperty ],
+      spaceSymbolStringProperty: new DerivedProperty( [ FMWSymbols.lambdaSymbolProperty ],
         lambda => `${lambda}<sub>1</sub>` ),
-      timeSymbolStringProperty: new DerivedProperty( [ FMWSymbols.TStringProperty ],
+      timeSymbolStringProperty: new DerivedProperty( [ FMWSymbols.TSymbolProperty ],
         T => `${T}<sub>1</sub>` )
     }, providedOptions );
 
