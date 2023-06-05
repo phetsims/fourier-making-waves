@@ -63,7 +63,7 @@ export default class AmplitudeNumberDisplay extends InteractiveHighlighting( VBo
       options.numberDisplayOptions );
 
     const labelStringProperty = new DerivedProperty(
-      [ FMWSymbols.ASymbolProperty ],
+      [ FMWSymbols.AMarkupStringProperty ],
       A => `${A}<sub>${harmonic.order}</sub>`, {
         tandem: options.tandem.createTandem( 'labelStringProperty' ),
         phetioValueType: StringIO

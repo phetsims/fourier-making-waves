@@ -21,10 +21,10 @@ export default class LengthToolCheckbox extends CaliperCheckbox {
 
   public constructor( visibleProperty: Property<boolean>, domainProperty: EnumerationProperty<Domain>, tandem: Tandem ) {
 
-    const spaceSymbolStringProperty = new DerivedProperty( [ FMWSymbols.lambdaSymbolProperty ],
+    const spaceSymbolStringProperty = new DerivedProperty( [ FMWSymbols.lambdaMarkupStringProperty ],
         lambda => `${lambda}<sub>1</sub>` );
 
-    const timeSymbolStringProperty = new DerivedProperty( [ FMWSymbols.TSymbolProperty ],
+    const timeSymbolStringProperty = new DerivedProperty( [ FMWSymbols.TMarkupStringProperty ],
         T => `${T}<sub>1</sub>` );
 
     super( visibleProperty, domainProperty, spaceSymbolStringProperty, timeSymbolStringProperty, {

@@ -105,7 +105,7 @@ export default class WavePacketMeasurementToolNode extends Node {
         calipersNode.visible = false;
         calipersNode.setMeasuredWidth( 0 );
         infinityBackgroundNode.visible = true;
-        infinityText.string = `${symbol} = ${FMWSymbols.infinity}`;
+        infinityText.string = `${symbol} = ${FMWSymbols.infinityMarkup}`;
       }
       else {
         calipersNode.visible = true;

@@ -32,12 +32,12 @@ export default class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButto
     const items: AquaRadioButtonGroupItem<SeriesType>[] = [
       {
         value: SeriesType.SIN,
-        createNode: () => new RichText( FMWSymbols.sinSymbolProperty, textOptions ),
+        createNode: () => new RichText( FMWSymbols.sinMarkupStringProperty, textOptions ),
         tandemName: `sin${AquaRadioButton.TANDEM_NAME_SUFFIX}`
       },
       {
         value: SeriesType.COS,
-        createNode: () => new RichText( FMWSymbols.cosSymbolProperty, textOptions ),
+        createNode: () => new RichText( FMWSymbols.cosMarkupStringProperty, textOptions ),
         tandemName: `cos${AquaRadioButton.TANDEM_NAME_SUFFIX}`
       }
     ];

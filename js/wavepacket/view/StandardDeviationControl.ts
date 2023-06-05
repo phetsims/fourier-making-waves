@@ -42,10 +42,10 @@ export default class StandardDeviationControl extends WavePacketNumberControl {
         // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
         // It was easy to change during development, and is supported by the assertions below.
         majorTicks: [
-          { value: Math.PI, label: new RichText( `${FMWSymbols.pi}`, TEXT_OPTIONS ) },
-          { value: 2 * Math.PI, label: new RichText( `2${FMWSymbols.pi}`, TEXT_OPTIONS ) },
-          { value: 3 * Math.PI, label: new RichText( `3${FMWSymbols.pi}`, TEXT_OPTIONS ) },
-          { value: 4 * Math.PI, label: new RichText( `4${FMWSymbols.pi}`, TEXT_OPTIONS ) }
+          { value: Math.PI, label: new RichText( `${FMWSymbols.piMarkup}`, TEXT_OPTIONS ) },
+          { value: 2 * Math.PI, label: new RichText( `2${FMWSymbols.piMarkup}`, TEXT_OPTIONS ) },
+          { value: 3 * Math.PI, label: new RichText( `3${FMWSymbols.piMarkup}`, TEXT_OPTIONS ) },
+          { value: 4 * Math.PI, label: new RichText( `4${FMWSymbols.piMarkup}`, TEXT_OPTIONS ) }
         ],
 
         // pdom options
@@ -71,9 +71,9 @@ export default class StandardDeviationControl extends WavePacketNumberControl {
     // In addition to the domain, this is dependent on a number of localized string Properties.
     Multilink.multilink( [
         domainProperty,
-        FMWSymbols.sigmaSymbolProperty,
-        FMWSymbols.kSymbolProperty,
-        FMWSymbols.omegaSymbolProperty,
+        FMWSymbols.sigmaMarkupStringProperty,
+        FMWSymbols.kMarkupStringProperty,
+        FMWSymbols.omegaMarkupStringProperty,
         FourierMakingWavesStrings.units.radiansPerMeterStringProperty,
         FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty,
         FourierMakingWavesStrings.symbolValueUnitsStringProperty

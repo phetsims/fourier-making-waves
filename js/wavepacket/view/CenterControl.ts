@@ -38,9 +38,9 @@ export default class CenterControl extends WavePacketNumberControl {
 
         // Add symbolic tick marks. This is more hard-coded than I'd prefer, but is clear and straightforward.
         majorTicks: [
-          { value: 9 * Math.PI, label: new RichText( `9${FMWSymbols.pi}`, TEXT_OPTIONS ) },
-          { value: 12 * Math.PI, label: new RichText( `12${FMWSymbols.pi}`, TEXT_OPTIONS ) },
-          { value: 15 * Math.PI, label: new RichText( `15${FMWSymbols.pi}`, TEXT_OPTIONS ) }
+          { value: 9 * Math.PI, label: new RichText( `9${FMWSymbols.piMarkup}`, TEXT_OPTIONS ) },
+          { value: 12 * Math.PI, label: new RichText( `12${FMWSymbols.piMarkup}`, TEXT_OPTIONS ) },
+          { value: 15 * Math.PI, label: new RichText( `15${FMWSymbols.piMarkup}`, TEXT_OPTIONS ) }
         ],
         minorTickSpacing: Math.PI,
 
@@ -58,8 +58,8 @@ export default class CenterControl extends WavePacketNumberControl {
     // In addition to the domain, this is dependent on a number of localized string Properties.
     Multilink.multilink( [
         domainProperty,
-        FMWSymbols.kSymbolProperty,
-        FMWSymbols.omegaSymbolProperty,
+        FMWSymbols.kMarkupStringProperty,
+        FMWSymbols.omegaMarkupStringProperty,
         FourierMakingWavesStrings.units.radiansPerMeterStringProperty,
         FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty,
         FourierMakingWavesStrings.symbolValueUnitsStringProperty

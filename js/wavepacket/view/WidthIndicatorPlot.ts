@@ -50,7 +50,7 @@ export default class WidthIndicatorPlot extends Node {
     const dimensionalArrowsNode = new HorizontalDimensionalArrowsNode( FMWColors.widthIndicatorsColorProperty );
 
     const labelStringProperty = new DerivedProperty(
-      [ domainProperty, FMWSymbols.sigmaSymbolProperty, options.spaceSymbolStringProperty, options.timeSymbolStringProperty ],
+      [ domainProperty, FMWSymbols.sigmaMarkupStringProperty, options.spaceSymbolStringProperty, options.timeSymbolStringProperty ],
       ( domain, sigma, spaceSymbol, timeSymbol ) => {
         const waveNumberSymbol = ( domain === Domain.SPACE ) ? spaceSymbol : timeSymbol;
         return `2${sigma}<sub>${waveNumberSymbol}</sub>`;

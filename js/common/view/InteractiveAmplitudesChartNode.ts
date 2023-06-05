@@ -92,7 +92,7 @@ export default class InteractiveAmplitudesChartNode extends Node {
 
     // x axis ---------------------------------------------------------
 
-    const xAxisLabelText = new RichText( FMWSymbols.nSymbolProperty, {
+    const xAxisLabelText = new RichText( FMWSymbols.nMarkupStringProperty, {
       font: FMWConstants.AXIS_LABEL_FONT,
       left: chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING,
       centerY: chartRectangle.centerY,

@@ -84,7 +84,7 @@ export default class WavePacketScreenView extends ScreenView {
     } );
 
     const amplitudesEquationStringProperty = new DerivedProperty(
-      [ FMWSymbols.ASymbolProperty, FMWSymbols.nSymbolProperty ],
+      [ FMWSymbols.AMarkupStringProperty, FMWSymbols.nMarkupStringProperty ],
       ( A, n ) => `${A}<sub>${n}</sub>`
     );
 

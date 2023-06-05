@@ -19,6 +19,9 @@
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../FourierMakingWavesStrings.js';
+import FMWConstants from './FMWConstants.js';
+
+const DERIVED_STRINGS_TANDEM = FMWConstants.DERIVED_STRINGS_TANDEM;
 
 const FMWSymbols = {
 
@@ -26,81 +29,102 @@ const FMWSymbols = {
   // Symbols that are translated
 
   // amplitude
-  ASymbolProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.AStringProperty, {
-    style: 'normal'
+  AMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.AStringProperty, {
+    style: 'normal',
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'AMarkupStringProperty' )
   } ),
 
   // cosine
-  cosSymbolProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.cosStringProperty, {
-    style: 'normal'
+  cosMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.cosStringProperty, {
+    style: 'normal',
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'cosMarkupStringProperty' )
   } ),
 
   // differential, like dx
-  dSymbolProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.dStringProperty ),
+  dMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.dStringProperty, {
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'dMarkupStringProperty' )
+  } ),
 
   // function of frequency
-  FSymbolProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.FStringProperty, {
-    style: 'normal'
+  FMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.FStringProperty, {
+    style: 'normal',
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'FMarkupStringProperty' )
   } ),
 
   // frequency
-  fSymbolProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.fStringProperty ),
+  fMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.fStringProperty, {
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'fMarkupStringProperty' )
+  } ),
 
   // wave number
-  kSymbolProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.kStringProperty ),
+  kMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.kStringProperty, {
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'kMarkupStringProperty' )
+  } ),
 
   // string length, if this were a plucked string
-  LSymbolProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.LStringProperty, {
-    style: 'normal'
+  LMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.LStringProperty, {
+    style: 'normal',
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'LMarkupStringProperty' )
   } ),
 
   // wavelength
-  lambdaSymbolProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.lambdaStringProperty, {
-    style: 'normal'
+  lambdaMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.lambdaStringProperty, {
+    style: 'normal',
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'lambdaMarkupStringProperty' )
   } ),
 
   // mode, order, or harmonic number
-  nSymbolProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.nStringProperty ),
+  nMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.nStringProperty, {
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'nMarkupStringProperty' )
+  } ),
 
   // angular frequency
-  omegaSymbolProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.omegaStringProperty, {
-    style: 'normal'
+  omegaMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.omegaStringProperty, {
+    style: 'normal',
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'omegaMarkupStringProperty' )
   } ),
 
   // width of the Gaussian wave packet (dx)
-  sigmaSymbolProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sigmaStringProperty, {
-    style: 'normal'
+  sigmaMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sigmaStringProperty, {
+    style: 'normal',
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'sigmaMarkupStringProperty' )
   } ),
 
   // sine
-  sinSymbolProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sinStringProperty, {
-    style: 'normal'
+  sinMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sinStringProperty, {
+    style: 'normal',
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'sinMarkupStringProperty' )
   } ),
 
   // sampling period, or period of the 1st harmonic
-  TSymbolProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.TStringProperty, {
-    style: 'normal'
+  TMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.TStringProperty, {
+    style: 'normal',
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'TMarkupStringProperty' )
   } ),
 
   // time
-  tSymbolProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.tStringProperty ),
+  tMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.tStringProperty, {
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'tMarkupStringProperty' )
+  } ),
 
   // position in space along L
-  xSymbolProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.xStringProperty ),
+  xMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.xStringProperty, {
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'xMarkupStringProperty' )
+  } ),
 
   //-----------------------------------------------------------------------------------------------------------
   // Symbols that are not translated
 
-  infinity: MathSymbolFont.getRichTextMarkup( '\u221e', 'normal' ),
+  infinityMarkup: MathSymbolFont.getRichTextMarkup( '\u221e', 'normal' ),
 
   // integration symbol
-  integral: MathSymbolFont.getRichTextMarkup( '\u222B', 'normal' ),
+  integralMarkup: MathSymbolFont.getRichTextMarkup( '\u222B', 'normal' ),
 
   // pi
-  pi: MathSymbolFont.getRichTextMarkup( '\u03c0', 'normal' ),
+  piMarkup: MathSymbolFont.getRichTextMarkup( '\u03c0', 'normal' ),
 
   // summation symbol
-  SIGMA: MathSymbolFont.getRichTextMarkup( '\u03a3', 'normal' )
+  sigmaMarkup: MathSymbolFont.getRichTextMarkup( '\u03a3', 'normal' )
 };
 
 fourierMakingWaves.register( 'FMWSymbols', FMWSymbols );

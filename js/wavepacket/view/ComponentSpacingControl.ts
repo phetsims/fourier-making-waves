@@ -53,9 +53,9 @@ export default class ComponentSpacingControl extends WavePacketNumberControl {
         // It was easy to change during development, and is supported by assertions below.
         majorTicks: [
           { value: 0, label: new RichText( '0', TEXT_OPTIONS ) },
-          { value: 1, label: new RichText( `${FMWSymbols.pi}/4`, TEXT_OPTIONS ) },
-          { value: 2, label: new RichText( `${FMWSymbols.pi}/2`, TEXT_OPTIONS ) },
-          { value: 3, label: new RichText( `${FMWSymbols.pi}`, TEXT_OPTIONS ) }
+          { value: 1, label: new RichText( `${FMWSymbols.piMarkup}/4`, TEXT_OPTIONS ) },
+          { value: 2, label: new RichText( `${FMWSymbols.piMarkup}/2`, TEXT_OPTIONS ) },
+          { value: 3, label: new RichText( `${FMWSymbols.piMarkup}`, TEXT_OPTIONS ) }
         ],
 
         // pdom options
@@ -93,8 +93,8 @@ export default class ComponentSpacingControl extends WavePacketNumberControl {
     // In addition to the domain, this is dependent on a number of localized string Properties.
     Multilink.multilink( [
         domainProperty,
-        FMWSymbols.kSymbolProperty,
-        FMWSymbols.omegaSymbolProperty,
+        FMWSymbols.kMarkupStringProperty,
+        FMWSymbols.omegaMarkupStringProperty,
         FourierMakingWavesStrings.units.radiansPerMeterStringProperty,
         FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty,
         FourierMakingWavesStrings.symbolValueUnitsStringProperty

@@ -41,12 +41,12 @@ export default class SumSymbolNode extends Node {
   private readonly disposeSummationSymbolNode: () => void;
 
   /**
-   * @param indexSymbolProperty - symbol for the index of summation
+   * @param indexMarkupStringProperty - symbol for the index of summation
    * @param indexMin - index min value
    * @param indexMaxProperty - index max value
    * @param [providedOptions]
    */
-  public constructor( indexSymbolProperty: TReadOnlyProperty<string>, indexMin: number,
+  public constructor( indexMarkupStringProperty: TReadOnlyProperty<string>, indexMin: number,
                       indexMaxProperty: TReadOnlyProperty<number>, providedOptions?: SumSymbolNodeOptions ) {
 
     const options = optionize<SumSymbolNodeOptions, SelfOptions, NodeOptions>()( {
@@ -64,7 +64,7 @@ export default class SumSymbolNode extends Node {
     } );
 
     // Not instrumented for PhET-iO.
-    const nEqualsStringProperty = new DerivedProperty( [ indexSymbolProperty ],
+    const nEqualsStringProperty = new DerivedProperty( [ indexMarkupStringProperty ],
       indexSymbol => `${indexSymbol} ${MathSymbols.EQUAL_TO}&nbsp` );
 
     // Index and min (starting) value, which appears below the sum symbol. E.g. 'n = 0'
@@ -99,11 +99,11 @@ export default class SumSymbolNode extends Node {
 
         // update text
         if ( integration ) {
-          symbolNode.string = FMWSymbols.integral;
+          symbolNode.string = FMWSymbols.integralMarkup;
           minValueNode.string = indexToString( indexMin );
         }
         else {
-          symbolNode.string = FMWSymbols.SIGMA;
+          symbolNode.string = FMWSymbols.sigmaMarkup;
           minValueNode.string = indexToString( indexMin );
         }
         maxValueNode.string = indexToString( indexMax );

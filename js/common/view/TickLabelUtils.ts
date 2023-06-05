@@ -85,7 +85,7 @@ const TickLabelUtils = {
    * Creates a tick label for multiples of PI, by converting a value to a coefficient followed by the PI symbol.
    */
   createPiTickLabel( value: number, coefficientDecimals: number, options?: RichTextOptions ): Node {
-    return TickLabelUtils.createSymbolicTickLabel( value, FMWSymbols.pi, Math.PI, coefficientDecimals, options );
+    return TickLabelUtils.createSymbolicTickLabel( value, FMWSymbols.piMarkup, Math.PI, coefficientDecimals, options );
   },
 
   /**
@@ -103,7 +103,7 @@ const TickLabelUtils = {
       return TickLabelUtils.createNumericTickLabel( value, decimalPlaces );
     }
     else {
-      const symbolStringProperty = ( domain === Domain.TIME ) ? FMWSymbols.TSymbolProperty : FMWSymbols.LSymbolProperty;
+      const symbolStringProperty = ( domain === Domain.TIME ) ? FMWSymbols.TMarkupStringProperty : FMWSymbols.LMarkupStringProperty;
       const symbolValue = ( domain === Domain.TIME ) ? T : L;
       return TickLabelUtils.createSymbolicTickLabel( value, symbolStringProperty, symbolValue, decimalPlaces );
     }

@@ -57,7 +57,7 @@ export default class DiscreteSumEquationNode extends Node {
     } );
 
     // Capital sigma, summation symbol
-    const summationNode = new SumSymbolNode( FMWSymbols.nSymbolProperty, 1, numberOfHarmonicsProperty );
+    const summationNode = new SumSymbolNode( FMWSymbols.nMarkupStringProperty, 1, numberOfHarmonicsProperty );
 
     // Everything to the right of the summation symbol, set in multilink below
     const rightNode = new RichText( '', {

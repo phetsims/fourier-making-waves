@@ -57,8 +57,8 @@ export default class WavePacketAmplitudesChartNode extends DomainChartNode {
       // DomainChartNode options
       // Units for the x-axis labels are omitted by request, due to space constraints.
       // See https://github.com/phetsims/fourier-making-waves/issues/137.
-      xSpaceLabelProperty: FMWSymbols.kSymbolProperty,
-      xTimeLabelProperty: FMWSymbols.omegaSymbolProperty,
+      xSpaceLabelProperty: FMWSymbols.kMarkupStringProperty,
+      xTimeLabelProperty: FMWSymbols.omegaMarkupStringProperty,
       xTickMarkSpacing: Math.PI,
       xTickLabelSpacing: 2 * Math.PI,
       xTickLabelSetOptions: {
@@ -123,8 +123,8 @@ export default class WavePacketAmplitudesChartNode extends DomainChartNode {
     // Width indicator, labeled dimensional arrows
     const widthIndicatorPlot = new WidthIndicatorPlot( this.chartTransform, widthIndicatorWidthProperty,
       widthIndicatorPositionProperty, domainProperty, {
-        spaceSymbolStringProperty: FMWSymbols.kSymbolProperty,
-        timeSymbolStringProperty: FMWSymbols.omegaSymbolProperty,
+        spaceSymbolStringProperty: FMWSymbols.kMarkupStringProperty,
+        timeSymbolStringProperty: FMWSymbols.omegaMarkupStringProperty,
         visibleProperty: widthIndicatorsVisibleProperty
       } );
 

@@ -105,7 +105,7 @@ export default class AmplitudeKeypadDialog extends Dialog {
 
     // Title indicates which amplitude we're editing, e.g. A<sub>2</sub>.
     const titleStringProperty = new DerivedProperty(
-      [ FMWSymbols.ASymbolProperty, orderProperty ],
+      [ FMWSymbols.AMarkupStringProperty, orderProperty ],
       ( A, order ) => `${A}<sub>${order}</sub>`, {
         tandem: options.tandem.createTandem( 'titleStringProperty' ),
         phetioValueType: StringIO

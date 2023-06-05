@@ -7,138 +7,137 @@
  */
 
 import fourierMakingWaves from '../fourierMakingWaves.js';
-import Tandem from '../../../tandem/js/Tandem.js';
 import FMWSymbols from './FMWSymbols.js';
 import PatternStringProperty from '../../../axon/js/PatternStringProperty.js';
 import FourierMakingWavesStrings from '../FourierMakingWavesStrings.js';
 import StringProperty from '../../../axon/js/StringProperty.js';
+import FMWConstants from './FMWConstants.js';
 
-//TODO https://github.com/phetsims/tandem/issues/298
-const DERIVED_STRINGS_TANDEM = Tandem.GENERAL_MODEL.createTandem( 'strings' ).createTandem( 'fourierMakingWaves' ).createTandem( 'derivedStrings' )
+const DERIVED_STRINGS_TANDEM = FMWConstants.DERIVED_STRINGS_TANDEM;
 
 const FMWDerivedStrings = {
 
   k1StringProperty: new PatternStringProperty( new StringProperty( '{{k}}<sub>1</sub>' ), {
-    k: FMWSymbols.kSymbolProperty
+    k: FMWSymbols.kMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'k1StringProperty' )
   } ),
 
   omega1StringProperty: new PatternStringProperty( new StringProperty( '{{omega}}<sub>1</sub>' ), {
-    omega: FMWSymbols.omegaSymbolProperty
+    omega: FMWSymbols.omegaMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'omega1StringProperty' )
   } ),
 
   xMetersStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolUnitsStringProperty, {
-    symbol: FMWSymbols.xSymbolProperty,
+    symbol: FMWSymbols.xMarkupStringProperty,
     units: FourierMakingWavesStrings.units.metersStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'xMetersStringProperty' )
   } ),
 
   xMillisecondsStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolUnitsStringProperty, {
-    symbol: FMWSymbols.tSymbolProperty,
+    symbol: FMWSymbols.tMarkupStringProperty,
     units: FourierMakingWavesStrings.units.millisecondsStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'xMillisecondsStringProperty' )
   } ),
 
   spaceXStringProperty: new PatternStringProperty( FourierMakingWavesStrings.spaceSymbolStringProperty, {
-    symbol: FMWSymbols.xSymbolProperty
+    symbol: FMWSymbols.xMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'spaceXStringProperty' )
   } ),
 
   timeTStringProperty: new PatternStringProperty( FourierMakingWavesStrings.timeSymbolStringProperty, {
-    symbol: FMWSymbols.tSymbolProperty
+    symbol: FMWSymbols.tMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'timeTStringProperty' )
   } ),
 
   spaceAndTimeXTStringProperty: new PatternStringProperty( FourierMakingWavesStrings.spaceAndTimeSymbolsStringProperty, {
-    spaceSymbol: FMWSymbols.xSymbolProperty,
-    timeSymbol: FMWSymbols.tSymbolProperty
+    spaceSymbol: FMWSymbols.xMarkupStringProperty,
+    timeSymbol: FMWSymbols.tMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'spaceAndTimeXTStringProperty' )
   } ),
 
   lambdaAndTStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolAndSymbolStringProperty, {
-    symbol1: FMWSymbols.lambdaSymbolProperty,
-    symbol2: FMWSymbols.TSymbolProperty
+    symbol1: FMWSymbols.lambdaMarkupStringProperty,
+    symbol2: FMWSymbols.TMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'lambdaAndTStringProperty' )
   } ),
 
   kAndOmegaStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolAndSymbolStringProperty, {
-    symbol1: FMWSymbols.kSymbolProperty,
-    symbol2: FMWSymbols.omegaSymbolProperty
+    symbol1: FMWSymbols.kMarkupStringProperty,
+    symbol2: FMWSymbols.omegaMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'kAndOmegaStringProperty' )
   } ),
 
   ADescriptionStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.AStringProperty, {
-    A: FMWSymbols.ASymbolProperty
+    A: FMWSymbols.AMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'ADescriptionStringProperty' )
   } ),
 
   fDescriptionStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.fStringProperty, {
-    f: FMWSymbols.fSymbolProperty
+    f: FMWSymbols.fMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'fDescriptionStringProperty' )
   } ),
 
   lambdaDescriptionStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.lambdaStringProperty, {
-    lambda: FMWSymbols.lambdaSymbolProperty
+    lambda: FMWSymbols.lambdaMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'lambdaDescriptionStringProperty' )
   } ),
 
   kDescriptionStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.kStringProperty, {
-    k: FMWSymbols.kSymbolProperty
+    k: FMWSymbols.kMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'kDescriptionStringProperty' )
   } ),
 
   LDescriptionStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.LStringProperty, {
-    L: FMWSymbols.LSymbolProperty
+    L: FMWSymbols.LMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'LDescriptionStringProperty' )
   } ),
 
   nDescriptionStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.nStringProperty, {
-    n: FMWSymbols.nSymbolProperty
+    n: FMWSymbols.nMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'nDescriptionStringProperty' )
   } ),
 
   tDescriptionStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.tStringProperty, {
-    t: FMWSymbols.tSymbolProperty
+    t: FMWSymbols.tMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'tDescriptionStringProperty' )
   } ),
 
   TDescriptionStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.TStringProperty, {
-    T: FMWSymbols.TSymbolProperty
+    T: FMWSymbols.TMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'TDescriptionStringProperty' )
   } ),
 
   omegaDescriptionStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.omegaStringProperty, {
-    omega: FMWSymbols.omegaSymbolProperty
+    omega: FMWSymbols.omegaMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'omegaDescriptionStringProperty' )
   } ),
 
   sigmaDescriptionStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.sigmaStringProperty, {
-    sigma: FMWSymbols.sigmaSymbolProperty
+    sigma: FMWSymbols.sigmaMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'sigmaDescriptionStringProperty' )
   } ),
 
   xDescriptionStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.xStringProperty, {
-    x: FMWSymbols.xSymbolProperty
+    x: FMWSymbols.xMarkupStringProperty
   }, {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'xDescriptionStringProperty' )
   } )
