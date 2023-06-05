@@ -31,8 +31,7 @@ export default class WaveGameLevelSelectionNode extends Node {
 
     const chooseYourLevelText = new Text( FourierMakingWavesStrings.chooseYourLevelStringProperty, {
       font: new PhetFont( 50 ),
-      maxWidth: 0.65 * layoutBounds.width,
-      tandem: tandem.createTandem( 'chooseYourLevelText' )
+      maxWidth: 0.65 * layoutBounds.width
     } );
 
     // Displays info about the levels. Created eagerly and reused for PhET-iO.

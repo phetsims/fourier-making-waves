@@ -22,9 +22,7 @@ export default class SecondaryWaveformCheckbox extends Checkbox {
 
     const infiniteHarmonicsText = new Text( titleStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 200,
-      visiblePropertyOptions: { phetioReadOnly: true },
-      tandem: tandem.createTandem( 'infiniteHarmonicsText' )
+      maxWidth: 200
     } );
 
     const icon = new Line( 0, 0, 20, 0, {

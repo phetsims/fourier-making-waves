@@ -139,15 +139,13 @@ class FourierSeriesSubpanel extends VBox {
     // Title for this subpanel
     const fourierSeriesText = new Text( FourierMakingWavesStrings.fourierSeriesStringProperty, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 180, // determined empirically
-      tandem: tandem.createTandem( 'fourierSeriesText' )
+      maxWidth: 180 // determined empirically
     } );
 
     // Waveform combo box
     const waveformText = new Text( FourierMakingWavesStrings.waveformStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 70, // determined empirically
-      tandem: tandem.createTandem( 'waveformText' )
+      maxWidth: 70 // determined empirically
     } );
 
     const waveformComboBox = new WaveformComboBox( waveformProperty, popupParent,
@@ -161,8 +159,7 @@ class FourierSeriesSubpanel extends VBox {
     // Harmonics spinner
     const harmonicsText = new Text( FourierMakingWavesStrings.harmonicsStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 70,  // determined empirically
-      tandem: tandem.createTandem( 'harmonicsText' )
+      maxWidth: 70  // determined empirically
     } );
 
     const harmonicsSpinner = new HarmonicsSpinner( fourierSeries.numberOfHarmonicsProperty,
@@ -222,14 +219,12 @@ class GraphControlsSubpanel extends VBox {
     // Title for this subpanel
     const graphControlsText = new Text( FourierMakingWavesStrings.graphControlsStringProperty, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 200, // determined empirically
-      tandem: tandem.createTandem( 'graphControlsText' )
+      maxWidth: 200 // determined empirically
     } );
 
     const functionOfText = new Text( FourierMakingWavesStrings.functionOfStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 70, // determined empirically
-      tandem: tandem.createTandem( 'functionOfText' )
+      maxWidth: 70 // determined empirically
     } );
 
     const domainComboBox = new DomainComboBox( domainProperty, popupParent,
@@ -243,8 +238,7 @@ class GraphControlsSubpanel extends VBox {
 
     const seriesText = new Text( FourierMakingWavesStrings.seriesStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 70, // determined empirically
-      tandem: tandem.createTandem( 'seriesText' )
+      maxWidth: 70 // determined empirically
     } );
 
     const seriesTypeRadioButtonGroup = new SeriesTypeRadioButtonGroup( seriesTypeProperty,
@@ -258,8 +252,7 @@ class GraphControlsSubpanel extends VBox {
 
     const equationText = new Text( FourierMakingWavesStrings.equationStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 70, // determined empirically
-      tandem: tandem.createTandem( 'equationText' )
+      maxWidth: 70 // determined empirically
     } );
 
     const equationComboBox = new EquationComboBox( equationFormProperty, domainProperty, popupParent,
@@ -302,8 +295,7 @@ class MeasurementToolsSubpanel extends VBox {
     // Title for this subpanel
     const measurementToolsText = new Text( FourierMakingWavesStrings.measurementToolsStringProperty, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 200, // determined empirically
-      tandem: tandem.createTandem( 'measurementToolsText' )
+      maxWidth: 200 // determined empirically
     } );
 
     // To make checkboxes have the same effective width

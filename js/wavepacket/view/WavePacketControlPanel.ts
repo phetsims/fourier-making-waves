@@ -133,8 +133,7 @@ class ComponentSpacingSubpanel extends VBox {
     // Title for this subpanel
     const componentSpacingText = new Text( FourierMakingWavesStrings.componentSpacingStringProperty, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 160, // determined empirically
-      tandem: tandem.createTandem( 'componentSpacingText' )
+      maxWidth: 160 // determined empirically
     } );
 
     const componentSpacingControl = new ComponentSpacingControl( componentSpacingProperty, domainProperty,
@@ -188,8 +187,7 @@ class WavePacketCenterSubpanel extends VBox {
     // Title for this subpanel
     const wavePacketCenterText = new Text( FourierMakingWavesStrings.wavePacketCenterStringProperty, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 180, // determined empirically
-      tandem: tandem.createTandem( 'wavePacketCenterText' )
+      maxWidth: 180 // determined empirically
     } );
 
     const centerControl = new CenterControl( centerProperty, domainProperty, tandem.createTandem( 'centerControl' ) );
@@ -227,8 +225,7 @@ class WavePacketWidthSubpanel extends VBox {
     // Title for this subpanel
     const wavePacketWidthText = new Text( FourierMakingWavesStrings.wavePacketWidthStringProperty, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 180, // determined empirically
-      tandem: tandem.createTandem( 'wavePacketWidthText' )
+      maxWidth: 180 // determined empirically
     } );
 
     const standardDeviationControl = new StandardDeviationControl( standardDeviationProperty, domainProperty,
@@ -288,15 +285,13 @@ class GraphControlsSubpanel extends VBox {
     // Title for this subpanel
     const graphControlsText = new Text( FourierMakingWavesStrings.graphControlsStringProperty, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 200, // determined empirically
-      tandem: tandem.createTandem( 'graphControlsText' )
+      maxWidth: 200 // determined empirically
     } );
 
     // Function of:
     const functionOfText = new Text( FourierMakingWavesStrings.functionOfStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 70, // determined empirically
-      tandem: tandem.createTandem( 'functionOfText' )
+      maxWidth: 70 // determined empirically
     } );
 
     const domainComboBox = new DomainComboBox( domainProperty, popupParent,
@@ -311,8 +306,7 @@ class GraphControlsSubpanel extends VBox {
     // Series:
     const seriesText = new Text( FourierMakingWavesStrings.seriesStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 70, // determined empirically
-      tandem: tandem.createTandem( 'seriesText' )
+      maxWidth: 70 // determined empirically
     } );
 
     const seriesTypeRadioButtonGroup = new SeriesTypeRadioButtonGroup( seriesTypeProperty,

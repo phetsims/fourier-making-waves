@@ -40,8 +40,7 @@ export default class LabeledExpandCollapseButton extends HBox {
     }, providedOptions );
 
     const labelText = new Text( labelStringProperty, combineOptions<TextOptions>( {
-      cursor: 'pointer',
-      tandem: options.tandem.createTandem( 'labelText' )
+      cursor: 'pointer'
     }, options.textOptions ) );
 
     const expandCollapseButton = new ExpandCollapseButton( expandedProperty, {

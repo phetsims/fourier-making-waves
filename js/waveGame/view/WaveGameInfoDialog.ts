@@ -20,8 +20,7 @@ export default class WaveGameInfoDialog extends GameInfoDialog {
   public constructor( levels: WaveGameLevel[], tandem: Tandem ) {
 
     const titleText = new Text( FourierMakingWavesStrings.levelsStringProperty, {
-      font: new PhetFont( 32 ),
-      tandem: tandem.createTandem( 'titleText' )
+      font: new PhetFont( 32 )
     } );
 
     const descriptions = levels.map( level => level.infoDialogDescriptionProperty );

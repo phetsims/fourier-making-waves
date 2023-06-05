@@ -22,8 +22,7 @@ export default class WidthIndicatorsCheckbox extends Checkbox {
 
     const widthIndicatorsText = new Text( FourierMakingWavesStrings.widthIndicatorsStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 100,
-      tandem: tandem.createTandem( 'widthIndicatorsText' )
+      maxWidth: 100
     } );
 
     const iconNode = FMWIconFactory.createWidthIndicatorsIcon();

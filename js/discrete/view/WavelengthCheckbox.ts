@@ -24,8 +24,7 @@ export default class WavelengthCheckbox extends Checkbox {
 
     const wavelengthText = new Text( FourierMakingWavesStrings.wavelengthStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 80, // determined empirically
-      tandem: tandem.createTandem( 'wavelengthText' )
+      maxWidth: 80 // determined empirically
     } );
 
     super( isSelectedProperty, wavelengthText, combineOptions<CheckboxOptions>( {}, FMWConstants.CHECKBOX_OPTIONS, {

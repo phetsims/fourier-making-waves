@@ -14,7 +14,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
   textOptions?: StrictOmit<TextOptions, 'tandem'>;
@@ -37,10 +37,7 @@ export default class AmplitudeControlsSpinner extends VBox {
       spacing: 10
     }, providedOptions );
 
-    const amplitudeControlsText = new Text( FourierMakingWavesStrings.amplitudeControlsStringProperty,
-      combineOptions<TextOptions>( {
-        tandem: options.tandem.createTandem( 'amplitudeControlsText' )
-      }, options.textOptions ) );
+    const amplitudeControlsText = new Text( FourierMakingWavesStrings.amplitudeControlsStringProperty, options.textOptions );
 
     const spinner = new NumberSpinner( numberOfAmplitudeControlsProperty, numberOfAmplitudeControlsProperty.rangeProperty, {
       arrowsPosition: 'leftRight',

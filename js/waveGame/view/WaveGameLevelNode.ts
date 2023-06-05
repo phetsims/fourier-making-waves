@@ -144,8 +144,7 @@ export default class WaveGameLevelNode extends Node {
 
     const harmonicsTitleText = new Text( FourierMakingWavesStrings.harmonicsChartStringProperty, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: 150,
-      tandem: harmonicsTandem.createTandem( 'harmonicsTitleText' )
+      maxWidth: 150
     } );
 
     const harmonicsChartNode = new WaveGameHarmonicsChartNode( level.harmonicsChart,
@@ -167,8 +166,7 @@ export default class WaveGameLevelNode extends Node {
 
     const sumTitleNode = new Text( FourierMakingWavesStrings.sumStringProperty, {
       font: FMWConstants.TITLE_FONT,
-      maxWidth: FMWConstants.CHART_TITLE_MAX_WIDTH,
-      tandem: sumTandem.createTandem( 'harmonicsTitleText' )
+      maxWidth: FMWConstants.CHART_TITLE_MAX_WIDTH
     } );
 
     const sumChartNode = new WaveGameSumChartNode( level.sumChart, sumTandem.createTandem( 'sumChartNode' ) );
