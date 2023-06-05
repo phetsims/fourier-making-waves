@@ -6,8 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import { RichText, Text } from '../../../../scenery/js/imports.js';
+import { RichText, Text, VBox } from '../../../../scenery/js/imports.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -41,17 +40,18 @@ export default class DiscreteInfoDialog extends Dialog {
       FMWDerivedStrings.xDescriptionStringProperty
     ];
 
-    // Put a line break between each of the above strings.
-    const stringProperty = DerivedProperty.deriveAny( stringProperties,
-      () => stringProperties.map( p => p.value ).join( '<br>' ) );
+    const richTextOptions = {
+      font: FMWConstants.EQUATION_FONT
+    };
+    const children = stringProperties.map( stringProperty => new RichText( stringProperty, richTextOptions ) );
 
-    // RichText with one symbol's key per line
-    const richText = new RichText( stringProperty, {
-      font: FMWConstants.EQUATION_FONT,
-      leading: 11
+    const content = new VBox( {
+      children: children,
+      align: 'left',
+      spacing: 11
     } );
 
-    super( richText, {
+    super( content, {
 
       // DialogOptions
       title: titleText,
