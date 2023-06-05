@@ -20,17 +20,17 @@ import FMWDerivedStrings from '../FMWDerivedStrings.js';
 const CHOICES: FMWComboBoxChoice<Domain>[] = [
   {
     value: Domain.SPACE,
-    stringProperty: FMWDerivedStrings.spaceXStringProperty,
+    stringProperty: FMWDerivedStrings.functionOfSpaceStringProperty,
     tandemName: `space${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: Domain.TIME,
-    stringProperty: FMWDerivedStrings.timeTStringProperty,
+    stringProperty: FMWDerivedStrings.functionOfTimeStringProperty,
     tandemName: `time${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: Domain.SPACE_AND_TIME,
-    stringProperty: FMWDerivedStrings.spaceAndTimeXTStringProperty,
+    stringProperty: FMWDerivedStrings.functionOfSpaceAndTimeStringProperty,
     tandemName: `spaceAndTime${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   }
 ];

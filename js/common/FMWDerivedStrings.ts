@@ -43,23 +43,23 @@ const FMWDerivedStrings = {
     tandem: DERIVED_STRINGS_TANDEM.createTandem( 'xMillisecondsStringProperty' )
   } ),
 
-  spaceXStringProperty: new PatternStringProperty( FourierMakingWavesStrings.spaceSymbolStringProperty, {
+  functionOfSpaceStringProperty: new PatternStringProperty( FourierMakingWavesStrings.spaceSymbolStringProperty, {
     symbol: FMWSymbols.xMarkupStringProperty
   }, {
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'spaceXStringProperty' )
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'functionOfSpaceStringProperty' )
   } ),
 
-  timeTStringProperty: new PatternStringProperty( FourierMakingWavesStrings.timeSymbolStringProperty, {
+  functionOfTimeStringProperty: new PatternStringProperty( FourierMakingWavesStrings.timeSymbolStringProperty, {
     symbol: FMWSymbols.tMarkupStringProperty
   }, {
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'timeTStringProperty' )
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'functionOfTimeStringProperty' )
   } ),
 
-  spaceAndTimeXTStringProperty: new PatternStringProperty( FourierMakingWavesStrings.spaceAndTimeSymbolsStringProperty, {
+  functionOfSpaceAndTimeStringProperty: new PatternStringProperty( FourierMakingWavesStrings.spaceAndTimeSymbolsStringProperty, {
     spaceSymbol: FMWSymbols.xMarkupStringProperty,
     timeSymbol: FMWSymbols.tMarkupStringProperty
   }, {
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'spaceAndTimeXTStringProperty' )
+    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'functionOfSpaceAndTimeStringProperty' )
   } ),
 
   lambdaAndTStringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolAndSymbolStringProperty, {
