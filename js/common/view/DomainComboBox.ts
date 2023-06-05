@@ -21,7 +21,7 @@ const CHOICES: FMWComboBoxChoice<Domain>[] = [
   {
     value: Domain.SPACE,
     stringProperty: FMWDerivedStrings.spaceXStringProperty,
-    tandemName: `spaceItem${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: `space${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: Domain.TIME,
