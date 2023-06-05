@@ -96,8 +96,7 @@ export default class InteractiveAmplitudesChartNode extends Node {
       font: FMWConstants.AXIS_LABEL_FONT,
       left: chartRectangle.right + FMWConstants.X_AXIS_LABEL_SPACING,
       centerY: chartRectangle.centerY,
-      maxWidth: FMWConstants.X_AXIS_LABEL_MAX_WIDTH,
-      tandem: options.tandem.createTandem( 'xAxisLabelText' )
+      maxWidth: FMWConstants.X_AXIS_LABEL_MAX_WIDTH
     } );
 
     // {AmplitudeSlider[]} Create a slider for each harmonic's amplitude
@@ -132,8 +131,7 @@ export default class InteractiveAmplitudesChartNode extends Node {
     const yAxisLabelText = new RichText( FourierMakingWavesStrings.amplitudeStringProperty, {
       font: FMWConstants.AXIS_LABEL_FONT,
       rotation: -Math.PI / 2,
-      maxWidth: 0.85 * chartRectangle.height,
-      tandem: options.tandem.createTandem( 'yAxisLabelText' )
+      maxWidth: 0.85 * chartRectangle.height
     } );
     yAxisLabelText.boundsProperty.link( bounds => {
       yAxisLabelText.right = -FMWConstants.Y_AXIS_LABEL_SPACING;

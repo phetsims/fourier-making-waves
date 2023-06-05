@@ -91,8 +91,7 @@ export default class WavePacketScreenView extends ScreenView {
     // Equation above the Amplitudes chart
     const amplitudesEquationText = new RichText( amplitudesEquationStringProperty, {
       font: FMWConstants.EQUATION_FONT,
-      maxWidth: 100,
-      tandem: amplitudesTandem.createTandem( 'amplitudesEquationText' )
+      maxWidth: 100
     } );
 
     const continuousWaveformCheckbox = new ContinuousWaveformCheckbox(

@@ -73,8 +73,7 @@ export default class WaveGameLevelNode extends Node {
     // Level description, displayed in the status bar
     const levelDescriptionText = new RichText( level.statusBarMessageProperty, {
       font: DEFAULT_FONT,
-      maxWidth: 650, // determined empirically
-      tandem: statusBarTandem.createTandem( 'levelDescriptionText' )
+      maxWidth: 650 // determined empirically
     } );
 
     // Bar across the top of the screen
