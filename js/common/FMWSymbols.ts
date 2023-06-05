@@ -26,16 +26,22 @@ const FMWSymbols = {
   // Symbols that are translated
 
   // amplitude
-  AStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.AStringProperty, 'normal' ),
+  AStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.AStringProperty, {
+    style: 'normal'
+  } ),
 
   // cosine
-  cosStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.cosStringProperty, 'normal' ),
+  cosStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.cosStringProperty, {
+    style: 'normal'
+  } ),
 
   // differential, like dx
   dStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.dStringProperty ),
 
   // function of frequency
-  FStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.FStringProperty, 'normal' ),
+  FStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.FStringProperty, {
+    style: 'normal'
+  } ),
 
   // frequency
   fStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.fStringProperty ),
@@ -44,25 +50,37 @@ const FMWSymbols = {
   kStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.kStringProperty ),
 
   // string length, if this were a plucked string
-  LStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.LStringProperty, 'normal' ),
+  LStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.LStringProperty, {
+    style: 'normal'
+  } ),
 
   // wavelength
-  lambdaStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.lambdaStringProperty, 'normal' ),
+  lambdaStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.lambdaStringProperty, {
+    style: 'normal'
+  } ),
 
   // mode, order, or harmonic number
   nStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.nStringProperty ),
 
   // angular frequency
-  omegaStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.omegaStringProperty, 'normal' ),
+  omegaStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.omegaStringProperty, {
+    style: 'normal'
+  } ),
 
   // width of the Gaussian wave packet (dx)
-  sigmaStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sigmaStringProperty, 'normal' ),
+  sigmaStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sigmaStringProperty, {
+    style: 'normal'
+  } ),
 
   // sine
-  sinStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sinStringProperty, 'normal' ),
+  sinStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sinStringProperty, {
+    style: 'normal'
+  } ),
 
   // sampling period, or period of the 1st harmonic
-  TStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.TStringProperty, 'normal' ),
+  TStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.TStringProperty, {
+    style: 'normal'
+  } ),
 
   // time
   tStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.tStringProperty ),
