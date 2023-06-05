@@ -27,7 +27,7 @@ import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import StringIO from '../../../../tandem/js/types/StringIO.js';
 
 // constants
 const TITLE_FONT = new PhetFont( 18 );
@@ -104,8 +104,12 @@ export default class AmplitudeKeypadDialog extends Dialog {
     } );
 
     // Title indicates which amplitude we're editing, e.g. A<sub>2</sub>.
-    const titleStringProperty = new DerivedProperty( [ FMWSymbols.AStringProperty, orderProperty ],
-      ( A, order ) => `${A}<sub>${order}</sub>` );
+    const titleStringProperty = new DerivedProperty(
+      [ FMWSymbols.AStringProperty, orderProperty ],
+      ( A, order ) => `${A}<sub>${order}</sub>`, {
+        tandem: options.tandem.createTandem( 'titleStringProperty' ),
+        phetioValueType: StringIO
+      } );
     const titleNode = new RichText( titleStringProperty, {
       font: TITLE_FONT,
       maxWidth: keypad.width
@@ -115,7 +119,9 @@ export default class AmplitudeKeypadDialog extends Dialog {
     const rangeStringProperty = new PatternStringProperty( FourierMakingWavesStrings.minToMaxStringProperty, {
       min: Utils.toFixedNumber( amplitudeRange.min, options.decimalPlaces ),
       max: Utils.toFixedNumber( amplitudeRange.max, options.decimalPlaces )
-    }, { tandem: Tandem.OPT_OUT } );
+    }, {
+      tandem: options.tandem.createTandem( 'rangeStringProperty' )
+    } );
     const rangeNode = new Text( rangeStringProperty, {
       font: VALUE_FONT,
       maxWidth: keypad.width

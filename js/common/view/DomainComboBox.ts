@@ -7,39 +7,30 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
-import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
 import FMWComboBox, { FMWComboBoxChoice } from './FMWComboBox.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWDerivedStrings from '../FMWDerivedStrings.js';
 
 // This format is specific to FMWComboBox.
 const CHOICES: FMWComboBoxChoice<Domain>[] = [
   {
     value: Domain.SPACE,
-    stringProperty: new PatternStringProperty( FourierMakingWavesStrings.spaceSymbolStringProperty, {
-      symbol: FMWSymbols.xStringProperty
-    }, { tandem: Tandem.OPT_OUT } ),
+    stringProperty: FMWDerivedStrings.spaceXStringProperty,
     tandemName: `spaceItem${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: Domain.TIME,
-    stringProperty: new PatternStringProperty( FourierMakingWavesStrings.timeSymbolStringProperty, {
-      symbol: FMWSymbols.tStringProperty
-    }, { tandem: Tandem.OPT_OUT } ),
+    stringProperty: FMWDerivedStrings.timeTStringProperty,
     tandemName: `time${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: Domain.SPACE_AND_TIME,
-    stringProperty: new PatternStringProperty( FourierMakingWavesStrings.spaceAndTimeSymbolsStringProperty, {
-      spaceSymbol: FMWSymbols.xStringProperty,
-      timeSymbol: FMWSymbols.tStringProperty
-    }, { tandem: Tandem.OPT_OUT } ),
+    stringProperty: FMWDerivedStrings.spaceAndTimeXTStringProperty,
     tandemName: `spaceAndTime${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   }
 ];

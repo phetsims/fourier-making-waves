@@ -14,7 +14,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import AxisLine, { AxisLineOptions } from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle, { ChartRectangleOptions } from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform, { ChartTransformOptions } from '../../../../bamboo/js/ChartTransform.js';
@@ -31,7 +30,6 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import FMWColors from '../FMWColors.js';
 import FMWConstants from '../FMWConstants.js';
-import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
 import DomainChart from '../model/DomainChart.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -39,17 +37,9 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import StringIO from '../../../../tandem/js/types/StringIO.js';
+import FMWDerivedStrings from '../FMWDerivedStrings.js';
 
-// constants
-const DEFAULT_X_SPACE_LABEL_PROPERTY = new PatternStringProperty( FourierMakingWavesStrings.symbolUnitsStringProperty, {
-  symbol: FMWSymbols.xStringProperty,
-  units: FourierMakingWavesStrings.units.metersStringProperty
-}, { tandem: Tandem.OPT_OUT } );
-const DEFAULT_X_TIME_LABEL_PROPERTY = new PatternStringProperty( FourierMakingWavesStrings.symbolUnitsStringProperty, {
-  symbol: FMWSymbols.tStringProperty,
-  units: FourierMakingWavesStrings.units.millisecondsStringProperty
-}, { tandem: Tandem.OPT_OUT } );
 const DEFAULT_EDGE = 'min';
 
 type SelfOptions = {
@@ -107,8 +97,8 @@ export default class DomainChartNode extends Node {
     const options = optionize<DomainChartNodeOptions, SelfOptions, NodeOptions>()( {
 
       // x-axis
-      xSpaceLabelProperty: DEFAULT_X_SPACE_LABEL_PROPERTY,
-      xTimeLabelProperty: DEFAULT_X_TIME_LABEL_PROPERTY,
+      xSpaceLabelProperty: FMWDerivedStrings.xMetersStringProperty,
+      xTimeLabelProperty: FMWDerivedStrings.xMillisecondsStringProperty,
       xGridLineSpacing: 1,
       xTickMarkSpacing: 1,
       xTickLabelSpacing: 1,
@@ -172,8 +162,10 @@ export default class DomainChartNode extends Node {
 
     const xAxisLabelStringProperty = new DerivedProperty(
       [ domainProperty, options.xTimeLabelProperty, options.xSpaceLabelProperty ],
-      ( domain, xTimeLabel, xSpaceLabel ) => ( domain === Domain.TIME ) ? xTimeLabel : xSpaceLabel
-    );
+      ( domain, xTimeLabel, xSpaceLabel ) => ( domain === Domain.TIME ) ? xTimeLabel : xSpaceLabel, {
+        tandem: options.tandem.createTandem( 'xAxisLabelStringProperty' ),
+        phetioValueType: StringIO
+      } );
 
     // x-axis
     const xAxis = new AxisLine( chartTransform, Orientation.HORIZONTAL, options.axisLineOptions );

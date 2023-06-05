@@ -34,7 +34,7 @@ import WaveGameAmplitudesChart from './WaveGameAmplitudesChart.js';
 import WaveGameHarmonicsChart from './WaveGameHarmonicsChart.js';
 import WaveGameSumChart from './WaveGameSumChart.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 // constants
 
@@ -119,27 +119,36 @@ export default class WaveGameLevel extends PhetioObject {
 
     assert && assert( Number.isInteger( levelNumber ) && levelNumber > 0 ); // numbered starting from 1
 
-    const options = optionize<WaveGameLevelOptions, SelfOptions, PhetioObjectOptions>()( {
+    const options = optionize<WaveGameLevelOptions, StrictOmit<SelfOptions, 'statusBarMessageProperty' | 'infoDialogDescriptionProperty'>, PhetioObjectOptions>()( {
 
       // SelfOptions
       getNumberOfNonZeroHarmonics: () => levelNumber,
 
-      statusBarMessageProperty: new PatternStringProperty( FourierMakingWavesStrings.matchUsingNHarmonicsStringProperty, {
-        levelNumber: levelNumber,
-        numberOfHarmonics: levelNumber
-      }, { tandem: Tandem.OPT_OUT } ),
-
-      infoDialogDescriptionProperty: new PatternStringProperty( FourierMakingWavesStrings.infoNHarmonicsStringProperty, {
-        levelNumber: levelNumber,
-        numberOfHarmonics: levelNumber
-      }, { tandem: Tandem.OPT_OUT } ),
-
+      // PhetioObjectOptions
       phetioType: WaveGameLevel.WaveGameLevelIO,
       phetioState: false
     }, providedOptions );
 
     assert && assert( Number.isInteger( options.defaultNumberOfAmplitudeControls ) && options.defaultNumberOfAmplitudeControls >= 0 );
     assert && assert( options.defaultNumberOfAmplitudeControls >= levelNumber && options.defaultNumberOfAmplitudeControls <= FMWConstants.MAX_HARMONICS );
+
+    if ( !options.statusBarMessageProperty ) {
+      options.statusBarMessageProperty = new PatternStringProperty( FourierMakingWavesStrings.matchUsingNHarmonicsStringProperty, {
+        levelNumber: levelNumber,
+        numberOfHarmonics: levelNumber
+      }, {
+        tandem: options.tandem.createTandem( 'statusBarMessageProperty' )
+      } );
+    }
+
+    if ( !options.infoDialogDescriptionProperty ) {
+      options.infoDialogDescriptionProperty = new PatternStringProperty( FourierMakingWavesStrings.infoNHarmonicsStringProperty, {
+        levelNumber: levelNumber,
+        numberOfHarmonics: levelNumber
+      }, {
+        tandem: options.tandem.createTandem( 'infoDialogDescriptionProperty' )
+      } );
+    }
 
     super( options );
 

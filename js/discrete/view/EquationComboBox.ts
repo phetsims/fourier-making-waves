@@ -8,7 +8,6 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -19,6 +18,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import EquationForm from '../model/EquationForm.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWDerivedStrings from '../../common/FMWDerivedStrings.js';
 
 const MATH_TEXT_OPTIONS = {
   font: FMWConstants.MATH_CONTROL_FONT,
@@ -65,19 +65,13 @@ const CHOICES: FMWComboBoxChoice<EquationForm>[] = [
   },
   {
     value: EquationForm.WAVELENGTH_AND_PERIOD,
-    stringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolAndSymbolStringProperty, {
-      symbol1: FMWSymbols.lambdaStringProperty,
-      symbol2: FMWSymbols.TStringProperty
-    }, { tandem: Tandem.OPT_OUT } ),
+    stringProperty: FMWDerivedStrings.lambdaAndTStringProperty,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `wavelengthAndPeriod${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
   {
     value: EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER,
-    stringProperty: new PatternStringProperty( FourierMakingWavesStrings.symbolAndSymbolStringProperty, {
-      symbol1: FMWSymbols.kStringProperty,
-      symbol2: FMWSymbols.omegaStringProperty
-    }, { tandem: Tandem.OPT_OUT } ),
+    stringProperty: FMWDerivedStrings.kAndOmegaStringProperty,
     textOptions: MATH_TEXT_OPTIONS,
     tandemName: `spatialWaveNumberAndAngularWaveNumber${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },

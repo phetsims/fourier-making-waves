@@ -61,6 +61,7 @@ const TickLabelUtils = {
 
       const symbolStringProperty = ( typeof symbol === 'string' ) ? new StringProperty( symbol ) : symbol;
 
+      // Not instrumented for PhET-iO.
       richTextArgument = new DerivedProperty( [ symbolStringProperty ], symbol => {
         let text = '';
         if ( sign === -1 ) {

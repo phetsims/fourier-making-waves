@@ -50,7 +50,9 @@ export default class PeriodClockNode extends DiscreteMeasurementToolNode {
     const clockFaceNode = new ClockFaceNode( harmonicProperty, tProperty );
 
     const labelStringProperty = new DerivedProperty( [ FMWSymbols.TStringProperty, harmonicProperty ],
-      ( T, harmonic ) => `${T}<sub>${harmonic.order}</sub>` );
+      ( T, harmonic ) => `${T}<sub>${harmonic.order}</sub>`, {
+      tandem: providedOptions.tandem.createTandem( 'labelStringProperty' )
+      } );
 
     const labelNode = new RichText( labelStringProperty, {
       font: FMWConstants.TOOL_LABEL_FONT,

@@ -7,14 +7,13 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { RichText, Text } from '../../../../scenery/js/imports.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWDerivedStrings from '../../common/FMWDerivedStrings.js';
 
 // constants
 const MAX_WIDTH = 800; // determined empirically
@@ -30,36 +29,16 @@ export default class DiscreteInfoDialog extends Dialog {
 
     // For each translated string describing a symbol, fill in the symbol.
     const stringProperties = [
-      new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.AStringProperty, {
-        A: FMWSymbols.AStringProperty
-      }, { tandem: Tandem.OPT_OUT } ),
-      new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.fStringProperty, {
-        f: FMWSymbols.fStringProperty
-      }, { tandem: Tandem.OPT_OUT } ),
-      new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.lambdaStringProperty, {
-        lambda: FMWSymbols.lambdaStringProperty
-      }, { tandem: Tandem.OPT_OUT } ),
-      new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.kStringProperty, {
-        k: FMWSymbols.kStringProperty
-      }, { tandem: Tandem.OPT_OUT } ),
-      new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.LStringProperty, {
-        L: FMWSymbols.LStringProperty
-      }, { tandem: Tandem.OPT_OUT } ),
-      new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.nStringProperty, {
-        n: FMWSymbols.nStringProperty
-      }, { tandem: Tandem.OPT_OUT } ),
-      new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.tStringProperty, {
-        t: FMWSymbols.tStringProperty
-      }, { tandem: Tandem.OPT_OUT } ),
-      new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.TStringProperty, {
-        T: FMWSymbols.TStringProperty
-      }, { tandem: Tandem.OPT_OUT } ),
-      new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.omegaStringProperty, {
-        omega: FMWSymbols.omegaStringProperty
-      }, { tandem: Tandem.OPT_OUT } ),
-      new PatternStringProperty( FourierMakingWavesStrings.symbolsDialog.xStringProperty, {
-        x: FMWSymbols.xStringProperty
-      }, { tandem: Tandem.OPT_OUT } )
+      FMWDerivedStrings.ADescriptionStringProperty,
+      FMWDerivedStrings.fDescriptionStringProperty,
+      FMWDerivedStrings.lambdaDescriptionStringProperty,
+      FMWDerivedStrings.kDescriptionStringProperty,
+      FMWDerivedStrings.LDescriptionStringProperty,
+      FMWDerivedStrings.nDescriptionStringProperty,
+      FMWDerivedStrings.tDescriptionStringProperty,
+      FMWDerivedStrings.TDescriptionStringProperty,
+      FMWDerivedStrings.omegaDescriptionStringProperty,
+      FMWDerivedStrings.xDescriptionStringProperty
     ];
 
     // Put a line break between each of the above strings.

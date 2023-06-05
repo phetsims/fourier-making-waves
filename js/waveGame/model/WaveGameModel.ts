@@ -33,6 +33,8 @@ export default class WaveGameModel implements TModel {
 
     this.rewardScore = FMWQueryParameters.rewardScore;
 
+    const level5Tandem = tandem.createTandem( 'level5' );
+
     // There's some duplication of level number constants here. But the specification for levels changed SO many times,
     // that this brute force initialization ended up being easier to change and maintain.  So I'm willing to make a
     // trade-off here, sacrificing some duplication for a more straightforward implementation.
@@ -71,12 +73,16 @@ export default class WaveGameModel implements TModel {
         statusBarMessageProperty: new PatternStringProperty( FourierMakingWavesStrings.matchUsingNOrMoreHarmonicsStringProperty, {
           levelNumber: 5,
           numberOfHarmonics: 5
-        }, { tandem: Tandem.OPT_OUT } ),
+        }, {
+          tandem: level5Tandem.createTandem( 'statusBarMessageProperty' )
+        } ),
         infoDialogDescriptionProperty: new PatternStringProperty( FourierMakingWavesStrings.infoNOrMoreHarmonicsStringProperty, {
           levelNumber: 5,
           numberOfHarmonics: 5
-        }, { tandem: Tandem.OPT_OUT } ),
-        tandem: tandem.createTandem( 'level5' )
+        }, {
+          tandem: level5Tandem.createTandem( 'infoDialogDescriptionProperty' )
+        } ),
+        tandem: level5Tandem
       } )
     ];
     assert && assert( this.levels.length === FMWConstants.NUMBER_OF_GAME_LEVELS );

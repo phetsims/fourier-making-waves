@@ -63,6 +63,7 @@ export default class SumSymbolNode extends Node {
       font: options.symbolFont
     } );
 
+    // Not instrumented for PhET-iO.
     const nEqualsStringProperty = new DerivedProperty( [ indexSymbolProperty ],
       indexSymbol => `${indexSymbol} ${MathSymbols.EQUAL_TO}&nbsp` );
 
