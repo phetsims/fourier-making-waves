@@ -157,8 +157,7 @@ const FMWConstants = {
   SECONDARY_WAVEFORM_LINE_WIDTH: 4,
 
   // Tandems
-  //TODO https://github.com/phetsims/tandem/issues/298
-  DERIVED_STRINGS_TANDEM: Tandem.GENERAL_MODEL.createTandem( 'strings' ).createTandem( 'fourierMakingWaves' ).createTandem( 'derivedStrings' )
+  DERIVED_STRINGS_TANDEM: Tandem.getStringsTandem()
 };
 
 // Verify some of the above constants
