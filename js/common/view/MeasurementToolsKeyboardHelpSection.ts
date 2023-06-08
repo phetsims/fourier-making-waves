@@ -19,14 +19,14 @@ export default class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSec
 
   public constructor() {
 
-    // Icons, which need to be disposed
+    // Icons
     const arrowKeysIcon = KeyboardHelpIconFactory.arrowKeysRowIcon();
     const wasdKeysIcon = KeyboardHelpIconFactory.wasdRowIcon();
     const shiftPlusArrowsIcon = KeyboardHelpIconFactory.shiftPlusIcon( arrowKeysIcon );
     const shiftPlusWASDsIcon = KeyboardHelpIconFactory.shiftPlusIcon( wasdKeysIcon );
     const arrowOrWASDKeysRowIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
 
-    // KeyboardHelpSectionRows, which need to be disposed
+    // KeyboardHelpSectionRows
     const rows = [
 
       // arrows or WASD, for moving at normal speed
