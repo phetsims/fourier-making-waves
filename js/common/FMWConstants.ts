@@ -157,7 +157,7 @@ const FMWConstants = {
   SECONDARY_WAVEFORM_LINE_WIDTH: 4,
 
   // Tandems
-  DERIVED_STRINGS_TANDEM: Tandem.getStringsTandem()
+  DERIVED_STRINGS_TANDEM: Tandem.getDerivedStringsTandem()
 };
 
 // Verify some of the above constants
