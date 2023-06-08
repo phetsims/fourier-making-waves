@@ -31,7 +31,7 @@ export default class LengthToolCheckbox extends CaliperCheckbox {
 
     const timeSymbolStringProperty = new DerivedProperty( [ FMWSymbols.TMarkupStringProperty ],
       T => `${T}<sub>1</sub>`, {
-        tandem: tandem.createTandem( 'spaceSymbolStringProperty' ),
+        tandem: tandem.createTandem( 'timeSymbolStringProperty' ),
         phetioValueType: StringIO,
         phetioFeatured: true
       } );
