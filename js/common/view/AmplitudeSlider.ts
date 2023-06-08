@@ -274,7 +274,8 @@ class BarTrack extends SliderTrack {
 
     // When the cursor is over the visible part of the track, it is considered highlighted.
     const visibleTrackPressListener = new PressListener( {
-      attach: false // so that the DragListener for the track isn't ignored
+      attach: false, // so that the DragListener for the track isn't ignored
+      tandem: Tandem.OPT_OUT
     } );
     visibleTrackNode.addInputListener( visibleTrackPressListener );
 
