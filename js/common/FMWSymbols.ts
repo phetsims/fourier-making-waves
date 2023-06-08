@@ -19,9 +19,9 @@
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../FourierMakingWavesStrings.js';
-import FMWConstants from './FMWConstants.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 
-const DERIVED_STRINGS_TANDEM = FMWConstants.DERIVED_STRINGS_TANDEM;
+const DERIVED_STRINGS_TANDEM = Tandem.getDerivedStringsTandem();
 
 const FMWSymbols = {
 

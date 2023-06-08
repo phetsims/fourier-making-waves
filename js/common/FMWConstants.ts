@@ -19,7 +19,6 @@ import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import { Node, VBox } from '../../../scenery/js/imports.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWColors from './FMWColors.js';
-import Tandem from '../../../tandem/js/Tandem.js';
 
 // constants - view
 const PANEL_CORNER_RADIUS = 5;
@@ -154,10 +153,7 @@ const FMWConstants = {
   X_AXIS_LABEL_MAX_WIDTH: 38,
   X_AXIS_LABEL_SPACING: 6, // horizontal space between chart rectangle and x-axis label
   Y_AXIS_LABEL_SPACING: 36,  // horizontal space between chart rectangle and y-axis label
-  SECONDARY_WAVEFORM_LINE_WIDTH: 4,
-
-  // Tandems
-  DERIVED_STRINGS_TANDEM: Tandem.getDerivedStringsTandem()
+  SECONDARY_WAVEFORM_LINE_WIDTH: 4
 };
 
 // Verify some of the above constants

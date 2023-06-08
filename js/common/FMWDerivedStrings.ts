@@ -11,9 +11,9 @@ import FMWSymbols from './FMWSymbols.js';
 import PatternStringProperty from '../../../axon/js/PatternStringProperty.js';
 import FourierMakingWavesStrings from '../FourierMakingWavesStrings.js';
 import StringProperty from '../../../axon/js/StringProperty.js';
-import FMWConstants from './FMWConstants.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 
-const DERIVED_STRINGS_TANDEM = FMWConstants.DERIVED_STRINGS_TANDEM;
+const DERIVED_STRINGS_TANDEM = Tandem.getDerivedStringsTandem();
 
 const FMWDerivedStrings = {
 
