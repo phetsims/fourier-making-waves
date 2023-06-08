@@ -28,6 +28,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const TITLE_FONT = new PhetFont( 18 );
@@ -95,7 +96,8 @@ export default class AmplitudeKeypadDialog extends Dialog {
       },
       buttonWidth: 25,
       buttonHeight: 25,
-      buttonFont: BUTTON_FONT
+      buttonFont: BUTTON_FONT,
+      tandem: Tandem.OPT_OUT // unnecessary to instrument
     } );
 
     const orderProperty = new NumberProperty( 1, {
