@@ -18,6 +18,7 @@ import Domain from '../../common/model/Domain.js';
 import { EmptySelfOptions, optionize3 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -52,7 +53,8 @@ export default class WavePacketNumberControl extends NumberControl {
 
           // Pressing on a tick's label sets the Property to the value of that tick.
           label.addInputListener( new FireListener( {
-            fire: () => { numberProperty.value = value; }
+            fire: () => { numberProperty.value = value; },
+            tandem: Tandem.OPT_OUT
           } ) );
 
           //TODO https://github.com/phetsims/sun/issues/712 workaround to support interactive tick labels

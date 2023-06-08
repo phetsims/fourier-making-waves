@@ -15,6 +15,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 type SelfOptions = {
   textOptions?: StrictOmit<TextOptions, 'tandem'>;
@@ -58,7 +59,8 @@ export default class LabeledExpandCollapseButton extends HBox {
     labelText.addInputListener( new FireListener( {
       fire: () => {
         expandedProperty.value = !expandedProperty.value;
-      }
+      },
+      tandem: Tandem.OPT_OUT
     } ) );
   }
 }
