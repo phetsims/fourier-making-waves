@@ -16,16 +16,25 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import Property from '../../../../axon/js/Property.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Domain from '../../common/model/Domain.js';
+import StringIO from '../../../../tandem/js/types/StringIO.js';
 
 export default class LengthToolCheckbox extends CaliperCheckbox {
 
   public constructor( visibleProperty: Property<boolean>, domainProperty: EnumerationProperty<Domain>, tandem: Tandem ) {
 
     const spaceSymbolStringProperty = new DerivedProperty( [ FMWSymbols.lambdaMarkupStringProperty ],
-        lambda => `${lambda}<sub>1</sub>` );
+      lambda => `${lambda}<sub>1</sub>`, {
+        tandem: tandem.createTandem( 'spaceSymbolStringProperty' ),
+        phetioValueType: StringIO,
+        phetioFeatured: true
+      } );
 
     const timeSymbolStringProperty = new DerivedProperty( [ FMWSymbols.TMarkupStringProperty ],
-        T => `${T}<sub>1</sub>` );
+      T => `${T}<sub>1</sub>`, {
+        tandem: tandem.createTandem( 'spaceSymbolStringProperty' ),
+        phetioValueType: StringIO,
+        phetioFeatured: true
+      } );
 
     super( visibleProperty, domainProperty, spaceSymbolStringProperty, timeSymbolStringProperty, {
       calipersNodeOptions: {

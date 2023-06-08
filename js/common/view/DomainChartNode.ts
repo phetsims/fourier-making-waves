@@ -164,6 +164,7 @@ export default class DomainChartNode extends Node {
       [ domainProperty, options.xTimeLabelProperty, options.xSpaceLabelProperty ],
       ( domain, xTimeLabel, xSpaceLabel ) => ( domain === Domain.TIME ) ? xTimeLabel : xSpaceLabel, {
         tandem: options.tandem.createTandem( 'xAxisLabelStringProperty' ),
+        phetioFeatured: true,
         phetioValueType: StringIO
       } );
 

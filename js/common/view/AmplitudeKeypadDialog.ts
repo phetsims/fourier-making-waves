@@ -108,6 +108,7 @@ export default class AmplitudeKeypadDialog extends Dialog {
       [ FMWSymbols.AMarkupStringProperty, orderProperty ],
       ( A, order ) => `${A}<sub>${order}</sub>`, {
         tandem: options.tandem.createTandem( 'titleStringProperty' ),
+        phetioFeatured: true,
         phetioValueType: StringIO
       } );
     const titleNode = new RichText( titleStringProperty, {

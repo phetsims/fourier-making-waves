@@ -49,6 +49,8 @@ export default class WidthIndicatorPlot extends Node {
     // Dimensional arrows
     const dimensionalArrowsNode = new HorizontalDimensionalArrowsNode( FMWColors.widthIndicatorsColorProperty );
 
+    // Not PhET-iO instrumented because plots are not instrumented. If the Studio user wants to change the
+    // symbols used, they'll have to find them another way.
     const labelStringProperty = new DerivedProperty(
       [ domainProperty, FMWSymbols.sigmaMarkupStringProperty, options.spaceSymbolStringProperty, options.timeSymbolStringProperty ],
       ( domain, sigma, spaceSymbol, timeSymbol ) => {

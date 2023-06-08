@@ -18,6 +18,7 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Domain from '../../common/model/Domain.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import StringIO from '../../../../tandem/js/types/StringIO.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -36,9 +37,17 @@ export default class WavePacketLengthToolNode extends WavePacketMeasurementToolN
       // WavePacketMeasurementToolNodeOptions
       fill: FMWColors.wavePacketLengthToolFillProperty,
       spaceSymbolStringProperty: new DerivedProperty( [ FMWSymbols.lambdaMarkupStringProperty ],
-        lambda => `${lambda}<sub>1</sub>` ),
+        lambda => `${lambda}<sub>1</sub>`, {
+          tandem: providedOptions.tandem.createTandem( 'spaceSymbolStringProperty' ),
+          phetioValueType: StringIO,
+          phetioFeatured: true
+        } ),
       timeSymbolStringProperty: new DerivedProperty( [ FMWSymbols.TMarkupStringProperty ],
-        T => `${T}<sub>1</sub>` )
+        T => `${T}<sub>1</sub>`, {
+          tandem: providedOptions.tandem.createTandem( 'timeSymbolStringProperty' ),
+          phetioValueType: StringIO,
+          phetioFeatured: true
+        } )
     }, providedOptions );
 
     super( lengthProperty, chartTransform, domainProperty, options );

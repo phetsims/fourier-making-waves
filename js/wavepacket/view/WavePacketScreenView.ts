@@ -31,6 +31,7 @@ import WavePacketControlPanel from './WavePacketControlPanel.js';
 import WavePacketLengthToolNode from './WavePacketLengthToolNode.js';
 import WavePacketSumChartNode from './WavePacketSumChartNode.js';
 import WavePacketSumEquationNode from './WavePacketSumEquationNode.js';
+import StringIO from '../../../../tandem/js/types/StringIO.js';
 
 export default class WavePacketScreenView extends ScreenView {
 
@@ -85,8 +86,11 @@ export default class WavePacketScreenView extends ScreenView {
 
     const amplitudesEquationStringProperty = new DerivedProperty(
       [ FMWSymbols.AMarkupStringProperty, FMWSymbols.nMarkupStringProperty ],
-      ( A, n ) => `${A}<sub>${n}</sub>`
-    );
+      ( A, n ) => `${A}<sub>${n}</sub>`, {
+        tandem: tandem.createTandem( 'amplitudesEquationStringProperty' ),
+        phetioValueType: StringIO,
+        phetioFeatured: true
+      } );
 
     // Equation above the Amplitudes chart
     const amplitudesEquationText = new RichText( amplitudesEquationStringProperty, {
