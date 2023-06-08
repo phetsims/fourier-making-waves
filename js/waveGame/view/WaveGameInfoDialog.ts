@@ -23,7 +23,7 @@ export default class WaveGameInfoDialog extends GameInfoDialog {
       font: new PhetFont( 32 )
     } );
 
-    const descriptions = levels.map( level => level.infoDialogDescriptionProperty );
+    const descriptions = levels.map( level => level.infoDialogDescriptionStringProperty );
 
     super( descriptions, {
 

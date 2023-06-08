@@ -56,10 +56,10 @@ type SelfOptions = {
   getNumberOfNonZeroHarmonics?: () => number;
 
   // message shown in the status bar that appears at the top of the Wave Game screen
-  statusBarMessageProperty?: TReadOnlyProperty<string>;
+  statusBarMessageStringProperty?: TReadOnlyProperty<string>;
 
   // shown in the info dialog that describes the game levels, default will be set below
-  infoDialogDescriptionProperty?: TReadOnlyProperty<string>;
+  infoDialogDescriptionStringProperty?: TReadOnlyProperty<string>;
 };
 
 type WaveGameLevelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -67,8 +67,8 @@ type WaveGameLevelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tan
 export default class WaveGameLevel extends PhetioObject {
 
   public readonly levelNumber: number; // numbered starting from 1
-  public readonly statusBarMessageProperty: TReadOnlyProperty<string>;
-  public readonly infoDialogDescriptionProperty: TReadOnlyProperty<string>;
+  public readonly statusBarMessageStringProperty: TReadOnlyProperty<string>;
+  public readonly infoDialogDescriptionStringProperty: TReadOnlyProperty<string>;
 
   private readonly defaultNumberOfAmplitudeControls: number;
 
@@ -119,7 +119,7 @@ export default class WaveGameLevel extends PhetioObject {
 
     assert && assert( Number.isInteger( levelNumber ) && levelNumber > 0 ); // numbered starting from 1
 
-    const options = optionize<WaveGameLevelOptions, StrictOmit<SelfOptions, 'statusBarMessageProperty' | 'infoDialogDescriptionProperty'>, PhetioObjectOptions>()( {
+    const options = optionize<WaveGameLevelOptions, StrictOmit<SelfOptions, 'statusBarMessageStringProperty' | 'infoDialogDescriptionStringProperty'>, PhetioObjectOptions>()( {
 
       // SelfOptions
       getNumberOfNonZeroHarmonics: () => levelNumber,
@@ -132,29 +132,29 @@ export default class WaveGameLevel extends PhetioObject {
     assert && assert( Number.isInteger( options.defaultNumberOfAmplitudeControls ) && options.defaultNumberOfAmplitudeControls >= 0 );
     assert && assert( options.defaultNumberOfAmplitudeControls >= levelNumber && options.defaultNumberOfAmplitudeControls <= FMWConstants.MAX_HARMONICS );
 
-    if ( !options.statusBarMessageProperty ) {
-      options.statusBarMessageProperty = new PatternStringProperty( FourierMakingWavesStrings.matchUsingNHarmonicsStringProperty, {
+    if ( !options.statusBarMessageStringProperty ) {
+      options.statusBarMessageStringProperty = new PatternStringProperty( FourierMakingWavesStrings.matchUsingNHarmonicsStringProperty, {
         levelNumber: levelNumber,
         numberOfHarmonics: levelNumber
       }, {
-        tandem: options.tandem.createTandem( 'statusBarMessageProperty' )
+        tandem: options.tandem.createTandem( 'statusBarMessageStringProperty' )
       } );
     }
 
-    if ( !options.infoDialogDescriptionProperty ) {
-      options.infoDialogDescriptionProperty = new PatternStringProperty( FourierMakingWavesStrings.infoNHarmonicsStringProperty, {
+    if ( !options.infoDialogDescriptionStringProperty ) {
+      options.infoDialogDescriptionStringProperty = new PatternStringProperty( FourierMakingWavesStrings.infoNHarmonicsStringProperty, {
         levelNumber: levelNumber,
         numberOfHarmonics: levelNumber
       }, {
-        tandem: options.tandem.createTandem( 'infoDialogDescriptionProperty' )
+        tandem: options.tandem.createTandem( 'infoDialogDescriptionStringProperty' )
       } );
     }
 
     super( options );
 
     this.levelNumber = levelNumber;
-    this.statusBarMessageProperty = options.statusBarMessageProperty;
-    this.infoDialogDescriptionProperty = options.infoDialogDescriptionProperty;
+    this.statusBarMessageStringProperty = options.statusBarMessageStringProperty;
+    this.infoDialogDescriptionStringProperty = options.infoDialogDescriptionStringProperty;
 
     this.defaultNumberOfAmplitudeControls = options.defaultNumberOfAmplitudeControls;
 

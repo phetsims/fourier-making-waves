@@ -43,8 +43,8 @@ export default class WaveGameModel implements TModel {
       // Level 1
       new WaveGameLevel( 1, {
         defaultNumberOfAmplitudeControls: 2,
-        statusBarMessageProperty: FourierMakingWavesStrings.matchUsing1HarmonicStringProperty,
-        infoDialogDescriptionProperty: FourierMakingWavesStrings.info1HarmonicStringProperty,
+        statusBarMessageStringProperty: FourierMakingWavesStrings.matchUsing1HarmonicStringProperty,
+        infoDialogDescriptionStringProperty: FourierMakingWavesStrings.info1HarmonicStringProperty,
         tandem: tandem.createTandem( 'level1' )
       } ),
 
@@ -70,17 +70,17 @@ export default class WaveGameModel implements TModel {
       new WaveGameLevel( 5, {
         getNumberOfNonZeroHarmonics: () => dotRandom.nextIntBetween( 5, FMWConstants.MAX_HARMONICS ),
         defaultNumberOfAmplitudeControls: FMWConstants.MAX_HARMONICS,
-        statusBarMessageProperty: new PatternStringProperty( FourierMakingWavesStrings.matchUsingNOrMoreHarmonicsStringProperty, {
+        statusBarMessageStringProperty: new PatternStringProperty( FourierMakingWavesStrings.matchUsingNOrMoreHarmonicsStringProperty, {
           levelNumber: 5,
           numberOfHarmonics: 5
         }, {
-          tandem: level5Tandem.createTandem( 'statusBarMessageProperty' )
+          tandem: level5Tandem.createTandem( 'statusBarMessageStringProperty' )
         } ),
-        infoDialogDescriptionProperty: new PatternStringProperty( FourierMakingWavesStrings.infoNOrMoreHarmonicsStringProperty, {
+        infoDialogDescriptionStringProperty: new PatternStringProperty( FourierMakingWavesStrings.infoNOrMoreHarmonicsStringProperty, {
           levelNumber: 5,
           numberOfHarmonics: 5
         }, {
-          tandem: level5Tandem.createTandem( 'infoDialogDescriptionProperty' )
+          tandem: level5Tandem.createTandem( 'infoDialogDescriptionStringProperty' )
         } ),
         tandem: level5Tandem
       } )
