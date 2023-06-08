@@ -149,7 +149,8 @@ export default class AmplitudeKeypadDialog extends Dialog {
       content: new Text( FourierMakingWavesStrings.enterStringProperty, {
         font: BUTTON_FONT,
         maxWidth: keypad.width
-      } )
+      } ),
+      tandem: options.tandem.createTandem( 'enterButton' )
     } );
 
     // Vertical layout
