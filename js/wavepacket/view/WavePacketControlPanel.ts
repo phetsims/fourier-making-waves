@@ -165,7 +165,7 @@ class ComponentSpacingSubpanel extends VBox {
       ],
       align: 'left',
       spacing: VERTICAL_SPACING,
-      tandem: Tandem.REQUIRED
+      tandem: tandem
     } );
 
     this.componentSpacingText = componentSpacingText;
