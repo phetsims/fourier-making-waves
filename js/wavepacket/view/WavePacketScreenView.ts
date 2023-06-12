@@ -7,7 +7,6 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
@@ -31,7 +30,7 @@ import WavePacketControlPanel from './WavePacketControlPanel.js';
 import WavePacketLengthToolNode from './WavePacketLengthToolNode.js';
 import WavePacketSumChartNode from './WavePacketSumChartNode.js';
 import WavePacketSumEquationNode from './WavePacketSumEquationNode.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 export default class WavePacketScreenView extends ScreenView {
 
@@ -84,12 +83,10 @@ export default class WavePacketScreenView extends ScreenView {
       tandem: amplitudesTandem.createTandem( 'amplitudesChartNode' )
     } );
 
-    const amplitudesEquationStringProperty = new DerivedProperty(
+    const amplitudesEquationStringProperty = new DerivedStringProperty(
       [ FMWSymbols.AMarkupStringProperty, FMWSymbols.nMarkupStringProperty ],
       ( A, n ) => `${A}<sub>${n}</sub>`, {
-        tandem: tandem.createTandem( 'amplitudesEquationStringProperty' ),
-        phetioValueType: StringIO,
-        phetioFeatured: true
+        tandem: tandem.createTandem( 'amplitudesEquationStringProperty' )
       } );
 
     // Equation above the Amplitudes chart

@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -18,7 +17,7 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Domain from '../../common/model/Domain.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -36,17 +35,13 @@ export default class WavePacketLengthToolNode extends WavePacketMeasurementToolN
 
       // WavePacketMeasurementToolNodeOptions
       fill: FMWColors.wavePacketLengthToolFillProperty,
-      spaceSymbolStringProperty: new DerivedProperty( [ FMWSymbols.lambdaMarkupStringProperty ],
+      spaceSymbolStringProperty: new DerivedStringProperty( [ FMWSymbols.lambdaMarkupStringProperty ],
         lambda => `${lambda}<sub>1</sub>`, {
-          tandem: providedOptions.tandem.createTandem( 'spaceSymbolStringProperty' ),
-          phetioValueType: StringIO,
-          phetioFeatured: true
+          tandem: providedOptions.tandem.createTandem( 'spaceSymbolStringProperty' )
         } ),
-      timeSymbolStringProperty: new DerivedProperty( [ FMWSymbols.TMarkupStringProperty ],
+      timeSymbolStringProperty: new DerivedStringProperty( [ FMWSymbols.TMarkupStringProperty ],
         T => `${T}<sub>1</sub>`, {
-          tandem: providedOptions.tandem.createTandem( 'timeSymbolStringProperty' ),
-          phetioValueType: StringIO,
-          phetioFeatured: true
+          tandem: providedOptions.tandem.createTandem( 'timeSymbolStringProperty' )
         } )
     }, providedOptions );
 

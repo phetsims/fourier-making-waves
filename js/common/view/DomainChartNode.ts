@@ -12,7 +12,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import AxisLine, { AxisLineOptions } from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle, { ChartRectangleOptions } from '../../../../bamboo/js/ChartRectangle.js';
@@ -37,8 +36,8 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
 import FMWDerivedStrings from '../FMWDerivedStrings.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 const DEFAULT_EDGE = 'min';
 
@@ -160,12 +159,10 @@ export default class DomainChartNode extends Node {
     // the chart's background rectangle
     const chartRectangle = new ChartRectangle( chartTransform, options.chartRectangleOptions );
 
-    const xAxisLabelStringProperty = new DerivedProperty(
+    const xAxisLabelStringProperty = new DerivedStringProperty(
       [ domainProperty, options.xTimeLabelProperty, options.xSpaceLabelProperty ],
       ( domain, xTimeLabel, xSpaceLabel ) => ( domain === Domain.TIME ) ? xTimeLabel : xSpaceLabel, {
-        tandem: options.tandem.createTandem( 'xAxisLabelStringProperty' ),
-        phetioFeatured: true,
-        phetioValueType: StringIO
+        tandem: options.tandem.createTandem( 'xAxisLabelStringProperty' )
       } );
 
     // x-axis

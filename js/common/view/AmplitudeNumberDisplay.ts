@@ -22,7 +22,7 @@ import AmplitudeKeypadDialog from './AmplitudeKeypadDialog.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 // constants
 const DEFAULT_FONT = new PhetFont( 14 );
@@ -62,12 +62,10 @@ export default class AmplitudeNumberDisplay extends InteractiveHighlighting( VBo
     const numberDisplay = new NumberDisplay( harmonic.amplitudeProperty, harmonic.amplitudeProperty.range,
       options.numberDisplayOptions );
 
-    const labelStringProperty = new DerivedProperty(
+    const labelStringProperty = new DerivedStringProperty(
       [ FMWSymbols.AMarkupStringProperty ],
       A => `${A}<sub>${harmonic.order}</sub>`, {
-        tandem: options.tandem.createTandem( 'labelStringProperty' ),
-        phetioFeatured: true,
-        phetioValueType: StringIO
+        tandem: options.tandem.createTandem( 'labelStringProperty' )
       } );
 
     const labelNode = new RichText( labelStringProperty, {

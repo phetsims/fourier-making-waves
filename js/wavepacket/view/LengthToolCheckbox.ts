@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -16,24 +15,20 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import Property from '../../../../axon/js/Property.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Domain from '../../common/model/Domain.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 export default class LengthToolCheckbox extends CaliperCheckbox {
 
   public constructor( visibleProperty: Property<boolean>, domainProperty: EnumerationProperty<Domain>, tandem: Tandem ) {
 
-    const spaceSymbolStringProperty = new DerivedProperty( [ FMWSymbols.lambdaMarkupStringProperty ],
+    const spaceSymbolStringProperty = new DerivedStringProperty( [ FMWSymbols.lambdaMarkupStringProperty ],
       lambda => `${lambda}<sub>1</sub>`, {
-        tandem: tandem.createTandem( 'spaceSymbolStringProperty' ),
-        phetioValueType: StringIO,
-        phetioFeatured: true
+        tandem: tandem.createTandem( 'spaceSymbolStringProperty' )
       } );
 
-    const timeSymbolStringProperty = new DerivedProperty( [ FMWSymbols.TMarkupStringProperty ],
+    const timeSymbolStringProperty = new DerivedStringProperty( [ FMWSymbols.TMarkupStringProperty ],
       T => `${T}<sub>1</sub>`, {
-        tandem: tandem.createTandem( 'timeSymbolStringProperty' ),
-        phetioValueType: StringIO,
-        phetioFeatured: true
+        tandem: tandem.createTandem( 'timeSymbolStringProperty' )
       } );
 
     super( visibleProperty, domainProperty, spaceSymbolStringProperty, timeSymbolStringProperty, {
