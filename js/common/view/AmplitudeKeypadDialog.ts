@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Range from '../../../../dot/js/Range.js';
@@ -27,8 +26,8 @@ import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 // constants
 const TITLE_FONT = new PhetFont( 18 );
@@ -106,12 +105,10 @@ export default class AmplitudeKeypadDialog extends Dialog {
     } );
 
     // Title indicates which amplitude we're editing, e.g. A<sub>2</sub>.
-    const titleStringProperty = new DerivedProperty(
+    const titleStringProperty = new DerivedStringProperty(
       [ FMWSymbols.AMarkupStringProperty, orderProperty ],
       ( A, order ) => `${A}<sub>${order}</sub>`, {
-        tandem: options.tandem.createTandem( 'titleStringProperty' ),
-        phetioFeatured: true,
-        phetioValueType: StringIO
+        tandem: options.tandem.createTandem( 'titleStringProperty' )
       } );
     const titleNode = new RichText( titleStringProperty, {
       font: TITLE_FONT,
