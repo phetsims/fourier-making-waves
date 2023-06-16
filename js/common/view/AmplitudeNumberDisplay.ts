@@ -23,6 +23,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const DEFAULT_FONT = new PhetFont( 14 );
@@ -65,7 +66,7 @@ export default class AmplitudeNumberDisplay extends InteractiveHighlighting( VBo
     const labelStringProperty = new DerivedStringProperty(
       [ FMWSymbols.AMarkupStringProperty ],
       A => `${A}<sub>${harmonic.order}</sub>`, {
-        tandem: options.tandem.createTandem( 'labelStringProperty' )
+        tandem: Tandem.OPT_OUT
       } );
 
     const labelNode = new RichText( labelStringProperty, {

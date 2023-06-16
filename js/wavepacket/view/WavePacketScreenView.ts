@@ -86,7 +86,7 @@ export default class WavePacketScreenView extends ScreenView {
     const amplitudesEquationStringProperty = new DerivedStringProperty(
       [ FMWSymbols.AMarkupStringProperty, FMWSymbols.nMarkupStringProperty ],
       ( A, n ) => `${A}<sub>${n}</sub>`, {
-        tandem: tandem.createTandem( 'amplitudesEquationStringProperty' )
+        tandem: Tandem.OPT_OUT
       } );
 
     // Equation above the Amplitudes chart

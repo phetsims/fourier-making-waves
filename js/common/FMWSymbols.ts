@@ -19,9 +19,6 @@
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../FourierMakingWavesStrings.js';
-import Tandem from '../../../tandem/js/Tandem.js';
-
-const DERIVED_STRINGS_TANDEM = Tandem.getDerivedStringsTandem();
 
 const FMWSymbols = {
 
@@ -30,87 +27,66 @@ const FMWSymbols = {
 
   // amplitude
   AMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.AStringProperty, {
-    style: 'normal',
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'AMarkupStringProperty' )
+    style: 'normal'
   } ),
 
   // cosine
   cosMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.cosStringProperty, {
-    style: 'normal',
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'cosMarkupStringProperty' )
+    style: 'normal'
   } ),
 
   // differential, like dx
-  dMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.dStringProperty, {
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'dMarkupStringProperty' )
-  } ),
+  dMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.dStringProperty ),
 
   // function of frequency
   FMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.FStringProperty, {
-    style: 'normal',
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'FMarkupStringProperty' )
+    style: 'normal'
   } ),
 
   // frequency
-  fMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.fStringProperty, {
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'fMarkupStringProperty' )
-  } ),
+  fMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.fStringProperty ),
 
   // wave number
-  kMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.kStringProperty, {
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'kMarkupStringProperty' )
-  } ),
+  kMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.kStringProperty ),
 
   // string length, if this were a plucked string
   LMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.LStringProperty, {
-    style: 'normal',
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'LMarkupStringProperty' )
+    style: 'normal'
   } ),
 
   // wavelength
   lambdaMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.lambdaStringProperty, {
-    style: 'normal',
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'lambdaMarkupStringProperty' )
+    style: 'normal'
   } ),
 
   // mode, order, or harmonic number
-  nMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.nStringProperty, {
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'nMarkupStringProperty' )
-  } ),
+  nMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.nStringProperty ),
 
   // angular frequency
   omegaMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.omegaStringProperty, {
-    style: 'normal',
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'omegaMarkupStringProperty' )
+    style: 'normal'
   } ),
 
   // width of the Gaussian wave packet (dx)
   sigmaMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sigmaStringProperty, {
-    style: 'normal',
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'sigmaMarkupStringProperty' )
+    style: 'normal'
   } ),
 
   // sine
   sinMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.sinStringProperty, {
-    style: 'normal',
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'sinMarkupStringProperty' )
+    style: 'normal'
   } ),
 
   // sampling period, or period of the 1st harmonic
   TMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.TStringProperty, {
-    style: 'normal',
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'TMarkupStringProperty' )
+    style: 'normal'
   } ),
 
   // time
-  tMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.tStringProperty, {
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'tMarkupStringProperty' )
-  } ),
+  tMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.tStringProperty ),
 
   // position in space along L
-  xMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.xStringProperty, {
-    tandem: DERIVED_STRINGS_TANDEM.createTandem( 'xMarkupStringProperty' )
-  } ),
+  xMarkupStringProperty: MathSymbolFont.createDerivedProperty( FourierMakingWavesStrings.symbol.xStringProperty ),
 
   //-----------------------------------------------------------------------------------------------------------
   // Symbols that are not translated

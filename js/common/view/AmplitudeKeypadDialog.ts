@@ -108,7 +108,7 @@ export default class AmplitudeKeypadDialog extends Dialog {
     const titleStringProperty = new DerivedStringProperty(
       [ FMWSymbols.AMarkupStringProperty, orderProperty ],
       ( A, order ) => `${A}<sub>${order}</sub>`, {
-        tandem: options.tandem.createTandem( 'titleStringProperty' )
+        tandem: Tandem.OPT_OUT
       } );
     const titleNode = new RichText( titleStringProperty, {
       font: TITLE_FONT,
@@ -120,7 +120,7 @@ export default class AmplitudeKeypadDialog extends Dialog {
       min: Utils.toFixedNumber( amplitudeRange.min, options.decimalPlaces ),
       max: Utils.toFixedNumber( amplitudeRange.max, options.decimalPlaces )
     }, {
-      tandem: options.tandem.createTandem( 'rangeStringProperty' )
+      tandem: Tandem.OPT_OUT
     } );
     const rangeNode = new Text( rangeStringProperty, {
       font: VALUE_FONT,

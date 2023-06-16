@@ -38,6 +38,7 @@ import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import FMWDerivedStrings from '../FMWDerivedStrings.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 const DEFAULT_EDGE = 'min';
 
@@ -162,7 +163,7 @@ export default class DomainChartNode extends Node {
     const xAxisLabelStringProperty = new DerivedStringProperty(
       [ domainProperty, options.xTimeLabelProperty, options.xSpaceLabelProperty ],
       ( domain, xTimeLabel, xSpaceLabel ) => ( domain === Domain.TIME ) ? xTimeLabel : xSpaceLabel, {
-        tandem: options.tandem.createTandem( 'xAxisLabelStringProperty' )
+        tandem: Tandem.OPT_OUT
       } );
 
     // x-axis

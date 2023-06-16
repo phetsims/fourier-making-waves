@@ -23,12 +23,12 @@ export default class LengthToolCheckbox extends CaliperCheckbox {
 
     const spaceSymbolStringProperty = new DerivedStringProperty( [ FMWSymbols.lambdaMarkupStringProperty ],
       lambda => `${lambda}<sub>1</sub>`, {
-        tandem: tandem.createTandem( 'spaceSymbolStringProperty' )
+        tandem: Tandem.OPT_OUT
       } );
 
     const timeSymbolStringProperty = new DerivedStringProperty( [ FMWSymbols.TMarkupStringProperty ],
       T => `${T}<sub>1</sub>`, {
-        tandem: tandem.createTandem( 'timeSymbolStringProperty' )
+        tandem: Tandem.OPT_OUT
       } );
 
     super( visibleProperty, domainProperty, spaceSymbolStringProperty, timeSymbolStringProperty, {

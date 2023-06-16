@@ -22,6 +22,7 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // Margins for the translucent background behind the label
 const BACKGROUND_X_MARGIN = 2;
@@ -52,7 +53,7 @@ export default class PeriodClockNode extends DiscreteMeasurementToolNode {
 
     const labelStringProperty = new DerivedStringProperty( [ FMWSymbols.TMarkupStringProperty, harmonicProperty ],
       ( T, harmonic ) => `${T}<sub>${harmonic.order}</sub>`, {
-        tandem: providedOptions.tandem.createTandem( 'labelStringProperty' )
+        tandem: Tandem.OPT_OUT
       } );
 
     const labelNode = new RichText( labelStringProperty, {

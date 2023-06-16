@@ -18,6 +18,7 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Domain from '../../common/model/Domain.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -37,11 +38,11 @@ export default class WavePacketLengthToolNode extends WavePacketMeasurementToolN
       fill: FMWColors.wavePacketLengthToolFillProperty,
       spaceSymbolStringProperty: new DerivedStringProperty( [ FMWSymbols.lambdaMarkupStringProperty ],
         lambda => `${lambda}<sub>1</sub>`, {
-          tandem: providedOptions.tandem.createTandem( 'spaceSymbolStringProperty' )
+          tandem: Tandem.OPT_OUT
         } ),
       timeSymbolStringProperty: new DerivedStringProperty( [ FMWSymbols.TMarkupStringProperty ],
         T => `${T}<sub>1</sub>`, {
-          tandem: providedOptions.tandem.createTandem( 'timeSymbolStringProperty' )
+          tandem: Tandem.OPT_OUT
         } )
     }, providedOptions );
 
