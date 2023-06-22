@@ -19,6 +19,7 @@ import WavePacketAmplitudesChart from './WavePacketAmplitudesChart.js';
 import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
 import WavePacketComponentsChart from './WavePacketComponentsChart.js';
 import WavePacketSumChart from './WavePacketSumChart.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 export default class WavePacketModel implements TModel {
 
@@ -88,7 +89,7 @@ export default class WavePacketModel implements TModel {
   }
 
   public dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    Disposable.assertNotDisposable();
   }
 }
 
