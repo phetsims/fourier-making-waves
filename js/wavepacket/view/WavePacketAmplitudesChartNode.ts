@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Disposable from '../../../../axon/js/Disposable.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import BarPlot from '../../../../bamboo/js/BarPlot.js';
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
@@ -161,7 +162,7 @@ export default class WavePacketAmplitudesChartNode extends DomainChartNode {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 }

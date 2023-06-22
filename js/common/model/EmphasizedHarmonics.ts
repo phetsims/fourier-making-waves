@@ -15,6 +15,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Disposable from '../../../../axon/js/Disposable.js';
 import createObservableArray, { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -35,7 +36,7 @@ export default class EmphasizedHarmonics {
   }
 
   public dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    Disposable.assertNotDisposable();
   }
 
   /**
