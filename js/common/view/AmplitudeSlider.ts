@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
@@ -59,6 +58,7 @@ export default class AmplitudeSlider extends Slider {
       mouseTouchStep: FMWConstants.DISCRETE_AMPLITUDE_STEP,
 
       // SliderOptions
+      isDisposable: false,
       startDrag: _.noop,
       endDrag: _.noop,
       orientation: Orientation.VERTICAL,
@@ -139,11 +139,6 @@ export default class AmplitudeSlider extends Slider {
     this.visibleProperty.link( () => this.interruptSubtreeInput() );
   }
 
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
-  }
-
   /**
    * Creates a non-interactive icon for an AmplitudeSlider.
    */
@@ -196,13 +191,9 @@ class GrippyThumb extends Node {
 
     super( {
       children: [ rectangle, dotsNode ],
+      isDisposable: false,
       tandem: tandem
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 
@@ -231,6 +222,7 @@ class BarTrack extends SliderTrack {
     const options = optionize<BarTrackOptions, BarTrackSelfOptions, SliderTrackOptions>()( {
 
       // SliderTrackOptions
+      isDisposable: false,
       size: new Dimension2( 10, 10 )
     }, providedOptions );
 
@@ -284,11 +276,6 @@ class BarTrack extends SliderTrack {
       [ this.dragListener.isPressedProperty, visibleTrackPressListener.isOverProperty ],
       ( isPressed, isOverVisible ) => ( isPressed || isOverVisible )
     );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

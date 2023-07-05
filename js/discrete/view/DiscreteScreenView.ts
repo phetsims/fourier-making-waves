@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -48,6 +47,7 @@ export default class DiscreteScreenView extends ScreenView {
   public constructor( model: DiscreteModel, tandem: Tandem ) {
 
     super( {
+      isDisposable: false,
       tandem: tandem
     } );
 
@@ -431,11 +431,6 @@ export default class DiscreteScreenView extends ScreenView {
       timeControlNode,
       resetAllButton
     ];
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

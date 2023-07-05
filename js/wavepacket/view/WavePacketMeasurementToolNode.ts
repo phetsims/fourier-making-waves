@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
@@ -59,6 +58,7 @@ export default class WavePacketMeasurementToolNode extends Node {
       dragBounds: null,
 
       // NodeOptions
+      isDisposable: false,
       cursor: 'pointer',
       tagName: 'div',
       focusable: true
@@ -166,11 +166,6 @@ export default class WavePacketMeasurementToolNode extends Node {
 
   public reset(): void {
     this.positionProperty.reset();
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

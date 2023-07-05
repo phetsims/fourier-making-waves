@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -102,6 +101,7 @@ export default class DiscreteControlPanel extends Panel {
 
       // PanelOptions
       maxWidth: 258, // as a fallback, in case some subcomponent is misbehaving
+      isDisposable: false,
       tandem: tandem
     } ) );
 
@@ -111,11 +111,6 @@ export default class DiscreteControlPanel extends Panel {
       infoButton,
       vBox
     ];
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 
@@ -186,15 +181,11 @@ class FourierSeriesSubpanel extends VBox {
       ],
       align: 'left',
       spacing: FMWConstants.VBOX_SPACING,
+      isDisposable: false,
       tandem: tandem
     } );
 
     this.fourierSeriesText = fourierSeriesText;
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 
@@ -275,13 +266,9 @@ class GraphControlsSubpanel extends VBox {
       ],
       align: 'left',
       spacing: FMWConstants.VBOX_SPACING,
+      isDisposable: false,
       tandem: tandem
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 
@@ -359,6 +346,7 @@ class MeasurementToolsSubpanel extends VBox {
       ],
       align: 'left',
       spacing: FMWConstants.VBOX_SPACING,
+      isDisposable: false,
       tandem: tandem
     } );
 
@@ -370,11 +358,6 @@ class MeasurementToolsSubpanel extends VBox {
     wavelengthSpinner.enabledProperty.link( () => wavelengthSpinner.interruptSubtreeInput() );
     periodCheckbox.enabledProperty.link( () => periodCheckbox.interruptSubtreeInput() );
     periodSpinner.enabledProperty.link( () => periodSpinner.interruptSubtreeInput() );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 
@@ -418,6 +401,7 @@ class SoundBox extends HBox {
       // HBoxOptions
       children: [ soundEnabledCheckbox, sliderBox ],
       spacing: 20,
+      isDisposable: false,
       tandem: tandem
     } );
 
@@ -429,11 +413,6 @@ class SoundBox extends HBox {
       minVolumeIcon.opacity = audioAndSoundEnabled ? 1 : SceneryConstants.DISABLED_OPACITY;
       maxVolumeIcon.opacity = audioAndSoundEnabled ? 1 : SceneryConstants.DISABLED_OPACITY;
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

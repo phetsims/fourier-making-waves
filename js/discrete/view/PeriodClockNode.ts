@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import { Circle, Color, Node, Path, Rectangle, RichText } from '../../../../scenery/js/imports.js';
@@ -146,11 +145,6 @@ class ClockFaceNode extends Node {
         elapsedTimeNode.shape = createElapsedTimeShape( harmonicProperty.value, t, CLOCK_FACE_RADIUS );
       }
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

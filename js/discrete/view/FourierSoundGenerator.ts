@@ -27,7 +27,7 @@ export default class FourierSoundGenerator extends SoundGenerator {
 
     super( {
 
-      // OscillatorSoundGenerator options
+      // SoundGeneratorOptions
       initialOutputLevel: fourierSeries.soundOutputLevelProperty.value
     } );
 

@@ -12,7 +12,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import ChartRectangle from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform, { ChartTransformOptions } from '../../../../bamboo/js/ChartTransform.js';
 import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
@@ -73,7 +72,8 @@ export default class InteractiveAmplitudesChartNode extends Node {
       chartTransformOptions: {
         viewWidth: FMWConstants.CHART_RECTANGLE_SIZE.width,
         viewHeight: FMWConstants.CHART_RECTANGLE_SIZE.height
-      }
+      },
+      isDisposable: false
     }, providedOptions );
 
     assert && assert( !options.chartTransformOptions.modelXRange, 'InteractiveAmplitudesChartNode sets modelXRange' );
@@ -183,11 +183,6 @@ export default class InteractiveAmplitudesChartNode extends Node {
     this.sliders = sliders;
     this.slidersParent = slidersParent;
     this.numberDisplays = numberDisplays;
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

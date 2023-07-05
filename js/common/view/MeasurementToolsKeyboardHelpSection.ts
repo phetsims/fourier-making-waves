@@ -9,7 +9,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
@@ -41,13 +40,9 @@ export default class MeasurementToolsKeyboardHelpSection extends KeyboardHelpSec
         [ shiftPlusArrowsIcon, shiftPlusWASDsIcon ] )
     ];
 
-    super( FourierMakingWavesStrings.keyboardHelpDialog.measurementToolsStringProperty, rows );
-  }
-
-  // See https://github.com/phetsims/fourier-making-waves/issues/236
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
+    super( FourierMakingWavesStrings.keyboardHelpDialog.measurementToolsStringProperty, rows, {
+      isDisposable: false // see https://github.com/phetsims/fourier-making-waves/issues/236
+    } );
   }
 }
 

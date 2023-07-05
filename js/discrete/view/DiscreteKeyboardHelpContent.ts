@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
@@ -28,13 +27,9 @@ export default class DiscreteKeyboardHelpContent extends TwoColumnKeyboardHelpCo
       } )
     ];
 
-    super( leftSections, rightSections );
-  }
-
-  // See https://github.com/phetsims/fourier-making-waves/issues/236
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
+    super( leftSections, rightSections, {
+      isDisposable: false // See https://github.com/phetsims/fourier-making-waves/issues/236
+    } );
   }
 }
 

@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -48,6 +47,7 @@ export default class WavePacketSumEquationNode extends Node {
     super( {
       children: [ leftNode, sumSymbolNode, rightNode ],
       maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
+      isDisposable: false,
       tandem: tandem
     } );
 
@@ -92,11 +92,6 @@ export default class WavePacketSumEquationNode extends Node {
         rightNode.left = sumSymbolNode.right + 2;
         rightNode.y = leftNode.y;
       } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import { Node } from '../../../../scenery/js/imports.js';
@@ -122,11 +121,6 @@ export default class WavePacketSumChartNode extends DomainChartNode {
       waveformEnvelopePlot.setDataSet( dataSet );
       waveformEnvelopeChartCanvasNode.update();
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import { Node, RichText } from '../../../../scenery/js/imports.js';
@@ -34,6 +33,7 @@ export default class HarmonicsEquationNode extends Node {
       children: [ richText ],
       maxWidth: 0.5 * FMWConstants.CHART_RECTANGLE_SIZE.width,
       visiblePropertyOptions: { phetioReadOnly: true },
+      isDisposable: false,
       tandem: tandem
     } );
 
@@ -43,11 +43,6 @@ export default class HarmonicsEquationNode extends Node {
         richText.string = EquationMarkup.getGeneralFormMarkup( domain, seriesType, equationForm );
       }
     );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

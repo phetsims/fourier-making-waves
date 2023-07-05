@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import { PDOMUtils } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -42,6 +41,7 @@ export default class WaveGameScreenView extends ScreenView {
   public constructor( model: WaveGameModel, tandem: Tandem ) {
 
     super( {
+      isDisposable: false,
       tandem: tandem
     } );
 
@@ -115,11 +115,6 @@ export default class WaveGameScreenView extends ScreenView {
 
     this.addChild( this.transitionNode );
     this.addChild( this.rewardNode );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   /**

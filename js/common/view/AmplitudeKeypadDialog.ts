@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Range from '../../../../dot/js/Range.js';
@@ -67,6 +66,7 @@ export default class AmplitudeKeypadDialog extends Dialog {
       decimalPlaces: FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES,
 
       // DialogOptions
+      isDisposable: false,
       closeButtonLength: 12,
       cornerRadius: FMWConstants.PANEL_CORNER_RADIUS,
       layoutStrategy: ( dialog: Dialog, simBounds: Bounds2, screenBounds: Bounds2, scale: number ) => {
@@ -222,11 +222,6 @@ export default class AmplitudeKeypadDialog extends Dialog {
     this.enterCallback = null;
     this.closeCallback = null;
     this.keypad.clear();
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -49,13 +48,9 @@ export default class DomainComboBox extends FMWComboBox<Domain> {
       textOptions: {
         maxWidth: 100 // determined empirically
       },
+      isDisposable: false,
       tandem: tandem
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

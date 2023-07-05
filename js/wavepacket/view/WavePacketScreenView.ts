@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -38,6 +37,7 @@ export default class WavePacketScreenView extends ScreenView {
   public constructor( model: WavePacketModel, tandem: Tandem ) {
 
     super( {
+      isDisposable: false,
       tandem: tandem
     } );
 
@@ -371,11 +371,6 @@ export default class WavePacketScreenView extends ScreenView {
       waveformEnvelopeCheckbox,
       resetAllButton
     ];
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

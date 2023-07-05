@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty, { UnknownDerivedProperty } from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -77,6 +76,7 @@ export default class FourierSeries extends PhetioObject {
       amplitudes: DEFAULT_AMPLITUDES, // {number[]} initial amplitudes for the harmonics
 
       // PhetioObjectOptions
+      isDisposable: false,
       phetioState: false
     }, providedOptions );
 
@@ -129,11 +129,6 @@ export default class FourierSeries extends PhetioObject {
       range: new Range( 0.05, 1 ),
       tandem: options.tandem.createTandem( 'soundOutputLevelProperty' )
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   /**

@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -103,15 +102,11 @@ export default class ExpandedFormDialog extends Dialog {
       // DialogOptions
       title: titleText,
       xSpacing: 30,
+      isDisposable: false,
       tandem: tandem,
       phetioReadOnly: true,
       phetioDocumentation: 'This dialog shows the expanded form of the Sum equation.'
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

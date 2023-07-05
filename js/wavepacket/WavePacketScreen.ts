@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
-import Disposable from '../../../axon/js/Disposable.js';
 import Screen from '../../../joist/js/Screen.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import FMWColors from '../common/FMWColors.js';
@@ -26,6 +25,7 @@ export default class WavePacketScreen extends Screen<WavePacketModel, WavePacket
       backgroundColorProperty: FMWColors.wavePacketScreenBackgroundColorProperty,
       homeScreenIcon: FMWIconFactory.createWavePacketHomeScreenIcon(),
       createKeyboardHelpNode: () => new WavePacketKeyboardHelpContent(),
+      isDisposable: false,
       tandem: tandem
     };
 
@@ -34,11 +34,6 @@ export default class WavePacketScreen extends Screen<WavePacketModel, WavePacket
       model => new WavePacketScreenView( model, options.tandem.createTandem( 'view' ) ),
       options
     );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

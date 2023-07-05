@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
-import Disposable from '../../../axon/js/Disposable.js';
 import Screen from '../../../joist/js/Screen.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import FMWColors from '../common/FMWColors.js';
@@ -26,6 +25,7 @@ export default class DiscreteScreen extends Screen<DiscreteModel, DiscreteScreen
       backgroundColorProperty: FMWColors.discreteScreenBackgroundColorProperty,
       homeScreenIcon: FMWIconFactory.createDiscreteHomeScreenIcon(),
       createKeyboardHelpNode: () => new DiscreteKeyboardHelpContent(),
+      isDisposable: false,
       tandem: tandem
     };
 
@@ -34,11 +34,6 @@ export default class DiscreteScreen extends Screen<DiscreteModel, DiscreteScreen
       model => new DiscreteScreenView( model, options.tandem.createTandem( 'view' ) ),
       options
     );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

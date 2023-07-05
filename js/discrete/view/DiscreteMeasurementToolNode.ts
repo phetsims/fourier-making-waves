@@ -14,7 +14,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
@@ -68,7 +67,8 @@ export default class DiscreteMeasurementToolNode extends Node {
       // NodeOptions
       cursor: 'pointer',
       tagName: 'div',
-      focusable: true
+      focusable: true,
+      isDisposable: false
     }, providedOptions );
 
     assert && assert( !options.visibleProperty, 'DiscreteMeasurementToolNode sets visibleProperty' );
@@ -149,11 +149,6 @@ export default class DiscreteMeasurementToolNode extends Node {
     this.addInputListener( keyboardDragListener );
 
     this.positionProperty = positionProperty;
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   public reset(): void {

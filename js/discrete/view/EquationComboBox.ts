@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
@@ -95,6 +94,7 @@ export default class EquationComboBox extends FMWComboBox<EquationForm> {
       textOptions: {
         maxWidth: 100 // determined empirically
       },
+      isDisposable: false,
       tandem: tandem
     } );
 
@@ -120,11 +120,6 @@ export default class EquationComboBox extends FMWComboBox<EquationForm> {
       this.setItemVisible( EquationForm.WAVELENGTH_AND_PERIOD, isSpaceAmdTime );
       this.setItemVisible( EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER, isSpaceAmdTime );
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

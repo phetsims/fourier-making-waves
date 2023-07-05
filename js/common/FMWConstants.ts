@@ -49,6 +49,7 @@ const PANEL_OPTIONS: PanelOptions = {
 const WAVE_PACKET_NUMBER_CONTROL_OPTIONS: NumberControlOptions = {
 
   // NumberControl options
+  isDisposable: false,
   includeArrowButtons: false,
   layoutFunction: ( titleNode: Node, numberDisplay: NumberDisplay, slider: Slider, leftArrowButton: ArrowButton | null, rightArrowButton: ArrowButton | null ): Node => new VBox( {
     spacing: 5,

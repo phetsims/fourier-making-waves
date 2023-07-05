@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
@@ -29,13 +28,9 @@ export default class WaveGameKeyboardHelpContent extends TwoColumnKeyboardHelpCo
       new BasicActionsKeyboardHelpSection()
     ];
 
-    super( leftSections, rightSections );
-  }
-
-  // See https://github.com/phetsims/fourier-making-waves/issues/236
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
+    super( leftSections, rightSections, {
+      isDisposable: false // See https://github.com/phetsims/fourier-making-waves/issues/236
+    } );
   }
 }
 
@@ -52,14 +47,9 @@ class GameControlsHelpSection extends KeyboardHelpSection {
       SceneryPhetStrings.key.cStringProperty );
 
     super( FourierMakingWavesStrings.keyboardHelpDialog.gameControlsStringProperty, [ checkAnswerRow ], {
-      textMaxWidth: 250
+      textMaxWidth: 250,
+      isDisposable: false // See https://github.com/phetsims/fourier-making-waves/issues/236
     } );
-  }
-
-  // See https://github.com/phetsims/fourier-making-waves/issues/236
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

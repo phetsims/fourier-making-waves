@@ -12,7 +12,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import AxisLine, { AxisLineOptions } from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle, { ChartRectangleOptions } from '../../../../bamboo/js/ChartRectangle.js';
@@ -152,7 +151,10 @@ export default class DomainChartNode extends Node {
       },
       yTickLabelSetOptions: {
         edge: DEFAULT_EDGE
-      }
+      },
+
+      // NodeOptions
+      isDisposable: false
     }, providedOptions );
 
     // the transform between model and view coordinate frames
@@ -254,11 +256,6 @@ export default class DomainChartNode extends Node {
     this.yTickLabels = yTickLabels;
     this.chartTransform = chartTransform;
     this.chartRectangle = chartRectangle;
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   /**

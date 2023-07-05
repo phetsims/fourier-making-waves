@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
@@ -106,6 +105,7 @@ export default class WavePacketControlPanel extends Panel {
 
     super( content, combineOptions<PanelOptions>( {}, FMWConstants.PANEL_OPTIONS, {
       yMargin: 5,
+      isDisposable: false,
       tandem: tandem
     } ) );
 
@@ -171,11 +171,6 @@ class ComponentSpacingSubpanel extends VBox {
 
     this.componentSpacingText = componentSpacingText;
   }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
-  }
 }
 
 /**
@@ -202,13 +197,9 @@ class WavePacketCenterSubpanel extends VBox {
       ],
       align: 'left',
       spacing: VERTICAL_SPACING,
+      isDisposable: false,
       tandem: tandem
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 
@@ -263,13 +254,9 @@ class WavePacketWidthSubpanel extends VBox {
       ],
       align: 'left',
       spacing: VERTICAL_SPACING,
+      isDisposable: false,
       tandem: tandem
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 
@@ -329,13 +316,9 @@ class GraphControlsSubpanel extends VBox {
       ],
       align: 'left',
       spacing: VERTICAL_SPACING,
+      isDisposable: false,
       tandem: tandem
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import BarPlot from '../../../../bamboo/js/BarPlot.js';
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
@@ -159,11 +158,6 @@ export default class WavePacketAmplitudesChartNode extends DomainChartNode {
       this.yTickMarks.setSpacing( yAxisDescription.tickMarkSpacing );
       this.yTickLabels.setSpacing( yAxisDescription.tickLabelSpacing );
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

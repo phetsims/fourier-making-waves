@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
@@ -61,6 +60,7 @@ export default class Harmonic extends PhetioObject {
       amplitude: 0,
 
       // PhetioObjectOptions
+      isDisposable: false,
       phetioState: false
     }, providedOptions );
 
@@ -82,11 +82,6 @@ export default class Harmonic extends PhetioObject {
       phetioDocumentation: 'the amplitude of this harmonic',
       tandem: options.tandem.createTandem( 'amplitudeProperty' )
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   public reset(): void {
