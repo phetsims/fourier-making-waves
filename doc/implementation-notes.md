@@ -85,12 +85,11 @@ its behavior, do so with logging enabled via the `log` query parameter.
   `unlink`, `removeListener`, etc.
 
 * **dispose:** All classes have a `dispose` method. Sim-specific classes whose instances exist for the lifetime of the
-  sim are not intended to be disposed, and their `dispose` implementation looks like this:
+  sim are not intended to be disposed. They are created with `isDisposable: false`, or have a `dispose` method that looks like this:
 
 ```ts
-public override dispose(): void {
+public dispose(): void {
   Disposable.assertNotDisposable();
-  super.dispose();
 }
 ```
 
