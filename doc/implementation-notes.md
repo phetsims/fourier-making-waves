@@ -87,13 +87,8 @@ its behavior, do so with logging enabled via the `log` query parameter.
 * **dispose:** All classes have a `dispose` method. Sim-specific classes whose instances exist for the lifetime of the
   sim are not intended to be disposed, and their `dispose` implementation looks like this:
 
-```js
-/**
- * @public
- * @override
- */
-dispose()
-{
+```ts
+public override dispose(): void {
   Disposable.assertNotDisposable();
   super.dispose();
 }
