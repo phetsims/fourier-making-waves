@@ -15,7 +15,7 @@ import EraserButton, { EraserButtonOptions } from '../../../../scenery-phet/js/b
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { globalKeyStateTracker, KeyboardUtils, Node, RichText, Text, VBox } from '../../../../scenery/js/imports.js';
+import { KeyboardListener, Node, RichText, Text, VBox } from '../../../../scenery/js/imports.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import nullSoundPlayer from '../../../../tambo/js/shared-sound-players/nullSoundPlayer.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -230,19 +230,6 @@ export default class WaveGameLevelNode extends Node {
       tandem: buttonsTandem.createTandem( 'checkAnswerButton' )
     } );
 
-    // Alt+C hotkey support for 'Check Answer'. globalKeyStateTracker listeners always fire, so it's our
-    // responsibility to short-circuit this listener if the checkAnswerButton is not in the PDOM, and not enabled.
-    globalKeyStateTracker.keydownEmitter.addListener( event => {
-      if (
-        checkAnswerButton.pdomDisplayed &&
-        checkAnswerButton.enabledProperty.value &&
-        globalKeyStateTracker.altKeyDown &&
-        KeyboardUtils.isKeyEvent( event, KeyboardUtils.KEY_C )
-      ) {
-        checkAnswerListener();
-      }
-    } );
-
     // Smiley face is visible when the waveform is matched.
     const faceVisibleProperty = new DerivedProperty(
       [ level.isSolvedProperty, level.isMatchedProperty ],
@@ -437,6 +424,26 @@ export default class WaveGameLevelNode extends Node {
 
     // When the user's guess is incorrect, provide feedback.
     level.incorrectEmitter.addListener( () => this.incorrectFeedback() );
+
+    // Pressing alt+c will check the answer, if the game is in the appropriate state.
+    const checkAnswerKeyboardListener = new KeyboardListener( {
+      keys: [ 'alt+c' ],
+      callback: ( event, listener ) => {
+        if (
+          checkAnswerButton.pdomDisplayed &&
+          checkAnswerButton.enabledProperty.value &&
+          listener.keysPressed === 'alt+c'
+        ) {
+          checkAnswerListener();
+        }
+      },
+
+      // By making this listener "global" it will fire no matter where focus is in the document as long as
+      // this Node is visible and has input enabled. Otherwise, the callback will fire only when this Node
+      // has keyboard focus.
+      global: true
+    } );
+    this.addInputListener( checkAnswerKeyboardListener );
 
     //------------------------------------------------------------------------------------------------------------------
     // PDOM
