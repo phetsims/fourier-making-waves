@@ -49,9 +49,9 @@ and its amplitude is A<sub>1</sub>.
 ## Discrete screen
 
 The **Discrete** screen models a
-single [FourierSeries](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/FourierSeries.js)
+single [FourierSeries](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/FourierSeries.js)
 with a variable number (1...11) of Harmonics.
-Each [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Harmonic.js)
+Each [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/Harmonic.js)
 has an amplitude with variable range [-1.5,1.5]. The sum is computed by sampling the amplitude of each harmonic at
 points in space or time, and summing their corresponding amplitudes.
 
@@ -60,7 +60,7 @@ musical note of A above middle C.
 
 The method of computing a Harmonic's amplitude depends on the x-axis domain (space, time, or space and time) and whether
 we have a sine series or a cosine series. The set of 6 equations for computing amplitude can be found in
-[getAmplitudeFunction.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/getAmplitudeFunction.js)
+[getAmplitudeFunction.js](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/getAmplitudeFunction.js)
 These functions correspond to the mode (_n_) equation forms, selectable from the
 'Equation' combo box.
 
@@ -68,7 +68,7 @@ Preset waveforms are selected via the 'Waveform' combo box, including sinusoid, 
 packet. When you select one of these presets, amplitudes for the harmonics are computed using an equation that is
 specific to that preset. (Wave packet is an exception:
 we use a set of hard-coded amplitudes.)
-See [Waveform.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/discrete/model/Waveform.js)
+See [Waveform.js](https://github.com/phetsims/fourier-making-waves/blob/main/js/discrete/model/Waveform.js)
 for the equations used. For square, sawtooth, and triangle, Waveform.js also contains the points used to plot exact
 versions of those waveforms, for comparison with the Fourier Series approximation.
 
@@ -113,7 +113,7 @@ mathematics.
 The Fourier Series can be varied by changing 'Component Spacing', which in turn changes the number of components. The
 wave packet can also be adjusted by changing its center and width. The underlying equations for computing the component
 waveforms are the same as those used in the others screens, found
-in [getAmplitudeFunction.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/getAmplitudeFunction.js)
+in [getAmplitudeFunction.js](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/getAmplitudeFunction.js)
 .
 
 A simplifying assumption in this screen's model is that λ (wavelength) and T (period) are both 1 unit. This is a

@@ -8,9 +8,9 @@ This document contains notes that may be useful to the PhET QA team when testing
 
 It is _highly recommended_ that you skim these 2 documents before testing the sim:
 
-* [model.md](https://github.com/phetsims/fourier-making-waves/blob/master/doc/model.md), a high-level description of the
+* [model.md](https://github.com/phetsims/fourier-making-waves/blob/main/doc/model.md), a high-level description of the
   model
-* [implementation-notes.md](https://github.com/phetsims/fourier-making-waves/blob/master/doc/implementation-notes.md),
+* [implementation-notes.md](https://github.com/phetsims/fourier-making-waves/blob/main/doc/implementation-notes.md),
   notes about the implementation, and how some things are expected to behave
 
 Optionally, skim these documents:
@@ -24,7 +24,7 @@ Interactive Description Design
 ## General notes
 
 Sim-specific query parameters (and their documentation) can be found in
-[FMWQueryParameters](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/FMWQueryParameters.js).
+[FMWQueryParameters](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/FMWQueryParameters.js).
 Query parameters defined as `public: true` are public-facing, and should be tested. Other query parameters are for
 internal use, and you should skim them to see if any may be helpful in testing.
 
@@ -45,7 +45,7 @@ the performance and responsiveness of this screen.
 Using the `showAnswers` query parameter will make it easier to test the game. When run with `?showAnswers`, the correct
 amplitude values for each challenge will be displayed in red under their associated sliders. Note that `showAnswers` is
 a private feature and requires special steps to use it;
-see [phetTeamMember.md](https://github.com/phetsims/special-ops/blob/master/doc/phetTeamMember.md).
+see [phetTeamMember.md](https://github.com/phetsims/special-ops/blob/main/doc/phetTeamMember.md).
 
 ## Wave Packet screen
 

@@ -8,28 +8,28 @@ to provide a high-level overview, and to supplement the internal documentation
 (source code comments) and external documentation (design documents). 
 
 Before reading this document, please read:
-* [model.md](https://github.com/phetsims/fourier-making-waves/blob/master/doc/model.md), a high-level description of the simulation model
+* [model.md](https://github.com/phetsims/fourier-making-waves/blob/main/doc/model.md), a high-level description of the simulation model
 
 In addition to this document, you are encouraged to read:
 
-* [PhET Development Overview](https://github.com/phetsims/phet-info/blob/master/doc/phet-development-overview.md)
-* [PhET Software Design Patterns](https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md)
+* [PhET Development Overview](https://github.com/phetsims/phet-info/blob/main/doc/phet-development-overview.md)
+* [PhET Software Design Patterns](https://github.com/phetsims/phet-info/blob/main/doc/phet-software-design-patterns.md)
 * [Fourier: Making Waves HTML5](https://docs.google.com/document/d/1tOpstoF6xiMcBJEvG1rJ4mVRzsO6UWzek_ntau4rbWc), the
   design document (which may be out of date)
 
 ## Terminology & Symbols
 
 Most of the terminology and math symbols that you'll need to navigate the implementation can be found
-in [model.md](https://github.com/phetsims/fourier-making-waves/blob/master/doc/model.md).
+in [model.md](https://github.com/phetsims/fourier-making-waves/blob/main/doc/model.md).
 
 Additional terminology:
 
 _Domain_ refers to the independent variable(s) in the equations that drive the model. The domains in this sim are '
 space', 'time', and 'space & time'. See
-also [Domain.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Domain.js).
+also [Domain.js](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/Domain.js).
 
 _Series type_ refers to whether the Fourier Series is a _sine series_ or a _cosine series_. See
-also [SeriesType.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/SeriesType.js).
+also [SeriesType.js](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/SeriesType.js).
 
 In the **Wave Game** screen, the user is attempting to solved _challenges_. Each challenge has 2 Fourier series:
 
@@ -51,14 +51,14 @@ This section describes how this sim addresses implementation considerations that
 **Model-View Transform**
 
 Every chart in this simulation has a model-view transform, implemented using bamboo's
-[ChartTransform.js](https://github.com/phetsims/bamboo/blob/master/js/ChartTransform.js).
+[ChartTransform.js](https://github.com/phetsims/bamboo/blob/main/js/ChartTransform.js).
 
 The typical ModelViewTransform2 that is found in most PhET simulations is not used in this simulation.
 
 **Query Parameters**
 
 Query parameters are used to enable sim-specific features. Sim-specific query parameters are documented in
-[FMWQueryParameters](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/FMWQueryParameters.js).
+[FMWQueryParameters](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/FMWQueryParameters.js).
 Running with `?log` will print the complete set of query parameters (common-code, PhET-iO, and sim-specific)
 to the browser console.
 
@@ -78,7 +78,7 @@ its behavior, do so with logging enabled via the `log` query parameter.
 
 * **Dynamic allocation**: Most objects in this sim are allocated at startup, and exist for the lifetime of the
   simulation. The exceptions to that are: `Vector2`
-  and [FourierComponent](https://github.com/phetsims/fourier-making-waves/blob/master/js/wavepacket/model/FourierComponent.js)
+  and [FourierComponent](https://github.com/phetsims/fourier-making-waves/blob/main/js/wavepacket/model/FourierComponent.js)
   .
 
 * **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a corresponding
@@ -96,21 +96,21 @@ public dispose(): void {
 ## Discrete screen
 
 The main model elements for the **Discrete** screen are
-[FourierSeries](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/FourierSeries.js)
-and [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Harmonic.js). To avoid
+[FourierSeries](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/FourierSeries.js)
+and [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/Harmonic.js). To avoid
 PhET-iO issues related to creating dynamic elements, a single `FourierSeries` is created with the maximum number (11)
 of `Harmonic` instances. The "Harmonics" spinner determines how many of the Harmonics are relevant. Those that are not
 relevant have their amplitudes set to zero, and are ignored.
 
 Some useful code references:
 
-* [getAmplitudeFunction.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/getAmplitudeFunction.js)
+* [getAmplitudeFunction.js](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/getAmplitudeFunction.js)
   , the equations for computing amplitude values
-* [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/Harmonic.js) `createDataSetStatic`
+* [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/Harmonic.js) `createDataSetStatic`
   , creates a data set for plotting a harmonic
-* [FourierSeries](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/FourierSeries.js) `createSumDataSet`
+* [FourierSeries](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/FourierSeries.js) `createSumDataSet`
   , create a data set for the sum of the harmonics
-* [Waveform.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/discrete/model/Waveform.js),
+* [Waveform.js](https://github.com/phetsims/fourier-making-waves/blob/main/js/discrete/model/Waveform.js),
   approximations and actual waveforms for presets
 
 A quick walkthrough of the control panel:
@@ -129,7 +129,7 @@ associated with the Fourier Series. While this control is on, other sounds in th
 perceived volume will be reduced by ~50%. If you switch to another screen while this control is on, the Fourier Series
 sound will stop; it will resume when you switch back to this screen. This entire control will be disabled when sound is
 turned off in the navigation bar. The sound generator can be found in
-[FourierSoundGenerator.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/discrete/view/FourierSoundGenerator.js)
+[FourierSoundGenerator.js](https://github.com/phetsims/fourier-making-waves/blob/main/js/discrete/view/FourierSoundGenerator.js)
 .
 
 The combo box labeled "Function of:" selects the domain. The **Discrete** screen is the only screen that supports the '
@@ -153,16 +153,16 @@ Some differences include:
 * The x-axis scale is fixed; there are no x-axis zoom buttons.
 
 The UI for selecting a level is implemented in
-[WaveGameLevelSelectionNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/waveGame/view/WaveGameLevelSelectionNode.js)
+[WaveGameLevelSelectionNode](https://github.com/phetsims/fourier-making-waves/blob/main/js/waveGame/view/WaveGameLevelSelectionNode.js)
 .
 
 Each game level
-has [WaveGameLevel](https://github.com/phetsims/fourier-making-waves/blob/master/js/waveGame/model/WaveGameLevel.js)
-and [WaveGameLevelNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/waveGame/view/WaveGameLevelNode.js)
+has [WaveGameLevel](https://github.com/phetsims/fourier-making-waves/blob/main/js/waveGame/model/WaveGameLevel.js)
+and [WaveGameLevelNode](https://github.com/phetsims/fourier-making-waves/blob/main/js/waveGame/view/WaveGameLevelNode.js)
 .
 
 A challenge is a set of harmonic amplitudes that describe a waveform. Amplitudes for a challenge are randomly generated
-by [AmplitudesGenerator](https://github.com/phetsims/fourier-making-waves/blob/master/js/waveGame/model/AmplitudesGenerator.js)
+by [AmplitudesGenerator](https://github.com/phetsims/fourier-making-waves/blob/main/js/waveGame/model/AmplitudesGenerator.js)
 . These amplitudes are then used to populate the Harmonic amplitudes in the answer series. The amplitudes in the guess
 series are set to zero. As the user changes amplitude sliders, they are changing the guess series. If they press the 
 "Check Answer" button while the amplitudes of the answer and guess are the same, they will have solved the challenge.
@@ -184,9 +184,9 @@ used in the other screens.
 
 The main model elements in this screen are:
 
-* [FourierComponent](https://github.com/phetsims/fourier-making-waves/blob/master/js/wavepacket/model/FourierComponent.js)
+* [FourierComponent](https://github.com/phetsims/fourier-making-waves/blob/main/js/wavepacket/model/FourierComponent.js)
   , a lightweight data structure that describes each component's wave number and amplitude (similar to Vector2)
-* [Wave Packet](https://github.com/phetsims/fourier-making-waves/blob/master/js/wavepacket/model/WavePacket.js) - has
+* [Wave Packet](https://github.com/phetsims/fourier-making-waves/blob/main/js/wavepacket/model/WavePacket.js) - has
   Properties that correspond to what you see in the control panel, and an associated array of `FourierComponent`
 
 ## Charts
@@ -196,7 +196,7 @@ understanding how to navigate the implementation. See source-code documentation 
 
 Charts follow the MVC (Model-View-Controller) design pattern, and are built on the [bamboo](https://github.com/phetsims/bamboo) framework. 
 The model is responsible for creating data sets (arrays of `Vector2`), while the view is responsible for rendering those data sets. A bamboo
-[ChartTransform](https://github.com/phetsims/bamboo/blob/master/js/ChartTransform.js) handles the tranform between model
+[ChartTransform](https://github.com/phetsims/bamboo/blob/main/js/ChartTransform.js) handles the tranform between model
 and view coordinate frames.
 
 Each chart has a model class, and a corresponding view class. The model class contains all information that is needed by
@@ -211,21 +211,21 @@ answer (pink waveform), again with a minimum range of [-1.5,1.5]. In the **Wave 
 Components charts auto-scale, with no minimum range.
 
 All charts share the same "core" base
-classes: [DomainChart](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/DomainChart.js)
+classes: [DomainChart](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/DomainChart.js)
 (model)
-and [DomainChartNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/DomainChartNode.js) (
+and [DomainChartNode](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/view/DomainChartNode.js) (
 view). There is one exception to this: the Amplitudes chart in the **Discrete** and **Wave Game** screen is a very
 different kind of chart, and has its own implementation (model and view) that is not shared.
 
 The **Discrete** and **Wave Game** screens share additional (model and view) subclasses:
 
-* [InteractiveAmplitudesChart](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/InteractiveAmplitudesChart.js)
+* [InteractiveAmplitudesChart](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/InteractiveAmplitudesChart.js)
   and
-  [InteractiveAmplitudesChartNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/InteractiveAmplitudesChartNode.js)
-* [HarmonicsChart](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/HarmonicsChart.js) and
-  [HarmonicsChartNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/HarmonicsChartNode.js)
-* [SumChart](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/model/SumChart.js) and
-  [SumChartNode](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/SumChartNode.js)
+  [InteractiveAmplitudesChartNode](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/view/InteractiveAmplitudesChartNode.js)
+* [HarmonicsChart](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/HarmonicsChart.js) and
+  [HarmonicsChartNode](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/view/HarmonicsChartNode.js)
+* [SumChart](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/SumChart.js) and
+  [SumChartNode](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/view/SumChartNode.js)
 
 The **Wave Packet** screen is quite different from the other screens. It shares the core base classes with the other
 screens, but does not use the above subclasses.
@@ -294,7 +294,7 @@ User-interface sounds are implemented, and most of the sounds are provided by co
 exceptions to user-interface sounds: (1) As of this writing, the amplitude sliders in the **Discrete** and
 **Wave Game** screens have temporary sound support
 (
-see [AmplitudeSlider.js](https://github.com/phetsims/fourier-making-waves/blob/master/js/common/view/AmplitudeSlider.js))
+see [AmplitudeSlider.js](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/view/AmplitudeSlider.js))
 . Other sliders in the sim do not support sound, due to lack of support in Slider.js.
 (2) Measurement Tools do not currently have associated sounds, as discussed
 in https://github.com/phetsims/fourier-making-waves/issues/169.

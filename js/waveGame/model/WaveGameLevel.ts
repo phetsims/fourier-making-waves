@@ -316,7 +316,7 @@ export default class WaveGameLevel extends PhetioObject {
   /**
    * WaveGameLevelIO handles PhET-iO serialization of WaveGameLevel. Since all WaveGameLevels are instantiated at
    * startup, it implements 'Reference type serialization', as described in the Serialization section of
-   * https://github.com/phetsims/phet-io/blob/master/doc/phet-io-instrumentation-technical-guide.md#serialization
+   * https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization
    */
   public static readonly WaveGameLevelIO = new IOType( 'WaveGameLevelIO', {
     valueType: WaveGameLevel,
