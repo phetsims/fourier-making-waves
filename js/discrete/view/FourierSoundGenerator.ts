@@ -39,7 +39,7 @@ export default class FourierSoundGenerator extends SoundGenerator {
 
     // {OscillatorSoundGenerator[]} Create an oscillator for each harmonic.
     // Using for loop here instead of map, because we need to connect each OscillatorSoundGenerator to the
-    // masterGainNode, and map should not have side-effects.
+    // mainGainNode, and map should not have side-effects.
     const oscillatorSoundGenerators: OscillatorSoundGenerator[] = [];
     for ( let i = 0; i < fourierSeries.harmonics.length; i++ ) {
       const harmonic = fourierSeries.harmonics[ i ];
@@ -47,7 +47,7 @@ export default class FourierSoundGenerator extends SoundGenerator {
         initialFrequency: harmonic.frequency,
         initialOutputLevel: amplitudeToOutputLevel.evaluate( harmonic.amplitudeProperty.value )
       } );
-      oscillatorSoundGenerator.connect( this.masterGainNode );
+      oscillatorSoundGenerator.connect( this.mainGainNode );
       oscillatorSoundGenerators.push( oscillatorSoundGenerator );
     }
 
