@@ -428,7 +428,7 @@ export default class WaveGameLevelNode extends Node {
     // Pressing alt+c will check the answer, if the game is in the appropriate state.
     const checkAnswerButtonKeyboardListener = new KeyboardListener( {
       keys: [ 'alt+c' ],
-      callback: ( event, listener ) => checkAnswerListener(),
+      callback: () => checkAnswerListener(),
 
       // By making this listener "global" it will fire no matter where focus is in the document as long as
       // this Node is visible and has input enabled. Otherwise, the callback will fire only when this Node
