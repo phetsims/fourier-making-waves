@@ -2,13 +2,15 @@
 
 @author Chris Malley (PixelZoom, Inc.)
 
-This document contains notes related to the implementation of Fourier: Making Waves. 
-This is not an exhaustive description of the implementation.  The intention is 
-to provide a high-level overview, and to supplement the internal documentation 
-(source code comments) and external documentation (design documents). 
+This document contains notes related to the implementation of Fourier: Making Waves.
+This is not an exhaustive description of the implementation. The intention is
+to provide a high-level overview, and to supplement the internal documentation
+(source code comments) and external documentation (design documents).
 
 Before reading this document, please read:
-* [model.md](https://github.com/phetsims/fourier-making-waves/blob/main/doc/model.md), a high-level description of the simulation model
+
+* [model.md](https://github.com/phetsims/fourier-making-waves/blob/main/doc/model.md), a high-level description of the
+  simulation model
 
 In addition to this document, you are encouraged to read:
 
@@ -64,14 +66,15 @@ to the browser console.
 
 **Assertions**
 
-This sim makes heavy use of `assert` to verify assumptions and perform type checking. 
+This sim makes heavy use of `assert` to verify assumptions and perform type checking.
 Most function arguments are type-checked, but it's not a requirement that _all_ arguments are verified.
-Where `assert` is used for type-checking, there is typically no assertion message, unless it was needed during development.
+Where `assert` is used for type-checking, there is typically no assertion message, unless it was needed during
+development.
 If you are making modifications to this sim, do so with assertions enabled via the `ea` query parameter.
 
 **Logging**
 
-This sim makes heavy use of logging via `phet.log`. If you are making modifications to this sim, or trying to understand 
+This sim makes heavy use of logging via `phet.log`. If you are making modifications to this sim, or trying to understand
 its behavior, do so with logging enabled via the `log` query parameter.
 
 **Memory Management**
@@ -85,7 +88,8 @@ its behavior, do so with logging enabled via the `log` query parameter.
   `unlink`, `removeListener`, etc.
 
 * **dispose:** All classes have a `dispose` method. Sim-specific classes whose instances exist for the lifetime of the
-  sim are not intended to be disposed. They are created with `isDisposable: false`, or have a `dispose` method that looks like this:
+  sim are not intended to be disposed. They are created with `isDisposable: false`, or have a `dispose` method that
+  looks like this:
 
 ```ts
 public dispose(): void {
@@ -164,7 +168,7 @@ and [WaveGameLevelNode](https://github.com/phetsims/fourier-making-waves/blob/ma
 A challenge is a set of harmonic amplitudes that describe a waveform. Amplitudes for a challenge are randomly generated
 by [AmplitudesGenerator](https://github.com/phetsims/fourier-making-waves/blob/main/js/waveGame/model/AmplitudesGenerator.js)
 . These amplitudes are then used to populate the Harmonic amplitudes in the answer series. The amplitudes in the guess
-series are set to zero. As the user changes amplitude sliders, they are changing the guess series. If they press the 
+series are set to zero. As the user changes amplitude sliders, they are changing the guess series. If they press the
 "Check Answer" button while the amplitudes of the answer and guess are the same, they will have solved the challenge.
 
 After a challenge has been solved (or the "Show Answer" button has been pressed), the user can continue to experiment
@@ -194,8 +198,10 @@ The main model elements in this screen are:
 The most complicated part of this implementation is the charts. This section provides a high-level roadmap for
 understanding how to navigate the implementation. See source-code documentation for more details.
 
-Charts follow the MVC (Model-View-Controller) design pattern, and are built on the [bamboo](https://github.com/phetsims/bamboo) framework. 
-The model is responsible for creating data sets (arrays of `Vector2`), while the view is responsible for rendering those data sets. A bamboo
+Charts follow the MVC (Model-View-Controller) design pattern, and are built on
+the [bamboo](https://github.com/phetsims/bamboo) framework.
+The model is responsible for creating data sets (arrays of `Vector2`), while the view is responsible for rendering those
+data sets. A bamboo
 [ChartTransform](https://github.com/phetsims/bamboo/blob/main/js/ChartTransform.js) handles the tranform between model
 and view coordinate frames.
 
@@ -270,7 +276,8 @@ Node
 
 ## PhET-iO
 
-While version 1.0 of this simulation was not released with PhET-iO support, the implementation does include a significant
+While version 1.0 of this simulation was not released with PhET-iO support, the implementation does include a
+significant
 amount of PhET-iO instrumentation.
 
 Many implementation decisions were influenced by the (predicted) future needs of PhET-iO. Most

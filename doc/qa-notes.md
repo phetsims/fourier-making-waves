@@ -15,11 +15,13 @@ It is _highly recommended_ that you skim these 2 documents before testing the si
 
 Optionally, skim these documents:
 
-* [Fourier: Making Waves HTML5 design document](https://docs.google.com/document/d/1tOpstoF6xiMcBJEvG1rJ4mVRzsO6UWzek_ntau4rbWc) may clarify features and behavior. Note that the design document may not be completely up-to-date. (The section for
-the _Wave Packet_ screen is especially lacking.)
+* [Fourier: Making Waves HTML5 design document](https://docs.google.com/document/d/1tOpstoF6xiMcBJEvG1rJ4mVRzsO6UWzek_ntau4rbWc)
+  may clarify features and behavior. Note that the design document may not be completely up-to-date. (The section for
+  the _Wave Packet_ screen is especially lacking.)
 * [Fourier: Making Waves
-Interactive Description Design
-](https://docs.google.com/document/d/1wOdmPMD704u4OLl9avI9tl2jpTvsAAcZwMaNfnr0qSs/edit) describes some of design aspects that are related to a11y.
+  Interactive Description Design
+  ](https://docs.google.com/document/d/1wOdmPMD704u4OLl9avI9tl2jpTvsAAcZwMaNfnr0qSs/edit) describes some of design
+  aspects that are related to a11y.
 
 ## General notes
 
