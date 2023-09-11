@@ -18,17 +18,16 @@ Optionally, skim these documents:
 * [Fourier: Making Waves HTML5 design document](https://docs.google.com/document/d/1tOpstoF6xiMcBJEvG1rJ4mVRzsO6UWzek_ntau4rbWc)
   may clarify features and behavior. Note that the design document may not be completely up-to-date. (The section for
   the _Wave Packet_ screen is especially lacking.)
-* [Fourier: Making Waves
-  Interactive Description Design
+* [Fourier: Making Waves Interactive Description Design
   ](https://docs.google.com/document/d/1wOdmPMD704u4OLl9avI9tl2jpTvsAAcZwMaNfnr0qSs/edit) describes some of design
   aspects that are related to a11y.
 
 ## General notes
 
 Sim-specific query parameters (and their documentation) can be found in
-[FMWQueryParameters](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/FMWQueryParameters.js).
-Query parameters defined as `public: true` are public-facing, and should be tested. Other query parameters are for
-internal use, and you should skim them to see if any may be helpful in testing.
+[FMWQueryParameters](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/FMWQueryParameters.js). Query
+parameters defined as `public: true` are public-facing, and should be tested. Other query parameters are for internal
+use, and you should skim them to see if any may be helpful in testing.
 
 Running the simulation with `?log` will print the complete list of query parameters (and their values) to the browser
 console, grouped as follows:
