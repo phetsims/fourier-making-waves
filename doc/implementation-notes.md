@@ -2,9 +2,9 @@
 
 @author Chris Malley (PixelZoom, Inc.)
 
-This document contains notes related to the implementation of Fourier: Making Waves.
-This is not an exhaustive description of the implementation. The intention is
-to provide a high-level overview, and to supplement the internal documentation
+This document contains notes related to the implementation of Fourier: Making Waves. This is not an exhaustive
+description of the implementation. The intention is to provide a high-level overview, and to supplement the internal
+documentation
 (source code comments) and external documentation (design documents).
 
 Before reading this document, please read:
@@ -66,11 +66,10 @@ to the browser console.
 
 **Assertions**
 
-This sim makes heavy use of `assert` to verify assumptions and perform type checking.
-Most function arguments are type-checked, but it's not a requirement that _all_ arguments are verified.
-Where `assert` is used for type-checking, there is typically no assertion message, unless it was needed during
-development.
-If you are making modifications to this sim, do so with assertions enabled via the `ea` query parameter.
+This sim makes heavy use of `assert` to verify assumptions and perform type checking. Most function arguments are
+type-checked, but it's not a requirement that _all_ arguments are verified. Where `assert` is used for type-checking,
+there is typically no assertion message, unless it was needed during development. If you are making modifications to
+this sim, do so with assertions enabled via the `ea` query parameter.
 
 **Logging**
 
@@ -101,8 +100,8 @@ public dispose(): void {
 
 The main model elements for the **Discrete** screen are
 [FourierSeries](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/FourierSeries.js)
-and [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/Harmonic.js). To avoid
-PhET-iO issues related to creating dynamic elements, a single `FourierSeries` is created with the maximum number (11)
+and [Harmonic](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/Harmonic.js). To avoid PhET-iO
+issues related to creating dynamic elements, a single `FourierSeries` is created with the maximum number (11)
 of `Harmonic` instances. The "Harmonics" spinner determines how many of the Harmonics are relevant. Those that are not
 relevant have their amplitudes set to zero, and are ignored.
 
@@ -199,9 +198,8 @@ The most complicated part of this implementation is the charts. This section pro
 understanding how to navigate the implementation. See source-code documentation for more details.
 
 Charts follow the MVC (Model-View-Controller) design pattern, and are built on
-the [bamboo](https://github.com/phetsims/bamboo) framework.
-The model is responsible for creating data sets (arrays of `Vector2`), while the view is responsible for rendering those
-data sets. A bamboo
+the [bamboo](https://github.com/phetsims/bamboo) framework. The model is responsible for creating data sets (arrays
+of `Vector2`), while the view is responsible for rendering those data sets. A bamboo
 [ChartTransform](https://github.com/phetsims/bamboo/blob/main/js/ChartTransform.js) handles the tranform between model
 and view coordinate frames.
 
@@ -277,11 +275,10 @@ Node
 ## PhET-iO
 
 While version 1.0 of this simulation was not released with PhET-iO support, the implementation does include a
-significant
-amount of PhET-iO instrumentation.
+significant amount of PhET-iO instrumentation.
 
-Many implementation decisions were influenced by the (predicted) future needs of PhET-iO. Most
-significantly, we avoided "dynamic elements" where possible, and instead favored a "static elements"
+Many implementation decisions were influenced by the (predicted) future needs of PhET-iO. Most significantly, we
+avoided "dynamic elements" where possible, and instead favored a "static elements"
 approach. See GitHub issue [#6](https://github.com/phetsims/fourier-making-waves/issues/6) for more details.
 
 ## A11y
