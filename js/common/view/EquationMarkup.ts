@@ -93,16 +93,11 @@ const EquationMarkup = {
  * Gets the RichText markup for an equation in the space Domain.
  */
 function getSpaceMarkup( seriesType: SeriesType, equationForm: EquationForm, order: Order, amplitude: Amplitude ): string {
-  assert && assert( [ EquationForm.HIDDEN, EquationForm.WAVELENGTH, EquationForm.SPATIAL_WAVE_NUMBER, EquationForm.MODE ].includes( equationForm ),
-    `unsupported equationForm: ${equationForm}` );
 
   const seriesTypeMarkup = seriesTypeToMarkup( seriesType );
 
-  let markup = '';
-  if ( equationForm === EquationForm.HIDDEN ) {
-    markup = HIDDEN_STRING;
-  }
-  else if ( equationForm === EquationForm.WAVELENGTH ) {
+  let markup;
+  if ( equationForm === EquationForm.WAVELENGTH ) {
     markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${x} / ${lambda}<sub>${order}</sub> )`;
   }
   else if ( equationForm === EquationForm.SPATIAL_WAVE_NUMBER ) {
@@ -112,7 +107,12 @@ function getSpaceMarkup( seriesType: SeriesType, equationForm: EquationForm, ord
     markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${order}${x} / ${L} )`;
   }
   else {
-    assert && assert( false, `unsupported equationForm: ${equationForm}` );
+
+    // If equationForm is not appropriate for Domain.SPACE, then the sim is probably in an intermediate state
+    // where the domain has been changed, but the equationForm has not been adjusted by DiscreteModel to be compatible
+    // with the Domain. In that case, return the same markup as EquationForm.HIDDEN, which is appropriate for all
+    // Domain values. See https://github.com/phetsims/fourier-making-waves/issues/238.
+    markup = HIDDEN_STRING;
   }
   return markup;
 }
@@ -121,16 +121,11 @@ function getSpaceMarkup( seriesType: SeriesType, equationForm: EquationForm, ord
  * Gets the RichText markup for an equation in the time Domain.
  */
 function getTimeMarkup( seriesType: SeriesType, equationForm: EquationForm, order: Order, amplitude: Amplitude ): string {
-  assert && assert( [ EquationForm.HIDDEN, EquationForm.FREQUENCY, EquationForm.PERIOD, EquationForm.ANGULAR_WAVE_NUMBER, EquationForm.MODE ].includes( equationForm ),
-    `unsupported equationForm: ${equationForm}` );
 
   const seriesTypeMarkup = seriesTypeToMarkup( seriesType );
 
-  let markup = '';
-  if ( equationForm === EquationForm.HIDDEN ) {
-    markup = HIDDEN_STRING;
-  }
-  else if ( equationForm === EquationForm.FREQUENCY ) {
+  let markup;
+  if ( equationForm === EquationForm.FREQUENCY ) {
     markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${f}<sub>${order}</sub>${t} )`;
   }
   else if ( equationForm === EquationForm.PERIOD ) {
@@ -143,7 +138,12 @@ function getTimeMarkup( seriesType: SeriesType, equationForm: EquationForm, orde
     return `${amplitude} ${seriesTypeMarkup}( 2${pi}${order}${t} / ${T} )`;
   }
   else {
-    assert && assert( false, `unsupported equationForm: ${equationForm}` );
+
+    // If equationForm is not appropriate for Domain.TIME, then the sim is probably in an intermediate state
+    // where the domain has been changed, but the equationForm has not been adjusted by DiscreteModel to be compatible
+    // with the Domain. In that case, return the same markup as EquationForm.HIDDEN, which is appropriate for all
+    // Domain values. See https://github.com/phetsims/fourier-making-waves/issues/238.
+    markup = HIDDEN_STRING;
   }
   return markup;
 }
@@ -152,16 +152,11 @@ function getTimeMarkup( seriesType: SeriesType, equationForm: EquationForm, orde
  * Gets the RichText markup for an equation in the space & time Domain.
  */
 function getSpaceAndTimeMarkup( seriesType: SeriesType, equationForm: EquationForm, order: Order, amplitude: Amplitude ): string {
-  assert && assert( [ EquationForm.HIDDEN, EquationForm.WAVELENGTH_AND_PERIOD, EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER, EquationForm.MODE ].includes( equationForm ),
-    `unsupported equationForm: ${equationForm}` );
 
   const seriesTypeMarkup = seriesTypeToMarkup( seriesType );
 
-  let markup = '';
-  if ( equationForm === EquationForm.HIDDEN ) {
-    markup = HIDDEN_STRING;
-  }
-  else if ( equationForm === EquationForm.WAVELENGTH_AND_PERIOD ) {
+  let markup;
+  if ( equationForm === EquationForm.WAVELENGTH_AND_PERIOD ) {
     markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}( ${x}/${lambda}<sub>${order}</sub> ${MINUS} ${t}/${T}<sub>${order}</sub> ) )`;
   }
   else if ( equationForm === EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER ) {
@@ -171,7 +166,12 @@ function getSpaceAndTimeMarkup( seriesType: SeriesType, equationForm: EquationFo
     markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${order}( ${x}/${L} ${MINUS} ${t}/${T} ) )`;
   }
   else {
-    assert && assert( false, `unsupported equationForm: ${equationForm}` );
+
+    // If equationForm is not appropriate for Domain.SPACE_AND_TIME, then the sim is probably in an intermediate state
+    // where the domain has been changed, but the equationForm has not been adjusted by DiscreteModel to be compatible
+    // with the Domain. In that case, return the same markup as EquationForm.HIDDEN, which is appropriate for all
+    // Domain values. See https://github.com/phetsims/fourier-making-waves/issues/238.
+    markup = HIDDEN_STRING;
   }
   return markup;
 }
