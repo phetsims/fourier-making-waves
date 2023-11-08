@@ -55,7 +55,7 @@ export default class FourierSoundGenerator extends SoundGenerator {
     fourierSeries.amplitudesProperty.lazyLink( amplitudes => {
 
       // If audio is disabled, update immediately by using optional timeConstant=0. This cancels scheduled values on
-      // the master gain node. If we do not do this, then we'll briefly hear stale output levels the next time that
+      // the main gain node. If we do not do this, then we'll briefly hear stale output levels the next time that
       // oscillatorSoundGenerator.play is called.
       // See https://github.com/phetsims/fourier-making-waves/issues/45
       const timeConstant = fourierSeries.soundEnabledProperty.value ? undefined : 0;
