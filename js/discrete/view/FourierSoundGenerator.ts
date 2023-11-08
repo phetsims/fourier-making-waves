@@ -66,7 +66,7 @@ export default class FourierSoundGenerator extends SoundGenerator {
       }
     } );
 
-    // Set the master output level.
+    // Set the audio output level.
     fourierSeries.soundOutputLevelProperty.link( outputLevel => {
 
       // See comment above about timeConstant.
