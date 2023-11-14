@@ -53,7 +53,7 @@ export default class WavePacketComponentsChart extends DomainChart {
         }
         return dataSets;
       }, {
-        accessNonDependencies: true
+        accessNonDependencies: true //TODO https://github.com/phetsims/fourier-making-waves/issues/239
       } );
 
     // NOTE: This chart does not have a peakAmplitudeProperty because its more efficient for the view to determine

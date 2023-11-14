@@ -49,7 +49,7 @@ export default class SumChart extends DomainChart {
       [ fourierSeries.amplitudesProperty, xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
       ( amplitudes, xAxisDescription, domain, seriesType, t ) =>
         fourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t ), {
-        accessNonDependencies: true
+        accessNonDependencies: true //TODO https://github.com/phetsims/fourier-making-waves/issues/239
       }
     );
 

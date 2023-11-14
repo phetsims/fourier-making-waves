@@ -97,7 +97,7 @@ export default class WavePacketSumChart extends DomainChart {
       [ finiteSumDataSetProperty, infiniteSumDataSetProperty ],
       ( finiteDataSet, infiniteDataSet ) =>
         ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet, {
-        accessNonDependencies: true
+        accessNonDependencies: true //TODO https://github.com/phetsims/fourier-making-waves/issues/239
       }
     );
 
@@ -127,7 +127,7 @@ export default class WavePacketSumChart extends DomainChart {
         }
         return dataSet;
       }, {
-        accessNonDependencies: true
+        accessNonDependencies: true //TODO https://github.com/phetsims/fourier-making-waves/issues/239
       } );
 
     // {DerivedProperty.<Vector2[]>} Data set for the waveform envelope of a wave packet with infinite
@@ -156,7 +156,7 @@ export default class WavePacketSumChart extends DomainChart {
       [ finiteWaveformEnvelopeDataSetProperty, infiniteWaveformEnvelopeDataSetProperty ],
       ( finiteDataSet, infiniteDataSet ) =>
         ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet, {
-        accessNonDependencies: true
+        accessNonDependencies: true //TODO https://github.com/phetsims/fourier-making-waves/issues/239
       }
     );
 
