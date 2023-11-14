@@ -96,7 +96,9 @@ export default class WavePacketSumChart extends DomainChart {
     this.sumDataSetProperty = new DerivedProperty(
       [ finiteSumDataSetProperty, infiniteSumDataSetProperty ],
       ( finiteDataSet, infiniteDataSet ) =>
-        ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet
+        ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet, {
+        accessNonDependencies: true
+      }
     );
 
     // {DerivedProperty.<Vector2[]>} Data set for the waveform envelope of a wave packet with infinite
@@ -124,6 +126,8 @@ export default class WavePacketSumChart extends DomainChart {
           dataSet = createEnvelopeDataSet( finiteSumDataSet, otherSumDataSet );
         }
         return dataSet;
+      }, {
+        accessNonDependencies: true
       } );
 
     // {DerivedProperty.<Vector2[]>} Data set for the waveform envelope of a wave packet with infinite
@@ -151,7 +155,9 @@ export default class WavePacketSumChart extends DomainChart {
     this.waveformEnvelopeDataSetProperty = new DerivedProperty(
       [ finiteWaveformEnvelopeDataSetProperty, infiniteWaveformEnvelopeDataSetProperty ],
       ( finiteDataSet, infiniteDataSet ) =>
-        ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet
+        ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet, {
+        accessNonDependencies: true
+      }
     );
 
     this.widthIndicatorWidthProperty = new DerivedProperty(

@@ -48,7 +48,9 @@ export default class SumChart extends DomainChart {
     this.sumDataSetProperty = new DerivedProperty(
       [ fourierSeries.amplitudesProperty, xAxisDescriptionProperty, domainProperty, seriesTypeProperty, tProperty ],
       ( amplitudes, xAxisDescription, domain, seriesType, t ) =>
-        fourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t )
+        fourierSeries.createSumDataSet( xAxisDescription, domain, seriesType, t ), {
+        accessNonDependencies: true
+      }
     );
 
     this.yAxisRangeProperty = new DerivedProperty(

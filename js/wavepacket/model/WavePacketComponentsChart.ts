@@ -52,6 +52,8 @@ export default class WavePacketComponentsChart extends DomainChart {
             wavePacket.componentSpacingProperty.value, domain, seriesType, xAxisDescription.range );
         }
         return dataSets;
+      }, {
+        accessNonDependencies: true
       } );
 
     // NOTE: This chart does not have a peakAmplitudeProperty because its more efficient for the view to determine
