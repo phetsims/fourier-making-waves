@@ -99,24 +99,24 @@ export default class WavePacketSumChart extends DomainChart {
         ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet
     );
 
-    // {DerivedProperty.<Vector2[]>} Data set for the waveform envelope of a wave packet with infinite
-    // components, EMPTY_DATA_SET when the number of components is finite or the envelope is not visible.
-    // This is computed using 2 wave packet waveforms USING THE FOURIER COMPONENTS - one for sine, one for cosine -
-    // then combining y values. Points are ordered by increasing x value.
-    // This is based on the updateEnvelope method in D2CSumView.js.
-    const finiteWaveformEnvelopeDataSetProperty = new DerivedProperty(
-      [ this.waveformEnvelopeVisibleProperty, finiteSumDataSetProperty ],
-      ( waveformEnvelopeVisible, finiteSumDataSet ) => {
+    // Data set for the waveform envelope of a wave packet with infinite components, EMPTY_DATA_SET when the number
+    // of components is finite or the envelope is not visible. This is computed using 2 wave packet waveforms
+    // USING THE FOURIER COMPONENTS - one for sine, one for cosine - then combining y values. Points are ordered by
+    // increasing x value. This is based on the updateEnvelope method in D2CSumView.js.
+    const finiteWaveformEnvelopeDataSetProperty = new DerivedProperty( [
+        this.waveformEnvelopeVisibleProperty, finiteSumDataSetProperty, seriesTypeProperty, domainProperty,
+        wavePacket.componentsProperty, wavePacket.componentSpacingProperty, xAxisDescriptionProperty
+      ],
+      ( waveformEnvelopeVisible, finiteSumDataSet, seriesType, domain, components, componentSpacing, xAxisDescription ) => {
         let dataSet: Vector2[] = EMPTY_DATA_SET;
         if ( waveformEnvelopeVisible && finiteSumDataSet.length > 0 ) {
 
           // We'll be using finiteSumDataSet as one of the data sets. It was computed for either a SeriesType,
           // either sine or cosine. Compute the other data set by creating component data sets using the other
           // SeriesType, then summing those data sets.
-          const seriesType = ( seriesTypeProperty.value === SeriesType.SIN ) ? SeriesType.COS : SeriesType.SIN;
+          const otherSeriesType = ( seriesType === SeriesType.SIN ) ? SeriesType.COS : SeriesType.SIN;
           const otherComponentDataSets = WavePacketComponentsChart.createComponentsDataSets(
-            wavePacket.componentsProperty.value, wavePacket.componentSpacingProperty.value, domainProperty.value,
-            seriesType, xAxisDescriptionProperty.value.range
+            components, componentSpacing, domain, otherSeriesType, xAxisDescription.range
           );
           const otherSumDataSet = createSumDataSet( otherComponentDataSets );
 
@@ -124,8 +124,6 @@ export default class WavePacketSumChart extends DomainChart {
           dataSet = createEnvelopeDataSet( finiteSumDataSet, otherSumDataSet );
         }
         return dataSet;
-      }, {
-        accessNonDependencies: true //TODO https://github.com/phetsims/fourier-making-waves/issues/239
       } );
 
     // {DerivedProperty.<Vector2[]>} Data set for the waveform envelope of a wave packet with infinite
