@@ -44,16 +44,14 @@ export default class WavePacketComponentsChart extends DomainChart {
     super( domainProperty, xAxisDescriptionProperty, wavePacket.L, wavePacket.T, tandem );
 
     this.componentDataSetsProperty = new DerivedProperty(
-      [ wavePacket.componentsProperty, domainProperty, seriesTypeProperty, xAxisDescriptionProperty ],
-      ( components, domain, seriesType, xAxisDescription ) => {
+      [ wavePacket.componentsProperty, wavePacket.componentSpacingProperty, domainProperty, seriesTypeProperty, xAxisDescriptionProperty ],
+      ( components, componentSpacing, domain, seriesType, xAxisDescription ) => {
         let dataSets: Vector2[][] = EMPTY_DATA_SET;
         if ( components.length > 0 ) {
-          dataSets = WavePacketComponentsChart.createComponentsDataSets( components,
-            wavePacket.componentSpacingProperty.value, domain, seriesType, xAxisDescription.range );
+          dataSets = WavePacketComponentsChart.createComponentsDataSets( components, componentSpacing, domain,
+            seriesType, xAxisDescription.range );
         }
         return dataSets;
-      }, {
-        accessNonDependencies: true //TODO https://github.com/phetsims/fourier-making-waves/issues/239
       } );
 
     // NOTE: This chart does not have a peakAmplitudeProperty because its more efficient for the view to determine
