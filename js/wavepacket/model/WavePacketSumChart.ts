@@ -94,11 +94,9 @@ export default class WavePacketSumChart extends DomainChart {
       } );
 
     this.sumDataSetProperty = new DerivedProperty(
-      [ finiteSumDataSetProperty, infiniteSumDataSetProperty ],
-      ( finiteDataSet, infiniteDataSet ) =>
-        ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet, {
-        accessNonDependencies: true //TODO https://github.com/phetsims/fourier-making-waves/issues/239
-      }
+      [ finiteSumDataSetProperty, infiniteSumDataSetProperty, wavePacket.componentSpacingProperty ],
+      ( finiteDataSet, infiniteDataSet, componentSpacing ) =>
+        ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet
     );
 
     // {DerivedProperty.<Vector2[]>} Data set for the waveform envelope of a wave packet with infinite
@@ -153,11 +151,9 @@ export default class WavePacketSumChart extends DomainChart {
       } );
 
     this.waveformEnvelopeDataSetProperty = new DerivedProperty(
-      [ finiteWaveformEnvelopeDataSetProperty, infiniteWaveformEnvelopeDataSetProperty ],
-      ( finiteDataSet, infiniteDataSet ) =>
-        ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet, {
-        accessNonDependencies: true //TODO https://github.com/phetsims/fourier-making-waves/issues/239
-      }
+      [ finiteWaveformEnvelopeDataSetProperty, infiniteWaveformEnvelopeDataSetProperty, wavePacket.componentSpacingProperty ],
+      ( finiteDataSet, infiniteDataSet, componentSpacing ) =>
+        ( wavePacket.getNumberOfComponents() === Infinity ) ? infiniteDataSet : finiteDataSet
     );
 
     this.widthIndicatorWidthProperty = new DerivedProperty(
