@@ -44,10 +44,10 @@ export default class WaveGameLevelSelectionButtonGroup extends LevelSelectionBut
 
     super( items, {
       levelSelectionButtonOptions: {
-        baseColor: FMWColors.levelSelectionButtonFillProperty,
-        buttonWidth: BUTTON_WIDTH,
-        buttonHeight: BUTTON_HEIGHT
+        baseColor: FMWColors.levelSelectionButtonFillProperty
       },
+      groupButtonWidth: BUTTON_WIDTH,
+      groupButtonHeight: BUTTON_HEIGHT,
 
       // A maximum number of buttons per row, wrapping to a new row
       flowBoxOptions: {
