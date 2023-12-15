@@ -64,7 +64,8 @@ export default class WavePacketComponentsChart extends DomainChart {
   public static createComponentsDataSets( components: FourierComponent[], componentSpacing: number, domain: Domain,
                                           seriesType: SeriesType, xRange: Range ): Vector2[][] {
 
-    assert && assert( components.length > 0 && componentSpacing >= 0 );
+    assert && assert( components.length > 0, 'no components' );
+    assert && assert( componentSpacing >= 0, `invalid componentSpacing: ${componentSpacing}` );
 
     const dataSets: Vector2[][] = [];
     const L = 2 * Math.PI / componentSpacing;

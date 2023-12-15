@@ -244,7 +244,8 @@ function createEnvelopeDataSet( dataSet1: Vector2[], dataSet2: Vector2[] ): Vect
 
     // x
     const x = dataSet1[ i ].x;
-    assert && assert( x === dataSet2[ i ].x, 'points with the same index must have the same x value' );
+    assert && assert( x === dataSet2[ i ].x,
+      `points with the same index must have the same x value: i=${i}, dataSet1[i].x=${x}, dataSet2[i].x=${dataSet2[ i ].x}` );
 
     // y = sqrt( y1^2 + yCos^2 )
     const y1 = dataSet1[ i ].y;
