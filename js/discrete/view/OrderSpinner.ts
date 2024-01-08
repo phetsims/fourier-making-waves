@@ -36,6 +36,8 @@ export default class OrderSpinner extends NumberSpinner {
       touchAreaYDilation: 10,
       numberDisplayOptions: {
         useRichText: true,
+        numberFormatter: order => `${symbolStringProperty.value}<sub>${order}</sub>`,
+        numberFormatterDependencies: [ symbolStringProperty ],
         align: 'center',
         cornerRadius: 3,
         xMargin: 8,
@@ -48,8 +50,6 @@ export default class OrderSpinner extends NumberSpinner {
     }, providedOptions );
 
     super( orderProperty, orderProperty.rangeProperty, options );
-
-    symbolStringProperty.link( symbol => this.setNumberFormatter( order => `${symbol}<sub>${order}</sub>` ) );
   }
 }
 
