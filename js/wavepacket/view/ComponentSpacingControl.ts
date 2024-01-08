@@ -7,7 +7,6 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -64,6 +63,42 @@ export default class ComponentSpacingControl extends WavePacketNumberControl {
         pageKeyboardStep: 1
       },
 
+      numberDisplayOptions: {
+        numberFormatter: ( componentSpacingIndex: number ) => {
+          const domain = domainProperty.value;
+          assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
+
+          const componentSpacing = validValues[ componentSpacingIndex ];
+
+          const symbol = StringUtils.fillIn( '{{symbol}}<sub>1</sub>', {
+            symbol: ( domain === Domain.SPACE ) ? FMWSymbols.kMarkupStringProperty.value : FMWSymbols.omegaMarkupStringProperty.value
+          } );
+
+          // Using toFixedNumber removes trailing zeros.
+          const value = Utils.toFixedNumber( componentSpacing, DECIMALS );
+
+          const units = ( domain === Domain.SPACE ) ?
+                        FourierMakingWavesStrings.units.radiansPerMeterStringProperty.value :
+                        FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty.value;
+
+          return StringUtils.fillIn( FourierMakingWavesStrings.symbolValueUnitsStringProperty, {
+            symbol: symbol,
+            value: value,
+            units: units
+          } );
+        },
+
+        // Properties that are used in numberFormatter
+        numberFormatterDependencies: [
+          domainProperty,
+          FMWSymbols.kMarkupStringProperty,
+          FMWSymbols.omegaMarkupStringProperty,
+          FourierMakingWavesStrings.units.radiansPerMeterStringProperty,
+          FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty,
+          FourierMakingWavesStrings.symbolValueUnitsStringProperty
+        ]
+      },
+
       // phet-io options
       tandem: tandem
     };
@@ -88,40 +123,6 @@ export default class ComponentSpacingControl extends WavePacketNumberControl {
     } );
 
     super( componentSpacingIndexProperty, domainProperty, options );
-
-    // Set the numberFormatter for this control's NumberDisplay.
-    // In addition to the domain, this is dependent on a number of localized string Properties.
-    Multilink.multilink( [
-        domainProperty,
-        FMWSymbols.kMarkupStringProperty,
-        FMWSymbols.omegaMarkupStringProperty,
-        FourierMakingWavesStrings.units.radiansPerMeterStringProperty,
-        FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty,
-        FourierMakingWavesStrings.symbolValueUnitsStringProperty
-      ],
-      ( domain, k, omega, radiansPerMeter, radiansPerMillisecond, symbolValueUnits ) => {
-        assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
-
-        this.setNumberFormatter( componentSpacingIndex => {
-
-          const componentSpacing = validValues[ componentSpacingIndex ];
-
-          const symbol = StringUtils.fillIn( '{{symbol}}<sub>1</sub>', {
-            symbol: ( domain === Domain.SPACE ) ? k : omega
-          } );
-
-          // Using toFixedNumber removes trailing zeros.
-          const value = Utils.toFixedNumber( componentSpacing, DECIMALS );
-
-          const units = ( domain === Domain.SPACE ) ? radiansPerMeter : radiansPerMillisecond;
-
-          return StringUtils.fillIn( symbolValueUnits, {
-            symbol: symbol,
-            value: value,
-            units: units
-          } );
-        } );
-      } );
   }
 }
 

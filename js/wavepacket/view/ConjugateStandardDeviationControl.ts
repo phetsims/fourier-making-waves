@@ -7,7 +7,6 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
@@ -33,11 +32,7 @@ export default class ConjugateStandardDeviationControl extends WavePacketNumberC
 
     const options = {
 
-      // NumberDisplay options
       delta: DELTA,
-      numberDisplayOptions: {
-        minBackgroundWidth: 140
-      },
 
       // Slider options
       sliderOptions: {
@@ -63,6 +58,49 @@ export default class ConjugateStandardDeviationControl extends WavePacketNumberC
         pageKeyboardStep: 0.02
       },
 
+      numberDisplayOptions: {
+        minBackgroundWidth: 140,
+        numberFormatter: ( conjugateStandardDeviation: number ) => {
+          const domain = domainProperty.value;
+          assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
+
+          const pattern = `${FMWSymbols.sigmaMarkupStringProperty.value}<sub>{{subscript}}</sub>`;
+          const symbol1 = StringUtils.fillIn( pattern, {
+            subscript: ( domain === Domain.SPACE ) ? FMWSymbols.xMarkupStringProperty.value : FMWSymbols.tMarkupStringProperty.value
+          } );
+          const symbol2 = StringUtils.fillIn( pattern, {
+            subscript: ( domain === Domain.SPACE ) ? FMWSymbols.kMarkupStringProperty.value : FMWSymbols.omegaMarkupStringProperty.value
+          } );
+
+          // Using toFixedNumber removes trailing zeros.
+          const value = Utils.toFixedNumber( conjugateStandardDeviation, DECIMALS );
+
+          const units = ( domain === Domain.SPACE ) ?
+                        FourierMakingWavesStrings.units.metersStringProperty.value :
+                        FourierMakingWavesStrings.units.millisecondsStringProperty.value;
+
+          return StringUtils.fillIn( FourierMakingWavesStrings.symbolSymbolValueUnitsStringProperty, {
+            symbol1: symbol1,
+            symbol2: symbol2,
+            value: value,
+            units: units
+          } );
+        },
+
+        // Properties that are used in numberFormatter
+        numberFormatterDependencies: [
+          domainProperty,
+          FMWSymbols.sigmaMarkupStringProperty,
+          FMWSymbols.xMarkupStringProperty,
+          FMWSymbols.tMarkupStringProperty,
+          FMWSymbols.kMarkupStringProperty,
+          FMWSymbols.omegaMarkupStringProperty,
+          FourierMakingWavesStrings.units.metersStringProperty,
+          FourierMakingWavesStrings.units.millisecondsStringProperty,
+          FourierMakingWavesStrings.symbolSymbolValueUnitsStringProperty
+        ]
+      },
+
       // phet-io
       tandem: tandem
     };
@@ -75,45 +113,6 @@ export default class ConjugateStandardDeviationControl extends WavePacketNumberC
       'last tick must be range.max' );
 
     super( conjugateStandardDeviationProperty, domainProperty, options );
-
-    // Set the numberFormatter for this control's NumberDisplay.
-    // In addition to the domain, this is dependent on a number of localized string Properties.
-    Multilink.multilink( [
-      domainProperty,
-      FMWSymbols.sigmaMarkupStringProperty,
-      FMWSymbols.xMarkupStringProperty,
-      FMWSymbols.tMarkupStringProperty,
-      FMWSymbols.kMarkupStringProperty,
-      FMWSymbols.omegaMarkupStringProperty,
-      FourierMakingWavesStrings.units.metersStringProperty,
-      FourierMakingWavesStrings.units.millisecondsStringProperty,
-      FourierMakingWavesStrings.symbolSymbolValueUnitsStringProperty
-    ], ( domain, sigma, x, t, k, omega, meters, milliseconds, symbolSymbolValueUnits ) => {
-      assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
-
-      this.setNumberFormatter( conjugateStandardDeviation => {
-
-        const pattern = `${sigma}<sub>{{subscript}}</sub>`;
-        const symbol1 = StringUtils.fillIn( pattern, {
-          subscript: ( domain === Domain.SPACE ) ? x : t
-        } );
-        const symbol2 = StringUtils.fillIn( pattern, {
-          subscript: ( domain === Domain.SPACE ) ? k : omega
-        } );
-
-        // Using toFixedNumber removes trailing zeros.
-        const value = Utils.toFixedNumber( conjugateStandardDeviation, DECIMALS );
-
-        const units = ( domain === Domain.SPACE ) ? meters : milliseconds;
-
-        return StringUtils.fillIn( symbolSymbolValueUnits, {
-          symbol1: symbol1,
-          symbol2: symbol2,
-          value: value,
-          units: units
-        } );
-      } );
-    } );
   }
 }
 

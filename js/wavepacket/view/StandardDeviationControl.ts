@@ -7,7 +7,6 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
@@ -33,7 +32,6 @@ export default class StandardDeviationControl extends WavePacketNumberControl {
 
     const options = {
 
-      // NumberDisplay options
       delta: DELTA,
 
       // Slider options
@@ -54,6 +52,42 @@ export default class StandardDeviationControl extends WavePacketNumberControl {
         pageKeyboardStep: Math.PI / 2
       },
 
+      numberDisplayOptions: {
+        numberFormatter: ( standardDeviation: number ) => {
+          const domain = domainProperty.value;
+          assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
+
+          const symbol = StringUtils.fillIn( '{{symbol}}<sub>{{subscript}}</sub>', {
+            symbol: FMWSymbols.sigmaMarkupStringProperty.value,
+            subscript: ( domain === Domain.SPACE ) ? FMWSymbols.kMarkupStringProperty.value : FMWSymbols.omegaMarkupStringProperty.value
+          } );
+
+          // Using toFixedNumber removes trailing zeros.
+          const value = Utils.toFixedNumber( standardDeviation, DECIMALS );
+
+          const units = ( domain === Domain.SPACE ) ?
+                        FourierMakingWavesStrings.units.radiansPerMeterStringProperty.value :
+                        FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty.value;
+
+          return StringUtils.fillIn( FourierMakingWavesStrings.symbolValueUnitsStringProperty, {
+            symbol: symbol,
+            value: value,
+            units: units
+          } );
+        },
+
+        // Properties that are used in numberFormatter
+        numberFormatterDependencies: [
+          domainProperty,
+          FMWSymbols.sigmaMarkupStringProperty,
+          FMWSymbols.kMarkupStringProperty,
+          FMWSymbols.omegaMarkupStringProperty,
+          FourierMakingWavesStrings.units.radiansPerMeterStringProperty,
+          FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty,
+          FourierMakingWavesStrings.symbolValueUnitsStringProperty
+        ]
+      },
+
       // phet-io
       tandem: tandem
     };
@@ -66,40 +100,6 @@ export default class StandardDeviationControl extends WavePacketNumberControl {
       'last tick must be range.max' );
 
     super( standardDeviationProperty, domainProperty, options );
-
-    // Set the numberFormatter for this control's NumberDisplay.
-    // In addition to the domain, this is dependent on a number of localized string Properties.
-    Multilink.multilink( [
-        domainProperty,
-        FMWSymbols.sigmaMarkupStringProperty,
-        FMWSymbols.kMarkupStringProperty,
-        FMWSymbols.omegaMarkupStringProperty,
-        FourierMakingWavesStrings.units.radiansPerMeterStringProperty,
-        FourierMakingWavesStrings.units.radiansPerMillisecondStringProperty,
-        FourierMakingWavesStrings.symbolValueUnitsStringProperty
-      ],
-      ( domain, sigma, k, omega, radiansPerMeter, radiansPerMillisecond, symbolValueUnits ) => {
-        assert && assert( domain === Domain.SPACE || domain === Domain.TIME );
-
-        this.setNumberFormatter( standardDeviation => {
-
-          const symbol = StringUtils.fillIn( '{{symbol}}<sub>{{subscript}}</sub>', {
-            symbol: sigma,
-            subscript: ( domain === Domain.SPACE ) ? k : omega
-          } );
-
-          // Using toFixedNumber removes trailing zeros.
-          const value = Utils.toFixedNumber( standardDeviation, DECIMALS );
-
-          const units = ( domain === Domain.SPACE ) ? radiansPerMeter : radiansPerMillisecond;
-
-          return StringUtils.fillIn( symbolValueUnits, {
-            symbol: symbol,
-            value: value,
-            units: units
-          } );
-        } );
-      } );
   }
 }
 
