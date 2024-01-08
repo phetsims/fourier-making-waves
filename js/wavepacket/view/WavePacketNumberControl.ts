@@ -66,11 +66,6 @@ export default class WavePacketNumberControl extends NumberControl {
     this.isPressedProperty = new DerivedProperty(
       [ this.slider.thumbDragListener.isPressedProperty, this.slider.trackDragListener.isPressedProperty ],
       ( thumbIsPressed, trackIsPressed ) => ( thumbIsPressed || trackIsPressed ) );
-
-    // Subclasses generally provide options.numberDisplayOptions.numberFormatter which tailors the value display to
-    // the domain. So when the domain changes, this will cause NumberControl tell its NumberDisplay to call
-    // that numberFormatter.
-    domainProperty.link( () => this.redrawNumberDisplay() );
   }
 }
 
