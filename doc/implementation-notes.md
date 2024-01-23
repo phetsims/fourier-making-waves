@@ -27,8 +27,8 @@ in [model.md](https://github.com/phetsims/fourier-making-waves/blob/main/doc/mod
 Additional terminology:
 
 _Domain_ refers to the independent variable(s) in the equations that drive the model. The domains in this sim are '
-space', 'time', and 'space & time'. See
-also [Domain(https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/Domain.ts).
+space', 'time', and 'space & time'. See also [
+Domain(https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/Domain.ts).
 
 _Series type_ refers to whether the Fourier Series is a _sine series_ or a _cosine series_. See
 also [SeriesType](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/SeriesType.ts).
@@ -113,8 +113,8 @@ Some useful code references:
   , creates a data set for plotting a harmonic
 * [FourierSeries](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/model/FourierSeries.ts) `createSumDataSet`
   , create a data set for the sum of the harmonics
-* [Waveform](https://github.com/phetsims/fourier-making-waves/blob/main/js/discrete/model/Waveform.ts),
-  approximations and actual waveforms for presets
+* [Waveform](https://github.com/phetsims/fourier-making-waves/blob/main/js/discrete/model/Waveform.ts), approximations
+  and actual waveforms for presets
 
 A quick walkthrough of the control panel:
 
