@@ -125,7 +125,7 @@ export default class WaveGameLevelNode extends Node {
     } ) );
 
     // When the ?showAnswers query parameter is present, show the answer to the current challenge.
-    // This Node has very low overhead. So it is added to the scenegraph in all cases so that it gets tested.
+    // This Node has very low overhead. So it is added to the scene graph in all cases so that it gets tested.
     const answersNode = new AnswersNode( amplitudesChartNode.chartTransform, level.answerSeries );
 
     // Elements that should be hidden when chartExpandedProperty is set to false.
