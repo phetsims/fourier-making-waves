@@ -155,8 +155,8 @@ export default class WavePacketMeasurementToolNode extends Node {
     const keyboardDragListener = new KeyboardDragListener( {
       positionProperty: positionProperty,
       dragBoundsProperty: dragBoundsProperty,
-      dragVelocity: 100, // velocity - change in position per second
-      shiftDragVelocity: 20, // finer-grained
+      dragSpeed: 100, // drag speed, change in position per second
+      shiftDragSpeed: 20, // slower drag speed
       tandem: options.tandem.createTandem( 'keyboardDragListener' )
     } );
     this.addInputListener( keyboardDragListener );
