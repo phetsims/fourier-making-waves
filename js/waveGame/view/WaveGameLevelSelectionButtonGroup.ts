@@ -22,7 +22,6 @@ const BUTTON_HEIGHT = 150;
 // Layout of buttons
 const X_SPACING = 40;
 const Y_SPACING = 30;
-const BUTTONS_PER_ROW = 3;
 
 export default class WaveGameLevelSelectionButtonGroup extends LevelSelectionButtonGroup {
 
@@ -42,6 +41,8 @@ export default class WaveGameLevelSelectionButtonGroup extends LevelSelectionBut
       };
     } );
 
+    const buttonsPerRow = ( FMWQueryParameters.gameLevels.length <= 4 ) ? 4 : 3;
+
     super( items, {
       levelSelectionButtonOptions: {
         baseColor: FMWColors.levelSelectionButtonFillProperty
@@ -53,7 +54,7 @@ export default class WaveGameLevelSelectionButtonGroup extends LevelSelectionBut
       flowBoxOptions: {
         spacing: X_SPACING, // horizontal spacing
         lineSpacing: Y_SPACING, // vertical spacing
-        preferredWidth: BUTTONS_PER_ROW * ( BUTTON_WIDTH + X_SPACING ),
+        preferredWidth: buttonsPerRow * ( BUTTON_WIDTH + X_SPACING ),
         wrap: true, // start a new row when preferredWidth is reached
         justify: 'center' // horizontal justification
       },
