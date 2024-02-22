@@ -1,4 +1,4 @@
-// Copyright 2020-2023, University of Colorado Boulder
+// Copyright 2020-2024, University of Colorado Boulder
 
 /**
  * HarmonicsEquationNode is the equation that appears above the 'Harmonics' chart in the 'Discrete' screen.
@@ -7,7 +7,6 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import { Node, RichText } from '../../../../scenery/js/imports.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
@@ -16,6 +15,7 @@ import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import EquationForm from '../model/EquationForm.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import { DerivedStringProperty } from '../../../../axon/js/imports.js';
 
 export default class HarmonicsEquationNode extends Node {
 
@@ -24,8 +24,13 @@ export default class HarmonicsEquationNode extends Node {
                       equationFormProperty: EnumerationProperty<EquationForm>,
                       tandem: Tandem ) {
 
-    // text is set in multilink below
-    const richText = new RichText( '', {
+    // Because we are using one of the EquationMarkup functions, our dependencies must include EquationMarkup.STRING_PROPERTY_DEPENDENCIES.
+    const stringProperty = DerivedStringProperty.deriveAny(
+      [ domainProperty, seriesTypeProperty, equationFormProperty, ...EquationMarkup.STRING_PROPERTY_DEPENDENCIES ],
+      () => EquationMarkup.getGeneralFormMarkup( domainProperty.value, seriesTypeProperty.value, equationFormProperty.value )
+    );
+
+    const richText = new RichText( stringProperty, {
       font: FMWConstants.EQUATION_FONT
     } );
 
@@ -36,13 +41,6 @@ export default class HarmonicsEquationNode extends Node {
       isDisposable: false,
       tandem: tandem
     } );
-
-    Multilink.multilink(
-      [ domainProperty, seriesTypeProperty, equationFormProperty ],
-      ( domain, seriesType, equationForm ) => {
-        richText.string = EquationMarkup.getGeneralFormMarkup( domain, seriesType, equationForm );
-      }
-    );
   }
 }
 

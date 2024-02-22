@@ -1,4 +1,4 @@
-// Copyright 2020-2023, University of Colorado Boulder
+// Copyright 2020-2024, University of Colorado Boulder
 
 /**
  * ExpandedFormDialog is a modal dialog that displays the expanded sum of a Fourier series.
@@ -9,7 +9,6 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { HBox, RichText, Text, VBox } from '../../../../scenery/js/imports.js';
@@ -24,6 +23,7 @@ import SeriesType from '../../common/model/SeriesType.js';
 import EquationForm from '../model/EquationForm.js';
 import Domain from '../../common/model/Domain.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import { DerivedStringProperty } from '../../../../axon/js/imports.js';
 
 // Maximum number of terms per line in the expanded form
 const TERMS_PER_LINE = 3;
@@ -52,37 +52,49 @@ export default class ExpandedFormDialog extends Dialog {
     // and in DiscreteSumEquationNode, we don't want to see the 'F(..)' portion of this markup. But we need it to be present
     // in order for the '=' to align with 'F(...) =' that's at the beginning of sumEquationNode. So we're hiding the
     // 'F(...)' bit using 'color: transparent'.
-    const functionEqualToNode = new RichText( '', {
+    // Because we are using one of the EquationMarkup functions, our dependencies must include EquationMarkup.STRING_PROPERTY_DEPENDENCIES.
+    const functionEqualToStringProperty = DerivedStringProperty.deriveAny(
+      [ domainProperty, ...EquationMarkup.STRING_PROPERTY_DEPENDENCIES ],
+      () => `<span style='color: transparent'>${EquationMarkup.getFunctionOfMarkup( domainProperty.value )}</span> ${MathSymbols.EQUAL_TO}`
+    );
+    const functionEqualToNode = new RichText( functionEqualToStringProperty, {
       font: FMWConstants.EQUATION_FONT
     } );
-    domainProperty.link( domain => {
-      functionEqualToNode.string = `<span style='color: transparent'>${EquationMarkup.getFunctionOfMarkup( domain )}</span> ${MathSymbols.EQUAL_TO}`;
-    } );
 
-    const expandedSumNode = new RichText( '', {
-      font: FMWConstants.EQUATION_FONT,
-      leading: 11
-    } );
-    Multilink.multilink(
-      [ fourierSeries.numberOfHarmonicsProperty, fourierSeries.amplitudesProperty, domainProperty, seriesTypeProperty, equationFormProperty ],
-      ( numberOfHarmonics, amplitudes, domain, seriesType, equationForm ) => {
-        let expandedSumMarkup = '';
+    // Because we are using one of the EquationMarkup functions, our dependencies must include EquationMarkup.STRING_PROPERTY_DEPENDENCIES.
+    const expandedSumStringProperty = DerivedStringProperty.deriveAny( [
+        fourierSeries.numberOfHarmonicsProperty, fourierSeries.amplitudesProperty, domainProperty, seriesTypeProperty,
+        equationFormProperty, ...EquationMarkup.STRING_PROPERTY_DEPENDENCIES
+      ],
+      () => {
+
+        const numberOfHarmonics = fourierSeries.numberOfHarmonicsProperty.value;
+        const amplitudes = fourierSeries.amplitudesProperty.value;
+        const domain = domainProperty.value;
+        const seriesType = seriesTypeProperty.value;
+        const equationForm = equationFormProperty.value;
+
+        let expandedSumString = '';
         for ( let order = 1; order <= numberOfHarmonics; order++ ) {
 
           // Limit number of decimal places, and drop trailing zeros.
           // See https://github.com/phetsims/fourier-making-waves/issues/20
           const amplitude = Utils.toFixedNumber( amplitudes[ order - 1 ], FMWConstants.DISCRETE_AMPLITUDE_DECIMAL_PLACES );
 
-          expandedSumMarkup += EquationMarkup.getSpecificFormMarkup( domain, seriesType, equationForm, order, amplitude );
+          expandedSumString += EquationMarkup.getSpecificFormMarkup( domain, seriesType, equationForm, order, amplitude );
           if ( order < numberOfHarmonics ) {
-            expandedSumMarkup += ` ${MathSymbols.PLUS} `;
+            expandedSumString += ` ${MathSymbols.PLUS} `;
           }
           if ( order % TERMS_PER_LINE === 0 ) {
-            expandedSumMarkup += '<br>';
+            expandedSumString += '<br>';
           }
         }
-        expandedSumNode.string = expandedSumMarkup;
+        return expandedSumString;
       } );
+    const expandedSumNode = new RichText( expandedSumStringProperty, {
+      font: FMWConstants.EQUATION_FONT,
+      leading: 11
+    } );
 
     const expandedSumHBox = new HBox( {
       spacing: 4,

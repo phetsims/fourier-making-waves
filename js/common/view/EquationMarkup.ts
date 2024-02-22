@@ -1,6 +1,5 @@
-// Copyright 2020-2023, University of Colorado Boulder
+// Copyright 2020-2024, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/fourier-making-waves/issues/225 use StringProperty instead of StringProperty.value, return TReadOnlyProperty<string> instead of string
 /**
  * EquationMarkup is a set of utility functions for creating RichText markup, used to render equations that are
  * specific to this simulation.
@@ -14,24 +13,29 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
 import SeriesType from '../model/SeriesType.js';
+import { DerivedStringProperty } from '../../../../axon/js/imports.js';
 
 // constants
 const HIDDEN_STRING = ''; // string for EquationForm.HIDDEN
 
-// To improve readability of markup creation. Each of these is a string that may also include markup, added by FMWSymbols.
-const An = `${FMWSymbols.AMarkupStringProperty.value}<sub>${FMWSymbols.nMarkupStringProperty.value}</sub>`;
-const F = FMWSymbols.FMarkupStringProperty.value;
-const f = FMWSymbols.fMarkupStringProperty.value;
-const k = FMWSymbols.kMarkupStringProperty.value;
-const L = FMWSymbols.LMarkupStringProperty.value;
-const lambda = FMWSymbols.lambdaMarkupStringProperty.value;
+// Static strings
 const MINUS = MathSymbols.MINUS;
-const n = FMWSymbols.nMarkupStringProperty.value;
-const omega = FMWSymbols.omegaMarkupStringProperty.value;
 const pi = FMWSymbols.piMarkup;
-const T = FMWSymbols.TMarkupStringProperty.value;
-const t = FMWSymbols.tMarkupStringProperty.value;
-const x = FMWSymbols.xMarkupStringProperty.value;
+
+// Dynamic strings. NOTE! If you add a StringProperty here, you must also add it to STRING_PROPERTY_DEPENDENCIES.
+const nProperty = FMWSymbols.nMarkupStringProperty;
+const AnProperty = new DerivedStringProperty( [ FMWSymbols.AMarkupStringProperty, nProperty ], ( A, n ) => `${A}<sub>${n}</sub>` );
+const FProperty = FMWSymbols.FMarkupStringProperty;
+const fProperty = FMWSymbols.fMarkupStringProperty;
+const kProperty = FMWSymbols.kMarkupStringProperty;
+const LProperty = FMWSymbols.LMarkupStringProperty;
+const lambdaProperty = FMWSymbols.lambdaMarkupStringProperty;
+const omegaProperty = FMWSymbols.omegaMarkupStringProperty;
+const TProperty = FMWSymbols.TMarkupStringProperty;
+const tProperty = FMWSymbols.tMarkupStringProperty;
+const xProperty = FMWSymbols.xMarkupStringProperty;
+const sinProperty = FMWSymbols.sinMarkupStringProperty;
+const cosProperty = FMWSymbols.cosMarkupStringProperty;
 
 // {string} for general form (e.g. 'n') or {number} for a specific harmonic
 type Order = string | number;
@@ -41,15 +45,34 @@ type Amplitude = string | number;
 
 const EquationMarkup = {
 
-  //TODO https://github.com/phetsims/fourier-making-waves/issues/225 2 uses
+  // The set of all string Properties that are used by the functions herein. Trying to specify only the StringProperties
+  // that are involved for a particular function, and a particular use that function, is complicated and not maintainable.
+  // A simpler approach is to update when any of these StringProperties changes. So if you use one of the functions
+  // herein, add these dependencies to your Multilink, DerivedProperty, etc.
+  // See https://github.com/phetsims/fourier-making-waves/issues/225
+  STRING_PROPERTY_DEPENDENCIES: [
+    nProperty,
+    AnProperty,
+    FProperty,
+    fProperty,
+    kProperty,
+    LProperty,
+    lambdaProperty,
+    omegaProperty,
+    TProperty,
+    tProperty,
+    xProperty,
+    sinProperty,
+    cosProperty
+  ],
+
   /**
    * Gets the RichText markup for the general form that describes a Fourier series.
    */
   getGeneralFormMarkup( domain: Domain, seriesType: SeriesType, equationForm: EquationForm ): string {
-    return EquationMarkup.getSpecificFormMarkup( domain, seriesType, equationForm, n, An );
+    return EquationMarkup.getSpecificFormMarkup( domain, seriesType, equationForm, nProperty.value, AnProperty.value );
   },
 
-  //TODO https://github.com/phetsims/fourier-making-waves/issues/225 2 uses
   /**
    * Gets the RichText markup for a specific form that describes a Fourier series.
    */
@@ -70,11 +93,15 @@ const EquationMarkup = {
     return markup;
   },
 
-  //TODO https://github.com/phetsims/fourier-making-waves/issues/225 3 uses
   /**
    * Gets the RichText markup for 'F(...)', where the '...' depends on the Domain.
    */
   getFunctionOfMarkup( domain: Domain ): string {
+
+    const x = xProperty.value;
+    const t = tProperty.value;
+    const F = FProperty.value;
+
     const variables = ( domain === Domain.SPACE ) ? x : ( ( domain === Domain.TIME ) ? t : `${x},${t}` );
     return `${F}(${variables})`;
   },
@@ -85,11 +112,19 @@ const EquationMarkup = {
   getComponentsEquationMarkup( domain: Domain, seriesType: SeriesType ): string {
     assert && assert( domain === Domain.SPACE || domain === Domain.TIME, `unsupported domain: ${domain}` );
 
-    const domainSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.xMarkupStringProperty.value : FMWSymbols.tMarkupStringProperty.value;
-    const componentSymbol = ( domain === Domain.SPACE ) ? FMWSymbols.kMarkupStringProperty.value : FMWSymbols.omegaMarkupStringProperty.value;
-    const seriesTypeString = ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinMarkupStringProperty.value : FMWSymbols.cosMarkupStringProperty.value;
-    return `${FMWSymbols.AMarkupStringProperty.value}<sub>${FMWSymbols.nMarkupStringProperty.value}</sub> ` +
-           `${seriesTypeString}( ${componentSymbol}<sub>${FMWSymbols.nMarkupStringProperty.value}</sub>${domainSymbol} )`;
+    const x = xProperty.value;
+    const t = tProperty.value;
+    const k = kProperty.value;
+    const omega = omegaProperty.value;
+    const sin = sinProperty.value;
+    const cos = cosProperty.value;
+    const An = AnProperty.value;
+    const n = nProperty.value;
+
+    const domainSymbol = ( domain === Domain.SPACE ) ? x : t;
+    const componentSymbol = ( domain === Domain.SPACE ) ? k : omega;
+    const seriesTypeString = ( seriesType === SeriesType.SIN ) ? sin : cos;
+    return `${An} ${seriesTypeString}( ${componentSymbol}<sub>${n}</sub>${domainSymbol} )`;
   }
 };
 
@@ -100,14 +135,20 @@ function getSpaceMarkup( seriesType: SeriesType, equationForm: EquationForm, ord
 
   const seriesTypeMarkup = seriesTypeToMarkup( seriesType );
 
+  // Common to all 'space' equations
+  const x = xProperty.value;
+
   let markup;
   if ( equationForm === EquationForm.WAVELENGTH ) {
+    const lambda = lambdaProperty.value;
     markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${x} / ${lambda}<sub>${order}</sub> )`;
   }
   else if ( equationForm === EquationForm.SPATIAL_WAVE_NUMBER ) {
+    const k = kProperty.value;
     markup = `${amplitude} ${seriesTypeMarkup}( ${k}<sub>${order}</sub>${x} )`;
   }
   else if ( equationForm === EquationForm.MODE ) {
+    const L = LProperty.value;
     markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${order}${x} / ${L} )`;
   }
   else {
@@ -128,17 +169,24 @@ function getTimeMarkup( seriesType: SeriesType, equationForm: EquationForm, orde
 
   const seriesTypeMarkup = seriesTypeToMarkup( seriesType );
 
+  // Common to all 'time' equations
+  const t = tProperty.value;
+
   let markup;
   if ( equationForm === EquationForm.FREQUENCY ) {
+    const f = fProperty.value;
     markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${f}<sub>${order}</sub>${t} )`;
   }
   else if ( equationForm === EquationForm.PERIOD ) {
+    const T = TProperty.value;
     markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${t} / ${T}<sub>${order}</sub> )`;
   }
   else if ( equationForm === EquationForm.ANGULAR_WAVE_NUMBER ) {
+    const omega = omegaProperty.value;
     markup = `${amplitude} ${seriesTypeMarkup}( ${omega}<sub>${order}</sub>${t} )`;
   }
   else if ( equationForm === EquationForm.MODE ) {
+    const T = TProperty.value;
     return `${amplitude} ${seriesTypeMarkup}( 2${pi}${order}${t} / ${T} )`;
   }
   else {
@@ -159,14 +207,24 @@ function getSpaceAndTimeMarkup( seriesType: SeriesType, equationForm: EquationFo
 
   const seriesTypeMarkup = seriesTypeToMarkup( seriesType );
 
+  // Common to all 'space & time' equations
+  const x = xProperty.value;
+  const t = tProperty.value;
+
   let markup;
   if ( equationForm === EquationForm.WAVELENGTH_AND_PERIOD ) {
+    const lambda = lambdaProperty.value;
+    const T = TProperty.value;
     markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}( ${x}/${lambda}<sub>${order}</sub> ${MINUS} ${t}/${T}<sub>${order}</sub> ) )`;
   }
   else if ( equationForm === EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER ) {
+    const k = kProperty.value;
+    const omega = omegaProperty.value;
     markup = `${amplitude} ${seriesTypeMarkup}( ${k}<sub>${order}</sub>${x} ${MINUS} ${omega}<sub>${order}</sub>${t} )`;
   }
   else if ( equationForm === EquationForm.MODE ) {
+    const L = LProperty.value;
+    const T = TProperty.value;
     markup = `${amplitude} ${seriesTypeMarkup}( 2${pi}${order}( ${x}/${L} ${MINUS} ${t}/${T} ) )`;
   }
   else {
@@ -184,7 +242,7 @@ function getSpaceAndTimeMarkup( seriesType: SeriesType, equationForm: EquationFo
  * Converts a SeriesType to markup.
  */
 function seriesTypeToMarkup( seriesType: SeriesType ): string {
-  return ( seriesType === SeriesType.SIN ) ? FMWSymbols.sinMarkupStringProperty.value : FMWSymbols.cosMarkupStringProperty.value;
+  return ( seriesType === SeriesType.SIN ) ? sinProperty.value : cosProperty.value;
 }
 
 fourierMakingWaves.register( 'EquationMarkup', EquationMarkup );

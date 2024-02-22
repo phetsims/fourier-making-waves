@@ -1,4 +1,4 @@
-// Copyright 2021-2023, University of Colorado Boulder
+// Copyright 2021-2024, University of Colorado Boulder
 
 /**
  * WavePacketSumEquationNode is the equation that appears above the 'Sum' chart in the 'Wave Packet' screen.
@@ -21,6 +21,7 @@ import SumSymbolNode from '../../common/view/SumSymbolNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import { DerivedStringProperty } from '../../../../axon/js/imports.js';
 
 export default class WavePacketSumEquationNode extends Node {
 
@@ -29,8 +30,13 @@ export default class WavePacketSumEquationNode extends Node {
                       componentSpacingProperty: TReadOnlyProperty<number>,
                       tandem: Tandem ) {
 
-    // Everything to the left of the summation symbol, set in domainProperty listener below.
-    const leftNode = new RichText( '', {
+    // Everything to the left of the summation symbol: F(...) =
+    // Because we are using one of the EquationMarkup functions, our dependencies must include EquationMarkup.STRING_PROPERTY_DEPENDENCIES.
+    const leftStringProperty = DerivedStringProperty.deriveAny(
+      [ domainProperty, ...EquationMarkup.STRING_PROPERTY_DEPENDENCIES ],
+      () => `${EquationMarkup.getFunctionOfMarkup( domainProperty.value )} ${MathSymbols.EQUAL_TO}`
+    );
+    const leftNode = new RichText( leftStringProperty, {
       font: FMWConstants.EQUATION_FONT
     } );
 
@@ -43,6 +49,36 @@ export default class WavePacketSumEquationNode extends Node {
     const rightNode = new RichText( '', {
       font: FMWConstants.EQUATION_FONT
     } );
+    Multilink.multilink( [
+        domainProperty, seriesTypeProperty, componentSpacingProperty,
+        FMWSymbols.xMarkupStringProperty, FMWSymbols.tMarkupStringProperty, FMWSymbols.kMarkupStringProperty, FMWSymbols.omegaMarkupStringProperty,
+        FMWSymbols.sinMarkupStringProperty, FMWSymbols.cosMarkupStringProperty, FMWSymbols.AMarkupStringProperty, FMWSymbols.dMarkupStringProperty
+      ],
+      ( domain, seriesType, componentSpacing, x, t, k, omega, sin, cos, A, d ) => {
+
+        const hasInfiniteComponents = ( componentSpacing === 0 );
+
+        // Summation vs integration
+        sumSymbolNode.integrationProperty.value = hasInfiniteComponents;
+
+        // Right side of the equation
+        let rightString: string;
+        if ( hasInfiniteComponents ) {
+
+          // Infinite number of components
+          const domainSymbol = ( domain === Domain.SPACE ) ? x : t;
+          const componentSymbol = ( domain === Domain.SPACE ) ? k : omega;
+          const seriesTypeString = ( seriesType === SeriesType.SIN ) ? sin : cos;
+          rightString = `${A}(${componentSymbol}) ${seriesTypeString}( ${componentSymbol}${domainSymbol} ) ${d}${componentSymbol}`;
+        }
+        else {
+
+          // Finite number of components, use same equation as above the Components chart.
+          rightString = EquationMarkup.getComponentsEquationMarkup( domain, seriesType );
+        }
+        rightNode.string = rightString;
+      }
+    );
 
     super( {
       children: [ leftNode, sumSymbolNode, rightNode ],
@@ -51,39 +87,7 @@ export default class WavePacketSumEquationNode extends Node {
       tandem: tandem
     } );
 
-    Multilink.multilink( [
-        domainProperty, seriesTypeProperty, componentSpacingProperty,
-        FMWSymbols.xMarkupStringProperty, FMWSymbols.tMarkupStringProperty, FMWSymbols.kMarkupStringProperty, FMWSymbols.omegaMarkupStringProperty,
-        FMWSymbols.sinMarkupStringProperty, FMWSymbols.cosMarkupStringProperty, FMWSymbols.AMarkupStringProperty, FMWSymbols.dMarkupStringProperty
-      ],
-      ( domain, seriesType, componentSpacing, x, t, k, omega, sin, cos, A, d ) => {
-
-        // Update the left side of the equation to match the Domain.
-        leftNode.string = `${EquationMarkup.getFunctionOfMarkup( domain )} ${MathSymbols.EQUAL_TO}`; // F(...) =
-
-        const hasInfiniteComponents = ( componentSpacing === 0 );
-
-        // Summation vs integration
-        sumSymbolNode.integrationProperty.value = hasInfiniteComponents;
-
-        // Right side of the equation
-        if ( hasInfiniteComponents ) {
-
-          // Infinite number of components
-          const domainSymbol = ( domain === Domain.SPACE ) ? x : t;
-          const componentSymbol = ( domain === Domain.SPACE ) ? k : omega;
-          const seriesTypeString = ( seriesType === SeriesType.SIN ) ? sin : cos;
-          rightNode.string = `${A}(${componentSymbol}) ${seriesTypeString}( ${componentSymbol}${domainSymbol} ) ${d}${componentSymbol}`;
-        }
-        else {
-
-          // Finite number of components, use same equation as above the Components chart.
-          rightNode.string = EquationMarkup.getComponentsEquationMarkup( domain, seriesType );
-        }
-      }
-    );
-
-    // Layout
+    // Dynamic layout
     Multilink.multilink(
       [ leftNode.boundsProperty, sumSymbolNode.boundsProperty, rightNode.boundsProperty ],
       () => {

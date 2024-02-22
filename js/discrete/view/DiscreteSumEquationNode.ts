@@ -1,4 +1,4 @@
-// Copyright 2020-2023, University of Colorado Boulder
+// Copyright 2020-2024, University of Colorado Boulder
 
 /**
  * DiscreteSumEquationNode is the equation that appears above the 'Sum' chart in the 'Discrete' screen.
@@ -69,9 +69,14 @@ export default class DiscreteSumEquationNode extends Node {
     super( options );
 
     // Update the equation to match the Domain and math form.
-    const multilink = new Multilink(
-      [ domainProperty, seriesTypeProperty, equationFormProperty ],
-      ( domain, seriesType, equationForm ) => {
+    // Because we are using one of the EquationMarkup functions, our dependencies must include EquationMarkup.STRING_PROPERTY_DEPENDENCIES.
+    const multilink = Multilink.multilinkAny(
+      [ domainProperty, seriesTypeProperty, equationFormProperty, ...EquationMarkup.STRING_PROPERTY_DEPENDENCIES ],
+      () => {
+
+        const domain = domainProperty.value;
+        const seriesType = seriesTypeProperty.value;
+        const equationForm = equationFormProperty.value;
 
         // F(...) =
         leftNode.string = `${EquationMarkup.getFunctionOfMarkup( domain )} ${EQUAL_TO}`;
