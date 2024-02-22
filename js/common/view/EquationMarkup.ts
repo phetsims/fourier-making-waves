@@ -1,5 +1,6 @@
 // Copyright 2020-2023, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/fourier-making-waves/issues/225 use StringProperty instead of StringProperty.value, return TReadOnlyProperty<string> instead of string
 /**
  * EquationMarkup is a set of utility functions for creating RichText markup, used to render equations that are
  * specific to this simulation.
