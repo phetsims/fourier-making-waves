@@ -141,7 +141,7 @@ class FourierSeriesSubpanel extends VBox {
     // Waveform combo box
     const waveformText = new Text( FourierMakingWavesStrings.waveformStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 70 // determined empirically
+      maxWidth: 65 // determined empirically
     } );
 
     const waveformComboBox = new WaveformComboBox( waveformProperty, popupParent,
@@ -216,7 +216,7 @@ class GraphControlsSubpanel extends VBox {
 
     const functionOfText = new Text( FourierMakingWavesStrings.functionOfStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 70 // determined empirically
+      maxWidth: 60 // determined empirically
     } );
 
     const domainComboBox = new DomainComboBox( domainProperty, popupParent,
@@ -230,7 +230,7 @@ class GraphControlsSubpanel extends VBox {
 
     const seriesText = new Text( FourierMakingWavesStrings.seriesStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 70 // determined empirically
+      maxWidth: 60 // determined empirically
     } );
 
     const seriesTypeRadioButtonGroup = new SeriesTypeRadioButtonGroup( seriesTypeProperty,
@@ -299,7 +299,7 @@ class MeasurementToolsSubpanel extends VBox {
     };
 
     const hBoxOptions = {
-      spacing: 16
+      spacing: 10
     };
 
     // Wavelength

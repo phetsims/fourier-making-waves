@@ -20,9 +20,11 @@ import EquationForm from '../model/EquationForm.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWDerivedStrings from '../../common/FMWDerivedStrings.js';
 
+const TEXT_MAX_WIDTH = 70;
+
 const MATH_TEXT_OPTIONS = {
   font: FMWConstants.MATH_CONTROL_FONT,
-  maxWidth: 100
+  maxWidth: TEXT_MAX_WIDTH
 };
 
 // This format is specific to FMWComboBox.
@@ -30,6 +32,10 @@ const CHOICES: FMWComboBoxChoice<EquationForm>[] = [
   {
     value: EquationForm.HIDDEN,
     stringProperty: FourierMakingWavesStrings.hiddenStringProperty,
+    textOptions: {
+      font: FMWConstants.CONTROL_FONT,
+      maxWidth: TEXT_MAX_WIDTH
+    },
     // This is the only choice that does not have textOptions: MATH_TEXT_OPTIONS, because it's not an equation.
     tandemName: `hidden${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
   },
@@ -91,9 +97,6 @@ export default class EquationComboBox extends FMWComboBox<EquationForm> {
                       tandem: Tandem ) {
 
     super( equationFormProperty, CHOICES, popupParent, {
-      textOptions: {
-        maxWidth: 100 // determined empirically
-      },
       isDisposable: false,
       tandem: tandem
     } );

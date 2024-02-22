@@ -26,7 +26,7 @@ export default class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButto
 
       // Make this font a bit larger, see https://github.com/phetsims/fourier-making-waves/issues/138
       font: new PhetFont( FMWConstants.MATH_CONTROL_FONT.numericSize + 2 ),
-      maxWidth: 40 // determined empirically
+      maxWidth: 35 // determined empirically
     };
 
     const items: AquaRadioButtonGroupItem<SeriesType>[] = [

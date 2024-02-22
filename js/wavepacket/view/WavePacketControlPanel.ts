@@ -279,7 +279,7 @@ class GraphControlsSubpanel extends VBox {
     // Function of:
     const functionOfText = new Text( FourierMakingWavesStrings.functionOfStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 70 // determined empirically
+      maxWidth: 60 // determined empirically
     } );
 
     const domainComboBox = new DomainComboBox( domainProperty, popupParent,
@@ -294,7 +294,7 @@ class GraphControlsSubpanel extends VBox {
     // Series:
     const seriesText = new Text( FourierMakingWavesStrings.seriesStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 70 // determined empirically
+      maxWidth: 60 // determined empirically
     } );
 
     const seriesTypeRadioButtonGroup = new SeriesTypeRadioButtonGroup( seriesTypeProperty,

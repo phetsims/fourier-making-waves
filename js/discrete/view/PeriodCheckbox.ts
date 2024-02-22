@@ -24,7 +24,7 @@ export default class PeriodCheckbox extends Checkbox {
 
     const periodText = new Text( FourierMakingWavesStrings.periodStringProperty, {
       font: FMWConstants.CONTROL_FONT,
-      maxWidth: 80 // determined empirically
+      maxWidth: 60 // determined empirically
     } );
 
     super( isSelectedProperty, periodText, combineOptions<CheckboxOptions>( {}, FMWConstants.CHECKBOX_OPTIONS, {

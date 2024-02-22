@@ -46,7 +46,7 @@ export default class DomainComboBox extends FMWComboBox<Domain> {
 
     super( domainProperty, choices, popupParent, {
       textOptions: {
-        maxWidth: 100 // determined empirically
+        maxWidth: 85 // determined empirically
       },
       isDisposable: false,
       tandem: tandem
