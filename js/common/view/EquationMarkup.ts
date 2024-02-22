@@ -41,6 +41,7 @@ type Amplitude = string | number;
 
 const EquationMarkup = {
 
+  //TODO https://github.com/phetsims/fourier-making-waves/issues/225 2 usages
   /**
    * Gets the RichText markup for the general form that describes a Fourier series.
    */
@@ -48,6 +49,7 @@ const EquationMarkup = {
     return EquationMarkup.getSpecificFormMarkup( domain, seriesType, equationForm, n, An );
   },
 
+  //TODO https://github.com/phetsims/fourier-making-waves/issues/225 2 usages
   /**
    * Gets the RichText markup for a specific form that describes a Fourier series.
    */
@@ -68,6 +70,7 @@ const EquationMarkup = {
     return markup;
   },
 
+  //TODO https://github.com/phetsims/fourier-making-waves/issues/225 3 usages
   /**
    * Gets the RichText markup for 'F(...)', where the '...' depends on the Domain.
    */
