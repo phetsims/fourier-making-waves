@@ -1,4 +1,4 @@
-// Copyright 2020-2023, University of Colorado Boulder
+// Copyright 2020-2024, University of Colorado Boulder
 
 /**
  * WaveformComboBox is the combo box for choosing a pre-defined waveform in the 'Discrete' screen.

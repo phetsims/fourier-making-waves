@@ -1,4 +1,4 @@
-// Copyright 2020-2023, University of Colorado Boulder
+// Copyright 2020-2024, University of Colorado Boulder
 
 /**
  * EquationComboBox is the combo box for choosing the equation form that is displayed in the 'Discrete' screen.
