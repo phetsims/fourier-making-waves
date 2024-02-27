@@ -9,7 +9,6 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { RichText } from '../../../../scenery/js/imports.js';
-import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
 import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
@@ -33,12 +32,12 @@ export default class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButto
       {
         value: SeriesType.SIN,
         createNode: () => new RichText( FMWSymbols.sinMarkupStringProperty, textOptions ),
-        tandemName: `sin${AquaRadioButton.TANDEM_NAME_SUFFIX}`
+        tandemName: 'sinRadioButton'
       },
       {
         value: SeriesType.COS,
         createNode: () => new RichText( FMWSymbols.cosMarkupStringProperty, textOptions ),
-        tandemName: `cos${AquaRadioButton.TANDEM_NAME_SUFFIX}`
+        tandemName: 'cosRadioButton'
       }
     ];
 
