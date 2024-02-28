@@ -7,7 +7,6 @@
  */
 
 import { Node } from '../../../../scenery/js/imports.js';
-import ComboBox from '../../../../sun/js/ComboBox.js';
 import FMWComboBox, { FMWComboBoxChoice } from '../../common/view/FMWComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
@@ -20,32 +19,32 @@ const CHOICES: FMWComboBoxChoice<Waveform>[] = [
   {
     value: Waveform.SINUSOID,
     stringProperty: FourierMakingWavesStrings.sinusoidStringProperty,
-    tandemName: `sinusoid${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'sinusoidItem'
   },
   {
     value: Waveform.TRIANGLE,
     stringProperty: FourierMakingWavesStrings.triangleStringProperty,
-    tandemName: `triangle${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'triangleItem'
   },
   {
     value: Waveform.SQUARE,
     stringProperty: FourierMakingWavesStrings.squareStringProperty,
-    tandemName: `square${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'squareItem'
   },
   {
     value: Waveform.SAWTOOTH,
     stringProperty: FourierMakingWavesStrings.sawtoothStringProperty,
-    tandemName: `sawtooth${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'sawtoothItem'
   },
   {
     value: Waveform.WAVE_PACKET,
     stringProperty: FourierMakingWavesStrings.wavePacketStringProperty,
-    tandemName: `wavePacket${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'wavePacketItem'
   },
   {
     value: Waveform.CUSTOM,
     stringProperty: FourierMakingWavesStrings.customStringProperty,
-    tandemName: `custom${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'customItem'
   }
 ];
 

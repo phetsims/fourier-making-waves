@@ -9,7 +9,6 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import { Node } from '../../../../scenery/js/imports.js';
-import ComboBox from '../../../../sun/js/ComboBox.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
@@ -37,55 +36,55 @@ const CHOICES: FMWComboBoxChoice<EquationForm>[] = [
       maxWidth: TEXT_MAX_WIDTH
     },
     // This is the only choice that does not have textOptions: MATH_TEXT_OPTIONS, because it's not an equation.
-    tandemName: `hidden${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'hiddenItem'
   },
   {
     value: EquationForm.WAVELENGTH,
     stringProperty: FMWSymbols.lambdaMarkupStringProperty,
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: `wavelength${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'wavelengthItem'
   },
   {
     value: EquationForm.SPATIAL_WAVE_NUMBER,
     stringProperty: FMWSymbols.kMarkupStringProperty,
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: `spatialWaveNumber${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'spatialWaveNumberItem'
   },
   {
     value: EquationForm.FREQUENCY,
     stringProperty: FMWSymbols.fMarkupStringProperty,
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: `frequency${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'frequencyItem'
   },
   {
     value: EquationForm.PERIOD,
     stringProperty: FMWSymbols.TMarkupStringProperty,
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: `period${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'periodItem'
   },
   {
     value: EquationForm.ANGULAR_WAVE_NUMBER,
     stringProperty: FMWSymbols.omegaMarkupStringProperty,
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: `angularWaveNumber${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'angularWaveNumberItem'
   },
   {
     value: EquationForm.WAVELENGTH_AND_PERIOD,
     stringProperty: FMWDerivedStrings.lambdaAndTStringProperty,
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: `wavelengthAndPeriod${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'wavelengthAndPeriodItem'
   },
   {
     value: EquationForm.SPATIAL_WAVE_NUMBER_AND_ANGULAR_WAVE_NUMBER,
     stringProperty: FMWDerivedStrings.kAndOmegaStringProperty,
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: `spatialWaveNumberAndAngularWaveNumber${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'spatialWaveNumberAndAngularWaveNumberItem'
   },
   {
     value: EquationForm.MODE,
     stringProperty: FMWSymbols.nMarkupStringProperty,
     textOptions: MATH_TEXT_OPTIONS,
-    tandemName: `mode${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'modeItem'
   }
 ];
 

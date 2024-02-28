@@ -8,7 +8,6 @@
  */
 
 import { Node } from '../../../../scenery/js/imports.js';
-import ComboBox from '../../../../sun/js/ComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../model/Domain.js';
 import FMWComboBox, { FMWComboBoxChoice } from './FMWComboBox.js';
@@ -21,17 +20,17 @@ const CHOICES: FMWComboBoxChoice<Domain>[] = [
   {
     value: Domain.SPACE,
     stringProperty: FMWDerivedStrings.functionOfSpaceStringProperty,
-    tandemName: `space${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'spaceItem'
   },
   {
     value: Domain.TIME,
     stringProperty: FMWDerivedStrings.functionOfTimeStringProperty,
-    tandemName: `time${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'timeItem'
   },
   {
     value: Domain.SPACE_AND_TIME,
     stringProperty: FMWDerivedStrings.functionOfSpaceAndTimeStringProperty,
-    tandemName: `spaceAndTime${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+    tandemName: 'spaceAndTimeItem'
   }
 ];
 
