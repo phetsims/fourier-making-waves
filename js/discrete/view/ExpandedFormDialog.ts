@@ -23,7 +23,7 @@ import SeriesType from '../../common/model/SeriesType.js';
 import EquationForm from '../model/EquationForm.js';
 import Domain from '../../common/model/Domain.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import { DerivedStringProperty } from '../../../../axon/js/imports.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 // Maximum number of terms per line in the expanded form
 const TERMS_PER_LINE = 3;

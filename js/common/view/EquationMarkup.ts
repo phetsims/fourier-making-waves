@@ -13,7 +13,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
 import SeriesType from '../model/SeriesType.js';
-import { DerivedStringProperty } from '../../../../axon/js/imports.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 // constants
 const HIDDEN_STRING = ''; // string for EquationForm.HIDDEN

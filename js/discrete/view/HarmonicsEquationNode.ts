@@ -15,7 +15,7 @@ import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import EquationForm from '../model/EquationForm.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import { DerivedStringProperty } from '../../../../axon/js/imports.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 export default class HarmonicsEquationNode extends Node {
 
