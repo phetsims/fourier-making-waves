@@ -17,7 +17,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "c6b76768c6413ac6d4660b89e383160c274538db",
+    "sha": "ce3e915ebb5e3f22545bb6fa46d7ece6a4eb9e63",
     "branch": "HEAD"
   },
   "dot": {
@@ -25,11 +25,11 @@
     "branch": "HEAD"
   },
   "fourier-making-waves": {
-    "sha": "5d0f45829e4e78411128a1023dec5e79fedbea1b",
+    "sha": "2c9f838e372be4b5a401516d33f57aa6399bba45",
     "branch": "1.0"
   },
   "joist": {
-    "sha": "dbf26586c84965a299f46bc7bb36c975f4a7fe68",
+    "sha": "6488b7b0be1e72fdd07efcd27e37dd31d2c40730",
     "branch": "HEAD"
   },
   "kite": {
