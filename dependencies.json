@@ -25,7 +25,7 @@
     "branch": "HEAD"
   },
   "fourier-making-waves": {
-    "sha": "98ef82fe5af331423a86591e586e2c3656b115a8",
+    "sha": "4053b1fa5062333ebc560ee13946076f4cef666d",
     "branch": "1.0"
   },
   "joist": {
@@ -57,7 +57,7 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "06d6b5d29a8b2db603f234f97dd15d9586cea1f8",
+    "sha": "e0eee60c17ec0245af8c49805defd0da45359abb",
     "branch": "HEAD"
   },
   "phetmarks": {
