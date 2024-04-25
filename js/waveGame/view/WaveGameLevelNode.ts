@@ -426,16 +426,10 @@ export default class WaveGameLevelNode extends Node {
     level.incorrectEmitter.addListener( () => this.incorrectFeedback() );
 
     // Pressing alt+c will check the answer, if the game is in the appropriate state.
-    const checkAnswerButtonKeyboardListener = new KeyboardListener( {
+    KeyboardListener.createGlobal( checkAnswerButton, {
       keys: [ 'alt+c' ],
-      callback: () => checkAnswerListener(),
-
-      // By making this listener "global" it will fire no matter where focus is in the document as long as
-      // this Node is visible and has input enabled. Otherwise, the callback will fire only when this Node
-      // has keyboard focus.
-      global: true
+      fire: () => checkAnswerListener()
     } );
-    checkAnswerButton.addInputListener( checkAnswerButtonKeyboardListener );
 
     //------------------------------------------------------------------------------------------------------------------
     // PDOM
