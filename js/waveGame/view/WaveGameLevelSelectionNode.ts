@@ -60,7 +60,10 @@ export default class WaveGameLevelSelectionNode extends Node {
 
     // Reset All button, at lower right
     const resetAllButton = new ResetAllButton( {
-      listener: () => model.reset(),
+      listener: () => {
+        this.interruptSubtreeInput();
+        model.reset();
+      },
       right: layoutBounds.maxX - FMWConstants.SCREEN_VIEW_X_MARGIN,
       bottom: layoutBounds.maxY - FMWConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: tandem.createTandem( 'resetAllButton' )
