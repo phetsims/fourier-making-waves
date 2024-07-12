@@ -16,6 +16,7 @@ import soundManager from '../../../../tambo/js/soundManager.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import { Node } from '../../../../scenery/js/imports.js';
 
 // Output level range of each harmonic. These have a reduced range because harmonics are summed.
 // See https://github.com/phetsims/fourier-making-waves/issues/45
@@ -23,12 +24,13 @@ const HARMONIC_OUTPUT_LEVEL_RANGE = new Range( -1 / FMWConstants.MAX_HARMONICS, 
 
 export default class FourierSoundGenerator extends SoundGenerator {
 
-  public constructor( fourierSeries: FourierSeries ) {
+  public constructor( fourierSeries: FourierSeries, associatedViewNode: Node ) {
 
     super( {
 
       // SoundGeneratorOptions
-      initialOutputLevel: fourierSeries.soundOutputLevelProperty.value
+      initialOutputLevel: fourierSeries.soundOutputLevelProperty.value,
+      associatedViewNode: associatedViewNode
     } );
 
     // Maps amplitude to an output level that is appropriate for SoundGenerator.
@@ -74,7 +76,7 @@ export default class FourierSoundGenerator extends SoundGenerator {
       this.setOutputLevel( outputLevel, timeConstant );
     } );
 
-    // Turn sound on/off. We could have controlled this via options.enableControlProperties,
+    // Turn sound on/off. We could have controlled this via options.enabledProperty,
     // but stopping OscillatorSoundGenerators may use fewer resources.
     fourierSeries.soundEnabledProperty.link( enabled => {
       if ( enabled ) {

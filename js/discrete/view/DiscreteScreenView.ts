@@ -56,10 +56,8 @@ export default class DiscreteScreenView extends ScreenView {
     //------------------------------------------------------------------------------------------------------------------
 
     // Sound for the Fourier series
-    const fourierSoundGenerator = new FourierSoundGenerator( model.fourierSeries );
-    soundManager.addSoundGenerator( fourierSoundGenerator, {
-      associatedViewNode: this
-    } );
+    const fourierSoundGenerator = new FourierSoundGenerator( model.fourierSeries, this );
+    soundManager.addSoundGenerator( fourierSoundGenerator );
 
     //------------------------------------------------------------------------------------------------------------------
     // Amplitudes chart
