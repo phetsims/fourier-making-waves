@@ -54,9 +54,6 @@ export default class DiscreteSumChartNode extends SumChartNode {
     // Put the infiniteHarmonicsPlot behind plots that were added by the superclass.
     this.chartCanvasNode.setPainters( [ infiniteHarmonicsPlot, ...this.chartCanvasNode.painters ] );
 
-    // Interrupt interaction when visibility changes.
-    this.visibleProperty.link( () => this.interruptSubtreeInput() );
-
     // x-axis tick labels are specific to Domain and format (numeric vs symbolic).
     // This causes options.xTickLabelSetOptions.createLabels to be called.
     Multilink.multilink( [ sumChart.domainProperty, sumChart.xAxisTickLabelFormatProperty ],

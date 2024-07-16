@@ -216,8 +216,6 @@ export default class AmplitudeKeypadDialog extends Dialog {
    */
   public override hide(): void {
     super.hide();
-
-    this.interruptSubtreeInput();
     this.closeCallback && this.closeCallback();
     this.enterCallback = null;
     this.closeCallback = null;

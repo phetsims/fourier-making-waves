@@ -36,9 +36,6 @@ export default class ExpandedFormButton extends RoundPushButton {
       phetioDocumentation: 'Pressing this button opens a dialog that shows the expanded form of the Sum equation.',
       tandem: tandem
     } );
-
-    // Interrupt interaction when visibility changes.
-    this.visibleProperty.link( () => this.interruptSubtreeInput() );
   }
 }
 

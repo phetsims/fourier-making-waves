@@ -134,9 +134,6 @@ export default class AmplitudeSlider extends Slider {
         emphasizedHarmonics.remove( this );
       }
     } );
-
-    // Interrupt interaction when visibility changes.
-    this.visibleProperty.link( () => this.interruptSubtreeInput() );
   }
 
   /**

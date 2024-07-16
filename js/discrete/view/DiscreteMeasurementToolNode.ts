@@ -136,7 +136,6 @@ export default class DiscreteMeasurementToolNode extends Node {
 
     // Interrupt interaction
     harmonicProperty.lazyLink( () => this.interruptSubtreeInput() );
-    this.visibleProperty.lazyLink( () => this.interruptSubtreeInput() );
 
     // pdom - dragging using the keyboard
     const keyboardDragListener = new KeyboardDragListener( {

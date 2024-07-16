@@ -38,9 +38,6 @@ export default class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
       tandem: tandem
     } );
 
-    // Interrupt interaction when visibility changes.
-    this.visibleProperty.link( () => this.interruptSubtreeInput() );
-
     // x-axis tick labels are specific to Domain and format (numeric vs symbolic).
     // This causes options.xTickLabelSetOptions.createLabels to be called.
     Multilink.multilink( [ harmonicsChart.domainProperty, harmonicsChart.xAxisTickLabelFormatProperty ],
