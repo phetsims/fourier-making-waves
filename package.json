@@ -53,6 +53,11 @@
               "ts-nocheck": true
             }
           ]
+        },
+        "parserOptions": {
+          "project": [
+            "../fourier-making-waves/tsconfig.json"
+          ]
         }
       }
     ]
