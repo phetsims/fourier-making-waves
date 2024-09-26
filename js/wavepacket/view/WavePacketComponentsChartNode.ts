@@ -110,7 +110,7 @@ export default class WavePacketComponentsChartNode extends DomainChartNode {
 
             // Reuse an existing plot.
             const plot = plots[ i ] as CanvasLinePlot;
-            assert && assert( plot instanceof CanvasLinePlot ); // eslint-disable-line no-simple-type-checking-assertions
+            assert && assert( plot instanceof CanvasLinePlot ); // eslint-disable-line phet/no-simple-type-checking-assertions
             plot.setDataSet( dataSet );
             plot.setStroke( stroke );
           }
@@ -128,7 +128,7 @@ export default class WavePacketComponentsChartNode extends DomainChartNode {
         if ( numberOfComponents < numberOfPlots ) {
           for ( let i = numberOfComponents; i < numberOfPlots; i++ ) {
             const plot = plots[ i ] as CanvasLinePlot;
-            assert && assert( plot instanceof CanvasLinePlot ); // eslint-disable-line no-simple-type-checking-assertions
+            assert && assert( plot instanceof CanvasLinePlot ); // eslint-disable-line phet/no-simple-type-checking-assertions
             if ( plot.dataSet.length > 0 ) {
               plot.setDataSet( [] );
             }
