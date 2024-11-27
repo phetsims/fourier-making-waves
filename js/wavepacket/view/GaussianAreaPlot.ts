@@ -12,13 +12,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import { Path, PathOptions } from '../../../../scenery/js/imports.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import { Path, PathOptions } from '../../../../scenery/js/imports.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 type SelfOptions = EmptySelfOptions;
 

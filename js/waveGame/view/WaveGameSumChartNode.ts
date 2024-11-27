@@ -9,11 +9,11 @@
  */
 
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';
 import SumChartNode from '../../common/view/SumChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameSumChart from '../model/WaveGameSumChart.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class WaveGameSumChartNode extends SumChartNode {
 

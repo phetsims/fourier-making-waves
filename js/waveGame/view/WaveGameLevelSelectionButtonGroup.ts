@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import LevelSelectionButtonGroup from '../../../../vegas/js/LevelSelectionButtonGroup.js';
 import ScoreDisplayNumberAndStar from '../../../../vegas/js/ScoreDisplayNumberAndStar.js';
@@ -14,7 +15,6 @@ import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import FMWIconFactory from '../../common/view/FMWIconFactory.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
-import Property from '../../../../axon/js/Property.js';
 
 const BUTTON_WIDTH = 150;
 const BUTTON_HEIGHT = 150;

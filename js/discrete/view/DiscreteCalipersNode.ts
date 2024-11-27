@@ -11,14 +11,14 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
+import Harmonic from '../../common/model/Harmonic.js';
 import CalipersNode from '../../common/view/CalipersNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
 import DiscreteMeasurementToolNode, { DiscreteMeasurementToolNodeOptions } from './DiscreteMeasurementToolNode.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import Domain from '../../common/model/Domain.js';
-import Harmonic from '../../common/model/Harmonic.js';
 
 type SelfOptions = EmptySelfOptions;
 

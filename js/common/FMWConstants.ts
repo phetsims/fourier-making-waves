@@ -11,12 +11,12 @@ import Utils from '../../../dot/js/Utils.js';
 import { EraserButtonOptions } from '../../../scenery-phet/js/buttons/EraserButton.js';
 import { NumberControlOptions } from '../../../scenery-phet/js/NumberControl.js';
 import NumberDisplay from '../../../scenery-phet/js/NumberDisplay.js';
+import PhetFont from '../../../scenery-phet/js/PhetFont.js';
+import { Node, VBox } from '../../../scenery/js/imports.js';
 import ArrowButton from '../../../sun/js/buttons/ArrowButton.js';
 import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
 import { PanelOptions } from '../../../sun/js/Panel.js';
 import Slider from '../../../sun/js/Slider.js';
-import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import { Node, VBox } from '../../../scenery/js/imports.js';
 import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWColors from './FMWColors.js';
 

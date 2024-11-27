@@ -18,7 +18,10 @@ import GridLineSet from '../../../../bamboo/js/GridLineSet.js';
 import TickLabelSet from '../../../../bamboo/js/TickLabelSet.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import { Node, NodeOptions, RichText, Text } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
@@ -29,9 +32,6 @@ import InteractiveAmplitudesChart from '../model/InteractiveAmplitudesChart.js';
 import AmplitudeKeypadDialog from './AmplitudeKeypadDialog.js';
 import AmplitudeNumberDisplay, { AmplitudeNumberDisplayOptions } from './AmplitudeNumberDisplay.js';
 import AmplitudeSlider, { AmplitudeSliderOptions } from './AmplitudeSlider.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const X_MARGIN = 0.5; // x-axis margins, in model coordinates

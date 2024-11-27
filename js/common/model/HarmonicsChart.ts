@@ -16,10 +16,10 @@ import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescripti
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import AxisDescription from './AxisDescription.js';
+import Domain from './Domain.js';
 import DomainChart from './DomainChart.js';
 import EmphasizedHarmonics from './EmphasizedHarmonics.js';
 import FourierSeries from './FourierSeries.js';
-import Domain from './Domain.js';
 import SeriesType from './SeriesType.js';
 
 export default class HarmonicsChart extends DomainChart {

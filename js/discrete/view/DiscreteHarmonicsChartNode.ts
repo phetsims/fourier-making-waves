@@ -8,12 +8,12 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import HarmonicsChartNode from '../../common/view/HarmonicsChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteHarmonicsChart from '../model/DiscreteHarmonicsChart.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const X_TICK_LABEL_DECIMALS = 2;

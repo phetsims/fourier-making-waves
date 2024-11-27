@@ -16,6 +16,8 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
@@ -33,8 +35,6 @@ import AmplitudesGenerator from './AmplitudesGenerator.js';
 import WaveGameAmplitudesChart from './WaveGameAmplitudesChart.js';
 import WaveGameHarmonicsChart from './WaveGameHarmonicsChart.js';
 import WaveGameSumChart from './WaveGameSumChart.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 // constants
 

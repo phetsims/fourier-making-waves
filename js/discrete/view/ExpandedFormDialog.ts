@@ -8,22 +8,22 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { HBox, RichText, Text, VBox } from '../../../../scenery/js/imports.js';
 import Dialog from '../../../../sun/js/Dialog.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import Domain from '../../common/model/Domain.js';
+import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import DiscreteFourierSeries from '../model/DiscreteFourierSeries.js';
-import DiscreteSumEquationNode from './DiscreteSumEquationNode.js';
-import SeriesType from '../../common/model/SeriesType.js';
 import EquationForm from '../model/EquationForm.js';
-import Domain from '../../common/model/Domain.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import DiscreteSumEquationNode from './DiscreteSumEquationNode.js';
 
 // Maximum number of terms per line in the expanded form
 const TERMS_PER_LINE = 3;

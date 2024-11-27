@@ -10,15 +10,15 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
-import { FireListener } from '../../../../scenery/js/imports.js';
-import FMWConstants from '../../common/FMWConstants.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
-import Domain from '../../common/model/Domain.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { EmptySelfOptions, optionize3 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
+import { FireListener } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWConstants from '../../common/FMWConstants.js';
+import Domain from '../../common/model/Domain.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 type SelfOptions = EmptySelfOptions;
 

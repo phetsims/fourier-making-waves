@@ -10,12 +10,14 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import EraserButton, { EraserButtonOptions } from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { KeyboardListener, Node, RichText, Text, VBox, HotkeyData } from '../../../../scenery/js/imports.js';
+import { HotkeyData, KeyboardListener, Node, RichText, Text, VBox } from '../../../../scenery/js/imports.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import nullSoundPlayer from '../../../../tambo/js/nullSoundPlayer.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -38,8 +40,6 @@ import WaveGameAmplitudesChartNode from './WaveGameAmplitudesChartNode.js';
 import WaveGameHarmonicsChartNode from './WaveGameHarmonicsChartNode.js';
 import WaveGameRewardNode from './WaveGameRewardNode.js';
 import WaveGameSumChartNode from './WaveGameSumChartNode.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const DEFAULT_FONT = new PhetFont( 16 );

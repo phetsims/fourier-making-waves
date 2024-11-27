@@ -8,6 +8,8 @@
 
 import Range from '../../../../dot/js/Range.js';
 import ScreenIcon from '../../../../joist/js/ScreenIcon.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { HBox, Image, Line, Node, NodeOptions, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -20,8 +22,6 @@ import FMWConstants from '../FMWConstants.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
 import AmplitudeSlider from './AmplitudeSlider.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 const FMWIconFactory = {
 

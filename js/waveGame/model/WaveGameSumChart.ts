@@ -14,11 +14,11 @@ import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
+import Domain from '../../common/model/Domain.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
+import SeriesType from '../../common/model/SeriesType.js';
 import SumChart from '../../common/model/SumChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import Domain from '../../common/model/Domain.js';
-import SeriesType from '../../common/model/SeriesType.js';
-import FourierSeries from '../../common/model/FourierSeries.js';
 
 export default class WaveGameSumChart extends SumChart {
 

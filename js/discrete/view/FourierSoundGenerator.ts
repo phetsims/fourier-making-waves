@@ -10,13 +10,13 @@ import Disposable from '../../../../axon/js/Disposable.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Range from '../../../../dot/js/Range.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import OscillatorSoundGenerator from '../../../../tambo/js/sound-generators/OscillatorSoundGenerator.js';
 import SoundGenerator from '../../../../tambo/js/sound-generators/SoundGenerator.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import { Node } from '../../../../scenery/js/imports.js';
 
 // Output level range of each harmonic. These have a reduced range because harmonics are summed.
 // See https://github.com/phetsims/fourier-making-waves/issues/45

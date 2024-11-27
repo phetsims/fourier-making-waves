@@ -6,13 +6,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import StarNode from '../../../../scenery-phet/js/StarNode.js';
 import { HBox, HBoxOptions, Text } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
   points?: number;

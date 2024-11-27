@@ -9,6 +9,7 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -18,10 +19,9 @@ import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
+import WaveGameModel from '../model/WaveGameModel.js';
 import WaveGameInfoDialog from './WaveGameInfoDialog.js';
 import WaveGameLevelSelectionButtonGroup from './WaveGameLevelSelectionButtonGroup.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import WaveGameModel from '../model/WaveGameModel.js';
 
 export default class WaveGameLevelSelectionNode extends Node {
 

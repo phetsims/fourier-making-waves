@@ -7,6 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import TModel from '../../../../joist/js/TModel.js';
@@ -19,7 +20,6 @@ import WavePacketAmplitudesChart from './WavePacketAmplitudesChart.js';
 import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
 import WavePacketComponentsChart from './WavePacketComponentsChart.js';
 import WavePacketSumChart from './WavePacketSumChart.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 export default class WavePacketModel implements TModel {
 

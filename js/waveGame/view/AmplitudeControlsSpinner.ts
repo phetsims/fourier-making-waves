@@ -7,14 +7,14 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Text, TextOptions, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
   textOptions?: StrictOmit<TextOptions, 'tandem'>;

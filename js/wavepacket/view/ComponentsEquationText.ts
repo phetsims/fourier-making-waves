@@ -11,10 +11,10 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import { RichText } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import Domain from '../../common/model/Domain.js';
+import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import SeriesType from '../../common/model/SeriesType.js';
-import Domain from '../../common/model/Domain.js';
 
 export default class ComponentsEquationText extends RichText {
 

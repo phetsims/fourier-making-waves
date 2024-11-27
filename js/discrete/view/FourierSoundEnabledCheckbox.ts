@@ -6,14 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import { Path } from '../../../../scenery/js/imports.js';
 import musicSolidShape from '../../../../sherpa/js/fontawesome-5/musicSolidShape.js';
 import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import Property from '../../../../axon/js/Property.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 export default class FourierSoundEnabledCheckbox extends Checkbox {
 

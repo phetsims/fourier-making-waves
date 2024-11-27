@@ -8,11 +8,11 @@
 
 import { RichText, Text, VBox } from '../../../../scenery/js/imports.js';
 import Dialog from '../../../../sun/js/Dialog.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWDerivedStrings from '../../common/FMWDerivedStrings.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import FMWDerivedStrings from '../../common/FMWDerivedStrings.js';
 
 // constants
 const MAX_WIDTH = 800; // determined empirically

@@ -16,9 +16,9 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescriptions.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
+import Domain from './Domain.js';
 import DomainChart from './DomainChart.js';
 import FourierSeries from './FourierSeries.js';
-import Domain from './Domain.js';
 import SeriesType from './SeriesType.js';
 
 export default class SumChart extends DomainChart {

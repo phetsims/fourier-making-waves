@@ -7,16 +7,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import FMWColors from '../../common/FMWColors.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WavePacketMeasurementToolNode, { WavePacketMeasurementToolNodeOptions } from './WavePacketMeasurementToolNode.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Domain from '../../common/model/Domain.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import FMWColors from '../../common/FMWColors.js';
 import FMWDerivedStrings from '../../common/FMWDerivedStrings.js';
+import Domain from '../../common/model/Domain.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
+import WavePacketMeasurementToolNode, { WavePacketMeasurementToolNodeOptions } from './WavePacketMeasurementToolNode.js';
 
 type SelfOptions = EmptySelfOptions;
 

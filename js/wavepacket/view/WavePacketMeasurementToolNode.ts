@@ -10,9 +10,13 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import { Circle, DragListener, KeyboardDragListener, Node, NodeOptions, RichText, TPaint } from '../../../../scenery/js/imports.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -21,10 +25,6 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import CalipersNode from '../../common/view/CalipersNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 
 const RICH_TEXT_OPTIONS = {
   font: FMWConstants.TOOL_LABEL_FONT,

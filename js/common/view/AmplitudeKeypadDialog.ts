@@ -7,27 +7,27 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Keypad from '../../../../scenery-phet/js/keypad/Keypad.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, NodeOptions, Rectangle, RectangleOptions, RichText, RichTextOptions, Text, TPaint, VBox } from '../../../../scenery/js/imports.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 // constants
 const TITLE_FONT = new PhetFont( 18 );

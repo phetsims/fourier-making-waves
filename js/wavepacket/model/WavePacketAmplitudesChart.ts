@@ -17,11 +17,11 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
+import Domain from '../../common/model/Domain.js';
 import DomainChart from '../../common/model/DomainChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
 import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
-import Domain from '../../common/model/Domain.js';
 
 // constants
 const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;

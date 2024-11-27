@@ -10,9 +10,9 @@
 import { Color, Path } from '../../../../scenery/js/imports.js';
 import eyeSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSolidShape.js';
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class ExpandedFormButton extends RoundPushButton {
 

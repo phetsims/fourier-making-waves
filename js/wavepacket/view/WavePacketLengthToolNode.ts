@@ -7,18 +7,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import FMWColors from '../../common/FMWColors.js';
-import FMWSymbols from '../../common/FMWSymbols.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WavePacketMeasurementToolNode, { WavePacketMeasurementToolNodeOptions } from './WavePacketMeasurementToolNode.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Domain from '../../common/model/Domain.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWColors from '../../common/FMWColors.js';
+import FMWSymbols from '../../common/FMWSymbols.js';
+import Domain from '../../common/model/Domain.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
+import WavePacketMeasurementToolNode, { WavePacketMeasurementToolNodeOptions } from './WavePacketMeasurementToolNode.js';
 
 type SelfOptions = EmptySelfOptions;
 

@@ -8,13 +8,13 @@
  */
 
 import dotRandom from '../../../../dot/js/dotRandom.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import Harmonic from '../../common/model/Harmonic.js';
+import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import InteractiveAmplitudesChartNode from '../../common/view/InteractiveAmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameAmplitudesChart from '../model/WaveGameAmplitudesChart.js';
-import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import Harmonic from '../../common/model/Harmonic.js';
 
 export default class WaveGameAmplitudesChartNode extends InteractiveAmplitudesChartNode {
 

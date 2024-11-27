@@ -18,21 +18,21 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { Circle, DragListener, KeyboardDragListener, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
+import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Domain from '../../common/model/Domain.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
   position?: Vector2;

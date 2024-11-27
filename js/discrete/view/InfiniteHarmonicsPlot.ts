@@ -9,13 +9,13 @@
  */
 
 import Emitter from '../../../../axon/js/Emitter.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
+import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 
 export default class InfiniteHarmonicsPlot extends CanvasLinePlot {
 

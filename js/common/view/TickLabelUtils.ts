@@ -8,7 +8,9 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Fraction from '../../../../phetcommon/js/model/Fraction.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { Node, RichText, RichTextOptions, Text, TextOptions } from '../../../../scenery/js/imports.js';
@@ -17,8 +19,6 @@ import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
 import TickLabelFormat from '../model/TickLabelFormat.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 const TickLabelUtils = {
 

@@ -7,6 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
@@ -30,7 +31,6 @@ import WavePacketControlPanel from './WavePacketControlPanel.js';
 import WavePacketLengthToolNode from './WavePacketLengthToolNode.js';
 import WavePacketSumChartNode from './WavePacketSumChartNode.js';
 import WavePacketSumEquationNode from './WavePacketSumEquationNode.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 export default class WavePacketScreenView extends ScreenView {
 

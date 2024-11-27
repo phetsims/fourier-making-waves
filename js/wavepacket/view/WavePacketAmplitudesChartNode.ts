@@ -13,6 +13,8 @@ import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import Range from '../../../../dot/js/Range.js';
 import { Shape } from '../../../../kite/js/imports.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { Color, LinearGradient, Node } from '../../../../scenery/js/imports.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
@@ -23,8 +25,6 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketAmplitudesChart from '../model/WavePacketAmplitudesChart.js';
 import GaussianAreaPlot from './GaussianAreaPlot.js';
 import WidthIndicatorPlot from './WidthIndicatorPlot.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // constants
 const X_TICK_LABEL_DECIMALS = 0;

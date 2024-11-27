@@ -6,12 +6,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, RichText } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
@@ -19,9 +22,6 @@ import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import SumSymbolNode from '../../common/view/SumSymbolNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 export default class WavePacketSumEquationNode extends Node {
 

@@ -9,11 +9,15 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import { Shape } from '../../../../kite/js/imports.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { Color, Node, NodeTranslationOptions, Path, PressListener, Rectangle } from '../../../../scenery/js/imports.js';
 import Slider, { SliderOptions } from '../../../../sun/js/Slider.js';
 import SliderTrack, { SliderTrackOptions } from '../../../../sun/js/SliderTrack.js';
@@ -22,10 +26,6 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 // constants
 const TRACK_WIDTH = 40; // track height is specified in constructor options

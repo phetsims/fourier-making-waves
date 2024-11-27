@@ -6,15 +6,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { HBox, Line, Text } from '../../../../scenery/js/imports.js';
-import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
-import FMWColors from '../../common/FMWColors.js';
-import FMWConstants from '../../common/FMWConstants.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import { HBox, Line, Text } from '../../../../scenery/js/imports.js';
+import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWColors from '../../common/FMWColors.js';
+import FMWConstants from '../../common/FMWConstants.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class SecondaryWaveformCheckbox extends Checkbox {
 

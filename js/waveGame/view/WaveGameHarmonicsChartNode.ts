@@ -8,10 +8,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Tandem from '../../../../tandem/js/Tandem.js';
 import HarmonicsChartNode from '../../common/view/HarmonicsChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameHarmonicsChart from '../model/WaveGameHarmonicsChart.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class WaveGameHarmonicsChartNode extends HarmonicsChartNode {
 

@@ -6,10 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import animationFrameTimer from '../../../../axon/js/animationFrameTimer.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';

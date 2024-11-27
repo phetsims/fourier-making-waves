@@ -12,7 +12,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import AxisLine, { AxisLineOptions } from '../../../../bamboo/js/AxisLine.js';
 import ChartRectangle, { ChartRectangleOptions } from '../../../../bamboo/js/ChartRectangle.js';
 import ChartTransform, { ChartTransformOptions } from '../../../../bamboo/js/ChartTransform.js';
@@ -22,23 +25,20 @@ import TickMarkSet, { TickMarkSetOptions } from '../../../../bamboo/js/TickMarkS
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import { Shape } from '../../../../kite/js/imports.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import Orientation from '../../../../phet-core/js/Orientation.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomButtonGroup.js';
 import { Node, NodeOptions, RichText, RichTextOptions } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import FMWColors from '../FMWColors.js';
 import FMWConstants from '../FMWConstants.js';
+import FMWDerivedStrings from '../FMWDerivedStrings.js';
 import Domain from '../model/Domain.js';
 import DomainChart from '../model/DomainChart.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import FMWDerivedStrings from '../FMWDerivedStrings.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 const DEFAULT_EDGE = 'min';
 

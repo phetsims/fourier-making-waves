@@ -7,13 +7,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import InteractiveAmplitudesChartNode from '../../common/view/InteractiveAmplitudesChartNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteAmplitudesChart from '../model/DiscreteAmplitudesChart.js';
-import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import Waveform from '../model/Waveform.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import Property from '../../../../axon/js/Property.js';
 
 export default class DiscreteAmplitudesChartNode extends InteractiveAmplitudesChartNode {
 

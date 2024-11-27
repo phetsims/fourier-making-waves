@@ -8,12 +8,16 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import { HBox, HSeparator, Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import Domain from '../../common/model/Domain.js';
+import SeriesType from '../../common/model/SeriesType.js';
 import DomainComboBox from '../../common/view/DomainComboBox.js';
 import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -27,10 +31,6 @@ import LengthToolCheckbox from './LengthToolCheckbox.js';
 import StandardDeviationControl from './StandardDeviationControl.js';
 import WavePacketInfoDialog from './WavePacketInfoDialog.js';
 import WidthIndicatorsCheckbox from './WidthIndicatorsCheckbox.js';
-import Property from '../../../../axon/js/Property.js';
-import Domain from '../../common/model/Domain.js';
-import SeriesType from '../../common/model/SeriesType.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const VERTICAL_SPACING = 7;

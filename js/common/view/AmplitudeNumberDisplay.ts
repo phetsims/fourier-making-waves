@@ -8,10 +8,15 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import NumberDisplay, { NumberDisplayOptions } from '../../../../scenery-phet/js/NumberDisplay.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { InteractiveHighlighting, NodeTranslationOptions, PressListener, RichText, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWQueryParameters from '../FMWQueryParameters.js';
@@ -19,11 +24,6 @@ import FMWSymbols from '../FMWSymbols.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
 import AmplitudeKeypadDialog from './AmplitudeKeypadDialog.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const DEFAULT_FONT = new PhetFont( 14 );

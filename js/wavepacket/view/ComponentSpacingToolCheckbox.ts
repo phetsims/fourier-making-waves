@@ -7,14 +7,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import FMWColors from '../../common/FMWColors.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
-import CaliperCheckbox from './CaliperCheckbox.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Domain from '../../common/model/Domain.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import FMWColors from '../../common/FMWColors.js';
 import FMWDerivedStrings from '../../common/FMWDerivedStrings.js';
+import Domain from '../../common/model/Domain.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
+import CaliperCheckbox from './CaliperCheckbox.js';
 
 export default class ComponentSpacingToolCheckbox extends CaliperCheckbox {
 

@@ -6,11 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import SecondaryWaveformCheckbox from '../../common/view/SecondaryWaveformCheckbox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
-import Property from '../../../../axon/js/Property.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class InfiniteHarmonicsCheckbox extends SecondaryWaveformCheckbox {
 

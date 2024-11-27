@@ -12,10 +12,10 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
 import InteractiveAmplitudesChart from '../../common/model/InteractiveAmplitudesChart.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import FourierSeries from '../../common/model/FourierSeries.js';
-import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 
 export default class WaveGameAmplitudesChart extends InteractiveAmplitudesChart {
 

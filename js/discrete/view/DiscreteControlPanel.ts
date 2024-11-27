@@ -9,8 +9,10 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import audioManager from '../../../../joist/js/audioManager.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import { AlignBox, AlignBoxOptions, AlignGroup, Color, HBox, HBoxOptions, HSeparator, Node, Path, SceneryConstants, Text, VBox } from '../../../../scenery/js/imports.js';
 import volumeDownSolidShape from '../../../../sherpa/js/fontawesome-5/volumeDownSolidShape.js';
@@ -23,12 +25,15 @@ import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
+import SeriesType from '../../common/model/SeriesType.js';
 import DomainComboBox from '../../common/view/DomainComboBox.js';
 import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonGroup.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
+import DiscreteFourierSeries from '../model/DiscreteFourierSeries.js';
 import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
 import DiscreteModel from '../model/DiscreteModel.js';
+import EquationForm from '../model/EquationForm.js';
 import Waveform from '../model/Waveform.js';
 import DiscreteInfoDialog from './DiscreteInfoDialog.js';
 import EquationComboBox from './EquationComboBox.js';
@@ -38,11 +43,6 @@ import OrderSpinner from './OrderSpinner.js';
 import PeriodCheckbox from './PeriodCheckbox.js';
 import WaveformComboBox from './WaveformComboBox.js';
 import WavelengthCheckbox from './WavelengthCheckbox.js';
-import DiscreteFourierSeries from '../model/DiscreteFourierSeries.js';
-import Property from '../../../../axon/js/Property.js';
-import SeriesType from '../../common/model/SeriesType.js';
-import EquationForm from '../model/EquationForm.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 export default class DiscreteControlPanel extends Panel {
 

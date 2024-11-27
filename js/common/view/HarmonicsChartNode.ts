@@ -9,12 +9,12 @@
 
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import { Shape } from '../../../../kite/js/imports.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { Color } from '../../../../scenery/js/imports.js';
 import HarmonicPlot from '../../discrete/view/HarmonicPlot.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import HarmonicsChart from '../model/HarmonicsChart.js';
 import DomainChartNode, { DomainChartNodeOptions } from './DomainChartNode.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const NORMAL_LINE_WIDTH = 1;

@@ -6,16 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import { Node, RichText } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import EquationMarkup from '../../common/view/EquationMarkup.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
+import EquationMarkup from '../../common/view/EquationMarkup.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
 import EquationForm from '../model/EquationForm.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 export default class HarmonicsEquationNode extends Node {
 

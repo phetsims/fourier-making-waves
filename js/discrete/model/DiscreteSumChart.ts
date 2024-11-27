@@ -18,14 +18,14 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import AxisDescription from '../../common/model/AxisDescription.js';
+import Domain from '../../common/model/Domain.js';
+import FourierSeries from '../../common/model/FourierSeries.js';
+import SeriesType from '../../common/model/SeriesType.js';
 import SumChart from '../../common/model/SumChart.js';
+import TickLabelFormat from '../../common/model/TickLabelFormat.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Waveform from './Waveform.js';
-import FourierSeries from '../../common/model/FourierSeries.js';
-import Domain from '../../common/model/Domain.js';
-import SeriesType from '../../common/model/SeriesType.js';
-import TickLabelFormat from '../../common/model/TickLabelFormat.js';
-import AxisDescription from '../../common/model/AxisDescription.js';
 
 // constants
 const EMPTY_DATA_SET = FMWConstants.EMPTY_DATA_SET;

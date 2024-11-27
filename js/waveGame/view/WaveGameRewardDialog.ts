@@ -10,8 +10,8 @@ import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RewardDialog from '../../../../vegas/js/RewardDialog.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import WaveGameRewardNode from './WaveGameRewardNode.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
+import WaveGameRewardNode from './WaveGameRewardNode.js';
 
 export default class WaveGameRewardDialog extends RewardDialog {
 

@@ -8,12 +8,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import StarNode from '../../../../scenery-phet/js/StarNode.js';
 import RewardNode, { RewardNodeOptions } from '../../../../vegas/js/RewardNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // constants
 const NUMBER_OF_NODES = 100;

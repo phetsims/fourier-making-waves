@@ -10,13 +10,13 @@
 import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartCanvasNode from '../../../../bamboo/js/ChartCanvasNode.js';
 import { Shape } from '../../../../kite/js/imports.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { ProfileColorProperty } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColors from '../FMWColors.js';
 import SumChart from '../model/SumChart.js';
 import DomainChartNode, { DomainChartNodeOptions } from './DomainChartNode.js';
-import { ProfileColorProperty } from '../../../../scenery/js/imports.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
 

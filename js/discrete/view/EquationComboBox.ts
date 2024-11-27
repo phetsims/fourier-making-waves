@@ -9,15 +9,15 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import { Node } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import FMWDerivedStrings from '../../common/FMWDerivedStrings.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import FMWComboBox, { FMWComboBoxChoice } from '../../common/view/FMWComboBox.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import EquationForm from '../model/EquationForm.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import FMWDerivedStrings from '../../common/FMWDerivedStrings.js';
 
 const TEXT_MAX_WIDTH = 70;
 

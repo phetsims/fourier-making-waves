@@ -9,12 +9,12 @@
  */
 
 import { Shape } from '../../../../kite/js/imports.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import BackgroundNode, { BackgroundNodeOptions } from '../../../../scenery-phet/js/BackgroundNode.js';
 import { Node, NodeOptions, Path, PathOptions, Rectangle, RichText, RichTextOptions, TPaint } from '../../../../scenery/js/imports.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 
 // These constants determine the shape of the beam and jaws.
 const BEAM_THICKNESS = 5;

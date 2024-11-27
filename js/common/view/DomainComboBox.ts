@@ -7,13 +7,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import { Node } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
+import FMWDerivedStrings from '../FMWDerivedStrings.js';
 import Domain from '../model/Domain.js';
 import FMWComboBox, { FMWComboBoxChoice } from './FMWComboBox.js';
-import Property from '../../../../axon/js/Property.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import FMWDerivedStrings from '../FMWDerivedStrings.js';
 
 // This format is specific to FMWComboBox.
 const CHOICES: FMWComboBoxChoice<Domain>[] = [

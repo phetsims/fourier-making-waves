@@ -10,6 +10,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import EraserButton, { EraserButtonOptions } from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import OopsDialog from '../../../../scenery-phet/js/OopsDialog.js';
@@ -40,7 +41,6 @@ import InfiniteHarmonicsCheckbox from './InfiniteHarmonicsCheckbox.js';
 import PeriodCalipersNode from './PeriodCalipersNode.js';
 import PeriodClockNode from './PeriodClockNode.js';
 import WavelengthCalipersNode from './WavelengthCalipersNode.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 export default class DiscreteScreenView extends ScreenView {
 

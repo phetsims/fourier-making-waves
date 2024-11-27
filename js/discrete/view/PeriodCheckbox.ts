@@ -6,17 +6,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
+import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Domain from '../../common/model/Domain.js';
-import Property from '../../../../axon/js/Property.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 export default class PeriodCheckbox extends Checkbox {
 

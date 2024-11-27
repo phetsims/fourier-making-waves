@@ -6,12 +6,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import fourierMakingWaves from '../fourierMakingWaves.js';
-import FMWSymbols from './FMWSymbols.js';
 import PatternStringProperty from '../../../axon/js/PatternStringProperty.js';
-import FourierMakingWavesStrings from '../FourierMakingWavesStrings.js';
 import StringProperty from '../../../axon/js/StringProperty.js';
 import Tandem from '../../../tandem/js/Tandem.js';
+import fourierMakingWaves from '../fourierMakingWaves.js';
+import FourierMakingWavesStrings from '../FourierMakingWavesStrings.js';
+import FMWSymbols from './FMWSymbols.js';
 
 const DERIVED_STRINGS_TANDEM = Tandem.getDerivedStringsTandem();
 

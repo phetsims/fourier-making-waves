@@ -8,21 +8,21 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, NodeOptions, RichText } from '../../../../scenery/js/imports.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
+import Domain from '../../common/model/Domain.js';
+import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import SumSymbolNode from '../../common/view/SumSymbolNode.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Domain from '../../common/model/Domain.js';
-import SeriesType from '../../common/model/SeriesType.js';
 import EquationForm from '../model/EquationForm.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
 const EQUAL_TO = MathSymbols.EQUAL_TO;

@@ -7,15 +7,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
+import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import CaliperCheckbox from './CaliperCheckbox.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import Property from '../../../../axon/js/Property.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Domain from '../../common/model/Domain.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 export default class LengthToolCheckbox extends CaliperCheckbox {
 

@@ -6,16 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { FireListener, HBox, HBoxOptions, Text, TextOptions } from '../../../../scenery/js/imports.js';
-import ExpandCollapseButton from '../../../../sun/js/ExpandCollapseButton.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
-import FMWConstants from '../FMWConstants.js';
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import { FireListener, HBox, HBoxOptions, Text, TextOptions } from '../../../../scenery/js/imports.js';
+import ExpandCollapseButton from '../../../../sun/js/ExpandCollapseButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import fourierMakingWaves from '../../fourierMakingWaves.js';
+import FMWConstants from '../FMWConstants.js';
 
 type SelfOptions = {
   textOptions?: StrictOmit<TextOptions, 'tandem'>;
