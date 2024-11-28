@@ -1,4 +1,4 @@
-// Copyright 2021-2023, University of Colorado Boulder
+// Copyright 2021-2024, University of Colorado Boulder
 
 /**
  * InteractiveAmplitudesChart is the model base class model for the 'Amplitudes' chart in the 'Discrete' and

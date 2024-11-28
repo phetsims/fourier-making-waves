@@ -1,4 +1,4 @@
-// Copyright 2021-2023, University of Colorado Boulder
+// Copyright 2021-2024, University of Colorado Boulder
 
 /**
  * LabeledExpandCollapseButton adds a label to the right of an ExpandCollapseButton.

@@ -1,4 +1,4 @@
-// Copyright 2021-2023, University of Colorado Boulder
+// Copyright 2021-2024, University of Colorado Boulder
 
 /**
  * CaliperCheckbox is a checkbox for changing the visibility of measurement tools that look like calipers.

@@ -1,4 +1,4 @@
-// Copyright 2021-2023, University of Colorado Boulder
+// Copyright 2021-2024, University of Colorado Boulder
 
 /**
  * ComponentSpacingToolCheckbox is the checkbox for changing visibility of the Component Spacing tool (e.g. k1) in the

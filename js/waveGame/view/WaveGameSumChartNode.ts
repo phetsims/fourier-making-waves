@@ -1,4 +1,4 @@
-// Copyright 2021-2023, University of Colorado Boulder
+// Copyright 2021-2024, University of Colorado Boulder
 
 /**
  * WaveGameSumChartNode is the view for the 'Sum' chart in the 'Wave Game' screen. Rendering of the sum for the

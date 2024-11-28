@@ -1,4 +1,4 @@
-// Copyright 2021-2023, University of Colorado Boulder
+// Copyright 2021-2024, University of Colorado Boulder
 
 /**
  * DomainChart is the base class model for all charts except the Amplitudes chart in the 'Discrete' and 'Wave Game'

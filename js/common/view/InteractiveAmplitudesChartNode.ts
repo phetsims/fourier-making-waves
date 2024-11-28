@@ -1,4 +1,4 @@
-// Copyright 2020-2023, University of Colorado Boulder
+// Copyright 2020-2024, University of Colorado Boulder
 
 /**
  * InteractiveAmplitudesChartNode is the base class for the Amplitudes charts in the 'Discrete' and 'Wave Game' screens,
