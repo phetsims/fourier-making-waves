@@ -36,7 +36,6 @@ export default class WavePacketNumberControl extends NumberControl {
                          domainProperty: EnumerationProperty<Domain>,
                          providedOptions: WavePacketNumberControlOptions ) {
 
-    //TODO https://github.com/phetsims/fourier-making-waves/issues/56 add Slider sound
     const options = optionize3<WavePacketNumberControlOptions, SelfOptions, NumberControlOptions>()(
       {}, FMWConstants.WAVE_PACKET_NUMBER_CONTROL_OPTIONS, providedOptions );
 
