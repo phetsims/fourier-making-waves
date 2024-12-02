@@ -385,8 +385,11 @@ export default class DiscreteScreenView extends ScreenView {
 
     // For measuring a harmonic's period in the 'space & time' Domain.
     const periodClockNode = new PeriodClockNode( model, {
+
+      // Initial position is such that its label in not obscured when at maxWidth.
+      // See https://github.com/phetsims/fourier-making-waves/issues/252
       position: new Vector2(
-        harmonicsChartRectangleLocalBounds.right,
+        harmonicsChartRectangleLocalBounds.right - 80,
         harmonicsChartNode.bottom + ( sumChartRectangleLocalBounds.minY - harmonicsChartNode.bottom ) / 2
       ),
       dragBounds: measurementToolsDragBounds,
