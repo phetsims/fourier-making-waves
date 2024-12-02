@@ -48,8 +48,20 @@ export default class DiscreteControlPanel extends Panel {
 
   public constructor( model: DiscreteModel, popupParent: Node, tandem: Tandem ) {
 
+    // Dialog that displays a key for math symbols. Created eagerly and reused for PhET-iO.
+    const infoDialog = new DiscreteInfoDialog( tandem.createTandem( 'infoDialog' ) );
+
+    // Button to open the dialog
+    const infoButton = new InfoButton( {
+      listener: () => infoDialog.show(),
+      iconFill: 'rgb( 50, 145, 184 )',
+      scale: 0.4,
+      touchAreaDilation: 15,
+      tandem: tandem.createTandem( 'infoButton' )
+    } );
+
     const fourierSeriesSubpanel = new FourierSeriesSubpanel( model.fourierSeries, model.waveformProperty, popupParent,
-      tandem.createTandem( 'fourierSeriesSubpanel' ) );
+      infoButton, tandem.createTandem( 'fourierSeriesSubpanel' ) );
 
     // {Node[]} logical sections of the control panel
     const sectionNodes = [
@@ -77,40 +89,13 @@ export default class DiscreteControlPanel extends Panel {
       spacing: FMWConstants.VBOX_SPACING
     } );
 
-    // Dialog that displays a key for math symbols. Created eagerly and reused for PhET-iO.
-    const infoDialog = new DiscreteInfoDialog( tandem.createTandem( 'infoDialog' ) );
-
-    // Button to open the dialog
-    const infoButton = new InfoButton( {
-      listener: () => infoDialog.show(),
-      iconFill: 'rgb( 50, 145, 184 )',
-      scale: 0.4,
-      touchAreaDilation: 15,
-      tandem: tandem.createTandem( 'infoButton' )
-    } );
-
-    const content = new Node( {
-      children: [ vBox, infoButton ]
-    } );
-
-    // InfoButton at upper-right of control panel, vertically centered on title.
-    infoButton.right = vBox.right;
-    infoButton.centerY = fourierSeriesSubpanel.fourierSeriesText.boundsTo( vBox ).centerY;
-
-    super( content, combineOptions<PanelOptions>( {}, FMWConstants.PANEL_OPTIONS, {
+    super( vBox, combineOptions<PanelOptions>( {}, FMWConstants.PANEL_OPTIONS, {
 
       // PanelOptions
       maxWidth: 258, // as a fallback, in case some subcomponent is misbehaving
       isDisposable: false,
       tandem: tandem
     } ) );
-
-    // pdom - traversal order
-    // See https://github.com/phetsims/fourier-making-waves/issues/53
-    this.pdomOrder = [
-      infoButton,
-      vBox
-    ];
   }
 }
 
@@ -119,10 +104,8 @@ export default class DiscreteControlPanel extends Panel {
  */
 class FourierSeriesSubpanel extends VBox {
 
-  public readonly fourierSeriesText: Text;
-
   public constructor( fourierSeries: DiscreteFourierSeries, waveformProperty: Property<Waveform>,
-                      popupParent: Node, tandem: Tandem ) {
+                      popupParent: Node, infoButton: InfoButton, tandem: Tandem ) {
 
     // To make all labels have the same effective width
     const labelsAlignBoxOptions: AlignBoxOptions = {
@@ -136,6 +119,14 @@ class FourierSeriesSubpanel extends VBox {
     const fourierSeriesText = new Text( FourierMakingWavesStrings.fourierSeriesStringProperty, {
       font: FMWConstants.TITLE_FONT,
       maxWidth: 180 // determined empirically
+    } );
+
+    // Put the info button to the right of the title.
+    const titleHBox = new HBox( {
+      children: [ fourierSeriesText, infoButton ],
+      layoutOptions: {
+        stretch: true
+      }
     } );
 
     // Waveform combo box
@@ -174,7 +165,7 @@ class FourierSeriesSubpanel extends VBox {
 
       // VBoxOptions
       children: [
-        fourierSeriesText,
+        titleHBox,
         waveformBox,
         harmonicsBox,
         soundBox
@@ -184,8 +175,6 @@ class FourierSeriesSubpanel extends VBox {
       isDisposable: false,
       tandem: tandem
     } );
-
-    this.fourierSeriesText = fourierSeriesText;
   }
 }
 
