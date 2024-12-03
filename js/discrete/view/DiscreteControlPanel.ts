@@ -284,7 +284,7 @@ class MeasurementToolsSubpanel extends VBox {
     // To make spinners have the same effective width
     const spinnerAlignBoxOptions: AlignBoxOptions = {
       group: new AlignGroup( { matchVertical: false } ),
-      xAlign: 'center'
+      xAlign: 'left'
     };
 
     const hBoxOptions = {
