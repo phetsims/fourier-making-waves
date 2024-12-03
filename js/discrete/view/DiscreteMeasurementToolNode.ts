@@ -25,7 +25,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { Circle, DragListener, KeyboardDragListener, Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import { Circle, DragListener, InteractiveHighlighting, KeyboardDragListener, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import Domain from '../../common/model/Domain.js';
@@ -44,7 +44,7 @@ export type DiscreteMeasurementToolNodeOptions = SelfOptions &
   PickOptional<NodeOptions, 'children'> &
   PickRequired<NodeOptions, 'tandem'>;
 
-export default class DiscreteMeasurementToolNode extends Node {
+export default class DiscreteMeasurementToolNode extends InteractiveHighlighting( Node ) {
 
   private readonly harmonicProperty: TReadOnlyProperty<Harmonic>;
   private readonly emphasizedHarmonics: EmphasizedHarmonics;

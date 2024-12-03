@@ -18,7 +18,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
-import { Circle, DragListener, KeyboardDragListener, Node, NodeOptions, RichText, TPaint } from '../../../../scenery/js/imports.js';
+import { Circle, DragListener, InteractiveHighlighting, KeyboardDragListener, Node, NodeOptions, RichText, TPaint } from '../../../../scenery/js/imports.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
@@ -41,7 +41,7 @@ type SelfOptions = {
 
 export type WavePacketMeasurementToolNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
-export default class WavePacketMeasurementToolNode extends Node {
+export default class WavePacketMeasurementToolNode extends InteractiveHighlighting( Node ) {
 
   private readonly positionProperty: Property<Vector2>;
 
