@@ -277,13 +277,13 @@ class MeasurementToolsSubpanel extends VBox {
 
     // To make checkboxes have the same effective width
     const checkboxAlignBoxOptions: AlignBoxOptions = {
-      group: new AlignGroup( { matchVertical: false } ),
+      group: new AlignGroup(),
       xAlign: 'left'
     };
 
     // To make spinners have the same effective width
     const spinnerAlignBoxOptions: AlignBoxOptions = {
-      group: new AlignGroup( { matchVertical: false } ),
+      group: new AlignGroup(),
       xAlign: 'left'
     };
 
