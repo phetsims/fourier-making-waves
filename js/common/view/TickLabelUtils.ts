@@ -34,58 +34,10 @@ const TickLabelUtils = {
   },
 
   /**
-   * Creates a symbolic tick label, by converting a value to a symbol and a fraction.
-   */
-  createSymbolicTickLabel( value: number, symbol: string | TReadOnlyProperty<string>, symbolValue: number,
-                           coefficientDecimals: number, providedOptions?: RichTextOptions ): Node {
-
-    const options = combineOptions<RichTextOptions>( {
-      font: FMWConstants.TICK_LABEL_FONT,
-      maxWidth: 25
-    }, providedOptions );
-
-    let richTextArgument;
-    if ( value === 0 ) {
-      richTextArgument = '0';
-    }
-    else {
-
-      // Convert the coefficient to a fraction
-      const coefficient = Utils.toFixedNumber( value / symbolValue, coefficientDecimals );
-      const fraction = Fraction.fromDecimal( coefficient );
-
-      // Pieces of the fraction that we need to create the RichText markup, with trailing zeros truncated
-      const sign = Math.sign( value );
-      const numerator = Math.abs( Utils.toFixedNumber( fraction.numerator, 0 ) );
-      const denominator = Math.abs( Utils.toFixedNumber( fraction.denominator, 0 ) );
-
-      const symbolStringProperty = ( typeof symbol === 'string' ) ? new StringProperty( symbol ) : symbol;
-
-      // Not instrumented for PhET-iO.
-      richTextArgument = new DerivedProperty( [ symbolStringProperty ], symbol => {
-        let text = '';
-        if ( sign === -1 ) {
-          text += MathSymbols.UNARY_MINUS;
-        }
-        if ( numerator !== 1 ) {
-          text += numerator;
-        }
-        text += symbol;
-        if ( denominator !== 1 ) {
-          text += `/${denominator}`;
-        }
-        return text;
-      } );
-    }
-
-    return new RichText( richTextArgument, options );
-  },
-
-  /**
    * Creates a tick label for multiples of PI, by converting a value to a coefficient followed by the PI symbol.
    */
   createPiTickLabel( value: number, coefficientDecimals: number, options?: RichTextOptions ): Node {
-    return TickLabelUtils.createSymbolicTickLabel( value, FMWSymbols.piMarkup, Math.PI, coefficientDecimals, options );
+    return createSymbolicTickLabel( value, FMWSymbols.piMarkup, Math.PI, coefficientDecimals, options );
   },
 
   /**
@@ -105,10 +57,58 @@ const TickLabelUtils = {
     else {
       const symbolStringProperty = ( domain === Domain.TIME ) ? FMWSymbols.TMarkupStringProperty : FMWSymbols.LMarkupStringProperty;
       const symbolValue = ( domain === Domain.TIME ) ? T : L;
-      return TickLabelUtils.createSymbolicTickLabel( value, symbolStringProperty, symbolValue, decimalPlaces );
+      return createSymbolicTickLabel( value, symbolStringProperty, symbolValue, decimalPlaces );
     }
   }
 };
+
+/**
+ * Creates a symbolic tick label, by converting a value to a symbol and a fraction.
+ */
+function createSymbolicTickLabel( value: number, symbol: string | TReadOnlyProperty<string>, symbolValue: number,
+  coefficientDecimals: number, providedOptions?: RichTextOptions ): Node {
+
+  const options = combineOptions<RichTextOptions>( {
+    font: FMWConstants.TICK_LABEL_FONT,
+    maxWidth: 25
+  }, providedOptions );
+
+  let richTextArgument;
+  if ( value === 0 ) {
+    richTextArgument = '0';
+  }
+  else {
+
+    // Convert the coefficient to a fraction
+    const coefficient = Utils.toFixedNumber( value / symbolValue, coefficientDecimals );
+    const fraction = Fraction.fromDecimal( coefficient );
+
+    // Pieces of the fraction that we need to create the RichText markup, with trailing zeros truncated
+    const sign = Math.sign( value );
+    const numerator = Math.abs( Utils.toFixedNumber( fraction.numerator, 0 ) );
+    const denominator = Math.abs( Utils.toFixedNumber( fraction.denominator, 0 ) );
+
+    const symbolStringProperty = ( typeof symbol === 'string' ) ? new StringProperty( symbol ) : symbol;
+
+    // Not instrumented for PhET-iO.
+    richTextArgument = new DerivedProperty( [ symbolStringProperty ], symbol => {
+      let text = '';
+      if ( sign === -1 ) {
+        text += MathSymbols.UNARY_MINUS;
+      }
+      if ( numerator !== 1 ) {
+        text += numerator;
+      }
+      text += symbol;
+      if ( denominator !== 1 ) {
+        text += `/${denominator}`;
+      }
+      return text;
+    } );
+  }
+
+  return new RichText( richTextArgument, options );
+}
 
 fourierMakingWaves.register( 'TickLabelUtils', TickLabelUtils );
 export default TickLabelUtils;
