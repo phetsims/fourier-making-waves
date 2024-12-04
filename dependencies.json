@@ -1,5 +1,5 @@
 {
-  "comment": "# fourier-making-waves 1.1.0-dev.5 Mon Dec 02 2024 11:28:14 GMT-0700 (Mountain Standard Time)",
+  "comment": "# fourier-making-waves 1.1.0-dev.6 Wed Dec 04 2024 13:13:59 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "386a2323ecc3b36fbe30babf13b660dc1cc522a8",
     "branch": "main"
@@ -17,27 +17,27 @@
     "branch": "main"
   },
   "chipper": {
-    "sha": "b5a53a7d76cb4f37b06456103e54ce350dc0e9c2",
+    "sha": "f8019234aa041865a14d09af2d6dc8c4b6425f98",
     "branch": "main"
   },
   "dot": {
-    "sha": "ab745ea167652a4e33765910fc1fb16bba627b11",
+    "sha": "4d30232dd380d3cd9ef9930d74509f06d0b4f2a8",
     "branch": "main"
   },
   "fourier-making-waves": {
-    "sha": "3771a4ca3fe105d2d619262d5329a859289559f6",
+    "sha": "c9a69b51d2d924bac8ee7497212ca01b745e3e32",
     "branch": "main"
   },
   "joist": {
-    "sha": "bde6d383c1ca6360b4cbbc3c639cc80ad353359c",
+    "sha": "6622b286f17f618c37943f6a255ff6e23cd4664b",
     "branch": "main"
   },
   "kite": {
-    "sha": "b70cfdfc6c3d02c946b632c389bec0664a0bc6c0",
+    "sha": "ca6990edbe65372c4ca21094f9b8977b586634ab",
     "branch": "main"
   },
   "perennial-alias": {
-    "sha": "f3e9040298f090a383b15ecd6f506472291752e2",
+    "sha": "72c34f2e56b7b16acb3d2008ac7a37ac194de231",
     "branch": "main"
   },
   "phet-core": {
@@ -45,7 +45,7 @@
     "branch": "main"
   },
   "phet-io": {
-    "sha": "ee35281733471ed1cdfc37f9e19e5df9c2fdb721",
+    "sha": "41660d0cf495111e7fa8af54152a006c0bb95952",
     "branch": "main"
   },
   "phet-io-sim-specific": {
@@ -53,7 +53,7 @@
     "branch": "main"
   },
   "phet-io-wrappers": {
-    "sha": "16ae81e6331fb451ec281480c993d81491f81b03",
+    "sha": "8744d88c2b176f37b59b359c7c6827c43b0fd811",
     "branch": "main"
   },
   "phetcommon": {
@@ -69,11 +69,11 @@
     "branch": "main"
   },
   "scenery": {
-    "sha": "5ddc8d4de94d24b76df021c2ec02b8255bead3a9",
+    "sha": "f744a1526185eeb12aed37875f3ee194e8b3181e",
     "branch": "main"
   },
   "scenery-phet": {
-    "sha": "5e46666f7d65d8f5e609a1b39acd2561c641b311",
+    "sha": "36e3194f6e0ddb6404927337af15bacbff79bbe7",
     "branch": "main"
   },
   "sherpa": {
@@ -85,7 +85,7 @@
     "branch": "main"
   },
   "sun": {
-    "sha": "67e449593f9ba2e80b43b98386d49537647de723",
+    "sha": "73a4e885e0bb273251f52007795ee99f4cd0e7a4",
     "branch": "main"
   },
   "tambo": {
