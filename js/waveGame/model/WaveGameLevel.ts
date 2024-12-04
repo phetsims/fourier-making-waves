@@ -239,7 +239,7 @@ export default class WaveGameLevel extends PhetioObject {
   public reset(): void {
     this.scoreProperty.reset();
     this.isSolvedProperty.reset();
-    // Not necessary to reset this.numberOfAmplitudeControlsProperty
+    this.numberOfAmplitudeControlsProperty.reset();
     this.emphasizedHarmonics.reset();
 
     // If reset was not called as the result of setting state, start with a new challenge.
