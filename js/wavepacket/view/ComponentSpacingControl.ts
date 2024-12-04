@@ -34,6 +34,7 @@ export default class ComponentSpacingControl extends WavePacketNumberControl {
     assert && assert( validValues );
 
     const options = {
+      isDisposable: false,
 
       // NumberDisplay options
       delta: 1, // because the control is setting an index

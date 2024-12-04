@@ -44,10 +44,10 @@ export default class DomainComboBox extends FMWComboBox<Domain> {
     const choices: FMWComboBoxChoice<Domain>[] = CHOICES.filter( choice => validValues.includes( choice.value ) );
 
     super( domainProperty, choices, popupParent, {
+      isDisposable: false,
       textOptions: {
         maxWidth: 85 // determined empirically
       },
-      isDisposable: false,
       tandem: tandem
     } );
   }

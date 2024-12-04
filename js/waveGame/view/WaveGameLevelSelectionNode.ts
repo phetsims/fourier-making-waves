@@ -70,6 +70,7 @@ export default class WaveGameLevelSelectionNode extends Node {
     } );
 
     super( {
+      isDisposable: false,
       children: [ titleAndButtonsBox, resetAllButton, infoButton ],
       tandem: tandem
     } );

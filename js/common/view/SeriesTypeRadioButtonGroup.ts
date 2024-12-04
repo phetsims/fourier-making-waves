@@ -42,6 +42,7 @@ export default class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButto
     ];
 
     super( seriesTypeProperty, items, {
+      isDisposable: false,
       spacing: 12,
       touchAreaYDilation: 6,
       radioButtonOptions: {

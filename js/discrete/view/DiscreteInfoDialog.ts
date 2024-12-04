@@ -54,6 +54,7 @@ export default class DiscreteInfoDialog extends Dialog {
     super( content, {
 
       // DialogOptions
+      isDisposable: false,
       title: titleText,
       xSpacing: 30,
       cornerRadius: FMWConstants.PANEL_CORNER_RADIUS,

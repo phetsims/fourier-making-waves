@@ -34,7 +34,8 @@ export default class AmplitudeControlsSpinner extends VBox {
       },
 
       // VBoxOptions
-      spacing: 10
+      spacing: 10,
+      isDisposable: false
     }, providedOptions );
 
     const amplitudeControlsText = new Text( FourierMakingWavesStrings.amplitudeControlsStringProperty, options.textOptions );

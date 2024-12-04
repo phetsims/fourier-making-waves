@@ -28,6 +28,7 @@ export default class WavelengthCheckbox extends Checkbox {
     } );
 
     super( isSelectedProperty, wavelengthText, combineOptions<CheckboxOptions>( {}, FMWConstants.CHECKBOX_OPTIONS, {
+      isDisposable: false,
       enabledProperty: new DerivedProperty( [ domainProperty ],
         domain => ( domain === Domain.SPACE || domain === Domain.SPACE_AND_TIME )
       ),

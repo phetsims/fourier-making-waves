@@ -52,6 +52,7 @@ export default class WaveformComboBox extends FMWComboBox<Waveform> {
 
   public constructor( waveformProperty: Property<Waveform>, popupParent: Node, tandem: Tandem ) {
     super( waveformProperty, CHOICES, popupParent, {
+      isDisposable: false,
       textOptions: {
         maxWidth: 85 // determined empirically
       },

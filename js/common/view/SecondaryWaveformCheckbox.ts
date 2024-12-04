@@ -18,7 +18,7 @@ import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class SecondaryWaveformCheckbox extends Checkbox {
 
-  public constructor( visibleProperty: Property<boolean>, titleStringProperty: TReadOnlyProperty<string>, tandem: Tandem ) {
+  protected constructor( visibleProperty: Property<boolean>, titleStringProperty: TReadOnlyProperty<string>, tandem: Tandem ) {
 
     const infiniteHarmonicsText = new Text( titleStringProperty, {
       font: FMWConstants.CONTROL_FONT,
@@ -36,6 +36,7 @@ export default class SecondaryWaveformCheckbox extends Checkbox {
     } );
 
     super( visibleProperty, hBox, combineOptions<CheckboxOptions>( {}, FMWConstants.CHECKBOX_OPTIONS, {
+      isDisposable: false,
       tandem: tandem
     } ) );
   }

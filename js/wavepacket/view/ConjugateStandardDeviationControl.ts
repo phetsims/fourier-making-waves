@@ -31,6 +31,7 @@ export default class ConjugateStandardDeviationControl extends WavePacketNumberC
                       tandem: Tandem ) {
 
     const options = {
+      isDisposable: false,
 
       delta: DELTA,
 

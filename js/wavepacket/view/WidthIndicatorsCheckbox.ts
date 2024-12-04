@@ -33,6 +33,7 @@ export default class WidthIndicatorsCheckbox extends Checkbox {
     } );
 
     super( widthIndicatorsVisibleProperty, content, combineOptions<CheckboxOptions>( {}, FMWConstants.CHECKBOX_OPTIONS, {
+      isDisposable: false,
       tandem: tandem
     } ) );
   }

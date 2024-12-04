@@ -318,6 +318,7 @@ export default class WaveGameLevelNode extends Node {
     //------------------------------------------------------------------------------------------------------------------
 
     super( {
+      isDisposable: false,
       children: [
         statusBar,
         amplitudesParentNode,

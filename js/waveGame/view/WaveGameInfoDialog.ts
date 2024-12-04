@@ -28,6 +28,7 @@ export default class WaveGameInfoDialog extends GameInfoDialog {
     super( descriptions, {
 
       // GameInfoDialogOptions
+      isDisposable: false,
       title: titleText,
       gameLevels: FMWQueryParameters.gameLevels,
       ySpacing: 20,

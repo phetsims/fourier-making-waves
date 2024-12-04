@@ -37,7 +37,8 @@ export default class LabeledExpandCollapseButton extends HBox {
       },
 
       // HBoxOptions
-      spacing: 6
+      spacing: 6,
+      isDisposable: false
     }, providedOptions );
 
     const labelText = new Text( labelStringProperty, combineOptions<TextOptions>( {

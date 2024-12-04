@@ -31,6 +31,7 @@ export default class StandardDeviationControl extends WavePacketNumberControl {
                       tandem: Tandem ) {
 
     const options = {
+      isDisposable: false,
 
       delta: DELTA,
 

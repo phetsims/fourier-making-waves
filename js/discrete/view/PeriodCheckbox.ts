@@ -28,6 +28,7 @@ export default class PeriodCheckbox extends Checkbox {
     } );
 
     super( isSelectedProperty, periodText, combineOptions<CheckboxOptions>( {}, FMWConstants.CHECKBOX_OPTIONS, {
+      isDisposable: false,
       enabledProperty: new DerivedProperty(
         [ domainProperty ],
         domain => ( domain === Domain.TIME || domain === Domain.SPACE_AND_TIME )
