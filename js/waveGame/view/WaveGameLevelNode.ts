@@ -119,6 +119,7 @@ export default class WaveGameLevelNode extends Node {
       listener: () => {
         this.interruptSubtreeInput();
         level.eraseAmplitudes();
+        guessChangedProperty.value = false;
       },
       enabledProperty: eraserButtonEnabledProperty,
       tandem: amplitudesTandem.createTandem( 'eraserButton' )
