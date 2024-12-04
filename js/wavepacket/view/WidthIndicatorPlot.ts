@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
@@ -21,6 +20,7 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import HorizontalDimensionalArrowsNode from './HorizontalDimensionalArrowsNode.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 type SelfOptions = {
   spaceSymbolStringProperty: TReadOnlyProperty<string>; // symbol for the space Domain
@@ -44,14 +44,18 @@ export default class WidthIndicatorPlot extends Node {
                       domainProperty: EnumerationProperty<Domain>,
                       providedOptions: WidthIndicatorPlotOptions ) {
 
-    const options = optionize<WidthIndicatorPlotOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
+    const options = optionize<WidthIndicatorPlotOptions, SelfOptions, NodeOptions>()( {
+
+      // NodeOptions
+      isDisposable: false
+    }, providedOptions );
 
     // Dimensional arrows
     const dimensionalArrowsNode = new HorizontalDimensionalArrowsNode( FMWColors.widthIndicatorsColorProperty );
 
     // Not PhET-iO instrumented because plots are not instrumented. If the Studio user wants to change the
     // symbols used, they'll have to find them another way.
-    const labelStringProperty = new DerivedProperty(
+    const labelStringProperty = new DerivedStringProperty(
       [ domainProperty, FMWSymbols.sigmaMarkupStringProperty, options.spaceSymbolStringProperty, options.timeSymbolStringProperty ],
       ( domain, sigma, spaceSymbol, timeSymbol ) => {
         const waveNumberSymbol = ( domain === Domain.SPACE ) ? spaceSymbol : timeSymbol;

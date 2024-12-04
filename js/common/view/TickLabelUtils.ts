@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -19,6 +18,7 @@ import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
 import TickLabelFormat from '../model/TickLabelFormat.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 const TickLabelUtils = {
 
@@ -73,9 +73,9 @@ function createSymbolicTickLabel( value: number, symbol: string | TReadOnlyPrope
     maxWidth: 25
   }, providedOptions );
 
-  let richTextArgument;
+  let richString;
   if ( value === 0 ) {
-    richTextArgument = '0';
+    richString = '0';
   }
   else {
 
@@ -91,7 +91,7 @@ function createSymbolicTickLabel( value: number, symbol: string | TReadOnlyPrope
     const symbolStringProperty = ( typeof symbol === 'string' ) ? new StringProperty( symbol ) : symbol;
 
     // Not instrumented for PhET-iO.
-    richTextArgument = new DerivedProperty( [ symbolStringProperty ], symbol => {
+    richString = new DerivedStringProperty( [ symbolStringProperty ], symbol => {
       let text = '';
       if ( sign === -1 ) {
         text += MathSymbols.UNARY_MINUS;
@@ -107,7 +107,7 @@ function createSymbolicTickLabel( value: number, symbol: string | TReadOnlyPrope
     } );
   }
 
-  return new RichText( richTextArgument, options );
+  return new RichText( richString, options );
 }
 
 fourierMakingWaves.register( 'TickLabelUtils', TickLabelUtils );

@@ -8,7 +8,6 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
@@ -18,6 +17,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { HBox, Node, NodeOptions, RichText, Text } from '../../../../scenery/js/imports.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWSymbols from '../FMWSymbols.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 // constants
 const DEFAULT_SYMBOL_FONT = new PhetFont( 30 );
@@ -64,7 +64,7 @@ export default class SumSymbolNode extends Node {
     } );
 
     // Not instrumented for PhET-iO.
-    const nEqualsStringProperty = new DerivedProperty( [ indexMarkupStringProperty ],
+    const nEqualsStringProperty = new DerivedStringProperty( [ indexMarkupStringProperty ],
       indexSymbol => `${indexSymbol} ${MathSymbols.EQUAL_TO}&nbsp` );
 
     // Index and min (starting) value, which appears below the sum symbol. E.g. 'n = 0'
