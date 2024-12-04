@@ -29,6 +29,7 @@ export default class DiscreteSumChartNode extends SumChartNode {
       // SumChartNodeOptions
       xZoomLevelProperty: new ZoomLevelProperty( sumChart.xAxisDescriptionProperty, tandem.createTandem( 'xZoomLevelProperty' ) ),
       xTickLabelSetOptions: {
+        cachingEnabled: false, // see https://github.com/phetsims/bamboo/issues/65
         createLabel: ( value: number ) =>
           TickLabelUtils.createTickLabelForDomain( value, X_TICK_LABEL_DECIMALS, sumChart.xAxisTickLabelFormatProperty.value,
             sumChart.domainProperty.value, sumChart.fourierSeries.L, sumChart.fourierSeries.T )
