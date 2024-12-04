@@ -73,9 +73,8 @@ function createSymbolicTickLabel( value: number, symbol: string | TReadOnlyPrope
     maxWidth: 25
   }, providedOptions );
 
-  let richString;
   if ( value === 0 ) {
-    richString = '0';
+    return new RichText( '0', options );
   }
   else {
 
@@ -91,7 +90,7 @@ function createSymbolicTickLabel( value: number, symbol: string | TReadOnlyPrope
     const symbolStringProperty = ( typeof symbol === 'string' ) ? new StringProperty( symbol ) : symbol;
 
     // Not instrumented for PhET-iO.
-    richString = new DerivedStringProperty( [ symbolStringProperty ], symbol => {
+    const richStringProperty = new DerivedStringProperty( [ symbolStringProperty ], symbol => {
       let text = '';
       if ( sign === -1 ) {
         text += MathSymbols.UNARY_MINUS;
@@ -105,9 +104,14 @@ function createSymbolicTickLabel( value: number, symbol: string | TReadOnlyPrope
       }
       return text;
     } );
-  }
 
-  return new RichText( richString, options );
+    const richText = new RichText( richStringProperty, options );
+
+    // When richText is disposed, also dispose the DerivedStringProperty that was created above.
+    richText.disposeEmitter.addListener( () => richStringProperty.dispose() );
+
+    return richText;
+  }
 }
 
 fourierMakingWaves.register( 'TickLabelUtils', TickLabelUtils );
