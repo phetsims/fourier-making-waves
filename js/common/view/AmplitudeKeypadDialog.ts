@@ -242,7 +242,6 @@ type KeypadStringDisplayOptions = KeypadStringDisplaySelfOptions;
 class KeypadStringDisplay extends Node {
 
   private readonly textNode: RichText;
-  private readonly disposeStringDisplay: () => void;
 
   public constructor( stringProperty: TReadOnlyProperty<string>, providedOptions?: KeypadStringDisplayOptions ) {
 
@@ -262,7 +261,10 @@ class KeypadStringDisplay extends Node {
       textOptions: {
         fill: 'black',
         font: KEYPAD_DISPLAY_FONT
-      }
+      },
+
+      // NodeOptions
+      isDisposable: false
     }, providedOptions );
 
     const rectangle = new Rectangle( 0, 0, options.width, options.height, options.rectangleOptions );
@@ -288,15 +290,6 @@ class KeypadStringDisplay extends Node {
     } );
 
     this.textNode = textNode;
-
-    this.disposeStringDisplay = () => {
-      stringProperty.unlink( stringListener );
-    };
-  }
-
-  public override dispose(): void {
-    this.disposeStringDisplay();
-    super.dispose();
   }
 
   /**
