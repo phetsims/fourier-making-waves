@@ -28,14 +28,16 @@ type CaliperCheckboxOptions = SelfOptions & PickRequired<CheckboxOptions, 'tande
 
 export default class CaliperCheckbox extends Checkbox {
 
-  public constructor( visibleProperty: Property<boolean>,
-                      domainProperty: EnumerationProperty<Domain>,
-                      spaceSymbolStringProperty: TReadOnlyProperty<string>,
-                      timeSymbolStringProperty: TReadOnlyProperty<string>,
-                      providedOptions: CaliperCheckboxOptions ) {
+  protected constructor( visibleProperty: Property<boolean>,
+                         domainProperty: EnumerationProperty<Domain>,
+                         spaceSymbolStringProperty: TReadOnlyProperty<string>,
+                         timeSymbolStringProperty: TReadOnlyProperty<string>,
+                         providedOptions: CaliperCheckboxOptions ) {
 
     const options = optionize4<CaliperCheckboxOptions, SelfOptions, CheckboxOptions>()(
       {}, FMWConstants.CHECKBOX_OPTIONS, {
+
+        // CaliperCheckboxOptions
         calipersNodeOptions: {
           measuredWidth: 65,
           labelPosition: 'left', // put label to left of caliper, to minimize vertical space
@@ -43,7 +45,10 @@ export default class CaliperCheckbox extends Checkbox {
           richTextOptions: {
             font: new PhetFont( 25 )
           }
-        }
+        },
+
+        // CheckboxOptions
+        isDisposable: false
       }, providedOptions );
 
     const caliperNode = new CalipersNode( options.calipersNodeOptions );
