@@ -38,7 +38,6 @@ type SumSymbolNodeOptions = SelfOptions;
 export default class SumSymbolNode extends Node {
 
   public readonly integrationProperty: Property<boolean>; // true=integration, false=summation
-  private readonly disposeSummationSymbolNode: () => void;
 
   /**
    * @param indexMarkupStringProperty - symbol for the index of summation
@@ -55,7 +54,10 @@ export default class SumSymbolNode extends Node {
       integration: false, // true=integration, false=summation
       symbolFont: DEFAULT_SYMBOL_FONT,
       nEqualsFont: DEFAULT_N_EQUALS_FONT, // font for 'n ='
-      minMaxFont: DEFAULT_MIN_MAX_FONT
+      minMaxFont: DEFAULT_MIN_MAX_FONT,
+
+      // NodeOptions
+      isDisposable: false
     }, providedOptions );
 
     // The symbol for the type of sum.
@@ -93,7 +95,7 @@ export default class SumSymbolNode extends Node {
     this.integrationProperty = new BooleanProperty( options.integration );
 
     // Update the equation form and layout. dispose is required.
-    const multilink = new Multilink(
+    Multilink.multilink(
       [ this.integrationProperty, indexMaxProperty, nEqualsNode.boundsProperty ],
       ( integration, indexMax, nEqualsBounds ) => {
 
@@ -125,16 +127,6 @@ export default class SumSymbolNode extends Node {
           maxValueNode.bottom = symbolNode.top + 5;
         }
       } );
-
-    this.disposeSummationSymbolNode = () => {
-      this.integrationProperty.dispose();
-      multilink.dispose();
-    };
-  }
-
-  public override dispose(): void {
-    this.disposeSummationSymbolNode();
-    super.dispose();
   }
 }
 
