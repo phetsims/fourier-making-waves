@@ -37,8 +37,6 @@ type DiscreteSumEquationNodeOptions = SelfOptions &
 
 export default class DiscreteSumEquationNode extends Node {
 
-  private readonly disposeSumEquationNode: () => void;
-
   public constructor( numberOfHarmonicsProperty: TReadOnlyProperty<number>,
                       domainProperty: EnumerationProperty<Domain>,
                       seriesTypeProperty: EnumerationProperty<SeriesType>,
@@ -48,7 +46,10 @@ export default class DiscreteSumEquationNode extends Node {
     const options = optionize<DiscreteSumEquationNodeOptions, SelfOptions, NodeOptions>()( {
 
       // DiscreteSumEquationNodeOptions
-      font: FMWConstants.EQUATION_FONT
+      font: FMWConstants.EQUATION_FONT,
+
+      // NodeOptions
+      isDisposable: false
     }, providedOptions );
 
     // Everything to the left of the summation symbol, set in multilink below
@@ -70,7 +71,7 @@ export default class DiscreteSumEquationNode extends Node {
 
     // Update the equation to match the Domain and math form.
     // Because we are using one of the EquationMarkup functions, our dependencies must include EquationMarkup.STRING_PROPERTY_DEPENDENCIES.
-    const multilink = Multilink.multilinkAny(
+    Multilink.multilinkAny(
       [ domainProperty, seriesTypeProperty, equationFormProperty, ...EquationMarkup.STRING_PROPERTY_DEPENDENCIES ],
       () => {
 
@@ -88,20 +89,6 @@ export default class DiscreteSumEquationNode extends Node {
         rightNode.left = summationNode.right + 2;
         rightNode.y = leftNode.y;
       } );
-
-    this.disposeSumEquationNode = () => {
-      multilink.dispose();
-    };
-  }
-
-  /**
-   * This equation is used in 2 places: above the Sum chart, and in the Expanded Form dialog.
-   * In the former, one instance is created, and it exists for the lifetime of the sim.
-   * In the latter, a new instance is created each time the dialog is opened, and therefore needs to be disposed.
-   */
-  public override dispose(): void {
-    this.disposeSumEquationNode();
-    super.dispose();
   }
 }
 
