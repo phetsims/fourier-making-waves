@@ -28,7 +28,6 @@ export default class DiscreteHarmonicsChartNode extends HarmonicsChartNode {
       // HarmonicsChartNodeOptions
       xZoomLevelProperty: new ZoomLevelProperty( harmonicsChart.xAxisDescriptionProperty, tandem.createTandem( 'xZoomLevelProperty' ) ),
       xTickLabelSetOptions: {
-        cachingEnabled: false, // see https://github.com/phetsims/bamboo/issues/65
         createLabel: value =>
           TickLabelUtils.createTickLabelForDomain( value, X_TICK_LABEL_DECIMALS, harmonicsChart.xAxisTickLabelFormatProperty.value,
             harmonicsChart.domainProperty.value, harmonicsChart.fourierSeries.L, harmonicsChart.fourierSeries.T )
