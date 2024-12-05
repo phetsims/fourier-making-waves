@@ -28,13 +28,13 @@ export default class GaussianAreaPlot extends Path {
 
   public dataSet: Vector2[];
   private readonly chartTransform: ChartTransform;
-  private readonly disposeLinePlot: () => void;
 
   public constructor( chartTransform: ChartTransform, dataSet: Vector2[], providedOptions?: GaussianAreaPlotOptions ) {
 
     const options = optionize<GaussianAreaPlotOptions, SelfOptions, PathOptions>()( {
 
       // PathOptions
+      isDisposable: false,
       fill: 'black'
     }, providedOptions );
 
@@ -49,10 +49,7 @@ export default class GaussianAreaPlot extends Path {
     this.update();
 
     // Update when the transform changes.
-    const changedListener = () => this.update();
-    chartTransform.changedEmitter.addListener( changedListener );
-
-    this.disposeLinePlot = () => chartTransform.changedEmitter.removeListener( changedListener );
+    chartTransform.changedEmitter.addListener( () => this.update() );
   }
 
   /**
@@ -112,11 +109,6 @@ export default class GaussianAreaPlot extends Path {
       shape.close();
     }
     this.shape = shape;
-  }
-
-  public override dispose(): void {
-    this.disposeLinePlot();
-    super.dispose();
   }
 }
 
