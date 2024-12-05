@@ -64,7 +64,8 @@ export default class WavePacketSumChart extends DomainChart {
     this.yAxisDescription = WavePacketAxisDescriptions.SUM_Y_AXIS_DESCRIPTION;
 
     this.waveformEnvelopeVisibleProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'waveformEnvelopeVisibleProperty' )
+      tandem: tandem.createTandem( 'waveformEnvelopeVisibleProperty' ),
+      phetioFeatured: true
     } );
 
     // Data set for the sum of a finite number of components, EMPTY_DATA_SET when the number of components is infinite.

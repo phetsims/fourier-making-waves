@@ -76,7 +76,8 @@ export default class WavePacketAmplitudesChart extends DomainChart {
     this.widthIndicatorsVisibleProperty = widthIndicatorsVisibleProperty;
 
     this.continuousWaveformVisibleProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'continuousWaveformVisibleProperty' )
+      tandem: tandem.createTandem( 'continuousWaveformVisibleProperty' ),
+      phetioFeatured: true
     } );
 
     this.finiteComponentsDataSetProperty = new DerivedProperty(

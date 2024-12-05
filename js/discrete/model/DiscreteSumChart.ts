@@ -57,7 +57,8 @@ export default class DiscreteSumChart extends SumChart {
     this.waveformProperty = waveformProperty;
 
     this.infiniteHarmonicsVisibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'infiniteHarmonicsVisibleProperty' )
+      tandem: tandem.createTandem( 'infiniteHarmonicsVisibleProperty' ),
+      phetioFeatured: true
     } );
 
     // To improve readability

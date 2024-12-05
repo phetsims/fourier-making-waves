@@ -50,11 +50,13 @@ export default class WavePacketScreenView extends ScreenView {
 
     // View Properties
     const componentSpacingToolVisibleProperty = new BooleanProperty( false, {
-      tandem: viewPropertiesTandem.createTandem( 'componentSpacingToolVisibleProperty' )
+      tandem: viewPropertiesTandem.createTandem( 'componentSpacingToolVisibleProperty' ),
+      phetioFeatured: true
     } );
 
     const lengthToolVisibleProperty = new BooleanProperty( false, {
-      tandem: viewPropertiesTandem.createTandem( 'lengthToolVisibleProperty' )
+      tandem: viewPropertiesTandem.createTandem( 'lengthToolVisibleProperty' ),
+      phetioFeatured: true
     } );
 
     //------------------------------------------------------------------------------------------------------------------

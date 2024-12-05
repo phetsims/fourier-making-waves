@@ -37,7 +37,8 @@ export default class DiscreteMeasurementTool {
 
     this.isSelectedProperty = new BooleanProperty( false, {
       phetioDocumentation: 'whether this tool is selected',
-      tandem: tandem.createTandem( 'isSelectedProperty' )
+      tandem: tandem.createTandem( 'isSelectedProperty' ),
+      phetioFeatured: true
     } );
 
     this.orderProperty = new NumberProperty( 1, {

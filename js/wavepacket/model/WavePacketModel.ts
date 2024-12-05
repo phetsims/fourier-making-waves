@@ -45,7 +45,8 @@ export default class WavePacketModel implements TModel {
     } );
 
     this.widthIndicatorsVisibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'widthIndicatorsVisibleProperty' )
+      tandem: tandem.createTandem( 'widthIndicatorsVisibleProperty' ),
+      phetioFeatured: true
     } );
 
     this.wavePacket = new WavePacket( tandem.createTandem( 'wavePacket' ) );

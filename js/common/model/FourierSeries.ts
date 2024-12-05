@@ -122,7 +122,8 @@ export default class FourierSeries extends PhetioObject {
       } );
 
     this.soundEnabledProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'soundEnabledProperty' )
+      tandem: options.tandem.createTandem( 'soundEnabledProperty' ),
+      phetioFeatured: true
     } );
 
     this.soundOutputLevelProperty = new NumberProperty( 0.5, {
