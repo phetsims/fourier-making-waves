@@ -1,5 +1,5 @@
 {
-  "comment": "# fourier-making-waves 1.1.0-dev.6 Wed Dec 04 2024 13:13:59 GMT-0700 (Mountain Standard Time)",
+  "comment": "# fourier-making-waves 1.1.0-dev.7 Wed Dec 04 2024 17:26:54 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "386a2323ecc3b36fbe30babf13b660dc1cc522a8",
     "branch": "main"
@@ -9,7 +9,7 @@
     "branch": "main"
   },
   "bamboo": {
-    "sha": "5524dcb34debd154856a3f80477c6a0ff9011b21",
+    "sha": "5251e9e13fa6831d32f05b8de70b96720c2fa4ef",
     "branch": "main"
   },
   "brand": {
@@ -25,7 +25,7 @@
     "branch": "main"
   },
   "fourier-making-waves": {
-    "sha": "c9a69b51d2d924bac8ee7497212ca01b745e3e32",
+    "sha": "d690d11f57a102a80c15ee5c57cc5bd5e2267f21",
     "branch": "main"
   },
   "joist": {
@@ -49,7 +49,7 @@
     "branch": "main"
   },
   "phet-io-sim-specific": {
-    "sha": "271cba48a40de177aee6a86345fb7384c508c50f",
+    "sha": "a05048d39ecc4f80dd94e1fa904f3656e66b8d40",
     "branch": "main"
   },
   "phet-io-wrappers": {
@@ -85,7 +85,7 @@
     "branch": "main"
   },
   "sun": {
-    "sha": "73a4e885e0bb273251f52007795ee99f4cd0e7a4",
+    "sha": "018efb020653313d2b4083829447c893896b0e21",
     "branch": "main"
   },
   "tambo": {
