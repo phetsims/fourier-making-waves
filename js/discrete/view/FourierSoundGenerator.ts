@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Range from '../../../../dot/js/Range.js';
@@ -29,6 +28,7 @@ export default class FourierSoundGenerator extends SoundGenerator {
     super( {
 
       // SoundGeneratorOptions
+      isDisposable: false,
       initialOutputLevel: fourierSeries.soundOutputLevelProperty.value,
       associatedViewNode: associatedViewNode
     } );
@@ -97,11 +97,6 @@ export default class FourierSoundGenerator extends SoundGenerator {
         soundManager.setOutputLevelForCategory( 'user-interface', outputLevel );
       }
     );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 
