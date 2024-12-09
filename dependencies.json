@@ -1,15 +1,15 @@
 {
-  "comment": "# fourier-making-waves 1.1.0-dev.8 Wed Dec 04 2024 18:09:48 GMT-0700 (Mountain Standard Time)",
+  "comment": "# fourier-making-waves 1.1.0-dev.9 Mon Dec 09 2024 11:03:35 GMT-0700 (Mountain Standard Time)",
   "assert": {
-    "sha": "386a2323ecc3b36fbe30babf13b660dc1cc522a8",
+    "sha": "f6d41b399ad32df2a00ab4b329981be0c574d77a",
     "branch": "main"
   },
   "axon": {
-    "sha": "46d1abcde81e4450fb8663e2a5ebf383fc01c7bf",
+    "sha": "d1ac7e23392f5a6f68c7f319887fb7175c8b19fa",
     "branch": "main"
   },
   "bamboo": {
-    "sha": "5251e9e13fa6831d32f05b8de70b96720c2fa4ef",
+    "sha": "beff3cf5f509d1aa7ec28b6317c49f10ea44905d",
     "branch": "main"
   },
   "brand": {
@@ -17,7 +17,7 @@
     "branch": "main"
   },
   "chipper": {
-    "sha": "f8019234aa041865a14d09af2d6dc8c4b6425f98",
+    "sha": "dfd2b41aa35e285a1799692e349d8a77ee4515f5",
     "branch": "main"
   },
   "dot": {
@@ -25,11 +25,11 @@
     "branch": "main"
   },
   "fourier-making-waves": {
-    "sha": "223b8667d5a4f77cd7ed5ce5f0903aa4be90b727",
+    "sha": "04217277c1990c5937b3bc6114d78afbb4a2dc79",
     "branch": "main"
   },
   "joist": {
-    "sha": "6622b286f17f618c37943f6a255ff6e23cd4664b",
+    "sha": "cad5a3c3b3b35ba23c26d8d2d7a9a2d7d1e46cbe",
     "branch": "main"
   },
   "kite": {
@@ -37,7 +37,7 @@
     "branch": "main"
   },
   "perennial-alias": {
-    "sha": "72c34f2e56b7b16acb3d2008ac7a37ac194de231",
+    "sha": "1a3471bf33a659ac010d28e9c879d810d0800eca",
     "branch": "main"
   },
   "phet-core": {
@@ -49,7 +49,7 @@
     "branch": "main"
   },
   "phet-io-sim-specific": {
-    "sha": "a05048d39ecc4f80dd94e1fa904f3656e66b8d40",
+    "sha": "9770d606e7d7bf49b0a01ffeccd611432341daf4",
     "branch": "main"
   },
   "phet-io-wrappers": {
@@ -69,11 +69,11 @@
     "branch": "main"
   },
   "scenery": {
-    "sha": "f744a1526185eeb12aed37875f3ee194e8b3181e",
+    "sha": "04fa91ff0a3c062d8e5a961e316e92941c9edbbd",
     "branch": "main"
   },
   "scenery-phet": {
-    "sha": "36e3194f6e0ddb6404927337af15bacbff79bbe7",
+    "sha": "910901ea98ead9774a19049a05a36333cbca83fa",
     "branch": "main"
   },
   "sherpa": {
@@ -81,11 +81,11 @@
     "branch": "main"
   },
   "studio": {
-    "sha": "f63a04b889d5777fbf452a1e3d81100930c9efb9",
+    "sha": "125ad1cda95708a05f7158563ae832a2fa51e95f",
     "branch": "main"
   },
   "sun": {
-    "sha": "018efb020653313d2b4083829447c893896b0e21",
+    "sha": "2096c82ddc24bacb4d7c86a091a9b154ab6c7e9e",
     "branch": "main"
   },
   "tambo": {
