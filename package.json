@@ -14,9 +14,7 @@
     "simulation": true,
     "runnable": true,
     "supportedBrands": [
-      "phet",
-      "phet-io",
-      "adapted-from-phet"
+      "phet"
     ],
     "phetLibs": [
       "bamboo",
