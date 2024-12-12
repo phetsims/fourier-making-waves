@@ -29,7 +29,8 @@ simLauncher.launch( () => {
       leadDesign: 'Amy Rouinfar, Sam McKagan',
       softwareDevelopment: 'Chris Malley (PixelZoom, Inc.)',
       team: 'Wendy Adams, Mike Dubson, Danielle Harlow, Ariel Paul, Kathy Perkins, Carl Wieman',
-      qualityAssurance: 'Logan Bray, Clifford Hardin, Brooklyn Lash, Emily Miller, Matthew Moore, Nancy Salpepi, Kathryn Woessner',
+      qualityAssurance: 'Logan Bray, Clifford Hardin, Brooklyn Lash, Emily Miller, Matthew Moore, Ashton Morris, ' +
+                        'Nancy Salpepi, Kathryn Woessner',
       thanks: 'We gratefully acknowledge support from STROBE NSF Science & Technology Center Grant DMR-1548924. ' +
               'Any opinions, findings, and conclusions or recommendations expressed in this material are those of ' +
               'the author(s) and do not necessarily reflect the views of the National Science Foundation.'
