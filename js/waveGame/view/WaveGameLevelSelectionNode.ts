@@ -38,7 +38,6 @@ export default class WaveGameLevelSelectionNode extends Node {
     const infoDialog = new WaveGameInfoDialog( model.levels, tandem.createTandem( 'infoDialog' ) );
 
     const infoButton = new InfoButton( {
-      iconFill: 'rgb( 41, 106, 163 )',
       maxHeight: 40, // determined empirically
       listener: () => infoDialog.show(),
       tandem: tandem.createTandem( 'infoButton' )
