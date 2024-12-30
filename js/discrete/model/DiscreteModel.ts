@@ -84,7 +84,8 @@ export default class DiscreteModel implements TModel {
     } );
 
     this.seriesTypeProperty = new EnumerationProperty( SeriesType.SIN, {
-      tandem: tandem.createTandem( 'seriesTypeProperty' )
+      tandem: tandem.createTandem( 'seriesTypeProperty' ),
+      phetioFeatured: true
     } );
 
     this.domainProperty = new EnumerationProperty( Domain.SPACE, {

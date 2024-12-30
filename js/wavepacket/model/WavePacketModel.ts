@@ -41,7 +41,8 @@ export default class WavePacketModel implements TModel {
     } );
 
     this.seriesTypeProperty = new EnumerationProperty( SeriesType.SIN, {
-      tandem: tandem.createTandem( 'seriesTypeProperty' )
+      tandem: tandem.createTandem( 'seriesTypeProperty' ),
+      phetioFeatured: true
     } );
 
     this.widthIndicatorsVisibleProperty = new BooleanProperty( false, {
