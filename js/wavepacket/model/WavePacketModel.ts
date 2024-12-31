@@ -37,7 +37,8 @@ export default class WavePacketModel implements TModel {
 
     this.domainProperty = new EnumerationProperty( Domain.SPACE, {
       validValues: [ Domain.SPACE, Domain.TIME ], // Domain SPACE_AND_TIME is not supported in this screen
-      tandem: tandem.createTandem( 'domainProperty' )
+      tandem: tandem.createTandem( 'domainProperty' ),
+      phetioFeatured: true
     } );
 
     this.seriesTypeProperty = new EnumerationProperty( SeriesType.SIN, {

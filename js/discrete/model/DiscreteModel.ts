@@ -80,7 +80,8 @@ export default class DiscreteModel implements TModel {
 
     this.waveformProperty = new Property( Waveform.SINUSOID, {
       tandem: tandem.createTandem( 'waveformProperty' ),
-      phetioValueType: Waveform.WaveformIO
+      phetioValueType: Waveform.WaveformIO,
+      phetioFeatured: true
     } );
 
     this.seriesTypeProperty = new EnumerationProperty( SeriesType.SIN, {
@@ -90,11 +91,13 @@ export default class DiscreteModel implements TModel {
 
     this.domainProperty = new EnumerationProperty( Domain.SPACE, {
       validValues: Domain.enumeration.values, // all Domain values are supported
-      tandem: tandem.createTandem( 'domainProperty' )
+      tandem: tandem.createTandem( 'domainProperty' ),
+      phetioFeatured: true
     } );
 
     this.equationFormProperty = new EnumerationProperty( EquationForm.HIDDEN, {
-      tandem: tandem.createTandem( 'equationFormProperty' )
+      tandem: tandem.createTandem( 'equationFormProperty' ),
+      phetioFeatured: true
     } );
 
     this.fourierSeries = new DiscreteFourierSeries( {
