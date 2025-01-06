@@ -69,7 +69,8 @@ export default class DiscreteModel implements TModel {
   public constructor( tandem: Tandem ) {
 
     this.isPlayingProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'isPlayingProperty' )
+      tandem: tandem.createTandem( 'isPlayingProperty' ),
+      phetioFeatured: true
     } );
 
     this.tProperty = new NumberProperty( 0, {
