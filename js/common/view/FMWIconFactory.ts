@@ -153,7 +153,7 @@ function createSlidersIcon( amplitudes: number[], amplitudeRange: Range, options
     lineWidth: 2
   } );
 
-  // Note that we could use node.rasterized( { resolution: 2 } ) to avoid memory, phet-io, and pdom issues
+  // Note that we could use rasterized( { resolution: 2 } ) to avoid memory, phet-io, and pdom issues
   // associated with all of the above elements. But the quality of the rendering is not as good.
   return new Node( combineOptions<NodeOptions>( {}, {
     children: [ xAxis, hBox ]
