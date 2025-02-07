@@ -7,7 +7,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { Color, Path } from '../../../../scenery/js/imports.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import eyeSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSolidShape.js';
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
 import Dialog from '../../../../sun/js/Dialog.js';

@@ -9,8 +9,11 @@
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { Shape } from '../../../../kite/js/imports.js';
-import { Line, Node, Path, TColor } from '../../../../scenery/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
+import Line from '../../../../scenery/js/nodes/Line.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import TColor from '../../../../scenery/js/util/TColor.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 const HORIZONTAL_LINE_WIDTH = 2;

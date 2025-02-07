@@ -8,7 +8,8 @@
 
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import { Node, RichText } from '../../../../scenery/js/imports.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
