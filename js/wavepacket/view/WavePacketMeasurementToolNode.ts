@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * WavePacketMeasurementToolNode is the base class for measurement tools in the 'Wave Packet' screen.

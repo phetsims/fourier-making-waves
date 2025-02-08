@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * CalipersNode is a tool used to measure a horizontal dimension. It consists of a horizontal "beam" with a pair of

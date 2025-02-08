@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * AmplitudeControlsSpinner is a labeled spinner used to control the number of amplitude sliders shown in a game challenge.

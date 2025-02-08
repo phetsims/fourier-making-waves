@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * GaussianAreaPlot fills the area below a Gaussian curve. The client is responsible for providing a data set that

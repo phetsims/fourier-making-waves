@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * DiscreteMeasurementToolNode is the base class for tools that are used to measure harmonics in the 'Discrete' screen.

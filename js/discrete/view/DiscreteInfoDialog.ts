@@ -1,4 +1,4 @@
-// Copyright 2020-2024, University of Colorado Boulder
+// Copyright 2020-2025, University of Colorado Boulder
 
 /**
  * DiscreteInfoDialog is a dialog that shows a key to the math symbols used in the 'Discrete' screen.

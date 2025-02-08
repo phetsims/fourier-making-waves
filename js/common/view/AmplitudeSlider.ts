@@ -1,4 +1,4 @@
-// Copyright 2020-2024, University of Colorado Boulder
+// Copyright 2020-2025, University of Colorado Boulder
 
 /**
  * AmplitudeSlider is a slider for changing the amplitude of a harmonic. It is a specialization of sun.Slider

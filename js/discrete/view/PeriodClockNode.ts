@@ -1,4 +1,4 @@
-// Copyright 2020-2024, University of Colorado Boulder
+// Copyright 2020-2025, University of Colorado Boulder
 
 /**
  * PeriodClockNode is the tool for measuring a harmonic's period in the 'space & time' Domain. It looks like a clock,
