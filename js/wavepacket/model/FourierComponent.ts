@@ -13,6 +13,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import fourierMakingWaves from '../../fourierMakingWaves.js';
@@ -35,7 +36,7 @@ export default class FourierComponent {
   }
 
   // FourierComponentIO is patterned after Vector2IO.
-  public static readonly FourierComponentIO = new IOType( 'FourierComponentIO', {
+  public static readonly FourierComponentIO = new IOType<IntentionalAny, IntentionalAny>( 'FourierComponentIO', {
     valueType: FourierComponent,
     documentation: 'Component of a Fourier series',
     stateSchema: {

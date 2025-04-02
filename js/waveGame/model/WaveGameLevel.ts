@@ -15,6 +15,7 @@ import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
@@ -318,7 +319,7 @@ export default class WaveGameLevel extends PhetioObject {
    * startup, it implements 'Reference type serialization', as described in the Serialization section of
    * https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization
    */
-  public static readonly WaveGameLevelIO = new IOType( 'WaveGameLevelIO', {
+  public static readonly WaveGameLevelIO = new IOType<IntentionalAny, IntentionalAny>( 'WaveGameLevelIO', {
     valueType: WaveGameLevel,
     supertype: ReferenceIO( IOType.ObjectIO )
   } );

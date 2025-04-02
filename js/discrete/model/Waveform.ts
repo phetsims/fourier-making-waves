@@ -12,6 +12,7 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -161,7 +162,7 @@ export default class Waveform extends PhetioObject {
     this.supportsInfiniteHarmonics = !!options.getInfiniteHarmonicsDataSet;
   }
 
-  public static readonly WaveformIO = new IOType( 'WaveformIO', {
+  public static readonly WaveformIO = new IOType<IntentionalAny, IntentionalAny>( 'WaveformIO', {
     valueType: Waveform,
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
