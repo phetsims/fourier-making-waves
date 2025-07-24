@@ -544,7 +544,7 @@ export default class WaveGameLevelNode extends Node {
   }
 
   public static readonly CHECK_ANSWER_HOTKEY_DATA = new HotkeyData( {
-    keyStringProperties: [ new Property( 'alt+c' ) ],
+    keys: [ 'alt+c' ],
     repoName: fourierMakingWaves.name,
     keyboardHelpDialogLabelStringProperty: FourierMakingWavesStrings.keyboardHelpDialog.checkYourAnswerStringProperty,
     global: true
