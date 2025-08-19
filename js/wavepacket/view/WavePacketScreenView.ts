@@ -39,7 +39,6 @@ export default class WavePacketScreenView extends ScreenView {
   public constructor( model: WavePacketModel, tandem: Tandem ) {
 
     super( {
-      isDisposable: false,
       tandem: tandem
     } );
 

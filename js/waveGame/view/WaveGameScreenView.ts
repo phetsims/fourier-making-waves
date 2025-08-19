@@ -41,7 +41,6 @@ export default class WaveGameScreenView extends ScreenView {
   public constructor( model: WaveGameModel, tandem: Tandem ) {
 
     super( {
-      isDisposable: false,
       tandem: tandem
     } );
 

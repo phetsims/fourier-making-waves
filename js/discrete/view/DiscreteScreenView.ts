@@ -48,7 +48,6 @@ export default class DiscreteScreenView extends ScreenView {
   public constructor( model: DiscreteModel, tandem: Tandem ) {
 
     super( {
-      isDisposable: false,
       tandem: tandem
     } );
 
