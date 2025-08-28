@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * WavePacketLengthToolNode is the tool for measuring the length (wavelength or period) of a wave packet

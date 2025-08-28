@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * InfiniteHarmonicsPlot shows what some of the preset waveforms would look like if they were approximated with
