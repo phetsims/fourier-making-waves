@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import InteractiveAmplitudesChart from '../../common/model/InteractiveAmplitudesChart.js';
