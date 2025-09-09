@@ -22,9 +22,10 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import { optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
@@ -61,7 +62,7 @@ export default class DiscreteMeasurementToolNode extends InteractiveHighlighting
                          relevantDomains: Domain[],
                          providedOptions: DiscreteMeasurementToolNodeOptions ) {
 
-    const options = optionize<DiscreteMeasurementToolNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize4<DiscreteMeasurementToolNodeOptions, SelfOptions, NodeOptions>()( {}, AccessibleDraggableOptions, {
 
       // SelfOptions
       position: new Vector2( 0, 0 ),
@@ -70,8 +71,6 @@ export default class DiscreteMeasurementToolNode extends InteractiveHighlighting
 
       // NodeOptions
       cursor: 'pointer',
-      tagName: 'div',
-      focusable: true,
       isDisposable: false
     }, providedOptions );
 

@@ -15,8 +15,9 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import { optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -56,7 +57,7 @@ export default class WavePacketMeasurementToolNode extends InteractiveHighlighti
                          domainProperty: EnumerationProperty<Domain>,
                          providedOptions: WavePacketMeasurementToolNodeOptions ) {
 
-    const options = optionize<WavePacketMeasurementToolNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize4<WavePacketMeasurementToolNodeOptions, SelfOptions, NodeOptions>()( {}, AccessibleDraggableOptions, {
 
       // SelfOptions
       fill: 'black',
@@ -65,9 +66,7 @@ export default class WavePacketMeasurementToolNode extends InteractiveHighlighti
 
       // NodeOptions
       isDisposable: false,
-      cursor: 'pointer',
-      tagName: 'div',
-      focusable: true
+      cursor: 'pointer'
     }, providedOptions );
 
     // Calipers, shown when the value is not Infinity.
