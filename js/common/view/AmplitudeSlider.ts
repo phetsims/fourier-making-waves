@@ -87,7 +87,11 @@ export default class AmplitudeSlider extends Slider {
     assert && assert( !options.constrainValue, 'AmplitudeSlider sets constrainValue' );
     options.constrainValue = amplitude => {
       if ( amplitude !== amplitudeRange.min && amplitude !== amplitudeRange.max ) {
-        amplitude = Utils.roundToInterval( amplitude, options.mouseTouchStep );
+
+        // Use a finer interval when the shift key is held necessary because if we always used mouseTouchStep, attempts to change the
+        // value by the smaller shiftKeyboardStep would be rounded back to the nearest mouseTouchStep, resulting in no change at all.
+        const interval = this.shiftKeyDown ? options.shiftKeyboardStep : options.mouseTouchStep;
+        amplitude = Utils.roundToInterval( amplitude, interval );
       }
       return amplitude;
     };
