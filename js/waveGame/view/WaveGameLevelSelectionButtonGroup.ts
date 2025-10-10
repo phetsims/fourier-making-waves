@@ -31,11 +31,11 @@ export default class WaveGameLevelSelectionButtonGroup extends LevelSelectionBut
       return {
         icon: FMWIconFactory.createLevelSelectionButtonIcon( level.levelNumber, levels.length ),
         scoreProperty: level.scoreProperty,
+        buttonListener: () => {
+          levelProperty.value = level;
+        },
         options: {
           soundPlayerIndex: level.levelNumber - 1,
-          listener: () => {
-            levelProperty.value = level;
-          },
           createScoreDisplay: () => new ScoreDisplayNumberAndStar( level.scoreProperty )
         }
       };
