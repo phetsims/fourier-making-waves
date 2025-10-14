@@ -6,6 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RewardDialog from '../../../../vegas/js/RewardDialog.js';
@@ -20,7 +21,12 @@ export default class WaveGameRewardDialog extends RewardDialog {
 
     assert && assert( Number.isInteger( rewardScore ) && rewardScore > 0 );
 
-    super( rewardScore, {
+    // The level number presented by the RewardDialog. Must be disposed.
+    const levelNumberProperty = new DerivedProperty( [ levelProperty ], level => {
+      return level ? level.levelNumber : 0;
+    } );
+
+    super( levelNumberProperty, rewardScore, {
 
       // 'Keep Going' hides the dialog, but doesn't change the current challenge.
       keepGoingButtonListener: () => this.hide(),
@@ -48,6 +54,8 @@ export default class WaveGameRewardDialog extends RewardDialog {
       tandem: tandem,
       phetioReadOnly: true
     } );
+
+    this.addDisposable( levelNumberProperty );
   }
 }
 
