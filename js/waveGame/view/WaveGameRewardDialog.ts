@@ -29,7 +29,7 @@ export default class WaveGameRewardDialog extends RewardDialog {
     super( levelNumberProperty, rewardScore, {
 
       // 'Keep Going' hides the dialog, but doesn't change the current challenge.
-      keepGoingButtonListener: () => this.hide(),
+      dismissListener: () => this.hide(),
 
       // 'New Level' pre-loads a new challenge for the current level, then takes us back to the level-selection interface.
       newLevelButtonListener: () => {
