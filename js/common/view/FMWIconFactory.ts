@@ -108,7 +108,7 @@ const FMWIconFactory = {
 
     return new Node( {
       children: [ rectangle, slidersIcon, levelNode ],
-      pdomVisible: false // so that focus traversal does not visit subcomponents of this icon
+      accessibleVisible: false // so that focus traversal does not visit subcomponents of this icon
     } );
   },
 
