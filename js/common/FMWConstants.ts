@@ -18,7 +18,6 @@ import ArrowButton from '../../../sun/js/buttons/ArrowButton.js';
 import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
 import { PanelOptions } from '../../../sun/js/Panel.js';
 import Slider from '../../../sun/js/Slider.js';
-import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWColors from './FMWColors.js';
 
 // constants - view
@@ -176,5 +175,4 @@ assert && assert( Utils.numberOfDecimalPlaces( FMWConstants.WAVE_GAME_AMPLITUDE_
 assert && assert( Utils.numberOfDecimalPlaces( FMWConstants.WAVE_GAME_AMPLITUDE_SHIFT_KEYBOARD_STEP ) <= FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES );
 assert && assert( Utils.numberOfDecimalPlaces( FMWConstants.WAVE_GAME_AMPLITUDE_PAGE_KEYBOARD_STEP ) <= FMWConstants.WAVE_GAME_AMPLITUDE_DECIMAL_PLACES );
 
-fourierMakingWaves.register( 'FMWConstants', FMWConstants );
 export default FMWConstants;

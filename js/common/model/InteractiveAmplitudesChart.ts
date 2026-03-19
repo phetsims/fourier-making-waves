@@ -13,7 +13,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import EmphasizedHarmonics from './EmphasizedHarmonics.js';
 import FourierSeries from './FourierSeries.js';
 
@@ -39,5 +38,3 @@ export default class InteractiveAmplitudesChart {
     this.chartExpandedProperty.reset();
   }
 }
-
-fourierMakingWaves.register( 'InteractiveAmplitudesChart', InteractiveAmplitudesChart );

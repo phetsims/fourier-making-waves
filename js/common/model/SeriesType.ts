@@ -10,7 +10,6 @@
 
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class SeriesType extends EnumerationValue {
 
@@ -20,5 +19,3 @@ export default class SeriesType extends EnumerationValue {
 
   public static readonly enumeration = new Enumeration( SeriesType );
 }
-
-fourierMakingWaves.register( 'SeriesType', SeriesType );

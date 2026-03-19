@@ -8,8 +8,5 @@
  */
 
 import DiscreteKeyboardHelpContent from '../../discrete/view/DiscreteKeyboardHelpContent.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class WavePacketKeyboardHelpContent extends DiscreteKeyboardHelpContent {}
-
-fourierMakingWaves.register( 'WavePacketKeyboardHelpContent', WavePacketKeyboardHelpContent );

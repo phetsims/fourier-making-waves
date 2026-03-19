@@ -12,7 +12,6 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import HorizontalAquaRadioButtonGroup from '../../../../sun/js/HorizontalAquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import SeriesType from '../model/SeriesType.js';
@@ -52,5 +51,3 @@ export default class SeriesTypeRadioButtonGroup extends HorizontalAquaRadioButto
     } );
   }
 }
-
-fourierMakingWaves.register( 'SeriesTypeRadioButtonGroup', SeriesTypeRadioButtonGroup );

@@ -22,7 +22,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import InfiniteNumberIO from '../../../../tandem/js/types/InfiniteNumberIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierComponent from './FourierComponent.js';
 
 // valid values for component spacing
@@ -224,5 +223,3 @@ export default class WavePacket {
            ( sigma * Math.sqrt( 2 * Math.PI ) );
   }
 }
-
-fourierMakingWaves.register( 'WavePacket', WavePacket );

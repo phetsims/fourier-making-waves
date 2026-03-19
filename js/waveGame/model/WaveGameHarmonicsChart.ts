@@ -16,7 +16,6 @@ import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import HarmonicsChart from '../../common/model/HarmonicsChart.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class WaveGameHarmonicsChart extends HarmonicsChart {
 
@@ -38,5 +37,3 @@ export default class WaveGameHarmonicsChart extends HarmonicsChart {
     );
   }
 }
-
-fourierMakingWaves.register( 'WaveGameHarmonicsChart', WaveGameHarmonicsChart );

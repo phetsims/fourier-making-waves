@@ -22,7 +22,6 @@ import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import SumSymbolNode from '../../common/view/SumSymbolNode.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class WavePacketSumEquationNode extends Node {
 
@@ -99,5 +98,3 @@ export default class WavePacketSumEquationNode extends Node {
       } );
   }
 }
-
-fourierMakingWaves.register( 'WavePacketSumEquationNode', WavePacketSumEquationNode );

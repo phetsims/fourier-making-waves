@@ -15,7 +15,6 @@ import Range from '../../../../dot/js/Range.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries, { FourierSeriesOptions } from '../../common/model/FourierSeries.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -53,5 +52,3 @@ export default class DiscreteFourierSeries extends FourierSeries {
     this.numberOfHarmonicsProperty.reset();
   }
 }
-
-fourierMakingWaves.register( 'DiscreteFourierSeries', DiscreteFourierSeries );

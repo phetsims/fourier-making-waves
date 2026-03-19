@@ -9,7 +9,6 @@
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import SecondaryWaveformCheckbox from '../../common/view/SecondaryWaveformCheckbox.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 export default class WaveformEnvelopeCheckbox extends SecondaryWaveformCheckbox {
@@ -18,5 +17,3 @@ export default class WaveformEnvelopeCheckbox extends SecondaryWaveformCheckbox 
     super( waveformEnvelopeVisibleProperty, FourierMakingWavesStrings.waveformEnvelopeStringProperty, tandem );
   }
 }
-
-fourierMakingWaves.register( 'WaveformEnvelopeCheckbox', WaveformEnvelopeCheckbox );

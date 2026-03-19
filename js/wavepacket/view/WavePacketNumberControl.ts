@@ -18,7 +18,6 @@ import FireListener from '../../../../scenery/js/listeners/FireListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -67,5 +66,3 @@ export default class WavePacketNumberControl extends NumberControl {
       ( thumbIsPressed, trackIsPressed ) => ( thumbIsPressed || trackIsPressed ) );
   }
 }
-
-fourierMakingWaves.register( 'WavePacketNumberControl', WavePacketNumberControl );

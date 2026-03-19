@@ -25,7 +25,6 @@ import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import Harmonic from '../../common/model/Harmonic.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import DiscreteMeasurementToolNode, { DiscreteMeasurementToolNodeOptions } from './DiscreteMeasurementToolNode.js';
 
@@ -166,5 +165,3 @@ function createElapsedTimeShape( harmonic: Harmonic, t: number, radius: number )
     .arc( 0, 0, radius, startAngle, endAngle )
     .close();
 }
-
-fourierMakingWaves.register( 'PeriodClockNode', PeriodClockNode );

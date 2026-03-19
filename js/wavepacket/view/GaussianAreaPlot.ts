@@ -18,7 +18,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -111,5 +110,3 @@ export default class GaussianAreaPlot extends Path {
     this.shape = shape;
   }
 }
-
-fourierMakingWaves.register( 'GaussianAreaPlot', GaussianAreaPlot );

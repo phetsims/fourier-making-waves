@@ -11,7 +11,6 @@
  */
 
 import Range from '../../../../dot/js/Range.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from './Domain.js';
 
 type SelfOptions = {
@@ -78,5 +77,3 @@ export default class AxisDescription {
     return new Range( xMin, xMax );
   }
 }
-
-fourierMakingWaves.register( 'AxisDescription', AxisDescription );

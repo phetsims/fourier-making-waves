@@ -121,6 +121,4 @@ type StringsType = {
 
 const FourierMakingWavesStrings = getStringModule( 'FOURIER_MAKING_WAVES' ) as StringsType;
 
-fourierMakingWaves.register( 'FourierMakingWavesStrings', FourierMakingWavesStrings );
-
 export default FourierMakingWavesStrings;

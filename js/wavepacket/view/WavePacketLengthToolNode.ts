@@ -17,7 +17,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketMeasurementToolNode, { WavePacketMeasurementToolNodeOptions } from './WavePacketMeasurementToolNode.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -49,5 +48,3 @@ export default class WavePacketLengthToolNode extends WavePacketMeasurementToolN
     super( lengthProperty, chartTransform, domainProperty, options );
   }
 }
-
-fourierMakingWaves.register( 'WavePacketLengthToolNode', WavePacketLengthToolNode );

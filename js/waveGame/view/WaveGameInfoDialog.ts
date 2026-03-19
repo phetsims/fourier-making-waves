@@ -11,7 +11,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GameInfoDialog from '../../../../vegas/js/GameInfoDialog.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
 
@@ -38,5 +37,3 @@ export default class WaveGameInfoDialog extends GameInfoDialog {
     } );
   }
 }
-
-fourierMakingWaves.register( 'WaveGameInfoDialog', WaveGameInfoDialog );

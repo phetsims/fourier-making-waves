@@ -15,7 +15,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import InteractiveAmplitudesChart from '../../common/model/InteractiveAmplitudesChart.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class WaveGameAmplitudesChart extends InteractiveAmplitudesChart {
 
@@ -33,5 +32,3 @@ export default class WaveGameAmplitudesChart extends InteractiveAmplitudesChart 
     this.numberOfAmplitudeControlsProperty = numberOfAmplitudeControlsProperty;
   }
 }
-
-fourierMakingWaves.register( 'WaveGameAmplitudesChart', WaveGameAmplitudesChart );

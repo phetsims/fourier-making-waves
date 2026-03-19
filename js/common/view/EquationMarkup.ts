@@ -10,7 +10,6 @@
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import EquationForm from '../../discrete/model/EquationForm.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
 import SeriesType from '../model/SeriesType.js';
@@ -245,5 +244,4 @@ function seriesTypeToMarkup( seriesType: SeriesType ): string {
   return ( seriesType === SeriesType.SIN ) ? sinProperty.value : cosProperty.value;
 }
 
-fourierMakingWaves.register( 'EquationMarkup', EquationMarkup );
 export default EquationMarkup;

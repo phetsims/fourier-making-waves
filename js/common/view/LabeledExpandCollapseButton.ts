@@ -16,7 +16,6 @@ import FireListener from '../../../../scenery/js/listeners/FireListener.js';
 import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
 import ExpandCollapseButton from '../../../../sun/js/ExpandCollapseButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 
 type SelfOptions = {
@@ -67,5 +66,3 @@ export default class LabeledExpandCollapseButton extends HBox {
     } ) );
   }
 }
-
-fourierMakingWaves.register( 'LabeledExpandCollapseButton', LabeledExpandCollapseButton );

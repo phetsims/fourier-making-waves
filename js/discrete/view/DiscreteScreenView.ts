@@ -24,7 +24,6 @@ import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import Domain from '../../common/model/Domain.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapseButton.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import EquationForm from '../model/EquationForm.js';
@@ -433,5 +432,3 @@ export default class DiscreteScreenView extends ScreenView {
     ];
   }
 }
-
-fourierMakingWaves.register( 'DiscreteScreenView', DiscreteScreenView );

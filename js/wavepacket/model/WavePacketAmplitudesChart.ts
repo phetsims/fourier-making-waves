@@ -19,7 +19,6 @@ import FMWConstants from '../../common/FMWConstants.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
 import DomainChart from '../../common/model/DomainChart.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
 import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
 
@@ -161,5 +160,3 @@ function createContinuousWaveformDataSet( wavePacket: WavePacket ): Vector2[] {
   }
   return dataSet;
 }
-
-fourierMakingWaves.register( 'WavePacketAmplitudesChart', WavePacketAmplitudesChart );

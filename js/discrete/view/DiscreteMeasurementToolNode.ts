@@ -36,7 +36,6 @@ import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import Harmonic from '../../common/model/Harmonic.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
 
 type SelfOptions = {
@@ -157,5 +156,3 @@ export default class DiscreteMeasurementToolNode extends InteractiveHighlighting
     this.positionProperty.reset();
   }
 }
-
-fourierMakingWaves.register( 'DiscreteMeasurementToolNode', DiscreteMeasurementToolNode );

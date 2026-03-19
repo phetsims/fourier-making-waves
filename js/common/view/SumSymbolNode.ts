@@ -19,7 +19,6 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWSymbols from '../FMWSymbols.js';
 
 // constants
@@ -147,5 +146,3 @@ function indexToString( index: number ): string {
     return `${index}`;
   }
 }
-
-fourierMakingWaves.register( 'SumSymbolNode', SumSymbolNode );

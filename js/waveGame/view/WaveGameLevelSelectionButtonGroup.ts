@@ -13,7 +13,6 @@ import ScoreDisplayNumberAndStar from '../../../../vegas/js/ScoreDisplayNumberAn
 import FMWColors from '../../common/FMWColors.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import FMWIconFactory from '../../common/view/FMWIconFactory.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
 
 const BUTTON_WIDTH = 150;
@@ -63,5 +62,3 @@ export default class WaveGameLevelSelectionButtonGroup extends LevelSelectionBut
     } );
   }
 }
-
-fourierMakingWaves.register( 'WaveGameLevelSelectionButtonGroup', WaveGameLevelSelectionButtonGroup );

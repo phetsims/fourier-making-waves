@@ -15,7 +15,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWDerivedStrings from '../../common/FMWDerivedStrings.js';
 import Domain from '../../common/model/Domain.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketMeasurementToolNode, { WavePacketMeasurementToolNodeOptions } from './WavePacketMeasurementToolNode.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -41,5 +40,3 @@ export default class ComponentSpacingToolNode extends WavePacketMeasurementToolN
     super( componentSpacingProperty, chartTransform, domainProperty, options );
   }
 }
-
-fourierMakingWaves.register( 'ComponentSpacingToolNode', ComponentSpacingToolNode );

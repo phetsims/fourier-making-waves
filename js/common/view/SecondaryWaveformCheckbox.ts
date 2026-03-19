@@ -16,7 +16,6 @@ import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class SecondaryWaveformCheckbox extends Checkbox {
 
@@ -43,5 +42,3 @@ export default class SecondaryWaveformCheckbox extends Checkbox {
     } ) );
   }
 }
-
-fourierMakingWaves.register( 'SecondaryWaveformCheckbox', SecondaryWaveformCheckbox );

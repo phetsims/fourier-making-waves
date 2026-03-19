@@ -13,7 +13,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import StarNode from '../../../../scenery-phet/js/StarNode.js';
 import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 type SelfOptions = {
   points?: number;
@@ -65,5 +64,3 @@ export default class PointsAwardedNode extends HBox {
     this.pointsText.string = `+${points}`;
   }
 }
-
-fourierMakingWaves.register( 'PointsAwardedNode', PointsAwardedNode );

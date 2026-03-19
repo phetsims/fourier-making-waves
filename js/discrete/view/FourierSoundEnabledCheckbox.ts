@@ -13,7 +13,6 @@ import musicSolidShape from '../../../../sherpa/js/fontawesome-5/musicSolidShape
 import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class FourierSoundEnabledCheckbox extends Checkbox {
 
@@ -30,5 +29,3 @@ export default class FourierSoundEnabledCheckbox extends Checkbox {
     } ) );
   }
 }
-
-fourierMakingWaves.register( 'FourierSoundEnabledCheckbox', FourierSoundEnabledCheckbox );

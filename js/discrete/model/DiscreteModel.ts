@@ -22,7 +22,6 @@ import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import TickLabelFormat from '../../common/model/TickLabelFormat.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteAmplitudesChart from './DiscreteAmplitudesChart.js';
 import DiscreteAxisDescriptions from './DiscreteAxisDescriptions.js';
 import DiscreteFourierSeries from './DiscreteFourierSeries.js';
@@ -251,5 +250,3 @@ export default class DiscreteModel implements TModel {
     }
   }
 }
-
-fourierMakingWaves.register( 'DiscreteModel', DiscreteModel );

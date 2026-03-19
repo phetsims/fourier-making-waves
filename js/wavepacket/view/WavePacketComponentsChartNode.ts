@@ -18,7 +18,6 @@ import FMWColors from '../../common/FMWColors.js';
 import DomainChartNode from '../../common/view/DomainChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WavePacketComponentsChart from '../model/WavePacketComponentsChart.js';
 
@@ -158,5 +157,3 @@ export default class WavePacketComponentsChartNode extends DomainChartNode {
     } );
   }
 }
-
-fourierMakingWaves.register( 'WavePacketComponentsChartNode', WavePacketComponentsChartNode );

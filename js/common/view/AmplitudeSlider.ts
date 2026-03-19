@@ -26,7 +26,6 @@ import Color from '../../../../scenery/js/util/Color.js';
 import Slider, { SliderOptions } from '../../../../sun/js/Slider.js';
 import SliderTrack, { SliderTrackOptions } from '../../../../sun/js/SliderTrack.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import EmphasizedHarmonics from '../model/EmphasizedHarmonics.js';
 import Harmonic from '../model/Harmonic.js';
@@ -283,5 +282,3 @@ class BarTrack extends SliderTrack {
     );
   }
 }
-
-fourierMakingWaves.register( 'AmplitudeSlider', AmplitudeSlider );

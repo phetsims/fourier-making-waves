@@ -10,7 +10,6 @@ import Screen from '../../../joist/js/Screen.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import FMWColors from '../common/FMWColors.js';
 import FMWIconFactory from '../common/view/FMWIconFactory.js';
-import fourierMakingWaves from '../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../FourierMakingWavesStrings.js';
 import DiscreteModel from './model/DiscreteModel.js';
 import DiscreteKeyboardHelpContent from './view/DiscreteKeyboardHelpContent.js';
@@ -36,5 +35,3 @@ export default class DiscreteScreen extends Screen<DiscreteModel, DiscreteScreen
     );
   }
 }
-
-fourierMakingWaves.register( 'DiscreteScreen', DiscreteScreen );

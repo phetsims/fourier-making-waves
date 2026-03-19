@@ -17,7 +17,6 @@
  */
 
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
-import fourierMakingWaves from '../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../FourierMakingWavesStrings.js';
 
 const FMWSymbols = {
@@ -103,5 +102,4 @@ const FMWSymbols = {
   sigmaMarkup: MathSymbolFont.getRichTextMarkup( '\u03a3', 'normal' )
 };
 
-fourierMakingWaves.register( 'FMWSymbols', FMWSymbols );
 export default FMWSymbols;

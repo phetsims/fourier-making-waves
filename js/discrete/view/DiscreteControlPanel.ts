@@ -37,7 +37,6 @@ import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import DomainComboBox from '../../common/view/DomainComboBox.js';
 import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonGroup.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import DiscreteFourierSeries from '../model/DiscreteFourierSeries.js';
 import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
@@ -413,5 +412,3 @@ class SoundBox extends HBox {
     } );
   }
 }
-
-fourierMakingWaves.register( 'DiscreteControlPanel', DiscreteControlPanel );

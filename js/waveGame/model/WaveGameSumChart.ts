@@ -18,7 +18,6 @@ import Domain from '../../common/model/Domain.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import SumChart from '../../common/model/SumChart.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class WaveGameSumChart extends SumChart {
 
@@ -58,5 +57,3 @@ export default class WaveGameSumChart extends SumChart {
     } );
   }
 }
-
-fourierMakingWaves.register( 'WaveGameSumChart', WaveGameSumChart );

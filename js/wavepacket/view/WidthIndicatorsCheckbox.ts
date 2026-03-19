@@ -14,7 +14,6 @@ import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWIconFactory from '../../common/view/FMWIconFactory.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 export default class WidthIndicatorsCheckbox extends Checkbox {
@@ -39,5 +38,3 @@ export default class WidthIndicatorsCheckbox extends Checkbox {
     } ) );
   }
 }
-
-fourierMakingWaves.register( 'WidthIndicatorsCheckbox', WidthIndicatorsCheckbox );

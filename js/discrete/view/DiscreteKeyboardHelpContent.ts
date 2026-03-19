@@ -10,7 +10,6 @@ import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboar
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import MeasurementToolsKeyboardHelpSection from '../../common/view/MeasurementToolsKeyboardHelpSection.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class DiscreteKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
@@ -32,5 +31,3 @@ export default class DiscreteKeyboardHelpContent extends TwoColumnKeyboardHelpCo
     } );
   }
 }
-
-fourierMakingWaves.register( 'DiscreteKeyboardHelpContent', DiscreteKeyboardHelpContent );

@@ -550,5 +550,3 @@ export default class WaveGameLevelNode extends Node {
     global: true
   } );
 }
-
-fourierMakingWaves.register( 'WaveGameLevelNode', WaveGameLevelNode );

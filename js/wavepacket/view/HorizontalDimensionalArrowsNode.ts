@@ -14,7 +14,6 @@ import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import TColor from '../../../../scenery/js/util/TColor.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 const HORIZONTAL_LINE_WIDTH = 2;
 const VERTICAL_LINE_WIDTH = 2;
@@ -95,5 +94,3 @@ export default class HorizontalDimensionalArrowsNode extends Node {
     this.horizontalLine.setLine( x1, 0, x2, 0 );
   }
 }
-
-fourierMakingWaves.register( 'HorizontalDimensionalArrowsNode', HorizontalDimensionalArrowsNode );

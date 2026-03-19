@@ -16,7 +16,6 @@ import FMWSymbols from '../../common/FMWSymbols.js';
 import DomainChartNode from '../../common/view/DomainChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketSumChart from '../model/WavePacketSumChart.js';
 import WidthIndicatorPlot from './WidthIndicatorPlot.js';
 
@@ -123,5 +122,3 @@ export default class WavePacketSumChartNode extends DomainChartNode {
     } );
   }
 }
-
-fourierMakingWaves.register( 'WavePacketSumChartNode', WavePacketSumChartNode );

@@ -13,7 +13,6 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescriptions.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
@@ -62,5 +61,3 @@ export default class HarmonicsChart extends DomainChart {
     } );
   }
 }
-
-fourierMakingWaves.register( 'HarmonicsChart', HarmonicsChart );

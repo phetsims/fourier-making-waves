@@ -10,7 +10,6 @@
 import Property from '../../../../axon/js/Property.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWDerivedStrings from '../FMWDerivedStrings.js';
 import Domain from '../model/Domain.js';
 import FMWComboBox, { FMWComboBoxChoice } from './FMWComboBox.js';
@@ -52,5 +51,3 @@ export default class DomainComboBox extends FMWComboBox<Domain> {
     } );
   }
 }
-
-fourierMakingWaves.register( 'DomainComboBox', DomainComboBox );

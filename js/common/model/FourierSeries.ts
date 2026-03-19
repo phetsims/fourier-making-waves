@@ -19,7 +19,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColors from '../FMWColors.js';
 import FMWConstants from '../FMWConstants.js';
 import AxisDescription from './AxisDescription.js';
@@ -244,5 +243,3 @@ export default class FourierSeries extends PhetioObject {
     return count;
   }
 }
-
-fourierMakingWaves.register( 'FourierSeries', FourierSeries );

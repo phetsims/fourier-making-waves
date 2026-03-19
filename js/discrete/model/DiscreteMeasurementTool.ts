@@ -13,7 +13,6 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class DiscreteMeasurementTool {
 
@@ -74,5 +73,3 @@ export default class DiscreteMeasurementTool {
     this.orderProperty.reset();
   }
 }
-
-fourierMakingWaves.register( 'DiscreteMeasurementTool', DiscreteMeasurementTool );

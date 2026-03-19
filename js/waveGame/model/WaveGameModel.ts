@@ -15,7 +15,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WaveGameLevel from './WaveGameLevel.js';
 
@@ -105,5 +104,3 @@ export default class WaveGameModel implements TModel {
     Disposable.assertNotDisposable();
   }
 }
-
-fourierMakingWaves.register( 'WaveGameModel', WaveGameModel );

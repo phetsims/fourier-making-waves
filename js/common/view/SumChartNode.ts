@@ -13,7 +13,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ProfileColorProperty from '../../../../scenery/js/util/ProfileColorProperty.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWColors from '../FMWColors.js';
 import SumChart from '../model/SumChart.js';
 import DomainChartNode, { DomainChartNodeOptions } from './DomainChartNode.js';
@@ -101,5 +100,3 @@ export default class SumChartNode extends DomainChartNode {
     this.sumPlot = sumPlot; // {CanvasLinePlot}
   }
 }
-
-fourierMakingWaves.register( 'SumChartNode', SumChartNode );

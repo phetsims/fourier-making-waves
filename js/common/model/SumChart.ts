@@ -14,7 +14,6 @@ import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescriptions.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
 import DomainChart from './DomainChart.js';
@@ -72,5 +71,3 @@ export default class SumChart extends DomainChart {
       } );
   }
 }
-
-fourierMakingWaves.register( 'SumChart', SumChart );

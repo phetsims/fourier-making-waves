@@ -16,7 +16,6 @@ import Domain from '../../common/model/Domain.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import CalipersNode from '../../common/view/CalipersNode.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteMeasurementTool from '../model/DiscreteMeasurementTool.js';
 import DiscreteMeasurementToolNode, { DiscreteMeasurementToolNodeOptions } from './DiscreteMeasurementToolNode.js';
 
@@ -75,5 +74,3 @@ export default class DiscreteCalipersNode extends DiscreteMeasurementToolNode {
     chartTransform.changedEmitter.addListener( () => update( harmonicProperty.value ) );
   }
 }
-
-fourierMakingWaves.register( 'DiscreteCalipersNode', DiscreteCalipersNode );

@@ -16,7 +16,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WavePacketNumberControl from './WavePacketNumberControl.js';
 
@@ -126,5 +125,3 @@ export default class ComponentSpacingControl extends WavePacketNumberControl {
     super( componentSpacingIndexProperty, domainProperty, options );
   }
 }
-
-fourierMakingWaves.register( 'ComponentSpacingControl', ComponentSpacingControl );

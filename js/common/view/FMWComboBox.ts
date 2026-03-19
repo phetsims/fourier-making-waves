@@ -15,7 +15,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText, { RichTextOptions } from '../../../../scenery/js/nodes/RichText.js';
 import ComboBox, { ComboBoxItem, ComboBoxOptions } from '../../../../sun/js/ComboBox.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 
 type SelfOptions = {
@@ -61,5 +60,3 @@ export default class FMWComboBox<T> extends ComboBox<T> {
     super( property, items, listboxParent, options );
   }
 }
-
-fourierMakingWaves.register( 'FMWComboBox', FMWComboBox );

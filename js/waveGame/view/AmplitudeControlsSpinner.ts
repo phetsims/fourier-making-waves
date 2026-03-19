@@ -14,7 +14,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import VBox, { VBoxOptions } from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
 import NumberSpinner from '../../../../sun/js/NumberSpinner.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 type SelfOptions = {
@@ -64,5 +63,3 @@ export default class AmplitudeControlsSpinner extends VBox {
     super( options );
   }
 }
-
-fourierMakingWaves.register( 'AmplitudeControlsSpinner', AmplitudeControlsSpinner );

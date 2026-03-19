@@ -16,7 +16,6 @@
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class FourierComponent {
 
@@ -52,5 +51,3 @@ export default class FourierComponent {
     fromStateObject: stateObject => new FourierComponent( stateObject.waveNumber, stateObject.amplitude )
   } );
 }
-
-fourierMakingWaves.register( 'FourierComponent', FourierComponent );

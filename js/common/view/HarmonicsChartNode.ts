@@ -12,7 +12,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import HarmonicPlot from '../../discrete/view/HarmonicPlot.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import HarmonicsChart from '../model/HarmonicsChart.js';
 import DomainChartNode, { DomainChartNodeOptions } from './DomainChartNode.js';
 
@@ -95,5 +94,3 @@ export default class HarmonicsChartNode extends DomainChartNode {
     emphasizedHarmonics.addChangedListener( emphasizedHarmonicsChangedListener );
   }
 }
-
-fourierMakingWaves.register( 'HarmonicsChartNode', HarmonicsChartNode );

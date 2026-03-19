@@ -12,7 +12,6 @@ import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Harmonic from '../../common/model/Harmonic.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class HarmonicPlot extends CanvasLinePlot {
 
@@ -50,5 +49,3 @@ export default class HarmonicPlot extends CanvasLinePlot {
     } );
   }
 }
-
-fourierMakingWaves.register( 'HarmonicPlot', HarmonicPlot );

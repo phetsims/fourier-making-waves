@@ -23,7 +23,6 @@ import FMWConstants from '../../common/FMWConstants.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import DomainChartNode, { DomainChartNodeOptions } from '../../common/view/DomainChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacketAmplitudesChart from '../model/WavePacketAmplitudesChart.js';
 import GaussianAreaPlot from './GaussianAreaPlot.js';
 import WidthIndicatorPlot from './WidthIndicatorPlot.js';
@@ -162,5 +161,3 @@ export default class WavePacketAmplitudesChartNode extends DomainChartNode {
     } );
   }
 }
-
-fourierMakingWaves.register( 'WavePacketAmplitudesChartNode', WavePacketAmplitudesChartNode );

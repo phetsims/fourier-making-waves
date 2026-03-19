@@ -10,7 +10,6 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import HarmonicsChartNode from '../../common/view/HarmonicsChartNode.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameHarmonicsChart from '../model/WaveGameHarmonicsChart.js';
 
 export default class WaveGameHarmonicsChartNode extends HarmonicsChartNode {
@@ -23,5 +22,3 @@ export default class WaveGameHarmonicsChartNode extends HarmonicsChartNode {
     } );
   }
 }
-
-fourierMakingWaves.register( 'WaveGameHarmonicsChartNode', WaveGameHarmonicsChartNode );

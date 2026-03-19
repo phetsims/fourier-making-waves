@@ -24,7 +24,6 @@ import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import DomainComboBox from '../../common/view/DomainComboBox.js';
 import SeriesTypeRadioButtonGroup from '../../common/view/SeriesTypeRadioButtonGroup.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
 import CenterControl from './CenterControl.js';
@@ -316,5 +315,3 @@ class GraphControlsSubpanel extends VBox {
     } );
   }
 }
-
-fourierMakingWaves.register( 'WavePacketControlPanel', WavePacketControlPanel );

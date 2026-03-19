@@ -15,7 +15,6 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class InfiniteHarmonicsPlot extends CanvasLinePlot {
 
@@ -52,5 +51,3 @@ export default class InfiniteHarmonicsPlot extends CanvasLinePlot {
     } );
   }
 }
-
-fourierMakingWaves.register( 'InfiniteHarmonicsPlot', InfiniteHarmonicsPlot );

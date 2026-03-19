@@ -11,7 +11,6 @@ import dotRandom from '../../../../dot/js/dotRandom.js';
 import Utils from '../../../../dot/js/Utils.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 type SelfOptions = {
   numberOfHarmonics?: number;
@@ -139,5 +138,3 @@ function generateRandomAmplitudes( numberOfAmplitudes: number, numberOfNonZeroHa
 
   return amplitudes;
 }
-
-fourierMakingWaves.register( 'AmplitudesGenerator', AmplitudesGenerator );

@@ -18,7 +18,6 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText, { RichTextOptions } from '../../../../scenery/js/nodes/RichText.js';
 import TPaint from '../../../../scenery/js/util/TPaint.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // These constants determine the shape of the beam and jaws.
 const BEAM_THICKNESS = 5;
@@ -168,5 +167,3 @@ export default class CalipersNode extends Node {
     }
   }
 }
-
-fourierMakingWaves.register( 'CalipersNode', CalipersNode );

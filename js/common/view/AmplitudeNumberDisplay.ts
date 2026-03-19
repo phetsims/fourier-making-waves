@@ -21,7 +21,6 @@ import PressListener from '../../../../scenery/js/listeners/PressListener.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWQueryParameters from '../FMWQueryParameters.js';
 import FMWSymbols from '../FMWSymbols.js';
@@ -132,5 +131,3 @@ export default class AmplitudeNumberDisplay extends InteractiveHighlighting( VBo
     } );
   }
 }
-
-fourierMakingWaves.register( 'AmplitudeNumberDisplay', AmplitudeNumberDisplay );

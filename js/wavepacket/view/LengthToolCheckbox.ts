@@ -14,7 +14,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import CaliperCheckbox from './CaliperCheckbox.js';
 
 export default class LengthToolCheckbox extends CaliperCheckbox {
@@ -41,5 +40,3 @@ export default class LengthToolCheckbox extends CaliperCheckbox {
     } );
   }
 }
-
-fourierMakingWaves.register( 'LengthToolCheckbox', LengthToolCheckbox );

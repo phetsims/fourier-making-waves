@@ -15,7 +15,6 @@ import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 export default class PeriodCheckbox extends Checkbox {
@@ -37,5 +36,3 @@ export default class PeriodCheckbox extends Checkbox {
     } ) );
   }
 }
-
-fourierMakingWaves.register( 'PeriodCheckbox', PeriodCheckbox );

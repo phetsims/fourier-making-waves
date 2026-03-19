@@ -22,7 +22,6 @@ import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
 import SumSymbolNode from '../../common/view/SumSymbolNode.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import EquationForm from '../model/EquationForm.js';
 
 // To improve readability of markup creation. Each of these is a string than may also include markup.
@@ -92,5 +91,3 @@ export default class DiscreteSumEquationNode extends Node {
       } );
   }
 }
-
-fourierMakingWaves.register( 'DiscreteSumEquationNode', DiscreteSumEquationNode );

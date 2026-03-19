@@ -33,7 +33,6 @@ import PlusMinusZoomButtonGroup from '../../../../scenery-phet/js/PlusMinusZoomB
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText, { RichTextOptions } from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import FMWColors from '../FMWColors.js';
 import FMWConstants from '../FMWConstants.js';
@@ -278,5 +277,3 @@ export default class DomainChartNode extends Node {
     return Shape.bounds( new Bounds2( x1, y1, x2, y2 ) );
   }
 }
-
-fourierMakingWaves.register( 'DomainChartNode', DomainChartNode );

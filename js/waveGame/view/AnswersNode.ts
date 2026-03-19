@@ -13,7 +13,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // constants
 const NUMBER_DISPLAY_OPTIONS: NumberDisplayOptions = {
@@ -53,5 +52,3 @@ export default class AnswersNode extends Node {
     } );
   }
 }
-
-fourierMakingWaves.register( 'AnswersNode', AnswersNode );

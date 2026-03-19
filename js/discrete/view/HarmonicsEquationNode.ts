@@ -15,7 +15,6 @@ import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import EquationMarkup from '../../common/view/EquationMarkup.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import EquationForm from '../model/EquationForm.js';
 
 export default class HarmonicsEquationNode extends Node {
@@ -44,5 +43,3 @@ export default class HarmonicsEquationNode extends Node {
     } );
   }
 }
-
-fourierMakingWaves.register( 'HarmonicsEquationNode', HarmonicsEquationNode );

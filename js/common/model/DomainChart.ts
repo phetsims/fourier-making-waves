@@ -12,7 +12,6 @@ import Disposable from '../../../../axon/js/Disposable.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import AxisDescription from './AxisDescription.js';
 import Domain from './Domain.js';
 
@@ -57,5 +56,3 @@ export default class DomainChart {
     Disposable.assertNotDisposable();
   }
 }
-
-fourierMakingWaves.register( 'DomainChart', DomainChart );

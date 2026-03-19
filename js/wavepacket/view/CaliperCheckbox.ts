@@ -18,7 +18,6 @@ import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import Domain from '../../common/model/Domain.js';
 import CalipersNode, { CalipersNodeOptions } from '../../common/view/CalipersNode.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 type SelfOptions = {
   calipersNodeOptions?: CalipersNodeOptions;
@@ -62,5 +61,3 @@ export default class CaliperCheckbox extends Checkbox {
     super( visibleProperty, caliperNode, options );
   }
 }
-
-fourierMakingWaves.register( 'CaliperCheckbox', CaliperCheckbox );

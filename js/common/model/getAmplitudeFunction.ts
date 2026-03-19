@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Domain from './Domain.js';
 import SeriesType from './SeriesType.js';
 
@@ -71,5 +70,3 @@ function getAmplitudeSpaceAndTimeSine( A: number, n: number, x: number, t: numbe
 function getAmplitudeSpaceAndTimeCosine( A: number, n: number, x: number, t: number, L: number, T: number ): number {
   return A * Math.cos( 2 * Math.PI * n * ( x / L - t / T ) );
 }
-
-fourierMakingWaves.register( 'getAmplitudeFunction', getAmplitudeFunction );

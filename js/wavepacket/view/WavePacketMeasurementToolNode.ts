@@ -31,7 +31,6 @@ import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import Domain from '../../common/model/Domain.js';
 import CalipersNode from '../../common/view/CalipersNode.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 const RICH_TEXT_OPTIONS = {
   font: FMWConstants.TOOL_LABEL_FONT,
@@ -173,5 +172,3 @@ export default class WavePacketMeasurementToolNode extends InteractiveHighlighti
     this.positionProperty.reset();
   }
 }
-
-fourierMakingWaves.register( 'WavePacketMeasurementToolNode', WavePacketMeasurementToolNode );

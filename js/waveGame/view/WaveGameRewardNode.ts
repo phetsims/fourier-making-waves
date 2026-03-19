@@ -13,7 +13,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import FaceNode from '../../../../scenery-phet/js/FaceNode.js';
 import StarNode from '../../../../scenery-phet/js/StarNode.js';
 import RewardNode, { RewardNodeOptions } from '../../../../vegas/js/RewardNode.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // constants
 const NUMBER_OF_NODES = 100;
@@ -41,5 +40,3 @@ export default class WaveGameRewardNode extends RewardNode {
     super( options );
   }
 }
-
-fourierMakingWaves.register( 'WaveGameRewardNode', WaveGameRewardNode );

@@ -11,7 +11,6 @@ import Utils from '../../../dot/js/Utils.js';
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
 import getGameLevelsSchema from '../../../vegas/js/getGameLevelsSchema.js';
-import fourierMakingWaves from '../fourierMakingWaves.js';
 import FMWConstants from './FMWConstants.js';
 
 const FMWQueryParameters = QueryStringMachine.getAll( {
@@ -67,8 +66,6 @@ const FMWQueryParameters = QueryStringMachine.getAll( {
     type: 'flag'
   }
 } );
-
-fourierMakingWaves.register( 'FMWQueryParameters', FMWQueryParameters );
 
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );

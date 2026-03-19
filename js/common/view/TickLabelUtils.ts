@@ -16,7 +16,6 @@ import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText, { RichTextOptions } from '../../../../scenery/js/nodes/RichText.js';
 import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
 import Domain from '../model/Domain.js';
@@ -116,5 +115,4 @@ function createSymbolicTickLabel( value: number, symbol: string | TReadOnlyPrope
   }
 }
 
-fourierMakingWaves.register( 'TickLabelUtils', TickLabelUtils );
 export default TickLabelUtils;

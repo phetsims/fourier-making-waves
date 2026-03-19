@@ -30,7 +30,6 @@ import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import DiscreteAxisDescriptions from '../../discrete/model/DiscreteAxisDescriptions.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import AmplitudesGenerator from './AmplitudesGenerator.js';
 import WaveGameAmplitudesChart from './WaveGameAmplitudesChart.js';
@@ -324,5 +323,3 @@ export default class WaveGameLevel extends PhetioObject {
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
 }
-
-fourierMakingWaves.register( 'WaveGameLevel', WaveGameLevel );

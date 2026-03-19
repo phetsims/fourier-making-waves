@@ -11,7 +11,6 @@
 import Range from '../../../../dot/js/Range.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // In the Discrete screen, this is the initial x-axis description for the Harmonics and Sum charts.
 // In the Wave Game screen, this is the fixed scale for the Harmonics and Sum charts.
@@ -113,5 +112,4 @@ assert && assert( DiscreteAxisDescriptions.X_AXIS_DESCRIPTIONS[ 0 ].range.max ==
 assert && assert( DiscreteAxisDescriptions.DEFAULT_Y_AXIS_DESCRIPTION.range.max === FMWConstants.MAX_AMPLITUDE,
   'Expected DEFAULT_Y_AXIS_DESCRIPTION range to match maximum amplitude.' );
 
-fourierMakingWaves.register( 'DiscreteAxisDescriptions', DiscreteAxisDescriptions );
 export default DiscreteAxisDescriptions;

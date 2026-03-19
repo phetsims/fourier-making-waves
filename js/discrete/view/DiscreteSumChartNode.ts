@@ -12,7 +12,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import SumChartNode from '../../common/view/SumChartNode.js';
 import TickLabelUtils from '../../common/view/TickLabelUtils.js';
 import ZoomLevelProperty from '../../common/view/ZoomLevelProperty.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteSumChart from '../model/DiscreteSumChart.js';
 import InfiniteHarmonicsPlot from './InfiniteHarmonicsPlot.js';
 
@@ -61,5 +60,3 @@ export default class DiscreteSumChartNode extends SumChartNode {
     );
   }
 }
-
-fourierMakingWaves.register( 'DiscreteSumChartNode', DiscreteSumChartNode );

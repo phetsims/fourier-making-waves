@@ -18,7 +18,6 @@ import FourierSeries from '../../common/model/FourierSeries.js';
 import HarmonicsChart from '../../common/model/HarmonicsChart.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import TickLabelFormat from '../../common/model/TickLabelFormat.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 export default class DiscreteHarmonicsChart extends HarmonicsChart {
 
@@ -38,5 +37,3 @@ export default class DiscreteHarmonicsChart extends HarmonicsChart {
     this.xAxisTickLabelFormatProperty = xAxisTickLabelFormatProperty;
   }
 }
-
-fourierMakingWaves.register( 'DiscreteHarmonicsChart', DiscreteHarmonicsChart );

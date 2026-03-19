@@ -120,5 +120,4 @@ const FMWColors = {
     } ) )
 };
 
-fourierMakingWaves.register( 'FMWColors', FMWColors );
 export default FMWColors;

@@ -19,7 +19,6 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import wavePacketHomeScreenIcon_png from '../../../images/wavePacketHomeScreenIcon_png.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import PointsAwardedNode from '../../waveGame/view/PointsAwardedNode.js';
 import HorizontalDimensionalArrowsNode from '../../wavepacket/view/HorizontalDimensionalArrowsNode.js';
 import FMWColors from '../FMWColors.js';
@@ -165,5 +164,4 @@ function createSlidersIcon( amplitudes: number[], amplitudeRange: Range, options
   }, options ) );
 }
 
-fourierMakingWaves.register( 'FMWIconFactory', FMWIconFactory );
 export default FMWIconFactory;

@@ -18,7 +18,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WaveGameLevel from '../model/WaveGameLevel.js';
 import WaveGameModel from '../model/WaveGameModel.js';
@@ -98,5 +97,3 @@ export default class WaveGameLevelSelectionNode extends Node {
     this.levelSelectionButtonGroup.focusLevelSelectionButton( level.levelNumber );
   }
 }
-
-fourierMakingWaves.register( 'WaveGameLevelSelectionNode', WaveGameLevelSelectionNode );

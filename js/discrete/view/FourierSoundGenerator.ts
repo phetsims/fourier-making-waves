@@ -15,7 +15,6 @@ import SoundGenerator from '../../../../tambo/js/sound-generators/SoundGenerator
 import soundManager from '../../../../tambo/js/soundManager.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FourierSeries from '../../common/model/FourierSeries.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // Output level range of each harmonic. These have a reduced range because harmonics are summed.
 // See https://github.com/phetsims/fourier-making-waves/issues/45
@@ -99,5 +98,3 @@ export default class FourierSoundGenerator extends SoundGenerator {
     );
   }
 }
-
-fourierMakingWaves.register( 'FourierSoundGenerator', FourierSoundGenerator );

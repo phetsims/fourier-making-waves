@@ -19,7 +19,6 @@ import Domain from '../../common/model/Domain.js';
 import DomainChart from '../../common/model/DomainChart.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierComponent from './FourierComponent.js';
 import WavePacket from './WavePacket.js';
 
@@ -79,5 +78,3 @@ export default class WavePacketComponentsChart extends DomainChart {
     return dataSets;
   }
 }
-
-fourierMakingWaves.register( 'WavePacketComponentsChart', WavePacketComponentsChart );

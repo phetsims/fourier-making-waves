@@ -13,7 +13,6 @@ import Dialog from '../../../../sun/js/Dialog.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWConstants from '../../common/FMWConstants.js';
 import FMWDerivedStrings from '../../common/FMWDerivedStrings.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 
 // constants
@@ -64,5 +63,3 @@ export default class WavePacketInfoDialog extends Dialog {
     } );
   }
 }
-
-fourierMakingWaves.register( 'WavePacketInfoDialog', WavePacketInfoDialog );

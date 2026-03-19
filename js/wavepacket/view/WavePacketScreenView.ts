@@ -20,7 +20,6 @@ import FMWConstants from '../../common/FMWConstants.js';
 import FMWQueryParameters from '../../common/FMWQueryParameters.js';
 import FMWSymbols from '../../common/FMWSymbols.js';
 import LabeledExpandCollapseButton from '../../common/view/LabeledExpandCollapseButton.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import WavePacketModel from '../model/WavePacketModel.js';
 import ComponentsEquationText from './ComponentsEquationText.js';
@@ -375,5 +374,3 @@ export default class WavePacketScreenView extends ScreenView {
     ];
   }
 }
-
-fourierMakingWaves.register( 'WavePacketScreenView', WavePacketScreenView );

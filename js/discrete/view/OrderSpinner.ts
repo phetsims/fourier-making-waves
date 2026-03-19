@@ -13,7 +13,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import NumberSpinner, { NumberSpinnerOptions } from '../../../../sun/js/NumberSpinner.js';
 import FMWConstants from '../../common/FMWConstants.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -52,5 +51,3 @@ export default class OrderSpinner extends NumberSpinner {
     super( orderProperty, orderProperty.rangeProperty, options );
   }
 }
-
-fourierMakingWaves.register( 'OrderSpinner', OrderSpinner );

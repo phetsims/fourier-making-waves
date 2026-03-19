@@ -29,7 +29,6 @@ import TPaint from '../../../../scenery/js/util/TPaint.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import Dialog, { DialogOptions } from '../../../../sun/js/Dialog.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import FMWConstants from '../FMWConstants.js';
 import FMWSymbols from '../FMWSymbols.js';
@@ -304,5 +303,3 @@ class KeypadStringDisplay extends Node {
     this.textNode.fill = fill;
   }
 }
-
-fourierMakingWaves.register( 'AmplitudeKeypadDialog', AmplitudeKeypadDialog );

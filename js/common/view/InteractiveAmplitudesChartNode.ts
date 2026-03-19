@@ -25,7 +25,6 @@ import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../../FourierMakingWavesStrings.js';
 import FMWColors from '../FMWColors.js';
 import FMWConstants from '../FMWConstants.js';
@@ -187,5 +186,3 @@ export default class InteractiveAmplitudesChartNode extends Node {
     this.numberDisplays = numberDisplays;
   }
 }
-
-fourierMakingWaves.register( 'InteractiveAmplitudesChartNode', InteractiveAmplitudesChartNode );

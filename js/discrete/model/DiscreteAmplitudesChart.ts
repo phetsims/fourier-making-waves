@@ -12,7 +12,6 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import EmphasizedHarmonics from '../../common/model/EmphasizedHarmonics.js';
 import InteractiveAmplitudesChart from '../../common/model/InteractiveAmplitudesChart.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteFourierSeries from './DiscreteFourierSeries.js';
 
 export default class DiscreteAmplitudesChart extends InteractiveAmplitudesChart {
@@ -24,5 +23,3 @@ export default class DiscreteAmplitudesChart extends InteractiveAmplitudesChart 
     this.numberOfHarmonicsProperty = fourierSeries.numberOfHarmonicsProperty;
   }
 }
-
-fourierMakingWaves.register( 'DiscreteAmplitudesChart', DiscreteAmplitudesChart );

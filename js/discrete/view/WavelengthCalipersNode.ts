@@ -11,7 +11,6 @@ import ChartTransform from '../../../../bamboo/js/ChartTransform.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Domain from '../../common/model/Domain.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import DiscreteModel from '../model/DiscreteModel.js';
 import DiscreteCalipersNode, { DiscreteCalipersNodeOptions } from './DiscreteCalipersNode.js';
 
@@ -41,5 +40,3 @@ export default class WavelengthCalipersNode extends DiscreteCalipersNode {
     );
   }
 }
-
-fourierMakingWaves.register( 'WavelengthCalipersNode', WavelengthCalipersNode );

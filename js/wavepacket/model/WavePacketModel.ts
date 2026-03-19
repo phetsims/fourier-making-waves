@@ -14,7 +14,6 @@ import TModel from '../../../../joist/js/TModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
 import WavePacketAmplitudesChart from './WavePacketAmplitudesChart.js';
 import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
@@ -95,5 +94,3 @@ export default class WavePacketModel implements TModel {
     Disposable.assertNotDisposable();
   }
 }
-
-fourierMakingWaves.register( 'WavePacketModel', WavePacketModel );

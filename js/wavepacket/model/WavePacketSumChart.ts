@@ -20,7 +20,6 @@ import AxisDescription from '../../common/model/AxisDescription.js';
 import Domain from '../../common/model/Domain.js';
 import DomainChart from '../../common/model/DomainChart.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WavePacket from './WavePacket.js';
 import WavePacketAxisDescriptions from './WavePacketAxisDescriptions.js';
 import WavePacketComponentsChart from './WavePacketComponentsChart.js';
@@ -257,5 +256,3 @@ function createEnvelopeDataSet( dataSet1: Vector2[], dataSet2: Vector2[] ): Vect
   }
   return dataSet;
 }
-
-fourierMakingWaves.register( 'WavePacketSumChart', WavePacketSumChart );

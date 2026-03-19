@@ -24,7 +24,6 @@ import FourierSeries from '../../common/model/FourierSeries.js';
 import SeriesType from '../../common/model/SeriesType.js';
 import SumChart from '../../common/model/SumChart.js';
 import TickLabelFormat from '../../common/model/TickLabelFormat.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Waveform from './Waveform.js';
 
 // constants
@@ -84,5 +83,3 @@ export default class DiscreteSumChart extends SumChart {
     this.infiniteHarmonicsVisibleProperty.reset();
   }
 }
-
-fourierMakingWaves.register( 'DiscreteSumChart', DiscreteSumChart );

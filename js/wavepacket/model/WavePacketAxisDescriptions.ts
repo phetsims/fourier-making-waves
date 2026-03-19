@@ -9,7 +9,6 @@
 
 import Range from '../../../../dot/js/Range.js';
 import AxisDescription from '../../common/model/AxisDescription.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 // The initial x-axis scale for the Components and Sum charts
 const DEFAULT_X_AXIS_DESCRIPTION = new AxisDescription( {
@@ -116,5 +115,4 @@ assert && assert( _.every( WavePacketAxisDescriptions.X_AXIS_DESCRIPTIONS, axisD
 assert && assert( WavePacketAxisDescriptions.SUM_Y_AXIS_DESCRIPTION.hasSymmetricRange(),
   'range must be symmetric for SUM_Y_AXIS_DESCRIPTION' );
 
-fourierMakingWaves.register( 'WavePacketAxisDescriptions', WavePacketAxisDescriptions );
 export default WavePacketAxisDescriptions;

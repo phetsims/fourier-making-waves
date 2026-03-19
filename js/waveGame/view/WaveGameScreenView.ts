@@ -12,7 +12,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import Easing from '../../../../twixt/js/Easing.js';
 import TransitionNode from '../../../../twixt/js/TransitionNode.js';
 import GameAudioPlayer from '../../../../vegas/js/GameAudioPlayer.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameModel from '../model/WaveGameModel.js';
 import WaveGameLevelNode from './WaveGameLevelNode.js';
 import WaveGameLevelSelectionNode from './WaveGameLevelSelectionNode.js';
@@ -136,5 +135,3 @@ export default class WaveGameScreenView extends ScreenView {
     super.step( dt );
   }
 }
-
-fourierMakingWaves.register( 'WaveGameScreenView', WaveGameScreenView );

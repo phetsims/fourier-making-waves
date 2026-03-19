@@ -12,7 +12,6 @@ import CanvasLinePlot from '../../../../bamboo/js/CanvasLinePlot.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import FMWColors from '../../common/FMWColors.js';
 import SumChartNode from '../../common/view/SumChartNode.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameSumChart from '../model/WaveGameSumChart.js';
 
 export default class WaveGameSumChartNode extends SumChartNode {
@@ -59,5 +58,3 @@ export default class WaveGameSumChartNode extends SumChartNode {
     } );
   }
 }
-
-fourierMakingWaves.register( 'WaveGameSumChartNode', WaveGameSumChartNode );

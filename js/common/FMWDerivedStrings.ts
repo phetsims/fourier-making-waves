@@ -9,7 +9,6 @@
 import PatternStringProperty from '../../../axon/js/PatternStringProperty.js';
 import StringProperty from '../../../axon/js/StringProperty.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-import fourierMakingWaves from '../fourierMakingWaves.js';
 import FourierMakingWavesStrings from '../FourierMakingWavesStrings.js';
 import FMWSymbols from './FMWSymbols.js';
 
@@ -143,5 +142,4 @@ const FMWDerivedStrings = {
   } )
 };
 
-fourierMakingWaves.register( 'FMWDerivedStrings', FMWDerivedStrings );
 export default FMWDerivedStrings;

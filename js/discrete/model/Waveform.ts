@@ -20,7 +20,6 @@ import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import Domain from '../../common/model/Domain.js';
 import SeriesType from '../../common/model/SeriesType.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 
 const PI = Math.PI; // to improve readability
 
@@ -332,5 +331,3 @@ function mapBasePointsToDataSet( basePoints: Vector2[], domain: Domain, seriesTy
   // Apply x and shiftX to the base points.
   return basePoints.map( point => new Vector2( ( x * point.x ) + shiftX, point.y ) );
 }
-
-fourierMakingWaves.register( 'Waveform', Waveform );

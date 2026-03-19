@@ -18,7 +18,6 @@
 import createObservableArray, { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import Disposable from '../../../../axon/js/Disposable.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import Harmonic from './Harmonic.js';
 
 // Each element identifies an interactive Node and the harmonic that it is manipulating.
@@ -95,5 +94,3 @@ export default class EmphasizedHarmonics {
     this.observableArray.lengthProperty.lazyLink( () => listener() );
   }
 }
-
-fourierMakingWaves.register( 'EmphasizedHarmonics', EmphasizedHarmonics );

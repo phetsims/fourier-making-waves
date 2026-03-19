@@ -13,7 +13,6 @@ import FMWConstants from '../../common/FMWConstants.js';
 import Harmonic from '../../common/model/Harmonic.js';
 import AmplitudeKeypadDialog from '../../common/view/AmplitudeKeypadDialog.js';
 import InteractiveAmplitudesChartNode from '../../common/view/InteractiveAmplitudesChartNode.js';
-import fourierMakingWaves from '../../fourierMakingWaves.js';
 import WaveGameAmplitudesChart from '../model/WaveGameAmplitudesChart.js';
 
 export default class WaveGameAmplitudesChartNode extends InteractiveAmplitudesChartNode {
@@ -109,5 +108,3 @@ export default class WaveGameAmplitudesChartNode extends InteractiveAmplitudesCh
     }
   }
 }
-
-fourierMakingWaves.register( 'WaveGameAmplitudesChartNode', WaveGameAmplitudesChartNode );
