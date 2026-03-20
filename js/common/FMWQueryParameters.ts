@@ -70,6 +70,6 @@ const FMWQueryParameters = QueryStringMachine.getAll( {
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );
 logGlobal( 'phet.preloads.phetio.queryParameters' );
-logGlobal( 'phet.fourierMakingWaves.FMWQueryParameters' );
+phet.log && phet.log( `FMWQueryParameters: ${JSON.stringify( FMWQueryParameters, null, 2 )}` );
 
 export default FMWQueryParameters;
