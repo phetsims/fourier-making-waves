@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2026, University of Colorado Boulder
 
 /**
  * DiscreteSumChartNode displays the 'Sum' chart in the 'Discrete' screen. It extends SumChartNode by handling the
