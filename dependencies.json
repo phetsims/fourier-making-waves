@@ -17,7 +17,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "67b0950788cfdfde80bdbcfc4d6755e8522d4739",
+    "sha": "008583c3097776358647b04cd8fa89c37596d4cd",
     "branch": "HEAD"
   },
   "dot": {
@@ -25,7 +25,7 @@
     "branch": "HEAD"
   },
   "fourier-making-waves": {
-    "sha": "305253112372cb7313be794a28de56b96bda03bc",
+    "sha": "a6ee8866fca218f87cb4228620c4f9fcf9cd8766",
     "branch": "1.1"
   },
   "joist": {
@@ -37,7 +37,7 @@
     "branch": "HEAD"
   },
   "perennial-alias": {
-    "sha": "eb8291b51492682a384765e147a28aa76a5e6435",
+    "sha": "b188f392550d1ad6ad291bed1548372e4a177a64",
     "branch": "HEAD"
   },
   "phet-core": {
