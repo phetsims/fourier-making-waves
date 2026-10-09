@@ -8,9 +8,9 @@ This document contains notes that may be useful to the PhET QA team when testing
 
 It is _highly recommended_ that you skim these 2 documents before testing the sim:
 
-* [model.md](https://github.com/phetsims/fourier-making-waves/blob/main/doc/model.md), a high-level description of the
+* [model.md](model.md), a high-level description of the
   model
-* [implementation-notes.md](https://github.com/phetsims/fourier-making-waves/blob/main/doc/implementation-notes.md),
+* [implementation-notes.md](implementation-notes.md),
   notes about the implementation, and how some things are expected to behave
 
 Optionally, skim these documents:
@@ -25,7 +25,7 @@ Optionally, skim these documents:
 ## General notes
 
 Sim-specific query parameters (and their documentation) can be found in
-[FMWQueryParameters](https://github.com/phetsims/fourier-making-waves/blob/main/js/common/FMWQueryParameters.js). Query
+[FMWQueryParameters](../js/common/FMWQueryParameters.ts). Query
 parameters defined as `public: true` are public-facing, and should be tested. Other query parameters are for internal
 use, and you should skim them to see if any may be helpful in testing.
 
